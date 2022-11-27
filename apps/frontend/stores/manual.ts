@@ -427,7 +427,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
         const shownCharacters = filter(
             userData.characters,
-            (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+            (c) =>
+                settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                settings.characters.ignoredCharacters.indexOf(c.id) === -1 &&
                 userData.accounts?.[c.accountId]?.enabled !== false
         )
         const overallCounts = setCounts['OVERALL'] = new UserCount()

@@ -280,6 +280,7 @@
         <div
             class="toggles class-toggles overlay-box"
             on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
+            on:keypress={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
         >
             Class:
 
@@ -334,6 +335,7 @@
         <div
             class="loot-list-toggle overlay-box"
             on:click={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
+            on:keypress={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
         >
             Loot list
 

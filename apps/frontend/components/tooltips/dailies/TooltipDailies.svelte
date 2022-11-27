@@ -2,7 +2,7 @@
     import type { DateTime } from 'luxon'
 
     import { iconStrings } from '@/data/icons'
-    import { itemStore, staticStore, timeStore, userStore } from '@/stores'
+    import { itemStore, staticStore, timeStore } from '@/stores'
     import { toNiceDuration } from '@/utils/to-nice'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'

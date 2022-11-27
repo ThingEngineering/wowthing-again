@@ -6,7 +6,7 @@
     import type { SettingsChoice } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import MagicLists from '../SettingsMagicLists.svelte'
+    import MagicLists from '../../SettingsMagicLists.svelte'
 
     const groupByChoices: SettingsChoice[] = [
         {key: 'account', name: 'Account ID'},

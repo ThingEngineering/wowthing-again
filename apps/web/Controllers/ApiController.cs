@@ -118,6 +118,7 @@ public class ApiController : Controller
         await _context.SaveChangesAsync();
 
         _logger.LogDebug("Resetting caches");
+        _memoryCacheService.ExpireUserByName(user.UserName);
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, user.Id);
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, user.Id);
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, user.Id);

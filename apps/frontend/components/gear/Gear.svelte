@@ -25,7 +25,10 @@
     }
 </style>
 
-<CharacterTable {filterFunc}>
+<CharacterTable
+    skipIgnored={true}
+    {filterFunc}
+>
     <div slot="preTable">
         <Options />
     </div>

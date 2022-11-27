@@ -3,7 +3,6 @@ import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataChara
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
 import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
-import type { StaticDataItem, StaticDataItemArray } from './item'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'

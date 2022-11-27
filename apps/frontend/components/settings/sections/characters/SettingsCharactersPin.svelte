@@ -8,7 +8,7 @@
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { SettingsChoice } from '@/types'
 
-    import MagicLists from '../SettingsMagicLists.svelte'
+    import MagicLists from '../../SettingsMagicLists.svelte'
 
     const allCharacters: SettingsChoice[] = $userStore.data.characters.map((char) => ({
         key: char.id.toString(),

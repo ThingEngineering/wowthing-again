@@ -32,6 +32,7 @@
             $userStore.data.characters,
             (char) => (
                 $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                $settings.characters.ignoredCharacters.indexOf(char.id) === -1 &&
                 char.level >= $matrixState.minLevel
             )
         )

@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import {mountSkillMap} from '@/data/mount-skill'
     import type { MountSkill } from '@/data/mount-skill'
     import { userStore } from '@/stores'

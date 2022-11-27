@@ -239,6 +239,7 @@ public class ApplicationUserSettingsCharacters
 {
     public bool HideDisabledAccounts { get; set; } = false;
     public List<int> HiddenCharacters { get; set; } = new();
+    public List<int> IgnoredCharacters { get; set; } = new();
     public List<int> PinnedCharacters { get; set; } = new();
 }
 

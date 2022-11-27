@@ -44,7 +44,7 @@
     let actualNoVisitRoot: boolean
     let noCollapse: boolean
     $: {
-        actualNoVisitRoot = noVisitRoot && item?.children?.length > 0
+        actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit
         if (item) {
             url = `${baseUrl}/${item.slug}`
 
@@ -194,6 +194,7 @@
                 class:expand-clickable={!noCollapse}
                 class:expand-no={noCollapse}
                 on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
+                on:keypress|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
             >
                 <IconifyIcon
                     icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}

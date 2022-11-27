@@ -168,6 +168,7 @@
                             <th class="ignore">
                                 <span
                                     on:click|preventDefault={() => ignoreClick(item.id)}
+                                    on:keypress|preventDefault={() => ignoreClick(item.id)}
                                 >
                                     {ignored ? 'Unignore' : 'Ignore'}
                                 </span>

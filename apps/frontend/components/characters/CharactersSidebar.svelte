@@ -19,7 +19,8 @@
         const realmCharacters: Record<string, Character[]> = groupBy(
             filter(
                 $userStore.data.characters,
-                (char) => $settingsData.characters.hiddenCharacters.indexOf(char.id) === -1
+                (char) => $settingsData.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                    $settingsData.characters.ignoredCharacters.indexOf(char.id) === -1
             ),
             (char) => char.realmId
         )
