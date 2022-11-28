@@ -30,11 +30,6 @@
     span {
         flex: 1;
     }
-    td.status-fail {
-        span {
-            //opacity: 0.95;
-        }
-    }
 </style>
 
 {#if progressData.total > 0}

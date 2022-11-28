@@ -24,10 +24,11 @@
 
 <div class="specializations">
     <UnderConstruction />
-    <!--{#each specIds as specializationId}
-        <Talents
+    {#each specIds as specializationId}
+        {specializationId}
+        <!--<Talents
             {character}
             {specializationId}
-        />
-    {/each}-->
+        />-->
+    {/each}
 </div>

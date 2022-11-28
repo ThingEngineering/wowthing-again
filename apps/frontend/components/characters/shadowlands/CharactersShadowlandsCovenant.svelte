@@ -114,9 +114,6 @@
             font-size: 1.1rem;
         }
     }
-    .info-icons {
-        //justify-content: flex-start;
-    }
     .info-icon {
         --image-border-width: 2px;
         --image-margin-top: -4px;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {location} from 'svelte-spa-router'
+    import { location } from 'svelte-spa-router'
 
     import { iconStrings } from '@/data/icons'
     import tippy from '@/utils/tippy'
