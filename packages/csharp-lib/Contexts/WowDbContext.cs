@@ -51,6 +51,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
     public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
     public DbSet<PlayerCharacterAddonData> PlayerCharacterAddonData { get; set; }
+    public DbSet<PlayerCharacterConfiguration> PlayerCharacterConfiguration { get; set; }
     public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
     public DbSet<PlayerCharacterItem> PlayerCharacterItem { get; set; }
     public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
