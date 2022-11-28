@@ -2,7 +2,7 @@ import { Difficulty } from '@/types'
 import { InstanceType } from '@/enums'
 
 export const difficultyMap: Record<number, Difficulty> = {
-    0: new Difficulty(0, 'World Boss', 'W', InstanceType.Raid, 1, 40),
+    0: new Difficulty(0, 'World Boss', 'WB', InstanceType.Raid, 1, 40),
 
     // Dungeons
     1: new Difficulty(1, 'Normal', 'N', InstanceType.Dungeon, 5, 5),
