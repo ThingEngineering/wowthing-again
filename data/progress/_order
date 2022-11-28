@@ -44,6 +44,9 @@
     08-shadowlands/raid_skips.yml
 
 09-dragonflight/_.yml
+    09-dragonflight/intro.yml
+    09-dragonflight/zone_storylines.yml
+    09-dragonflight/zone_optional.yml
 
 -
 

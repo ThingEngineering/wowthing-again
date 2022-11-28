@@ -56,6 +56,7 @@ public class PlayerCharacter
     // Navigation properties
     public PlayerCharacterAchievements Achievements { get; set; }
     public PlayerCharacterAddonData AddonData { get; set; }
+    public PlayerCharacterConfiguration Configuration { get; set; }
     public PlayerCharacterEquippedItems EquippedItems { get; set; }
     public PlayerCharacterLockouts Lockouts { get; set; }
     public PlayerCharacterMedia Media { get; set; }

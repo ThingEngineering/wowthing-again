@@ -223,6 +223,7 @@ public class ApiController : Controller
         // Privacy checks
         characterQuery = characterQuery
             .Include(c => c.AddonData)
+            .Include(c => c.Configuration)
             .Include(c => c.EquippedItems)
             .Include(c => c.Professions)
             .Include(c => c.Reputations)

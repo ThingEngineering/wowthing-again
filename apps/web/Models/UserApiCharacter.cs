@@ -36,6 +36,8 @@ public class UserApiCharacter
     public WowGender Gender { get; set; }
     public WowMountSkill MountSkill { get; set; }
 
+    public UserApiCharacterConfiguration Configuration { get; set; }
+
     public List<int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
     public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
@@ -84,9 +86,6 @@ public class UserApiCharacter
         MountSkill = character.MountSkill;
         RaceId = character.RaceId;
 
-        Professions = character.Professions?.Professions;
-        Specializations = character.Specializations?.Specializations;
-
         if (pub && privacy?.Anonymized == true)
         {
             Name = $"Goose{Id:X4}";
@@ -100,20 +99,6 @@ public class UserApiCharacter
         if (!pub || privacy?.PublicAccounts == true)
         {
             AccountId = character.AccountId;
-        }
-
-        if (!pub || privacy?.PublicCurrencies == true)
-        {
-            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
-            CurrenciesRaw = currencyValues.EmptyIfNull();
-
-            CurrencyItems = currencyItems
-                .EmptyIfNull()
-                .GroupBy(ci => ci.ItemId)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.Sum(ci => ci.Count)
-                );
         }
 
         if (!pub)
@@ -133,6 +118,11 @@ public class UserApiCharacter
         Auras = character.AddonData?.Auras;
         Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
+        Professions = character.Professions?.Professions;
+        Specializations = character.Specializations?.Specializations;
+
+        Configuration = new UserApiCharacterConfiguration(character.Configuration);
+        Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
 
         Bags = bagItems
             .EmptyIfNull()
@@ -148,12 +138,29 @@ public class UserApiCharacter
             .Distinct()
             .ToArray();
 
+        // Currencies
+        if (!pub || privacy?.PublicCurrencies == true)
+        {
+            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
+            CurrenciesRaw = currencyValues.EmptyIfNull();
+
+            CurrencyItems = currencyItems
+                .EmptyIfNull()
+                .GroupBy(ci => ci.ItemId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Sum(ci => ci.Count)
+                );
+        }
+
+        // Equipped Items
         if (character.EquippedItems?.Items != null)
         {
             EquippedItems = character.EquippedItems.Items
                 .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
         }
 
+        // Lockouts
         if ((!pub || privacy?.PublicLockouts == true) && character.Lockouts?.Lockouts != null)
         {
             Lockouts = character.Lockouts.Lockouts
@@ -165,6 +172,7 @@ public class UserApiCharacter
                 );
         }
 
+        // Mythic+
         if (!pub || privacy?.PublicMythicPlus == true)
         {
             if (character.MythicPlus != null)
@@ -179,8 +187,7 @@ public class UserApiCharacter
             RaiderIo = character.RaiderIo?.Seasons;
         }
 
-        Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
-
+        // Reputations
         if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
         {
             Reputations = character.Reputations.ReputationIds.Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
@@ -188,15 +195,31 @@ public class UserApiCharacter
                 .ToDictionary(k => k.First, v => v.Second);
         }
 
+        // Shadowlands
         if (character.Shadowlands != null)
         {
             Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
         }
 
+        // Weekly
         if (character.Weekly != null)
         {
             Weekly = new UserApiCharacterWeekly(character.Weekly, pub, privacy);
         }
+    }
+}
+
+public class UserApiCharacterConfiguration
+{
+    public short BackgroundId { get; set; }
+    public short BackgroundBrightness { get; set; }
+    public short BackgroundSaturation { get; set; }
+
+    public UserApiCharacterConfiguration(PlayerCharacterConfiguration config)
+    {
+        BackgroundId = config?.BackgroundId ?? -1;
+        BackgroundBrightness = config?.BackgroundBrightness ?? -1;
+        BackgroundSaturation = config?.BackgroundSaturation ?? -1;
     }
 }
 

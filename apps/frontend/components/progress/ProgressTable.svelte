@@ -3,6 +3,7 @@
     import find from 'lodash/find'
     import some from 'lodash/some'
 
+    import { Constants } from '@/data/constants'
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
     import { manualStore, staticStore } from '@/stores'
@@ -66,7 +67,7 @@
             }
             if (
                 (categories[0].name === 'Dungeons' || firstCategory.name === 'Dungeons') &&
-                char.level >= 50
+                char.level === Constants.characterMaxLevel
             ) {
                 return false
             }
@@ -116,10 +117,10 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            sortFunc = (char) => {
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => {
                 const data = progress[`${order}|${char.id}`]
                 return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
-            }
+            })
         }
         else {
             sorted = false

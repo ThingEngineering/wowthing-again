@@ -48,7 +48,7 @@
                 size={56}
                 border={2}
             />
-            <span class="pill">{item.itemLevel}</span>
+            <span class="pill abs-center">{item.itemLevel}</span>
         </a>
     {:else}
         <div class="empty-slot border"></div>

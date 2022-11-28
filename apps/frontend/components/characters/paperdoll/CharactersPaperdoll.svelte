@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { InventorySlot } from '@/enums'
     import { userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import { InventorySlot } from '@/enums'
     import type { BackgroundImage, Character } from '@/types'
 
     import Configure from './CharactersPaperdollConfigure.svelte'
@@ -91,7 +91,8 @@
         &.race-2,  // Orc
         &.race-36, // Mag'har Orc
         &.race-8,  // Troll
-        &.race-31  // Zandalari Troll
+        &.race-31, // Zandalari Troll
+        &.race-52  // Dracthyr
         {
             --scale: 0.75;
         }

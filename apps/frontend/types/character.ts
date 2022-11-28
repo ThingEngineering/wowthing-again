@@ -42,6 +42,7 @@ export interface Character {
 
     auras: number[]
     bags: Record<number, number>
+    configuration: CharacterConfiguration
     currenciesRaw: CharacterCurrencyArray[]
     currencyItems: Record<number, number>
     equippedItems: Record<number, CharacterEquippedItem>
@@ -63,6 +64,12 @@ export interface Character {
 
 export class CharacterApiSpecialization {
     talents: number[][]
+}
+
+export class CharacterConfiguration {
+    public backgroundId: number
+    public backgroundBrightness: number
+    public backgroundSaturation: number
 }
 
 export class CharacterCurrency {
