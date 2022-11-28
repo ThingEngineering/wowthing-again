@@ -1,9 +1,10 @@
 <script lang="ts">
     import { difficultyMap } from '@/data/difficulty'
     import { staticStore } from '@/stores/static'
-    import type { CharacterLockout, Difficulty } from '@/types'
+    import type { Character, CharacterLockout, Difficulty } from '@/types'
     import type { StaticDataInstance } from '@/types/data/static'
 
+    export let character: Character
     export let lockout: CharacterLockout
 
     let instance: StaticDataInstance
@@ -14,9 +15,19 @@
     }
 </script>
 
+<style lang="scss">
+    code {
+        background: inherit;
+    }
+</style>
+
 <div class="wowthing-tooltip">
-    <h4 class="no-border">{instance.name}</h4>
-    <h5>{difficulty.name} - {lockout.defeatedBosses}/{lockout.maxBosses}</h5>
+    <h4>{character.name}</h4>
+    <h5>
+        {instance.name}
+        <code>[{difficulty.shortName}]</code>
+        {lockout.defeatedBosses}/{lockout.maxBosses}
+    </h5>
     <table class="table-tooltip-lockout table-striped">
         <tbody>
             {#each lockout.bosses as boss}
