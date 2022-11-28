@@ -1,7 +1,11 @@
 <script lang="ts">
+    import { imageStrings } from '@/data/icons'
+    import { professionIdToString } from '@/data/professions'
     import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/types/data/static'
+    
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let profession: StaticDataProfession
@@ -25,6 +29,9 @@
 </script>
 
 <style lang="scss">
+    h5 {
+        --image-border-width: 2px;
+    }
     .name {
         text-align: right;
     }
@@ -40,7 +47,15 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name} - {name}</h4>
+    <h4>{character.name}</h4>
+    <h5>
+        <WowthingImage
+            name="{imageStrings[professionIdToString[profession.id]]}"
+            size={20}
+            border={1}
+        />
+        {name}
+    </h5>
     <table class="table-striped">
         <tbody>
             {#each subProfessions as [name, current, max]}
