@@ -211,6 +211,5 @@
 {#if !$userStore.data.public}
     <Configure
         bind:selected
-        {character}
     />
 {/if}
