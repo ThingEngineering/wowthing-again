@@ -1,12 +1,20 @@
 <script lang="ts">
-    import tippy from '@/utils/tippy'
+    import mdiImageBrokenVariant from '@iconify/icons-mdi/image-broken-variant'
     import type { IconifyIcon } from '@iconify/types'
+
+    import tippy from '@/utils/tippy'
 
     export let dropShadow = false
     export let extraClass: string = undefined
     export let icon: IconifyIcon
     export let scale: string = null
     export let tooltip: string = undefined
+
+    $: {
+        if (icon === undefined) {
+            icon = mdiImageBrokenVariant
+        }
+    }
 </script>
 
 <style lang="scss">
