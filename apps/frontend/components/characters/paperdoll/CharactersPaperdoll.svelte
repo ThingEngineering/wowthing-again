@@ -21,13 +21,21 @@
         if (backgroundImage) {
             const filterParts: string[] = []
 
-            if (backgroundImage.defaultBrightness != 10) {
-                filterParts.push(`brightness(${backgroundImage.defaultBrightness / 10})`)
+            const brightness = character.configuration.backgroundBrightness !== -1
+                ? character.configuration.backgroundBrightness
+                : backgroundImage.defaultBrightness
+            const saturation = character.configuration.backgroundSaturation !== -1
+                ? character.configuration.backgroundSaturation
+                : backgroundImage.defaultSaturate
+
+            if (brightness != 10) {
+                filterParts.push(`brightness(${brightness / 10})`)
             }
-            if (backgroundImage.defaultSaturate != 10) {
-                filterParts.push(`saturate(${backgroundImage.defaultSaturate / 10})`)
+            if (saturation != 10) {
+                filterParts.push(`saturate(${saturation / 10})`)
             }
             filter = filterParts.join(' ')
+            console.log(filter)
         }
     }
 
@@ -109,6 +117,16 @@
             --scale: 0.8;
         }
     }
+    .paperdoll-configurable {
+        border-bottom: 1px solid $border-color;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        margin-bottom: 0;
+
+        .attribution {
+            border-bottom-right-radius: 0;
+        }
+    }
     .character-image {
         bottom: 110px;
         filter:
@@ -160,6 +178,7 @@
 
 <div
     class="paperdoll race-{character.raceId}"
+    class:paperdoll-configurable={!$userStore.data.public}
     style:--background-image={backgroundImage ? `url(https://img.wowthing.org/backgrounds/${backgroundImage.filename})` : undefined}
     style:--background-filter={filter}
 >
@@ -209,6 +228,9 @@
 
 {#if !$userStore.data.public}
     <Configure
+        bind:backgroundBrightness={character.configuration.backgroundBrightness}
+        bind:backgroundSaturation={character.configuration.backgroundSaturation}
         bind:selected
+        {character}
     />
 {/if}
