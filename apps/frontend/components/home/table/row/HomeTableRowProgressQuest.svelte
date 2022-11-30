@@ -1,13 +1,11 @@
 <script lang="ts">
-    import find from 'lodash/find'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { forcedReset, progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { manualStore, staticStore, timeStore, userQuestStore, userStore } from '@/stores'
-    import getProgress from '@/utils/get-progress'
+    import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
@@ -17,6 +15,7 @@
     export let character: Character
     export let quest: string
 
+    let actualQuest: string
     let highlight: boolean
     let progressQuest: UserQuestDataCharacterProgress
     let status: string
@@ -34,23 +33,24 @@
                 $userQuestStore.data.characters[character.id]?.quests?.has(task.requiredQuestId)
             )
         ) {
+            actualQuest = quest
             valid = true
 
             if (quest === 'slAnima') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
                 if (covenant) {
-                    quest = `${covenant.slug.replace('-fae', 'Fae')}Anima`
+                    actualQuest = `${covenant.slug.replace('-fae', 'Fae')}Anima`
                 }
             }
             else {
-                quest = progressQuestMap[quest] || quest
+                actualQuest = progressQuestMap[quest] || quest
             }
 
             // Check other characters for a quest title
             for (const characterId in $userQuestStore.data.characters) {
-                const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[quest]
+                const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[actualQuest]
                 if (characterQuest) {
-                    if (quest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
+                    if (actualQuest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
                         continue
                     }
 
@@ -61,15 +61,15 @@
 
             // Use the fallback title
             if (title === undefined) {
-                title = taskMap[quest]?.name
+                title = taskMap[actualQuest]?.name
             }
 
-            progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[quest]
+            progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[actualQuest]
             if (progressQuest) {
                 const expires: DateTime = DateTime.fromSeconds(progressQuest.expires)
 
                 //const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
-                if (forcedReset[quest]) {
+                if (forcedReset[actualQuest]) {
                     // quest always resets even if incomplete
                     if (expires < $timeStore) {
                         progressQuest.status = 0
@@ -92,7 +92,7 @@
                     if (progressQuest.type === 'progressbar') {
                         text = `${progressQuest.have} %`
                     }
-                    else if (quest === 'weeklyHoliday' || quest === 'weeklyPvp') {
+                    else if (actualQuest === 'weeklyHoliday' || actualQuest === 'weeklyPvp') {
                         text = `${progressQuest.have} / ${progressQuest.need}`
                     }
                     else {
@@ -108,26 +108,6 @@
             if (status === undefined) {
                 status = 'fail'
                 text = 'Get!'
-            }
-
-            if (quest === 'newDeal') {
-                const category = find(
-                    find(
-                        $manualStore.data.progressSets,
-                        (progress) => progress?.[0].slug === 'shadowlands'
-                    ),
-                    (category) => category?.name === 'Upgrades'
-                )
-                const progress = getProgress(
-                    $staticStore.data,
-                    $userStore.data,
-                    null,
-                    $userQuestStore.data,
-                    character,
-                    category,
-                    category.groups[0],
-                )
-                highlight = progress?.have === 5
             }
         }
     }
@@ -170,7 +150,7 @@
 {#if valid}
     <td
         class="status-{status}"
-        class:center={quest === 'weeklyHoliday' || progressQuest?.status !== 1}
+        class:center={actualQuest === 'weeklyHoliday' || progressQuest?.status !== 1}
         class:highlight
         use:tippyComponent={{
             component: Tooltip,
