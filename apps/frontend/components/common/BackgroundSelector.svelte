@@ -37,6 +37,11 @@
             border-bottom-width: 0;
             bottom: -1px;
         }
+        img {
+            height: 100%;
+            object-fit: contain;
+            width: 100%;
+        }
     }
     code {
         font-size: 1.2rem;

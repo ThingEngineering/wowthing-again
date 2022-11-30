@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -80,6 +81,12 @@ public class Startup
 
             options.LoginPath = "/auth/login";
             options.LogoutPath = "/auth/logout";
+
+            options.AccessDeniedPath = string.Empty;
+            options.Events.OnRedirectToAccessDenied = context => {
+                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                return Task.CompletedTask;
+            };
         });
 
         // Anti-forgery
