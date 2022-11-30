@@ -13,9 +13,10 @@
     import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
 
-    import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte'
+    import Characters from './sections/characters/SettingsCharacters.svelte'
     import CharactersPin from './sections/characters/SettingsCharactersPin.svelte'
     import CharactersSort from './sections/characters/SettingsCharactersSort.svelte'
+    import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -35,6 +36,7 @@
         'privacy': Privacy,
         'transmog': Transmog,
         
+        'characters': Characters,
         'characters/pin': CharactersPin,
         'characters/sort': CharactersSort,
         'characters/toggles': CharactersToggles,
