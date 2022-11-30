@@ -13,15 +13,17 @@
 
 {#each $userStore.data.homeLockouts as {difficulty, instanceId}}
     {@const instance = $staticStore.data.instances[instanceId]}
-    <td
-        use:tippyComponent={{
-            component: Tooltip,
-            props: {
-                difficulty,
-                instanceId,
-            }
-        }}
-    >
-        {difficulty ? difficulty.shortName + '-' : ''}{instance.shortName}
-    </td>
+    {#if instance}
+        <td
+            use:tippyComponent={{
+                component: Tooltip,
+                props: {
+                    difficulty,
+                    instanceId,
+                }
+            }}
+        >
+            {difficulty ? difficulty.shortName + '-' : ''}{instance.shortName}
+        </td>
+    {/if}
 {/each}
