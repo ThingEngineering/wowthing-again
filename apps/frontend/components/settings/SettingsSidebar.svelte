@@ -32,7 +32,6 @@
         {
             name: 'Characters',
             slug: 'characters',
-            forceNoVisit: true,
             children: [
                 {
                     name: 'Pin',

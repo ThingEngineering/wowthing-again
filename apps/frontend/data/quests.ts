@@ -29,9 +29,9 @@ export const progressQuestHead: Record<string, string> = {
 }
 
 export const progressQuestId: Record<number, string> = {
-    66648: 'slFatedDinar1',
-    66649: 'slFatedDinar2',
-    66650: 'slFatedDinar3',
+    // 66648: 'slFatedDinar1',
+    // 66649: 'slFatedDinar2',
+    // 66650: 'slFatedDinar3',
 }
 
 export const forcedReset: Record<string, boolean> = {

@@ -13,7 +13,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Polly" Version="7.2.3" />
     <PackageReference Include="prometheus-net" Version="7.0.0" />
     <PackageReference Include="Serilog" Version="2.12.0" />
@@ -22,7 +22,7 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.4.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="StackExchange.Redis" Version="2.6.70" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.80" />
     <PackageReference Include="YamlDotNet" Version="12.0.2" />
   </ItemGroup>
 

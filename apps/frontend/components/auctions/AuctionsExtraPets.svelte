@@ -138,6 +138,7 @@
                                         <tr>
                                             <td
                                                 class="pet-location drop-shadow"
+                                                data-location={pet.location}
                                                 use:tippy={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
@@ -148,7 +149,10 @@
                                             <td class="pet-level quality{pet.quality}">
                                                 Level {pet.level}
                                             </td>
-                                            <td class="pet-breed">
+                                            <td
+                                                class="pet-breed"
+                                                data-breed={pet.breedId}
+                                            >
                                                 {petBreedMap[pet.breedId]}
                                             </td>
                                         </tr>

@@ -2,8 +2,6 @@
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
 
     export let selected: number
-
-    $: console.log(selected)
 </script>
 
 <style lang="scss">
@@ -15,5 +13,6 @@
 <div class="configure">
     <BackgroundSelector
         bind:selected
+        showDefault={true}
     />
 </div>

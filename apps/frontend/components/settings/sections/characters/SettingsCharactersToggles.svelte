@@ -80,25 +80,6 @@
 </script>
 
 <style lang="scss">
-    .realm {
-        h3 {
-            cursor: pointer;
-            font-size: 1.1rem;
-            margin-top: 0.5rem;
-
-            span {
-                color: #00ccff;
-                margin-left: 1rem;
-            }
-        }
-
-        :global(fieldset) {
-            display: inline-block;
-            margin: 0;
-            white-space: nowrap;
-            width: 9.0rem;
-        }
-    }
     table {
         margin-top: 1rem;
     }

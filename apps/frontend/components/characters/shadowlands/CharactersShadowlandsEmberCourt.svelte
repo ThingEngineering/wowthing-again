@@ -65,18 +65,13 @@
             border-bottom: 1px solid #aaa;
         }
     }
-    .friend, .icon {
+    .friend {
+        position: relative;
         width: 25%;
 
         &:not(:last-child) {
             border-right: 1px solid $border-color;
         }
-    }
-    .friend {
-        position: relative;
-    }
-    .icon {
-        text-align: center;
     }
     .name {
         background: #3f1018;

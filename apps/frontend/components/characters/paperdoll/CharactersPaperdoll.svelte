@@ -9,14 +9,13 @@
 
     export let character: Character
 
-    // TODO use character setting
-    let selected = $settingsData.characters.defaultBackground || 1
+    let selected = character.configuration.backgroundId
 
     let backgroundImage: BackgroundImage
     let characterImage: string
     let filter: string
     $: {
-        backgroundImage = $userStore.data.backgrounds[selected]
+        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsData.characters.defaultBackground : selected]
         characterImage = $userStore.data.images[`${character.id}-2`]
 
         if (backgroundImage) {
@@ -211,6 +210,5 @@
 {#if !$userStore.data.public}
     <Configure
         bind:selected
-        {character}
     />
 {/if}

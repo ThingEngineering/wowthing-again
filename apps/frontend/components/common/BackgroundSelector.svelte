@@ -1,9 +1,11 @@
 <script lang="ts">
     import { userStore } from '@/stores'
+    import { data as settings } from '@/stores/settings'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
     import tippy from '@/utils/tippy'
 
     export let selected: number
+    export let showDefault = false
 
     const onClick = function(this: HTMLElement): void {
         selected = parseInt(this.getAttribute('data-id'))
@@ -12,32 +14,66 @@
 
 <style lang="scss">
     .backgrounds {
-
         display: flex;
         flex-wrap: wrap;
         gap: 1rem;
+    }
+    .background {
+        border-width: 2px;
+        cursor: pointer;
+    }
+    .background {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 115px;
+        position: relative;
+        width: 162px;
 
-        img {
-            border-width: 2px;
-            cursor: pointer;
+        &.selected {
+            border-color: $colour-success;
+        }
+        code {
+            border-bottom-width: 0;
+            bottom: -1px;
         }
     }
-    .selected {
-        border-color: $colour-success;
+    code {
+        font-size: 1.2rem;
+        margin: auto;
     }
 </style>
 
 <div class="backgrounds">
     {#each $userStore.data.backgroundList as background}
-        <img
-            src="{backgroundThumbUrl(background)}"
-            alt="{background.description}"
-            class="border"
-            class:selected={background.id === selected}
-            data-id={background.id}
+        <div
+            class="background border"
+            class:selected={selected === background.id}
+        >
+            <img
+                src="{backgroundThumbUrl(background)}"
+                alt="{background.description}"
+                data-id={background.id}
+                on:click={onClick}
+                on:keypress={onClick}
+                use:tippy={background.description}
+            >
+
+            {#if showDefault && background.id === $settings.characters.defaultBackground}
+                <code class="pill abs-center">DEFAULT</code>
+            {/if}
+        </div>
+    {/each}
+
+    {#if showDefault}
+        <div
+            class="background border"
+            class:selected={selected === -1}
+            data-id={-1}
             on:click={onClick}
             on:keypress={onClick}
-            use:tippy={background.description}
         >
-    {/each}
+            <code>DEFAULT</code>
+        </div>
+    {/if}
 </div>

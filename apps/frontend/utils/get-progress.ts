@@ -178,10 +178,6 @@ export default function getProgress(
                         case ProgressDataType.AddonQuest: {
                             const questKey = progressQuestId[data.value]
                             const quest = userQuestData.characters[character.id]?.progressQuests?.[questKey]
-                            if (questKey.startsWith('slFatedDinar')) {
-                                total = [30, 15, 5][parseInt(questKey[questKey.length - 1]) - 1]
-                            }
-
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed
                                 have = (haveThis ? total - 1 : quest.have)

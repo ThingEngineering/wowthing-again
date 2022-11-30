@@ -66,31 +66,31 @@ export const taskList: Task[] = [
         key: 'slAnima',
         name: 'Shadowlands - Anima',
         shortName: 'Anima',
+        minimumLevel: 60,
     },
     {
         key: 'slKorthia',
         name: 'Shadowlands - Korthia',
         shortName: 'Korth',
+        minimumLevel: 60,
     },
     {
         key: 'slMawAssault',
         name: 'Shadowlands - Maw Assault',
         shortName: 'Maw ⚔',
+        minimumLevel: 60,
     },
     {
         key: 'slTormentors',
         name: 'Shadowlands - Tormentors of Torghast',
         shortName: 'Torm',
+        minimumLevel: 60,
     },
     {
         key: 'slZerethMortis',
         name: 'Shadowlands - Zereth Mortis',
         shortName: 'ZM',
-    },
-    {
-        key: 'slFatedWorldQuest',
-        name: 'Shadowlands - Fated Raid WQ',
-        shortName: 'FWQ',
+        minimumLevel: 60,
     },
 ]
 
