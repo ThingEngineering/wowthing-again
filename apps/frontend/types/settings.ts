@@ -13,7 +13,9 @@ export interface Settings {
     }
 
     characters: {
-        defaultBackground: number
+        defaultBackgroundId: number
+        defaultBackgroundBrightness: number
+        defaultBackgroundSaturation: number
         hideDisabledAccounts: boolean
         hiddenCharacters: number[]
         ignoredCharacters: number[]

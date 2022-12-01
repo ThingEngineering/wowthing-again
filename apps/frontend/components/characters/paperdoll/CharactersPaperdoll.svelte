@@ -15,7 +15,7 @@
     let characterImage: string
     let filter: string
     $: {
-        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsData.characters.defaultBackground : selected]
+        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsData.characters.defaultBackgroundId : selected]
         characterImage = $userStore.data.images[`${character.id}-2`]
 
         if (backgroundImage) {
@@ -35,7 +35,6 @@
                 filterParts.push(`saturate(${saturation / 10})`)
             }
             filter = filterParts.join(' ')
-            console.log(filter)
         }
     }
 

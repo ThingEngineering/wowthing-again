@@ -1,9 +1,10 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
 
-    import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
     import type { Character } from '@/types'
+
+    import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
+    import RangeInput from '@/components/forms/RangeInput.svelte'
 
     export let backgroundBrightness: number
     export let backgroundSaturation: number
@@ -14,6 +15,8 @@
     let status = ''
 
     $: debouncedSave(selected, backgroundBrightness, backgroundSaturation)
+
+    const getValue = (value: number): string => value === -1 ? 'Def' : `${value * 10}%`
 
     const debouncedSave = debounce(async (id: number, brightness: number, saturation: number) => {
         if (first) {
@@ -55,16 +58,13 @@
     .inputs {
         align-items: center;
         display: flex;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
 
         :global(fieldset:not(:first-child)) {
-            margin-left: 1rem;
+            margin-left: 1.5rem;
         }
         :global(input) {
-            width: 3.5rem;
-        }
-        :global(label) {
-            display: inline;
+            width: 8rem;
         }
     }
     .status {
@@ -77,19 +77,19 @@
 
 <div class="configure">
     <div class="inputs">
-        <NumberInput
+        <RangeInput
             name="brightness"
-            label="Brightness:"
-            minValue={-1}
-            maxValue={10}
+            label={`Brightness <code>${getValue(backgroundBrightness)}</code>`}
+            min={-1}
+            max={10}
             bind:value={backgroundBrightness}
         />
 
-        <NumberInput
+        <RangeInput
             name="saturation"
-            label="Saturation:"
-            minValue={-1}
-            maxValue={10}
+            label={`Saturation <code>${getValue(backgroundSaturation)}</code>`}
+            min={-1}
+            max={10}
             bind:value={backgroundSaturation}
         />
 

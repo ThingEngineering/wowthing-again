@@ -64,7 +64,7 @@
                 use:tippy={background.description}
             >
 
-            {#if showDefault && background.id === $settings.characters.defaultBackground}
+            {#if showDefault && background.id === $settings.characters.defaultBackgroundId}
                 <code class="pill abs-center">DEFAULT</code>
             {/if}
         </div>
