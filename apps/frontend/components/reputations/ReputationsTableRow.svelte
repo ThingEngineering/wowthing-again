@@ -17,23 +17,25 @@
 
     $: {
         if (reputation !== undefined && characterRep.value !== -1) {
-            dataRep = $staticStore.data.reputations[characterRep.reputationId]
-            const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
-            repTier = findReputationTier(tiers, characterRep.value)
+            dataRep = $staticStore.data.reputations?.[characterRep.reputationId]
+            if (dataRep) {
+                const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
+                repTier = findReputationTier(tiers, characterRep.value)
 
-            if (reputation.paragon && repTier.maxValue === 0) {
-                paragon = character.paragons?.[characterRep.reputationId]
-                if (paragon) {
-                    if (paragon.rewardAvailable) {
-                        repTier.percent = 'BOX'
-                    }
-                    else {
-                        repTier.percent = ((paragon.current / paragon.max) * 100).toFixed(1)
+                if (reputation.paragon && repTier.maxValue === 0) {
+                    paragon = character.paragons?.[characterRep.reputationId]
+                    if (paragon) {
+                        if (paragon.rewardAvailable) {
+                            repTier.percent = 'BOX'
+                        }
+                        else {
+                            repTier.percent = ((paragon.current / paragon.max) * 100).toFixed(1)
+                        }
                     }
                 }
-            }
-            else {
-                paragon = undefined
+                else {
+                    paragon = undefined
+                }
             }
         }
     }
