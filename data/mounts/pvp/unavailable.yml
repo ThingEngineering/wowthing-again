@@ -57,3 +57,7 @@ groups:
   - 1480 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
   - 1572 # Cosmic Gladiator's Soul Eater (Gladiator: Shadowlands Season 3)
   - 1599 # Eternal Gladiator's Soul Eater (Gladiator: Shadowlands Season 4)
+
+- name: "Dragonflight"
+  things:
+  - 1660 # Crimson Gladiator's Drake (Gladiator: Dragonflight Season 1)
