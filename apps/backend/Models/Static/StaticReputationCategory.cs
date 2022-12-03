@@ -25,6 +25,7 @@ public class StaticReputationCategorySet
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public StaticReputationCategoryReputation Horde { get; set; }
 
+    public bool Major { get; set; } = false;
     public bool Paragon { get; set; } = false;
 }
 

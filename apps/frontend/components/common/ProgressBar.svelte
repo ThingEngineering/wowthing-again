@@ -5,7 +5,7 @@
     import { toNiceNumber } from '@/utils/to-nice'
 
     export let cls: string = null
-    export let title: string
+    export let title: string = null
     export let have = Math.floor(Math.random() * 100)
     export let selected = false
     export let shortText = false
@@ -63,6 +63,7 @@
         }
         &.short {
             font-size: 0.95rem;
+            left: 0;
             text-align: center;
             width: 100%;
             word-spacing: -0.1ch;

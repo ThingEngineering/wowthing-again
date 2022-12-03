@@ -237,7 +237,9 @@ public class ApplicationUserSettingsAuctionCategory
 
 public class ApplicationUserSettingsCharacters
 {
-    public short DefaultBackground { get; set; } = 1;
+    public short DefaultBackgroundId { get; set; } = 1;
+    public short DefaultBackgroundBrightness { get; set; } = 10;
+    public short DefaultBackgroundSaturation { get; set; } = 10;
     public bool HideDisabledAccounts { get; set; } = false;
     public List<int> HiddenCharacters { get; set; } = new();
     public List<int> IgnoredCharacters { get; set; } = new();

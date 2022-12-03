@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 54,
+        Version = 55,
     };
 
     public override async Task Run(params string[] data)

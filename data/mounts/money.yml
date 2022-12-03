@@ -24,6 +24,8 @@ groups:
   - 960 959 # ^ reversed
   - 1679 # Frostbrood Proto-Wyrm (DK starter thing)
   - 1581 # Nether-Gorged Greatwyrm (6 month sub?)
+  - 1312 # Gargantuan Grrloc (12 month sub?)
+  - 1662 # Telix the Stormhorn (12 month sub?)
 
 - name: Store
   things:
