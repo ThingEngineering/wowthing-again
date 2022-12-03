@@ -27,9 +27,13 @@ reputations:
 # 10.0 Friends
 -
   - both:
+      id: 2544 # Artisan's Consortium
+      icon: "item/198802" # Artisan's Constorium Tabard
+
+  - both:
       id: 2518 # Sabellian
       icon: "achievement/16532" # Friends with Sabellian
 
   - both:
       id: 2517 # Wrathion
-      icon: "achievement/16536" # True Friends with Wrathion
+      icon: "achievement/8030" # A Test of Valor
