@@ -45,6 +45,7 @@ export class StaticDataReputationSet {
     public horde: StaticDataReputationReputation
     
     constructor(
+        public major: boolean,
         public paragon: boolean,
         reputationArrays: StaticDataReputationReputationArray[]
     )

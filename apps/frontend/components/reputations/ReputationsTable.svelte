@@ -14,6 +14,7 @@
     import Error from '@/components/common/Error.svelte'
     import TableHead from './ReputationsTableHead.svelte'
     import TableRow from './ReputationsTableRow.svelte'
+    import TableRowMajor from './ReputationsTableRowMajor.svelte'
 
     export let slug: string
 
@@ -87,11 +88,19 @@
                     <td class="spacer"></td>
 
                     {#each reputationSet as reputation, reputationIndex}
-                        <TableRow
+                        {#if reputation.major}
+                        <TableRowMajor
                             characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
                             {character}
                             {reputation}
                         />
+                        {:else}
+                            <TableRow
+                                characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                                {character}
+                                {reputation}
+                            />
+                        {/if}
                     {/each}
                 {/each}
             {/key}

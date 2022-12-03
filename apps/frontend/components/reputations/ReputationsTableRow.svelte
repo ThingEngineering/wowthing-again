@@ -13,9 +13,11 @@
 
     let dataRep: StaticDataReputation
     let paragon: CharacterReputationParagon
+    let renownLevel: number
     let repTier: ReputationTier
 
     $: {
+        renownLevel = 0
         if (reputation !== undefined && characterRep.value !== -1) {
             dataRep = $staticStore.data.reputations?.[characterRep.reputationId]
             if (dataRep) {

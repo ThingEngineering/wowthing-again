@@ -7,22 +7,22 @@ reputations:
   - both:
       id: 2507 # Dragonscale Expedition
       icon: "achievement/16522" # A True Explorer
-    paragon: true
+    major: true
 
   - both:
       id: 2511 # Iskaara Tuskarr
       icon: "achievement/16529" # Joining the Community
-    paragon: true
+    major: true
   
   - both:
       id: 2503 # Maruuk Centaur
       icon: "achievement/16528" # Joining the Khansguard
-    paragon: true
+    major: true
   
   - both:
       id: 2510 # Valdrakken Accord
       icon: "achievement/16530" # Ally of the Flights
-    paragon: true
+    major: true
 
 # 10.0 Friends
 -

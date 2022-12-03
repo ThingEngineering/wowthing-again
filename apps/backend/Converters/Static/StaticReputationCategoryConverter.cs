@@ -28,6 +28,7 @@ public class StaticReputationCategoryConverter : System.Text.Json.Serialization.
             {
                 // Reputation
                 writer.WriteStartArray();
+                writer.WriteBooleanValue(reputation.Major);
                 writer.WriteBooleanValue(reputation.Paragon);
 
                 // Reps
