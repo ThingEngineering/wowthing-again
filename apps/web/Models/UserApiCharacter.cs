@@ -78,8 +78,8 @@ public class UserApiCharacter
     )
     {
         ActiveSpecId = character.ActiveSpecId;
-        AddonLevel = character.AddonData.Level;
-        AddonLevelXp = character.AddonData.LevelXp;
+        AddonLevel = character.AddonData?.Level ?? 0;
+        AddonLevelXp = character.AddonData?.LevelXp ?? 0;
         ClassId = character.ClassId;
         EquippedItemLevel = character.EquippedItemLevel;
         Faction = character.Faction;
