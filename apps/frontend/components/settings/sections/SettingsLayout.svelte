@@ -107,7 +107,7 @@
             />
             <p>How much white space is used between columns.</p>
         </div>
-
+        
         <h3>Covenant column</h3>
 
         <div class="setting setting-layout">
@@ -123,6 +123,15 @@
         </div>
         
         <h3>Misc</h3>
+
+        <div class="setting setting-checkbox setting-layout">
+            <CheckboxInput
+                bind:value={$settingsData.layout.showPartialLevel}
+                name="layout_showPartialLevel"
+            >
+                Show partial levels in Character Level column.
+            </CheckboxInput>
+        </div>
 
         <div class="setting setting-checkbox setting-layout">
             <CheckboxInput
