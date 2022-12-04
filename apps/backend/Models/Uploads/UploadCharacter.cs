@@ -11,6 +11,8 @@ public class UploadCharacter
     public int KeystoneInstance { get; set; }
     public int KeystoneLevel { get; set; }
     public int LastSeen { get; set; }
+    public short Level { get; set; }
+    public int LevelXp { get; set; }
     public int MountSkill { get; set; }
     public int PlayedTotal { get; set; }
     public int RestedXp { get; set; }

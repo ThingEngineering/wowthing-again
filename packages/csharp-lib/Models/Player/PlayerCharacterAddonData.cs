@@ -11,6 +11,9 @@ public class PlayerCharacterAddonData
     public int CharacterId { get; set; }
     public PlayerCharacter Character { get; set; }
 
+    public short Level { get; set; }
+    public int LevelXp { get; set; }
+
     public string BindLocation { get; set; }
     public string CurrentLocation { get; set; }
 

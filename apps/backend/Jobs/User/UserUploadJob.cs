@@ -378,6 +378,9 @@ public class UserUploadJob : JobBase
 
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
     {
+        character.AddonData.Level = characterData.Level;
+        character.AddonData.LevelXp = characterData.LevelXp;
+
         if (!string.IsNullOrWhiteSpace(characterData.BindLocation))
         {
             character.AddonData.BindLocation = characterData.BindLocation.Truncate(32);
