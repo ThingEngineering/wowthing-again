@@ -32,6 +32,9 @@
                 rested = `${per} %`
             }
         }
+        else {
+            rested = ''
+        }
     }
 </script>
 

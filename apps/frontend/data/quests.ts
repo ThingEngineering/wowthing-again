@@ -45,22 +45,28 @@ export const forcedReset: Record<string, boolean> = {
 }
 
 export const holidayQuestCycle: string[] = [
+    'holidayWorldQuests',
+    
+    'holidayBattlegrounds',
     'holidayDungeons',
-    'holidayPetBattles',
     'holidayTimewalking',
-    'holidayArenaSkirmishes',
+    'holidayArenaSkirmishes', // Pets
     'holidayWorldQuests',
     'holidayTimewalking',
-    'holidayBattlegrounds',
 
+    'holidayBattlegrounds',
     'holidayDungeons',
     'holidayTimewalking',
-    'holidayPetBattles',
     'holidayArenaSkirmishes',
+    'holidayWorldQuests', // Pets
     'holidayTimewalking',
-    'holidayWorldQuests',
+
     'holidayBattlegrounds',
+    'holidayDungeons',
     'holidayTimewalking',
+    'holidayArenaSkirmishes',
+    'holidayWorldQuests',
+    'holidayTimewalking', // Pets
 ]
 
 export const dailyQuestLevel: Record<number, number> = {

@@ -8,12 +8,12 @@
 
     import MagicLists from '../SettingsMagicLists.svelte'
  
-    const taskChoices: SettingsChoice[] = [...taskList]
+    const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
 
-    const taskActive = $settingsData.layout.homeTasks.map(
-        (f) => filter(taskChoices, (c) => c.key === f)[0]
-    ).filter(f => f !== undefined)
-    const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) < 0)
+    const taskActive = $settingsData.layout.homeTasks
+        .map((f) => filter(taskChoices, (c) => c.key === f)[0])
+        .filter(f => f !== undefined)
+    const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) === -1)
 
     const onTaskChange = debounce(() => {
         settingsData.update(state => {
