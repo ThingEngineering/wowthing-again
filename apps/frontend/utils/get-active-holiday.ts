@@ -7,5 +7,5 @@ export function getActiveHoliday(
     region = 1
 ): string {
     const currentPeriod = userData.currentPeriod[region].id
-    return holidayQuestCycle[(currentPeriod - 860) % holidayQuestCycle.length]
+    return holidayQuestCycle[(currentPeriod - 884) % holidayQuestCycle.length]
 }
