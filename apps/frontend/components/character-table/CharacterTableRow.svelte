@@ -22,21 +22,20 @@
 
     let accountEnabled: boolean
     let element: HTMLElement
+    let fancyLevel: string
     let intersected = false
     $: {
         accountEnabled =
             !character.accountId ||
             $userStore.data.accounts[character.accountId]?.enabled
-    }
 
-    const getLevel = function(): string {
         const actualLevel = Math.max(character.level, character.addonLevel)
         if (actualLevel < Constants.characterMaxLevel) {
             const partial = Math.floor(character.addonLevelXp / experiencePerLevel[actualLevel] * 10)
-            return `${leftPad(actualLevel, 2, '&nbsp;')}.${partial}`
+            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}.${partial}`
         }
         else {
-            return `${leftPad(actualLevel, 2, '&nbsp;')}&nbsp;&nbsp;`
+            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}&nbsp;&nbsp;`
         }
     }
 </script>
@@ -104,7 +103,7 @@
                 {:else if field === 'characterLevel'}
                     {#if $settings.layout.showPartialLevel}
                         <td class="level-partial">
-                            <code>{@html getLevel()}</code>
+                            <code>{@html fancyLevel}</code>
                         </td>
                     {:else}
                         <td class="level">
