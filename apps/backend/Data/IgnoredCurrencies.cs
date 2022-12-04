@@ -4,9 +4,6 @@ public static partial class Hardcoded
 {
     public static readonly HashSet<int> IgnoredCurrencies = new()
     {
-        // Shadowlands
-        2010, // [DNT] Byron Test Currency
-
         // Dungeon and Raid
         221, // Emblem of Conquest
         341, // Emblem of Frost
@@ -26,8 +23,9 @@ public static partial class Hardcoded
         125, // Warsong Gulch Mark of Honor
         126, // Wintergrasp Mark of Honor
 
-        // Battle for Azeroth
-        1715, // Progenitor Shard TEST
+        // Mists of Pandaria
+        810, // Black Iron Fragment
+        698, // Zen Jewelcrafter's Token
 
         // Warlords of Draenor
         910, // Secret of Draenor Alchemy
@@ -36,8 +34,14 @@ public static partial class Hardcoded
         1017, // Secret of Draenor Leatherworking
         999, // Secret of Draenor Tailoring
 
-        // Mists of Pandaria
-        810, // Black Iron Fragment
-        698, // Zen Jewelcrafter's Token
+        // Battle for Azeroth
+        1715, // Progenitor Shard TEST
+
+        // Shadowlands
+        2010, // [DNT] Byron Test Currency
+
+        // Dragonflight
+        2134, // Cobalt Assembly
+        2105, // Purified Arcane Energy
     };
 }
