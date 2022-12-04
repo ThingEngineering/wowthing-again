@@ -13,8 +13,10 @@
     export let title: string = undefined
 
     const keyType = `item/${key}`
-
     const keyFunc = (item: SettingsChoice) => item.key
+
+    $: active.forEach((sc) => sc.name = sc.name.replace(/(\[.*?\])/, '<code>$1</code>'))
+    $: inactive.forEach((sc) => sc.name = sc.name.replace(/(\[.*?\])/, '<code>$1</code>'))
 </script>
 
 <style lang="scss">

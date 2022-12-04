@@ -129,6 +129,8 @@ public class ApplicationUserSettings
         "slNewDeal",
         "slTormentors",
         "slZerethMortis",
+
+        "dfAidingAccord",
     };
 
     private void Validate()

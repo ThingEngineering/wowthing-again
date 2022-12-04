@@ -22,7 +22,7 @@
         (instance) => instance.expansion
     ).map((instance) => ({
         key: instance.id.toString(),
-        name: `<code>[${expansionMap[instance.expansion].shortName}]</code> ${instance.name}`,
+        name: `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
     })
 )
 
