@@ -4,6 +4,8 @@ import type { Faction } from '@/enums'
 export interface Character {
     accountId?: number
     activeSpecId: number
+    addonLevel: number
+    addonLevelXp: number
     chromieTime: number
     classId: number
     currentLocation: string

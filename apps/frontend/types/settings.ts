@@ -40,14 +40,15 @@ export interface Settings {
     }
 
     layout: {
+        includeArchaeology: boolean
+        showEmptyLockouts: boolean
+        showPartialLevel: boolean
+        covenantColumn: 'current' | 'all'
+        padding: 'small' | 'medium' | 'large'
         commonFields: string[]
         homeFields: string[]
         homeLockouts: number[]
         homeTasks: string[]
-        covenantColumn: 'current' | 'all'
-        includeArchaeology: boolean
-        padding: 'small' | 'medium' | 'large'
-        showEmptyLockouts: boolean
     }
 
     privacy: {

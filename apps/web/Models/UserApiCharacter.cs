@@ -18,6 +18,8 @@ public class UserApiCharacter
     public int? GuildId { get; set; }
 
     public int ActiveSpecId { get; }
+    public int AddonLevel { get; set; }
+    public int AddonLevelXp { get; set; }
     public int ChromieTime { get; set; }
     public int ClassId { get; set; }
     public int EquippedItemLevel { get; set; }
@@ -76,6 +78,8 @@ public class UserApiCharacter
     )
     {
         ActiveSpecId = character.ActiveSpecId;
+        AddonLevel = character.AddonData.Level;
+        AddonLevelXp = character.AddonData.LevelXp;
         ClassId = character.ClassId;
         EquippedItemLevel = character.EquippedItemLevel;
         Faction = character.Faction;
@@ -190,8 +194,10 @@ public class UserApiCharacter
         // Reputations
         if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
         {
-            Reputations = character.Reputations.ReputationIds.Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
-                .Zip(character.Reputations.ReputationValues.Concat(character.Reputations.ExtraReputationValues.EmptyIfNull()))
+            Reputations = character.Reputations.ReputationIds
+                .Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
+                .Zip(character.Reputations.ReputationValues.Concat(character.Reputations.ExtraReputationValues
+                    .EmptyIfNull()))
                 .ToDictionary(k => k.First, v => v.Second);
         }
 
