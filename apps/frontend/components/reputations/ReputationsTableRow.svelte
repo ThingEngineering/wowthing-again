@@ -19,7 +19,7 @@
     $: {
         renownLevel = 0
         if (reputation !== undefined && characterRep.value !== -1) {
-            dataRep = $staticStore.data.reputations?.[characterRep.reputationId]
+        dataRep = $staticStore.data.reputations[characterRep.reputationId]
             if (dataRep) {
                 const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
                 repTier = findReputationTier(tiers, characterRep.value)
