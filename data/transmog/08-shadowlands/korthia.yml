@@ -1,4 +1,6 @@
 name: "Covenants [9.1]"
+skipClasses:
+- evoker
 groups:
 
 # 9.1

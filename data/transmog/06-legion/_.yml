@@ -1,4 +1,6 @@
 name: Legion
+skipClasses:
+- evoker
 groups:
 
 - name: Empty

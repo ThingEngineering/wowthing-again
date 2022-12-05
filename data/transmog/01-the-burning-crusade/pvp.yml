@@ -2,6 +2,7 @@ name: PvP
 skipClasses:
 - death-knight
 - demon-hunter
+- evoker
 - monk
 groups:
 

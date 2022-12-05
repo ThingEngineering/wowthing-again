@@ -1,6 +1,7 @@
 name: Raids
 skipClasses:
 - demon-hunter
+- evoker
 groups:
 
 - name: Hellfire Citadel

@@ -1,4 +1,6 @@
 name: Raids
+skipClasses:
+- evoker
 groups:
 
 - name: Antorus, the Burning Throne

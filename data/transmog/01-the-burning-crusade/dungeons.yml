@@ -2,6 +2,7 @@ name: Dungeons
 skipClasses:
 - death-knight
 - demon-hunter
+- evoker
 - monk
 groups:
 
