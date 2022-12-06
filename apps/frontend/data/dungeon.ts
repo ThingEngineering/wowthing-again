@@ -377,22 +377,26 @@ export const ratingItemLevelUpgrade: Array<Array<number>> = [
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [15, 304],
-    [14, 301],
-    [12, 298],
-    [11, 294],
-    [10, 291],
-    [8, 288],
-    [7, 285],
-    [5, 281],
-    [2, 278],
+    [20, 421],
+    [19, 418],
+    [17, 415],
+    [15, 411],
+    [14, 408],
+    [12, 405],
+    [11, 402],
+    [10, 398],
+    [9, 395],
+    [7, 392],
+    [6, 389],
+    [4, 385],
+    [2, 382],
 ]
 
 export const raidVaultItemLevel: Record<number, number> = {
-    17: 265, // LFR
-    14: 278, // Normal
-    15: 291, // Heroic
-    16: 304, // Mythic
+    17: 376, // LFR
+    14: 389, // Normal
+    15: 402, // Heroic
+    16: 415, // Mythic
 }
 
 export const keyTiers = [

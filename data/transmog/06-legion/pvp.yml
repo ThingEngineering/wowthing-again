@@ -1,4 +1,6 @@
 name: PvP
+skipClasses:
+- evoker
 groups:
 
 - name: Legion Season 5 / 6 / 7

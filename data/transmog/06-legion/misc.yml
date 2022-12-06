@@ -1,4 +1,6 @@
 name: Misc
+skipClasses:
+- evoker
 groups:
 
 - name: Mage Tower

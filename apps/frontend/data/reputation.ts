@@ -21,3 +21,10 @@ export const extraReputationTiers: StaticDataReputationTier[] = [
         names: ['Nascent', 'Juvenile', 'Mature'],
     },
 ]
+
+export const factionMaxRenown: Record<number, number> = {
+    2507: 25, // Dragonscale Expedition
+    2511: 30, // Iskaara Tuskarr
+    2503: 25, // Maruuk Centaur
+    2510: 30, // Valdrakken Accord
+}

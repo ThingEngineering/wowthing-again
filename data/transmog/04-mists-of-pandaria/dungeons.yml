@@ -1,6 +1,7 @@
 name: Dungeons
 skipClasses:
 - demon-hunter
+- evoker
 groups:
 
 - name: MoP Dungeons

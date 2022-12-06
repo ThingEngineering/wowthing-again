@@ -2,6 +2,7 @@ name: "Burning Crusade"
 skipClasses:
 - death-knight
 - demon-hunter
+- evoker
 - monk
 groups:
 

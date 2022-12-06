@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { factionMaxRenown } from '@/data/reputation'
     import { staticStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterReputationReputation } from '@/types'
@@ -20,8 +21,9 @@
         if (reputation !== undefined && characterRep.value !== -1) {
             dataRep = $staticStore.data.reputations[characterRep.reputationId]
 
+            const maxRenown = factionMaxRenown[characterRep.reputationId]
             const tier = 1 + (characterRep.value / 2500)
-            quality = 1 + Math.floor(tier / 5)
+            quality = 1 + Math.floor(tier / (maxRenown / 5))
             renownLevel = (Math.floor(tier * 100) / 100).toFixed(2)
         }
     }

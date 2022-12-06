@@ -1,6 +1,7 @@
 name: PvP
 skipClasses:
 - demon-hunter
+- evoker
 groups:
 
 # S17 class sets

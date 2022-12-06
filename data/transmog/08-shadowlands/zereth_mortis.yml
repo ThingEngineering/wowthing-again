@@ -1,4 +1,6 @@
 name: "Zereth Mortis [9.2]"
+skipClasses:
+- evoker
 groups:
 
 - name: "Zereth Mortis"

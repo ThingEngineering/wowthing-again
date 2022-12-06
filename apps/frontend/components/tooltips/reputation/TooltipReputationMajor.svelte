@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { staticStore } from '@/stores/static'
-    import { toNiceNumber } from '@/utils/to-nice'
+    import { factionMaxRenown } from '@/data/reputation'
     import type { Character } from '@/types'
     import type { StaticDataReputation, StaticDataReputationSet } from '@/types/data/static'
 
@@ -45,7 +44,7 @@
     </h5>
 
     <div class="tooltip-body">
-        <p>Renown {tier} / 30</p>
+        <p>Renown {tier} / {factionMaxRenown[dataRep.id]}</p>
 
         <ProgressBar
             have={progress}

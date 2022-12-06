@@ -80,8 +80,14 @@ export default function getCharacterSortFunc(
                 out.push(leftPad(1000 - parseInt(char.calculatedItemLevel || '0'), 4, '0'))
             }
             else if (thing === 'level') {
-                // this will sort by level in descending order
-                out.push(leftPad(Constants.characterMaxLevel - char.level, 2, '0'))
+                // in descending order
+                const level = leftPad(Constants.characterMaxLevel - char.level, 2, '0')
+                if (settingsData.layout.showPartialLevel) {
+                    out.push(`${level}.${leftPad(char.addonLevelXp || 0, 7, '0')}`)
+                }
+                else {
+                    out.push(level)
+                }
             }
             else if (thing === 'mplusrating') {
                 const rating = char.raiderIo?.[Constants.mythicPlusSeason]?.all || 0

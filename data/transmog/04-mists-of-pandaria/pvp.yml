@@ -1,6 +1,7 @@
 name: PvP
 skipClasses:
 - demon-hunter
+- evoker
 groups:
 
 - name: Season 14 & 15

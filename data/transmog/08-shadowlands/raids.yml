@@ -1,4 +1,6 @@
 name: Raids
+skipClasses:
+- evoker
 groups:
 
 - name: Sepulcher of the First Ones

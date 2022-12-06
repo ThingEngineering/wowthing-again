@@ -1,4 +1,6 @@
 name: PvP
+skipClasses:
+- evoker
 groups:
 
 - name: Shadowlands Season 3
