@@ -1,0 +1,42 @@
+<script lang="ts">
+    import { Constants } from '@/data/constants'
+    import { experiencePerLevel } from '@/data/experience'
+    import { data as settings } from '@/stores/settings'
+    import leftPad from '@/utils/left-pad'
+    import { tippyComponent } from '@/utils/tippy'
+    import type { Character } from '@/types'
+
+    import Tooltip from '@/components/tooltips/character-level/TooltipCharacterLevel.svelte'
+
+    export let character: Character
+
+    let fancyLevel: string
+    $: {
+        const actualLevel = Math.max(character.level, character.addonLevel)
+        if (actualLevel < Constants.characterMaxLevel) {
+            const partial = Math.floor(character.addonLevelXp / experiencePerLevel[actualLevel] * 10)
+            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}.${partial}`
+        }
+        else {
+            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}&nbsp;&nbsp;`
+        }
+    }
+</script>
+
+{#if $settings.layout.showPartialLevel}
+    <td
+        class="level-partial"
+        use:tippyComponent={{
+            component: Tooltip,
+            props: {
+                character,
+            },
+        }}
+    >
+        <code>{@html fancyLevel}</code>
+    </td>
+{:else}
+    <td class="level">
+        {Math.max(character.level, character.addonLevel)}
+    </td>
+{/if}

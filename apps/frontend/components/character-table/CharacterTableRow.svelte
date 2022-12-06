@@ -2,14 +2,12 @@
     import { setContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { Constants } from '@/data/constants'
-    import { experiencePerLevel } from '@/data/experience'
     import { Region } from '@/enums'
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
-    import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
 
+    import CharacterLevel from './row/CharacterLevel.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
     import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
@@ -22,21 +20,11 @@
 
     let accountEnabled: boolean
     let element: HTMLElement
-    let fancyLevel: string
     let intersected = false
     $: {
         accountEnabled =
             !character.accountId ||
             $userStore.data.accounts[character.accountId]?.enabled
-
-        const actualLevel = Math.max(character.level, character.addonLevel)
-        if (actualLevel < Constants.characterMaxLevel) {
-            const partial = Math.floor(character.addonLevelXp / experiencePerLevel[actualLevel] * 10)
-            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}.${partial}`
-        }
-        else {
-            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}&nbsp;&nbsp;`
-        }
     }
 </script>
 
@@ -101,15 +89,7 @@
                     </TableIcon>
 
                 {:else if field === 'characterLevel'}
-                    {#if $settings.layout.showPartialLevel}
-                        <td class="level-partial">
-                            <code>{@html fancyLevel}</code>
-                        </td>
-                    {:else}
-                        <td class="level">
-                            {Math.max(character.level, character.addonLevel)}
-                        </td>
-                    {/if}
+                    <CharacterLevel {character} />
 
                 {:else if field === 'characterName'}
                     <td class="name">
