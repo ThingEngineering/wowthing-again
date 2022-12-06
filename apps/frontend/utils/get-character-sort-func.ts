@@ -81,12 +81,24 @@ export default function getCharacterSortFunc(
             }
             else if (thing === 'level') {
                 // in descending order
-                const level = leftPad(Constants.characterMaxLevel - char.level, 2, '0')
-                if (settingsData.layout.showPartialLevel) {
-                    out.push(`${level}.${leftPad(char.addonLevelXp || 0, 7, '0')}`)
+                let level = 0
+                let xp = 0
+                const addonLevel = char.addonLevel || 0
+                if (char.level > addonLevel) {
+                    level = char.level
+                    xp = 0
                 }
                 else {
-                    out.push(level)
+                    level = addonLevel
+                    xp = char.addonLevelXp || 0
+                }
+        
+                const levelString = leftPad(Constants.characterMaxLevel - level, 2, '0')
+                if (settingsData.layout.showPartialLevel) {
+                    out.push(`${levelString}.${leftPad(1000000 - xp, 7, '0')}`)
+                }
+                else {
+                    out.push(levelString)
                 }
             }
             else if (thing === 'mplusrating') {
