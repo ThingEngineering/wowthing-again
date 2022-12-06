@@ -93,7 +93,12 @@
                 $userTransmogStore.data
             )
 
-            if (!$userStore.data.public && $userStore.data.lastApiCheck) {
+            ready = true
+        }
+    }
+    
+    $: {
+        if (ready && !$userStore.data.public && $userStore.data.lastApiCheck) {
                 const parsedTime = parseApiTime($userStore.data.lastApiCheck)
                 const diff = $timeStore.diff(parsedTime).toMillis()
                 // Add the refresh button if lastApiCheck is more than 24 hours ago
@@ -107,8 +112,6 @@
                 }
             }
 
-            ready = true
-        }
     }
 </script>
 
