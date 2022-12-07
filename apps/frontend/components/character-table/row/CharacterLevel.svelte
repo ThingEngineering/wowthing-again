@@ -2,6 +2,7 @@
     import { Constants } from '@/data/constants'
     import { experiencePerLevel } from '@/data/experience'
     import { data as settings } from '@/stores/settings'
+    import { getCharacterLevel } from '@/utils/get-character-level'
     import leftPad from '@/utils/left-pad'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -12,13 +13,12 @@
 
     let fancyLevel: string
     $: {
-        const actualLevel = Math.max(character.level, character.addonLevel)
-        if (actualLevel < Constants.characterMaxLevel) {
-            const partial = Math.floor(character.addonLevelXp / experiencePerLevel[actualLevel] * 10)
-            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}.${partial}`
+        const levelData = getCharacterLevel(character)
+        if (levelData.level < Constants.characterMaxLevel) {
+            fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}.${levelData.partial}`
         }
         else {
-            fancyLevel = `${leftPad(actualLevel, 2, '&nbsp;')}&nbsp;&nbsp;`
+            fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}&nbsp;&nbsp;`
         }
     }
 </script>

@@ -6,6 +6,7 @@ import leftPad from '@/utils/left-pad'
 import { Region } from '@/enums'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'
+import { getCharacterLevel } from './get-character-level'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,
@@ -81,21 +82,11 @@ export default function getCharacterSortFunc(
             }
             else if (thing === 'level') {
                 // in descending order
-                let level = 0
-                let xp = 0
-                const addonLevel = char.addonLevel || 0
-                if (char.level > addonLevel) {
-                    level = char.level
-                    xp = 0
-                }
-                else {
-                    level = addonLevel
-                    xp = char.addonLevelXp || 0
-                }
-        
-                const levelString = leftPad(Constants.characterMaxLevel - level, 2, '0')
+                const levelData = getCharacterLevel(char)
+
+                const levelString = leftPad(Constants.characterMaxLevel - levelData.level, 2, '0')
                 if (settingsData.layout.showPartialLevel) {
-                    out.push(`${levelString}.${leftPad(1000000 - xp, 7, '0')}`)
+                    out.push(`${levelString}.${leftPad(10 - levelData.partial, 2, '0')}`)
                 }
                 else {
                     out.push(levelString)
