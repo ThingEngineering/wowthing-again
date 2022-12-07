@@ -30,11 +30,11 @@
         const order = $currencyState.sortOrder[slug]
         if (order > 0) {
             sorted = true
-            sortFunc = (char) => leftPad(1000000 - (
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => leftPad(1000000 - (
                 char.currencyItems?.[order] ??
                 char.currencies?.[order]?.quantity ??
                 -1
-            ), 7, '0')
+            ), 7, '0'))
         }
         else {
             sorted = false
