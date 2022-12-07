@@ -17,7 +17,7 @@
 
     $: {
         progress = characterRep % 2500
-        tier = Math.floor(1 + (characterRep / 2500))
+        tier = Math.floor(characterRep / 2500)
     }
 </script>
 

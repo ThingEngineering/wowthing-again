@@ -4,22 +4,11 @@
     import type { Character } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import { getCharacterLevel } from '@/utils/get-character-level';
 
     export let character: Character
 
-    let level: number
-    let xp: number
-    $: {
-        const addonLevel = character.addonLevel || 0
-        if (character.level > addonLevel) {
-            level = character.level
-            xp = 0
-        }
-        else {
-            level = addonLevel
-            xp = character.addonLevelXp || 0
-        }
-    }
+    $: levelData = getCharacterLevel(character)
 </script>
 
 <style lang="scss">
@@ -30,12 +19,12 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
-    <h5>Level {level}</h5>
+    <h5>Level {levelData.level}</h5>
     
-    {#if level < Constants.characterMaxLevel}
+    {#if levelData.level < Constants.characterMaxLevel}
         <ProgressBar
-            have={xp}
-            total={experiencePerLevel[level]}
+            have={levelData.xp}
+            total={experiencePerLevel[levelData.level]}
             shortText={true}
         />
     {/if}
