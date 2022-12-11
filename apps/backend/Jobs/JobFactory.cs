@@ -48,7 +48,7 @@ public class JobFactory
         _redis = RedisUtilities.GetConnection(redisConnectionString);
     }
 
-    public JobBase Create(Type type, WowDbContext context, CancellationToken cancellationToken)
+    public JobBase Create(Type type, IDbContextFactory<WowDbContext> contextFactory, CancellationToken cancellationToken)
     {
         var obj = (JobBase)_constructorMap[type]();
         obj.CacheService = _cacheService;
@@ -60,7 +60,7 @@ public class JobFactory
         obj.StateService = _stateService;
 
         obj.CancellationToken = cancellationToken;
-        obj.Context = context;
+        obj.ContextFactory = contextFactory;
         obj.Http = _clientFactory.CreateClient("limited");
 
         return obj;

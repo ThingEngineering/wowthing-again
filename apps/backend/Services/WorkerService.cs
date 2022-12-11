@@ -104,9 +104,9 @@ public class WorkerService : BackgroundService
             {
                 try
                 {
-                    await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+                    //await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
-                    var job = _jobFactory.Create(classType, context, cancellationToken);
+                    using var job = _jobFactory.Create(classType, contextFactory, cancellationToken);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

@@ -6,6 +6,7 @@ using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Utilities;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -34,7 +35,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
     };
 
     // Unsure if Blizzard data is broken or wow.tools
-    private readonly Dictionary<int, int> _fixedPetSpell = new Dictionary<int, int>()
+    private readonly Dictionary<int, int> _fixedPetSpell = new()
     {
         { 1150, 135261 }, // Ashstone Core
         { 1322, 148049 }, // Blackfuse Bombling
@@ -49,87 +50,102 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 23,
+        Version = 24,
     };
 
-    private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
+    //private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
     private Dictionary<int, int[]> _spellTeachMap;
 
     public override async Task Run(params string[] data)
     {
+        Func<WowDbContext, Task>[] actions =
+        {
+            ImportCharacterClasses,
+            ImportCharacterRaces,
+            ImportCharacterSpecializations,
+            ImportCurrencies,
+            ImportCurrencyCategories,
+            ImportFactions,
+            ImportInstances,
+            ImportItems,
+            ImportItemAppearances,
+            ImportItemEffects,
+            ImportMounts,
+            ImportPets,
+            ImportToys,
+
+            async context => await ImportStrings<DumpCreature>(
+                context,
+                StringType.WowCreatureName,
+                "creature",
+                creature => creature.ID,
+                creature => creature.Name
+            ),
+
+            async context => await ImportStrings<DumpJournalEncounter>(
+                context,
+                StringType.WowJournalEncounterName,
+                "journalencounter",
+                encounter => encounter.ID,
+                encounter => encounter.Name
+            ),
+
+            async context => await ImportStrings<DumpJournalInstance>(
+                context,
+                StringType.WowJournalInstanceName,
+                "journalinstance",
+                instance => instance.ID,
+                instance => instance.Name
+            ),
+
+            async context => await ImportStrings<DumpJournalTier>(
+                context,
+                StringType.WowJournalTierName,
+                "journaltier",
+                tier => tier.ID,
+                tier => tier.Name
+            ),
+
+            async context => await ImportStrings<DumpSkillLine>(
+                context,
+                StringType.WowSkillLineName,
+                "skillline",
+                line => line.ID,
+                line => $"{line.DisplayName}|{line.HordeDisplayName}"
+            ),
+
+            async context => await ImportStrings<DumpSoulbind>(
+                context,
+                StringType.WowSoulbindName,
+                "soulbind",
+                soulbind => soulbind.ID,
+                soulbind => soulbind.Name
+            ),
+
+            async context => await ImportStrings<DumpSpellItemEnchantment>(
+                context,
+                StringType.WowSpellItemEnchantmentName,
+                "spellitemenchantment",
+                ench => ench.ID,
+                ench => ench.Name
+            ),
+        };
+
         _timer = new JankTimer();
 
-        await ImportCharacterClasses();
-        await ImportCharacterRaces();
-        await ImportCharacterSpecializations();
-        await ImportCurrencies();
-        await ImportCurrencyCategories();
-        await ImportFactions();
-        await ImportInstances();
-        await ImportItems();
-        await ImportItemAppearances();
-        await ImportItemEffects();
+        foreach (var action in actions)
+        {
+            await using var context = await ContextFactory.CreateDbContextAsync(CancellationToken);
+            await action(context);
+            await context.SaveChangesAsync();
+        }
 
-        await ImportMounts();
-        await ImportPets();
-        await ImportToys();
-
-        await ImportStrings<DumpCreature>(
-            StringType.WowCreatureName,
-            "creature",
-            creature => creature.ID,
-            creature => creature.Name
-        );
-
-        await ImportStrings<DumpJournalEncounter>(
-            StringType.WowJournalEncounterName,
-            "journalencounter",
-            encounter => encounter.ID,
-            encounter => encounter.Name
-        );
-
-        await ImportStrings<DumpJournalInstance>(
-            StringType.WowJournalInstanceName,
-            "journalinstance",
-            instance => instance.ID,
-            instance => instance.Name
-        );
-
-        await ImportStrings<DumpJournalTier>(
-            StringType.WowJournalTierName,
-            "journaltier",
-            tier => tier.ID,
-            tier => tier.Name
-        );
-
-        await ImportStrings<DumpSkillLine>(
-            StringType.WowSkillLineName,
-            "skillline",
-            line => line.ID,
-            line => $"{line.DisplayName}|{line.HordeDisplayName}"
-        );
-
-        await ImportStrings<DumpSoulbind>(
-            StringType.WowSoulbindName,
-            "soulbind",
-            soulbind => soulbind.ID,
-            soulbind => soulbind.Name
-        );
-
-        await ImportStrings<DumpSpellItemEnchantment>(
-            StringType.WowSpellItemEnchantmentName,
-            "spellitemenchantment",
-            ench => ench.ID,
-            ench => ench.Name
-        );
-
-        await Context.SaveChangesAsync();
-        _timer.AddPoint("Save", true);
-
+        _timer.Stop();
         Logger.Information("{Timing}", _timer.ToString());
     }
 
     private async Task ImportStrings<TDump>(
+        WowDbContext context,
         StringType type,
         string dumpName,
         Func<TDump, int> getIdFunc,
@@ -137,7 +153,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Func<TDump, bool> filterFunc = null
     )
     {
-        var dbLanguageMap = await Context.LanguageString
+        var dbLanguageMap = await context.LanguageString
             .Where(ls => ls.Type == type)
             .AsNoTracking()
             .ToDictionaryAsync(ls => (ls.Language, ls.Id));
@@ -164,11 +180,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                         Id = objectId,
                         String = objectString,
                     };
-                    Context.LanguageString.Add(languageString);
+                    context.LanguageString.Add(languageString);
                 }
                 else if (objectString != languageString.String)
                 {
-                    Context.LanguageString.Update(languageString);
+                    context.LanguageString.Update(languageString);
                     languageString.String = objectString;
                 }
             }
@@ -177,12 +193,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint(type.ToString());
     }
 
-    private async Task ImportCharacterClasses()
+    private async Task ImportCharacterClasses(WowDbContext context)
     {
         var classes = await DataUtilities
             .LoadDumpCsvAsync<DumpChrClasses>(Path.Join("enUS", "chrclasses"));
 
-        var dbClassMap = await Context.WowCharacterClass
+        var dbClassMap = await context.WowCharacterClass
             .ToDictionaryAsync(spec => spec.Id);
 
         foreach (var cls in classes)
@@ -193,7 +209,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = cls.ID,
                 };
-                Context.WowCharacterClass.Add(dbClass);
+                context.WowCharacterClass.Add(dbClass);
             }
 
             dbClass.ArmorMask = cls.ArmorTypeMask;
@@ -204,6 +220,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("CharacterClasses");
 
         await ImportStrings<DumpChrClasses>(
+            context,
             StringType.WowCharacterClassName,
             "chrclasses",
             cls => cls.ID,
@@ -211,12 +228,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportCharacterRaces()
+    private async Task ImportCharacterRaces(WowDbContext context)
     {
         var dumpRaces = await DataUtilities
             .LoadDumpCsvAsync<DumpChrRaces>(Path.Join("enUS", "chrraces"));
 
-        var dbRaceMap = await Context.WowCharacterRace
+        var dbRaceMap = await context.WowCharacterRace
             .ToDictionaryAsync(race => race.Id);
 
         foreach (var dumpRace in dumpRaces.Where(race => race.PlayableRaceBit >= 0))
@@ -227,7 +244,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = dumpRace.ID,
                 };
-                Context.WowCharacterRace.Add(dbRace);
+                context.WowCharacterRace.Add(dbRace);
             }
 
             dbRace.Faction = dumpRace.Faction;
@@ -236,6 +253,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("CharacterRaces");
 
         await ImportStrings<DumpChrRaces>(
+            context,
             StringType.WowCharacterRaceName,
             "chrraces",
             race => race.ID,
@@ -243,12 +261,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportCharacterSpecializations()
+    private async Task ImportCharacterSpecializations(WowDbContext context)
     {
         var specs = await DataUtilities
             .LoadDumpCsvAsync<DumpChrSpecialization>(Path.Join("enUS", "chrspecialization"));
 
-        var dbSpecMap = await Context.WowCharacterSpecialization
+        var dbSpecMap = await context.WowCharacterSpecialization
             .ToDictionaryAsync(spec => spec.Id);
 
         foreach (var spec in specs)
@@ -264,7 +282,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = spec.ID,
                 };
-                Context.WowCharacterSpecialization.Add(dbSpec);
+                context.WowCharacterSpecialization.Add(dbSpec);
             }
 
             dbSpec.ClassId = spec.ClassID;
@@ -288,6 +306,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("CharacterSpecializations");
 
         await ImportStrings<DumpChrSpecialization>(
+            context,
             StringType.WowCharacterSpecializationName,
             "chrspecialization",
             spec => spec.ID,
@@ -295,12 +314,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportCurrencies()
+    private async Task ImportCurrencies(WowDbContext context)
     {
         var currencies = await DataUtilities
             .LoadDumpCsvAsync<DumpCurrencyTypes>(Path.Join("enUS", "currencytypes"));
 
-        var dbCurrencyMap = await Context.WowCurrency
+        var dbCurrencyMap = await context.WowCurrency
             .ToDictionaryAsync(currency => currency.Id);
 
         foreach (var currency in currencies)
@@ -311,7 +330,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = currency.ID,
                 };
-                Context.WowCurrency.Add(dbCurrency);
+                context.WowCurrency.Add(dbCurrency);
             }
 
             dbCurrency.CategoryId = currency.CategoryID;
@@ -322,6 +341,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Currency");
 
         await ImportStrings<DumpCurrencyTypes>(
+            context,
             StringType.WowCurrencyName,
             "currencytypes",
             currency => currency.ID,
@@ -329,12 +349,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportCurrencyCategories()
+    private async Task ImportCurrencyCategories(WowDbContext context)
     {
         var categories = await DataUtilities
             .LoadDumpCsvAsync<DumpCurrencyCategory>(Path.Join("enUS", "currencycategory"));
 
-        var dbCategoryMap = await Context.WowCurrencyCategory
+        var dbCategoryMap = await context.WowCurrencyCategory
             .ToDictionaryAsync(currency => currency.Id);
 
         foreach (var category in categories)
@@ -345,7 +365,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = category.ID,
                 };
-                Context.WowCurrencyCategory.Add(dbCategory);
+                context.WowCurrencyCategory.Add(dbCategory);
             }
 
             dbCategory.Expansion = category.ExpansionID;
@@ -355,6 +375,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("CurrencyCategory");
 
         await ImportStrings<DumpCurrencyCategory>(
+            context,
             StringType.WowCurrencyCategoryName,
             "currencycategory",
             category => category.ID,
@@ -362,12 +383,12 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportFactions()
+    private async Task ImportFactions(WowDbContext context)
     {
         var factions = await DataUtilities
             .LoadDumpCsvAsync<DumpFaction>(Path.Join("enUS", "faction"));
 
-        var dbReputationMap = await Context.WowReputation
+        var dbReputationMap = await context.WowReputation
             .ToDictionaryAsync(rep => rep.Id);
 
         foreach (var faction in factions)
@@ -378,7 +399,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = faction.ID,
                 };
-                Context.WowReputation.Add(dbReputation);
+                context.WowReputation.Add(dbReputation);
             }
 
             dbReputation.Expansion = faction.Expansion;
@@ -390,6 +411,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Faction");
 
         await ImportStrings<DumpFaction>(
+            context,
             StringType.WowReputationName,
             "faction",
             faction => faction.ID,
@@ -397,6 +419,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
 
         await ImportStrings<DumpFaction>(
+            context,
             StringType.WowReputationDescription,
             "faction",
             faction => faction.ID,
@@ -404,7 +427,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportInstances()
+    private async Task ImportInstances(WowDbContext context)
     {
         var instances = await DataUtilities
             .LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance"));
@@ -419,6 +442,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Instances");
 
         await ImportStrings<DumpMap>(
+            context,
             StringType.WowJournalInstanceMapName,
             "map",
             (map) => mapIdToInstanceId[map.ID],
@@ -427,16 +451,16 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
     }
 
-    private async Task ImportItems()
+    private async Task ImportItems(WowDbContext context)
     {
         var items = await DataUtilities.LoadDumpCsvAsync<DumpItem>("item");
 
         var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(Path.Join("enUS", "itemsparse")))
             .ToDictionary(itemsparse => itemsparse.ID);
 
-        var dbItemMap = await Context.WowItem.ToDictionaryAsync(item => item.Id);
+        var dbItemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
 
-        var dbLanguageMap = await Context.LanguageString
+        var dbLanguageMap = await context.LanguageString
             .Where(ls => ls.Type == StringType.WowItemName)
             .AsNoTracking()
             .ToDictionaryAsync(ls => (ls.Language, ls.Id));
@@ -455,7 +479,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = item.ID,
                 };
-                Context.WowItem.Add(dbItem);
+                context.WowItem.Add(dbItem);
             }
 
             dbItem.ContainerSlots = itemSparse.ContainerSlots;
@@ -578,11 +602,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                     Id = item.ID,
                     String = itemSparse.Name,
                 };
-                Context.LanguageString.Add(languageString);
+                context.LanguageString.Add(languageString);
             }
             else if (itemSparse.Name != languageString.String)
             {
-                Context.LanguageString.Update(languageString);
+                context.LanguageString.Update(languageString);
                 languageString.String = itemSparse.Name;
             }
         }
@@ -601,11 +625,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                         Id = itemSparse.ID,
                         String = itemSparse.Name,
                     };
-                    Context.LanguageString.Add(languageString);
+                    context.LanguageString.Add(languageString);
                 }
                 else if (itemSparse.Name != languageString.String)
                 {
-                    Context.LanguageString.Update(languageString);
+                    context.LanguageString.Update(languageString);
                     languageString.String = itemSparse.Name;
                 }
             }
@@ -614,10 +638,10 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Items");
     }
 
-    private async Task ImportItemAppearances()
+    private async Task ImportItemAppearances(WowDbContext context)
     {
         var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
-        var dbMap = await Context.WowItemModifiedAppearance
+        var dbMap = await context.WowItemModifiedAppearance
             .ToDictionaryAsync(wima => wima.Id);
 
         foreach (var ima in itemModifiedAppearances)
@@ -628,7 +652,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = ima.ID,
                 };
-                Context.WowItemModifiedAppearance.Add(dbAppearance);
+                context.WowItemModifiedAppearance.Add(dbAppearance);
             }
 
             dbAppearance.AppearanceId = ima.ItemAppearanceID;
@@ -645,7 +669,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         }
     }
 
-    private async Task ImportItemEffects()
+    private async Task ImportItemEffects(WowDbContext context)
     {
         var itemEffectToItems = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
             .ToGroupedDictionary(ixie => ixie.ItemEffectID);
@@ -655,7 +679,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
             .ToGroupedDictionary(se => se.SpellID);
 
-        var dbMap = await Context.WowItemEffect
+        var dbMap = await context.WowItemEffect
             .ToDictionaryAsync(wie => wie.ItemXItemEffectId);
 
         foreach (var dumpItemEffect in itemEffects)
@@ -664,7 +688,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             {
                 if (!spellEffectMap.TryGetValue(dumpItemEffect.SpellID, out var spellEffects))
                 {
-                    Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
+                    //Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
                     continue;
                 }
 
@@ -683,7 +707,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                             {
                                 ItemXItemEffectId = itemXItemEffect.ID,
                             };
-                            Context.WowItemEffect.Add(dbItemEffect);
+                            context.WowItemEffect.Add(dbItemEffect);
                         }
 
                         dbItemEffect.Effect = (WowSpellEffectEffect)spellEffect.Effect;
@@ -706,7 +730,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                         {
                             ItemXItemEffectId = itemXItemEffect.ID,
                         };
-                        Context.WowItemEffect.Add(dbItemEffect);
+                        context.WowItemEffect.Add(dbItemEffect);
                     }
 
                     dbItemEffect.Effect = WowSpellEffectEffect.LearnSpell;
@@ -725,19 +749,19 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 wie => wie.Values[0],
                 wie => wie.ItemId
             );
-        _itemEffectsMap = itemEffectToItems;
+        //_itemEffectsMap = itemEffectToItems;
 
         _timer.AddPoint("ItemEffects");
     }
 
-    private async Task ImportMounts()
+    private async Task ImportMounts(WowDbContext context)
     {
         var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join("enUS", "mount"));
 
-        var dbMountMap = await Context.WowMount
+        var dbMountMap = await context.WowMount
             .ToDictionaryAsync(mount => mount.Id);
 
-        var dbLanguageMap = await Context.LanguageString
+        var dbLanguageMap = await context.LanguageString
             .Where(ls => ls.Type == StringType.WowMountName)
             .AsNoTracking()
             .ToDictionaryAsync(ls => (ls.Language, ls.Id));
@@ -750,7 +774,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = mount.ID,
                 };
-                Context.WowMount.Add(dbMount);
+                context.WowMount.Add(dbMount);
             }
 
             dbMount.SpellId = mount.SourceSpellID;
@@ -771,11 +795,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                     Id = mount.ID,
                     String = mount.Name,
                 };
-                Context.LanguageString.Add(languageString);
+                context.LanguageString.Add(languageString);
             }
             else if (mount.Name != languageString.String)
             {
-                Context.LanguageString.Update(languageString);
+                context.LanguageString.Update(languageString);
                 languageString.String = mount.Name;
             }
         }
@@ -794,11 +818,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                         Id = mount.ID,
                         String = mount.Name,
                     };
-                    Context.LanguageString.Add(languageString);
+                    context.LanguageString.Add(languageString);
                 }
                 else if (mount.Name != languageString.String)
                 {
-                    Context.LanguageString.Update(languageString);
+                    context.LanguageString.Update(languageString);
                     languageString.String = mount.Name;
                 }
             }
@@ -807,11 +831,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Mounts");
     }
 
-    private async Task ImportPets()
+    private async Task ImportPets(WowDbContext context)
     {
         var pets = await DataUtilities.LoadDumpCsvAsync<DumpBattlePetSpecies>("battlepetspecies");
 
-        var dbPetMap = await Context.WowPet
+        var dbPetMap = await context.WowPet
             .ToDictionaryAsync(pet => pet.Id);
 
         foreach (var pet in pets)
@@ -822,7 +846,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = pet.ID,
                 };
-                Context.WowPet.Add(dbPet);
+                context.WowPet.Add(dbPet);
             }
 
             dbPet.CreatureId = pet.CreatureID;
@@ -840,11 +864,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         _timer.AddPoint("Pets");
     }
 
-    private async Task ImportToys()
+    private async Task ImportToys(WowDbContext context)
     {
         var toys = await DataUtilities.LoadDumpCsvAsync<DumpToy>("toy");
 
-        var dbToyMap = await Context.WowToy
+        var dbToyMap = await context.WowToy
             .ToDictionaryAsync(toy => toy.Id);
 
         foreach (var toy in toys)
@@ -855,7 +879,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 {
                     Id = toy.ID,
                 };
-                Context.WowToy.Add(dbToy);
+                context.WowToy.Add(dbToy);
             }
 
             dbToy.ItemId = toy.ItemID;

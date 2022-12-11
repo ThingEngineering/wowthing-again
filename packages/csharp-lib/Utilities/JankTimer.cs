@@ -23,6 +23,11 @@ public class JankTimer
         }
     }
 
+    public void Stop()
+    {
+        _timer.Stop();
+    }
+
     public override string ToString()
     {
         return string.Join(" ", Points.Select(p => $"{p.Item1}={(double)p.Item2 / 1000:F3}s"));

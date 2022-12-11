@@ -22,33 +22,36 @@ using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs;
 
-public abstract class JobBase : IJob
+public abstract class JobBase : IJob, IDisposable
 {
     private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
     private const string CacheKeyLastModified = "last_modified:{0}";
 
     internal CacheService CacheService;
+    internal CancellationToken CancellationToken;
     internal HttpClient Http;
-    internal JobRepository JobRepository;
-    internal ILogger Logger;
     internal IConnectionMultiplexer Redis;
+    internal IDbContextFactory<WowDbContext> ContextFactory { get; set; }
+    internal ILogger Logger;
+    internal JobRepository JobRepository;
+    internal JsonSerializerOptions JsonSerializerOptions;
     internal MemoryCacheService MemoryCacheService;
     internal StateService StateService;
-    internal WowDbContext Context;
-    internal CancellationToken CancellationToken;
-    internal JsonSerializerOptions JsonSerializerOptions;
 
     private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
     private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-    private static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
+    private static readonly Dictionary<WowRegion, string> RegionToLocale = new()
     {
         { WowRegion.US, "en_US" },
         { WowRegion.EU, "en_GB" },
         { WowRegion.KR, "ko_KR" },
         { WowRegion.TW, "zh_TW" },
     };
+
+    private WowDbContext _context;
+    internal WowDbContext Context => _context ??= ContextFactory.CreateDbContext();
 
     #region IJob
     public abstract Task Run(params string[] data);
@@ -246,5 +249,12 @@ public abstract class JobBase : IJob
     protected void LogNotModified()
     {
         Logger.Debug("304 Not Modified");
+    }
+
+    public void Dispose()
+    {
+        Http?.Dispose();
+        //Redis?.Dispose();
+        _context?.Dispose();
     }
 }
