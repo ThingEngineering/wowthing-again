@@ -8,7 +8,7 @@ locations:
 sets:
   - name: "Renown 10 Shoulderpads"
     range: -1
-    sortKey: "va06"
+    sortKey: "va10"
 
 sells:
   - type: pet
