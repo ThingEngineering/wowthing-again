@@ -3,7 +3,7 @@ name: "Weaponmaster Aloom"
 
 locations:
   09-dragonflight/ohnahran_plains:
-    - 62.2 42.2
+    - 64.2 42.4
 
 sets:
   - name: "Renown 17 Weapons"

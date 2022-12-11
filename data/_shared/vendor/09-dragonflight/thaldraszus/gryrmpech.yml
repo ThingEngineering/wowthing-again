@@ -3,7 +3,7 @@ name: "Gryrmpech"
 note: "Head Gardener"
 
 locations:
-  thaldraszus:
+  09-dragonflight/thaldraszus:
     - 37.8 75.4
 
 sets:

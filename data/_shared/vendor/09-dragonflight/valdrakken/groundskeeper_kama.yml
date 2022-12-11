@@ -2,7 +2,7 @@ id: 189197
 name: "Groundskeeper Kama"
 
 locations:
-    reputation: 2510 renown-10
+  09-dragonflight/valdrakken:
     - 74.2 63.2
 
 sets:
