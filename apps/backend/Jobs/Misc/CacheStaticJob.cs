@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 55,
+        Version = 56,
     };
 
     public override async Task Run(params string[] data)
@@ -297,7 +297,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
             foreach (var toy in cacheData.RawToys)
             {
-                toy.Name = GetString(StringType.WowItemName, language, toy.Id);
+                toy.Name = GetString(StringType.WowItemName, language, toy.ItemId);
             }
 
             string cacheJson = System.Text.Json.JsonSerializer.Serialize(cacheData, JsonSerializerOptions);
