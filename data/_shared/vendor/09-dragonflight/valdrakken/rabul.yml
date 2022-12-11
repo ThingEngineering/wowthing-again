@@ -3,7 +3,7 @@ name: "Rabul"
 note: "Artisan's Consortium Quartermaster"
 
 locations:
-  valdrakken:
+  09-dragonflight/valdrakken:
     - 35.4 59.2
 
 sells:
