@@ -8,15 +8,15 @@ locations:
 sets:
   - name: "Renown 10 Shoulderpads"
     range: 5
-    sortKey: "va03"
+    sortKey: "va10"
 
   - name: "Renown 17 Helmets"
     range: 5
-    sortKey: "va05"
+    sortKey: "va17"
   
   - name: "Renown 28 Shoulderpads"
-    range: 10
-    sortKey: "va09"
+    range: -1
+    sortKey: "va28"
 
 sells:
   - type: transmog
