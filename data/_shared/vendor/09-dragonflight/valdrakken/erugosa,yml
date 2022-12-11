@@ -6,8 +6,8 @@ locations:
     - 46.4 46.4
 sets:
   - name: "Renown 3 Cooking Gear"
-    range: 7
-    sortKey: "va01"
+    range: -1
+    sortKey: "va03"
 
 
 sells:
