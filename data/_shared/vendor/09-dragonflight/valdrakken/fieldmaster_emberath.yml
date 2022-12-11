@@ -1,26 +1,31 @@
 id: 197553
 name: "Fieldmaster Emberath"
-note: "War Mode Quartermaster"
+note: "War Mode Vendor"
 
 locations:
   09-dragonflight/valdrakken:
     - 43.2 42.2
 
 sets:
-  - name: "Armor - Cloth"
+  - name: "War Mode Cloth Set"
     range: 9 1
+    sortKey: "ps11"
 
-  - name: "Armor - Leather"
+  - name: "War Mode Leather Set"
     range: 9
+    sortKey: "ps12"
 
-  - name: "Armor - Mail"
+  - name: "War Mode Mail Set"
     range: 9
+    sortKey: "ps13"
 
-  - name: "Armor - Plate"
+  - name: "War Mode Plate Set"
     range: 9
+    sortKey: "ps14"
 
-  - name: "Weapons"
+  - name: "War Mode Weapons"
     range: -1
+    sortKey: "ps15"
 
 sells:
   - type: toy
