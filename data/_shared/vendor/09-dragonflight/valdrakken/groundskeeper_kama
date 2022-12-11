@@ -6,9 +6,9 @@ locations:
     - 74.2 63.2
 
 sets:
-  - name: "Renown 10 Shoulderpads"
+  - name: "Renown 18 Pets"
     range: -1
-    sortKey: "va10"
+    sortKey: "va18"
 
 sells:
   - type: pet
