@@ -31,6 +31,10 @@ reputations:
       icon: "item/198802" # Artisan's Constorium Tabard
 
   - both:
+      id: 2550 # Cobalt Assembly
+      icon: "achievement/16537" # Maximum Power!
+
+  - both:
       id: 2518 # Sabellian
       icon: "achievement/16532" # Friends with Sabellian
 
