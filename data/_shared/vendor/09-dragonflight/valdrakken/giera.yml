@@ -8,11 +8,11 @@ locations:
 sets:
   - name: "Renown 20 Ensembles"
     range: 5
-    sortKey: "va07"
+    sortKey: "va20"
 
   - name: "Renown 25 Civillian Weapons"
     range: -1
-    sortKey: "va08"
+    sortKey: "va25"
 
 sells:
   - type: transmog
