@@ -85,7 +85,7 @@ export default function getCharacterSortFunc(
                 const levelData = getCharacterLevel(char)
 
                 const levelString = leftPad(Constants.characterMaxLevel - levelData.level, 2, '0')
-                if (settingsData.layout.showPartialLevel) {
+                if (settingsData.layout.showPartialLevel && char.level < Constants.characterMaxLevel) {
                     out.push(`${levelString}.${leftPad(10 - levelData.partial, 2, '0')}`)
                 }
                 else {

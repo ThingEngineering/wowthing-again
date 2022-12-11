@@ -66,10 +66,8 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         await ImportCurrencyCategories();
         await ImportFactions();
         await ImportInstances();
-
         await ImportItems();
         await ImportItemAppearances();
-
         await ImportItemEffects();
 
         await ImportMounts();
@@ -170,7 +168,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 }
                 else if (objectString != languageString.String)
                 {
-                    Context.LanguageString.Attach(languageString);
+                    Context.LanguageString.Update(languageString);
                     languageString.String = objectString;
                 }
             }
@@ -584,7 +582,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             }
             else if (itemSparse.Name != languageString.String)
             {
-                Context.LanguageString.Attach(languageString);
+                Context.LanguageString.Update(languageString);
                 languageString.String = itemSparse.Name;
             }
         }
@@ -607,7 +605,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 }
                 else if (itemSparse.Name != languageString.String)
                 {
-                    Context.LanguageString.Attach(languageString);
+                    Context.LanguageString.Update(languageString);
                     languageString.String = itemSparse.Name;
                 }
             }
@@ -777,7 +775,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             }
             else if (mount.Name != languageString.String)
             {
-                Context.LanguageString.Attach(languageString);
+                Context.LanguageString.Update(languageString);
                 languageString.String = mount.Name;
             }
         }
@@ -800,7 +798,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 }
                 else if (mount.Name != languageString.String)
                 {
-                    Context.LanguageString.Attach(languageString);
+                    Context.LanguageString.Update(languageString);
                     languageString.String = mount.Name;
                 }
             }
