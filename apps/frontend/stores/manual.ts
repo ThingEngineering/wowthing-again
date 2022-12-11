@@ -8,6 +8,7 @@ import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
 import { get } from 'svelte/store'
 
+import { classByArmorTypeString } from '@/data/character-class'
 import { Constants } from '@/data/constants'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
@@ -27,7 +28,7 @@ import {
     ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
+import { ArmorType, Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
@@ -752,6 +753,14 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             if (drop.limit?.length > 0) {
                                 switch (drop.limit[0]) {
+                                    case 'armor':
+                                        dropCharacters = filter(
+                                            dropCharacters,
+                                            (c) => classByArmorTypeString[drop.limit[1]]
+                                                .indexOf(c.classId) >= 0
+                                        )
+                                        break
+
                                     case 'class':
                                         dropCharacters = filter(
                                             dropCharacters,
@@ -760,7 +769,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                                 (cl) => staticData.characterClassesBySlug[cl].id === c.classId
                                             )
                                         )
-                                        break;
+                                        break
 
                                     case 'covenant':
                                         dropCharacters = filter(
