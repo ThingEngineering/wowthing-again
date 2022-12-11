@@ -3,7 +3,7 @@ name: "Fieldmaster Emberath"
 note: "War Mode Quartermaster"
 
 locations:
-  z9_valdrakken:
+  09-dragonflight/valdrakken:
     - 43.2 42.2
 
 sets:
