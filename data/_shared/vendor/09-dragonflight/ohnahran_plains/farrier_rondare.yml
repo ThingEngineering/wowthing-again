@@ -6,13 +6,17 @@ locations:
     - 62.4 42.4
 
 sets:
-  - name: "Renown 10 Shoulderpads"
+  - name: "Renown 7 Helmets"
     range: 12
     sortKey: "mc07"
 
-  - name: "Renown 17 Helmets"
-    range: -1
+  - name: "Renown 13 Shoulderpads"
+    range: 12
     sortKey: "mc13"
+
+  - name: "Renown 21 Pennants"
+    range: -1
+    sortKey: "mc21"
 
 sells:
   - type: transmog
@@ -202,3 +206,27 @@ sells:
       2003: 250
       1193210: 20
     reputation: 2503 renown-13
+
+  - type: transmog
+    id: 200546 # Clan Nokhud Pennant [cosmetic cloak]
+    costs:
+      0: 1 # Gold
+    reputation: 2503 renown-21
+
+  - type: transmog
+    id: 200547 # Clan Ohn'ir Pennant [cosmetic cloak]
+    costs:
+      0: 1 # Gold
+    reputation: 2503 renown-21
+
+  - type: transmog
+    id: 200545 # Clan Shikaar Pennant [cosmetic cloak]
+    costs:
+      0: 1 # Gold
+    reputation: 2503 renown-21
+
+  - type: transmog
+    id: 200543 # Clan Teerai Pennant [cosmetic cloak]
+    costs:
+      0: 1 # Gold
+    reputation: 2503 renown-21
