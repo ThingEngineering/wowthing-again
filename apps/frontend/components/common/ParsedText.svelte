@@ -32,7 +32,7 @@
                 
                 parts.push('at')
                 parts.push(RewardReputation[repLevel]
-                    .split(/(?=[A-Z])/)
+                    .split(/(?=[A-Z])|(?=[0-9])/)
                     .join(' ')
                 )
                 parts.push('with')
