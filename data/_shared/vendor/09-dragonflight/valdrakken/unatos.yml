@@ -11,6 +11,10 @@ sets:
     range: 7
     sortKey: "va03"
 
+  - name: "Renown 6 Gardening Tools"
+    range: 5
+    sortKey: "va06"
+
   - name: "Renown 10 Shoulderpads"
     range: 5
     sortKey: "va10"
@@ -107,6 +111,41 @@ sells:
       1193214: 3
     reputation: 2510 renown-3
 
+  - type: transmog
+    id: 199647 # Dragon Garden Fork [cosmetic dagger]
+    costs:
+      2003: 150
+      1198397: 1
+    reputation: 2510 renown-6
+
+  - type: transmog
+    id: 199653 # Dragon Garden Hand Shovel [cosmetic dagger]
+    costs:
+      2003: 150
+      1198397: 1
+    reputation: 2510 renown-6
+
+  - type: transmog
+    id: 199651 # Dragon Garden Hoe [cosmetic staff]
+    costs:
+      2003: 150
+      1198397: 1
+    reputation: 2510 renown-6
+
+  - type: transmog
+    id: 199652 # Dragon Garden Rake [cosmetic staff]
+    costs:
+      2003: 150
+      1198397: 1
+    reputation: 2510 renown-6
+
+  - type: transmog
+    id: 199654 # Dragon Garden Shovel [cosmetic staff]
+    costs:
+      2003: 150
+      1198397: 1
+    reputation: 2510 renown-6
+    
   - type: transmog
     id: 199655 # Black Dragonspawn Shoulderpads [cosmetic shoulders]
     costs:
