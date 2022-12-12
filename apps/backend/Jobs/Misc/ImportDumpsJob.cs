@@ -50,7 +50,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 24,
+        Version = 25,
     };
 
     //private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -460,11 +460,6 @@ public class ImportDumpsJob : JobBase, IScheduledJob
 
         var dbItemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
 
-        var dbLanguageMap = await context.LanguageString
-            .Where(ls => ls.Type == StringType.WowItemName)
-            .AsNoTracking()
-            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
-
         foreach (var item in items)
         {
             if (!baseItemSparseMap.TryGetValue(item.ID, out var itemSparse))
@@ -592,14 +587,39 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 dbItem.ClassMask = dbItem.GetCalculatedClassMask();
             }*/
 
-            // Strings
-            if (!dbLanguageMap.TryGetValue((Language.enUS, item.ID), out var languageString))
+            await ImportItemStrings(context, Language.enUS, baseItemSparseMap.Values);
+        }
+
+        foreach (var language in _languages)
+        {
+            await ImportItemStrings(context, language);
+        }
+
+        _timer.AddPoint("Items");
+    }
+
+    private async Task ImportItemStrings(WowDbContext context, Language language,
+        ICollection<DumpItemSparse> itemSparses = null)
+    {
+        itemSparses ??= await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(
+            Path.Join(language.ToString(), "itemsparse"),
+            skipValidation: true
+        );
+
+        var dbLanguageMap = await context.LanguageString
+            .Where(ls => ls.Language == language && ls.Type == StringType.WowItemName)
+            .AsNoTracking()
+            .ToDictionaryAsync(ls => ls.Id);
+
+        foreach (var itemSparse in itemSparses)
+        {
+            if (!dbLanguageMap.TryGetValue(itemSparse.ID, out var languageString))
             {
                 languageString = new LanguageString
                 {
-                    Language = Language.enUS,
+                    Language = language,
                     Type = StringType.WowItemName,
-                    Id = item.ID,
+                    Id = itemSparse.ID,
                     String = itemSparse.Name,
                 };
                 context.LanguageString.Add(languageString);
@@ -610,32 +630,6 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 languageString.String = itemSparse.Name;
             }
         }
-
-        foreach (var language in _languages)
-        {
-            var languageItemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(Path.Join(language.ToString(), "itemsparse"), skipValidation: true);
-            foreach (var itemSparse in languageItemSparses)
-            {
-                if (!dbLanguageMap.TryGetValue((language, itemSparse.ID), out var languageString))
-                {
-                    languageString = new LanguageString
-                    {
-                        Language = language,
-                        Type = StringType.WowItemName,
-                        Id = itemSparse.ID,
-                        String = itemSparse.Name,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (itemSparse.Name != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = itemSparse.Name;
-                }
-            }
-        }
-
-        _timer.AddPoint("Items");
     }
 
     private async Task ImportItemAppearances(WowDbContext context)
