@@ -25,7 +25,7 @@
             scores = character.raiderIo?.[season.id]
             tiers = $staticStore.data.raiderIoScoreTiers[season.id]
 
-            overallScore = character.mythicPlusSeasonScores[season.id] || scores?.['all'] || 0
+            overallScore = character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0
         }
         region = Region[character.realm.region].toLowerCase()
     }

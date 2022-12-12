@@ -96,6 +96,9 @@
 
         // :foo: icon strings
         html = html.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
+
+        // Square brackets => code
+        html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>')
     }
 
     afterUpdate(() => {
