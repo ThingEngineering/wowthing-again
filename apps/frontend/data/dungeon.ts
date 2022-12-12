@@ -59,7 +59,23 @@ export const weeklyAffixes: MythicPlusAffix[][] = [
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
+    // Mists of Pandaria
+    new Dungeon(
+        2,
+        'Temple of the Jade Serpent',
+        'TJS',
+        'achievement/6757',
+        30
+    ),
+
     // Warlords of Draenor
+    new Dungeon(
+        165,
+        'Shadowmoon Burial Grounds',
+        'SBG',
+        'achievement/9041',
+        33
+    ),
     new Dungeon(
         166,
         'Grimrail Depot',
@@ -74,7 +90,22 @@ export const dungeons: Dungeon[] = [
         'achievement/9038',
         32
     ),
+
     // Legion
+    new Dungeon(
+        200,
+        'Halls of Valor',
+        'HoV',
+        'achievement/10786',
+        38
+    ),
+    new Dungeon(
+        210,
+        'Court of Stars',
+        'CoS',
+        'achievement/10816',
+        30
+    ),
     new Dungeon(
         227,
         'Return to Karazhan: Lower',
@@ -89,6 +120,7 @@ export const dungeons: Dungeon[] = [
         'achievement/11429',
         35,
     ),
+
     // Battle for Azeroth
     new Dungeon(
         244,
@@ -245,6 +277,64 @@ export const dungeons: Dungeon[] = [
         'achievement/15177',
         30
     ),
+
+    // Dragonflight
+    new Dungeon(
+        399,
+        'Ruby Life Pools',
+        'RLP',
+        'achievement/16266',
+        30
+    ),
+    new Dungeon(
+        400,
+        'The Nokhud Offensive',
+        'NO',
+        'achievement/16277',
+        40
+    ),
+    new Dungeon(
+        401,
+        'The Azure Vault',
+        'AV',
+        'achievement/16272',
+        34
+    ),
+    new Dungeon(
+        402,
+        "Algeth'ar Academy",
+        'AA',
+        'achievement/16271',
+        32
+    ),
+    new Dungeon(
+        403,
+        'Uldaman: Legacy of Tyr',
+        'ULT',
+        'achievement/16278',
+        0
+    ),
+    new Dungeon(
+        404,
+        'Neltharus',
+        'Nel',
+        'achievement/16263',
+        0
+    ),
+    new Dungeon(
+        405,
+        'Brackenhide Hollow',
+        'BH',
+        'achievement/16255',
+        0
+    ),
+    new Dungeon(
+        406,
+        'Halls of Infusion',
+        'HoI',
+        'achievement/16260',
+        0
+    ),
 ]
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
@@ -301,62 +391,82 @@ const orderShadowlandsS4: number[] = [
     391, // Tazavesh: Streets of Wonder
 ]
 
+// Dragonflight S1
+const orderDragonflightS1: number[] = [
+    402, // Algeth'ar Academy
+    401, // The Azure Vault
+    400, // The Nokhud Offensive
+    399, // Ruby Life Pools
+    210, // Court of Stars
+    200, // Halls of Valor
+    165, // Shadowmoon Burial Grounds
+    2, // Temple of the Jade Serpent
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
         new MythicPlusSeason(
+            9,
+            '[DF] Season 1',
+            'dragonflight-1',
+            70,
+            [orderDragonflightS1],
+            885, // 2022-12-13
+        ),
+        new MythicPlusSeason(
             8,
-            'SL Season 4',
-            'sl-4',
+            '[SL] Season 4',
+            'shadowlands-4',
             60,
             [orderShadowlandsS4],
             866, // 2022-08-02
         ),
         new MythicPlusSeason(
             7,
-            'SL Season 3',
-            'sl-3',
+            '[SL] Season 3',
+            'shadowlands-3',
             60,
             [orderShadowlands, orderShadowlandsExtraS3]
         ),
         new MythicPlusSeason(
             6,
-            'SL Season 2',
-            'sl-2',
+            '[SL] Season 2',
+            'shadowlands-2',
             60,
             [orderShadowlands]
         ),
         new MythicPlusSeason(
             5,
-            'SL Season 1',
-            'sl-1',
+            '[SL] Season 1',
+            'shadowlands-1',
             60,
             [orderShadowlands]
         ),
         new MythicPlusSeason(
             4,
-            'BfA Season 4',
-            'bfa-4',
+            '[BfA] Season 4',
+            'battle-for-azeroth-4',
             50,
             [orderBattleForAzeroth, orderBattleForAzeroth2]
         ),
         new MythicPlusSeason(
             3,
-            'BfA Season 3',
-            'bfa-3',
+            '[BfA] Season 3',
+            'battle-for-azeroth-3',
             50,
             [orderBattleForAzeroth]
         ),
         new MythicPlusSeason(
             2,
-            'BfA Season 2',
-            'bfa-2',
+            '[BfA] Season 2',
+            'battle-for-azeroth-2',
             50,
             [orderBattleForAzeroth]
         ),
         new MythicPlusSeason(
             1,
-            'BfA Season 1',
-            'bfa-1',
+            '[BfA] Season 1',
+            'battle-for-azeroth-1',
             50,
             [orderBattleForAzeroth]
         ),
@@ -366,13 +476,13 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 
 // [rating, max item level] first match >= rating is used
 export const ratingItemLevelUpgrade: Array<Array<number>> = [
-    [2000, 298],
-    [1700, 294],
-    [1400, 291],
-    [1200, 288],
-    [1000, 285],
-    [600, 282],
-    [0, 278],
+    [2400, 415],
+    [2000, 411],
+    [1700, 408],
+    [1400, 405],
+    [1000, 402],
+    [600, 395],
+    [0, 392],
 ]
 
 // [key level, item level] first match >= key is used
