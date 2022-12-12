@@ -97,7 +97,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         else if (transmogTypes.indexOf(item.type) >= 0) {
                             const appearanceId = item.appearanceIds?.length === 1
                                 ? item.appearanceIds[0]
-                                : sharedItem.appearances?.[0]?.appearanceId || 0
+                                : sharedItem?.appearances?.[0]?.appearanceId || 0
                             if (appearanceId) {
                                 const existingItem = appearanceMap[appearanceId]
                                 if (existingItem) {
