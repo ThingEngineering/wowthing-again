@@ -135,6 +135,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
 
         foreach (var action in actions)
         {
+            Logger.Information("Running {0}", action.Method.Name);
             await using var context = await ContextFactory.CreateDbContextAsync(CancellationToken);
             await action(context);
             await context.SaveChangesAsync();
@@ -456,7 +457,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         var items = await DataUtilities.LoadDumpCsvAsync<DumpItem>("item");
 
         var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(Path.Join("enUS", "itemsparse")))
-            .ToDictionary(itemsparse => itemsparse.ID);
+            .ToDictionary(itemSparse => itemSparse.ID);
 
         var dbItemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
 
@@ -586,9 +587,9 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             {
                 dbItem.ClassMask = dbItem.GetCalculatedClassMask();
             }*/
-
-            await ImportItemStrings(context, Language.enUS, baseItemSparseMap.Values);
         }
+
+        await ImportItemStrings(context, Language.enUS, baseItemSparseMap.Values);
 
         foreach (var language in _languages)
         {
@@ -607,8 +608,8 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         );
 
         var dbLanguageMap = await context.LanguageString
-            .Where(ls => ls.Language == language && ls.Type == StringType.WowItemName)
             .AsNoTracking()
+            .Where(ls => ls.Language == language && ls.Type == StringType.WowItemName)
             .ToDictionaryAsync(ls => ls.Id);
 
         foreach (var itemSparse in itemSparses)
