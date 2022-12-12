@@ -6,7 +6,7 @@
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
-    const seasons: MythicPlusSeason[] = sortBy(seasonMap, (s) => 1000 - s.id)
+    const seasons: MythicPlusSeason[] = sortBy(seasonMap, (s) => -s.id)
     let categories: SidebarItem[]
     $: {
         categories = [
@@ -17,12 +17,10 @@
             null,
         ].concat(seasons)
     }
-
 </script>
-
 
 <Sidebar
     baseUrl="/mythic-plus"
     items={categories}
-    width="8rem"
+    width="9rem"
 />

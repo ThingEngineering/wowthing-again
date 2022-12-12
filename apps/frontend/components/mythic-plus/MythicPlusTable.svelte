@@ -1,5 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import sortBy from 'lodash/sortBy'
+    import { replace } from 'svelte-spa-router'
 
     import { Constants } from '@/data/constants'
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
@@ -52,6 +54,15 @@
         else {
             isThisWeek = false
             season = find(seasonMap, (season) => season.slug === slug)
+            if (season === undefined) {
+                season = sortBy(
+                    Object.values(seasonMap),
+                    (season) => -season.id
+                )[0]
+                replace(`/mythic-plus/${season.slug}`)
+                break $
+            }
+
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
             sortFunc = getCharacterSortFunc(
                 $settingsData,

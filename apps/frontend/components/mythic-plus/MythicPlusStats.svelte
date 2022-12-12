@@ -12,13 +12,15 @@
     let totalRuns: number
     $: {
         const season = find(seasonMap, (season) => season.slug === slug)
-        const allRuns: CharacterMythicPlusAddonRun[] = []
-        for (const character of $userStore.data.characters) {
-            allRuns.push(...(character.mythicPlusAddon?.[season.id]?.runs || []))
-        }
+        if (season) {
+            const allRuns: CharacterMythicPlusAddonRun[] = []
+            for (const character of $userStore.data.characters) {
+                allRuns.push(...(character.mythicPlusAddon?.[season.id]?.runs || []))
+            }
 
-        runCounts = getRunCounts(allRuns)
-        totalRuns = runCounts.reduce((a, b) => a + b, 0)
+            runCounts = getRunCounts(allRuns)
+            totalRuns = runCounts.reduce((a, b) => a + b, 0)
+        }
     }
 </script>
 
