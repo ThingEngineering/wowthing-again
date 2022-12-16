@@ -132,6 +132,7 @@ public class ApplicationUserSettings
 
         "dfAidingAccord",
         "dfChores",
+        "dfSparks",
     };
 
     private void Validate()
