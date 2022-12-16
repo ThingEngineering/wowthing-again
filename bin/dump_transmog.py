@@ -19,6 +19,7 @@ CLASS_MASK = {
      512: 'monk',
     1024: 'druid',
     2048: 'demon-hunter',
+    4096: 'evoker',
 }
 
 ARMOR_MASKS = {
@@ -32,6 +33,7 @@ ARMOR_MASKS = {
     ],
     'mail': [
         4 + 64,
+        4 + 64 + 4096,
     ],
     'plate': [
         1 + 2,

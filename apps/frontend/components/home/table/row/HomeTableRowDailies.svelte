@@ -5,9 +5,9 @@
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
-    import { tippyComponent } from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/dailies/TooltipDailies.svelte'

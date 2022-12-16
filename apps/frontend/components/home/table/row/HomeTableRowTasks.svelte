@@ -7,6 +7,7 @@
 
     import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte'
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte'
+    import RowTaskChores from './HomeTableRowTaskChores.svelte'
 
     export let character: Character
 
@@ -18,6 +19,11 @@
     {#if task}
         {#if taskName === 'dmfProfessions'}
             <RowDmfProfessions {character} />
+        {:else if taskName.endsWith('Chores')}
+            <RowTaskChores
+                {character}
+                {taskName}
+            />
         {:else if !taskName.startsWith('holiday') || taskName === activeHoliday}
             <RowProgressQuest
                 {character}

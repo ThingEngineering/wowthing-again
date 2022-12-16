@@ -9,6 +9,7 @@ public static partial class Hardcoded
         { (395, 822), new[] { 14 } }, // Legion > Broken Isles
         { (396, 1028), new[] { 14 } }, // BfA > Azeroth
         { (499, 1192), new[] { 14 } }, // SL > Shadowlands
+        { (503, 1205), new[] { 14 } }, // DF > Dragonflight
 
         // Other normal raids
         { (73, 75), new[] { 14 } }, // Cata > Baradin Hold

@@ -131,6 +131,7 @@ public class ApplicationUserSettings
         "slZerethMortis",
 
         "dfAidingAccord",
+        "dfChores",
     };
 
     private void Validate()
