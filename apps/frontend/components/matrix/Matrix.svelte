@@ -45,7 +45,8 @@
         const realms: [string, string, StaticDataRealm][] = Object.values(realmMap)
             .map((realm) => [
                 Region[realm.region],
-                $staticStore.data.connectedRealms[realm.connectedRealmId].displayText,
+                $staticStore.data.connectedRealms[realm.connectedRealmId]?.displayText ||
+                    `Realm #${realm.connectedRealmId}`,
                 realm,
             ])
         //realms.sort()
