@@ -103,6 +103,12 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
+        key: 'dfSparks',
+        name: '[DF] Sparks of Life (PvP)',
+        shortName: 'SoL',
+        minimumLevel: 60,
+    },
+    {
         key: 'dfChores',
         name: '[DF] Chores',
         shortName: 'DFC',
@@ -125,6 +131,10 @@ export const choreMap: Record<string, Chore[]> = {
             taskName: 'Community Feast',
         },
         {
+            taskKey: 'dfCommunityFeastKill',
+            taskName: 'Community Feast: Boss',
+        },
+        {
             taskKey: 'dfDragonAllegiance',
             taskName: 'Dragon selected',
         },
@@ -143,6 +153,22 @@ export const choreMap: Record<string, Chore[]> = {
         {
             taskKey: 'dfGrandHuntUncommon',
             taskName: 'Grand Hunt: Uncommon',
+        },
+        {
+            taskKey: 'dfPrimalEarth',
+            taskName: 'Primal Storm: Earth',
+        },
+        {
+            taskKey: 'dfPrimalFire',
+            taskName: 'Primal Storm: Fire',
+        },
+        {
+            taskKey: 'dfPrimalStorm',
+            taskName: 'Primal Storm: Storm',
+        },
+        {
+            taskKey: 'dfPrimalWater',
+            taskName: 'Primal Storm: Water',
         },
         {
             taskKey: 'dfSiegeDragonbaneKeep',
