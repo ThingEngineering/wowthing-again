@@ -102,8 +102,59 @@ export const taskList: Task[] = [
         shortName: 'AtA',
         minimumLevel: 60,
     },
+    {
+        key: 'dfChores',
+        name: '[DF] Chores',
+        shortName: 'DFC',
+        minimumLevel: 70,
+    },
 ]
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
     taskList.map((task) => [task.key, task])
 )
+
+type Chore = {
+    taskKey: string,
+    taskName: string,
+}
+export const choreMap: Record<string, Chore[]> = {
+    'dfChores': [
+        {
+            taskKey: 'dfCommunityFeast',
+            taskName: 'Community Feast',
+        },
+        {
+            taskKey: 'dfDragonAllegiance',
+            taskName: 'Dragon selected',
+        },
+        {
+            taskKey: 'dfDragonKey',
+            taskName: 'Dragon key turned in',
+        },
+        {
+            taskKey: 'dfGrandHuntMythic',
+            taskName: 'Grand Hunt: Mythic',
+        },
+        {
+            taskKey: 'dfGrandHuntRare',
+            taskName: 'Grand Hunt: Rare',
+        },
+        {
+            taskKey: 'dfGrandHuntUncommon',
+            taskName: 'Grand Hunt: Uncommon',
+        },
+        {
+            taskKey: 'dfSiegeDragonbaneKeep',
+            taskName: 'Siege on Dragonbane Keep',
+        },
+        {
+            taskKey: 'dfTrialElements',
+            taskName: 'Trial of Elements',
+        },
+        {
+            taskKey: 'dfTrialFlood',
+            taskName: 'Trial of the Flood',
+        },
+    ]
+}
