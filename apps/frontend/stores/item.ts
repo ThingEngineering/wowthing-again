@@ -8,7 +8,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     }
 
     initialize(data: ItemData) {
-        // console.time('ItemDataStore.initialize')
+        console.time('ItemDataStore.initialize')
 
         const appearanceIds: Record<number, Record<number, boolean>> = {}
 
@@ -33,7 +33,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
                 ])
         )
 
-        // console.timeEnd('ItemDataStore.initialize')
+        console.timeEnd('ItemDataStore.initialize')
     }
 }
 

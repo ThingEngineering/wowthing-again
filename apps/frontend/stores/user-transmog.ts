@@ -27,7 +27,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     initialize(data: UserTransmogData): void {
-        // console.time('UserTransmogDataStore.initialize')
+        console.time('UserTransmogDataStore.initialize')
 
         data.hasIllusion = {}
         for (const illusionId of (data.illusions || [])) {
@@ -44,7 +44,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             data.userHas[transmogId] = true
         }
 
-        // console.timeEnd('UserTransmogDataStore.initialize')
+        console.timeEnd('UserTransmogDataStore.initialize')
     }
 
     setup(

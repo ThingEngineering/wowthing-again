@@ -22,7 +22,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     }
 
     initialize(data: StaticData): void {
-        // console.time('StaticDataStore.initialize')
+        console.time('StaticDataStore.initialize')
 
         data.characterClassesBySlug = {}
         for (const cls of Object.values(data.characterClasses)) {
@@ -141,7 +141,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawToys = null
         }
 
-        // console.timeEnd('StaticDataStore.initialize')
+        console.timeEnd('StaticDataStore.initialize')
     }
 
     private static createObjects<TObject extends { id: number }>(

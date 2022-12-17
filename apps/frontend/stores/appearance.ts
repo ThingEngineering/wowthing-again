@@ -17,7 +17,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     initialize(data: AppearanceData): void {
-        // console.time('AppearanceDataStore.initialize')
+        console.time('AppearanceDataStore.initialize')
 
         data.appearances = {}
 
@@ -110,14 +110,15 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             //console.log(expansion, sets)
         }
 
-        // console.timeEnd('AppearanceDataStore.initialize')
+        console.timeEnd('AppearanceDataStore.initialize')
     }
 
     setup(
         userTransmogData: UserTransmogData,
     ) {
-        const stats: Record<string, UserCount> = {}
+        console.time('AppearanceDataStore.setup')
 
+        const stats: Record<string, UserCount> = {}
         const overallCount = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
 
@@ -156,6 +157,8 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             state.data.stats = stats
             return state
         })
+
+        console.timeEnd('AppearanceDataStore.setup')
     }
 
     private getArmorSubType(subClass: number, inventoryType: number): string {

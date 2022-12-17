@@ -17,7 +17,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     }
 
     initialize(userQuestData: UserQuestData): void {
-        // console.time('UserQuestDataStore.initialize')
+        console.time('UserQuestDataStore.initialize')
 
         for (const [, characterData] of toPairs(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {
@@ -37,7 +37,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             }
         }
 
-        // console.timeEnd('UserQuestDataStore.initialize')
+        console.timeEnd('UserQuestDataStore.initialize')
     }
 }
 

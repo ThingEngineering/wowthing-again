@@ -27,7 +27,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     initialize(data: JournalData): void {
-        // console.time('JournalDataStore.initialize')
+        console.time('JournalDataStore.initialize')
 
         const extraTiers: JournalDataTier[] = [
             {
@@ -107,7 +107,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         data.tiers.push(null)
         data.tiers.push(...extraTiers)
 
-        // console.timeEnd('JournalDataStore.initialize')
+        console.timeEnd('JournalDataStore.initialize')
     }
 
     setup(
@@ -119,7 +119,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         userData: UserData,
         userTransmogData: UserTransmogData
     ): void {
-        // console.time('JournalDataStore.setup')
+        console.time('JournalDataStore.setup')
 
         const classMask = getTransmogClassMask(settingsData)
         const masochist = settingsData.transmog.completionistMode
@@ -371,7 +371,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             return state
         })
 
-        // console.timeEnd('JournalDataStore.setup')
+        console.timeEnd('JournalDataStore.setup')
     }
 }
 
