@@ -130,10 +130,10 @@ export const choreMap: Record<string, Chore[]> = {
             taskKey: 'dfCommunityFeast',
             taskName: 'Community Feast',
         },
-        {
-            taskKey: 'dfCommunityFeastKill',
-            taskName: 'Community Feast: Boss',
-        },
+        // { // actually daily
+        //     taskKey: 'dfCommunityFeastKill',
+        //     taskName: 'Community Feast: Boss',
+        // },
         {
             taskKey: 'dfDragonAllegiance',
             taskName: 'Dragon selected',
