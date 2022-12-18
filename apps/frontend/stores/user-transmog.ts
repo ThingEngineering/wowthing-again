@@ -248,7 +248,13 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                     let itemSets: ManualDataSharedItemSet[] = []
                     for (const tag of group.matchTags) {
-                        itemSets.push(...manualData.shared.itemSetsByTag[tag])
+                        const setsByTag = manualData.shared.itemSetsByTag[tag]
+                        if (setsByTag) {
+                            itemSets.push(...setsByTag)
+                        }
+                        else {
+                            console.log('Invalid tag?', group, tag)
+                        }
                     }
                     itemSets = uniq(itemSets)
 
@@ -257,7 +263,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                         const set = category.filteredSets[setIndex]
                         const setKey = `${groupKey}--${setIndex}`
                         const setStats = stats[setKey] ||= new UserCount()
-                    
+                        
+                        const modifier = set.modifier ?? 0
                         const setSets = itemSets.filter((itemSet) => every(
                             set.matchTags,
                             (tag) => itemSet.tags.indexOf(tag) >= 0
@@ -285,11 +292,11 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                     }
 
                                     if (completionist) {
-                                        const source = `${itemId}_${setSet.modifier}`
+                                        const source = `${itemId}_${modifier}`
                                         slotData.sourceIds.push(source)
                                     }
                                     else {
-                                        const appearanceId = item.appearances[setSet.modifier].appearanceId
+                                        const appearanceId = item.appearances[modifier].appearanceId
                                         const otherItems = itemData.appearanceToItems[appearanceId]
                                         for (const otherItemId of otherItems) {
                                             const otherItem = itemData.items[otherItemId]

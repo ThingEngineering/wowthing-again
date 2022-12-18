@@ -23,6 +23,7 @@ export class ManualDataTransmogSetCategory {
 export type ManualDataTransmogSetCategoryArray = ConstructorParameters<typeof ManualDataTransmogSetCategory>
 
 export class ManualDataTransmogSetGroup {
+    public bonusIds: Record<number, number[]>
     public setData: Array<Record<string, Record<number, ManualDataTransmogSetFiltered>>> = []
 
     constructor(
@@ -30,9 +31,16 @@ export class ManualDataTransmogSetGroup {
         public name: string,
         public matchTags: number[],
         public prefix?: string,
+        bonusIdArrays?: [number, number[]][],
         public completionist?: boolean,
     )
-    {}
+    {
+        this.bonusIds = {}
+        for (const [modifier, bonusIds] of (bonusIdArrays || []))
+        {
+            this.bonusIds[modifier] = bonusIds
+        }
+    }
 }
 export type ManualDataTransmogSetGroupArray = ConstructorParameters<typeof ManualDataTransmogSetGroup>
 
@@ -40,6 +48,7 @@ export class ManualDataTransmogSetSet {
     constructor(
         public name: string,
         public matchTags: number[],
+        public modifier?: number,
         public completionist?: boolean,
         public wowheadSetId?: number, // FIXME order
     )
