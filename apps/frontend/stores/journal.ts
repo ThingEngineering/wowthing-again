@@ -126,18 +126,20 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
+        const overallDungeonStats = stats['dungeons'] = new UserCount()
+        const overallRaidStats = stats['raids'] = new UserCount()
         const overallSeen: Record<string, boolean> = {}
 
         for (const tier of journalData.tiers.filter((tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids')) {
             const tierStats = stats[tier.slug] = new UserCount()
             const tierSeen: Record<string, boolean> = {}
 
-            for (const instance of tier.instances.filter(instance => instance !== null)) {
-                const overallStatsKey2 = instance.isRaid ? 'raids' : 'dungeons'
-                const overallStats2 = (stats[overallStatsKey2] ||= new UserCount())
+            const tierDungeonStats = stats[`dungeons--${tier.slug}`] = new UserCount()
+            const tierRaidStats = stats[`raids--${tier.slug}`] = new UserCount()
 
-                const tierStatsKey2 = `${overallStatsKey2}--${tier.slug}`
-                const tierStats2 = (stats[tierStatsKey2] ||= new UserCount())
+            for (const instance of tier.instances.filter(instance => instance !== null)) {
+                const overallStats2 = instance.isRaid ? overallRaidStats : overallDungeonStats
+                const tierStats2 = instance.isRaid ? tierRaidStats : tierDungeonStats
 
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
@@ -229,17 +231,18 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 keepItems.push(item)
                             }
 
-                            filteredItems = sortBy(
+                            const groupIndices: Record<number, string> = {}
+                            for (let groupItemIndex = 0; groupItemIndex < group.items.length; groupItemIndex++) {
+                                const groupItem = group.items[groupItemIndex]
+                                if (groupIndices[groupItem.id] === undefined) {
+                                    groupIndices[groupItem.id] = leftPad(groupItemIndex, 3, '0')
+                                }
+                            }
+
+                            filteredItems = keepItems.length === 1 ? keepItems : sortBy(
                                 keepItems,
-                                (item) => [
-                                    leftPad(
-                                        findIndex(group.items, (origItem) => origItem.id === item.id),
-                                        3,
-                                        '0'
-                                    ),
-                                    journalDifficultyOrder.indexOf(item.appearances[0].difficulties[0])
-                                ].join('|')
-                            )
+                                (item) => `${groupIndices[item.id]}|${journalDifficultyMap[item.appearances[0].difficulties[0]]}`
+                           )
                         }
 
                         for (const item of filteredItems) {
@@ -339,6 +342,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                         if (userHas) {
                                             instanceDifficultyStats.have++
                                         }
+                                        instanceSeen[itemKey] = true
                                     }
 
                                     if (!encounterSeen[itemKey]) {
@@ -346,10 +350,8 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                         if (userHas) {
                                             encounterDifficultyStats.have++
                                         }
+                                        encounterSeen[itemKey] = true
                                     }
-
-                                    instanceSeen[itemKey] = true
-                                    encounterSeen[itemKey] = true
                                 }
                             }
 

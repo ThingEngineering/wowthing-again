@@ -263,8 +263,11 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         console.time('ManualDataStore.setup')
 
         this.update(state => {
+            console.time('ManualDataStore.setupVendors')
             this.setupVendors(state)
+            console.timeEnd('ManualDataStore.setupVendors')
             
+            console.time('ManualDataStore.setupZoneMaps')
             this.setupZoneMaps(
                 state,
                 settings,
@@ -274,6 +277,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 userTransmogData,
                 zoneMapState
             )
+            console.timeEnd('ManualDataStore.setupZoneMaps')
 
             return state
         })
