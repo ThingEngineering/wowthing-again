@@ -734,3 +734,8 @@ export const worldBossInstanceIds: number[] = [
     1192, // Shadowlands
     1205, // Dragonflight
 ]
+
+export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntries([
+    1192, // Shadowlands
+    1205, // Dragon Isles
+].map((id) => [id, true]))

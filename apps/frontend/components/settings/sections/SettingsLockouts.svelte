@@ -3,6 +3,7 @@
     import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
+    import { ignoredLockoutInstances } from '@/data/dungeon'
     import { expansionMap } from '@/data/expansion'
     import { iconStrings } from '@/data/icons'
     import { staticStore } from '@/stores'
@@ -18,7 +19,7 @@
 
     const allInstances: SettingsChoice[] = sortBy(
         Object.values($staticStore.data.instances)
-            .filter((instance) => instance !== null),
+            .filter((instance) => instance !== null && !ignoredLockoutInstances[instance.id]),
         (instance) => instance.expansion
     ).map((instance) => ({
         key: instance.id.toString(),
