@@ -59,8 +59,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
                 }
             }
 
-            console.log(state.data.currentTier)
-
             return state
         })
     }
