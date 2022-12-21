@@ -11,6 +11,20 @@ sets:
     sortKey: "it04"
 
 sells:
+  - type: toy
+    id: 199892 # Tuskarr Traveling Soup Pot
+    costs:
+      2003: 100
+      1190396: 2
+    reputation: 2511 renown-4
+
+  - type: toy
+    id: 199650 # Whale Bone Tea Set
+    costs:
+      2003: 100
+      1201400: 1
+    reputation: 2511 renown-4
+
   - type: transmog
     id: 200749 # Tuskarr Clobbering Board [1h ? mace]
     costs:
