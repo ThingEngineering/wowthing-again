@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { experiencePerLevel } from '@/data/experience'
+    import { timeStore } from '@/stores'
+    import { getCharacterRested } from '@/utils/get-character-rested';
     import type { Character } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -9,11 +11,16 @@
     export let character: Character
 
     $: levelData = getCharacterLevel(character)
+    $: rested = getCharacterRested($timeStore, character)
 </script>
 
 <style lang="scss">
     div {
         width: 10rem;
+    }
+    p {
+        margin: 0.2rem 0;
+        text-align: center;
     }
 </style>
 
@@ -27,5 +34,9 @@
             total={experiencePerLevel[levelData.level]}
             shortText={true}
         />
+
+        {#if rested}
+            <p>Rested: {rested}</p>
+        {/if}
     {/if}
 </div>
