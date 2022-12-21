@@ -93,6 +93,10 @@
                 $userTransmogStore.data
             )
 
+            itemStore.setup(
+                $manualStore.data,
+            )
+
             ready = true
         }
     }

@@ -40,6 +40,30 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
 
         console.timeEnd('ItemDataStore.initialize')
     }
+
+    setup(
+        manualData: ManualData,
+    ) {
+        this.update((state) => {
+            state.data.currentTier = {}
+
+            for (const set of manualData.shared.itemSets) {
+                if (currentTier.sets[set.name]) {
+                    for (const itemIds of set.items) {
+                        const item = this.value.data.items[itemIds[0]]
+                        if (currentTier.slots.indexOf(item.inventoryType) >= 0)
+                        {
+                            state.data.currentTier[item.id] = item.inventoryType
+                        }
+                    }
+                }
+            }
+
+            console.log(state.data.currentTier)
+
+            return state
+        })
+    }
 }
 
 export const itemStore = new ItemDataStore()
