@@ -18,6 +18,11 @@ export const expansionMap: Record<number, Expansion> = {
     100: new Expansion(100, 'Event', 'event', 'Event'),
 }
 
+export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
+    Object.values(expansionMap)
+        .map((expansion) => [expansion.slug, expansion])
+)
+
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
     (expansion) => expansion.id

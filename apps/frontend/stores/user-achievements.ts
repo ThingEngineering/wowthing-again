@@ -24,9 +24,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         for (const [criteriaId, ...criteriaArrays] of data.rawCriteria) {
             data.criteria[criteriaId] = []
             for (const [amount, ...characterIds] of criteriaArrays) {
-                for (const characterId of characterIds) {
-                    data.criteria[criteriaId].push([characterId, amount])
-                }
+                data.criteria[criteriaId].push(...characterIds.map((charId) => [charId, amount]))
             }
         }
         data.rawCriteria = null
