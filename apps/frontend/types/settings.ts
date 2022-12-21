@@ -63,6 +63,10 @@ export interface Settings {
         showInLeaderboards: boolean
     }
 
+    tasks: {
+        disabledChores: Record<string, string[]>
+    }
+
     transmog: {
         completionistMode: boolean
 
