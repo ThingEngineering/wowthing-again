@@ -38,18 +38,39 @@ public class ManualTransmogSetCategoryConverter : JsonConverter
         groupArray.Add(group.Name);
 
         var tagsArray = new JArray();
-        foreach (var tag in group.MatchTags.EmptyIfNull())
+        foreach (int tag in group.MatchTags.EmptyIfNull())
         {
             tagsArray.Add(tag);
         }
         groupArray.Add(tagsArray);
 
         bool usePrefix = !string.IsNullOrWhiteSpace(group.Prefix);
+        bool useBonusIds = group.BonusIds != null;
         bool useCompletionist = group.Completionist.HasValue;
 
-        if (usePrefix || useCompletionist)
+        if (useCompletionist || useBonusIds || usePrefix)
         {
             groupArray.Add(group.Prefix);
+        }
+
+        if (useCompletionist || useBonusIds)
+        {
+            var bonusArray = new JArray();
+            foreach ((int key, var value) in group.BonusIds.EmptyIfNull())
+            {
+                var kvArray = new JArray();
+                kvArray.Add(key);
+
+                var valueArray = new JArray();
+                foreach (int bonusId in value)
+                {
+                    valueArray.Add(bonusId);
+                }
+                kvArray.Add(valueArray);
+
+                bonusArray.Add(kvArray);
+            }
+            groupArray.Add(bonusArray);
         }
 
         if (useCompletionist)
@@ -72,7 +93,15 @@ public class ManualTransmogSetCategoryConverter : JsonConverter
         }
         setArray.Add(tagsArray);
 
-        if (set.Completionist.HasValue)
+        bool useCompletionist = set.Completionist.HasValue;
+        bool useModifier = set.Modifier.HasValue;
+
+        if (useCompletionist || useModifier)
+        {
+            setArray.Add(set.Modifier ?? 0);
+        }
+
+        if (useCompletionist)
         {
             setArray.Add(set.Completionist.Value);
         }

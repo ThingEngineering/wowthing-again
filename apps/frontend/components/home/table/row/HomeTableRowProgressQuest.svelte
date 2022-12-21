@@ -89,18 +89,35 @@
                 else if (progressQuest.status === 1) {
                     status = 'shrug'
 
-                    if (progressQuest.type === 'progressbar') {
-                        text = `${progressQuest.have} %`
-                    }
-                    else if (actualQuest === 'weeklyHoliday' || actualQuest === 'weeklyPvp') {
-                        text = `${progressQuest.have} / ${progressQuest.need}`
+                    if (progressQuest.objectives?.length === 1) {
+                        const objective = progressQuest.objectives[0]
+                        if (objective.type === 'progressbar') {
+                            text = `${objective.have} %`
+                        }
+                        else if (actualQuest === 'weeklyHoliday' || actualQuest === 'weeklyPvp') {
+                            text = `${objective.have} / ${objective.need}`
+                        }
+                        else {
+                            text = `${Math.floor(objective.have / objective.need * 100)} %`
+                        }
+
+                        if (objective.have === objective.need) {
+                            status = `${status} shrug-cycle`
+                        }
                     }
                     else {
-                        text = `${Math.floor(progressQuest.have / progressQuest.need * 100)} %`
-                    }
+                        let have = 0
+                        let need = 0
+                        for (const objective of (progressQuest.objectives || [])) {
+                            have += objective.have
+                            need += objective.need
+                        }
 
-                    if (progressQuest.have === progressQuest.need) {
-                        status = `${status} shrug-cycle`
+                        text = `${Math.floor(have / need * 100)} %`
+
+                        if (have === need) {
+                            status = `${status} shrug-cycle`
+                        }
                     }
                 }
             }

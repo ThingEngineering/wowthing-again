@@ -1,13 +1,12 @@
-import find from 'lodash/find'
 import sortBy from 'lodash/sortBy'
 
+import { expansionMap, expansionSlugMap } from '@/data/expansion'
 import { typeOrder } from '@/data/inventory-type'
 import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
 import { UserCount, WritableFancyStore } from '@/types'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
 import { ArmorType, InventoryType, ItemClass } from '@/enums'
 import leftPad from '@/utils/left-pad'
-import { expansionMap } from '@/data/expansion'
 import type { UserTransmogData } from '@/types/data'
 
 
@@ -17,7 +16,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     initialize(data: AppearanceData): void {
-        // console.time('AppearanceDataStore.initialize')
+        console.time('AppearanceDataStore.initialize')
 
         data.appearances = {}
 
@@ -96,10 +95,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
                     data.appearances[typeName] ||= []
 
                     const dataSet = new AppearanceDataSet(
-                        find(
-                            expansionMap,
-                            (exp) => exp.slug === expansion.split('--')[1]
-                        ).name,
+                        expansionSlugMap[expansion.split('--')[1]].name,
                         null
                     )
                     dataSet.appearances = set.appearances
@@ -110,14 +106,15 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             //console.log(expansion, sets)
         }
 
-        // console.timeEnd('AppearanceDataStore.initialize')
+        console.timeEnd('AppearanceDataStore.initialize')
     }
 
     setup(
         userTransmogData: UserTransmogData,
     ) {
-        const stats: Record<string, UserCount> = {}
+        console.time('AppearanceDataStore.setup')
 
+        const stats: Record<string, UserCount> = {}
         const overallCount = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
 
@@ -156,6 +153,8 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             state.data.stats = stats
             return state
         })
+
+        console.timeEnd('AppearanceDataStore.setup')
     }
 
     private getArmorSubType(subClass: number, inventoryType: number): string {

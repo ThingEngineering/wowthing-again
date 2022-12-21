@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
-    import { choreMap } from '@/data/tasks'
+    import { choreMap, taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -17,13 +17,17 @@
     let countTotal: number
     $: {
         chores = []
-        if (character.level < Constants.characterMaxLevel) {
+        if (character.level < (taskMap[taskName].minimumLevel || Constants.characterMaxLevel)) {
             break $
         }
 
         countCompleted = 0
         countTotal = 0
         for (const choreTask of choreMap[taskName]) {
+            if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
+                continue
+            }
+
             countTotal++
 
             let completed = false

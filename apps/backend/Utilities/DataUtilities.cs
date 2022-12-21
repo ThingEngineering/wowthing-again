@@ -24,7 +24,11 @@ public static class DataUtilities
         .IgnoreUnmatchedProperties()
         .Build();
 
-    public static async Task<List<T>> LoadDumpCsvAsync<T>(string fileName, Func<T, bool> validFunc = null, bool skipValidation = false)
+    public static async Task<List<T>> LoadDumpCsvAsync<T>(
+        string fileName,
+        Func<T, bool> validFunc = null,
+        bool skipValidation = false
+    )
     {
         var files = Directory.GetFiles(DumpsPath, $"{fileName}-*.csv");
         // FIXME crappy hack until importing works

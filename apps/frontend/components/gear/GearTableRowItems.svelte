@@ -51,7 +51,9 @@
         white-space: nowrap;
     }
     .no-problem {
-        opacity: $inactive-opacity;
+        > * {
+            opacity: $inactive-opacity;
+        }
     }
     .problems {
         --image-border-color: #ffff00;

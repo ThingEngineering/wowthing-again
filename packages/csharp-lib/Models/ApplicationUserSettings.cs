@@ -18,22 +18,8 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
     public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
+    public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
-
-    public void Migrate()
-    {
-        Achievements ??= new ApplicationUserSettingsAchievements();
-        Auctions ??= new ApplicationUserSettingsAuctions();
-        Characters ??= new ApplicationUserSettingsCharacters();
-        Collections ??= new ApplicationUserSettingsCollections();
-        General ??= new ApplicationUserSettingsGeneral();
-        History ??= new ApplicationUserSettingsHistory();
-        Layout ??= new ApplicationUserSettingsLayout();
-        Privacy ??= new ApplicationUserSettingsPrivacy();
-        Transmog ??= new ApplicationUserSettingsTransmog();
-
-        Validate();
-    }
 
     private readonly HashSet<string> _validGroupBy = new()
     {
@@ -135,10 +121,27 @@ public class ApplicationUserSettings
         "dfSparks",
     };
 
+    public void Migrate()
+    {
+        Achievements ??= new ApplicationUserSettingsAchievements();
+        Auctions ??= new ApplicationUserSettingsAuctions();
+        Characters ??= new ApplicationUserSettingsCharacters();
+        Collections ??= new ApplicationUserSettingsCollections();
+        General ??= new ApplicationUserSettingsGeneral();
+        History ??= new ApplicationUserSettingsHistory();
+        Layout ??= new ApplicationUserSettingsLayout();
+        Privacy ??= new ApplicationUserSettingsPrivacy();
+        Tasks ??= new ApplicationUserSettingsTasks();
+        Transmog ??= new ApplicationUserSettingsTransmog();
+
+        Validate();
+    }
+
     private void Validate()
     {
         Debug.Assert(General != null);
         Debug.Assert(Layout != null);
+        Debug.Assert(Tasks != null);
 
         // General
         // Clamp between 0 and 1440 minutes
@@ -217,6 +220,10 @@ public class ApplicationUserSettings
             .Where(field => _validHomeTasks.Contains(field))
             .Distinct()
             .ToList();
+
+        Tasks.DisabledChores = Tasks.DisabledChores
+            .Where(kvp => kvp.Key.EndsWith("Chores") && _validHomeTasks.Contains(kvp.Key))
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }
 
@@ -296,6 +303,11 @@ public class ApplicationUserSettingsPrivacy
     public bool PublicQuests { get; set; } = true;
     public bool PublicTransmog { get; set; } = true;
     public bool ShowInLeaderboards { get; set; } = true;
+}
+
+public class ApplicationUserSettingsTasks
+{
+    public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
 }
 
 public class ApplicationUserSettingsTransmog

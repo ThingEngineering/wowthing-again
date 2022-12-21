@@ -50,7 +50,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     initialize(userData: UserData): void {
-        // console.time('UserDataStore.initialize')
+        console.time('UserDataStore.initialize')
 
         // Background images
         userData.backgroundList = sortBy(
@@ -106,14 +106,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        // console.timeEnd('UserDataStore.initialize')
+        console.timeEnd('UserDataStore.initialize')
     }
 
     setup(
         settingsData: Settings,
         userData: UserData
     ): void {
-        // console.time('UserDataStore.setup')
+        console.time('UserDataStore.setup')
 
         const manualData = get(manualStore).data
         const staticData = get(staticStore).data
@@ -230,7 +230,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             return state
         })
 
-        // console.timeEnd('UserDataStore.setup')
+        console.timeEnd('UserDataStore.setup')
     }
 
     private initializeCharacter(staticData: StaticData, character: Character): void {

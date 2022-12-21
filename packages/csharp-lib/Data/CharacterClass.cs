@@ -4,6 +4,13 @@ namespace Wowthing.Lib.Data;
 
 public static partial class Hardcoded
 {
+    private static readonly WowStat[] StatAgility = { WowStat.Agility };
+    private static readonly WowStat[] StatAgilityIntellect = { WowStat.Agility, WowStat.Intellect };
+    private static readonly WowStat[] StatIntellect = { WowStat.Intellect };
+    private static readonly WowStat[] StatIntellectStrength = { WowStat.Intellect, WowStat.Strength };
+    private static readonly WowStat[] StatStrength = { WowStat.Strength };
+    private static readonly WowStat[] StatTransmogOnly = { WowStat.TransmogOnly };
+
     public static readonly List<CharacterClassData> Characters = new()
     {
         new CharacterClassData
@@ -11,19 +18,19 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.DeathKnight,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Strength }),
+                (WowArmorSubclass.Cloak, StatStrength),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Strength }),
+                (WowWeaponSubclass.OneHandedAxe, StatStrength),
+                (WowWeaponSubclass.OneHandedMace, StatStrength),
+                (WowWeaponSubclass.OneHandedSword, StatStrength),
+                (WowWeaponSubclass.TwoHandedAxe, StatStrength),
+                (WowWeaponSubclass.TwoHandedMace, StatStrength),
+                (WowWeaponSubclass.TwoHandedSword, StatStrength),
+                (WowWeaponSubclass.Polearm, StatStrength),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Strength }),
+                (WowWeaponSubclass.OffHand, StatStrength),
             },
         },
         new CharacterClassData
@@ -31,16 +38,16 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.DemonHunter,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                (WowArmorSubclass.Cloak, StatAgility),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Warglaive, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.OneHandedAxe, StatAgility),
+                (WowWeaponSubclass.OneHandedSword, StatAgility),
+                (WowWeaponSubclass.Fist, StatAgility),
+                (WowWeaponSubclass.Warglaive, StatAgility),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.OffHand, StatAgility),
             },
         },
         new CharacterClassData
@@ -48,19 +55,19 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Druid,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatAgilityIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Agility, WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedMace, StatIntellect),
+                (WowWeaponSubclass.TwoHandedMace, StatAgilityIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Fist, StatIntellect),
+                (WowWeaponSubclass.Polearm, StatAgilityIntellect),
+                (WowWeaponSubclass.Stave, StatAgilityIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -68,19 +75,22 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Evoker,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedAxe, StatIntellect),
+                (WowWeaponSubclass.OneHandedMace, StatIntellect),
+                (WowWeaponSubclass.OneHandedSword, StatIntellect),
+                (WowWeaponSubclass.TwoHandedAxe, StatIntellect),
+                (WowWeaponSubclass.TwoHandedMace, StatIntellect),
+                (WowWeaponSubclass.TwoHandedSword, StatIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Fist, StatIntellect),
+                (WowWeaponSubclass.Stave, StatIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -88,24 +98,24 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Hunter,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                (WowArmorSubclass.Cloak, StatAgility),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Bow, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Crossbow, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Gun, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.TwoHandedAxe, StatAgility),
+                (WowWeaponSubclass.TwoHandedSword, StatAgility),
+                (WowWeaponSubclass.Polearm, StatAgility),
+                (WowWeaponSubclass.Stave, StatAgility),
+                (WowWeaponSubclass.Bow, StatAgility),
+                (WowWeaponSubclass.Crossbow, StatAgility),
+                (WowWeaponSubclass.Gun, StatAgility),
 
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.TransmogOnly }),
+                (WowWeaponSubclass.OneHandedAxe, StatTransmogOnly),
+                (WowWeaponSubclass.OneHandedSword, StatTransmogOnly),
+                (WowWeaponSubclass.Dagger, StatTransmogOnly),
+                (WowWeaponSubclass.Fist, StatTransmogOnly),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.OffHand, StatAgility),
             },
         },
         new CharacterClassData
@@ -113,17 +123,17 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Mage,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedSword, StatIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Wand, StatIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -131,19 +141,19 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Monk,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatAgilityIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Agility, WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedAxe, StatAgilityIntellect),
+                (WowWeaponSubclass.OneHandedMace, StatAgilityIntellect),
+                (WowWeaponSubclass.OneHandedSword, StatAgilityIntellect),
+                (WowWeaponSubclass.Fist, StatAgilityIntellect),
+                (WowWeaponSubclass.Polearm, StatAgilityIntellect),
+                (WowWeaponSubclass.Stave, StatAgilityIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -151,22 +161,22 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Paladin,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Shield, new[] { WowStat.Intellect, WowStat.Strength }),
+                (WowArmorSubclass.Cloak, StatIntellectStrength),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
+                (WowArmorSubclass.Shield, StatIntellectStrength),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Intellect, WowStat.Strength }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Intellect, WowStat.Strength }),
+                (WowWeaponSubclass.OneHandedAxe, StatIntellectStrength),
+                (WowWeaponSubclass.OneHandedMace, StatIntellectStrength),
+                (WowWeaponSubclass.OneHandedSword, StatIntellectStrength),
+                (WowWeaponSubclass.TwoHandedAxe, StatIntellectStrength),
+                (WowWeaponSubclass.TwoHandedMace, StatIntellectStrength),
+                (WowWeaponSubclass.TwoHandedSword, StatIntellectStrength),
+                (WowWeaponSubclass.Polearm, StatIntellectStrength),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Shield, new[] { WowStat.Intellect, WowStat.Strength }),
+                (WowWeaponSubclass.OffHand, StatStrength),
+                (WowWeaponSubclass.Shield, StatIntellectStrength),
             },
         },
         new CharacterClassData
@@ -174,17 +184,17 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Priest,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedMace, StatIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Wand, StatIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -192,22 +202,22 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Rogue,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                (WowArmorSubclass.Cloak, StatAgility),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Agility }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.OneHandedAxe, StatAgility),
+                (WowWeaponSubclass.OneHandedMace, StatAgility),
+                (WowWeaponSubclass.OneHandedSword, StatAgility),
+                (WowWeaponSubclass.Dagger, StatAgility),
+                (WowWeaponSubclass.Fist, StatAgility),
 
-                (WowWeaponSubclass.Bow, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Crossbow, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Gun, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Thrown, new[] { WowStat.TransmogOnly }),
+                (WowWeaponSubclass.Bow, StatTransmogOnly),
+                (WowWeaponSubclass.Crossbow, StatTransmogOnly),
+                (WowWeaponSubclass.Gun, StatTransmogOnly),
+                (WowWeaponSubclass.Thrown, StatTransmogOnly),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Agility }),
+                (WowWeaponSubclass.OffHand, StatAgility),
             },
         },
         new CharacterClassData
@@ -215,23 +225,23 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Shaman,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Shield, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatAgilityIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
+                (WowArmorSubclass.Shield, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Agility, WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedAxe, StatAgilityIntellect),
+                (WowWeaponSubclass.OneHandedMace, StatAgilityIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Fist, StatAgilityIntellect),
+                (WowWeaponSubclass.Stave, StatIntellect),
 
-                (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.TransmogOnly }),
+                (WowWeaponSubclass.TwoHandedAxe, StatTransmogOnly),
+                (WowWeaponSubclass.TwoHandedMace, StatTransmogOnly),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Shield, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
+                (WowWeaponSubclass.Shield, StatIntellect),
             },
         },
         new CharacterClassData
@@ -239,17 +249,17 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Warlock,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
-                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Cloak, StatIntellect),
+                (WowArmorSubclass.Miscellaneous, StatIntellect),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
-                (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedSword, StatIntellect),
+                (WowWeaponSubclass.Dagger, StatIntellect),
+                (WowWeaponSubclass.Stave, StatIntellect),
+                (WowWeaponSubclass.Wand, StatIntellect),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OffHand, StatIntellect),
             },
         },
         new CharacterClassData
@@ -257,29 +267,29 @@ public static partial class Hardcoded
             Mask = WowCharacterClassMask.Warrior,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
-                (WowArmorSubclass.Cloak, new[] { WowStat.Strength }),
-                (WowArmorSubclass.Shield, new[] { WowStat.Strength }),
+                (WowArmorSubclass.Cloak, StatStrength),
+                (WowArmorSubclass.Shield, StatStrength),
             },
             WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
             {
-                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Dagger, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Fist, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Polearm, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Stave, new[] { WowStat.Strength }),
+                (WowWeaponSubclass.OneHandedAxe, StatStrength),
+                (WowWeaponSubclass.OneHandedMace, StatStrength),
+                (WowWeaponSubclass.OneHandedSword, StatStrength),
+                (WowWeaponSubclass.TwoHandedAxe, StatStrength),
+                (WowWeaponSubclass.TwoHandedMace, StatStrength),
+                (WowWeaponSubclass.TwoHandedSword, StatStrength),
+                (WowWeaponSubclass.Dagger, StatStrength),
+                (WowWeaponSubclass.Fist, StatStrength),
+                (WowWeaponSubclass.Polearm, StatStrength),
+                (WowWeaponSubclass.Stave, StatStrength),
 
-                (WowWeaponSubclass.Bow, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Crossbow, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Gun, new[] { WowStat.TransmogOnly }),
-                (WowWeaponSubclass.Thrown, new[] { WowStat.TransmogOnly }),
+                (WowWeaponSubclass.Bow, StatTransmogOnly),
+                (WowWeaponSubclass.Crossbow, StatTransmogOnly),
+                (WowWeaponSubclass.Gun, StatTransmogOnly),
+                (WowWeaponSubclass.Thrown, StatTransmogOnly),
 
-                (WowWeaponSubclass.OffHand, new[] { WowStat.Strength }),
-                (WowWeaponSubclass.Shield, new[] { WowStat.Strength }),
+                (WowWeaponSubclass.OffHand, StatStrength),
+                (WowWeaponSubclass.Shield, StatStrength),
             },
         },
     };

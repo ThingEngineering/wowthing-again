@@ -6,5 +6,6 @@ public class DataTransmogSetGroup
     public string Name { get; set; }
     public string Prefix { get; set; }
     public string Type { get; set; }
+    public Dictionary<string, string> BonusIds { get; set; }
     public List<string> MatchTags { get; set; }
 }

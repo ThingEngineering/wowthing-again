@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Data;
+﻿using Microsoft.EntityFrameworkCore.Design.Internal;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
@@ -34,7 +35,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 56,
+        Version = 57,
     };
 
     public override async Task Run(params string[] data)
@@ -344,7 +345,18 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
     {
-        var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(Path.Join("enUS", "skillline"));
+        var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(
+            Path.Join("enUS", "skillline"));
+
+        var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>(
+            "skilllineability");
+
+        var skillLineSpellIds = new HashSet<int>(skillLineAbilities.Select(ability => ability.Spell));
+        var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
+                Path.Join("enUS", "spellname"),
+                dsn => skillLineSpellIds.Contains(dsn.ID)
+            ))
+            .ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
 
         var professions = skillLines
             .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
@@ -357,9 +369,73 @@ public class CacheStaticJob : JobBase, IScheduledJob
                            !Hardcoded.IgnoredProfessions.Contains(line.ID))
             .ToGroupedDictionary(line => line.ParentSkillLineID);
 
+        var skillLineParentMap = skillLines
+            .Where(line => line.ParentSkillLineID > 0)
+            .ToDictionary(line => line.ID, line => line.ParentSkillLineID);
+
+        var categoryAbilities = skillLineAbilities
+            .GroupBy(sla => sla.TradeSkillCategoryID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.ToArray()
+            );
+
         var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
         foreach (var language in Enum.GetValues<Language>())
         {
+            var categories = await DataUtilities.LoadDumpCsvAsync<DumpTradeSkillCategory>(
+                    Path.Join(language.ToString(), "tradeskillcategory"));
+
+            var categoriesByProfession = categories
+                .GroupBy(tsc => Hardcoded.PrimaryProfessions.Contains(tsc.SkillLineID)
+                    ? tsc.SkillLineID
+                    : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
+                .ToDictionary(group => group.Key, group => group.ToList());
+
+            var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
+            foreach (int professionId in Hardcoded.PrimaryProfessions)
+            {
+                var categoryMap = new Dictionary<int, OutProfessionCategory>();
+                var professionCategories = categoriesByProfession[professionId];
+                foreach (var category in professionCategories)
+                {
+                    categoryMap[category.ID] = new OutProfessionCategory(category)
+                    {
+                        Abilities = categoryAbilities
+                            .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
+                            .Select(ability => new OutProfessionAbility(
+                                ability,
+                                spellNameMap.GetValueOrDefault(ability.Spell, $"Spell #{ability.Spell}")
+                            ))
+                            .ToArray(),
+                    };
+                }
+
+                var roots = new List<OutProfessionCategory>();
+                foreach (var category in professionCategories)
+                {
+                    if (category.ParentTradeSkillCategoryID > 0)
+                    {
+                        categoryMap[category.ParentTradeSkillCategoryID].Children.Add(categoryMap[category.ID]);
+                    }
+                    else
+                    {
+                        roots.Add(categoryMap[category.ID]);
+                    }
+                }
+
+                professionRootCategories[professionId] = roots
+                    .OrderBy(opc => opc.Order)
+                    .ToList();
+
+                foreach (var opc in categoryMap.Values)
+                {
+                    opc.Children = opc.Children
+                        .OrderBy(child => child.Order)
+                        .ToList();
+                }
+            }
+
             ret[language] = professions
                 .ToDictionary(
                     profession => profession.ID,
@@ -381,6 +457,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
                                 Name = GetString(StringType.WowSkillLineName, language, line.ID),
                             })
                             .ToList(),
+                        Categories = professionRootCategories.GetValueOrDefault(profession.ID),
                     }
                 );
         }

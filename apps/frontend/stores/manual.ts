@@ -28,7 +28,7 @@ import {
     ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { ArmorType, Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
+import { Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
@@ -47,6 +47,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     }
 
     initialize(data: ManualData): void {
+        console.time('ManualDataStore.initialize')
+
         data.shared = {
             itemSets: [],
             itemSetsByTag: {},
@@ -149,8 +151,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawMountSets = null
         data.rawPetSets = null
         data.rawToySets = null
-
-        //console.log(data)
+        
+        console.timeEnd('ManualDataStore.initialize')
     }
     
     private fixCollectionSets(
@@ -258,11 +260,14 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         userTransmogData: UserTransmogData,
         zoneMapState: ZoneMapState,
     ): void {
-        // console.time('ManualDataStore.setup')
+        console.time('ManualDataStore.setup')
 
         this.update(state => {
+            console.time('ManualDataStore.setupVendors')
             this.setupVendors(state)
+            console.timeEnd('ManualDataStore.setupVendors')
             
+            console.time('ManualDataStore.setupZoneMaps')
             this.setupZoneMaps(
                 state,
                 settings,
@@ -272,11 +277,12 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 userTransmogData,
                 zoneMapState
             )
+            console.timeEnd('ManualDataStore.setupZoneMaps')
 
             return state
         })
 
-        // console.timeEnd('ManualDataStore.setup')
+        console.timeEnd('ManualDataStore.setup')
     }
 
     private setupVendors(

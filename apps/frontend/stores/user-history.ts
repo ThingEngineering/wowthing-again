@@ -12,7 +12,7 @@ export class UserHistoryDataStore extends WritableFancyStore<UserHistoryData> {
     }
 
     initialize(userHistoryData: UserHistoryData): void {
-        // console.time('UserHistoryDataStore.initialize')
+        console.time('UserHistoryDataStore.initialize')
 
         if (userHistoryData.goldRaw === null) {
             return
@@ -57,7 +57,7 @@ export class UserHistoryDataStore extends WritableFancyStore<UserHistoryData> {
         userHistoryData.gold = realms
         userHistoryData.goldRaw = null
 
-        // console.timeEnd('UserHistoryDataStore.initialize')
+        console.timeEnd('UserHistoryDataStore.initialize')
     }
 }
 

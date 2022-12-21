@@ -6,18 +6,31 @@
     import { QuestStatus } from '@/enums'
     import { toNiceDuration } from '@/utils/to-nice'
     import type { Character } from '@/types'
-    import type { UserQuestDataCharacterProgress } from '@/types/data'
+    import type { UserQuestDataCharacterProgress, UserQuestDataCharacterProgressObjective } from '@/types/data'
 
     export let character: Character
     export let progressQuest: UserQuestDataCharacterProgress
     export let title: string
 
     let duration: string
+    let status: QuestStatus
     $: {
-        if (progressQuest && (progressQuest.status === QuestStatus.Completed || forcedReset[progressQuest.type])) {
+        status = progressQuest?.status ?? QuestStatus.NotStarted
+        const isForcedReset = forcedReset[progressQuest?.objectives?.[0]?.type]
+        if (progressQuest && (progressQuest.status === QuestStatus.Completed || isForcedReset)) {
             const expires = DateTime.fromSeconds(progressQuest.expires)
             duration = toNiceDuration(expires.diff($timeStore).toMillis())
         }
+    }
+
+    const objectiveStatus = function(objective: UserQuestDataCharacterProgressObjective): number {
+        if (objective.have === 0) {
+            return 0
+        }
+        else if (objective.have < objective.need) {
+            return 1
+        }
+        return 2
     }
 </script>
 
@@ -40,27 +53,31 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
+    <h5>{progressQuest?.name ?? title}</h5>
 
     <table class="table-striped">
         <tbody>
-            <tr>
-                <td class="title">
-                    {progressQuest?.name ?? title}
-                </td>
-            </tr>
-            <tr>
-                <td class="progress status-{progressQuest?.status ?? 0}">
-                    {#if progressQuest === undefined || progressQuest.status === QuestStatus.NotStarted}
-                        Quest not started!
-                    {:else}
-                        {#if progressQuest.status === QuestStatus.InProgress}
-                            {progressQuest.text}
-                        {:else if progressQuest.status === QuestStatus.Completed}
+            {#if status === QuestStatus.InProgress && progressQuest.objectives?.length > 0}
+                {#each progressQuest.objectives as objective}
+                    <tr>
+                        <td class="progress status-{objectiveStatus(objective)}">
+                            {objective.text}
+                        </td>
+                    </tr>
+                {/each}
+            {:else}
+                <tr>
+                    <td class="progress status-0">
+                        {#if status === QuestStatus.InProgress}
+                            Update addon!
+                        {:else if status === QuestStatus.NotStarted}
+                            Quest not started!
+                        {:else if status === QuestStatus.Completed}
                             Quest completed
                         {/if}
-                    {/if}
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            {/if}
 
             {#if duration}
                 <tr>

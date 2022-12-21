@@ -16,7 +16,7 @@ public static partial class Hardcoded
         393, // Skinning
         197, // Tailoring
     };
-        
+
     public static readonly HashSet<int> SecondaryProfessions = new()
     {
         185, // Cooking

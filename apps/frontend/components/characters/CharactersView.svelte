@@ -11,6 +11,7 @@
     import type { Character, MultiSlugParams } from '@/types'
 
     import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
+    import Professions from './professions/CharacterProfessions.svelte'
     import Shadowlands from './shadowlands/CharactersShadowlands.svelte'
     import Specializations from './specializations/CharactersSpecializations.svelte'
 
@@ -46,6 +47,7 @@
 
     const componentMap: Record<string, typeof SvelteComponent> = {
         paperdoll: Paperdoll,
+        professions: Professions,
         shadowlands: Shadowlands,
         specializations: Specializations,
     }
@@ -114,8 +116,18 @@
 
         {#key `${params.slug1}--${params.slug2}`}
             <nav class="border">
-                <a href="#{baseUrl}/paperdoll" use:active>Paperdoll</a>
-                <a href="#{baseUrl}/specializations" use:active>Specializations</a>
+                <a
+                    href="#{baseUrl}/paperdoll"
+                    use:active
+                >Paperdoll</a>
+                <a
+                    href="#{baseUrl}/professions"
+                    use:active={`${baseUrl}/professions/*`}
+                >Professions</a>
+                <a
+                    href="#{baseUrl}/specializations"
+                    use:active
+                >Specializations</a>
                 <a
                     href="#{baseUrl}/shadowlands"
                     use:active={`${baseUrl}/shadowlands/*`}

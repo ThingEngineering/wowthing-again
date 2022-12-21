@@ -29,7 +29,7 @@ namespace Wowthing.Backend.Jobs.Misc;
 
 public class CacheManualJob : JobBase, IScheduledJob
 {
-    private readonly JankTimer _timer = new JankTimer();
+    private readonly JankTimer _timer = new();
 
     private IDatabase _db;
 
@@ -62,7 +62,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 17,
+        Version = 18,
     };
 
     public override async Task Run(params string[] data)
