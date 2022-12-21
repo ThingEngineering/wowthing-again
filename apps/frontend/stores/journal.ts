@@ -1,10 +1,9 @@
-import findIndex from 'lodash/findIndex'
 import flattenDeep from 'lodash/flattenDeep'
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import without from 'lodash/without'
 
-import { journalDifficultyMap, journalDifficultyOrder, raidDifficulties } from '@/data/difficulty'
+import { journalDifficultyMap, raidDifficulties } from '@/data/difficulty'
 import { worldBossInstanceIds } from '@/data/dungeon'
 import { UserCount, WritableFancyStore, type UserData } from '@/types'
 import { JournalDataEncounter, JournalDataEncounterItem, type JournalDataTier } from '@/types/data'

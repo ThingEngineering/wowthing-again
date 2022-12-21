@@ -37,7 +37,9 @@
                             {:else if progress.progressQuest === undefined}
                                 Not started
                             {:else}
-                                {progress.progressQuest.have} / {progress.progressQuest.need}
+                                {progress.progressQuest.objectives?.[0]?.have ?? 0}
+                                /
+                                {progress.progressQuest.objectives?.[0]?.need ?? 4}
                             {/if}
                         </span>
                     </td>

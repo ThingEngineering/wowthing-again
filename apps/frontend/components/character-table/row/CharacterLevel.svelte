@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { experiencePerLevel } from '@/data/experience'
     import { data as settings } from '@/stores/settings'
     import { getCharacterLevel } from '@/utils/get-character-level'
     import leftPad from '@/utils/left-pad'

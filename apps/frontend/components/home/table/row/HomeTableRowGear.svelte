@@ -49,24 +49,6 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
-    span {
-        &.status-fail {
-            :global(img) {
-                margin-right: 7px;
-            }
-        }
-
-        &:not(:last-child) {
-            width: 3.6rem;
-        }
-        &:last-child {
-            word-spacing: -0.1ch;
-        }
-
-        :global(img) {
-            margin-right: 2px;
-        }
-    }
 </style>
 
 {#if character.level === Constants.characterMaxLevel}
