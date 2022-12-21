@@ -2,7 +2,7 @@ id: 199448
 name: "Tattukiaka"
 
 locations:
-  the_azure_span:
+  09-dragonflight/azure_span:
     - 14 49.6
 
 sells:
