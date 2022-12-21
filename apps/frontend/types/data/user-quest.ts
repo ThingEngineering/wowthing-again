@@ -20,11 +20,15 @@ export interface UserQuestDataCharacter {
 
 export interface UserQuestDataCharacterProgress {
     expires: number
-    have: number
     id: number
     name: string
-    need: number
     status: QuestStatus
+    objectives: UserQuestDataCharacterProgressObjective[]
+}
+
+export interface UserQuestDataCharacterProgressObjective {
+    have: number
+    need: number
     text: string
     type: string
 }

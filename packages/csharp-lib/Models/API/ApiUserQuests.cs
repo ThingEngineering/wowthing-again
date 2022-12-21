@@ -5,7 +5,6 @@ namespace Wowthing.Lib.Models.API;
 public class ApiUserQuests
 {
     public Dictionary<int, ApiUserQuestsCharacter> Characters { get; set; }
-
 }
 
 public class ApiUserQuestsCharacter

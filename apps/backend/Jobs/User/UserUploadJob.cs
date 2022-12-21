@@ -1286,12 +1286,35 @@ public class UserUploadJob : JobBase
                         Expires = int.Parse(progressParts[4]),
                     };
 
-                    if (progressParts.Length > 5)
+                    if (progressParts.Length == 6)
                     {
-                        progress.Have = int.Parse(progressParts[5]);
-                        progress.Need = int.Parse(progressParts[6]);
-                        progress.Type = progressParts[7];
-                        progress.Text = progressParts[8];
+                        foreach (string packedObjective in progressParts[5].Split('_'))
+                        {
+                            string[] objectiveParts = packedObjective.Split(';');
+                            if (objectiveParts.Length != 4)
+                            {
+                                Logger.Warning("Invalid objective string: {objective}", packedObjective);
+                                continue;
+                            }
+
+                            progress.Objectives.Add(new()
+                            {
+                                Type = objectiveParts[0],
+                                Text = objectiveParts[1],
+                                Have = int.Parse(objectiveParts[2]),
+                                Need = int.Parse(objectiveParts[3]),
+                            });
+                        }
+                    }
+                    else if (progressParts.Length > 6)
+                    {
+                        progress.Objectives.Add(new()
+                        {
+                            Have = int.Parse(progressParts[5]),
+                            Need = int.Parse(progressParts[6]),
+                            Type = progressParts[7],
+                            Text = progressParts[8],
+                        });
                     }
 
                     character.AddonQuests.ProgressQuests[progressParts[0]] = progress;

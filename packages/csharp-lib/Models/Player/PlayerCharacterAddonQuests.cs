@@ -12,13 +12,13 @@ public class PlayerCharacterAddonQuests
 
     public DateTime CallingsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime QuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
-        
+
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<List<int>>> Dailies { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
 }
@@ -26,11 +26,17 @@ public class PlayerCharacterAddonQuests
 public class PlayerCharacterAddonQuestsProgress
 {
     public int Expires { get; set; }
-    public int Have { get; set; }
     public int Id { get; set; }
-    public int Need { get; set; }
     public int Status { get; set; }
     public string Name { get; set; }
+
+    public List<PlayerCharacterAddonQuestsProgressObjective> Objectives { get; set; } = new();
+}
+
+public class PlayerCharacterAddonQuestsProgressObjective
+{
+    public int Have { get; set; }
+    public int Need { get; set; }
     public string Text { get; set; }
     public string Type { get; set; }
 }
