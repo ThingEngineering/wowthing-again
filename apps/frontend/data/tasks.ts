@@ -147,7 +147,7 @@ export const choreMap: Record<string, Chore[]> = {
         {
             minimumLevel: 60,
             taskKey: 'dfGrandHuntMythic',
-            taskName: 'Grand Hunt: Mythic',
+            taskName: 'Grand Hunt: Epic',
         },
         {
             minimumLevel: 60,
