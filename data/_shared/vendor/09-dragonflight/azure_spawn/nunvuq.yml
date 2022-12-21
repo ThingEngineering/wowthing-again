@@ -11,7 +11,7 @@ sets:
     sortKey: "it17"
 
 sells:
-  - type: transmog
+  - type: toy
     id: 199894 # Fisherman's Folly
     costs:
       2003: 400
@@ -19,7 +19,7 @@ sells:
       1201404: 5
     reputation: 2511 renown-17
 
-  - type: transmog
+  - type: toy
     id: 199896 # Rubbery Fish Head
     costs:
       2003: 400
