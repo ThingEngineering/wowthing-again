@@ -1,19 +1,28 @@
 import { replace } from 'svelte-spa-router'
 
 
-export default function getSavedRoute(route: string, slug1?: string, slug2?: string): void {
+export default function getSavedRoute(
+    route: string,
+    slug1?: string,
+    slug2?: string,
+    sidebarId = 'sub-sidebar',
+    lastChild = false
+): void {
     const key = `route-${route}`
     if (slug1 === null) {
         const saved = localStorage.getItem(key)
-        const subSidebar = document.getElementById('sub-sidebar')
+        const subSidebar = document.getElementById(sidebarId)
         if (subSidebar !== null) {
-            if (saved !== null && saved !== 'undefined') {
+            if (!!saved && saved !== 'undefined') {
                 replace(`/${route}/${saved}`)
                 return
             }
 
-            const first = subSidebar.querySelector('a')
+            const first = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
             replace(first.getAttribute('href').replace('#', ''))
+        }
+        else {
+            console.log("couldn't find sidebar??", sidebarId)
         }
     }
     else {

@@ -1,6 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
 // ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
 namespace Wowthing.Backend.Models.Data.Professions;
 
 public class DumpSkillLineAbility
@@ -11,6 +12,7 @@ public class DumpSkillLineAbility
     public int SkillLine { get; set; }
     public int SkillupSkillLineID { get; set; }
     public int Spell { get; set; }
+    public int SupercedesSpell { get; set; }
     public int TradeSkillCategoryID { get; set; }
     public int TrivialSkillLineRankHigh { get; set; }
     public int TrivialSkillLineRankLow { get; set; }

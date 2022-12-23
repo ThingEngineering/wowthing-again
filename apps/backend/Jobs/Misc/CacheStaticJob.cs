@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Design.Internal;
-using Wowthing.Backend.Data;
+﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
@@ -35,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 57,
+        Version = 58,
     };
 
     public override async Task Run(params string[] data)
@@ -343,6 +342,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return categories;
     }
 
+    private static readonly HashSet<int> IgnoredCategories = new HashSet<int>()
+    {
+        1698, // Mining - Tracking
+        1699, // Herbalism - Tracking
+    };
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
     {
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(
@@ -350,13 +354,6 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>(
             "skilllineability");
-
-        var skillLineSpellIds = new HashSet<int>(skillLineAbilities.Select(ability => ability.Spell));
-        var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
-                Path.Join("enUS", "spellname"),
-                dsn => skillLineSpellIds.Contains(dsn.ID)
-            ))
-            .ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
 
         var professions = skillLines
             .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
@@ -368,6 +365,21 @@ public class CacheStaticJob : JobBase, IScheduledJob
                             Hardcoded.SecondaryProfessions.Contains(line.ParentSkillLineID)) &&
                            !Hardcoded.IgnoredProfessions.Contains(line.ID))
             .ToGroupedDictionary(line => line.ParentSkillLineID);
+
+        var supersededBy = skillLineAbilities
+            .Where(sla => sla.SupercedesSpell > 0)
+            .GroupBy(sla => sla.SupercedesSpell)
+            .ToDictionary(
+                group => group.Key,
+                group => group.First()
+            );
+
+        var skillLineSpellIds = new HashSet<int>(skillLineAbilities.Select(ability => ability.Spell));
+        var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
+                Path.Join("enUS", "spellname"),
+                dsn => skillLineSpellIds.Contains(dsn.ID)
+            ))
+            .ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
 
         var skillLineParentMap = skillLines
             .Where(line => line.ParentSkillLineID > 0)
@@ -384,7 +396,9 @@ public class CacheStaticJob : JobBase, IScheduledJob
         foreach (var language in Enum.GetValues<Language>())
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpTradeSkillCategory>(
-                    Path.Join(language.ToString(), "tradeskillcategory"));
+                    Path.Join(language.ToString(), "tradeskillcategory"),
+                    category => !IgnoredCategories.Contains(category.ID)
+                );
 
             var categoriesByProfession = categories
                 .GroupBy(tsc => Hardcoded.PrimaryProfessions.Contains(tsc.SkillLineID)
@@ -399,16 +413,32 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 var professionCategories = categoriesByProfession[professionId];
                 foreach (var category in professionCategories)
                 {
-                    categoryMap[category.ID] = new OutProfessionCategory(category)
+                    var outCategory = categoryMap[category.ID] = new OutProfessionCategory(category);
+
+                    var abilities = categoryAbilities
+                        .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
+                        .Where(ability => ability.SupercedesSpell == 0)
+                        .ToArray();
+                    foreach (var ability in abilities)
                     {
-                        Abilities = categoryAbilities
-                            .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
-                            .Select(ability => new OutProfessionAbility(
-                                ability,
-                                spellNameMap.GetValueOrDefault(ability.Spell, $"Spell #{ability.Spell}")
-                            ))
-                            .ToArray(),
-                    };
+                        var outAbility = new OutProfessionAbility(
+                            ability,
+                            spellNameMap.GetValueOrDefault(ability.Spell, $"Spell #{ability.Spell}")
+                        );
+
+                        if (supersededBy.TryGetValue(ability.Spell, out var superAbility))
+                        {
+                            outAbility.Ranks = new();
+                            while (superAbility != null)
+                            {
+                                outAbility.Ranks.Add(superAbility.ID);
+                                outAbility.Ranks.Add(superAbility.Spell);
+                                supersededBy.TryGetValue(superAbility.Spell, out superAbility);
+                            }
+                        }
+
+                        outCategory.Abilities.Add(outAbility);
+                    }
                 }
 
                 var roots = new List<OutProfessionCategory>();
