@@ -84,7 +84,6 @@
     {#key `${params.slug1}--${params.slug2}--${params.slug3}--${params.slug4}`}
         <div class="professions">
             <Sidebar
-                {character}
                 {params}
             />
 

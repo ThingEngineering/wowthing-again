@@ -8,7 +8,6 @@
     import type { StaticDataProfessionCategory } from '@/types/data/static'
 
     import Table from './CharacterProfessionsProfessionTable.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let params: MultiSlugParams
