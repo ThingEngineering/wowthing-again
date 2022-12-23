@@ -95,7 +95,7 @@
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
         // :foo: icon strings
-        html = html.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
+        html = html.replaceAll(/:([a-zA-Z0-9_-]+):/g, '<span data-string="$1"></span>')
 
         // Square brackets => code
         html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>')
