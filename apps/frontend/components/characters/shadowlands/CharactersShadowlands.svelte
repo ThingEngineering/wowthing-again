@@ -30,41 +30,10 @@
 </script>
 
 <style lang="scss">
-    nav {
-        --image-margin-top: -2px;
 
-        background: $highlight-background;
-        border-radius: 0;
-        display: flex;
-        margin-bottom: 1rem;
-        margin-left: calc(-1rem + -1px);
-        margin-top: -0.5rem;
-        padding: 0;
-        width: calc(100% + 2rem + 2px);
-
-        a {
-            border-right: 1px solid $border-color;
-            display: block;
-            padding: 0.25rem 1rem 0.25rem 0.25rem;
-
-            &.pad-left {
-                padding-left: 0.5rem;
-            }
-
-            &:global(.active) {
-                background: $active-background;
-                color: #fff;
-            }
-
-            pre {
-                display: inline;
-                margin-left: 0.25rem;
-            }
-        }
-    }
 </style>
 
-<nav class="border">
+<nav class="characters-subnav border">
     {#each covenantOrder as covenantId}
         {@const renown = character.shadowlands?.covenants?.[covenantId]?.renown ?? 0}
         <a

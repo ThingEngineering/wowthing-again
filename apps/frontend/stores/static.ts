@@ -8,6 +8,7 @@ import {
     StaticDataInstance,
     StaticDataMount,
     StaticDataPet,
+    StaticDataProfessionCategory,
     StaticDataRealm,
     StaticDataReputation,
     StaticDataReputationCategory,
@@ -36,6 +37,16 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             specs.sort((a, b) => a.order - b.order)
             cls.specializationIds = specs.map((spec) => spec.id)
         }
+
+        for (const profession of Object.values(data.professions)) {
+            if (profession.rawCategories != null) {
+                profession.categories = profession.rawCategories.map(
+                    (categoryArray) => new StaticDataProfessionCategory(...categoryArray)
+                )
+                profession.rawCategories = null
+            }
+        }
+        console.log(data.professions)
 
         if (data.rawBags !== null) {
             data.bags = StaticDataStore.createObjects(data.rawBags, StaticDataBag)

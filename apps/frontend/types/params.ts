@@ -3,4 +3,5 @@ export interface MultiSlugParams {
     slug2?: string
     slug3?: string
     slug4?: string
+    slug5?: string
 }
