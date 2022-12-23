@@ -9,7 +9,7 @@
     export let category: StaticDataProfessionCategory
 
     const getFixedName = function(name: string): string {
-        name = name.replace(/- \|A:Professions-Icon-Quality-Tier\d-Small:20:20\|a/, ':starFull:')
+        name = name.replace(/(- )?\|A:Professions-Icon-Quality-Tier\d-Small:20:20\|a/, ':starFull:')
         return name
     }
 </script>
