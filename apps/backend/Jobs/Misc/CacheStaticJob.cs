@@ -417,7 +417,12 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
                     var abilities = categoryAbilities
                         .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
-                        .Where(ability => ability.SupercedesSpell == 0)
+                        .Where(ability => ability.SupercedesSpell == 0 &&
+                                          !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.Spell))
+                        .OrderByDescending(ability => ability.MinSkillLineRank)
+                        //.ThenByDescending(ability => ability.TrivialSkillLineRankLow)
+                        .ThenByDescending(ability => ability.TrivialSkillLineRankHigh)
+                        .ThenBy(ability => spellNameMap.GetValueOrDefault(ability.Spell, $"ZZZ"))
                         .ToArray();
                     foreach (var ability in abilities)
                     {
