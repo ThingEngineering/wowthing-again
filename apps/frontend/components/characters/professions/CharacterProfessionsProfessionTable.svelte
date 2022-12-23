@@ -74,7 +74,7 @@
                             type={"spell"}
                         >
                             <WowthingImage
-                                name="spell/{ability.spellId}"
+                                name={ability.itemId ? `item/${ability.itemId}` : `spell/${ability.spellId}`}
                                 size={20}
                                 border={1}
                             />

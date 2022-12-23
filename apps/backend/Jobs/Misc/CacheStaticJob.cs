@@ -344,6 +344,20 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
     {
+        var itemNameToId = _stringMap
+            .Where(kvp => kvp.Key is { Type: StringType.WowItemName, Language: Language.enUS })
+            .GroupBy(kvp => kvp.Value)
+            .ToDictionary(
+                group => group.Key,
+                group => group.MaxBy(kvp => kvp.Key.Id).Key.Id
+            );
+
+        var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
+            .ToGroupedDictionary(se => se.SpellID);
+
+        var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
+            .ToDictionary(cd => cd.ID, cd => cd.CraftedItemID);
+
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(
             Path.Join("enUS", "skillline"));
 
@@ -435,6 +449,24 @@ public class CacheStaticJob : JobBase, IScheduledJob
                                 outAbility.Ranks.Add(superAbility.Spell);
                                 supersededBy.TryGetValue(superAbility.Spell, out superAbility);
                             }
+                        }
+
+                        if (spellEffectMap.TryGetValue(ability.Spell, out var abilityEffects))
+                        {
+                            foreach (var abilityEffect in abilityEffects)
+                            {
+                                if (abilityEffect.Effect == 288 &&
+                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out int effectItemId))
+                                {
+                                    outAbility.ItemId = effectItemId;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemid))
+                        {
+                            outAbility.ItemId = nameItemid;
                         }
 
                         outCategory.Abilities.Add(outAbility);

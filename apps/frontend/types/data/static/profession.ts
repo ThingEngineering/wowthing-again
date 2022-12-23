@@ -36,6 +36,7 @@ export class StaticDataProfessionAbility {
     constructor(
         public id: number,
         public spellId: number,
+        public itemId: number,
         public skillups: number,
         public minSkill: number,
         public trivialLow: number,

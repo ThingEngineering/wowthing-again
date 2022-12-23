@@ -2,12 +2,13 @@
 
 public class OutProfessionAbility
 {
-    public int TrivialHigh { get; set; }
     public int Id { get; set; }
-    public int TrivialLow { get; set; }
+    public int ItemId { get; set; }
     public int Min { get; set; }
     public int Skillups { get; set; }
     public int SpellId { get; set; }
+    public int TrivialHigh { get; set; }
+    public int TrivialLow { get; set; }
     public string Name { get; set; }
     public List<int> Ranks { get; set; }
 
