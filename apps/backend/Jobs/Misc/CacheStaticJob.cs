@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 58,
+        Version = 59,
     };
 
     public override async Task Run(params string[] data)
@@ -342,11 +342,6 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return categories;
     }
 
-    private static readonly HashSet<int> IgnoredCategories = new HashSet<int>()
-    {
-        1698, // Mining - Tracking
-        1699, // Herbalism - Tracking
-    };
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
     {
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(
@@ -397,7 +392,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpTradeSkillCategory>(
                     Path.Join(language.ToString(), "tradeskillcategory"),
-                    category => !IgnoredCategories.Contains(category.ID)
+                    category => !Hardcoded.IgnoredTradeSkillCategories.Contains(category.ID)
                 );
 
             var categoriesByProfession = categories
