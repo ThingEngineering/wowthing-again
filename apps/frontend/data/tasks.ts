@@ -103,9 +103,22 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
+        key: 'dfCatchRelease',
+        name: '[DF] Catch and Release (Fishing)',
+        shortName: 'CaR',
+        type: 'multi',
+    },
+    {
+        key: 'dfChores',
+        name: '[DF] Chores',
+        shortName: 'Cho',
+        minimumLevel: 60,
+        type: 'multi',
+    },
+    {
         key: 'dfDungeonWeeklies',
         name: '[DF] Dungeon Weeklies',
-        shortName: 'DW',
+        shortName: 'Dun',
         type: 'multi',
     },
     {
@@ -114,13 +127,6 @@ export const taskList: Task[] = [
         shortName: 'SoL',
         minimumLevel: 60,
     },
-    {
-        key: 'dfChores',
-        name: '[DF] Chores',
-        shortName: 'DFC',
-        minimumLevel: 60,
-        type: 'multi',
-    },
 ]
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
@@ -128,6 +134,32 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 )
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    'dfCatchRelease': [
+        {
+            taskKey: 'dfCatchAileron',
+            taskName: 'Aileron Seamoth',
+        },
+        {
+            taskKey: 'dfCatchCerulean',
+            taskName: 'Cerulean Spinefish',
+        },
+        {
+            taskKey: 'dfCatchIslefin',
+            taskName: 'Islefin Dorado',
+        },
+        {
+            taskKey: 'dfCatchScalebelley',
+            taskName: 'Scalebelly Mackerel',
+        },
+        {
+            taskKey: 'dfCatchTemporal',
+            taskName: 'Temporal Dragonhead',
+        },
+        {
+            taskKey: 'dfCatchThousandbite',
+            taskName: 'ThousandbitePiranha',
+        },
+    ],
     'dfChores': [
         {
             minimumLevel: 60,

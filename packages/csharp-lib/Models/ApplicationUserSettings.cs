@@ -117,6 +117,7 @@ public class ApplicationUserSettings
         "slZerethMortis",
 
         "dfAidingAccord",
+        "dfCatchRelease",
         "dfChores",
         "dfDungeonWeeklies",
         "dfSparks",
