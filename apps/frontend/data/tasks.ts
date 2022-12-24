@@ -160,16 +160,16 @@ export const choreMap: Record<string, Chore[]> = {
             taskName: 'Grand Hunt: Uncommon',
         },
         {
+            taskKey: 'dfPrimalStorm',
+            taskName: 'Primal Storm: Air',
+        },
+        {
             taskKey: 'dfPrimalEarth',
             taskName: 'Primal Storm: Earth',
         },
         {
             taskKey: 'dfPrimalFire',
             taskName: 'Primal Storm: Fire',
-        },
-        {
-            taskKey: 'dfPrimalStorm',
-            taskName: 'Primal Storm: Storm',
         },
         {
             taskKey: 'dfPrimalWater',
