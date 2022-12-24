@@ -6,7 +6,7 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let character: Character
-    export let chores: [string, boolean][]
+    export let chores: [string, number][]
     export let taskName: string
 </script>
 
@@ -24,13 +24,13 @@
     <h5>{taskMap[taskName].name}</h5>
     <table class="table-striped">
         <tbody>
-            {#each chores as [choreName, completed]}
+            {#each chores as [choreName, status]}
                 <tr>
                     <td class="name">{choreName}</td>
                     <td class="status">
                         <IconifyIcon
-                            extraClass="{completed ? 'status-success' : 'status-fail'}"
-                            icon={completed ? iconStrings.yes : iconStrings.no}
+                            extraClass="status-{['fail', 'shrug', 'success'][status]}"
+                            icon={iconStrings[['starEmpty', 'starHalf', 'starFull'][status]]}
                         />
                     </td>
                 </tr>

@@ -12,7 +12,7 @@
     export let character: Character
     export let taskName: string
 
-    let chores: [string, boolean][]
+    let chores: [string, number][]
     let countCompleted: number
     let countTotal: number
     $: {
@@ -30,14 +30,14 @@
 
             countTotal++
 
-            let completed = false
+            let status = 0
             const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-            if (progressQuest) {
-                completed = progressQuest.status === 2 && DateTime.fromSeconds(progressQuest.expires) > $timeStore
+            if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                status = progressQuest.status
             }
-            chores.push([choreTask.taskName, completed])
+            chores.push([choreTask.taskName, status])
 
-            if (completed) {
+            if (status === 2) {
                 countCompleted++
             }
         }
