@@ -118,6 +118,7 @@ public class ApplicationUserSettings
 
         "dfAidingAccord",
         "dfChores",
+        "dfDungeonWeeklies",
         "dfSparks",
     };
 

@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
-    import { choreMap, taskMap } from '@/data/tasks'
+    import { multiTaskMap, taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -23,7 +23,7 @@
 
         countCompleted = 0
         countTotal = 0
-        for (const choreTask of choreMap[taskName]) {
+        for (const choreTask of multiTaskMap[taskName]) {
             if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
                 continue
             }

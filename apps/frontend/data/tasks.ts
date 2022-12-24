@@ -1,4 +1,4 @@
-import type { Task } from '@/types/tasks'
+import type { Chore, Task } from '@/types/tasks'
 
 
 export const taskList: Task[] = [
@@ -103,6 +103,12 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
+        key: 'dfDungeonWeeklies',
+        name: '[DF] Dungeon Weeklies',
+        shortName: 'DW',
+        type: 'multi',
+    },
+    {
         key: 'dfSparks',
         name: '[DF] Sparks of Life (PvP)',
         shortName: 'SoL',
@@ -113,6 +119,7 @@ export const taskList: Task[] = [
         name: '[DF] Chores',
         shortName: 'DFC',
         minimumLevel: 60,
+        type: 'multi',
     },
 ]
 
@@ -120,12 +127,7 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
     taskList.map((task) => [task.key, task])
 )
 
-type Chore = {
-    minimumLevel?: number,
-    taskKey: string,
-    taskName: string,
-}
-export const choreMap: Record<string, Chore[]> = {
+export const multiTaskMap: Record<string, Chore[]> = {
     'dfChores': [
         {
             minimumLevel: 60,
@@ -190,5 +192,15 @@ export const choreMap: Record<string, Chore[]> = {
             taskKey: 'dfTrialFlood',
             taskName: 'Trial of the Flood',
         },
-    ]
+    ],
+    'dfDungeonWeeklies': [
+        {
+            taskKey: 'dfDungeonPreserving',
+            taskName: 'Preserving the Past'
+        },
+        {
+            taskKey: 'dfDungeonRelic',
+            taskName: 'Relic Recovery',
+        },
+    ],
 }
