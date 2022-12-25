@@ -28,4 +28,6 @@ export enum InventoryType {
     Ranged2,
     Quiver,
     Relic,
+    ProfessionTool = 29,
+    ProfessionGear = 30,
 }

@@ -8,4 +8,5 @@ public enum ItemLocation : short
     ReagentBank = 3,
     GuildBank = 4,
     PetCollection = 10,
+    Equipped = 100,
 }

@@ -5,6 +5,7 @@
     import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/types/data/static'
     
+    import Equipment from './TooltipProfessionsEquipment.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
@@ -72,4 +73,9 @@
             {/each}
         </tbody>
     </table>
+
+    <Equipment
+        {character}
+        {profession}
+    />
 </div>
