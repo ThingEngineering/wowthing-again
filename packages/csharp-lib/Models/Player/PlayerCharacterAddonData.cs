@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Converters;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player;
 
@@ -24,6 +25,9 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataCurrency> Currencies { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterEquippedItem> EquippedItems { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; set; } = new();

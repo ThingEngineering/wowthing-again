@@ -226,6 +226,7 @@ public class UserUploadJob : JobBase
 
             HandleAchievements(character, characterData);
             HandleCovenants(character, characterData);
+
             await HandleItems(character, characterData);
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
@@ -422,10 +423,49 @@ public class UserUploadJob : JobBase
             currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
         }
 
-        // Change detection for this is obnoxious, just update it
-        Context.Entry(character.AddonData)
-            .Property(ad => ad.Currencies)
-            .IsModified = true;
+        // Equipment
+        character.AddonData.EquippedItems = new();
+        foreach ((int slot, string itemString) in characterData.Equipment.EmptyIfNull())
+        {
+            var parts = itemString.Split(":");
+            if (parts.Length != 9)
+            {
+                Logger.Warning("Invalid equipped item string: {String}", itemString);
+                continue;
+            }
+
+            short.TryParse(parts[2].OrDefault("0"), out short context);
+            short.TryParse(parts[3].OrDefault("0"), out short enchantId);
+            short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
+            short.TryParse(parts[5].OrDefault("0"), out short quality);
+            short.TryParse(parts[6].OrDefault("0"), out short suffixId);
+
+            var item = character.AddonData.EquippedItems[slot] = new();
+
+            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+            item.ItemId = int.Parse(parts[1]);
+            item.Context = context;
+            item.ItemLevel = itemLevel;
+            item.Quality = (WowQuality)quality;
+
+            item.EnchantmentIds = new();
+            if (enchantId > 0)
+            {
+                item.EnchantmentIds.Add(enchantId);
+            }
+
+            item.BonusIds = parts[7]
+                .EmptyIfNullOrWhitespace()
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+
+            item.GemIds = parts[8]
+                .EmptyIfNullOrWhitespace()
+                .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToList();
+        }
 
         // Garrisons
         character.AddonData.Garrisons ??= new();
@@ -457,11 +497,6 @@ public class UserUploadJob : JobBase
                 })
                 .ToList();
         }
-
-        // Change detection for this is obnoxious, just update it
-        Context.Entry(character.AddonData)
-            .Property(ad => ad.Garrisons)
-            .IsModified = true;
 
         // Garrison Trees
         if (characterData.GarrisonTrees != null &&
@@ -521,11 +556,6 @@ public class UserUploadJob : JobBase
                         }
                     }
                 }
-
-                // Change detection for this is obnoxious, just update it
-                Context.Entry(character.AddonData)
-                    .Property(ad => ad.GarrisonTrees)
-                    .IsModified = true;
             }
         }
 
@@ -589,11 +619,6 @@ public class UserUploadJob : JobBase
                             Score = int.Parse(runParts[3]),
                         });
                     }
-
-                    // Change detection for this is obnoxious, just update it
-                    Context.Entry(character.AddonData)
-                        .Property(ad => ad.MythicPlus)
-                        .IsModified = true;
                 }
 
                 // V2 data
@@ -679,17 +704,12 @@ public class UserUploadJob : JobBase
                             });
                         }
                     }
-
-                    // Change detection for this is obnoxious, just update it
-                    Context.Entry(character.AddonData)
-                        .Property(ad => ad.MythicPlusSeasons)
-                        .IsModified = true;
-                    Context.Entry(character.AddonData)
-                        .Property(ad => ad.MythicPlusWeeks)
-                        .IsModified = true;
                 }
             }
         }
+
+        // Change detection for this is obnoxious, just update it
+        Context.Entry(character.AddonData).State = EntityState.Modified;
     }
 
     private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)

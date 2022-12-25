@@ -161,7 +161,19 @@ public class UserApiCharacter
         if (character.EquippedItems?.Items != null)
         {
             EquippedItems = character.EquippedItems.Items
-                .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
+                .ToDictionary(
+                    k => (int)k.Key,
+                    v => new UserApiCharacterEquippedItem(v.Value)
+                );
+        }
+        else
+        {
+            EquippedItems = new();
+        }
+
+        foreach ((int slot, var equippedItem) in character.AddonData?.EquippedItems.EmptyIfNull())
+        {
+            EquippedItems[slot] = new UserApiCharacterEquippedItem(equippedItem);
         }
 
         // Lockouts
