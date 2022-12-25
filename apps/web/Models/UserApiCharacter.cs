@@ -44,7 +44,7 @@ public class UserApiCharacter
     public Dictionary<short, int> Bags { get; set; }
     public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
-    public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
+    public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; }
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
@@ -171,9 +171,12 @@ public class UserApiCharacter
             EquippedItems = new();
         }
 
-        foreach ((int slot, var equippedItem) in character.AddonData?.EquippedItems.EmptyIfNull())
+        if (character.AddonData?.EquippedItems != null)
         {
-            EquippedItems[slot] = new UserApiCharacterEquippedItem(equippedItem);
+            foreach ((int slot, var equippedItem) in character.AddonData.EquippedItems)
+            {
+                EquippedItems[slot] = new UserApiCharacterEquippedItem(equippedItem);
+            }
         }
 
         // Lockouts
