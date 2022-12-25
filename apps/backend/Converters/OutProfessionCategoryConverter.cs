@@ -34,6 +34,7 @@ public class OutProfessionCategoryConverter : System.Text.Json.Serialization.Jso
 
             writer.WriteNumberValue(ability.Id);
             writer.WriteNumberValue(ability.SpellId);
+            writer.WriteNumberValue(ability.ItemId);
             writer.WriteNumberValue(ability.Skillups);
             writer.WriteNumberValue(ability.Min);
             writer.WriteNumberValue(ability.TrivialLow);

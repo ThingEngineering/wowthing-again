@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
-    import { choreMap, taskMap } from '@/data/tasks'
+    import { multiTaskMap, taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -12,7 +12,7 @@
     export let character: Character
     export let taskName: string
 
-    let chores: [string, boolean][]
+    let chores: [string, number, string?][]
     let countCompleted: number
     let countTotal: number
     $: {
@@ -23,21 +23,30 @@
 
         countCompleted = 0
         countTotal = 0
-        for (const choreTask of choreMap[taskName]) {
+        for (const choreTask of multiTaskMap[taskName]) {
             if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
+                continue
+            }
+            if (choreTask.couldGetFunc?.(character) === false) {
                 continue
             }
 
             countTotal++
 
-            let completed = false
-            const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-            if (progressQuest) {
-                completed = progressQuest.status === 2 && DateTime.fromSeconds(progressQuest.expires) > $timeStore
+            let status = 0
+            const canGet = choreTask.canGetFunc?.(character) || ''
+            if (canGet.startsWith('Need')) {
+                status = 3
             }
-            chores.push([choreTask.taskName, completed])
+            else {
+                const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
+                if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                    status = progressQuest.status
+                }
+            }
 
-            if (completed) {
+            chores.push([choreTask.taskName, status, canGet])
+            if (status === 2) {
                 countCompleted++
             }
         }

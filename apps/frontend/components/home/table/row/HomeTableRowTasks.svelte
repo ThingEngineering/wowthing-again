@@ -19,7 +19,7 @@
     {#if task}
         {#if taskName === 'dmfProfessions'}
             <RowDmfProfessions {character} />
-        {:else if taskName.endsWith('Chores')}
+        {:else if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores
                 {character}
                 {taskName}

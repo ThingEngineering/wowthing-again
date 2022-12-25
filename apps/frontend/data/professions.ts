@@ -16,6 +16,11 @@ export const professionIdToString: Record<number, string> = {
     356: 'fishing',
 }
 
+export const professionSlugToId: Record<string, number> = Object.fromEntries(
+    Object.entries(professionIdToString)
+        .map(([id, slug]) => [slug, parseInt(id)])
+)
+
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion

@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 58,
+        Version = 59,
     };
 
     public override async Task Run(params string[] data)
@@ -342,13 +342,22 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return categories;
     }
 
-    private static readonly HashSet<int> IgnoredCategories = new HashSet<int>()
-    {
-        1698, // Mining - Tracking
-        1699, // Herbalism - Tracking
-    };
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
     {
+        var itemNameToId = _stringMap
+            .Where(kvp => kvp.Key is { Type: StringType.WowItemName, Language: Language.enUS })
+            .GroupBy(kvp => kvp.Value)
+            .ToDictionary(
+                group => group.Key,
+                group => group.MaxBy(kvp => kvp.Key.Id).Key.Id
+            );
+
+        var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
+            .ToGroupedDictionary(se => se.SpellID);
+
+        var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
+            .ToDictionary(cd => cd.ID, cd => cd.CraftedItemID);
+
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(
             Path.Join("enUS", "skillline"));
 
@@ -397,7 +406,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpTradeSkillCategory>(
                     Path.Join(language.ToString(), "tradeskillcategory"),
-                    category => !IgnoredCategories.Contains(category.ID)
+                    category => !Hardcoded.IgnoredTradeSkillCategories.Contains(category.ID)
                 );
 
             var categoriesByProfession = categories
@@ -417,7 +426,12 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
                     var abilities = categoryAbilities
                         .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
-                        .Where(ability => ability.SupercedesSpell == 0)
+                        .Where(ability => ability.SupercedesSpell == 0 &&
+                                          !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.Spell))
+                        .OrderByDescending(ability => ability.MinSkillLineRank)
+                        //.ThenByDescending(ability => ability.TrivialSkillLineRankLow)
+                        .ThenByDescending(ability => ability.TrivialSkillLineRankHigh)
+                        .ThenBy(ability => spellNameMap.GetValueOrDefault(ability.Spell, $"ZZZ"))
                         .ToArray();
                     foreach (var ability in abilities)
                     {
@@ -435,6 +449,24 @@ public class CacheStaticJob : JobBase, IScheduledJob
                                 outAbility.Ranks.Add(superAbility.Spell);
                                 supersededBy.TryGetValue(superAbility.Spell, out superAbility);
                             }
+                        }
+
+                        if (spellEffectMap.TryGetValue(ability.Spell, out var abilityEffects))
+                        {
+                            foreach (var abilityEffect in abilityEffects)
+                            {
+                                if (abilityEffect.Effect == 288 &&
+                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out int effectItemId))
+                                {
+                                    outAbility.ItemId = effectItemId;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemid))
+                        {
+                            outAbility.ItemId = nameItemid;
                         }
 
                         outCategory.Abilities.Add(outAbility);
