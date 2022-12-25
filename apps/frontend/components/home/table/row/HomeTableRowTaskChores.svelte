@@ -34,18 +34,21 @@
             countTotal++
 
             let status = 0
-            const canGet = choreTask.canGetFunc?.(character) || ''
-            if (canGet.startsWith('Need')) {
+            let statusText = choreTask.canGetFunc?.(character) || ''
+            if (statusText.startsWith('Need')) {
                 status = 3
             }
             else {
                 const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                 if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                     status = progressQuest.status
+                    if (status === 1 && progressQuest.objectives?.length > 0) {
+                        statusText = progressQuest.objectives[0].text
+                    }
                 }
             }
 
-            chores.push([choreTask.taskName, status, canGet])
+            chores.push([choreTask.taskName, status, statusText])
             if (status === 2) {
                 countCompleted++
             }
