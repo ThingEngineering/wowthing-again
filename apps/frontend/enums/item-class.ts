@@ -18,4 +18,5 @@ export enum ItemClass {
     Glyph = 16,
     BattlePet = 17,
     WowToken = 18,
+    Profession = 19,
 }
