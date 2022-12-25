@@ -120,6 +120,7 @@ public class ApplicationUserSettings
         "dfCatchRelease",
         "dfChores",
         "dfDungeonWeeklies",
+        "dfProfessionWeeklies",
         "dfSparks",
     };
 

@@ -12,7 +12,7 @@
     export let character: Character
     export let taskName: string
 
-    let chores: [string, number][]
+    let chores: [string, number, string?][]
     let countCompleted: number
     let countTotal: number
     $: {
@@ -27,16 +27,25 @@
             if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
                 continue
             }
+            if (choreTask.couldGetFunc?.(character) === false) {
+                continue
+            }
 
             countTotal++
 
             let status = 0
-            const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-            if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
-                status = progressQuest.status
+            const canGet = choreTask.canGetFunc?.(character) || ''
+            if (canGet.startsWith('Need')) {
+                status = 3
             }
-            chores.push([choreTask.taskName, status])
+            else {
+                const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
+                if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                    status = progressQuest.status
+                }
+            }
 
+            chores.push([choreTask.taskName, status, canGet])
             if (status === 2) {
                 countCompleted++
             }
