@@ -1288,7 +1288,7 @@ public class UserUploadJob : JobBase
 
                     if (progressParts.Length == 6)
                     {
-                        foreach (string packedObjective in progressParts[5].Split('_'))
+                        foreach (string packedObjective in progressParts[5].Split('_', StringSplitOptions.RemoveEmptyEntries))
                         {
                             string[] objectiveParts = packedObjective.Split(';');
                             if (objectiveParts.Length != 4)
