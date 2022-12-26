@@ -1,3 +1,10 @@
+import { get } from 'svelte/store'
+
+import { staticStore } from '@/stores'
+import type { Character } from '@/types'
+import type { Chore } from '@/types/tasks'
+
+
 export const professionIdToString: Record<number, string> = {
     171: 'alchemy',
     164: 'blacksmithing',
@@ -38,4 +45,118 @@ export const darkmoonFaireProfessionQuests: Record<number, number> = {
     794: 29507, // Archaeology - Fun for the Little Ones
     185: 29509, // Cooking - Putting the Crunch in the Frog
     356: 29513, // Fishing - Spoilin' for Salty Sea Dogs
+}
+
+type DragonflightProfessionTask = {
+    name: string
+    hasCraft?: boolean
+    hasOrders?: boolean
+}
+const dragonflightProfessions: DragonflightProfessionTask[] = [
+    {
+        name: 'Alchemy',
+        hasCraft: true,
+    },
+    {
+        name: 'Blacksmithing',
+        hasCraft: true,
+        hasOrders: true,
+    },
+    {
+        name: 'Enchanting',
+        hasCraft: true,
+    },
+    {
+        name: 'Engineering',
+        hasCraft: true,
+        hasOrders: true,
+    },
+    {
+        name: 'Herbalism',
+    },
+    {
+        name: 'Inscription',
+        hasCraft: true,
+        hasOrders: true,
+    },
+    {
+        name: 'Jewelcrafting',
+        hasCraft: true,
+        hasOrders: true,
+    },
+    {
+        name: 'Leatherworking',
+        hasCraft: true,
+        hasOrders: true,
+    },
+    {
+        name: 'Mining',
+    },
+    {
+        name: 'Skinning',
+    },
+    {
+        name: 'Tailoring',
+        hasCraft: true,
+        hasOrders: true,
+    },
+]
+
+export const dragonflightProfessionTasks: Chore[] = []
+for (const profession of dragonflightProfessions) {
+    const lowerName = profession.name.toLowerCase()
+    
+    if (profession.hasCraft === true) {
+        dragonflightProfessionTasks.push(
+            {
+                taskKey: `dfProfession${profession.name}Craft`,
+                taskName: `${profession.name}: Craft`,
+                minimumLevel: 60,
+                couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+                canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+            },
+        )
+    }
+
+    dragonflightProfessionTasks.push(
+        {
+            taskKey: `dfProfession${profession.name}Gather`,
+            taskName: `${profession.name}: Gather`,
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+            canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
+        },
+    )
+
+    if (profession.hasOrders === true) {
+        dragonflightProfessionTasks.push(
+            {
+                taskKey: `dfProfession${profession.name}Orders`,
+                taskName: `${profession.name}: Orders`,
+                minimumLevel: 60,
+                couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+                canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
+            },
+        )
+    }
+
+    dragonflightProfessionTasks.push(
+        {
+            taskKey: `dfProfession${profession.name}Treatise`,
+            taskName: `${profession.name}: Treatise`,
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+        },
+    )
+}
+
+
+function getLatestSkill(char: Character, slug: string, minSkill: number): string {
+    const staticData = get(staticStore).data
+
+    const professionId = professionSlugToId[slug]
+    const subProfessions = staticData.professions[professionId].subProfessions
+    const skill = char.professions[professionId][subProfessions[subProfessions.length - 1].id] ?.currentSkill ?? 0
+
+    return skill < minSkill ? `Need ${minSkill} skill` : ''
 }
