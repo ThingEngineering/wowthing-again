@@ -8,7 +8,13 @@
 
     let categories: SidebarItem[]
     $: {
-        categories = []
+        categories = [
+            {
+                name: 'All',
+                slug: 'all',
+            },
+            null,
+        ]
 
         const sorted = sortBy(
             Object.values($staticStore.data.professions),
