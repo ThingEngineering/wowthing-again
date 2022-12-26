@@ -267,6 +267,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['alchemy']],
             canGetFunc: (char) => getLatestSkill(char, 'alchemy', 25),
         },
+        {
+            taskKey: 'dfProfessionAlchemyTreatise',
+            taskName: 'Alchemy: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['alchemy']],
+        },
 
         {
             taskKey: 'dfProfessionBlacksmithingCraft',
@@ -289,6 +295,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['blacksmithing']],
             canGetFunc: (char) => getLatestSkill(char, 'blacksmithing', 25),
         },
+        {
+            taskKey: 'dfProfessionBlacksmithingTreatise',
+            taskName: 'Blacksmithing: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['blacksmithing']],
+        },
 
         {
             taskKey: 'dfProfessionEnchantingCraft',
@@ -303,6 +315,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['enchanting']],
             canGetFunc: (char) => getLatestSkill(char, 'enchanting', 25),
+        },
+        {
+            taskKey: 'dfProfessionEnchantingTreatise',
+            taskName: 'Enchanting: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['enchanting']],
         },
 
         {
@@ -326,6 +344,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['engineering']],
             canGetFunc: (char) => getLatestSkill(char, 'engineering', 25),
         },
+        {
+            taskKey: 'dfProfessionEngineeringTreatise',
+            taskName: 'Engineering: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['engineering']],
+        },
 
         {
             taskKey: 'dfProfessionHerbalismGather',
@@ -333,6 +357,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['herbalism']],
             canGetFunc: (char) => getLatestSkill(char, 'herbalism', 25),
+        },
+        {
+            taskKey: 'dfProfessionHerbalismTreatise',
+            taskName: 'Herbalism: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['herbalism']],
         },
 
         {
@@ -356,6 +386,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['inscription']],
             canGetFunc: (char) => getLatestSkill(char, 'inscription', 25),
         },
+        {
+            taskKey: 'dfProfessionInscriptionTreatise',
+            taskName: 'Inscription: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['inscription']],
+        },
 
         {
             taskKey: 'dfProfessionJewelcraftingCraft',
@@ -377,6 +413,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['jewelcrafting']],
             canGetFunc: (char) => getLatestSkill(char, 'jewelcrafting', 25),
+        },
+        {
+            taskKey: 'dfProfessionJewelcraftingTreatise',
+            taskName: 'Jewelcrafting: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['jewelcrafting']],
         },
 
         {
@@ -400,6 +442,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['leatherworking']],
             canGetFunc: (char) => getLatestSkill(char, 'leatherworking', 25),
         },
+        {
+            taskKey: 'dfProfessionLeatherworkingTreatise',
+            taskName: 'Leatherworking: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['leatherworking']],
+        },
 
         {
             taskKey: 'dfProfessionMiningGather',
@@ -408,6 +456,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['mining']],
             canGetFunc: (char) => getLatestSkill(char, 'mining', 25),
         },
+        {
+            taskKey: 'dfProfessionMiningTreatise',
+            taskName: 'Mining: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['mining']],
+        },
 
         {
             taskKey: 'dfProfessionSkinningGather',
@@ -415,6 +469,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['skinning']],
             canGetFunc: (char) => getLatestSkill(char, 'skinning', 25),
+        },
+        {
+            taskKey: 'dfProfessionSkinningTreatise',
+            taskName: 'Skinning: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['skinning']],
         },
 
         {
@@ -437,6 +497,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) => !!char.professions?.[professionSlugToId['tailoring']],
             canGetFunc: (char) => getLatestSkill(char, 'tailoring', 25),
+        },
+        {
+            taskKey: 'dfProfessionTailoringTreatise',
+            taskName: 'Tailoring: Treatise',
+            minimumLevel: 60,
+            couldGetFunc: (char) => !!char.professions?.[professionSlugToId['tailoring']],
         },
     ],
 }
