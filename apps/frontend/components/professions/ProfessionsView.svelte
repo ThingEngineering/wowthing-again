@@ -2,7 +2,6 @@
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores'
-    import type { StaticDataProfession } from '@/types/data/static'
 
     import Table from './ProfessionsTable.svelte'
 
@@ -11,13 +10,6 @@
     const allProfessions = Object.values($staticStore.data.professions)
     allProfessions.sort((a, b) => a.name.localeCompare(b.name))
 
-    let profession: StaticDataProfession
-    $: {
-        profession = find(
-            Object.values($staticStore.data.professions),
-            (prof) => prof.slug === slug
-        )
-    }
 </script>
 
 <style lang="scss">
