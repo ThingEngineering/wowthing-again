@@ -1,4 +1,6 @@
 <script lang="ts">
+    import groupBy from 'lodash/groupBy'
+
     import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
     import type { Character } from '@/types'
@@ -6,9 +8,30 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
+    type choreArray = [string, number, string?]
+
     export let character: Character
-    export let chores: [string, number, string?][]
+    export let chores: choreArray[]
     export let taskName: string
+
+    let choreSets: Array<choreArray[]>
+    $: {
+        choreSets = []
+
+        if (taskName === 'dfProfessionWeeklies') {
+            choreSets.push(chores.slice(0, 1))
+
+            const grouped = groupBy(chores.slice(1), (chore) => chore[0].split(' ')[0])
+            const keys = Object.keys(grouped)
+            keys.sort()
+            for (const key of keys) {
+                choreSets.push(grouped[key])
+            }
+        }
+        else {
+            choreSets.push(chores)
+        }
+    }
 
     const getFixedText = function(text: string): string {
         text = text.replace(/\[\[tier\d\]\]/, ':starFull:')
@@ -17,6 +40,16 @@
 </script>
 
 <style lang="scss">
+    table {
+        &:not(:last-child) {
+            border-bottom: 1px solid $border-color;
+        }
+
+        + table {
+            border-top: 1px solid $border-color;
+            margin-top: 0.75rem;
+        }
+    }
     .name {
         max-width: 14rem;
         min-width: 11rem;
@@ -54,43 +87,46 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>{taskMap[taskName].name}</h5>
-    <table class="table-striped">
-        <tbody>
-            {#each chores as [choreName, status, statusText]}
-                <tr>
-                    <td
-                        class="name"
-                        class:status-shrug={status === 3}
-                    >
-                        {choreName}
-                    </td>
-                    <td class="status">
-                        <IconifyIcon
-                            extraClass="status-{['fail', 'shrug', 'success', 'fail'][status]}"
-                            icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][status]]}
-                        />
-                    </td>
-                    <td class="error-text">
-                        {#if status === 3}
-                            {statusText}
-                        {/if}
-                    </td>
-                </tr>
 
-                {#if status === 1 && statusText}
+    {#each choreSets as choreSet}
+        <table class="table-striped">
+            <tbody>
+                {#each choreSet as [choreName, status, statusText]}
                     <tr>
                         <td
-                            class="status-text"
-                            class:tier2={statusText.includes('[[tier2]]')}
-                            class:tier3={statusText.includes('[[tier3]]')}
-                            colspan="3"
+                            class="name"
+                            class:status-shrug={status === 3}
                         >
-                            &ndash;
-                            <ParsedText text={getFixedText(statusText)} />
+                            {choreName}
+                        </td>
+                        <td class="status">
+                            <IconifyIcon
+                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][status]}"
+                                icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][status]]}
+                            />
+                        </td>
+                        <td class="error-text">
+                            {#if status === 3}
+                                {statusText}
+                            {/if}
                         </td>
                     </tr>
-                {/if}
-            {/each}
-        </tbody>
-    </table>
+
+                    {#if status === 1 && statusText}
+                        <tr>
+                            <td
+                                class="status-text"
+                                class:tier2={statusText.includes('[[tier2]]')}
+                                class:tier3={statusText.includes('[[tier3]]')}
+                                colspan="3"
+                            >
+                                &ndash;
+                                <ParsedText text={getFixedText(statusText)} />
+                            </td>
+                        </tr>
+                    {/if}
+                {/each}
+            </tbody>
+        </table>
+    {/each}
 </div>
