@@ -1,6 +1,7 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
+    import { Region } from '@/enums'
     import { data as settings } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import { tippyComponent } from '@/utils/tippy'
@@ -74,7 +75,7 @@
     .flex-wrapper {
         width: 100%;
     }
-    .profession {
+    a {
         align-items: center;
         display: flex;
         justify-content: space-between;
@@ -103,17 +104,19 @@
                         },
                     }}
                 >
-                    <WowthingImage
-                        name="{imageStrings[professionIdToString[profession.id]]}"
-                        size={20}
-                        border={1}
-                    />
-                    <span
-                        class:status-fail={!current || currentSkill === 0}
-                        class:status-success={current && currentSkill > 0 && currentSkill >= charProfession.maxSkill}
-                    >
-                        {currentSkill || '---'}
-                    </span>
+                    <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/professions/{profession.slug}">
+                        <WowthingImage
+                            name="{imageStrings[professionIdToString[profession.id]]}"
+                            size={20}
+                            border={1}
+                        />
+                        <span
+                            class:status-fail={!current || currentSkill === 0}
+                            class:status-success={current && currentSkill > 0 && currentSkill >= charProfession.maxSkill}
+                        >
+                            {currentSkill || '---'}
+                        </span>
+                    </a>
                 </div>
             {/each}
         </div>
