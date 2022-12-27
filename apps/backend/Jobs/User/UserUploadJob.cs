@@ -227,7 +227,7 @@ public class UserUploadJob : JobBase
             HandleAchievements(character, characterData);
             HandleCovenants(character, characterData);
 
-            await HandleItems(character, characterData);
+            //await HandleItems(character, characterData);
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
@@ -357,7 +357,7 @@ public class UserUploadJob : JobBase
             await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, data[0]);
         }
 
-        Logger.Debug("{Timer}", _timer.ToString());
+        Logger.Information("{Timer}", _timer.ToString());
     }
 
     private (WowRealm, string) ParseAddonId(string addonId)
