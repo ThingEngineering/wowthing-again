@@ -21,7 +21,7 @@
 
 <style lang="scss">
     td {
-        padding: 0.1rem 0.3rem;
+        padding: 0.2rem 0.4rem;
     }
     .flex-wrapper {
         align-items: flex-start;
@@ -32,6 +32,7 @@
     }
     .role {
         text-align: left;
+        width: 4rem;
     }
     .score {
         text-align: right;
