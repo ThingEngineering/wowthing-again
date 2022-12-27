@@ -1,4 +1,8 @@
+import { get } from 'svelte/store'
+import some from 'lodash/some'
+
 import { dragonflightProfessionTasks } from './professions'
+import { staticStore } from '@/stores'
 import type { Chore, Task } from '@/types/tasks'
 
 
@@ -249,6 +253,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'dfProfessionMettle',
             taskName: 'Show Your Mettle',
             minimumLevel: 60,
+            couldGetFunc: (char) => some(
+                Object.values(get(staticStore).data.professions).filter((prof) => prof.type === 0),
+                (profession) => !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
+            )
         },
         ...dragonflightProfessionTasks,
     ],

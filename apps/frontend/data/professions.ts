@@ -104,6 +104,7 @@ const dragonflightProfessions: DragonflightProfessionTask[] = [
 
 export const dragonflightProfessionTasks: Chore[] = []
 for (const profession of dragonflightProfessions) {
+    console.log(profession)
     const lowerName = profession.name.toLowerCase()
     
     if (profession.hasCraft === true) {
@@ -112,7 +113,7 @@ for (const profession of dragonflightProfessions) {
                 taskKey: `dfProfession${profession.name}Craft`,
                 taskName: `${profession.name}: Craft`,
                 minimumLevel: 60,
-                couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+                couldGetFunc: (char) => couldGet(lowerName, char),
                 canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
             },
         )
@@ -123,7 +124,7 @@ for (const profession of dragonflightProfessions) {
             taskKey: `dfProfession${profession.name}Gather`,
             taskName: `${profession.name}: Gather`,
             minimumLevel: 60,
-            couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+            couldGetFunc: (char) => couldGet(lowerName, char),
             canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
         },
     )
@@ -134,7 +135,7 @@ for (const profession of dragonflightProfessions) {
                 taskKey: `dfProfession${profession.name}Orders`,
                 taskName: `${profession.name}: Orders`,
                 minimumLevel: 60,
-                couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+                couldGetFunc: (char) => couldGet(lowerName, char),
                 canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
             },
         )
@@ -145,11 +146,18 @@ for (const profession of dragonflightProfessions) {
             taskKey: `dfProfession${profession.name}Treatise`,
             taskName: `${profession.name}: Treatise`,
             minimumLevel: 60,
-            couldGetFunc: (char) => !!char.professions?.[professionSlugToId[lowerName]],
+            couldGetFunc: (char) => couldGet(lowerName, char),
         },
     )
 }
 
+
+function couldGet(slug: string, char: Character): boolean {
+    const staticData = get(staticStore).data
+
+    const profession = staticData.professions[professionSlugToId[slug]]
+    return !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
+}
 
 function getLatestSkill(char: Character, slug: string, minSkill: number): string {
     const staticData = get(staticStore).data

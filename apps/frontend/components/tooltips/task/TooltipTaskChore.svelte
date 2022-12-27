@@ -1,5 +1,6 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy'
+    import some from 'lodash/some'
 
     import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
@@ -14,6 +15,7 @@
     export let chores: choreArray[]
     export let taskName: string
 
+    let anyErrors: boolean
     let choreSets: Array<choreArray[]>
     $: {
         choreSets = []
@@ -31,6 +33,8 @@
         else {
             choreSets.push(chores)
         }
+
+        anyErrors = some(choreSets, (choreSet) => some(choreSet, ([,, errorText]) => !!errorText))
     }
 
     const getFixedText = function(text: string): string {
@@ -65,6 +69,7 @@
     .error-text {
         font-size: 0.95rem;
         text-align: left;
+        width: 7rem;
     }
     .status-text {
         color: #ddd;
@@ -105,11 +110,13 @@
                                 icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][status]]}
                             />
                         </td>
-                        <td class="error-text">
-                            {#if status === 3}
-                                {statusText}
-                            {/if}
-                        </td>
+                        {#if anyErrors}
+                            <td class="error-text">
+                                {#if status === 3}
+                                    {statusText}
+                                {/if}
+                            </td>
+                        {/if}
                     </tr>
 
                     {#if status === 1 && statusText}

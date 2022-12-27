@@ -77,6 +77,7 @@
     }
     a {
         align-items: center;
+        color: $body-text;
         display: flex;
         justify-content: space-between;
 
@@ -84,6 +85,10 @@
             display: block;
             text-align: right;
             width: 2.1rem;
+        }
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 </style>
