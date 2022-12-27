@@ -105,7 +105,34 @@ public class UserUploadJob : JobBase
             .Include(pg => pg.Items)
             .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
 
-        // Oh dear
+        // Deal with guild data
+        foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
+        {
+            var (realm, guildName) = ParseAddonId(addonId);
+            if (realm == null)
+            {
+                continue;
+            }
+
+            if (!guildMap.TryGetValue((realm.Id, guildName), out var guild))
+            {
+                guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
+                {
+                    UserId = userId,
+                    RealmId = realm.Id,
+                    Name = guildName,
+                };
+                Context.PlayerGuild.Add(guild);
+            }
+
+            await HandleGuildItems(guild, guildData);
+        }
+
+        await Context.SaveChangesAsync();
+
+        _timer.AddPoint("Guilds");
+
+        // Build a fancy set of character ORs
         var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
@@ -143,33 +170,6 @@ public class UserUploadJob : JobBase
             .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
         _timer.AddPoint("Load");
-
-        // Deal with guild data
-        foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
-        {
-            var (realm, guildName) = ParseAddonId(addonId);
-            if (realm == null)
-            {
-                continue;
-            }
-
-            if (!guildMap.TryGetValue((realm.Id, guildName), out var guild))
-            {
-                guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
-                {
-                    UserId = userId,
-                    RealmId = realm.Id,
-                    Name = guildName,
-                };
-                Context.PlayerGuild.Add(guild);
-            }
-
-            await HandleGuildItems(guild, guildData);
-        }
-
-        await Context.SaveChangesAsync();
-
-        _timer.AddPoint("Guilds");
 
         // Deal with character data
         int accountId = 0;
@@ -227,7 +227,7 @@ public class UserUploadJob : JobBase
             HandleAchievements(character, characterData);
             HandleCovenants(character, characterData);
 
-            //await HandleItems(character, characterData);
+            await HandleItems(character, characterData);
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
@@ -242,6 +242,7 @@ public class UserUploadJob : JobBase
                 updatedCharacters++;
             }
 
+            Logger.Warning("Saving character {id}", addonId);
             await Context.SaveChangesAsync();
         }
 
@@ -264,11 +265,13 @@ public class UserUploadJob : JobBase
             accountAddonData.HonorLevel = parsed.HonorLevel;
             accountAddonData.HonorMax = parsed.HonorMax;
 
+            // Heirlooms
             if (accountAddonData.Heirlooms == null)
             {
                 accountAddonData.Heirlooms = new();
             }
 
+            bool changedHeirlooms = false;
             foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
             {
                 var heirloomParts = heirloom.Split(':');
@@ -281,10 +284,20 @@ public class UserUploadJob : JobBase
                     if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
                     {
                         accountAddonData.Heirlooms[itemId] = upgradeLevel;
+                        changedHeirlooms = true;
                     }
                 }
             }
 
+            if (changedHeirlooms)
+            {
+                // Change detection for this is obnoxious, just update it
+                Context.Entry(accountAddonData)
+                    .Property(ad => ad.Heirlooms)
+                    .IsModified = true;
+            }
+
+            // Toys
             var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
             if (accountToys == null)
             {
@@ -302,6 +315,7 @@ public class UserUploadJob : JobBase
                     .ToList();
             }
 
+            // Transmog
             var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);
             if (accountTransmogSources == null)
             {
@@ -320,11 +334,6 @@ public class UserUploadJob : JobBase
                     .ToList();
             }
 
-            // Change detection for this is obnoxious, just update it
-            Context.Entry(accountAddonData)
-                .Property(ad => ad.Heirlooms)
-                .IsModified = true;
-
         }
         _timer.AddPoint("Account");
 
@@ -332,9 +341,6 @@ public class UserUploadJob : JobBase
         //Context.ChangeTracker.DetectChanges();
         //Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
 #endif
-
-        await Context.SaveChangesAsync();
-        _timer.AddPoint("Save");
 
         if (updatedCharacters > 0)
         {
@@ -356,6 +362,11 @@ public class UserUploadJob : JobBase
         {
             await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, data[0]);
         }
+
+        Logger.Warning("Trying to save");
+
+        await Context.SaveChangesAsync();
+        _timer.AddPoint("Save", true);
 
         Logger.Information("{Timer}", _timer.ToString());
     }
