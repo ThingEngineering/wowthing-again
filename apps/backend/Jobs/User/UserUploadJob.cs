@@ -722,7 +722,11 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.AddonData).State = EntityState.Modified;
+        var entry = Context.Entry(character.AddonData);
+        if (entry.State == EntityState.Unchanged)
+        {
+            Context.Entry(character.AddonData).State = EntityState.Modified;
+        }
     }
 
     private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
