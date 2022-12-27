@@ -57,7 +57,7 @@
             $zoneMapState.classFilters[slugKey] = {}
         }
 
-        let groupMap: Record<number, FarmGroup> = Object.fromEntries(
+        const groupMap: Record<number, FarmGroup> = Object.fromEntries(
             farms.filter((farm) => farm.type === FarmType.Group)
                 .map((farm) => [farm.id, {
                     group: farm,
@@ -240,7 +240,7 @@
         padding: 0.1rem 0.2rem;
         position: absolute;
 
-        :global(> div) {
+        :global(.wrapper) {
             left: initial !important;
             position: relative !important;
             top: initial !important;
