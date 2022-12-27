@@ -22,20 +22,27 @@
     export let slug1: string
     export let slug2: string
 
+    type FarmGroup = {
+        group: ManualDataZoneMapFarm,
+        children: [ManualDataZoneMapFarm, number][],
+    }
+
     let categories: ManualDataZoneMapCategory[]
     let farms: ManualDataZoneMapFarm[]
     let farmStatuses: FarmStatus[]
+    let groups: FarmGroup[]
     let height: number
     let width: number
     let slugKey: string
 
     $: {
-        categories = find($manualStore.data.zoneMaps.sets, (s) => s !== null && s[0]?.slug === slug1)
+        categories = find($manualStore.data.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
         if (slug2) {
             categories = filter(categories, (s) => s?.slug === slug2)
         }
         slugKey = slug2 ? `${slug1}--${slug2}` : slug1
 
+        farms = []
         if (categories?.length > 0) {
             farms = [...categories[0].farms]
             for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
@@ -48,6 +55,25 @@
         if ($zoneMapState.classFilters[slugKey] === undefined) {
             $zoneMapState.classExpanded[slugKey] = false
             $zoneMapState.classFilters[slugKey] = {}
+        }
+
+        let groupMap: Record<number, FarmGroup> = Object.fromEntries(
+            farms.filter((farm) => farm.type === FarmType.Group)
+                .map((farm) => [farm.id, {
+                    group: farm,
+                    children: [],
+                }])
+        )
+        for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
+            const farm = farms[farmIndex]
+            if (farm.groupId) {
+                groupMap[farm.groupId].children.push([farm, farmIndex])
+            }
+        }
+
+        groups = Object.values(groupMap)
+        for (const group of groups) {
+            group.children.sort((a, b) => a[0].name.localeCompare(b[0].name))
         }
     }
 
@@ -81,6 +107,15 @@
         [width, height] = $zoneMapMedia
     }
 
+    const getGroupWidth = function(len: number): string {
+        if (len < 4) {
+            return null
+        }
+        const sqrt = Math.ceil(Math.sqrt(len))
+        console.log(sqrt)
+        return `calc(0.4rem + 1px + (24px * ${sqrt}) + (0.1rem * ${sqrt}))`
+    }
+
     const lootFarmTypes: FarmType[] = [
         FarmType.Event,
         FarmType.EventBig,
@@ -107,7 +142,7 @@
         position: absolute;
         z-index: 10;
     }
-    .farm {
+    .zone-map {
         --image-border-radius: #{$border-radius-large};
         --image-border-width: 2px;
 
@@ -197,10 +232,25 @@
             }
         }
     }
+    .group-container {
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.1rem;
+        padding: 0.1rem 0.2rem;
+        position: absolute;
+
+        :global(> div) {
+            left: initial !important;
+            position: relative !important;
+            top: initial !important;
+            transform: initial !important;
+        }
+    }
 </style>
 
 {#if categories?.length > 0}
-    <div class="farm">
+    <div class="zone-map">
         <div class="toggles setting-toggles overlay-box">
             <div class="toggle-group">
                 <Checkbox
@@ -325,11 +375,30 @@
         />
 
         {#each farms as farm, farmIndex}
-            <Thing
-                map={categories[0]}
-                status={farmStatuses[farmIndex]}
-                {farm}
-            />
+            {#if farm.type !== FarmType.Group && !farm.groupId}
+                <Thing
+                    map={categories[0]}
+                    status={farmStatuses[farmIndex]}
+                    {farm}
+                />
+            {/if}
+        {/each}
+
+        {#each groups as {group, children}}
+            <div
+                class="border group-container"
+                style:left="{group.location[0]}%"
+                style:top="{group.location[1]}%"
+                style:width="{getGroupWidth(children.length)}"
+            >
+                {#each children as [farm, farmIndex]}
+                    <Thing
+                        map={categories[0]}
+                        status={farmStatuses[farmIndex]}
+                        {farm}
+                    />
+                {/each}
+            </div>
         {/each}
 
         <div

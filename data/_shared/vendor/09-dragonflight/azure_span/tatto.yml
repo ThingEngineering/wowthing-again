@@ -1,5 +1,6 @@
 id: 186462
 name: "Tatto"
+zoneMapsGroupId: 1
 
 locations:
   09-dragonflight/azure_span:

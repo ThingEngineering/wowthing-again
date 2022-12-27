@@ -3,6 +3,13 @@ mapName: "09-dragonflight/azure_span"
 minimumLevel: 60
 farms:
 
+# Group
+
+- name: "Iskaara"
+  groupId: 1
+  location: 13 49
+  type: group
+
 # Kill
 
 - name: "Beogoka"
@@ -57,7 +64,6 @@ farms:
       id: 200259 # Forest Dweller's Shield [shield]
 
 - name: "Grumbletrunk"
-
 
 # Treasure
 

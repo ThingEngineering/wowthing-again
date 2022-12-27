@@ -7,6 +7,7 @@ namespace Wowthing.Backend.Models.Manual.Vendors;
 public class ManualSharedVendor
 {
     public int Id { get; set; }
+    public int? ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
     public string Note { get; set; }
     public string[] Tags { get; set; }
@@ -21,6 +22,11 @@ public class ManualSharedVendor
         Note = vendor.Note;
         Tags = vendor.Tags;
         Locations = vendor.Locations;
+
+        if (vendor.ZoneMapsGroupId > 0)
+        {
+            ZoneMapsGroupId = vendor.ZoneMapsGroupId;
+        }
 
         Sets = vendor.Sets
             .EmptyIfNull()

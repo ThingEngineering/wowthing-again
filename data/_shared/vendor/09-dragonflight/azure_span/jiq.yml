@@ -1,6 +1,7 @@
 id: 186564
 name: "Jiq"
 note: "Runs around the village"
+zoneMapsGroupId: 1
 
 locations:
   09-dragonflight/azure_span:

@@ -1,6 +1,7 @@
 id: 193006
 name: "Murik"
 note: "Keeper of Renown"
+zoneMapsGroupId: 1
 
 locations:
   09-dragonflight/azure_span:
@@ -66,19 +67,6 @@ sets:
   - name: "Renown 30 Mounts"
     range: 2
     sortKey: "it30"
-
-sells:
-id: 186547
-name: "Lil Ki"
-
-locations:
-  09-dragonflight/azure_span:
-    - 13.4 48.6
-
-sets:
-  - name: "Renown 4 Cooking Tools"
-    range: -1
-    sortKey: "it04"
 
 sells:
   - type: toy
