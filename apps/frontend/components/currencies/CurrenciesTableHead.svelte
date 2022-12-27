@@ -14,8 +14,11 @@
     export let slug: string
     export let sortingBy: boolean
 
+    let cls: string
     let onClick: (event: Event) => void
     $: {
+        cls = itemId ? `quality${$itemStore.data.items[itemId].quality}` : 'quality1'
+
         onClick = function(event: Event) {
             event.preventDefault()
             $currencyState.sortOrder[slug] = sortingBy ? 0 : (itemId || currency.id)
@@ -27,7 +30,6 @@
     th {
         @include cell-width($width-currency);
 
-        --image-border-color: #{lighten($border-color, 20%)};
         --image-border-width: 2px;
 
         background: $thing-background;
@@ -42,6 +44,7 @@
 </style>
 
 <th
+    class={cls}
     use:tippyComponent={{
         component: Tooltip,
         props: {

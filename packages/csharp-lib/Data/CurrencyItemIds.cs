@@ -26,8 +26,16 @@ public static partial class Hardcoded
         183744, // Superior Parts
         188957, // Genesis Mote
         190189, // Sandworn Relic
-        199202, // Attendant's Token of Merit [S4]
-        199211, // Primeval Essence [DF invasion event]
+        190453, // Spark of Ingenuity [DF]
+        190454, // Primal Chaos [DF]
+        190456, // Artisan's Mettle [DF]
+        191784, // Dragon Shard of Knowledge [DF]
+        198048, // Titan Training Matrix I [DF]
+        198056, // Titan Training Matrix II [DF]
+        198058, // Titan Training Matrix III [DF]
+        198059, // Titan Training Matrix IV [DF]
+        199202, // Attendant's Token of Merit [SL S4]
+        199211, // Primeval Essence [pre-DF invasions]
 
         183888, // Apogee Anima Bead
         183889, // Thaumaturgic Anima Bead
