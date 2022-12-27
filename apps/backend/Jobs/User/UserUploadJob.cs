@@ -241,6 +241,8 @@ public class UserUploadJob : JobBase
                 character.LastApiCheck = MiscConstants.DefaultDateTime;
                 updatedCharacters++;
             }
+
+            await Context.SaveChangesAsync();
         }
 
         _timer.AddPoint("Characters");
