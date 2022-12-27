@@ -45,7 +45,14 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Dragonflight
     250: [
-        199211, // Primeval Essence [DF invasion event]
+        190456, // Artisan's Mettle [DF]
+        191784, // Dragon Shard of Knowledge [DF]
+        190454, // Primal Chaos [DF]
+        190453, // Spark of Ingenuity [DF]
+        198048, // Titan Training Matrix I [DF]
+        198056, // Titan Training Matrix II [DF]
+        198058, // Titan Training Matrix III [DF]
+        198059, // Titan Training Matrix IV [DF]
     ],
     // Player vs Player
     2: [
@@ -61,6 +68,7 @@ export const currencyItems: Record<number, number[]> = {
         49927, // Love Token
         44791, // Noblegarden Chocolate
         33226, // Tricky Treat
+        199211, // Primeval Essence [DF invasion event]
     ],
 }
 
