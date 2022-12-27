@@ -22,7 +22,8 @@ export class ManualDataSharedVendor {
         public locations: Record<string, string[]>,
         sells: ManualDataVendorItemArray[],
         sets: ManualDataSharedVendorSetArray[],
-        public note?: string
+        public note?: string,
+        public zoneMapsGroupId?: number
     )
     {
         this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray))
@@ -150,6 +151,7 @@ export class ManualDataSharedVendor {
         for (const location of (this.locations[mapName] || [])) {
             ret.push(<ManualDataZoneMapFarm>{
                 faction: location[2],
+                groupId: this.zoneMapsGroupId,
                 id: this.id > 1000000 ? this.id - 1000000 : this.id,
                 idType: FarmIdType.Npc,
                 location: [location[0], location[1]],

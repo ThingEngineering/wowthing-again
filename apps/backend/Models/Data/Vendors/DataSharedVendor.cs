@@ -3,6 +3,7 @@
 public class DataSharedVendor
 {
     public int Id { get; set; }
+    public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
     public string Note { get; set; }
     public string[] Tags { get; set; }

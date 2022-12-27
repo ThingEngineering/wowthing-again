@@ -96,6 +96,7 @@ export enum FarmIdType
     Object,
     Quest,
     Instance,
+    Group,
 }
 
 export enum FarmResetType

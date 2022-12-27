@@ -45,9 +45,17 @@ public class ManualSharedVendorConverter : JsonConverter
         }
         vendorArray.Add(setsArray);
 
-        if (!string.IsNullOrWhiteSpace(vendor.Note))
+        bool useNote = !string.IsNullOrWhiteSpace(vendor.Note);
+        bool useGroupId = vendor.ZoneMapsGroupId != null;
+
+        if (useGroupId || useNote)
         {
             vendorArray.Add(vendor.Note);
+        }
+
+        if (useGroupId)
+        {
+            vendorArray.Add(vendor.ZoneMapsGroupId.Value);
         }
 
         vendorArray.WriteTo(writer);
