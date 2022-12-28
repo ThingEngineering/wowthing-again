@@ -488,17 +488,17 @@ export const ratingItemLevelUpgrade: Array<Array<number>> = [
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
     [20, 421],
-    [19, 418],
-    [17, 415],
+    [18, 418],
+    [16, 415],
     [15, 411],
-    [14, 408],
+    [13, 408],
     [12, 405],
     [11, 402],
     [10, 398],
-    [9, 395],
+    [8, 395],
     [7, 392],
-    [6, 389],
-    [4, 385],
+    [5, 389],
+    [3, 385],
     [2, 382],
 ]
 
