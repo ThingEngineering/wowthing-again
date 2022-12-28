@@ -725,7 +725,7 @@ public class UserUploadJob : JobBase
         var entry = Context.Entry(character.AddonData);
         if (entry.State == EntityState.Unchanged)
         {
-            Context.Entry(character.AddonData).State = EntityState.Modified;
+            entry.State = EntityState.Modified;
         }
     }
 
