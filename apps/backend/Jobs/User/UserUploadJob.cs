@@ -408,7 +408,7 @@ public class UserUploadJob : JobBase
         character.AddonData.Auras = characterData.Auras.EmptyIfNull();
 
         // Currencies
-        character.AddonData.Currencies ??= new();
+        character.AddonData.Currencies = new();
         foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
         {
             // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
@@ -441,9 +441,9 @@ public class UserUploadJob : JobBase
         foreach ((int slot, string itemString) in characterData.Equipment.EmptyIfNull())
         {
             var parts = itemString.Split(":");
-            if (parts.Length != 9)
+            if (parts.Length != 9 && parts.Length != 10)
             {
-                Logger.Warning("Invalid equipped item string: {String}", itemString);
+                Logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
                 continue;
             }
 
@@ -478,10 +478,15 @@ public class UserUploadJob : JobBase
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
+
+            if (parts.Length >= 10)
+            {
+                item.CraftedQuality = GetCraftedQuality(parts[9]);
+            }
         }
 
         // Garrisons
-        character.AddonData.Garrisons ??= new();
+        character.AddonData.Garrisons = new();
         foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
         {
             var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
@@ -518,12 +523,8 @@ public class UserUploadJob : JobBase
             var scanTime = garrisonTreesTimestamp.AsUtcDateTime();
             if (scanTime > character.AddonData.GarrisonTreesScannedAt)
             {
+                character.AddonData.GarrisonTrees = new();
                 character.AddonData.GarrisonTreesScannedAt = scanTime;
-
-                if (character.AddonData.GarrisonTrees == null)
-                {
-                    character.AddonData.GarrisonTrees = new Dictionary<int, Dictionary<int, List<int>>>();
-                }
 
                 foreach (var (key, packedData) in characterData.GarrisonTrees)
                 {
@@ -723,10 +724,8 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
-        if (entry.State == EntityState.Unchanged)
-        {
-            entry.State = EntityState.Modified;
-        }
+        entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
+        entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
     }
 
     private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
@@ -883,7 +882,7 @@ public class UserUploadJob : JobBase
                 var slot = short.Parse(slotString[1..]);
 
                 var parts = itemString.Split(":");
-                if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     Logger.Warning("Invalid item string: {String}", itemString);
                     continue;
@@ -985,7 +984,7 @@ public class UserUploadJob : JobBase
                 var slot = short.Parse(slotString[1..]);
                 // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
                 var parts = itemString.Split(":");
-                if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     Logger.Warning("Invalid item string: {String}", itemString);
                     continue;
@@ -1090,7 +1089,36 @@ public class UserUploadJob : JobBase
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
+
+            if (parts.Length >= 10)
+            {
+                item.CraftedQuality = GetCraftedQuality(parts[9]);
+            }
         }
+    }
+
+    private static short GetCraftedQuality(string packedModifiers)
+    {
+        var modifiers = packedModifiers
+            .EmptyIfNullOrWhitespace()
+            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .ToDictionary(
+                pair => int.Parse(pair.Split('_')[0]),
+                pair => int.Parse(pair.Split('_')[1])
+            );
+
+        // Crafted quality
+        if (modifiers.TryGetValue(38, out int craftedQuality))
+        {
+            return craftedQuality switch
+            {
+                <= 3 => (short)craftedQuality,
+                <= 8 => (short)(craftedQuality - 3),
+                _ => (short)(craftedQuality & 0x7FFF)
+            };
+        }
+
+        return 0;
     }
 
     private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)

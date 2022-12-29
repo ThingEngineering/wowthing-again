@@ -10,11 +10,11 @@ public class PlayerGuildItem : IPlayerItem
     // smaller than a short (2 bytes), sadly.
     [Key]
     public long Id { get; set; }
-    
+
     [ForeignKey("Guild")]
     public int GuildId { get; set; }
     public PlayerGuild Guild { get; set; }
-    
+
     public int ItemId { get; set; }
     public int Count { get; set; }
 
@@ -22,6 +22,7 @@ public class PlayerGuildItem : IPlayerItem
     public short Slot { get; set; }
 
     public short Context { get; set; }
+    public short CraftedQuality { get; set; }
     public short EnchantId { get; set; }
     public short ItemLevel { get; set; }
     public short Quality { get; set; }
