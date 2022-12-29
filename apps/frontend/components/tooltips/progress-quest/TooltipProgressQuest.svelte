@@ -24,10 +24,7 @@
     }
 
     const objectiveStatus = function(objective: UserQuestDataCharacterProgressObjective): number {
-        if (objective.have === 0) {
-            return 0
-        }
-        else if (objective.have < objective.need) {
+        if (objective.have < objective.need) {
             return 1
         }
         return 2
@@ -67,7 +64,7 @@
                 {/each}
             {:else}
                 <tr>
-                    <td class="progress status-0">
+                    <td class="progress status-{status === QuestStatus.Completed ? '2' : '0'}">
                         {#if status === QuestStatus.InProgress}
                             Update addon!
                         {:else if status === QuestStatus.NotStarted}
