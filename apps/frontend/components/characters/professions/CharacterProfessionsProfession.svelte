@@ -4,28 +4,35 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { staticStore } from '@/stores'
-    import type { Character, MultiSlugParams } from '@/types'
-    import type { StaticDataProfessionCategory } from '@/types/data/static'
+    import { getNameForFaction } from '@/utils/get-name-for-faction'
+    import { UserCount, type Character, type CharacterProfession, type Expansion, type MultiSlugParams } from '@/types'
+    import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
 
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Table from './CharacterProfessionsProfessionTable.svelte'
 
     export let character: Character
     export let params: MultiSlugParams
 
+    let charSubProfession: CharacterProfession
+    let expansion: Expansion
     let knownRecipes: Set<number>
     let rootCategory: StaticDataProfessionCategory
+    let staticProfession: StaticDataProfession
+    let stats: UserCount
     $: {
-        const expansion = expansionSlugMap[params.slug5]
-        const staticProfession = find($staticStore.data.professions, (prof) => prof.slug === params.slug4)
+        staticProfession = find($staticStore.data.professions,
+            (prof) => prof.slug === params.slug4)
+        expansion = expansionSlugMap[params.slug5]
         
         const charProfession = character.professions[staticProfession.id]
+        charSubProfession = charProfession[staticProfession.subProfessions[expansion.id].id]
         knownRecipes = new Set<number>()
         for (const subProfession of Object.values(charProfession)) {
             for (const abilityId of subProfession.knownRecipes) {
                 knownRecipes.add(abilityId)
             }
         }
-        console.log({staticProfession, charProfession, knownRecipes})
 
         rootCategory = staticProfession.categories?.[Constants.expansion - expansion.id]
         if (rootCategory) {
@@ -33,10 +40,46 @@
                 rootCategory = rootCategory.children[0]
             }
         }
+
+        stats = new UserCount()
+        recurse(rootCategory)
+    }
+
+    const recurse = function(category: StaticDataProfessionCategory) {
+        for (const ability of (category.abilities || [])) {
+            if (ability.extraRanks) {
+                stats.total += (ability.extraRanks.length + 1)
+
+                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
+                    if (knownRecipes.has(ability.extraRanks[rankIndex][0])) {
+                        stats.have += (rankIndex + 2)
+                        break
+                    }
+                }
+                if (knownRecipes.has(ability.id)) {
+                    stats.have ++
+                }
+            }
+            else {
+                stats.total++
+                if (knownRecipes.has(ability.id)) {
+                    stats.have++
+                }
+            }
+        }
+
+        for (const child of (category.children || [])) {
+            recurse(child)
+        }
     }
 </script>
 
 <style lang="scss">
+    .professions-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
     .professions-container {
         column-count: 2;
         gap: 1rem;
@@ -44,20 +87,38 @@
     }
 </style>
 
-{#if rootCategory}
-    <div class="professions-container">
-        {#if rootCategory.abilities.length > 0}
-            <Table
-                category={rootCategory}
-                {knownRecipes}
+<div class="professions-wrapper">
+    {#if charSubProfession}
+        <div class="professions-container">
+            <ProgressBar
+                have={charSubProfession.currentSkill}
+                total={charSubProfession.maxSkill}
+                title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
             />
-        {/if}
 
-        {#each rootCategory.children as child}
-            <Table
-                category={child}
-                {knownRecipes}
+            <ProgressBar
+                have={stats.have}
+                total={stats.total}
+                title="Known recipes"
             />
-        {/each}
-    </div>
-{/if}
+        </div>
+    {/if}
+
+    {#if rootCategory}
+        <div class="professions-container">
+            {#if rootCategory.abilities.length > 0}
+                <Table
+                    category={rootCategory}
+                    {knownRecipes}
+                />
+            {/if}
+
+            {#each rootCategory.children as child}
+                <Table
+                    category={child}
+                    {knownRecipes}
+                />
+            {/each}
+        </div>
+    {/if}
+</div>
