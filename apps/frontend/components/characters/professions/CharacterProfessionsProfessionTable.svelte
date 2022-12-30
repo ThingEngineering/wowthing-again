@@ -1,12 +1,53 @@
 <script lang="ts">
-    import type { StaticDataProfessionCategory } from '@/types/data/static'
+    import some from 'lodash/some'
 
+    import { iconStrings } from '@/data/icons'
+    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let knownRecipes: Set<number>
     export let category: StaticDataProfessionCategory
+
+    let abilities: [StaticDataProfessionAbility, boolean, number, number, number][]
+    $: {
+        abilities = []
+        for (const ability of (category.abilities || [])) {
+            let has = false
+            let spellId = ability.spellId
+            let currentRank = 1
+            let totalRanks = 1
+
+            if (ability.extraRanks) {
+                totalRanks = 1 + ability.extraRanks.length
+                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
+                    const [rankAbilityId, rankSpellId] = ability.extraRanks[rankIndex]
+                    if (knownRecipes.has(rankAbilityId)) {
+                        has = true
+                        currentRank = rankIndex + 2
+                        spellId = rankSpellId
+                        break
+                    }
+                }                
+            }
+            else {
+                if (knownRecipes.has(ability.id)) {
+                    has = true
+                }
+            }
+
+            abilities.push([
+                ability,
+                has,
+                spellId,
+                currentRank,
+                totalRanks
+            ])
+        }
+    }
 
     const getFixedName = function(name: string): string {
         name = name.replace(/(- )?\|A:Professions-Icon-Quality-Tier\d-Small:20:20\|a/, ':starFull:')
@@ -54,6 +95,17 @@
             color: rgb(255, 215, 0);
         }
     }
+    .ranks {
+        --scale: 0.9;
+
+        padding-left: 0;
+        text-align: right;
+        width: 4.5rem;
+
+        :global(svg + svg) {
+            margin-left: -0.2rem;
+        }
+    }
     .trivial {
         padding-left: 0;
         text-align: right;
@@ -70,19 +122,19 @@
     }
 </style>
 
-{#if category.abilities.length > 0}
+{#if abilities.length > 0}
     <table class="table table-striped" data-category-id={category.id}>
         <thead>
             <tr>
                 <th class="category-name">{category.name}</th>
+                <th class="ranks"></th>
                 <th class="trivial"></th>
                 <th class="trivial"></th>
                 <th class="trivial"></th>
             </tr>
         </thead>
         <tbody>
-            {#each category.abilities as ability}
-                {@const userHas=knownRecipes.has(ability.id)}
+            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks]}
                 {@const useLow=ability.trivialLow && ability.trivialLow < ability.trivialHigh}
                 <tr data-ability-id={ability.id}>
                     <td
@@ -93,16 +145,31 @@
                         class:tier3={ability.name.includes('Tier3')}
                     >
                         <WowheadLink
-                            id={ability.spellId}
+                            id={spellId}
                             type={"spell"}
                         >
                             <WowthingImage
-                                name={ability.itemId ? `item/${ability.itemId}` : `spell/${ability.spellId}`}
+                                name={ability.itemId ? `item/${ability.itemId}` : `spell/${spellId}`}
                                 size={20}
                                 border={1}
                             />
+
                             <ParsedText text={getFixedName(ability.name)} />
                         </WowheadLink>
+                    </td>
+                    <td
+                        class="ranks"
+                        class:status-success={userHas && currentRank === totalRanks}
+                        class:status-shrug={userHas && currentRank < totalRanks}
+                        class:status-fail={!userHas}
+                    >
+                        {#if totalRanks > 1}
+                            {#each Array(3) as _, index}
+                                <IconifyIcon
+                                    icon={iconStrings[index < currentRank && userHas ? 'starFull' : 'starEmpty']}
+                                />
+                            {/each}
+                        {/if}
                     </td>
                     <td class="trivial trivial-low">
                         {#if useLow}
