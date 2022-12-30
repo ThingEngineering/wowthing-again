@@ -69,7 +69,6 @@
     {#each Array(3) as _, index}
         {@const equippedItem = equippedItems[index]}
         {#if equippedItem}
-            {@const craftedQuality = equippedItem.craftedQuality || 1}
             <div class="item quality{equippedItem.quality}">
                 <WowthingImage
                     name="item/{equippedItem.itemId}"
@@ -79,11 +78,14 @@
                 
                 <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
 
-                <span class="crafted-quality quality{craftedQuality}">
-                    <IconifyIcon
-                        icon={iconStrings[`circle${craftedQuality}`]}
-                    />
-                </span>
+                {#if equippedItem.itemLevel > 300}
+                    {@const craftedQuality = equippedItem.craftedQuality || 1}
+                    <span class="crafted-quality quality{craftedQuality}">
+                        <IconifyIcon
+                            icon={iconStrings[`circle${craftedQuality}`]}
+                        />
+                    </span>
+                {/if}
             </div>
         {:else}
             <div class="empty-slot border"></div>
