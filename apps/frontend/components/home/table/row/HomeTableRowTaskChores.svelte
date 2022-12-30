@@ -48,7 +48,14 @@
                 }
             }
 
-            chores.push([choreTask.taskName, status, statusText])
+            chores.push([
+                taskName === 'dfDungeonWeeklies'
+                    ? $userQuestStore.data.questNames[choreTask.taskKey] || choreTask.taskName
+                    : choreTask.taskName,
+                status,
+                statusText,
+            ])
+            
             if (status === 2) {
                 countCompleted++
             }

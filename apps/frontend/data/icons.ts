@@ -29,6 +29,11 @@ import mdiLetterP from '@iconify/icons-mdi/alpha-p-box-outline'
 import mdiLightningBoltOutline from '@iconify/icons-mdi/lightning-bolt-outline'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiMulticast from '@iconify/icons-mdi/multicast'
+import mdiNumeric1CircleOutline from '@iconify/icons-mdi/numeric-1-circle-outline'
+import mdiNumeric2CircleOutline from '@iconify/icons-mdi/numeric-2-circle-outline'
+import mdiNumeric3CircleOutline from '@iconify/icons-mdi/numeric-3-circle-outline'
+import mdiNumeric4CircleOutline from '@iconify/icons-mdi/numeric-4-circle-outline'
+import mdiNumeric5CircleOutline from '@iconify/icons-mdi/numeric-5-circle-outline'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
 import mdiPlus from '@iconify/icons-mdi/plus'
@@ -109,6 +114,12 @@ export const iconStrings: Record<string, IconifyIcon> = {
     'chevron-down': mdiChevronDown,
     'chevron-right': mdiChevronRight,
     'chevron-up': mdiChevronUp,
+
+    circle1: mdiNumeric1CircleOutline,
+    circle2: mdiNumeric2CircleOutline,
+    circle3: mdiNumeric3CircleOutline,
+    circle4: mdiNumeric4CircleOutline,
+    circle5: mdiNumeric5CircleOutline,
 
     'list': mdiFormatListCheckbox,
 

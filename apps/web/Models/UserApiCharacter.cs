@@ -247,6 +247,7 @@ public class UserApiCharacterConfiguration
 public class UserApiCharacterEquippedItem
 {
     public int Context { get; set; }
+    public int CraftedQuality { get; set; }
     public int ItemId { get; set; }
     public int ItemLevel { get; set; }
     public WowQuality Quality { get; set; }
@@ -258,6 +259,7 @@ public class UserApiCharacterEquippedItem
     public UserApiCharacterEquippedItem(PlayerCharacterEquippedItem equippedItem)
     {
         Context = equippedItem.Context;
+        CraftedQuality = equippedItem.CraftedQuality;
         ItemId = equippedItem.ItemId;
         ItemLevel = equippedItem.ItemLevel;
         Quality = equippedItem.Quality;

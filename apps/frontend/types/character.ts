@@ -98,6 +98,7 @@ type CharacterCurrencyArray = ConstructorParameters<typeof CharacterCurrency>
 
 export interface CharacterEquippedItem {
     context: number
+    craftedQuality: number
     itemId: number
     itemLevel: number
     quality: number

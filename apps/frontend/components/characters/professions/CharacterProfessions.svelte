@@ -17,6 +17,7 @@
     $: {
         primaryProfessions = getCharacterProfessions(character, 0)
         secondaryProfessions = getCharacterProfessions(character, 1)
+            .filter((prof) => prof[0].slug !== 'archaeology')
     }
 
     afterUpdate(() => {

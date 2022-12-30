@@ -19,6 +19,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     initialize(userQuestData: UserQuestData): void {
         console.time('UserQuestDataStore.initialize')
 
+        userQuestData.questNames = {}
         for (const [, characterData] of toPairs(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {
                 characterData.dailyQuests = new Map<number, boolean>()
@@ -34,6 +35,10 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
                     characterData.quests.set(questId, true)
                 }
                 characterData.questList = null
+            }
+
+            for (const [key, progressQuest] of Object.entries(characterData.progressQuests || {})) {
+                userQuestData.questNames[key] ||= progressQuest.name
             }
         }
 

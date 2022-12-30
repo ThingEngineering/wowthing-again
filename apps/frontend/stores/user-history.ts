@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 import { WritableFancyStore } from '@/types'
 import type { UserHistoryData } from '@/types/data'
 
@@ -17,6 +19,8 @@ export class UserHistoryDataStore extends WritableFancyStore<UserHistoryData> {
         if (userHistoryData.goldRaw === null) {
             return
         }
+
+        userHistoryData.lastUpdated = DateTime.utc()
 
         const realms: Record<number, [string, number][]> = {}
         const lastValue: Record<number, Record<number, number>> = {}

@@ -14,6 +14,9 @@ public static partial class Hardcoded
         1522, // Shadowlands - Quest Recipes
         1688, // Dragonflight - Quest Plans
 
+        // Cooking
+        1526, // Shadowlands - Quest Recipes
+
         // Enchanting
         1255, // Battle for Azeroth - Training
         1527, // Shadowlands - Quest Recipes
