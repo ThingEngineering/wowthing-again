@@ -3,6 +3,8 @@ import type { QuestStatus } from '@/enums'
 
 export interface UserQuestData {
     characters: Record<number, UserQuestDataCharacter>
+
+    questNames: Record<string, string>
 }
 
 export interface UserQuestDataCharacter {

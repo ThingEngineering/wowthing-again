@@ -55,6 +55,7 @@
         }
     }
     .name {
+        direction: rtl; // not happy with this but ugh
         max-width: 14rem;
         min-width: 11rem;
         text-align: left;
@@ -99,7 +100,7 @@
                 {#each choreSet as [choreName, status, statusText]}
                     <tr>
                         <td
-                            class="name"
+                            class="name text-overflow"
                             class:status-shrug={status === 3}
                         >
                             {choreName}
