@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 59,
+        Version = 60,
     };
 
     public override async Task Run(params string[] data)
@@ -401,6 +401,10 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 group => group.ToArray()
             );
 
+        var allProfs = new HashSet<int>(Hardcoded.PrimaryProfessions
+                .Concat(Hardcoded.SecondaryProfessions)
+        );
+
         var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
         foreach (var language in Enum.GetValues<Language>())
         {
@@ -410,16 +414,21 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 );
 
             var categoriesByProfession = categories
-                .GroupBy(tsc => Hardcoded.PrimaryProfessions.Contains(tsc.SkillLineID)
+                .GroupBy(tsc => allProfs.Contains(tsc.SkillLineID)
                     ? tsc.SkillLineID
                     : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
                 .ToDictionary(group => group.Key, group => group.ToList());
 
             var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
-            foreach (int professionId in Hardcoded.PrimaryProfessions)
+            foreach (int professionId in allProfs)
             {
+                if (!categoriesByProfession.TryGetValue(professionId, out var professionCategories))
+                {
+                    Logger.Warning("No profession categories for profession {id}", professionId);
+                    continue;
+                }
+
                 var categoryMap = new Dictionary<int, OutProfessionCategory>();
-                var professionCategories = categoriesByProfession[professionId];
                 foreach (var category in professionCategories)
                 {
                     var outCategory = categoryMap[category.ID] = new OutProfessionCategory(category);
