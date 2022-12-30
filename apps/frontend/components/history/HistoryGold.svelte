@@ -29,6 +29,7 @@
     import type { StaticDataRealm } from '@/types/data/static'
 
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
+    import type { UserHistoryData } from '@/types/data';
 
     Chart.register(
         LineElement,
@@ -44,13 +45,28 @@
     )
 
     let chart: Chart
+    let ready: boolean
     $: {
-        if (document.getElementById('gold-chart')) {
-            redrawChart($historyState)
+        if (ready) {
+            const current = $timeStore.toUTC()
+            const last = $userHistoryStore.data.lastUpdated
+            const diff = current.diff(last).toMillis()
+
+            if (
+                current.minute >= 5 &&
+                (
+                    diff > (60 * 60 * 1000) ||
+                    current.hour !== last.hour
+                )
+            ) {
+                userHistoryStore.fetch({ evenIfLoaded: true })
+            }
+
+            redrawChart($historyState, $userHistoryStore.data)
         }
     }
 
-    onMount(() => redrawChart($historyState))
+    onMount(() => ready = true)
 
     const intervalSettings: Record<string, [string, TimeUnit]> = {
         hour: ['ff', 'day'],
@@ -60,7 +76,7 @@
     }
 
     type DataPoint = {x: DateTime, y: number}
-    const redrawChart = function(historyState: HistoryState)
+    const redrawChart = function(historyState: HistoryState, userHistoryData: UserHistoryData)
     {
         if (chart) {
             chart.destroy()
@@ -72,8 +88,8 @@
         const stacked = historyState.chartType === 'area-stacked'
 
         const realms: [string, number][] = []
-        for (const realmId in $userHistoryStore.data.gold) {
-            if (!some($userHistoryStore.data.gold[realmId], ([, value]) => value > 0)) {
+        for (const realmId in userHistoryData.gold) {
+            if (!some(userHistoryData.gold[realmId], ([, value]) => value > 0)) {
                 continue
             }
 
@@ -112,7 +128,7 @@
 
             let points: DataPoint[]
             if (historyState.interval === 'hour') {
-                points = $userHistoryStore.data.gold[realmId]
+                points = userHistoryData.gold[realmId]
                     .map((point) => ({
                         x: parseApiTime(point[0]),
                         y: point[1],
@@ -120,7 +136,7 @@
             }
             else {
                 const temp: Record<string, [DateTime, number]> = {}
-                for (const [time, value] of $userHistoryStore.data.gold[realmId]) {
+                for (const [time, value] of userHistoryData.gold[realmId]) {
                     const parsedTime = parseApiTime(time).toLocal()
                     let fakeTime: DateTime
                     if (historyState.interval === 'day') {
