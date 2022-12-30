@@ -32,11 +32,17 @@ groups:
       - name: "Well Earned Victory"
         id: 70341
 
-      - name: "Third Challenge: ?"
+      - name: "In Tyr's Footsteps: Waking Shores"
+        id: 70650
+
+      - name: "Third Challenge: Persistence"
         id: 70509
 
-      - name: "Fourth Challenge: ?"
+      - name: "Victorious"
+        id: 70510
+
+      - name: "Fourth Challenge: Resourcefulness"
         id: 70881
     
-      - name: "Fifth Challenge: ?"
+      - name: "Fifth Challenge: Ingenuity"
         id: 70899
