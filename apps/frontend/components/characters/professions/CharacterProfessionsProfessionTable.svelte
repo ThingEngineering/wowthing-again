@@ -31,7 +31,10 @@
                         spellId = rankSpellId
                         break
                     }
-                }                
+                }
+                if (!has && knownRecipes.has(ability.id)) {
+                    has = true
+                }
             }
             else {
                 if (knownRecipes.has(ability.id)) {
