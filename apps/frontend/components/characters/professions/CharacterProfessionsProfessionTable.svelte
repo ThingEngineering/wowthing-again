@@ -13,8 +13,10 @@
     export let category: StaticDataProfessionCategory
 
     let abilities: [StaticDataProfessionAbility, boolean, number, number, number][]
+    let hasRanks: boolean
     $: {
         abilities = []
+        hasRanks = false
         for (const ability of (category.abilities || [])) {
             let has = false
             let spellId = ability.spellId
@@ -27,6 +29,7 @@
                     const [rankAbilityId, rankSpellId] = ability.extraRanks[rankIndex]
                     if (knownRecipes.has(rankAbilityId)) {
                         has = true
+                        hasRanks = true
                         currentRank = rankIndex + 2
                         spellId = rankSpellId
                         break
@@ -105,8 +108,8 @@
         text-align: right;
         width: 4.5rem;
 
-        :global(svg + svg) {
-            margin-left: -0.2rem;
+        :global(a + a) {
+            margin-left: -0.5rem;
         }
     }
     .trivial {
@@ -130,7 +133,9 @@
         <thead>
             <tr>
                 <th class="category-name">{category.name}</th>
-                <th class="ranks"></th>
+                {#if hasRanks}
+                    <th class="ranks"></th>
+                {/if}
                 <th class="trivial"></th>
                 <th class="trivial"></th>
                 <th class="trivial"></th>
@@ -160,20 +165,29 @@
                             <ParsedText text={getFixedName(ability.name)} />
                         </WowheadLink>
                     </td>
-                    <td
-                        class="ranks"
-                        class:status-success={userHas && currentRank === totalRanks}
-                        class:status-shrug={userHas && currentRank < totalRanks}
-                        class:status-fail={!userHas}
-                    >
-                        {#if totalRanks > 1}
-                            {#each Array(3) as _, index}
-                                <IconifyIcon
-                                    icon={iconStrings[index < currentRank && userHas ? 'starFull' : 'starEmpty']}
-                                />
-                            {/each}
-                        {/if}
-                    </td>
+                    
+                    {#if hasRanks}
+                        <td
+                            class="ranks"
+                            class:status-success={userHas && currentRank === totalRanks}
+                            class:status-shrug={userHas && currentRank < totalRanks}
+                            class:status-fail={!userHas}
+                        >
+                            {#if totalRanks > 1}
+                                {#each Array(3) as _, index}
+                                    <WowheadLink
+                                        id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
+                                        type={"spell"}
+                                    >
+                                        <IconifyIcon
+                                            icon={iconStrings[index < currentRank && userHas ? 'starFull' : 'starEmpty']}
+                                        />
+                                    </WowheadLink>
+                                {/each}
+                            {/if}
+                        </td>
+                    {/if}
+
                     <td class="trivial trivial-low">
                         {#if useLow}
                             {ability.trivialLow}
