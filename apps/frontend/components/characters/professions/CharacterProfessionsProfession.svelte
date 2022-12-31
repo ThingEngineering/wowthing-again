@@ -57,7 +57,7 @@
                     }
                 }
                 if (knownRecipes.has(ability.id)) {
-                    stats.have ++
+                    stats.have++
                 }
             }
             else {
@@ -79,6 +79,7 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+        width: 100%;
     }
     .professions-container {
         column-count: 2;
@@ -96,11 +97,13 @@
                 title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
             />
 
-            <ProgressBar
-                have={stats.have}
-                total={stats.total}
-                title="Known recipes"
-            />
+            {#if stats.total > 0}
+                <ProgressBar
+                    have={stats.have}
+                    total={stats.total}
+                    title="Known recipes"
+                />
+            {/if}
         </div>
     {/if}
 
