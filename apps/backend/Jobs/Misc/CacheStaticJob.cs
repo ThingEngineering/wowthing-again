@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 60,
+        Version = 61,
     };
 
     public override async Task Run(params string[] data)
@@ -431,6 +431,12 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 var categoryMap = new Dictionary<int, OutProfessionCategory>();
                 foreach (var category in professionCategories)
                 {
+                    // Why is this the only wonky one
+                    if (category.ID == 1293)
+                    {
+                        category.OrderIndex = 920;
+                    }
+
                     var outCategory = categoryMap[category.ID] = new OutProfessionCategory(category);
 
                     var abilities = categoryAbilities

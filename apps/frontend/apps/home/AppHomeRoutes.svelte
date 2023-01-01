@@ -42,7 +42,7 @@
         '/appearances/:slug1?/:slug2?': Appearances,
         '/auctions/:slug1?/:slug2?': Auctions,
         '/currencies/:slug?': Currencies,
-        '/gear/*': Gear,
+        '/gear/:slug1?': Gear,
         '/heirlooms': Heirlooms,
         '/history/:slug?': History,
         '/illusions': Illusions,

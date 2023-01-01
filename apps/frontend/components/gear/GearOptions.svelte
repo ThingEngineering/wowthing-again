@@ -2,6 +2,8 @@
     import { gearState } from '@/stores/local-storage'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+
+    export let slug: string
 </script>
 
 <style lang="scss">
@@ -30,34 +32,36 @@
     </button>
 </div>
 
-<div>
-    <span>Highlight:</span>
+{#if slug === 'equipped'}
+    <div>
+        <span>Highlight:</span>
 
-    <button>
-        <CheckboxInput
-            name="highlight_enchants"
-            bind:value={$gearState.highlightEnchants}
-        >Missing enchants</CheckboxInput>
-    </button>
+        <button>
+            <CheckboxInput
+                name="highlight_enchants"
+                bind:value={$gearState.highlightEnchants}
+            >Missing enchants</CheckboxInput>
+        </button>
 
-    <button>
-        <CheckboxInput
-            name="highlight_gems"
-            bind:value={$gearState.highlightGems}
-        >Missing gems</CheckboxInput>
-    </button>
+        <button>
+            <CheckboxInput
+                name="highlight_gems"
+                bind:value={$gearState.highlightGems}
+            >Missing gems</CheckboxInput>
+        </button>
 
-    <button>
-        <CheckboxInput
-            name="highlight_heirlooms"
-            bind:value={$gearState.highlightHeirlooms}
-        >Missing heirlooms</CheckboxInput>
-    </button>
+        <button>
+            <CheckboxInput
+                name="highlight_heirlooms"
+                bind:value={$gearState.highlightHeirlooms}
+            >Missing heirlooms</CheckboxInput>
+        </button>
 
-    <button>
-        <CheckboxInput
-            name="highlight_upgrades"
-            bind:value={$gearState.highlightUpgrades}
-        >Upgradeable</CheckboxInput>
-    </button>
-</div>
+        <button>
+            <CheckboxInput
+                name="highlight_upgrades"
+                bind:value={$gearState.highlightUpgrades}
+            >Upgradeable</CheckboxInput>
+        </button>
+    </div>
+{/if}

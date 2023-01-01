@@ -102,7 +102,7 @@
                         }
 
                         if (objective.have === objective.need) {
-                            status = `${status} shrug-cycle`
+                            status = `${status} status-turn-in`
                         }
                     }
                     else {
@@ -116,7 +116,7 @@
                         text = `${Math.floor(have / need * 100)} %`
 
                         if (have === need) {
-                            status = `${status} shrug-cycle`
+                            status = `${status} status-turn-in`
                         }
                     }
                 }
@@ -145,8 +145,8 @@
             text-align: right;
         }
 
-        &.shrug-cycle {
-            animation: 2s linear 0s infinite alternate shrug-success;
+        &.status-turn-in {
+            color: rgb(255, 0, 255);
         }
 
         &.highlight {

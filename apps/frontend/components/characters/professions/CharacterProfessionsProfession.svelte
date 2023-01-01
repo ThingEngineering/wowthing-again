@@ -1,9 +1,6 @@
 <script lang="ts">
-    import find from 'lodash/find'
-
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
-    import { staticStore } from '@/stores'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { UserCount, type Character, type CharacterProfession, type Expansion, type MultiSlugParams } from '@/types'
     import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
@@ -13,16 +10,14 @@
 
     export let character: Character
     export let params: MultiSlugParams
+    export let staticProfession: StaticDataProfession
 
     let charSubProfession: CharacterProfession
     let expansion: Expansion
     let knownRecipes: Set<number>
     let rootCategory: StaticDataProfessionCategory
-    let staticProfession: StaticDataProfession
     let stats: UserCount
     $: {
-        staticProfession = find($staticStore.data.professions,
-            (prof) => prof.slug === params.slug4)
         expansion = expansionSlugMap[params.slug5]
         
         const charProfession = character.professions[staticProfession.id]

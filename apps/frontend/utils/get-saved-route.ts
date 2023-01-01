@@ -18,8 +18,8 @@ export default function getSavedRoute(
                 return
             }
 
-            const first = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
-            replace(first.getAttribute('href').replace('#', ''))
+            const link = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
+            replace(link.getAttribute('href').replace('#', ''))
         }
         else {
             console.log("couldn't find sidebar??", sidebarId)

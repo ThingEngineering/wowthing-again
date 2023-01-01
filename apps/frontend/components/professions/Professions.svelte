@@ -15,6 +15,7 @@
 </script>
 
 <Sidebar />
+
 {#if params.slug1}
     <View slug={params.slug1} />
 {/if}

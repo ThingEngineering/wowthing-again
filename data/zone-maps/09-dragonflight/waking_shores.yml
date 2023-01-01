@@ -52,7 +52,7 @@ farms:
       id: 200219 # Dangerous Drapery [cloak]
 
 - name: "Enkine the Voracious"
-  location: 40.3 64.9
+  location: 21.6 64.8
   npcId: 193134
   questId: 73072
   type: kill
