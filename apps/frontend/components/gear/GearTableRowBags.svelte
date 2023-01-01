@@ -1,0 +1,72 @@
+<script lang="ts">
+    import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
+    import { staticStore } from '@/stores'
+    import type { Character, CharacterGear } from '@/types'
+
+    import Empty from './GearEmpty.svelte'
+    import Item from './GearItem.svelte'
+
+    export let character: Character
+
+    let bagSets: [number, Partial<CharacterGear>][][]
+    $: {
+        bagSets = []
+        for (const bagSlots of [characterBagSlots, bankBagSlots]) {
+            const bagThings: [number, Partial<CharacterGear>][] = []
+            
+            for (const bagSlot of bagSlots) {
+                const itemId = character.bags[bagSlot]
+                const bag = $staticStore.data.bags[itemId]
+
+                if (itemId && bag) {
+                    bagThings.push([
+                        bagSlot,
+                        {
+                            equipped: {
+                                context: 0,
+                                craftedQuality: 0,
+                                itemId: itemId,
+                                itemLevel: bag.slots,
+                                quality: bag.quality,
+                                bonusIds: [],
+                                enchantmentIds: [],
+                                gemIds: [],
+                            }
+                        }
+                    ])
+                }
+                else {
+                    bagThings.push([bagSlot, null])
+                }
+            }
+
+            bagSets.push(bagThings)
+        }
+    }
+
+    const getSlotText = function(slot: number): string {
+        if (slot < 5) {
+            return `Bag<br>${slot}`
+        }
+        else if (slot === 5) {
+            return 'Rea<br>gent'
+        }
+        else {
+            return `Bank<br>${slot - 5}`
+        }
+    }
+</script>
+
+{#each bagSets as bagSlots, setIndex}
+    {#if setIndex > 0}
+        <td class="spacer"></td>
+    {/if}
+
+    {#each bagSlots as [bagSlot, gear]}
+        {#if gear}
+            <Item {gear} />
+        {:else}
+            <Empty text={getSlotText(bagSlot)} />
+        {/if}
+    {/each}
+{/each}

@@ -9,6 +9,7 @@
     import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
 
+    import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
     import Profession from './CharacterProfessionsProfession.svelte'
     import Sidebar from './CharacterProfessionsSidebar.svelte'
 
@@ -80,10 +81,19 @@
 </style>
 
 <div class="professions">
-    <Sidebar
-        {params}
-        {stats}
-    />
+    <div class="professions-sidebar">
+        <Sidebar
+            {params}
+            {stats}
+        />
+
+        {#if staticProfession}
+            <Equipment
+                profession={staticProfession}
+                {character}
+            />
+        {/if}
+    </div>
 
     {#if params.slug5 && staticProfession}
         <Profession

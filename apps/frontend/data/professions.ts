@@ -104,7 +104,6 @@ const dragonflightProfessions: DragonflightProfessionTask[] = [
 
 export const dragonflightProfessionTasks: Chore[] = []
 for (const profession of dragonflightProfessions) {
-    console.log(profession)
     const lowerName = profession.name.toLowerCase()
     
     if (profession.hasCraft === true) {
