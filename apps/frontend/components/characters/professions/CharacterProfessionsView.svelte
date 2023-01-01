@@ -1,11 +1,8 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { Constants } from '@/data/constants'
-    import { expansionSlugMap } from '@/data/expansion'
     import { staticStore } from '@/stores'
     import { UserCount } from '@/types'
-    import { getNameForFaction } from '@/utils/get-name-for-faction'
     import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
 

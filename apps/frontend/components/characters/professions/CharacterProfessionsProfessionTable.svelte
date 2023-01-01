@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { iconStrings } from '@/data/icons'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
 

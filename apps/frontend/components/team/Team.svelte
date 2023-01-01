@@ -41,7 +41,6 @@
                     {#if $location === '/' || $location === '/gear'}
                         <GearItems
                             character={teamCharacter.character}
-                            rowspan={2}
                         />
                     {/if}
                 </tr>

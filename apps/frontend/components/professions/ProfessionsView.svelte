@@ -9,7 +9,6 @@
 
     const allProfessions = Object.values($staticStore.data.professions)
     allProfessions.sort((a, b) => a.name.localeCompare(b.name))
-
 </script>
 
 <style lang="scss">
