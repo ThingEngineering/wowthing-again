@@ -78,16 +78,23 @@
 {#each professions as [profession, slots]}
     <td class="spacer"></td>
     
-    {#if profession.name !== 'ZZZ'}
-        <td class="profession-icon">
+    <td class="profession-icon">
+        {#if profession.name !== 'ZZZ'}
             <WowthingImage
                 name="{imageStrings[professionIdToString[profession.id]]}"
                 size={24}
                 border={2}
                 tooltip={getNameForFaction(profession.name, character.faction)}
             />
-        </td>
-    {/if}
+        {:else}
+            <WowthingImage
+                name="unknown"
+                size={24}
+                border={2}
+                tooltip="No profession!"
+            />
+        {/if}
+    </td>
 
     {#each Array(profession?.slug === 'fishing' ? 1 : (profession.type === 0 ? 3 : 2)) as _, slot}
         {@const gear = slots[slot]}
