@@ -202,6 +202,9 @@
                         class="name"
                         class:status-success={!dropStatus.need}
                     >
+                        {#if drop.amount > 0}
+                            {drop.amount}x
+                        {/if}
                         {getDropName(drop)}
                     </td>
                     <td class="limit">

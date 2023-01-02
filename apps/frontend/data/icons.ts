@@ -1,5 +1,7 @@
 import type { IconifyIcon } from '@iconify/types'
 
+import gameTwoCoins from '@iconify/icons-game-icons/two-coins'
+
 import faDungeon from '@iconify/icons-fa-solid/dungeon'
 
 import hisExclamationCircle from '@iconify/icons-heroicons-solid/exclamation-circle'
@@ -22,6 +24,7 @@ import mdiDuck from '@iconify/icons-mdi/duck'
 import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
 import mdiFormatListCheckbox from '@iconify/icons-mdi/format-list-checkbox'
 import mdiGiftOutline from '@iconify/icons-mdi/gift-outline'
+import mdiHammerWrench from '@iconify/icons-mdi/hammer-wrench'
 import mdiLetterC from '@iconify/icons-mdi/alpha-c-box-outline'
 import mdiLetterL from '@iconify/icons-mdi/alpha-l-box-outline'
 import mdiLetterM from '@iconify/icons-mdi/alpha-m-box-outline'
@@ -154,6 +157,7 @@ export const farmTypeIcons: Record<number, IconifyIcon> = {
     [FarmType.EventBig]: mdiTimerSand,
     [FarmType.Kill]: mdiSkull,
     [FarmType.KillBig]: mdiSkull,
+    [FarmType.Profession]: mdiHammerWrench,
     [FarmType.Puzzle]: mdiPuzzle,
     [FarmType.Quest]: hisExclamationCircle,
     [FarmType.Raid]: faDungeon,
@@ -171,6 +175,7 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Achievement]: mdiTrophy,
     [RewardType.Armor]: mdiTshirtCrew,
     [RewardType.Cosmetic]: mdiWizardHat,
+    [RewardType.Currency]: gameTwoCoins,
     [RewardType.Illusion]: mdiAutoFix,
     [RewardType.Item]: mdiGiftOutline,
     [RewardType.Mount]: mdiUnicorn,

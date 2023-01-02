@@ -121,7 +121,7 @@
         display: block;
         font-size: 0.9rem;
         line-height: 1;
-        margin-top: -4px;
+        margin-top: -3px;
         padding: 0 2px 1px 2px;
         pointer-events: none;
         word-spacing: -0.2ch;

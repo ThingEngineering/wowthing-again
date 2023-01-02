@@ -19,6 +19,7 @@
   "devDependencies": {
     "@iconify/icons-emojione-monotone": "^1.2.4",
     "@iconify/icons-fa-solid": "^1.2.4",
+    "@iconify/icons-game-icons": "^1.2.1",
     "@iconify/icons-heroicons-solid": "^1.2.6",
     "@iconify/icons-ic": "^1.2.11",
     "@iconify/icons-mdi": "^1.2.34",
