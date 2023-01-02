@@ -60,7 +60,8 @@ export class ManualDataZoneMapDrop {
         public limit?: string[],
         public questIds?: number[],
         public requiredQuestId?: number,
-        public note?: string
+        public amount?: number,
+        public note?: string,
     )
     {}
 }

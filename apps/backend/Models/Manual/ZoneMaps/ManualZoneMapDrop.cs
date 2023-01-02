@@ -4,6 +4,7 @@ namespace Wowthing.Backend.Models.Manual.ZoneMaps;
 
 public class ManualZoneMapDrop
 {
+    public int Amount { get; set; }
     public int Id { get; set; }
     public int ClassMask { get; set; }
     public int SubType { get; set; }
@@ -18,6 +19,7 @@ public class ManualZoneMapDrop
     {
         Id = drop.Id;
         Type = drop.Type;
+        Amount = drop.Amount;
 
         if (!string.IsNullOrEmpty(drop.Limit))
         {

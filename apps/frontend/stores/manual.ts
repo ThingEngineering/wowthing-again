@@ -37,6 +37,7 @@ import type { ZoneMapState } from '@/stores/local-storage'
 import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
+import { professionSlugToId } from '@/data/professions'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -492,6 +493,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 const mapCounts = setCounts[mapKey] = new UserCount()
                 const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
                     [RewardType.Achievement]: new UserCount(),
+                    [RewardType.Currency]: new UserCount(),
                     [RewardType.Illusion]: new UserCount(),
                     [RewardType.Item]: new UserCount(),
                     [RewardType.Mount]: new UserCount(),
@@ -611,6 +613,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 }
                                 break
 
+                            case RewardType.Currency:
                             case RewardType.Item:
                                 dropStatus.need = true
                                 break
@@ -788,6 +791,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                         dropCharacters = filter(
                                             dropCharacters,
                                             (c) => c.faction === factionMap[drop.limit[1]]
+                                        )
+                                        break
+                                    
+                                    case 'profession':
+                                        dropCharacters = filter(
+                                            dropCharacters,
+                                            (c) => !!c.professions?.[professionSlugToId[drop.limit[1]]]
                                         )
                                         break
                                 }

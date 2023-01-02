@@ -2,3 +2,59 @@ name: "Ohn'ahran Plains"
 mapName: "09-dragonflight/ohnahran_plains"
 minimumLevel: 60
 farms:
+
+# Profession
+
+- name: "Erden"
+  location: 82.4 50.6
+  note: "Master Leatherworker"
+  npcId: 194842
+  questId: 70256
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession leatherworking
+    
+    - type: currency
+      id: 2025 # Dragon Isles Leatherworking Knowledge
+      amount: 10
+      limit: profession leatherworking
+
+- name: "Hua Greenpaw"
+  location: 58.3 50.0
+  note: "Master Herbalist"
+  npcId: 194839
+  questId: 70253
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession herbalism
+    
+    - type: currency
+      id: 2034 # Dragon Isles Herbalism Knowledge
+      amount: 10
+      limit: profession herbalism
+
+- name: "Shalasar Glimmerdusk"
+  location: 62.4 18.6
+  note: "Master Enchanter"
+  npcId: 194837
+  questId: 70251
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession enchanting
+    
+    - type: currency
+      id: 2030 # Dragon Isles Enchanting Knowledge
+      amount: 10
+      limit: profession enchanting

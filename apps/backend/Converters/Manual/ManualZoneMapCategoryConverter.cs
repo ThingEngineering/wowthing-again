@@ -117,21 +117,27 @@ public class ManualZoneMapCategoryConverter : JsonConverter
         var useLimit = limit.Length > 0;
         var useQuestIds = questIds.Length > 0;
         var useRequiredQuestId = requiredQuestId > 0;
+        var useAmount = drop.Amount > 0;
         var useNote = !string.IsNullOrEmpty(drop.Note);
 
-        if (useNote || useRequiredQuestId || useQuestIds || useLimit)
+        if (useNote || useAmount || useRequiredQuestId || useQuestIds || useLimit)
         {
             dropArray.Add(JArray.FromObject(limit));
         }
 
-        if (useNote || useRequiredQuestId || useQuestIds)
+        if (useNote || useAmount || useRequiredQuestId || useQuestIds)
         {
             dropArray.Add(JArray.FromObject(questIds));
         }
 
-        if (useNote || useRequiredQuestId)
+        if (useNote || useAmount || useRequiredQuestId)
         {
             dropArray.Add(requiredQuestId);
+        }
+
+        if (useNote || useAmount)
+        {
+            dropArray.Add(drop.Amount);
         }
 
         if (useNote)

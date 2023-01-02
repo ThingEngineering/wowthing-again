@@ -2,6 +2,7 @@
 
 public class DataZoneMapDrop
 {
+    public int Amount { get; set; }
     public int Id { get; set; }
     public int CriteriaId { get; set; }
     public int RequiredQuestId { get; set; }

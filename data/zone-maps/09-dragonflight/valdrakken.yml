@@ -2,3 +2,23 @@ name: "Valdrakken"
 mapName: "09-dragonflight/valdrakken"
 minimumLevel: 60
 farms:
+
+# Profession
+
+- name: "Elysa Raywinder"
+  location: 27.9 45.6
+  note: "Master Tailor"
+  npcId: 194845
+  questId: 70260
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession tailoring
+    
+    - type: currency
+      id: 2026 # Dragon Isles Tailoring Knowledge
+      amount: 10
+      limit: profession tailoring

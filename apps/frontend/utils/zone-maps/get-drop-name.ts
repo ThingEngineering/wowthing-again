@@ -27,6 +27,9 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
             return achievementData.achievement[drop.id]?.name ?? `Achievement #${drop.id}`
         }
     }
+    else if (drop.type === RewardType.Currency) {
+        return staticData.currencies[drop.id]?.name ?? `Currency #${drop.id}`
+    }
     else if (drop.type === RewardType.Illusion) {
         const enchantmentId = drop.appearanceIds[0][0]
         const illusion = find(

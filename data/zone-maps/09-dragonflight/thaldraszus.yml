@@ -2,3 +2,23 @@ name: "Thaldraszus"
 mapName: "09-dragonflight/thaldraszus"
 minimumLevel: 60
 farms:
+
+# Profession
+
+- name: "Bridgette Holdug"
+  location: 61.4 76.9
+  note: "Master Miner"
+  npcId: 194843
+  questId: 70258
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession mining
+    
+    - type: currency
+      id: 2035 # Dragon Isles Mining Knowledge
+      amount: 10
+      limit: profession mining

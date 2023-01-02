@@ -65,6 +65,62 @@ farms:
 
 - name: "Grumbletrunk"
 
+# Profession
+
+- name: "Frizz Buzzcrank"
+  location: 17.7 21.6
+  note: "Master Engineer"
+  npcId: 194838
+  questId: 70252
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession engineering
+    
+    - type: currency
+      id: 2027 # Dragon Isles Engineering Knowledge
+      amount: 10
+      limit: profession engineering
+
+- name: "Lydiara Whisperfeather"
+  location: 40.2 64.4
+  note: "Master Inscriber"
+  npcId: 194840
+  questId: 70254
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession inscription
+    
+    - type: currency
+      id: 2028 # Dragon Isles Inscription Knowledge
+      amount: 10
+      limit: profession inscription
+
+- name: "Pluutar"
+  location: 46.2 40.8
+  note: "Master Jewelcrafter"
+  npcId: 194841
+  questId: 70255
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 190456 # Artisan's Mettle
+      amount: 25
+      limit: profession jewelcrafting
+    
+    - type: currency
+      id: 2029 # Dragon Isles Inscription Knowledge
+      amount: 10
+      limit: profession jewelcrafting
+
 # Treasure
 
 - name: "Lost Compass"
