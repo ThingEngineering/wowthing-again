@@ -20,5 +20,5 @@ farms:
     
     - type: currency
       id: 2026 # Dragon Isles Tailoring Knowledge
-      amount: 10
+      amount: 5
       limit: profession tailoring

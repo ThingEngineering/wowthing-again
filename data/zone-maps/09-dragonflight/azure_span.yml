@@ -82,7 +82,7 @@ farms:
     
     - type: currency
       id: 2027 # Dragon Isles Engineering Knowledge
-      amount: 10
+      amount: 5
       limit: profession engineering
 
 - name: "Lydiara Whisperfeather"
@@ -100,7 +100,7 @@ farms:
     
     - type: currency
       id: 2028 # Dragon Isles Inscription Knowledge
-      amount: 10
+      amount: 5
       limit: profession inscription
 
 - name: "Pluutar"
@@ -118,7 +118,7 @@ farms:
     
     - type: currency
       id: 2029 # Dragon Isles Inscription Knowledge
-      amount: 10
+      amount: 5
       limit: profession jewelcrafting
 
 # Treasure

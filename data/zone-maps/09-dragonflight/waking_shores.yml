@@ -86,7 +86,7 @@ farms:
     
     - type: currency
       id: 2023 # Dragon Isles Blacksmithing Knowledge
-      amount: 10
+      amount: 5
       limit: profession blacksmithing
 
 - name: "Grigori Vialtry"
@@ -104,7 +104,7 @@ farms:
     
     - type: currency
       id: 2024 # Dragon Isles Alchemy Knowledge
-      amount: 10
+      amount: 5
       limit: profession alchemy
 
 - name: "Zenzi"

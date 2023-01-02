@@ -20,7 +20,7 @@ farms:
     
     - type: currency
       id: 2025 # Dragon Isles Leatherworking Knowledge
-      amount: 10
+      amount: 5
       limit: profession leatherworking
 
 - name: "Hua Greenpaw"
@@ -56,5 +56,5 @@ farms:
     
     - type: currency
       id: 2030 # Dragon Isles Enchanting Knowledge
-      amount: 10
+      amount: 5
       limit: profession enchanting
