@@ -119,7 +119,7 @@
 
         {:else if field === 'keystone'}
             {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
-                <td>Keystone</td>
+                <td>M+ Key</td>
             {/if}
 
         {:else if field === 'lockouts'}
