@@ -168,30 +168,6 @@ sells:
     reputation: 2510 renown-10
 
   - type: transmog
-    id: 199760 # Valdrakken Spellweaver's Cord [cloth waist]
-    costs:
-      2003: 150
-    reputation: 2510 renown-16
-
-  - type: transmog
-    id: 199762 # Valdrakken Guards Belt [leather waist]
-    costs:
-      2003: 150
-    reputation: 2510 renown-16
-
-  - type: transmog
-    id: 199761 # Valdrakken Dragonspawn Waistguard [mail waist]
-    costs:
-      2003: 150
-    reputation: 2510 renown-16
-
-  - type: transmog
-    id: 199759 # Valdrakken Plate Girdle [plate waist]
-    costs:
-      2003: 150
-    reputation: 2510 renown-16
-
-  - type: transmog
     id: 199658 # Green Dragonspawn Shoulderpads [cosmetic shoulders]
     costs:
       2003: 250
@@ -244,6 +220,30 @@ sells:
       1190396: 10
       1201406: 1
     reputation: 2510 renown-13
+
+  - type: transmog
+    id: 199760 # Valdrakken Spellweaver's Cord [cloth waist]
+    costs:
+      2003: 150
+    reputation: 2510 renown-16
+
+  - type: transmog
+    id: 199762 # Valdrakken Guards Belt [leather waist]
+    costs:
+      2003: 150
+    reputation: 2510 renown-16
+
+  - type: transmog
+    id: 199761 # Valdrakken Dragonspawn Waistguard [mail waist]
+    costs:
+      2003: 150
+    reputation: 2510 renown-16
+
+  - type: transmog
+    id: 199759 # Valdrakken Plate Girdle [plate waist]
+    costs:
+      2003: 150
+    reputation: 2510 renown-16
 
   - type: transmog
     id: 199682 # Bronze Drakonid Helmet [cosmetic head]
