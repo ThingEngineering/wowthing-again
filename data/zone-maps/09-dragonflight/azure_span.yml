@@ -87,7 +87,7 @@ farms:
 
 - name: "Lydiara Whisperfeather"
   location: 40.2 64.4
-  note: "Master Inscriber"
+  note: "Master Scribe"
   npcId: 194840
   questId: 70254
   reset: never
