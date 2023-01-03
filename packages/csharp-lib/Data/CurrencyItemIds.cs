@@ -28,6 +28,7 @@ public static partial class Hardcoded
         190189, // Sandworn Relic
         190453, // Spark of Ingenuity [DF]
         190454, // Primal Chaos [DF]
+        190455, // Concentrated Primal Focus [DF]
         190456, // Artisan's Mettle [DF]
         191784, // Dragon Shard of Knowledge [DF]
         198048, // Titan Training Matrix I [DF]
@@ -36,6 +37,7 @@ public static partial class Hardcoded
         198059, // Titan Training Matrix IV [DF]
         199202, // Attendant's Token of Merit [SL S4]
         199211, // Primeval Essence [pre-DF invasions]
+        200686, // Primal Focus [DF]
 
         183888, // Apogee Anima Bead
         183889, // Thaumaturgic Anima Bead

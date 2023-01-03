@@ -1,3 +1,5 @@
+import type { StaticDataCurrencyCategory } from "@/types/data/static"
+
 export const categoryOrder: number[] = [
     23, // Burning Crusade
     21, // Wrath of the Lich King
@@ -14,6 +16,39 @@ export const categoryOrder: number[] = [
     1, // Miscellaneous
     2, // Player vs. Player
 ]
+
+export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
+    // Dragonflight
+    250: [
+        {
+            id: 250001,
+            name: 'Crafting Knowledge',
+            slug: 'crafting-knowledge',
+        },
+        {
+            id: 250002,
+            name: 'Crafting Materials',
+            slug: 'crafting-materials',
+        },
+    ],
+}
+
+export const currencyExtra: Record<number, number[]> = {
+    // Dragonflight
+    250001: [
+        2023, // Blacksmithing Knowledge
+        2024, // Alchemy Knowledge
+        2025, // Leatherworking Knowledge
+        2026, // Tailoring Knowledge
+        2027, // Engineering Knowledge
+        2028, // Inscription Knowledge
+        2029, // Jewelcrafting Knowledge
+        2030, // Enchanting Knowledge
+        2033, // Skinning Knowledge
+        2034, // Herbalism Knowledge
+        2035, // Mining Knowledge
+    ],
+}
 
 export const currencyItems: Record<number, number[]> = {
     // Burning Crusade
@@ -43,12 +78,17 @@ export const currencyItems: Record<number, number[]> = {
         188957, // Genesis Mote
         190189, // Sandworn Relic
     ],
-    // Dragonflight
-    250: [
-        190456, // Artisan's Mettle [DF]
+    // Dragonflight > Crafting Knowledge
+    250001: [
         191784, // Dragon Shard of Knowledge [DF]
+    ],
+    // Dragonflight > Crafting Materials
+    250002: [
+        190456, // Artisan's Mettle [DF]
         190454, // Primal Chaos [DF]
         190453, // Spark of Ingenuity [DF]
+        200686, // Primal Focus [DF]
+        190455, // Concentrated Primal Focus [DF]
         198048, // Titan Training Matrix I [DF]
         198056, // Titan Training Matrix II [DF]
         198058, // Titan Training Matrix III [DF]
@@ -124,6 +164,7 @@ const skipCurrencies: number[] = [
     1836, // Linked Currency Test (Dst) - PTH
     2005, // Druid Talent Points (DNT)
     2006, // Restoration Talent Points (DNT)
+    2011, // Effigy Adornments
     2012, // Death Knight Talent Points (DNT)
     2013, // Frost Talent Points (DNT)
     2014, // Unholy Talent Points (DNT)
