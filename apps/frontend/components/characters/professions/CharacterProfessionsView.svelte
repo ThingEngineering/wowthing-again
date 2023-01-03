@@ -82,14 +82,16 @@
         <Sidebar
             {params}
             {stats}
-        />
-
-        {#if staticProfession}
-            <Equipment
-                profession={staticProfession}
-                {character}
-            />
-        {/if}
+        >
+            <svelt:fragment slot="after">
+                {#if staticProfession}
+                    <Equipment
+                        profession={staticProfession}
+                        {character}
+                    />
+                {/if}
+            </svelt:fragment>
+        </Sidebar>
     </div>
 
     {#if params.slug5 && staticProfession}

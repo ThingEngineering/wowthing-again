@@ -20,4 +20,6 @@
     items={expansionOrder.filter((expansion) => expansion.id < 100)}
     width="14rem"
     {percentFunc}
-/>
+>
+    <slot name="after" slot="after" />
+</Sidebar>
