@@ -15,6 +15,7 @@
 </script>
 
 <Sidebar
+    alwaysExpand={true}
     baseUrl="/currencies"
     items={categories}
     width="12rem"
