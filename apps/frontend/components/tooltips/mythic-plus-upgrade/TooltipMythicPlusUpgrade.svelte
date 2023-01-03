@@ -39,6 +39,9 @@
     .bottom {
         --image-border-width: 1px;
     }
+    .valor-max {
+        margin-top: 0.5rem;
+    }
 </style>
 
 <div class="wowthing-tooltip">
@@ -66,13 +69,22 @@
 
     {#if valor}
         <div class="bottom">
-            <WowthingImage
-                name="currency/{Constants.valorCurrencyId}"
-                size={20}
-                border={1}
-            />
-            {valor.quantity.toLocaleString()}
-            {$staticStore.data.currencies?.[Constants.valorCurrencyId]?.name}
+            <div>
+                <WowthingImage
+                    name="currency/{Constants.valorCurrencyId}"
+                    size={20}
+                    border={1}
+                />
+                {valor.quantity.toLocaleString()}
+                {$staticStore.data.currencies?.[Constants.valorCurrencyId]?.name}
+            </div>
+
+            {#if valor.max > 0}
+                <div class="valor-max">
+                    {(valor.max - valor.totalQuantity).toLocaleString()}
+                    to cap
+                </div>
+            {/if}
         </div>
     {/if}
 </div>
