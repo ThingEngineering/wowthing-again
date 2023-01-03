@@ -1,33 +1,53 @@
 <script lang="ts">
     import filter from 'lodash/filter'
+    import find from 'lodash/find'
     import findKey from 'lodash/findKey'
     import sortBy from 'lodash/sortBy'
 
-    import { currencyItems, skipCurrenciesMap } from '@/data/currencies'
+    import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
     import { currencyState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import leftPad from '@/utils/left-pad'
-    import type { Character } from '@/types'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { Character, MultiSlugParams } from '@/types'
+    import type { StaticDataCurrency, StaticDataCurrencyCategory } from '@/types/data/static'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadCurrency from './CurrenciesTableHead.svelte'
     import RowCurrency from './CurrenciesTableBody.svelte'
 
-    export let slug: string
+    export let params: MultiSlugParams
 
-    let categoryId: number
+    let category: StaticDataCurrencyCategory
     let currencies: StaticDataCurrency[]
+    let slugKey: string
     let sorted: boolean
     let sortFunc: (char: Character) => string
     $: {
-        categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
-        currencies = sortBy(filter($staticStore.data.currencies, (c) => !skipCurrenciesMap[c.id] && c.categoryId === categoryId), (c) => c.name)
+        category = find($staticStore.data.currencyCategories, (cat) => cat.slug === params.slug1)
+        if (params.slug2) {
+            category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2)
+        }
 
-        const order = $currencyState.sortOrder[slug]
+        if (!category) {
+            break $
+        }
+
+        slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1
+
+        currencies = sortBy(
+            Object.values($staticStore.data.currencies)
+                .filter((c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id)
+                .concat(
+                    (currencyExtra[category.id] || [])
+                        .map((id) => $staticStore.data.currencies[id])
+                ),
+            (c) => c.name
+        )
+
+        const order = $currencyState.sortOrder[slugKey]
         if (order > 0) {
             sorted = true
             sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => leftPad(1000000 - (
@@ -43,55 +63,63 @@
     }
 </script>
 
-<CharacterTable
-    skipGrouping={sorted}
-    {sortFunc}
->
-    <CharacterTableHead slot="head">
-        <th class="spacer"></th>
-        {#key slug}
-            {#each currencies as currency}
-                <HeadCurrency
-                    sortingBy={$currencyState.sortOrder[slug] === currency.id}
-                    {slug}
-                    {currency}
-                />
-            {/each}
-
-            {#if currencyItems[categoryId]}
-                <th class="spacer"></th>
-                {#each currencyItems[categoryId] as itemId}
+{#if category}
+    <CharacterTable
+        skipGrouping={sorted}
+        {sortFunc}
+    >
+        <CharacterTableHead slot="head">
+            <th class="spacer"></th>
+            {#key slugKey}
+                {#each currencies as currency}
                     <HeadCurrency
-                        sortingBy={$currencyState.sortOrder[slug] === itemId}
-                        {slug}
-                        {itemId}
+                        slug={slugKey}
+                        sortingBy={$currencyState.sortOrder[slugKey] === currency.id}
+                        {currency}
                     />
                 {/each}
-            {/if}
-        {/key}
-    </CharacterTableHead>
 
-    <svelte:fragment slot="rowExtra" let:character>
-        <td class="spacer"></td>
-        {#key slug}
-            {#each currencies as currency}
-                <RowCurrency
-                    sortingBy={$currencyState.sortOrder[slug] === currency.id}
-                    {character}
-                    {currency}
-                />
-            {/each}
+                {#if currencyItems[category.id]}
+                    {#if currencies.length > 0}
+                        <th class="spacer"></th>
+                    {/if}
 
-            {#if currencyItems[categoryId]}
-                <td class="spacer"></td>
-                {#each currencyItems[categoryId] as itemId}
+                    {#each currencyItems[category.id] as itemId}
+                        <HeadCurrency
+                            slug={slugKey}
+                            sortingBy={$currencyState.sortOrder[slugKey] === itemId}
+                            {itemId}
+                        />
+                    {/each}
+                {/if}
+            {/key}
+        </CharacterTableHead>
+
+        <svelte:fragment slot="rowExtra" let:character>
+            <td class="spacer"></td>
+            {#key slugKey}
+                {#each currencies as currency}
                     <RowCurrency
-                        sortingBy={$currencyState.sortOrder[slug] === itemId}
+                        sortingBy={$currencyState.sortOrder[slugKey] === currency.id}
                         {character}
-                        {itemId}
+                        {currency}
                     />
                 {/each}
-            {/if}
-        {/key}
-    </svelte:fragment>
-</CharacterTable>
+
+                {#if currencyItems[category.id]}
+                    {#if currencies.length > 0}
+                        <td class="spacer"></td>
+                    {/if}
+
+                    {#each currencyItems[category.id] as itemId}
+                        <RowCurrency
+                            sortingBy={$currencyState.sortOrder[slugKey] === itemId}
+                            {character}
+                            {itemId}
+                        />
+                    {/each}
+                {/if}
+            {/key}
+        </svelte:fragment>
+    </CharacterTable>
+{/if}

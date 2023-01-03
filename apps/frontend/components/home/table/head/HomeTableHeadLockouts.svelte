@@ -23,7 +23,7 @@
                 }
             }}
         >
-            {difficulty ? difficulty.shortName + '-' : ''}{instance.shortName}
+            {difficulty && difficulty.name !== 'World Boss' ? difficulty.shortName + '-' : ''}{instance.shortName}
         </td>
     {/if}
 {/each}

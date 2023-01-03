@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { categoryOrder } from '@/data/currencies'
+    import { categoryChildren, categoryOrder } from '@/data/currencies'
     import { staticStore } from '@/stores/static'
     import type {SidebarItem} from '@/types'
 
@@ -8,13 +8,14 @@
     let categories: SidebarItem[]
     $: {
         categories = categoryOrder.map((id) => id === 0 ? null : ({
-           children: [],
+           children: categoryChildren[id] || [],
            ...$staticStore.data.currencyCategories[id],
         }))
     }
 </script>
 
 <Sidebar
+    alwaysExpand={true}
     baseUrl="/currencies"
     items={categories}
     width="12rem"
