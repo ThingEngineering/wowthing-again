@@ -1026,7 +1026,7 @@ public class UserUploadJob : JobBase
 
     private ItemLocation GetBagLocation(short bagId)
     {
-        if (bagId >= 0 && bagId <= 4)
+        if (bagId >= 0 && bagId <= 5)
         {
             return ItemLocation.Bags;
         }
