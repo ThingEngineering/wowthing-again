@@ -161,7 +161,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Islefin Dorado',
         },
         {
-            taskKey: 'dfCatchScalebelley',
+            taskKey: 'dfCatchScalebelly',
             taskName: 'Scalebelly Mackerel',
         },
         {
