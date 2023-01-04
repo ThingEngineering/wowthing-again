@@ -14,12 +14,14 @@
     }
 </script>
 
-<Sidebar
-    baseUrl={`/characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`}
-    id="character-professions-sidebar"
-    items={expansionOrder.filter((expansion) => expansion.id < 100)}
-    width="14rem"
-    {percentFunc}
->
-    <slot name="after" slot="after" />
-</Sidebar>
+{#key `character-professions-sidebar--${params.slug5}`}
+    <Sidebar
+        baseUrl={`/characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`}
+        id="character-professions-sidebar"
+        items={expansionOrder.filter((expansion) => expansion.id < 100)}
+        width="14rem"
+        {percentFunc}
+    >
+        <slot name="after" slot="after" />
+    </Sidebar>
+{/key}
