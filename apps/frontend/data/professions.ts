@@ -28,6 +28,11 @@ export const professionSlugToId: Record<string, number> = Object.fromEntries(
         .map(([id, slug]) => [slug, parseInt(id)])
 )
 
+export const isGatheringProfession: Record<number, boolean> = {
+    182: true, // Herbalism
+    186: true, // Mining
+    393: true, // Skinning
+}
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion
@@ -117,6 +122,16 @@ for (const profession of dragonflightProfessions) {
             },
         )
     }
+
+    dragonflightProfessionTasks.push(
+        {
+            taskKey: `dfProfession${profession.name}Drop#`,
+            taskName: `${profession.name}: Drops`,
+            minimumLevel: 60,
+            couldGetFunc: (char) => couldGet(lowerName, char),
+            //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+        },
+    )
 
     dragonflightProfessionTasks.push(
         {

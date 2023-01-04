@@ -10,6 +10,7 @@
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import { getProfessionSortKey } from '@/utils/professions';
 
     export let character: Character
     export let professionType = 0
@@ -58,7 +59,7 @@
                 }
             }
         }
-        professions.sort((a, b) => a[0].name.localeCompare(b[0].name))
+        professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
     }
 </script>
 
