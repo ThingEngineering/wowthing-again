@@ -120,6 +120,16 @@ for (const profession of dragonflightProfessions) {
 
     dragonflightProfessionTasks.push(
         {
+            taskKey: `dfProfession${profession.name}Drop#`,
+            taskName: `${profession.name}: Drops`,
+            minimumLevel: 60,
+            couldGetFunc: (char) => couldGet(lowerName, char),
+            //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+        },
+    )
+
+    dragonflightProfessionTasks.push(
+        {
             taskKey: `dfProfession${profession.name}Gather`,
             taskName: `${profession.name}: Gather`,
             minimumLevel: 60,

@@ -3,6 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { multiTaskMap, taskMap } from '@/data/tasks'
+    import { QuestStatus } from '@/enums'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -38,11 +39,30 @@
             if (statusText.startsWith('Need')) {
                 status = 3
             }
+            else if (choreTask.taskKey.endsWith('Drop#')) {
+                const needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
+                let haveCount = 0
+                for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
+                    const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
+                    const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[dropKey]
+                    if (progressQuest?.status === QuestStatus.Completed) {
+                        haveCount++
+                    }
+                }
+
+                if (haveCount === needCount) {
+                    status = QuestStatus.Completed
+                }
+                else {
+                    status = QuestStatus.InProgress
+                    statusText = `${haveCount}/${needCount} Collected`
+                }
+            }
             else {
                 const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                 if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                     status = progressQuest.status
-                    if (status === 1 && progressQuest.objectives?.length > 0) {
+                    if (status === QuestStatus.InProgress && progressQuest.objectives?.length > 0) {
                         statusText = progressQuest.objectives[0].text
                     }
                 }
