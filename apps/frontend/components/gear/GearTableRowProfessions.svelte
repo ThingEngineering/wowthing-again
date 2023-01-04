@@ -5,9 +5,9 @@
     import { professionIdToString } from '@/data/professions'
     import { staticStore } from '@/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
-    import { getProfessionEquipment } from '@/utils/professions'
+    import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
     import type { Character, CharacterGear } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static';
+    import type { StaticDataProfession } from '@/types/data/static'
 
     import Empty from './GearEmpty.svelte'
     import Item from './GearItem.svelte'
@@ -62,7 +62,7 @@
             ])
         }
 
-        professions.sort((a, b) => `${a[0].type}|${a[0].name}`.localeCompare(`${b[0].type}|${b[0].name}`))
+        professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
     }
 </script>
 
