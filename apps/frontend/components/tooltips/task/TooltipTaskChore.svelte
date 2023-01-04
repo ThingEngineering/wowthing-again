@@ -34,7 +34,13 @@
             choreSets.push(chores)
         }
 
-        anyErrors = some(choreSets, (choreSet) => some(choreSet, ([,, errorText]) => !!errorText))
+        anyErrors = some(
+            choreSets,
+            (choreSet) => some(
+                choreSet,
+                ([, status, errorText]) => (status === 0 || status === 3) && errorText !== ''
+            )
+        )
     }
 
     const getFixedText = function(text: string): string {
@@ -126,7 +132,7 @@
                                 class="status-text"
                                 class:tier2={statusText.includes('[[tier2]]')}
                                 class:tier3={statusText.includes('[[tier3]]')}
-                                colspan="3"
+                                colspan="{anyErrors ? 3 : 2}"
                             >
                                 &ndash;
                                 <ParsedText text={getFixedText(statusText)} />
