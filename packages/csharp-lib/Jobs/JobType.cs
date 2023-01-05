@@ -58,6 +58,8 @@ public enum JobType
     CacheAchievements,
     CacheAppearances,
     CacheItems,
+    DataQuestsStart,
+    DataQuest,
 
     MaintenanceUnlinkCharacters = 2000,
     MaintenanceDeleteAchievements,

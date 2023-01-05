@@ -17,6 +17,7 @@ export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
     illusions: Record<number, StaticDataIllusion>
     professions: Record<number, StaticDataProfession>
+    questNames: Record<number, string>
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
