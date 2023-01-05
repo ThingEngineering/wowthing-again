@@ -131,8 +131,7 @@
     {#if groupIndex === 0 || (
         transmogSets[category.groups[groupIndex-1].type].type !== currentType &&
         [transmogSets[category.groups[groupIndex-1].type].type, currentType].indexOf('covenant') >= 0
-    )
-    }
+    )}
         {#if groupIndex > 0 && category.groups[groupIndex-1].name !== group.name}
             <tr class="spacer">
                 <td colspan="100">&nbsp;</td>
