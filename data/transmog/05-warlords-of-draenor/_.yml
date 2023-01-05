@@ -1,4 +1,7 @@
 name: Warlords of Draenor
+skipClasses:
+- demon-hunter
+- evoker
 groups:
 
 - name: Empty

@@ -1,4 +1,7 @@
 name: Mists of Pandaria
+skipClasses:
+- demon-hunter
+- evoker
 groups:
 
 - name: Empty

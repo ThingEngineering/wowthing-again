@@ -1,4 +1,8 @@
 name: Classic
+skipClasses:
+- demon-hunter
+- evoker
+- monk
 groups:
 
 - name: Empty

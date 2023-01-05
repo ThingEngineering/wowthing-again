@@ -1,4 +1,6 @@
 name: Quests
+skipClasses:
+- evoker
 groups:
 
 - name: Broken Shore
