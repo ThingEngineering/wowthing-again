@@ -79,7 +79,7 @@
         width: 7rem;
     }
     .status-text {
-        color: #ddd;
+        color: #8fffff;
         font-size: 0.95rem;
         padding-left: 0.7rem;
         text-align: left;
