@@ -1,0 +1,272 @@
+id: 189226
+name: "Cataloger Jakes"
+note: "Keeper of Renown"
+
+locations:
+  09-dragonflight/the_waking_shores:
+    - 47 82.6
+
+sets:
+  - name: "Renown 3 Expedition Tools"
+    range: 4
+    sortKey: "de03"
+
+  - name: "Renown 4 Cloaks"
+    range: 4
+    sortKey: "de04"
+
+  - name: "Renown 7 Advanced Expedition Tools"
+    range: 3
+    sortKey: "de07"
+
+  - name: "Renown 11 Pets"
+    range: 2
+    sortKey: "de11"
+
+  - name: "Renown 12 Gear"
+    range: 4
+    sortKey: "de12"
+
+  - name: "Renown 14 Ensembles"
+    range: 4
+    sortKey: "de14"
+
+  - name: "Renown 17 Toys"
+    range: 3
+    sortKey: "de17"
+
+  - name: "Renown 18 Gear"
+    range: 4
+    sortKey: "de18"
+
+  - name: "Renown 19 Banners"
+    range: 2
+    sortKey: "de19"
+
+  - name: "Renown 25 Mounts"
+    range: 2
+    sortKey: "de25"
+
+sells:
+  - type: transmog
+    id: 198718 # Excavator's Chisel [? dagger]
+    costs:
+      2003: 150
+      1193214: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 198387 # Excavator's Mallet [1h ? mace]
+    costs:
+      2003: 150
+      1193210: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 198717 # Excavator's Punch [? dagger]
+    costs:
+      2003: 150
+      1193210: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 199746 # Excavator's Trowel [? dagger]
+    costs:
+      2003: 150
+      1193214: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 199876 # Renowned Expeditioner's Armored Shawl [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199873 # Renowned Expeditioner's Cape [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199874 # Renowned Expeditioner's Cloak [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199875 # Renowned Expeditioner's Drape [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 194102 # Expedition Excavator [1h ? axe]
+    costs:
+      2003: 600
+      1190396: 5
+    reputation: 2507 renown-7
+
+  - type: transmog
+    id: 194325 # Researcher's Magnifier [1h ? mace]
+    costs:
+      2003: 600
+      1201404: 5
+    reputation: 2507 renown-7
+
+  - type: transmog
+    id: 194326 # Trusty Sweeper [1h ? mace]
+    costs:
+      2003: 600
+      1201405: 3
+    reputation: 2507 renown-7
+
+  - type: pet
+    id: 3380 # Black Skitterbug
+    costs:
+      2003: 150
+      1201401: 3
+      1201404: 5
+    reputation: 2507 renown-11
+
+  - type: pet
+    id: 3381 # Gray Marmoni
+    costs:
+      2003: 150
+      1201401: 3
+      1201404: 5
+    reputation: 2507 renown-11
+
+  - type: transmog
+    id: 198734 # Relic Handler's Gloves [cloth hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198735 # Relic Handler's Gloves [leather hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198736 # Relic Handler's Grips [mail hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198737 # Relic Handler's Gauntlets [plate hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198775 # Ensemble: Renowned Expeditioner's Cloth Armor
+    costs:
+      2003: 750
+      1193050: 40
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198776 # Ensemble: Renowned Expeditioner's Leather Armor
+    costs:
+      2003: 750
+      1193210: 20
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198777 # Ensemble: Renowned Expeditioner's Mail Armor
+    costs:
+      2003: 750
+      1193214: 20
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198778 # Ensemble: Renowned Expeditioner's Plate Armor
+    costs:
+      2003: 750
+      1190396: 20
+    reputation: 2507 renown-14
+
+  - type: toy
+    id: 198721 # Skinny Reliquary Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
+
+  - type: toy
+    id: 198722 # Small Triangular Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
+
+  - type: toy
+    id: 198720 # Soft Purple Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
+
+  - type: transmog
+    id: 198738 # Dragonscale Expedition Leggings [cloth legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198739 # Dragonscale Expedition Breeches [leather legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198740 # Dragonscale Expedition Greaves [mail legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198741 # Dragonscale Expedition Legguards [plate legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: toy
+    id: 198728 # Explorer's League Banner
+    costs:
+      2003: 150
+      1193050: 20
+    reputation: 2507 renown-19
+
+  - type: toy
+    id: 198729 # Reliquary Banner
+    costs:
+      2003: 150
+      1193050: 20
+    reputation: 2507 renown-19
+
+  - type: mount
+    id: 1616 # Azure Skitterfly
+    costs:
+      2003: 750
+      1201401: 5
+      1193053: 20
+    reputation: 2507 renown-25
+
+  - type: mount
+    id: 1615 # Tamed Skitterfly
+    costs:
+      2003: 750
+      1201401: 5
+      1193053: 20
+    reputation: 2507 renown-25
