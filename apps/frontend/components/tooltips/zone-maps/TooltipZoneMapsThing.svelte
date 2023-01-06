@@ -261,16 +261,20 @@
                                     {#each sortBy(
                                         dropStatus.characterIds
                                             .map(c => $userStore.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="class-{character.classId}">{character.name}</span>
+                                        c => c.name
+                                    ) as character}
+                                        <span class="class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                     {#each sortBy(
                                         dropStatus.completedCharacterIds
                                             .map(c => $userStore.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="completed class-{character.classId}">{character.name}</span>
+                                        c => c.name
+                                    ) as character}
+                                        <span class="completed class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                 </td>
                             </tr>
