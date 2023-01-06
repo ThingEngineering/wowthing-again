@@ -28,7 +28,7 @@ groups:
 
     # Normal set=572
     - name: Battleplate of Cyclopean Dread
-      wowheadSetId: 1771
+      wowheadSetId: 1777
       items:
         1: 20989 21058 # Head
         3: 20985 21063 # Shoulders
@@ -41,7 +41,7 @@ groups:
 
     # Raid Finder set=574
     - name: Battleplate of Cyclopean Dread
-      wowheadSetId: 1775
+      wowheadSetId: 1781
       items:
         1: 20921 # Head
         3: 20918 # Shoulders
