@@ -1,0 +1,13 @@
+id: 193310
+name: "Dealer Vexil"
+note: "Requires Worldbreaker Membership"
+
+locations:
+  09-dragonflight/the_waking_shores:
+    - 34.8 46.6
+
+sells:
+  - type: mount
+    id: 1629 # Scrappy Worldsnail
+    costs:
+      1202173: 1000
