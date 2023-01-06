@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Diagnostics.Eventing.Reader;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
@@ -44,6 +45,7 @@ public class CacheManualJob : JobBase, IScheduledJob
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
     private int _tagIndex = 1;
+    private HashSet<int> _questIds = new();
     private readonly Dictionary<string, int> _tagMap = new();
 
     private static readonly StringType[] StringTypes =
@@ -62,7 +64,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 20,
+        Version = 21,
     };
 
     public override async Task Run(params string[] data)
@@ -260,6 +262,25 @@ public class CacheManualJob : JobBase, IScheduledJob
         }
 
         _timer.AddPoint("Cache");
+
+        // Save any new quest IDs
+        var existingQuestIds = (await Context.WowQuest
+            .Select(q => q.Id)
+            .ToArrayAsync())
+            .ToHashSet();
+
+        int[] newQuestIds = _questIds.Except(existingQuestIds).ToArray();
+        foreach (int questId in newQuestIds)
+        {
+            Context.WowQuest.Add(new WowQuest
+            {
+                Id = questId,
+            });
+        }
+
+        await Context.SaveChangesAsync();
+
+        _timer.AddPoint("Quests", true);
     }
 
     private DataHeirloomGroup[] LoadHeirlooms()
@@ -613,6 +634,10 @@ public class CacheManualJob : JobBase, IScheduledJob
                             case "pet":
                             case "toy":
                             case "item":
+                                break;
+
+                            case "quest":
+                                _questIds.Add(drop.Id);
                                 break;
 
                             case "transmog":

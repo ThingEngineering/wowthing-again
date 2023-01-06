@@ -131,8 +131,7 @@
     {#if groupIndex === 0 || (
         transmogSets[category.groups[groupIndex-1].type].type !== currentType &&
         [transmogSets[category.groups[groupIndex-1].type].type, currentType].indexOf('covenant') >= 0
-    )
-    }
+    )}
         {#if groupIndex > 0 && category.groups[groupIndex-1].name !== group.name}
             <tr class="spacer">
                 <td colspan="100">&nbsp;</td>
@@ -140,7 +139,7 @@
         {/if}
 
         <tr class="sticky">
-            <td class="category-name" colspan="{showPercent ? 2 : 1}">
+            <td class="category-name" colspan="2">
                 {category.name}
                 
                 {#if showPercent}
@@ -276,14 +275,15 @@
     {/if}
 
     {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
+        {@const groupPercent = getPercent(groupIndex, -1)}
         <tr class="group">
-            {#if showPercent}
-                <td class="percent-cell">
-                    <span class="drop-shadow {getPercentClass(getPercent(groupIndex, -1))}">
-                        {Math.floor(getPercent(groupIndex, -1)).toFixed(0)} %
+            <td class="percent-cell">
+                {#if showPercent && !isNaN(groupPercent)}
+                    <span class="drop-shadow {getPercentClass(groupPercent)}">
+                        {Math.floor(groupPercent).toFixed(0)} %
                     </span>
-                </td>
-            {/if}
+                {/if}
+            </td>
             <td class="name highlight" colspan="100">
                 {#if group.tag}
                     <span class="tag">
@@ -299,13 +299,13 @@
     {#each getFilteredSets($settingsData, $userTransmogStore.data, group) as [setShow, setName], setIndex}
         {#if setShow}
             <tr class:faded={setName.endsWith('*')}>
-                {#if showPercent}
-                    <td class="percent-cell">
+                <td class="percent-cell">
+                    {#if showPercent}
                         <span class="drop-shadow {getPercentClass(getPercent(groupIndex, setIndex))}">
                             {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
                         </span>
-                    </td>
-                {/if}
+                    {/if}
+                </td>
 
                 <td class="name">
                     &ndash; <ParsedText text={setName.replace('*', '')} />

@@ -33,6 +33,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
     public DbSet<WowPet> WowPet { get; set; }
+    public DbSet<WowQuest> WowQuest { get; set; }
     public DbSet<WowRealm> WowRealm { get; set; }
     public DbSet<WowReputation> WowReputation { get; set; }
     public DbSet<WowReputationTier> WowReputationTier { get; set; }

@@ -17,6 +17,7 @@ public class RedisStaticCache
     public StaticIllusion[] Illusions { get; set; }
     public List<OutInstance> InstancesRaw { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
+    public Dictionary<int, string> QuestNames { get; set; }
     public List<WowRealm> RawRealms { get; set; }
     public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
     public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }

@@ -1,4 +1,6 @@
 name: Dungeons
+skipClasses:
+- evoker
 groups:
 
 - name: Cathedral of Eternal Night

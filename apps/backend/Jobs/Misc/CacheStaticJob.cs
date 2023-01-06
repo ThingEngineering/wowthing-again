@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 61,
+        Version = 62,
     };
 
     public override async Task Run(params string[] data)
@@ -56,6 +56,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         StringType.WowCurrencyCategoryName,
         StringType.WowItemName,
         StringType.WowMountName,
+        StringType.WowQuestName,
         StringType.WowReputationDescription,
         StringType.WowReputationName,
         StringType.WowSoulbindName,
@@ -248,6 +249,13 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
             cacheData.Professions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
+
+            cacheData.QuestNames = _stringMap
+                .Where(kvp =>
+                    kvp.Key.Type == StringType.WowQuestName &&
+                    kvp.Key.Language == language
+                )
+                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             foreach (var characterClass in cacheData.CharacterClasses.Values)
             {

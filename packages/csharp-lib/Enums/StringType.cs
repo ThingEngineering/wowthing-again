@@ -18,6 +18,7 @@ public enum StringType : short
     WowReputationName = 14,
     WowReputationDescription = 15,
     WowSpellItemEnchantmentName = 16,
+    WowQuestName = 17,
 
     // Hacky garbage
     WowJournalInstanceMapName = 1000,

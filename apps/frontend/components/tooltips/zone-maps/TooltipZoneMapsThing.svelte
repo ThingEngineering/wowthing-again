@@ -4,9 +4,10 @@
 
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
+    import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
     import leftPad from '@/utils/left-pad'
+    import { getDropIcon } from '@/utils/zone-maps/get-drop-icon'
     import { getDropName } from '@/utils/zone-maps/get-drop-name'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
@@ -196,7 +197,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={isCriteria ? iconStrings['list'] : rewardTypeIcons[drop.type]} />
+                        <IconifyIcon icon={getDropIcon(drop, dropStatus, isCriteria)} />
                     </td>
                     <td
                         class="name"
