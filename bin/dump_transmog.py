@@ -142,7 +142,7 @@ DESCRIPTION_ORDER = [
 
 def main():
     sets = {}
-    with open(glob.glob('dumps/enUS/transmogset-*.csv')[0]) as csv_file:
+    with open(glob.glob(os.path.join('dumps', 'enUS', 'transmogset-*.csv'))[0]) as csv_file:
         # Name_lang,ID,ClassMask,TrackingQuestID,Flags,TransmogSetGroupID,
         # ItemNameDescriptionID,ParentTransmogSetID,Field_8_1_0_28294_008,
         # ExpansionID,PatchIntroduced,UiOrder,ConditionID
@@ -187,7 +187,7 @@ def main():
     set_ids = [int(set_id) for set_id in set_ids]
 
     set_items = {}
-    with open(glob.glob('dumps/transmogsetitem-*.csv')[0]) as csv_file:
+    with open(glob.glob(os.path.join('dumps', 'transmogsetitem-*.csv'))[0]) as csv_file:
         # ID,TransmogSetID,ItemModifiedAppearanceID,Flags
         for row in csv.DictReader(csv_file):
             if set_mode and (int(row['Flags']) & 0x1) == 0:
@@ -195,7 +195,7 @@ def main():
             set_items.setdefault(int(row['TransmogSetID']), []).append(int(row['ItemModifiedAppearanceID']))
 
     appearances = {}
-    with open(glob.glob('dumps/itemmodifiedappearance-*.csv')[0]) as csv_file:
+    with open(glob.glob(os.path.join('dumps', 'itemmodifiedappearance-*.csv'))[0]) as csv_file:
         for row in csv.DictReader(csv_file):
             appearances[int(row['ID'])] = [
                 int(row['ItemID']),
@@ -204,7 +204,7 @@ def main():
             ]
 
     item_slot = {}
-    with open(glob.glob('dumps/item-*.csv')[0]) as csv_file:
+    with open(glob.glob(os.path.join('dumps', 'item-*.csv'))[0]) as csv_file:
         for row in csv.DictReader(csv_file):
             item_slot[int(row['ID'])] = int(row['InventoryType'])
 
