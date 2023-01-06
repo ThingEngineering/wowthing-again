@@ -7,7 +7,7 @@
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType, InventoryType } from '@/enums'
     import { achievementStore, itemStore, journalStore, userAchievementStore, userStore } from '@/stores'
     import leftPad from '@/utils/left-pad'
-    import { getDropArmorSlot, getDropIcon, getDropName } from '@/utils/zone-maps'
+    import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
