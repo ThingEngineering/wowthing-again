@@ -1,0 +1,128 @@
+id: 187700
+name: "Pathfinder Jeb"
+
+locations:
+  09-dragonflight/the_waking_shores:
+    - 47.2 83.4
+
+sets:
+  - name: "Renown 4 Cloaks"
+    range: 4
+    sortKey: "de04"
+
+  - name: "Renown 12 Gear"
+    range: 4
+    sortKey: "de12"
+
+  - name: "Renown 14 Ensembles"
+    range: 4
+    sortKey: "de14"
+
+  - name: "Renown 18 Gear"
+    range: 4
+    sortKey: "de18"
+
+sells:
+  - type: transmog
+    id: 199876 # Renowned Expeditioner's Armored Shawl [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199873 # Renowned Expeditioner's Cape [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199874 # Renowned Expeditioner's Cloak [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 199875 # Renowned Expeditioner's Drape [cloak]
+    costs:
+      2003: 75
+      1193050: 10
+    reputation: 2507 renown-4
+
+  - type: transmog
+    id: 198734 # Relic Handler's Gloves [cloth hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198735 # Relic Handler's Gloves [leather hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198736 # Relic Handler's Grips [mail hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198737 # Relic Handler's Gauntlets [plate hands]
+    costs:
+      2003: 150
+    reputation: 2507 renown-12
+
+  - type: transmog
+    id: 198775 # Ensemble: Renowned Expeditioner's Cloth Armor
+    costs:
+      2003: 750
+      1193050: 40
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198776 # Ensemble: Renowned Expeditioner's Leather Armor
+    costs:
+      2003: 750
+      1193210: 20
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198777 # Ensemble: Renowned Expeditioner's Mail Armor
+    costs:
+      2003: 750
+      1193214: 20
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198778 # Ensemble: Renowned Expeditioner's Plate Armor
+    costs:
+      2003: 750
+      1190396: 20
+    reputation: 2507 renown-14
+
+  - type: transmog
+    id: 198738 # Dragonscale Expedition Leggings [cloth legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198739 # Dragonscale Expedition Breeches [leather legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198740 # Dragonscale Expedition Greaves [mail legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
+
+  - type: transmog
+    id: 198741 # Dragonscale Expedition Legguards [plate legs]
+    costs:
+      2003: 150
+    reputation: 2507 renown-18
