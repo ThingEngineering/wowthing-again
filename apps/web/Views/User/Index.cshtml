@@ -5,6 +5,15 @@
     ViewData["Title"] = Model.User.UserName;
 }
 
+@section head
+{
+    <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WoWthing: @Model.User.UserName" />
+    <meta property="og:description" content="@(Model.User.UserName)'s WoWthing page. A free online tool for keeping track of your World of Warcraft characters." />
+    <meta property="og:image" content="https://wowthing.org/img/home_20210704.webp" />
+}
+
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions {
     private string GetAntiXsrfRequestToken()
