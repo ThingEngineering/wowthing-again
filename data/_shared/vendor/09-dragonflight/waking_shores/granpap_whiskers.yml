@@ -1,0 +1,48 @@
+id: 187408
+name: "Granpap Whiskers"
+
+locations:
+  09-dragonflight/the_waking_shores:
+    - 47.6 83.2
+
+sets:
+  - name: "Renown 11 Pets"
+    range: 2
+    sortKey: "de11"
+
+  - name: "Renown 25 Mounts"
+    range: 2
+    sortKey: "de25"
+
+sells:
+  - type: pet
+    id: 3380 # Black Skitterbug
+    costs:
+      2003: 150
+      1201401: 3
+      1201404: 5
+    reputation: 2507 renown-11
+
+  - type: pet
+    id: 3381 # Gray Marmoni
+    costs:
+      2003: 150
+      1201401: 3
+      1201404: 5
+    reputation: 2507 renown-11
+
+  - type: mount
+    id: 1616 # Azure Skitterfly
+    costs:
+      2003: 750
+      1201401: 5
+      1193053: 20
+    reputation: 2507 renown-25
+
+  - type: mount
+    id: 1615 # Tamed Skitterfly
+    costs:
+      2003: 750
+      1201401: 5
+      1193053: 20
+    reputation: 2507 renown-25
