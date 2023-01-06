@@ -10,7 +10,7 @@ import { userModifiedStore } from './user-modified'
 import { TransmogSetType } from '@/enums'
 import { UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
-import type { FancyStore, Settings } from '@/types'
+import type { FancyStoreType, Settings } from '@/types'
 import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData, ManualDataSharedItemSet, ManualDataTransmogSetFiltered } from '@/types/data/manual'
@@ -20,7 +20,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            const modified = get(userModifiedStore).data.transmog
+            const modified = get(userModifiedStore).transmog
             url = url.replace(/\/(?:public|private).+$/, `/transmog-${modified}.json`)
         }
         return url
@@ -52,9 +52,9 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     ): void {
         console.time('UserTransmogDataStore.setup')
 
-        const itemData = get(itemStore).data
-        const manualData = get(manualStore).data
-        const userTransmogData = this.value.data
+        const itemData = get(itemStore)
+        const manualData = get(manualStore)
+        const userTransmogData = this.value
 
         this.update((state) => {
             this.setupTransmogSets(
@@ -79,7 +79,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     private setupTransmogSets(
-        state: FancyStore<UserTransmogData>,
+        state: FancyStoreType<UserTransmogData>,
         settings: Settings,
         manualData: ManualData,
         userTransmogData: UserTransmogData,
@@ -172,13 +172,13 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             }
         }
 
-        state.data.stats = stats
+        state.stats = stats
 
         // console.timeEnd('UserTransmogDataStore.setup')
     }
 
     private setupTransmogSetsV2(
-        state: FancyStore<UserTransmogData>,
+        state: FancyStoreType<UserTransmogData>,
         settings: Settings,
         itemData: ItemData,
         manualData: ManualData,
@@ -429,7 +429,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
         // console.log(stats)
 
-        state.data.statsV2 = stats
+        state.statsV2 = stats
     }
 }
 

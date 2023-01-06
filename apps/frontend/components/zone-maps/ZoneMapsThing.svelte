@@ -26,9 +26,9 @@
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             [status, drops] = getInstanceFarm(
                 $timeStore,
-                $journalStore.data,
-                $staticStore.data,
-                $userStore.data,
+                $journalStore,
+                $staticStore,
+                $userStore,
                 farm
             )
             //big = farm.type === FarmType.Raid

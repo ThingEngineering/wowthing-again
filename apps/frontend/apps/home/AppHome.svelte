@@ -6,6 +6,7 @@
         itemStore,
         journalStore,
         manualStore,
+        settingsStore,
         staticStore,
         timeStore,
         userAchievementStore,
@@ -13,10 +14,9 @@
         //userStatsStore,
         userStore,
         userTransmogStore,
+        userVendorStore,
     } from '@/stores'
     import { journalState, vendorState, zoneMapState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
-    import { userVendorStore } from '@/stores/user-vendors'
     import parseApiTime from '@/utils/parse-api-time'
 
     import Refresh from './AppHomeRefresh.svelte'
@@ -25,10 +25,10 @@
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),
-        itemStore.fetch({ language: $settings.general.language }),
-        journalStore.fetch({ language: $settings.general.language }),
-        manualStore.fetch({ language: $settings.general.language }),
-        staticStore.fetch({ language: $settings.general.language }),
+        itemStore.fetch({ language: $settingsStore.general.language }),
+        journalStore.fetch({ language: $settingsStore.general.language }),
+        manualStore.fetch({ language: $settingsStore.general.language }),
+        staticStore.fetch({ language: $settingsStore.general.language }),
         userAchievementStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),
@@ -59,42 +59,42 @@
 
         if (!error && loaded) {
             manualStore.setup(
-                $settings,
-                $userStore.data,
-                $userAchievementStore.data,
-                $userQuestStore.data,
-                $userTransmogStore.data,
+                $settingsStore,
+                $userStore,
+                $userAchievementStore,
+                $userQuestStore,
+                $userTransmogStore,
                 $zoneMapState,
             )
 
             userStore.setup(
-                $settings,
-                $userStore.data,
+                $settingsStore,
+                $userStore,
             )
 
             userTransmogStore.setup(
-                $settings
+                $settingsStore
             )
 
             userVendorStore.setup(
-                $settings,
-                $userStore.data,
-                $userTransmogStore.data,
+                $settingsStore,
+                $userStore,
+                $userTransmogStore,
                 $vendorState
             )
 
             journalStore.setup(
-                $settings,
-                $journalStore.data,
+                $settingsStore,
+                $journalStore,
                 $journalState,
-                $manualStore.data,
-                $staticStore.data,
-                $userStore.data,
-                $userTransmogStore.data
+                $manualStore,
+                $staticStore,
+                $userStore,
+                $userTransmogStore,
             )
 
             itemStore.setup(
-                $manualStore.data,
+                $manualStore,
             )
 
             ready = true
@@ -102,8 +102,8 @@
     }
     
     $: {
-        if (ready && !$userStore.data.public && $userStore.data.lastApiCheck) {
-                const parsedTime = parseApiTime($userStore.data.lastApiCheck)
+        if (ready && !$userStore.public && $userStore.lastApiCheck) {
+                const parsedTime = parseApiTime($userStore.lastApiCheck)
                 const diff = $timeStore.diff(parsedTime).toMillis()
                 // Add the refresh button if lastApiCheck is more than 24 hours ago
                 if (diff > (24 * 60 * 60 * 1000)) {

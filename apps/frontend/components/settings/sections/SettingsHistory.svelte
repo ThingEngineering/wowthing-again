@@ -2,8 +2,7 @@
     import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
 
-    import { staticStore, userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, staticStore, userStore } from '@/stores'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import type { StaticDataRealm } from '@/types/data/static'
@@ -12,19 +11,19 @@
     let realms: StaticDataRealm[]
     $: {
         realms = sortBy(
-                    $userStore.data.goldHistoryRealms
-                        .map((realmId) => $staticStore.data.realms[realmId]),
+                    $userStore.goldHistoryRealms
+                        .map((realmId) => $staticStore.realms[realmId]),
             (realm) => [realm.region, realm.name]
         )
     }   
 
-    let shownRealms: string[] = $userStore.data.goldHistoryRealms
-        .filter((realmId) => $settings.history.hiddenRealms.indexOf(realmId) === -1)
+    let shownRealms: string[] = $userStore.goldHistoryRealms
+        .filter((realmId) => $settingsStore.history.hiddenRealms.indexOf(realmId) === -1)
         .map((realmId) => realmId.toString())
     
     $: debouncedUpdateSettings(shownRealms)
     const debouncedUpdateSettings = debounce((shownRealms) => {
-        $settings.history.hiddenRealms = realms
+        $settingsStore.history.hiddenRealms = realms
             .filter((realm) => shownRealms.indexOf(realm.id.toString()) === -1)
             .map((realm) => realm.id)
     }, 100)

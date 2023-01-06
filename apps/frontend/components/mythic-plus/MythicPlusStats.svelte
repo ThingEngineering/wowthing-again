@@ -14,7 +14,7 @@
         const season = find(seasonMap, (season) => season.slug === slug)
         if (season) {
             const allRuns: CharacterMythicPlusAddonRun[] = []
-            for (const character of $userStore.data.characters) {
+            for (const character of $userStore.characters) {
                 allRuns.push(...(character.mythicPlusAddon?.[season.id]?.runs || []))
             }
 

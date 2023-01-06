@@ -17,7 +17,7 @@
     let race: StaticDataCharacterRace
     let tooltip: string
     $: {
-        race = characterRace || $staticStore.data.characterRaces[character?.raceId || raceId]
+        race = characterRace || $staticStore.characterRaces[character?.raceId || raceId]
         tooltip = `${Gender[character?.gender || gender]} ${getGenderedName(race?.name ?? 'Unknown', character?.gender ?? 0)}`
     }
 </script>

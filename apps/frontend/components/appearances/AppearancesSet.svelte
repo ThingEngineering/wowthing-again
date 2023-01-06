@@ -17,7 +17,7 @@
     let percent: number
     let stats: UserCount
     $: {
-        stats = $appearanceStore.data.stats[slug]
+        stats = $appearanceStore.stats[slug]
         percent = (stats?.have || 0) / (stats?.total || 1) * 100
     }
 </script>

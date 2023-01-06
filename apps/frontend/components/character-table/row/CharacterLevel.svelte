@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { getCharacterLevel } from '@/utils/get-character-level'
     import leftPad from '@/utils/left-pad'
     import { tippyComponent } from '@/utils/tippy'
@@ -22,7 +22,7 @@
     }
 </script>
 
-{#if $settings.layout.showPartialLevel}
+{#if $settingsStore.layout.showPartialLevel}
     <td
         class="level-partial"
         use:tippyComponent={{

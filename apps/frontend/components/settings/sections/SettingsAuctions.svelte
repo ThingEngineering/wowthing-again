@@ -2,7 +2,7 @@
     import debounce from 'lodash/debounce'
 
     import { staticStore, userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { StaticDataConnectedRealm } from '@/types/data/static'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
@@ -10,22 +10,22 @@
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}
-    for (const character of $userStore.data.characters) {
+    for (const character of $userStore.characters) {
         crIds[character.realm.connectedRealmId] = true
         realmNames[character.realm.name] = true
     }
 
     let shownRealms: string[] = Object.keys(crIds)
-        .filter((crId) => $settingsData.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
+        .filter((crId) => $settingsStore.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
 
     const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds)
-        .map((crId) => $staticStore.data.connectedRealms[parseInt(crId)])
+        .map((crId) => $staticStore.connectedRealms[parseInt(crId)])
     connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText))
 
     $: debouncedUpdateSettings(shownRealms)
 
     const debouncedUpdateSettings = debounce((shownRealms) => {
-        $settingsData.auctions.ignoredRealms = Object.keys(crIds)
+        $settingsStore.auctions.ignoredRealms = Object.keys(crIds)
             .filter((crId) => shownRealms.indexOf(crId) === -1)
             .map((crId) => parseInt(crId))
     }, 100)
@@ -43,7 +43,7 @@
             label="Minimum buyout"
             minValue={0}
             maxValue={999999}
-            bind:value={$settingsData.auctions.minimumExtraPetsValue}
+            bind:value={$settingsStore.auctions.minimumExtraPetsValue}
         />
         <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
     </div>

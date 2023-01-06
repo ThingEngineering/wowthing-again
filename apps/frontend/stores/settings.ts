@@ -1,8 +1,8 @@
 import { get, writable } from 'svelte/store'
 
-import { userModifiedStore } from './user-modified'
-import { userAchievementStore } from './user-achievements'
 import { userStore } from './user'
+import { userAchievementStore } from './user-achievements'
+import { userModifiedStore } from './user-modified'
 import { userQuestStore } from './user-quests'
 import { userTransmogStore } from './user-transmog'
 import type { Settings } from '@/types'
@@ -12,7 +12,7 @@ let interval: NodeJS.Timer | null = null
 
 const { set, subscribe, update } = writable<Settings>()
 
-export const data = {
+export const settingsStore = {
     set: (settings: Settings): void => {
         if (interval !== null) {
             clearInterval(interval)
@@ -22,7 +22,7 @@ export const data = {
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => {
-                    const oldData = get(userModifiedStore).data
+                    const oldData = get(userModifiedStore)
                     const oldAchievements = oldData.achievements
                     const oldGeneral = oldData.general
                     const oldQuests = oldData.quests
@@ -30,7 +30,7 @@ export const data = {
 
                     await userModifiedStore.fetch({ evenIfLoaded: true })
 
-                    const newData = get(userModifiedStore).data
+                    const newData = get(userModifiedStore)
                     if (oldAchievements < newData.achievements) {
                         userAchievementStore.fetch({ evenIfLoaded: true })
                     }
@@ -54,5 +54,9 @@ export const data = {
     update,
 }
 
-//export const data = createData()
-data.set(JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings)
+settingsStore.set(
+    JSON.parse(
+        document.getElementById('app')
+            .getAttribute('data-settings')
+    ) as Settings
+)

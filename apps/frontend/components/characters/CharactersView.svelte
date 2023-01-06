@@ -26,7 +26,7 @@
             const [region, realm] = splitOnce(params.slug1, '-')
 
             character = find(
-                $userStore.data.characters,
+                $userStore.characters,
                 (char: Character) => (
                     Region[char.realm.region].toLowerCase() === region &&
                     char.realm.slug === realm &&
@@ -100,7 +100,7 @@
             {character.name}
 
             {#if character.guildId}
-                <span class="guild-name">&lt;{$userStore.data.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
+                <span class="guild-name">&lt;{$userStore.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
             {/if}
 
             <span>{Region[character.realm.region]}-{character.realm.name}</span>

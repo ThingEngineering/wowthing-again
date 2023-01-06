@@ -254,7 +254,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Show Your Mettle',
             minimumLevel: 60,
             couldGetFunc: (char) => some(
-                Object.values(get(staticStore).data.professions).filter((prof) => prof.type === 0),
+                Object.values(get(staticStore).professions).filter((prof) => prof.type === 0),
                 (profession) => !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
             )
         },

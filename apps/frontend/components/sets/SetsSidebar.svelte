@@ -8,19 +8,19 @@
     let categories: SidebarItem[]
     let overall: UserCount
     $: {
-        categories = $manualStore.data.transmog.sets.map((set) => set === null ? null : ({
+        categories = $manualStore.transmog.sets.map((set) => set === null ? null : ({
             children: set.slice(1),
             ...set[0],
         }))
 
-        overall = $userTransmogStore.data.stats['OVERALL']
+        overall = $userTransmogStore.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userTransmogStore.data.stats[slug]
+        const hasData = $userTransmogStore.stats[slug]
         return hasData.have / hasData.total * 100
     }
 </script>

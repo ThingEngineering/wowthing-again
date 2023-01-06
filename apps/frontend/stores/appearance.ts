@@ -118,7 +118,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         const overallCount = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
 
-        for (const [key, sets] of Object.entries(this.value.data.appearances)) {
+        for (const [key, sets] of Object.entries(this.value.appearances)) {
             const parentCount = stats[key.split('--')[0]] = new UserCount()
             const catCount = stats[key] = new UserCount()
 
@@ -150,7 +150,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         }
 
         this.update((state) => {
-            state.data.stats = stats
+            state.stats = stats
             return state
         })
 

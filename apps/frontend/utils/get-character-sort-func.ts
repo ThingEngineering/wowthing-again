@@ -18,7 +18,7 @@ export default function getCharacterSortFunc(
 
     return (char: Character) => {
         const out: string[] = []
-        const userData: UserData = get(userStore).data
+        const userData: UserData = get(userStore)
 
         if (prefixFunc) {
             out.push(prefixFunc(char))

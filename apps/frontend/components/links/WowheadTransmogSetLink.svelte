@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let cls = ''
@@ -7,7 +7,7 @@
 
     let url: string
     $: {
-        url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/transmog-set=${id}`
+        url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/transmog-set=${id}`
     }
 </script>
 

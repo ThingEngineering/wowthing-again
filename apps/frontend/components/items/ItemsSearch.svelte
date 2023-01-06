@@ -44,7 +44,7 @@
                 item.characters,
                 (char) => [
                     1000000000 - char.count,
-                    $userStore.data.characterMap[char.characterId].name
+                    $userStore.characterMap[char.characterId].name
                 ]
             )
         }
@@ -179,7 +179,7 @@
                     <thead>
                         <tr class="item-row">
                             <th
-                                class="item quality{$itemStore.data.items[item.itemId].quality}"
+                                class="item quality{$itemStore.items[item.itemId].quality}"
                                 colspan="{userStore.useAccountTags ? 4 : 3}"
                             >
                                 <WowthingImage name="item/{item.itemId}" size={20} border={1} />

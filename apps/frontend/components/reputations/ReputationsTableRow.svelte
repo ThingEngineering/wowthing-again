@@ -17,9 +17,9 @@
 
     $: {
         if (reputation !== undefined && characterRep.value !== -1) {
-            dataRep = $staticStore.data.reputations[characterRep.reputationId]
+            dataRep = $staticStore.reputations[characterRep.reputationId]
             if (dataRep) {
-                const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
+                const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]
                 repTier = findReputationTier(tiers, characterRep.value)
 
                 if (reputation.paragon && repTier.maxValue === 0) {

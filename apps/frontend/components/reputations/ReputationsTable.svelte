@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { reputationState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import leftPad from '@/utils/left-pad'
@@ -23,7 +23,7 @@
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => string
     $: {
-        category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
+        category = find($staticStore.reputationSets, (r) => r?.slug === slug)
         if (!category) {
             break $
         }
@@ -57,7 +57,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
 </script>

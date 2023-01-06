@@ -11,7 +11,7 @@ export function getCharacterProfessions(
     character: Character,
     professionType: number
 ): ProfessionData[] {
-    const staticData = get(staticStore).data
+    const staticData = get(staticStore)
     const professions: ProfessionData[] = []
 
     for (const professionId in staticData.professions) {

@@ -7,28 +7,28 @@
     import sortBy from 'lodash/sortBy'
 
     import { staticStore, userStore } from '@/stores'
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { Region } from '@/enums'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
 
-    const allCharacterIds: string[] = $userStore.data.characters.map((char) => char.id.toString())
+    const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString())
     
-    let hiddenCharacters: string[] = $userStore.data.characters
-        .filter((char) => $settingsData.characters.hiddenCharacters.indexOf(char.id) >= 0)
+    let hiddenCharacters: string[] = $userStore.characters
+        .filter((char) => $settingsStore.characters.hiddenCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString())
     
-    let ignoredCharacters: string[] = $userStore.data.characters
-        .filter((char) => $settingsData.characters.ignoredCharacters.indexOf(char.id) >= 0)
+    let ignoredCharacters: string[] = $userStore.characters
+        .filter((char) => $settingsStore.characters.ignoredCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString())
 
     let realms: [string, Character[]][]
     $: {
-        const sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         const grouped: Record<string, Character[]> = groupBy(
-            $userStore.data.characters,
+            $userStore.characters,
             (c) => `${Region[c.realm.region]}|${c.realm.name}`
         )
         for (const realmName in grouped) {
@@ -44,11 +44,11 @@
     const debouncedUpdateSettings = debounce((hiddenChars: string[], ignoredChars: string[]) => {
         console.log(hiddenChars, ignoredChars)
 
-        $settingsData.characters.hiddenCharacters = allCharacterIds
+        $settingsStore.characters.hiddenCharacters = allCharacterIds
             .filter((charId) => hiddenChars.indexOf(charId) >= 0)
             .map((charId) => parseInt(charId))
 
-        $settingsData.characters.ignoredCharacters = allCharacterIds
+        $settingsStore.characters.ignoredCharacters = allCharacterIds
             .filter((charId) => ignoredChars.indexOf(charId) >= 0)
             .map((charId) => parseInt(charId))
     }, 100)

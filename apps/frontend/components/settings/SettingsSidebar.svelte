@@ -1,6 +1,6 @@
 <script lang="ts">
     import { achievementStore, journalStore, manualStore, staticStore, userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { Account, FancyStoreFetchOptions, Settings, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
@@ -82,8 +82,8 @@
 
         const xsrf = document.getElementById('app').getAttribute('data-xsrf')
         const data = {
-            accounts: $userStore.data.accounts,
-            settings: $settingsData,
+            accounts: $userStore.accounts,
+            settings: $settingsStore,
         }
 
         const response = await fetch('/api/settings', {
@@ -98,11 +98,11 @@
         if (response.ok) {
             const json = await response.json()
             const settings = json.settings as Settings
-            settingsData.set(settings)
+            settingsStore.set(settings)
 
             userStore.update(state => {
                 for (const account of json.accounts as Account[]) {
-                    state.data.accounts[account.id] = account
+                    state.accounts[account.id] = account
                 }
                 return state
             })

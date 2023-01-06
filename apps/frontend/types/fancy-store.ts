@@ -5,46 +5,45 @@ import { Language } from '@/enums'
 import fetchJson from '@/utils/fetch-json'
 
 
-export interface FancyStore<TData> {
-    data?: TData
-    error: boolean
-    loaded: boolean
-}
-
 export interface FancyStoreFetchOptions {
     evenIfLoaded: boolean
     onlyIfLoaded: boolean
     language: Language
 }
 
-export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
+export type FancyStoreType<T> = T & {
+    error: boolean
+    loaded: boolean
+}
+
+export interface WritableFancyStore<T> extends Writable<FancyStoreType<T>> {
     fetch(options: Partial<FancyStoreFetchOptions>): Promise<boolean>
-    get(): FancyStore<TData>
-    initialize?(data: TData): void
+    get(): FancyStoreType<T>
+    initialize?(data: T): void
     readonly dataUrl: string
 }
 
-export class WritableFancyStore<TData> {
-    protected value: FancyStore<TData>
+export class WritableFancyStore<T> {
+    protected value: FancyStoreType<T>
 
-    constructor(data: TData = null) {
+    constructor(data: T = null) {
         this.value = {
-            data,
+            ...data,
             error: false,
-            loaded: false
+            loaded: false,
         }
-        const original = writable<FancyStore<TData>>(this.value)
+        const original = writable<FancyStoreType<T>>(this.value)
 
-        this.set = (newValue: FancyStore<TData>) => {
+        this.set = (newValue: FancyStoreType<T>) => {
             original.set(this.value = newValue)
         }
         this.subscribe = original.subscribe
-        this.update = (stateFunc: (originalValue: FancyStore<TData>) => FancyStore<TData>) => {
-            original.update((oldValue: FancyStore<TData>) => (this.value = stateFunc(oldValue)))
+        this.update = (stateFunc: (originalValue: FancyStoreType<T>) => FancyStoreType<T>) => {
+            original.update((oldValue: FancyStoreType<T>) => (this.value = stateFunc(oldValue)))
         }
     }
 
-    get(): FancyStore<TData> {
+    get(): FancyStoreType<T> {
         return this.value
     }
 
@@ -103,12 +102,15 @@ export class WritableFancyStore<TData> {
             return false
         }
 
-        const jsonData = JSON.parse(json) as TData
+        const jsonData = JSON.parse(json) as T
         this.initialize?.(jsonData)
 
         this.update(state => {
-            state.data = jsonData
-            state.loaded = true
+            state = {
+                ...jsonData,
+                error: false,
+                loaded: true,
+            }
             return state
         })
 

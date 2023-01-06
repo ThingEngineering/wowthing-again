@@ -1,9 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, settingsStore, userAchievementStore } from '@/stores'
     import { achievementState, exploreState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'
@@ -15,7 +14,7 @@
 
     // Fetch achievement data once when this component is mounted
     onMount(async () => await Promise.all([
-        achievementStore.fetch({ language: $settings.general.language }),
+        achievementStore.fetch({ language: $settingsStore.general.language }),
         //userAchievementStore.fetch(),
     ]))
 
@@ -29,7 +28,7 @@
         if (!error && loaded) {
             userAchievementStore.setup(
                 $achievementState,
-                $achievementStore.data
+                $achievementStore
             )
             ready = true
         }
@@ -37,7 +36,7 @@
 
     $: {
         if (ready) {
-            achievement = $achievementStore.data.achievement[$exploreState.achievementId]
+            achievement = $achievementStore.achievement[$exploreState.achievementId]
         }
     }
 </script>

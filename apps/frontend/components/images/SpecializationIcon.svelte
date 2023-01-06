@@ -15,7 +15,7 @@
     let spec: StaticDataCharacterSpecialization
     let tooltip: string
     $: {
-        spec = characterSpec || $staticStore.data.characterSpecializations[character?.activeSpecId || specId]
+        spec = characterSpec || $staticStore.characterSpecializations[character?.activeSpecId || specId]
         tooltip = getGenderedName(spec?.name ?? 'Unknown', character?.gender ?? 0)
     }
 </script>

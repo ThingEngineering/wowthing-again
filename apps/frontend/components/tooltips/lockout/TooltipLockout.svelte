@@ -10,7 +10,7 @@
     let instance: StaticDataInstance
     let difficulty: Difficulty
     $: {
-        instance = $staticStore.data.instances[lockout.id]
+        instance = $staticStore.instances[lockout.id]
         difficulty = difficultyMap[lockout.difficulty]
     }
 </script>

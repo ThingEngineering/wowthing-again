@@ -22,12 +22,12 @@
     let tier: ReputationTier
     $: {
         tier = findReputationTier(
-            $staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId],
+            $staticStore.reputationTiers[$staticStore.reputations[2445].tierId],
             character.reputations?.[2445] ?? 0
         )
-        console.log($staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId])
+        console.log($staticStore.reputationTiers[$staticStore.reputations[2445].tierId])
 
-        quests = $userQuestStore.data.characters[character.id]?.quests
+        quests = $userQuestStore.characters[character.id]?.quests
     }
 
     const thingSets: [EmberCourtFeature[], number][] = [
@@ -39,7 +39,7 @@
     const getTooltip = function(type: EmberCourtFeatureType): string {
         let ret = type.name
         if (type.unlockReputation > 0) {
-            const tierName = $staticStore.data.reputationTiers[0].names[8 - type.unlockReputation]
+            const tierName = $staticStore.reputationTiers[0].names[8 - type.unlockReputation]
             ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`
         }
         return ret
@@ -141,7 +141,7 @@
                             bottom: bff ? `<span class="status-success">Friend of a Friend!</span>` : undefined,
                             character,
                             characterRep: character.reputations?.[friend.reputationId] ?? 0,
-                            dataRep: $staticStore.data.reputations[friend.reputationId],
+                            dataRep: $staticStore.reputations[friend.reputationId],
                         },
                     }}
                 >

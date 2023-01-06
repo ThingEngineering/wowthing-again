@@ -14,8 +14,8 @@
     let sections: [string, ManualDataHeirloomGroup[]][]
     $: {
         sections = [
-            ['Available', $manualStore.data.heirlooms.filter((group) => !group.name.startsWith('Unavailable'))],
-            ['Unavailable', $manualStore.data.heirlooms.filter((group) => group.name.startsWith('Unavailable'))],
+            ['Available', $manualStore.heirlooms.filter((group) => !group.name.startsWith('Unavailable'))],
+            ['Unavailable', $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable'))],
         ]
     }
 
@@ -86,7 +86,7 @@
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}
-                                {@const level = $userStore.data.heirlooms?.[item.itemId]}
+                                {@const level = $userStore.heirlooms?.[item.itemId]}
                                 <div
                                     class="collection-object quality7"
                                     class:missing={level === undefined}

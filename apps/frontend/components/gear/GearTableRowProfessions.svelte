@@ -19,7 +19,7 @@
     $: {
         professions = []
         let type0s = 0
-        for (const profession of Object.values($staticStore.data.professions)) {
+        for (const profession of Object.values($staticStore.professions)) {
             if (profession.slug === 'archaeology') {
                 continue
             }

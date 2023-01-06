@@ -7,8 +7,8 @@
     export let character: Character
 </script>
 
-{#each $userStore.data.homeLockouts as instanceDifficulty}
-    {#if $staticStore.data.instances[instanceDifficulty.instanceId]}
+{#each $userStore.homeLockouts as instanceDifficulty}
+    {#if $staticStore.instances[instanceDifficulty.instanceId]}
         <RowLockout
             showNumbers={false}
             {character}

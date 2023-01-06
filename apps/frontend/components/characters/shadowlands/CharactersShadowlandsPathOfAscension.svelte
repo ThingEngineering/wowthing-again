@@ -14,7 +14,7 @@
 
     let quests: Map<number, boolean>
     $: {
-        quests = $userQuestStore.data.characters[character.id]?.quests
+        quests = $userQuestStore.characters[character.id]?.quests
     }
 </script>
 
@@ -60,7 +60,7 @@
     <div class="collection-section">
         <div class="collection-objects">
             {#each ascensionItems as [itemId, questId]}
-                {@const characterHas = $userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+                {@const characterHas = $userQuestStore.characters[character.id]?.quests?.has(questId)}
                 <div
                     class="quality3"
                     class:missing={!characterHas}

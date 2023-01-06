@@ -16,7 +16,7 @@
             
             for (const bagSlot of bagSlots) {
                 const itemId = character.bags[bagSlot]
-                const bag = $staticStore.data.bags[itemId]
+                const bag = $staticStore.bags[itemId]
 
                 if (itemId && bag) {
                     bagThings.push([

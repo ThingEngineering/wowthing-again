@@ -9,7 +9,7 @@
     $: {
         categories = categoryOrder.map((id) => id === 0 ? null : ({
            children: categoryChildren[id] || [],
-           ...$staticStore.data.currencyCategories[id],
+           ...$staticStore.currencyCategories[id],
         }))
     }
 </script>

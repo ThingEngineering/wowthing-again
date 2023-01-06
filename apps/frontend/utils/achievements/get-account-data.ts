@@ -17,8 +17,8 @@ export function getAccountData(
     userData: UserData,
     achievement: AchievementDataAchievement
 ): AchievementDataAccount {
-    //const ctMap = get(achievementStore).data.criteriaTree
-    //const userCrits = get(userAchievementStore).data.criteria
+    //const ctMap = get(achievementStore).criteriaTree
+    //const userCrits = get(userAchievementStore).criteria
 
     const ret = new AchievementDataAccount()
 

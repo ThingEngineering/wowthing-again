@@ -13,7 +13,7 @@
 
     let selectedTalent: number[]
     $: {
-        selectedTalent = $staticStore.data.talents[specializationId]
+        selectedTalent = $staticStore.talents[specializationId]
             .map((spellIds, tier) => find(
                 spellIds,
                 (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
@@ -62,9 +62,9 @@
     class="specialization border"
     class:selected={character.activeSpecId === specializationId}
 >
-    <h3>{getGenderedName($staticStore.data.characterSpecializations[specializationId].name, character.gender)}</h3>
+    <h3>{getGenderedName($staticStore.characterSpecializations[specializationId].name, character.gender)}</h3>
 
-    {#each $staticStore.data.talents[specializationId] as tier, tierIndex}
+    {#each $staticStore.talents[specializationId] as tier, tierIndex}
         <div
             class="tier"
             class:none-chosen={selectedTalent[tierIndex] === undefined}

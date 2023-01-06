@@ -14,7 +14,7 @@
     afterUpdate(() => getSavedRoute('settings', params.slug1, params.slug2))
 
     $: {
-        if ($userStore.data.public) {
+        if ($userStore.public) {
             replace('/')
         }
     }

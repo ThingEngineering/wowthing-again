@@ -3,20 +3,20 @@
     import filter from 'lodash/filter'
 
     import { taskList } from '@/data/tasks'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
     import MagicLists from '../SettingsMagicLists.svelte'
  
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
 
-    const taskActive = $settingsData.layout.homeTasks
+    const taskActive = $settingsStore.layout.homeTasks
         .map((f) => filter(taskChoices, (c) => c.key === f)[0])
         .filter(f => f !== undefined)
     const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) === -1)
 
     const onTaskChange = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.layout.homeTasks = taskActive.map((c) => c.key)
             return state
         })

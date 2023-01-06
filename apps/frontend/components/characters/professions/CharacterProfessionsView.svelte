@@ -21,7 +21,7 @@
         knownRecipes = new Set<number>()
         stats = {}
 
-        staticProfession = find($staticStore.data.professions, (prof) => prof.slug === params.slug4)
+        staticProfession = find($staticStore.professions, (prof) => prof.slug === params.slug4)
         if (!staticProfession) {
             break $
         }

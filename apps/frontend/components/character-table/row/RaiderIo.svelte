@@ -23,7 +23,7 @@
         }
         if (season) {
             scores = character.raiderIo?.[season.id]
-            tiers = $staticStore.data.raiderIoScoreTiers[season.id]
+            tiers = $staticStore.raiderIoScoreTiers[season.id]
 
             overallScore = character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0
         }

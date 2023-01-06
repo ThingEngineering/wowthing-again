@@ -26,7 +26,7 @@
         resets.push(resets[0].plus({ days: 1 }))
         resets.push(resets[0].plus({ days: 2 }))
 
-        const globalDailies = $userStore.data.globalDailies[`${expansion}-${character.realm.region}`]
+        const globalDailies = $userStore.globalDailies[`${expansion}-${character.realm.region}`]
         if (globalDailies) {
             for (let questIndex = 0; questIndex < globalDailies.questIds.length; questIndex++) {
                 const questId = globalDailies.questIds?.[questIndex]
@@ -44,7 +44,7 @@
             }
         }
 
-        const dailies = $userQuestStore.data.characters[character.id]?.dailies?.[expansion]
+        const dailies = $userQuestStore.characters[character.id]?.dailies?.[expansion]
         if (dailies) {
             for (let i = 0; i < dailies[0].length; i++) {
                 if (dailies[0][i]) {

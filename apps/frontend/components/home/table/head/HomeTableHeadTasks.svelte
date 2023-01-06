@@ -1,7 +1,6 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
     import { tippyComponent } from '@/utils/tippy'
 
@@ -10,8 +9,8 @@
 
     let activeHoliday: string
     $: {
-        const firstRegion = $userStore.data.allRegions?.[0] || 1
-        activeHoliday = getActiveHoliday($userStore.data, firstRegion)
+        const firstRegion = $userStore.allRegions?.[0] || 1
+        activeHoliday = getActiveHoliday($userStore, firstRegion)
     }
 </script>
 
@@ -27,7 +26,7 @@
     }
 </style>
 
-{#each $settings.layout.homeTasks as taskName}
+{#each $settingsStore.layout.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task}
         {#if !taskName.startsWith('holiday') || taskName === activeHoliday}

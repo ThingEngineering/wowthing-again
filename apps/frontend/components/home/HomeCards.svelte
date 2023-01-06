@@ -23,7 +23,7 @@
     <UnderConstruction />
 
     <div class="card-container">
-        {#each $userStore.data.characters as character}
+        {#each $userStore.characters as character}
             <CharacterCard {character} />
         {/each}
     </div>

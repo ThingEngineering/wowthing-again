@@ -22,7 +22,7 @@
 
         members = sortBy(run.memberObjects, (m: CharacterMythicPlusRunMember) => [
             //specializationMap[m.specializationId].role,
-            $staticStore.data.characterSpecializations[m.specializationId].role,
+            $staticStore.characterSpecializations[m.specializationId].role,
             m.name,
         ])
     }

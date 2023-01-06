@@ -167,14 +167,14 @@ for (const profession of dragonflightProfessions) {
 
 
 function couldGet(slug: string, char: Character): boolean {
-    const staticData = get(staticStore).data
+    const staticData = get(staticStore)
 
     const profession = staticData.professions[professionSlugToId[slug]]
     return !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
 }
 
 function getLatestSkill(char: Character, slug: string, minSkill: number): string {
-    const staticData = get(staticStore).data
+    const staticData = get(staticStore)
 
     const professionId = professionSlugToId[slug]
     const subProfessions = staticData.professions[professionId].subProfessions

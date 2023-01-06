@@ -34,7 +34,7 @@ import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currenc
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats'
 import type { ZoneMapState } from '@/stores/local-storage'
-import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
+import type { DropStatus, FancyStoreType, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import { professionSlugToId } from '@/data/professions'
@@ -287,18 +287,18 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     }
 
     private setupVendors(
-        state: FancyStore<ManualData>
+        state: FancyStoreType<ManualData>
     )
     {
-        const itemData = get(itemStore).data
-        const staticData = get(staticStore).data
+        const itemData = get(itemStore)
+        const staticData = get(staticStore)
         // console.time('setupVendors')
 
-        for (const vendor of Object.values(state.data.shared.vendors)) {
-            vendor.createFarmData(itemData, state.data, staticData)
+        for (const vendor of Object.values(state.shared.vendors)) {
+            vendor.createFarmData(itemData, state, staticData)
         }
 
-        for (const categories of state.data.vendors.sets) {
+        for (const categories of state.vendors.sets) {
             if (categories === null) {
                 continue
             }
@@ -316,16 +316,16 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 // Find useful vendors
                 const vendorIds: number[] = []
                 for (const mapName of category.vendorMaps) {
-                    vendorIds.push(...(state.data.shared.vendorsByMap[mapName] || []))
+                    vendorIds.push(...(state.shared.vendorsByMap[mapName] || []))
                 }
                 for (const tagName of category.vendorTags) {
-                    vendorIds.push(...(state.data.shared.vendorsByTag[tagName] || []))
+                    vendorIds.push(...(state.shared.vendorsByTag[tagName] || []))
                 }
 
                 const autoGroups: Record<string, ManualDataVendorGroup> = {}
 
                 for (const vendorId of vendorIds) {
-                    const vendor = state.data.shared.vendors[vendorId]
+                    const vendor = state.shared.vendors[vendorId]
 
                     let setPosition = 0;
                     for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
@@ -413,7 +413,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     }
 
     private setupZoneMaps(
-        state: FancyStore<ManualData>,
+        state: FancyStoreType<ManualData>,
         settings: Settings,
         userData: UserData,
         userAchievementData: UserAchievementData,
@@ -421,9 +421,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         userTransmogData: UserTransmogData,
         options: ZoneMapState,
     ) {
-        const itemData = get(itemStore).data
-        const manualData = this.value.data
-        const staticData = get(staticStore).data
+        const itemData = get(itemStore)
+        const manualData = this.value
+        const staticData = get(staticStore)
 
         const classMask = getTransmogClassMask(settings)
         const masochist = settings.transmog.completionistMode
@@ -912,9 +912,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             } // category of categories.slice(1)
         } // categories of zoneMapData.sets
 
-        state.data.zoneMaps.counts = setCounts
-        state.data.zoneMaps.farmStatus = farmData
-        state.data.zoneMaps.typeCounts = typeCounts
+        state.zoneMaps.counts = setCounts
+        state.zoneMaps.farmStatus = farmData
+        state.zoneMaps.typeCounts = typeCounts
     }
 }
 

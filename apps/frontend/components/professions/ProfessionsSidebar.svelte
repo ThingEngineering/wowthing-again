@@ -17,7 +17,7 @@
         ]
 
         const sorted = sortBy(
-            Object.values($staticStore.data.professions),
+            Object.values($staticStore.professions),
             (prof) => [prof.type, prof.name]
         )
 

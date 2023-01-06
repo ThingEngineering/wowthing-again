@@ -13,8 +13,8 @@
     let cls: StaticDataCharacterClass
     let spec: StaticDataCharacterSpecialization
     $: {
-        spec = $staticStore.data.characterSpecializations[member.specializationId]
-        cls = $staticStore.data.characterClasses[spec.classId]
+        spec = $staticStore.characterSpecializations[member.specializationId]
+        cls = $staticStore.characterClasses[spec.classId]
     }
 </script>
 

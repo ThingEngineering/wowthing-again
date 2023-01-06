@@ -5,7 +5,7 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { staticStore, userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { PlayableClass, PlayableClassMask, RewardType } from '@/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import tippy from '@/utils/tippy'
@@ -24,35 +24,35 @@
         if (item.type === RewardType.Illusion) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $userTransmogStore.data.hasIllusion[
-                    $staticStore.data.illusions[appearance.appearanceId].enchantmentId
+                $userTransmogStore.hasIllusion[
+                    $staticStore.illusions[appearance.appearanceId].enchantmentId
                 ],
             ])
         }
         else if (item.type === RewardType.Mount) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $userStore.data.hasMount[item.classId],
+                $userStore.hasMount[item.classId],
             ])
         }
         else if (item.type === RewardType.Pet) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $userStore.data.hasPet[item.classId],
+                $userStore.hasPet[item.classId],
             ])
         }
         else if (item.type === RewardType.Toy) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $userStore.data.hasToy[item.id],
+                $userStore.hasToy[item.id],
             ])
         }
         else {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $settingsData.transmog.completionistMode ?
-                    $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                    $userTransmogStore.data.userHas[appearance.appearanceId],
+                $settingsStore.transmog.completionistMode ?
+                    $userTransmogStore.sourceHas[`${item.id}_${appearance.modifierId}`] :
+                    $userTransmogStore.userHas[appearance.appearanceId],
             ])
         }
 

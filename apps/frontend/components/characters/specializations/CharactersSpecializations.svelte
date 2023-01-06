@@ -9,7 +9,7 @@
 
     let specIds: number[]
     $: {
-        specIds = $staticStore.data.characterClasses[character.classId].specializationIds
+        specIds = $staticStore.characterClasses[character.classId].specializationIds
     }
 </script>
 

@@ -3,7 +3,7 @@
 
     import { staticStore, userStore } from '@/stores'
     import { lockoutState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
@@ -31,7 +31,7 @@
 
     $: {
         sorted = $lockoutState.sortBy > 0
-        sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, sorted ? hasSortedLockout : anyLockouts)
+        sortFunc = getCharacterSortFunc($settingsStore, $staticStore, sorted ? hasSortedLockout : anyLockouts)
     }
 </script>
 
@@ -42,13 +42,13 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each $userStore.allLockouts as instanceDifficulty}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each $userStore.allLockouts as instanceDifficulty}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

@@ -7,9 +7,8 @@
 
     import { classOrder } from '@/data/character-class'
     import { Constants } from '@/data/constants'
-    import { staticStore, userStore } from '@/stores'
+    import { settingsStore, staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import { Gender, genderValues, Region } from '@/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import type { Character } from '@/types'
@@ -29,10 +28,10 @@
     let yKeys: string[]
     $: {
         const characters = filter(
-            $userStore.data.characters,
+            $userStore.characters,
             (char) => (
-                $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                $settings.characters.ignoredCharacters.indexOf(char.id) === -1 &&
+                $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
                 char.level >= $matrixState.minLevel
             )
         )
@@ -45,7 +44,7 @@
         const realms: [string, string, StaticDataRealm][] = Object.values(realmMap)
             .map((realm) => [
                 Region[realm.region],
-                $staticStore.data.connectedRealms[realm.connectedRealmId]?.displayText ||
+                $staticStore.connectedRealms[realm.connectedRealmId]?.displayText ||
                     `Realm #${realm.connectedRealmId}`,
                 realm,
             ])
@@ -70,7 +69,7 @@
                             parts.push(allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null)
 
                             parts.push(allAxis.indexOf('account') >= 0
-                                ? $userStore.data.accounts[char.accountId].tag || char.accountId
+                                ? $userStore.accounts[char.accountId].tag || char.accountId
                                 : null)
                             
                             parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null)
@@ -107,9 +106,9 @@
 
             if (axis.indexOf('account') >= 0) {
                 combos.push(sortBy(
-                    Object.keys($userStore.data.accounts)
+                    Object.keys($userStore.accounts)
                         .map((accountId) => {
-                            const tag = $userStore.data.accounts[parseInt(accountId)].tag || accountId
+                            const tag = $userStore.accounts[parseInt(accountId)].tag || accountId
                             return `${tag}|${tag}`
                         }),
                     (key) => key.split('|')[0]
@@ -138,7 +137,7 @@
             }
 
             if (axis.indexOf('race') >= 0) {
-                combos.push(Object.keys($staticStore.data.characterRaces)
+                combos.push(Object.keys($staticStore.characterRaces)
                     .map((raceId) => `${raceId}|:race-${raceId}:`)
                 )
             }

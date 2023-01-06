@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
     import tippy from '@/utils/tippy'
 
@@ -50,7 +49,7 @@
 </style>
 
 <div class="backgrounds">
-    {#each $userStore.data.backgroundList as background}
+    {#each $userStore.backgroundList as background}
         <div
             class="background border"
             class:selected={selected === background.id}
@@ -64,7 +63,7 @@
                 use:tippy={background.description}
             >
 
-            {#if showDefault && background.id === $settings.characters.defaultBackgroundId}
+            {#if showDefault && background.id === $settingsStore.characters.defaultBackgroundId}
                 <code class="pill abs-center">DEFAULT</code>
             {/if}
         </div>

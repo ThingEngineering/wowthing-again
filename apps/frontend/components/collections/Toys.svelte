@@ -1,9 +1,8 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { manualStore, userStore } from '@/stores'
+    import { manualStore, settingsStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import { getFilteredSets } from '@/utils/collections'
     import type { MultiSlugParams } from '@/types'
     import type { ManualDataSetCategory } from '@/types/data/manual'
@@ -15,13 +14,13 @@
     let sets: ManualDataSetCategory[][]
     $: {
         sets = getFilteredSets(
-            $settings,
+            $settingsStore,
             $collectionState,
             'toys',
-            $manualStore.data.toySets,
+            $manualStore.toySets,
             (thing: number[]) => some(
                 thing,
-                (toyId) => $userStore.data.hasToy[toyId] === true
+                (toyId) => $userStore.hasToy[toyId] === true
             )
         )
     }
@@ -30,7 +29,7 @@
 <Collection
     route="toys"
     thingType="item"
-    userHas={$userStore.data.hasToy}
+    userHas={$userStore.hasToy}
     {params}
     {sets}
 />

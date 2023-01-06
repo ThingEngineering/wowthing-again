@@ -1,7 +1,6 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
     import type { Character } from '@/types'
 
@@ -11,10 +10,10 @@
 
     export let character: Character
 
-    $: activeHoliday = getActiveHoliday($userStore.data, character.realm.region)
+    $: activeHoliday = getActiveHoliday($userStore, character.realm.region)
 </script>
 
-{#each $settings.layout.homeTasks as taskName}
+{#each $settingsStore.layout.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task}
         {#if taskName === 'dmfProfessions'}

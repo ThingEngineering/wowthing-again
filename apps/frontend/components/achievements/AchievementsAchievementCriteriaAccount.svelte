@@ -13,11 +13,11 @@
     let data: AchievementDataAccount
     let progressBar: boolean
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
+        criteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
         data = getAccountData(
-            $achievementStore.data,
-            $userAchievementStore.data,
-            $userStore.data,
+            $achievementStore,
+            $userAchievementStore,
+            $userStore,
             achievement
         )
 
@@ -52,8 +52,8 @@
         {#if honorAchievements[achievement.id]}
             <ProgressBar
                 title="Honor Level"
-                have={$userStore.data.honorLevel || 0}
-                total={$achievementStore.data.criteria[data.criteria[0].criteriaId].asset}
+                have={$userStore.honorLevel || 0}
+                total={$achievementStore.criteria[data.criteria[0].criteriaId].asset}
             />
         {:else if progressBar}
             <ProgressBar

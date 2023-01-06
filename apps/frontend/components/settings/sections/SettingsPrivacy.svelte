@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 
@@ -15,7 +15,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public"
-            bind:value={$settingsData.privacy.public}
+            bind:value={$settingsStore.privacy.public}
         >Publicly accessible</Checkbox>
         <p>
             Make your account publicly viewable via <a href="{accountLink}">your account link</a>
@@ -25,7 +25,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_anonymized"
-            bind:value={$settingsData.privacy.anonymized}
+            bind:value={$settingsStore.privacy.anonymized}
         >Anonymize character/realm names</Checkbox>
         <p>
             Use "SecretGoose" for every character name and "Honkstrasza" for every realm name
@@ -35,7 +35,7 @@
     <div class="setting">
         <Checkbox
                 name="privacy_public_accounts"
-                bind:value={$settingsData.privacy.publicAccounts}
+                bind:value={$settingsStore.privacy.publicAccounts}
         >Public Accounts</Checkbox>
         <p>
             Allow visitors to see account tags on characters
@@ -45,7 +45,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_currencies"
-            bind:value={$settingsData.privacy.publicCurrencies}
+            bind:value={$settingsStore.privacy.publicCurrencies}
         >Public Currencies</Checkbox>
         <p>
             Allow visitors to see your Currencies data
@@ -55,7 +55,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_lockouts"
-            bind:value={$settingsData.privacy.publicLockouts}
+            bind:value={$settingsStore.privacy.publicLockouts}
         >Public Lockouts</Checkbox>
         <p>Allow visitors to see your Lockouts data</p>
     </div>
@@ -63,7 +63,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_mythic_plus"
-            bind:value={$settingsData.privacy.publicMythicPlus}
+            bind:value={$settingsStore.privacy.publicMythicPlus}
         >Public Mythic+</Checkbox>
         <p>
             Allow visitors to see your Mythic+ data

@@ -53,7 +53,7 @@
             tooltip = 'Your mount speed is maxed out!'
         }
         else {
-            if (afford || $userStore.data.public) {
+            if (afford || $userStore.public) {
                 cls = 'status-shrug'
                 tooltip = `Upgrade to ${nextSkill.speed}% ${nextSkill.speed > 100 ? 'flying' : 'ground'} for ${nextSkill.price.toLocaleString()}g!`
             }

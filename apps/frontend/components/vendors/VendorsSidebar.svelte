@@ -1,6 +1,6 @@
 <script lang="ts">
     import { manualStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import type { SidebarItem, UserCount } from '@/types'
 
@@ -11,19 +11,19 @@
     let categories: SidebarItem[] = []
     let overall: UserCount
     $: {
-        categories = $manualStore.data.vendors.sets.map((cat) => cat === null ? null : ({
+        categories = $manualStore.vendors.sets.map((cat) => cat === null ? null : ({
             children: cat.slice(1),
             ...cat[0],
         }))
 
-        overall = $userVendorStore.data.stats['OVERALL']
+        overall = $userVendorStore.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userVendorStore.data.stats[slug]
+        const hasData = $userVendorStore.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>
@@ -53,7 +53,7 @@
         
         <Checkbox
             name="transmog_completionistMode"
-            bind:value={$settingsData.transmog.completionistMode}
+            bind:value={$settingsStore.transmog.completionistMode}
         >Completionist Mode</Checkbox>
     </div>
 </Sidebar>

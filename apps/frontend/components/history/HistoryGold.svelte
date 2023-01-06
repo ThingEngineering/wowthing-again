@@ -49,7 +49,7 @@
     $: {
         if (ready) {
             const current = $timeStore.toUTC()
-            const last = $userHistoryStore.data.lastUpdated
+            const last = $userHistoryStore.lastUpdated
             const diff = current.diff(last).toMillis()
 
             if (
@@ -62,7 +62,7 @@
                 userHistoryStore.fetch({ evenIfLoaded: true })
             }
 
-            redrawChart($historyState, $userHistoryStore.data)
+            redrawChart($historyState, $userHistoryStore)
         }
     }
 
@@ -93,7 +93,7 @@
                 continue
             }
 
-            const realm: StaticDataRealm = $staticStore.data.realms[realmId]
+            const realm: StaticDataRealm = $staticStore.realms[realmId]
             realms.push([
                 `[${Region[realm.region]}] ${realm.name}`,
                 parseInt(realmId)

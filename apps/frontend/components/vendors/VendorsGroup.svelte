@@ -31,19 +31,19 @@
         things = []
         for (const thing of group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
-            const userHas = $userVendorStore.data.userHas[thingKey] === true
+            const userHas = $userVendorStore.userHas[thingKey] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas)
 
-                thingData.quality = thing.quality || $itemStore.data.items[thing.id]?.quality || 0
+                thingData.quality = thing.quality || $itemStore.items[thing.id]?.quality || 0
 
                 if (thing.type === RewardType.Mount) {
                     thingData.linkType = 'spell'
-                    thingData.linkId = $staticStore.data.mounts[thing.id]?.spellId
+                    thingData.linkId = $staticStore.mounts[thing.id]?.spellId
                 }
                 else if (thing.type === RewardType.Pet) {
                     thingData.linkType = 'npc'
-                    thingData.linkId = $staticStore.data.pets[thing.id].creatureId
+                    thingData.linkId = $staticStore.pets[thing.id].creatureId
                 }
                 else {
                     thingData.linkType = 'item'

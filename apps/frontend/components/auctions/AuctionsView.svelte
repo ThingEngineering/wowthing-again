@@ -21,7 +21,7 @@
         page = parseInt(params.slug2) || 1
         
         const regionMap: Record<number, boolean> = {}
-        for (const character of $userStore.data.characters) {
+        for (const character of $userStore.characters) {
             regionMap[character.realm.region] = true
         }
 

@@ -249,7 +249,7 @@
     </div>
 
     <div class="soulbinds">
-        {#each $staticStore.data.soulbinds[covenantId] as soulbind}
+        {#each $staticStore.soulbinds[covenantId] as soulbind}
             <Soulbind
                 {character}
                 {covenantId}

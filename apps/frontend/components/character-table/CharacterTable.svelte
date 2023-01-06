@@ -4,8 +4,7 @@
     import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
 
-    import { data as settingsData } from '@/stores/settings'
-    import { staticStore, userStore } from '@/stores'
+    import { settingsStore, staticStore, userStore } from '@/stores'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -29,20 +28,20 @@
             filterFunc = () => true
         }
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
 
-        groupFunc = getCharacterGroupFunc($settingsData)
+        groupFunc = getCharacterGroupFunc($settingsStore)
     }
 
     $: {
         characters = filter(
-            $userStore.data.characters,
-            (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1 &&
-                (!skipIgnored || $settingsData.characters.ignoredCharacters.indexOf(c.id) === -1) &&
+            $userStore.characters,
+            (c) => $settingsStore.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                (!skipIgnored || $settingsStore.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (
-                    $settingsData.characters.hideDisabledAccounts === false ||
-                    $userStore.data.accounts?.[c.accountId]?.enabled !== false
+                    $settingsStore.characters.hideDisabledAccounts === false ||
+                    $userStore.accounts?.[c.accountId]?.enabled !== false
                 )
         )
         characters = filter(characters, filterFunc)
@@ -92,7 +91,7 @@
 
     <table
         class="table table-striped character-table"
-        style="--padding: {paddingMap[$settingsData.layout.padding] || 1};"
+        style="--padding: {paddingMap[$settingsStore.layout.padding] || 1};"
     >
         <slot name="head" />
         <tbody>

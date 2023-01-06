@@ -16,8 +16,8 @@
     let criteria: AchievementDataCriteria
     let criteriaTree: AchievementDataCriteriaTree
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
-        criteria = $achievementStore.data.criteria[criteriaTree?.criteriaId]
+        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId]
+        criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
     }
 </script>
 

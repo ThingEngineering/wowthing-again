@@ -7,7 +7,7 @@
 
     export let slug: string
 
-    const allProfessions = Object.values($staticStore.data.professions)
+    const allProfessions = Object.values($staticStore.professions)
     allProfessions.sort((a, b) => a.name.localeCompare(b.name))
 </script>
 

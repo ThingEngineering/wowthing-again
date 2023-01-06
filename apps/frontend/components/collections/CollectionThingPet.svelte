@@ -27,11 +27,11 @@
     let showAsMissing: boolean
     let userHasThing: number | undefined
     $: {
-        userHasThing = find(things, (petId: number): boolean => $userStore.data.hasPet[petId] === true)
+        userHasThing = find(things, (petId: number): boolean => $userStore.hasPet[petId] === true)
         origId = userHasThing ?? things[0]
 
         if (userHasThing) {
-            pets = $userStore.data.pets[origId]
+            pets = $userStore.pets[origId]
             quality = maxBy(pets, (pet: UserDataPet) => pet.quality).quality
             showAsMissing = $collectionState.highlightMissing['pets']
         }

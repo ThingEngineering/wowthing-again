@@ -38,7 +38,7 @@
         }
         else {
             const characterItemCount = character.currencyItems?.[itemId] || 0
-            const name = $itemStore.data.items[itemId]?.name || `Item #${itemId}`
+            const name = $itemStore.items[itemId]?.name || `Item #${itemId}`
             
             amount = toNiceNumber(characterItemCount)
             tooltip = `${characterItemCount.toLocaleString()} ${name}`

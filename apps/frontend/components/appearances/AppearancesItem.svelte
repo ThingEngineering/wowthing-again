@@ -16,7 +16,7 @@
     let has: boolean
     let imageName: string
     $: {
-        has = $userTransmogStore.data.userHas[appearance.appearanceId]
+        has = $userTransmogStore.userHas[appearance.appearanceId]
 
         const mod = appearance.modifiedAppearances[0]
 

@@ -13,10 +13,10 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
 
         for (const thing of groupBy) {
             if (thing === 'account') {
-                out.push(get(userStore).data.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`)
+                out.push(get(userStore).accounts?.[char.accountId]?.tag ?? `account${char.accountId}`)
             }
             else if (thing === 'enabled') {
-                const enabled = get(userStore).data.accounts?.[char.accountId]?.enabled ?? true
+                const enabled = get(userStore).accounts?.[char.accountId]?.enabled ?? true
                 out.push(enabled ? 'a' : 'z')
             }
             else if (thing === 'faction') {
@@ -34,7 +34,7 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
                 out.push(settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z')
             }
             else if (thing === 'realm') {
-                out.push(get(staticStore).data.connectedRealms[char.realm.connectedRealmId].displayText)
+                out.push(get(staticStore).connectedRealms[char.realm.connectedRealmId].displayText)
             }
         }
 

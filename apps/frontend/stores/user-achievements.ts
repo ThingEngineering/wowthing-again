@@ -11,7 +11,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            const modified = get(userModifiedStore).data.achievements
+            const modified = get(userModifiedStore).achievements
             url = url.replace(/\/(?:public|private).+$/, `/achievements-${modified}.json`)
         }
         return url
@@ -38,7 +38,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     ): void {
         console.time('UserAchievementDataStore.setup')
 
-        const userAchievements = this.value.data.achievements
+        const userAchievements = this.value.achievements
 
         const categories = achievementData.categories
         const keepIds: Record<number, boolean> = {}
@@ -117,8 +117,8 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         all.reverse()
 
         this.update(state => {
-            state.data.achievementCategories = cheevs
-            state.data.achievementRecent = all.slice(0, 10).map(([, id]) => id)
+            state.achievementCategories = cheevs
+            state.achievementRecent = all.slice(0, 10).map(([, id]) => id)
             return state
         })
 

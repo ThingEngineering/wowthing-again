@@ -32,7 +32,7 @@
         sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
 
         if (farm.statisticId > 0) {
-            statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
+            statistic = ($userAchievementStore.statistics?.[farm.statisticId] || [])
                 .reduce((a, b) => a + b[1], 0)
         }
     }
@@ -183,7 +183,7 @@
             {/if}
 
             {#if farm.idType == FarmIdType.Instance}
-                {@const stats = $journalStore.data.stats[status.link.replace('/', '--')]}
+                {@const stats = $journalStore.stats[status.link.replace('/', '--')]}
                 <tr>
                     <td colspan="3">
                         {stats.have} / {stats.total} unique drops
@@ -242,9 +242,9 @@
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
                                         <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
-                                        {$achievementStore.data.achievement[drop.id].name}
+                                        {$achievementStore.achievement[drop.id].name}
                                     {:else}
-                                        {$achievementStore.data.achievement[drop.id].description}
+                                        {$achievementStore.achievement[drop.id].description}
                                     {/if}
                                 {:else if dropStatus.setNote}
                                     <ParsedText text={dropStatus.setNote} />
@@ -260,14 +260,14 @@
                                 <td class="characters" colspan="2">
                                     {#each sortBy(
                                         dropStatus.characterIds
-                                            .map(c => $userStore.data.characterMap[c]),
+                                            .map(c => $userStore.characterMap[c]),
                                         c => c.name)
                                     as character}
                                         <span class="class-{character.classId}">{character.name}</span>
                                     {/each}
                                     {#each sortBy(
                                         dropStatus.completedCharacterIds
-                                            .map(c => $userStore.data.characterMap[c]),
+                                            .map(c => $userStore.characterMap[c]),
                                         c => c.name)
                                     as character}
                                         <span class="completed class-{character.classId}">{character.name}</span>

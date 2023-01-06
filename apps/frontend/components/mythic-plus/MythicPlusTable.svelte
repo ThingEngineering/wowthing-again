@@ -6,7 +6,7 @@
     import { Constants } from '@/data/constants'
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
     import { staticStore, userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
@@ -49,7 +49,7 @@
                     return []
                 }
             }
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
         else {
             isThisWeek = false
@@ -65,8 +65,8 @@
 
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
             sortFunc = getCharacterSortFunc(
-                $settingsData,
-                $staticStore.data,
+                $settingsStore,
+                $staticStore,
                 (char) => leftPad(
                     100000 - Math.floor(char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0),
                     6,
@@ -77,7 +77,7 @@
 
         isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
-            const week = ($userStore.data.currentPeriod[1].id - 809) % weeklyAffixes.length
+            const week = ($userStore.currentPeriod[1].id - 809) % weeklyAffixes.length
             affixes = weeklyAffixes[week]
         }
 

@@ -25,7 +25,7 @@
     $: {
         anyClass = some(category.filteredGroups, (group) => group.type === TransmogSetType.Class)
 
-        const categoryHas = $userTransmogStore.data.statsV2[`${slugs[0]}--${category.slug}`]
+        const categoryHas = $userTransmogStore.statsV2[`${slugs[0]}--${category.slug}`]
         categoryPercent = categoryHas.have / categoryHas.total * 100
         showPercent = !isNaN(categoryPercent)
         
@@ -39,7 +39,7 @@
             else {
                 key = `${slugs[0]}--${category.slug}--${groupIndex}`
             }
-            const hasData = $userTransmogStore.data.statsV2[key]
+            const hasData = $userTransmogStore.statsV2[key]
             return hasData ? hasData.have / hasData.total * 100 : 0
         }
     }
@@ -287,7 +287,7 @@
                         {set}
                         setData={group.setData[setIndex][transmogSet.type]}
                         span={1}
-                        stats={$userTransmogStore.data.statsV2[`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`]}
+                        stats={$userTransmogStore.statsV2[`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`]}
                         subType={transmogSet.subType}
                     />
                 {/if}

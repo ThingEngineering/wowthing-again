@@ -76,7 +76,7 @@
                     border={1}
                 />
                 {valor.quantity.toLocaleString()}
-                {$staticStore.data.currencies?.[Constants.valorCurrencyId]?.name}
+                {$staticStore.currencies?.[Constants.valorCurrencyId]?.name}
             </div>
 
             {#if valor.max > 0}

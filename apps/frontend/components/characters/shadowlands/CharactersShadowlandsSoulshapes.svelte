@@ -19,7 +19,7 @@
         for (const shapesArray of [soulshapes, crittershapes]) {
             const temp: [questId: number, icon: string, has: boolean][] = []
             for (const [questId, icon] of shapesArray) {
-                const has = $userQuestStore.data.characters[character.id]?.quests?.has(questId)
+                const has = $userQuestStore.characters[character.id]?.quests?.has(questId)
                 if (has) {
                     stats.have++
                 }

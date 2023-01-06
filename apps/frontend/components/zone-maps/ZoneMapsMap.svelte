@@ -36,7 +36,7 @@
     let slugKey: string
 
     $: {
-        categories = find($manualStore.data.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
+        categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
         if (slug2) {
             categories = filter(categories, (s) => s?.slug === slug2)
         }
@@ -45,11 +45,11 @@
         farms = []
         if (categories?.length > 0) {
             farms = [...categories[0].farms]
-            for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
-                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms(categories[0].mapName))
+            for (const vendorId of ($manualStore.shared.vendorsByMap[categories[0].mapName] || [])) {
+                farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName))
             }
 
-            farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]
+            farmStatuses = $manualStore.zoneMaps.farmStatus[slugKey]
         }
 
         if ($zoneMapState.classFilters[slugKey] === undefined) {

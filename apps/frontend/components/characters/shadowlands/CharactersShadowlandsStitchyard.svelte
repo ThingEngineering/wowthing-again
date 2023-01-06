@@ -20,7 +20,7 @@
                 charAboms.push([
                     abomination,
                     some(
-                        $userAchievementStore.data.criteria[abomination.criteriaId] || [],
+                        $userAchievementStore.criteria[abomination.criteriaId] || [],
                         ([charId, value]) => charId === character.id && value > 0
                     )
                 ])
@@ -97,7 +97,7 @@
                             <div
                                 class="cost"
                                 class:status-success={character.currencyItems?.[178061] >= abomination.flesh}
-                                use:tippy={`${abomination.flesh}x ${$itemStore.data.items[178061].name}`}
+                                use:tippy={`${abomination.flesh}x ${$itemStore.items[178061].name}`}
                             >
                                 {abomination.flesh}
                                 <WowthingImage
@@ -111,7 +111,7 @@
                                 <div
                                     class="cost"
                                     class:status-success={character.currencyItems?.[183744] >= abomination.parts}
-                                    use:tippy={`${abomination.parts}x ${$itemStore.data.items[183744].name}`}
+                                    use:tippy={`${abomination.parts}x ${$itemStore.items[183744].name}`}
                                 >
                                     {abomination.parts}
                                     <WowthingImage
@@ -132,7 +132,7 @@
                 <div class="currencies">
                     <div
                         class="currency"
-                        use:tippy={`${character.currencyItems?.[178061] || 0}x ${$itemStore.data.items[183744].name}`}
+                        use:tippy={`${character.currencyItems?.[178061] || 0}x ${$itemStore.items[183744].name}`}
                     >
                         {character.currencyItems?.[178061] || 0}
                         <WowthingImage
@@ -143,7 +143,7 @@
                     </div>
                     <div
                         class="currency"
-                        use:tippy={`${character.currencyItems?.[183744] || 0}x ${$itemStore.data.items[183744].name}`}
+                        use:tippy={`${character.currencyItems?.[183744] || 0}x ${$itemStore.items[183744].name}`}
                     >
                         {character.currencyItems?.[183744] || 0}
                         <WowthingImage

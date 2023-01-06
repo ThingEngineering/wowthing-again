@@ -18,9 +18,9 @@
     $: {
         accountEnabled =
             character.accountId === undefined ||
-            $userStore.data.accounts[character.accountId].enabled
-        accountTag = $userStore.data.accounts?.[character.accountId]?.tag
-        spec = $staticStore.data.characterSpecializations[character.activeSpecId]
+            $userStore.accounts[character.accountId].enabled
+        accountTag = $userStore.accounts?.[character.accountId]?.tag
+        spec = $staticStore.characterSpecializations[character.activeSpecId]
     }
 </script>
 

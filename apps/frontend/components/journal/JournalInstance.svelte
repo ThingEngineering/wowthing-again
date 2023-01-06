@@ -18,7 +18,7 @@
     let slugKey: string
     $: {
         instance = undefined
-        const tier: JournalDataTier = find($journalStore.data.tiers, (tier) => tier?.slug === slug1)
+        const tier: JournalDataTier = find($journalStore.tiers, (tier) => tier?.slug === slug1)
         if (tier) {
             if (tier.subTiers) {
                 const subTier = find(tier.subTiers, (subTier) => subTier.slug === slug2)
@@ -79,7 +79,7 @@
         <div class="collection thing-container" data-instance-id="{instance.id}">
             <SectionTitle
                 title={instance.name}
-                count={$journalStore.data.stats[slugKey]}
+                count={$journalStore.stats[slugKey]}
             >
                 <EncounterStats
                     statsKey={slugKey}
@@ -92,7 +92,7 @@
                     {@const useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30}
                     <SectionTitle
                         title={encounter.name}
-                        count={$journalStore.data.stats[statsKey]}
+                        count={$journalStore.stats[statsKey]}
                     >
                         <EncounterStats
                             {encounter}
@@ -104,7 +104,7 @@
                         {#each encounter.groups as group}
                             <Group
                                 bonusIds={instance.bonusIds}
-                                stats={$journalStore.data.stats[`${slugKey}--${encounter.name}--${group.name}`]}
+                                stats={$journalStore.stats[`${slugKey}--${encounter.name}--${group.name}`]}
                                 {group}
                                 {useV2}
                             />
