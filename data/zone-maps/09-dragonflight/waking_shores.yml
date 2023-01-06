@@ -3,6 +3,18 @@ mapName: "09-dragonflight/waking_shores"
 minimumLevel: 60
 farms:
 
+# Group
+
+- name: "Dragon Vendors"
+  groupId: 1
+  location: 23.2 53.8
+  type: group
+
+- name: "Dragonscale Basecamp"
+  groupId: 2
+  location: 46.0 81.6
+  type: group
+
 # Rare
 
 - name: "Azra's Prized Peony"

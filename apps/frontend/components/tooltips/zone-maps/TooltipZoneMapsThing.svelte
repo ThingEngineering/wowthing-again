@@ -4,11 +4,10 @@
 
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
-    import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
+    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType, InventoryType } from '@/enums'
+    import { achievementStore, itemStore, journalStore, userAchievementStore, userStore } from '@/stores'
     import leftPad from '@/utils/left-pad'
-    import { getDropIcon } from '@/utils/zone-maps/get-drop-icon'
-    import { getDropName } from '@/utils/zone-maps/get-drop-name'
+    import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -118,7 +117,6 @@
         text-align: left;
         white-space: nowrap;
         width: 5rem;
-        word-spacing: -0.2ch;
 
         :global(code) {
             color: $body-text;
@@ -197,7 +195,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={getDropIcon(drop, dropStatus, isCriteria)} />
+                        <IconifyIcon icon={getDropIcon(drop, isCriteria)} />
                     </td>
                     <td
                         class="name"
@@ -213,6 +211,9 @@
                             cosmetic
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
+                            {#if drop.subType >= 1 && drop.subType <= 4}
+                                {InventoryType[$itemStore.items[drop.id]?.inventoryType].toLowerCase()}
+                            {/if}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.InstanceSpecial}
@@ -261,16 +262,20 @@
                                     {#each sortBy(
                                         dropStatus.characterIds
                                             .map(c => $userStore.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="class-{character.classId}">{character.name}</span>
+                                        c => c.name
+                                    ) as character}
+                                        <span class="class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                     {#each sortBy(
                                         dropStatus.completedCharacterIds
                                             .map(c => $userStore.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="completed class-{character.classId}">{character.name}</span>
+                                        c => c.name
+                                    ) as character}
+                                        <span class="completed class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                 </td>
                             </tr>

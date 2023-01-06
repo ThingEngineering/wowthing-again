@@ -2,7 +2,7 @@
     import { farmTypeIcons, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType, RewardType } from '@/enums'
-    import { getDropData } from '@/utils/zone-maps/get-drop-data'
+    import { getDropData } from '@/utils/zone-maps'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import type { ManualDataZoneMapFarm } from '@/types/data/manual'

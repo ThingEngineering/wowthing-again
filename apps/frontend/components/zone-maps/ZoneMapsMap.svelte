@@ -108,11 +108,10 @@
     }
 
     const getGroupWidth = function(len: number): string {
-        if (len < 4) {
+        if (len < 3) {
             return null
         }
         const sqrt = Math.ceil(Math.sqrt(len))
-        console.log(sqrt)
         return `calc(0.4rem + 1px + (24px * ${sqrt}) + (0.1rem * ${sqrt}))`
     }
 

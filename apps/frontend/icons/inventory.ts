@@ -1,0 +1,36 @@
+import { InventoryType } from '@/enums'
+
+
+export const inventoryTypeIcons: Record<InventoryType, string> = {
+    [InventoryType.NonEquippable]: '',
+    [InventoryType.Head]: 'gameBarbute',
+    [InventoryType.Neck]: 'gameHeartNecklace',
+    [InventoryType.Shoulders]: 'gameDorsalScales',
+    [InventoryType.Shirt]: 'gameShirt',
+    [InventoryType.Chest]: 'gameChestArmor',
+    [InventoryType.Waist]: 'gameBeltArmor',
+    [InventoryType.Legs]: 'gameGreaves',
+    [InventoryType.Feet]: 'gameMetalBoot',
+    [InventoryType.Wrist]: 'gameBracer',
+    [InventoryType.Hands]: 'gameGauntlet',
+    [InventoryType.Finger]: 'gameBigDiamondRing',
+    [InventoryType.Trinket]: '',
+    [InventoryType.OneHand]: '',
+    [InventoryType.OffHand]: '',
+    [InventoryType.Ranged]: '',
+    [InventoryType.Back]: '',
+    [InventoryType.TwoHand]: '',
+    [InventoryType.Bag]: '',
+    [InventoryType.Tabard]: '',
+    [InventoryType.Chest2]: '',
+    [InventoryType.MainHand]: '',
+    [InventoryType.OffHand2]: '',
+    [InventoryType.HeldInOffHand]: '',
+    [InventoryType.Ammo]: '',
+    [InventoryType.Thrown]: '',
+    [InventoryType.Ranged2]: '',
+    [InventoryType.Quiver]: '',
+    [InventoryType.Relic]: '',
+    [InventoryType.ProfessionTool]: '',
+    [InventoryType.ProfessionGear]: ''
+}

@@ -1,0 +1,15 @@
+id: 191135
+name: "Yries Lightfingers"
+zoneMapsGroupId: 1
+
+locations:
+  09-dragonflight/waking_shores:
+    - 26.4 55.4
+
+sells:
+  - type: pet
+    id: 3376 # Chip
+    costs:
+      1198357: 1
+      1198082: 2
+      1199219: 3

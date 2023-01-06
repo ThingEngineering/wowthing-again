@@ -1,0 +1,47 @@
+id: 198429
+name: "Treysh"
+
+locations:
+  09-dragonflight/the_forbidden_reach:
+    - 45.2 61.2
+
+sells:
+  - type: mount
+    id: 1667 # Armored Vorquin Leystrider
+    costs:
+      0: 80 # Gold
+
+  - type: mount
+    id: 1685 # Bronze Vorquin
+    costs:
+      0: 40 # Gold
+
+  - type: mount
+    id: 1683 # Crimson Vorquin
+    costs:
+      0: 40 # Gold
+
+  - type: mount
+    id: 1664 # Guardian Vorquin
+    costs:
+      0: 80 # Gold
+
+  - type: mount
+    id: 1668 # Majestic Armored Vorquin
+    costs:
+      0: 80 # Gold
+
+  - type: mount
+    id: 1686 # Obsidian Vorquin
+    costs:
+      0: 40 # Gold
+
+  - type: mount
+    id: 1684 # Sapphire Vorquin
+    costs:
+      0: 40 # Gold
+
+  - type: mount
+    id: 1665 # Swift Armored Vorquin
+    costs:
+      0: 80 # Gold
