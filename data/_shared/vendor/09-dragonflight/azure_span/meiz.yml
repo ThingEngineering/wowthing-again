@@ -63,22 +63,6 @@ sells:
     reputation: 2550 high
 
   - type: transmog
-    id: 199727 # Cobalt Essence Weaver's Scepter [off-hand]
-    costs:
-      2003: 600
-      1190396: 10
-      1201404: 5
-    reputation: 2550 maximum
-
-  - type: transmog
-    id: 199703 # Steadfast Cobalt Bulwark [shield]
-    costs:
-      2003: 600
-      1198397: 1
-      1193214: 10
-    reputation: 2550 maximum
-
-  - type: transmog
     id: 199737 # Cobalt Dragonflame Blade [1h cosmetic sword]
     costs:
       2003: 600
@@ -156,4 +140,20 @@ sells:
       2003: 600
       1190396: 10
       1201404: 5
+    reputation: 2550 maximum
+
+  - type: transmog
+    id: 199727 # Cobalt Essence Weaver's Scepter [off-hand]
+    costs:
+      2003: 600
+      1190396: 10
+      1201404: 5
+    reputation: 2550 maximum
+
+  - type: transmog
+    id: 199703 # Steadfast Cobalt Bulwark [shield]
+    costs:
+      2003: 600
+      1198397: 1
+      1193214: 10
     reputation: 2550 maximum
