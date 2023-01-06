@@ -1,8 +1,9 @@
 id: 191135
 name: "Yries Lightfingers"
+zoneMapsGroupId: 1
 
 locations:
-  09-dragonflight/the_waking_shores:
+  09-dragonflight/waking_shores:
     - 26.4 55.4
 
 sells:

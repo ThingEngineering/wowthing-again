@@ -1,9 +1,10 @@
 id: 188625
 name: "Lorena Belle"
 note: "Wrathion's Quartermaster"
+zoneMapsGroupId: 1
 
 locations:
-  09-dragonflight/the_waking_shores:
+  09-dragonflight/waking_shores:
     - 25.2 55.8
 
 sells:

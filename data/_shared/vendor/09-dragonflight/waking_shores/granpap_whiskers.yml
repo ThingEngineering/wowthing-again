@@ -1,8 +1,9 @@
 id: 187408
 name: "Granpap Whiskers"
+zoneMapsGroupId: 2
 
 locations:
-  09-dragonflight/the_waking_shores:
+  09-dragonflight/waking_shores:
     - 47.6 83.2
 
 sets:

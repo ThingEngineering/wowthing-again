@@ -1,8 +1,9 @@
 id: 188265
 name: "Rae'ana"
+zoneMapsGroupId: 2
 
 locations:
-  09-dragonflight/the_waking_shores:
+  09-dragonflight/waking_shores:
     - 47.8 82
 
 sets:
