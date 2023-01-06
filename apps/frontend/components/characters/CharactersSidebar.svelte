@@ -17,7 +17,7 @@
     $: {
         const realmCharacters: Record<string, Character[]> = groupBy(
             filter(
-                $userStore.data.characters,
+                $userStore.characters,
                 (char) => $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                     $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1
             ),
@@ -25,10 +25,10 @@
         )
 
         categories = []
-        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         for (const realmId in realmCharacters)
         {
-            const realm = $staticStore.data.realms[parseInt(realmId)]
+            const realm = $staticStore.realms[parseInt(realmId)]
             const characters = sortBy(
                 realmCharacters[realmId],
                 (character) => sortFunc(character)
@@ -53,7 +53,7 @@
             else {
                 const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-')
                 const character = find(
-                    $userStore.data.characters,
+                    $userStore.characters,
                     (character: Character) => (
                         Region[character.realm.region].toLowerCase() === region &&
                         character.realm.slug === realm &&

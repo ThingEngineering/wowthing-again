@@ -32,13 +32,13 @@
     let transmogSetsPercent: number
     let vendorPercent: number
     $: {
-        const journalOverall = $journalStore.data.stats['OVERALL']
-        const mountsOverall = $userStore.data.setCounts['mounts']['OVERALL']
-        const petsOverall = $userStore.data.setCounts['pets']['OVERALL']
-        const toysOverall = $userStore.data.setCounts['toys']['OVERALL']
-        const transmogOverall = $userTransmogStore.data.stats['OVERALL']
-        const transmogSetsOverall = $userTransmogStore.data.statsV2['OVERALL']
-        const vendorOverall = $userVendorStore.data.stats['OVERALL']
+        const journalOverall = $journalStore.stats['OVERALL']
+        const mountsOverall = $userStore.setCounts['mounts']['OVERALL']
+        const petsOverall = $userStore.setCounts['pets']['OVERALL']
+        const toysOverall = $userStore.setCounts['toys']['OVERALL']
+        const transmogOverall = $userTransmogStore.stats['OVERALL']
+        const transmogSetsOverall = $userTransmogStore.statsV2['OVERALL']
+        const vendorOverall = $userVendorStore.stats['OVERALL']
 
         journalPercent = journalOverall.have / journalOverall.total * 100
         mountsPercent = mountsOverall.have / mountsOverall.total * 100
@@ -93,7 +93,7 @@
         </a>
     </li>
 
-    {#if $userStore.loaded && (!$userStore.data.public || $settingsStore.privacy.publicCurrencies)}
+    {#if $userStore.loaded && (!$userStore.public || $settingsStore.privacy.publicCurrencies)}
         <li use:active={'/currencies/*'}>
             <a href="#/currencies/">
                 <IconifyIcon icon={iconCurrencies} dropShadow={true} />
@@ -109,7 +109,7 @@
         </a>
     </li>
 
-    {#if $userStore.loaded && !$userStore.data.public}
+    {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/history/*'}>
             <a href="#/history/">
                 <IconifyIcon icon={iconHistory} dropShadow={true} />
@@ -118,7 +118,7 @@
         </li>
     {/if}
 
-    {#if $userStore.loaded && !$userStore.data.public}
+    {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/items/*'}>
             <a href="#/items/">
                 <IconifyIcon icon={iconConstruction} dropShadow={true} />
@@ -157,7 +157,7 @@
 
     <li class="separator"></li>
 
-    {#if $userStore.loaded && !$userStore.data.public}
+    {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/auctions/*'}>
             <a href="#/auctions/">
                 <IconifyIcon icon={iconBank} dropShadow={true} />
@@ -282,7 +282,7 @@
         <span class="drop-shadow percent {getPercentClass(transmogSetsPercent)}">{fancyPercent(transmogSetsPercent)} %</span>
     </li>
 
-    {#if $userStore.loaded && !$userStore.data.public}
+    {#if $userStore.loaded && !$userStore.public}
         <li class="separator"></li>
 
         <li use:active={'/settings/*'}>

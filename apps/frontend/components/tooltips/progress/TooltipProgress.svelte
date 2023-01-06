@@ -30,13 +30,13 @@
 
         // Special cases
         if (group.name === 'Valorous Appearances') {
-            const cheev = $achievementStore.data.achievement[datas[1].ids[0]]
-            const rootTree = $achievementStore.data.criteriaTree[cheev.criteriaTreeId]
-            const charCheev = $userAchievementStore.data.addonAchievements[character.id]?.[cheev.id]
+            const cheev = $achievementStore.achievement[datas[1].ids[0]]
+            const rootTree = $achievementStore.criteriaTree[cheev.criteriaTreeId]
+            const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id]
             const newDesc = {...descriptionText}
             if (charCheev?.earned !== true) {
                 for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
-                    const childTree = $achievementStore.data.criteriaTree[rootTree.children[childIndex]]
+                    const childTree = $achievementStore.criteriaTree[rootTree.children[childIndex]]
                     newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`
                 }
             }

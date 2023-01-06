@@ -11,13 +11,13 @@
     let realms: StaticDataRealm[]
     $: {
         realms = sortBy(
-                    $userStore.data.goldHistoryRealms
-                        .map((realmId) => $staticStore.data.realms[realmId]),
+                    $userStore.goldHistoryRealms
+                        .map((realmId) => $staticStore.realms[realmId]),
             (realm) => [realm.region, realm.name]
         )
     }   
 
-    let shownRealms: string[] = $userStore.data.goldHistoryRealms
+    let shownRealms: string[] = $userStore.goldHistoryRealms
         .filter((realmId) => $settingsStore.history.hiddenRealms.indexOf(realmId) === -1)
         .map((realmId) => realmId.toString())
     

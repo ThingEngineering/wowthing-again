@@ -6,7 +6,7 @@
 
     let categories: SidebarItem[]
     $: {
-        categories = Object.values($userTeamStore.data.teams)
+        categories = Object.values($userTeamStore.teams)
         if (categories.length > 0) {
             categories.push(null)
         }

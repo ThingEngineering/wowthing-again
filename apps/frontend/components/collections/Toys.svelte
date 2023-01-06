@@ -17,10 +17,10 @@
             $settingsStore,
             $collectionState,
             'toys',
-            $manualStore.data.toySets,
+            $manualStore.toySets,
             (thing: number[]) => some(
                 thing,
-                (toyId) => $userStore.data.hasToy[toyId] === true
+                (toyId) => $userStore.hasToy[toyId] === true
             )
         )
     }
@@ -29,7 +29,7 @@
 <Collection
     route="toys"
     thingType="item"
-    userHas={$userStore.data.hasToy}
+    userHas={$userStore.hasToy}
     {params}
     {sets}
 />

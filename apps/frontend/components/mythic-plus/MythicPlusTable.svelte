@@ -49,7 +49,7 @@
                     return []
                 }
             }
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
         else {
             isThisWeek = false
@@ -66,7 +66,7 @@
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
             sortFunc = getCharacterSortFunc(
                 $settingsStore,
-                $staticStore.data,
+                $staticStore,
                 (char) => leftPad(
                     100000 - Math.floor(char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0),
                     6,
@@ -77,7 +77,7 @@
 
         isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
-            const week = ($userStore.data.currentPeriod[1].id - 809) % weeklyAffixes.length
+            const week = ($userStore.currentPeriod[1].id - 809) % weeklyAffixes.length
             affixes = weeklyAffixes[week]
         }
 

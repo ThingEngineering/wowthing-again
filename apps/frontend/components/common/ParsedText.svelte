@@ -37,7 +37,7 @@
                 )
                 parts.push('with')
 
-                parts.push($staticStore.data.reputations[repId]?.name ?? `Reputation #${repId}`)
+                parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`)
 
                 return parts.join(' ')
             }
@@ -51,7 +51,7 @@
                 if (currencyId) {
                     if (currencyId > 1000000) {
                         const itemId = currencyId - 1000000
-                        const item = $itemStore.data.items[itemId]
+                        const item = $itemStore.items[itemId]
                         if (item) {
                             if (short !== undefined) {
                                 return `<span data-icon="item/${itemId}"></span> ${amount}`
@@ -65,7 +65,7 @@
                         }
                     }
                     else {
-                        const currency = $staticStore.data.currencies[currencyId]
+                        const currency = $staticStore.currencies[currencyId]
                         if (currency) {
                             if (short !== undefined) {
                                 return `<span data-icon="currency/${currencyId}"></span> ${amount}`
@@ -88,7 +88,7 @@
         // {item:id}
         html = html.replaceAll(
             /\{item:(\d+)\}/g,
-            (_, itemId) => $itemStore.data.items[parseInt(itemId)]?.name || `Item #${itemId}`
+            (_, itemId) => $itemStore.items[parseInt(itemId)]?.name || `Item #${itemId}`
         )
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')

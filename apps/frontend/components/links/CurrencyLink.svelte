@@ -18,12 +18,12 @@
         url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/`
 
         if (currencyId !== undefined) {
-            currency = $staticStore.data.currencies[currencyId]
+            currency = $staticStore.currencies[currencyId]
             item = undefined
         }
         else if (itemId !== undefined) {
             currency = undefined
-            item = $itemStore.data.items[itemId]
+            item = $itemStore.items[itemId]
         }
         
         if (currency) {

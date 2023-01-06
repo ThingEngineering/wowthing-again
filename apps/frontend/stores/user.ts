@@ -39,14 +39,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            const modified = get(userModifiedStore).data.general
+            const modified = get(userModifiedStore).general
             url = url.replace('-0.json', `-${modified}.json`)
         }
         return url
     }
 
     get useAccountTags(): boolean {
-        return some(get(this).data.accounts, (a: Account) => !!a.tag)
+        return some(get(this).accounts, (a: Account) => !!a.tag)
     }
 
     initialize(userData: UserData): void {
@@ -115,8 +115,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         console.time('UserDataStore.setup')
 
-        const manualData = get(manualStore).data
-        const staticData = get(staticStore).data
+        const manualData = get(manualStore)
+        const staticData = get(staticStore)
         
         // Initialize characters
         const allLockouts: Record<string, boolean> = {}
@@ -226,7 +226,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         )
 
         this.update(state => {
-            state.data.setCounts = setCounts
+            state.setCounts = setCounts
             return state
         })
 

@@ -15,12 +15,12 @@
     let rootCriteriaTree: AchievementDataCriteriaTree
     let selectedCharacterId: number
     $: {
-        rootCriteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
+        rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
         data = getCharacterData(
-            $achievementStore.data,
-            $userAchievementStore.data,
-            $userStore.data,
-            $userQuestStore.data,
+            $achievementStore,
+            $userAchievementStore,
+            $userStore,
+            $userQuestStore,
             achievement
         )
 

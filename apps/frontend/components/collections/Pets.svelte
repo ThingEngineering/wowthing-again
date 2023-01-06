@@ -17,21 +17,21 @@
             $settingsStore,
             $collectionState,
             'pets',
-            $manualStore.data.petSets,
+            $manualStore.petSets,
             (thing: number[]) => some(
                 thing,
-                (petId) => $userStore.data.hasPet[petId] === true
+                (petId) => $userStore.hasPet[petId] === true
             )
         )
     }
     
-    const thingMapFunc = (thing: number) => $staticStore.data.pets[thing].creatureId
+    const thingMapFunc = (thing: number) => $staticStore.pets[thing].creatureId
 </script>
 
 <Collection
     route="pets"
     thingType="npc"
-    userHas={$userStore.data.hasPet}
+    userHas={$userStore.hasPet}
     {params}
     {sets}
     {thingMapFunc}

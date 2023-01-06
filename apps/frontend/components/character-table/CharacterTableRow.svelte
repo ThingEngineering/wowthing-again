@@ -23,7 +23,7 @@
     $: {
         accountEnabled =
             !character.accountId ||
-            $userStore.data.accounts[character.accountId]?.enabled
+            $userStore.accounts[character.accountId]?.enabled
     }
 </script>
 
@@ -70,7 +70,7 @@
         {#if intersected}
             {#each $settingsStore.layout.commonFields as field}
                 {#if field === 'accountTag' && userStore.useAccountTags}
-                    <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
+                    <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td>
 
                 {:else if field === 'characterIconClass'}
                     <TableIcon padLeft="0.1rem" padRight="0px">

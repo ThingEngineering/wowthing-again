@@ -6,7 +6,7 @@ import { userStore } from '@/stores'
 
 
 export function getWeeklyAffixes(character: Character): MythicPlusAffix[] {
-    const userData = get(userStore).data
+    const userData = get(userStore)
     return weeklyAffixes[(userData.currentPeriod[character.realm.region].id - 809) % weeklyAffixes.length]
 }
 

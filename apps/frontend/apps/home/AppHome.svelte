@@ -60,16 +60,16 @@
         if (!error && loaded) {
             manualStore.setup(
                 $settingsStore,
-                $userStore.data,
-                $userAchievementStore.data,
-                $userQuestStore.data,
-                $userTransmogStore.data,
+                $userStore,
+                $userAchievementStore,
+                $userQuestStore,
+                $userTransmogStore,
                 $zoneMapState,
             )
 
             userStore.setup(
                 $settingsStore,
-                $userStore.data,
+                $userStore,
             )
 
             userTransmogStore.setup(
@@ -78,23 +78,23 @@
 
             userVendorStore.setup(
                 $settingsStore,
-                $userStore.data,
-                $userTransmogStore.data,
+                $userStore,
+                $userTransmogStore,
                 $vendorState
             )
 
             journalStore.setup(
                 $settingsStore,
-                $journalStore.data,
+                $journalStore,
                 $journalState,
-                $manualStore.data,
-                $staticStore.data,
-                $userStore.data,
-                $userTransmogStore.data
+                $manualStore,
+                $staticStore,
+                $userStore,
+                $userTransmogStore,
             )
 
             itemStore.setup(
-                $manualStore.data,
+                $manualStore,
             )
 
             ready = true
@@ -102,8 +102,8 @@
     }
     
     $: {
-        if (ready && !$userStore.data.public && $userStore.data.lastApiCheck) {
-                const parsedTime = parseApiTime($userStore.data.lastApiCheck)
+        if (ready && !$userStore.public && $userStore.lastApiCheck) {
+                const parsedTime = parseApiTime($userStore.lastApiCheck)
                 const diff = $timeStore.diff(parsedTime).toMillis()
                 // Add the refresh button if lastApiCheck is more than 24 hours ago
                 if (diff > (24 * 60 * 60 * 1000)) {

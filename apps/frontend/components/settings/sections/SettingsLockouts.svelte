@@ -18,7 +18,7 @@
     let instanceFilter: string
 
     const allInstances: SettingsChoice[] = sortBy(
-        Object.values($staticStore.data.instances)
+        Object.values($staticStore.instances)
             .filter((instance) => instance !== null && !ignoredLockoutInstances[instance.id]),
         (instance) => instance.expansion
     ).map((instance) => ({

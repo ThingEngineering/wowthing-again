@@ -28,7 +28,7 @@
     let isPublic: boolean
     let playedTotal: number
     $: {
-        isPublic = $userStore.data.public
+        isPublic = $userStore.public
 
         commonSpan = $settingsStore.layout.commonFields
             .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))

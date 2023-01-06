@@ -10,7 +10,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            const modified = get(userModifiedStore).data.quests
+            const modified = get(userModifiedStore).quests
             url = url.replace(/\/(?:public|private).+$/, `/quests-${modified}.json`)
         }
         return url

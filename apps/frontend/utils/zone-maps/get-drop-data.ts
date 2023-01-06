@@ -14,9 +14,9 @@ export interface DropData {
 }
 
 export function getDropData(drop: ManualDataZoneMapDrop): DropData {
-    //const achievementData = get(achievementStore).data
-    const itemData = get(itemStore).data
-    const staticData = get(staticStore).data
+    //const achievementData = get(achievementStore)
+    const itemData = get(itemStore)
+    const staticData = get(staticStore)
 
     const ret = {
         linkId: 0,

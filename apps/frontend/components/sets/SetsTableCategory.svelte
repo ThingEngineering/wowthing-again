@@ -27,7 +27,7 @@
     $: {
         anyClass = some(category.groups, (group) => group.type === 'class')
 
-        const categoryHas = $userTransmogStore.data.stats[`${slugs[0]}--${category.slug}`]
+        const categoryHas = $userTransmogStore.stats[`${slugs[0]}--${category.slug}`]
         categoryPercent = categoryHas.have / categoryHas.total * 100
         
         setKey = slugs.join('--')
@@ -40,7 +40,7 @@
             else {
                 key = `${slugs[0]}--${category.slug}--${groupIndex}`
             }
-            const hasData = $userTransmogStore.data.stats[key]
+            const hasData = $userTransmogStore.stats[key]
             return hasData ? hasData.have / hasData.total * 100 : 0
         }
     }
@@ -296,7 +296,7 @@
         </tr>
     {/if}
 
-    {#each getFilteredSets($settingsStore, $userTransmogStore.data, group) as [setShow, setName], setIndex}
+    {#each getFilteredSets($settingsStore, $userTransmogStore, group) as [setShow, setName], setIndex}
         {#if setShow}
             <tr class:faded={setName.endsWith('*')}>
                 <td class="percent-cell">

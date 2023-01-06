@@ -24,7 +24,7 @@
     let totalCosts: Record<string, Record<number, number>>
     $: {
         categories = find(
-            $manualStore.data.vendors.sets,
+            $manualStore.vendors.sets,
             (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
         )
         if (categories) {
@@ -48,7 +48,7 @@
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
                 for (const thing of group.sellsFiltered) {
-                    if (!$userVendorStore.data.userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
+                    if (!$userVendorStore.userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
                         for (const currency in thing.costs) {
                             totalCosts['OVERALL'][currency] = (totalCosts['OVERALL'][currency] || 0) + thing.costs[currency]
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
@@ -342,10 +342,10 @@
             {#if firstCategory && !slug2}
                 <SectionTitle
                     title={firstCategory.name}
-                    count={$userVendorStore.data.stats[`${slug1}`]}
+                    count={$userVendorStore.stats[`${slug1}`]}
                 >
                     <span class="costs">
-                        {#each getCurrencyCosts($itemStore.data, $staticStore.data, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
+                        {#each getCurrencyCosts($itemStore, $staticStore, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
                             <div>
                                 <CurrencyLink
                                     currencyId={linkType === 'currency' ? linkId : undefined}
@@ -369,11 +369,11 @@
                 {@const useV2 = category.groups.length > 3 && category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30}
                 <SectionTitle
                     title={category.name}
-                    count={$userVendorStore.data.stats[`${slug1}--${category.slug}`]}
+                    count={$userVendorStore.stats[`${slug1}--${category.slug}`]}
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each getCurrencyCosts($itemStore.data, $staticStore.data, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
+                            {#each getCurrencyCosts($itemStore, $staticStore, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
                                 <div>
                                     <CurrencyLink
                                         currencyId={linkType === 'currency' ? linkId : undefined}
@@ -396,7 +396,7 @@
                     {#each category.groups as group, groupIndex}
                         {#if group.sellsFiltered.length > 0}
                             <Group
-                                stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
+                                stats={$userVendorStore.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                                 {group}
                                 {useV2}
                             />

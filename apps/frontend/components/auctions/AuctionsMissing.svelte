@@ -179,7 +179,7 @@
                     {#if !ignored}
                         <tbody>
                             {#each item.auctions as auction}
-                                {@const connectedRealm = $staticStore.data.connectedRealms[auction.connectedRealmId]}
+                                {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
                                 <tr>
                                     <td
                                         class="realm text-overflow"

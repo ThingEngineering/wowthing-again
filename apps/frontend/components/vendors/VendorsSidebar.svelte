@@ -11,19 +11,19 @@
     let categories: SidebarItem[] = []
     let overall: UserCount
     $: {
-        categories = $manualStore.data.vendors.sets.map((cat) => cat === null ? null : ({
+        categories = $manualStore.vendors.sets.map((cat) => cat === null ? null : ({
             children: cat.slice(1),
             ...cat[0],
         }))
 
-        overall = $userVendorStore.data.stats['OVERALL']
+        overall = $userVendorStore.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userVendorStore.data.stats[slug]
+        const hasData = $userVendorStore.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>

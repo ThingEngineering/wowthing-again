@@ -91,7 +91,7 @@
                                     border={1}
                                 />
 
-                                {@const itemName = $itemStore.data.items[rewards.itemId]?.name}
+                                {@const itemName = $itemStore.items[rewards.itemId]?.name}
                                 <span class="quality{rewards.quality}">{itemName || `Item ${rewards.itemId}`}</span>
 
                                 {#if rewards.quantity > 1}
@@ -99,7 +99,7 @@
                                 {/if}
 
                             {:else if rewards.currencyId > 0}
-                                {@const currency = $staticStore.data.currencies[rewards.currencyId]}
+                                {@const currency = $staticStore.currencies[rewards.currencyId]}
 
                                 <WowthingImage
                                     name="currency/{rewards.currencyId}"

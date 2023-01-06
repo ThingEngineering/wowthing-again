@@ -10,7 +10,7 @@ import { InventorySlot } from '@/enums'
 import {CharacterMythicPlusRunMember} from '@/types'
 
 export default function initializeCharacter(character: Character): void {
-    const staticData = get(staticStore).data
+    const staticData = get(staticStore)
 
     // realm
     character.realm = staticData.realms[character.realmId]

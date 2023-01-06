@@ -23,7 +23,7 @@
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => string
     $: {
-        category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
+        category = find($staticStore.reputationSets, (r) => r?.slug === slug)
         if (!category) {
             break $
         }
@@ -57,7 +57,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
 </script>

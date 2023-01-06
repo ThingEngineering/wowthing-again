@@ -16,7 +16,7 @@
 
     $: {
         difficulty = instanceDifficulty.difficulty
-        instance = $staticStore.data.instances[instanceDifficulty.instanceId]
+        instance = $staticStore.instances[instanceDifficulty.instanceId]
     }
 
     $: {

@@ -34,7 +34,7 @@
             }
             dataSlug = `${params.slug1}--${params.slug2}`
 
-            sets = $appearanceStore.data.appearances[dataSlug]
+            sets = $appearanceStore.appearances[dataSlug]
         }
     }
 </script>
@@ -74,7 +74,7 @@
     {#if name && sets}
         <div class="collection thing-container">
             <SectionTitle
-                count={$appearanceStore.data.stats[dataSlug]}
+                count={$appearanceStore.stats[dataSlug]}
                 title={name}
             />
             

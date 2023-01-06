@@ -29,7 +29,7 @@
 
     let isPublic: boolean
     $: {
-        isPublic = $userStore.data.public
+        isPublic = $userStore.public
     }
 </script>
 

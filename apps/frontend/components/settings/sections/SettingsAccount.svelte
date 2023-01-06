@@ -167,7 +167,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each sortBy(Object.values($userStore.data.accounts), (a) => a.accountId) as account}
+            {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account}
                 <tr>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
@@ -187,7 +187,7 @@
                         />
                     </td>
                     <td class="account-characters">
-                        {#each getAccountCharacters($userStore.data, account.id) as character, characterIndex}
+                        {#each getAccountCharacters($userStore, account.id) as character, characterIndex}
                             {characterIndex > 0 ? ', ' : ''}
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}

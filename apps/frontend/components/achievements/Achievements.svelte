@@ -32,7 +32,7 @@
         if (!error && loaded) {
             userAchievementStore.setup(
                 $achievementState,
-                $achievementStore.data
+                $achievementStore
             )
             ready = true
         }

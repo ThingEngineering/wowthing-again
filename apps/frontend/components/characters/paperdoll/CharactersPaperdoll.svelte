@@ -14,8 +14,8 @@
     let characterImage: string
     let filter: string
     $: {
-        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsStore.characters.defaultBackgroundId : selected]
-        characterImage = $userStore.data.images[`${character.id}-2`]
+        backgroundImage = $userStore.backgrounds[selected === -1 ? $settingsStore.characters.defaultBackgroundId : selected]
+        characterImage = $userStore.images[`${character.id}-2`]
 
         if (backgroundImage) {
             const filterParts: string[] = []
@@ -176,7 +176,7 @@
 
 <div
     class="paperdoll race-{character.raceId}"
-    class:paperdoll-configurable={!$userStore.data.public}
+    class:paperdoll-configurable={!$userStore.public}
     style:--background-image={backgroundImage ? `url(https://img.wowthing.org/backgrounds/${backgroundImage.filename})` : undefined}
     style:--background-filter={filter}
 >
@@ -224,7 +224,7 @@
     {/if}
 </div>
 
-{#if !$userStore.data.public}
+{#if !$userStore.public}
     <Configure
         bind:backgroundBrightness={character.configuration.backgroundBrightness}
         bind:backgroundSaturation={character.configuration.backgroundSaturation}

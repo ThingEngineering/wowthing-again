@@ -24,7 +24,7 @@
 
             for (const slot in character.equippedItems) {
                 const item = character.equippedItems[slot]
-                const tierSlot = $itemStore.data.currentTier[item.itemId]
+                const tierSlot = $itemStore.currentTier[item.itemId]
                 if (tierSlot) {
                     tierCount++
                     tierPieceMap[tierSlot] = item.itemLevel

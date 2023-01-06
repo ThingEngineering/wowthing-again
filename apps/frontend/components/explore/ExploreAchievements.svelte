@@ -28,7 +28,7 @@
         if (!error && loaded) {
             userAchievementStore.setup(
                 $achievementState,
-                $achievementStore.data
+                $achievementStore
             )
             ready = true
         }
@@ -36,7 +36,7 @@
 
     $: {
         if (ready) {
-            achievement = $achievementStore.data.achievement[$exploreState.achievementId]
+            achievement = $achievementStore.achievement[$exploreState.achievementId]
         }
     }
 </script>

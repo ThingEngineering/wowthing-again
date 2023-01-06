@@ -17,8 +17,8 @@
     let sections: [string, ManualDataIllusionGroup[]][]
     $: {
         sections = [
-            ['Available', $manualStore.data.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
-            ['Unavailable', $manualStore.data.illusions.filter((group) => group.name.startsWith('Unavailable'))],
+            ['Available', $manualStore.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
+            ['Unavailable', $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))],
         ]
     }
 </script>
@@ -115,8 +115,8 @@
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}
-                                {@const illusion = find($staticStore.data.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId] === true}
+                                {@const illusion = find($staticStore.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
+                                {@const have = $userTransmogStore.hasIllusion[illusion.enchantmentId] === true}
                                 <div
                                     class="collection-object"
                                     class:missing={

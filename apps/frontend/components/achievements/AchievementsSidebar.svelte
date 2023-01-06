@@ -14,12 +14,12 @@
                 children: [],
             },
             null,
-            ...$achievementStore.data.categories,
+            ...$achievementStore.categories,
         ]
     }
 
     const percentFunc = function(entry: SidebarItem): number {
-        const cat = $userAchievementStore.data.achievementCategories[entry.id]
+        const cat = $userAchievementStore.achievementCategories[entry.id]
         return cat ? cat.have / cat.total * 100 : 0
     }
 </script>

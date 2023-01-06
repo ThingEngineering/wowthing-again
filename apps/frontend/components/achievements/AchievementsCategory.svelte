@@ -18,7 +18,7 @@
     let achievementIds: number[]
     let category: AchievementDataCategory
     $: {
-        category = find($achievementStore.data.categories, (c) => c !== null && c.slug === slug1)
+        category = find($achievementStore.categories, (c) => c !== null && c.slug === slug1)
         if (slug2) {
             category = find(category.children, (c) => c !== null && c.slug === slug2)
         }
@@ -30,13 +30,13 @@
             category.slug === 'back-from-the-beyond' ? category.achievementIds : sortBy(
                 category.achievementIds,
                 id => [
-                    $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
-                    leftPad($achievementStore.data.achievement[id].order, 4, '0'),
+                    $userAchievementStore.achievements[id] === undefined ? '1' : '0',
+                    leftPad($achievementStore.achievement[id].order, 4, '0'),
                     leftPad(100000 - id, 6, '0')
                 ].join('|')
             ),
             (id) => {
-                const faction = $achievementStore.data.achievement[id].faction
+                const faction = $achievementStore.achievement[id].faction
                 return (
                     (faction === -1) ||
                     (faction === 1 && $achievementState.showAlliance) ||

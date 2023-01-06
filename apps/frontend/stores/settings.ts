@@ -22,7 +22,7 @@ export const settingsStore = {
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => {
-                    const oldData = get(userModifiedStore).data
+                    const oldData = get(userModifiedStore)
                     const oldAchievements = oldData.achievements
                     const oldGeneral = oldData.general
                     const oldQuests = oldData.quests
@@ -30,7 +30,7 @@ export const settingsStore = {
 
                     await userModifiedStore.fetch({ evenIfLoaded: true })
 
-                    const newData = get(userModifiedStore).data
+                    const newData = get(userModifiedStore)
                     if (oldAchievements < newData.achievements) {
                         userAchievementStore.fetch({ evenIfLoaded: true })
                     }

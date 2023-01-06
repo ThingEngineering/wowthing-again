@@ -17,12 +17,12 @@
     let professions: [StaticDataProfession, CharacterProfession, boolean][]
     $: {
         professions = []
-        for (const professionId in $staticStore.data.professions) {
+        for (const professionId in $staticStore.professions) {
             if (professionId === '794' && !$settingsStore.layout.includeArchaeology) {
                 continue
             }
 
-            const profession: StaticDataProfession = $staticStore.data.professions[professionId]
+            const profession: StaticDataProfession = $staticStore.professions[professionId]
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
                     let found = false

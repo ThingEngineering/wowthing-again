@@ -49,7 +49,7 @@
                 children: weaponChildren,
             }
         ]
-        stats = $appearanceStore.data.stats['OVERALL']
+        stats = $appearanceStore.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -60,7 +60,7 @@
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $appearanceStore.data.stats[slug]
+        const hasData = $appearanceStore.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 

@@ -6,7 +6,7 @@
 
     let categories: SidebarItem[] = []
     $: {
-        categories = $staticStore.data.reputationSets.map((set) => set === null ? null : ({
+        categories = $staticStore.reputationSets.map((set) => set === null ? null : ({
             children: [],
             ...set,
         }))

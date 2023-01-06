@@ -17,7 +17,7 @@
     let skipClasses: Record<string, boolean>
     $: {
         categories = filter(
-            find($manualStore.data.transmog.setsV2, (s) => s !== null && s[0].slug === slug1),
+            find($manualStore.transmog.setsV2, (s) => s !== null && s[0].slug === slug1),
             (s) => s.groups.length > 0
         )
         if (slug2) {

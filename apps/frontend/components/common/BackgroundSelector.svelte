@@ -49,7 +49,7 @@
 </style>
 
 <div class="backgrounds">
-    {#each $userStore.data.backgroundList as background}
+    {#each $userStore.backgroundList as background}
         <div
             class="background border"
             class:selected={selected === background.id}

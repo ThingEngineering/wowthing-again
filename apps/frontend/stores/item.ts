@@ -45,15 +45,15 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         manualData: ManualData,
     ) {
         this.update((state) => {
-            state.data.currentTier = {}
+            state.currentTier = {}
 
             for (const set of manualData.shared.itemSets) {
                 if (currentTier.sets[set.name]) {
                     for (const itemIds of set.items) {
-                        const item = this.value.data.items[itemIds[0]]
+                        const item = this.value.items[itemIds[0]]
                         if (currentTier.slots.indexOf(item.inventoryType) >= 0)
                         {
-                            state.data.currentTier[item.id] = item.inventoryType
+                            state.currentTier[item.id] = item.inventoryType
                         }
                     }
                 }

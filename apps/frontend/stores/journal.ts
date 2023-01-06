@@ -368,7 +368,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         }
 
         this.update((state) => {
-            state.data.stats = stats
+            state.stats = stats
             return state
         })
 

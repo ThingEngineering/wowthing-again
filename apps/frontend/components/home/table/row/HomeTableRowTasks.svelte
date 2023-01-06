@@ -10,7 +10,7 @@
 
     export let character: Character
 
-    $: activeHoliday = getActiveHoliday($userStore.data, character.realm.region)
+    $: activeHoliday = getActiveHoliday($userStore, character.realm.region)
 </script>
 
 {#each $settingsStore.layout.homeTasks as taskName}

@@ -8,9 +8,9 @@ import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
 export function getDropName(drop: ManualDataZoneMapDrop): string {
-    const achievementData = get(achievementStore).data
-    const itemData = get(itemStore).data
-    const staticData = get(staticStore).data
+    const achievementData = get(achievementStore)
+    const itemData = get(itemStore)
+    const staticData = get(staticStore)
 
     if (drop.type === RewardType.Item ||
         drop.type === RewardType.Cosmetic ||

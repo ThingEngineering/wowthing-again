@@ -17,22 +17,22 @@
             $settingsStore,
             $collectionState,
             'mounts',
-            $manualStore.data.mountSets,
+            $manualStore.mountSets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.hasMount[value] === true
+                (value) => $userStore.hasMount[value] === true
             )
         )
         
     }
     
-    const thingMapFunc = (thing: number) => $staticStore.data.mounts[thing].spellId
+    const thingMapFunc = (thing: number) => $staticStore.mounts[thing].spellId
 </script>
 
 <Collection
     route="mounts"
     thingType="spell"
-    userHas={$userStore.data.hasMount}
+    userHas={$userStore.hasMount}
     {params}
     {sets}
     {thingMapFunc}

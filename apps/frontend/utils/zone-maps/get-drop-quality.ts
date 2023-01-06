@@ -6,7 +6,7 @@ import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
 export function getDropQuality(drop: ManualDataZoneMapDrop): number {
-    const itemData = get(itemStore).data
+    const itemData = get(itemStore)
     
     if (drop.type === RewardType.Item ||
         drop.type === RewardType.Toy ||

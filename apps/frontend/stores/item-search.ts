@@ -37,7 +37,7 @@ export class ItemSearchState {
 
         if (response.ok) {
             const result = await response.json() as ItemSearchResponseItem[]
-            const userData = get(userStore).data
+            const userData = get(userStore)
 
             for (const item of result) {
                 // Combine character items into a single stack

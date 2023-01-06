@@ -8,7 +8,7 @@
     let categories: AchievementDataCategory[]
     $: {
         categories = []
-        for (const category of $achievementStore.data.categories) {
+        for (const category of $achievementStore.categories) {
             if (category === null) {
                 break
             }
@@ -51,8 +51,8 @@
     <div class="summary-points thing-container">
         <ProgressBar
             title="Overall"
-            have={$userAchievementStore.data.achievementCategories[0].have}
-            total={$userAchievementStore.data.achievementCategories[0].total}
+            have={$userAchievementStore.achievementCategories[0].have}
+            total={$userAchievementStore.achievementCategories[0].total}
             --bar-height="2.5rem"
         />
 
@@ -60,15 +60,15 @@
             {#each categories as category}
                 <ProgressBar
                     title={category.name}
-                    have={$userAchievementStore.data.achievementCategories[category.id].have}
-                    total={$userAchievementStore.data.achievementCategories[category.id].total}
+                    have={$userAchievementStore.achievementCategories[category.id].have}
+                    total={$userAchievementStore.achievementCategories[category.id].total}
                 />
             {/each}
         </div>
     </div>
 
     <div class="summary-recent">
-        {#each $userAchievementStore.data.achievementRecent as recent}
+        {#each $userAchievementStore.achievementRecent as recent}
             <AchievementsAchievement
                 achievementId={recent}
                 alwaysShow={true}

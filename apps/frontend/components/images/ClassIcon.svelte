@@ -16,7 +16,7 @@
     let cls: StaticDataCharacterClass
     let tooltip: string
     $: {
-        cls = characterClass || $staticStore.data.characterClasses[character?.classId ?? classId]
+        cls = characterClass || $staticStore.characterClasses[character?.classId ?? classId]
         if (useTooltip) {
             tooltip = getGenderedName(cls?.name ?? `Unknown class`, character?.gender ?? 0)
         }

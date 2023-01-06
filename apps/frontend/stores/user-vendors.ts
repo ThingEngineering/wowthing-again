@@ -24,9 +24,9 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     ): void {
         // console.time('UserVendorStore.setup')
 
-        const itemData = get(itemStore).data
-        const manualData = get(manualStore).data
-        const staticData = get(staticStore).data
+        const itemData = get(itemStore)
+        const manualData = get(manualStore)
+        const staticData = get(staticStore)
 
         const classMask = getTransmogClassMask(settingsData)
         const masochist = settingsData.transmog.completionistMode
@@ -191,8 +191,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
         }
 
         this.update((state) => {
-            state.data.stats = stats
-            state.data.userHas = userHas
+            state.stats = stats
+            state.userHas = userHas
             return state
         })
 

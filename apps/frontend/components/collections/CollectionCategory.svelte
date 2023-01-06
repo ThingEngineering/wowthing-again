@@ -47,7 +47,7 @@
     {#if category.name}
         <SectionTitle
             title={category.name}
-            count={$userStore.data.setCounts[route][`${slug1}--${category.slug}`]}
+            count={$userStore.setCounts[route][`${slug1}--${category.slug}`]}
         />
     {/if}
 
@@ -58,7 +58,7 @@
                 style={useV2 ? '' : `width: min(100%, calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem)));`}
             >
                 <h4
-                    class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
+                    class="drop-shadow text-overflow {getPercentClass($userStore.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
                     use:tippy={group.name}
                 >
                     <ParsedText text={group.name} />

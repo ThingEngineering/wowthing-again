@@ -10,7 +10,7 @@
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}
-    for (const character of $userStore.data.characters) {
+    for (const character of $userStore.characters) {
         crIds[character.realm.connectedRealmId] = true
         realmNames[character.realm.name] = true
     }
@@ -19,7 +19,7 @@
         .filter((crId) => $settingsStore.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
 
     const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds)
-        .map((crId) => $staticStore.data.connectedRealms[parseInt(crId)])
+        .map((crId) => $staticStore.connectedRealms[parseInt(crId)])
     connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText))
 
     $: debouncedUpdateSettings(shownRealms)

@@ -38,7 +38,7 @@
     }
 
     $: {
-        categories = find($manualStore.data.progressSets, (p) => p !== null && p[0].slug === slug1) || []
+        categories = find($manualStore.progressSets, (p) => p !== null && p[0].slug === slug1) || []
         if (categories.length === 0) {
             break $
         }
@@ -62,7 +62,7 @@
                 return false
             }
             if (requiredQuestIds.length > 0 &&
-                !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id))) {
+                !some(requiredQuestIds, (id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
             if (
@@ -75,8 +75,8 @@
         }
 
         const characters: Character[] = filterFunc ?
-            $userStore.data.characters.filter((char) => filterFunc(char)) :
-            $userStore.data.characters
+            $userStore.characters.filter((char) => filterFunc(char)) :
+            $userStore.characters
 
         progress = {}
         for (const category of categories) {
@@ -88,10 +88,10 @@
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
                     const data = progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
-                        $staticStore.data,
-                        $userStore.data,
-                        $userAchievementStore.data,
-                        $userQuestStore.data,
+                        $staticStore,
+                        $userStore,
+                        $userAchievementStore,
+                        $userQuestStore,
                         character,
                         category,
                         group,
@@ -117,14 +117,14 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data, (char) => {
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) => {
                 const data = progress[`${order}|${char.id}`]
                 return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
             })
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
 </script>

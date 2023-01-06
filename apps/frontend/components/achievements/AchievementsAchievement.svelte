@@ -22,8 +22,8 @@
     let chain: number[]
     let faction: number
     $: {
-        achievement = $achievementStore.data.achievement[achievementId]
-        earned = $userAchievementStore.data.achievements[achievementId]
+        achievement = $achievementStore.achievement[achievementId]
+        earned = $userAchievementStore.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
         show = true
@@ -49,19 +49,19 @@
 
         // Hack for some weird achievements that don't reference future ones properly
         if (achievement.supersededBy && (
-            $userAchievementStore.data.achievements[achievement.supersededBy] ||
-            $userAchievementStore.data.achievements[$achievementStore.data.achievement[achievement.supersededBy].supersededBy]
+            $userAchievementStore.achievements[achievement.supersededBy] ||
+            $userAchievementStore.achievements[$achievementStore.achievement[achievement.supersededBy].supersededBy]
         )) {
             show = false
         }
-        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.data.achievements[achievement.supersedes] === undefined) {
+        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.achievements[achievement.supersedes] === undefined) {
             show = false
         }
         else {
             let sigh = achievement
             while (sigh?.supersedes) {
                 chain.push(sigh.supersedes)
-                sigh = $achievementStore.data.achievement[sigh.supersedes]
+                sigh = $achievementStore.achievement[sigh.supersedes]
             }
             chain.reverse()
 
@@ -73,7 +73,7 @@
                 sigh = achievement
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy)
-                    sigh = $achievementStore.data.achievement[sigh.supersededBy]
+                    sigh = $achievementStore.achievement[sigh.supersededBy]
                 }
             }
         }
@@ -88,7 +88,7 @@
             ) {
                 show = false
             }
-            else if (!earned && $achievementStore.data.isHidden[achievementId]) {
+            else if (!earned && $achievementStore.isHidden[achievementId]) {
                 show = false
             }
             else if (kindaAlwaysShow) {
@@ -257,7 +257,7 @@
         {#if chain.length > 0}
             <div class="chain">
                 {#each chain as chainId}
-                    {@const chainEarned = $userAchievementStore.data.achievements[chainId] !== undefined}
+                    {@const chainEarned = $userAchievementStore.achievements[chainId] !== undefined}
                     <div
                         class="chain-icon"
                         class:completed={chainEarned}
@@ -269,9 +269,9 @@
                                 border={2} />
                         </AchievementLink>
 
-                        {#if $achievementStore.data.achievement[chainId]}
+                        {#if $achievementStore.achievement[chainId]}
                             <span class="pill abs-center">
-                                {$achievementStore.data.achievement[chainId].points}
+                                {$achievementStore.achievement[chainId].points}
                             </span>
                         {/if}
 

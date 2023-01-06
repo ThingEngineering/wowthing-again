@@ -82,7 +82,7 @@
 
         const xsrf = document.getElementById('app').getAttribute('data-xsrf')
         const data = {
-            accounts: $userStore.data.accounts,
+            accounts: $userStore.accounts,
             settings: $settingsStore,
         }
 
@@ -102,7 +102,7 @@
 
             userStore.update(state => {
                 for (const account of json.accounts as Account[]) {
-                    state.data.accounts[account.id] = account
+                    state.accounts[account.id] = account
                 }
                 return state
             })

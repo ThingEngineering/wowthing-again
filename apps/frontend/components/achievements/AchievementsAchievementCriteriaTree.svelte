@@ -23,12 +23,12 @@
     let linkParams: Record<string, string>
     let linkType: string
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
-        criteria = $achievementStore.data.criteria[criteriaTree?.criteriaId]
+        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId]
+        criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
         description = criteriaTree.description
 
         if (characterId > 0) {
-            const charCriteria = ($userAchievementStore.data.criteria[criteriaTreeId] || [])
+            const charCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
                 .filter((crit) => crit[0] === characterId)
             have = (
                 charCriteria.length > 0 && (
@@ -46,9 +46,9 @@
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
-            const criteria = $achievementStore.data.criteria[criteriaTree.criteriaId]
+            const criteria = $achievementStore.criteria[criteriaTree.criteriaId]
             if (criteria?.type === CriteriaType.EarnAchievement) {
-                description = $achievementStore.data.achievement[criteria.asset]?.name ?? `Achievement #${criteria.asset}`
+                description = $achievementStore.achievement[criteria.asset]?.name ?? `Achievement #${criteria.asset}`
             }
             else if (criteria?.type === CriteriaType.CastSpell) {
                 description = `Cast spell #${criteria.asset}`
@@ -86,7 +86,7 @@
                 linkType = 'achievement'
                 linkId = criteria.asset
                 
-                const earned = $userAchievementStore.data.achievements[criteria.asset]
+                const earned = $userAchievementStore.achievements[criteria.asset]
                 if (earned) {
                     linkParams['who'] = 'You'
                     linkParams['when'] = earned.toString() + '000'
@@ -100,7 +100,7 @@
                 criteria.type === CriteriaType.AccountKnowsPet ||
                 criteria.type === CriteriaType.ObtainPetThroughBattle
             ) {
-                const pet = $staticStore.data.petsByName[criteriaTree.description]
+                const pet = $staticStore.petsByName[criteriaTree.description]
                 if (pet) {
                     linkType = 'npc'
                     linkId = pet.creatureId

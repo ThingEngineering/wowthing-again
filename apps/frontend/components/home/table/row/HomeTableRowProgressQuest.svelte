@@ -30,7 +30,7 @@
             character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
             (
                 !task?.requiredQuestId ||
-                $userQuestStore.data.characters[character.id]?.quests?.has(task.requiredQuestId)
+                $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId)
             )
         ) {
             actualQuest = quest
@@ -47,8 +47,8 @@
             }
 
             // Check other characters for a quest title
-            for (const characterId in $userQuestStore.data.characters) {
-                const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[actualQuest]
+            for (const characterId in $userQuestStore.characters) {
+                const characterQuest = $userQuestStore.characters[characterId]?.progressQuests?.[actualQuest]
                 if (characterQuest) {
                     if (actualQuest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
                         continue
@@ -64,7 +64,7 @@
                 title = taskMap[actualQuest]?.name
             }
 
-            progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[actualQuest]
+            progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[actualQuest]
             if (progressQuest) {
                 const expires: DateTime = DateTime.fromSeconds(progressQuest.expires)
 

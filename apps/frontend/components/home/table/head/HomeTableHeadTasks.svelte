@@ -9,8 +9,8 @@
 
     let activeHoliday: string
     $: {
-        const firstRegion = $userStore.data.allRegions?.[0] || 1
-        activeHoliday = getActiveHoliday($userStore.data, firstRegion)
+        const firstRegion = $userStore.allRegions?.[0] || 1
+        activeHoliday = getActiveHoliday($userStore, firstRegion)
     }
 </script>
 

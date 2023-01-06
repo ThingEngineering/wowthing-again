@@ -10,12 +10,12 @@
 
     import MagicLists from '../../SettingsMagicLists.svelte'
 
-    const allCharacters: SettingsChoice[] = $userStore.data.characters.map((char) => ({
+    const allCharacters: SettingsChoice[] = $userStore.characters.map((char) => ({
         key: char.id.toString(),
         name: `${char.name}-${char.realm.name}`,
     }))
 
-    const sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+    const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
 
     const activeCharacters = sortBy(
         filter(
@@ -29,7 +29,7 @@
             allCharacters,
             (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
         ),
-        (char) => sortFunc($userStore.data.characterMap[parseInt(char.key)])
+        (char) => sortFunc($userStore.characterMap[parseInt(char.key)])
     )
 
     const onFunc = debounce(() => {

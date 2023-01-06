@@ -23,7 +23,7 @@
     let sorted: boolean
     let sortFunc: (char: Character) => string
     $: {
-        category = find($staticStore.data.currencyCategories, (cat) => cat.slug === params.slug1)
+        category = find($staticStore.currencyCategories, (cat) => cat.slug === params.slug1)
         if (params.slug2) {
             category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2)
         }
@@ -35,11 +35,11 @@
         slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1
 
         currencies = sortBy(
-            Object.values($staticStore.data.currencies)
+            Object.values($staticStore.currencies)
                 .filter((c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id)
                 .concat(
                     (currencyExtra[category.id] || [])
-                        .map((id) => $staticStore.data.currencies[id])
+                        .map((id) => $staticStore.currencies[id])
                 ),
             (c) => c.name
         )
@@ -47,7 +47,7 @@
         const order = $currencyState.sortOrder[slugKey]
         if (order > 0) {
             sorted = true
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data, (char) => leftPad(1000000 - (
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) => leftPad(1000000 - (
                 char.currencyItems?.[order] ??
                 char.currencies?.[order]?.quantity ??
                 -1
@@ -55,7 +55,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
 </script>

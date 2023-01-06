@@ -5,6 +5,6 @@ import getRealmName from '@/utils/get-realm-name'
 
 
 export function getCharacterNameRealm(characterId: number): string {
-    const character = get(userStore).data.characterMap[characterId]
+    const character = get(userStore).characterMap[characterId]
     return `${character.name} - ${getRealmName(character.realmId)}`
 }

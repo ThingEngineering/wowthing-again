@@ -17,7 +17,7 @@
         progresses = []
         for (const difficulty of ['mythic', 'heroic', 'normal']) {
             const questKey = group.data[difficulty][0].name
-            const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[questKey]
+            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey]
 
             let cls: string
             if (progresses.length > 0 && progresses[progresses.length - 1].completed) {

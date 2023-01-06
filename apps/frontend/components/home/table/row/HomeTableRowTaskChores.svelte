@@ -44,7 +44,7 @@
                 let haveCount = 0
                 for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                     const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
-                    const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[dropKey]
+                    const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
                     if (progressQuest?.status === QuestStatus.Completed) {
                         haveCount++
                     }
@@ -59,7 +59,7 @@
                 }
             }
             else {
-                const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[choreTask.taskKey]
+                const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                 if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                     status = progressQuest.status
                     if (status === QuestStatus.InProgress && progressQuest.objectives?.length > 0) {
@@ -70,7 +70,7 @@
 
             chores.push([
                 taskName === 'dfDungeonWeeklies'
-                    ? $userQuestStore.data.questNames[choreTask.taskKey] || choreTask.taskName
+                    ? $userQuestStore.questNames[choreTask.taskKey] || choreTask.taskName
                     : choreTask.taskName,
                 status,
                 statusText,

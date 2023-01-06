@@ -10,12 +10,12 @@
     let instance: StaticDataInstance
     $: {
         count = 0
-        instance = $staticStore.data.instances[instanceId]
+        instance = $staticStore.instances[instanceId]
 
         if (difficulty && instance) {
             const difficultyKey = `${instance.id}-${difficulty.id}`
 
-            for (const character of $userStore.data.characters) {
+            for (const character of $userStore.characters) {
                 const lockout = character.lockouts?.[difficultyKey]
                 if (lockout) {
                     count++

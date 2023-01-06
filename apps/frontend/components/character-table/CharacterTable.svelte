@@ -28,7 +28,7 @@
             filterFunc = () => true
         }
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
 
         groupFunc = getCharacterGroupFunc($settingsStore)
@@ -36,12 +36,12 @@
 
     $: {
         characters = filter(
-            $userStore.data.characters,
+            $userStore.characters,
             (c) => $settingsStore.characters.hiddenCharacters.indexOf(c.id) === -1 &&
                 (!skipIgnored || $settingsStore.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (
                     $settingsStore.characters.hideDisabledAccounts === false ||
-                    $userStore.data.accounts?.[c.accountId]?.enabled !== false
+                    $userStore.accounts?.[c.accountId]?.enabled !== false
                 )
         )
         characters = filter(characters, filterFunc)

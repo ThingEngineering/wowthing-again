@@ -14,21 +14,21 @@
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
 
-    const allCharacterIds: string[] = $userStore.data.characters.map((char) => char.id.toString())
+    const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString())
     
-    let hiddenCharacters: string[] = $userStore.data.characters
+    let hiddenCharacters: string[] = $userStore.characters
         .filter((char) => $settingsStore.characters.hiddenCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString())
     
-    let ignoredCharacters: string[] = $userStore.data.characters
+    let ignoredCharacters: string[] = $userStore.characters
         .filter((char) => $settingsStore.characters.ignoredCharacters.indexOf(char.id) >= 0)
         .map((char) => char.id.toString())
 
     let realms: [string, Character[]][]
     $: {
-        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
+        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         const grouped: Record<string, Character[]> = groupBy(
-            $userStore.data.characters,
+            $userStore.characters,
             (c) => `${Region[c.realm.region]}|${c.realm.name}`
         )
         for (const realmName in grouped) {

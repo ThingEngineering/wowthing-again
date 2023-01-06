@@ -19,7 +19,7 @@
     let iconName: string
     $: {
         currencies = []
-        for (const character of getFilteredCharacters($settingsStore, $userStore.data)) {
+        for (const character of getFilteredCharacters($settingsStore, $userStore)) {
             let quantity = 0
             if (currency) {
                 currencyName = currency.name

@@ -14,7 +14,7 @@
 
     $: {
         if ($appearanceStore.loaded && !$appearanceStore.error) {
-            appearanceStore.setup($userTransmogStore.data)
+            appearanceStore.setup($userTransmogStore)
         }
     }
 </script>

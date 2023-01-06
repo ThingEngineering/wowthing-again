@@ -19,7 +19,7 @@
         quality = 0
         renownLevel = null
         if (reputation !== undefined && characterRep.value !== -1) {
-            dataRep = $staticStore.data.reputations[characterRep.reputationId]
+            dataRep = $staticStore.reputations[characterRep.reputationId]
 
             const maxRenown = factionMaxRenown[characterRep.reputationId]
             const tier = characterRep.value / 2500

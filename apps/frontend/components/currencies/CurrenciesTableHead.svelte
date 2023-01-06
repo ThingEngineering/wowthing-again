@@ -17,7 +17,7 @@
     let cls: string
     let onClick: (event: Event) => void
     $: {
-        cls = itemId ? `quality${$itemStore.data.items[itemId].quality}` : 'quality1'
+        cls = itemId ? `quality${$itemStore.items[itemId].quality}` : 'quality1'
 
         onClick = function(event: Event) {
             event.preventDefault()
@@ -49,7 +49,7 @@
         component: Tooltip,
         props: {
             currency,
-            item: $itemStore.data.items[itemId],
+            item: $itemStore.items[itemId],
         }
     }}
 >

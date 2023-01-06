@@ -22,14 +22,14 @@
     let realm: StaticDataRealm
     $: {
         if (characterItem) {
-            character = $userStore.data.characterMap[characterItem.characterId]
+            character = $userStore.characterMap[characterItem.characterId]
             guild = undefined
             item = characterItem
             realm = character.realm
         }
         else {
             character = undefined
-            guild = $userStore.data.guilds[guildBankItem.guildId]
+            guild = $userStore.guilds[guildBankItem.guildId]
             item = guildBankItem
             realm = guild.realm
         }
@@ -81,12 +81,12 @@
     {#if character}
         {#if userStore.useAccountTags}
             <td class="tag">
-                {$userStore.data.accounts[character.accountId].tag || ''}
+                {$userStore.accounts[character.accountId].tag || ''}
             </td>
         {/if}
         <td class="name text-overflow">
             <a
-                class="quality{item.quality || $itemStore.data.items[itemId].quality || 0}"
+                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 {character.name}
@@ -117,6 +117,6 @@
         {toNiceNumber(characterItem?.count || guildBankItem.count)}
     </td>
     <td class="item-level">
-        {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.data.items[itemId].itemLevel || 0}
+        {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.items[itemId].itemLevel || 0}
     </td>
 </tr>

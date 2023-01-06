@@ -19,7 +19,7 @@
         for (const difficulty of journalDifficultyOrder) {
 
             const difficultyKey = `${statsKey}--${difficulty}`
-            const difficultyStats = $journalStore.data.stats[difficultyKey]
+            const difficultyStats = $journalStore.stats[difficultyKey]
             if (difficultyStats) {
                 let kills = -1
 
@@ -28,7 +28,7 @@
                     if (statisticIds.length > 0) {
                         console.log(statisticIds)
                         const newKills = statisticIds.reduce(
-                            (a, b) => a + ($userAchievementStore.data.statistics?.[b] || [])
+                            (a, b) => a + ($userAchievementStore.statistics?.[b] || [])
                                 .reduce((c, d) => c + d[1], 0)
                         , 0)
                         kills = kills === -1 ? newKills : kills + newKills

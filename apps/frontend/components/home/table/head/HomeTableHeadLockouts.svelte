@@ -11,8 +11,8 @@
     }
 </style>
 
-{#each $userStore.data.homeLockouts as {difficulty, instanceId}}
-    {@const instance = $staticStore.data.instances[instanceId]}
+{#each $userStore.homeLockouts as {difficulty, instanceId}}
+    {@const instance = $staticStore.instances[instanceId]}
     {#if instance}
         <td
             use:tippyComponent={{

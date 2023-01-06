@@ -10,7 +10,7 @@ export function getProfessionEquipment(
     character: Character,
     professionId: number
 ): Record<number, CharacterEquippedItem> {
-    const itemData = get(itemStore).data
+    const itemData = get(itemStore)
     const professionSlug = professionIdToString[professionId]
 
     const equippedItems: Record<number, CharacterEquippedItem> = {}
