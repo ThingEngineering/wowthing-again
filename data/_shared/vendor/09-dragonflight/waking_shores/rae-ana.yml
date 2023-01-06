@@ -1,0 +1,93 @@
+id: 188265
+name: "Rae'ana"
+
+locations:
+  09-dragonflight/the_waking_shores:
+    - 47.8 82
+
+sets:
+  - name: "Renown 3 Expedition Tools"
+    range: 4
+    sortKey: "de03"
+
+  - name: "Renown 7 Advanced Expedition Tools"
+    range: 3
+    sortKey: "de07"
+
+  - name: "Renown 17 Toys"
+    range: 3
+    sortKey: "de17"
+
+sells:
+  - type: transmog
+    id: 198718 # Excavator's Chisel [? dagger]
+    costs:
+      2003: 150
+      1193214: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 198387 # Excavator's Mallet [1h ? mace]
+    costs:
+      2003: 150
+      1193210: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 198717 # Excavator's Punch [? dagger]
+    costs:
+      2003: 150
+      1193210: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 199746 # Excavator's Trowel [? dagger]
+    costs:
+      2003: 150
+      1193214: 3
+    reputation: 2507 renown-3
+
+  - type: transmog
+    id: 194102 # Expedition Excavator [1h ? axe]
+    costs:
+      2003: 600
+      1190396: 5
+    reputation: 2507 renown-7
+
+  - type: transmog
+    id: 194325 # Researcher's Magnifier [1h ? mace]
+    costs:
+      2003: 600
+      1201404: 5
+    reputation: 2507 renown-7
+
+  - type: transmog
+    id: 194326 # Trusty Sweeper [1h ? mace]
+    costs:
+      2003: 600
+      1201405: 3
+    reputation: 2507 renown-7
+
+  - type: toy
+    id: 198721 # Skinny Reliquary Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
+
+  - type: toy
+    id: 198722 # Small Triangular Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
+
+  - type: toy
+    id: 198720 # Soft Purple Pillow
+    costs:
+      2003: 100
+      1193050: 20
+      1192096: 2
+    reputation: 2507 renown-17
