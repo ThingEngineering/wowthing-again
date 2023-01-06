@@ -1,7 +1,5 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import findKey from 'lodash/findKey'
     import sortBy from 'lodash/sortBy'
 
     import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
