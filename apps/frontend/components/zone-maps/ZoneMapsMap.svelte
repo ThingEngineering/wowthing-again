@@ -112,7 +112,6 @@
             return null
         }
         const sqrt = Math.ceil(Math.sqrt(len))
-        console.log(sqrt)
         return `calc(0.4rem + 1px + (24px * ${sqrt}) + (0.1rem * ${sqrt}))`
     }
 
