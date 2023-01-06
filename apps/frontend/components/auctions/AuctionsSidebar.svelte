@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
@@ -30,11 +30,11 @@
             },
         ]
 
-        if ($settings.auctions.customCategories?.length > 0) {
+        if ($settingsStore.auctions.customCategories?.length > 0) {
             categories.push(null)
-            for (let catIndex = 0; catIndex < $settings.auctions.customCategories.length; catIndex++) {
+            for (let catIndex = 0; catIndex < $settingsStore.auctions.customCategories.length; catIndex++) {
                 categories.push({
-                    name: $settings.auctions.customCategories[catIndex].name,
+                    name: $settingsStore.auctions.customCategories[catIndex].name,
                     slug: `custom-${catIndex + 1}`,
                     forceWildcard: true,
                 })

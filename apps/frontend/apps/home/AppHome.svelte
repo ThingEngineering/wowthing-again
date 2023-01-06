@@ -6,6 +6,7 @@
         itemStore,
         journalStore,
         manualStore,
+        settingsStore,
         staticStore,
         timeStore,
         userAchievementStore,
@@ -13,10 +14,9 @@
         //userStatsStore,
         userStore,
         userTransmogStore,
+        userVendorStore,
     } from '@/stores'
     import { journalState, vendorState, zoneMapState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
-    import { userVendorStore } from '@/stores/user-vendors'
     import parseApiTime from '@/utils/parse-api-time'
 
     import Refresh from './AppHomeRefresh.svelte'
@@ -25,10 +25,10 @@
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),
-        itemStore.fetch({ language: $settings.general.language }),
-        journalStore.fetch({ language: $settings.general.language }),
-        manualStore.fetch({ language: $settings.general.language }),
-        staticStore.fetch({ language: $settings.general.language }),
+        itemStore.fetch({ language: $settingsStore.general.language }),
+        journalStore.fetch({ language: $settingsStore.general.language }),
+        manualStore.fetch({ language: $settingsStore.general.language }),
+        staticStore.fetch({ language: $settingsStore.general.language }),
         userAchievementStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),
@@ -59,7 +59,7 @@
 
         if (!error && loaded) {
             manualStore.setup(
-                $settings,
+                $settingsStore,
                 $userStore.data,
                 $userAchievementStore.data,
                 $userQuestStore.data,
@@ -68,23 +68,23 @@
             )
 
             userStore.setup(
-                $settings,
+                $settingsStore,
                 $userStore.data,
             )
 
             userTransmogStore.setup(
-                $settings
+                $settingsStore
             )
 
             userVendorStore.setup(
-                $settings,
+                $settingsStore,
                 $userStore.data,
                 $userTransmogStore.data,
                 $vendorState
             )
 
             journalStore.setup(
-                $settings,
+                $settingsStore,
                 $journalStore.data,
                 $journalState,
                 $manualStore.data,

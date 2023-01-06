@@ -1,8 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getFilteredCharacters } from '@/utils/get-filtered-characters'
     import leftPad from '@/utils/left-pad'
@@ -20,7 +19,7 @@
     let iconName: string
     $: {
         currencies = []
-        for (const character of getFilteredCharacters($settings, $userStore.data)) {
+        for (const character of getFilteredCharacters($settingsStore, $userStore.data)) {
             let quantity = 0
             if (currency) {
                 currencyName = currency.name

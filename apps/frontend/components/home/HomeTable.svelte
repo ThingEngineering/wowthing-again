@@ -1,8 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { userStore } from '@/stores'
+    import { settingsStore, userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
@@ -38,7 +37,7 @@
     <GroupHead slot="groupHead" let:group let:groupIndex {group} {groupIndex} />
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $settings.layout.homeFields as field}
+        {#each $settingsStore.layout.homeFields as field}
             {#if field === 'callings'}
                 {#if !$homeState.onlyWeekly}
                     <RowDailies
@@ -99,12 +98,12 @@
                 {/if}
 
             {:else if field === 'keystone'}
-                {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
+                {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
                     <RowKeystone {character} />
                 {/if}
 
             {:else if field === 'lockouts'}
-                {#if !isPublic || $settings.privacy.publicLockouts}
+                {#if !isPublic || $settingsStore.privacy.publicLockouts}
                     <RowLockouts {character} />
                 {/if}
 

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { InventorySlot } from '@/enums'
-    import { userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import type { BackgroundImage, Character } from '@/types'
 
     import Configure from './CharactersPaperdollConfigure.svelte'
@@ -15,7 +14,7 @@
     let characterImage: string
     let filter: string
     $: {
-        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsData.characters.defaultBackgroundId : selected]
+        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsStore.characters.defaultBackgroundId : selected]
         characterImage = $userStore.data.images[`${character.id}-2`]
 
         if (backgroundImage) {

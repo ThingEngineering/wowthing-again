@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
 
     let colspan: number
     $: {
-        colspan = $settings.layout.commonFields.length +
-            ($settings.layout.commonFields.indexOf('accountTag') >= 0
+        colspan = $settingsStore.layout.commonFields.length +
+            ($settingsStore.layout.commonFields.indexOf('accountTag') >= 0
                 ? (userStore.useAccountTags ? 0 : -1)
                 : 0
             )

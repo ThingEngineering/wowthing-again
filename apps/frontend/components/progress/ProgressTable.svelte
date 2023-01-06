@@ -7,7 +7,7 @@
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
     import { manualStore, staticStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
     import leftPad from '@/utils/left-pad'
@@ -117,14 +117,14 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => {
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data, (char) => {
                 const data = progress[`${order}|${char.id}`]
                 return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
             })
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
         }
     }
 </script>

@@ -2,7 +2,7 @@
     import debounce from 'lodash/debounce'
     import filter from 'lodash/filter'
 
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -32,25 +32,25 @@
         {key: 'level', name: 'Level'},
     ]
 
-    const groupByActive = $settingsData.general.groupBy.map(
+    const groupByActive = $settingsStore.general.groupBy.map(
         (f) => filter(groupByChoices, (c) => c.key === f)[0]
     )
     const groupByInactive = filter(groupByChoices, (c) => groupByActive.indexOf(c) < 0)
 
-    const sortByActive = $settingsData.general.sortBy.map(
+    const sortByActive = $settingsStore.general.sortBy.map(
         (f) => filter(sortByChoices, (c) => c.key === f)[0]
     )
     const sortByInactive = filter(sortByChoices, (c) => sortByActive.indexOf(c) < 0)
 
     const onGroupByChange = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.general.groupBy = groupByActive.map((c) => c.key)
             return state
         })
     }, 100)
 
     const onSortByChange = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.general.sortBy = sortByActive.map((c) => c.key)
             return state
         })

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { lockoutOverride } from '@/data/dungeon'
     import { iconStrings } from '@/data/icons'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
@@ -54,14 +54,14 @@
                 <IconifyIcon icon={iconStrings.starFull} />
             {:else if lockout?.defeatedBosses > 0}
                 <IconifyIcon icon={iconStrings.starHalf} />
-            {:else if $settings.layout.showEmptyLockouts}
+            {:else if $settingsStore.layout.showEmptyLockouts}
                 <IconifyIcon icon={iconStrings.starEmpty} />
             {/if}
         {/if}
     </td>
 {:else}
     <td class="status-fail">
-        {#if $settings.layout.showEmptyLockouts}
+        {#if $settingsStore.layout.showEmptyLockouts}
             <IconifyIcon icon={iconStrings.starEmpty} />
         {/if}
     </td>

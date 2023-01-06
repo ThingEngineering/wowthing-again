@@ -2,7 +2,7 @@
     import debounce from 'lodash/debounce'
     import filter from 'lodash/filter'
 
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -44,25 +44,25 @@
         {key: 'vaultRaid', name: 'Vault - Raid'},
     ]
 
-    const commonActive = $settingsData.layout.commonFields.map(
+    const commonActive = $settingsStore.layout.commonFields.map(
         (f) => filter(commonChoices, (c) => c.key === f)[0]
     )
     const commonInactive = filter(commonChoices, (c) => commonActive.indexOf(c) < 0)
 
-    const homeActive = $settingsData.layout.homeFields.map(
+    const homeActive = $settingsStore.layout.homeFields.map(
         (f) => filter(homeChoices, (c) => c.key === f)[0]
     )
     const homeInactive = filter(homeChoices, (c) => homeActive.indexOf(c) < 0)
 
     const onCommonChange = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.layout.commonFields = commonActive.map((c) => c.key)
             return state
         })
     }, 100)
 
     const onHomeChange = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.layout.homeFields = homeActive.map((c) => c.key)
             return state
         })
@@ -97,7 +97,7 @@
 
         <div class="setting setting-layout">
             <RadioGroup
-                bind:value={$settingsData.layout.padding}
+                bind:value={$settingsStore.layout.padding}
                 name="layout_padding"
                 options={[
                     ['small', 'Small'],
@@ -112,7 +112,7 @@
 
         <div class="setting setting-layout">
             <RadioGroup
-                bind:value={$settingsData.layout.covenantColumn}
+                bind:value={$settingsStore.layout.covenantColumn}
                 name="layout_covenantColumn"
                 options={[
                     ['current', 'Current only'],
@@ -126,7 +126,7 @@
 
         <div class="setting setting-checkbox setting-layout">
             <CheckboxInput
-                bind:value={$settingsData.layout.showPartialLevel}
+                bind:value={$settingsStore.layout.showPartialLevel}
                 name="layout_showPartialLevel"
             >
                 Show partial levels in Character Level column.
@@ -135,7 +135,7 @@
 
         <div class="setting setting-checkbox setting-layout">
             <CheckboxInput
-                bind:value={$settingsData.layout.includeArchaeology}
+                bind:value={$settingsStore.layout.includeArchaeology}
                 name="layout_includeArchaeology"
             >
                 Include Archaeology in Professions - Sec column.

@@ -1,8 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, settingsStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
@@ -288,7 +287,7 @@
             </div>
         {/if}
 
-        {#if !earned || $settings.achievements.showCharactersIfCompleted}
+        {#if !earned || $settingsStore.achievements.showCharactersIfCompleted}
             {#if achievement.isAccountWide}
                 <AchievementCriteriaAccount
                     {achievement}

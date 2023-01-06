@@ -16,8 +16,7 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
-    import { journalStore, userStore, userTransmogStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { journalStore, settingsStore, userStore, userTransmogStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -94,7 +93,7 @@
         </a>
     </li>
 
-    {#if $userStore.loaded && (!$userStore.data.public || $settingsData.privacy.publicCurrencies)}
+    {#if $userStore.loaded && (!$userStore.data.public || $settingsStore.privacy.publicCurrencies)}
         <li use:active={'/currencies/*'}>
             <a href="#/currencies/">
                 <IconifyIcon icon={iconCurrencies} dropShadow={true} />

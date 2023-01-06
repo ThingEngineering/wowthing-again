@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
@@ -8,11 +8,11 @@
 
     let url = ''
     $: {
-        if ($settingsData.general.useWowdb) {
+        if ($settingsStore.general.useWowdb) {
             url = `https://www.wowdb.com/npcs/${id}`
         }
         else {
-            url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/npc=${id}`
+            url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/npc=${id}`
             if (toComments) {
                 url += '#comments'
             }

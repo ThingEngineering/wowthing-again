@@ -7,9 +7,8 @@
 
     import { classOrder } from '@/data/character-class'
     import { Constants } from '@/data/constants'
-    import { staticStore, userStore } from '@/stores'
+    import { settingsStore, staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import { Gender, genderValues, Region } from '@/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import type { Character } from '@/types'
@@ -31,8 +30,8 @@
         const characters = filter(
             $userStore.data.characters,
             (char) => (
-                $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                $settings.characters.ignoredCharacters.indexOf(char.id) === -1 &&
+                $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
                 char.level >= $matrixState.minLevel
             )
         )

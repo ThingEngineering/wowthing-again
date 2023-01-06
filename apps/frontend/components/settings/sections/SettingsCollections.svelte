@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 </script>
@@ -10,7 +10,7 @@
     <div class="setting">
         <Checkbox
             name="collections_hideUnavailable"
-            bind:value={$settingsData.collections.hideUnavailable}
+            bind:value={$settingsStore.collections.hideUnavailable}
         >Hide Unavailable</Checkbox>
         <div>
             <p>

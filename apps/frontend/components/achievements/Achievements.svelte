@@ -1,9 +1,8 @@
 <script lang="ts">
     import { afterUpdate, onMount } from 'svelte'
 
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, settingsStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     
     import AchievementsCategory from './AchievementsCategory.svelte'
@@ -17,7 +16,7 @@
 
     // Fetch achievement data once when this component is mounted
     onMount(async () => await Promise.all([
-        achievementStore.fetch({ language: $settings.general.language }),
+        achievementStore.fetch({ language: $settingsStore.general.language }),
         //userAchievementStore.fetch(),
     ]))
 

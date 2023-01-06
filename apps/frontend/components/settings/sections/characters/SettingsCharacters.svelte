@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
 
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
     import RangeInput from '@/components/forms/RangeInput.svelte'
@@ -7,8 +7,8 @@
     let filter: string
     $: {
         filter = [
-            `brightness(${$settings.characters.defaultBackgroundBrightness / 10})`,
-            `saturate(${$settings.characters.defaultBackgroundSaturation / 10})`,
+            `brightness(${$settingsStore.characters.defaultBackgroundBrightness / 10})`,
+            `saturate(${$settingsStore.characters.defaultBackgroundSaturation / 10})`,
         ].join(' ')
     }
 
@@ -45,18 +45,18 @@
     <div class="background-sliders">
         <RangeInput
             name="brightness"
-            label={`Brightness <code>${getValue($settings.characters.defaultBackgroundBrightness)}</code>`}
+            label={`Brightness <code>${getValue($settingsStore.characters.defaultBackgroundBrightness)}</code>`}
             min={0}
             max={10}
-            bind:value={$settings.characters.defaultBackgroundBrightness}
+            bind:value={$settingsStore.characters.defaultBackgroundBrightness}
         />
 
         <RangeInput
             name="saturation"
-            label={`Saturation <code>${getValue($settings.characters.defaultBackgroundSaturation)}</code>`}
+            label={`Saturation <code>${getValue($settingsStore.characters.defaultBackgroundSaturation)}</code>`}
             min={0}
             max={10}
-            bind:value={$settings.characters.defaultBackgroundSaturation}
+            bind:value={$settingsStore.characters.defaultBackgroundSaturation}
         />
     </div>
 
@@ -65,7 +65,7 @@
         style:--filter={filter}
     >
         <BackgroundSelector
-            bind:selected={$settings.characters.defaultBackgroundId}
+            bind:selected={$settingsStore.characters.defaultBackgroundId}
         />
     </div>
 </div>

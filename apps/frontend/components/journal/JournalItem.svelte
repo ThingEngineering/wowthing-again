@@ -5,7 +5,7 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { staticStore, userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { PlayableClass, PlayableClassMask, RewardType } from '@/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import tippy from '@/utils/tippy'
@@ -50,7 +50,7 @@
         else {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $settingsData.transmog.completionistMode ?
+                $settingsStore.transmog.completionistMode ?
                     $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
                     $userTransmogStore.data.userHas[appearance.appearanceId],
             ])

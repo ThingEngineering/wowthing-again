@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 </script>
@@ -13,7 +13,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public"
-            bind:value={$settingsData.achievements.showCharactersIfCompleted}
+            bind:value={$settingsStore.achievements.showCharactersIfCompleted}
         >Always show criteria</Checkbox>
         <p>
             Always show criteria and the list of characters even if the achievement is completed.

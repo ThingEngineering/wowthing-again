@@ -3,7 +3,7 @@
 
     import getAccountCharacters from '@/utils/get-account-characters'
     import { userStore } from '@/stores'
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { Language, Region } from '@/enums'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -99,7 +99,7 @@
     <div class="setting">
         <Select
             name="general_language"
-            bind:selected={$settingsData.general.language}
+            bind:selected={$settingsStore.general.language}
             options={[
                 [Language.deDE, '[deDE] Deutsch'],
                 [Language.enUS, '[enUS] English'],
@@ -124,7 +124,7 @@
             name="general_DesiredAccountName"
             maxlength={32}
             placeholder="Desired user name"
-            bind:value={$settingsData.general.desiredAccountName}
+            bind:value={$settingsStore.general.desiredAccountName}
         />
         <div>
             <p>
@@ -146,7 +146,7 @@
             label="Refresh interval"
             minValue={0}
             maxValue={1440}
-            bind:value={$settingsData.general.refreshInterval}
+            bind:value={$settingsStore.general.refreshInterval}
         />
         <p>How long in minutes to wait between requesting updated data. Set to 0 to disable.</p>
     </div>
@@ -200,7 +200,7 @@
     <div class="setting">
         <Checkbox
             name="characters_hideDisabledAccounts"
-            bind:value={$settingsData.characters.hideDisabledAccounts}
+            bind:value={$settingsStore.characters.hideDisabledAccounts}
         >Hide characters on disabled accounts</Checkbox>
     </div>
 

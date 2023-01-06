@@ -4,7 +4,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { staticStore, userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { SettingsChoice } from '@/types'
 
@@ -15,25 +15,25 @@
         name: `${char.name}-${char.realm.name}`,
     }))
 
-    const sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+    const sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
 
     const activeCharacters = sortBy(
         filter(
             allCharacters,
-            (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key)) >= 0
+            (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) >= 0
         ),
-        (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key))
+        (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key))
     )
     const inactiveCharacters = sortBy(
         filter(
             allCharacters,
-            (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
+            (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
         ),
         (char) => sortFunc($userStore.data.characterMap[parseInt(char.key)])
     )
 
     const onFunc = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.characters.pinnedCharacters = activeCharacters.map((c) => parseInt(c.key))
             return state
         })

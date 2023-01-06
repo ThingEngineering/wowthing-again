@@ -2,8 +2,7 @@
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
     import { Region } from '@/enums'
-    import { data as settings } from '@/stores/settings'
-    import { staticStore } from '@/stores/static'
+    import { settingsStore, staticStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterProfession } from '@/types'
     import type { StaticDataProfession } from '@/types/data/static'
@@ -19,7 +18,7 @@
     $: {
         professions = []
         for (const professionId in $staticStore.data.professions) {
-            if (professionId === '794' && !$settings.layout.includeArchaeology) {
+            if (professionId === '794' && !$settingsStore.layout.includeArchaeology) {
                 continue
             }
 

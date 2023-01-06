@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 </script>
@@ -30,7 +30,7 @@
     <div class="setting">
         <Checkbox
             name="transmog_completionistMode"
-            bind:value={$settingsData.transmog.completionistMode}
+            bind:value={$settingsStore.transmog.completionistMode}
         >Completionist Mode</Checkbox>
         <p>
             <strong class="status-shrug">WARNING!</strong>
@@ -46,19 +46,19 @@
 
         <Checkbox
             name="transmog_showMage"
-            bind:value={$settingsData.transmog.showMage}
+            bind:value={$settingsStore.transmog.showMage}
             textClass="class-mage"
         >Mage</Checkbox>
 
         <Checkbox
             name="transmog_showPriest"
-            bind:value={$settingsData.transmog.showPriest}
+            bind:value={$settingsStore.transmog.showPriest}
             textClass="class-priest"
         >Priest</Checkbox>
 
         <Checkbox
             name="transmog_showWarlock"
-            bind:value={$settingsData.transmog.showWarlock}
+            bind:value={$settingsStore.transmog.showWarlock}
             textClass="class-warlock"
         >Warlock</Checkbox>
     </div>
@@ -68,22 +68,22 @@
 
         <Checkbox
             name="transmog_showDemonHunter"
-            bind:value={$settingsData.transmog.showDemonHunter}
+            bind:value={$settingsStore.transmog.showDemonHunter}
             textClass="class-demon-hunter"
         >Demon Hunter</Checkbox>
         <Checkbox
             name="transmog_showDruid"
-            bind:value={$settingsData.transmog.showDruid}
+            bind:value={$settingsStore.transmog.showDruid}
             textClass="class-druid"
         >Druid</Checkbox>
         <Checkbox
             name="transmog_showMonk"
-            bind:value={$settingsData.transmog.showMonk}
+            bind:value={$settingsStore.transmog.showMonk}
             textClass="class-monk"
         >Monk</Checkbox>
         <Checkbox
             name="transmog_showRogue"
-            bind:value={$settingsData.transmog.showRogue}
+            bind:value={$settingsStore.transmog.showRogue}
             textClass="class-rogue"
         >Rogue</Checkbox>
     </div>
@@ -93,17 +93,17 @@
 
         <Checkbox
             name="transmog_showEvoker"
-            bind:value={$settingsData.transmog.showEvoker}
+            bind:value={$settingsStore.transmog.showEvoker}
             textClass="class-evoker"
         >Evoker</Checkbox>
         <Checkbox
             name="transmog_showHunter"
-            bind:value={$settingsData.transmog.showHunter}
+            bind:value={$settingsStore.transmog.showHunter}
             textClass="class-hunter"
         >Hunter</Checkbox>
         <Checkbox
             name="transmog_showShaman"
-            bind:value={$settingsData.transmog.showShaman}
+            bind:value={$settingsStore.transmog.showShaman}
             textClass="class-shaman"
         >Shaman</Checkbox>
     </div>
@@ -113,17 +113,17 @@
 
         <Checkbox
             name="transmog_showDeathKnight"
-            bind:value={$settingsData.transmog.showDeathKnight}
+            bind:value={$settingsStore.transmog.showDeathKnight}
             textClass="class-death-knight"
         >Death Knight</Checkbox>
         <Checkbox
             name="transmog_showPaladin"
-            bind:value={$settingsData.transmog.showPaladin}
+            bind:value={$settingsStore.transmog.showPaladin}
             textClass="class-paladin"
         >Paladin</Checkbox>
         <Checkbox
             name="transmog_showWarrior"
-            bind:value={$settingsData.transmog.showWarrior}
+            bind:value={$settingsStore.transmog.showWarrior}
             textClass="class-warrior"
         >Warrior</Checkbox>
     </div>
@@ -135,13 +135,13 @@
 
         <Checkbox
             name="transmog_showAllianceOnly"
-            bind:value={$settingsData.transmog.showAllianceOnly}
+            bind:value={$settingsStore.transmog.showAllianceOnly}
             textClass="faction-alliance"
         >Alliance only</Checkbox>
 
         <Checkbox
             name="transmog_showHordeOnly"
-            bind:value={$settingsData.transmog.showHordeOnly}
+            bind:value={$settingsStore.transmog.showHordeOnly}
             textClass="faction-horde"
         >Horde only</Checkbox>
     </div>

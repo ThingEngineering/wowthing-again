@@ -7,7 +7,7 @@
     import { expansionMap } from '@/data/expansion'
     import { iconStrings } from '@/data/icons'
     import { staticStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -31,16 +31,16 @@
     const activeInstance = sortBy(
         filter(
             allInstances,
-            (instance) => $settingsData.layout.homeLockouts.indexOf(parseInt(instance.key)) >= 0
+            (instance) => $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key)) >= 0
         ),
-        (instance) => $settingsData.layout.homeLockouts.indexOf(parseInt(instance.key))
+        (instance) => $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key))
     )
 
     $: {
         inactiveInstances = filter(
             allInstances,
             (instance) => (
-                $settingsData.layout.homeLockouts.indexOf(parseInt(instance.key)) === -1 &&
+                $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key)) === -1 &&
                 (
                     !instanceFilter ||
                     instance.name.toLocaleLowerCase().indexOf(instanceFilter.toLocaleLowerCase()) >= 0
@@ -50,7 +50,7 @@
     }
 
     const onFunc = debounce(() => {
-        settingsData.update(state => {
+        settingsStore.update(state => {
             state.layout.homeLockouts = activeInstance.map((c) => parseInt(c.key))
             return state
         })
@@ -79,7 +79,7 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
-            bind:value={$settingsData.layout.showEmptyLockouts}
+            bind:value={$settingsStore.layout.showEmptyLockouts}
             name="layout_showEmptyLockouts"
         >Show a <span class="status-fail"><IconifyIcon icon={iconStrings.starHalf} /></span> for empty lockouts.</CheckboxInput>
     </div>

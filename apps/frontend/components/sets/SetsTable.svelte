@@ -4,7 +4,7 @@
     import some from 'lodash/some'
 
     import { manualStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import getSkipClasses from '@/utils/get-skip-classes'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
@@ -27,13 +27,13 @@
 
         slugs = slug2 ? [slug1, slug2] : [slug1]
 
-        skipClasses = getSkipClasses($settingsData, categories?.[0])
+        skipClasses = getSkipClasses($settingsStore, categories?.[0])
         for (const category of (categories || []).slice(1)) {
             if (!some(category.groups, (group) => group.type === 'class')) {
                 continue
             }
 
-            const catSkipClasses = getSkipClasses($settingsData, category)
+            const catSkipClasses = getSkipClasses($settingsStore, category)
             for (const [key, value] of Object.entries(catSkipClasses)) {
                 if (value === false) {
                     skipClasses[key] = false

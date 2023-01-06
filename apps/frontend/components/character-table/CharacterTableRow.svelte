@@ -3,8 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { Region } from '@/enums'
-    import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore, userStore } from '@/stores'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'
@@ -69,7 +68,7 @@
         data-id="{character.id}"
     >
         {#if intersected}
-            {#each $settings.layout.commonFields as field}
+            {#each $settingsStore.layout.commonFields as field}
                 {#if field === 'accountTag' && userStore.useAccountTags}
                     <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
 

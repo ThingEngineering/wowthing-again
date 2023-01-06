@@ -3,7 +3,7 @@
     import find from 'lodash/find'
 
     import { manualStore } from '@/stores'
-    import {data as settingsData} from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import getSkipClasses from '@/utils/get-skip-classes'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'
 
@@ -25,7 +25,7 @@
         }
 
         slugs = slug2 ? [slug1, slug2] : [slug1]
-        skipClasses = getSkipClasses($settingsData)
+        skipClasses = getSkipClasses($settingsStore)
     }
 </script>
 

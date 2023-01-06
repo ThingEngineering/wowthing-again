@@ -2,9 +2,8 @@
     import sumBy from 'lodash/sumBy'
 
     import { iconStrings } from '@/data/icons'
-    import { userStore } from '@/stores'
+    import { settingsStore, userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
     import tippy from '@/utils/tippy'
     import type {Character} from '@/types'
 
@@ -31,7 +30,7 @@
     $: {
         isPublic = $userStore.data.public
 
-        commonSpan = $settings.layout.commonFields
+        commonSpan = $settingsStore.layout.commonFields
             .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))
             .length
 
@@ -65,7 +64,7 @@
         >Only weekly</Checkbox>
     </td>
 
-    {#each $settings.layout.homeFields as field}
+    {#each $settingsStore.layout.homeFields as field}
         {#if field === 'callings'}
             {#if !$homeState.onlyWeekly}
                 <td use:tippy={"Shadowlands Callings"}>
@@ -118,12 +117,12 @@
             {/if}
 
         {:else if field === 'keystone'}
-            {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
+            {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
                 <td>M+ Key</td>
             {/if}
 
         {:else if field === 'lockouts'}
-            {#if !isPublic || $settings.privacy.publicLockouts}
+            {#if !isPublic || $settingsStore.privacy.publicLockouts}
                 <HeadLockouts />
             {/if}
 

@@ -5,9 +5,8 @@
     import sortBy from 'lodash/sortBy'
 
     import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
+    import { settingsStore, staticStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
-    import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import leftPad from '@/utils/left-pad'
     import type { Character, MultiSlugParams } from '@/types'
@@ -50,7 +49,7 @@
         const order = $currencyState.sortOrder[slugKey]
         if (order > 0) {
             sorted = true
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => leftPad(1000000 - (
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data, (char) => leftPad(1000000 - (
                 char.currencyItems?.[order] ??
                 char.currencies?.[order]?.quantity ??
                 -1
@@ -58,7 +57,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore.data)
         }
     }
 </script>

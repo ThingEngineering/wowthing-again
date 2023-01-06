@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
 
@@ -56,7 +56,7 @@
 </style>
 
 <td
-    class="{$settingsData.layout.covenantColumn}"
+    class="{$settingsStore.layout.covenantColumn}"
     use:tippyComponent={{
         component: Tooltip,
         props: { character },
@@ -64,7 +64,7 @@
 >
     {#if covenant !== undefined}
         <div class="flex-wrapper">
-            {#if $settingsData.layout.covenantColumn === 'current'}
+            {#if $settingsStore.layout.covenantColumn === 'current'}
                 <WowthingImage name={covenant.icon} size={20} border={1} />
                 <span
                     class:status-success={character.shadowlands.renownLevel >= Constants.maxRenown}

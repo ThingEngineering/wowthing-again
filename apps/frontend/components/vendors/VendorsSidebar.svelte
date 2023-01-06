@@ -1,6 +1,6 @@
 <script lang="ts">
     import { manualStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import type { SidebarItem, UserCount } from '@/types'
 
@@ -53,7 +53,7 @@
         
         <Checkbox
             name="transmog_completionistMode"
-            bind:value={$settingsData.transmog.completionistMode}
+            bind:value={$settingsStore.transmog.completionistMode}
         >Completionist Mode</Checkbox>
     </div>
 </Sidebar>

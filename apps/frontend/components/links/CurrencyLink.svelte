@@ -1,6 +1,6 @@
 <script lang="ts">
     import { itemStore, staticStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/stores'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
     import { tippyComponent } from '@/utils/tippy'
     import type { ItemDataItem } from '@/types/data/item'
@@ -15,7 +15,7 @@
     let item: ItemDataItem
     let url: string
     $: {
-        url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/`
+        url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/`
 
         if (currencyId !== undefined) {
             currency = $staticStore.data.currencies[currencyId]
