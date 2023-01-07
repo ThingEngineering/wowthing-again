@@ -1,67 +1,35 @@
-import type { IconifyIcon } from '@iconify/types'
+// Armor
+export { default as gameBarbute } from '@iconify/icons-game-icons/barbute'
+export { default as gameBeltArmor } from '@iconify/icons-game-icons/belt-armor'
+export { default as gameBigDiamondRing } from '@iconify/icons-game-icons/big-diamond-ring'
+export { default as gameBracer } from '@iconify/icons-game-icons/bracer'
+export { default as gameChestArmor } from '@iconify/icons-game-icons/chest-armor'
+export { default as gameDorsalScales } from '@iconify/icons-game-icons/dorsal-scales'
+export { default as gameGauntlet } from '@iconify/icons-game-icons/gauntlet'
+export { default as gameGreaves } from '@iconify/icons-game-icons/greaves'
+export { default as gameHeartNecklace } from '@iconify/icons-game-icons/heart-necklace'
+export { default as gameMetalBoot } from '@iconify/icons-game-icons/metal-boot'
+export { default as gameShirt } from '@iconify/icons-game-icons/shirt'
+
+// Misc items
+export { default as gameBackpack } from '@iconify/icons-game-icons/backpack'
 
 // Weapons
-import gameBatLeth from '@iconify/icons-game-icons/bat-leth'
-import gameBattleAxe from '@iconify/icons-game-icons/battle-axe'
-import gameBlunderbuss from '@iconify/icons-game-icons/blunderbuss'
-import gameBrassKnuckles from '@iconify/icons-game-icons/brass-knuckles'
-import gameBroadsword from '@iconify/icons-game-icons/broadsword'
-import gameCape from '@iconify/icons-game-icons/cape'
-import gameCrossbow from '@iconify/icons-game-icons/crossbow'
-import gameCurvyKnife from '@iconify/icons-game-icons/curvy-knife'
-import gameFairyWand from '@iconify/icons-game-icons/fairy-wand'
-import gameGladius from '@iconify/icons-game-icons/gladius'
-import gameHatchet from '@iconify/icons-game-icons/hatchet'
-import gamePocketBow from '@iconify/icons-game-icons/pocket-bow'
-import gameSecretBook from '@iconify/icons-game-icons/secret-book'
-import gameShield from '@iconify/icons-game-icons/shield'
-import gameThorHammer from '@iconify/icons-game-icons/thor-hammer'
-import gameTrident from '@iconify/icons-game-icons/trident'
-import gameWizardStaff from '@iconify/icons-game-icons/wizard-staff'
-import gameWoodClub from '@iconify/icons-game-icons/wood-club'
-
-// Armor
-import gameBarbute from '@iconify/icons-game-icons/barbute'
-import gameBeltArmor from '@iconify/icons-game-icons/belt-armor'
-import gameBigDiamondRing from '@iconify/icons-game-icons/big-diamond-ring'
-import gameBracer from '@iconify/icons-game-icons/bracer'
-import gameChestArmor from '@iconify/icons-game-icons/chest-armor'
-import gameDorsalScales from '@iconify/icons-game-icons/dorsal-scales'
-import gameGauntlet from '@iconify/icons-game-icons/gauntlet'
-import gameGreaves from '@iconify/icons-game-icons/greaves'
-import gameHeartNecklace from '@iconify/icons-game-icons/heart-necklace'
-import gameMetalBoot from '@iconify/icons-game-icons/metal-boot'
-import gameShirt from '@iconify/icons-game-icons/shirt'
-
-export const iconLibrary: Record<string, IconifyIcon> = {
-    gameBarbute,
-    gameBeltArmor,
-    gameBigDiamondRing,
-    gameBracer,
-    gameChestArmor,
-    gameDorsalScales,
-    gameGauntlet,
-    gameGreaves,
-    gameHeartNecklace,
-    gameMetalBoot,
-    gameShirt,
-
-    gameBatLeth,
-    gameBattleAxe,
-    gameBlunderbuss,
-    gameBrassKnuckles,
-    gameBroadsword,
-    gameCape,
-    gameCrossbow,
-    gameCurvyKnife,
-    gameFairyWand,
-    gameGladius,
-    gameHatchet,
-    gamePocketBow,
-    gameSecretBook,
-    gameShield,
-    gameThorHammer,
-    gameTrident,
-    gameWizardStaff,
-    gameWoodClub,
-}
+export { default as gameBatLeth } from '@iconify/icons-game-icons/bat-leth'
+export { default as gameBattleAxe } from '@iconify/icons-game-icons/battle-axe'
+export { default as gameBlunderbuss } from '@iconify/icons-game-icons/blunderbuss'
+export { default as gameBrassKnuckles } from '@iconify/icons-game-icons/brass-knuckles'
+export { default as gameBroadsword } from '@iconify/icons-game-icons/broadsword'
+export { default as gameCape } from '@iconify/icons-game-icons/cape'
+export { default as gameCrossbow } from '@iconify/icons-game-icons/crossbow'
+export { default as gameCurvyKnife } from '@iconify/icons-game-icons/curvy-knife'
+export { default as gameFairyWand } from '@iconify/icons-game-icons/fairy-wand'
+export { default as gameGladius } from '@iconify/icons-game-icons/gladius'
+export { default as gameHatchet } from '@iconify/icons-game-icons/hatchet'
+export { default as gamePocketBow } from '@iconify/icons-game-icons/pocket-bow'
+export { default as gameSecretBook } from '@iconify/icons-game-icons/secret-book'
+export { default as gameShield } from '@iconify/icons-game-icons/shield'
+export { default as gameThorHammer } from '@iconify/icons-game-icons/thor-hammer'
+export { default as gameTrident } from '@iconify/icons-game-icons/trident'
+export { default as gameWizardStaff } from '@iconify/icons-game-icons/wizard-staff'
+export { default as gameWoodClub } from '@iconify/icons-game-icons/wood-club'
