@@ -1,0 +1,85 @@
+name: ">Pet Battles"
+groups:
+
+- name: "Azure Span, The"
+  things:
+    - 3357 # Azure Crystalspine
+    - 3356 # Chalkshell Turtle
+    - 3313 # Grassland Stomper
+    - 3351 # Grizzlefur Cub
+    - 3295 # Igneoid
+    - 3366 # Kindlet
+    - 3296 # Palamanther
+    - 3335 # Pale Baby Vorquin
+    - 3272 # Pricklefury Hare
+    - 3281 # Scruffy Ottuk
+    - 3283 # Snowlemental
+    - 3260 # Snowy Treeflitter
+    - 3354 # Storm-Touched Ottuk
+    - 3282 # Swoglet
+    - 3328 # Tiny Timbertooth
+    - 3276 # Treeflitter
+    - 3288 # Trunkalumpf
+    - 3336 # Vorquin Runt
+    - 3320 # Whitewhisker
+    - 3322 # Woodbiter Piculet
+
+- name: "Ohn'ahran Plains"
+  things:
+    - 3266 # Black Slyvern Pup
+    - 3327 # Dusky Timbertooth
+    - 3313 # Grassland Stomper
+    - 3300 # Ironbeak Duck
+    - 3296 # Palamanther
+    - 3307 # Plucky Duckling
+    - 3272 # Pricklefury Hare
+    - 3281 # Scruffy Ottuk
+    - 3353 # Stoneshell
+    - 3329 # Storm-Touched Timbertooth
+    - 3282 # Swoglet
+    - 3389 # The Quackcestor
+    - 3328 # Tiny Timbertooth
+    - 3276 # Treeflitter
+    - 3288 # Trunkalumpf
+    - 3301 # Wild Duckling
+    - 3322 # Woodbiter Piculet
+
+- name: "Thaldraszus"
+  things:
+    - 3403 # Blue Dasher
+    - 3358 # Crimsonspine
+    - 3313 # Grassland Stomper
+    - 3351 # Grizzlefur Cub
+    - 3295 # Igneoid
+    - 3366 # Kindlet
+    - 3296 # Palamanther
+    - 3307 # Plucky Duckling
+    - 3404 # Polliswog
+    - 3272 # Pricklefury Hare
+    - 3352 # Razortooth Bear Cub
+    - 3353 # Stoneshell
+    - 3384 # Storm-Touched Bluefeather
+    - 3282 # Swoglet
+    - 3276 # Treeflitter
+    - 3336 # Vorquin Runt
+    - 3301 # Wild Duckling
+
+- name: "Waking Shores, The"
+  things:
+    - 3367 # Emberling
+    - 3313 # Grassland Stomper
+    - 3295 # Igneoid
+    - 3300 # Ironbeak Duck
+    - 3366 # Kindlet
+    - 3273 # Magma Slug
+    - 3296 # Palamanther
+    - 3307 # Plucky Duckling
+    - 3272 # Pricklefury Hare
+    - 3281 # Scruffy Ottuk
+    - 3280 # Shyfly
+    - 3283 # Snowlemental
+    - 3385 # Storm-Touched Stomper
+    - 3282 # Swoglet
+    - 3318 # Thunderfoot Calf
+    - 3336 # Vorquin Runt
+    - 3301 # Wild Duckling

@@ -1,0 +1,14 @@
+name: "Drops"
+groups:
+
+- name: "Grand Hunts"
+  things:
+    - 3325 # Bakar Companion
+    - 3311 # Ohuna Companion
+
+- name: "Primal Storms"
+  things:
+    - 3355 # Echo of the Cave
+    - 3299 # Echo of the Depths
+    - 3310 # Echo of the Heights
+    - 3289 # Echo of the Inferno

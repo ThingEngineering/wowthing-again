@@ -1,0 +1,25 @@
+name: "Quests"
+groups:
+
+- name: "Azure Span, The"
+  things:
+    - 3368 # Shiverweb Broodling (Kill the Queen)
+    - 3319 # Yipper (The Great Shokhari)
+
+- name: "Ohn'ahran Plains"
+  things:
+    - 3302 # Pilot (But... I Am the Hero of Ducks)
+
+- name: "Thaldraszus"
+  things:
+    - 3405 # Living Mud Mask (Special Treatment)
+    - 3350 # Lord Basilton (Carry On, Basilton)
+
+- name: "Valdrakken"
+  things:
+    - 3316 # Lubbins (Oh WEhere, Oh Where Can He Be?)
+    - 3286 # Mister Toots (So How Did It Go?)
+
+- name: "Waking Shores, The"
+  things:
+    - 3342 # Spyragos

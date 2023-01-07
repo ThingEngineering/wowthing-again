@@ -1,0 +1,22 @@
+name: "Vendors"
+groups:
+
+- name: "Azure Span, The"
+  things:
+    - 3270 # Jean's Lucky Fish (Patchu)
+    - 3408 # Petal (Patchu)
+    - 3417 # Pinkie (Patchu)
+    - 3278 # Pistachio (Patchu)
+    - 3407 # Scout (Patchu)
+    - 3416 # Troubled Tome (Patchu)
+
+- name: "Valdrakken"
+  things:
+    - 3287 # Ghostflame (Mythressa)
+    - 3303 # Mallard Duckling (Pakak)
+    - 3382 # Stormie (Mythressa)
+
+- name: "Waking Shore, The"
+  things:
+    - 3376 # Chip (Yries Lightfingers)
+    - 3414 # Obsidian Proto-Whelp (Lorena Belle)

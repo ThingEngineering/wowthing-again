@@ -1,2 +1,7 @@
 name: "Dragonflight"
 groups:
+
+- name: "Achievements"
+  things:
+    - 3279 # Bronze Racing Enthusiast (Dragon Racing Completionist: Silver)
+    - 3406 # Lady Feathersworth (Family Battler of the Dragon Isles)

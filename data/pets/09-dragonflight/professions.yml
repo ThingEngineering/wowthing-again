@@ -1,0 +1,23 @@
+name: "Professions"
+groups:
+
+- name: "Blacksmithing"
+  things:
+    - 3274 # Alvin the Anvil
+
+- name: "Engineering"
+  things:
+    - 3411 # Blaze Spirit
+    - 3410 # Dust Spirit
+    - 3412 # Gale Spirit
+    - 3409 # Tide Spirit
+    - 3306 # Quack-E
+    - 3390 # Sophic Amalgamation
+
+- name: "Jewelcrafting"
+  things:
+    - 3345 # Jeweled Amber Whelpling
+    - 3347 # Jeweled Emerald Whelpling
+    - 3256 # Jeweled Onyx Whelpling
+    - 3346 # Jeweled Ruby Whelpling
+    - 3344 # Jeweled Sapphire Whelpling
