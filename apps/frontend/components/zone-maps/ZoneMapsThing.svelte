@@ -5,6 +5,7 @@
     import { FarmIdType, FarmType } from '@/enums'
     import { tippyComponent } from '@/utils/tippy'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
+    import { getFarmIcon } from '@/utils/zone-maps'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -121,7 +122,7 @@
         display: block;
         font-size: 0.9rem;
         line-height: 1;
-        margin-top: -3px;
+        margin-top: -1px;
         padding: 0 2px 1px 2px;
         pointer-events: none;
         word-spacing: -0.2ch;
@@ -134,6 +135,7 @@
 </style>
 
 {#if show}
+    {@const icon = getFarmIcon(farm)}
     {#each locations as [xPos, yPos]}
         <div
             class="wrapper"
@@ -153,7 +155,7 @@
                 <a href="#/journal/{status.link}">
                     <div class="{classes.join(' ')}">
                         <IconifyIcon
-                            icon={farmTypeIcons[farm.type]}
+                            {icon}
                             scale={'1'}
                         />
                     </div>
@@ -167,7 +169,7 @@
                 >
                     <div class="{classes.join(' ')}">
                         <IconifyIcon
-                            icon={farmTypeIcons[farm.type]}
+                            {icon}
                             scale={big ? '1.25' : '1'}
                         />
                     </div>
