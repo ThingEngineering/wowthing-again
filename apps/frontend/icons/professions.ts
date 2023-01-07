@@ -1,5 +1,5 @@
 export const professionIcons: Record<string, string> = {
-    alchemy: 'gameHealthPotion',
+    alchemy: 'gameFizzingFlask',
     blacksmithing: 'gameAnvil',
     cooking: 'gameBarbecue',
     enchanting: 'gameSpellBook',
