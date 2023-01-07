@@ -3,7 +3,7 @@ mapName: "09-dragonflight/thaldraszus"
 minimumLevel: 60
 farms:
 
-# Profession
+# Profession Master
 
 - name: "Bridgette Holdug"
   location: 61.4 76.9
@@ -22,3 +22,17 @@ farms:
       id: 2035 # Dragon Isles Mining Knowledge
       amount: 10
       limit: profession mining
+
+# Profession Treasure
+
+- name: "Draconic Flux"
+  location: 52.2 80.5
+  objectId: 380618
+  questId: 70311
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201006 # Draconic Flux
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge

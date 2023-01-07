@@ -3,7 +3,7 @@ mapName: "09-dragonflight/ohnahran_plains"
 minimumLevel: 60
 farms:
 
-# Profession
+# Profession Master
 
 - name: "Erden"
   location: 82.4 50.6
@@ -58,3 +58,30 @@ farms:
       id: 2030 # Dragon Isles Enchanting Knowledge
       amount: 5
       limit: profession enchanting
+
+# Profession Treasure
+
+- name: "Ancient Spear Shards"
+  location: 79.4 36.5
+  note: "In the cave"
+  objectId: 380620
+  questId: 70313
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201004 # Ancient Spear Shards
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
+
+- name: "Falconer Gauntlet Drawings"
+  location: 50.9 66.5
+  objectId: 380709
+  questId: 70353
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201009 # Falconer Gauntlet Drawings
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge

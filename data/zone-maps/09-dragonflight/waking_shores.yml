@@ -81,7 +81,7 @@ farms:
     - type: transmog
       id: 200252 # Molten Flak Cannon [gun]
 
-# Profession
+# Profession Master
 
 - name: "Grekka Anvilsmash"
   location: 43.2 66.6
@@ -136,6 +136,71 @@ farms:
       id: 2033 # Dragon Isles Skinning Knowledge
       amount: 10
       limit: profession skinning
+
+# Profession Treasure
+
+- name: "Ancient Monument"
+  location: 22.3 87.7
+  note: "Kill shields and loot the sword, relog and check mail if no loot"
+  objectId: 376657
+  questId: 70246
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201007 # Ancient Monument
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
+
+- name: "Curious Ingots"
+  location: 65.6 25.7
+  objectId: 380619
+  questId: 70312
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201005 # Curious Ingots
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
+
+- name: "Glimmer of Wisdom"
+  location: 56.4 19.5
+  note: "Craft a Frostfire Alloy or Primal Molten Alloy, loot sparkly"
+  objectId: 380623
+  questId: 70314
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198791 # Glimmer of Blacksmithing Wisdom
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
+
+- name: "Molten Ingot"
+  location: 35.6 64.5
+  note: "Kick 3 ingots into lava, kill mob, loot chest"
+  objectId: 380598
+  questId: 70296
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201008 # Molten Ingot
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
+
+- name: "Qalashi Weapon Diagram"
+  location: 34.5 67.1
+  objectId: 380617
+  questId: 70310
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201010 # Qalashi Weapon Diagram
+      limit: profession blacksmithing
+      note: "{price:3|2023}" # Blacksmithing Knowledge
 
 # Treasure
 
