@@ -20,7 +20,7 @@ export const inventoryTypeIcons: Record<InventoryType, string> = {
     [InventoryType.Ranged]: '',
     [InventoryType.Back]: '',
     [InventoryType.TwoHand]: '',
-    [InventoryType.Bag]: '',
+    [InventoryType.Bag]: 'gameBackpack',
     [InventoryType.Tabard]: '',
     [InventoryType.Chest2]: '',
     [InventoryType.MainHand]: '',

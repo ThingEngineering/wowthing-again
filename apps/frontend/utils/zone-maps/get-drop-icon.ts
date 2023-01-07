@@ -2,7 +2,7 @@ import type { IconifyIcon } from '@iconify/types'
 import { get } from 'svelte/store'
 
 import { iconStrings, rewardTypeIcons } from '@/data/icons'
-import { ArmorType, RewardType, WeaponSubclass } from '@/enums'
+import { ArmorType, InventoryType, RewardType, WeaponSubclass } from '@/enums'
 import { armorTypeIcons, iconLibrary, inventoryTypeIcons, weaponIcons } from '@/icons'
 import { itemStore } from '@/stores'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
@@ -29,6 +29,10 @@ export function getDropIcon(
     }
     else if (drop.type === RewardType.Weapon) {
         icon = iconLibrary[weaponIcons[<WeaponSubclass>drop.subType]]
+    }
+    else if (drop.type === RewardType.Item) {
+        const item = get(itemStore).items[drop.id]
+        icon = iconLibrary[inventoryTypeIcons[item?.inventoryType]]
     }
 
     return icon || rewardTypeIcons[drop.type]
