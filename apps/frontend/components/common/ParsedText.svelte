@@ -57,11 +57,11 @@
                                 return `<span data-icon="item/${itemId}"></span> ${amount}`
                             }
                             else {
-                                return `${amount} <span data-icon="item/${itemId}"></span> ${item.name}`
+                                return `${amount}x <span data-icon="item/${itemId}"></span> ${item.name}`
                             }
                         }
                         else {
-                            return `${amount} Item #${itemId}`
+                            return `${amount}x Item #${itemId}`
                         }
                     }
                     else {
@@ -71,11 +71,11 @@
                                 return `<span data-icon="currency/${currencyId}"></span> ${amount}`
                             }
                             else {
-                                return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                                return `${amount}x <span data-icon="currency/${currencyId}"></span> ${currency.name}`
                             }
                         }
                         else {
-                            return `${amount} Currency #${currencyId}`
+                            return `${amount}x Currency #${currencyId}`
                         }
                     }
                 }
