@@ -33,11 +33,9 @@ const config = <UserConfig> defineConfig({
 			compilerOptions: {
 				dev: !production,
 			},
-			experimental: {
-				prebundleSvelteLibraries: true,
-			},
 
 			hot: !production,
+			prebundleSvelteLibraries: true,
 		}),
 	],
 	build: {

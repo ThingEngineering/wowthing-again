@@ -33,16 +33,20 @@ groups:
 
 - name: Collecting
   things:
-  - 160 # Stinker (Shop Smart, Shop Pet...Smart - 50 pets)
-  - 203 # Little Fawn (Lil' Game Hunter - 75 pets)
-  - 323 # Nuts (Petting Zoo - 100 pets)
-  - 325 # Brilliant Kaliri (Menagerie - 125 pets)
-  - 255 # Celestial Dragon (Littlest Pet Shop - 150 pets)
-  - 821 # Feral Vermling (Going to Need More Leashes - 250 pets)
-  - 855 # Venus (That's a Lot of Pet Food - 400 pets)
-  - 1546 # Stormwing (So. Many. Pets. - 600 pets)
-  - 2401 # Rooter (Pet Emporium - 800 pets)
-  - 2003 # Hearthy (Master of Minions - 1000 unique pets)
+    - 160 # Stinker (Shop Smart, Shop Pet...Smart - 50 pets)
+    - 203 # Little Fawn (Lil' Game Hunter - 75 pets)
+    - 323 # Nuts (Petting Zoo - 100 pets)
+    - 325 # Brilliant Kaliri (Menagerie - 125 pets)
+    - 255 # Celestial Dragon (Littlest Pet Shop - 150 pets)
+    - 821 # Feral Vermling (Going to Need More Leashes - 250 pets)
+    - 855 # Venus (That's a Lot of Pet Food - 400 pets)
+    - 1546 # Stormwing (So. Many. Pets. - 600 pets)
+    - 2401 # Rooter (Pet Emporium - 800 pets)
+    - 2003 # Hearthy (Master of Minions - 1000 unique pets)
+    - 3264 # Crystalline Mini-Monster (Many More Minin Minions - 1200 unique pets)
+    - 3263 # Secretive Frogduck (Proven Pet Parent - 1400 unique pets)
+    - 3262 # Violet Violence (What Can I Say? They Love Me - 1600 unique pets)
+    - 3265 # Mister Muskoxeles (Good Things Come in Small Packages - 2000 unique pets)
 
 - name: Instances
   things:

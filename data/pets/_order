@@ -1,6 +1,7 @@
 *
     drops.yml
     instances.yml
+    professions.yml
     quests.yml
     reputations.yml
     treasures.yml
@@ -40,6 +41,7 @@
     08-shadowlands/pet_battles.yml
 
 09-dragonflight/_.yml
+    09-dragonflight/pet_battles.yml
 
 -
 
@@ -63,6 +65,7 @@ drops.yml
     06-legion/drops.yml Legion
     07-battle-for-azeroth/drops.yml Battle for Azeroth
     08-shadowlands/drops.yml Shadowlands
+    09-dragonflight/drops.yml Dragonflight
 
 instances.yml
     00-classic/instances.yml Classic
@@ -84,10 +87,12 @@ pet_battles.yml
     06-legion/pet_battles.yml Legion
     07-battle-for-azeroth/pet_battles.yml Battle for Azeroth
     08-shadowlands/pet_battles.yml Shadowlands
+    09-dragonflight/pet_battles.yml Dragonflight
 
 reputations.yml
     07-battle-for-azeroth/reputations.yml Battle for Azeroth
     08-shadowlands/reputations.yml Shadowlands
+    09-dragonflight/reputations.yml Dragonflight
 
 -
 

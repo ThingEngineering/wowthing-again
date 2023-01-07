@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
@@ -23,8 +22,6 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Wowthing.Backend.Jobs.Misc;
 
@@ -199,19 +196,22 @@ public class CacheManualJob : JobBase, IScheduledJob
 
         // Mount sets
         var mountSets = LoadCollectionSets("mounts");
-        AddUncategorized("mounts", _mountMap, mountSets, id => GetString(StringType.WowMountName, Language.enUS, id));
+        AddUncategorized("mounts", _mountMap, mountSets,
+            id => GetString(StringType.WowMountName, Language.enUS, id));
         cacheData.MountSets = FinalizeCollections(mountSets);
         _timer.AddPoint("Mounts");
 
         // Pet sets
         var petSets = LoadCollectionSets("pets");
-        AddUncategorized("pets", _petMap, petSets, id => GetString(StringType.WowCreatureName, Language.enUS, id));
+        AddUncategorized("pets", _petMap, petSets,
+            id => GetString(StringType.WowCreatureName, Language.enUS, _petMap[id].CreatureId));
         cacheData.PetSets = FinalizeCollections(petSets);
         _timer.AddPoint("Pets");
 
         // Toy sets
         var toySets = LoadCollectionSets("toys");
-        AddUncategorized("toys", _toyMap, toySets, id => GetString(StringType.WowItemName, Language.enUS, id));
+        AddUncategorized("toys", _toyMap, toySets,
+            id => GetString(StringType.WowItemName, Language.enUS, id));
         cacheData.ToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
@@ -796,7 +796,7 @@ public class CacheManualJob : JobBase, IScheduledJob
             {
                 foreach (int thing in missing.OrderBy(m => m))
                 {
-                    file.WriteLine($"  - {thing} # {nameFunc(thing)}");
+                    file.WriteLine($"    - {thing} # {nameFunc(thing)}");
                 }
             }
 #endif

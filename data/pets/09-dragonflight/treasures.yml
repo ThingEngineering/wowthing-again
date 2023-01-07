@@ -1,0 +1,21 @@
+name: "Treasures"
+groups:
+
+- name: "Azure Span, The"
+  things:
+    - 3321 # Blackfeather Nester (Blackfeather Nester)
+    - 3359 # Snowclaw Cub (Primal Bear Cub)
+
+- name: "Ohn'ahran Plains"
+  things:
+    - 3309 # Viridescent Duck (Slightly Chewed Duck Egg)
+
+- name: "Thaldraszus"
+  things:
+    - 3275 # Chestnut (Acorn Harvester)
+    - 3415 # Cubbly (Strange Bear Cub)
+
+- name: "Waking Shores, The"
+  things:
+    - 3269 # Azure Frillfish (Bubble Drifter)
+    - 3365 # Roseate Hopper (Hidden Hornswog Hostage)

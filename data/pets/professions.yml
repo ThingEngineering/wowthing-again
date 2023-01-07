@@ -89,8 +89,13 @@ groups:
 
 - name: Jewelcrafting
   things:
-  - 845 # Jade Owl
-  - 846 # Sapphire Cub
+    - 845 # Jade Owl
+    - 846 # Sapphire Cub
+    - 3345 # Jeweled Amber Whelpling
+    - 3347 # Jeweled Emerald Whelpling
+    - 3256 # Jeweled Onyx Whelpling
+    - 3346 # Jeweled Ruby Whelpling
+    - 3344 # Jeweled Sapphire Whelpling
 
 - name: Mining
   things:

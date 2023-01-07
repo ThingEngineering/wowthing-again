@@ -1,0 +1,21 @@
+name: "Reputations"
+groups:
+
+- name: "Dragonscale Expedition"
+  things:
+    - 3380 # Black Skitterbug (Renown 11)
+    - 3381 # Gray Marmoni (Renown 11)
+
+- name: "Iskaara Tuskarr"
+  things:
+    - 3326 # Backswimmer Timbertooth (Renown 9)
+    - 3284 # Whiskuk (Renown 9)
+
+- name: "Maruuk Centaur"
+  things:
+    - 3317 # Hoofhelper
+
+- name: "Valdrakken Accord"
+  things:
+    - 3379 # Crimson Proto-Whelp (Renown 18)
+    - 3378 # Magic Nibbler (Renown 18)
