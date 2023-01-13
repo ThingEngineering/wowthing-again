@@ -59,3 +59,54 @@ groups:
         8:  40545 # Feet
         9:  40569 # Wrists
         10: 40549 # Hands
+
+- name: Tidesage's Armor
+  type: armor
+  sets:
+  - Tidesage's Armor
+  data:
+    cloth:
+      # description=0 set=1637
+      - name: "Vestments of the Tidesages"
+        wowheadSetId:
+        items:
+          1:  37745 # Head
+          3:  37747 # Shoulders
+          5:  37743 # Chest
+          7:  37746 # Legs
+          8:  37742 # Feet
+          9:  37748 # Wrists
+          10: 37744 # Hands
+
+- name: Brawler's Guild
+  type: all
+  sets:
+  - Alliance
+  - Horde
+  data:
+    all:
+      # description=0 (Alliance) set=1822
+      - name: "Brawler's Garb"
+        wowheadSetId:
+        items:
+          1:  39797 # Head
+          3:  39799 # Shoulders
+          5:  39794 # Chest
+          6:  39800 # Waist
+          7:  39798 # Legs
+          8:  39795 # Feet
+          9:  39801 # Wrists
+          10: 39796 # Hands
+
+      # description=0 (Horde) set=1823
+      - name: "Brawler's Garb"
+        wowheadSetId:
+        items:
+          1:  39797 # Head
+          3:  39799 # Shoulders
+          5:  39802 # Chest
+          6:  39806 # Waist
+          7:  39805 # Legs
+          8:  39803 # Feet
+          9:  39807 # Wrists
+          10: 39804 # Hands
