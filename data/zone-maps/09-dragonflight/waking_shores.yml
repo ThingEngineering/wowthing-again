@@ -15,7 +15,7 @@ farms:
   location: 46.0 81.6
   type: group
 
-# Rare
+# Kill
 
 - name: "Azra's Prized Peony"
   location: 54.9 71.1
@@ -80,6 +80,58 @@ farms:
 
     - type: transmog
       id: 200252 # Molten Flak Cannon [gun]
+
+# Achievement
+
+- name: "The Highest Peaks"
+  location: 56.02 45.41
+  questId: 70823
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 73.35 38.84
+  questId: 70824
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 43.97 62.94
+  questId: 70825
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 28.71 47.71
+  questId: 70826
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 54.79 74.12
+  questId: 71204
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
 
 # Profession Master
 

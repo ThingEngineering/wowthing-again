@@ -3,6 +3,58 @@ mapName: "09-dragonflight/thaldraszus"
 minimumLevel: 60
 farms:
 
+# Achievement
+
+- name: "The Highest Peaks"
+  location: 46.10 73.97
+  questId: 70024
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 50.16 81.63
+  questId: 70039
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 34.04 84.84
+  questId: 71222
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 65.72 74.98
+  questId: 71223
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 64.63 56.72
+  questId: 71224
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
 # Profession Master
 
 - name: "Bridgette Holdug"

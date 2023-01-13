@@ -65,6 +65,68 @@ farms:
 
 - name: "Grumbletrunk"
 
+# Achievement
+
+- name: "The Highest Peaks"
+  location: 31.91 27.03
+  questId: 71215
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 37.46 66.20
+  questId: 71216
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 77.43 18.37
+  questId: 71217
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 46.14 24.98
+  questId: 71218
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 63.08 48.67
+  questId: 71220
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 74.84 43.24
+  questId: 71221
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
 # Profession Master
 
 - name: "Frizz Buzzcrank"

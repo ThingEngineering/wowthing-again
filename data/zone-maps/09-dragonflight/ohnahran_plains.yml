@@ -3,6 +3,48 @@ mapName: "09-dragonflight/ohnahran_plains"
 minimumLevel: 60
 farms:
 
+# Achievement
+
+- name: "The Highest Peaks"
+  location: 57.75 30.80
+  questId: 70827
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 28.31 77.64
+  questId: 71200
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 30.39 36.46
+  questId: 71207
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
+- name: "The Highest Peaks"
+  location: 86.31 39.28
+  questId: 71208
+  reset: never
+  type: achievement
+  drops:
+    - type: reputation
+      id: 2507 # Dragonscale Expedition
+      amount: 250
+
 # Profession Master
 
 - name: "Erden"
