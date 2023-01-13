@@ -1,0 +1,38 @@
+id: 196069
+name: "Patchu"
+zoneMapsGroupId: 1
+
+locations:
+  09-dragonflight/azure_span:
+    - 13.8 49.8
+
+sells:
+  - type: pet
+    id: 3270 # Jean's Lucky Fish
+    costs:
+      1163036: 300
+
+  - type: pet
+    id: 3408 # Petal
+    costs:
+      1163036: 100
+
+  - type: pet
+    id: 3417 # Pinkie
+    costs:
+      1163036: 500
+
+  - type: pet
+    id: 3278 # Pistachio
+    costs:
+      1163036: 50
+
+  - type: pet
+    id: 3407 # Scout
+    costs:
+      1163036: 5000
+
+  - type: pet
+    id: 3416 # Troubled Tome
+    costs:
+      1163036: 200
