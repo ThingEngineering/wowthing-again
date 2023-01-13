@@ -125,7 +125,9 @@ groups:
   - Goblin
   - Tauren
   - Highmountain Tauren
-  - Mag'har Orc
+  - Mag'har Orc 1
+  - Mag'har Orc 2
+  - Mag'har Orc 3
   - Nightborne
   - Vulpera
   - Zandalari Troll
@@ -197,6 +199,32 @@ groups:
         8:  35924 # Feet
         9:  35930 # Wrists
         10: 35926 # Hands
+
+    # description=0 (Horde) set=1681
+    - name: "Heritage of the Blackrock"
+      wowheadSetId:
+      items:
+        1:  37930 # Head
+        3:  37932 # Shoulders
+        5:  37928 # Chest
+        6:  37926 # Waist
+        7:  37931 # Legs
+        8:  37927 # Feet
+        9:  37933 # Wrists
+        10: 37929 # Hands
+
+    # description=0 (Horde) set=1682
+    - name: "Heritage of the Frostwolves"
+      wowheadSetId:
+      items:
+        1:  37938 # Head
+        3:  37940 # Shoulders
+        5:  37936 # Chest
+        6:  37934 # Waist
+        7:  37939 # Legs
+        8:  37935 # Feet
+        9:  37941 # Wrists
+        10: 37937 # Hands
 
     # description=0 (Horde) set=1523
     - name: Heritage of the Shal'dorei
