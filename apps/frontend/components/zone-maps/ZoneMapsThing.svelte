@@ -135,7 +135,7 @@
 </style>
 
 {#if show}
-    {@const icon = getFarmIcon(farm)}
+    {@const [icon, scale] = getFarmIcon(farm)}
     {#each locations as [xPos, yPos]}
         <div
             class="wrapper"
@@ -170,7 +170,7 @@
                     <div class="{classes.join(' ')}">
                         <IconifyIcon
                             {icon}
-                            scale={big ? '1.25' : '1'}
+                            scale={big ? '1.25' : scale}
                         />
                     </div>
 

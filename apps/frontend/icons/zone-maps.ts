@@ -2,17 +2,17 @@ import { FarmType } from '@/enums'
 
 
 export const farmTypeIcons: Record<number, string> = {
-    [FarmType.Achievement]: 'gameAchievement',
-    // [FarmType.Dungeon]: faDungeon,
+    [FarmType.Achievement]: 'gameTrophy',
+    [FarmType.Dungeon]: 'faDungeon',
     // [FarmType.Event]: mdiTimerSand,
     // [FarmType.EventBig]: mdiTimerSand,
-    // [FarmType.Kill]: mdiSkull,
+    [FarmType.Kill]: 'mdiSkull',
     [FarmType.KillBig]: 'gameCrownedSkull',
-    // [FarmType.Profession]: mdiHammerWrench,
+    [FarmType.Profession]: 'mdiHammerWrench',
     // [FarmType.Puzzle]: mdiPuzzle,
-    // [FarmType.Quest]: hisExclamationCircle,
-    // [FarmType.Raid]: faDungeon,
-    [FarmType.Treasure]: 'gameLockedChest',
+    [FarmType.Quest]: 'hisExclamationCircle',
+    [FarmType.Raid]: 'gameCastle',
+    [FarmType.Treasure]: 'gamePresent',
     [FarmType.Vendor]: 'mdiCart',
 
     // [FarmType.Cloth]: mdiLetterC,

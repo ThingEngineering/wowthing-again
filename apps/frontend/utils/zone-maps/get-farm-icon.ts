@@ -1,12 +1,12 @@
 import type { IconifyIcon } from '@iconify/types'
 
 import { farmTypeIcons as oldFarmTypeIcons } from '@/data/icons'
-import { farmTypeIcons, iconLibrary, professionIcons } from '@/icons'
+import { farmTypeIcons, iconLibrary, iconScaling, professionIcons } from '@/icons'
 import type { ManualDataZoneMapFarm } from '@/types/data/manual'
 
 
-export function getFarmIcon(farm: ManualDataZoneMapFarm): IconifyIcon {
-    let icon: IconifyIcon
+export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] {
+    let iconName = ''
 
     const professionLimits: Record<string, boolean> = {}
     for (const drop of (farm.drops || [])) {
@@ -16,9 +16,12 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): IconifyIcon {
     }
     
     const keys = Object.keys(professionLimits)
-    if (keys.length === 1) {
-        icon = iconLibrary[professionIcons[keys[0]]]
-    }
+    iconName = keys.length === 1 ? professionIcons[keys[0]] : farmTypeIcons[farm.type]
 
-    return icon || iconLibrary[farmTypeIcons[farm.type]] || oldFarmTypeIcons[farm.type]
+    return [
+        iconLibrary[iconName] ||
+        oldFarmTypeIcons[farm.type],
+        iconScaling[iconName] ||
+        '1',
+    ]
 }
