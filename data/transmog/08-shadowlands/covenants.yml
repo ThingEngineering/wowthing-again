@@ -68,6 +68,7 @@ groups:
         8:  42493 # Feet
         9:  42498 # Wrists
         10: 42494 # Hands
+        16: 42565 # Back
 
     leather:
     # Campaign set=2019
