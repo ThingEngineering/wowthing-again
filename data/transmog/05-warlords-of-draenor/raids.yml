@@ -452,7 +452,8 @@ groups:
         9:  25502 # Wrists
         10: 25499 # Hands
 
-- name: Hellfire Citadel LFR
+- name: Hellfire Citadel
+  tag: T18
   type: armor
   sets:
   - Raid Finder
