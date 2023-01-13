@@ -15,7 +15,7 @@
     "@nrwl/devkit": "^14.4.2",
     "@nrwl/js": "^14.4.2",
     "@nrwl/workspace": "^14.4.2",
-    "@nx-dotnet/core": "^1.12.0",
+    "@nx-dotnet/core": "^1.16.3",
     "@sveltejs/vite-plugin-svelte": "^1.3.1",
     "@tsconfig/svelte": "^3.0.0",
     "@types/lodash": "^4.14.190",
