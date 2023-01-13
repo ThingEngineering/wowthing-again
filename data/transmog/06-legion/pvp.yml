@@ -1479,6 +1479,49 @@ groups:
         10: 29748 # Hands
         16: 30039 # Back
 
+    mage:
+      # Elite (Alliance) set=1096,1095
+      - name: "Vindictive Gladiator's Silk Armor"
+        wowheadSetId: 2140
+        items:
+          1:  31101 # Head
+          3:  31103 # Shoulders
+          5:  31105 # Chest
+          6:  31097 # Waist
+          7:  31102 # Legs
+          8:  31098 # Feet
+          9:  31104 # Wrists
+          10: 31100 # Hands
+          16: 31136 # Back
+
+    # Gladiator (Alliance) set=1094
+    - name: "Vindictive Gladiator's Silk Armor"
+      wowheadSetId: 2139
+      items:
+        1:  30749 # Head
+        3:  30751 # Shoulders
+        5:  30753 # Chest
+        6:  30745 # Waist
+        7:  30750 # Legs
+        8:  30746 # Feet
+        9:  30752 # Wrists
+        10: 30748 # Hands
+        16: 31147 # Back
+
+    # Gladiator (Horde) set=1093
+    - name: "Vindictive Gladiator's Silk Armor"
+      wowheadSetId: 2138
+      items:
+        1:  30758 # Head
+        3:  30760 # Shoulders
+        5:  30762 # Chest
+        6:  30754 # Waist
+        7:  30759 # Legs
+        8:  30755 # Feet
+        9:  30761 # Wrists
+        10: 30757 # Hands
+        16: 31158 # Back
+
     monk:
     # Elite set=1119,1120
     - name: Vindictive Gladiator's Ironskin Armor
