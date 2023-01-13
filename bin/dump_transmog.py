@@ -108,7 +108,7 @@ DESCRIPTION_MAP = {
     13989: 'Quest Rewards',
     13990: 'World Drops',
     13991: 'Professions',
-    13993: 'Crafted",
+    13993: 'Crafted',
     13998: 'Dungeons,'
 }
 DESCRIPTION_ORDER = [
