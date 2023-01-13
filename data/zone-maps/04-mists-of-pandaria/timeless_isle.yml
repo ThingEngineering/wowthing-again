@@ -3,6 +3,15 @@ mapName: "z4_timeless_isle"
 minimumLevel: 30
 farms:
 
+# Group
+
+- name: "Group 1"
+  groupId: 1
+  location: 37.8 77.1
+  type: group
+
+# Kill
+
 - name: "Bufo"
   location: 63.7 72.8
   npcId: 72775
@@ -275,6 +284,7 @@ farms:
     criteriaId: 34213 # Strange Glowing Mushroom
 
 - name: "Spectral Brewmasters"
+  groupId: 1
   location: 35.8 77.1
   npcId: 73018
   reset: none
@@ -284,6 +294,7 @@ farms:
     criteriaId: 34205 # Thick Pi'jiu Brew
 
 - name: "Spectral Mistweavers"
+  groupId: 1
   location: 37.8 77.1
   npcId: 73025
   reset: none
@@ -362,6 +373,7 @@ farms:
     criteriaId: 34219 # Rain Stone
 
 - name: "Zhu-Gon the Sour"
+  groupId: 1
   location: 39.8 77.1
   npcId: 71919
   reset: none
@@ -384,7 +396,6 @@ farms:
   drops:
     - type: item
       id: 103982 # Burden of Eternity
-      note: "Lootable once per character"
 
 - name: "Crane Nest"
   location: 31.7 66.9
