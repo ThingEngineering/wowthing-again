@@ -238,6 +238,7 @@
         flex-wrap: wrap;
         padding: 0.1rem;
         position: absolute;
+        transform: translate(-50%, -50%);
 
         :global(.wrapper) {
             left: initial !important;
