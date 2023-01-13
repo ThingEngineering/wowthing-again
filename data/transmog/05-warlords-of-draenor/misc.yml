@@ -4,6 +4,52 @@ skipClasses:
 - evoker
 groups:
 
+- name: "Reputations"
+  type: armor
+  sets:
+  - "Reputations"
+  data:
+    cloth:
+      # description=0 set=1531
+      - name: "Ceremonial Karabor Finery"
+        wowheadSetId:
+        items:
+          1:  21765 # Head
+          3:  21761 # Shoulders
+          5:  21763 # Chest
+          6:  21759 # Waist
+          7:  21766 # Legs
+          8:  21760 # Feet
+          9:  21762 # Wrists
+          10: 21764 # Hands
+
+    leather:
+      # description=0 set=1530
+      - name: "Frostwolf Leathers"
+        wowheadSetId:
+        items:
+          3:  23124 # Shoulders
+          5:  23121 # Chest
+          6:  23118 # Waist
+          7:  23123 # Legs
+          8:  23120 # Feet
+          9:  23125 # Wrists
+          10: 23122 # Hands
+
+    plate:
+      # description=0 set=1532
+      - name: "Sha'tari Defender's Plate"
+        wowheadSetId:
+        items:
+          1:  21712 # Head
+          3:  21714 # Shoulders
+          5:  21710 # Chest
+          6:  21708 # Waist
+          7:  21713 # Legs
+          8:  21709 # Feet
+          9:  21715 # Wrists
+          10: 21711 # Hands
+
 - name: "Garrisons"
   type: armor
   sets:
