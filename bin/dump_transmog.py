@@ -151,19 +151,19 @@ DESCRIPTION_ORDER = [
     13859, # Renown Quartermaster
 
     # Dragonflight
-    13979 # Primal Storms
-    13989 # Quest Rewards
-    13987 # World and Weekly Quests
-    13998 # Dungeons
-    13980 # War Mode
-    13991 # Professions
-    13993 # Crafted
-    13990 # World Drops
-    13965 # Red
-    13964 # Bronze
-    13966 # Black
-    13967 # Blue
-    13968 # Green
+    13979, # Primal Storms
+    13989, # Quest Rewards
+    13987, # World and Weekly Quests
+    13998, # Dungeons
+    13980, # War Mode
+    13991, # Professions
+    13993, # Crafted
+    13990, # World Drops
+    13965, # Red
+    13964, # Bronze
+    13966, # Black
+    13967, # Blue
+    13968, # Green
 
     0,
 ]
