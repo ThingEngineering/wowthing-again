@@ -1,5 +1,6 @@
 import { get } from 'svelte/store'
 
+import { Profession } from '@/enums'
 import { staticStore } from '@/stores'
 import type { Character } from '@/types'
 import type { Chore } from '@/types/tasks'
@@ -52,70 +53,105 @@ export const darkmoonFaireProfessionQuests: Record<number, number> = {
     356: 29513, // Fishing - Spoilin' for Salty Sea Dogs
 }
 
-type DragonflightProfessionTask = {
-    name: string
+type DragonflightProfession = {
+    id: Profession
     hasCraft?: boolean
     hasOrders?: boolean
+    masterQuestId?: number
+    treasureQuests?: [number, number][]
 }
-const dragonflightProfessions: DragonflightProfessionTask[] = [
+const dragonflightProfessions: DragonflightProfession[] = [
     {
-        name: 'Alchemy',
+        id: Profession.Alchemy,
         hasCraft: true,
     },
     {
-        name: 'Blacksmithing',
+        id: Profession.Blacksmithing,
+        hasCraft: true,
+        hasOrders: true,
+        masterQuestId: 70250,
+        treasureQuests: [
+            [70246, 201007], // Ancient Monument
+            [70313, 201004], // Ancient Spear Shards
+            [70312, 201005], // Curious Ingots
+            [70311, 201006], // Draconic Flux
+            [70353, 201009], // Falconer Gauntlet Drawings
+            [70314, 198791], // Glimmer of Blacksmithing Wisdom
+            [70296, 201008], // Molten Ingot
+            [70310, 201010], // Qalashi Weapon Diagram
+            [70314, 201011], // Spelltouched Tongs
+        ],
+    },
+    {
+        id: Profession.Enchanting,
+        hasCraft: true,
+    },
+    {
+        id: Profession.Engineering,
         hasCraft: true,
         hasOrders: true,
     },
     {
-        name: 'Enchanting',
-        hasCraft: true,
+        id: Profession.Herbalism,
     },
     {
-        name: 'Engineering',
-        hasCraft: true,
-        hasOrders: true,
-    },
-    {
-        name: 'Herbalism',
-    },
-    {
-        name: 'Inscription',
+        id: Profession.Inscription,
         hasCraft: true,
         hasOrders: true,
     },
     {
-        name: 'Jewelcrafting',
+        id: Profession.Jewelcrafting,
         hasCraft: true,
         hasOrders: true,
     },
     {
-        name: 'Leatherworking',
+        id: Profession.Leatherworking,
         hasCraft: true,
         hasOrders: true,
     },
     {
-        name: 'Mining',
+        id: Profession.Mining,
     },
     {
-        name: 'Skinning',
+        id: Profession.Skinning,
     },
     {
-        name: 'Tailoring',
+        id: Profession.Tailoring,
         hasCraft: true,
         hasOrders: true,
     },
 ]
 
+type DragonflightProfessionQuests = {
+    masterQuestId: number
+    treasureQuests: {
+        questId: number
+        itemId: number
+    }[]
+}
+export const dragonflightProfessionQuests: Record<number, DragonflightProfessionQuests> = {}
 export const dragonflightProfessionTasks: Chore[] = []
+
 for (const profession of dragonflightProfessions) {
-    const lowerName = profession.name.toLowerCase()
+    const name = Profession[profession.id]
+    const lowerName = Profession[profession.id].toLowerCase()
     
+    if (profession.masterQuestId && profession.treasureQuests) {
+        dragonflightProfessionQuests[profession.id] = {
+            masterQuestId: profession.masterQuestId,
+            treasureQuests: profession.treasureQuests
+                .map(([questId, itemId]) => ({
+                    questId,
+                    itemId,
+                }))
+        }
+    }
+
     if (profession.hasCraft === true) {
         dragonflightProfessionTasks.push(
             {
-                taskKey: `dfProfession${profession.name}Craft`,
-                taskName: `${profession.name}: Craft`,
+                taskKey: `dfProfession${name}Craft`,
+                taskName: `${name}: Craft`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
                 canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
@@ -125,8 +161,8 @@ for (const profession of dragonflightProfessions) {
 
     dragonflightProfessionTasks.push(
         {
-            taskKey: `dfProfession${profession.name}Drop#`,
-            taskName: `${profession.name}: Drops`,
+            taskKey: `dfProfession${name}Drop#`,
+            taskName: `${name}: Drops`,
             minimumLevel: 60,
             couldGetFunc: (char) => couldGet(lowerName, char),
             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
@@ -135,8 +171,8 @@ for (const profession of dragonflightProfessions) {
 
     dragonflightProfessionTasks.push(
         {
-            taskKey: `dfProfession${profession.name}Gather`,
-            taskName: `${profession.name}: Gather`,
+            taskKey: `dfProfession${name}Gather`,
+            taskName: `${name}: Gather`,
             minimumLevel: 60,
             couldGetFunc: (char) => couldGet(lowerName, char),
             canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
@@ -146,8 +182,8 @@ for (const profession of dragonflightProfessions) {
     if (profession.hasOrders === true) {
         dragonflightProfessionTasks.push(
             {
-                taskKey: `dfProfession${profession.name}Orders`,
-                taskName: `${profession.name}: Orders`,
+                taskKey: `dfProfession${name}Orders`,
+                taskName: `${name}: Orders`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
                 canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
@@ -157,8 +193,8 @@ for (const profession of dragonflightProfessions) {
 
     dragonflightProfessionTasks.push(
         {
-            taskKey: `dfProfession${profession.name}Treatise`,
-            taskName: `${profession.name}: Treatise`,
+            taskKey: `dfProfession${name}Treatise`,
+            taskName: `${name}: Treatise`,
             minimumLevel: 60,
             couldGetFunc: (char) => couldGet(lowerName, char),
         },

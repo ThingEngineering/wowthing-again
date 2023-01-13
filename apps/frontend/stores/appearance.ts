@@ -23,6 +23,12 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         const byExpansion: Record<number, Record<string, AppearanceDataSet>> = {}
         for (const key in data.rawAppearances) {
             const [expansion, cls, subClass, inventoryType] = key.split('|').map(n => parseInt(n))
+
+            if (expansion < 0) {
+                console.log('Broken appearance?', key)
+                continue
+            }
+
             byExpansion[expansion] ||= {}
 
             let sortKey: string

@@ -19,6 +19,7 @@ public enum FarmType
     Dungeon,
     Raid,
     Profession,
+    Achievement,
 }
 
 public enum FarmIdType
@@ -110,5 +111,6 @@ public enum RewardType
     Item,
     Illusion,
     Currency,
+    Reputation,
     Transmog = 100,
 }

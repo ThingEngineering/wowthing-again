@@ -17,6 +17,7 @@ export enum FarmType
     Dungeon,
     Raid,
     Profession,
+    Achievement,
 }
 
 export enum RewardReputation {
@@ -87,6 +88,7 @@ export enum RewardType {
     Item,
     Illusion,
     Currency,
+    Reputation,
     Transmog = 100,
     InstanceSpecial = 1000,
     SetSpecial = 1001,
