@@ -630,3 +630,85 @@ groups:
         8:  32558 # Feet
         9:  32564 # Wrists
         10: 32560 # Hands
+
+- name: Timewalking Vendor
+  type: armor
+  sets:
+  - Timewalking Vendor
+    plate:
+      # description=0 set=2292
+      - name: "Ravencrest's Battleplate"
+        wowheadSetId:
+        items:
+          1:  28370 # Head
+          3:  28507 # Shoulders
+          5:  28504 # Chest
+          6:  28502 # Waist
+          7:  28506 # Legs
+          8:  28503 # Feet
+          9:  28508 # Wrists
+          10: 28505 # Hands
+
+- name: Seat of the Triumvirate
+  type: armor
+  sets:
+  - Seat of the Triumvirate
+    cloth:
+      # description=0 set=1471
+      - name: "Light-Woven Triumvirate Regalia"
+        wowheadSetId:
+        items:
+          1:  35414 # Head
+          3:  35416 # Shoulders
+          5:  35418 # Chest
+          6:  35411 # Waist
+          7:  35415 # Legs
+          8:  35412 # Feet
+          9:  35417 # Wrists
+          10: 35413 # Hands
+          16: 35592 # Back
+
+    leather:
+      # description=0 set=1470
+      - name: "Burnished Triumvirate Armor"
+        wowheadSetId:
+        items:
+          1:  35456 # Head
+          3:  35458 # Shoulders
+          5:  35454 # Chest
+          6:  35452 # Waist
+          7:  35457 # Legs
+          8:  35453 # Feet
+          9:  35459 # Wrists
+          10: 35455 # Hands
+          16: 35610 # Back
+
+    mail:
+      # description=0 set=1469
+      - name: "Sterling Triumvirate Chainmail"
+        wowheadSetId:
+        items:
+          1:  35503 # Head
+          3:  35505 # Shoulders
+          5:  35507 # Chest
+          6:  35499 # Waist
+          7:  35504 # Legs
+          8:  35500 # Feet
+          9:  35506 # Wrists
+          10: 35502 # Hands
+          16: 35646 # Back
+
+    plate:
+      # description=0 set=1468
+      - name: "Venerated Triumvirate Battleplate"
+        wowheadSetId:
+        items:
+          1:  35530 # Head
+          3:  35532 # Shoulders
+          5:  35528 # Chest
+          6:  35526 # Waist
+          7:  35531 # Legs
+          8:  35527 # Feet
+          9:  35533 # Wrists
+          10: 35529 # Hands
+          16: 35622 # Back
