@@ -4,6 +4,11 @@ groups:
 - name: "Dungeons"
   things:
   - 1681 # Hailstorm Armoredon
+  - 1626 # Shellack
+
+- name: "Raids"
+  things:
+  - 1644 # Raging Magmammoth
 
 - name: "Quests"
   things:
