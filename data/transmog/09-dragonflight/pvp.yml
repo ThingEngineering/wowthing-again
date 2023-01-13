@@ -413,3 +413,69 @@ groups:
           9:  76951 # Wrists
           10: 76952 # Hands
           16: 78243 # Back
+
+- name: Dragonflight Season 1
+  tag: S31
+  type: armor
+  sets:
+  - "Aspirant"
+  data:
+    cloth:
+      # Aspirant set=2702
+      - name: "Crimson Aspirant's Silk Vestments"
+        wowheadSetId:
+        items:
+          1:  70686 # Head
+          3:  70687 # Shoulders
+          5:  70688 # Chest
+          6:  70689 # Waist
+          7:  70690 # Legs
+          8:  70691 # Feet
+          9:  70692 # Wrists
+          10: 70693 # Hands
+          16: 70694 # Back
+
+    leather:
+      # Aspirant set=2682
+      - name: "Crimson Aspirant's Battlegarb"
+        wowheadSetId:
+        items:
+          1:  70372 # Head
+          3:  70373 # Shoulders
+          5:  70374 # Chest
+          6:  70375 # Waist
+          7:  70376 # Legs
+          8:  70377 # Feet
+          9:  70378 # Wrists
+          10: 70379 # Hands
+          16: 74996 # Back
+
+    mail:
+      # Aspirant set=2707
+      - name: "Crimson Aspirant's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  70444 # Head
+          3:  70445 # Shoulders
+          5:  70446 # Chest
+          6:  70447 # Waist
+          7:  70448 # Legs
+          8:  70449 # Feet
+          9:  70450 # Wrists
+          10: 70451 # Hands
+          16: 70452 # Back
+
+    plate:
+      # Aspirant set=2715
+      - name: "Crimson Aspirant's Plate Battlegear"
+        wowheadSetId:
+        items:
+          1:  70307 # Head
+          3:  70308 # Shoulders
+          5:  70309 # Chest
+          6:  70310 # Waist
+          7:  70311 # Legs
+          8:  70312 # Feet
+          9:  70313 # Wrists
+          10: 70314 # Hands
+          16: 70315 # Back
