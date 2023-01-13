@@ -108,7 +108,6 @@ DESCRIPTION_ORDER = [
     13193, # Normal
      1641, # Raid Finder
     13216, # Timewarped
-
      3859, # Elite
     13301, # Gladiator
     13302, # Combatant
@@ -116,6 +115,7 @@ DESCRIPTION_ORDER = [
     13303, # Aspirant
     13307, # PVP Epic
     13306, # PVP Rare
+    13448, # Warfront
 
     # 9.0 covenant
     13590, # Campaign
