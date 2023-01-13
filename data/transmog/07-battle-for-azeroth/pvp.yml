@@ -483,6 +483,8 @@ groups:
   - ":horde: Gladiator"
   - ":alliance: Aspirant"
   - ":horde: Aspirant"
+  - ":alliance: Warfront"
+  - ":horde: Warfront"
   data:
     cloth:
     # Elite (Alliance) set=1801
@@ -569,6 +571,34 @@ groups:
         10: 39638 # Hands
         16: 39644 # Back
 
+    # Warfront (Alliance) set=1796
+    - name: "Moonpriest's Vestments"
+      wowheadSetId:
+      items:
+        1:  39323 # Head
+        3:  39325 # Shoulders
+        5:  39320 # Chest
+        6:  39326 # Waist
+        7:  39324 # Legs
+        8:  39321 # Feet
+        9:  39327 # Wrists
+        10: 39322 # Hands
+        16: 39328 # Back
+
+    # Warfront (Horde) set=1766
+    - name: "Plaguebringer's Raiment"
+      wowheadSetId:
+      items:
+        1:  39656 # Head
+        3:  39658 # Shoulders
+        5:  39653 # Chest
+        6:  39659 # Waist
+        7:  39657 # Legs
+        8:  39654 # Feet
+        9:  39660 # Wrists
+        10: 39655 # Hands
+        16: 39661 # Back
+
     leather:
     # Elite (Alliance) set=1794
     - name: Sinister Gladiator's Leathers
@@ -653,6 +683,34 @@ groups:
         9: 39413 # Wrists
         10: 39408 # Hands
         16: 39687 # Back
+
+    # Warfront (Alliance) set=1789
+    - name: "Darkwood Sentinel's Guise"
+      wowheadSetId:
+      items:
+        1:  38890 # Head
+        3:  38895 # Shoulders
+        5:  38891 # Chest
+        6:  38896 # Waist
+        7:  38894 # Legs
+        8:  38892 # Feet
+        9:  38897 # Wrists
+        10: 38893 # Hands
+        16: 38898 # Back
+
+    # Warfront (Horde) set=1759
+    - name: "Deathstalker's Guise"
+      wowheadSetId:
+      items:
+        1:  38902 # Head
+        3:  38904 # Shoulders
+        5:  38899 # Chest
+        6:  38905 # Waist
+        7:  38903 # Legs
+        8:  38900 # Feet
+        9:  38906 # Wrists
+        10: 38901 # Hands
+        16: 39405 # Back
 
     mail:
     # Elite (Alliance) set=1787
@@ -739,6 +797,34 @@ groups:
         10: 39012 # Hands
         16: 39018 # Back
 
+    # Warfront (Alliance) set=1782
+    - name: "Kaldorei Archer's Chainmail"
+      wowheadSetId:
+      items:
+        1:  38911 # Head
+        3:  38913 # Shoulders
+        5:  38908 # Chest
+        6:  38914 # Waist
+        7:  38912 # Legs
+        8:  38909 # Feet
+        9:  38915 # Wrists
+        10: 38910 # Hands
+        16: 38916 # Back
+
+    # Warfront (Horde) set=1752
+    - name: "Blightguard's Chains"
+      wowheadSetId:
+      items:
+        1:  39022 # Head
+        3:  39024 # Shoulders
+        5:  39019 # Chest
+        6:  39025 # Waist
+        7:  39023 # Legs
+        8:  39020 # Feet
+        9:  39026 # Wrists
+        10: 39021 # Hands
+        16: 39027 # Back
+
     plate:
     # Elite (Alliance) set=1780
     - name: Sinister Gladiator's Plate
@@ -824,6 +910,34 @@ groups:
         10: 39173 # Hands
         16: 39179 # Back
 
+    # Warfront (Alliance) set=1775
+    - name: "Wardenguard's Battleplate"
+      wowheadSetId:
+      items:
+        1:  38920 # Head
+        3:  38922 # Shoulders
+        5:  38917 # Chest
+        6:  38923 # Waist
+        7:  38921 # Legs
+        8:  38918 # Feet
+        9:  38924 # Wrists
+        10: 38919 # Hands
+        16: 38925 # Back
+
+    # Warfront (Horde) set=1745
+    - name: "Deathguard's Battleplate"
+      wowheadSetId:
+      items:
+        1:  39202 # Head
+        3:  39204 # Shoulders
+        5:  39199 # Chest
+        6:  39205 # Waist
+        7:  39203 # Legs
+        8:  39200 # Feet
+        9:  39206 # Wrists
+        10: 39201 # Hands
+        16: 39207 # Back
+
 - name: Battle Season 1
   tag: S24
   type: armor
@@ -834,6 +948,8 @@ groups:
   - ":horde: Gladiator"
   - ":alliance: Aspirant"
   - ":horde: Aspirant"
+  - ":alliance: Warfront"
+  - ":horde: Warfront"
   data:
     cloth:
     # Elite (Alliance) set=1738
@@ -920,6 +1036,34 @@ groups:
         10: 37077 # Hands
         16: 36960 # Back
 
+    # Warfront (Alliance) set=1656
+    - name: "7th Legionnaire's Vestment"
+      wowheadSetId:
+      items:
+        1:  37356 # Head
+        3:  37215 # Shoulders
+        5:  37214 # Chest
+        6:  37208 # Waist
+        7:  37213 # Legs
+        8:  37209 # Feet
+        9:  37216 # Wrists
+        10: 37212 # Hands
+        16: 37211 # Back
+
+    # Warfront (Horde) set=1668
+    - name: "Honorbound Artificer's Vestment"
+      wowheadSetId:
+      items:
+        1:  36802 # Head
+        3:  36805 # Shoulders
+        5:  37070 # Chest
+        6:  37080 # Waist
+        7:  36784 # Legs
+        8:  36769 # Feet
+        9:  36772 # Wrists
+        10: 37074 # Hands
+        16: 36956 # Back
+
     leather:
     # Elite (Alliance) set=1737
     - name: Dread Gladiator's Leathers
@@ -1004,6 +1148,34 @@ groups:
         9:  37374 # Wrists
         10: 37414 # Hands
         16: 37473 # Back
+
+    # Warfront (Alliance) set=1659
+    - name: "7th Legionnaire's Leathers"
+      wowheadSetId:
+      items:
+        1:  36902 # Head
+        3:  36905 # Shoulders
+        5:  36858 # Chest
+        6:  36899 # Waist
+        7:  36864 # Legs
+        8:  36854 # Feet
+        9:  36856 # Wrists
+        10: 36860 # Hands
+        16: 36875 # Back
+
+    # Warfront (Horde) set=1671
+    - name: "Honorbound Outrider's Leathers"
+      wowheadSetId:
+      items:
+        1:  37406 # Head
+        3:  37407 # Shoulders
+        5:  37386 # Chest
+        6:  37405 # Waist
+        7:  37389 # Legs
+        8:  37417 # Feet
+        9:  37392 # Wrists
+        10: 37418 # Hands
+        16: 37682 # Back
 
     mail:
     # Elite (Alliance) set=1736
@@ -1090,6 +1262,34 @@ groups:
         10: 38053 # Hands
         16: 38335 # Back
 
+    # Warfront (Alliance) set=1662
+    - name: "7th Legionnaire's Chain"
+      wowheadSetId:
+      items:
+        1:  37277 # Head
+        3:  37278 # Shoulders
+        5:  37250 # Chest
+        6:  37276 # Waist
+        7:  37254 # Legs
+        8:  37247 # Feet
+        9:  37248 # Wrists
+        10: 37252 # Hands
+        16: 37559 # Back
+
+    # Warfront (Horde) set=1674
+    - name: "Honorbound Vanguard's Chain"
+      wowheadSetId:
+      items:
+        1:  38032 # Head
+        3:  38033 # Shoulders
+        5:  38013 # Chest
+        6:  38031 # Waist
+        7:  38016 # Legs
+        8:  38012 # Feet
+        9:  38018 # Wrists
+        10: 38014 # Hands
+        16: 38332 # Back
+
     plate:
     # Elite (Alliance) set=1735
     - name: Dread Gladiator's Plate
@@ -1174,3 +1374,31 @@ groups:
         9:  36842 # Wrists
         10: 37087 # Hands
         16: 36822 # Back
+
+    # Warfront (Alliance) set=1665
+    - name: "7th Legionnaire's Plate"
+      wowheadSetId:
+      items:
+        1:  37785 # Head
+        3:  37787 # Shoulders
+        5:  37783 # Chest
+        6:  37781 # Waist
+        7:  37786 # Legs
+        8:  37782 # Feet
+        9:  37788 # Wrists
+        10: 37784 # Hands
+        16: 37850 # Back
+
+    # Warfront (Horde) set=1677
+    - name: "Honorbound Centurion's Plate"
+      wowheadSetId:
+      items:
+        1:  36910 # Head
+        3:  36953 # Shoulders
+        5:  37091 # Chest
+        6:  37099 # Waist
+        7:  37096 # Legs
+        8:  37090 # Feet
+        9:  36828 # Wrists
+        10: 37092 # Hands
+        16: 36823 # Back
