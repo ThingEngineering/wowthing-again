@@ -154,4 +154,20 @@
             {/each}
         {/key}
     </svelte:fragment>
+
+    <svelte:fragment slot="emptyRow">
+        <tr>
+            <td class="no-characters" colspan="99">
+                You have no characters with an M+ score from this season.
+            </td>
+        </tr>
+    </svelte:fragment>
 </CharacterTable>
+
+<style lang="scss">
+    .no-characters {
+        background: $horde-background;
+        padding: 0.3rem 0.5rem;
+        white-space: normal;
+    }
+</style>
