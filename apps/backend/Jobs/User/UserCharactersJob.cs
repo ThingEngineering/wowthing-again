@@ -56,18 +56,18 @@ public class UserCharactersJob : JobBase
                 }
 
                 var accountIds = profile.Accounts
-                    .Select(account => account.Id)
+                    .Select(apiAccount => apiAccount.Id)
+                    .ToArray();
+                var accounts = Context.PlayerAccount
+                    .Where(pa => pa.Region == region && accountIds.Contains(pa.Id))
                     .ToArray();
 
-                var accounts = Context.PlayerAccount
-                    .Where(account => account.Region == region && accountIds.Contains(account.Id))
-                    .ToArray();
                 foreach (var account in accounts)
                 {
-                    accountMap[(region, account.Id)] = account;
+                    accountMap[(region, account.AccountId)] = account;
                 }
 
-                foreach (ApiAccountProfileAccount apiAccount in profile.Accounts)
+                foreach (var apiAccount in profile.Accounts)
                 {
                     apiAccounts.Add((region, apiAccount));
 
