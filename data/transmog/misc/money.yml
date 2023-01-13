@@ -1,0 +1,75 @@
+name: Money 💸
+groups:
+
+- name: 'Paid'
+  type: all
+  sets:
+  - Wendigo Woollies*
+  - Vestments of the Eternal Traveler*
+  - Sprite Darter's Wings*
+  - Celestial Observer's Ensemble*
+  - Fireplume Regalia*
+  data:
+    all:
+      # description=0 set=1903
+      - name: "Wendigo Woolies"
+        wowheadSetId:
+        items:
+          1:  40852 # Head
+          5:  40850 # Chest
+          7:  40854 # Legs
+          8:  40851 # Feet
+          10: 40853 # Hands
+
+      # description=0 set=1913
+      - name: "Vestments of the Eternal Traveler"
+        wowheadSetId:
+        items:
+          1:  41084 # Head
+          3:  41086 # Shoulders
+          5:  41080 # Chest
+          6:  41087 # Waist
+          7:  41085 # Legs
+          8:  41082 # Feet
+          9:  41088 # Wrists
+          10: 41083 # Hands
+          16: 41081 # Back
+
+      # description=0 set=1914
+      - name: "Sprite Darter's Wings"
+        wowheadSetId:
+        items:
+          1:  41224 # Head
+          3:  41225 # Shoulders
+          5:  41221 # Chest
+          6:  41222 # Waist
+          7:  41228 # Legs
+          8:  41223 # Feet
+          9:  41226 # Wrists
+          10: 41227 # Hands
+
+      # description=0 set=2200
+      - name: "Celestial Observer's Ensemble"
+        wowheadSetId:
+        items:
+          1:  44217 # Head
+          3:  44215 # Shoulders
+          5:  44216 # Chest
+          6:  44219 # Waist
+          7:  44222 # Legs
+          8:  44218 # Feet
+          9:  44220 # Wrists
+          10: 44221 # Hands
+          16: 44223 # Back
+
+      # description=0 set=2482
+      - name: "Fireplume Regalia"
+        wowheadSetId:
+        items:
+          1:  70495 # Head
+          3:  70499 # Shoulders
+          5:  70496 70561 70604 # Chest
+          6:  70500 # Waist
+          7:  70497 70562 70563 70564 # Legs
+          8:  70501 # Feet
+          10: 70498 70565 # Hands
