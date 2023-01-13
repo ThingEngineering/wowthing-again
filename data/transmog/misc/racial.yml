@@ -265,3 +265,23 @@ groups:
         8:  37765 # Feet
         9:  37771 # Wrists
         10: 37767 # Hands
+
+- name: 'Horde'
+  type: class
+  sets:
+  - Blood Elf Paladin
+  data:
+    paladin:
+      # description=0 set=2481
+      - name: "Blood Knight's Dedication"
+        wowheadSetId:
+        items:
+          1:  34746 # Head
+          3:  34748 # Shoulders
+          5:  34744 # Chest
+          6:  34742 # Waist
+          7:  34747 # Legs
+          8:  34743 # Feet
+          9:  34749 # Wrists
+          10: 34745 # Hands
+          16: 35845 35847 35848 35849 # Back
