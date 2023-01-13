@@ -84,6 +84,7 @@ DESCRIPTION_MAP = {
     13306: 'PVP Rare',
     13307: 'PVP Epic',
     13305: 'Normal', # Sunwell
+    13448: 'Warfront',
     13584: 'Ember Court',
     13590: 'Campaign',
     13591: 'Renown',
