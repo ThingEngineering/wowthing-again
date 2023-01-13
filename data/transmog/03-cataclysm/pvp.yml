@@ -522,6 +522,7 @@ groups:
   sets:
   - Elite*
   - Gladiator
+  - Honor
   data:
     death-knight:
     # Elite set=760
@@ -548,6 +549,18 @@ groups:
         9:  14166 # Wrists
         10: 14108 # Hands
 
+    - name: "Bloodthirsty Gladiator's Dreadplate Armor"
+      wowheadSetId: 942
+      items:
+        1:  14634 # Head
+        3:  14636 # Shoulders
+        5:  14632 # Chest
+        6:  14643 # Waist
+        7:  14635 # Legs
+        8:  14685 # Feet
+        9:  14609 # Wrists
+        10: 14633 # Hands
+
     druid:
     # Elite set=758
     - name: Vicious Gladiator's Dragonhide Armor
@@ -572,6 +585,19 @@ groups:
         8:  14174 # Feet
         9:  14175 # Wrists
         10: 14132 # Hands
+
+    # Honor set=1200
+    - name: "Bloodthirsty Gladiator's Dragonhide Armor"
+      wowheadSetId: 975
+      items:
+        1:  14628 # Head
+        3:  14631 # Shoulders
+        5:  14630 # Chest
+        6:  14611 # Waist
+        7:  14629 # Legs
+        8:  14642 # Feet
+        9:  14612 # Wrists
+        10: 14627 # Hands
 
     hunter:
     # Elite set=756
@@ -598,6 +624,19 @@ groups:
         9:  14172 # Wrists
         10: 14123 # Hands
 
+    # Honor set=1199
+    - name: "Bloodthirsty Gladiator's Chain Armor"
+      wowheadSetId: 724
+      items:
+        1:  14617 # Head
+        3:  14619 # Shoulders
+        5:  14615 # Chest
+        6:  14656 # Waist
+        7:  14618 # Legs
+        8:  14672 # Feet
+        9:  14686 # Wrists
+        10: 14616 # Hands
+
     mage:
     # Elite set=754
     - name: Vicious Gladiator's Silk Armor
@@ -622,6 +661,19 @@ groups:
         8:  14180 # Feet
         9:  14186 # Wrists
         10: 14142 # Hands
+
+    # Honor set=1198
+    - name: "Bloodthirsty Gladiator's Silk Armor"
+      wowheadSetId: 744
+      items:
+        1:  14675 # Head
+        3:  14674 # Shoulders
+        5:  14677 # Chest
+        6:  14622 # Waist
+        7:  14678 # Legs
+        8:  14680 # Feet
+        9:  14624 # Wrists
+        10: 14676 # Hands
 
     paladin:
     # Elite set=752
@@ -648,6 +700,19 @@ groups:
         9:  14164 # Wrists
         10: 14113 # Hands
 
+    # Honor set=1197
+    - name: "Bloodthirsty Gladiator's Scaled Armor"
+      wowheadSetId: 762
+      items:
+        1:  14664 # Head
+        3:  14666 # Shoulders
+        5:  14662 # Chest
+        6:  14620 # Waist
+        7:  14665 # Legs
+        8:  14645 # Feet
+        9:  14614 # Wrists
+        10: 14663 # Hands
+
     priest:
     # Elite set=370
     - name: Vicious Gladiator's Satin Armor
@@ -672,6 +737,19 @@ groups:
         8:  14190 # Feet
         9:  14189 # Wrists
         10: 14147 # Hands
+
+    # Honor set=371
+    - name: "Bloodthirsty Gladiator's Satin Armor"
+      wowheadSetId: 983
+      items:
+        1:  14658 # Head
+        3:  14660 # Shoulders
+        5:  14661 # Chest
+        6:  14623 # Waist
+        7:  14659 # Legs
+        8:  14681 # Feet
+        9:  14625 # Wrists
+        10: 14657 # Hands
 
     rogue:
     # Elite set=750
@@ -698,6 +776,19 @@ groups:
         9:  14178 # Wrists
         10: 14138 # Hands
 
+    # Honor set=1196
+    - name: "Bloodthirsty Gladiator's Leather Armor"
+      wowheadSetId: 986
+      items:
+        1:  14647 # Head
+        3:  14649 # Shoulders
+        5:  14650 # Chest
+        6:  14682 # Waist
+        7:  14648 # Legs
+        8:  14613 # Feet
+        9:  14610 # Wrists
+        10: 14646 # Hands
+
     shaman:
     # Elite set=748
     - name: Vicious Gladiator's Ringmail Armor
@@ -722,6 +813,19 @@ groups:
         8:  14168 # Feet
         9:  14169 # Wrists
         10: 14128 # Hands
+
+    # Honor set=1195
+    - name: "Bloodthirsty Gladiator's Ringmail Armor"
+      wowheadSetId: 820
+      items:
+        1:  14653 # Head
+        3:  14655 # Shoulders
+        5:  14651 # Chest
+        6:  14683 # Waist
+        7:  14654 # Legs
+        8:  14673 # Feet
+        9:  14607 # Wrists
+        10: 14652 # Hands
 
     warlock:
     # Elite set=629
@@ -748,6 +852,19 @@ groups:
         9:  14188 # Wrists
         10: 14152 # Hands
 
+    # Honor set=1194
+    - name: "Bloodthirsty Gladiator's Felweave Armor"
+      wowheadSetId: 844
+      items:
+        1:  14638 # Head
+        3:  14637 # Shoulders
+        5:  14640 # Chest
+        6:  14621 # Waist
+        7:  14641 # Legs
+        8:  14679 # Feet
+        9:  14626 # Wrists
+        10: 14639 # Hands
+
     warrior:
     # Elite set=627
     - name: Vicious Gladiator's Plate Armor
@@ -772,3 +889,16 @@ groups:
         8:  14162 # Feet
         9:  14161 # Wrists
         10: 14118 # Hands
+
+    # Honor set=1193
+    - name: "Bloodthirsty Gladiator's Plate Armor"
+      wowheadSetId: 864
+      items:
+        1:  14669 # Head
+        3:  14671 # Shoulders
+        5:  14667 # Chest
+        6:  11499 14644 # Waist
+        7:  14670 # Legs
+        8:  14684 # Feet
+        9:  14608 # Wrists
+        10: 14668 # Hands
