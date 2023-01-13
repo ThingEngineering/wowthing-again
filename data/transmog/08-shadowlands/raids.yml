@@ -4,6 +4,7 @@ skipClasses:
 groups:
 
 - name: Sepulcher of the First Ones
+  tag: T22
   type: class
   sets:
   - Mythic
