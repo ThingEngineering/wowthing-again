@@ -97,6 +97,19 @@ DESCRIPTION_MAP = {
     13849: "Death's Advance",
     13850: 'Korthia',
     13859: 'Renown Quartermaster',
+    13964: 'Bronze',
+    13965: 'Red',
+    13966: 'Black',
+    13967: 'Blue',
+    13968: 'Green',
+    13979: 'Primal Storms',
+    13980: 'War Mode',
+    13987: 'World and Weekly Quests',
+    13989: 'Quest Rewards',
+    13990: 'World Drops',
+    13991: 'Professions',
+    13993: 'Crafted",
+    13998: 'Dungeons,'
 }
 DESCRIPTION_ORDER = [
     13145, # Mythic
@@ -136,6 +149,21 @@ DESCRIPTION_ORDER = [
     13849, # Death's Advance
     13850, # Korthia
     13859, # Renown Quartermaster
+
+    # Dragonflight
+    13979 # Primal Storms
+    13989 # Quest Rewards
+    13987 # World and Weekly Quests
+    13998 # Dungeons
+    13980 # War Mode
+    13991 # Professions
+    13993 # Crafted
+    13990 # World Drops
+    13965 # Red
+    13964 # Bronze
+    13966 # Black
+    13967 # Blue
+    13968 # Green
 
     0,
 ]
