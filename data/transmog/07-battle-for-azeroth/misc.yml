@@ -84,6 +84,7 @@ groups:
   - Alliance
   - Horde
   data:
+    all:
       # description=0 (Alliance) set=1822
       - name: "Brawler's Garb"
         wowheadSetId:
