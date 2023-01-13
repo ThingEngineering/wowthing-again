@@ -1,0 +1,752 @@
+name: Raids
+groups:
+
+- name: Vault of the Incarnates
+  tag: T23
+  type: class
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    death-knight:
+      # Mythic set=2615
+      - name: "Haunted Frostbrood Remains"
+        wowheadSetId:
+        items:
+          1:  76227 # Head
+          3:  76228 # Shoulders
+          5:  76220 # Chest
+          6:  76221 # Waist
+          7:  76222 # Legs
+          8:  76223 # Feet
+          9:  76224 # Wrists
+          10: 76225 # Hands
+          16: 76226 # Back
+
+      # Heroic set=2614
+      - name: "Haunted Frostbrood Remains"
+        wowheadSetId:
+        items:
+          1:  76251 # Head
+          3:  76252 # Shoulders
+          5:  76253 # Chest
+          6:  76254 # Waist
+          7:  76255 # Legs
+          8:  76256 # Feet
+          9:  76257 # Wrists
+          10: 76258 # Hands
+          16: 76259 # Back
+
+      # Normal set=2601
+      - name: "Haunted Frostbrood Remains"
+        wowheadSetId:
+        items:
+          1:  76229 # Head
+          3:  76230 # Shoulders
+          5:  76231 # Chest
+          6:  76232 # Waist
+          7:  76233 # Legs
+          8:  76234 # Feet
+          9:  76235 # Wrists
+          10: 76236 # Hands
+          16: 76237 # Back
+
+      # Raid Finder set=2616
+      - name: "Haunted Frostbrood Remains"
+        wowheadSetId:
+        items:
+          1:  76262 # Head
+          3:  76263 # Shoulders
+          5:  76264 # Chest
+          6:  76265 # Waist
+          7:  76266 # Legs
+          8:  76267 # Feet
+          9:  76268 # Wrists
+          10: 76269 # Hands
+          16: 76270 # Back
+
+    demon-hunter:
+      # Mythic set=2618
+      - name: "Skybound Avenger's Flightwear"
+        wowheadSetId:
+        items:
+          1:  75916 # Head
+          3:  75917 # Shoulders
+          5:  75910 # Chest
+          6:  75911 # Waist
+          7:  75912 # Legs
+          8:  75913 # Feet
+          9:  75914 # Wrists
+          10: 75915 # Hands
+          16: 77666 # Back
+
+      # Heroic set=2617
+      - name: "Skybound Avenger's Flightwear"
+        wowheadSetId:
+        items:
+          1:  75948 # Head
+          3:  75949 # Shoulders
+          5:  75950 # Chest
+          6:  75951 # Waist
+          7:  75952 # Legs
+          8:  75953 # Feet
+          9:  75954 # Wrists
+          10: 75955 # Hands
+          16: 77670 # Back
+
+      # Normal set=2602
+      - name: "Skybound Avenger's Flightwear"
+        wowheadSetId:
+        items:
+          1:  75918 # Head
+          3:  75919 # Shoulders
+          5:  75920 # Chest
+          6:  75921 # Waist
+          7:  75922 # Legs
+          8:  75923 # Feet
+          9:  75924 # Wrists
+          10: 75925 # Hands
+          16: 77667 # Back
+
+      # Raid Finder set=2619
+      - name: "Skybound Avenger's Flightwear"
+        wowheadSetId:
+        items:
+          1:  75938 # Head
+          3:  75939 # Shoulders
+          5:  75940 # Chest
+          6:  75941 # Waist
+          7:  75942 # Legs
+          8:  75943 # Feet
+          9:  75944 # Wrists
+          10: 75945 # Hands
+          16: 77669 # Back
+
+    druid:
+      # Mythic set=2621
+      - name: "Lost Landcaller's Vesture"
+        wowheadSetId:
+        items:
+          1:  76113 # Head
+          3:  76114 # Shoulders
+          5:  76105 # Chest
+          6:  76106 # Waist
+          7:  76107 # Legs
+          8:  76108 # Feet
+          9:  76109 # Wrists
+          10: 76283 # Hands
+          16: 76111 # Back
+
+      # Heroic set=2620
+      - name: "Lost Landcaller's Vesture"
+        wowheadSetId:
+        items:
+          1:  76151 # Head
+          3:  76152 # Shoulders
+          5:  76153 # Chest
+          6:  76154 # Waist
+          7:  76155 # Legs
+          8:  76156 # Feet
+          9:  76157 # Wrists
+          10: 76158 # Hands
+          16: 76159 # Back
+
+      # Normal set=2603
+      - name: "Lost Landcaller's Vesture"
+        wowheadSetId:
+        items:
+          1:  76115 # Head
+          3:  76116 # Shoulders
+          5:  76117 # Chest
+          6:  76118 # Waist
+          7:  76119 # Legs
+          8:  76120 # Feet
+          9:  76121 # Wrists
+          10: 76122 # Hands
+          16: 76123 # Back
+
+      # Raid Finder set=2622
+      - name: "Lost Landcaller's Vesture"
+        wowheadSetId:
+        items:
+          1:  76139 # Head
+          3:  76140 # Shoulders
+          5:  76141 # Chest
+          6:  76142 # Waist
+          7:  76143 # Legs
+          8:  76144 # Feet
+          9:  76145 # Wrists
+          10: 76146 # Hands
+          16: 76147 # Back
+
+    evoker:
+      # Mythic set=2624
+      - name: "Scales of the Awakened"
+        wowheadSetId:
+        items:
+          1:  76862 # Head
+          3:  76863 # Shoulders
+          5:  76855 # Chest
+          6:  76856 # Waist
+          7:  76857 # Legs
+          8:  76858 # Feet
+          9:  76859 # Wrists
+          10: 76860 # Hands
+          16: 76861 # Back
+
+      # Heroic set=2623
+      - name: "Scales of the Awakened"
+        wowheadSetId:
+        items:
+          1:  76897 # Head
+          3:  76898 # Shoulders
+          5:  76899 # Chest
+          6:  76900 # Waist
+          7:  76901 # Legs
+          8:  76902 # Feet
+          9:  76903 # Wrists
+          10: 76904 # Hands
+          16: 76905 # Back
+
+      # Normal set=2604
+      - name: "Scales of the Awakened"
+        wowheadSetId:
+        items:
+          1:  76864 # Head
+          3:  76865 # Shoulders
+          5:  76866 # Chest
+          6:  76867 # Waist
+          7:  76868 # Legs
+          8:  76869 # Feet
+          9:  76870 # Wrists
+          10: 76871 # Hands
+          16: 76872 # Back
+
+      # Raid Finder set=2625
+      - name: "Scales of the Awakened"
+        wowheadSetId:
+        items:
+          1:  76886 # Head
+          3:  76887 # Shoulders
+          5:  76888 # Chest
+          6:  76889 # Waist
+          7:  76890 # Legs
+          8:  76891 # Feet
+          9:  76892 # Wrists
+          10: 76893 # Hands
+          16: 76894 # Back
+
+    hunter:
+      # Mythic set=2627
+      - name: "Stormwing Harrier's Camouflage"
+        wowheadSetId:
+        items:
+          1:  76172 # Head
+          3:  76173 # Shoulders
+          5:  76165 # Chest
+          6:  76166 # Waist
+          7:  76167 # Legs
+          8:  76168 # Feet
+          9:  76169 # Wrists
+          10: 76170 # Hands
+          16: 76171 # Back
+
+      # Heroic set=2626
+      - name: "Stormwing Harrier's Camouflage"
+        wowheadSetId:
+        items:
+          1:  76207 # Head
+          3:  76208 # Shoulders
+          5:  76209 # Chest
+          6:  76210 # Waist
+          7:  76211 # Legs
+          8:  76212 # Feet
+          9:  76213 # Wrists
+          10: 76214 # Hands
+          16: 76215 # Back
+
+      # Normal set=2605
+      - name: "Stormwing Harrier's Camouflage"
+        wowheadSetId:
+        items:
+          1:  76174 # Head
+          3:  76175 # Shoulders
+          5:  76176 # Chest
+          6:  76177 # Waist
+          7:  76178 # Legs
+          8:  76179 # Feet
+          9:  76180 # Wrists
+          10: 76181 # Hands
+          16: 76182 # Back
+
+      # Raid Finder set=2628
+      - name: "Stormwing Harrier's Camouflage"
+        wowheadSetId:
+        items:
+          1:  76196 # Head
+          3:  76197 # Shoulders
+          5:  76198 # Chest
+          6:  76199 # Waist
+          7:  76200 # Legs
+          8:  76201 # Feet
+          9:  76202 # Wrists
+          10: 76203 # Hands
+          16: 76204 # Back
+
+    mage:
+      # Mythic set=2630
+      - name: "Bindings of the Crystal Scholar"
+        wowheadSetId:
+        items:
+          1:  75607 # Head
+          3:  75608 # Shoulders
+          5:  75600 # Chest
+          6:  75601 # Waist
+          7:  75602 # Legs
+          8:  75603 # Feet
+          9:  75604 # Wrists
+          10: 75605 # Hands
+          16: 75606 # Back
+
+      # Heroic set=2629
+      - name: "Bindings of the Crystal Scholar"
+        wowheadSetId:
+        items:
+          1:  75642 # Head
+          3:  75643 # Shoulders
+          5:  75644 # Chest
+          6:  75645 # Waist
+          7:  75646 # Legs
+          8:  75647 # Feet
+          9:  75648 # Wrists
+          10: 75649 # Hands
+          16: 75650 # Back
+
+      # Normal set=2606
+      - name: "Bindings of the Crystal Scholar"
+        wowheadSetId:
+        items:
+          1:  75609 # Head
+          3:  75610 # Shoulders
+          5:  75611 # Chest
+          6:  75612 # Waist
+          7:  75613 # Legs
+          8:  75614 # Feet
+          9:  75615 # Wrists
+          10: 75616 # Hands
+          16: 75617 # Back
+
+      # Raid Finder set=2631
+      - name: "Bindings of the Crystal Scholar"
+        wowheadSetId:
+        items:
+          1:  75631 # Head
+          3:  75632 # Shoulders
+          5:  75633 # Chest
+          6:  75634 # Waist
+          7:  75635 # Legs
+          8:  75636 # Feet
+          9:  75637 # Wrists
+          10: 75638 # Hands
+          16: 75639 # Back
+
+    monk:
+      # Mythic set=2633
+      - name: "Wrappings of the Waking Fist"
+        wowheadSetId:
+        items:
+          1:  75713 # Head
+          3:  75722 # Shoulders
+          5:  75715 # Chest
+          6:  75716 # Waist
+          7:  75717 # Legs
+          8:  75718 # Feet
+          9:  75719 # Wrists
+          10: 75720 # Hands
+          16: 75721 # Back
+
+      # Heroic set=2632
+      - name: "Wrappings of the Waking Fist"
+        wowheadSetId:
+        items:
+          1:  75753 # Head
+          3:  75754 # Shoulders
+          5:  75755 # Chest
+          6:  75756 # Waist
+          7:  75757 # Legs
+          8:  75758 # Feet
+          9:  75759 # Wrists
+          10: 75760 # Hands
+          16: 75761 # Back
+
+      # Normal set=2607
+      - name: "Wrappings of the Waking Fist"
+        wowheadSetId:
+        items:
+          1:  75723 # Head
+          3:  75724 # Shoulders
+          5:  75725 # Chest
+          6:  75726 # Waist
+          7:  75727 # Legs
+          8:  75728 # Feet
+          9:  75729 # Wrists
+          10: 75730 # Hands
+          16: 75731 # Back
+
+      # Raid Finder set=2634
+      - name: "Wrappings of the Waking Fist"
+        wowheadSetId:
+        items:
+          1:  75743 # Head
+          3:  75744 # Shoulders
+          5:  75745 # Chest
+          6:  75746 # Waist
+          7:  75747 # Legs
+          8:  75748 # Feet
+          9:  75749 # Wrists
+          10: 75750 # Hands
+          16: 75751 # Back
+
+    paladin:
+      # Mythic set=2636
+      - name: "Virtuous Silver Cataphract"
+        wowheadSetId:
+        items:
+          1:  76013 # Head
+          3:  76023 # Shoulders
+          5:  76278 # Chest
+          6:  76016 # Waist
+          7:  76017 # Legs
+          8:  76018 # Feet
+          9:  76019 # Wrists
+          10: 76020 # Hands
+          16: 76021 # Back
+
+      # Heroic set=2635
+      - name: "Virtuous Silver Cataphract"
+        wowheadSetId:
+        items:
+          1:  76057 # Head
+          3:  76058 # Shoulders
+          5:  76059 # Chest
+          6:  76060 # Waist
+          7:  76061 # Legs
+          8:  76062 # Feet
+          9:  76063 # Wrists
+          10: 76064 # Hands
+          16: 76065 # Back
+
+      # Normal set=2608
+      - name: "Virtuous Silver Cataphract"
+        wowheadSetId:
+        items:
+          1:  76024 # Head
+          3:  76025 # Shoulders
+          5:  76026 # Chest
+          6:  76027 # Waist
+          7:  76028 # Legs
+          8:  76029 # Feet
+          9:  76030 # Wrists
+          10: 76031 # Hands
+          16: 76032 # Back
+
+      # Raid Finder set=2637
+      - name: "Virtuous Silver Cataphract"
+        wowheadSetId:
+        items:
+          1:  76046 # Head
+          3:  76047 # Shoulders
+          5:  76048 # Chest
+          6:  76049 # Waist
+          7:  76050 # Legs
+          8:  76051 # Feet
+          9:  76052 # Wrists
+          10: 76053 # Hands
+          16: 76054 # Back
+
+    priest:
+      # Mythic set=2639
+      - name: "Draconic Hierophant's Finery"
+        wowheadSetId:
+        items:
+          1:  75343 # Head
+          3:  75344 # Shoulders
+          5:  75335 # Chest
+          6:  75336 # Waist
+          7:  75337 # Legs
+          8:  75338 # Feet
+          9:  75339 # Wrists
+          10: 75340 # Hands
+          16: 75341 # Back
+
+      # Heroic set=2638
+      - name: "Draconic Hierophant's Finery"
+        wowheadSetId:
+        items:
+          1:  75381 # Head
+          3:  75382 # Shoulders
+          5:  75383 # Chest
+          6:  75384 # Waist
+          7:  75385 # Legs
+          8:  75386 # Feet
+          9:  75387 # Wrists
+          10: 75388 # Hands
+          16: 75389 # Back
+
+      # Normal set=2609
+      - name: "Draconic Hierophant's Finery"
+        wowheadSetId:
+        items:
+          1:  75345 # Head
+          3:  75346 # Shoulders
+          5:  75347 # Chest
+          6:  75348 # Waist
+          7:  75349 # Legs
+          8:  75350 # Feet
+          9:  75351 # Wrists
+          10: 75352 # Hands
+          16: 75353 # Back
+
+      # Raid Finder set=2640
+      - name: "Draconic Hierophant's Finery"
+        wowheadSetId:
+        items:
+          1:  75369 # Head
+          3:  75370 # Shoulders
+          5:  75371 # Chest
+          6:  75372 # Waist
+          7:  75373 # Legs
+          8:  75374 # Feet
+          9:  75375 # Wrists
+          10: 75376 # Hands
+          16: 75377 # Back
+
+    rogue:
+      # Mythic set=2642
+      - name: "Vault Delver's Toolkit"
+        wowheadSetId:
+        items:
+          1:  78070 # Head
+          3:  78014 # Shoulders
+          5:  78007 # Chest
+          6:  78008 # Waist
+          7:  78009 # Legs
+          8:  78010 # Feet
+          9:  78011 # Wrists
+          10: 78012 # Hands
+          16: 78013 # Back
+
+      # Heroic set=2641
+      - name: "Vault Delver's Toolkit"
+        wowheadSetId:
+        items:
+          1:  78059 # Head
+          3:  78060 # Shoulders
+          5:  78061 # Chest
+          6:  78062 # Waist
+          7:  78063 # Legs
+          8:  78064 # Feet
+          9:  78065 # Wrists
+          10: 78066 # Hands
+          16: 78067 # Back
+
+      # Normal set=2610
+      - name: "Vault Delver's Toolkit"
+        wowheadSetId:
+        items:
+          1:  78015 # Head
+          3:  78016 # Shoulders
+          5:  78017 # Chest
+          6:  78018 # Waist
+          7:  78019 # Legs
+          8:  78020 # Feet
+          9:  78021 # Wrists
+          10: 78022 # Hands
+          16: 78023 # Back
+
+      # Raid Finder set=2643
+      - name: "Vault Delver's Toolkit"
+        wowheadSetId:
+        items:
+          1:  78048 # Head
+          3:  78049 # Shoulders
+          5:  78050 # Chest
+          6:  78051 # Waist
+          7:  78052 # Legs
+          8:  78053 # Feet
+          9:  78054 # Wrists
+          10: 78055 # Hands
+          16: 78056 # Back
+
+    shaman:
+      # Mythic set=2645
+      - name: "Elements of Infused Earth"
+        wowheadSetId:
+        items:
+          1:  76406 # Head
+          3:  76407 # Shoulders
+          5:  76399 76405 # Chest
+          6:  76400 # Waist
+          7:  76401 # Legs
+          8:  76402 # Feet
+          9:  76403 # Wrists
+          10: 76404 # Hands
+          16: 78147 # Back
+
+      # Heroic set=2644
+      - name: "Elements of Infused Earth"
+        wowheadSetId:
+        items:
+          1:  76441 # Head
+          3:  76442 # Shoulders
+          5:  76443 76449 # Chest
+          6:  76444 # Waist
+          7:  76445 # Legs
+          8:  76446 # Feet
+          9:  76447 # Wrists
+          10: 76448 # Hands
+          16: 78151 # Back
+
+      # Normal set=2611
+      - name: "Elements of Infused Earth"
+        wowheadSetId:
+        items:
+          1:  76408 # Head
+          3:  76409 # Shoulders
+          5:  76410 76416 # Chest
+          6:  76411 # Waist
+          7:  76412 # Legs
+          8:  76413 # Feet
+          9:  76414 # Wrists
+          10: 76415 # Hands
+          16: 78148 # Back
+
+      # Raid Finder set=2646
+      - name: "Elements of Infused Earth"
+        wowheadSetId:
+        items:
+          1:  76430 # Head
+          3:  76431 # Shoulders
+          5:  76432 76438 # Chest
+          6:  76433 # Waist
+          7:  76434 # Legs
+          8:  76435 # Feet
+          9:  76436 # Wrists
+          10: 76437 # Hands
+          16: 78150 # Back
+
+    warlock:
+      # Mythic set=2648
+      - name: "Scalesworn Cultist's Habit"
+        wowheadSetId:
+        items:
+          1:  75533 # Head
+          3:  75534 # Shoulders
+          5:  75525 # Chest
+          6:  75526 # Waist
+          7:  75527 # Legs
+          8:  75528 # Feet
+          9:  75529 # Wrists
+          10: 75530 # Hands
+          16: 75531 # Back
+
+      # Heroic set=2647
+      - name: "Scalesworn Cultist's Habit"
+        wowheadSetId:
+        items:
+          1:  75575 # Head
+          3:  75576 # Shoulders
+          5:  75577 # Chest
+          6:  75578 # Waist
+          7:  75579 # Legs
+          8:  75580 # Feet
+          9:  75581 # Wrists
+          10: 75582 # Hands
+          16: 75583 # Back
+
+      # Normal set=2612
+      - name: "Scalesworn Cultist's Habit"
+        wowheadSetId:
+        items:
+          1:  75536 # Head
+          3:  75537 # Shoulders
+          5:  75538 # Chest
+          6:  75539 # Waist
+          7:  75540 # Legs
+          8:  75541 # Feet
+          9:  75542 75542 # Wrists
+          10: 75543 # Hands
+          16: 75544 # Back
+
+      # Raid Finder set=2649
+      - name: "Scalesworn Cultist's Habit"
+        wowheadSetId:
+        items:
+          1:  75562 # Head
+          3:  75563 # Shoulders
+          5:  75564 # Chest
+          6:  75565 # Waist
+          7:  75566 # Legs
+          8:  75567 # Feet
+          9:  75568 # Wrists
+          10: 75569 # Hands
+          16: 75570 # Back
+
+    warrior:
+      # Mythic set=2651
+      - name: "Stones of the Walking Mountain"
+        wowheadSetId:
+        items:
+          1:  76466 # Head
+          3:  76467 # Shoulders
+          5:  76459 # Chest
+          6:  76016 76460 # Waist
+          7:  76461 # Legs
+          8:  76462 # Feet
+          9:  76463 # Wrists
+          10: 76464 # Hands
+          16: 76465 # Back
+
+      # Heroic set=2650
+      - name: "Stones of the Walking Mountain"
+        wowheadSetId:
+        items:
+          1:  76501 # Head
+          3:  76502 # Shoulders
+          5:  76503 # Chest
+          6:  76060 76504 # Waist
+          7:  76505 # Legs
+          8:  76506 # Feet
+          9:  76507 # Wrists
+          10: 76508 # Hands
+          16: 76509 # Back
+
+      # Normal set=2613
+      - name: "Stones of the Walking Mountain"
+        wowheadSetId:
+        items:
+          1:  76468 # Head
+          3:  76469 # Shoulders
+          5:  76470 # Chest
+          6:  76471 # Waist
+          7:  76472 # Legs
+          8:  76473 # Feet
+          9:  76474 # Wrists
+          10: 76475 # Hands
+          16: 76476 # Back
+
+      # Raid Finder set=2652
+      - name: "Stones of the Walking Mountain"
+        wowheadSetId:
+        items:
+          1:  76490 # Head
+          3:  76491 # Shoulders
+          5:  76492 # Chest
+          6:  76049 76493 # Waist
+          7:  76494 # Legs
+          8:  76495 # Feet
+          9:  76496 # Wrists
+          10: 76497 # Hands
+          16: 76498 # Back
