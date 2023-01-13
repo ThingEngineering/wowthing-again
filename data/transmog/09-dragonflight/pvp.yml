@@ -1,0 +1,481 @@
+name: PvP
+groups:
+
+- name: Dragonflight Season 1
+  tag: S31
+  type: class
+  sets:
+  - "Elite*"
+  - "Gladiator"
+  data:
+    death-knight:
+      # Elite set=2737
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76249 # Head
+          3:  76250 # Shoulders
+          5:  76242 # Chest
+          6:  76243 # Waist
+          7:  76244 # Legs
+          8:  76245 # Feet
+          9:  76246 # Wrists
+          10: 76247 # Hands
+          16: 76248 # Back
+
+      # Gladiator set=2736
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76787 # Head
+          3:  76788 # Shoulders
+          5:  76789 # Chest
+          6:  76790 # Waist
+          7:  76791 # Legs
+          8:  76792 # Feet
+          9:  76793 # Wrists
+          10: 76794 # Hands
+          16: 76795 # Back
+
+    demon-hunter:
+      # Elite set=2725
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  75936  # Head
+          3:  75937  # Shoulders
+          5:  75930  # Chest
+          6:  75931  # Waist
+          7:  75932  # Legs
+          8:  75933  # Feet
+          9:  75934  # Wrists
+          10: 75935  # Hands
+          16: 77668  # Back
+
+      # Gladiator set=2724
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  76990  # Head
+          3:  76991  # Shoulders
+          5:  76992  # Chest
+          6:  76993  # Waist
+          7:  76994  # Legs
+          8:  76995  # Feet
+          9:  76996  # Wrists
+          10: 76997  # Hands
+          16: 77607  # Back
+
+    druid:
+      # Elite set=2723
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  76137  # Head
+          3:  76138  # Shoulders
+          5:  76129  # Chest
+          6:  76130  # Waist
+          7:  76131  # Legs
+          8:  76132  # Feet
+          9:  76133  # Wrists
+          10: 76285  # Hands
+          16: 76135  # Back
+
+      # Gladiator set=2722
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  77000  # Head
+          3:  77001  # Shoulders
+          5:  77002  # Chest
+          6:  77003  # Waist
+          7:  77004  # Legs
+          8:  77005  # Feet
+          9:  77006  # Wrists
+          10: 77007  # Hands
+          16: 77008 # Back
+
+    evoker:
+      # Elite set=2731
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76884 # Head
+          3:  76885 # Shoulders
+          5:  76877 # Chest
+          6:  76878 # Waist
+          7:  76879 # Legs
+          8:  76880 # Feet
+          9:  76881 # Wrists
+          10: 76882 # Hands
+          16: 76883 # Back
+
+      # Gladiator set=2730
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76917 # Head
+          3:  76918 # Shoulders
+          5:  76919 # Chest
+          6:  76920 # Waist
+          7:  76921 # Legs
+          8:  76922 # Feet
+          9:  76923 # Wrists
+          10: 76924 # Hands
+          16: 76925 # Back
+
+    hunter:
+      # Elite set=2733
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76194 # Head
+          3:  76195 # Shoulders
+          5:  76187 # Chest
+          6:  76188 # Waist
+          7:  76189 # Legs
+          8:  76190 # Feet
+          9:  76191 # Wrists
+          10: 76192 # Hands
+          16: 76193 # Back
+
+      # Gladiator set=2732
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76979 # Head
+          3:  76980 # Shoulders
+          5:  76981 # Chest
+          6:  76982 # Waist
+          7:  76983 # Legs
+          8:  76984 # Feet
+          9:  76985 # Wrists
+          10: 76986 # Hands
+          16: 76987 # Back
+
+    mage:
+      # Elite set=2717
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  75629 # Head
+          3:  75630 # Shoulders
+          5:  75622 # Chest
+          6:  75623 # Waist
+          7:  75624 # Legs
+          8:  75625 # Feet
+          9:  75626 # Wrists
+          10: 75627 # Hands
+          16: 75628 # Back
+
+      # Gladiator set=2716
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  77046 # Head
+          3:  77047 # Shoulders
+          5:  77048 # Chest
+          6:  77049 # Waist
+          7:  77050 # Legs
+          8:  77051 # Feet
+          9:  77052 # Wrists
+          10: 77053 # Hands
+          16: 77054 # Back
+
+    monk:
+      # Elite set=2727
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  75733 # Head
+          3:  75742 # Shoulders
+          5:  75735 # Chest
+          6:  75736 # Waist
+          7:  75737 # Legs
+          8:  75738 # Feet
+          9:  75739 # Wrists
+          10: 75740 # Hands
+          16: 75741 # Back
+
+      # Gladiator set=2726
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  77012 # Head
+          3:  77013 # Shoulders
+          5:  77014 # Chest
+          6:  77015 # Waist
+          7:  77016 # Legs
+          8:  77017 # Feet
+          9:  77018 # Wrists
+          10: 77019 # Hands
+          16: 77020 # Back
+
+    paladin:
+      # Elite set=2739
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76035 # Head
+          3:  76045 # Shoulders
+          5:  76280 # Chest
+          6:  76038 # Waist
+          7:  76039 # Legs
+          8:  76040 # Feet
+          9:  76041 # Wrists
+          10: 76042 # Hands
+          16: 76043 # Back
+
+      # Gladiator set=2738
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76955 # Head
+          3:  76956 # Shoulders
+          5:  76957 # Chest
+          6:  76958 # Waist
+          7:  76959 # Legs
+          8:  76960 # Feet
+          9:  76961 # Wrists
+          10: 76962 # Hands
+          16: 76963 # Back
+
+    priest:
+      # Elite set=2719
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  75367 # Head
+          3:  75368 # Shoulders
+          5:  75359 # Chest
+          6:  75360 # Waist
+          7:  75361 # Legs
+          8:  75362 # Feet
+          9:  75363 # Wrists
+          10: 75364 # Hands
+          16: 75365 # Back
+
+      # Gladiator set=2718
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  77034 # Head
+          3:  77035 # Shoulders
+          5:  77036 # Chest
+          6:  77037 # Waist
+          7:  77038 # Legs
+          8:  77039 # Feet
+          9:  77040 # Wrists
+          10: 77041 # Hands
+          16: 77042 # Back
+
+    rogue:
+      # Elite set=2729
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  78035 # Head
+          3:  78036 # Shoulders
+          5:  78028 # Chest
+          6:  78029 # Waist
+          7:  78030 # Legs
+          8:  78031 # Feet
+          9:  78032 # Wrists
+          10: 78033 # Hands
+          16: 78034 # Back
+
+      # Gladiator set=2728
+      - name: "Crimson Gladiator's Leather Armor"
+        wowheadSetId:
+        items:
+          1:  78037 # Head
+          3:  78038 # Shoulders
+          5:  78039 # Chest
+          6:  78040 # Waist
+          7:  78041 # Legs
+          8:  78042 # Feet
+          9:  78043 # Wrists
+          10: 78044 # Hands
+          16: 78045 # Back
+
+    shaman:
+      # Elite set=2735
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76428    warlock:
+      # Elite set=2721
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  75559 75559 # Head
+          3:  75560 75560 # Shoulders
+          5:  75551 75551 # Chest
+          6:  75552 75552 # Waist
+          7:  75553 75553 # Legs
+          8:  75554 75554 # Feet
+          9:  75555 75555 # Wrists
+          10: 75556 75556 # Hands
+          16: 75557 75557 75557 # Back
+
+      # Gladiator set=2720
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  77022 77022 # Head
+          3:  77023 77023 # Shoulders
+          5:  77024 77024 # Chest
+          6:  77025 77025 # Waist
+          7:  77026 77026 # Legs
+          8:  77027 77027 # Feet
+          9:  77028 77028 # Wrists
+          10: 77029 77029 # Hands
+          16: 77030 77030 77030 # Back
+
+ # Head
+          3:  76429 # Shoulders
+          5:  76421 # Chest
+          6:  76422 # Waist
+          7:  76423 # Legs
+          8:  76424 # Feet
+          9:  76425 # Wrists
+          10: 76426 # Hands
+          16: 78149 # Back
+
+      # Gladiator set=2734
+      - name: "Crimson Gladiator's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  76967 # Head
+          3:  76968 # Shoulders
+          5:  76969 # Chest
+          6:  76970 # Waist
+          7:  76971 # Legs
+          8:  76972 # Feet
+          9:  76973 # Wrists
+          10: 76974 # Hands
+          16: 76975 # Back
+
+    warlock:
+      # Elite set=2721
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  75559 # Head
+          3:  75560 # Shoulders
+          5:  75551 # Chest
+          6:  75552 # Waist
+          7:  75553 # Legs
+          8:  75554 # Feet
+          9:  75555 # Wrists
+          10: 75556 # Hands
+          16: 75557 # Back
+
+      # Gladiator set=2720
+      - name: "Crimson Gladiator's Silk Armor"
+        wowheadSetId:
+        items:
+          1:  77022 # Head
+          3:  77023 # Shoulders
+          5:  77024 # Chest
+          6:  77025 # Waist
+          7:  77026 # Legs
+          8:  77027 # Feet
+          9:  77028 # Wrists
+          10: 77029 # Hands
+          16: 77030 # Back
+
+    warrior:
+      # Elite set=2741
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76488 # Head
+          3:  76489 # Shoulders
+          5:  76481 # Chest
+          6:  76482 # Waist
+          7:  76483 # Legs
+          8:  76484 # Feet
+          9:  76485 # Wrists
+          10: 76486 # Hands
+          16: 76487 # Back
+
+      # Gladiator set=2740
+      - name: "Crimson Gladiator's Plate Armor"
+        wowheadSetId:
+        items:
+          1:  76945 # Head
+          3:  76946 # Shoulders
+          5:  76947 # Chest
+          6:  76948 # Waist
+          7:  76949 # Legs
+          8:  76950 # Feet
+          9:  76951 # Wrists
+          10: 76952 # Hands
+          16: 78243 # Back
+
+- name: Dragonflight Season 1
+  tag: S31
+  type: armor
+  sets:
+  - "Aspirant"
+  data:
+    cloth:
+      # Aspirant set=2702
+      - name: "Crimson Aspirant's Silk Vestments"
+        wowheadSetId:
+        items:
+          1:  70686 # Head
+          3:  70687 # Shoulders
+          5:  70688 # Chest
+          6:  70689 # Waist
+          7:  70690 # Legs
+          8:  70691 # Feet
+          9:  70692 # Wrists
+          10: 70693 # Hands
+          16: 70694 # Back
+
+    leather:
+      # Aspirant set=2682
+      - name: "Crimson Aspirant's Battlegarb"
+        wowheadSetId:
+        items:
+          1:  70372 # Head
+          3:  70373 # Shoulders
+          5:  70374 # Chest
+          6:  70375 # Waist
+          7:  70376 # Legs
+          8:  70377 # Feet
+          9:  70378 # Wrists
+          10: 70379 # Hands
+          16: 74996 # Back
+
+    mail:
+      # Aspirant set=2707
+      - name: "Crimson Aspirant's Chain Armor"
+        wowheadSetId:
+        items:
+          1:  70444 # Head
+          3:  70445 # Shoulders
+          5:  70446 # Chest
+          6:  70447 # Waist
+          7:  70448 # Legs
+          8:  70449 # Feet
+          9:  70450 # Wrists
+          10: 70451 # Hands
+          16: 70452 # Back
+
+    plate:
+      # Aspirant set=2715
+      - name: "Crimson Aspirant's Plate Battlegear"
+        wowheadSetId:
+        items:
+          1:  70307 # Head
+          3:  70308 # Shoulders
+          5:  70309 # Chest
+          6:  70310 # Waist
+          7:  70311 # Legs
+          8:  70312 # Feet
+          9:  70313 # Wrists
+          10: 70314 # Hands
+          16: 70315 # Back
