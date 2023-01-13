@@ -112,7 +112,8 @@
             return null
         }
         const sqrt = Math.ceil(Math.sqrt(len))
-        return `calc(0.4rem + 1px + (24px * ${sqrt}) + (0.1rem * ${sqrt}))`
+        // border + padding + icons
+        return `calc(2px + 0.2rem + (24px * ${sqrt})`
     }
 
     const lootFarmTypes: FarmType[] = [
@@ -235,9 +236,9 @@
         background: rgba(0, 0, 0, 0.4);
         display: flex;
         flex-wrap: wrap;
-        gap: 0.1rem;
-        padding: 0.1rem 0.2rem;
+        padding: 0.1rem;
         position: absolute;
+        transform: translate(-50%, -50%);
 
         :global(.wrapper) {
             left: initial !important;

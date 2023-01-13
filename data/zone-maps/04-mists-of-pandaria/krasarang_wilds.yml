@@ -212,6 +212,7 @@ farms:
 - name: "The Silence"
   faction: alliance
   location: 87.6 33.0
+  questId: 32455
   reset: none
   type: quest
   drops:

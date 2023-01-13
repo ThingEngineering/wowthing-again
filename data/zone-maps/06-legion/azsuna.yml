@@ -294,8 +294,9 @@ farms:
 - name: "Treasure Chest"
   location: 49.5 45.3
   objectId: 240643
+  questId: 37828
   reset: never
-  type: quest
+  type: treasure
   drops:
     - type: toy
       id: 122681 # Sternfathom's Pet Journal

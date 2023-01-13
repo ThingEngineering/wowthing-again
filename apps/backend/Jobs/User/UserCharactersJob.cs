@@ -33,9 +33,7 @@ public class UserCharactersJob : JobBase
         timer.AddPoint("Token");
 
         // Fetch existing accounts
-        var accountMap = await Context.PlayerAccount
-            .Where(a => a.UserId == userId)
-            .ToDictionaryAsync(k => (k.Region, k.AccountId));
+        var accountMap = new Dictionary<(WowRegion, long), PlayerAccount>();
 
         // Add any new accounts
         var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
@@ -57,22 +55,39 @@ public class UserCharactersJob : JobBase
                     continue;
                 }
 
-                foreach (ApiAccountProfileAccount account in profile.Accounts)
-                {
-                    apiAccounts.Add((region, account));
+                var accountIds = profile.Accounts
+                    .Select(account => account.Id)
+                    .ToArray();
 
-                    // TODO handle account changing owner? is that even possible?
-                    if (!accountMap.ContainsKey((region, account.Id)))
+                var accounts = Context.PlayerAccount
+                    .Where(account => account.Region == region && accountIds.Contains(account.Id))
+                    .ToArray();
+                foreach (var account in accounts)
+                {
+                    accountMap[(region, account.Id)] = account;
+                }
+
+                foreach (ApiAccountProfileAccount apiAccount in profile.Accounts)
+                {
+                    apiAccounts.Add((region, apiAccount));
+
+                    if (!accountMap.TryGetValue((region, apiAccount.Id), out var playerAccount))
                     {
-                        var newAccount = accountMap[(region, account.Id)] = new PlayerAccount
+                        playerAccount = accountMap[(region, apiAccount.Id)] = new PlayerAccount
                         {
-                            AccountId = account.Id,
+                            AccountId = apiAccount.Id,
                             Region = region,
-                            UserId = userId,
                         };
-                        Context.PlayerAccount.Add(newAccount);
-                        Logger.Information("Added new account {0}/{1}", region, account.Id);
+                        Context.PlayerAccount.Add(playerAccount);
+                        Logger.Information("Added new account {0}/{1}", region, apiAccount.Id);
                     }
+                    else if (playerAccount.UserId != userId)
+                    {
+                        Logger.Warning("Changing owner of account {region} {id} from {user1} to {user2}",
+                            region, playerAccount.AccountId, playerAccount.UserId, userId);
+                    }
+
+                    playerAccount.UserId = userId;
                 }
             }
             catch (HttpRequestException e)

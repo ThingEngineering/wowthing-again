@@ -218,6 +218,7 @@ farms:
   faction: horde
   location: 55.8 34.0
   note: "Dominance Offensive?"
+  questId: 32399
   reset: none
   type: quest
   drops:

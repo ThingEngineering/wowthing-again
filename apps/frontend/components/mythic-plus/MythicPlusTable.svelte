@@ -81,7 +81,16 @@
             affixes = weeklyAffixes[week]
         }
 
-        filterFunc = (char: Character) => char.level >= season.minLevel
+        filterFunc = (char: Character) => {
+            const meetsLevelReq = char.level >= season.minLevel
+            if (isCurrentSeason) {
+                return meetsLevelReq
+            }
+            else {
+                const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0
+                return meetsLevelReq && score > 0
+            }
+        }
     }
 </script>
 
@@ -145,4 +154,20 @@
             {/each}
         {/key}
     </svelte:fragment>
+
+    <svelte:fragment slot="emptyRow">
+        <tr>
+            <td class="no-characters" colspan="99">
+                You have no characters with an M+ score from this season.
+            </td>
+        </tr>
+    </svelte:fragment>
 </CharacterTable>
+
+<style lang="scss">
+    .no-characters {
+        background: $horde-background;
+        padding: 0.3rem 0.5rem;
+        white-space: normal;
+    }
+</style>

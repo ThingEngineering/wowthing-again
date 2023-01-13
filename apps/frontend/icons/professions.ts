@@ -1,0 +1,15 @@
+export const professionIcons: Record<string, string> = {
+    alchemy: 'gameFizzingFlask',
+    blacksmithing: 'gameAnvil',
+    cooking: 'gameBarbecue',
+    enchanting: 'gameSpellBook',
+    engineering: 'gamePokecog',
+    fishing: 'gamePiranha',
+    herbalism: 'gameTwirlyFlower',
+    inscription: 'gameScrollQuill',
+    jewelcrafting: 'gameEmerald',
+    leatherworking: 'gameHandBag',
+    mining: 'gameWarPick',
+    skinning: 'gameAnimalHide',
+    tailoring: 'gameRolledCloth',
+}

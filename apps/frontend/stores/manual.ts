@@ -499,6 +499,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                     [RewardType.Mount]: new UserCount(),
                     [RewardType.Pet]: new UserCount(),
                     [RewardType.Quest]: new UserCount(),
+                    [RewardType.Reputation]: new UserCount(),
                     [RewardType.Toy]: new UserCount(),
                     [RewardType.Transmog]: new UserCount(),
                     [RewardType.SetSpecial]: new UserCount(),
@@ -615,6 +616,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             case RewardType.Currency:
                             case RewardType.Item:
+                            case RewardType.Reputation:
                                 dropStatus.need = true
                                 break
 
@@ -700,6 +702,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
 
                         dropStatus.skip = (
+                            (farm.type === FarmType.Achievement && !options.trackAchievements) ||
                             (farm.type === FarmType.Quest && !options.trackQuests) ||
                             (farm.type === FarmType.Vendor && !options.trackVendors) ||
                             (drop.type === RewardType.Achievement && !options.trackAchievements) ||
@@ -886,6 +889,15 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                     } // for drop of farm.drops
 
                     farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
+                    if (farmStatus.need &&
+                        farm.type !== FarmType.Vendor &&
+                        (farm.reset === FarmResetType.Never || farm.reset === FarmResetType.None)
+                    ) {
+                        farmStatus.need = some(
+                            farmStatus.drops,
+                            (d) => d.characterIds.length > 0
+                        )
+                    }
 
                     const characterIds: Record<number, RewardType[]> = {}
 

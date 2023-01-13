@@ -164,8 +164,14 @@
         {farm.name}
     </h4>
 
-    {#if farm.type !== FarmType.Vendor && farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
-        <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
+    {#if farm.type !== FarmType.Vendor}
+        <h5>
+            {#if farm.reset === FarmResetType.Never}
+                once per character
+            {:else if farm.reset !== FarmResetType.None}
+                {FarmResetType[farm.reset].toLowerCase()} reset
+            {/if}
+        </h5>
     {/if}
 
     {#if farm.note}

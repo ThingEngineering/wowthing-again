@@ -61,7 +61,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 21,
+        Version = 22,
     };
 
     public override async Task Run(params string[] data)
@@ -166,11 +166,12 @@ public class CacheManualJob : JobBase, IScheduledJob
             .GroupBy(wie => wie.ItemId)
             .ToDictionary(
                 group => group.Key,
-                group => transmogSets[
+                group => transmogSets.GetValueOrDefault(
                         group.OrderByDescending(wie => wie.ItemXItemEffectId)
                             .First()
-                            .Values[0]
-                    ]
+                            .Values[0],
+                        Array.Empty<DumpTransmogSetItem>()
+                    )
                     .Select(tsi => tsi.ItemModifiedAppearanceID)
                     .Where(id => _itemModifiedAppearanceMap[id].SourceType != 9) // NotValidForTransmog
                     .ToArray()
@@ -246,7 +247,7 @@ public class CacheManualJob : JobBase, IScheduledJob
         _timer.AddPoint("Tags");
 
 #if DEBUG
-        DumpZoneMapQuests(cacheData.ZoneMapSets);
+        DumpZoneMapQuests(cacheData.SharedVendors, cacheData.ZoneMapSets);
 #endif
 
         // Save the data to Redis
@@ -406,6 +407,18 @@ public class CacheManualJob : JobBase, IScheduledJob
             foreach (var item in vendor.Sells)
             {
                 DoCommonItemStuff(item);
+
+                if (item.Type == RewardType.Quest)
+                {
+                    if (item.Id > 0)
+                    {
+                        _questIds.Add(item.Id);
+                    }
+                    else
+                    {
+                        Logger.Warning("Missing quest ID on vendor {name} sells", vendor.Name);
+                    }
+                }
             }
         }
 
@@ -626,6 +639,18 @@ public class CacheManualJob : JobBase, IScheduledJob
                         farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
                     }*/
 
+                    if (farm.Type == FarmType.Quest)
+                    {
+                        if (farm.Id > 0)
+                        {
+                            _questIds.Add(farm.Id);
+                        }
+                        else
+                        {
+                            Logger.Warning("Missing quest ID on farm '{name}'", farm.Name);
+                        }
+                    }
+
                     foreach (var drop in farm.Drops)
                     {
                         switch (drop.Type)
@@ -637,7 +662,15 @@ public class CacheManualJob : JobBase, IScheduledJob
                                 break;
 
                             case "quest":
-                                _questIds.Add(drop.Id);
+                                if (drop.Id > 0)
+                                {
+                                    _questIds.Add(drop.Id);
+                                }
+                                else
+                                {
+                                    Logger.Warning("Missing quest ID on farm '{name}' drop", farm.Name);
+                                }
+
                                 break;
 
                             case "transmog":
@@ -683,41 +716,79 @@ public class CacheManualJob : JobBase, IScheduledJob
         return ret;
     }
 
-    private void DumpZoneMapQuests(List<List<ManualZoneMapCategory>> zoneMaps)
+    private void DumpZoneMapQuests(
+        List<ManualSharedVendor> sharedVendors,
+        List<List<ManualZoneMapCategory>> zoneMaps
+    )
     {
         var seenQuests = new HashSet<int>();
-        using (var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt")))
+        using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt"));
+
+        foreach (var vendor in sharedVendors)
         {
-            foreach (var categories in zoneMaps.Where(zm => zm != null))
+            var questSells = vendor.Sells
+                .EmptyIfNull()
+                .Where(sell => sell.Type == RewardType.Quest)
+                .ToArray();
+
+            if (questSells.Length == 0)
             {
-                foreach (var category in categories.Where(cat => cat != null))
+                continue;
+            }
+
+            outFile.WriteLine("    -- Vendors: {0}", vendor.Name);
+            foreach (var sell in questSells)
+            {
+                if (!seenQuests.Contains(sell.Id))
                 {
-                    outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
-                    foreach (var farm in category.Farms)
+                    outFile.WriteLine("    {0}, -- ??", sell.Id);
+                    seenQuests.Add(sell.Id);
+                }
+            }
+        }
+
+        foreach (var categories in zoneMaps.Where(zm => zm != null))
+        {
+            foreach (var category in categories.Where(cat => cat != null))
+            {
+                bool nameWritten = false;
+
+                foreach (var farm in category.Farms)
+                {
+                    if (farm.Type == FarmType.Quest)
                     {
-                        if (farm.Type == FarmType.Quest)
-                        {
-                            continue;
-                        }
+                        continue;
+                    }
 
-                        foreach (var questId in farm.QuestIds)
+                    foreach (var questId in farm.QuestIds)
+                    {
+                        if (questId > 0 && !seenQuests.Contains(questId))
                         {
-                            if (questId > 0 && !seenQuests.Contains(questId))
+                            if (!nameWritten)
                             {
-                                outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
-                                seenQuests.Add(questId);
+                                outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
+                                nameWritten = true;
                             }
-                        }
 
-                        foreach (var drop in farm.Drops)
+                            outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
+                            seenQuests.Add(questId);
+                        }
+                    }
+
+                    foreach (var drop in farm.Drops)
+                    {
+                        foreach (var dropQuestId in drop.QuestIds.EmptyIfNull())
                         {
-                            foreach (var dropQuestId in drop.QuestIds.EmptyIfNull())
+                            if (!seenQuests.Contains(dropQuestId))
                             {
-                                if (!seenQuests.Contains(dropQuestId))
+                                if (!nameWritten)
                                 {
-                                    outFile.WriteLine("    {0}, -- {1}", dropQuestId, farm.Name);
-                                    seenQuests.Add(dropQuestId);
+                                    outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
+                                    nameWritten = true;
                                 }
+
+                                outFile.WriteLine("    {0}, -- {1}", dropQuestId, farm.Name);
+                                seenQuests.Add(dropQuestId);
                             }
                         }
                     }

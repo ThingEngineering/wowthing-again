@@ -67,6 +67,9 @@
 
         pairs.sort()
         groups = map(pairs, (pair) => pair[1])
+        if (groups.length === 1 && groups[0].length === 0) {
+            groups = []
+        }
     }
 
     const paddingMap: Record<string, number> = {

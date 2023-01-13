@@ -49,6 +49,9 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
     else if (drop.type === RewardType.Quest) {
         return staticData.questNames[drop.id] || `Quest #${drop.id}`
     }
+    else if (drop.type === RewardType.Reputation) {
+        return staticData.reputations[drop.id]?.name || `Reputation #${drop.id}`
+    }
     else if (drop.type === RewardType.Toy) {
         const toy = staticData.toys[drop.id]
         return toy ? toy.name : `Unknown toy #${drop.id}`
