@@ -3,7 +3,7 @@ import {TransmogSet, TransmogSetData} from '@/types'
 
 const transmogSets: Record<string, TransmogSet> = {
     'all': new TransmogSet('all', [
-        new TransmogSetData('all', 12),
+        new TransmogSetData('all', 13),
     ]),
     'armor': new TransmogSet('armor', [
         new TransmogSetData('cloth', 3, 'Cloth'),
