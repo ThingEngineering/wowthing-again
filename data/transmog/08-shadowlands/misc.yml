@@ -1,4 +1,4 @@
-name: "Covenants [9.0]"
+name: "Misc"
 skipClasses:
 - evoker
 groups:
@@ -948,3 +948,508 @@ groups:
         9:  41479 # Wrists
         10: 41464 # Hands
         16: 41458 # Back
+        
+# 9.1
+- name: "Aspirant's Regalia"
+  type: all
+  sets:
+  - Death's Advance
+  - Korthia
+  - Renown
+  - Renown Quartermaster
+  data:
+    all:
+    # Death's Advance set=2206
+    - name: Battlefield Messenger's Regalia
+      wowheadSetId: 11989
+      items:
+        1:  44247 # Head
+        5:  44243 44244 # Chest
+        6:  44249 # Waist
+        7:  44248 # Legs
+        8:  44245 # Feet
+        9:  44250 # Wrists
+        10: 44246 # Hands
+        16: 44276 # Back
+
+    # Korthia set=2207
+    - name: Foresworn Aspirant's Regalia
+      wowheadSetId: 11987
+      items:
+        1:  44255 # Head
+        5:  44251 44252 # Chest
+        6:  44257 # Waist
+        7:  44256 # Legs
+        8:  44253 # Feet
+        9:  44258 # Wrists
+        10: 44254 # Hands
+        16: 44277 # Back
+
+    # Renown set=2208
+    - name: Aspiring Aspirant's Regalia
+      wowheadSetId: 11985
+      items:
+        1:  44263 # Head
+        5:  44259 44260 # Chest
+        6:  44265 # Waist
+        7:  44264 # Legs
+        8:  44261 # Feet
+        9:  44266 # Wrists
+        10: 44262 # Hands
+        16: 44278 # Back
+
+    # Renown Quartermaster set=2209
+    - name: Devoted Aspirant's Regalia
+      wowheadSetId: 11983
+      items:
+        1:  44271 # Head
+        5:  44267 44268 # Chest
+        6:  44273 # Waist
+        7:  44272 # Legs
+        8:  44269 # Feet
+        9:  44274 # Wrists
+        10: 44270 # Hands
+        16: 44279 # Back
+
+- name: 'Necromantic Vestments'
+  type: all
+  sets:
+  - Death's Advance
+  - Korthia
+  - Renown
+  - Renown Quartermaster
+  data:
+    all:
+    # Death's Advance set=2210
+    - name: Frontline Necromancer's Vestments
+      wowheadSetId: 11981
+      items:
+        1:  44312 # Head
+        3:  44350 # Shoulders
+        5:  44351 # Chest
+        6:  44461 # Waist
+        7:  44352 # Legs
+        8:  44348 # Feet
+        9:  44349 # Wrists
+        10: 44353 # Hands
+        16: 44322 # Back
+
+    # Korthia set=2213
+    - name: Rogue Necromancer's Vestments
+      wowheadSetId: 11978
+      items:
+        1:  44309 # Head
+        3:  44303 # Shoulders
+        5:  44323 # Chest
+        6:  44300 # Waist
+        7:  44306 # Legs
+        8:  44316 # Feet
+        9:  44297 # Wrists
+        10: 44313 # Hands
+        16: 44319 # Back
+
+    # Renown set=2212
+    - name: Initiate's Necromantle Vestments
+      wowheadSetId: 11979
+      items:
+        1:  44311 # Head
+        3:  44305 # Shoulders
+        5:  44325 # Chest
+        6:  44302 # Waist
+        7:  44308 # Legs
+        8:  44318 # Feet
+        9:  44299 # Wrists
+        10: 44315 # Hands
+        16: 44321 # Back
+
+    # Renown Quartermaster set=2211
+    - name: Marileth's Assistant's Vestments
+      wowheadSetId: 11980
+      items:
+        1:  44310 # Head
+        3:  44304 # Shoulders
+        5:  44324 # Chest
+        6:  44301 # Waist
+        7:  44307 # Legs
+        8:  44317 # Feet
+        9:  44298 # Wrists
+        10: 44314 # Hands
+        16: 44320 # Back
+
+- name: "Grove Guardian's Regalia"
+  type: all
+  sets:
+  - Death's Advance
+  - Korthia
+  - Renown
+  - Renown Quartermaster
+  data:
+    all:
+    # Death's Advance set=2204
+    - name: Garb of Fall's Promise
+      wowheadSetId: 11991
+      items:
+        1:  44330 # Head
+        3:  44332 # Shoulders
+        5:  44326 # Chest
+        6:  44333 # Waist
+        7:  44331 # Legs
+        8:  44328 # Feet
+        9:  44334 # Wrists
+        10: 44329 # Hands
+        16: 44327 # Back
+
+    # Korthia set=2203
+    - name: Garb of the Twilight Grove
+      wowheadSetId: 11993
+      items:
+        1:  44292 # Head
+        3:  44294 # Shoulders
+        5:  44288 # Chest
+        6:  44295 # Waist
+        7:  44293 # Legs
+        8:  44290 # Feet
+        9:  44296 # Wrists
+        10: 44291 # Hands
+        16: 44289 # Back
+
+    # Renown set=2205
+    - name: Garb of Pure Spirit
+      wowheadSetId: 11990
+      items:
+        1:  44339 # Head
+        3:  44341 # Shoulders
+        5:  44335 # Chest
+        6:  44342 # Waist
+        7:  44340 # Legs
+        8:  44337 # Feet
+        9:  44343 # Wrists
+        10: 44338 # Hands
+        16: 44336 # Back
+
+    # Renown Quartermaster set=2202
+    - name: Garb of the Azure Dusk
+      wowheadSetId: 11992
+      items:
+        1:  44283 # Head
+        3:  44285 # Shoulders
+        5:  44275 # Chest
+        6:  44286 # Waist
+        7:  44284 # Legs
+        8:  44281 # Feet
+        9:  44287 # Wrists
+        10: 44282 # Hands
+        16: 44280 # Back
+
+- name: 'Court Attire'
+  type: all
+  sets:
+  - Death's Advance
+  - Korthia
+  - Renown
+  - Renown Quartermaster
+  data:
+    all:
+    # Death's Advance set=2215
+    - name: Renathal's Battlefield Attire
+      wowheadSetId: 11997
+      items:
+        1:  44379 # Head
+        5:  44357 # Chest
+        6:  44362 # Waist
+        7:  44361 # Legs
+        8:  44359 # Feet
+        9:  44363 # Wrists
+        10: 44360 # Hands
+        16: 44358 # Back
+
+    # Korthia set=2216
+    - name: Radiant Court Attire
+      wowheadSetId: 11994
+      items:
+        1:  44380 # Head
+        5:  44364 # Chest
+        6:  44369 # Waist
+        7:  44368 # Legs
+        8:  44366 # Feet
+        9:  44370 # Wrists
+        10: 44367 # Hands
+        16: 44365 # Back
+
+    # Renown set=2214
+    - name: Harvester's Court Attire
+      wowheadSetId: 11995
+      items:
+        1:  44378 # Head
+        5:  44344 # Chest
+        6:  44355 # Waist
+        7:  44354 # Legs
+        8:  44346 # Feet
+        9:  44356 # Wrists
+        10: 44347 # Hands
+        16: 44345 # Back
+
+    # Renown Quartermaster set=2217
+    - name: Sinful Venthyr Attire
+      wowheadSetId: 11996
+      items:
+        1:  44381 # Head
+        5:  44371 # Chest
+        6:  44376 # Waist
+        7:  44375 # Legs
+        8:  44373 # Feet
+        9:  44377 # Wrists
+        10: 44374 # Hands
+        16: 44372 # Back
+
+- name: "Inquisitor's Vestments"
+  type: all
+  sets:
+  - Death's Advance
+  - Korthia
+  - Renown
+  - Renown Quartermaster
+  data:
+    all:
+    # Death's Advance set=2219
+    - name: Renathal's Field Inquisitor's Vestments
+      wowheadSetId: 11999
+      items:
+        1:  44395 # Head
+        3:  44397 # Shoulders
+        5:  44391 # Chest
+        6:  44398 # Waist
+        7:  44396 # Legs
+        8:  44393 # Feet
+        9:  44399 # Wrists
+        10: 44394 # Hands
+        16: 44392 # Back
+
+    # Korthia set=2220
+    - name: Redeemed Inquisitor's Vestments
+      wowheadSetId: 11998
+      items:
+        1:  44404 # Head
+        3:  44406 # Shoulders
+        5:  44400 # Chest
+        6:  44407 # Waist
+        7:  44405 # Legs
+        8:  44402 # Feet
+        9:  44408 # Wrists
+        10: 44403 # Hands
+        16: 44401 # Back
+
+    # Renown set=2218
+    - name: Court Inquisitor's Vestments
+      wowheadSetId: 12000
+      items:
+        1:  44386 # Head
+        3:  44388 # Shoulders
+        5:  44382 # Chest
+        6:  44389 # Waist
+        7:  44387 # Legs
+        8:  44384 # Feet
+        9:  44390 # Wrists
+        10: 44385 # Hands
+        16: 44383 # Back
+
+    # Renown Quartermaster set=2221
+    - name: Sinful Inquisitor's Vestments
+      wowheadSetId: 12001
+      items:
+        1:  44413 # Head
+        3:  44415 # Shoulders
+        5:  44409 # Chest
+        6:  44416 # Waist
+        7:  44414 # Legs
+        8:  44411 # Feet
+        9:  44417 # Wrists
+        10: 44412 # Hands
+        16: 44410 # Back
+
+- name: "Zereth Mortis"
+  type: armor
+  sets:
+  - "World Quest"
+  - "Sandworn Relic"
+  - "Anima/Drop"
+  data:
+    cloth:
+    # modifier=0
+    - name: Oracular Cloth
+      wowheadSetId:
+      items:
+        1:  56674 # Head
+        3:  56675 # Shoulders
+        5:  56676 # Chest
+        6:  56677 # Waist
+        7:  56678 # Legs
+        8:  56679 # Feet
+        9:  56680 # Wrists
+        10: 56681 # Hands
+
+    # modifier=154
+    - name: Choral Cloth
+      wowheadSetId:
+      items:
+        1:  56701 # Head
+        3:  56702 # Shoulders
+        5:  56703 # Chest
+        6:  56704 # Waist
+        7:  56705 # Legs
+        8:  56706 # Feet
+        9:  56707 # Wrists
+        10: 56708 # Hands
+
+    # modifier=0
+    - name: Choral Cloth
+      wowheadSetId:
+      items:
+        1:  56683 # Head
+        3:  56684 # Shoulders
+        5:  56685 # Chest
+        6:  56686 # Waist
+        7:  56687 # Legs
+        8:  56688 # Feet
+        9:  56689 # Wrists
+        10: 56690 # Hands
+
+    leather:
+    # modifier=0
+    - name: Cryptic Leather
+      wowheadSetId:
+      items:
+        1:  56832 # Head
+        3:  56833 # Shoulders
+        5:  56834 # Chest
+        6:  56835 # Waist
+        7:  56836 # Legs
+        8:  56837 # Feet
+        9:  56838 # Wrists
+        10: 56839 # Hands
+
+    # modifier=154
+    - name: Staccato Leather
+      wowheadSetId:
+      items:
+        1:  56859 # Head
+        3:  56860 # Shoulders
+        5:  56861 # Chest
+        6:  56862 # Waist
+        7:  56863 # Legs
+        8:  56864 # Feet
+        9:  56865 # Wrists
+        10: 56866 # Hands
+
+    # modifier=0
+    - name: Staccato Leather
+      wowheadSetId:
+      items:
+        1:  56841 # Head
+        3:  56842 # Shoulders
+        5:  56843 # Chest
+        6:  56844 # Waist
+        7:  56845 # Legs
+        8:  56846 # Feet
+        9:  56847 # Wrists
+        10: 56848 # Hands
+
+    mail:
+    # modifier=0
+    - name: Enigmatic Mail
+      wowheadSetId:
+      items:
+        1:  57197 # Head
+        3:  57198 # Shoulders
+        5:  57199 # Chest
+        6:  57200 # Waist
+        7:  57201 # Legs
+        8:  57202 # Feet
+        9:  57203 # Wrists
+        10: 57204 # Hands
+
+    # modifier=154
+    - name: Anthemic Mail
+      wowheadSetId:
+      items:
+        1:  57224 # Head
+        3:  57225 # Shoulders
+        5:  57226 # Chest
+        6:  57227 # Waist
+        7:  57228 # Legs
+        8:  57229 # Feet
+        9:  57230 # Wrists
+        10: 57231 # Hands
+
+    # modifier=0
+    - name: Anthemic Mail
+      wowheadSetId:
+      items:
+        1:  57206 # Head
+        3:  57207 # Shoulders
+        5:  57208 # Chest
+        6:  57209 # Waist
+        7:  57210 # Legs
+        8:  57211 # Feet
+        9:  57212 # Wrists
+        10: 57213 # Hands
+
+    plate:
+    # modifier=0
+    - name: Numerus Plate
+      wowheadSetId:
+      items:
+        1:  57140 # Head
+        3:  57141 # Shoulders
+        5:  57142 # Chest
+        6:  57143 # Waist
+        7:  57144 # Legs
+        8:  57145 # Feet
+        9:  57146 # Wrists
+        10: 57147 # Hands
+
+    # modifier=154
+    - name: Harmonium Plate
+      wowheadSetId:
+      items:
+        1:  57167 # Head
+        3:  57168 # Shoulders
+        5:  57169 # Chest
+        6:  57170 # Waist
+        7:  57171 # Legs
+        8:  57172 # Feet
+        9:  57173 # Wrists
+        10: 57174 # Hands
+
+    # modifier=0
+    - name: Harmonium Plate
+      wowheadSetId:
+      items:
+        1:  57149 # Head
+        3:  57150 # Shoulders
+        5:  57151 # Chest
+        6:  57152 # Waist
+        7:  57153 # Legs
+        8:  57154 # Feet
+        9:  57155 # Wrists
+        10: 57156 # Hands
+
+- name: "Dark Ranger's Attire"
+  type: class
+  sets:
+  - "Dark Ranger's Attire"
+  data: 
+    hunter:
+      # description=0 set=2484
+      - name: "Dark Ranger's Attire"
+        wowheadSetId:
+        items:
+          1:  70508 # Head
+          3:  39294 # Shoulders
+          5:  70505 # Chest
+          6:  39295 # Waist
+          7:  70509 # Legs
+          8:  70506 # Feet
+          9:  39296 # Wrists
+          10: 70507 # Hands
+          16: 39297 # Back 

@@ -1,0 +1,12 @@
+id: 198470
+name: "Usodormu"
+
+locations:
+  09-dragonflight/thaldraszus:
+    - 60.4 79.8
+
+sells:
+  - type: toy
+    id: 201435 # Shuffling Sands
+    costs:
+      0: 3 # Gold

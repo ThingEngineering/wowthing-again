@@ -10,7 +10,10 @@ groups:
 - name: "Iskaara Tuskarr"
   things:
   - 1657 # Brown Scouting Ottuk (Renown 24)
+  - 1659 # Yellow Scouting Ottuk (Renown 24)
+  - 1653 # Brown War Ottuk (Renown 30)
+  - 1655 # Yellow War Ottuk (Renown 30)
 
 - name: "Maruuk Centaur"
   things:
-  - 1545 # Divine Kiss of Ohn'ahra
+  - 1545 # Divine Kiss of Ohn'ahra (Renown 25)

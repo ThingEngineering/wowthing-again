@@ -168,6 +168,7 @@ groups:
         7:  8732 # Legs
         8:  8794 # Feet
         9:  8792 # Wrists
+        10: 8730 # Hands
 
     mage:
     # Gladiator set=959

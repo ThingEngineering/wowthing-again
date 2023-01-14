@@ -84,6 +84,7 @@ DESCRIPTION_MAP = {
     13306: 'PVP Rare',
     13307: 'PVP Epic',
     13305: 'Normal', # Sunwell
+    13448: 'Warfront',
     13584: 'Ember Court',
     13590: 'Campaign',
     13591: 'Renown',
@@ -96,6 +97,19 @@ DESCRIPTION_MAP = {
     13849: "Death's Advance",
     13850: 'Korthia',
     13859: 'Renown Quartermaster',
+    13964: 'Bronze',
+    13965: 'Red',
+    13966: 'Black',
+    13967: 'Blue',
+    13968: 'Green',
+    13979: 'Primal Storms',
+    13980: 'War Mode',
+    13987: 'World and Weekly Quests',
+    13989: 'Quest Rewards',
+    13990: 'World Drops',
+    13991: 'Professions',
+    13993: 'Crafted',
+    13998: 'Dungeons,'
 }
 DESCRIPTION_ORDER = [
     13145, # Mythic
@@ -107,7 +121,6 @@ DESCRIPTION_ORDER = [
     13193, # Normal
      1641, # Raid Finder
     13216, # Timewarped
-
      3859, # Elite
     13301, # Gladiator
     13302, # Combatant
@@ -115,6 +128,7 @@ DESCRIPTION_ORDER = [
     13303, # Aspirant
     13307, # PVP Epic
     13306, # PVP Rare
+    13448, # Warfront
 
     # 9.0 covenant
     13590, # Campaign
@@ -135,6 +149,21 @@ DESCRIPTION_ORDER = [
     13849, # Death's Advance
     13850, # Korthia
     13859, # Renown Quartermaster
+
+    # Dragonflight
+    13979, # Primal Storms
+    13989, # Quest Rewards
+    13987, # World and Weekly Quests
+    13998, # Dungeons
+    13980, # War Mode
+    13991, # Professions
+    13993, # Crafted
+    13990, # World Drops
+    13965, # Red
+    13964, # Bronze
+    13966, # Black
+    13967, # Blue
+    13968, # Green
 
     0,
 ]

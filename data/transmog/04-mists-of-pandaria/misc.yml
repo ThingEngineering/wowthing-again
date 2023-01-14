@@ -1,0 +1,33 @@
+name: Misc
+skipClasses:
+- death-knight
+- demon-hunter
+- druid
+- evoker
+- hunter
+- mage
+- monk
+- paladin
+- priest
+- rogue
+- warlock
+- warrior
+groups:
+
+- name: Kor'kron Dark Shaman Armor
+  type: class
+  sets:
+  - Kor'kron Dark Shaman
+  data:
+    shaman:
+    - name: "Kor'kron Dark Shaman Armor"
+      wowheadSetId: 1790
+      items:
+        1:  21287 # Head
+        3:  21289 # Shoulders
+        5:  21285 # Chest
+        6:  21283 # Waist
+        7:  21288 # Legs
+        8:  21284 # Feet
+        9:  21282 # Wrists
+        10: 21286 # Hands

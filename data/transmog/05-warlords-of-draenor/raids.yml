@@ -452,6 +452,68 @@ groups:
         9:  25502 # Wrists
         10: 25499 # Hands
 
+- name: Hellfire Citadel
+  tag: T18
+  type: armor
+  sets:
+  - Raid Finder
+  data:
+    cloth:
+    # Raid Finder set=581
+    - name: "Felfume Raiment"
+      wowheadSetId:
+      items:
+        1:  25845 # Head
+        3:  25847 # Shoulders
+        5:  25849 # Chest
+        6:  25841 # Waist
+        7:  25846 # Legs
+        8:  25842 # Feet
+        9:  25848 # Wrists
+        10: 25844 # Hands
+
+    leather:
+    # Raid Finder set=582
+    - name: "Ironpelt Garb"
+      wowheadSetId:
+      items:
+        1:  25983 # Head
+        3:  25985 # Shoulders
+        5:  25981 # Chest
+        6:  25978 # Waist
+        7:  25984 # Legs
+        8:  25979 # Feet
+        9:  25986 # Wrists
+        10: 25982 # Hands
+
+    mail:
+    # Raid Finder set=583
+    - name: "Rancorbite Armor"
+      wowheadSetId: 2097
+      items:
+        1:  25949 # Head
+        3:  25950 # Shoulders
+        5:  25947 # Chest
+        6:  25945 # Waist
+        7:  25951 # Legs
+        8:  25946 # Feet
+        9:  25952 # Wrists
+        10: 25948 # Hands
+
+    plate:
+    # Raid Finder set=584
+    - name: "Demonbreaker Battleplate"
+      wowheadSetId:
+      items:
+        1:  25933 # Head
+        3:  25935 # Shoulders
+        5:  25931 # Chest
+        6:  25929 # Waist
+        7:  25934 # Legs
+        8:  25930 # Feet
+        9:  25936 # Wrists
+        10: 25932 # Hands
+
 - name: Highmaul / Blackrock Foundry
   tag: T17
   type: class

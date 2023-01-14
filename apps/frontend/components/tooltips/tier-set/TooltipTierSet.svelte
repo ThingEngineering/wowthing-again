@@ -11,7 +11,9 @@
         text-align: left;
     }
     .itemLevel {
-        text-align: right;
+        @include cell-width(2rem);
+
+        text-align: center;
     }
 </style>
 

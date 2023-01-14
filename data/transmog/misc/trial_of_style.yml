@@ -1,0 +1,167 @@
+name: Trial of Style
+groups:
+
+- name: Trial of Style
+  type: armor
+  sets:
+  - Season 1
+  - Season 2
+  - Season 4
+  data:
+    cloth:
+      # description=0 set=1450
+      - name: "Mana-Etched Regalia"
+        wowheadSetId:
+        items:
+          1:  7071 # Head
+          3:  6956 # Shoulders
+          5:  7069 # Chest
+          6:  6985 # Waist
+          7:  7018 # Legs
+          8:  7189 # Feet
+          10: 6852 11039 # Hands
+
+      # description=0 set=1529
+      - name: "Mindwrack Raiment"
+        wowheadSetId:
+        items:
+          1:  37007 # Head
+          3:  9020 # Shoulders
+          5:  11161 37008 # Chest
+          6:  37005 # Waist
+          7:  36997 # Legs
+          8:  36998 # Feet
+          9:  11237 # Wrists
+          10: 37006 # Hands
+
+      # description=0 set=1827
+      - name: "Tranquil Spiritbind Regalia"
+        wowheadSetId:
+        items:
+          1:  16503 # Head
+          3:  16505 # Shoulders
+          5:  16504 # Chest
+          6:  16499 # Waist
+          7:  16163 # Legs
+          8:  16500 # Feet
+          9:  16506 # Wrists
+          10: 16502 # Hands
+
+    leather:
+      # description=0 set=1449
+      - name: "Obsidian Prowler's Garb"
+        wowheadSetId:
+        items:
+          1:  7032 # Head
+          3:  7043 # Shoulders
+          5:  6850 # Chest
+          6:  7022 # Waist
+          7:  6899 # Legs
+          8:  6854 # Feet
+          10: 6973 # Hands
+
+      # description=0 set=1528
+      - name: "Tundraspite Armor"
+        wowheadSetId:
+        items:
+          1:  10251 # Head
+          3:  10278 # Shoulders
+          5:  10241 # Chest
+          6:  10424 # Waist
+          7:  10069 # Legs
+          8:  37000 # Feet
+          9:  10452 # Wrists
+          10: 10302 # Hands
+
+      # description=0 set=1826
+      - name: "Restless Dreambound Battlegear"
+        wowheadSetId:
+        items:
+          1:  13421 # Head
+          3:  13446 # Shoulders
+          5:  13520 31700 # Chest
+          6:  13509 # Waist
+          7:  13467 14923 # Legs
+          8:  13264 # Feet
+          9:  13274 # Wrists
+          10: 13429 # Hands
+
+    mail:
+      # description=0 set=1448
+      - name: "Der'izu Armor"
+        wowheadSetId:
+        items:
+          1:  6077 # Head
+          3:  6504 # Shoulders
+          5:  6502 # Chest
+          6:  6500 # Waist
+          7:  6503 # Legs
+          8:  6501 # Feet
+          9:  2309 # Wrists
+          10: 1936 # Hands
+
+      # description=0 set=1527
+      - name: "Crimson Sentinel Garb"
+        wowheadSetId:
+        items:
+          1:  13898 # Head
+          3:  37001 # Shoulders
+          5:  13896 # Chest
+          6:  13894 # Waist
+          7:  12966 # Legs
+          8:  13895 # Feet
+          9:  12961 # Wrists
+          10: 13897 # Hands
+
+      # description=0 set=1825
+      - name: "Chainmail of the Timeless Hunt"
+        wowheadSetId:
+        items:
+          1:  16990 # Head
+          3:  16992 # Shoulders
+          5:  16988 # Chest
+          6:  16986 # Waist
+          7:  16991 # Legs
+          8:  16987 # Feet
+          9:  16985 # Wrists
+          10: 16989 # Hands
+
+    plate:
+      # description=0 set=1447
+      - name: "Righteous Battleplate"
+        wowheadSetId:
+        items:
+          1:  7123 # Head
+          3:  6925 # Shoulders
+          5:  6225 7081 # Chest
+          6:  7524 # Waist
+          7:  6982 # Legs
+          8:  7525 # Feet
+          9:  7523 # Wrists
+          10: 6890 # Hands
+
+      # description=0 set=1526
+      - name: "Goldspine Plate"
+        wowheadSetId:
+        items:
+          1:  7321 # Head
+          3:  7954 # Shoulders
+          5:  37002 # Chest
+          6:  8054 # Waist
+          7:  37003 # Legs
+          8:  37004 # Feet
+          9:  7608 # Wrists
+          10: 7955 # Hands
+
+      # description=0 set=1824
+      - name: "Armor of the Amaranthine Path"
+        wowheadSetId:
+        items:
+          1:  16201 # Head
+          3:  16220 # Shoulders
+          5:  16677 # Chest
+          6:  16168 # Waist
+          7:  16177 # Legs
+          8:  16233 # Feet
+          9:  16675 # Wrists
+          10: 16676 # Hands

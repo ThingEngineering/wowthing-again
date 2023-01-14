@@ -1,6 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
+    import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog-sets'
     import { userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
@@ -161,7 +162,7 @@
                 {#if !skipClasses['cloth']}
                     <td class="icon">
                         <WowthingImage
-                            name="item/102289"
+                            name={Constants.icons.armorCloth}
                             size={40}
                             tooltip="Cloth"
                         />
@@ -172,7 +173,7 @@
                 {#if !skipClasses['leather']}
                     <td class="icon">
                         <WowthingImage
-                            name="item/102282"
+                            name={Constants.icons.armorLeather}
                             size={40}
                             tooltip="Leather"
                         />
@@ -183,7 +184,7 @@
                 {#if !skipClasses['mail']}
                     <td class="icon">
                         <WowthingImage
-                            name="item/102275"
+                            name={Constants.icons.armorMail}
                             size={40}
                             tooltip="Mail"
                         />
@@ -194,7 +195,7 @@
                 {#if !skipClasses['plate']}
                     <td class="icon">
                         <WowthingImage
-                            name="item/102268"
+                            name={Constants.icons.armorPlate}
                             size={40}
                             tooltip="Plate"
                         />
