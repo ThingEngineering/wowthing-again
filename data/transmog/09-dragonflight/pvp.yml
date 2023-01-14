@@ -303,36 +303,7 @@ groups:
       - name: "Crimson Gladiator's Chain Armor"
         wowheadSetId:
         items:
-          1:  76428    warlock:
-      # Elite set=2721
-      - name: "Crimson Gladiator's Silk Armor"
-        wowheadSetId:
-        items:
-          1:  75559 75559 # Head
-          3:  75560 75560 # Shoulders
-          5:  75551 75551 # Chest
-          6:  75552 75552 # Waist
-          7:  75553 75553 # Legs
-          8:  75554 75554 # Feet
-          9:  75555 75555 # Wrists
-          10: 75556 75556 # Hands
-          16: 75557 75557 75557 # Back
-
-      # Gladiator set=2720
-      - name: "Crimson Gladiator's Silk Armor"
-        wowheadSetId:
-        items:
-          1:  77022 77022 # Head
-          3:  77023 77023 # Shoulders
-          5:  77024 77024 # Chest
-          6:  77025 77025 # Waist
-          7:  77026 77026 # Legs
-          8:  77027 77027 # Feet
-          9:  77028 77028 # Wrists
-          10: 77029 77029 # Hands
-          16: 77030 77030 77030 # Back
-
- # Head
+          1:  76428 # Head
           3:  76429 # Shoulders
           5:  76421 # Chest
           6:  76422 # Waist

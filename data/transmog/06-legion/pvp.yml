@@ -1494,334 +1494,334 @@ groups:
           10: 31100 # Hands
           16: 31136 # Back
 
-    # Gladiator (Alliance) set=1094
-    - name: "Vindictive Gladiator's Silk Armor"
-      wowheadSetId: 2139
-      items:
-        1:  30749 # Head
-        3:  30751 # Shoulders
-        5:  30753 # Chest
-        6:  30745 # Waist
-        7:  30750 # Legs
-        8:  30746 # Feet
-        9:  30752 # Wrists
-        10: 30748 # Hands
-        16: 31147 # Back
+      # Gladiator (Alliance) set=1094
+      - name: "Vindictive Gladiator's Silk Armor"
+        wowheadSetId: 2139
+        items:
+          1:  30749 # Head
+          3:  30751 # Shoulders
+          5:  30753 # Chest
+          6:  30745 # Waist
+          7:  30750 # Legs
+          8:  30746 # Feet
+          9:  30752 # Wrists
+          10: 30748 # Hands
+          16: 31147 # Back
 
-    # Gladiator (Horde) set=1093
-    - name: "Vindictive Gladiator's Silk Armor"
-      wowheadSetId: 2138
-      items:
-        1:  30758 # Head
-        3:  30760 # Shoulders
-        5:  30762 # Chest
-        6:  30754 # Waist
-        7:  30759 # Legs
-        8:  30755 # Feet
-        9:  30761 # Wrists
-        10: 30757 # Hands
-        16: 31158 # Back
+      # Gladiator (Horde) set=1093
+      - name: "Vindictive Gladiator's Silk Armor"
+        wowheadSetId: 2138
+        items:
+          1:  30758 # Head
+          3:  30760 # Shoulders
+          5:  30762 # Chest
+          6:  30754 # Waist
+          7:  30759 # Legs
+          8:  30755 # Feet
+          9:  30761 # Wrists
+          10: 30757 # Hands
+          16: 31158 # Back
 
     monk:
-    # Elite set=1119,1120
-    - name: Vindictive Gladiator's Ironskin Armor
-      wowheadSetId: 2155
-      items:
-        1:  30678 # Head
-        3:  30679 # Shoulders
-        5:  30677 # Chest
-        6:  30675 # Waist
-        7:  30680 # Legs
-        8:  30676 # Feet
-        9:  30682 # Wrists
-        10: 30681 # Hands
-        16: 30518 # Back
+      # Elite set=1119,1120
+      - name: Vindictive Gladiator's Ironskin Armor
+        wowheadSetId: 2155
+        items:
+          1:  30678 # Head
+          3:  30679 # Shoulders
+          5:  30677 # Chest
+          6:  30675 # Waist
+          7:  30680 # Legs
+          8:  30676 # Feet
+          9:  30682 # Wrists
+          10: 30681 # Hands
+          16: 30518 # Back
 
-    # Gladiator (Alliance) set=1117
-    - name: Vindictive Gladiator's Ironskin Armor
-      wowheadSetId: 2153
-      items:
-        1:  30576 # Head
-        3:  30578 # Shoulders
-        5:  30573 # Chest
-        6:  30571 # Waist
-        7:  30577 # Legs
-        8:  30572 # Feet
-        9:  30580 # Wrists
-        10: 30575 # Hands
-        16: 30474 # Back
+      # Gladiator (Alliance) set=1117
+      - name: Vindictive Gladiator's Ironskin Armor
+        wowheadSetId: 2153
+        items:
+          1:  30576 # Head
+          3:  30578 # Shoulders
+          5:  30573 # Chest
+          6:  30571 # Waist
+          7:  30577 # Legs
+          8:  30572 # Feet
+          9:  30580 # Wrists
+          10: 30575 # Hands
+          16: 30474 # Back
 
-    # Gladiator (Horde) set=1118
-    - name: Vindictive Gladiator's Ironskin Armor
-      wowheadSetId: 2154
-      items:
-        1:  30609 # Head
-        3:  30611 # Shoulders
-        5:  30607 # Chest
-        6:  30605 # Waist
-        7:  30610 # Legs
-        8:  30606 # Feet
-        9:  30612 # Wrists
-        10: 30608 # Hands
-        16: 30527 # Back
+      # Gladiator (Horde) set=1118
+      - name: Vindictive Gladiator's Ironskin Armor
+        wowheadSetId: 2154
+        items:
+          1:  30609 # Head
+          3:  30611 # Shoulders
+          5:  30607 # Chest
+          6:  30605 # Waist
+          7:  30610 # Legs
+          8:  30606 # Feet
+          9:  30612 # Wrists
+          10: 30608 # Hands
+          16: 30527 # Back
 
     paladin:
-    # Elite set=1123,1124
-    - name: Vindictive Gladiator's Scaled Armor
-      wowheadSetId: 2170
-      items:
-        1:  29443 # Head
-        3:  29445 # Shoulders
-        5:  29447 # Chest
-        6:  29439 # Waist
-        7:  29444 # Legs
-        8:  29440 # Feet
-        9:  29446 # Wrists
-        10: 29442 # Hands
-        16: 29665 # Back
+      # Elite set=1123,1124
+      - name: Vindictive Gladiator's Scaled Armor
+        wowheadSetId: 2170
+        items:
+          1:  29443 # Head
+          3:  29445 # Shoulders
+          5:  29447 # Chest
+          6:  29439 # Waist
+          7:  29444 # Legs
+          8:  29440 # Feet
+          9:  29446 # Wrists
+          10: 29442 # Hands
+          16: 29665 # Back
 
-    # Gladiator (Alliance) set=1121
-    - name: Vindictive Gladiator's Scaled Armor
-      wowheadSetId: 2168
-      items:
-        1:  29626 # Head
-        3:  29628 # Shoulders
-        5:  29630 # Chest
-        6:  29622 # Waist
-        7:  29627 # Legs
-        8:  29623 # Feet
-        9:  29629 # Wrists
-        10: 29625 # Hands
-        16: 29689 # Back
+      # Gladiator (Alliance) set=1121
+      - name: Vindictive Gladiator's Scaled Armor
+        wowheadSetId: 2168
+        items:
+          1:  29626 # Head
+          3:  29628 # Shoulders
+          5:  29630 # Chest
+          6:  29622 # Waist
+          7:  29627 # Legs
+          8:  29623 # Feet
+          9:  29629 # Wrists
+          10: 29625 # Hands
+          16: 29689 # Back
 
-    # Gladiator (Horde) set=1122
-    - name: Vindictive Gladiator's Scaled Armor
-      wowheadSetId: 2169
-      items:
-        1:  29635 # Head
-        3:  29637 # Shoulders
-        5:  29639 # Chest
-        6:  29631 # Waist
-        7:  29636 # Legs
-        8:  29632 # Feet
-        9:  29638 # Wrists
-        10: 29634 # Hands
-        16: 29703 # Back
+      # Gladiator (Horde) set=1122
+      - name: Vindictive Gladiator's Scaled Armor
+        wowheadSetId: 2169
+        items:
+          1:  29635 # Head
+          3:  29637 # Shoulders
+          5:  29639 # Chest
+          6:  29631 # Waist
+          7:  29636 # Legs
+          8:  29632 # Feet
+          9:  29638 # Wrists
+          10: 29634 # Hands
+          16: 29703 # Back
 
     priest:
-    # Elite set=392,393
-    - name: Vindictive Gladiator's Satin Armor
-      wowheadSetId: 2143
-      items:
-        1:  30289 # Head
-        3:  30291 # Shoulders
-        5:  30292 # Chest
-        6:  30285 # Waist
-        7:  30290 # Legs
-        8:  30286 # Feet
-        9:  30293 # Wrists
-        10: 30288 # Hands
-        16: 30214 # Back
+      # Elite set=392,393
+      - name: Vindictive Gladiator's Satin Armor
+        wowheadSetId: 2143
+        items:
+          1:  30289 # Head
+          3:  30291 # Shoulders
+          5:  30292 # Chest
+          6:  30285 # Waist
+          7:  30290 # Legs
+          8:  30286 # Feet
+          9:  30293 # Wrists
+          10: 30288 # Hands
+          16: 30214 # Back
 
-    # Gladiator (Alliance) set=388
-    - name: Vindictive Gladiator's Satin Armor
-      wowheadSetId: 2141
-      items:
-        1:  30244 # Head
-        3:  30246 # Shoulders
-        5:  30248 # Chest
-        6:  30240 # Waist
-        7:  30245 # Legs
-        8:  30241 # Feet
-        9:  30247 # Wrists
-        10: 30243 # Hands
-        16: 30139 # Back
+      # Gladiator (Alliance) set=388
+      - name: Vindictive Gladiator's Satin Armor
+        wowheadSetId: 2141
+        items:
+          1:  30244 # Head
+          3:  30246 # Shoulders
+          5:  30248 # Chest
+          6:  30240 # Waist
+          7:  30245 # Legs
+          8:  30241 # Feet
+          9:  30247 # Wrists
+          10: 30243 # Hands
+          16: 30139 # Back
 
-    # Gladiator (Horde) set=390
-    - name: Vindictive Gladiator's Satin Armor
-      wowheadSetId: 2142
-      items:
-        1:  30253 # Head
-        3:  30255 # Shoulders
-        5:  30257 # Chest
-        6:  30249 # Waist
-        7:  30254 # Legs
-        8:  30250 # Feet
-        9:  30256 # Wrists
-        10: 30252 # Hands
-        16: 30161 # Back
+      # Gladiator (Horde) set=390
+      - name: Vindictive Gladiator's Satin Armor
+        wowheadSetId: 2142
+        items:
+          1:  30253 # Head
+          3:  30255 # Shoulders
+          5:  30257 # Chest
+          6:  30249 # Waist
+          7:  30254 # Legs
+          8:  30250 # Feet
+          9:  30256 # Wrists
+          10: 30252 # Hands
+          16: 30161 # Back
 
     rogue:
-    # Elite set=1127,1128
-    - name: Vindictive Gladiator's Leather Armor
-      wowheadSetId: 2158
-      items:
-        1:  28994 # Head
-        3:  28996 # Shoulders
-        5:  28992 # Chest
-        6:  28990 # Waist
-        7:  28995 # Legs
-        8:  28991 # Feet
-        9:  28997 # Wrists
-        10: 28993 # Hands
-        16: 32309 # Back
+      # Elite set=1127,1128
+      - name: Vindictive Gladiator's Leather Armor
+        wowheadSetId: 2158
+        items:
+          1:  28994 # Head
+          3:  28996 # Shoulders
+          5:  28992 # Chest
+          6:  28990 # Waist
+          7:  28995 # Legs
+          8:  28991 # Feet
+          9:  28997 # Wrists
+          10: 28993 # Hands
+          16: 32309 # Back
 
-    # Gladiator (Alliance) set=1125
-    - name: Vindictive Gladiator's Leather Armor
-      wowheadSetId: 2156
-      items:
-        1:  29152 # Head
-        3:  29154 # Shoulders
-        5:  29150 # Chest
-        6:  29148 # Waist
-        7:  29153 # Legs
-        8:  29149 # Feet
-        9:  29155 # Wrists
-        10: 29151 # Hands
-        16: 32272 # Back
+      # Gladiator (Alliance) set=1125
+      - name: Vindictive Gladiator's Leather Armor
+        wowheadSetId: 2156
+        items:
+          1:  29152 # Head
+          3:  29154 # Shoulders
+          5:  29150 # Chest
+          6:  29148 # Waist
+          7:  29153 # Legs
+          8:  29149 # Feet
+          9:  29155 # Wrists
+          10: 29151 # Hands
+          16: 32272 # Back
 
-    # Gladiator (Horde) set=1126
-    - name: Vindictive Gladiator's Leather Armor
-      wowheadSetId: 2157
-      items:
-        1:  29189 # Head
-        3:  29191 # Shoulders
-        5:  29187 # Chest
-        6:  29185 # Waist
-        7:  29190 # Legs
-        8:  29186 # Feet
-        9:  29192 # Wrists
-        10: 29188 # Hands
-        16: 32274 # Back
+      # Gladiator (Horde) set=1126
+      - name: Vindictive Gladiator's Leather Armor
+        wowheadSetId: 2157
+        items:
+          1:  29189 # Head
+          3:  29191 # Shoulders
+          5:  29187 # Chest
+          6:  29185 # Waist
+          7:  29190 # Legs
+          8:  29186 # Feet
+          9:  29192 # Wrists
+          10: 29188 # Hands
+          16: 32274 # Back
 
     shaman:
-    # Elite set=1131,1132
-    - name: Vindictive Gladiator's Ringmail Armor
-      wowheadSetId: 2164
-      items:
-        1:  31329 # Head
-        3:  31334 # Shoulders
-        5:  31336 # Chest
-        6:  31328 # Waist
-        7:  31333 # Legs
-        8:  31330 # Feet
-        9:  31335 # Wrists
-        10: 31332 # Hands
-        16: 31357 # Back
+      # Elite set=1131,1132
+      - name: Vindictive Gladiator's Ringmail Armor
+        wowheadSetId: 2164
+        items:
+          1:  31329 # Head
+          3:  31334 # Shoulders
+          5:  31336 # Chest
+          6:  31328 # Waist
+          7:  31333 # Legs
+          8:  31330 # Feet
+          9:  31335 # Wrists
+          10: 31332 # Hands
+          16: 31357 # Back
 
-    # Gladiator (Alliance) set=1129
-    - name: Vindictive Gladiator's Ringmail Armor
-      wowheadSetId: 2162
-      items:
-        1:  30928 # Head
-        3:  30929 # Shoulders
-        5:  30932 # Chest
-        6:  30924 # Waist
-        7:  30930 # Legs
-        8:  30925 # Feet
-        9:  30931 # Wrists
-        10: 30927 # Hands
-        16: 31363 # Back
+      # Gladiator (Alliance) set=1129
+      - name: Vindictive Gladiator's Ringmail Armor
+        wowheadSetId: 2162
+        items:
+          1:  30928 # Head
+          3:  30929 # Shoulders
+          5:  30932 # Chest
+          6:  30924 # Waist
+          7:  30930 # Legs
+          8:  30925 # Feet
+          9:  30931 # Wrists
+          10: 30927 # Hands
+          16: 31363 # Back
 
-    # Gladiator (Horde) set=1130
-    - name: Vindictive Gladiator's Ringmail Armor
-      wowheadSetId: 2163
-      items:
-        1:  30918 # Head
-        3:  30919 # Shoulders
-        5:  30921 # Chest
-        6:  30915 # Waist
-        7:  30922 # Legs
-        8:  30923 # Feet
-        9:  30920 # Wrists
-        10: 30917 # Hands
-        16: 31348 # Back
+      # Gladiator (Horde) set=1130
+      - name: Vindictive Gladiator's Ringmail Armor
+        wowheadSetId: 2163
+        items:
+          1:  30918 # Head
+          3:  30919 # Shoulders
+          5:  30921 # Chest
+          6:  30915 # Waist
+          7:  30922 # Legs
+          8:  30923 # Feet
+          9:  30920 # Wrists
+          10: 30917 # Hands
+          16: 31348 # Back
 
     warlock:
-    # Elite set=1103,1104
-    - name: Vindictive Gladiator's Felweave Armor
-      wowheadSetId: 2146
-      items:
-        1:  29073 # Head
-        3:  29076 # Shoulders
-        5:  29078 # Chest
-        6:  29069 # Waist
-        7:  29074 # Legs
-        8:  29070 # Feet
-        9:  29077 # Wrists
-        10: 29072 # Hands
-        16: 29022 # Back
+      # Elite set=1103,1104
+      - name: Vindictive Gladiator's Felweave Armor
+        wowheadSetId: 2146
+        items:
+          1:  29073 # Head
+          3:  29076 # Shoulders
+          5:  29078 # Chest
+          6:  29069 # Waist
+          7:  29074 # Legs
+          8:  29070 # Feet
+          9:  29077 # Wrists
+          10: 29072 # Hands
+          16: 29022 # Back
 
-    # Gladiator (Alliance) set=1101
-    - name: Vindictive Gladiator's Felweave Armor
-      wowheadSetId: 2144
-      items:
-        1:  29144 # Head
-        3:  29146 # Shoulders
-        5:  29145 # Chest
-        6:  29139 # Waist
-        7:  29143 # Legs
-        8:  29140 # Feet
-        9:  29147 # Wrists
-        10: 29142 # Hands
-        16: 29024 # Back
+      # Gladiator (Alliance) set=1101
+      - name: Vindictive Gladiator's Felweave Armor
+        wowheadSetId: 2144
+        items:
+          1:  29144 # Head
+          3:  29146 # Shoulders
+          5:  29145 # Chest
+          6:  29139 # Waist
+          7:  29143 # Legs
+          8:  29140 # Feet
+          9:  29147 # Wrists
+          10: 29142 # Hands
+          16: 29024 # Back
 
-    # Gladiator (Horde) set=1102
-    - name: Vindictive Gladiator's Felweave Armor
-      wowheadSetId: 2145
-      items:
-        1:  29180 # Head
-        3:  29182 # Shoulders
-        5:  29184 # Chest
-        6:  29176 # Waist
-        7:  29181 # Legs
-        8:  29177 # Feet
-        9:  29183 # Wrists
-        10: 29179 # Hands
-        16: 29058 # Back
+      # Gladiator (Horde) set=1102
+      - name: Vindictive Gladiator's Felweave Armor
+        wowheadSetId: 2145
+        items:
+          1:  29180 # Head
+          3:  29182 # Shoulders
+          5:  29184 # Chest
+          6:  29176 # Waist
+          7:  29181 # Legs
+          8:  29177 # Feet
+          9:  29183 # Wrists
+          10: 29179 # Hands
+          16: 29058 # Back
 
     warrior:
-    # Elite set=1135,1136
-    - name: Vindictive Gladiator's Plate Armor
-      wowheadSetId: 2173
-      items:
-        1:  31319 # Head
-        3:  31325 # Shoulders
-        5:  31322 # Chest
-        6:  31320 # Waist
-        7:  31324 # Legs
-        8:  31321 # Feet
-        9:  31326 # Wrists
-        10: 31323 # Hands
-        16: 31538 # Back
+      # Elite set=1135,1136
+      - name: Vindictive Gladiator's Plate Armor
+        wowheadSetId: 2173
+        items:
+          1:  31319 # Head
+          3:  31325 # Shoulders
+          5:  31322 # Chest
+          6:  31320 # Waist
+          7:  31324 # Legs
+          8:  31321 # Feet
+          9:  31326 # Wrists
+          10: 31323 # Hands
+          16: 31538 # Back
 
-    # Gladiator (Alliance) set=1133
-    - name: Vindictive Gladiator's Plate Armor
-      wowheadSetId: 2171
-      items:
-        1:  31436 # Head
-        3:  31439 # Shoulders
-        5:  31435 # Chest
-        6:  31433 # Waist
-        7:  31438 # Legs
-        8:  31434 # Feet
-        9:  31440 # Wrists
-        10: 31437 # Hands
-        16: 32234 # Back
+      # Gladiator (Alliance) set=1133
+      - name: Vindictive Gladiator's Plate Armor
+        wowheadSetId: 2171
+        items:
+          1:  31436 # Head
+          3:  31439 # Shoulders
+          5:  31435 # Chest
+          6:  31433 # Waist
+          7:  31438 # Legs
+          8:  31434 # Feet
+          9:  31440 # Wrists
+          10: 31437 # Hands
+          16: 32234 # Back
 
-    # Gladiator (Horde) set=1134
-    - name: Vindictive Gladiator's Plate Armor
-      wowheadSetId: 2172
-      items:
-        1:  31418 # Head
-        3:  31421 # Shoulders
-        5:  31417 # Chest
-        6:  31415 # Waist
-        7:  31420 # Legs
-        8:  31416 # Feet
-        9:  31422 # Wrists
-        10: 31419 # Hands
-        16: 31555 # Back
+      # Gladiator (Horde) set=1134
+      - name: Vindictive Gladiator's Plate Armor
+        wowheadSetId: 2172
+        items:
+          1:  31418 # Head
+          3:  31421 # Shoulders
+          5:  31417 # Chest
+          6:  31415 # Waist
+          7:  31420 # Legs
+          8:  31416 # Feet
+          9:  31422 # Wrists
+          10: 31419 # Hands
+          16: 31555 # Back
 
 - name: Legion Season 1 / 2
   tag: S19-20
@@ -1831,117 +1831,117 @@ groups:
   - ":horde: Combatant"
   data:
     cloth:
-    # Combatant (Alliance) set=1071,1137,1158
-    - name: Vindictive Combatant's Cloth Armor
-      wowheadSetId: 2127
-      items:
-        1:  28292 # Head
-        3:  28294 # Shoulders
-        5:  28290 # Chest
-        6:  28288 # Waist
-        7:  28293 # Legs
-        8:  28289 # Feet
-        9:  28295 # Wrists
-        10: 28291 # Hands
-        16: 28373 # Back
+      # Combatant (Alliance) set=1071,1137,1158
+      - name: Vindictive Combatant's Cloth Armor
+        wowheadSetId: 2127
+        items:
+          1:  28292 # Head
+          3:  28294 # Shoulders
+          5:  28290 # Chest
+          6:  28288 # Waist
+          7:  28293 # Legs
+          8:  28289 # Feet
+          9:  28295 # Wrists
+          10: 28291 # Hands
+          16: 28373 # Back
 
-    # Combatant (Horde) set=1072,1159,1160
-    - name: Vindictive Combatant's Cloth Armor
-      wowheadSetId: 2128
-      items:
-        1:  28300 # Head
-        3:  28302 # Shoulders
-        5:  28298 # Chest
-        6:  28296 # Waist
-        7:  28301 # Legs
-        8:  28297 # Feet
-        9:  28303 # Wrists
-        10: 28299 # Hands
-        16: 28434 # Back
+      # Combatant (Horde) set=1072,1159,1160
+      - name: Vindictive Combatant's Cloth Armor
+        wowheadSetId: 2128
+        items:
+          1:  28300 # Head
+          3:  28302 # Shoulders
+          5:  28298 # Chest
+          6:  28296 # Waist
+          7:  28301 # Legs
+          8:  28297 # Feet
+          9:  28303 # Wrists
+          10: 28299 # Hands
+          16: 28434 # Back
 
     leather:
-    # Combatant (Alliance) set=1068,1167,1168,1169
-    - name: Vindictive Combatant's Leather Armor
-      wowheadSetId: 2130
-      items:
-        1: 28054 # Head
-        3: 28056 # Shoulders
-        5: 28052 # Chest
-        6: 28050 # Waist
-        7: 28055 # Legs
-        8: 28051 # Feet
-        9: 28057 # Wrists
-        10: 28053 # Hands
-        16: 28150 # Back
+      # Combatant (Alliance) set=1068,1167,1168,1169
+      - name: Vindictive Combatant's Leather Armor
+        wowheadSetId: 2130
+        items:
+          1: 28054 # Head
+          3: 28056 # Shoulders
+          5: 28052 # Chest
+          6: 28050 # Waist
+          7: 28055 # Legs
+          8: 28051 # Feet
+          9: 28057 # Wrists
+          10: 28053 # Hands
+          16: 28150 # Back
 
-    # Combatant (Horde) set=1067,1170,1171,1172
-    - name: Vindictive Combatant's Leather Armor
-      wowheadSetId: 2131
-      items:
-        1: 28062 # Head
-        3: 28064 # Shoulders
-        5: 28060 # Chest
-        6: 28058 # Waist
-        7: 28063 # Legs
-        8: 28059 # Feet
-        9: 28065 # Wrists
-        10: 28061 # Hands
-        16: 28181 # Back
+      # Combatant (Horde) set=1067,1170,1171,1172
+      - name: Vindictive Combatant's Leather Armor
+        wowheadSetId: 2131
+        items:
+          1: 28062 # Head
+          3: 28064 # Shoulders
+          5: 28060 # Chest
+          6: 28058 # Waist
+          7: 28063 # Legs
+          8: 28059 # Feet
+          9: 28065 # Wrists
+          10: 28061 # Hands
+          16: 28181 # Back
 
     mail:
-    # Combatant (Alliance) set=409,1161
-    - name: Vindictive Combatant's Mail Armor
-      wowheadSetId: 2133
-      items:
-        1:  27771 # Head
-        3:  27773 # Shoulders
-        5:  27769 # Chest
-        6:  27767 # Waist
-        7:  27772 # Legs
-        8:  27768 # Feet
-        9:  27774 # Wrists
-        10: 27770 # Hands
-        16: 30315 # Back
+      # Combatant (Alliance) set=409,1161
+      - name: Vindictive Combatant's Mail Armor
+        wowheadSetId: 2133
+        items:
+          1:  27771 # Head
+          3:  27773 # Shoulders
+          5:  27769 # Chest
+          6:  27767 # Waist
+          7:  27772 # Legs
+          8:  27768 # Feet
+          9:  27774 # Wrists
+          10: 27770 # Hands
+          16: 30315 # Back
 
-    # Combatant (Horde) set=410,1162
-    - name: Vindictive Combatant's Mail Armor
-      wowheadSetId: 2134
-      items:
-        1:  27837 # Head
-        3:  27839 # Shoulders
-        5:  27835 # Chest
-        6:  27833 # Waist
-        7:  27838 # Legs
-        8:  27834 # Feet
-        9:  27840 # Wrists
-        10: 27836 # Hands
-        16: 30344 # Back
+      # Combatant (Horde) set=410,1162
+      - name: Vindictive Combatant's Mail Armor
+        wowheadSetId: 2134
+        items:
+          1:  27837 # Head
+          3:  27839 # Shoulders
+          5:  27835 # Chest
+          6:  27833 # Waist
+          7:  27838 # Legs
+          8:  27834 # Feet
+          9:  27840 # Wrists
+          10: 27836 # Hands
+          16: 30344 # Back
 
     plate:
-    # Combatant (Alliance) set=1070,1071,1163
-    - name: Vindictive Combatant's Plate Armor
-      wowheadSetId: 2136
-      items:
-        1:  27299 # Head
-        3:  27301 # Shoulders
-        5:  27297 # Chest
-        6:  27295 # Waist
-        7:  27300 # Legs
-        8:  27296 # Feet
-        9:  27302 # Wrists
-        10: 27298 # Hands
-        16: 28952 # Back
+      # Combatant (Alliance) set=1070,1071,1163
+      - name: Vindictive Combatant's Plate Armor
+        wowheadSetId: 2136
+        items:
+          1:  27299 # Head
+          3:  27301 # Shoulders
+          5:  27297 # Chest
+          6:  27295 # Waist
+          7:  27300 # Legs
+          8:  27296 # Feet
+          9:  27302 # Wrists
+          10: 27298 # Hands
+          16: 28952 # Back
 
-    # Combatant (Horde) set=1069,1072,1165
-    - name: Vindictive Combatant's Plate Armor
-      wowheadSetId: 2137
-      items:
-        1:  27315 # Head
-        3:  27317 # Shoulders
-        5:  27313 # Chest
-        6:  27311 # Waist
-        7:  27316 # Legs
-        8:  27312 # Feet
-        9:  27318 # Wrists
-        10: 27314 # Hands
-        16: 28966 # Back
+      # Combatant (Horde) set=1069,1072,1165
+      - name: Vindictive Combatant's Plate Armor
+        wowheadSetId: 2137
+        items:
+          1:  27315 # Head
+          3:  27317 # Shoulders
+          5:  27313 # Chest
+          6:  27311 # Waist
+          7:  27316 # Legs
+          8:  27312 # Feet
+          9:  27318 # Wrists
+          10: 27314 # Hands
+          16: 28966 # Back

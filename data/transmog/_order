@@ -25,6 +25,8 @@
     08-shadowlands/korthia.yml
     08-shadowlands/zereth_mortis.yml
 
+09-dragonflight/_.yml
+
 -
 
 raids.yml
@@ -37,11 +39,14 @@ raids.yml
     06-legion/raids.yml Legion
     07-battle-for-azeroth/raids.yml Battle for Azeroth
     08-shadowlands/raids.yml Shadowlands
+    09-dragonflight/raids.yml Dragonflight
 
 dungeons.yml
     00-classic/dungeons.yml Classic
     01-the-burning-crusade/dungeons.yml The Burning Crusade
     04-mists-of-pandaria/dungeons.yml Mists of Pandaria
+    06-legion/dungeons.yml Legion
+    07-battle-for-azeroth/dungeons.yml Battle for Azeroth
 
 pvp.yml
     00-classic/pvp.yml Classic
@@ -53,8 +58,11 @@ pvp.yml
     06-legion/pvp.yml Legion
     07-battle-for-azeroth/pvp.yml Battle for Azeroth
     08-shadowlands/pvp.yml Shadowlands
+    09-dragonflight/pvp.yml Dragonflight
 
 -
 
 misc/_misc.yml
+    misc/money.yml
     misc/racial.yml
+    misc/trial_of_style.yml

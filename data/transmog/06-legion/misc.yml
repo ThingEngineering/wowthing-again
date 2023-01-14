@@ -635,6 +635,7 @@ groups:
   type: armor
   sets:
   - Timewalking Vendor
+  data:
     plate:
       # description=0 set=2292
       - name: "Ravencrest's Battleplate"
@@ -653,6 +654,7 @@ groups:
   type: armor
   sets:
   - Seat of the Triumvirate
+  data:
     cloth:
       # description=0 set=1471
       - name: "Light-Woven Triumvirate Regalia"

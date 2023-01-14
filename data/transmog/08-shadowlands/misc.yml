@@ -950,7 +950,7 @@ groups:
         16: 41458 # Back
         
 # 9.1
-- name: 'Aspirant's Regalia'
+- name: "Aspirant's Regalia"
   type: all
   sets:
   - Death's Advance
@@ -1076,7 +1076,7 @@ groups:
         10: 44314 # Hands
         16: 44320 # Back
 
-- name: 'Grove Guardian's Regalia'
+- name: "Grove Guardian's Regalia"
   type: all
   sets:
   - Death's Advance
@@ -1202,7 +1202,7 @@ groups:
         10: 44374 # Hands
         16: 44372 # Back
 
-- name: 'Inquisitor's Vestments'
+- name: "Inquisitor's Vestments"
   type: all
   sets:
   - Death's Advance
