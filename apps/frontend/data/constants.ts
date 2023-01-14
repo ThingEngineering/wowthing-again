@@ -24,5 +24,10 @@ export abstract class Constants {
         weeklyAnima: 'spell/341209', // Overwhelming Anima
         weeklyShapingFate: 'item/186196', // Death's Advance War Chest
         weeklySouls: 'spell/225100', // Charging Station
+
+        armorCloth: 'item/102289',
+        armorLeather: 'item/102282',
+        armorMail: 'item/102275',
+        armorPlate: 'item/102268',
     }
 }
