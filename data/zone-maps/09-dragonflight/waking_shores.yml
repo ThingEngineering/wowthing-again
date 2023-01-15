@@ -2,7 +2,6 @@ name: "Waking Shores, The"
 mapName: "09-dragonflight/waking_shores"
 minimumLevel: 60
 farms:
-
 # Group
 
 - name: "Dragon Vendors"
@@ -43,7 +42,7 @@ farms:
     - &qalashi-war-helm
       type: transmog
       id: 200757 # Qalashi War-Helm [plate helm]
-    
+
     - type: transmog
       id: 200286 # Dragonbane Lance [strength polearm]
 
@@ -147,7 +146,7 @@ farms:
       id: 190456 # Artisan's Mettle
       amount: 25
       limit: profession blacksmithing
-    
+
     - type: currency
       id: 2023 # Dragon Isles Blacksmithing Knowledge
       amount: 5
@@ -165,7 +164,7 @@ farms:
       id: 190456 # Artisan's Mettle
       amount: 25
       limit: profession alchemy
-    
+
     - type: currency
       id: 2024 # Dragon Isles Alchemy Knowledge
       amount: 5
@@ -183,13 +182,15 @@ farms:
       id: 190456 # Artisan's Mettle
       amount: 25
       limit: profession skinning
-    
+
     - type: currency
       id: 2033 # Dragon Isles Skinning Knowledge
       amount: 10
       limit: profession skinning
 
 # Profession Treasure
+
+# - Blacksmithing
 
 - name: "Ancient Monument"
   location: 22.3 87.7
@@ -253,6 +254,32 @@ farms:
       id: 201010 # Qalashi Weapon Diagram
       limit: profession blacksmithing
       note: "{price:3|2023}" # Blacksmithing Knowledge
+
+# - Tailoring
+
+- name: "{item:198702}"
+  location: 24.9 69.7
+  objectId: 380607
+  questId: 70304
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198702 # Itinerant Singed Fabric
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge
+
+- name: "{item:198699}"
+  location: 74.7 37.9
+  objectId: 380604
+  questId: 70302
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198699 # Mysterious Banner
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge
 
 # Treasure
 

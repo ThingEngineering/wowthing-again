@@ -185,6 +185,8 @@ farms:
 
 # Profession Treasure
 
+# - Blacksmithing
+
 - name: "Spelltouched Tongs"
   location: 53.1 65.3
   note: "Behind a Rock Wall"
@@ -197,6 +199,32 @@ farms:
       id: 201011 # Spelltouched Tongs
       limit: profession blacksmithing
       note: "{price:3|2023}" # Blacksmithing Knowledge
+
+# - Tailoring
+
+- name: "{item:198702}"
+  location: 16.2 38.8
+  objectId: 380583
+  questId: 70284
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198702 # Decaying Brackenhide Blanket
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge
+
+- name: "{item:198662}"
+  location: 40.7 54.5
+  objectId: 380549
+  questId: 70267
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198662 # Intriguing Bolt of Blue Cloth
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge
 
 # Treasure
 
