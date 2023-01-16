@@ -59,7 +59,7 @@ public class UserCharactersJob : JobBase
                     .Select(apiAccount => apiAccount.Id)
                     .ToArray();
                 var accounts = await Context.PlayerAccount
-                    .Where(pa => pa.Region == region && accountIds.Contains(pa.Id))
+                    .Where(pa => pa.Region == region && accountIds.Contains(pa.AccountId))
                     .ToArrayAsync();
 
                 foreach (var account in accounts)
@@ -167,7 +167,7 @@ public class UserCharactersJob : JobBase
             if (added > 0)
             {
                 Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region,
-                    accountId);
+                    apiAccount.Id);
             }
         }
 
