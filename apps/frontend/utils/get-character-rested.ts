@@ -18,7 +18,7 @@ export function getCharacterRested(now: DateTime, character: Character): [string
     // Pandas rest twice as fast and go up to 300%??
     const isPandaren = character.raceId === 24 || character.raceId === 25 || character.raceId === 26
     const maxPercent = isPandaren ? 300 : 150
-    const earnRate = (isPandaren ? 2 : 1) * (character.isResting ? 1 : 0.25)
+    const earnRate = character.isResting ? 1 : 0.25
 
     let restedPercent = Math.min(
         maxPercent,
