@@ -58,12 +58,13 @@ public class UserCharactersJob : JobBase
                 var accountIds = profile.Accounts
                     .Select(apiAccount => apiAccount.Id)
                     .ToArray();
-                var accounts = Context.PlayerAccount
+                var accounts = await Context.PlayerAccount
                     .Where(pa => pa.Region == region && accountIds.Contains(pa.Id))
-                    .ToArray();
+                    .ToArrayAsync();
 
                 foreach (var account in accounts)
                 {
+                    Logger.Information("Found existing account {0}/{1}", region, account.AccountId);
                     accountMap[(region, account.AccountId)] = account;
                 }
 
@@ -97,7 +98,7 @@ public class UserCharactersJob : JobBase
                     Logger.Error("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
                 }
             }
-            catch (Exception ex ) when (ex is TimeoutException or TaskCanceledException)
+            catch (Exception ex) when (ex is TimeoutException or TaskCanceledException)
             {
                 Logger.Error("HTTP request timed out: {region} {msg}", region, ex.Message);
             }
