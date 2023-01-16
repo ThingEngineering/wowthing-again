@@ -161,7 +161,7 @@
             />
         {/if}
 
-        {farm.name}
+        <ParsedText text={farm.name} />
     </h4>
 
     {#if farm.type !== FarmType.Vendor}

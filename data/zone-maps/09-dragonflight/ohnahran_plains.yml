@@ -103,6 +103,8 @@ farms:
 
 # Profession Treasure
 
+# - Blacksmithing
+
 - name: "Ancient Spear Shards"
   location: 79.4 36.5
   note: "In the cave"
@@ -127,3 +129,30 @@ farms:
       id: 201009 # Falconer Gauntlet Drawings
       limit: profession blacksmithing
       note: "{price:3|2023}" # Blacksmithing Knowledge
+
+# - Tailoring
+
+- name: "Battle Hardened Centaur Carpet"
+  location: 35.3 40.1
+  objectId: 380597
+  questId: 70295
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198692 # Battle Hardened Centaur Carpet
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge
+
+- name: "Silky Surprise"
+  location: 35.3 40.1
+  note: "Click Catnip Frond, gather 5 leaves, throw them at Playful Prowler"
+  objectId: 380608
+  questId: 70303
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201020 # Silky Surprise
+      limit: profession tailoring
+      note: "{price:3|2026}" # Tailoring Knowledge

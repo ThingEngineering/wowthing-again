@@ -101,9 +101,8 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        <HeadItemLevel />
-
         {#if isCurrentSeason}
+            <HeadItemLevel />
             <HeadKeystone {affixes} />
         {/if}
 
