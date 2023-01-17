@@ -126,9 +126,9 @@
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        <RowItemLevel />
         {#key slug}
             {#if isCurrentSeason}
+                <RowItemLevel />
                 <RowKeystone {character} />
             {/if}
 
