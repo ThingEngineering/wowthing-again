@@ -26,6 +26,6 @@
     class:center={rested === '???'}
     use:tippy={"Rested XP"}
 >
-    {rested}
+    {rested || ''}
 </td>
  
