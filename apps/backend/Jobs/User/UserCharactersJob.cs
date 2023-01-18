@@ -173,8 +173,16 @@ public class UserCharactersJob : JobBase
 
         timer.AddPoint("Characters");
 
+        int written = await Context.SaveChangesAsync();
+        if (written > 0)
+        {
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+        }
+
+        timer.AddPoint("Save");
+
         // Delete any characters that weren't in the API response
-        foreach ((var region, var apiAccount) in apiAccounts)
+        foreach (var (region, apiAccount) in apiAccounts)
         {
             var accountId = accountMap[(region, apiAccount.Id)].Id;
             var characterIds = new List<int>();
@@ -190,24 +198,20 @@ public class UserCharactersJob : JobBase
                 }
             }
 
-            int deleted = await Context.PlayerCharacter
+            int updated = await Context.PlayerCharacter
                 .Where(pc => pc.AccountId == accountId && !characterIds.Contains(pc.Id))
-                .ExecuteDeleteAsync();
-            if (deleted > 0)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(pc => pc.AccountId, pc => null)
+                );
+
+            if (updated > 0)
             {
-                Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
+                Logger.Information("Unlinked {0} character(s) from account {1}/{2}",
+                    updated, region, accountId);
             }
         }
 
-        timer.AddPoint("Delete");
-
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
-        }
-
-        timer.AddPoint("Save", true);
+        timer.AddPoint("Unlink", true);
 
         Logger.Debug("{Timer}", timer);
         Logger.Information("Completed in {Z}", timer.TotalDuration);

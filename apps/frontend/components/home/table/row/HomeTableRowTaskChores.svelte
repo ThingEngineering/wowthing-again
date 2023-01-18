@@ -45,7 +45,7 @@
                 for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                     const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
                     const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
-                    if (progressQuest?.status === QuestStatus.Completed) {
+                    if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                         haveCount++
                     }
                 }
