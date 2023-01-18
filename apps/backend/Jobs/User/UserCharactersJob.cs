@@ -173,8 +173,8 @@ public class UserCharactersJob : JobBase
 
         timer.AddPoint("Characters");
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
+        int written = await Context.SaveChangesAsync();
+        if (written > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
         }
