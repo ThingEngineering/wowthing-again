@@ -21,6 +21,7 @@ export const currentTier = {
         InventoryType.Head,
         InventoryType.Shoulders,
         InventoryType.Chest,
+        InventoryType.Chest2,
         InventoryType.Hands,
         InventoryType.Legs,
     ],
