@@ -2,13 +2,14 @@
     import {Constants} from '@/data/constants'
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
     import { tippyComponent } from '@/utils/tippy'
-    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import type { Character } from '@/types'
 
     import TooltipVaultRaid from '@/components/tooltips/vault-raid/TooltipVaultRaid.svelte'
+    import VaultShared from './VaultShared.svelte'
 
     export let character: Character
 
-    let raidVault: CharacterWeeklyProgress[] | undefined
+    $: raidVault = character.isMaxLevel ? character.weekly?.vault?.rankedPvpProgress : []
     $: {
         if (character.level === Constants.characterMaxLevel) {
             raidVault = character.weekly?.vault?.raidProgress
@@ -22,25 +23,16 @@
 
         border-left: 1px solid $border-color;
     }
-    span {
-        display: inline-block;
-        text-align: center;
-        width: calc(#{$width-vault} / 3 - 0.2rem);
-        word-spacing: -0.2ch;
-    }
 </style>
 
-{#if raidVault}
+{#if raidVault?.length > 0}
     <td use:tippyComponent={{component: TooltipVaultRaid, props: {character}}}>
-        <div class="flex-wrapper">
-            {#each raidVault as progress}
-                {#if progress.progress >= progress.threshold}
-                    <span class="quality4">{getRaidVaultItemLevel(progress)}</span>
-                {:else}
-                    <span>{progress.threshold - progress.progress} !</span>
-                {/if}
-            {/each}
-        </div>
+        <VaultShared
+            progresses={raidVault}
+            textFunc={(prog) => prog.progress >= prog.threshold
+                ? getRaidVaultItemLevel(prog).toString()
+                : `${prog.threshold - prog.progress} !`}
+        />
     </td>
 {:else}
     <td>&nbsp;</td>
