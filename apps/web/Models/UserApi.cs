@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Models;
+﻿using System.Text.Json.Serialization;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Wow;
 
@@ -12,6 +13,7 @@ public class UserApi
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<int, UserApiAccount> Accounts { get; init; }
 
+    [JsonPropertyName("charactersRaw")]
     public List<UserApiCharacter> Characters { get; init; }
     public Dictionary<int, UserApiGuild> Guilds { get; set; }
 

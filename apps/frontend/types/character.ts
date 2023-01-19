@@ -1,7 +1,9 @@
-import type { StaticDataRealm } from '@/types/data/static'
+import { Constants } from '@/data/constants'
 import type { Faction } from '@/enums'
+import type { StaticDataRealm } from '@/types/data/static'
 
-export interface Character {
+
+export class Character {
     accountId?: number
     activeSpecId: number
     addonLevel: number
@@ -28,20 +30,6 @@ export interface Character {
 
     lastSeenAddon: string
 
-    // Calculated
-    className: string
-    raceName: string
-    specializationName: string
-
-    calculatedItemLevel: string
-    calculatedItemLevelQuality: number
-    currencies: Record<number, CharacterCurrency>
-    mythicPlusSeasonScores: Record<number, number>
-    professions: Record<number, Record<number, CharacterProfession>>
-    realm: StaticDataRealm
-    reputationData: Record<string, CharacterReputation>
-    specializations: Record<number, Record<number, number>>
-
     auras: number[]
     bags: Record<number, number>
     configuration: CharacterConfiguration
@@ -62,6 +50,24 @@ export interface Character {
     shadowlands?: CharacterShadowlands
     specializationsRaw: Record<number, CharacterApiSpecialization>
     weekly?: CharacterWeekly
+
+    // Calculated
+    className: string
+    raceName: string
+    specializationName: string
+
+    calculatedItemLevel: string
+    calculatedItemLevelQuality: number
+    currencies: Record<number, CharacterCurrency>
+    mythicPlusSeasonScores: Record<number, number>
+    professions: Record<number, Record<number, CharacterProfession>>
+    realm: StaticDataRealm
+    reputationData: Record<string, CharacterReputation>
+    specializations: Record<number, Record<number, number>>
+
+    get isMaxLevel(): boolean {
+        return this.level === Constants.characterMaxLevel
+    }
 }
 
 export class CharacterApiSpecialization {

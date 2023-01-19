@@ -10,6 +10,7 @@ import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import { manualStore, staticStore } from '@/stores'
 import {
+    Character,
     CharacterCurrency,
     CharacterMythicPlusRunMember,
     UserCount,
@@ -24,7 +25,6 @@ import leftPad from '@/utils/left-pad'
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
 import type {
     Account,
-    Character,
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
@@ -77,6 +77,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 userData.hasPet[petId] = true
             }
             userData.petsRaw = null
+        }
+
+        if (userData.charactersRaw !== null) {
+            userData.characters = userData.charactersRaw
+                .map((char) => Object.assign(new Character(), char))
+            userData.charactersRaw = null
+            console.log(userData.characters)
         }
 
         // Characters
