@@ -9,14 +9,14 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
-    type choreArray = [string, number, string?]
+    type ChoreArray = [string, number, string[]?]
 
     export let character: Character
-    export let chores: choreArray[]
+    export let chores: ChoreArray[]
     export let taskName: string
 
     let anyErrors: boolean
-    let choreSets: Array<choreArray[]>
+    let choreSets: Array<ChoreArray[]>
     $: {
         choreSets = []
 
@@ -38,7 +38,7 @@
             choreSets,
             (choreSet) => some(
                 choreSet,
-                ([, status, errorText]) => (status === 0 || status === 3) && errorText !== ''
+                ([, status, statusTexts]) => (status === 0 || status === 3) && statusTexts[0] !== ''
             )
         )
     }
@@ -57,8 +57,12 @@
 
         + table {
             border-top: 1px solid $border-color;
-            margin-top: 0.75rem;
+            margin-top: 0.5rem;
         }
+    }
+    td {
+        padding-top: 0.1rem;
+        padding-bottom: 0.2rem;
     }
     .name {
         direction: rtl; // not happy with this but ugh
@@ -83,6 +87,10 @@
         font-size: 0.95rem;
         padding-left: 0.7rem;
         text-align: left;
+
+        :global(svg) {
+            margin-left: -0.5rem;
+        }
     }
     .tier2 {
         :global(span[data-string="starFull"]) {
@@ -103,7 +111,7 @@
     {#each choreSets as choreSet}
         <table class="table-striped">
             <tbody>
-                {#each choreSet as [choreName, status, statusText]}
+                {#each choreSet as [choreName, status, statusTexts]}
                     <tr>
                         <td
                             class="name text-overflow"
@@ -120,22 +128,28 @@
                         {#if anyErrors}
                             <td class="error-text">
                                 {#if status === 3}
-                                    {statusText}
+                                    {statusTexts[0]}
                                 {/if}
                             </td>
                         {/if}
                     </tr>
 
-                    {#if status === 1 && statusText}
+                    {#if status === 1 && statusTexts[0]}
                         <tr>
                             <td
                                 class="status-text"
-                                class:tier2={statusText.includes('[[tier2]]')}
-                                class:tier3={statusText.includes('[[tier3]]')}
+                                class:tier2={statusTexts[0].includes('[[tier2]]')}
+                                class:tier3={statusTexts[0].includes('[[tier3]]')}
                                 colspan="{anyErrors ? 3 : 2}"
                             >
-                                &ndash;
-                                <ParsedText text={getFixedText(statusText)} />
+                                {#each statusTexts as statusText}
+                                    <div>
+                                        {#if statusTexts.length === 1}
+                                            &ndash;
+                                        {/if}
+                                        <ParsedText text={getFixedText(statusText)} />
+                                    </div>
+                                {/each}
                             </td>
                         </tr>
                     {/if}
