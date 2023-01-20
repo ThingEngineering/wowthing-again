@@ -53,99 +53,309 @@ export const darkmoonFaireProfessionQuests: Record<number, number> = {
     356: 29513, // Fishing - Spoilin' for Salty Sea Dogs
 }
 
+interface DragonflightProfessionQuest {
+    itemId: number
+    questId: number
+    source?: string
+}
+
 type DragonflightProfession = {
     id: Profession
     hasCraft?: boolean
     hasOrders?: boolean
     masterQuestId?: number
-    treasureQuests?: [number, number][]
+    dropQuests?: DragonflightProfessionQuest[]
+    treasureQuests?: DragonflightProfessionQuest[]
 }
 const dragonflightProfessions: DragonflightProfession[] = [
     {
         id: Profession.Alchemy,
         hasCraft: true,
+        masterQuestId: 70247,
+        dropQuests: [
+            {
+                itemId: 193891, // Experimental Substance
+                questId: 66373,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193897, // Reawakened Catalyst
+                questId: 66374,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198963, // Decaying Phlegm
+                questId: 70504,
+                source: 'Mobs: Decay',
+            },
+            {
+                itemId: 198964, // Elementious Splinter
+                questId: 70511,
+                source: 'Mobs: Elemental',
+            },
+        ],
     },
     {
         id: Profession.Blacksmithing,
         hasCraft: true,
         hasOrders: true,
         masterQuestId: 70250,
+        dropQuests: [
+            {
+                itemId: 192131, // Valdrakken Weapon Chain
+                questId: 66381,
+                source: 'Treasures',
+            },
+            {
+                itemId: 192132, // Draconium Blade Sharpener
+                questId: 66382,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198965, // Primeval Earth Fragment
+                questId: 70512,
+                source: 'Mobs: Earth',
+            },
+            {
+                itemId: 198966, // Molten Globule
+                questId: 66381,
+                source: 'Mobs: Fire',
+            },
+        ],
         treasureQuests: [
-            [70246, 201007], // Ancient Monument
-            [70313, 201004], // Ancient Spear Shards
-            [70312, 201005], // Curious Ingots
-            [70311, 201006], // Draconic Flux
-            [70353, 201009], // Falconer Gauntlet Drawings
-            [70314, 198791], // Glimmer of Blacksmithing Wisdom
-            [70296, 201008], // Molten Ingot
-            [70310, 201010], // Qalashi Weapon Diagram
-            [70314, 201011], // Spelltouched Tongs
+            {
+                itemId: 201007, // Ancient Monument
+                questId: 70246,
+            },
+            {
+                itemId: 201004, // Ancient Spear Shards
+                questId: 70313,
+            },
+            {
+                itemId: 201005, // Curious Ingots
+                questId: 70312,
+            },
+            {
+                itemId: 201006, // Draconic Flux
+                questId: 70311,
+            },
+            {
+                itemId: 201009, // Falconer Gauntlet Drawings
+                questId: 70353,
+            },
+            {
+                itemId: 198791, // Glimmer of Blacksmithing Wisdom
+                questId: 70314,
+            },
+            {
+                itemId: 201008, // Molten Ingot
+                questId: 70296,
+            },
+            {
+                itemId: 201010, // Qalashi Weapon Diagram
+                questId: 70310,
+            },
+            {
+                itemId: 201011, // Spelltouched Tongs
+                questId: 70314,
+            },
         ],
     },
     {
         id: Profession.Enchanting,
         hasCraft: true,
+        masterQuestId: 70251,
+        dropQuests: [
+            {
+                itemId: 193900, // Prismatic Focusing Shard
+                questId: 66377,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193901, // Primal Dust
+                questId: 66378,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198967, // Primordial Aether
+                questId: 70514,
+                source: 'Mobs: Arcane',
+            },
+            {
+                itemId: 198968, // Primalist Charm
+                questId: 70515,
+                source: 'Mobs: Primalist',
+            },
+        ],
     },
     {
         id: Profession.Engineering,
         hasCraft: true,
         hasOrders: true,
-    },
-    {
-        id: Profession.Herbalism,
+        masterQuestId: 70252,
+        dropQuests: [
+            {
+                itemId: 193902, // Eroded Titan Gizmo
+                questId: 66379,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193903, // Watcher Power Core
+                questId: 66380,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198969, // Keeper's Mark
+                questId: 70516,
+                source: 'Mobs: Keeper',
+            },
+            {
+                itemId: 198970, // Infinitely Attachable Pair o' Docks
+                questId: 70517,
+                source: 'Mobs: Dragonkin',
+            },
+        ],
     },
     {
         id: Profession.Inscription,
         hasCraft: true,
         hasOrders: true,
+        masterQuestId: 70254,
+        dropQuests: [
+            {
+                itemId: 193904, // Phoenix Feather Quill
+                questId: 66375,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193905, // Iskaaran Trading Ledger
+                questId: 66376,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198971, // Curious Djaradin Rune
+                questId: 70518,
+                source: 'Mobs: Djaradin',
+            },
+            {
+                itemId: 198972, // Draconic Glamour
+                questId: 70519,
+                source: 'Mobs: Dragonkin',
+            },
+        ],
     },
     {
         id: Profession.Jewelcrafting,
         hasCraft: true,
         hasOrders: true,
+        masterQuestId: 70255,
+        dropQuests: [
+            {
+                itemId: 193909, // Ancient Gem Fragments
+                questId: 66388,
+                source: 'Treasures', // 
+            },
+            {
+                itemId: 193907, // Chipped Tyrstone
+                questId: 66389,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198973, // Incandescent Curio
+                questId: 70520,
+                source: 'Mobs: Elemental',
+            },
+            {
+                itemId: 198974, // Elegantly Engrabed Embellishment
+                questId: 70521,
+                source: 'Mobs: Dragonkin',
+            },
+        ],
     },
     {
         id: Profession.Leatherworking,
         hasCraft: true,
         hasOrders: true,
-    },
-    {
-        id: Profession.Mining,
-    },
-    {
-        id: Profession.Skinning,
+        masterQuestId: 70256,
+        dropQuests: [
+            {
+                itemId: 193910, // Molted Dragon Scales
+                questId: 66384,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193913, // Preserved Animal Parts
+                questId: 66385,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198975, // Ossified Hide
+                questId: 70522,
+                source: 'Mobs: Proto-Drakes',
+            },
+            {
+                itemId: 198976, // Extremely Soft Skin
+                questId: 70523,
+                source: 'Mobs: Slyvern & Vorquin',
+            },
+        ],
     },
     {
         id: Profession.Tailoring,
         hasCraft: true,
         hasOrders: true,
+        masterQuestId: 70260,
+        dropQuests: [
+            {
+                itemId: 193898, // Umbral Bone Needle
+                questId: 66386,
+                source: 'Treasures',
+            },
+            {
+                itemId: 193899, // Primalweave Spindle
+                questId: 66387,
+                source: 'Treasures',
+            },
+            {
+                itemId: 198977, // Ohn'ahran Weave
+                questId: 70524,
+                source: 'Mobs: Centaur',
+            },
+            {
+                itemId: 198978, // Stupidly Effective Stitchery
+                questId: 70525,
+                source: 'Mobs: Gnoll',
+            },
+        ],
+    },
+
+    {
+        id: Profession.Herbalism,
+        masterQuestId: 70253,
+    },
+    {
+        id: Profession.Mining,
+        masterQuestId: 70258,
+    },
+    {
+        id: Profession.Skinning,
+        masterQuestId: 70259,
     },
 ]
 
-type DragonflightProfessionQuests = {
-    masterQuestId: number
-    treasureQuests: {
-        questId: number
-        itemId: number
-    }[]
-}
-export const dragonflightProfessionQuests: Record<number, DragonflightProfessionQuests> = {}
+export const dragonflightProfessionMap: Record<number, DragonflightProfession> = Object.fromEntries(
+    dragonflightProfessions
+        .map((profession) => [
+            profession.id,
+            profession,
+        ])
+)
+
 export const dragonflightProfessionTasks: Chore[] = []
 
 for (const profession of dragonflightProfessions) {
     const name = Profession[profession.id]
     const lowerName = Profession[profession.id].toLowerCase()
-    
-    if (profession.masterQuestId && profession.treasureQuests) {
-        dragonflightProfessionQuests[profession.id] = {
-            masterQuestId: profession.masterQuestId,
-            treasureQuests: profession.treasureQuests
-                .map(([questId, itemId]) => ({
-                    questId,
-                    itemId,
-                }))
-        }
-    }
 
     if (profession.hasCraft === true) {
         dragonflightProfessionTasks.push(

@@ -1,19 +1,14 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import type { Character, CharacterWeeklyProgress } from '@/types'
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
     import { tippyComponent } from '@/utils/tippy'
+    import type { Character } from '@/types'
 
     import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
+    import VaultShared from './VaultShared.svelte'
 
     export let character: Character
 
-    let mythicPlus: CharacterWeeklyProgress[] | undefined
-    $: {
-        if (character.level === Constants.characterMaxLevel) {
-            mythicPlus = character.weekly?.vault?.mythicPlusProgress
-        }
-    }
+    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.mythicPlusProgress : []
 </script>
 
 <style lang="scss">
@@ -22,25 +17,16 @@
 
         border-left: 1px solid $border-color;
     }
-    span {
-        display: inline-block;
-        text-align: center;
-        width: calc(#{$width-vault} / 3 - 0.2rem);
-        word-spacing: -0.2ch;
-    }
 </style>
 
-{#if mythicPlus}
-    <td use:tippyComponent={{component: TooltipMythicPlusVault, props: {character}}}>
-        <div class="flex-wrapper">
-            {#each mythicPlus as progress}
-                {#if progress.progress >= progress.threshold}
-                    <span class="quality4">{getMythicPlusVaultItemLevel(progress.level)}</span>
-                {:else}
-                    <span>{progress.threshold - progress.progress} !</span>
-                {/if}
-            {/each}
-        </div>
+{#if mythicPlus.length > 0}
+    <td use:tippyComponent={{component: TooltipMythicPlusVault, props: { character }}}>
+        <VaultShared
+            progresses={mythicPlus}
+            textFunc={(prog) => prog.progress >= prog.threshold
+                ? getMythicPlusVaultItemLevel(prog.level).toString()
+                : `${prog.threshold - prog.progress} !`}
+        />
     </td>
 {:else}
     <td>&nbsp;</td>

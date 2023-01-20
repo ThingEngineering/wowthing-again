@@ -3,17 +3,18 @@
 
     import { Constants } from '@/data/constants'
     import { multiTaskMap, taskMap } from '@/data/tasks'
-    import { QuestStatus } from '@/enums'
+    import { Profession, QuestStatus } from '@/enums'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte'
+    import { dragonflightProfessionMap } from '@/data/professions';
 
     export let character: Character
     export let taskName: string
 
-    let chores: [string, number, string?][]
+    let chores: [string, number, string[]?][]
     let countCompleted: number
     let countTotal: number
     $: {
@@ -35,18 +36,52 @@
             countTotal++
 
             let status = 0
-            let statusText = choreTask.canGetFunc?.(character) || ''
-            if (statusText.startsWith('Need')) {
+            let statusTexts = [choreTask.canGetFunc?.(character) || '']
+            if (statusTexts[0].startsWith('Need')) {
                 status = 3
             }
             else if (choreTask.taskKey.endsWith('Drop#')) {
-                const needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
+                statusTexts = []
                 let haveCount = 0
-                for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
-                    const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
-                    const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
-                    if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
-                        haveCount++
+                let needCount = 0
+
+                if (taskName === 'dfProfessionWeeklies') {
+                    const professionName = choreTask.taskKey.replace('dfProfession', '').replace('Drop#', '')
+                    const profession = Profession[professionName as keyof typeof Profession]
+                    const professionData = dragonflightProfessionMap[profession]
+                    
+                    if (professionData.dropQuests?.length > 0) {
+                        needCount = professionData.dropQuests.length
+
+                        professionData.dropQuests.forEach((drop, index) => {
+                            const dropKey = choreTask.taskKey.replace('#', (index + 1).toString())
+                            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
+
+                            let statusText = ''
+                            if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                                haveCount++
+                                statusText += '<span class="status-success">:yes:</span>'
+                            }
+                            else {
+                                statusText += '<span class="status-fail">:no:</span>'
+                            }
+                            
+                            statusText += `{item:${drop.itemId}}`
+                            statusText += ` <span class="status-shrug">(${drop.source})</span>`
+
+                            statusTexts.push(statusText)
+                        })
+                    }
+                }
+
+                if (statusTexts.length === 0) {
+                    needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
+                    for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
+                        const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
+                        const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
+                        if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                            haveCount++
+                        }
                     }
                 }
 
@@ -55,7 +90,9 @@
                 }
                 else {
                     status = QuestStatus.InProgress
-                    statusText = `${haveCount}/${needCount} Collected`
+                    if (statusTexts.length === 0) {
+                        statusTexts.push(`${haveCount}/${needCount} Collected`)
+                    }
                 }
             }
             else {
@@ -63,7 +100,7 @@
                 if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                     status = progressQuest.status
                     if (status === QuestStatus.InProgress && progressQuest.objectives?.length > 0) {
-                        statusText = progressQuest.objectives[0].text
+                        statusTexts[0] = progressQuest.objectives[0].text
                     }
                 }
             }
@@ -73,7 +110,7 @@
                     ? $userQuestStore.questNames[choreTask.taskKey] || choreTask.taskName
                     : choreTask.taskName,
                 status,
-                statusText,
+                statusTexts,
             ])
             
             if (status === 2) {

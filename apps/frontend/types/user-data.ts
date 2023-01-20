@@ -13,6 +13,7 @@ export interface UserData {
 
     accounts: Record<number, Account>
     characters: Character[]
+    charactersRaw: Character[]
     guilds: Record<number, Guild>
     goldHistoryRealms: number[]
     heirlooms: Record<number, number>
