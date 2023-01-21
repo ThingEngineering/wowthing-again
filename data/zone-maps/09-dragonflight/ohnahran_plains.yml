@@ -329,3 +329,14 @@ farms:
       id: 201020 # Silky Surprise
       limit: profession tailoring
       note: "{price:3|2026}" # Tailoring Knowledge
+
+# Quest
+
+- name: "WANTED: Mara'nar the Thunderous"
+  location: 39.6 56.5
+  questId: 71027
+  reset: never
+  type: quest
+  drops:
+    - type: xpquest
+      id: 71027
