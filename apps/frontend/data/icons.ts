@@ -4,6 +4,8 @@ import gameTwoCoins from '@iconify/icons-game-icons/two-coins'
 
 import faDungeon from '@iconify/icons-fa-solid/dungeon'
 
+import gameUpgrade from '@iconify/icons-game-icons/upgrade'
+
 import hisExclamationCircle from '@iconify/icons-heroicons-solid/exclamation-circle'
 
 import mdiArrowDownBoldOutline from '@iconify/icons-mdi/arrow-down-bold-outline'
@@ -184,6 +186,7 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Toy]: mdiDiceMultiple,
     [RewardType.Transmog]: mdiWizardHat,
     [RewardType.Weapon]: mdiAxeBattle,
+    [RewardType.XpQuest]: gameUpgrade,
 
     [RewardType.InstanceSpecial]: faDungeon,
     [RewardType.SetSpecial]: mdiMulticast,

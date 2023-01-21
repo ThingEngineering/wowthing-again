@@ -226,6 +226,8 @@
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}
                             <code>{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(dropStatus.setNeed, 2)}</code>
+                        {:else if drop.type === RewardType.XpQuest}
+                            quest
                         {:else if isCriteria}
                             criteria
                         {:else if drop.limit?.length > 0}

@@ -56,6 +56,9 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
         const toy = staticData.toys[drop.id]
         return toy ? toy.name : `Unknown toy #${drop.id}`
     }
+    else if (drop.type === RewardType.XpQuest) {
+        return 'Bonus XP'
+    }
     else if (drop.type === RewardType.InstanceSpecial) {
         return difficultyMap[drop.id].name
     }

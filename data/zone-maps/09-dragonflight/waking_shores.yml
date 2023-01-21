@@ -2,6 +2,7 @@ name: "Waking Shores, The"
 mapName: "09-dragonflight/waking_shores"
 minimumLevel: 60
 farms:
+
 # Group
 
 - name: "Dragon Vendors"
@@ -16,6 +17,22 @@ farms:
 
 # Kill
 
+- name: "Amethyzar the Glittering"
+  location: 63.4 54.8
+  npcId: 193132
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69838
+
+- name: "Ancient Hornswog"
+  location: 77.6 22.2
+  npcId: 187111
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 66076
+
 - name: "Azra's Prized Peony"
   location: 54.9 71.1
   npcId: 193135
@@ -23,6 +40,9 @@ farms:
   drops:
     - type: transmog
       id: 200259 # Forest Dweller's Shield [shield]
+
+    - type: xpquest
+      id: 69839
 
 - name: "Brundin the Dragonbane"
   location: 48.4 66.1
@@ -46,6 +66,9 @@ farms:
     - type: transmog
       id: 200286 # Dragonbane Lance [strength polearm]
 
+    - type: xpquest
+      id: 72127
+
 - name: "Dragonhunter Igordan"
   location: 64.3 33.0
   npcId: 191611
@@ -53,6 +76,9 @@ farms:
   type: kill
   drops:
     - *qalashi-war-helm
+
+    - type: xpquest
+      id: 66956
 
 - name: "Drakewing"
   location: 72.8 47.0
@@ -79,6 +105,124 @@ farms:
 
     - type: transmog
       id: 200252 # Molten Flak Cannon [gun]
+
+    - type: xpquest
+      id: 72128
+
+- name: "Firava the Rekindler"
+  location: 56.9 25.3
+  npcId: 195915
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70648
+
+- name: "Forgotten Gryphon"
+  location: 32.8 75.9
+  npcId: 193154
+  #questId:
+  type: kill
+  drops:
+    - type: xpquest
+      id: 72130
+
+- name: "Gorjo the Crab Shackler"
+  location: 78.6 50.0
+  npcId: 187209
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69874
+
+- name: "Klozicc the Ascended"
+  location: 54.7 82.3
+  npcId: 187209
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 66960
+
+- name: "Lepidoralia the Resplendent"
+  location: 34.1 85.7
+  npcId: 193266
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69891
+
+- name: "Magmaton"
+  location: 40.0 64.5
+  npcId: 186827
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70979
+
+- name: "Massive Magmashell"
+  location: 21.7 76.2
+  npcId: 193152
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69848
+
+- name: "O'nank Shorescour"
+  location: 80.1 53.9
+  npcId: 184853
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 70983
+
+- name: "Primal Scythid Queen"
+  location: 81.3 37.7
+  npcId: 184853
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 66074
+
+- name: "Shadeslash Trakken"
+  location: 47.2 73.6
+  npcId: 193271
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70719
+
+- name: "Slurpo, the Incredible Snail"
+  location: 34.5 89.7
+  npcId: 193175
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 72126
+
+- name: "Smogswog the Firebreather"
+  location: 68.4 65.3
+  npcId: 193120
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69668
+
+- name: "Terillod the Devout"
+  location: 60.6 82.9
+  npcId: 193171
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70751
 
 # Achievement
 

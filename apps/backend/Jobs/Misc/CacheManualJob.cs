@@ -626,7 +626,6 @@ public class CacheManualJob : JobBase, IScheduledJob
             }
         }
 
-        // Change transmog itemId to appearanceId
         foreach (var categories in ret.Where(cats => cats != null))
         {
             foreach (var category in categories.Where(cat => cat != null))
@@ -777,7 +776,12 @@ public class CacheManualJob : JobBase, IScheduledJob
 
                     foreach (var drop in farm.Drops)
                     {
-                        foreach (var dropQuestId in drop.QuestIds.EmptyIfNull())
+                        var questIds = drop.QuestIds
+                            .EmptyIfNull()
+                            .Concat(drop.Type == "xpquest" ? new[] { drop.Id } : Array.Empty<int>())
+                            .ToArray();
+
+                        foreach (var dropQuestId in questIds)
                         {
                             if (!seenQuests.Contains(dropQuestId))
                             {

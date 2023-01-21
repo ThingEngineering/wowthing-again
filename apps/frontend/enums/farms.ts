@@ -89,6 +89,7 @@ export enum RewardType {
     Illusion,
     Currency,
     Reputation,
+    XpQuest,
     Transmog = 100,
     InstanceSpecial = 1000,
     SetSpecial = 1001,

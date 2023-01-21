@@ -3,6 +3,179 @@ mapName: "09-dragonflight/ohnahran_plains"
 minimumLevel: 60
 farms:
 
+# Kill
+
+- name: "Blightpaw the Depraved"
+  location: 90.2 40.2
+  npcId: 193128
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 73869
+
+- name: "Fulgurb"
+  location: 74.9 47.1
+  npcId: 193170
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69856
+
+- name: "Irontree"
+  location: 90.2 40.2
+  npcId: 193128
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 66356
+
+- name: "Malsegan"
+  location: 71.7 45.9
+  npcId: 193212
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69871
+
+- name: "Mikrin of the Raging Winds"
+  location: 62.8 79.8
+  npcId: 193173
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69857
+
+- name: "Oshigol"
+  location: 60.8 26.8
+  npcId: 193235
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69877
+
+- name: "Prozela Galeshot"
+  location: 59.9 66.9
+  npcId: 193669
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69968
+
+- name: "Researcher Sneakwing"
+  location: 37.3 53.9
+  npcId: 196010
+  #questId:
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70698
+
+- name: "Ripsaw the Stalker"
+  location: 26.3 65.4
+  npcId: 193153
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69851
+
+- name: "Ronsak the Decimator"
+  location: 43.3 55.2
+  npcId: 193227
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69878
+
+- name: "Scaleseeker Mezeri"
+  location: 20.1 44.3
+  npcId: 193215
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69865
+
+- name: "Skaara"
+  location: 44.9 49.2
+  npcId: 192949
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 70783
+
+- name: "Steamgill"
+  location: 53.2 72.5
+  npcId: 193123
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69667
+
+- name: "Sunscale Behemoth"
+  location: 63.2 48.6
+  npcId: 193133
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69837
+
+- name: "Territorial Coastling"
+  location: 22.7 67.6
+  npcId: 193163
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 69852
+
+- name: "The Sundered Asunder"
+  location: 64.0 17.8
+  #npcId: 
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 65892
+
+- name: "The Storm Scar"
+  location: 25.7 40.5
+  #npcId:
+  #questId:
+  type: kill
+  drops:
+    - type: xpquest
+      id: 66421
+
+- name: "Ty'foon the Ascended"
+  location: 26.1 34.2
+  npcId: 191354
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 66970
+
+- name: "Zarizz"
+  location: 30.3 62.1
+  npcId: 193140
+  #questId: 
+  type: kill
+  drops:
+    - type: xpquest
+      id: 72364
+
 # Achievement
 
 - name: "The Highest Peaks"

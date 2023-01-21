@@ -3,6 +3,160 @@ mapName: "09-dragonflight/thaldraszus"
 minimumLevel: 60
 farms:
 
+# Kill
+
+- name: "Acrosoth"
+  location: 39.0 78.0
+  npcId: 193243
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 72114
+
+- name: "Ancient Protector"
+  location: 59.0 58.6
+  npcId: 193664
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69963
+
+- name: "Broodweaver Araznae"
+  location: 59.6 70.1
+  npcId: 193220
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69868
+
+- name: "Corrupted Proto-Dragon"
+  location: 44.8 69.0
+  npcId: 193658
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69962
+
+- name: "Craggravated Elemental"
+  location: 45.4 85.2
+  npcId: 193663
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69964
+
+- name: "Eldoren the Reborn"
+  location: 49.0 51.0
+  npcId: 193234
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69875
+
+- name: "Henlare"
+  location: 55.6 77.4
+  npcId: 193229
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69873
+
+- name: "Liskron the Dazzling"
+  location: 36.4 72.8
+  npcId: 193273
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 72116
+
+- name: "Lookout Mordren"
+  location: 36.8 85.6
+  npcId: 193668
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69967
+
+- name: "Lord Epochbrgl"
+  location: 62.2 81.8
+  npcId: 193241
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69882
+
+- name: "Matriarch Remalla"
+  location: 52.8 59.2
+  npcId: 193246
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69883
+
+- name: "Phleep"
+  location: 57.2 84.2
+  npcId: 193210
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69866
+
+- name: "Private Shikzar"
+  location: 37.6 84.7
+  npcId: 193127
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 70986
+
+- name: "Riverwalker Tamopo"
+  location: 39.8 70.0
+  npcId: 193240
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69880
+
+- name: "Rokmur"
+  location: 49.8 51.4
+  npcId: 193666
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69966
+
+- name: "Sandana the Tempest"
+  location: 37.6 77.8
+  npcId: 193176
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69859
+
+- name: "The Great Shellkhan"
+  location: 38.4 68.2
+  npcId: 191305
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 72121
+
+- name: "Treasure-Mad Trambladd"
+  location: 35.0 69.8
+  npcId: 193146
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 70947
+
+- name: "Woolfang"
+  location: 47.8 49.8
+  npcId: 193161
+  #questId: 
+  drops:
+    - type: xpquest
+      id: 69850
+
 # Achievement
 
 - name: "The Highest Peaks"
