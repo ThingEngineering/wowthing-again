@@ -6,7 +6,7 @@
 
     export let character: Character
 
-    $: [rested,] = getCharacterRested($timeStore, character)[0]
+    $: [rested,] = getCharacterRested($timeStore, character)
 </script>
 
 <style lang="scss">

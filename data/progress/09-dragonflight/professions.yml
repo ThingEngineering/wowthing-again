@@ -1,0 +1,24 @@
+name: "Professions"
+groups:
+
+- name: "Dragon Shard of Knowledge"
+  icon: "item/191784"
+  iconText: "DSK"
+  lookup: none
+  type: quest
+  data:
+    0:
+      - name: "That's My Specialty"
+        id: 67295
+
+      - name: "The Wonders of the World"
+        id: 67298
+        description: "{price:1|1191784}"
+
+      - name: "The Master of Their Craft"
+        id: 69946
+        description: "{price:1|1191784}"
+
+      - name: "A Worthy Hunt"
+        id: 69979
+        description: "{price:1|1191784} + they can now drop"

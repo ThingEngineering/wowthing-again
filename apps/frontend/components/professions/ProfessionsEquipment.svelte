@@ -1,11 +1,10 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
     import { getItemUrl } from '@/utils/get-item-url'
     import { getProfessionEquipment } from '@/utils/professions'
     import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/types/data/static'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
@@ -34,13 +33,9 @@
         bottom: 2px;
     }
     .crafted-quality {
-        --scale: 1.2;
-
-        background: rgba(0, 0, 0, 1);
-        border-radius: 50%;
         position: absolute;
-        right: -1px;
-        top: -1px;
+        right: -2px;
+        top: -2px;
     }
     .empty-slot {
         background: rgba(0, 0, 0, 0.2);
@@ -67,8 +62,8 @@
                     {#if equippedItem.itemLevel > 300}
                         {@const craftedQuality = equippedItem.craftedQuality || 1}
                         <span class="crafted-quality quality{craftedQuality}">
-                            <IconifyIcon
-                                icon={iconStrings[`circle${craftedQuality}`]}
+                            <CraftedQualityIcon
+                                quality={craftedQuality}
                             />
                         </span>
                     {/if}

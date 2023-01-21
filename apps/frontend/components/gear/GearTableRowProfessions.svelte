@@ -99,7 +99,10 @@
     {#each Array(profession?.slug === 'fishing' ? 1 : (profession.type === 0 ? 3 : 2)) as _, slot}
         {@const gear = slots[slot]}
         {#if gear?.equipped}
-            <Item {gear} />
+            <Item
+                forceCrafted={true}
+                {gear}
+            />
         {:else}
             <Empty text={slot === 0 ? 'Tool' : 'Acc'} />
         {/if}
