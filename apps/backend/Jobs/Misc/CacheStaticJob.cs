@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 62,
+        Version = 63,
     };
 
     public override async Task Run(params string[] data)
@@ -272,7 +272,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 characterSpec.Name = GetString(StringType.WowCharacterSpecializationName, language, characterSpec.Id);
             }
 
-            foreach (var illusion in cacheData.Illusions)
+            foreach (var illusion in cacheData.Illusions.Values)
             {
                 illusion.Name = GetString(StringType.WowSpellItemEnchantmentName, language, illusion.EnchantmentId);
             }
@@ -704,11 +704,14 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return ret;
     }
 
-    private async Task<StaticIllusion[]> LoadIllusions()
+    private async Task<Dictionary<int, StaticIllusion>> LoadIllusions()
     {
         return (await DataUtilities
             .LoadDumpCsvAsync<DumpTransmogIllusion>("transmogillusion"))
-            .SelectArray(illusion => new StaticIllusion(illusion));
+            .ToDictionary(
+                illusion => illusion.ID,
+                illusion => new StaticIllusion(illusion)
+            );
     }
 
     private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
