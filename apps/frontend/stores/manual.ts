@@ -491,19 +491,11 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserCount()
-                const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
-                    [RewardType.Achievement]: new UserCount(),
-                    [RewardType.Currency]: new UserCount(),
-                    [RewardType.Illusion]: new UserCount(),
-                    [RewardType.Item]: new UserCount(),
-                    [RewardType.Mount]: new UserCount(),
-                    [RewardType.Pet]: new UserCount(),
-                    [RewardType.Quest]: new UserCount(),
-                    [RewardType.Reputation]: new UserCount(),
-                    [RewardType.Toy]: new UserCount(),
-                    [RewardType.Transmog]: new UserCount(),
-                    [RewardType.SetSpecial]: new UserCount(),
-                }
+                const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] =
+                    Object.fromEntries(
+                        Object.keys(RewardType)
+                            .map((key) => [key, new UserCount()])
+                    )
 
                 const mapSeen: Record<string, Record<number, boolean>> = {}
 
@@ -593,6 +585,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                     for (const drop of farm.drops) {
                         let dropCharacters = farmCharacters
+                        if (farm.name === 'Skaara') console.log(dropCharacters)
                         const dropStatus: DropStatus = {
                             need: false,
                             skip: false,
@@ -644,6 +637,16 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             case RewardType.Toy:
                                 if (!userData.hasToy[drop.id]) {
+                                    dropStatus.need = true
+                                }
+                                break
+
+                            case RewardType.XpQuest:
+                                if (!every(
+                                    userData.characters,
+                                    (char) => char.isMaxLevel ||
+                                        !!userQuestData.characters[char.id]?.dailyQuests?.get(drop.id)
+                                )) {
                                     dropStatus.need = true
                                 }
                                 break
@@ -708,7 +711,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             (drop.type === RewardType.Achievement && !options.trackAchievements) ||
                             (drop.type === RewardType.Mount && !options.trackMounts) ||
                             (drop.type === RewardType.Pet && !options.trackPets) ||
-                            (drop.type === RewardType.Quest && !options.trackQuests) ||
+                            ((drop.type === RewardType.Quest || drop.type === RewardType.XpQuest) && !options.trackQuests) ||
                             (drop.type === RewardType.Toy && !options.trackToys) ||
                             (transmogTypes.indexOf(drop.type) >= 0 && !options.trackTransmog)
                         )
@@ -826,6 +829,17 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 }
                             }
 
+                            if (drop.type === RewardType.XpQuest) {
+                                dropCharacters = filter(
+                                    dropCharacters,
+                                    (c) => !c.isMaxLevel && !userQuestData.characters[c.id]?.quests?.get(drop.id),
+                                )
+
+                                if (!dropStatus.skip && dropCharacters.length === 0) {
+                                    dropStatus.need = false
+                                }
+                            }
+
                             dropStatus.validCharacters = dropCharacters.length > 0
 
                             // And finally, filter for characters that aren't locked
@@ -846,8 +860,15 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                         farm.questIds,
                                         (q) =>
                                             userQuestData.characters[character.id]?.quests?.get(q) === undefined
-                                    )
-                                    ) {
+                                    )) {
+                                        dropStatus.characterIds.push(character.id)
+                                    }
+                                    else {
+                                        dropStatus.completedCharacterIds.push(character.id)
+                                    }
+                                }
+                                else if (drop.type === RewardType.XpQuest) {
+                                    if (userQuestData.characters[character.id]?.dailyQuests?.get(drop.id) === undefined) {
                                         dropStatus.characterIds.push(character.id)
                                     }
                                     else {
@@ -918,6 +939,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }))
 
                     farmStatuses.push(farmStatus)
+
+                    if (farm.name === 'Territorial Coastling') console.log(farm, farmStatus)
                 }
 
                 farmData[mapKey] = farmStatuses

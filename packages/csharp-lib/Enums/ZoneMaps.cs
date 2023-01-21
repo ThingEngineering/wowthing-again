@@ -112,5 +112,6 @@ public enum RewardType
     Illusion,
     Currency,
     Reputation,
+    XpQuest,
     Transmog = 100,
 }
