@@ -265,7 +265,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                                     if (item.type === RewardType.Illusion) {
                                         const enchantmentId = staticData.illusions[item.appearances[0].appearanceId].enchantmentId
-                                        userHas = userTransmogData.hasIllusion[enchantmentId]
+                                        userHas = !!userTransmogData.hasIllusion[enchantmentId]
                                     }
                                     else if (item.type === RewardType.Mount) {
                                         userHas = userData.hasMount[item.classId]
