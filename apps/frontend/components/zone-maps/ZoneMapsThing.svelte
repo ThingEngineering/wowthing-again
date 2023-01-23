@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { farmTypeIcons } from '@/data/icons'
     import { journalStore, staticStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/enums'

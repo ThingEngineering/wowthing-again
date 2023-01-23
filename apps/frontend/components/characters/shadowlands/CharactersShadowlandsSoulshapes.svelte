@@ -4,7 +4,7 @@
     import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
     import { UserCount, type Character } from '@/types'
 
-    import Count from '@/components/collections/CollectionCount.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

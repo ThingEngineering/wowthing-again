@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
 
-export class CollectionState {
+export class CollectibleState {
     public highlightMissing: Record<string, boolean> = {
         mounts: true,
         pets: true,
@@ -19,16 +19,16 @@ export class CollectionState {
     }
 }
 
-const key = 'state-collections'
-const initialState = new CollectionState()
+const key = 'state-collectible'
+const initialState = new CollectibleState()
 
-const stored = JSON.parse(localStorage.getItem(key) ?? '{}') as CollectionState
+const stored = JSON.parse(localStorage.getItem(key) ?? '{}') as CollectibleState
 Object.assign(initialState.highlightMissing, stored.highlightMissing || {})
 Object.assign(initialState.showCollected, stored.showCollected || {})
 Object.assign(initialState.showUncollected, stored.showUncollected || {})
 
-export const collectionState = writable<CollectionState>(initialState)
+export const collectibleState = writable<CollectibleState>(initialState)
 
-collectionState.subscribe(state => {
+collectibleState.subscribe(state => {
     localStorage.setItem(key, JSON.stringify(state))
 })

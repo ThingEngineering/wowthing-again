@@ -4,10 +4,10 @@
     import tippy from '@/utils/tippy'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
-    import CollectionThing from './CollectionThing.svelte'
-    import CollectionThingPet from './CollectionThingPet.svelte'
+    import CollectibleThing from './CollectibleThing.svelte'
+    import CollectibleThingPet from './CollectibleThingPet.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import SectionTitle from './CollectionSectionTitle.svelte'
+    import SectionTitle from './CollectibleSectionTitle.svelte'
 
     export let category: ManualDataSetCategory
     export let route: string
@@ -67,11 +67,11 @@
                 <div class="collection-objects">
                     {#each group.things as things}
                         {#if thingType === 'npc'}
-                            <CollectionThingPet
+                            <CollectibleThingPet
                                 {things}
                             />
                         {:else}
-                            <CollectionThing
+                            <CollectibleThing
                                 {things}
                             />
                         {/if}

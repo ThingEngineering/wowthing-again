@@ -3,18 +3,18 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
-    import { collectionState } from '@/stores/local-storage'
+    import { collectibleState } from '@/stores/local-storage'
     import type { ManualDataSetCategory } from '@/types/data/manual'
-    import type { CollectionContext } from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts'
 
-    import Category from './CollectionCategory.svelte'
+    import Category from './CollectibleCategory.svelte'
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 
     export let slug1: string
     export let slug2: string
     export let sets: ManualDataSetCategory[][]
 
-    const { route, thingType } = getContext('collection') as CollectionContext
+    const { route, thingType } = getContext('collection') as CollectibleContext
 
     let categories: ManualDataSetCategory[]
     $: {
@@ -41,7 +41,7 @@
         <button>
             <Checkbox
                 name="highlight_missing"
-                bind:value={$collectionState.highlightMissing[route]}
+                bind:value={$collectibleState.highlightMissing[route]}
             >Highlight missing</Checkbox>
         </button>
 
@@ -50,14 +50,14 @@
         <button>
             <Checkbox
                 name="show_collected"
-                bind:value={$collectionState.showCollected[route]}
+                bind:value={$collectibleState.showCollected[route]}
             >Collected</Checkbox>
         </button>
 
         <button>
             <Checkbox
                 name="show_uncollected"
-                bind:value={$collectionState.showUncollected[route]}
+                bind:value={$collectibleState.showUncollected[route]}
             >Missing</Checkbox>
         </button>
     </div>
