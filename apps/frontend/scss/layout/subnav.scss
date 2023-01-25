@@ -1,19 +1,18 @@
-.characters-subnav {
+.subnav {
     --image-margin-top: -2px;
 
     background: $highlight-background;
-    border-radius: 0;
+    border: 1px solid $border-color;
+    //border-radius: $border-radius;
     display: flex;
-    margin-bottom: 1rem;
-    margin-left: calc(-1rem + -1px);
-    margin-top: -0.5rem;
+    overflow: hidden;
     padding: 0;
-    width: calc(100% + 2rem + 2px);
+    width: 100%;
 
     a {
         border-right: 1px solid $border-color;
-        display: block;
-        padding: 0.25rem 1rem 0.25rem 0.25rem;
+        display: inline-block;
+        padding: 0.25rem 1rem;
 
         &.pad-left {
             padding-left: 0.5rem;
@@ -27,6 +26,10 @@
         pre {
             display: inline;
             margin-left: 0.25rem;
+        }
+
+        svg {
+            color: #ccc;
         }
     }
 }
