@@ -14,7 +14,7 @@
     export let slug2: string
     export let sets: ManualDataSetCategory[][]
 
-    const { route, thingType } = getContext('collection') as CollectibleContext
+    const { countsKey, route, thingType } = getContext('collection') as CollectibleContext
 
     let categories: ManualDataSetCategory[]
     $: {
@@ -65,7 +65,7 @@
     {#each categories as category}
         <Category
             {category}
-            {route}
+            route={countsKey}
             {slug1}
             {thingType}
         />

@@ -9,9 +9,9 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
-    const { route } = getContext('collection') as CollectibleContext
-
     export let sets: ManualDataSetCategory[][]
+
+    const { countsKey, route } = getContext('collection') as CollectibleContext
 
     let categories: SidebarItem[]
     let overall: UserCount
@@ -21,14 +21,14 @@
             ...set[0],
         }))
 
-        overall = $userStore.setCounts[route]['OVERALL']
+        overall = $userStore.setCounts[countsKey]['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userStore.setCounts[route][slug]
+        const hasData = $userStore.setCounts[countsKey][slug]
         return hasData.have / hasData.total * 100
     }
 </script>
