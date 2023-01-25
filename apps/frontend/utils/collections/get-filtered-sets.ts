@@ -1,19 +1,19 @@
 import { ManualDataSetCategory, ManualDataSetGroup } from '@/types/data/manual'
-import type { CollectionState } from '@/stores/local-storage'
+import type { CollectibleState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { ManualDataSetGroupArray } from '@/types/data/manual'
 
 
 export function getFilteredSets(
     settings: Settings,
-    collectionState: CollectionState,
+    collectibleState: CollectibleState,
     collectionKey: string,
     categories: ManualDataSetCategory[][],
     hasFunc: (things: number[]) => boolean
 ): ManualDataSetCategory[][] {
     const hideUnavailable = settings.collections.hideUnavailable
-    const showCollected = collectionState.showCollected[collectionKey]
-    const showUncollected = collectionState.showUncollected[collectionKey]
+    const showCollected = collectibleState.showCollected[collectionKey]
+    const showUncollected = collectibleState.showUncollected[collectionKey]
 
     if (!hideUnavailable && showCollected && showUncollected) {
         return categories

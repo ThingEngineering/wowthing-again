@@ -8,7 +8,7 @@
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import Set from './AppearancesSet.svelte'
 
     export let params: MultiSlugParams

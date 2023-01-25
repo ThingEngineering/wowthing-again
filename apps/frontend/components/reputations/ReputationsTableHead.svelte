@@ -52,6 +52,7 @@
 </style>
 
 <th
+    data-reputation-ids={reputation.both ? `${reputation.both.id}` : `${reputation.alliance.id},${reputation.horde.id}`}
     on:click|preventDefault={onClick}
     use:tippyComponent={{
         component: Tooltip,

@@ -3,11 +3,11 @@
 
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory} from '@/types/data/manual'
 
-    import CollectionSection from './CollectionSection.svelte'
-    import CollectionSidebar from './CollectionSidebar.svelte'
+    import CollectibleSection from './CollectibleSection.svelte'
+    import CollectibleSidebar from './CollectibleSidebar.svelte'
 
     export let params: MultiSlugParams
     export let route: string
@@ -17,7 +17,7 @@
     export let userHas: Record<number, boolean> = {}
 
     $: {
-        const context: CollectionContext = {
+        const context: CollectibleContext = {
             route,
             thingMapFunc,
             thingType,
@@ -40,10 +40,10 @@
 </style>
 
 <div class="collections">
-    <CollectionSidebar
+    <CollectibleSidebar
         {sets}
     />
-    <CollectionSection
+    <CollectibleSection
         slug1={params.slug1}
         slug2={params.slug2}
         {sets}

@@ -256,7 +256,8 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => some(
                 Object.values(get(staticStore).professions).filter((prof) => prof.type === 0),
                 (profession) => !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
-            )
+            ),
+            canGetFunc: (char) => char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
         },
         ...dragonflightProfessionTasks,
     ],

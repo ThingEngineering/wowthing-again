@@ -103,7 +103,6 @@
     <CharacterTableHead slot="head">
         {#if isCurrentSeason}
             <HeadItemLevel />
-            <HeadKeystone {affixes} />
         {/if}
 
         {#if isThisWeek}
@@ -111,6 +110,8 @@
         {:else}
             <HeadRaiderIo />
         {/if}
+
+        <HeadKeystone {affixes} />
 
         {#if isCurrentSeason && !isThisWeek}
             <HeadUpgrade />
@@ -129,7 +130,6 @@
         {#key slug}
             {#if isCurrentSeason}
                 <RowItemLevel />
-                <RowKeystone {character} />
             {/if}
 
             {#if isThisWeek}
@@ -137,6 +137,8 @@
             {:else}
                 <RowRaiderIo {character} {season} />
             {/if}
+
+            <RowKeystone {character} />
 
             {#if isCurrentSeason && !isThisWeek}
                 <RowUpgrade {character} {season} />

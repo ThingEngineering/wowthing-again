@@ -10,6 +10,11 @@ farms:
   location: 13 49
   type: group
 
+- name: "Camp Antonidas"
+  groupId: 2
+  location: 46.2 39.6
+  type: group
+
 # Kill
 
 - name: "Beogoka"
@@ -236,7 +241,8 @@ farms:
       limit: profession inscription
 
 - name: "Pluutar"
-  location: 46.2 40.8
+  groupId: 2
+  location: 46.2 45.8
   note: "Master Jewelcrafter"
   npcId: 194841
   questId: 70255
@@ -317,3 +323,36 @@ farms:
   drops:
     - type: pet
       id: 3321 # Blackfeather Nester
+
+# Quest
+
+- name: "WANTED: Frigellus"
+  groupId: 2
+  location: 0 0
+  note: "Complete Wrath of the Kirin Tor to unlock"
+  questId: 66488
+  reset: never
+  type: quest
+  drops:
+    - type: xpquest
+      id: 66488
+
+- name: "WANTED: Gorger"
+  location: 41.4 36.4
+  note: "Complete To the Azure Span to unlock"
+  questId: 67177
+  reset: never
+  type: quest
+  drops:
+    - type: xpquest
+      id: 67177
+
+- name: "WANTED: Krojek the Shoreprowler"
+  groupId: 1
+  location: 0 0
+  questId: 66217
+  reset: never
+  type: quest
+  drops:
+    - type: xpquest
+      id: 66217

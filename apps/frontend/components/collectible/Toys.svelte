@@ -2,12 +2,12 @@
     import some from 'lodash/some'
 
     import { manualStore, settingsStore, userStore } from '@/stores'
-    import { collectionState } from '@/stores/local-storage'
+    import { collectibleState } from '@/stores/local-storage'
     import { getFilteredSets } from '@/utils/collections'
     import type { MultiSlugParams } from '@/types'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
-    import Collection from './Collection.svelte'
+    import Collectible from './Collectible.svelte'
 
     export let params: MultiSlugParams
 
@@ -15,7 +15,7 @@
     $: {
         sets = getFilteredSets(
             $settingsStore,
-            $collectionState,
+            $collectibleState,
             'toys',
             $manualStore.toySets,
             (thing: number[]) => some(
@@ -26,7 +26,7 @@
     }
 </script>
 
-<Collection
+<Collectible
     route="toys"
     thingType="item"
     userHas={$userStore.hasToy}

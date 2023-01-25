@@ -644,8 +644,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             case RewardType.XpQuest:
                                 if (!every(
                                     userData.characters,
-                                    (char) => char.isMaxLevel ||
-                                        !!userQuestData.characters[char.id]?.dailyQuests?.get(drop.id)
+                                    (char) => char.isMaxLevel
+                                        || !!userQuestData.characters[char.id]?.dailyQuests?.get(drop.id)
+                                        || !!userQuestData.characters[char.id]?.quests?.get(drop.id)
                                 )) {
                                     dropStatus.need = true
                                 }
@@ -832,7 +833,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             if (drop.type === RewardType.XpQuest) {
                                 dropCharacters = filter(
                                     dropCharacters,
-                                    (c) => !c.isMaxLevel && !userQuestData.characters[c.id]?.quests?.get(drop.id),
+                                    (c) => !c.isMaxLevel
                                 )
 
                                 if (!dropStatus.skip && dropCharacters.length === 0) {
@@ -868,7 +869,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                     }
                                 }
                                 else if (drop.type === RewardType.XpQuest) {
-                                    if (userQuestData.characters[character.id]?.dailyQuests?.get(drop.id) === undefined) {
+                                    if (!userQuestData.characters[character.id]?.dailyQuests?.get(drop.id)
+                                        && !userQuestData.characters[character.id]?.quests?.get(drop.id)) {
                                         dropStatus.characterIds.push(character.id)
                                     }
                                     else {

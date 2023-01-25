@@ -7,7 +7,7 @@
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
 

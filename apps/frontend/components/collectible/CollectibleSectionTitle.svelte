@@ -2,7 +2,7 @@
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
 
-    import Count from '@/components/collections/CollectionCount.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import ParsedText from '../common/ParsedText.svelte'
 
     export let count: UserCount = undefined

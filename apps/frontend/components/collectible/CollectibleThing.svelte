@@ -4,8 +4,8 @@
     import { getContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { collectionState } from '@/stores/local-storage'
-    import type {CollectionContext} from '@/types/contexts'
+    import { collectibleState } from '@/stores/local-storage'
+    import type {CollectibleContext} from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -13,7 +13,7 @@
 
     export let things: number[] = []
 
-    const { route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectionContext
+    const { route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
 
     let element: HTMLElement
     let intersected = false
@@ -32,10 +32,10 @@
         }
 
         if (userHasThing) {
-            showAsMissing = $collectionState.highlightMissing[route]
+            showAsMissing = $collectibleState.highlightMissing[route]
         }
         else {
-            showAsMissing = !$collectionState.highlightMissing[route]
+            showAsMissing = !$collectibleState.highlightMissing[route]
         }
     }
 </script>

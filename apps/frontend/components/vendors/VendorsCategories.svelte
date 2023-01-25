@@ -13,7 +13,7 @@
     import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import Group from './VendorsGroup.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let slug1: string

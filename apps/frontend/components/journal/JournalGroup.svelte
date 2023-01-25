@@ -5,7 +5,7 @@
     import type { UserCount } from '@/types'
     import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
 
-    import CollectionCount from '@/components/collections/CollectionCount.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import Item from './JournalItem.svelte'
 
     export let bonusIds: Record<number, number>
@@ -37,7 +37,7 @@
     <div class="collection{useV2 ? '-v2' : ''}-group">
         <h4 class="drop-shadow {getPercentClass(percent)}">
             {group.name}
-            <CollectionCount counts={stats} />
+            <CollectibleCount counts={stats} />
         </h4>
 
         <div

@@ -3,13 +3,13 @@
 
     import { userStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
-    const { route } = getContext('collection') as CollectionContext
+    const { route } = getContext('collection') as CollectibleContext
 
     export let sets: ManualDataSetCategory[][]
 

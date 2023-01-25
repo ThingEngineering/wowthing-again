@@ -19,7 +19,7 @@
     }
 </style>
 
-{#if mythicPlus.length > 0}
+{#if mythicPlus?.length > 0}
     <td use:tippyComponent={{component: TooltipMythicPlusVault, props: { character }}}>
         <VaultShared
             progresses={mythicPlus}

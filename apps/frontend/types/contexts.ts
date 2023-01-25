@@ -1,4 +1,4 @@
-export interface CollectionContext {
+export interface CollectibleContext {
     route: string
     thingMapFunc: (thing: number) => number
     thingType: string

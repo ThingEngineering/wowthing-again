@@ -7,9 +7,9 @@
 
     import { petBreedMap } from '@/data/pet-breed'
     import { userStore } from '@/stores'
-    import { collectionState } from '@/stores/local-storage'
+    import { collectibleState } from '@/stores/local-storage'
     import type { UserDataPet } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
@@ -17,7 +17,7 @@
 
     export let things: number[] = []
 
-    const { thingMapFunc } = getContext('collection') as CollectionContext
+    const { thingMapFunc } = getContext('collection') as CollectibleContext
 
     let element: HTMLElement
     let intersected = false
@@ -33,11 +33,11 @@
         if (userHasThing) {
             pets = $userStore.pets[origId]
             quality = maxBy(pets, (pet: UserDataPet) => pet.quality).quality
-            showAsMissing = $collectionState.highlightMissing['pets']
+            showAsMissing = $collectibleState.highlightMissing['pets']
         }
         else {
             pets = []
-            showAsMissing = !$collectionState.highlightMissing['pets']
+            showAsMissing = !$collectibleState.highlightMissing['pets']
         }
     }
 </script>

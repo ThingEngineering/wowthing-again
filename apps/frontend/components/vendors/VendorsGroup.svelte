@@ -12,7 +12,7 @@
     import type { ManualDataVendorGroup } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CollectionCount from '@/components/collections/CollectionCount.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -156,7 +156,7 @@
                 <h4 class="drop-shadow text-overflow {getPercentClass(percent)}">
                     {group.name}
                 </h4>
-                <CollectionCount counts={stats} />
+                <CollectibleCount counts={stats} />
             </div>
 
             <div class="collection-objects">
