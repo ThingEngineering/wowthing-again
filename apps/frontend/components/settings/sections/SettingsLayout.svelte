@@ -93,6 +93,27 @@
     <div class="thing-container settings-container">
         <h2>Layout</h2>
 
+        <h3>Navigation</h3>
+
+        <div class="setting setting-checkbox setting-layout">
+            <CheckboxInput
+                bind:value={$settingsStore.layout.newNavigation}
+                name="layout_newNavigation"
+            >
+                Use new navigation
+            </CheckboxInput>
+        </div>
+
+        <div class="setting setting-checkbox setting-layout">
+            <CheckboxInput
+                bind:value={$settingsStore.layout.newNavigationIcons}
+                name="layout_newNavigationIcons"
+            >
+                Only show icons
+            </CheckboxInput>
+        </div>
+
+
         <h3>Padding</h3>
 
         <div class="setting setting-layout">

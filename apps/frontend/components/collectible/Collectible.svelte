@@ -18,6 +18,7 @@
 
     $: {
         const context: CollectibleContext = {
+            countsKey: route.split('/').slice(-1)[0],
             route,
             thingMapFunc,
             thingType,

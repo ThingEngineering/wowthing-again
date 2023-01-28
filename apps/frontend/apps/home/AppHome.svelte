@@ -19,6 +19,7 @@
     import { journalState, vendorState, zoneMapState } from '@/stores/local-storage'
     import parseApiTime from '@/utils/parse-api-time'
 
+    import NewNav from './AppHomeNewNav.svelte'
     import Refresh from './AppHomeRefresh.svelte'
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
@@ -34,6 +35,14 @@
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
+
+    $: {
+        const navTarget = document.querySelector('#app-nav')
+        navTarget.replaceChildren()
+        if ($settingsStore.layout.newNavigation) {
+            new NewNav({ target: navTarget })
+        }
+    }
 
     let error: boolean
     let loaded: boolean
@@ -124,6 +133,8 @@
 {:else if !ready}
     <p>L O A D I N G</p>
 {:else}
-    <Sidebar />
+    {#if !$settingsStore.layout.newNavigation}
+        <Sidebar />
+    {/if}
     <Routes />
 {/if}

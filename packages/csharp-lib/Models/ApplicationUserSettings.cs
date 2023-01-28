@@ -105,6 +105,7 @@ public class ApplicationUserSettings
         "holidayPetBattles",
         "holidayTimewalking",
         "holidayWorldQuests",
+        "timewalking", // unfortunately named TW item turn-in
 
         "legionWitheredTraining",
 
@@ -286,6 +287,10 @@ public class ApplicationUserSettingsLayout
     public bool IncludeArchaeology { get; set; } = false;
     public bool ShowEmptyLockouts { get; set; } = false;
     public bool ShowPartialLevel { get; set; } = true;
+
+    public bool NewNavigation { get; set; } = false;
+    public bool NewNavigationIcons { get; set; } = false;
+
     public string CovenantColumn { get; set; } = "current";
     public string Padding { get; set; } = "medium";
     public List<string> CommonFields { get; set; } = new();

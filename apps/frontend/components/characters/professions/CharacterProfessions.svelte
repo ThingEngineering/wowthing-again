@@ -40,8 +40,10 @@
 </script>
 
 <style lang="scss">
-    nav {
-        border: 1px solid $border-color;
+    .subnav {
+        margin-bottom: 1rem;
+        margin-left: calc(-1rem + -1px);
+        margin-top: -0.5rem;
     }
     .profession-links {
         display: flex;
@@ -53,7 +55,7 @@
     }
 </style>
 
-<nav class="characters-subnav" id="character-professions-subnav">
+<nav class="subnav" id="character-professions-subnav">
     {#if primaryProfessions.length > 0}
         <div class="profession-links">
             <SubnavLinks

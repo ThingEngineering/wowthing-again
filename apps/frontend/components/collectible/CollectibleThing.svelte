@@ -13,7 +13,7 @@
 
     export let things: number[] = []
 
-    const { route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
+    const { countsKey, route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
 
     let element: HTMLElement
     let intersected = false
@@ -32,10 +32,10 @@
         }
 
         if (userHasThing) {
-            showAsMissing = $collectibleState.highlightMissing[route]
+            showAsMissing = $collectibleState.highlightMissing[countsKey]
         }
         else {
-            showAsMissing = !$collectibleState.highlightMissing[route]
+            showAsMissing = !$collectibleState.highlightMissing[countsKey]
         }
     }
 </script>

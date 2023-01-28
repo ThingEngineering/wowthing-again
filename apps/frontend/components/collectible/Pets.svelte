@@ -9,6 +9,7 @@
 
     import Collectible from './Collectible.svelte'
 
+    export let basePath = ''
     export let params: MultiSlugParams
 
     let sets: ManualDataSetCategory[][]
@@ -29,7 +30,7 @@
 </script>
 
 <Collectible
-    route="pets"
+    route={basePath ? `${basePath}/pets` : 'pets'}
     thingType="npc"
     userHas={$userStore.hasPet}
     {params}
