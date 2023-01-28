@@ -23,17 +23,14 @@
                 {character}
                 {taskName}
             />
-        {:else if !taskName.startsWith('holiday') || taskName === activeHoliday}
+        {:else if
+            task.name.indexOf('[Holiday]') === -1
+            || taskName === activeHoliday
+            || (taskName === 'timewalking' && activeHoliday === 'holidayTimewalking')
+        }
             <RowProgressQuest
                 {character}
                 quest={taskName}
-            />
-        {/if}
-
-        {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
-            <RowProgressQuest
-                {character}
-                quest={'timewalking'}
             />
         {/if}
     {/if}

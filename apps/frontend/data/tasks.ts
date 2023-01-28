@@ -37,19 +37,19 @@ export const taskList: Task[] = [
     },
     {
         key: 'holidayTimewalking',
-        name: '[Holiday] Timewalking',
+        name: '[Holiday] Timewalking Dungeons',
         shortName: 'TW :exclamation:',
-    },
-    {
-        key: 'holidayWorldQuests',
-        name: '[Holiday] World Quests',
-        shortName: 'WQs',
     },
     {
         key: 'timewalking',
         name: '[Holiday] Timewalking Item',
         shortName: 'TW :item:',
         minimumLevel: 50,
+    },
+    {
+        key: 'holidayWorldQuests',
+        name: '[Holiday] World Quests',
+        shortName: 'WQs',
     },
 
     // PvP

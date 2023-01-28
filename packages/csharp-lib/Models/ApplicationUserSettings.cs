@@ -105,6 +105,7 @@ public class ApplicationUserSettings
         "holidayPetBattles",
         "holidayTimewalking",
         "holidayWorldQuests",
+        "timewalking", // unfortunately named TW item turn-in
 
         "legionWitheredTraining",
 
