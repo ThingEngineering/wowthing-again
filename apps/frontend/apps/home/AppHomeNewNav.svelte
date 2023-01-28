@@ -9,12 +9,13 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     type ShowFunction = () => boolean
-    type NavItem = [string, string, string, ShowFunction?, boolean?]
+    type NavItem = [string, string, string, boolean?, boolean?]
     const navItems: NavItem[] = [
         ['', 'Home', 'mdiHomeOutline'],
         [null, null, null],
+        
         ['characters/', 'Characters', 'mdiAccountGroupOutline'],
-        ['currencies/', 'Currencies', 'gameCash', () => $userStore.loaded && (!$userStore.public || $settingsStore.privacy.publicCurrencies)],
+        ['currencies/', 'Currencies', 'gameCash', true],
         ['gear/', 'Gear', 'gameBackpack'],
         ['history/', 'History', 'mdiChartLine'],
         ['items/', 'Items', 'emojiConstruction'],
@@ -23,16 +24,19 @@
         ['progress/', 'Progress', 'mdiProgressQuestion'],
         ['reputations/', 'Reputations', 'mdiAccountStarOutline'],
         [null, null, null],
-        ['auctions/', 'Auctions', 'mdiBank', () => $userStore.loaded && !$userStore.public],
+        
+        ['auctions/', 'Auctions', 'mdiBank', true],
         ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
         ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
         ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
         [null, null, null],
+        
         ['journal/', 'Journal', 'gameSecretBook'],
         ['sets/', 'Sets', 'gameHanger'],
         ['vendors/', 'Vendors', 'mdiCartOutline'],
         ['zone-maps/', 'Zone Maps', 'gameTreasureMap'],
         [null, null, null],
+        
         ['achievements/', 'Achievements [WIP]', 'gameTrophy'],
         ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
         ['collections/', 'Collections [WIP]', 'gameCompanionCube'],
@@ -41,22 +45,9 @@
         ['matrix', 'Matrix [WIP]', 'carbonScatterMatrix'],
         ['professions/', 'Professions [WIP]', farmTypeIcons[FarmType.Profession]],
         ['transmog-sets/', 'Sets (V2) [WIP]', 'emojiConstruction'],
+        [null, null, null],
 
-        ['settings/', 'Settings', 'mdiCogOutline', () => $userStore.loaded && !$userStore.public, true],
-    /*
-
-    <li class="separator"></li>
-
-    {#if $userStore.loaded && !$userStore.public}
-        <li class="separator"></li>
-
-        <li use:active={'/settings/*'}>
-            <a href="#/settings/">
-                <IconifyIcon icon={iconSettings} dropShadow={true} />
-                Settings
-            </a>
-        </li>
-    {/if}    */
+        ['settings/', 'Settings', 'mdiCogOutline', true, true],
     ]
 </script>
 
@@ -68,7 +59,7 @@
         //display: flex;
         flex-wrap: wrap;
         //font-size: 1.1rem;
-        margin: 0 1rem;
+        margin: 1rem 1rem 0 1rem;
         position: sticky;
         top: 0;
         width: calc(100% - 2rem);
@@ -84,7 +75,6 @@
     a {
         border: 1px solid $border-color;
         color: var(--link-color, #44ddff);
-        margin-top: -1px;
         padding: 0.25rem 0.7rem 0.3rem 0.5rem;
 
         :global(svg:focus) {
@@ -110,9 +100,9 @@
     class="subnav"
     class:subnav-big={$settingsStore.layout.newNavigationIcons}
 >
-    {#each navItems as [path, linkText, iconName, showFunc, sendRight], navIndex}
+    {#each navItems as [path, linkText, iconName, privateOnly, sendRight], navIndex}
         {#if path !== null}
-            {#if showFunc?.() !== false}
+            {#if !privateOnly || ($userStore.loaded && !$userStore.public)}
                 <a 
                     class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
                     class:send-right={sendRight}
