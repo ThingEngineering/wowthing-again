@@ -4,7 +4,7 @@ import '../scss/global.scss'
 
 import App from './home/AppHome.svelte'
 
-const target = document.querySelector('#app')
-const app = target ? new App({ target }) : null
+const appTarget = document.querySelector('#app')
+const app = appTarget ? new App({ target: appTarget }) : null
 
 export default app

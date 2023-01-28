@@ -19,17 +19,14 @@
         }
 
         &.active {
+            --link-color: #eee;
+
             background: $active-background;
-            color: #fff;
         }
 
         pre {
             display: inline;
             margin-left: 0.25rem;
-        }
-
-        svg {
-            color: #ccc;
         }
     }
 }

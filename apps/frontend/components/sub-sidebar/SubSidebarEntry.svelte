@@ -103,6 +103,8 @@
         position: relative;
 
         &:global(.active) {
+            --link-color: #eee;
+
             background: $active-background;
         }
         &:hover {

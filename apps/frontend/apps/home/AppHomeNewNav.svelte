@@ -1,0 +1,136 @@
+<script lang="ts">
+    import active from 'svelte-spa-router/active'
+
+    import { RewardType } from '@/enums'
+    import { iconLibrary, rewardTypeIcons } from '@/icons'
+    import { settingsStore, userStore } from '@/stores'
+    import tippy from '@/utils/tippy'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+
+    type ShowFunction = () => boolean
+    type NavItem = [string, string, string, ShowFunction?, boolean?]
+    const navItems: NavItem[] = [
+        ['', 'Home', 'mdiHomeOutline'],
+        [null, null, null],
+        ['characters/', 'Characters', 'mdiAccountGroupOutline'],
+        ['currencies/', 'Currencies', 'gameCash', () => $userStore.loaded && (!$userStore.public || $settingsStore.privacy.publicCurrencies)],
+        ['gear/', 'Gear', 'gameBackpack'],
+        ['history/', 'History', 'mdiChartLine'],
+        ['items/', 'Items', 'emojiConstruction'],
+        ['lockouts', 'Lockouts', 'gameLockedFortress'],
+        ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
+        ['progress/', 'Progress', 'mdiProgressQuestion'],
+        ['reputations/', 'Reputations', 'mdiAccountStarOutline'],
+        [null, null, null],
+        ['auctions/', 'Auctions', 'mdiBank', () => $userStore.loaded && !$userStore.public],
+        ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
+        ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
+        ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
+        [null, null, null],
+        ['journal/', 'Journal', rewardTypeIcons[RewardType.Cosmetic]],
+        ['sets/', 'Sets', 'gameHanger'],
+        ['vendors/', 'Vendors', 'mdiCartOutline'],
+        ['zone-maps/', 'Zone Maps', 'gameTreasureMap'],
+        [null, null, null],
+        ['achievements/', 'Achievements [WIP]', 'gameTrophy'],
+        ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
+        ['collections/', 'Collections [WIP]', 'emojiConstruction'],
+        ['heirlooms/', 'Heirlooms [WIP]', 'emojiConstruction'],
+        ['illusions/', 'Illusions [WIP]', 'emojiConstruction'],
+        ['matrix', 'Matrix [WIP]', 'carbonScatterMatrix'],
+        ['professions/', 'Professions [WIP]', 'emojiConstruction'],
+        ['transmog-sets/', 'Sets (V2) [WIP]', 'emojiConstruction'],
+
+        ['settings/', 'Settings', 'mdiCogOutline', () => $userStore.loaded && !$userStore.public, true],
+    /*
+
+    <li class="separator"></li>
+
+    {#if $userStore.loaded && !$userStore.public}
+        <li class="separator"></li>
+
+        <li use:active={'/settings/*'}>
+            <a href="#/settings/">
+                <IconifyIcon icon={iconSettings} dropShadow={true} />
+                Settings
+            </a>
+        </li>
+    {/if}    */
+    ]
+</script>
+
+<style lang="scss">
+    .subnav {
+        --image-margin-top: -0.2rem;
+
+        border-width: 0;
+        //display: flex;
+        flex-wrap: wrap;
+        //font-size: 1.1rem;
+        margin: 0 1rem;
+        position: sticky;
+        top: 0;
+        width: calc(100% - 2rem);
+        z-index: 100;
+    }
+    .subnav-big {
+        --scale: 1.3;
+
+        a {
+            padding: 0.5rem 0.8rem;
+        }
+    }
+    a {
+        border: 1px solid $border-color;
+        color: var(--link-color, #44ddff);
+        margin-top: -1px;
+        padding: 0.25rem 0.7rem 0.3rem 0.5rem;
+
+        :global(svg:focus) {
+            outline: none;
+        }
+        &:not(.active) {
+            background: darken(#2c2d2e, 5%);
+        }
+        &.send-right {
+            margin-left: auto;
+        }
+    }
+    .spacer {
+        //width: 1rem;
+        margin-right: 1rem;
+    }
+    .wip:not(.active) {
+        --link-color: #ffbb00;
+    }
+</style>
+
+<nav
+    class="subnav"
+    class:subnav-big={$settingsStore.layout.newNavigationIcons}
+>
+    {#each navItems as [path, linkText, iconName, showFunc, sendRight], navIndex}
+        {#if path !== null}
+            {#if showFunc?.() !== false}
+                <a 
+                    class:spacer={navIndex > 0 && navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
+                    class:send-right={sendRight}
+                    href="#/{path}"
+                    use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
+                    use:tippy={linkText}
+                    class:wip={linkText.indexOf('WIP') >= 0}
+                >
+                    <IconifyIcon
+                        icon={iconLibrary[iconName]}
+                        dropShadow={true}
+                    />
+                    
+                    {#if !$settingsStore.layout.newNavigationIcons}
+                        {linkText}
+                    {/if}
+                </a>
+            {/if}
+        {/if}
+    {/each}
+</nav>

@@ -41,6 +41,8 @@ export interface Settings {
 
     layout: {
         includeArchaeology: boolean
+        newNavigation: boolean
+        newNavigationIcons: boolean
         showEmptyLockouts: boolean
         showPartialLevel: boolean
         covenantColumn: 'current' | 'all'

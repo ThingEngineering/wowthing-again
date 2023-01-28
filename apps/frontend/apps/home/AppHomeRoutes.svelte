@@ -5,6 +5,7 @@
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Auctions from '@/components/auctions/Auctions.svelte'
     import Characters from '@/components/characters/Characters.svelte'
+    import Collections from '@/components/collections/Collections.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Explore from '@/components/explore/Explore.svelte'
     import Gear from '@/components/gear/Gear.svelte'
@@ -41,6 +42,7 @@
         '/achievements/:slug1?/:slug2?': Achievements,
         '/appearances/:slug1?/:slug2?': Appearances,
         '/auctions/:slug1?/:slug2?': Auctions,
+        '/collections/:slug1?/:slug2?/:slug3?': Collections,
         '/currencies/:slug1?/:slug2?': Currencies,
         '/gear/:slug1?': Gear,
         '/heirlooms': Heirlooms,

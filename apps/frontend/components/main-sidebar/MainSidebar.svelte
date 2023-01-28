@@ -25,6 +25,8 @@
         padding: 0.15rem 0.5rem;
     }
     ul :global(.active) {
+        --link-color: #eee;
+
         background: $active-background;
     }
     ul :global(.separator) {
