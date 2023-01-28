@@ -1,8 +1,8 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { RewardType } from '@/enums'
-    import { iconLibrary, rewardTypeIcons } from '@/icons'
+    import { FarmType, RewardType } from '@/enums'
+    import { farmTypeIcons, iconLibrary, rewardTypeIcons } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 
@@ -28,18 +28,18 @@
         ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
         ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
         [null, null, null],
-        ['journal/', 'Journal', rewardTypeIcons[RewardType.Cosmetic]],
+        ['journal/', 'Journal', 'gameSecretBook'],
         ['sets/', 'Sets', 'gameHanger'],
         ['vendors/', 'Vendors', 'mdiCartOutline'],
         ['zone-maps/', 'Zone Maps', 'gameTreasureMap'],
         [null, null, null],
         ['achievements/', 'Achievements [WIP]', 'gameTrophy'],
         ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
-        ['collections/', 'Collections [WIP]', 'emojiConstruction'],
+        ['collections/', 'Collections [WIP]', 'gameCompanionCube'],
         ['heirlooms/', 'Heirlooms [WIP]', 'emojiConstruction'],
-        ['illusions/', 'Illusions [WIP]', 'emojiConstruction'],
+        ['illusions/', 'Illusions [WIP]', rewardTypeIcons[RewardType.Illusion]],
         ['matrix', 'Matrix [WIP]', 'carbonScatterMatrix'],
-        ['professions/', 'Professions [WIP]', 'emojiConstruction'],
+        ['professions/', 'Professions [WIP]', farmTypeIcons[FarmType.Profession]],
         ['transmog-sets/', 'Sets (V2) [WIP]', 'emojiConstruction'],
 
         ['settings/', 'Settings', 'mdiCogOutline', () => $userStore.loaded && !$userStore.public, true],
@@ -114,7 +114,7 @@
         {#if path !== null}
             {#if showFunc?.() !== false}
                 <a 
-                    class:spacer={navIndex > 0 && navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
+                    class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
                     class:send-right={sendRight}
                     href="#/{path}"
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
