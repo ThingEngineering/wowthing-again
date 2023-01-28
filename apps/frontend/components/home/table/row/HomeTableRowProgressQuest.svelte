@@ -5,7 +5,8 @@
     import { covenantMap } from '@/data/covenant'
     import { forcedReset, progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { timeStore, userQuestStore } from '@/stores'
+    import { timeStore, userQuestStore, userStore } from '@/stores'
+    import { getActiveHoliday } from '@/utils/get-active-holiday'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
@@ -14,6 +15,8 @@
 
     export let character: Character
     export let quest: string
+
+    $: activeHoliday = getActiveHoliday($userStore, character.realm.region)
 
     let actualQuest: string
     let highlight: boolean
@@ -61,7 +64,7 @@
 
             // Use the fallback title
             if (title === undefined) {
-                title = taskMap[actualQuest]?.name
+                title = actualQuest === 'weeklyHoliday' ? taskMap[activeHoliday]?.name : taskMap[actualQuest]?.name
             }
 
             progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[actualQuest]
