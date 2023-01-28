@@ -41,7 +41,7 @@
         <button>
             <Checkbox
                 name="highlight_missing"
-                bind:value={$collectibleState.highlightMissing[route]}
+                bind:value={$collectibleState.highlightMissing[countsKey]}
             >Highlight missing</Checkbox>
         </button>
 
@@ -50,14 +50,14 @@
         <button>
             <Checkbox
                 name="show_collected"
-                bind:value={$collectibleState.showCollected[route]}
+                bind:value={$collectibleState.showCollected[countsKey]}
             >Collected</Checkbox>
         </button>
 
         <button>
             <Checkbox
                 name="show_uncollected"
-                bind:value={$collectibleState.showUncollected[route]}
+                bind:value={$collectibleState.showUncollected[countsKey]}
             >Missing</Checkbox>
         </button>
     </div>
