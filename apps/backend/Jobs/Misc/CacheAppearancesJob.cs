@@ -17,7 +17,7 @@ public class CacheAppearancesJob : JobBase, IScheduledJob
         Type = JobType.CacheAppearances,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 1,
+        Version = 2,
     };
 
     public override async Task Run(params string[] data)
@@ -50,10 +50,10 @@ public class CacheAppearancesJob : JobBase, IScheduledJob
                     continue;
                 }
 
-                if (dbItem.Quality < WowQuality.Uncommon)
-                {
-                    continue;
-                }
+                // if (dbItem.Quality < WowQuality.Uncommon)
+                // {
+                //     continue;
+                // }
 
                 string key = $"{dbItem.Expansion}|{dbItem.ClassId}|{dbItem.SubclassId}|{(short)dbItem.InventoryType}";
                 if (!temp.ContainsKey(key))
