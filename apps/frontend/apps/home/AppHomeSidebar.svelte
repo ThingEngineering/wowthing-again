@@ -16,7 +16,7 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
-    import { journalStore, settingsStore, userStore, userTransmogStore } from '@/stores'
+    import { journalStore, settingsStore, userStore, userStatsStore, userTransmogStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -33,20 +33,18 @@
     let vendorPercent: number
     $: {
         const journalOverall = $journalStore.stats['OVERALL']
-        const mountsOverall = $userStore.setCounts['mounts']['OVERALL']
-        const petsOverall = $userStore.setCounts['pets']['OVERALL']
-        const toysOverall = $userStore.setCounts['toys']['OVERALL']
         const transmogOverall = $userTransmogStore.stats['OVERALL']
         const transmogSetsOverall = $userTransmogStore.statsV2['OVERALL']
         const vendorOverall = $userVendorStore.stats['OVERALL']
 
         journalPercent = journalOverall.have / journalOverall.total * 100
-        mountsPercent = mountsOverall.have / mountsOverall.total * 100
-        petsPercent = petsOverall.have / petsOverall.total * 100
-        toysPercent = toysOverall.have / toysOverall.total * 100
         transmogPercent = transmogOverall.have / transmogOverall.total * 100
         transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
         vendorPercent = vendorOverall.have / vendorOverall.total * 100
+
+        mountsPercent = $userStatsStore.counts.mounts.OVERALL.percent
+        petsPercent = $userStatsStore.counts.pets.OVERALL.percent
+        toysPercent = $userStatsStore.counts.toys.OVERALL.percent
     }
 
     const fancyPercent = (percent: number): string => {

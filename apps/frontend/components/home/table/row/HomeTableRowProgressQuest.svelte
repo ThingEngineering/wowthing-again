@@ -5,7 +5,7 @@
     import { covenantMap } from '@/data/covenant'
     import { forcedReset, progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { timeStore, userQuestStore, userStore } from '@/stores'
+    import { timeStore, userQuestStore, userStore, userStatsStore } from '@/stores'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'

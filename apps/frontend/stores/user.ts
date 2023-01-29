@@ -207,35 +207,35 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // Generate set counts
-        const setCounts = {
-            mounts: {},
-            pets: {},
-            toys: {},
-        }
+        // const setCounts = {
+        //     mounts: {},
+        //     pets: {},
+        //     toys: {},
+        // }
 
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['mounts'],
-            manualData.mountSets,
-            userData.hasMount
-        )
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['pets'],
-            manualData.petSets,
-            userData.hasPet
-        )
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['toys'],
-            manualData.toySets,
-            userData.hasToy
-        )
+        // UserDataStore.doSetCounts(
+        //     settingsData,
+        //     setCounts['mounts'],
+        //     manualData.mountSets,
+        //     userData.hasMount
+        // )
+        // UserDataStore.doSetCounts(
+        //     settingsData,
+        //     setCounts['pets'],
+        //     manualData.petSets,
+        //     userData.hasPet
+        // )
+        // UserDataStore.doSetCounts(
+        //     settingsData,
+        //     setCounts['toys'],
+        //     manualData.toySets,
+        //     userData.hasToy
+        // )
 
-        this.update(state => {
-            state.setCounts = setCounts
-            return state
-        })
+        // this.update(state => {
+        //     state.setCounts = setCounts
+        //     return state
+        // })
 
         console.timeEnd('UserDataStore.setup')
     }

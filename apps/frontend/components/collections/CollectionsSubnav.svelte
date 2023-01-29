@@ -1,24 +1,19 @@
 <script lang="ts">
-    import active from "svelte-spa-router/active";
+    import active from 'svelte-spa-router/active'
 
-    import { rewardTypeIcons } from "@/data/icons";
-    import { RewardType } from "@/enums";
-    import {
-        journalStore,
-        settingsStore,
-        userStore,
-        userTransmogStore,
-    } from "@/stores";
-    import getPercentClass from "@/utils/get-percent-class";
+    import { rewardTypeIcons } from '@/data/icons'
+    import { RewardType } from '@/enums'
+    import { userStatsStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
 
-    import IconifyIcon from "@/components/images/IconifyIcon.svelte";
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    $: mountsPercent = $userStore.setCounts["mounts"]["OVERALL"].percent;
-    $: petsPercent = $userStore.setCounts["pets"]["OVERALL"].percent;
-    $: toysPercent = $userStore.setCounts["toys"]["OVERALL"].percent;
 
-    const fancyPercent = (percent: number): string =>
-        (Math.floor(percent * 10) / 10).toFixed(1);
+    $: mountsPercent = $userStatsStore.counts.mounts.OVERALL.percent
+    $: petsPercent = $userStatsStore.counts.pets.OVERALL.percent
+    $: toysPercent = $userStatsStore.counts.toys.OVERALL.percent
+
+    const fancyPercent = (percent: number): string => (Math.floor(percent * 10) / 10).toFixed(1)
 </script>
 
 <div class="subnav-wrapper wrapper-column">
