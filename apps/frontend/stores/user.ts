@@ -83,7 +83,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             userData.characters = userData.charactersRaw
                 .map((char) => Object.assign(new Character(), char))
             userData.charactersRaw = null
-            console.log(userData.characters)
         }
 
         // Characters
