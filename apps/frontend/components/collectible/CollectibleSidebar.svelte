@@ -21,14 +21,14 @@
             ...set[0],
         }))
 
-        overall = $userStatsStore.counts[countsKey]['OVERALL']
+        overall = $userStatsStore.lookup(countsKey)['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userStatsStore.counts[countsKey][slug]
+        const hasData = $userStatsStore.lookup(countsKey)[slug]
         return hasData.have / hasData.total * 100
     }
 </script>

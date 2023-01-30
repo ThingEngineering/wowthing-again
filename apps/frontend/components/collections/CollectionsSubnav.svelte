@@ -9,9 +9,9 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
 
-    $: mountsPercent = $userStatsStore.counts.mounts.OVERALL.percent
-    $: petsPercent = $userStatsStore.counts.pets.OVERALL.percent
-    $: toysPercent = $userStatsStore.counts.toys.OVERALL.percent
+    $: mountsPercent = $userStatsStore.mounts.OVERALL.percent
+    $: petsPercent = $userStatsStore.pets.OVERALL.percent
+    $: toysPercent = $userStatsStore.toys.OVERALL.percent
 
     const fancyPercent = (percent: number): string => (Math.floor(percent * 10) / 10).toFixed(1)
 </script>

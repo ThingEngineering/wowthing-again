@@ -42,9 +42,9 @@
         transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
         vendorPercent = vendorOverall.have / vendorOverall.total * 100
 
-        mountsPercent = $userStatsStore.counts.mounts.OVERALL.percent
-        petsPercent = $userStatsStore.counts.pets.OVERALL.percent
-        toysPercent = $userStatsStore.counts.toys.OVERALL.percent
+        mountsPercent = $userStatsStore.mounts.OVERALL.percent
+        petsPercent = $userStatsStore.pets.OVERALL.percent
+        toysPercent = $userStatsStore.toys.OVERALL.percent
     }
 
     const fancyPercent = (percent: number): string => {

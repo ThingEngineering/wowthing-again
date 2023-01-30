@@ -1,84 +1,140 @@
 import debounce from 'lodash/debounce'
+import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived } from 'svelte/store'
 
 import { manualStore } from './manual'
 import { settingsStore } from './settings'
 import { userStore } from './user'
-import { UserCount, type Settings, type UserData } from '@/types'
+import { UserCount, type FancyStoreType, type Settings, type UserData } from '@/types'
 import type { ManualData, ManualDataSetCategory } from '@/types/data/manual'
 
 
 export const userStatsStore = derived(
-    [manualStore, settingsStore, userStore],
-    debounce(([
-        $manualStore,
-        $settingsStore,
-        $userStore
-    ]) => new UserStatsStore(
-        $manualStore,
-        $settingsStore,
-        $userStore
-    ),
-    1000,
-    {
-        leading: true,
-        trailing: true,
-    }
-))
+    [
+        manualStore,
+        settingsStore,
+        userStore
+    ],
+    debounce(
+        ([
+            $manualStore,
+            $settingsStore,
+            $userStore
+        ]: [
+            FancyStoreType<ManualData>,
+            Settings,
+            FancyStoreType<UserData>
+        ]) => {
+            console.log('boing')
+            storeInstance.update(
+                $manualStore,
+                $settingsStore,
+                $userStore
+            )
+            return storeInstance
+        },
+        1000,
+        {
+            leading: true,
+            trailing: true,
+        }
+    )
+)
 
 
-class UserStatsStore {
-    public counts: Record<string, Record<string, UserCount>>
+type UserStatsKey =
+    | 'mounts'
+    | 'pets'
+    | 'toys'
 
-    constructor(
-        public manualData: ManualData,
-        public settings: Settings,
-        public userData: UserData
+type UserStatsUgh = {
+    [k in UserStatsKey]: Record<string, UserCount>
+}
+
+class UserStatsStore implements UserStatsUgh {
+    private manualData: ManualData
+    private settings: Settings
+    private userData: UserData
+    
+    private mountsFunc: () => Record<string, UserCount>
+    private petsFunc: () => Record<string, UserCount>
+    private toysFunc: () => Record<string, UserCount>
+
+    private hashes: Record<string, string> = {}
+
+    update(
+        manualData: ManualData,
+        settings: Settings,
+        userData: UserData
     )
     {
-        console.time('UserStatsStore')
+        const newHashes: Record<string, string> = {
+            mountsPetsToys: `${settings.collections.hideUnavailable}`,
+        }
+        const changedEntries = Object.entries(newHashes)
+            .filter(([key, value]) => value !== this.hashes[key])
 
-        this.counts = {
-            mounts: {},
-            pets: {},
-            toys: {},
+        const changedData = {
+            manualData: this.manualData !== manualData,
+            userData: this.userData !== userData,
         }
 
-        if (manualData === undefined || settings === undefined || userData === undefined) {
+        if (
+            changedEntries.length === 0 &&
+            !some(
+                Object.entries(changedData),
+                ([, value]) => value
+            )
+        ) {
             return
         }
 
-        this.doSetCounts(
-            settings,
-            'mounts',
-            manualData.mountSets,
-            userData.hasMount
-        )
-        this.doSetCounts(
-            settings,
-            'pets',
-            manualData.petSets,
-            userData.hasPet
-        )
-        this.doSetCounts(
-            settings,
-            'toys',
-            manualData.toySets,
-            userData.hasToy
-        )
+        console.time('UserStatsStore.update')
 
-        console.timeEnd('UserStatsStore')
+        const changedHashes = Object.fromEntries(changedEntries)
+        this.hashes = newHashes
+
+        this.manualData = manualData
+        this.settings = settings
+        this.userData = userData
+
+        if (
+            changedHashes.mountsPetsToys ||
+            changedData.manualData ||
+            changedData.userData
+        ) {
+            this.mountsFunc = once(() => this.doSetCounts(this.manualData.mountSets, this.userData.hasMount))
+            this.petsFunc = once(() => this.doSetCounts(this.manualData.petSets, this.userData.hasPet))
+            this.toysFunc = once(() => this.doSetCounts(this.manualData.toySets, this.userData.hasToy))
+        }
+
+        console.timeEnd('UserStatsStore.update')
+    }
+
+    lookup(key: string): Record<string, UserCount> {
+        return this[key as UserStatsKey]
+    }
+
+    get mounts(): Record<string, UserCount> {
+        return this.mountsFunc()
+    }
+
+    get pets(): Record<string, UserCount> {
+        return this.petsFunc()
+    }
+
+    get toys(): Record<string, UserCount> {
+        return this.toysFunc()
     }
 
     private doSetCounts(
-        settings: Settings,
-        countsKey: string,
         categories: ManualDataSetCategory[][],
         userHas: Record<number, boolean>
-    ): void {
-        const setCounts = this.counts[countsKey]
-        const showUnavailable = !settings.collections.hideUnavailable
+    ): Record<string, UserCount> {
+        console.log('ey')
+        const setCounts: Record<string, UserCount> = {}
+        const showUnavailable = !this.settings.collections.hideUnavailable
 
         const overallData = setCounts['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
@@ -150,5 +206,9 @@ class UserStatsStore {
                 }
             }
         }
+
+        return setCounts
     }
 }
+
+const storeInstance = new UserStatsStore()
