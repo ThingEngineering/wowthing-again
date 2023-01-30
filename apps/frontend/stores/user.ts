@@ -8,12 +8,11 @@ import { userModifiedStore } from './user-modified'
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
-import { manualStore, staticStore } from '@/stores'
+import { staticStore } from '@/stores'
 import {
     Character,
     CharacterCurrency,
     CharacterMythicPlusRunMember,
-    UserCount,
     UserDataPet,
     WritableFancyStore,
 } from '@/types'
@@ -32,7 +31,6 @@ import type {
     UserData,
 } from '@/types'
 import type { StaticData } from '@/types/data/static'
-import type { ManualDataSetCategory } from '@/types/data/manual'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -121,7 +119,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         console.time('UserDataStore.setup')
 
-        const manualData = get(manualStore)
         const staticData = get(staticStore)
         
         // Initialize characters
@@ -204,37 +201,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 })
             }
         }
-
-        // Generate set counts
-        // const setCounts = {
-        //     mounts: {},
-        //     pets: {},
-        //     toys: {},
-        // }
-
-        // UserDataStore.doSetCounts(
-        //     settingsData,
-        //     setCounts['mounts'],
-        //     manualData.mountSets,
-        //     userData.hasMount
-        // )
-        // UserDataStore.doSetCounts(
-        //     settingsData,
-        //     setCounts['pets'],
-        //     manualData.petSets,
-        //     userData.hasPet
-        // )
-        // UserDataStore.doSetCounts(
-        //     settingsData,
-        //     setCounts['toys'],
-        //     manualData.toySets,
-        //     userData.hasToy
-        // )
-
-        // this.update(state => {
-        //     state.setCounts = setCounts
-        //     return state
-        // })
 
         console.timeEnd('UserDataStore.setup')
     }
@@ -369,86 +335,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
     
             character.reputationData[category.slug] = catData
-        }
-    }
-
-    private static doSetCounts(
-        settings: Settings,
-        setCounts: Record<string, UserCount>,
-        categories: ManualDataSetCategory[][],
-        userHas: Record<number, boolean>
-    ): void {
-        const showUnavailable = !settings.collections.hideUnavailable
-
-        const overallData = setCounts['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
-
-        for (const category of categories) {
-            if (category === null) {
-                continue
-            }
-
-            const categoryData = setCounts[category[0].slug] = new UserCount()
-            const categoryUnavailable = category[0].slug === 'unavailable'
-
-            for (const set of category) {
-                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
-                const setUnavailable = set.slug === 'unavailable'
-
-                for (const group of set.groups) {
-                    const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
-                    const groupUnavailable = group.name.indexOf('Unavailable') >= 0
-
-                    for (const things of group.things) {
-                        const hasThing = some(things, (t) => userHas[t])
-                        const seenOverall = some(things, (t) => overallSeen[t])
-
-                        const doOverall = (
-                            !seenOverall &&
-                            (hasThing || (!categoryUnavailable && !setUnavailable && !groupUnavailable))
-                        )
-                        const doCategory = (
-                            (hasThing || (
-                                (!setUnavailable && !groupUnavailable) &&
-                                (showUnavailable || !categoryUnavailable)
-                            ))
-                        )
-                        const doSet = (
-                            hasThing ||
-                            showUnavailable ||
-                            (!groupUnavailable && !setUnavailable && !categoryUnavailable)
-                        )
-
-                        if (doOverall) {
-                            overallData.total++
-                        }
-                        if (doCategory) {
-                            categoryData.total++
-                        }
-                        if (doSet) {
-                            setData.total++
-                            groupData.total++
-                        }
-
-                        if (hasThing) {
-                            if (doOverall) {
-                                overallData.have++
-                            }
-                            if (doCategory) {
-                                categoryData.have++
-                            }
-                            if (doSet) {
-                                setData.have++
-                                groupData.have++
-                            }
-                        }
-
-                        for (const thing of things) {
-                            overallSeen[thing] = true
-                        }
-                    }
-                }
-            }
         }
     }
 }
