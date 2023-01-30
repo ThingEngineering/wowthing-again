@@ -8,7 +8,6 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    type ShowFunction = () => boolean
     type NavItem = [string, string, string, boolean?, boolean?]
     const navItems: NavItem[] = [
         ['', 'Home', 'mdiHomeOutline'],
