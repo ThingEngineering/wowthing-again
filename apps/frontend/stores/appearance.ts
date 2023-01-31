@@ -115,54 +115,6 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         console.timeEnd('AppearanceDataStore.initialize')
     }
 
-    setup(
-        userTransmogData: UserTransmogData,
-    ) {
-        console.time('AppearanceDataStore.setup')
-
-        const stats: Record<string, UserCount> = {}
-        const overallCount = stats['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
-
-        for (const [key, sets] of Object.entries(this.value.appearances)) {
-            const parentCount = stats[key.split('--')[0]] = new UserCount()
-            const catCount = stats[key] = new UserCount()
-
-            for (const set of sets) {
-                const setCount = stats[`${key}--${set.name}`] = new UserCount()
-
-                for (const appearance of set.appearances) {
-                    if (!overallSeen[appearance.appearanceId]) {
-                        overallCount.total++
-                    }
-
-                    parentCount.total++
-                    catCount.total++
-                    setCount.total++
-                    
-                    if (userTransmogData.userHas[appearance.appearanceId]) {
-                        if (!overallSeen[appearance.appearanceId]) {
-                            overallCount.have++
-                        }
-
-                        parentCount.have++
-                        catCount.have++
-                        setCount.have++
-                    }
-
-                    overallSeen[appearance.appearanceId] = true
-                }
-            }
-        }
-
-        this.update((state) => {
-            state.stats = stats
-            return state
-        })
-
-        console.timeEnd('AppearanceDataStore.setup')
-    }
-
     private getArmorSubType(subClass: number, inventoryType: number): string {
         const typeString = ArmorType[subClass] || `?${subClass}?`
         const slotString = (InventoryType[inventoryType] || `?${inventoryType}?`).replace('2', '')

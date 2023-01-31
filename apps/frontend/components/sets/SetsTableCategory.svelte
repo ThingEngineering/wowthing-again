@@ -205,6 +205,18 @@
 
                 <td class="icon" colspan="100"></td>
 
+            {:else if !anyClass}
+                <td class="icon">
+                    <WowthingImage
+                        name="spell/154611"
+                        size={40}
+                        tooltip="Plate"
+                    />
+                    <span class="abs-center pill">All</span>
+                </td>
+
+                <td class="icon" colspan="100"></td>
+
             {:else}
                 {#if !skipClasses['mage']}
                     <td class="icon">
@@ -302,8 +314,9 @@
             <tr class:faded={setName.endsWith('*')}>
                 <td class="percent-cell">
                     {#if showPercent}
-                        <span class="drop-shadow {getPercentClass(getPercent(groupIndex, setIndex))}">
-                            {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
+                        {@const setPercent = getPercent(groupIndex, setIndex)}
+                        <span class="drop-shadow {getPercentClass(setPercent)}">
+                            {Math.floor(setPercent).toFixed(0)} %
                         </span>
                     {/if}
                 </td>
@@ -322,7 +335,7 @@
                     {/if}
                 {/each}
 
-                {#if group.type !== 'class'}
+                {#if !anyClass}
                     <td class="border-left" colspan="100"></td>
                 {/if}
             </tr>

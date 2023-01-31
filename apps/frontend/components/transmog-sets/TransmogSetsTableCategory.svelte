@@ -285,7 +285,6 @@
                 {#if !skipClasses[transmogSet.type]}
                     <TableSet
                         {set}
-                        setData={group.setData[setIndex][transmogSet.type]}
                         span={1}
                         stats={$userTransmogStore.statsV2[`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`]}
                         subType={transmogSet.subType}

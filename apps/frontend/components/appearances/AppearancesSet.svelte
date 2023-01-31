@@ -1,12 +1,11 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { appearanceStore } from '@/stores'
+    import { userStatsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import type { UserCount } from '@/types'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
-    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import Item from './AppearancesItem.svelte'
 
     export let set: AppearanceDataSet
@@ -14,18 +13,14 @@
 
     let element: HTMLElement
     let intersected: boolean
-    let percent: number
-    let stats: UserCount
-    $: {
-        stats = $appearanceStore.stats[slug]
-        percent = (stats?.have || 0) / (stats?.total || 1) * 100
-    }
+
+    $: counts = $userStatsStore.appearances[slug]
 </script>
 
 <div class="collection-v2-group">
-    <h4 class="drop-shadow {getPercentClass(percent)}">
+    <h4 class="drop-shadow {getPercentClass(counts.percent)}">
         {set.name}
-        <CollectibleCount counts={stats} />
+        <Count counts={counts} />
     </h4>
     
     <div

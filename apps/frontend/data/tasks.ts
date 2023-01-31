@@ -228,6 +228,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Siege on Dragonbane Keep',
         },
         {
+            taskKey: 'dfStormsFury',
+            taskName: "Storm's Fury",
+        },
+        {
             minimumLevel: 60,
             taskKey: 'dfTrialElements',
             taskName: 'Trial of Elements',

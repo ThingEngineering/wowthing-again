@@ -585,7 +585,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                     for (const drop of farm.drops) {
                         let dropCharacters = farmCharacters
-                        if (farm.name === 'Skaara') console.log(dropCharacters)
                         const dropStatus: DropStatus = {
                             need: false,
                             skip: false,
@@ -941,8 +940,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }))
 
                     farmStatuses.push(farmStatus)
-
-                    if (farm.name === 'Territorial Coastling') console.log(farm, farmStatus)
                 }
 
                 farmData[mapKey] = farmStatuses

@@ -1,14 +1,13 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { FarmType, RewardType } from '@/enums'
-    import { farmTypeIcons, iconLibrary, rewardTypeIcons } from '@/icons'
+    import { FarmType } from '@/enums'
+    import { farmTypeIcons, iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    type ShowFunction = () => boolean
     type NavItem = [string, string, string, boolean?, boolean?]
     const navItems: NavItem[] = [
         ['', 'Home', 'mdiHomeOutline'],
@@ -25,24 +24,24 @@
         ['reputations/', 'Reputations', 'mdiAccountStarOutline'],
         [null, null, null],
         
-        ['auctions/', 'Auctions', 'mdiBank', true],
-        ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
-        ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
-        ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
-        [null, null, null],
-        
+        ['collections/', 'Collections', 'gameCompanionCube'],
         ['journal/', 'Journal', 'gameSecretBook'],
         ['sets/', 'Sets', 'gameHanger'],
         ['vendors/', 'Vendors', 'mdiCartOutline'],
         ['zone-maps/', 'Zone Maps', 'gameTreasureMap'],
         [null, null, null],
         
+        ['auctions/', 'Auctions', 'mdiBank', true],
+        ['matrix', 'Matrix', 'carbonScatterMatrix'],
+        // ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
+        // ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
+        // ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
+        [null, null, null],
+        
         ['achievements/', 'Achievements [WIP]', 'gameTrophy'],
-        ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
-        ['collections/', 'Collections [WIP]', 'gameCompanionCube'],
-        ['heirlooms/', 'Heirlooms [WIP]', 'emojiConstruction'],
-        ['illusions/', 'Illusions [WIP]', rewardTypeIcons[RewardType.Illusion]],
-        ['matrix', 'Matrix [WIP]', 'carbonScatterMatrix'],
+        // ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
+        // ['heirlooms/', 'Heirlooms [WIP]', 'emojiConstruction'],
+        // ['illusions/', 'Illusions [WIP]', rewardTypeIcons[RewardType.Illusion]],
         ['professions/', 'Professions [WIP]', farmTypeIcons[FarmType.Profession]],
         ['transmog-sets/', 'Sets (V2) [WIP]', 'emojiConstruction'],
         [null, null, null],

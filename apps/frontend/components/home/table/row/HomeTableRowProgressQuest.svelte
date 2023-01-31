@@ -91,8 +91,9 @@
                 }
                 else if (progressQuest.status === 1) {
                     status = 'shrug'
-
-                    if (progressQuest.objectives?.length === 1) {
+                    
+                    const objectives = progressQuest.objectives || []
+                    if (objectives.length === 1) {
                         const objective = progressQuest.objectives[0]
                         if (objective.type === 'progressbar') {
                             text = `${objective.have} %`
@@ -109,16 +110,12 @@
                         }
                     }
                     else {
-                        let have = 0
-                        let need = 0
-                        for (const objective of (progressQuest.objectives || [])) {
-                            have += objective.have
-                            need += objective.need
-                        }
+                        const averagePercent = objectives
+                            .reduce((a, b) => (a + (b.have / b.need)), 0) / objectives.length
 
-                        text = `${Math.floor(have / need * 100)} %`
+                        text = `${Math.floor(averagePercent * 100)} %`
 
-                        if (have === need) {
+                        if (averagePercent >= 100) {
                             status = `${status} status-turn-in`
                         }
                     }

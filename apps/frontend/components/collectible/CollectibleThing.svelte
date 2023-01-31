@@ -13,7 +13,7 @@
 
     export let things: number[] = []
 
-    const { countsKey, route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
+    const { countsKey, thingMapFunc, thingType, userHas } = getContext('collection') as CollectibleContext
 
     let element: HTMLElement
     let intersected = false

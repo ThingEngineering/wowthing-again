@@ -2,14 +2,15 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
-    import { manualStore, staticStore, userTransmogStore } from '@/stores'
+    import { manualStore, staticStore, userStatsStore, userTransmogStore } from '@/stores'
     import { illusionState } from '@/stores/local-storage'
-    //import getPercentClass from '@/utils/get-percent-class'
+    import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -104,14 +105,16 @@
     <div class="collection thing-container">
         {#each sections as [name, groups]}
             <SectionTitle
-                count={null}
+                count={$userStatsStore.illusions[name.toUpperCase()]}
                 title={name}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
+                    {@const groupCount = $userStatsStore.illusions[group.name]}
                     <div class="collection-v2-group">
-                        <h4 class="drop-shadow">
+                        <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}
+                            <Count counts={groupCount} />
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}

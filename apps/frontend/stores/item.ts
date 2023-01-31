@@ -44,6 +44,8 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     setup(
         manualData: ManualData,
     ) {
+        console.time('ItemDataStore.setup')
+
         this.update((state) => {
             state.currentTier = {}
 
@@ -61,6 +63,8 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
 
             return state
         })
+
+        console.timeEnd('ItemDataStore.setup')
     }
 }
 

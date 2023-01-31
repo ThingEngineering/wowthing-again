@@ -2,13 +2,12 @@
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
     import type { UserCount } from '@/types'
-    import type { ManualDataTransmogSetFiltered, ManualDataTransmogSetSet } from '@/types/data/manual'
+    import type { ManualDataTransmogSetSet } from '@/types/data/manual'
 
     import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: ManualDataTransmogSetSet
-    export let setData: Record<number, ManualDataTransmogSetFiltered>
     export let span = 1
     export let stats: UserCount
     export let subType: string
