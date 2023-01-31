@@ -8,6 +8,10 @@
 
 <div class="subnav-wrapper wrapper-column">
     <nav class="subnav" id="collections-subnav">
+        <a href={"#/collections/appearances"} use:active={"/collections/appearances/*"}>
+            Appearances
+            <Percent percent={$userStatsStore.appearances.OVERALL.percent} />
+        </a>
         <a href={"#/collections/heirlooms"} use:active>
             Heirlooms
             <Percent percent={$userStatsStore.heirlooms.AVAILABLE.percent} />

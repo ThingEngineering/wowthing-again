@@ -2,12 +2,14 @@
     import sortBy from 'lodash/sortBy'
 
     import { expansionMap } from '@/data/expansion'
-    import { appearanceStore } from '@/stores'
+    import { userStatsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
+
+    export let basePath = ''
 
     let categories: SidebarItem[] = []
     let stats: UserCount
@@ -49,7 +51,7 @@
                 children: weaponChildren,
             }
         ]
-        stats = $appearanceStore.stats['OVERALL']
+        stats = $userStatsStore.appearances.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -60,7 +62,7 @@
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $appearanceStore.stats[slug]
+        const hasData = $userStatsStore.appearances[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 
@@ -113,7 +115,7 @@
 </style>
 
 <Sidebar
-    baseUrl="/appearances"
+    baseUrl={basePath ? `/${basePath}/appearances` : '/appearances'}
     items={categories}
     noVisitRoot={true}
     width="16rem"

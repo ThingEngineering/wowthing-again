@@ -4,6 +4,7 @@ import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
+import { appearanceStore } from './appearance'
 import { manualStore } from './manual'
 import { settingsStore } from './settings'
 import { staticStore } from './static'
@@ -11,39 +12,61 @@ import { userStore } from './user'
 import { userTransmogStore } from './user-transmog'
 import { UserCount } from '@/types'
 import type { FancyStoreType, Settings, UserData} from '@/types'
-import type { ManualData, ManualDataHeirloomItem, ManualDataIllusionGroup, ManualDataIllusionItem, ManualDataSetCategory } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
 import type { UserTransmogData } from '@/types/data'
-import type { StaticDataIllusion } from '@/types/data/static/illusion'
+import type {
+    ManualData,
+    ManualDataHeirloomItem,
+    ManualDataIllusionItem,
+    ManualDataSetCategory
+} from '@/types/data/manual'
+import type { StaticData } from '@/types/data/static'
+import type { AppearanceData } from '@/types/data/appearance'
 
+
+
+type UserStatsKey =
+    | 'heirlooms'
+    | 'illusions'
+    | 'mounts'
+    | 'pets'
+    | 'toys'
+
+type UserStatsUgh = {
+    [k in UserStatsKey]: UserCounts
+}
 
 type GenericCategory<T> = {
     name: string
     items: T[]
 }
 
+type UserCounts = Record<string, UserCount>
+
 export const userStatsStore = derived(
     [
-        manualStore,
         settingsStore,
+        appearanceStore,
+        manualStore,
         userStore,
         userTransmogStore
     ],
     debounce(
         ([
-            $manualStore,
             $settingsStore,
+            $appearanceStore,
+            $manualStore,
             $userStore,
             $userTransmogStore
         ]: [
-            FancyStoreType<ManualData>,
             Settings,
+            FancyStoreType<AppearanceData>,
+            FancyStoreType<ManualData>,
             FancyStoreType<UserData>,
             FancyStoreType<UserTransmogData>
         ]) => {
-            console.log('boing')
             storeInstance.update(
                 $settingsStore,
+                $appearanceStore,
                 $manualStore,
                 $userStore,
                 $userTransmogStore
@@ -58,24 +81,16 @@ export const userStatsStore = derived(
     )
 )
 
-
-type UserStatsKey =
-    | 'mounts'
-    | 'pets'
-    | 'toys'
-
-type UserStatsUgh = {
-    [k in UserStatsKey]: Record<string, UserCount>
-}
-
 class UserStatsStore implements UserStatsUgh {
     private settings: Settings
     private staticData: StaticData
 
+    private appearanceData: AppearanceData
     private manualData: ManualData
     private userData: UserData
     private userTransmogData: UserTransmogData
     
+    private appearancesFunc: () => Record<string, UserCount>
     private heirloomsFunc: () => Record<string, UserCount>
     private illusionsFunc: () => Record<string, UserCount>
     private mountsFunc: () => Record<string, UserCount>
@@ -86,6 +101,7 @@ class UserStatsStore implements UserStatsUgh {
 
     update(
         settings: Settings,
+        appearanceData: AppearanceData,
         manualData: ManualData,
         userData: UserData,
         userTransmogData: UserTransmogData
@@ -98,6 +114,7 @@ class UserStatsStore implements UserStatsUgh {
             .filter(([key, value]) => value !== this.hashes[key])
 
         const changedData = {
+            appearanceData: this.appearanceData !== appearanceData,
             manualData: this.manualData !== manualData,
             userData: this.userData !== userData,
             userTransmogData: this.userTransmogData !== userTransmogData
@@ -121,6 +138,7 @@ class UserStatsStore implements UserStatsUgh {
         this.settings = settings
         this.staticData = get(staticStore)
 
+        this.appearanceData = appearanceData
         this.manualData = manualData
         this.userData = userData
         this.userTransmogData = userTransmogData
@@ -129,6 +147,10 @@ class UserStatsStore implements UserStatsUgh {
             this.mountsFunc = once(() => this.doSetCounts(this.manualData.mountSets, this.userData.hasMount))
             this.petsFunc = once(() => this.doSetCounts(this.manualData.petSets, this.userData.hasPet))
             this.toysFunc = once(() => this.doSetCounts(this.manualData.toySets, this.userData.hasToy))
+        }
+
+        if (changedData.appearanceData || changedData.userTransmogData) {
+            this.appearancesFunc = once(() => this.doAppearances())
         }
 
         if (changedData.manualData || changedData.userData) {
@@ -142,27 +164,31 @@ class UserStatsStore implements UserStatsUgh {
         console.timeEnd('UserStatsStore.update')
     }
 
-    lookup(key: string): Record<string, UserCount> {
+    lookup(key: string): UserCounts {
         return this[key as UserStatsKey]
     }
 
-    get heirlooms(): Record<string, UserCount> {
+    get appearances(): UserCounts {
+        return this.appearancesFunc()
+    }
+
+    get heirlooms(): UserCounts {
         return this.heirloomsFunc()
     }
 
-    get illusions(): Record<string, UserCount> {
+    get illusions(): UserCounts {
         return this.illusionsFunc()
     }
 
-    get mounts(): Record<string, UserCount> {
+    get mounts(): UserCounts {
         return this.mountsFunc()
     }
 
-    get pets(): Record<string, UserCount> {
+    get pets(): UserCounts {
         return this.petsFunc()
     }
 
-    get toys(): Record<string, UserCount> {
+    get toys(): UserCounts {
         return this.toysFunc()
     }
 
@@ -171,8 +197,8 @@ class UserStatsStore implements UserStatsUgh {
         haveFunc: (item: U) => boolean,
         totalCountFunc?: (item: U) => number,
         haveCountFunc?: (item: U) => number
-    ): Record<string, UserCount> {
-        const counts: Record<string, UserCount> = {}
+    ): UserCounts {
+        const counts: UserCounts = {}
         const overallData = counts['OVERALL'] = new UserCount()
 
         for (const category of categories) {
@@ -198,7 +224,46 @@ class UserStatsStore implements UserStatsUgh {
         return counts
     }
 
-    private doHeirlooms(): Record<string, UserCount> {
+    private doAppearances(): UserCounts {
+        const counts: UserCounts = {}
+        const overallData = counts['OVERALL'] = new UserCount()
+        const overallSeen: Record<number, boolean> = {}
+
+        for (const [key, sets] of Object.entries(this.appearanceData.appearances)) {
+            const parentData = counts[key.split('--')[0]] = new UserCount()
+            const catData = counts[key] = new UserCount()
+
+            for (const set of sets) {
+                const setData = counts[`${key}--${set.name}`] = new UserCount()
+
+                for (const appearance of set.appearances) {
+                    if (!overallSeen[appearance.appearanceId]) {
+                        overallData.total++
+                    }
+
+                    parentData.total++
+                    catData.total++
+                    setData.total++
+                    
+                    if (this.userTransmogData.userHas[appearance.appearanceId]) {
+                        if (!overallSeen[appearance.appearanceId]) {
+                            overallData.have++
+                        }
+
+                        parentData.have++
+                        catData.have++
+                        setData.have++
+                    }
+
+                    overallSeen[appearance.appearanceId] = true
+                }
+            }
+        }
+
+        return counts
+    }
+
+    private doHeirlooms(): UserCounts {
         return this.doGeneric(
             this.manualData.heirlooms,
             (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[heirloom.itemId] > 0,
@@ -207,7 +272,7 @@ class UserStatsStore implements UserStatsUgh {
         )
     }
 
-    private doIllusions(): Record<string, UserCount> {
+    private doIllusions(): UserCounts {
         return this.doGeneric(
             this.manualData.illusions,
             (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion[
@@ -222,12 +287,11 @@ class UserStatsStore implements UserStatsUgh {
     private doSetCounts(
         categories: ManualDataSetCategory[][],
         userHas: Record<number, boolean>
-    ): Record<string, UserCount> {
-        console.log('ey')
-        const setCounts: Record<string, UserCount> = {}
+    ): UserCounts {
+        const counts: UserCounts = {}
         const showUnavailable = !this.settings.collections.hideUnavailable
 
-        const overallData = setCounts['OVERALL'] = new UserCount()
+        const overallData = counts['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
 
         for (const category of categories) {
@@ -235,15 +299,15 @@ class UserStatsStore implements UserStatsUgh {
                 continue
             }
 
-            const categoryData = setCounts[category[0].slug] = new UserCount()
+            const categoryData = counts[category[0].slug] = new UserCount()
             const categoryUnavailable = category[0].slug === 'unavailable'
 
             for (const set of category) {
-                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
+                const setData = counts[`${category[0].slug}--${set.slug}`] = new UserCount()
                 const setUnavailable = set.slug === 'unavailable'
 
                 for (const group of set.groups) {
-                    const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
+                    const groupData = counts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
                     const groupUnavailable = group.name.indexOf('Unavailable') >= 0
 
                     for (const things of group.things) {
@@ -298,7 +362,7 @@ class UserStatsStore implements UserStatsUgh {
             }
         }
 
-        return setCounts
+        return counts
     }
 }
 
