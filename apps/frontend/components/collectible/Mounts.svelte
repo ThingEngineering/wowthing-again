@@ -9,6 +9,7 @@
 
     import Collectible from './Collectible.svelte'
 
+    export let basePath = ''
     export let params: MultiSlugParams
 
     let sets: ManualDataSetCategory[][]
@@ -23,14 +24,13 @@
                 (value) => $userStore.hasMount[value] === true
             )
         )
-        
     }
     
     const thingMapFunc = (thing: number) => $staticStore.mounts[thing].spellId
 </script>
 
 <Collectible
-    route="mounts"
+    route={basePath ? `${basePath}/mounts` : 'mounts'}
     thingType="spell"
     userHas={$userStore.hasMount}
     {params}

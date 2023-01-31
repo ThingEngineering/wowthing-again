@@ -1,60 +1,32 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { rewardTypeIcons } from '@/data/icons'
-    import { RewardType } from '@/enums'
     import { userStatsStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-
-
-    $: mountsPercent = $userStatsStore.mounts.OVERALL.percent
-    $: petsPercent = $userStatsStore.pets.OVERALL.percent
-    $: toysPercent = $userStatsStore.toys.OVERALL.percent
-
-    const fancyPercent = (percent: number): string => (Math.floor(percent * 10) / 10).toFixed(1)
+    import Percent from '@/components/common/Percent.svelte'
 </script>
 
 <div class="subnav-wrapper wrapper-column">
     <nav class="subnav" id="collections-subnav">
-        <a href={"#/collections/heirlooms"} use:active> Heirlooms </a>
+        <a href={"#/collections/heirlooms"} use:active>
+            Heirlooms
+            <Percent percent={$userStatsStore.heirlooms.AVAILABLE.percent} />
+        </a>
         <a href={"#/collections/illusions"} use:active>
-            <IconifyIcon
-                icon={rewardTypeIcons[RewardType.Illusion]}
-                dropShadow={true}
-            />
             Illusions
+            <Percent percent={$userStatsStore.illusions.AVAILABLE.percent} />
         </a>
         <a href={"#/collections/mounts"} use:active={"/collections/mounts/*"}>
-            <IconifyIcon
-                icon={rewardTypeIcons[RewardType.Mount]}
-                dropShadow={true}
-            />
             Mounts
-            <span class="drop-shadow percent {getPercentClass(mountsPercent)}">
-                {fancyPercent(mountsPercent)} %
-            </span>
+            <Percent percent={$userStatsStore.mounts.OVERALL.percent} />
         </a>
         <a href={"#/collections/pets"} use:active={"/collections/pets/*"}>
-            <IconifyIcon
-                icon={rewardTypeIcons[RewardType.Pet]}
-                dropShadow={true}
-            />
             Pets
-            <span class="drop-shadow percent {getPercentClass(petsPercent)}">
-                {fancyPercent(petsPercent)} %
-            </span>
+            <Percent percent={$userStatsStore.pets.OVERALL.percent} />
         </a>
         <a href={"#/collections/toys"} use:active={"/collections/toys/*"}>
-            <IconifyIcon
-                icon={rewardTypeIcons[RewardType.Toy]}
-                dropShadow={true}
-            />
             Toys
-            <span class="drop-shadow percent {getPercentClass(toysPercent)}">
-                {fancyPercent(toysPercent)} %
-            </span>
+            <Percent percent={$userStatsStore.toys.OVERALL.percent} />
         </a>
     </nav>
 </div>

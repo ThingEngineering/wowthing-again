@@ -2,10 +2,11 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { heirloomBonusIds } from '@/data/heirlooms'
-    import { manualStore, userStore } from '@/stores'
+    import { manualStore, userStore, userStatsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -75,15 +76,18 @@
     <div class="collection thing-container">
         {#each sections as [name, groups]}
             <SectionTitle
-                count={null}
+                count={$userStatsStore.heirlooms[name.toUpperCase()]}
                 title={name}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
+                    {@const groupCount = $userStatsStore.heirlooms[group.name]}
                     <div class="collection-v2-group">
-                        <h4 class="drop-shadow">
+                        <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}
+                            <Count counts={groupCount} />
                         </h4>
+
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const level = $userStore.heirlooms?.[item.itemId]}
@@ -104,6 +108,7 @@
                                             border={2}
                                         />
                                     </WowheadLink>
+
                                     {#if level !== undefined}
                                         <div class="pill {getPercentClass(level / item.maxUpgrade * 100)}">
                                             {level} / {item.maxUpgrade}
