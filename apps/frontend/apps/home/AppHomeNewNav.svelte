@@ -1,8 +1,8 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { FarmType, RewardType } from '@/enums'
-    import { farmTypeIcons, iconLibrary, rewardTypeIcons } from '@/icons'
+    import { FarmType } from '@/enums'
+    import { farmTypeIcons, iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 

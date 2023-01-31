@@ -5,7 +5,7 @@
     import getPercentClass from '@/utils/get-percent-class'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
-    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
     import Item from './AppearancesItem.svelte'
 
     export let set: AppearanceDataSet
@@ -20,7 +20,7 @@
 <div class="collection-v2-group">
     <h4 class="drop-shadow {getPercentClass(counts.percent)}">
         {set.name}
-        <CollectibleCount counts={counts} />
+        <Count counts={counts} />
     </h4>
     
     <div
