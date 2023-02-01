@@ -72,7 +72,6 @@
         }
     }
     a {
-        border: 1px solid $border-color;
         color: var(--link-color, #44ddff);
         padding: 0.25rem 0.7rem 0.3rem 0.5rem;
 
@@ -89,6 +88,13 @@
     .spacer {
         //width: 1rem;
         margin-right: 1rem;
+
+        + a:not(.active) {
+            border-left: 1px solid $border-color;
+        }
+    }
+    :global(.spacer + .active) {
+        margin-left: 0 !important;
     }
     .wip:not(.active) {
         --link-color: #ffbb00;
@@ -105,10 +111,10 @@
                 <a 
                     class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
                     class:send-right={sendRight}
+                    class:wip={linkText.indexOf('WIP') >= 0}
                     href="#/{path}"
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
                     use:tippy={linkText}
-                    class:wip={linkText.indexOf('WIP') >= 0}
                 >
                     <IconifyIcon
                         icon={iconLibrary[iconName]}
