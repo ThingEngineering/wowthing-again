@@ -4,6 +4,7 @@ import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
+import { AppearancesState, appearanceState } from './local-storage'
 import { appearanceStore } from './appearance'
 import { manualStore } from './manual'
 import { settingsStore } from './settings'
@@ -25,6 +26,7 @@ import type { AppearanceData } from '@/types/data/appearance'
 
 
 type UserStatsKey =
+    | 'appearances'
     | 'heirlooms'
     | 'illusions'
     | 'mounts'
@@ -45,6 +47,7 @@ type UserCounts = Record<string, UserCount>
 export const userStatsStore = derived(
     [
         settingsStore,
+        appearanceState,
         appearanceStore,
         manualStore,
         userStore,
@@ -53,12 +56,14 @@ export const userStatsStore = derived(
     debounce(
         ([
             $settingsStore,
+            $appearanceState,
             $appearanceStore,
             $manualStore,
             $userStore,
             $userTransmogStore
         ]: [
             Settings,
+            AppearancesState,
             FancyStoreType<AppearanceData>,
             FancyStoreType<ManualData>,
             FancyStoreType<UserData>,
@@ -66,6 +71,7 @@ export const userStatsStore = derived(
         ]) => {
             storeInstance.update(
                 $settingsStore,
+                $appearanceState,
                 $appearanceStore,
                 $manualStore,
                 $userStore,
@@ -73,7 +79,7 @@ export const userStatsStore = derived(
             )
             return storeInstance
         },
-        1000,
+        100,
         {
             leading: true,
             trailing: true,
@@ -84,6 +90,8 @@ export const userStatsStore = derived(
 class UserStatsStore implements UserStatsUgh {
     private settings: Settings
     private staticData: StaticData
+
+    private appearanceState: AppearancesState
 
     private appearanceData: AppearanceData
     private manualData: ManualData
@@ -101,6 +109,7 @@ class UserStatsStore implements UserStatsUgh {
 
     update(
         settings: Settings,
+        appearanceState: AppearancesState,
         appearanceData: AppearanceData,
         manualData: ManualData,
         userData: UserData,
@@ -108,6 +117,7 @@ class UserStatsStore implements UserStatsUgh {
     )
     {
         const newHashes: Record<string, string> = {
+            appearanceState: this.hashObject(appearanceState),
             collections: `${settings.collections.hideUnavailable}`,
         }
         const changedEntries = Object.entries(newHashes)
@@ -138,6 +148,8 @@ class UserStatsStore implements UserStatsUgh {
         this.settings = settings
         this.staticData = get(staticStore)
 
+        this.appearanceState = appearanceState
+
         this.appearanceData = appearanceData
         this.manualData = manualData
         this.userData = userData
@@ -149,7 +161,7 @@ class UserStatsStore implements UserStatsUgh {
             this.toysFunc = once(() => this.doSetCounts(this.manualData.toySets, this.userData.hasToy))
         }
 
-        if (changedData.appearanceData || changedData.userTransmogData) {
+        if (changedData.appearanceData || changedData.userTransmogData || changedHashes.appearanceState) {
             this.appearancesFunc = once(() => this.doAppearances())
         }
 
@@ -162,6 +174,13 @@ class UserStatsStore implements UserStatsUgh {
         }
 
         console.timeEnd('UserStatsStore.update')
+    }
+
+    private hashObject(obj: object): string {
+        const entries = Object.entries(obj)
+        entries.sort()
+        return entries.map(([key, value]) => `${key}_${value}`)
+            .join('|')
     }
 
     lookup(key: string): UserCounts {
@@ -237,6 +256,11 @@ class UserStatsStore implements UserStatsUgh {
                 const setData = counts[`${key}--${set.name}`] = new UserCount()
 
                 for (const appearance of set.appearances) {
+                    const quality = appearance.modifiedAppearances[0]?.quality
+                    if (this.appearanceState[`showQuality${quality}`] === false) {
+                        continue
+                    }
+
                     if (!overallSeen[appearance.appearanceId]) {
                         overallData.total++
                     }

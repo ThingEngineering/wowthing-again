@@ -15,8 +15,11 @@
     let difficulty: string
     let has: boolean
     let imageName: string
+    let show: boolean
     $: {
         has = $userTransmogStore.userHas[appearance.appearanceId]
+        show = ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected)) &&
+            $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true
 
         const mod = appearance.modifiedAppearances[0]
 
@@ -38,23 +41,15 @@
         }
     }
     .difficulty {
-        // background-color: $highlight-background;
-        // border: 1px solid;
-        // border-radius: $border-radius-small;
+        border-width: 2px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         margin-top: -1px;
-        // padding: 0 2px 1px 2px;
-        // text-align: center;
-        // white-space: nowrap;
     }
 
 </style>
 
-{#if
-    (has && $appearanceState.showCollected) ||
-    (!has && $appearanceState.showUncollected)
-}
+{#if show}
     <div
         class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
         class:missing={
