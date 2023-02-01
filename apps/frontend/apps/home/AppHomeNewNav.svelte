@@ -72,7 +72,6 @@
         }
     }
     a {
-        border: 1px solid $border-color;
         color: var(--link-color, #44ddff);
         padding: 0.25rem 0.7rem 0.3rem 0.5rem;
 
@@ -89,6 +88,13 @@
     .spacer {
         //width: 1rem;
         margin-right: 1rem;
+
+        + a:not(.active) {
+            border-left: 1px solid $border-color;
+        }
+        :global(+ .active) {
+            margin-left: 0 !important;
+        }
     }
     .wip:not(.active) {
         --link-color: #ffbb00;
