@@ -3,7 +3,7 @@
 
     import { userStatsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import type { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance'
+    import type { AppearanceDataSet } from '@/types/data/appearance'
 
     import Count from '@/components/collectible/CollectibleCount.svelte'
     import Item from './AppearancesItem.svelte'
