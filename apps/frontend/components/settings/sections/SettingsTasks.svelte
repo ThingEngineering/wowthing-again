@@ -2,7 +2,7 @@
     import debounce from 'lodash/debounce'
     import filter from 'lodash/filter'
 
-    import { taskList } from '@/data/tasks'
+    import { multiTaskMap, taskList } from '@/data/tasks'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
@@ -18,6 +18,26 @@
     const onTaskChange = debounce(() => {
         settingsStore.update(state => {
             state.layout.homeTasks = taskActive.map((c) => c.key)
+            return state
+        })
+    }, 100)
+
+    // Dragonflight Chores
+    const dfChoreChoices: SettingsChoice[] = multiTaskMap.dfChores.map((t) => ({ key: t.taskKey, name: t.taskName }))
+
+    const dfChoreInactive = ($settingsStore.tasks.disabledChores?.dfChores || [])
+        .map((f) => filter(dfChoreChoices, (c) => c.key === f)[0])
+        .filter(f => f !== undefined)
+    const dfChoreActive = filter(dfChoreChoices, (c) => dfChoreInactive.indexOf(c) === -1)
+
+    console.log({dfChoreChoices, dfChoreInactive, dfChoreActive})
+    console.log($settingsStore.tasks.disabledChores?.dfChores)
+    console.log(($settingsStore.tasks.disabledChores?.dfChores || [])
+        .map((f) => filter(dfChoreChoices, (c) => c.key === f))[0])
+
+    const onDfChoreChange = debounce(() => {
+        settingsStore.update(state => {
+            (state.tasks.disabledChores ||= {})['dfChores'] = dfChoreInactive.map((c) => c.key)
             return state
         })
     }, 100)
@@ -37,5 +57,14 @@
         onFunc={onTaskChange}
         active={taskActive}
         inactive={taskInactive}
+    />
+
+    <h3>Dragonflight Chores</h3>
+
+    <MagicLists
+        key='dragonflight-chore'
+        onFunc={onDfChoreChange}
+        active={dfChoreActive}
+        inactive={dfChoreInactive}
     />
 </div>
