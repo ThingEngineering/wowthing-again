@@ -6,6 +6,7 @@
     import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
 
+    import Collectibles from './CharacterProfessionsCollectibles.svelte'
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
     import Profession from './CharacterProfessionsProfession.svelte'
     import Sidebar from './CharacterProfessionsSidebar.svelte'
@@ -89,6 +90,14 @@
                         profession={staticProfession}
                         {character}
                     />
+
+                    {#if params.slug5}
+                        <Collectibles
+                            expansionSlug={params.slug5}
+                            staticProfession={staticProfession}
+                            {character}
+                        />
+                    {/if}
                 {/if}
             </svelt:fragment>
         </Sidebar>

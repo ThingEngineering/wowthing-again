@@ -59,7 +59,7 @@ interface DragonflightProfessionQuest {
     source?: string
 }
 
-type DragonflightProfession = {
+export type DragonflightProfession = {
     id: Profession
     hasCraft?: boolean
     hasOrders?: boolean
