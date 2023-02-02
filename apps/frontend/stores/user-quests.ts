@@ -44,6 +44,11 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
 
         console.timeEnd('UserQuestDataStore.initialize')
     }
+
+    hasAny(characterId: number, questId: number): boolean {
+        const charData = this.value.characters[characterId]
+        return charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId)
+    }
 }
 
 export const userQuestStore = new UserQuestDataStore()

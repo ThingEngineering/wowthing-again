@@ -30,10 +30,18 @@
 </script>
 
 <style lang="scss">
-
+    .subnav {
+        margin: 0 -1rem 1.5rem calc(-1rem - 1px);
+        width: calc(100% + 2rem + 1px);
+    }
+    .end {
+        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+        flex-grow: 1;
+     }
 </style>
 
-<nav class="characters-subnav border">
+<nav class="subnav">
     {#each covenantOrder as covenantId}
         {@const renown = character.shadowlands?.covenants?.[covenantId]?.renown ?? 0}
         <a
@@ -64,6 +72,8 @@
         />
         Cypher Research
     </a>
+
+    <div class="end"></div>
 </nav>
 
 {#if params.slug4}

@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants'
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { Profession, QuestStatus } from '@/enums'
-    import { timeStore, userQuestStore } from '@/stores'
+    import { settingsStore, timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -30,6 +30,9 @@
                 continue
             }
             if (choreTask.couldGetFunc?.(character) === false) {
+                continue
+            }
+            if (($settingsStore.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
                 continue
             }
 
