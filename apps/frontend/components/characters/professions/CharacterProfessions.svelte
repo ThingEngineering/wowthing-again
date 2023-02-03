@@ -41,9 +41,10 @@
 
 <style lang="scss">
     .subnav {
+        background: transparent;
         margin-bottom: 1rem;
         margin-left: calc(-1rem + -1px);
-        margin-top: -0.5rem;
+        width: calc(100% + 2rem);
     }
     .profession-links {
         display: flex;

@@ -18,6 +18,10 @@
 <style lang="scss">
     a {
         padding: 0.25rem 1rem;
+
+        &:not(.active) {
+            background: $highlight-background;
+        }
     }
     code {
         background: inherit;
