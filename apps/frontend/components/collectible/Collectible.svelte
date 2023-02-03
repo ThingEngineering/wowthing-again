@@ -36,6 +36,7 @@
     .collections {
         align-items: flex-start;
         display: flex;
+        overflow-x: hidden;
         width: 100%;
     }
 </style>

@@ -22,24 +22,11 @@
 
 <style lang="scss">
     .collection-v2-section {
-        --column-count: 1;
-        --column-gap: 1.25rem;
-        --column-width: 18.75rem;
-
-        width: 18.75rem;
-        
-        @media screen and (min-width: 1130px) {
-            --column-count: 2;
-            width: 39.5rem;
-        }
-        @media screen and (min-width: 1445px) {
-            --column-count: 3;
-            width: 59.5rem;
-        }
-        @media screen and (min-width: 1770px) {
-            --column-count: 4;
-            width: 79.5rem;
-        }
+        column-count: var(--column-count, 1);
+        gap: 30px;
+    }
+    .collection-v2-group {
+        width: 18.1rem;
     }
 </style>
 

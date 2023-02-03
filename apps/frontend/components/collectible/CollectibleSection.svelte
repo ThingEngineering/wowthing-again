@@ -1,9 +1,10 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import { getContext } from 'svelte'
+    import { afterUpdate, getContext } from 'svelte'
 
     import { collectibleState } from '@/stores/local-storage'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataSetCategory } from '@/types/data/manual'
     import type { CollectibleContext } from '@/types/contexts'
 
@@ -26,17 +27,44 @@
             categories = filter(categories, (s) => s.slug === slug2)
         }
     }
+
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'collection-v2-group',
+                {
+                    columnCount: '--column-count',
+                    gap: 30,
+                    //padding: '0.5rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
+
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
     .wrapper {
         display: flex;
         flex-direction: column;
+        overflow-x: hidden;
         width: 100%;
     }
 </style>
 
-<div class="wrapper">
+<svelte:window on:resize={debouncedResize} />
+
+<div class="wrapper" bind:this={containerElement}>
     <div class="options-container">
         <button>
             <Checkbox
@@ -62,6 +90,7 @@
         </button>
     </div>
 
+    <div class="categories" bind:this={resizeableElement}>
     {#each categories as category}
         <Category
             {category}
@@ -70,4 +99,5 @@
             {thingType}
         />
     {/each}
+    </div>
 </div>
