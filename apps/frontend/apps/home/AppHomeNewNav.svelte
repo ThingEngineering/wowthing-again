@@ -8,7 +8,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    type NavItem = [string, string, string, boolean?, boolean?]
+    type NavItem = [string, string, string, boolean?]
     const navItems: NavItem[] = [
         ['', 'Home', 'mdiHomeOutline'],
         [null, null, null],
@@ -46,7 +46,7 @@
         ['transmog-sets/', 'Sets (V2) [WIP]', 'emojiConstruction'],
         [null, null, null],
 
-        ['settings/', 'Settings', 'mdiCogOutline', true, true],
+        ['settings/', 'Settings', 'mdiCogOutline', true],
     ]
 </script>
 
@@ -81,9 +81,6 @@
         &:not(.active) {
             background: darken(#2c2d2e, 5%);
         }
-        &.send-right {
-            margin-left: auto;
-        }
     }
     .spacer {
         //width: 1rem;
@@ -105,12 +102,11 @@
     class="subnav"
     class:subnav-big={$settingsStore.layout.newNavigationIcons}
 >
-    {#each navItems as [path, linkText, iconName, privateOnly, sendRight], navIndex}
+    {#each navItems as [path, linkText, iconName, privateOnly], navIndex}
         {#if path !== null}
             {#if !privateOnly || ($userStore.loaded && !$userStore.public)}
                 <a 
                     class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
-                    class:send-right={sendRight}
                     class:wip={linkText.indexOf('WIP') >= 0}
                     href="#/{path}"
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
