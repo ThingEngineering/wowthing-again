@@ -74,7 +74,6 @@
     }
     nav {
         background: $highlight-background;
-        border-radius: 0;
         display: flex;
         margin-bottom: 1rem;
         margin-left: calc(-1rem + -1px);

@@ -17,7 +17,6 @@
     .progress-container {
         background: darken($thing-background, 3%);
         border: var(--bar-border-width, 1px) solid $border-color;
-        border-radius: $border-radius;
         margin-top: var(--progress-margin-top, 0);
         overflow: hidden;
         position: relative;

@@ -364,7 +364,6 @@
     }
     .thing-container {
         border: 1px solid $border-color;
-        border-radius: $border-radius;
         padding: 1rem;
         width: 100%;
     }
