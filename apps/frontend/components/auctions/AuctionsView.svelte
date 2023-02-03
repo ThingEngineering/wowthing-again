@@ -15,6 +15,7 @@
 
     export let params: MultiSlugParams
 
+    let auctionsContainer: HTMLElement
     let page: number
     let regions: [string, string][]
     $: {
@@ -53,6 +54,10 @@
 </script>
 
 <style lang="scss">
+    .auctions {
+        overflow-x: hidden;
+        width: 100%;
+    }
     .options-container {
         padding: 0.2rem 0.3rem;
     }
@@ -68,7 +73,7 @@
     }
 </style>
 
-<div class="auctions">
+<div class="auctions" bind:this={auctionsContainer}>
     <div class="options-container border">
         <div class="options-group">
             Sort:
@@ -131,6 +136,7 @@
     <svelte:component
         this={componentMap[params.slug1]}
         slug={params.slug1}
+        {auctionsContainer}
         {page}
     />
 </div>

@@ -5,6 +5,7 @@
     import { auctionState } from '@/stores/local-storage/auctions'
     import { ItemLocation } from '@/enums'
     import connectedRealmName from '@/utils/connected-realm-name'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import petLocationTooltip from '@/utils/pet-location-tooltip'
     import tippy from '@/utils/tippy'
 
@@ -13,27 +14,31 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let auctionsContainer: HTMLElement
     export let page: number
+
+    let debouncedResize: () => void
+    let wrapperDiv: HTMLElement
+    $: {
+        if (wrapperDiv) {
+            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'pet-wrapper')
+            debouncedResize()
+        }
+    }
 </script>
 
 <style lang="scss">
-    table {
-        --padding: 2;
-    }
     .wrapper {
         column-count: 1;
-        width: 37.5rem;
-
-        @media screen and (min-width: 1600px) {
-            column-count: 2;
-            gap: 1rem;
-            width: 76rem;
-        }
+        gap: 20px;
     }
     .pet-wrapper {
         display: inline-flex;
         gap: 0.5rem;
         margin-bottom: 1rem;
+    }
+    table {
+        --padding: 2;
     }
     .item {
         --image-border-width: 1px;
@@ -75,6 +80,8 @@
     }
 </style>
 
+<svelte:window on:resize={debouncedResize} />
+
 {#await userAuctionExtraPetsStore.search($auctionState)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
@@ -84,7 +91,7 @@
         {page}
         let:paginated
     >
-        <div class="wrapper">
+        <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as thing}
                 <div class="pet-wrapper">
                     <table class="table table-striped">
