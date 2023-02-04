@@ -100,13 +100,6 @@
         </li>
     {/if}
 
-    <li use:active={'/gear/*'}>
-        <a href="#/gear/">
-            <IconifyIcon icon={iconGear} dropShadow={true} />
-            Gear
-        </a>
-    </li>
-
     {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/history/*'}>
             <a href="#/history/">
@@ -119,7 +112,7 @@
     {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/items/*'}>
             <a href="#/items/">
-                <IconifyIcon icon={iconConstruction} dropShadow={true} />
+                <IconifyIcon icon={iconGear} dropShadow={true} />
                 Items
             </a>
         </li>

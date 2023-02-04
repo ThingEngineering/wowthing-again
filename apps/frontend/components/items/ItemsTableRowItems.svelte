@@ -3,7 +3,7 @@
     import getCharacterGear from '@/utils/get-character-gear'
     import type { Character, CharacterGear } from '@/types'
 
-    import Item from './GearItem.svelte'
+    import Item from './ItemsItem.svelte'
 
     export let character: Character
 

@@ -3,8 +3,8 @@
     import { staticStore } from '@/stores'
     import type { Character, CharacterGear } from '@/types'
 
-    import Empty from './GearEmpty.svelte'
-    import Item from './GearItem.svelte'
+    import Empty from './ItemsEmpty.svelte'
+    import Item from './ItemsItem.svelte'
 
     export let character: Character
 

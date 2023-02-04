@@ -9,8 +9,8 @@
     import type { Character, CharacterGear } from '@/types'
     import type { StaticDataProfession } from '@/types/data/static'
 
-    import Empty from './GearEmpty.svelte'
-    import Item from './GearItem.svelte'
+    import Empty from './ItemsEmpty.svelte'
+    import Item from './ItemsItem.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     
     export let character: Character
