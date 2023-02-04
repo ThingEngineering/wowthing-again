@@ -28,6 +28,9 @@
     h4 {
         margin-bottom: 0.2rem;
     }
+    .collection-v2-group {
+        width: 17.6rem;
+    }
     .collection-objects {
         min-height: 52px;
     }

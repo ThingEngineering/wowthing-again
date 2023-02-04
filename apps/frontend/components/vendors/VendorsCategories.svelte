@@ -75,7 +75,6 @@
             debouncedResize = null
         }
     }
-
 </script>
 
 <style lang="scss">
@@ -93,7 +92,7 @@
 <svelte:window on:resize={debouncedResize} />
 
 <div class="wrapper" bind:this={containerElement}>
-    <div class="wrapper2" bind:this={resizeableElement}>
+    <div bind:this={resizeableElement}>
         <Options />
 
         {#if categories}
