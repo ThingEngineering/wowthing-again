@@ -1,8 +1,7 @@
 .collection-v2-section {
-    column-count: var(--column-count, 1);
-    column-width: var(--column-width, 20rem);
+    column-count: 1;
     gap: var(--column-gap, 1rem);
-    padding: 0.5rem 0 0.75rem 0.75rem;
+    padding: 0.5rem 0.75rem 0.75rem 0.75rem;
     width: 100%;
 }
 

@@ -104,6 +104,9 @@
 
 -
 
+trading-post/_.yml
+    trading-post/2023.yml
+
 world-events/_world_events.yml
     world-events/brewfest.yml
     world-events/darkmoon_faire.yml

@@ -138,12 +138,11 @@
     .overlay-box {
         background: $highlight-background;
         border: 1px solid $border-color;
-        border-radius: $border-radius;
         position: absolute;
         z-index: 10;
     }
     .zone-map {
-        --image-border-radius: #{$border-radius-large};
+        --image-border-radius: 0;
         --image-border-width: 2px;
 
         position: relative;

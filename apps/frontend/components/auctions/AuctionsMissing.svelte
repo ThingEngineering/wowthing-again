@@ -1,15 +1,17 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
+    import { Region } from '@/enums'
     import { staticStore, userAuctionMissingStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
-    import { Region } from '@/enums'
 
     import Paginate from '@/components/common/Paginate.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let auctionsContainer: HTMLElement
     export let page: number
     export let slug: string
 
@@ -37,30 +39,27 @@
             ignored[id] = true
         }
     }
+
+    let debouncedResize: () => void
+    let wrapperDiv: HTMLElement
+    $: {
+        if (wrapperDiv) {
+            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'table')
+            debouncedResize()
+        }
+    }
 </script>
 
 <style lang="scss">
     .wrapper {
         column-count: 1;
-        width: 31rem;
-
-        @media screen and (min-width: 1430px) and (max-width: 1919px) {
-            column-count: 2;
-            gap: 1rem;
-            width: 63rem;
-        }
-        @media screen and (min-width: 1920px) {
-            column-count: 3;
-            gap: 1rem;
-            width: 95rem;
-        }
+        gap: 20px;
     }
     table {
         --padding: 2;
 
         display: inline-block;
         margin-bottom: 0.5rem;
-        width: 100%;
     }
     th {
         background-color: $highlight-background;
@@ -134,6 +133,8 @@
     }
 </style>
 
+<svelte:window on:resize={debouncedResize} />
+
 {#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
@@ -143,7 +144,7 @@
         {page}
         let:paginated
     >
-        <div class="wrapper">
+        <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as item}
                 {@const ignored = $auctionState.ignored[slug]?.[item.id] === true}
                 <table

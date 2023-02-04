@@ -354,6 +354,9 @@
 </script>
 
 <style lang="scss">
+    .view {
+        flex-direction: column;
+    }
     .radio-container {
         background: $highlight-background;
         margin-right: 0.5rem;
@@ -361,7 +364,6 @@
     }
     .thing-container {
         border: 1px solid $border-color;
-        border-radius: $border-radius;
         padding: 1rem;
         width: 100%;
     }

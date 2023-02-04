@@ -1,7 +1,6 @@
 .table {
     background: $thing-background;
     //border-collapse: collapse;
-    border-radius: $border-radius;
     table-layout: fixed;
 
     thead {
@@ -9,14 +8,6 @@
             &:first-child {
                 td, th {
                     border-top: 1px solid $border-color;
-
-                    &:first-child {
-                        border-top-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-top-right-radius: $border-radius;
-                    }
                 }
             }
 
@@ -42,18 +33,6 @@
         tr {
             td.alt {
                 background: $table-alt-bg;
-            }
-
-            &:last-child {
-                td {
-                    &:first-child {
-                        border-bottom-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-bottom-right-radius: $border-radius;
-                    }
-                }
             }
         }
     }
@@ -117,13 +96,5 @@
         border-top: 1px solid $border-color;
         font-size: 1.05rem;
         text-align: center;
-
-        &:first-child {
-            border-top-left-radius: $border-radius;
-        }
-
-        &:last-child {
-            border-top-right-radius: $border-radius;
-        }
     }
 }
