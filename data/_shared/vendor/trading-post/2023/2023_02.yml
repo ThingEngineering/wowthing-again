@@ -1,0 +1,91 @@
+id: 1202302
+name: "February 2023"
+
+locations:
+  misc_trading_post:
+    - 0 0
+
+tags:
+  - "trading-post"
+  - "trading-post:2023"
+
+sets:
+  - name: "February 2023"
+    range: -1
+    sortKey: "2023-02"
+
+sells:
+  - type: mount
+    id: 376 # Celestial Steed
+    costs:
+      2032: 900 # Trader's Tender
+
+  - type: pet
+    id: 3252 # Garrlok
+    costs:
+      2032: 750 # Trader's Tender
+
+  - type: transmog
+    id: 190799 # Ensemble: Swashbuckling Buccaneer's Slops
+    costs:
+      2032: 650 # Trader's Tender
+
+  - type: transmog
+    id: 202170 # Ensemble: Vagabond's Rosy Threads
+    costs:
+      2032: 100 # Trader's Tender
+
+  - type: transmog
+    id: 202167 # Ensemble: Wanderer's Rosy Trappings
+    costs:
+      2032: 100 # Trader's Tender
+
+  - type: transmog
+    id: 190855 # Rosy Corsage [wrist]
+    costs:
+      2032: 100 # Trader's Tender
+
+  - type: transmog
+    id: 189897 # Infiltrator's Bandolier [back]
+    costs:
+      2032: 250 # Trader's Tender
+
+  - type: transmog
+    id: 190434 # Iridescent Warcloak [back]
+    costs:
+      2032: 75 # Trader's Tender
+
+  - type: transmog
+    id: 190599 # Operative's Bandolier [back]
+    costs:
+      2032: 250 # Trader's Tender
+
+  - type: transmog
+    id: 189898 # Fury of the Firelord [1h mace]
+    costs:
+      2032: 750 # Trader's Tender
+
+  - type: transmog
+    id: 190143 # Shard of Frozen Secrets [dagger]
+    costs:
+      2032: 200 # Trader's Tender
+
+  - type: transmog
+    id: 189871 # Squire's Warhammer [2h hammer]
+    costs:
+      2032: 100 # Trader's Tender
+
+  - type: transmog
+    id: 190846 # Shattered Voidspire [staff]
+    costs:
+      2032: 500 # Trader's Tender
+
+  - type: transmog
+    id: 190071 # Azure Scalesworn Longbow [bow]
+    costs:
+      2032: 200 # Trader's Tender
+
+  - type: transmog
+    id: 190856 # Fetid Bouquet [off-hand]
+    costs:
+      2032: 100 # Trader's Tender
