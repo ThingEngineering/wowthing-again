@@ -16,6 +16,8 @@
     }
 </script>
 
+<td class="spacer"></td>
+
 {#each characterGear as gear}
     <Item
         {gear}

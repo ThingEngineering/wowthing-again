@@ -58,9 +58,7 @@
 </script>
 
 {#each bagSets as bagSlots, setIndex}
-    {#if setIndex > 0}
-        <td class="spacer"></td>
-    {/if}
+    <td class="spacer"></td>
 
     {#each bagSlots as [bagSlot, gear]}
         {#if gear}
