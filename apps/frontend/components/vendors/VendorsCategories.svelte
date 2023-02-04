@@ -1,18 +1,15 @@
-    <script lang="ts">
+<script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import { itemStore, manualStore, staticStore } from '@/stores'
-    import { userVendorStore } from '@/stores/user-vendors'
-    import { getCurrencyCosts } from '@/utils/get-currency-costs'
+    import { manualStore, userVendorStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
-    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
-    import Group from './VendorsGroup.svelte'
+    import Category from './VendorsCategory.svelte'
+    import Costs from './VendorsCosts.svelte'
     import Options from './VendorsOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -88,25 +85,8 @@
         overflow-x: hidden;
         width: 100%;
     }
-    .collection-v2-section {
-        column-count: var(--column-count, 1);
-        column-gap: 30px;
-    }
     .spacer {
         margin-bottom: 0.5rem;
-    }
-    .costs {
-        --image-border-width: 1px;
-        --image-margin-top: -4px;
-
-        color: $body-text;
-        display: flex;
-        flex-wrap: wrap;
-        //font-size: 90%;
-        gap: 0.5rem;
-        justify-content: flex-end;
-        margin-left: auto;
-        padding-left: 1rem;
     }
 </style>
 
@@ -118,71 +98,22 @@
 
         {#if categories}
             <div class="collection thing-container" bind:this={resizeableElement}>
-
                 {#if firstCategory && !slug2}
                     <SectionTitle
                         title={firstCategory.name}
                         count={$userVendorStore.stats[`${slug1}`]}
                     >
-                        <span class="costs">
-                            {#each getCurrencyCosts($itemStore, $staticStore, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
-                                <div>
-                                    <CurrencyLink
-                                        currencyId={linkType === 'currency' ? linkId : undefined}
-                                        itemId={linkType === 'item' ? linkId : undefined}
-                                    >
-                                        <WowthingImage
-                                            name="{linkType}/{linkId}"
-                                            size={20}
-                                            border={0}
-                                        />
-                                        {value}
-                                    </CurrencyLink>
-                                </div>
-                            {/each}
-                        </span>
+                        <Costs costs={totalCosts.OVERALL} />
                     </SectionTitle>
                     <div class="spacer"></div>
                 {/if}
 
                 {#each categories as category}
-                    {@const useV2 = category.groups.length > 3 && category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30}
-                    <SectionTitle
-                        title={category.name}
-                        count={$userVendorStore.stats[`${slug1}--${category.slug}`]}
-                    >
-                        {#if totalCosts[category.slug]}
-                            <span class="costs">
-                                {#each getCurrencyCosts($itemStore, $staticStore, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
-                                    <div>
-                                        <CurrencyLink
-                                            currencyId={linkType === 'currency' ? linkId : undefined}
-                                            itemId={linkType === 'item' ? linkId : undefined}
-                                        >
-                                            <WowthingImage
-                                                name="{linkType}/{linkId}"
-                                                size={20}
-                                                border={0}
-                                            />
-                                            {value}
-                                        </CurrencyLink>
-                                    </div>
-                                {/each}
-                            </span>
-                        {/if}
-                    </SectionTitle>
-
-                    <div class="collection{useV2 ? '-v2' : ''}-section">
-                        {#each category.groups as group, groupIndex}
-                            {#if group.sellsFiltered.length > 0}
-                                <Group
-                                    stats={$userVendorStore.stats[`${slug1}--${category.slug}--${groupIndex}`]}
-                                    {group}
-                                    {useV2}
-                                />
-                            {/if}
-                        {/each}
-                    </div>
+                    <Category
+                        {category}
+                        slug1={slug1}
+                        costs={totalCosts[category.slug]}
+                    />
                 {/each}
             </div>
         {/if}
