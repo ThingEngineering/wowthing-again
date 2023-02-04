@@ -40,7 +40,7 @@
                 {
                     columnCount: '--column-count',
                     gap: 30,
-                    //padding: '0.5rem'
+                    padding: '1.5rem'
                 }
             )
             debouncedResize()
@@ -91,13 +91,13 @@
     </div>
 
     <div class="categories" bind:this={resizeableElement}>
-    {#each categories as category}
-        <Category
-            {category}
-            route={countsKey}
-            {slug1}
-            {thingType}
-        />
-    {/each}
+        {#each categories as category}
+            <Category
+                {category}
+                route={countsKey}
+                {slug1}
+                {thingType}
+            />
+        {/each}
     </div>
 </div>

@@ -23,7 +23,7 @@
 <style lang="scss">
     .collection-v2-section {
         column-count: var(--column-count, 1);
-        gap: 30px;
+        column-gap: 30px;
     }
     .collection-v2-group {
         width: 18.1rem;
