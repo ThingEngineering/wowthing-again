@@ -6,9 +6,10 @@ import { derived, get } from 'svelte/store'
 
 import { doJournal, type LazyJournal } from './journal'
 import { doTransmog, type LazyTransmog } from './transmog'
+import { doVendors, type LazyVendors } from './vendors'
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
 
-import { AppearancesState, appearanceState, JournalState, journalState, zoneMapState, ZoneMapState } from '../local-storage'
+import { AppearancesState, appearanceState, JournalState, journalState, VendorState, vendorState, zoneMapState, ZoneMapState } from '../local-storage'
 import { appearanceStore } from '../appearance'
 import { itemStore } from '../item'
 import { journalStore } from '../journal'
@@ -60,6 +61,7 @@ export const lazyStore = derived(
         settingsStore,
         appearanceState,
         journalState,
+        vendorState,
         zoneMapState,
         userStore,
         userAchievementStore,
@@ -71,6 +73,7 @@ export const lazyStore = derived(
             $settingsStore,
             $appearanceState,
             $journalState,
+            $vendorState,
             $zoneMapState,
             $userStore,
             $userAchievementStore,
@@ -80,6 +83,7 @@ export const lazyStore = derived(
             Settings,
             AppearancesState,
             JournalState,
+            VendorState,
             ZoneMapState,
             FancyStoreType<UserData>,
             FancyStoreType<UserAchievementData>,
@@ -90,6 +94,7 @@ export const lazyStore = derived(
                 $settingsStore,
                 $appearanceState,
                 $journalState,
+                $vendorState,
                 $zoneMapState,
                 $userStore,
                 $userAchievementStore,
@@ -134,6 +139,7 @@ class LazyStore implements LazyUgh {
 
     private journalFunc: () => LazyJournal
     private transmogFunc: () => LazyTransmog
+    private vendorsFunc: () => LazyVendors
     private zoneMapsFunc: () => LazyZoneMaps
 
     private hashes: Record<string, string> = {}
@@ -142,6 +148,7 @@ class LazyStore implements LazyUgh {
         settings: Settings,
         appearanceState: AppearancesState,
         journalState: JournalState,
+        vendorState: VendorState,
         zoneMapState: ZoneMapState,
         userData: UserData,
         userAchievementData: UserAchievementData,
@@ -152,6 +159,7 @@ class LazyStore implements LazyUgh {
         const newHashes: Record<string, string> = {
             appearanceState: this.hashObject(appearanceState), 
             journalState: this.hashObject(journalState),
+            vendorState: this.hashObject(vendorState),
             zoneMapState: this.hashObject(zoneMapState),
             
             collections: `${settings.collections.hideUnavailable}`,
@@ -241,6 +249,21 @@ class LazyStore implements LazyUgh {
         }
 
         if (changedData.userData ||
+            changedData.userTransmogData ||
+            changedHashes.vendorState)
+        {
+            this.vendorsFunc = once(() => doVendors({
+                settings,
+                vendorState,
+                itemData,
+                manualData,
+                staticData,
+                userData,
+                userTransmogData,
+            }))
+        }
+
+        if (changedData.userData ||
             changedData.userAchievementData ||
             changedData.userQuestData ||
             changedData.userAchievementData ||
@@ -282,6 +305,7 @@ class LazyStore implements LazyUgh {
     get pets(): UserCounts { return this.petsFunc() }
     get toys(): UserCounts { return this.toysFunc() }
     get transmog(): LazyTransmog { return this.transmogFunc() }
+    get vendors(): LazyVendors { return this.vendorsFunc() }
     get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
 
     private doGeneric<T extends GenericCategory<U>, U>(

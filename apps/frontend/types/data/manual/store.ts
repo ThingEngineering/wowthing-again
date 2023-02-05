@@ -67,8 +67,6 @@ export interface ManualDataTransmog {
 
 export interface ManualDataVendors {
     sets: ManualDataVendorCategory[][]
-
-    counts?: Record<string, UserCount>
 }
 
 export interface ManualDataZoneMaps {

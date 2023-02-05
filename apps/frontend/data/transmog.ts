@@ -1,5 +1,13 @@
-import { TransmogSetType } from '@/enums'
+import { RewardType, TransmogSetType } from '@/enums'
 import {TransmogSet, TransmogSetData} from '@/types'
+
+
+export const transmogTypes: RewardType[] = [
+    RewardType.Armor,
+    RewardType.Cosmetic,
+    RewardType.Transmog,
+    RewardType.Weapon,
+]
 
 const transmogSets: Record<string, TransmogSet> = {
     'all': new TransmogSet('all', [

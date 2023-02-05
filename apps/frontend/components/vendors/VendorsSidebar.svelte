@@ -1,7 +1,6 @@
 <script lang="ts">
     import { manualStore } from '@/stores'
-    import { settingsStore } from '@/stores'
-    import { userVendorStore } from '@/stores/user-vendors'
+    import { lazyStore, settingsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -16,14 +15,14 @@
             ...cat[0],
         }))
 
-        overall = $userVendorStore.stats['OVERALL']
+        overall = $lazyStore.vendors.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userVendorStore.stats[slug]
+        const hasData = $lazyStore.vendors.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>

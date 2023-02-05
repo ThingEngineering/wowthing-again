@@ -17,7 +17,6 @@
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
     import { lazyStore, settingsStore, userStore, userTransmogStore } from '@/stores'
-    import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -25,13 +24,9 @@
     import { RewardType } from '@/enums'
 
     let transmogSetsPercent: number
-    let vendorPercent: number
     $: {
         const transmogSetsOverall = $userTransmogStore.statsV2['OVERALL']
-        const vendorOverall = $userVendorStore.stats['OVERALL']
-
         transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
-        vendorPercent = vendorOverall.have / vendorOverall.total * 100
     }
 
     $: journalPercent = $lazyStore.journal.stats.OVERALL.percent
@@ -39,6 +34,7 @@
     $: petsPercent = $lazyStore.pets.OVERALL.percent
     $: toysPercent = $lazyStore.toys.OVERALL.percent
     $: transmogPercent = $lazyStore.transmog.stats.OVERALL.percent
+    $: vendorPercent = $lazyStore.vendors.stats.OVERALL.percent
 
     const fancyPercent = (percent: number): string => {
         return (Math.floor(percent * 10) / 10).toFixed(1)

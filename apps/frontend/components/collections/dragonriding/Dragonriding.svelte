@@ -1,9 +1,7 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-    import some from 'lodash/some'
 
     import { itemStore, lazyStore, manualStore, userQuestStore } from '@/stores'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
