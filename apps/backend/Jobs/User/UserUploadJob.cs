@@ -295,7 +295,15 @@ public class UserUploadJob : JobBase
             }
 
             // Quests
-            accountAddonData.Quests = parsed.Quests.EmptyIfNull();
+            var newQuests = parsed.Quests
+                .EmptyIfNull()
+                .OrderBy(q => q)
+                .ToList();
+            if (accountAddonData.Quests == null || !newQuests.SequenceEqual(accountAddonData.Quests))
+            {
+                accountAddonData.Quests = newQuests;
+                _resetQuestCache = true;
+            }
 
             // Toys
             var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
