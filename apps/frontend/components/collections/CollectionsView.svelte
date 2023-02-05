@@ -19,38 +19,36 @@
     }
 </script>
 
-<style lang="scss">
-    div {
-        :global(.collections > div:first-child) {
-            top: 3.25rem;
-        }
-    }
-</style>
-
 <div>
     {#if params.slug1 === 'appearances'}
         <Appearances
             basePath={'collections'}
             params={shiftedParams}
         />
+
     {:else if params.slug1 === 'heirlooms'}
         <Heirlooms />
+
     {:else if params.slug1 === 'illusions'}
         <Illusions />
+
     {:else if params.slug1 === 'mounts'}
         <Mounts
             basePath={'collections'}
             params={shiftedParams}
         />
+
     {:else if params.slug1 === 'pets'}
         <Pets
             basePath={'collections'}
             params={shiftedParams}
         />
+
     {:else if params.slug1 === 'toys'}
         <Toys
             basePath={'collections'}
             params={shiftedParams}
         />
+
     {/if}
 </div>
