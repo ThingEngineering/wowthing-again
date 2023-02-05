@@ -10,6 +10,6 @@ export interface UserTransmogData {
     sourceHas?: Record<string, boolean>
     userHas?: Record<number, boolean>
 
-    stats?: Record<string, UserCount>
+    //stats?: Record<string, UserCount>
     statsV2?: Record<string, UserCount>
 }

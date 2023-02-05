@@ -5,6 +5,7 @@ import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
 import { doJournal, type LazyJournal } from './journal'
+import { doTransmog, type LazyTransmog } from './transmog'
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
 
 import { AppearancesState, appearanceState, JournalState, journalState, zoneMapState, ZoneMapState } from '../local-storage'
@@ -131,6 +132,7 @@ class LazyStore implements LazyUgh {
     private toysFunc: () => Record<string, UserCount>
 
     private journalFunc: () => LazyJournal
+    private transmogFunc: () => LazyTransmog
     private zoneMapsFunc: () => LazyZoneMaps
 
     private hashes: Record<string, string> = {}
@@ -225,6 +227,14 @@ class LazyStore implements LazyUgh {
             }))
         }
 
+        if (changedData.userData) {
+            this.transmogFunc = once(() => doTransmog({
+                settings,
+                manualData,
+                userTransmogData,
+            }))
+        }
+
         if (changedData.userData ||
             changedData.userAchievementData ||
             changedData.userQuestData ||
@@ -258,37 +268,15 @@ class LazyStore implements LazyUgh {
         return this[key as LazyKey]
     }
 
-    get appearances(): UserCounts {
-        return this.appearancesFunc()
-    }
-
-    get heirlooms(): UserCounts {
-        return this.heirloomsFunc()
-    }
-
-    get illusions(): UserCounts {
-        return this.illusionsFunc()
-    }
-
-    get journal(): LazyJournal {
-        return this.journalFunc()
-    }
-
-    get mounts(): UserCounts {
-        return this.mountsFunc()
-    }
-
-    get pets(): UserCounts {
-        return this.petsFunc()
-    }
-
-    get toys(): UserCounts {
-        return this.toysFunc()
-    }
-
-    get zoneMaps(): LazyZoneMaps {
-        return this.zoneMapsFunc()
-    }
+    get appearances(): UserCounts { return this.appearancesFunc() }
+    get heirlooms(): UserCounts { return this.heirloomsFunc() }
+    get illusions(): UserCounts { return this.illusionsFunc() }
+    get journal(): LazyJournal { return this.journalFunc() }
+    get mounts(): UserCounts { return this.mountsFunc() }
+    get pets(): UserCounts { return this.petsFunc() }
+    get toys(): UserCounts { return this.toysFunc() }
+    get transmog(): LazyTransmog { return this.transmogFunc() }
+    get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
 
     private doGeneric<T extends GenericCategory<U>, U>(
         categories: T[],

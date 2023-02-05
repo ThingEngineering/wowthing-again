@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog-sets'
-    import { userTransmogStore } from '@/stores'
+    import { lazyStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
@@ -28,8 +28,7 @@
     $: {
         anyClass = some(category.groups, (group) => group.type === 'class')
 
-        const categoryHas = $userTransmogStore.stats[`${slugs[0]}--${category.slug}`]
-        categoryPercent = categoryHas.have / categoryHas.total * 100
+        categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent
         
         setKey = slugs.join('--')
 
@@ -41,8 +40,7 @@
             else {
                 key = `${slugs[0]}--${category.slug}--${groupIndex}`
             }
-            const hasData = $userTransmogStore.stats[key]
-            return hasData ? hasData.have / hasData.total * 100 : 0
+            return $lazyStore.transmog.stats[key].percent
         }
     }
 </script>

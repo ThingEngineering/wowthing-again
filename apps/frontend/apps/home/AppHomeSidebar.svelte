@@ -24,15 +24,12 @@
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
     import { RewardType } from '@/enums'
 
-    let transmogPercent: number
     let transmogSetsPercent: number
     let vendorPercent: number
     $: {
-        const transmogOverall = $userTransmogStore.stats['OVERALL']
         const transmogSetsOverall = $userTransmogStore.statsV2['OVERALL']
         const vendorOverall = $userVendorStore.stats['OVERALL']
 
-        transmogPercent = transmogOverall.have / transmogOverall.total * 100
         transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
         vendorPercent = vendorOverall.have / vendorOverall.total * 100
     }
@@ -41,6 +38,7 @@
     $: mountsPercent = $lazyStore.mounts.OVERALL.percent
     $: petsPercent = $lazyStore.pets.OVERALL.percent
     $: toysPercent = $lazyStore.toys.OVERALL.percent
+    $: transmogPercent = $lazyStore.transmog.stats.OVERALL.percent
 
     const fancyPercent = (percent: number): string => {
         return (Math.floor(percent * 10) / 10).toFixed(1)

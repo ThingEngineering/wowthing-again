@@ -57,12 +57,12 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         const userTransmogData = this.value
 
         this.update((state) => {
-            this.setupTransmogSets(
-                state,
-                settings,
-                manualData,
-                userTransmogData,
-            )
+            // this.setupTransmogSets(
+            //     state,
+            //     settings,
+            //     manualData,
+            //     userTransmogData,
+            // )
 
             this.setupTransmogSetsV2(
                 state,

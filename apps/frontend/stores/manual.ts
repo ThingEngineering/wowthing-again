@@ -237,10 +237,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         console.time('ManualDataStore.setup')
 
         this.update(state => {
-            console.time('ManualDataStore.setupVendors')
             this.setupVendors(state)
-            console.timeEnd('ManualDataStore.setupVendors')
-            
             return state
         })
 
