@@ -17,7 +17,7 @@ const pvpRegex = new RegExp(/ - S\d\d/)
 const tierRegex = new RegExp(/ - T\d\d/)
 
 
-interface LazyVendors {
+export interface LazyVendors {
     stats: Record<string, UserCount>
     userHas: Record<string, boolean>
 }

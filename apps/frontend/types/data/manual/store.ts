@@ -1,5 +1,3 @@
-import type { UserCount } from '@/types/user-count'
-
 import type { ManualDataDragonridingCategory } from './dragonriding'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'

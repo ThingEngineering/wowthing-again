@@ -3,11 +3,10 @@ import sortBy from 'lodash/sortBy'
 import { expansionMap, expansionSlugMap } from '@/data/expansion'
 import { typeOrder } from '@/data/inventory-type'
 import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
-import { UserCount, WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
 import { ArmorType, InventoryType, ItemClass } from '@/enums'
 import leftPad from '@/utils/left-pad'
-import type { UserTransmogData } from '@/types/data'
 
 
 export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {

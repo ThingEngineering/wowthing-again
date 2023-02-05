@@ -189,7 +189,7 @@ class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
 
-        const appearanceData = this.appearanceData = get(appearanceStore)
+        /*const appearanceData =*/ this.appearanceData = get(appearanceStore)
         const itemData = this.itemData = get(itemStore)
         const journalData = this.journalData = get(journalStore)
         const manualData = this.manualData = get(manualStore)
