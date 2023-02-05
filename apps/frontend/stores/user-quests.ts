@@ -20,7 +20,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         console.time('UserQuestDataStore.initialize')
 
         userQuestData.accountHas = new Set<number>()
-        for (const questId of userQuestData.account) {
+        for (const questId of (userQuestData.account || [])) {
             userQuestData.accountHas.add(questId)
         }
 
