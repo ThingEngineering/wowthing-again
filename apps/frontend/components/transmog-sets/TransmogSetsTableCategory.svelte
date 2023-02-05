@@ -1,7 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { transmogSets } from '@/data/transmog-sets'
+    import { transmogSets } from '@/data/transmog'
     import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'

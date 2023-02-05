@@ -1,5 +1,3 @@
-import type { UserCount } from '@/types/user-count'
-
 import type { ManualDataDragonridingCategory } from './dragonriding'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
@@ -67,8 +65,6 @@ export interface ManualDataTransmog {
 
 export interface ManualDataVendors {
     sets: ManualDataVendorCategory[][]
-
-    counts?: Record<string, UserCount>
 }
 
 export interface ManualDataZoneMaps {

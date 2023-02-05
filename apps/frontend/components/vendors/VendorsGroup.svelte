@@ -2,9 +2,8 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore, lazyStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
-    import { userVendorStore } from '@/stores/user-vendors'
     import { Faction, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
@@ -31,7 +30,7 @@
         things = []
         for (const thing of group.sellsFiltered) {
             const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
-            const userHas = $userVendorStore.userHas[thingKey] === true
+            const userHas = $lazyStore.vendors.userHas[thingKey] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas)
 

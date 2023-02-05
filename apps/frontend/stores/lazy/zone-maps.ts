@@ -12,6 +12,7 @@ import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { professionSlugToId } from '@/data/professions'
 import { questToLockout } from '@/data/quests'
+import { transmogTypes } from '@/data/transmog'
 import { FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
 import { UserCount } from '@/types'
 import { getSetCurrencyCostsString } from '@/utils/get-currency-costs'
@@ -26,7 +27,6 @@ import type { ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
 import type { DropStatus, FarmStatus } from '@/types/zone-maps'
-import { transmogTypes } from '../user-vendors'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask

@@ -2,7 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import { manualStore, userVendorStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
@@ -43,7 +43,7 @@
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
                 for (const thing of group.sellsFiltered) {
-                    if (!$userVendorStore.userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
+                    if (!$lazyStore.vendors.userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
                         for (const currency in thing.costs) {
                             totalCosts['OVERALL'][currency] = (totalCosts['OVERALL'][currency] || 0) + thing.costs[currency]
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
@@ -100,7 +100,7 @@
                 {#if firstCategory && !slug2}
                     <SectionTitle
                         title={firstCategory.name}
-                        count={$userVendorStore.stats[`${slug1}`]}
+                        count={$lazyStore.vendors.stats[`${slug1}`]}
                     >
                         <Costs costs={totalCosts.OVERALL} />
                     </SectionTitle>

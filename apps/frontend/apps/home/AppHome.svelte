@@ -13,9 +13,7 @@
         userQuestStore,
         userStore,
         userTransmogStore,
-        userVendorStore,
     } from '@/stores'
-    import { vendorState } from '@/stores/local-storage'
     import parseApiTime from '@/utils/parse-api-time'
 
     import NewNav from './AppHomeNewNav.svelte'
@@ -66,8 +64,6 @@
             && $userTransmogStore.loaded
 
         if (!error && loaded) {
-            manualStore.setup()
-
             userStore.setup(
                 $settingsStore,
                 $userStore,
@@ -75,13 +71,6 @@
 
             userTransmogStore.setup(
                 $settingsStore
-            )
-
-            userVendorStore.setup(
-                $settingsStore,
-                $userStore,
-                $userTransmogStore,
-                $vendorState
             )
 
             itemStore.setup(

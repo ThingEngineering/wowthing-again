@@ -1,7 +1,5 @@
 import sortBy from 'lodash/sortBy'
-import { get } from 'svelte/store'
 
-import { itemStore, staticStore } from '@/stores'
 import { WritableFancyStore } from '@/types'
 import {
     ManualDataHeirloomGroup,
@@ -12,13 +10,8 @@ import {
     ManualDataTransmogCategory,
     ManualDataTransmogSetCategory,
     ManualDataVendorCategory,
-    ManualDataVendorGroup,
-    ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { Faction, PlayableClassMask, RewardType } from '@/enums'
-import { getCurrencyCosts } from '@/utils/get-currency-costs'
-import type { FancyStoreType } from '@/types'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 
 
@@ -231,143 +224,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         }
 
         return newSets
-    }
-
-    setup(): void {
-        console.time('ManualDataStore.setup')
-
-        this.update(state => {
-            this.setupVendors(state)
-            return state
-        })
-
-        console.timeEnd('ManualDataStore.setup')
-    }
-
-    private setupVendors(
-        state: FancyStoreType<ManualData>
-    )
-    {
-        const itemData = get(itemStore)
-        const staticData = get(staticStore)
-        // console.time('setupVendors')
-
-        for (const vendor of Object.values(state.shared.vendors)) {
-            vendor.createFarmData(itemData, state, staticData)
-        }
-
-        for (const categories of state.vendors.sets) {
-            if (categories === null) {
-                continue
-            }
-            
-            for (const category of categories) {
-                if (category === null || (category.vendorMaps.length === 0 && category.vendorTags.length === 0)) {
-                    continue
-                }
-
-                const autoSeen: Record<string, ManualDataVendorItem> = {}
-
-                // Remove any auto groups
-                category.groups = category.groups.filter((group) => group.auto !== true)
-
-                // Find useful vendors
-                const vendorIds: number[] = []
-                for (const mapName of category.vendorMaps) {
-                    vendorIds.push(...(state.shared.vendorsByMap[mapName] || []))
-                }
-                for (const tagName of category.vendorTags) {
-                    vendorIds.push(...(state.shared.vendorsByTag[tagName] || []))
-                }
-
-                const autoGroups: Record<string, ManualDataVendorGroup> = {}
-
-                for (const vendorId of vendorIds) {
-                    const vendor = state.shared.vendors[vendorId]
-
-                    let setPosition = 0;
-                    for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
-                        const set = vendor.sets[setIndex]
-                        const groupKey = `${set.sortKey ? '09' + set.sortKey : 10 + setIndex}${set.name}`
-                        
-                        if (set.range[1] > 0) {
-                            setPosition = set.range[1]
-                        }
-                        
-                        let setEnd = setPosition + set.range[0]
-                        if (set.range[0] === -1) {
-                            setEnd = vendor.sells.length
-                        }
-
-                        const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(set.name, [], true)
-                        for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
-                            setPosition++;
-
-                            const item = vendor.sells[itemIndex]
-                            const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
-                            const autoItem = autoSeen[seenKey]
-                            if (!autoItem) {
-                                autoGroup.sells.push(item)
-                                autoSeen[seenKey] = item
-                            }
-                            else if (autoItem.faction !== Faction.Both && item.faction !== autoItem.faction) {
-                                autoItem.faction = Faction.Both
-                            }
-                        }
-                    }
-
-                    for (const item of vendor.sells) {
-                        let groupKey: string
-                        let groupName: string
-
-                        if (item.type === RewardType.Illusion) {
-                            [groupKey, groupName] = ['00illusions', 'Illusions']
-                        }
-                        else if (item.type === RewardType.Mount) {
-                            [groupKey, groupName] = ['00mounts', 'Mounts']
-                        }
-                        else if (item.type === RewardType.Pet) {
-                            [groupKey, groupName] = ['00pets', 'Pets']
-                        }
-                        else if (item.type === RewardType.Toy) {
-                            [groupKey, groupName] = ['00toys', 'Toys']
-                        }
-                        else if (item.type === RewardType.Armor) {
-                            [groupKey, groupName] = ['80armor', 'Armor']
-                        }
-                        else if (item.type === RewardType.Weapon) {
-                            [groupKey, groupName] = ['80weapons', 'Weapons']
-                        }
-                        else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
-                            [groupKey, groupName] = ['90transmog', 'Transmog']
-                        }
-
-                        item.faction = vendor.faction
-                        item.sortedCosts = getCurrencyCosts(itemData, staticData, item.costs)
-
-                        if (groupKey) {
-                            const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [], true)
-
-                            const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
-                            const autoItem = autoSeen[seenKey]
-                            if (!autoItem) {
-                                autoGroup.sells.push(item)
-                                autoSeen[seenKey] = item
-                            }
-                            else if (autoItem.faction !== Faction.Both && item.faction !== autoItem.faction) {
-                                autoItem.faction = Faction.Both
-                            }
-                        }
-                    }
-                }
-
-                const groups = Object.entries(autoGroups)
-                groups.sort()
-                category.groups = groups.map(([, group]) => group)
-            }
-        }
-
-        // console.timeEnd('setupVendors')
     }
 }
 

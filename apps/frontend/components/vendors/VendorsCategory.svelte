@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userVendorStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
     import Costs from './VendorsCosts.svelte'
@@ -22,7 +22,7 @@
 
 <SectionTitle
     title={category.name}
-    count={$userVendorStore.stats[`${slug1}--${category.slug}`]}
+    count={$lazyStore.vendors.stats[`${slug1}--${category.slug}`]}
 >
     <Costs {costs} />
 </SectionTitle>
@@ -31,7 +31,7 @@
     {#each category.groups as group, groupIndex}
         {#if group.sellsFiltered.length > 0}
             <Group
-                stats={$userVendorStore.stats[`${slug1}--${category.slug}--${groupIndex}`]}
+                stats={$lazyStore.vendors.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                 {group}
                 {useV2}
             />

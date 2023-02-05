@@ -2,7 +2,7 @@
     import some from 'lodash/some'
 
     import { Constants } from '@/data/constants'
-    import { transmogSets } from '@/data/transmog-sets'
+    import { transmogSets } from '@/data/transmog'
     import { lazyStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
