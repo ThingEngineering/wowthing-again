@@ -37,7 +37,7 @@
                         <div class="collection-objects">
                             {#each group.things as {itemId, questId}}
                                 {@const item = $itemStore.items[itemId]}
-                                {@const userHas = some($userQuestStore.characters, (char) => char.quests?.has(questId))}
+                                {@const userHas = $userQuestStore.accountHas?.has(questId)}
                                 <div
                                     class="collection-object quality{item.quality}"
                                     class:missing={userHas}

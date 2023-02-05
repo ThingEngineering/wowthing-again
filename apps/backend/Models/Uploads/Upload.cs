@@ -21,6 +21,8 @@ public class Upload
     [JsonPropertyName("heirloomsV2")]
     public List<string> Heirlooms { get; set; }
 
+    public List<int> Quests { get; set; }
+
     public List<int> Toys { get; set; }
 
     [JsonProperty("transmogSourcesV2")]

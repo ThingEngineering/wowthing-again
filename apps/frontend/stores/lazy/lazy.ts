@@ -375,8 +375,7 @@ class LazyStore implements LazyUgh {
                     sectionData.total++
                     groupData.total++
                     
-                    const userHas = some(this.userQuestData.characters, (char) => char.quests?.has(questId))
-                    if (userHas) {
+                    if (this.userQuestData.accountHas.has(questId)) {
                         overallData.have++
                         sectionData.have++
                         groupData.have++

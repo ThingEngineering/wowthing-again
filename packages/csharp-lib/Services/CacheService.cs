@@ -210,6 +210,17 @@ public class CacheService
         long userId
     )
     {
+        var accountAddonQuests = await context.PlayerAccountAddonData
+            .AsNoTracking()
+            .Where(ad => ad.Account.UserId == userId)
+            .Select(ad => ad.Quests)
+            .ToArrayAsync();
+
+        var accountQuests = accountAddonQuests
+            .SelectMany(ad => ad.EmptyIfNull())
+            .Distinct()
+            .ToArray();
+
         var characters = await context.PlayerCharacter
             .AsNoTracking()
             .Where(pc => pc.Account.UserId == userId)
@@ -243,6 +254,7 @@ public class CacheService
         // Build response
         var data = new ApiUserQuests
         {
+            Account = accountQuests,
             Characters = characterData,
         };
         var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);

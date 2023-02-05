@@ -266,10 +266,7 @@ public class UserUploadJob : JobBase
             accountAddonData.HonorMax = parsed.HonorMax;
 
             // Heirlooms
-            if (accountAddonData.Heirlooms == null)
-            {
-                accountAddonData.Heirlooms = new();
-            }
+            accountAddonData.Heirlooms ??= new();
 
             bool changedHeirlooms = false;
             foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
@@ -296,6 +293,9 @@ public class UserUploadJob : JobBase
                     .Property(ad => ad.Heirlooms)
                     .IsModified = true;
             }
+
+            // Quests
+            accountAddonData.Quests = parsed.Quests.EmptyIfNull();
 
             // Toys
             var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
