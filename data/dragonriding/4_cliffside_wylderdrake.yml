@@ -1,0 +1,229 @@
+name: 'Cliffside Wylderdrake'
+groups:
+
+- name: 'Armor'
+  things:
+    - itemId: 196961 # Cliffside Wylderdrake: Armor
+      questId: 69161
+
+- name: 'Armor Color'
+  things:
+    - itemId: 196965 # Cliffside Wylderdrake: Bronze and Teal Armor
+      questId: 69165
+
+    - itemId: 196962 # Cliffside Wylderdrake: Silver and Purple Armor
+      questId: 69162
+
+    - itemId: 196964 # Cliffside Wylderdrake: Gold and Black Armor
+      questId: 69164
+
+    - itemId: 196966 # Cliffside Wylderdrake: Gold and Orange Armor
+      questId: 69166
+
+    - itemId: 196967 # Cliffside Wylderdrake: Gold and White Armor
+      questId: 69167
+
+    - itemId: 196963 # Cliffside Wylderdrake: Silver and Blue Armor
+      questId: 69163
+
+    - itemId: 196968 # Cliffside Wylderdrake: Steel and Yellow Armor
+      questId: 69168
+
+- name: 'Back'
+  things:
+    - itemId: 196969 # Cliffside Wylderdrake: Finned Back
+      questId: 69169
+
+    - itemId: 196988 # Cliffside Wylderdrake: Red Mane
+      questId: 69188
+
+    - itemId: 196970 # Cliffside Wylderdrake: Spiked Back
+      questId: 69170
+
+- name: 'Chin'
+  things:
+    - itemId: 196973 # Cliffside Wylderdrake: Dual Horned Chin
+      questId: 69173
+
+    - itemId: 196974 # Cliffside Wylderdrake: Four Horned Chin
+      questId: 69174
+
+- name: 'Crest'
+  things:
+    - itemId: 196981 # Cliffside Wylderdrake: Conical Head
+      questId: 69181
+
+    - itemId: 196975 # Cliffside Wylderdrake: Head Fin
+      questId: 69175
+
+    - itemId: 196976 # Cliffside Wylderdrake: Head Mane
+      questId: 69176
+
+    - itemId: 196972 # Cliffside Wylderdrake: Plated Brow
+      questId: 69172
+
+    - itemId: 196978 # Cliffside Wylderdrake: Small Head Spikes
+      questId: 69178
+
+    - itemId: 196971 # Cliffside Wylderdrake: Spiked Brow
+      questId: 69171
+
+    - itemId: 196977 # Cliffside Wylderdrake: Split Head Horns
+      questId: 69177
+
+    - itemId: 196980 # Cliffside Wylderdrake: Triple Head Horns
+      questId: 69180
+
+- name: 'Ears'
+  things:
+    - itemId: 196982 # Cliffside Wylderdrake: Ears
+      questId: 69182
+
+- name: 'Hair Color'
+  things:
+    - itemId: 196986 # Cliffside Wylderdrake: Black Hair
+      questId: 69186
+
+    - itemId: 196987 # Cliffside Wylderdrake: Blonde Hair
+      questId: 69187
+
+    - itemId: 196989 # Cliffside Wylderdrake: White Hair
+      questId: 69189
+
+- name: 'Horn Color'
+  things:
+    - itemId: 196991 # Cliffside Wylderdrake: Black Horns
+      questId: 69191
+
+- name: 'Horns'
+  things:
+    - itemId: 196996 # Cliffside Wylderdrake: Branched Horns
+      questId: 69196
+
+    - itemId: 197000 # Cliffside Wylderdrake: Coiled Horns
+      questId: 69200
+
+    - itemId: 196979 # Cliffside Wylderdrake: Curled Head Horns
+      questId: 69179
+
+    - itemId: 196992 # Cliffside Wylderdrake: Heavy Horns
+      questId: 69192
+
+    - itemId: 196998 # Cliffside Wylderdrake: Hook Horns
+      questId: 69198
+
+    - itemId: 196994 # Cliffside Wylderdrake: Short Horns
+      questId: 69194
+
+    - itemId: 196993 # Cliffside Wylderdrake: Sleek Horns
+      questId: 69193
+
+    - itemId: 196995 # Cliffside Wylderdrake: Spiked Horns
+      questId: 69195
+
+    - itemId: 196997 # Cliffside Wylderdrake: Split Horns
+      questId: 69197
+
+    - itemId: 196999 # Cliffside Wylderdrake: Swept Horns
+      questId: 69199
+
+- name: 'Jaw'
+  things:
+    - itemId: 196984 # Cliffside Wylderdrake: Finned Jaw
+      questId: 69184
+
+    - itemId: 196985 # Cliffside Wylderdrake: Horned Jaw
+      questId: 69185
+
+    - itemId: 196983 # Cliffside Wylderdrake: Maned Jaw
+      questId: 69183
+
+- name: 'Legs'
+  things:
+    - itemId: 197004 # Cliffside Wylderdrake: Spiked Legs
+      questId: 69204
+
+- name: 'Nose'
+  things:
+    - itemId: 197005 # Cliffside Wylderdrake: Horned Nose
+      questId: 69205
+
+    - itemId: 197006 # Cliffside Wylderdrake: Plated Nose
+      questId: 69206
+
+- name: 'Pattern'
+  things:
+    - itemId: 197008 # Cliffside Wylderdrake: Narrow Stripes Pattern
+      questId: 69208
+
+    - itemId: 197009 # Cliffside Wylderdrake: Scaled Pattern
+      questId: 69209
+
+    - itemId: 197007 # Cliffside Wylderdrake: Wide Stripes Pattern
+      questId: 69207
+
+- name: 'Skin Color'
+  things:
+    - itemId: 197013 # Cliffside Wylderdrake: Black Scales
+      questId: 69213
+
+    - itemId: 197012 # Cliffside Wylderdrake: Blue Scales
+      questId: 69212
+
+    - itemId: 197011 # Cliffside Wylderdrake: Green Scales
+      questId: 69211
+
+    - itemId: 197010 # Cliffside Wylderdrake: Red Scales
+      questId: 69210
+
+    - itemId: 197014 # Cliffside Wylderdrake: White Scales
+      questId: 69214
+
+- name: 'Tail'
+  things:
+    - itemId: 197019 # Cliffside Wylderdrake: Blunt Spiked Tail
+      questId: 69219
+
+    - itemId: 197018 # Cliffside Wylderdrake: Finned Tail
+      questId: 69218
+
+    - itemId: 197017 # Cliffside Wylderdrake: Large Tail Spikes
+      questId: 69217
+
+    - itemId: 197016 # Cliffside Wylderdrake: Maned Tail
+      questId: 69216
+
+    - itemId: 197020 # Cliffside Wylderdrake: Spear Tail
+      questId: 69220
+
+    - itemId: 197021 # Cliffside Wylderdrake: Spiked Club Tail
+      questId: 69221
+
+- name: 'Throat'
+  things:
+    - itemId: 197022 # Cliffside Wylderdrake: Finned Neck
+      questId: 69222
+
+    - itemId: 197023 # Cliffside Wylderdrake: Maned Neck
+      questId: 69223
+
+- name: 'Variation'
+  things:
+    - itemId: 197015 # Cliffside Wylderdrake: Dark Skin Variation
+      questId: 69215
+
+- name: '???'
+  things:
+    - itemId: 197001 # Cliffside Wylderdrake: Finned Cheek
+      questId: 69201
+
+    - itemId: 197002 # Cliffside Wylderdrake: Flared Cheek
+      questId: 69202
+
+    - itemId: 196990 # Cliffside Wylderdrake: Helm
+      questId: 69190
+
+    - itemId: 197003 # Cliffside Wylderdrake: Spiked Cheek
+      questId: 69203
+
+

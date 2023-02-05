@@ -1,0 +1,203 @@
+name: 'Windborne Velocidrake'
+groups:
+
+- name: 'Armor Color'
+  things:
+    - itemId: 197577 # Windborne Velocidrake: Gold and Brown Armor
+      questId: 69781
+
+    - itemId: 197580 # Windborne Velocidrake: Gold and Red Armor
+      questId: 69784
+
+    - itemId: 197578 # Windborne Velocidrake: Silver and Blue Armor
+      questId: 69782
+
+    - itemId: 197581 # Windborne Velocidrake: Silver and Purple Armor
+      questId: 69785
+
+    - itemId: 197579 # Windborne Velocidrake: Steel and Orange Armor
+      questId: 69783
+
+    - itemId: 197582 # Windborne Velocidrake: White and Pink Armor
+      questId: 69786
+
+- name: 'Back'
+  things:
+    - itemId: 197583 # Windborne Velocidrake: Exposed Finned Back
+      questId: 69787
+
+    - itemId: 197587 # Windborne Velocidrake: Feathered Back
+      questId: 69791
+
+    - itemId: 197584 # Windborne Velocidrake: Finned Back
+      questId: 69788
+
+    - itemId: 197585 # Windborne Velocidrake: Maned Back
+      questId: 69789
+
+    - itemId: 197586 # Windborne Velocidrake: Spiked Back
+      questId: 69790
+
+- name: 'Body Armor'
+  things:
+    - itemId: 197588 # Windborne Velocidrake: Armor
+      questId: 69792
+
+- name: 'Crest'
+  things:
+    - itemId: 197593 # Windborne Velocidrake: Feathery Head
+      questId: 69797
+
+    - itemId: 197591 # Windborne Velocidrake: Hairy Head
+      questId: 69795
+
+    - itemId: 197589 # Windborne Velocidrake: Large Head Fin
+      questId: 69793
+
+    - itemId: 197590 # Windborne Velocidrake: Small Head Fin
+      questId: 69794
+
+    - itemId: 197592 # Windborne Velocidrake: Spined Head
+      questId: 69796
+
+- name: 'Fur Color'
+  things:
+    - itemId: 197597 # Windborne Velocidrake: Black Fur
+      questId: 69801
+
+    - itemId: 197598 # Windborne Velocidrake: Gray Fur
+      questId: 69802
+
+    - itemId: 197599 # Windborne Velocidrake: Red Fur
+      questId: 69803
+
+- name: 'Horn Color'
+  things:
+    - itemId: 197608 # Windborne Velocidrake: Gray Horns
+      questId: 69812
+
+    - itemId: 197609 # Windborne Velocidrake: White Horns
+      questId: 69813
+
+    - itemId: 197610 # Windborne Velocidrake: Yellow Horns
+      questId: 69814
+
+- name: 'Horns'
+  things:
+    - itemId: 197602 # Windborne Velocidrake: Cluster Horns
+      questId: 69806
+
+    - itemId: 197605 # Windborne Velocidrake: Curled Horns
+      questId: 69809
+
+    - itemId: 197603 # Windborne Velocidrake: Curved Horns
+      questId: 69807
+
+    - itemId: 197604 # Windborne Velocidrake: Ox Horns
+      questId: 69808
+
+    - itemId: 197607 # Windborne Velocidrake: Split Horns
+      questId: 69811
+
+    - itemId: 197606 # Windborne Velocidrake: Swept Horns
+      questId: 69810
+
+    - itemId: 197601 # Windborne Velocidrake: Wavy Horns
+      questId: 69805
+
+- name: 'Jaw'
+  things:
+    - itemId: 197595 # Windborne Velocidrake: Finned Ears
+      questId: 69799
+
+    - itemId: 197596 # Windborne Velocidrake: Horned Jaw
+      questId: 69800
+
+- name: 'Pattern'
+  things:
+    - itemId: 197635 # Windborne Velocidrake: Reaver Pattern
+      questId: 69846
+
+    - itemId: 197636 # Windborne Velocidrake: Shrieker Pattern
+      questId: 69847
+
+    - itemId: 197634 # Windborne Velocidrake: Windswept Pattern
+      questId: 69845
+
+- name: 'Skin Color'
+  things:
+    - itemId: 197611 # Windborne Velocidrake: Black Scales
+      questId: 69815
+
+    - itemId: 197612 # Windborne Velocidrake: Blue Scales
+      questId: 69816
+
+    - itemId: 197613 # Windborne Velocidrake: Bronze Scales
+      questId: 69817
+
+    - itemId: 197614 # Windborne Velocidrake: Red Scales
+      questId: 69818
+
+    - itemId: 197615 # Windborne Velocidrake: Teal Scales
+      questId: 69819
+
+    - itemId: 197616 # Windborne Velocidrake: White Scales
+      questId: 69820
+
+- name: 'Skin Scale'
+  things:
+    - itemId: 197617 # Windborne Velocidrake: Heavy Scales
+      questId: 69821
+
+- name: 'Snout'
+  things:
+    - itemId: 197620 # Windborne Velocidrake: Beaked Snout
+      questId: 69824
+
+    - itemId: 197619 # Windborne Velocidrake: Hooked Snout
+      questId: 69823
+
+    - itemId: 197618 # Windborne Velocidrake: Long Snout
+      questId: 69822
+
+- name: 'Tail'
+  things:
+    - itemId: 197624 # Windborne Velocidrake: Club Tail
+      questId: 69828
+
+    - itemId: 197621 # Windborne Velocidrake: Exposed Finned Tail
+      questId: 69825
+
+    - itemId: 197625 # Windborne Velocidrake: Feathery Tail
+      questId: 69829
+
+    - itemId: 197622 # Windborne Velocidrake: Finned Tail
+      questId: 69826
+
+    - itemId: 197623 # Windborne Velocidrake: Spiked Tail
+      questId: 69827
+
+- name: 'Throat'
+  things:
+    - itemId: 197626 # Windborne Velocidrake: Exposed Finned Neck
+      questId: 69831
+
+    - itemId: 197630 # Windborne Velocidrake: Feathered Neck
+      questId: 69836
+
+    - itemId: 197627 # Windborne Velocidrake: Finned Neck
+      questId: 69832
+
+    - itemId: 197628 # Windborne Velocidrake: Plated Neck
+      questId: 69834
+
+    - itemId: 197629 # Windborne Velocidrake: Spiked Neck
+      questId: 69835
+
+- name: '???'
+  things:
+    - itemId: 197600 # Windborne Velocidrake: Helm
+      questId: 69804
+
+    - itemId: 197594 # Windborne Velocidrake: Small Ears
+      questId: 69798

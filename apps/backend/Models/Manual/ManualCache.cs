@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Dragonriding;
 using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.ItemSets;
@@ -13,6 +14,8 @@ namespace Wowthing.Backend.Models.Manual;
 
 public class ManualCache
 {
+    public List<DataDragonridingCategory> Dragonriding { get; set; }
+
     [JsonProperty("rawHeirloomGroups")]
     public DataHeirloomGroup[] HeirloomSets { get; set; }
 

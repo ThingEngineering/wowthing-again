@@ -2,6 +2,8 @@ import type { QuestStatus } from '@/enums'
 
 
 export interface UserQuestData {
+    accountHas: Set<number>
+    account: number[]
     characters: Record<number, UserQuestDataCharacter>
 
     questNames: Record<string, string>

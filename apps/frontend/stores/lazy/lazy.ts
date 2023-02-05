@@ -124,12 +124,13 @@ class LazyStore implements LazyUgh {
     private userQuestData: UserQuestData
     private userTransmogData: UserTransmogData
     
-    private appearancesFunc: () => Record<string, UserCount>
-    private heirloomsFunc: () => Record<string, UserCount>
-    private illusionsFunc: () => Record<string, UserCount>
-    private mountsFunc: () => Record<string, UserCount>
-    private petsFunc: () => Record<string, UserCount>
-    private toysFunc: () => Record<string, UserCount>
+    private appearancesFunc: () => UserCounts
+    private dragonridingFunc: () => UserCounts
+    private heirloomsFunc: () => UserCounts
+    private illusionsFunc: () => UserCounts
+    private mountsFunc: () => UserCounts
+    private petsFunc: () => UserCounts
+    private toysFunc: () => UserCounts
 
     private journalFunc: () => LazyJournal
     private transmogFunc: () => LazyTransmog
@@ -207,6 +208,10 @@ class LazyStore implements LazyUgh {
             this.appearancesFunc = once(() => this.doAppearances())
         }
 
+        if (changedData.userQuestData) {
+            this.dragonridingFunc = once(() => this.doDragonriding())
+        }
+
         if (changedData.userData) {
             this.heirloomsFunc = once(() => this.doHeirlooms())
         }
@@ -269,6 +274,7 @@ class LazyStore implements LazyUgh {
     }
 
     get appearances(): UserCounts { return this.appearancesFunc() }
+    get dragonriding(): UserCounts { return this.dragonridingFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
     get journal(): LazyJournal { return this.journalFunc() }
@@ -347,6 +353,33 @@ class LazyStore implements LazyUgh {
                     }
 
                     overallSeen[appearance.appearanceId] = true
+                }
+            }
+        }
+
+        return counts
+    }
+
+    private doDragonriding(): UserCounts {
+        const counts: UserCounts = {}
+        const overallData = counts['OVERALL'] = new UserCount()
+        
+        for (const category of this.manualData.dragonriding) {
+            const sectionData = counts[category.name] = new UserCount()
+
+            for (const group of category.groups) {
+                const groupData = counts[`${category.name}--${group.name}`] = new UserCount()
+
+                for (const { questId } of group.things) {
+                    overallData.total++
+                    sectionData.total++
+                    groupData.total++
+                    
+                    if (this.userQuestData.accountHas.has(questId)) {
+                        overallData.have++
+                        sectionData.have++
+                        groupData.have++
+                    }
                 }
             }
         }

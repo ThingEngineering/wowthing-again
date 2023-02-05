@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { heirloomBonusIds } from '@/data/heirlooms'
-    import { manualStore, userStore, lazyStore } from '@/stores'
+    import { lazyStore, manualStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -62,7 +62,6 @@
         :global(img) {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
-
         }
     }
     .pill {
