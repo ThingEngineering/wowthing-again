@@ -1,0 +1,226 @@
+name: 'Renewed Proto-Drake'
+groups:
+
+- name: 'Armor Color'
+  things:
+    - itemId: 197348 # Renewed Proto-Drake: Black and Red Armor
+      questId: 69549
+
+    - itemId: 197353 # Renewed Proto-Drake: Bronze and Pink Armor
+      questId: 69554
+
+    - itemId: 197346 # Renewed Proto-Drake: Gold and Black Armor
+      questId: 69547
+
+    - itemId: 197351 # Renewed Proto-Drake: Gold and Red Armor
+      questId: 69552
+
+    - itemId: 197349 # Renewed Proto-Drake: Gold and White Armor
+      questId: 69550
+
+    - itemId: 197347 # Renewed Proto-Drake: Silver and Blue Armor
+      questId: 69548
+
+    - itemId: 197350 # Renewed Proto-Drake: Silver and Purple Armor
+      questId: 69551
+
+    - itemId: 197352 # Renewed Proto-Drake: Steel and Yellow Armor
+      questId: 69553
+
+- name: 'Body Armor'
+  things:
+    - itemId: 197357 # Renewed Proto-Drake: Armor
+      questId: 69558
+
+- name: 'Brow'
+  things:
+    - itemId: 197358 # Renewed Proto-Drake: Curved Spiked Brow
+      questId: 69559
+
+    - itemId: 197359 # Renewed Proto-Drake: Hairy Brow
+      questId: 69560
+
+    - itemId: 197360 # Renewed Proto-Drake: Spined Brow
+      questId: 69561
+
+- name: 'Crest'
+  things:
+    - itemId: 197366 # Renewed Proto-Drake: Dual Horned Crest
+      questId: 69567
+
+    - itemId: 197365 # Renewed Proto-Drake: Finned Crest
+      questId: 69566
+
+    - itemId: 197363 # Renewed Proto-Drake: Maned Crest
+      questId: 69564
+
+    - itemId: 197364 # Renewed Proto-Drake: Short Spiked Crest
+      questId: 69565
+
+    - itemId: 197361 # Renewed Proto-Drake: Spiked Crest
+      questId: 69562
+
+    - itemId: 197362 # Renewed Proto-Drake: Spined Crest
+      questId: 69563
+
+- name: 'Hair Color'
+  things:
+    - itemId: 197368 # Renewed Proto-Drake: Blue Hair
+      questId: 69569
+
+    - itemId: 197369 # Renewed Proto-Drake: Brown Hair
+      questId: 69570
+
+    - itemId: 197367 # Renewed Proto-Drake: Gray Hair
+      questId: 69568
+
+    - itemId: 197371 # Renewed Proto-Drake: Green Hair
+      questId: 69572
+
+    - itemId: 197372 # Renewed Proto-Drake: Purple Hair
+      questId: 69573
+
+    - itemId: 197370 # Renewed Proto-Drake: Red Hair
+      questId: 69571
+
+- name: 'Horn Color'
+  things:
+    - itemId: 197381 # Renewed Proto-Drake: Gradient Horns
+      questId: 69582
+
+    - itemId: 197382 # Renewed Proto-Drake: White Horns
+      questId: 69583
+
+- name: 'Horns'
+  things:
+    - itemId: 197377 # Renewed Proto-Drake: Bovine Horns
+      questId: 69578
+
+    - itemId: 197375 # Renewed Proto-Drake: Curled Horns
+      questId: 69576
+
+    - itemId: 197380 # Renewed Proto-Drake: Curved Horns
+      questId: 69581
+
+    - itemId: 197383 # Renewed Proto-Drake: Heavy Horns
+      questId: 69584
+
+    - itemId: 197379 # Renewed Proto-Drake: Impaler Horns
+      questId: 69580
+
+    - itemId: 197378 # Renewed Proto-Drake: Subtle Horns
+      questId: 69579
+
+    - itemId: 197374 # Renewed Proto-Drake: Swept Horns
+      questId: 69575
+
+- name: 'Jaw'
+  things:
+    - itemId: 197388 # Renewed Proto-Drake: Finned Jaw
+      questId: 69589
+
+    - itemId: 197385 # Renewed Proto-Drake: Horned Jaw
+      questId: 69586
+
+    - itemId: 197386 # Renewed Proto-Drake: Spiked Jaw
+      questId: 69587
+
+    - itemId: 197384 # Renewed Proto-Drake: Thick Spined Jaw
+      questId: 69585
+
+    - itemId: 197387 # Renewed Proto-Drake: Thin Spined Jaw
+      questId: 69588
+
+- name: 'Pattern'
+  things:
+    - itemId: 197395 # Renewed Proto-Drake: Harrier Pattern
+      questId: 69596
+
+    - itemId: 197394 # Renewed Proto-Drake: Predator Pattern
+      questId: 69595
+
+    - itemId: 197396 # Renewed Proto-Drake: Skyterror Pattern
+      questId: 69597
+
+- name: 'Skin Color'
+  things:
+    - itemId: 197392 # Renewed Proto-Drake: Black Scales
+      questId: 69593
+
+    - itemId: 197390 # Renewed Proto-Drake: Blue Scales
+      questId: 69591
+
+    - itemId: 197391 # Renewed Proto-Drake: Bronze Scales
+      questId: 69592
+
+    - itemId: 197389 # Renewed Proto-Drake: Green Scales
+      questId: 66720
+
+    - itemId: 197393 # Renewed Proto-Drake: White Scales
+      questId: 69594
+
+- name: 'Skin Scale'
+  things:
+    - itemId: 197397 # Renewed Proto-Drake: Heavy Scales
+      questId: 69598
+
+- name: 'Snout'
+  things:
+    - itemId: 197401 # Renewed Proto-Drake: Beaked Snout
+      questId: 69602
+
+    - itemId: 197399 # Renewed Proto-Drake: Razor Snout
+      questId: 69600
+
+    - itemId: 197400 # Renewed Proto-Drake: Shark Snout
+      questId: 69601
+
+    - itemId: 197398 # Renewed Proto-Drake: Snub Snout
+      questId: 69599
+
+- name: 'Tail'
+  things:
+    - itemId: 197403 # Renewed Proto-Drake: Club Tail
+      questId: 69604
+
+    - itemId: 197404 # Renewed Proto-Drake: Finned Tail
+      questId: 69605
+
+    - itemId: 197405 # Renewed Proto-Drake: Maned Tail
+      questId: 69606
+
+    - itemId: 197402 # Renewed Proto-Drake: Spiked Club Tail
+      questId: 69603
+
+    - itemId: 197406 # Renewed Proto-Drake: Spined Tail
+      questId: 69607
+
+- name: 'Throat'
+  things:
+    - itemId: 197408 # Renewed Proto-Drake: Finned Throat
+      questId: 69609
+
+    - itemId: 197407 # Renewed Proto-Drake: Spiked Throat
+      questId: 69608
+
+- name: 'Variation'
+  things:
+    - itemId: 201790 # Renewed Proto-Drake: Embodiment of the Storm-Eater
+      questId: 72367
+
+- name: '???'
+  things:
+    - itemId: 197376 # Renewed Proto-Drake: Ears
+      questId: 69577
+
+    - itemId: 197355 # Renewed Proto-Drake: Finned Back
+      questId: 69556
+
+    - itemId: 197356 # Renewed Proto-Drake: Hairy Back
+      questId: 69557
+
+    - itemId: 197373 # Renewed Proto-Drake: Helm
+      questId: 69574
+
+    - itemId: 197354 # Renewed Proto-Drake: Horned Back
+      questId: 69555

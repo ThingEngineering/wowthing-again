@@ -12,22 +12,32 @@
             Appearances
             <Percent percent={$lazyStore.appearances.OVERALL.percent} />
         </a>
+
+        <a href={"#/collections/dragonriding"} use:active>
+            Dragonriding
+            <Percent percent={$lazyStore.dragonriding.OVERALL.percent} />
+        </a>
+
         <a href={"#/collections/heirlooms"} use:active>
             Heirlooms
             <Percent percent={$lazyStore.heirlooms.AVAILABLE.percent} />
         </a>
+
         <a href={"#/collections/illusions"} use:active>
             Illusions
             <Percent percent={$lazyStore.illusions.AVAILABLE.percent} />
         </a>
+
         <a href={"#/collections/mounts"} use:active={"/collections/mounts/*"}>
             Mounts
             <Percent percent={$lazyStore.mounts.OVERALL.percent} />
         </a>
+
         <a href={"#/collections/pets"} use:active={"/collections/pets/*"}>
             Pets
             <Percent percent={$lazyStore.pets.OVERALL.percent} />
         </a>
+
         <a href={"#/collections/toys"} use:active={"/collections/toys/*"}>
             Toys
             <Percent percent={$lazyStore.toys.OVERALL.percent} />

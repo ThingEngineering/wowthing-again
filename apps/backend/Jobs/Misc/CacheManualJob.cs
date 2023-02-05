@@ -2,6 +2,7 @@
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Dragonriding;
 using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.Items;
@@ -61,7 +62,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 22,
+        Version = 23,
     };
 
     public override async Task Run(params string[] data)
@@ -216,6 +217,9 @@ public class CacheManualJob : JobBase, IScheduledJob
         cacheData.ToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
+        cacheData.Dragonriding = LoadDragonriding();
+        _timer.AddPoint("Dragonriding");
+
         cacheData.HeirloomSets = LoadHeirlooms();
         _timer.AddPoint("Heirlooms");
 
@@ -282,6 +286,24 @@ public class CacheManualJob : JobBase, IScheduledJob
         await Context.SaveChangesAsync();
 
         _timer.AddPoint("Quests", true);
+    }
+
+    private List<DataDragonridingCategory> LoadDragonriding()
+    {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "dragonriding"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var ret = new List<DataDragonridingCategory>();
+
+        foreach (var file in files)
+        {
+            var category = DataUtilities.YamlDeserializer.Deserialize<DataDragonridingCategory>(File.OpenText(file.FullName));
+            ret.Add(category);
+        }
+
+        return ret;
     }
 
     private DataHeirloomGroup[] LoadHeirlooms()

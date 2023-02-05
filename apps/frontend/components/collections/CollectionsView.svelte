@@ -2,6 +2,7 @@
     import type { MultiSlugParams } from '@/types'
 
     import Appearances from '@/components/appearances/Appearances.svelte'
+    import Dragonriding from './dragonriding/Dragonriding.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import Illusions from '@/components/illusions/Illusions.svelte'
     import Mounts from '@/components/collectible/Mounts.svelte'
@@ -25,6 +26,9 @@
             basePath={'collections'}
             params={shiftedParams}
         />
+
+    {:else if params.slug1 === 'dragonriding'}
+        <Dragonriding />
 
     {:else if params.slug1 === 'heirlooms'}
         <Heirlooms />

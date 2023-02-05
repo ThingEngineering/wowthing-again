@@ -1,7 +1,6 @@
-import type { RewardType } from '@/enums'
 import type { UserCount } from '@/types/user-count'
-import type { FarmStatus } from '@/types/zone-maps'
 
+import type { ManualDataDragonridingCategory } from './dragonriding'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'
@@ -16,6 +15,7 @@ import type { ManualDataZoneMapCategory, ManualDataZoneMapCategoryArray } from '
 
 export interface ManualData {
     // TODO pack these
+    dragonriding: ManualDataDragonridingCategory[]
     progressSets: ManualDataProgressCategory[][]
 
     // Packed data
