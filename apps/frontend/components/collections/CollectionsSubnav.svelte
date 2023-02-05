@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { userStatsStore } from '@/stores'
+    import { lazyStore } from '@/stores'
 
     import Percent from '@/components/common/Percent.svelte'
 </script>
@@ -10,27 +10,27 @@
     <nav class="subnav" id="collections-subnav">
         <a href={"#/collections/appearances"} use:active={"/collections/appearances/*"}>
             Appearances
-            <Percent percent={$userStatsStore.appearances.OVERALL.percent} />
+            <Percent percent={$lazyStore.appearances.OVERALL.percent} />
         </a>
         <a href={"#/collections/heirlooms"} use:active>
             Heirlooms
-            <Percent percent={$userStatsStore.heirlooms.AVAILABLE.percent} />
+            <Percent percent={$lazyStore.heirlooms.AVAILABLE.percent} />
         </a>
         <a href={"#/collections/illusions"} use:active>
             Illusions
-            <Percent percent={$userStatsStore.illusions.AVAILABLE.percent} />
+            <Percent percent={$lazyStore.illusions.AVAILABLE.percent} />
         </a>
         <a href={"#/collections/mounts"} use:active={"/collections/mounts/*"}>
             Mounts
-            <Percent percent={$userStatsStore.mounts.OVERALL.percent} />
+            <Percent percent={$lazyStore.mounts.OVERALL.percent} />
         </a>
         <a href={"#/collections/pets"} use:active={"/collections/pets/*"}>
             Pets
-            <Percent percent={$userStatsStore.pets.OVERALL.percent} />
+            <Percent percent={$lazyStore.pets.OVERALL.percent} />
         </a>
         <a href={"#/collections/toys"} use:active={"/collections/toys/*"}>
             Toys
-            <Percent percent={$userStatsStore.toys.OVERALL.percent} />
+            <Percent percent={$lazyStore.toys.OVERALL.percent} />
         </a>
     </nav>
 </div>

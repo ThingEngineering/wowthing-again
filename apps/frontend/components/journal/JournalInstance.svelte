@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { journalStore } from '@/stores'
+    import { journalStore, lazyStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
@@ -80,7 +80,7 @@
             <div class="collection thing-container" data-instance-id="{instance.id}">
                 <SectionTitle
                     title={instance.name}
-                    count={$journalStore.stats[slugKey]}
+                    count={$lazyStore.journal.stats[slugKey]}
                 >
                     <EncounterStats
                         statsKey={slugKey}

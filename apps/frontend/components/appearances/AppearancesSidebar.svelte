@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { expansionMap } from '@/data/expansion'
-    import { userStatsStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -51,7 +51,7 @@
                 children: weaponChildren,
             }
         ]
-        stats = $userStatsStore.appearances.OVERALL
+        stats = $lazyStore.appearances.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -62,7 +62,7 @@
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userStatsStore.appearances[slug]
+        const hasData = $lazyStore.appearances[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 

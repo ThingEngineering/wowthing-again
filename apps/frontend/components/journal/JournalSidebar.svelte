@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { journalStore } from '@/stores'
+    import { journalStore, lazyStore } from '@/stores'
     import { settingsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
@@ -23,14 +23,14 @@
             ...tier,
         }))
 
-        overall = $journalStore.stats['OVERALL']
+        overall = $lazyStore.journal.stats.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $journalStore.stats[slug]
+        const hasData = $lazyStore.journal.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>

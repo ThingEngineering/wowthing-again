@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { expansionMap } from '@/data/expansion'
-    import { appearanceStore, userStatsStore } from '@/stores'
+    import { appearanceStore, lazyStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
@@ -50,7 +50,7 @@
     {#if name && sets}
         <div class="collection thing-container">
             <SectionTitle
-                count={$userStatsStore.appearances[dataSlug]}
+                count={$lazyStore.appearances[dataSlug]}
                 title={name}
             />
             

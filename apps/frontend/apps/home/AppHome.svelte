@@ -11,12 +11,11 @@
         timeStore,
         userAchievementStore,
         userQuestStore,
-        //userStatsStore,
         userStore,
         userTransmogStore,
         userVendorStore,
     } from '@/stores'
-    import { journalState, vendorState, zoneMapState } from '@/stores/local-storage'
+    import { vendorState } from '@/stores/local-storage'
     import parseApiTime from '@/utils/parse-api-time'
 
     import NewNav from './AppHomeNewNav.svelte'
@@ -67,14 +66,7 @@
             && $userTransmogStore.loaded
 
         if (!error && loaded) {
-            manualStore.setup(
-                $settingsStore,
-                $userStore,
-                $userAchievementStore,
-                $userQuestStore,
-                $userTransmogStore,
-                $zoneMapState,
-            )
+            manualStore.setup()
 
             userStore.setup(
                 $settingsStore,
@@ -90,16 +82,6 @@
                 $userStore,
                 $userTransmogStore,
                 $vendorState
-            )
-
-            journalStore.setup(
-                $settingsStore,
-                $journalStore,
-                $journalState,
-                $manualStore,
-                $staticStore,
-                $userStore,
-                $userTransmogStore,
             )
 
             itemStore.setup(

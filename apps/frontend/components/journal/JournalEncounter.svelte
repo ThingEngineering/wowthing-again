@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { journalStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import type { JournalDataEncounter, JournalDataEncounterItemGroup } from '@/types/data'
     
     import EncounterStats from './JournalEncounterStats.svelte'
@@ -14,7 +14,9 @@
     $: useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30
 
     const reduceFunc = function(a: number, b: JournalDataEncounterItemGroup) {
-        return a + b.filteredItems.filter((item) => item.show).reduce((a, b) => a + b.appearances.length, 0)
+        return a + $lazyStore.journal.filteredItems[`${statsKey}--${b.name}`]
+            .filter((item) => item.show)
+            .reduce((a, b) => a + b.appearances.length, 0)
     }
 </script>
 
@@ -27,7 +29,7 @@
 
 <SectionTitle
     title={encounter.name}
-    count={$journalStore.stats[statsKey]}
+    count={$lazyStore.journal.stats[statsKey]}
 >
     <EncounterStats
         {encounter}
@@ -38,8 +40,8 @@
 <div class="collection{useV2 ? '-v2' : ''}-section" data-encounter-id="{encounter.id}">
     {#each encounter.groups as group}
         <Group
+            groupKey={`${slugKey}--${encounter.name}--${group.name}`}
             {bonusIds}
-            stats={$journalStore.stats[`${slugKey}--${encounter.name}--${group.name}`]}
             {group}
             {useV2}
         />

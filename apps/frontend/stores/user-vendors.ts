@@ -22,7 +22,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
         userTransmogData: UserTransmogData,
         vendorState: VendorState
     ): void {
-        // console.time('UserVendorStore.setup')
+        console.time('UserVendorStore.setup')
 
         const itemData = get(itemStore)
         const manualData = get(manualStore)
@@ -196,7 +196,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
             return state
         })
 
-        // console.timeEnd('UserVendorStore.setup')
+        console.timeEnd('UserVendorStore.setup')
     }
 }
 

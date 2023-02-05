@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { vendorState } from '@/stores/local-storage'
+    import { VendorState, vendorState } from '@/stores/local-storage'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

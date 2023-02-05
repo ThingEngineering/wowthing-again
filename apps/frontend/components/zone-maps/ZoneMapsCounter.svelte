@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { manualStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
     import type { RewardType } from '@/enums'
@@ -9,7 +9,7 @@
 
     let counts: UserCount
     $: {
-        counts = $manualStore.zoneMaps.typeCounts[key]?.[type]
+        counts = $lazyStore.zoneMaps.typeCounts[key]?.[type]
     }
 </script>
 

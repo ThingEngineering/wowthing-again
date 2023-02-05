@@ -4,7 +4,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { manualStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { FarmType, PlayableClass, RewardType } from '@/enums'
@@ -49,7 +49,7 @@
                 farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName))
             }
 
-            farmStatuses = $manualStore.zoneMaps.farmStatus[slugKey]
+            farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey]
         }
 
         if ($zoneMapState.classFilters[slugKey] === undefined) {

@@ -1,9 +1,9 @@
-import type { UserCount } from '@/types'
+// import type { UserCount } from '@/types'
 import type { RewardType } from '../../enums'
 
 
 export interface JournalData {
-    stats?: Record<string, UserCount>
+    // stats?: Record<string, UserCount>
     tiers: JournalDataTier[]
 }
 
@@ -50,7 +50,7 @@ type JournalDataEncounterArray = ConstructorParameters<typeof JournalDataEncount
 
 export class JournalDataEncounterItemGroup {
     public items: JournalDataEncounterItem[]
-    public filteredItems: JournalDataEncounterItem[]
+    //public filteredItems: JournalDataEncounterItem[]
 
     constructor(
         public name: string,

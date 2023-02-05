@@ -73,8 +73,4 @@ export interface ManualDataVendors {
 
 export interface ManualDataZoneMaps {
     sets: ManualDataZoneMapCategory[][]
-
-    counts?: Record<string, UserCount>
-    farmStatus?: Record<string, FarmStatus[]>
-    typeCounts?: Record<string, Record<RewardType, UserCount>>
 }

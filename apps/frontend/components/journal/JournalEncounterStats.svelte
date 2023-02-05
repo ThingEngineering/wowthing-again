@@ -1,9 +1,8 @@
 <script lang="ts">
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { farmTypeIcons } from '@/data/icons'
-
-    import { journalStore, userAchievementStore } from '@/stores'
     import { FarmType } from '@/enums'
+    import { lazyStore, userAchievementStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'
@@ -19,14 +18,13 @@
         for (const difficulty of journalDifficultyOrder) {
 
             const difficultyKey = `${statsKey}--${difficulty}`
-            const difficultyStats = $journalStore.stats[difficultyKey]
+            const difficultyStats = $lazyStore.journal.stats[difficultyKey]
             if (difficultyStats) {
                 let kills = -1
 
                 for (const difficultyId of (difficultyUgh[difficulty] || [difficulty])) {
                     const statisticIds = encounter?.statistics?.[difficultyId] ?? []
                     if (statisticIds.length > 0) {
-                        console.log(statisticIds)
                         const newKills = statisticIds.reduce(
                             (a, b) => a + ($userAchievementStore.statistics?.[b] || [])
                                 .reduce((c, d) => c + d[1], 0)

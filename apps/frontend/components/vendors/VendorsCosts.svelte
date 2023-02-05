@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { itemStore, manualStore, staticStore, userVendorStore } from '@/stores'
+    import { itemStore, staticStore } from '@/stores'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
 
     import CurrencyLink from '@/components/links/CurrencyLink.svelte'

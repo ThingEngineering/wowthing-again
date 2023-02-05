@@ -57,7 +57,7 @@
     }
 </script>
 
-{#each bagSets as bagSlots, setIndex}
+{#each bagSets as bagSlots}
     <td class="spacer"></td>
 
     {#each bagSlots as [bagSlot, gear]}

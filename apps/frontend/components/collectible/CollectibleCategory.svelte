@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userStatsStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataSetCategory } from '@/types/data/manual'
@@ -34,7 +34,7 @@
     {#if category.name}
         <SectionTitle
             title={category.name}
-            count={$userStatsStore.lookup(route)[`${slug1}--${category.slug}`]}
+            count={$lazyStore.lookup(route)[`${slug1}--${category.slug}`]}
         />
     {/if}
 
@@ -45,7 +45,7 @@
                 style={useV2 ? '' : `width: min(100%, calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem)));`}
             >
                 <h4
-                    class="drop-shadow text-overflow {getPercentClass($userStatsStore.lookup(route)[`${slug1}--${category.slug}--${group.name}`])}"
+                    class="drop-shadow text-overflow {getPercentClass($lazyStore.lookup(route)[`${slug1}--${category.slug}--${group.name}`])}"
                     use:tippy={group.name}
                 >
                     <ParsedText text={group.name} />

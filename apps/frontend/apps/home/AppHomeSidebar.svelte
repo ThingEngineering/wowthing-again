@@ -16,7 +16,7 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
-    import { journalStore, settingsStore, userStore, userStatsStore, userTransmogStore } from '@/stores'
+    import { lazyStore, settingsStore, userStore, userTransmogStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -24,28 +24,23 @@
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
     import { RewardType } from '@/enums'
 
-    let journalPercent: number
-    let mountsPercent: number
-    let petsPercent: number
-    let toysPercent: number
     let transmogPercent: number
     let transmogSetsPercent: number
     let vendorPercent: number
     $: {
-        const journalOverall = $journalStore.stats['OVERALL']
         const transmogOverall = $userTransmogStore.stats['OVERALL']
         const transmogSetsOverall = $userTransmogStore.statsV2['OVERALL']
         const vendorOverall = $userVendorStore.stats['OVERALL']
 
-        journalPercent = journalOverall.have / journalOverall.total * 100
         transmogPercent = transmogOverall.have / transmogOverall.total * 100
         transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
         vendorPercent = vendorOverall.have / vendorOverall.total * 100
-
-        mountsPercent = $userStatsStore.mounts.OVERALL.percent
-        petsPercent = $userStatsStore.pets.OVERALL.percent
-        toysPercent = $userStatsStore.toys.OVERALL.percent
     }
+
+    $: journalPercent = $lazyStore.journal.stats.OVERALL.percent
+    $: mountsPercent = $lazyStore.mounts.OVERALL.percent
+    $: petsPercent = $lazyStore.pets.OVERALL.percent
+    $: toysPercent = $lazyStore.toys.OVERALL.percent
 
     const fancyPercent = (percent: number): string => {
         return (Math.floor(percent * 10) / 10).toFixed(1)
