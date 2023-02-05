@@ -43,8 +43,8 @@
 
 <div class="items-wrapper">
     <nav class="subnav" id="items-subnav">
-        <a href="#/items/equipped" use:active>Equipped</a>
         <a href="#/items/bags" use:active>Bags</a>
+        <a href="#/items/equipped" use:active>Equipped</a>
         <a href="#/items/professions" use:active>Professions</a>
     </nav>
 
@@ -57,11 +57,11 @@
         </div>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#if params.slug1 === 'equipped'}
+            {#if params.slug1 === 'bags'}
+                <RowBags {character} />
+            {:else if params.slug1 === 'equipped'}
                 <RowItemLevel />
                 <RowItems {character} />
-            {:else if params.slug1 === 'bags'}
-                <RowBags {character} />
             {:else if params.slug1 === 'professions'}
                 <RowProfessions {character} />
             {/if}
