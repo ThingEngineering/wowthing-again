@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
-    import { manualStore, staticStore, userStatsStore, userTransmogStore } from '@/stores'
+    import { manualStore, staticStore, lazyStore, userTransmogStore } from '@/stores'
     import { illusionState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
@@ -105,12 +105,12 @@
     <div class="collection thing-container">
         {#each sections as [name, groups]}
             <SectionTitle
-                count={$userStatsStore.illusions[name.toUpperCase()]}
+                count={$lazyStore.illusions[name.toUpperCase()]}
                 title={name}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
-                    {@const groupCount = $userStatsStore.illusions[group.name]}
+                    {@const groupCount = $lazyStore.illusions[group.name]}
                     <div class="collection-v2-group">
                         <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}

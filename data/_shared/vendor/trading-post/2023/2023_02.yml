@@ -1,5 +1,5 @@
 id: 1202302
-name: "February 2023"
+name: "2023-02"
 
 locations:
   misc_trading_post:
@@ -10,7 +10,7 @@ tags:
   - "trading-post:2023"
 
 sets:
-  - name: "February 2023"
+  - name: "2023-02"
     range: -1
     sortKey: "2023-02"
 

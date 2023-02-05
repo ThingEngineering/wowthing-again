@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import { userStatsStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
@@ -21,14 +21,14 @@
             ...set[0],
         }))
 
-        overall = $userStatsStore.lookup(countsKey)['OVERALL']
+        overall = $lazyStore.lookup(countsKey)['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userStatsStore.lookup(countsKey)[slug]
+        const hasData = $lazyStore.lookup(countsKey)[slug]
         return hasData.have / hasData.total * 100
     }
 </script>

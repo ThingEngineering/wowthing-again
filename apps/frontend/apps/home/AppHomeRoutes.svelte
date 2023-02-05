@@ -8,7 +8,6 @@
     import Collections from '@/components/collections/Collections.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Explore from '@/components/explore/Explore.svelte'
-    import Gear from '@/components/gear/Gear.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import History from '@/components/history/History.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
@@ -44,11 +43,10 @@
         '/auctions/:slug1?/:slug2?': Auctions,
         '/collections/:slug1?/:slug2?/:slug3?/:slug4?': Collections,
         '/currencies/:slug1?/:slug2?': Currencies,
-        '/gear/:slug1?': Gear,
         '/heirlooms': Heirlooms,
         '/history/:slug?': History,
         '/illusions': Illusions,
-        '/items/:slug?': Items,
+        '/items/:slug1?/:slug2?/:slug3?': Items,
         '/journal/:slug1?/:slug2?/:slug3?': Journal,
         '/lockouts': Lockouts,
         '/matrix': Matrix,

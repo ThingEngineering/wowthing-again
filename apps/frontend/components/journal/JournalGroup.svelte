@@ -1,8 +1,8 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import type { UserCount } from '@/types'
     import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
@@ -10,17 +10,14 @@
 
     export let bonusIds: Record<number, number>
     export let group: JournalDataEncounterItemGroup
-    export let stats: UserCount
+    export let groupKey: string
     export let useV2: boolean
 
     let element: HTMLElement
     let intersected: boolean
     let items: JournalDataEncounterItem[]
-    let percent: number
     $: {
-        percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
-
-        items = group.filteredItems.filter((item) => item.show)
+        items = $lazyStore.journal.filteredItems[groupKey].filter((item) => item.show)
     }
 </script>
 
@@ -28,14 +25,18 @@
     h4 {
         margin-bottom: 0.2rem;
     }
+    .collection-v2-group {
+        width: 17.6rem;
+    }
     .collection-objects {
         min-height: 52px;
     }
 </style>
 
 {#if items.length > 0}
+    {@const stats = $lazyStore.journal.stats[groupKey]}
     <div class="collection{useV2 ? '-v2' : ''}-group">
-        <h4 class="drop-shadow {getPercentClass(percent)}">
+        <h4 class="drop-shadow {getPercentClass(stats.percent)}">
             {group.name}
             <CollectibleCount counts={stats} />
         </h4>

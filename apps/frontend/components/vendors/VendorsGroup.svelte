@@ -72,6 +72,9 @@
 </script>
 
 <style lang="scss">
+    .collection-v2-group {
+        width: 17.6rem;
+    }
     .collection-objects {
         min-height: 52px;
     }

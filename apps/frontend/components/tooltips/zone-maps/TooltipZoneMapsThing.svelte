@@ -5,7 +5,7 @@
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType, InventoryType } from '@/enums'
-    import { achievementStore, itemStore, journalStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
     import leftPad from '@/utils/left-pad'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
@@ -187,7 +187,7 @@
             {/if}
 
             {#if farm.idType == FarmIdType.Instance}
-                {@const stats = $journalStore.stats[status.link.replace('/', '--')]}
+                {@const stats = $lazyStore.journal.stats[status.link.replace('/', '--')]}
                 <tr>
                     <td colspan="3">
                         {stats.have} / {stats.total} unique drops

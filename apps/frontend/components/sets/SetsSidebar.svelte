@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { manualStore, userTransmogStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -13,18 +13,18 @@
             ...set[0],
         }))
 
-        overall = $userTransmogStore.stats['OVERALL']
+        overall = $lazyStore.transmog.stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $userTransmogStore.stats[slug]
-        return hasData.have / hasData.total * 100
+        return $lazyStore.transmog.stats[slug].percent
     }
 </script>
 
+<!-- svelte-ignore missing-declaration -->
 <style lang="scss">
     div {
         margin-bottom: 0.75rem;

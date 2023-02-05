@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { heirloomBonusIds } from '@/data/heirlooms'
-    import { manualStore, userStore, userStatsStore } from '@/stores'
+    import { manualStore, userStore, lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -76,12 +76,12 @@
     <div class="collection thing-container">
         {#each sections as [name, groups]}
             <SectionTitle
-                count={$userStatsStore.heirlooms[name.toUpperCase()]}
+                count={$lazyStore.heirlooms[name.toUpperCase()]}
                 title={name}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
-                    {@const groupCount = $userStatsStore.heirlooms[group.name]}
+                    {@const groupCount = $lazyStore.heirlooms[group.name]}
                     <div class="collection-v2-group">
                         <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}

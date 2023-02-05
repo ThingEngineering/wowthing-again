@@ -3,8 +3,8 @@
     import { staticStore } from '@/stores'
     import type { Character, CharacterGear } from '@/types'
 
-    import Empty from './GearEmpty.svelte'
-    import Item from './GearItem.svelte'
+    import Empty from './ItemsEmpty.svelte'
+    import Item from './ItemsItem.svelte'
 
     export let character: Character
 
@@ -57,10 +57,8 @@
     }
 </script>
 
-{#each bagSets as bagSlots, setIndex}
-    {#if setIndex > 0}
-        <td class="spacer"></td>
-    {/if}
+{#each bagSets as bagSlots}
+    <td class="spacer"></td>
 
     {#each bagSlots as [bagSlot, gear]}
         {#if gear}

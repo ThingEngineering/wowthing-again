@@ -4,28 +4,39 @@ import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
-import { AppearancesState, appearanceState } from './local-storage'
-import { appearanceStore } from './appearance'
-import { manualStore } from './manual'
-import { settingsStore } from './settings'
-import { staticStore } from './static'
-import { userStore } from './user'
-import { userTransmogStore } from './user-transmog'
-import { UserCount } from '@/types'
+import { doJournal, type LazyJournal } from './journal'
+import { doTransmog, type LazyTransmog } from './transmog'
+import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
+
+import { AppearancesState, appearanceState, JournalState, journalState, zoneMapState, ZoneMapState } from '../local-storage'
+import { appearanceStore } from '../appearance'
+import { itemStore } from '../item'
+import { journalStore } from '../journal'
+import { manualStore } from '../manual'
+import { settingsStore } from '../settings'
+import { staticStore } from '../static'
+import { userStore } from '../user'
+import { userAchievementStore } from '../user-achievements'
+import { userQuestStore } from '../user-quests'
+import { userTransmogStore } from '../user-transmog'
+
+import { UserCount, type UserAchievementData } from '@/types'
+import type { UserQuestData } from '@/types/data'
+
 import type { FancyStoreType, Settings, UserData} from '@/types'
-import type { UserTransmogData } from '@/types/data'
+import type { JournalData, UserTransmogData } from '@/types/data'
+import type { AppearanceData } from '@/types/data/appearance'
 import type {
     ManualData,
     ManualDataHeirloomItem,
     ManualDataIllusionItem,
     ManualDataSetCategory
 } from '@/types/data/manual'
+import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import type { AppearanceData } from '@/types/data/appearance'
 
 
-
-type UserStatsKey =
+type LazyKey =
     | 'appearances'
     | 'heirlooms'
     | 'illusions'
@@ -33,8 +44,8 @@ type UserStatsKey =
     | 'pets'
     | 'toys'
 
-type UserStatsUgh = {
-    [k in UserStatsKey]: UserCounts
+type LazyUgh = {
+    [k in LazyKey]: UserCounts
 }
 
 type GenericCategory<T> = {
@@ -44,37 +55,45 @@ type GenericCategory<T> = {
 
 type UserCounts = Record<string, UserCount>
 
-export const userStatsStore = derived(
+export const lazyStore = derived(
     [
         settingsStore,
         appearanceState,
-        appearanceStore,
-        manualStore,
+        journalState,
+        zoneMapState,
         userStore,
+        userAchievementStore,
+        userQuestStore,
         userTransmogStore
     ],
     debounce(
         ([
             $settingsStore,
             $appearanceState,
-            $appearanceStore,
-            $manualStore,
+            $journalState,
+            $zoneMapState,
             $userStore,
+            $userAchievementStore,
+            $userQuestStore,
             $userTransmogStore
         ]: [
             Settings,
             AppearancesState,
-            FancyStoreType<AppearanceData>,
-            FancyStoreType<ManualData>,
+            JournalState,
+            ZoneMapState,
             FancyStoreType<UserData>,
+            FancyStoreType<UserAchievementData>,
+            FancyStoreType<UserQuestData>,
             FancyStoreType<UserTransmogData>
         ]) => {
             storeInstance.update(
                 $settingsStore,
                 $appearanceState,
-                $appearanceStore,
-                $manualStore,
+                $journalState,
+                $zoneMapState,
                 $userStore,
+                $userAchievementStore,
+                $userQuestStore,
                 $userTransmogStore
             )
             return storeInstance
@@ -87,15 +106,22 @@ export const userStatsStore = derived(
     )
 )
 
-class UserStatsStore implements UserStatsUgh {
+class LazyStore implements LazyUgh {
     private settings: Settings
-    private staticData: StaticData
 
     private appearanceState: AppearancesState
-
+    private journalState: JournalState
+    private zoneMapState: ZoneMapState
+    
     private appearanceData: AppearanceData
+    private itemData: ItemData
+    private journalData: JournalData
     private manualData: ManualData
+    private staticData: StaticData
+
+    private userAchievementData: UserAchievementData
     private userData: UserData
+    private userQuestData: UserQuestData
     private userTransmogData: UserTransmogData
     
     private appearancesFunc: () => Record<string, UserCount>
@@ -105,28 +131,37 @@ class UserStatsStore implements UserStatsUgh {
     private petsFunc: () => Record<string, UserCount>
     private toysFunc: () => Record<string, UserCount>
 
+    private journalFunc: () => LazyJournal
+    private transmogFunc: () => LazyTransmog
+    private zoneMapsFunc: () => LazyZoneMaps
+
     private hashes: Record<string, string> = {}
 
     update(
         settings: Settings,
         appearanceState: AppearancesState,
-        appearanceData: AppearanceData,
-        manualData: ManualData,
+        journalState: JournalState,
+        zoneMapState: ZoneMapState,
         userData: UserData,
+        userAchievementData: UserAchievementData,
+        userQuestData: UserQuestData,
         userTransmogData: UserTransmogData
     )
     {
         const newHashes: Record<string, string> = {
-            appearanceState: this.hashObject(appearanceState),
+            appearanceState: this.hashObject(appearanceState), 
+            journalState: this.hashObject(journalState),
+            zoneMapState: this.hashObject(zoneMapState),
+            
             collections: `${settings.collections.hideUnavailable}`,
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
 
         const changedData = {
-            appearanceData: this.appearanceData !== appearanceData,
-            manualData: this.manualData !== manualData,
             userData: this.userData !== userData,
+            userAchievementData: this.userAchievementData !== userAchievementData,
+            userQuestData: this.userQuestData !== userQuestData,
             userTransmogData: this.userTransmogData !== userTransmogData
         }
 
@@ -140,40 +175,86 @@ class UserStatsStore implements UserStatsUgh {
             return
         }
 
-        console.time('UserStatsStore.update')
+        console.time('LazyStore.update')
 
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
 
+        const appearanceData = this.appearanceData = get(appearanceStore)
+        const itemData = this.itemData = get(itemStore)
+        const journalData = this.journalData = get(journalStore)
+        const manualData = this.manualData = get(manualStore)
+        const staticData = this.staticData = get(staticStore)
+
         this.settings = settings
-        this.staticData = get(staticStore)
 
         this.appearanceState = appearanceState
+        this.journalState = journalState
+        this.zoneMapState = zoneMapState
 
-        this.appearanceData = appearanceData
-        this.manualData = manualData
         this.userData = userData
+        this.userAchievementData = userAchievementData
+        this.userQuestData = userQuestData
         this.userTransmogData = userTransmogData
 
-        if (changedData.manualData || changedData.userData || changedHashes.collections) {
+        if (changedData.userData || changedHashes.collections) {
             this.mountsFunc = once(() => this.doSetCounts(this.manualData.mountSets, this.userData.hasMount))
             this.petsFunc = once(() => this.doSetCounts(this.manualData.petSets, this.userData.hasPet))
             this.toysFunc = once(() => this.doSetCounts(this.manualData.toySets, this.userData.hasToy))
         }
 
-        if (changedData.appearanceData || changedData.userTransmogData || changedHashes.appearanceState) {
+        if (changedData.userTransmogData || changedHashes.appearanceState) {
             this.appearancesFunc = once(() => this.doAppearances())
         }
 
-        if (changedData.manualData || changedData.userData) {
+        if (changedData.userData) {
             this.heirloomsFunc = once(() => this.doHeirlooms())
         }
 
-        if (changedData.manualData || changedData.userTransmogData) {
+        if (changedData.userTransmogData) {
             this.illusionsFunc = once(() => this.doIllusions())
         }
 
-        console.timeEnd('UserStatsStore.update')
+        if (changedData.userData || changedData.userTransmogData || changedHashes.journalState)
+        {
+            this.journalFunc = once(() => doJournal({
+                settings,
+                journalState,
+                journalData,
+                staticData,
+                userData,
+                userTransmogData,
+            }))
+        }
+
+        if (changedData.userData) {
+            this.transmogFunc = once(() => doTransmog({
+                settings,
+                manualData,
+                userTransmogData,
+            }))
+        }
+
+        if (changedData.userData ||
+            changedData.userAchievementData ||
+            changedData.userQuestData ||
+            changedData.userAchievementData ||
+            changedHashes.zoneMapState)
+        {
+            this.zoneMapsFunc = once(() => doZoneMaps({
+                settings,
+                zoneMapState,
+                itemData,
+                manualData,
+                staticData,
+                userData,
+                userAchievementData,
+                userQuestData,
+                userTransmogData,
+            }))
+        }
+
+        console.timeEnd('LazyStore.update')
     }
 
     private hashObject(obj: object): string {
@@ -184,32 +265,18 @@ class UserStatsStore implements UserStatsUgh {
     }
 
     lookup(key: string): UserCounts {
-        return this[key as UserStatsKey]
+        return this[key as LazyKey]
     }
 
-    get appearances(): UserCounts {
-        return this.appearancesFunc()
-    }
-
-    get heirlooms(): UserCounts {
-        return this.heirloomsFunc()
-    }
-
-    get illusions(): UserCounts {
-        return this.illusionsFunc()
-    }
-
-    get mounts(): UserCounts {
-        return this.mountsFunc()
-    }
-
-    get pets(): UserCounts {
-        return this.petsFunc()
-    }
-
-    get toys(): UserCounts {
-        return this.toysFunc()
-    }
+    get appearances(): UserCounts { return this.appearancesFunc() }
+    get heirlooms(): UserCounts { return this.heirloomsFunc() }
+    get illusions(): UserCounts { return this.illusionsFunc() }
+    get journal(): LazyJournal { return this.journalFunc() }
+    get mounts(): UserCounts { return this.mountsFunc() }
+    get pets(): UserCounts { return this.petsFunc() }
+    get toys(): UserCounts { return this.toysFunc() }
+    get transmog(): LazyTransmog { return this.transmogFunc() }
+    get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
 
     private doGeneric<T extends GenericCategory<U>, U>(
         categories: T[],
@@ -390,4 +457,4 @@ class UserStatsStore implements UserStatsUgh {
     }
 }
 
-const storeInstance = new UserStatsStore()
+const storeInstance = new LazyStore()

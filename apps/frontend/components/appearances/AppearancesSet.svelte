@@ -1,7 +1,7 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { userStatsStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
@@ -14,7 +14,7 @@
     let element: HTMLElement
     let intersected: boolean
 
-    $: counts = $userStatsStore.appearances[slug]
+    $: counts = $lazyStore.appearances[slug]
 </script>
 
 {#if counts.total > 0}

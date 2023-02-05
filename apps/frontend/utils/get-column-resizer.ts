@@ -25,15 +25,15 @@ export function getColumnResizer(
             return
         }
 
-        childWidth = children[0].clientWidth
+        childWidth = children[0].getBoundingClientRect().width
 
-        const totalWidth = widthElement.clientWidth
+        const totalWidth = widthElement.getBoundingClientRect().width
         const fitCount = Math.floor(totalWidth / childWidth)
 
         let finalWidth: string
         if (fitCount > 1) {
             for (let i = fitCount; i > 1; i--) {
-                const newWidth = (i * childWidth) + ((i - 1) * gap)
+                const newWidth = (i * childWidth) + ((i - 1) * (gap))
                 if (newWidth <= totalWidth) {
                     finalWidth = `${newWidth}px`
                     resizeableElement.style.setProperty(columnCount, i.toString())

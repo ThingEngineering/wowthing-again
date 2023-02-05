@@ -15,9 +15,8 @@
         
         ['characters/', 'Characters', 'mdiAccountGroupOutline'],
         ['currencies/', 'Currencies', 'gameCash', true],
-        ['gear/', 'Gear', 'gameBackpack'],
         ['history/', 'History', 'mdiChartLine'],
-        ['items/', 'Items', 'emojiConstruction'],
+        ['items/', 'Items', 'gameBackpack'],
         ['lockouts', 'Lockouts', 'gameLockedFortress'],
         ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
         ['progress/', 'Progress', 'mdiProgressQuestion'],
