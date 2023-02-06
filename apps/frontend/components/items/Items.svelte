@@ -13,6 +13,7 @@
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './ItemsTableRowItems.svelte'
     import RowProfessions from './ItemsTableRowProfessions.svelte'
+    import Search from './ItemsSearch.svelte'
 
     export let params: MultiSlugParams
 
@@ -46,25 +47,31 @@
         <a href="#/items/bags" use:active>Bags</a>
         <a href="#/items/equipped" use:active>Equipped</a>
         <a href="#/items/professions" use:active>Professions</a>
+
+        <a href="#/items/search" use:active={{path: /^\/items\/search/}}>Search</a>
     </nav>
 
-    <CharacterTable
-        skipIgnored={true}
-        {filterFunc}
-    >
-        <div class="items-pre" slot="preTable">
-            <Options slug={params.slug1} />
-        </div>
+    {#if params.slug1 === 'search'}
+        <Search />
+    {:else}
+        <CharacterTable
+            skipIgnored={true}
+            {filterFunc}
+        >
+            <div class="items-pre" slot="preTable">
+                <Options slug={params.slug1} />
+            </div>
 
-        <svelte:fragment slot="rowExtra" let:character>
-            {#if params.slug1 === 'bags'}
-                <RowBags {character} />
-            {:else if params.slug1 === 'equipped'}
-                <RowItemLevel />
-                <RowItems {character} />
-            {:else if params.slug1 === 'professions'}
-                <RowProfessions {character} />
-            {/if}
-        </svelte:fragment>
-    </CharacterTable>
+            <svelte:fragment slot="rowExtra" let:character>
+                {#if params.slug1 === 'bags'}
+                    <RowBags {character} />
+                {:else if params.slug1 === 'equipped'}
+                    <RowItemLevel />
+                    <RowItems {character} />
+                {:else if params.slug1 === 'professions'}
+                    <RowProfessions {character} />
+                {/if}
+            </svelte:fragment>
+        </CharacterTable>
+    {/if}
 </div>
