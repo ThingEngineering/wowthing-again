@@ -35,6 +35,9 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 
 export const currencyExtra: Record<number, number[]> = {
     // Dragonflight
+    250: [
+        2167, // Catalyst Charges
+    ],
     250001: [
         2023, // Blacksmithing Knowledge
         2024, // Alchemy Knowledge
