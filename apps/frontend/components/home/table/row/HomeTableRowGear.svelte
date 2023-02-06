@@ -27,14 +27,15 @@
                 const tierSlot = $itemStore.currentTier[item.itemId]
                 if (tierSlot) {
                     tierCount++
-                    tierPieceMap[tierSlot] = item.itemLevel
+                    tierPieceMap[tierSlot === InventoryType.Chest2 ? InventoryType.Chest : tierSlot] = item.itemLevel
                 }
             }
 
             tierPieces = currentTier.slots
-                .map((x) => [
-                    InventoryType[x],
-                    tierPieceMap[x],
+                .filter(slot => slot !== InventoryType.Chest2)
+                .map((slot) => [
+                    InventoryType[slot],
+                    tierPieceMap[slot],
                 ])
         }
     }
