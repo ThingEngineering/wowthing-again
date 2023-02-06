@@ -23,7 +23,6 @@
 
     let anyClass: boolean
     let categoryPercent: number
-    let getPercent: (groupIndex: number, setIndex: number) => number
     let setKey: string
     $: {
         anyClass = some(category.groups, (group) => group.type === 'class')
@@ -31,17 +30,17 @@
         categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent
         
         setKey = slugs.join('--')
+    }
 
-        getPercent = function(groupIndex: number, setIndex: number): number {
-            let key: string
-            if (setIndex >= 0) {
-                key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
-            }
-            else {
-                key = `${slugs[0]}--${category.slug}--${groupIndex}`
-            }
-            return $lazyStore.transmog.stats[key].percent
+    const getPercent = function(groupIndex: number, setIndex: number): number {
+        let key: string
+        if (setIndex >= 0) {
+            key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
         }
+        else {
+            key = `${slugs[0]}--${category.slug}--${groupIndex}`
+        }
+        return $lazyStore.transmog.stats[key]?.percent
     }
 </script>
 
@@ -85,7 +84,7 @@
         }
     }
     .faded {
-        opacity: 0.4;
+        opacity: 0.5;
     }
     .name {
         @include cell-width(15rem, $paddingLeft: 0.5rem);
@@ -309,10 +308,10 @@
 
     {#each getFilteredSets($settingsStore, $userTransmogStore, group) as [setShow, setName], setIndex}
         {#if setShow}
+            {@const setPercent = getPercent(groupIndex, setIndex)}
             <tr class:faded={setName.endsWith('*')}>
                 <td class="percent-cell">
-                    {#if showPercent}
-                        {@const setPercent = getPercent(groupIndex, setIndex)}
+                    {#if showPercent && !isNaN(setPercent)}
                         <span class="drop-shadow {getPercentClass(setPercent)}">
                             {Math.floor(setPercent).toFixed(0)} %
                         </span>
