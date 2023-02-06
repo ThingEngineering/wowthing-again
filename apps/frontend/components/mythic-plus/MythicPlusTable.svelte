@@ -32,10 +32,9 @@
     let affixes: MythicPlusAffix[]
     let isCurrentSeason: boolean
     let isThisWeek: boolean
-    let filterFunc: (char: Character) => boolean
-    let sortFunc: (char: Character) => string
-    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
+    let sortFunc: (char: Character) => string
 
     $: {
         if (slug === 'this-week') {
@@ -49,7 +48,6 @@
                     return []
                 }
             }
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
         else {
             isThisWeek = false
@@ -64,7 +62,9 @@
             }
 
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
-            sortFunc = getCharacterSortFunc(
+        }
+
+        sortFunc = getCharacterSortFunc(
                 $settingsStore,
                 $staticStore,
                 (char) => leftPad(
@@ -73,23 +73,22 @@
                     '0'
                 )
             )
-        }
 
         isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
             const week = ($userStore.currentPeriod[1].id - 809) % weeklyAffixes.length
             affixes = weeklyAffixes[week]
         }
+    }
 
-        filterFunc = (char: Character) => {
-            const meetsLevelReq = char.level >= season.minLevel
-            if (isCurrentSeason) {
-                return meetsLevelReq
-            }
-            else {
-                const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0
-                return meetsLevelReq && score > 0
-            }
+    const filterFunc = (char: Character) => {
+        const meetsLevelReq = char.level >= season.minLevel
+        if (isCurrentSeason) {
+            return meetsLevelReq
+        }
+        else {
+            const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0
+            return meetsLevelReq && score > 0
         }
     }
 </script>
@@ -105,13 +104,15 @@
             <HeadItemLevel />
         {/if}
 
-        {#if isThisWeek}
-            <HeadVault vaultType={'M+'} />
-        {:else}
-            <HeadRaiderIo />
+        <HeadRaiderIo />
+
+        {#if isCurrentSeason}
+            <HeadKeystone {affixes} />
         {/if}
 
-        <HeadKeystone {affixes} />
+        {#if isThisWeek}
+            <HeadVault vaultType={'M+'} />
+        {/if}
 
         {#if isCurrentSeason && !isThisWeek}
             <HeadUpgrade />
@@ -132,13 +133,15 @@
                 <RowItemLevel />
             {/if}
 
-            {#if isThisWeek}
-                <RowVaultMythicPlus {character} />
-            {:else}
-                <RowRaiderIo {character} {season} />
+            <RowRaiderIo {character} {season} />
+
+            {#if isCurrentSeason}
+                <RowKeystone {character} />
             {/if}
 
-            <RowKeystone {character} />
+            {#if isThisWeek}
+                <RowVaultMythicPlus {character} />
+            {/if}
 
             {#if isCurrentSeason && !isThisWeek}
                 <RowUpgrade {character} {season} />
