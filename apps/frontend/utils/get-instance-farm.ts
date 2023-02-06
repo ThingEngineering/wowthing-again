@@ -5,16 +5,16 @@ import { journalDifficultyOrder } from '@/data/difficulty'
 import { RewardType } from '@/enums'
 import leftPad from '@/utils/left-pad'
 import parseApiTime from '@/utils/parse-api-time'
+import type { LazyStore } from '@/stores'
 import type { FarmStatus, UserData } from '@/types'
 import type { JournalData, JournalDataInstance } from '@/types/data'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
 
 
 export function getInstanceFarm(
     currentTime: DateTime,
     journalData: JournalData,
-    staticData: StaticData,
+    lazyData: LazyStore,
     userData: UserData,
     farm: ManualDataZoneMapFarm
 ): [FarmStatus, ManualDataZoneMapDrop[]] {
@@ -33,7 +33,7 @@ export function getInstanceFarm(
             instance = instances[0]
             
             const instanceKey = `${tier.slug}--${instance.slug}`
-            const stats = journalData.stats[instanceKey]
+            const stats = lazyData.journal.stats[instanceKey]
             status.link = `${tier.slug}/${instance.slug}`
             status.need = stats.have < stats.total
 
@@ -56,7 +56,7 @@ export function getInstanceFarm(
             )
             for (const difficulty of sortedDifficulties) {
                 const difficultyKey = `${instanceKey}--${difficulty}`
-                const difficultyStats = journalData.stats[difficultyKey]
+                const difficultyStats = lazyData.journal.stats[difficultyKey]
                 if (!difficultyStats) {
                     console.log(`no difficulty stats for key "${difficultyKey}"`)
                     continue

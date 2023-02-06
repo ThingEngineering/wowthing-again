@@ -111,7 +111,7 @@ export const lazyStore = derived(
     )
 )
 
-class LazyStore implements LazyUgh {
+export class LazyStore implements LazyUgh {
     private settings: Settings
 
     private appearanceState: AppearancesState
