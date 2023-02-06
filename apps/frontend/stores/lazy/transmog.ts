@@ -87,7 +87,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             setStats.total++
 
                             for (const transmogId of transmogIds) {
-                                if (stores.userTransmogData.userHas[transmogId]) {
+                                if (stores.userTransmogData.hasAppearance.has(transmogId)) {
                                     if (!seen[transmogId]) {
                                         overallStats.have++
                                     }

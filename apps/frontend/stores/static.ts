@@ -46,7 +46,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 profession.rawCategories = null
             }
         }
-        console.log(data.professions)
 
         if (data.rawBags !== null) {
             data.bags = StaticDataStore.createObjects(data.rawBags, StaticDataBag)

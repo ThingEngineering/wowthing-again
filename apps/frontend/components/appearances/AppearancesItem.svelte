@@ -17,7 +17,7 @@
     let imageName: string
     let show: boolean
     $: {
-        has = $userTransmogStore.userHas[appearance.appearanceId]
+        has = $userTransmogStore.hasAppearance.has(appearance.appearanceId)
         show = ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected)) &&
             $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true
 

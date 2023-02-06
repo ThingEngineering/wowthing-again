@@ -6,10 +6,9 @@ export interface UserTransmogData {
     sources: string[]
     transmog: number[]
 
-    hasIllusion?: Record<number, boolean>
-    sourceHas?: Record<string, boolean>
-    userHas?: Record<number, boolean>
+    hasAppearance?: Set<number>
+    hasIllusion?: Set<number>
+    hasSource?: Set<string>
 
-    //stats?: Record<string, UserCount>
     statsV2?: Record<string, UserCount>
 }

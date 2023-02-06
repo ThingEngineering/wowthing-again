@@ -21,10 +21,16 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         console.time('UserAchievementDataStore.initialize')
 
         data.criteria = {}
-        for (const [criteriaId, ...criteriaArrays] of data.rawCriteria) {
-            data.criteria[criteriaId] = []
-            for (const [amount, ...characterIds] of criteriaArrays) {
-                data.criteria[criteriaId].push(...characterIds.map((charId) => [charId, amount]))
+        for (const criteriaData of data.rawCriteria) {
+            const baseArray: number[][] = data.criteria[criteriaData[0]] = []
+            for (let i = 1; i < criteriaData.length; i++) {
+                const sigh = criteriaData[i] as number[]
+                for (let j = 1; j < sigh.length; j++) {
+                    baseArray.push([
+                        sigh[j],
+                        sigh[0],
+                    ])
+                }
             }
         }
         data.rawCriteria = null

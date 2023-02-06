@@ -18,7 +18,7 @@
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    let quests: Map<number, boolean>
+    let quests: Set<number>
     let tier: ReputationTier
     $: {
         tier = findReputationTier(

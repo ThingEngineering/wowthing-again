@@ -17,7 +17,7 @@
             total++
             
             const questId = darkmoonFaireProfessionQuests[professionId]
-            if ($userQuestStore.characters[character.id]?.quests?.get(questId) === true) {
+            if ($userQuestStore.characters[character.id]?.quests?.has(questId)) {
                 completed++
             }
 

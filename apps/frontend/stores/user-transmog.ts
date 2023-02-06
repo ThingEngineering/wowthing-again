@@ -29,20 +29,9 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     initialize(data: UserTransmogData): void {
         console.time('UserTransmogDataStore.initialize')
 
-        data.hasIllusion = {}
-        for (const illusionId of (data.illusions || [])) {
-            data.hasIllusion[illusionId] = true
-        }
-
-        data.sourceHas = {}
-        for (const sourceId of data.sources) {
-            data.sourceHas[sourceId] = true
-        }
-
-        data.userHas = {}
-        for (const transmogId of data.transmog) {
-            data.userHas[transmogId] = true
-        }
+        data.hasAppearance = new Set<number>(data.transmog || [])
+        data.hasIllusion = new Set<number>(data.illusions || [])
+        data.hasSource = new Set<string>(data.sources || [])
 
         console.timeEnd('UserTransmogDataStore.initialize')
     }
@@ -150,7 +139,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                 setStats.total++
 
                                 for (const transmogId of transmogIds) {
-                                    if (userTransmogData.userHas[transmogId]) {
+                                    if (userTransmogData.hasAppearance.has(transmogId)) {
                                         if (!seen[transmogId]) {
                                             overallStats.have++
                                         }
@@ -339,7 +328,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                                 const userHas = (completionist ? every : some)(
                                     slotData.sourceIds,
-                                    (sourceId) => userTransmogData.sourceHas[sourceId]
+                                    (sourceId) => userTransmogData.hasSource.has(sourceId)
                                 )
                                 if (userHas) {
                                     overallStats.have++

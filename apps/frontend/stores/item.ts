@@ -20,12 +20,12 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             const obj = new ItemDataItem(...itemArray)
             data.items[obj.id] = obj
 
-            for (const appearance of Object.values(obj.appearances)) {
-                let appSet = appearanceIds.get(appearance.appearanceId)
+            for (const appearanceData of (itemArray[15] || [])) {
+                let appSet = appearanceIds.get(appearanceData[1])
                 if (!appSet)
                 {
                     appSet = new Set<number>()
-                    appearanceIds.set(appearance.appearanceId, appSet)
+                    appearanceIds.set(appearanceData[1], appSet)
                 }
                 appSet.add(obj.id)
             }
@@ -44,7 +44,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     setup(
         manualData: ManualData,
     ) {
-        console.time('ItemDataStore.setup')
+        // console.time('ItemDataStore.setup')
 
         this.update((state) => {
             state.currentTier = {}
@@ -64,7 +64,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             return state
         })
 
-        console.timeEnd('ItemDataStore.setup')
+        // console.timeEnd('ItemDataStore.setup')
     }
 }
 

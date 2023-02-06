@@ -12,10 +12,7 @@
     export let character: Character
     export let feature: CharacterShadowlandsCovenantFeature
 
-    let quests: Map<number, boolean>
-    $: {
-        quests = $userQuestStore.characters[character.id]?.quests
-    }
+    $: quests = $userQuestStore.characters[character.id]?.quests
 </script>
 
 <style lang="scss">

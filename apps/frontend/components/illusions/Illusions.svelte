@@ -119,7 +119,7 @@
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const illusion = find($staticStore.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.hasIllusion[illusion.enchantmentId] === true}
+                                {@const have = $userTransmogStore.hasIllusion.has(illusion.enchantmentId)}
                                 <div
                                     class="collection-object"
                                     class:missing={
