@@ -50,7 +50,7 @@
                     }
                     else if (reward.type === RewardType.Transmog) {
                         const item = $itemStore.items[reward.id]
-                        have = $userTransmogStore.userHas[item?.appearances[0]?.appearanceId || 0]
+                        have = $userTransmogStore.hasAppearance.has(item?.appearances[0]?.appearanceId || 0)
                         name = item?.name || `Item #${reward.id}`
                     }
 

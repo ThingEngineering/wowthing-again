@@ -24,9 +24,9 @@
         if (item.type === RewardType.Illusion) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
-                $userTransmogStore.hasIllusion[
+                $userTransmogStore.hasIllusion.has(
                     $staticStore.illusions[appearance.appearanceId].enchantmentId
-                ],
+                ),
             ])
         }
         else if (item.type === RewardType.Mount) {
@@ -51,8 +51,8 @@
             appearances = item.appearances.map((appearance) => [
                 appearance,
                 $settingsStore.transmog.completionistMode ?
-                    $userTransmogStore.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                    $userTransmogStore.userHas[appearance.appearanceId],
+                    $userTransmogStore.hasSource.has(`${item.id}_${appearance.modifierId}`) :
+                    $userTransmogStore.hasAppearance.has(appearance.appearanceId),
             ])
         }
 

@@ -42,7 +42,7 @@ function hasAnyOfSets(
             set.items || {},
             (itemIds) => some(
                 itemIds,
-                (itemId) => userTransmogData.userHas[itemId]
+                (itemId) => userTransmogData.hasAppearance.has(itemId)
             )
         )
     )

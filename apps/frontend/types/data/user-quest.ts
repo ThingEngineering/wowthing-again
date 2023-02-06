@@ -18,8 +18,8 @@ export interface UserQuestDataCharacter {
     progressQuests?: Record<string, UserQuestDataCharacterProgress>
 
     // Computed
-    dailyQuests?: Map<number, boolean>
-    quests?: Map<number, boolean>
+    dailyQuests?: Set<number>
+    quests?: Set<number>
 }
 
 export interface UserQuestDataCharacterProgress {

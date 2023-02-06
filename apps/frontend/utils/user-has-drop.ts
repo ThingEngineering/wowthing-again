@@ -27,7 +27,7 @@ export default function userHasDrop(
         return true
     }
 
-    if (type === RewardType.Illusion && userTransmogData.hasIllusion[appearanceIds[0]]) {
+    if (type === RewardType.Illusion && userTransmogData.hasIllusion.has(appearanceIds[0])) {
         return true
     }
 
@@ -35,12 +35,12 @@ export default function userHasDrop(
         if (appearanceIds?.[0] > 0) {
             return every(
                 appearanceIds,
-                (appearanceId) => userTransmogData.userHas[appearanceId] === true
+                (appearanceId) => userTransmogData.hasAppearance.has(appearanceId)
             )
         }
         else {
             const appearanceId = itemData.items[id]?.appearances?.[0]?.appearanceId || 0
-            return userTransmogData.userHas[appearanceId] === true
+            return userTransmogData.hasAppearance.has (appearanceId)
         }
             
     }

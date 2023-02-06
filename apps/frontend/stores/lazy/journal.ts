@@ -170,15 +170,15 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.appearanceId.toString()
                                 
                                 userHas = masochist ?
-                                    stores.userTransmogData.sourceHas[appearanceKey] :
-                                    stores.userTransmogData.userHas[appearance.appearanceId]
+                                    stores.userTransmogData.hasSource.has(appearanceKey) :
+                                    stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
                             }
                             else {
                                 appearanceKey = `z-${item.type}-${item.id}`
 
                                 if (item.type === RewardType.Illusion) {
                                     const enchantmentId = stores.staticData.illusions[item.appearances[0].appearanceId].enchantmentId
-                                    userHas = !!stores.userTransmogData.hasIllusion[enchantmentId]
+                                    userHas = stores.userTransmogData.hasIllusion.has(enchantmentId)
                                 }
                                 else if (item.type === RewardType.Mount) {
                                     userHas = stores.userData.hasMount[item.classId]

@@ -27,18 +27,12 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         userQuestData.questNames = {}
         for (const [, characterData] of toPairs(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {
-                characterData.dailyQuests = new Map<number, boolean>()
-                for (const questId of characterData.dailyQuestList) {
-                    characterData.dailyQuests.set(questId, true)
-                }
+                characterData.dailyQuests = new Set<number>(characterData.dailyQuestList)
                 characterData.dailyQuestList = null
             }
 
             if (characterData.quests === undefined) {
-                characterData.quests = new Map<number, boolean>()
-                for (const questId of characterData.questList) {
-                    characterData.quests.set(questId, true)
-                }
+                characterData.quests = new Set<number>(characterData.questList)
                 characterData.questList = null
             }
 

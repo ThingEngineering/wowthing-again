@@ -27,7 +27,7 @@
             for (const [slot, items] of toPairs(set.items)) {
                 slotHave[slot] = false
                 for (const itemId of items) {
-                    if ($userTransmogStore.userHas[itemId]) {
+                    if ($userTransmogStore.hasAppearance.has(itemId)) {
                         have++
                         slotHave[slot] = true
                         break

@@ -366,7 +366,7 @@ class LazyStore implements LazyUgh {
                     catData.total++
                     setData.total++
                     
-                    if (this.userTransmogData.userHas[appearance.appearanceId]) {
+                    if (this.userTransmogData.hasAppearance.has(appearance.appearanceId)) {
                         if (!overallSeen[appearance.appearanceId]) {
                             overallData.have++
                         }
@@ -423,12 +423,12 @@ class LazyStore implements LazyUgh {
     private doIllusions(): UserCounts {
         return this.doGeneric(
             this.manualData.illusions,
-            (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion[
+            (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion.has(
                 find(
                     this.staticData.illusions,
                     (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId
                 )?.enchantmentId
-            ]
+            )
         )
     }
 
