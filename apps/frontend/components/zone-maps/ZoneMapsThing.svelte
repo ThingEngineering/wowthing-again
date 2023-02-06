@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { journalStore, staticStore, timeStore, userStore } from '@/stores'
+    import { journalStore, lazyStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/enums'
     import { tippyComponent } from '@/utils/tippy'
@@ -27,7 +27,7 @@
             [status, drops] = getInstanceFarm(
                 $timeStore,
                 $journalStore,
-                $staticStore,
+                $lazyStore,
                 $userStore,
                 farm
             )
