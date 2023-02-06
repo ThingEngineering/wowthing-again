@@ -509,7 +509,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     every(
                                         farm.questIds,
                                         (q) =>
-                                            stores.userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined &&
+                                            !stores.userQuestData.characters[character.id]?.dailyQuests?.has(q) &&
                                             character.lockouts?.[`${questToLockout[q] || 0}-0`] === undefined
                                     )
                                 ) {

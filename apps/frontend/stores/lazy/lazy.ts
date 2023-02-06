@@ -269,7 +269,7 @@ class LazyStore implements LazyUgh {
             changedData.userAchievementData ||
             changedHashes.zoneMapState)
         {
-            this.zoneMapsFunc = once(() => doZoneMaps({
+            this.zoneMapsFunc = once(() => this.vendorsFunc() && doZoneMaps({
                 settings,
                 zoneMapState,
                 itemData,
