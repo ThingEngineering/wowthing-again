@@ -10,16 +10,7 @@
     import getPercentClass from '@/utils/get-percent-class';
 </script>
 
-<style lang="scss">
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        width: 100%;
-    }
-</style>
-
-<div class="wrapper">
+<div class="resizer-view">
     <div class="collection thing-container">
         {#each $manualStore.dragonriding as category}
             <SectionTitle

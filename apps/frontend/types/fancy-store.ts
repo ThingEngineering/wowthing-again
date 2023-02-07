@@ -1,4 +1,4 @@
-import { get, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
 import { Language } from '@/enums'
@@ -48,7 +48,7 @@ export class WritableFancyStore<T> {
     }
 
     async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
-        const wasLoaded = get(this).loaded
+        const wasLoaded = this.value.loaded
         if (options?.evenIfLoaded !== true && wasLoaded) {
             //console.log('evenIfLoaded', options)
             return false
@@ -70,10 +70,10 @@ export class WritableFancyStore<T> {
         const baseUri = document.getElementById('app')?.getAttribute('data-base-uri')
         const actualUrl = baseUri + url.substring(1)
 
-        let json: string
+        let data: T
         let redirected: boolean
         try {
-            [json, redirected] = await fetchJson(actualUrl)
+            [data, redirected] = await fetchJson<T>(actualUrl)
         }
         catch (err) {
             console.error(err)
@@ -94,7 +94,7 @@ export class WritableFancyStore<T> {
             return true
         }
 
-        if (json === null) {
+        if (data === null) {
             this.update(state => {
                 state.error = true
                 return state
@@ -102,12 +102,11 @@ export class WritableFancyStore<T> {
             return false
         }
 
-        const jsonData = JSON.parse(json) as T
-        this.initialize?.(jsonData)
+        this.initialize?.(data)
 
         this.update(state => {
             state = {
-                ...jsonData,
+                ...data,
                 error: false,
                 loaded: true,
             }

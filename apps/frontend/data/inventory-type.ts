@@ -17,3 +17,7 @@ export const typeOrder: InventoryType[] = [
     InventoryType.Finger,
     InventoryType.Trinket,
 ]
+
+export const typeOrderMap: Record<number, number> = Object.fromEntries(
+    typeOrder.map((type, index) => [type, index])
+)

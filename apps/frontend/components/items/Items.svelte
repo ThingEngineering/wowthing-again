@@ -19,7 +19,6 @@
 
     let filterFunc: (char: Character) => boolean
     $: {
-        console.log(params)
         filterFunc = (char) => (
             ($gearState.showMaxLevel && char.level === Constants.characterMaxLevel) ||
             ($gearState.showOtherLevel && char.level < Constants.characterMaxLevel)

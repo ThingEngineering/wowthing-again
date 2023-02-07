@@ -78,12 +78,6 @@
 </script>
 
 <style lang="scss">
-    .wrapper {
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        width: 100%;
-    }
     .spacer {
         margin-bottom: 0.5rem;
     }
@@ -91,7 +85,7 @@
 
 <svelte:window on:resize={debouncedResize} />
 
-<div class="wrapper" bind:this={containerElement}>
+<div class="resizer-view" bind:this={containerElement}>
     <div bind:this={resizeableElement}>
         <Options />
 
