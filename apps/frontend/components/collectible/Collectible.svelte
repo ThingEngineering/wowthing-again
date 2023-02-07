@@ -33,15 +33,12 @@
 </script>
 
 <style lang="scss">
-    .collections {
-        align-items: flex-start;
-        display: flex;
+    .view {
         overflow-x: hidden;
-        width: 100%;
     }
 </style>
 
-<div class="collections">
+<div class="view">
     <CollectibleSidebar
         {sets}
     />

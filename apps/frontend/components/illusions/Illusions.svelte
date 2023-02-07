@@ -4,6 +4,7 @@
 
     import { manualStore, staticStore, lazyStore, userTransmogStore } from '@/stores'
     import { illusionState } from '@/stores/local-storage'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
@@ -22,35 +23,33 @@
             ['Unavailable', $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))],
         ]
     }
+
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'collection-v2-group',
+                {
+                    columnCount: '--column-count',
+                    gap: 30,
+                    padding: '1.5rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
 </script>
 
 <style lang="scss">
-    .wrapper {
-        width: 100%;
-    }
-    .collection-v2-section {
-        --column-count: 1;
-        --column-gap: 1rem;
-        --column-width: 18rem;
-
-        width: 18.75rem;
-        
-        @media screen and (min-width: 830px) {
-            --column-count: 2;
-            width: 37.75rem;
-        }
-        @media screen and (min-width: 1135px) {
-            --column-count: 3;
-            width: 56.75rem;
-        }
-        @media screen and (min-width: 1440px) {
-            --column-count: 4;
-            width: 75.75rem;
-        }
-        @media screen and (min-width: 1745) {
-            --column-count: 5;
-            width: 94.75rem;
-        }
+    .collection-v2-group {
+        width: 17.5rem;
     }
     .collection-object {
         min-height: 52px;
@@ -76,7 +75,9 @@
 
 </style>
 
-<div class="wrapper">
+<svelte:window on:resize={debouncedResize} />
+
+<div class="resizer-view" bind:this={containerElement}>
     <div class="options-container">
         <button>
             <CheckboxInput
@@ -102,7 +103,7 @@
         </button> -->
     </div>
 
-    <div class="collection thing-container">
+    <div class="collection thing-container" bind:this={resizeableElement}>
         {#each sections as [name, groups]}
             <SectionTitle
                 count={$lazyStore.illusions[name.toUpperCase()]}
