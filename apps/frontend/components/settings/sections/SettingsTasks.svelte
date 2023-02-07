@@ -30,11 +30,6 @@
         .filter(f => f !== undefined)
     const dfChoreActive = filter(dfChoreChoices, (c) => dfChoreInactive.indexOf(c) === -1)
 
-    console.log({dfChoreChoices, dfChoreInactive, dfChoreActive})
-    console.log($settingsStore.tasks.disabledChores?.dfChores)
-    console.log(($settingsStore.tasks.disabledChores?.dfChores || [])
-        .map((f) => filter(dfChoreChoices, (c) => c.key === f))[0])
-
     const onDfChoreChange = debounce(() => {
         settingsStore.update(state => {
             (state.tasks.disabledChores ||= {})['dfChores'] = dfChoreInactive.map((c) => c.key)
