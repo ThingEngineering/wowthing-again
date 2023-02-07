@@ -46,3 +46,7 @@ export const weaponSubclassOrder: number[] = [
     WeaponSubclass.HeldInOffHand,
     WeaponSubclass.Shield,
 ]
+
+export const weaponSubclassOrderMap: Record<number, number> = Object.fromEntries(
+    weaponSubclassOrder.map((type, index) => [type, index])
+)
