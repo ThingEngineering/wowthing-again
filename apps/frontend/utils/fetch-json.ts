@@ -1,6 +1,6 @@
-export default async function fetchJson(
+export default async function fetchJson<T>(
     url: string,
-): Promise<[string | null, boolean]> {
+): Promise<[T, boolean]> {
     const request = new Request(url, {
         credentials: 'include',
         mode: 'cors',
@@ -11,5 +11,5 @@ export default async function fetchJson(
         console.error(response)
         throw response.statusText
     }
-    return [await response.text() ?? null, response.redirected]
+    return [await response.json() ?? null, response.redirected]
 }
