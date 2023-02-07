@@ -1,10 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { staticStore } from '@/stores'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
     import type { Character } from '@/types'
-
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let tierPieces: [string, number][]
