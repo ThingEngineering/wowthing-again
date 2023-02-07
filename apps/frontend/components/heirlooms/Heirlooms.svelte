@@ -3,6 +3,7 @@
 
     import { heirloomBonusIds } from '@/data/heirlooms'
     import { lazyStore, manualStore, userStore } from '@/stores'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -20,6 +21,28 @@
         ]
     }
 
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'collection-v2-group',
+                {
+                    columnCount: '--column-count',
+                    gap: 30,
+                    padding: '1.5rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
+
     function getHeirloomBonus(groupName: string, level: number, maxUpgrade: number): string {
         return heirloomBonusIds[groupName]
             ? heirloomBonusIds[groupName][level]
@@ -29,31 +52,17 @@
 
 <style lang="scss">
     .wrapper {
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
         width: 100%;
     }
     .collection-v2-section {
-        --column-count: 1;
-        --column-gap: 1rem;
-        --column-width: 18rem;
-
-        width: 18.75rem;
-        
-        @media screen and (min-width: 830px) {
-            --column-count: 2;
-            width: 37.75rem;
-        }
-        @media screen and (min-width: 1135px) {
-            --column-count: 3;
-            width: 56.75rem;
-        }
-        @media screen and (min-width: 1440px) {
-            --column-count: 4;
-            width: 75.75rem;
-        }
-        @media screen and (min-width: 1745) {
-            --column-count: 5;
-            width: 94.75rem;
-        }
+        column-count: var(--column-count, 1);
+        column-gap: 30px;
+    }
+    .collection-v2-group {
+        width: 17.5rem;
     }
     .collection-object {
         min-height: 52px;
@@ -71,8 +80,10 @@
     }
 </style>
 
-<div class="wrapper">
-    <div class="collection thing-container">
+<svelte:window on:resize={debouncedResize} />
+
+<div class="wrapper" bind:this={containerElement}>
+    <div class="collection thing-container" bind:this={resizeableElement}>
         {#each sections as [name, groups]}
             <SectionTitle
                 count={$lazyStore.heirlooms[name.toUpperCase()]}
