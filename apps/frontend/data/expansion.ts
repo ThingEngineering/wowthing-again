@@ -15,6 +15,7 @@ export const expansionMap: Record<number, Expansion> = {
     8: new Expansion(8, 'Shadowlands', 'shadowlands', 'SL'),
     9: new Expansion(9, 'Dragonflight', 'dragonflight', 'DF'),
     
+    [-3]: new Expansion(-3, 'Trading Post', 'trading-post', 'TP'),
     100: new Expansion(100, 'Event', 'event', 'Event'),
 }
 
@@ -25,10 +26,12 @@ export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
 
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
-    (expansion) => expansion.id
+    (expansion) => expansion.id < 0 ? 100 + Math.abs(expansion.id) : expansion.id
 )
 
-export const expansionReverseOrder: Expansion[] = sortBy(
-    Object.values(expansionMap),
-    (expansion) => -expansion.id
+export const expansionOrderMap: Record<number, number> = Object.fromEntries(
+    expansionOrder.map((expansion, index) => [expansion.id, index])
 )
+
+export const expansionReverseOrder = expansionOrder.slice()
+expansionReverseOrder.reverse()

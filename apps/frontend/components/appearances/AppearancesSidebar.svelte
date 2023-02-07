@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { expansionMap } from '@/data/expansion'
+    import { expansionMap, expansionOrderMap } from '@/data/expansion'
     import { lazyStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
@@ -20,7 +20,7 @@
                 slug: 'expansion',
                 children: sortBy(
                     Object.values(expansionMap),
-                    (expansion) => expansion.id
+                    (expansion) => expansionOrderMap[expansion.id]
                 ),
             },
             null,

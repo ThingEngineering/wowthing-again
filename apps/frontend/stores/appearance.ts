@@ -1,13 +1,12 @@
 import sortBy from 'lodash/sortBy'
 
-import { expansionMap, expansionOrder, expansionSlugMap } from '@/data/expansion'
+import { expansionMap, expansionSlugMap } from '@/data/expansion'
 import { typeOrderMap } from '@/data/inventory-type'
 import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons'
 import { WritableFancyStore } from '@/types'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
 import { ArmorType, InventoryType, ItemClass } from '@/enums'
 import leftPad from '@/utils/left-pad'
-import { Constants } from '@/data/constants'
 
 
 export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
@@ -21,7 +20,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         data.appearances = {}
 
         const byExpansion: Record<number, Record<string, AppearanceDataSet>> = {}
-        for (const expansion of expansionOrder) {
+        for (const expansion of Object.values(expansionMap)) {
             byExpansion[expansion.id] = {}
         }
 
