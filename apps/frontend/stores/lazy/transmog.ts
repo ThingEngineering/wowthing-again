@@ -1,5 +1,4 @@
 import some from 'lodash/some'
-import toPairs from 'lodash/toPairs'
 
 import { UserCount } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
@@ -44,7 +43,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex]
 
-                for (const [dataKey, dataValue] of toPairs(group.data)) {
+                for (const [dataKey, dataValue] of Object.entries(group.data)) {
                     if (skipClasses[dataKey]) {
                         continue
                     }

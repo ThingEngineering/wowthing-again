@@ -1,8 +1,6 @@
 import every from 'lodash/every'
 import filter from 'lodash/filter'
-import fromPairs from 'lodash/fromPairs'
 import some from 'lodash/some'
-import toPairs from 'lodash/toPairs'
 import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
 
@@ -69,8 +67,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             stores.userData.accounts?.[c.accountId]?.enabled !== false
     )
     const overallCounts = setCounts['OVERALL'] = new UserCount()
-    const resetMap = fromPairs(
-        toPairs(stores.userQuestData.characters)
+    const resetMap = Object.fromEntries(
+        Object.entries(stores.userQuestData.characters)
             .map(c => [
                 c[0],
                 {
@@ -560,7 +558,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     }
                 }
 
-                farmStatus.characters = toPairs(characterIds)
+                farmStatus.characters = Object.entries(characterIds)
                     .map(p => ({
                         id: parseInt(p[0]),
                         types: uniq(p[1]),

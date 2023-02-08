@@ -1,6 +1,5 @@
 import every from 'lodash/every'
 import some from 'lodash/some'
-import toPairs from 'lodash/toPairs'
 import uniq from 'lodash/uniq'
 import { get } from 'svelte/store'
 
@@ -96,7 +95,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                     const group = category.groups[groupIndex]
 
-                    for (const [dataKey, dataValue] of toPairs(group.data)) {
+                    for (const [dataKey, dataValue] of Object.entries(group.data)) {
                         if (skipClasses[dataKey]) {
                             continue
                         }
@@ -350,7 +349,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                     // console.log(group)
                     // console.log('---')
 
-                    /*for (const [dataKey, dataValue] of toPairs(group.data)) {
+                    /*for (const [dataKey, dataValue] of Object.entries(group.data)) {
                         if (skipClasses[dataKey]) {
                             continue
                         }

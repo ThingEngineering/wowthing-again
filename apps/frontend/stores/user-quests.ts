@@ -1,4 +1,3 @@
-import toPairs from 'lodash/toPairs'
 import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
@@ -25,7 +24,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         }
 
         userQuestData.questNames = {}
-        for (const [, characterData] of toPairs(userQuestData.characters)) {
+        for (const [, characterData] of Object.entries(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {
                 characterData.dailyQuests = new Set<number>(characterData.dailyQuestList)
                 characterData.dailyQuestList = null

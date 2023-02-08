@@ -1,6 +1,5 @@
 <script lang="ts">
     import keys from 'lodash/keys'
-    import toPairs from 'lodash/toPairs'
 
     import {userTransmogStore} from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
@@ -24,7 +23,7 @@
         total = 0
         slotHave = {}
         if (set?.items) {
-            for (const [slot, items] of toPairs(set.items)) {
+            for (const [slot, items] of Object.entries(set.items)) {
                 slotHave[slot] = false
                 for (const itemId of items) {
                     if ($userTransmogStore.hasAppearance.has(itemId)) {
