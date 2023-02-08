@@ -25,12 +25,14 @@ public static partial class Hardcoded
         178061, // Malleable Flesh
         183744, // Superior Parts
         188957, // Genesis Mote
+        198046, // Concentrated Primal Infusion [DF]
         190189, // Sandworn Relic
         190453, // Spark of Ingenuity [DF]
         190454, // Primal Chaos [DF]
         190455, // Concentrated Primal Focus [DF]
         190456, // Artisan's Mettle [DF]
         191784, // Dragon Shard of Knowledge [DF]
+        197921, // Primal Infusion [DF]
         198048, // Titan Training Matrix I [DF]
         198056, // Titan Training Matrix II [DF]
         198058, // Titan Training Matrix III [DF]
