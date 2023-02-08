@@ -82,11 +82,15 @@
                     {/if}
 
                     {#each currencyItems[category.id] as itemId}
-                        <HeadCurrency
-                            slug={slugKey}
-                            sortingBy={$currencyState.sortOrder[slugKey] === itemId}
-                            {itemId}
-                        />
+                        {#if itemId === null}
+                            <th class="spacer"></th>
+                        {:else}
+                            <HeadCurrency
+                                slug={slugKey}
+                                sortingBy={$currencyState.sortOrder[slugKey] === itemId}
+                                {itemId}
+                            />
+                        {/if}
                     {/each}
                 {/if}
             {/key}
@@ -109,11 +113,15 @@
                     {/if}
 
                     {#each currencyItems[category.id] as itemId}
-                        <RowCurrency
-                            sortingBy={$currencyState.sortOrder[slugKey] === itemId}
-                            {character}
-                            {itemId}
-                        />
+                        {#if itemId === null}
+                            <td class="spacer"></td>
+                        {:else}
+                            <RowCurrency
+                                sortingBy={$currencyState.sortOrder[slugKey] === itemId}
+                                {character}
+                                {itemId}
+                            />
+                        {/if}
                     {/each}
                 {/if}
             {/key}
