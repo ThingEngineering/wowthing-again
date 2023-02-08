@@ -1,11 +1,13 @@
 ﻿using Wowthing.Backend.Enums;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Covenants;
+using Wowthing.Backend.Models.Data.Holidays;
 using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Utilities;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
@@ -50,7 +52,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 25,
+        Version = 26,
     };
 
     //private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -66,6 +68,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             ImportCurrencies,
             ImportCurrencyCategories,
             ImportFactions,
+            ImportHolidays,
             ImportInstances,
             ImportItems,
             ImportItemAppearances,
@@ -426,6 +429,45 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             faction => faction.ID,
             faction => faction.Description
         );
+    }
+
+    private async Task ImportHolidays(WowDbContext context)
+    {
+        var holidays = await DataUtilities
+            .LoadDumpCsvAsync<DumpHolidays>(Path.Join("enUS", "holidays"));
+
+        var dbHolidayMap = await context.WowHoliday
+            .ToDictionaryAsync(holiday => holiday.Id);
+
+        foreach (var holiday in holidays)
+        {
+            if (!dbHolidayMap.TryGetValue(holiday.ID, out var dbHoliday))
+            {
+                dbHoliday = dbHolidayMap[holiday.ID] = new WowHoliday
+                {
+                    Id = holiday.ID,
+                };
+                context.WowHoliday.Add(dbHoliday);
+            }
+
+            dbHoliday.FilterType = holiday.CalendarFilterType;
+            dbHoliday.Flags = holiday.Flags;
+            dbHoliday.Looping = holiday.Looping;
+            dbHoliday.Priority = holiday.Priority;
+            dbHoliday.Region = holiday.Region;
+
+            dbHoliday.Durations = holiday.Durations
+                .Where(duration => duration > 0)
+                .ToList();
+
+            dbHoliday.StartDates = holiday.Dates
+                .Select(DateTimeUtilities.ParseBlizzardDateTime)
+                .Where(date => date > MiscConstants.DefaultDateTime)
+                .OrderBy(date => date)
+                .ToList();
+        }
+
+        _timer.AddPoint("Holidays");
     }
 
     private async Task ImportInstances(WowDbContext context)

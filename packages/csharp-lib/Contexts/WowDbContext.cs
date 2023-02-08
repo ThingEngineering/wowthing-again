@@ -26,6 +26,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
     public DbSet<WowCurrency> WowCurrency { get; set; }
     public DbSet<WowCurrencyCategory> WowCurrencyCategory { get; set; }
+    public DbSet<WowHoliday> WowHoliday { get; set; }
     public DbSet<WowItem> WowItem { get; set; }
     public DbSet<WowItemEffect> WowItemEffect { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
