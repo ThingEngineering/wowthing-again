@@ -1,13 +1,35 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
+    import { userStore } from '@/stores'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
-    import type { Character } from '@/types'
+    import type { CharacterCurrency, Character } from '@/types'
 
     export let character: Character
     export let tierPieces: [string, number][]
 
-    $: catalyst = character.currencies?.[Constants.catalystCurrencyId]
+    let charCatalyst: CharacterCurrency
+    let haveCharges: number
+    let maxCharges: number
+    $: {
+        charCatalyst = character.currencies?.[Constants.catalystCurrencyId]
 
+        const accountMaxCharges = Math.max(
+            ...$userStore.characters
+                .map((char) => char.currencies?.[Constants.catalystCurrencyId]?.max || 0)
+        )
+
+        if (!charCatalyst) {
+            haveCharges = maxCharges = accountMaxCharges
+        }
+        else if (accountMaxCharges > charCatalyst.max) {
+            haveCharges = charCatalyst.quantity + (accountMaxCharges - charCatalyst.max)
+            maxCharges = accountMaxCharges
+        }
+        else {
+            haveCharges = charCatalyst.quantity
+            maxCharges = charCatalyst.max
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -41,13 +63,10 @@
         </tbody>
     </table>
 
-    {#if catalyst}
+    {#if maxCharges}
         <div class="bottom">
             <div>
-                {catalyst.quantity.toLocaleString()}
-                /
-                {catalyst.max.toLocaleString()}
-                charges
+                {haveCharges} / {maxCharges} charges
             </div>
         </div>
     {/if}
