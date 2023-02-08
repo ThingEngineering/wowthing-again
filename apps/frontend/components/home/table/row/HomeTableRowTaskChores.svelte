@@ -9,7 +9,7 @@
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte'
-    import { dragonflightProfessionMap } from '@/data/professions';
+    import { dragonflightProfessionMap } from '@/data/professions'
 
     export let character: Character
     export let taskName: string
@@ -29,17 +29,24 @@
             if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
                 continue
             }
-            if (choreTask.couldGetFunc?.(character) === false) {
+            if (($settingsStore.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
                 continue
             }
-            if (($settingsStore.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
+
+            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[choreTask.taskKey]
+            if (choreTask.couldGetFunc?.(character) === false &&
+                progressQuest?.status !== QuestStatus.InProgress &&
+                progressQuest?.status !== QuestStatus.Completed)
+            {
                 continue
             }
 
             countTotal++
 
             let status = 0
-            let statusTexts = [choreTask.canGetFunc?.(character) || '']
+            let statusTexts = [
+                !progressQuest ? choreTask.canGetFunc?.(character) || '' : ''
+            ]
             if (statusTexts[0].startsWith('Need')) {
                 status = 3
             }
@@ -99,7 +106,6 @@
                 }
             }
             else {
-                const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                 if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
                     status = progressQuest.status
                     if (status === QuestStatus.InProgress && progressQuest.objectives?.length > 0) {
