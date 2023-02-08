@@ -3,13 +3,13 @@
     import { professionIdToString } from '@/data/professions'
     import { Region } from '@/enums'
     import { settingsStore, staticStore } from '@/stores'
+    import { getProfessionSortKey } from '@/utils/professions'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterProfession } from '@/types'
     import type { StaticDataProfession } from '@/types/data/static'
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { getProfessionSortKey } from '@/utils/professions';
 
     export let character: Character
     export let professionType = 0

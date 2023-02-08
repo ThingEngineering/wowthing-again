@@ -14,12 +14,12 @@
     import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/types/data/static'
 
+    import CheckboxInput from '../forms/CheckboxInput.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
-    import CheckboxInput from '../forms/CheckboxInput.svelte';
 
     let matrix: Record<string, Character[]>
     let xEntries: string[][]
