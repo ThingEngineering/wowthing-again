@@ -1,6 +1,5 @@
-import fromPairs from 'lodash/fromPairs'
-
 import { Covenant } from '@/types'
+
 
 export const covenantMap: Record<number, Covenant> = {
     1: new Covenant(1, 'Kyrian', 'kyrian', 'covenant_kyrian'),
@@ -20,8 +19,10 @@ export const covenantNameMap = Object.fromEntries(
     Object.entries(covenantMap).map(([, covenant]) => [covenant.name, covenant])
 )
 
-export const covenantSlugMap: Record<string, Covenant> =
-    fromPairs(Object.values(covenantMap).map(c => [c.slug, c]))
+export const covenantSlugMap: Record<string, Covenant> = Object.fromEntries(
+    Object.values(covenantMap)
+        .map(c => [c.slug, c])
+)
 
 export const covenantFeatureOrder: [string, string, number][] = [
     ['conductor', 'Anima Conductor', 3],

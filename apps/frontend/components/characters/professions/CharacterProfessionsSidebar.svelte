@@ -18,7 +18,7 @@
     <Sidebar
         baseUrl={`/characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`}
         id="character-professions-sidebar"
-        items={expansionOrder.filter((expansion) => expansion.id < 100)}
+        items={expansionOrder.filter((expansion) => expansion.id >= 0 && expansion.id < 100)}
         width="14rem"
         {percentFunc}
     >

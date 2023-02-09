@@ -1,12 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { currentTier } from '@/data/gear'
+    import { InventoryType } from '@/enums'
     import { itemStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
-    import { InventoryType } from '@/enums';
 
     export let character: Character
 

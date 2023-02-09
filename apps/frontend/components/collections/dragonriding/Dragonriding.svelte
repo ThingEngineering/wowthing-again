@@ -2,12 +2,12 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { itemStore, lazyStore, manualStore, userQuestStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import getPercentClass from '@/utils/get-percent-class';
 </script>
 
 <div class="resizer-view">

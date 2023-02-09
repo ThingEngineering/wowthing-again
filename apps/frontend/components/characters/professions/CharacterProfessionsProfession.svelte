@@ -19,6 +19,9 @@
     let stats: UserCount
     $: {
         expansion = expansionSlugMap[params.slug5]
+        if (!expansion || expansion.id < 0 || expansion.id > 99) {
+            break $
+        }
         
         const charProfession = character.professions[staticProfession.id]
         charSubProfession = charProfession[staticProfession.subProfessions[expansion.id].id]
@@ -83,40 +86,42 @@
     }
 </style>
 
-<div class="professions-wrapper">
-    {#if charSubProfession}
-        <div class="professions-container">
-            <ProgressBar
-                have={charSubProfession.currentSkill}
-                total={charSubProfession.maxSkill}
-                title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
-            />
-
-            {#if stats.total > 0}
+{#if expansion}
+    <div class="professions-wrapper">
+        {#if charSubProfession}
+            <div class="professions-container">
                 <ProgressBar
-                    have={stats.have}
-                    total={stats.total}
-                    title="Known recipes"
+                    have={charSubProfession.currentSkill}
+                    total={charSubProfession.maxSkill}
+                    title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
                 />
-            {/if}
-        </div>
-    {/if}
 
-    {#if rootCategory}
-        <div class="professions-container">
-            {#if rootCategory.abilities.length > 0}
-                <Table
-                    category={rootCategory}
-                    {knownRecipes}
-                />
-            {/if}
+                {#if stats.total > 0}
+                    <ProgressBar
+                        have={stats.have}
+                        total={stats.total}
+                        title="Known recipes"
+                    />
+                {/if}
+            </div>
+        {/if}
 
-            {#each rootCategory.children as child}
-                <Table
-                    category={child}
-                    {knownRecipes}
-                />
-            {/each}
-        </div>
-    {/if}
-</div>
+        {#if rootCategory}
+            <div class="professions-container">
+                {#if rootCategory.abilities.length > 0}
+                    <Table
+                        category={rootCategory}
+                        {knownRecipes}
+                    />
+                {/if}
+
+                {#each rootCategory.children as child}
+                    <Table
+                        category={child}
+                        {knownRecipes}
+                    />
+                {/each}
+            </div>
+        {/if}
+    </div>
+{/if}

@@ -16,9 +16,8 @@
     import 'chartjs-adapter-luxon'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
-    import toPairs from 'lodash/toPairs'
-    import { onMount } from 'svelte'
     import { DateTime } from 'luxon'
+    import { onMount } from 'svelte'
 
     import { colors } from '@/data/colors'
     import { staticStore, timeStore, userHistoryStore } from '@/stores'
@@ -26,10 +25,10 @@
     import { Region } from '@/enums'
     import parseApiTime from '@/utils/parse-api-time'
     import type { HistoryState } from '@/stores/local-storage'
+    import type { UserHistoryData } from '@/types/data'
     import type { StaticDataRealm } from '@/types/data/static'
 
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
-    import type { UserHistoryData } from '@/types/data';
 
     Chart.register(
         LineElement,
@@ -175,7 +174,7 @@
                 }
 
                 points = sortBy(
-                    toPairs(temp),
+                    Object.entries(temp),
                     ([date]) => date
                 )
                 .map(([, [time, value]]) => ({

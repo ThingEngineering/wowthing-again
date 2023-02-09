@@ -87,15 +87,19 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Dragonflight > Crafting Materials
     250002: [
-        190456, // Artisan's Mettle [DF]
-        190454, // Primal Chaos [DF]
-        190453, // Spark of Ingenuity [DF]
-        200686, // Primal Focus [DF]
-        190455, // Concentrated Primal Focus [DF]
         198048, // Titan Training Matrix I [DF]
         198056, // Titan Training Matrix II [DF]
         198058, // Titan Training Matrix III [DF]
         198059, // Titan Training Matrix IV [DF]
+        null,
+        190456, // Artisan's Mettle [DF]
+        190454, // Primal Chaos [DF]
+        190453, // Spark of Ingenuity [DF]
+        null,
+        200686, // Primal Focus [DF]
+        197921, // Primal Infusion [DF]
+        190455, // Concentrated Primal Focus [DF]
+        198046, // Concentrated Primal Infusion [DF]
     ],
     // Player vs Player
     2: [

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import { toNiceNumber } from '@/utils/to-nice';
+    import { toNiceNumber } from '@/utils/to-nice'
     import type { Character, ReputationTier } from '@/types'
     import type { StaticDataReputationTier } from '@/types/data/static'
 

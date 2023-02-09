@@ -2,6 +2,7 @@
     import some from 'lodash/some'
 
     import { transmogSets } from '@/data/transmog'
+    import { TransmogSetType } from '@/enums'
     import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'
@@ -10,7 +11,6 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './TransmogSetsTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { TransmogSetType } from '@/enums';
 
     export let category: ManualDataTransmogSetCategory
     export let skipClasses: Record<string, boolean>
