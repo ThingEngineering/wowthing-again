@@ -27,11 +27,7 @@
         )
 
         onClick = function() {
-            $reputationState.sortOrder[slug] = sortingBy ? [] : [
-                reputation.both?.id ?? 0,
-                reputation.alliance?.id ?? 0,
-                reputation.horde?.id ?? 0,
-            ]
+            $reputationState.sortOrder[slug] = sortingBy ? [] : repIds
         }
     }
 </script>
@@ -52,7 +48,7 @@
 </style>
 
 <th
-    data-reputation-ids={reputation.both ? `${reputation.both.id}` : `${reputation.alliance.id},${reputation.horde.id}`}
+    data-reputation-ids={repIds.filter((id) => id > 0).join(',')}
     on:click|preventDefault={onClick}
     use:tippyComponent={{
         component: Tooltip,
