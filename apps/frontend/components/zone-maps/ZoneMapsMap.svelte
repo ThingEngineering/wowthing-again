@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { classOrder } from '@/data/character-class'
@@ -38,7 +37,7 @@
     $: {
         categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
         if (slug2) {
-            categories = filter(categories, (s) => s?.slug === slug2)
+            categories = categories.filter((s) => s?.slug === slug2)
         }
         slugKey = slug2 ? `${slug1}--${slug2}` : slug1
 

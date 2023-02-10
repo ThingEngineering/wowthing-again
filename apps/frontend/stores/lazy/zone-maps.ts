@@ -1,5 +1,4 @@
 import every from 'lodash/every'
-import filter from 'lodash/filter'
 import some from 'lodash/some'
 import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
@@ -59,8 +58,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
     const setCounts: Record<string, UserCount> = {}
     const typeCounts: Record<string, Record<number, UserCount>> = {}
 
-    const shownCharacters = filter(
-        stores.userData.characters,
+    const shownCharacters = stores.userData.characters.filter(
         (c) =>
             stores.settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
             stores.settings.characters.ignoredCharacters.indexOf(c.id) === -1 &&
@@ -96,8 +94,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         const categoryCounts = setCounts[maps[0].slug] = new UserCount()
         const categorySeen: Record<number, Record<number, boolean>> = {}
 
-        const categoryCharacters = filter(
-            shownCharacters,
+        const categoryCharacters = shownCharacters.filter(
             (char) => (
                 char.level >= maps[0].minimumLevel &&
                 (
@@ -134,8 +131,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 mapClassMask |= PlayableClassMask[PlayableClass[classId] as classMaskStrings]
             }
 
-            const eligibleCharacters = filter(
-                categoryCharacters,
+            const eligibleCharacters = categoryCharacters.filter(
                 (char) => (
                     char.level >= map.minimumLevel &&
                     (
@@ -188,14 +184,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                 let farmCharacters = eligibleCharacters
                 if (farm.minimumLevel > 0) {
-                    farmCharacters = filter(
-                        farmCharacters,
-                        (c) => c.level >= farm.minimumLevel
-                    )
+                    farmCharacters = farmCharacters.filter((c) => c.level >= farm.minimumLevel)
                 }
                 if (farm.requiredQuestIds?.length > 0) {
-                    farmCharacters = filter(
-                        farmCharacters,
+                    farmCharacters = farmCharacters.filter(
                         (c) => some(
                             farm.requiredQuestIds,
                             (q) => stores.userQuestData.characters[c.id]?.quests?.has(q)
@@ -203,10 +195,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     )
                 }
                 if (farm.faction) {
-                    farmCharacters = filter(
-                        farmCharacters,
-                        (c) => c.faction === factionMap[farm.faction]
-                    )
+                    farmCharacters = farmCharacters.filter((c) => c.faction === factionMap[farm.faction])
                 }
 
                 for (const drop of farm.drops) {
@@ -383,8 +372,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     if (dropStatus.need && !dropStatus.skip) {
                         // Filter for class mask
                         if (drop.classMask > 0) {
-                            dropCharacters = filter(
-                                dropCharacters,
+                            dropCharacters = dropCharacters.filter(
                                 (c) => (
                                     (drop.classMask & classMask) > 0 &&
                                     (drop.classMask & stores.staticData.characterClasses[c.classId].mask) > 0
@@ -395,16 +383,14 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         if (drop.limit?.length > 0) {
                             switch (drop.limit[0]) {
                                 case 'armor':
-                                    dropCharacters = filter(
-                                        dropCharacters,
+                                    dropCharacters = dropCharacters.filter(
                                         (c) => classByArmorTypeString[drop.limit[1]]
                                             .indexOf(c.classId) >= 0
                                     )
                                     break
 
                                 case 'class':
-                                    dropCharacters = filter(
-                                        dropCharacters,
+                                    dropCharacters = dropCharacters.filter(
                                         (c) => some(
                                             drop.limit.slice(1),
                                             (cl) => stores.staticData.characterClassesBySlug[cl].id === c.classId
@@ -413,22 +399,19 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     break
 
                                 case 'covenant':
-                                    dropCharacters = filter(
-                                        dropCharacters,
+                                    dropCharacters = dropCharacters.filter(
                                         (c) => c.shadowlands?.covenantId === covenantSlugMap[drop.limit[1]].id
                                     )
                                     break
 
                                 case 'faction':
-                                    dropCharacters = filter(
-                                        dropCharacters,
+                                    dropCharacters = dropCharacters.filter(
                                         (c) => c.faction === factionMap[drop.limit[1]]
                                     )
                                     break
                                 
                                 case 'profession':
-                                    dropCharacters = filter(
-                                        dropCharacters,
+                                    dropCharacters = dropCharacters.filter(
                                         (c) => !!c.professions?.[professionSlugToId[drop.limit[1]]]
                                     )
                                     break
@@ -437,16 +420,14 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                         // Filter again for pre-req quests
                         if (drop.requiredQuestId > 0) {
-                            dropCharacters = filter(
-                                dropCharacters,
+                            dropCharacters = dropCharacters.filter(
                                 (c) => stores.userQuestData.characters[c.id]?.quests?.has(drop.requiredQuestId)
                             )
                         }
 
                         // Filter again for characters that haven't completed the quest
                         if (drop.type === RewardType.Quest) {
-                            dropCharacters = filter(
-                                dropCharacters,
+                            dropCharacters = dropCharacters.filter(
                                 (c) => !stores.userQuestData.characters[c.id]?.quests?.has(drop.id),
                             )
 
@@ -456,8 +437,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         }
 
                         if (drop.type === RewardType.XpQuest) {
-                            dropCharacters = filter(
-                                dropCharacters,
+                            dropCharacters = dropCharacters.filter(
                                 (c) => !c.isMaxLevel
                             )
 
@@ -470,8 +450,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                         // And finally, filter for characters that aren't locked
                         if (drop.questIds) {
-                            dropCharacters = filter(
-                                dropCharacters,
+                            dropCharacters = dropCharacters.filter(
                                 (c) => expiredFunc(c.id) ||
                                     every(
                                         drop.questIds,

@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
 
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
@@ -33,14 +32,14 @@
     ]
 
     const groupByActive = $settingsStore.general.groupBy.map(
-        (f) => filter(groupByChoices, (c) => c.key === f)[0]
+        (f) => groupByChoices.filter((c) => c.key === f)[0]
     )
-    const groupByInactive = filter(groupByChoices, (c) => groupByActive.indexOf(c) < 0)
+    const groupByInactive = groupByChoices.filter((c) => groupByActive.indexOf(c) < 0)
 
     const sortByActive = $settingsStore.general.sortBy.map(
-        (f) => filter(sortByChoices, (c) => c.key === f)[0]
+        (f) => sortByChoices.filter((c) => c.key === f)[0]
     )
-    const sortByInactive = filter(sortByChoices, (c) => sortByActive.indexOf(c) < 0)
+    const sortByInactive = sortByChoices.filter((c) => sortByActive.indexOf(c) < 0)
 
     const onGroupByChange = debounce(() => {
         settingsStore.update(state => {

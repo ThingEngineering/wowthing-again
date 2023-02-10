@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
     import { afterUpdate, getContext } from 'svelte'
 
@@ -19,12 +18,11 @@
 
     let categories: ManualDataSetCategory[]
     $: {
-        categories = filter(
-            find(sets, (s) => s !== null && s[0].slug === slug1),
-            (s) => s.groups.length > 0
-        )
+        categories = find(sets, (s) => s !== null && s[0].slug === slug1)
+            .filter((s) => s.groups.length > 0)
+        
         if (slug2) {
-            categories = filter(categories, (s) => s.slug === slug2)
+            categories = categories.filter((s) => s.slug === slug2)
         }
     }
 

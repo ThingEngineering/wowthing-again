@@ -1,6 +1,5 @@
 <script lang='ts'>
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
 
     import { multiTaskMap, taskList } from '@/data/tasks'
     import { settingsStore } from '@/stores'
@@ -11,9 +10,9 @@
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
 
     const taskActive = $settingsStore.layout.homeTasks
-        .map((f) => filter(taskChoices, (c) => c.key === f)[0])
+        .map((f) => taskChoices.filter((c) => c.key === f)[0])
         .filter(f => f !== undefined)
-    const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) === -1)
+    const taskInactive = taskChoices.filter((c) => taskActive.indexOf(c) === -1)
 
     const onTaskChange = debounce(() => {
         settingsStore.update(state => {
@@ -26,9 +25,9 @@
     const dfChoreChoices: SettingsChoice[] = multiTaskMap.dfChores.map((t) => ({ key: t.taskKey, name: t.taskName }))
 
     const dfChoreInactive = ($settingsStore.tasks.disabledChores?.dfChores || [])
-        .map((f) => filter(dfChoreChoices, (c) => c.key === f)[0])
+        .map((f) => dfChoreChoices.filter((c) => c.key === f)[0])
         .filter(f => f !== undefined)
-    const dfChoreActive = filter(dfChoreChoices, (c) => dfChoreInactive.indexOf(c) === -1)
+    const dfChoreActive = dfChoreChoices.filter((c) => dfChoreInactive.indexOf(c) === -1)
 
     const onDfChoreChange = debounce(() => {
         settingsStore.update(state => {

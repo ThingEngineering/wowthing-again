@@ -1,4 +1,3 @@
-import keys from 'lodash/keys'
 import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
@@ -126,7 +125,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const character of userData.characters) {
             this.initializeCharacter(staticData, character)
 
-            for (const key of keys(character.lockouts)) {
+            for (const key of Object.keys(character.lockouts || {})) {
                 allLockouts[key] = true
             }
         }
@@ -147,7 +146,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Pre-calculate lockouts
         userData.allLockouts = []
         userData.allLockoutsMap = {}
-        for (const instanceDifficulty of keys(allLockouts)) {
+        for (const instanceDifficulty of Object.keys(allLockouts)) {
             const [instanceId, difficultyId] = instanceDifficulty.split('-')
             const difficulty = difficultyMap[parseInt(difficultyId)]
 
@@ -226,7 +225,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         character.realm = staticData.realms[character.realmId] || staticData.realms[0]
         
         // item levels
-        if (keys(character.equippedItems).length > 0) {
+        if (Object.keys(character.equippedItems).length > 0) {
             let count = 0,
                 itemLevels = 0
             for (let j = 0; j < slotOrder.length; j++) {

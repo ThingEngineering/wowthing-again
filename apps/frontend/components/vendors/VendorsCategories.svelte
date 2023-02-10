@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { lazyStore, manualStore } from '@/stores'
@@ -26,14 +25,12 @@
             firstCategory = categories[0]
         }
         
-        categories = filter(
-            categories,
+        categories = categories.filter(
             (cat: ManualDataVendorCategory) => cat?.groups?.length > 0
         )
 
         if (slug2) {
-            categories = filter(
-                categories,
+            categories = categories.filter(
                 (cat: ManualDataVendorCategory) => cat.slug === slug2
             )
         }

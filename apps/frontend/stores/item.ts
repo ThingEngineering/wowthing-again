@@ -12,7 +12,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     initialize(data: ItemData) {
         console.time('ItemDataStore.initialize')
 
-        //const appearanceIds: Record<number, Record<number, boolean>> = {}
         const appearanceIds = new Map<number, Set<number>>()
 
         data.items = {}
@@ -27,7 +26,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
                     appSet = new Set<number>()
                     appearanceIds.set(appearanceData[1], appSet)
                 }
-                appSet.add(obj.id)
+                appSet.add(itemArray[0])
             }
         }
         data.rawItems = null

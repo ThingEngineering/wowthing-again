@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { filter } from 'lodash'
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
     import { replace } from 'svelte-spa-router'
@@ -26,7 +25,7 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = filter(
+        achievementIds = (
             category.slug === 'back-from-the-beyond' ? category.achievementIds : sortBy(
                 category.achievementIds,
                 id => [
@@ -34,16 +33,14 @@
                     leftPad($achievementStore.achievement[id].order, 4, '0'),
                     leftPad(100000 - id, 6, '0')
                 ].join('|')
-            ),
-            (id) => {
+            )).filter((id) => {
                 const faction = $achievementStore.achievement[id].faction
                 return (
                     (faction === -1) ||
                     (faction === 1 && $achievementState.showAlliance) ||
                     (faction === 0 && $achievementState.showHorde)
                 )
-            }
-        )
+            })
     }
 </script>
 

@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
 
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
@@ -45,14 +44,14 @@
     ]
 
     const commonActive = $settingsStore.layout.commonFields.map(
-        (f) => filter(commonChoices, (c) => c.key === f)[0]
+        (f) => commonChoices.filter((c) => c.key === f)[0]
     )
-    const commonInactive = filter(commonChoices, (c) => commonActive.indexOf(c) < 0)
+    const commonInactive = commonChoices.filter((c) => commonActive.indexOf(c) < 0)
 
     const homeActive = $settingsStore.layout.homeFields.map(
-        (f) => filter(homeChoices, (c) => c.key === f)[0]
+        (f) => homeChoices.filter((c) => c.key === f)[0]
     )
-    const homeInactive = filter(homeChoices, (c) => homeActive.indexOf(c) < 0)
+    const homeInactive = homeChoices.filter((c) => homeActive.indexOf(c) < 0)
 
     const onCommonChange = debounce(() => {
         settingsStore.update(state => {

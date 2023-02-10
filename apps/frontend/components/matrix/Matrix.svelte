@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { filter } from 'lodash'
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
@@ -27,8 +26,7 @@
     let yEntries: string[][]
     let yKeys: string[]
     $: {
-        const characters = filter(
-            $userStore.characters,
+        const characters = $userStore.characters.filter(
             (char) => (
                 $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
