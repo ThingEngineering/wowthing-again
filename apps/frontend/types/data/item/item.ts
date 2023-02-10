@@ -2,7 +2,7 @@ import type { InventoryType, ItemQuality, PrimaryStat } from '@/enums'
 
 
 export class ItemDataItem {
-    public appearances: Record<number, ItemDataItemAppearance>
+    private appearanceArrays?: ItemDataItemAppearanceArray[]
 
     constructor(
         public id: number,
@@ -23,11 +23,20 @@ export class ItemDataItem {
         appearanceArrays?: ItemDataItemAppearanceArray[]
     )
     {
-        this.appearances = {}
-        for (const appearanceArray of (appearanceArrays || [])) {
-            const appearance = new ItemDataItemAppearance(...appearanceArray)
-            this.appearances[appearance.modifier] = appearance
+        this.appearanceArrays = appearanceArrays || []
+    }
+
+    private _appearances: Record<number, ItemDataItemAppearance>
+    get appearances(): Record<number, ItemDataItemAppearance> {
+        if (this._appearances === undefined) {
+            this._appearances = {}
+            for (const appearanceArray of this.appearanceArrays) {
+                const appearance = new ItemDataItemAppearance(...appearanceArray)
+                this._appearances[appearance.modifier] = appearance
+            }
+            this.appearanceArrays = null
         }
+        return this._appearances
     }
 }
 export type ItemDataItemArray = ConstructorParameters<typeof ItemDataItem>
