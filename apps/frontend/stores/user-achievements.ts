@@ -1,4 +1,3 @@
-import values from 'lodash/values'
 import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
@@ -65,7 +64,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         cheevs[0] = new UserAchievementDataCategory(0, 0, 0)
 
         const all: [number, number][] = []
-        for (const achievement of values(achievementData.achievement)) {
+        for (const achievement of Object.values(achievementData.achievement)) {
             if (
                 (achievement.faction === 1 && !achievementState.showHorde) ||
                 (achievement.faction === 0 && !achievementState.showAlliance)

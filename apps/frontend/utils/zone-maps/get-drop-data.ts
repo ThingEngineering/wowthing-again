@@ -1,7 +1,6 @@
-//import find from 'lodash/find'
 import { get } from 'svelte/store'
 
-import { /*achievementStore,*/ itemStore, staticStore } from '@/stores'
+import { itemStore, staticStore } from '@/stores'
 import { ItemQuality, RewardType } from '@/enums'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 

@@ -1,6 +1,5 @@
  <script lang="ts">
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
@@ -68,8 +67,7 @@
             realmCharacters,
             (charId) => (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1
         )
-        const toChange: string[] = filter(
-            realmCharacters,
+        const toChange: string[] = realmCharacters.filter(
             (charId) => !anyMissing || (anyMissing && (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1)
         )
 

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
     import some from 'lodash/some'
 
@@ -45,7 +44,7 @@
 
         const firstCategory = categories[0]
         if (slug2) {
-            categories = filter(categories, (s) => s !== null && s.slug === slug2)
+            categories = categories.filter((s) => s !== null && s.slug === slug2)
             if (categories.length === 0) {
                 break $
             }

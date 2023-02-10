@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
     import { staticStore, userStore } from '@/stores'
@@ -18,15 +17,13 @@
     const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
 
     const activeCharacters = sortBy(
-        filter(
-            allCharacters,
+        allCharacters.filter(
             (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) >= 0
         ),
         (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key))
     )
     const inactiveCharacters = sortBy(
-        filter(
-            allCharacters,
+        allCharacters.filter(
             (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
         ),
         (char) => sortFunc($userStore.characterMap[parseInt(char.key)])
@@ -38,7 +35,6 @@
             return state
         })
     }, 100)
-
 </script>
 
 <style lang="scss">

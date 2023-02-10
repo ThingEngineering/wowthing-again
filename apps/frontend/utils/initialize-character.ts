@@ -1,4 +1,3 @@
-import keys from 'lodash/keys'
 import {get} from 'svelte/store'
 
 import getItemLevelQuality from './get-item-level-quality'
@@ -16,7 +15,7 @@ export default function initializeCharacter(character: Character): void {
     character.realm = staticData.realms[character.realmId]
 
     // item levels
-    if (keys(character.equippedItems).length > 0) {
+    if (Object.keys(character.equippedItems).length > 0) {
         let count = 0,
             itemLevels = 0
         for (let j = 0; j < slotOrder.length; j++) {

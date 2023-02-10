@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { manualStore } from '@/stores'
@@ -16,12 +15,11 @@
     let slugs: string[]
     let skipClasses: Record<string, boolean>
     $: {
-        categories = filter(
-            find($manualStore.transmog.setsV2, (s) => s !== null && s[0].slug === slug1),
-            (s) => s.groups.length > 0
-        )
+        categories = find($manualStore.transmog.setsV2, (s) => s !== null && s[0].slug === slug1)
+            .filter((s) => s.groups.length > 0)
+        
         if (slug2) {
-            categories = filter(categories, (s) => s.slug === slug2)
+            categories = categories.filter((s) => s.slug === slug2)
         }
 
         slugs = slug2 ? [slug1, slug2] : [slug1]

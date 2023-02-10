@@ -1,4 +1,3 @@
-import filter from 'lodash/filter'
 import find from 'lodash/find'
 import some from 'lodash/some'
 
@@ -147,10 +146,8 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.Criteria: {
-                            const criteria = filter(
-                                userAchievementData?.criteria[data.ids[0]] || [],
-                                ([characterId,]) => characterId === character.id
-                            )
+                            const criteria = (userAchievementData?.criteria[data.ids[0]] || [])
+                                .filter(([characterId,]) => characterId === character.id)
                             haveThis = (criteria.length === 1 && criteria[0][1] >= (data.value || 1))
                             break
                         }

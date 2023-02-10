@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
     import { ignoredLockoutInstances } from '@/data/dungeon'
@@ -29,16 +28,14 @@
 
     let inactiveInstances: SettingsChoice[]
     const activeInstance = sortBy(
-        filter(
-            allInstances,
+        allInstances.filter(
             (instance) => $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key)) >= 0
         ),
         (instance) => $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key))
     )
 
     $: {
-        inactiveInstances = filter(
-            allInstances,
+        inactiveInstances = allInstances.filter(
             (instance) => (
                 $settingsStore.layout.homeLockouts.indexOf(parseInt(instance.key)) === -1 &&
                 (

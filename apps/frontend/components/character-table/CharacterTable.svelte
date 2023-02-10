@@ -1,7 +1,5 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import groupBy from 'lodash/groupBy'
-    import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
 
     import { settingsStore, staticStore, userStore } from '@/stores'
@@ -35,8 +33,7 @@
     }
 
     $: {
-        characters = filter(
-            $userStore.characters,
+        characters = $userStore.characters.filter(
             (c) => $settingsStore.characters.hiddenCharacters.indexOf(c.id) === -1 &&
                 (!skipIgnored || $settingsStore.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (
@@ -44,7 +41,7 @@
                     $userStore.accounts?.[c.accountId]?.enabled !== false
                 )
         )
-        characters = filter(characters, filterFunc)
+        characters = characters.filter(filterFunc)
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)
@@ -66,7 +63,7 @@
         }
 
         pairs.sort()
-        groups = map(pairs, (pair) => pair[1])
+        groups = pairs.map(([, group]) => group)
         if (groups.length === 1 && groups[0].length === 0) {
             groups = []
         }

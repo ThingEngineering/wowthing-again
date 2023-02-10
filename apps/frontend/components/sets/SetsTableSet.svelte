@@ -1,6 +1,4 @@
 <script lang="ts">
-    import keys from 'lodash/keys'
-
     import {userTransmogStore} from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
@@ -33,7 +31,7 @@
                     }
                 }
             }
-            total = keys(set.items).length
+            total = Object.keys(set.items).length
             percent = have / total * 100
         }
     }
