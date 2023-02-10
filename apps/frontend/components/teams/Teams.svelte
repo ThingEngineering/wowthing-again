@@ -26,15 +26,7 @@
     afterUpdate(() => getSavedRoute('teams', params.slug))
 </script>
 
-<style lang="scss">
-    div {
-        align-items: flex-start;
-        display: flex;
-        width: 100%;
-    }
-</style>
-
-<div>
+<div class="view">
     {#if error}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
     {:else if !ready}

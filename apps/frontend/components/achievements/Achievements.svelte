@@ -39,15 +39,7 @@
     }
 </script>
 
-<style lang="scss">
-    div {
-        align-items: flex-start;
-        display: flex;
-        width: 100%;
-    }
-</style>
-
-<div class="wrapper">
+<div class="view">
     {#if error}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
     {:else if !ready}

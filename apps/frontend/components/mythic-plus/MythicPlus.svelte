@@ -13,22 +13,14 @@
 </script>
 
 <style lang="scss">
-    .wrapper {
-        align-items: flex-start;
-        display: flex;
-        width: 100%;
-    }
     .sub-wrapper {
-        align-items: flex-start;
-        display: flex;
         flex-direction: column;
-        width: 100%;
     }
 </style>
 
-<div class="wrapper">
+<div class="view">
     <MythicPlusSidebar />
-    <div class="sub-wrapper">
+    <div class="view sub-wrapper">
         {#if params.slug}
             <MythicPlusTable slug={params.slug} />
 
