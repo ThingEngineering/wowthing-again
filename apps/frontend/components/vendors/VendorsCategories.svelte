@@ -20,7 +20,7 @@
         categories = find(
             $manualStore.vendors.sets,
             (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
-        )
+        ) || []
         if (categories) {
             firstCategory = categories[0]
         }

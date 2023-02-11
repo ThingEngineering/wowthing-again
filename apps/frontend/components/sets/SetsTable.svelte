@@ -16,12 +16,12 @@
     let slugs: string[]
     let skipClasses: Record<string, boolean>
     $: {
-        categories = find($manualStore.transmog.sets, (s) => s !== null && s[0].slug === slug1)
-            .filter((s) => s.groups.length > 0 && s.groups[0].type !== null)
-        
-        if (slug2) {
-            categories = categories.filter((s) => s.slug === slug2)
-        }
+        categories = (find($manualStore.transmog.sets, (s) => s !== null && s[0].slug === slug1) || [])
+            .filter((s) =>
+                s.groups.length > 0 &&
+                s.groups[0].type !== null &&
+                (!slug2 || s.slug === slug2)
+            )
 
         slugs = slug2 ? [slug1, slug2] : [slug1]
 

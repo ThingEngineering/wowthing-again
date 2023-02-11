@@ -18,11 +18,11 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     initialize(userQuestData: UserQuestData): void {
         console.time('UserQuestDataStore.initialize')
 
-        userQuestData.accountHas = new Set<number>()
-        for (const questId of (userQuestData.account || [])) {
-            userQuestData.accountHas.add(questId)
+        if (userQuestData.accountHas === undefined) {
+            userQuestData.accountHas = new Set<number>(userQuestData.account || [])
+            userQuestData.account = null
         }
-
+        
         userQuestData.questNames = {}
         for (const [, characterData] of Object.entries(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {

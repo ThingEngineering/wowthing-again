@@ -18,12 +18,11 @@
 
     let categories: ManualDataSetCategory[]
     $: {
-        categories = find(sets, (s) => s !== null && s[0].slug === slug1)
-            .filter((s) => s.groups.length > 0)
-        
-        if (slug2) {
-            categories = categories.filter((s) => s.slug === slug2)
-        }
+        categories = (find(sets, (s) => s !== null && s[0].slug === slug1) || [])
+            .filter((s) =>
+                s.groups.length > 0 &&
+                (!slug2 || s.slug === slug2)
+            )
     }
 
     let containerElement: HTMLElement
