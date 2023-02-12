@@ -26,7 +26,8 @@
         slugs = slug2 ? [slug1, slug2] : [slug1]
 
         skipClasses = getSkipClasses($settingsStore, categories?.[0])
-        for (const category of (categories || []).slice(1)) {
+        for (let i = 1; i < categories.length; i++) {
+            const category = categories[i]
             if (!some(category.groups, (group) => group.type === 'class')) {
                 continue
             }
@@ -40,9 +41,6 @@
         }
     }
 </script>
-
-<style lang="scss">
-</style>
 
 <div class="thing-container">
     <table class="table table-striped character-table">
