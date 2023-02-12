@@ -417,7 +417,7 @@ sells:
       1190321: 1
     reputation: 2510 renown-25
 
-  - type: transmog
+  - type: toy
     id: 199768 # Black Dragon Banner
     costs:
       2003: 150
@@ -425,7 +425,7 @@ sells:
       1193050: 20
     reputation: 2510 renown-27
 
-  - type: transmog
+  - type: toy
     id: 199769 # Blue Dragon Banner
     costs:
       2003: 150
@@ -433,7 +433,7 @@ sells:
       1193050: 20
     reputation: 2510 renown-27
 
-  - type: transmog
+  - type: toy
     id: 199770 # Bronze Dragon Banner
     costs:
       2003: 150
@@ -441,7 +441,7 @@ sells:
       1193050: 20
     reputation: 2510 renown-27
 
-  - type: transmog
+  - type: toy
     id: 199771 # Green Dragon Banner
     costs:
       2003: 150
@@ -449,7 +449,7 @@ sells:
       1193050: 20
     reputation: 2510 renown-27
 
-  - type: transmog
+  - type: toy
     id: 199767 # Red Dragon Banner
     costs:
       2003: 150
