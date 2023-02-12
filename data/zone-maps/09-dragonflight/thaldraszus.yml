@@ -245,6 +245,33 @@ farms:
       limit: profession blacksmithing
       note: "{price:3|2023}" # Blacksmithing Knowledge
 
+# - Jewelcrafting
+
+- name: "{item:198682}"
+  location: 59.8 65.2
+  objectId: 380585
+  questId: 70285
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198682 # Alexstraszite Cluster
+      limit: profession jewelcrafting
+      note: "{price:3|2029}" # Jewelcrafting Knowledge
+
+- name: "{item:198656}"
+  location: 56.9 43.7
+  note: "Inside a lantern, TINY"
+  objectId: 380545
+  questId: 70261
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198656 # Painter's Pretty Jewel
+      limit: profession jewelcrafting
+      note: "{price:3|2029}" # Jewelcrafting Knowledge
+
 # - Tailoring
 
 - name: "Ancient Dragonweave Loom"
