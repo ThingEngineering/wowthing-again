@@ -320,10 +320,10 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
     private string GetString(StringType type, Language language, int id)
     {
-        if (!_stringMap.TryGetValue((type, language, id), out var languageName))
+        if (!_stringMap.TryGetValue((type, language, id), out string languageName))
         {
             languageName = _stringMap.GetValueOrDefault(
-                (type, language, id), $"{type.ToString()} #{id}");
+                (type, Language.enUS, id), $"{type.ToString()} #{id}");
         }
 
         return languageName;
