@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 63,
+        Version = 64,
     };
 
     public override async Task Run(params string[] data)
@@ -54,6 +54,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         StringType.WowCreatureName,
         StringType.WowCurrencyName,
         StringType.WowCurrencyCategoryName,
+        StringType.WowHolidayName,
         StringType.WowItemName,
         StringType.WowMountName,
         StringType.WowQuestName,
@@ -174,6 +175,10 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         _timer.AddPoint("Currencies");
 
+        // Holidays
+        cacheData.RawHolidays = await LoadHolidays();
+        _timer.AddPoint("Holidays");
+
         // Illusions
         cacheData.Illusions = await LoadIllusions();
         _timer.AddPoint("Illusions");
@@ -285,6 +290,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
             foreach (var currencyCategory in cacheData.RawCurrencyCategories)
             {
                 currencyCategory.Name = GetString(StringType.WowCurrencyCategoryName, language, currencyCategory.Id);
+            }
+
+            foreach (var holiday in cacheData.RawHolidays)
+            {
+                holiday.Name = GetString(StringType.WowHolidayName, language, holiday.Id);
             }
 
             foreach (var reputation in cacheData.RawReputations)
@@ -702,6 +712,14 @@ public class CacheStaticJob : JobBase, IScheduledJob
         }
 
         return ret;
+    }
+
+    private async Task<StaticHoliday[]> LoadHolidays()
+    {
+        return await Context.WowHoliday
+            .OrderBy(holiday => holiday.Id)
+            .Select(holiday => new StaticHoliday(holiday))
+            .ToArrayAsync();
     }
 
     private async Task<Dictionary<int, StaticIllusion>> LoadIllusions()

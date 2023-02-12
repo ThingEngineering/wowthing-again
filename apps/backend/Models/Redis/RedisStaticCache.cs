@@ -26,6 +26,7 @@ public class RedisStaticCache
 
     public StaticCurrency[] RawCurrencies { get; set; }
     public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
+    public StaticHoliday[] RawHolidays { get; set; }
     public StaticMount[] RawMounts { get; set; }
     public StaticPet[] RawPets { get; set; }
     public StaticReputation[] RawReputations { get; set; }

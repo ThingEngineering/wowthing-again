@@ -1,6 +1,7 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
+import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday'
 import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
@@ -35,6 +36,9 @@ export interface StaticData {
 
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
+
+    holidays: Record<number, StaticDataHoliday>
+    rawHolidays: StaticDataHolidayArray[]
 
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]

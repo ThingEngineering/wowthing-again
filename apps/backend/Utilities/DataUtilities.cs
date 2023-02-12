@@ -32,10 +32,16 @@ public static class DataUtilities
     {
         var files = Directory.GetFiles(DumpsPath, $"{fileName}-*.csv");
         // FIXME crappy hack until importing works
-        if (files.Length == 0)
+        if (files.Length == 0 && fileName.IndexOf(Path.DirectorySeparatorChar) == -1)
         {
             files = Directory.GetFiles(Path.Join(DumpsPath, "enUS"), $"{fileName}-*.csv");
         }
+
+        if (files.Length == 0)
+        {
+            return null;
+        }
+
         var filePath = files.OrderByDescending(f => f).First();
 
         var config = new CsvConfiguration(CultureInfo.InvariantCulture);
