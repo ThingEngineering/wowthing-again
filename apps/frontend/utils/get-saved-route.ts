@@ -19,6 +19,10 @@ export default function getSavedRoute(
             }
 
             const link = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
+            if (!link) {
+                console.warn(`no valid links on #${sidebarId}`)
+                return
+            }
             replace(link.getAttribute('href').replace('#', ''))
         }
         else {
