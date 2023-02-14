@@ -33,8 +33,13 @@
                         break
                     }
                 }
+                
                 if (!has && knownRecipes.has(ability.id)) {
                     has = true
+                }
+                
+                if (totalRanks > 1) {
+                    hasRanks = true
                 }
             }
             else {
@@ -104,7 +109,7 @@
 
         padding-left: 0;
         text-align: right;
-        width: 4.5rem;
+        width: 5rem;
 
         :global(a + a) {
             margin-left: -0.5rem;
@@ -133,10 +138,11 @@
                 <th class="category-name">{category.name}</th>
                 {#if hasRanks}
                     <th class="ranks"></th>
+                {:else}
+                    <th class="trivial"></th>
+                    <th class="trivial"></th>
+                    <th class="trivial"></th>
                 {/if}
-                <th class="trivial"></th>
-                <th class="trivial"></th>
-                <th class="trivial"></th>
             </tr>
         </thead>
         <tbody>
@@ -184,23 +190,23 @@
                                 {/each}
                             {/if}
                         </td>
+                    {:else}
+                        <td class="trivial trivial-low">
+                            {#if useLow}
+                                {ability.trivialLow}
+                            {/if}
+                        </td>
+                        <td class="trivial trivial-mid">
+                            {#if useLow}
+                                {Math.floor((ability.trivialLow + ability.trivialHigh) / 2)}
+                            {/if}
+                        </td>
+                        <td class="trivial trivial-high">
+                            {#if ability.trivialHigh > 1}
+                                {ability.trivialHigh}
+                            {/if}
+                        </td>
                     {/if}
-
-                    <td class="trivial trivial-low">
-                        {#if useLow}
-                            {ability.trivialLow}
-                        {/if}
-                    </td>
-                    <td class="trivial trivial-mid">
-                        {#if useLow}
-                            {Math.floor((ability.trivialLow + ability.trivialHigh) / 2)}
-                        {/if}
-                    </td>
-                    <td class="trivial trivial-high">
-                        {#if ability.trivialHigh > 1}
-                            {ability.trivialHigh}
-                        {/if}
-                    </td>
                 </tr>
             {/each}
         </tbody>
