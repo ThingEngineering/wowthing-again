@@ -65,7 +65,6 @@ export class UserDataCurrentPeriod {
         if (!this._startTime) {
             this._startTime = parseApiTime(this.starts)
         }
-        console.log('startTime', this._startTime)
         return this._startTime
     }
     
@@ -84,7 +83,6 @@ export class UserDataCurrentPeriod {
                     year: 2099,
                 })
             }
-            console.log('endTime', this._endTime)
         }
         return this._endTime
     }
