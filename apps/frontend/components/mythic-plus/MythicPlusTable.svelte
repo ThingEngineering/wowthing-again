@@ -5,12 +5,10 @@
 
     import { Constants } from '@/data/constants'
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
-    import { staticStore, userStore } from '@/stores'
-    import { settingsStore } from '@/stores'
-    import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
+    import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
     import leftPad from '@/utils/left-pad'
+    import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -41,12 +39,30 @@
             isThisWeek = true
             season = seasonMap[Constants.mythicPlusSeason]
             runsFunc = (char, dungeonId) => {
-                const currentPeriod = getCurrentPeriodForCharacter(char)
-                if (currentPeriod && char.mythicPlus?.currentPeriodId === currentPeriod.id) {
-                    return char.mythicPlus?.periodRuns?.[dungeonId] || []
-                } else {
-                    return []
+                const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char)
+                const startStamp = currentPeriod.startTime.toUnixInteger()
+                const endStamp = currentPeriod.endTime.toUnixInteger()
+
+                for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks)) {
+                    const weekStamp = parseInt(timestamp)
+                    if (weekStamp > startStamp && weekStamp <= endStamp) {
+                        console.log(startStamp, endStamp, weekStamp, runs)
+                        return runs
+                            .filter((run) => run.mapId === dungeonId)
+                            .map((run) => ({
+                                completed: '???',
+                                dungeonId: run.mapId,
+                                keystoneLevel: run.level,
+
+                                affixes: [],
+                                duration: 0,
+                                members: [],
+                                memberObjects: [],
+                                timed: true,
+                            }))
+                    }
                 }
+                return []
             }
         }
         else {

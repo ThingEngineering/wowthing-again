@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon'
+
 import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
 import type { Character } from './character'
@@ -5,6 +7,7 @@ import type { InstanceDifficulty } from './dungeon'
 import type { ItemQuality } from '../enums'
 import type { Guild } from './guild'
 import type { UserCount } from './user-count'
+import parseApiTime from '@/utils/parse-api-time'
 
 
 export interface UserData {
@@ -51,11 +54,44 @@ export interface UserData {
     setCounts: Record<string, Record<string, UserCount>>
 }
 
-export interface UserDataCurrentPeriod {
-    id: number
-    region: number
-    starts: string
-    ends: string
+export class UserDataCurrentPeriod {
+    public id: number
+    public region: number
+    public starts: string
+    public ends: string
+
+    private _startTime: DateTime
+    get startTime(): DateTime {
+        if (!this._startTime) {
+            this._startTime = parseApiTime(this.starts)
+        }
+        console.log('startTime', this._startTime)
+        return this._startTime
+    }
+    
+    set startTime(time: DateTime) {
+        this._startTime = time
+    }
+
+    private _endTime: DateTime
+    get endTime(): DateTime {
+        if (!this._endTime) {
+            if (this.ends) {
+                this._endTime = parseApiTime(this.ends)
+            }
+            else {
+                this._endTime = DateTime.fromObject({
+                    year: 2099,
+                })
+            }
+            console.log('endTime', this._endTime)
+        }
+        return this._endTime
+    }
+    
+    set endTime(time: DateTime) {
+        this._endTime = time
+    }
 }
 
 
