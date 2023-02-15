@@ -1,12 +1,16 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type {Character, CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun, CharacterMythicPlusRun} from '@/types'
-    import getMythicPlusRunQuality, { getMythicPlusRunQualityAffix } from '@/utils/get-mythic-plus-run-quality'
+    import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus'
     import { tippyComponent } from '@/utils/tippy'
+    import type {
+        Character,
+        CharacterMythicPlusAddonMap,
+        CharacterMythicPlusAddonRun,
+        CharacterMythicPlusRun
+    } from '@/types'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
-    import { getWeeklyAffixes } from '@/utils/mythic-plus'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -101,7 +105,7 @@
         {#if showBoth}
             {#if addonMap?.fortifiedScore}
                 <span
-                    class="{getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}"
+                    class="{getRunQualityAffix(addonMap.fortifiedScore)}"
                 >{addonMap.fortifiedScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
@@ -109,14 +113,14 @@
 
             {#if addonMap?.tyrannicalScore}
                 <span
-                    class={getMythicPlusRunQualityAffix(addonMap.tyrannicalScore)}
+                    class={getRunQualityAffix(addonMap.tyrannicalScore)}
                 >{addonMap.tyrannicalScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
             {/if}
         {:else}
             {#each runs as run}
-                <span class={getMythicPlusRunQuality(run)}
+                <span class={getRunQuality(run)}
                     >{run.keystoneLevel}</span>
             {/each}
         {/if}

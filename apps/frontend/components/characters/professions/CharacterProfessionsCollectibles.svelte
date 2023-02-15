@@ -50,7 +50,7 @@
             {@const userHas = userQuestStore.hasAny(character.id, dfData.masterQuestId)}
             <div
                 class="quality5"
-                class:missing={!userHas}
+                class:missing={userHas}
             >
                 <WowthingImage
                     name="achievement/1683"
@@ -71,7 +71,7 @@
             {@const userHas = userQuestStore.hasAny(character.id, treasureQuest.questId)}
             <div
                 class="quality{$itemStore.items[treasureQuest.itemId]?.quality || 1}"
-                class:missing={!userHas}
+                class:missing={userHas}
             >
                 <WowheadLink
                     type="item"

@@ -2,6 +2,7 @@ import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import { get } from 'svelte/store'
+import type { DateTime } from 'luxon'
 
 import { userModifiedStore } from './user-modified'
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
@@ -12,6 +13,7 @@ import {
     Character,
     CharacterCurrency,
     CharacterMythicPlusRunMember,
+    UserDataCurrentPeriod,
     UserDataPet,
     WritableFancyStore,
 } from '@/types'
@@ -53,6 +55,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.backgroundList = sortBy(
             Object.values(userData.backgrounds),
             (bg) => -bg.id
+        )
+
+        // Periods
+        userData.currentPeriod = Object.fromEntries(
+            Object.entries(userData.currentPeriod)
+                .map(([region, cp]) => [
+                    region,
+                    Object.assign(new UserDataCurrentPeriod(), cp)
+                ])
         )
 
         // Unpack packed data
@@ -335,6 +346,48 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     
             character.reputationData[category.slug] = catData
         }
+    }
+
+    public getCurrentPeriodForCharacter(
+        now: DateTime,
+        character: Character
+    ): UserDataCurrentPeriod {
+        const regionId = character.realm?.region || 1
+        const period = this.value.currentPeriod[regionId]
+        
+        // Update the period if it's too old
+        while (period.endTime < now) {
+            period.id++
+            period.startTime = period.startTime.plus({ days: 7 })
+            period.endTime = period.endTime.plus({ days: 7 })
+        }
+
+        return period;
+    }
+
+    public getPeriodForCharacter(
+        now: DateTime,
+        character: Character,
+        desiredPeriodId: number
+    ) {
+        const period = Object.assign(
+            new UserDataCurrentPeriod(),
+            this.getCurrentPeriodForCharacter(now, character)
+        )
+
+        while (period.id < desiredPeriodId) {
+            period.id++
+            period.startTime = period.startTime.plus({ days: 7 })
+            period.endTime = period.endTime.plus({ days: 7 })
+        }
+        
+        while (period.id > desiredPeriodId) {
+            period.id--
+            period.startTime = period.startTime.minus({ days: 7 })
+            period.endTime = period.endTime.minus({ days: 7 })
+        }
+
+        return period
     }
 }
 

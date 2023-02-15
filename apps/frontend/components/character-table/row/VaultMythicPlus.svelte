@@ -1,5 +1,5 @@
 <script lang="ts">
-    import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
+    import { getVaultItemLevel } from '@/utils/mythic-plus'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -24,7 +24,7 @@
         <VaultShared
             progresses={mythicPlus}
             textFunc={(prog) => prog.progress >= prog.threshold
-                ? getMythicPlusVaultItemLevel(prog.level).toString()
+                ? getVaultItemLevel(prog.level).toString()
                 : `${prog.threshold - prog.progress} !`}
         />
     </td>

@@ -52,7 +52,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 26,
+        Version = 27,
     };
 
     //private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -164,7 +164,20 @@ public class ImportDumpsJob : JobBase, IScheduledJob
 
         foreach (var language in new[]{ Language.enUS }.Concat(_languages))
         {
-            var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(Path.Join(language.ToString(), dumpName), skipValidation: true);
+            string dumpPath = Path.Join(language.ToString(), dumpName);
+            if (!File.Exists(dumpPath) && language != Language.enUS)
+            {
+                Logger.Warning("Dump does not exist: {path}", dumpPath);
+                continue;
+            }
+
+            var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(dumpPath, skipValidation: true);
+            if (dumpObjects == null)
+            {
+                Logger.Warning("No dump objects: {path}", dumpPath);
+                continue;
+            }
+
             foreach (var dumpObject in dumpObjects)
             {
                 if (filterFunc != null && !filterFunc(dumpObject))
@@ -465,6 +478,42 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 .Where(date => date > MiscConstants.DefaultDateTime)
                 .OrderBy(date => date)
                 .ToList();
+        }
+
+        var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>(Path.Join("enUS", "holidaynames")))
+            .ToDictionary(dhn => dhn.ID, dhn => dhn.Name);
+
+        var dbLanguageMap = await context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowHolidayName)
+            .ToDictionaryAsync(ls => ls.Id);
+
+        // TODO fix language support with dumps
+        foreach (var holiday in holidays)
+        {
+            if (!nameMap.TryGetValue(holiday.HolidayNameID, out string name))
+            {
+                Logger.Warning("No holiday name for {holidayId} {nameId}",
+                    holiday.ID, holiday.HolidayNameID);
+                continue;
+            }
+
+            if (!dbLanguageMap.TryGetValue(holiday.ID, out var languageString))
+            {
+                languageString = new LanguageString
+                {
+                    Language = Language.enUS,
+                    Type = StringType.WowHolidayName,
+                    Id = holiday.ID,
+                    String = name,
+                };
+                context.LanguageString.Add(languageString);
+            }
+            else if (name != languageString.String)
+            {
+                context.LanguageString.Update(languageString);
+                languageString.String = name;
+            }
         }
 
         _timer.AddPoint("Holidays");

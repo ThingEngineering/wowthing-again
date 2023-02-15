@@ -1,4 +1,4 @@
-import {derived} from 'svelte/store'
+import { derived } from 'svelte/store'
 import watchMedia from 'svelte-media'
 
 

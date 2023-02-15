@@ -1,6 +1,6 @@
 <script lang="ts">
     import { userTeamStore } from '@/stores'
-    import type {SidebarItem} from '@/types'
+    import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 

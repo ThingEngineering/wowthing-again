@@ -5,7 +5,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { collectibleState } from '@/stores/local-storage'
-    import type {CollectibleContext} from '@/types/contexts'
+    import type { CollectibleContext } from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'

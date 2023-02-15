@@ -276,6 +276,32 @@ farms:
       limit: profession blacksmithing
       note: "{price:3|2023}" # Blacksmithing Knowledge
 
+# - Jewelcrafting
+
+- name: "{item:198664}"
+  location: 45.0 61.3
+  objectId: 380569
+  questId: 70277
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 198664 # Crystalline Overgrowth
+      limit: profession jewelcrafting
+      note: "{price:3|2029}" # Jewelcrafting Knowledge
+
+- name: "{item:201016}"
+  location: 44.6 61.2
+  objectId: 380556
+  questId: 70271
+  reset: never
+  type: profession
+  drops:
+    - type: item
+      id: 201016 # Harmonic Crystal Harmonizer
+      limit: profession jewelcrafting
+      note: "{price:3|2029}" # Jewelcrafting Knowledge
+
 # - Tailoring
 
 - name: "{item:198702}"

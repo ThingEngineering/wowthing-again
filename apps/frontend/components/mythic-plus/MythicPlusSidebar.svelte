@@ -1,8 +1,8 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import type {MythicPlusSeason, SidebarItem} from '@/types'
     import { seasonMap } from '@/data/dungeon'
+    import type { MythicPlusSeason, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import type { Character, CharacterWeeklyProgress } from '@/types'
 
     import Run from './TooltipVaultMythicPlusRun.svelte'
 

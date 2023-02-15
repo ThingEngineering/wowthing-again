@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate} from 'svelte'
+    import { afterUpdate } from 'svelte'
 
     import getSavedRoute from '@/utils/get-saved-route'
 

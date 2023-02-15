@@ -1,5 +1,5 @@
-import {Region} from '@/enums'
-import type {ResetTime} from '@/types'
+import { Region } from '@/enums'
+import type { ResetTime } from '@/types'
 
 // Times are [hour, minute] in UTC
 export const resetTimes: Record<Region, ResetTime> = {

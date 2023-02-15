@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {AchievementDataAchievement} from '@/types'
+    import type { AchievementDataAchievement } from '@/types'
 
     export let achievement: AchievementDataAchievement
 </script>

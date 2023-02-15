@@ -1,14 +1,7 @@
-import { get } from 'svelte/store'
+import { getBaseScoreForKeyLevel } from './get-base-score-for-key-level'
+import { getWeeklyAffixes } from './get-weekly-affixes'
+import type { Character, CharacterMythicPlusAddonMapAffix } from '@/types'
 
-import type { Character, CharacterMythicPlusAddonMapAffix, MythicPlusAffix } from '@/types'
-import { weeklyAffixes } from '@/data/dungeon'
-import { userStore } from '@/stores'
-
-
-export function getWeeklyAffixes(character: Character): MythicPlusAffix[] {
-    const userData = get(userStore)
-    return weeklyAffixes[(userData.currentPeriod[character.realm.region].id - 809) % weeklyAffixes.length]
-}
 
 interface IsKeystoneUpgradeResult {
     isUpgrade: boolean
@@ -54,26 +47,4 @@ export function isKeystoneUpgrade(character: Character, season: number, dungeonI
         mapInfo,
         scoreIncrease,
     }
-}
-
-export function getBaseScoreForKeyLevel(keyLevel: number): number {
-    // 25 for completion
-    // 10 for seasonal affix
-    //  5 per normal affix
-    //  5 per keystone level
-
-    let affixes = 0
-    if (keyLevel <= 3) {
-        affixes = 1
-    }
-    else if (keyLevel <= 6) {
-        affixes = 2
-    }
-    else if (keyLevel <= 9) {
-        affixes = 3
-    }
-    else {
-        affixes = 5
-    }
-    return 25 + (affixes * 5) + (keyLevel * 5)
 }

@@ -1,11 +1,14 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import getMythicPlusRunQuality, {getMythicPlusRunQualityAffix} from '@/utils/get-mythic-plus-run-quality'
-    import { getWeeklyAffixes, isKeystoneUpgrade } from '@/utils/mythic-plus'
-    import type { Character, Dungeon, MythicPlusAffix } from '@/types'
+    import {
+        getRunQuality,
+        getRunQualityAffix,
+        getWeeklyAffixes,
+        isKeystoneUpgrade
+    } from '@/utils/mythic-plus'
+    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon, MythicPlusAffix } from '@/types'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
-    import type {CharacterMythicPlusAddonMapAffix} from '@/types'
 
     export let character: Character
     export let dungeon: Dungeon
@@ -48,7 +51,7 @@
                 <tr>
                     <td>
                         {dungeon.name}
-                        <span class="{getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
+                        <span class="{getRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
                     </td>
                 </tr>
 
@@ -57,7 +60,7 @@
                         {#if mapInfo}
                             <p>
                                 Previous best {affixes[0].name} key:
-                                <span class="{getMythicPlusRunQualityAffix(mapInfo)}">{mapInfo.level}</span>
+                                <span class="{getRunQualityAffix(mapInfo)}">{mapInfo.level}</span>
                             </p>
                             {#if isUpgrade}
                                 <p>Timing this key would be a score upgrade!</p>

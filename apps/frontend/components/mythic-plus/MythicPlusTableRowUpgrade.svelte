@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {ratingItemLevelUpgrade} from '@/data/dungeon'
+    import { ratingItemLevelUpgrade } from '@/data/dungeon'
     import getFirstMatch from '@/utils/get-first-match'
     import { tippyComponent } from '@/utils/tippy'
-    import type {Character, MythicPlusSeason} from '@/types'
+    import type { Character, MythicPlusSeason } from '@/types'
 
     import Tooltip from '@/components/tooltips/mythic-plus-upgrade/TooltipMythicPlusUpgrade.svelte'
 

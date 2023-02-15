@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {dungeonMap} from '@/data/dungeon'
+    import { dungeonMap } from '@/data/dungeon'
     import type {
         Character,
         CharacterMythicPlusAddonMap,

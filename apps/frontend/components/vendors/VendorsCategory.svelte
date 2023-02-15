@@ -10,7 +10,8 @@
     export let costs: Record<number, number>
     export let slug1: string
 
-    $: useV2 = category.groups.length > 3 && category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
+    $: useV2 = category.groups.length > 3 &&
+        category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
 </script>
 
 <style lang="scss">

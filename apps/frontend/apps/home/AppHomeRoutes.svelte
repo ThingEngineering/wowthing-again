@@ -10,7 +10,6 @@
     import Explore from '@/components/explore/Explore.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import History from '@/components/history/History.svelte'
-    import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
     import Illusions from  '@/components/illusions/Illusions.svelte'
     import Items from '@/components/items/Items.svelte'
@@ -33,7 +32,6 @@
 
     const routes = {
         '/': HomeTable,
-        '/cards': HomeCards,
         '/table': HomeTable,
 
         '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?': Characters,

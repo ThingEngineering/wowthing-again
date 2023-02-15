@@ -115,7 +115,7 @@
 
                         text = `${Math.floor(averagePercent * 100)} %`
 
-                        if (averagePercent >= 100) {
+                        if (averagePercent >= 1) {
                             status = `${status} status-turn-in`
                         }
                     }

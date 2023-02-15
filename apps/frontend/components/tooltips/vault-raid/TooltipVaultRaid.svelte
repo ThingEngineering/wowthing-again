@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import type { Character, CharacterWeeklyProgress } from '@/types'
 
     import Progress from './TooltipVaultRaidProgress.svelte'
 

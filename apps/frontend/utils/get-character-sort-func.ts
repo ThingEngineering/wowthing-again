@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import {Constants} from '@/data/constants'
+import { Constants } from '@/data/constants'
 import { userStore } from '@/stores'
 import leftPad from '@/utils/left-pad'
 import { Region } from '@/enums'

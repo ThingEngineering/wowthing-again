@@ -3,9 +3,9 @@
     import sortBy from 'lodash/sortBy'
 
     import { settingsStore, staticStore, userStore } from '@/stores'
-    import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import type { Character } from '@/types'
 
     import CharacterRow from './CharacterTableRow.svelte'
 

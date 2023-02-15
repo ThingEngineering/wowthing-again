@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {dungeonMap} from '@/data/dungeon'
-    import type {CharacterWeeklyProgress} from '@/types'
-    import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
+    import { dungeonMap } from '@/data/dungeon'
+    import { getVaultItemLevel } from '@/utils/mythic-plus'
+    import type { CharacterWeeklyProgress } from '@/types'
 
     export let index: number
     export let progress: CharacterWeeklyProgress[]
@@ -39,7 +39,7 @@
         }
 
         if (keyLevel > 0) {
-            itemLevel = getMythicPlusVaultItemLevel(keyLevel)
+            itemLevel = getVaultItemLevel(keyLevel)
         }
     }
 </script>

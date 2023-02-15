@@ -1,6 +1,6 @@
 import { decode } from 'base64-arraybuffer'
 
-import {TypedArray} from '@/enums'
+import { TypedArray } from '@/enums'
 
 export default function base64ToRecord(arrayType: TypedArray, data: string): Record<number, boolean>
 {

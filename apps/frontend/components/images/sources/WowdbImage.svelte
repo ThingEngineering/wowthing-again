@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {TippyProps} from '@/types'
+    import type { TippyProps } from '@/types'
 
     import Image from '../Image.svelte'
 

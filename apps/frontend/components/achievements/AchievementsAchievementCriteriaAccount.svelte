@@ -2,7 +2,7 @@
     import { honorAchievements } from '@/data/achievements'
     import { achievementStore, userAchievementStore, userStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
+    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'

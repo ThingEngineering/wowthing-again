@@ -1,7 +1,7 @@
 <script lang="ts">
     import { categoryChildren, categoryOrder } from '@/data/currencies'
     import { staticStore } from '@/stores/static'
-    import type {SidebarItem} from '@/types'
+    import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 

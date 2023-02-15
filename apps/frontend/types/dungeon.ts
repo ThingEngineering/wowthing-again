@@ -1,4 +1,4 @@
-import type {Difficulty} from '@/types/difficulty'
+import type { Difficulty } from '@/types/difficulty'
 import type { TippyProps } from '@/types/tippy'
 
 export class Dungeon {

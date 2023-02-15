@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import {Constants} from '@/data/constants'
+import { Constants } from '@/data/constants'
 import { staticStore, userStore } from '@/stores'
 import type { Character, Settings } from '@/types'
 

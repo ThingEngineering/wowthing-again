@@ -240,13 +240,6 @@
         </a>
     </li>
 
-    <!-- <li use:active={'/cards'}>
-        <a href="#/cards">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Home (Cards)
-        </a>
-    </li> -->
-
     <li use:active={'/matrix'}>
         <a href="#/matrix">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
