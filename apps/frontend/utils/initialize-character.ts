@@ -1,12 +1,12 @@
-import {get} from 'svelte/store'
+import { get } from 'svelte/store'
 
 import getItemLevelQuality from './get-item-level-quality'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
-import {staticStore} from '@/stores/static'
+import { staticStore } from '@/stores/static'
 import type { Character, CharacterMythicPlusRun, CharacterReputation, CharacterReputationReputation } from '@/types'
 import { InventorySlot } from '@/enums'
-import {CharacterMythicPlusRunMember} from '@/types'
+import { CharacterMythicPlusRunMember } from '@/types'
 
 export default function initializeCharacter(character: Character): void {
     const staticData = get(staticStore)

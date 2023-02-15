@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {userTransmogStore} from '@/stores'
+    import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import {tippyComponent} from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'

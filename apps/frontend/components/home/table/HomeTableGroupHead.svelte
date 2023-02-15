@@ -5,7 +5,7 @@
     import { settingsStore, userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
-    import type {Character} from '@/types'
+    import type { Character } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'

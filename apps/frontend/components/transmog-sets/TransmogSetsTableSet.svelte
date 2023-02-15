@@ -1,6 +1,6 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
-    import {tippyComponent} from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
     import type { UserCount } from '@/types'
     import type { ManualDataTransmogSetSet } from '@/types/data/manual'
 

@@ -1,12 +1,12 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type {Character, CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun, CharacterMythicPlusRun} from '@/types'
     import getMythicPlusRunQuality, { getMythicPlusRunQualityAffix } from '@/utils/get-mythic-plus-run-quality'
+    import { getWeeklyAffixes } from '@/utils/mythic-plus'
     import { tippyComponent } from '@/utils/tippy'
+    import type { Character, CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun, CharacterMythicPlusRun } from '@/types'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
-    import { getWeeklyAffixes } from '@/utils/mythic-plus'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]

@@ -2,10 +2,9 @@
     import { Constants } from '@/data/constants'
     import getMythicPlusRunQuality, {getMythicPlusRunQualityAffix} from '@/utils/get-mythic-plus-run-quality'
     import { getWeeklyAffixes, isKeystoneUpgrade } from '@/utils/mythic-plus'
-    import type { Character, Dungeon, MythicPlusAffix } from '@/types'
+    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon, MythicPlusAffix } from '@/types'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
-    import type {CharacterMythicPlusAddonMapAffix} from '@/types'
 
     export let character: Character
     export let dungeon: Dungeon

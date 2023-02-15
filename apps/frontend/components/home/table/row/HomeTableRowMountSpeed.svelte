@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {mountSkillMap} from '@/data/mount-skill'
-    import type { MountSkill } from '@/data/mount-skill'
+    import { mountSkillMap } from '@/data/mount-skill'
     import { userStore } from '@/stores'
-    import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
+    import type { MountSkill } from '@/data/mount-skill'
+    import type { Character } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

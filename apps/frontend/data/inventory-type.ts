@@ -1,4 +1,4 @@
-import {InventoryType} from '@/enums'
+import { InventoryType } from '@/enums'
 
 export const typeOrder: InventoryType[] = [
     InventoryType.MainHand,

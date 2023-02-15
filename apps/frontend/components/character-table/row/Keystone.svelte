@@ -1,12 +1,12 @@
 <script lang="ts">
-    import type {Character, Dungeon} from '@/types'
-    import {Constants} from '@/data/constants'
-    import {dungeonMap} from '@/data/dungeon'
+    import { Constants } from '@/data/constants'
+    import { dungeonMap } from '@/data/dungeon'
     import { timeStore } from '@/stores'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
-    import {getNextWeeklyReset} from '@/utils/get-next-reset'
+    import { getNextWeeklyReset } from '@/utils/get-next-reset'
     import { isKeystoneUpgrade } from '@/utils/mythic-plus'
     import { tippyComponent } from '@/utils/tippy'
+    import type { Character, Dungeon } from '@/types'
 
     import Tooltip from '@/components/tooltips/mythic-plus-keystone/TooltipMythicPlusKeystone.svelte'
 

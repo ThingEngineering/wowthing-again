@@ -1,8 +1,8 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
-    import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getCharacterData } from '@/utils/achievements'
+    import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
+    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
     import type { AchievementDataCharacter } from '@/utils/achievements'
 
     import AchievementCriteriaBar from './AchievementsAchievementCriteriaBar.svelte'

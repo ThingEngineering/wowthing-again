@@ -1,6 +1,6 @@
-import type {Character} from '@/types'
-import {InventorySlot} from '@/enums'
-//import {specializationMap} from '@/data/character-specialization'
+import type { Character } from '@/types'
+import { InventorySlot } from '@/enums'
+//import { specializationMap } from '@/data/character-specialization'
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,

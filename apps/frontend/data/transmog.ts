@@ -1,5 +1,5 @@
 import { RewardType, TransmogSetType } from '@/enums'
-import {TransmogSet, TransmogSetData} from '@/types'
+import { TransmogSet, TransmogSetData } from '@/types'
 
 
 export const transmogTypes: RewardType[] = [

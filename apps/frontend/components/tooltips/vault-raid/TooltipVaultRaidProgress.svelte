@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {difficultyMap} from '@/data/difficulty'
-    import type {CharacterWeeklyProgress} from '@/types'
+    import { difficultyMap } from '@/data/difficulty'
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
+    import type { CharacterWeeklyProgress } from '@/types'
 
     export let progress: CharacterWeeklyProgress
 
