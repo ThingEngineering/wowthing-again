@@ -4,12 +4,25 @@ import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
+import { doCollectible, type LazyCollectible } from './collectible'
 import { doJournal, type LazyJournal } from './journal'
 import { doTransmog, type LazyTransmog } from './transmog'
 import { doVendors, type LazyVendors } from './vendors'
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
 
-import { AppearancesState, appearanceState, JournalState, journalState, VendorState, vendorState, zoneMapState, ZoneMapState } from '../local-storage'
+import {
+    appearanceState,
+    collectibleState,
+    journalState,
+    vendorState,
+    zoneMapState,
+    type CollectibleState,
+    type AppearancesState,
+    type JournalState,
+    type VendorState,
+    type ZoneMapState
+} from '../local-storage'
+
 import { appearanceStore } from '../appearance'
 import { itemStore } from '../item'
 import { journalStore } from '../journal'
@@ -21,17 +34,15 @@ import { userAchievementStore } from '../user-achievements'
 import { userQuestStore } from '../user-quests'
 import { userTransmogStore } from '../user-transmog'
 
-import { UserCount, type UserAchievementData } from '@/types'
-import type { UserQuestData } from '@/types/data'
+import { UserCount } from '@/types'
 
-import type { FancyStoreType, Settings, UserData} from '@/types'
-import type { JournalData, UserTransmogData } from '@/types/data'
+import type { FancyStoreType, Settings, UserAchievementData, UserData } from '@/types'
+import type { JournalData, UserQuestData, UserTransmogData } from '@/types/data'
 import type { AppearanceData } from '@/types/data/appearance'
 import type {
     ManualData,
     ManualDataHeirloomItem,
     ManualDataIllusionItem,
-    ManualDataSetCategory
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
@@ -46,7 +57,7 @@ type LazyKey =
     | 'toys'
 
 type LazyUgh = {
-    [k in LazyKey]: UserCounts
+    [k in LazyKey]: LazyCollectible|UserCounts
 }
 
 type GenericCategory<T> = {
@@ -60,6 +71,7 @@ export const lazyStore = derived(
     [
         settingsStore,
         appearanceState,
+        collectibleState,
         journalState,
         vendorState,
         zoneMapState,
@@ -72,6 +84,7 @@ export const lazyStore = derived(
         ([
             $settingsStore,
             $appearanceState,
+            $collectibleState,
             $journalState,
             $vendorState,
             $zoneMapState,
@@ -82,6 +95,7 @@ export const lazyStore = derived(
         ]: [
             Settings,
             AppearancesState,
+            CollectibleState,
             JournalState,
             VendorState,
             ZoneMapState,
@@ -93,6 +107,7 @@ export const lazyStore = derived(
             storeInstance.update(
                 $settingsStore,
                 $appearanceState,
+                $collectibleState,
                 $journalState,
                 $vendorState,
                 $zoneMapState,
@@ -115,6 +130,7 @@ export class LazyStore implements LazyUgh {
     private settings: Settings
 
     private appearanceState: AppearancesState
+    private collectibleState: CollectibleState
     private journalState: JournalState
     private zoneMapState: ZoneMapState
     
@@ -133,11 +149,11 @@ export class LazyStore implements LazyUgh {
     private dragonridingFunc: () => UserCounts
     private heirloomsFunc: () => UserCounts
     private illusionsFunc: () => UserCounts
-    private mountsFunc: () => UserCounts
-    private petsFunc: () => UserCounts
-    private toysFunc: () => UserCounts
 
     private journalFunc: () => LazyJournal
+    private mountsFunc: () => LazyCollectible
+    private petsFunc: () => LazyCollectible
+    private toysFunc: () => LazyCollectible
     private transmogFunc: () => LazyTransmog
     private vendorsFunc: () => LazyVendors
     private zoneMapsFunc: () => LazyZoneMaps
@@ -147,6 +163,7 @@ export class LazyStore implements LazyUgh {
     update(
         settings: Settings,
         appearanceState: AppearancesState,
+        collectibleState: CollectibleState,
         journalState: JournalState,
         vendorState: VendorState,
         zoneMapState: ZoneMapState,
@@ -158,11 +175,12 @@ export class LazyStore implements LazyUgh {
     {
         const newHashes: Record<string, string> = {
             appearanceState: this.hashObject(appearanceState), 
+            collectibleState: this.hashObject(collectibleState),
             journalState: this.hashObject(journalState),
             vendorState: this.hashObject(vendorState),
             zoneMapState: this.hashObject(zoneMapState),
             
-            collections: `${settings.collections.hideUnavailable}`,
+            hideUnavailable: `${settings.collections.hideUnavailable}`,
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
@@ -198,6 +216,7 @@ export class LazyStore implements LazyUgh {
         this.settings = settings
 
         this.appearanceState = appearanceState
+        this.collectibleState = collectibleState
         this.journalState = journalState
         this.zoneMapState = zoneMapState
 
@@ -206,10 +225,30 @@ export class LazyStore implements LazyUgh {
         this.userQuestData = userQuestData
         this.userTransmogData = userTransmogData
 
-        if (changedData.userData || changedHashes.collections) {
-            this.mountsFunc = once(() => this.doSetCounts(this.manualData.mountSets, this.userData.hasMount))
-            this.petsFunc = once(() => this.doSetCounts(this.manualData.petSets, this.userData.hasPet))
-            this.toysFunc = once(() => this.doSetCounts(this.manualData.toySets, this.userData.hasToy))
+        if (changedData.userData || changedHashes.collectibleState || changedHashes.hideUnavailable) {
+            const collectibleStores = {
+                collectibleState,
+                settings,
+            }
+
+            this.mountsFunc = once(() => doCollectible(
+                collectibleStores,
+                'mounts',
+                this.manualData.mountSets,
+                this.userData.hasMount
+            ))
+            this.petsFunc = once(() => doCollectible(
+                collectibleStores,
+                'pets',
+                this.manualData.petSets,
+                this.userData.hasPet
+            ))
+            this.toysFunc = once(() => doCollectible(
+                collectibleStores,
+                'toys',
+                this.manualData.toySets,
+                this.userData.hasToy
+            ))
         }
 
         if (changedData.userTransmogData || changedHashes.appearanceState) {
@@ -292,7 +331,7 @@ export class LazyStore implements LazyUgh {
             .join('|')
     }
 
-    lookup(key: string): UserCounts {
+    lookup(key: string): LazyCollectible|UserCounts {
         return this[key as LazyKey]
     }
 
@@ -301,9 +340,9 @@ export class LazyStore implements LazyUgh {
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
     get journal(): LazyJournal { return this.journalFunc() }
-    get mounts(): UserCounts { return this.mountsFunc() }
-    get pets(): UserCounts { return this.petsFunc() }
-    get toys(): UserCounts { return this.toysFunc() }
+    get mounts(): LazyCollectible { return this.mountsFunc() }
+    get pets(): LazyCollectible { return this.petsFunc() }
+    get toys(): LazyCollectible { return this.toysFunc() }
     get transmog(): LazyTransmog { return this.transmogFunc() }
     get vendors(): LazyVendors { return this.vendorsFunc() }
     get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
@@ -430,87 +469,6 @@ export class LazyStore implements LazyUgh {
                 )?.enchantmentId
             )
         )
-    }
-
-    private doSetCounts(
-        categories: ManualDataSetCategory[][],
-        userHas: Record<number, boolean>
-    ): UserCounts {
-        const counts: UserCounts = {}
-        const showUnavailable = !this.settings.collections.hideUnavailable
-
-        const overallData = counts['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
-
-        for (const category of categories) {
-            if (category === null) {
-                continue
-            }
-
-            const categoryData = counts[category[0].slug] = new UserCount()
-            const categoryUnavailable = category[0].slug === 'unavailable'
-
-            for (const set of category) {
-                const setData = counts[`${category[0].slug}--${set.slug}`] = new UserCount()
-                const setUnavailable = set.slug === 'unavailable'
-
-                for (const group of set.groups) {
-                    const groupData = counts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
-                    const groupUnavailable = group.name.indexOf('Unavailable') >= 0
-
-                    for (const things of group.things) {
-                        const hasThing = some(things, (t) => userHas[t])
-                        const seenOverall = some(things, (t) => overallSeen[t])
-
-                        const doOverall = (
-                            !seenOverall &&
-                            (hasThing || (!categoryUnavailable && !setUnavailable && !groupUnavailable))
-                        )
-                        const doCategory = (
-                            (hasThing || (
-                                (!setUnavailable && !groupUnavailable) &&
-                                (showUnavailable || !categoryUnavailable)
-                            ))
-                        )
-                        const doSet = (
-                            hasThing ||
-                            showUnavailable ||
-                            (!groupUnavailable && !setUnavailable && !categoryUnavailable)
-                        )
-
-                        if (doOverall) {
-                            overallData.total++
-                        }
-                        if (doCategory) {
-                            categoryData.total++
-                        }
-                        if (doSet) {
-                            setData.total++
-                            groupData.total++
-                        }
-
-                        if (hasThing) {
-                            if (doOverall) {
-                                overallData.have++
-                            }
-                            if (doCategory) {
-                                categoryData.have++
-                            }
-                            if (doSet) {
-                                setData.have++
-                                groupData.have++
-                            }
-                        }
-
-                        for (const thing of things) {
-                            overallSeen[thing] = true
-                        }
-                    }
-                }
-            }
-        }
-
-        return counts
     }
 }
 

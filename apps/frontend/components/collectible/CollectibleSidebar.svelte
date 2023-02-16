@@ -1,7 +1,6 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import { lazyStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
@@ -11,7 +10,7 @@
 
     export let sets: ManualDataSetCategory[][]
 
-    const { countsKey, route } = getContext('collection') as CollectibleContext
+    const { route, stats } = getContext('collection') as CollectibleContext
 
     let categories: SidebarItem[]
     let overall: UserCount
@@ -21,14 +20,14 @@
             ...set[0],
         }))
 
-        overall = $lazyStore.lookup(countsKey)['OVERALL']
+        overall = stats['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $lazyStore.lookup(countsKey)[slug]
+        const hasData = stats[slug]
         return hasData.have / hasData.total * 100
     }
 </script>

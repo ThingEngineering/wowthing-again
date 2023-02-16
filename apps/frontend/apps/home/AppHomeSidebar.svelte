@@ -30,9 +30,9 @@
     }
 
     $: journalPercent = $lazyStore.journal.stats.OVERALL.percent
-    $: mountsPercent = $lazyStore.mounts.OVERALL.percent
-    $: petsPercent = $lazyStore.pets.OVERALL.percent
-    $: toysPercent = $lazyStore.toys.OVERALL.percent
+    $: mountsPercent = $lazyStore.mounts.stats.OVERALL.percent
+    $: petsPercent = $lazyStore.pets.stats.OVERALL.percent
+    $: toysPercent = $lazyStore.toys.stats.OVERALL.percent
     $: transmogPercent = $lazyStore.transmog.stats.OVERALL.percent
     $: vendorPercent = $lazyStore.vendors.stats.OVERALL.percent
 

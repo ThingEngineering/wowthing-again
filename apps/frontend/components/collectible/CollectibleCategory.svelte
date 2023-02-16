@@ -1,7 +1,9 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
+    import { getContext } from 'svelte'
+
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
+    import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
     import CollectibleThing from './CollectibleThing.svelte'
@@ -10,9 +12,10 @@
     import SectionTitle from './CollectibleSectionTitle.svelte'
 
     export let category: ManualDataSetCategory
-    export let route: string
     export let slug1: string
     export let thingType: string
+
+    const { stats } = getContext('collection') as CollectibleContext
 
     let useV2: boolean
     $: {
@@ -34,7 +37,7 @@
     {#if category.name}
         <SectionTitle
             title={category.name}
-            count={$lazyStore.lookup(route)[`${slug1}--${category.slug}`]}
+            count={stats[`${slug1}--${category.slug}`]}
         />
     {/if}
 
@@ -45,7 +48,7 @@
                 style={useV2 ? '' : `width: min(100%, calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem)));`}
             >
                 <h4
-                    class="drop-shadow text-overflow {getPercentClass($lazyStore.lookup(route)[`${slug1}--${category.slug}--${group.name}`])}"
+                    class="drop-shadow text-overflow {getPercentClass(stats[`${slug1}--${category.slug}--${group.name}`])}"
                     use:tippy={group.name}
                 >
                     <ParsedText text={group.name} />

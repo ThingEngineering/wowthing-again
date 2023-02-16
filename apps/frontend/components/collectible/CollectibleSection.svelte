@@ -82,7 +82,6 @@
         {#each categories as category}
             <Category
                 {category}
-                route={countsKey}
                 {slug1}
                 {thingType}
             />

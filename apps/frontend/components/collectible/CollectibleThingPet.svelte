@@ -44,6 +44,7 @@
 
 <style lang="scss">
     .collection-object {
+        height: 44px;
         width: 44px;
     }
     .pet {
@@ -58,10 +59,11 @@
 
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <div
-        class="collection-object {userHasThing ? `quality${quality}` : 'has-not'}"
         bind:this={element}
+        class="collection-object {userHasThing ? `quality${quality}` : 'has-not'}"
         class:missing={showAsMissing}
-        style:height="{44 + (18 * pets.length)}px"
+        style:height={pets.length > 0 ? `${44 + (18 * pets.length)}px` : null}
+        data-id={origId}
     >
         {#if intersected}
             {@const creatureId = thingMapFunc(origId)}
