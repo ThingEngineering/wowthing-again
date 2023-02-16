@@ -49,10 +49,11 @@
 
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <div
-        class="collection-object"
         bind:this={element}
+        class="collection-object"
         class:has-not={!userHasThing}
         class:missing={showAsMissing}
+        data-id={origId}
     >
         {#if intersected}
             <WowheadLink type={thingType} id={origId}>

@@ -8,6 +8,8 @@
 
     import CollectibleSection from './CollectibleSection.svelte'
     import CollectibleSidebar from './CollectibleSidebar.svelte'
+    import { lazyStore } from '@/stores';
+    import type { LazyCollectible } from '@/stores/lazy/collectible';
 
     export let params: MultiSlugParams
     export let route: string
@@ -17,9 +19,11 @@
     export let userHas: Record<number, boolean> = {}
 
     $: {
+        const countsKey = route.split('/').slice(-1)[0]
         const context: CollectibleContext = {
-            countsKey: route.split('/').slice(-1)[0],
+            countsKey,
             route,
+            stats: ($lazyStore.lookup(countsKey) as LazyCollectible).stats,
             thingMapFunc,
             thingType,
             userHas,

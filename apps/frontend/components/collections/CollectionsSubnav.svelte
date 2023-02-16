@@ -30,17 +30,17 @@
 
         <a href={"#/collections/mounts"} use:active={"/collections/mounts/*"}>
             Mounts
-            <Percent percent={$lazyStore.mounts.OVERALL.percent} />
+            <Percent percent={$lazyStore.mounts.stats.OVERALL.percent} />
         </a>
 
         <a href={"#/collections/pets"} use:active={"/collections/pets/*"}>
             Pets
-            <Percent percent={$lazyStore.pets.OVERALL.percent} />
+            <Percent percent={$lazyStore.pets.stats.OVERALL.percent} />
         </a>
 
         <a href={"#/collections/toys"} use:active={"/collections/toys/*"}>
             Toys
-            <Percent percent={$lazyStore.toys.OVERALL.percent} />
+            <Percent percent={$lazyStore.toys.stats.OVERALL.percent} />
         </a>
     </nav>
 </div>
