@@ -38,6 +38,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             cls.specializationIds = specs.map((spec) => spec.id)
         }
 
+        data.characterRacesBySlug = Object.fromEntries(
+            Object.values(data.characterRaces)
+                .map((race) => [
+                    race.slug === 'pandaren' ? `pandaren${race.faction}` : race.slug,
+                    race,
+                ])
+        )
+
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
                 profession.categories = profession.rawCategories.map(

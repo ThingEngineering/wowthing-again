@@ -17,6 +17,7 @@ export interface StaticDataCharacterRace {
     faction: Faction
     id: number
     name: string
+    slug: string
 }
 
 export interface StaticDataCharacterSpecialization {
