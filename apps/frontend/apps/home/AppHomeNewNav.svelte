@@ -6,7 +6,7 @@
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 
-    import Filter from './AppHomeNewNavFilter.svelte'
+    import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     type NavItem = [string, string, string, boolean?]
@@ -127,5 +127,5 @@
         {/if}
     {/each}
 
-    <Filter />
+    <CharacterFilter />
 </nav>

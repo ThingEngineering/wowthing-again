@@ -35,8 +35,12 @@
     }
 </style>
 
-<nav id="{id}" class="thing-container" style="--width: {width}">
-    <ul>
-        <slot />
-    </ul>
-</nav>
+<div>
+    <nav id="{id}" class="thing-container" style="--width: {width}">
+        <ul>
+            <slot />
+        </ul>
+    </nav>
+
+    <slot name="after" />
+</div>

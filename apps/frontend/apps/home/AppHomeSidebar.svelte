@@ -19,6 +19,7 @@
     import { lazyStore, settingsStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
+    import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
     import { RewardType } from '@/enums'
@@ -60,6 +61,10 @@
         top: 50%;
         transform: translateY(-50%);
         word-spacing: -0.2ch;
+    }
+    .character-filter-wrapper {
+        margin: 1rem 1rem 0 -1rem;
+        width: 10rem;
     }
 </style>
 
@@ -272,4 +277,8 @@
             </a>
         </li>
     {/if}
+
+    <div class="character-filter-wrapper" slot="after">
+        <CharacterFilter />
+    </div>
 </Sidebar>

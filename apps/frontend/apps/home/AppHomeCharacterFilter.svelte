@@ -20,7 +20,6 @@
     }
     .clear-filter {
         cursor: pointer;
-        margin-left: 0.5rem;
     }
 </style>
 
