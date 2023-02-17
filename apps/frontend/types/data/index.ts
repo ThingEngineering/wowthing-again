@@ -1,4 +1,5 @@
 export * from './journal'
+export * from './professions'
 export * from './quests'
 export * from './user-auctions'
 export * from './user-history'
