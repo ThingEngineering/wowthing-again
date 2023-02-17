@@ -4,6 +4,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
+    import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
 
     const clearFilter = () => $newNavState.characterFilter = ''
 </script>
@@ -28,8 +29,12 @@
         name="character-filter"
         placeholder="Character filter..."
         bind:value={$newNavState.characterFilter}
+        tooltipComponent={{
+            component: Tooltip,
+            props: {},
+        }}
     />
-    
+
     <div
         class="clear-filter"
         on:click={clearFilter}
