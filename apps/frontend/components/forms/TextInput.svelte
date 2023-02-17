@@ -1,6 +1,6 @@
 <script lang="ts">
     export let label = ''
-    export let maxlength = 0
+    export let maxlength: number = null
     export let name: string
     export let placeholder = ''
     export let value: string
