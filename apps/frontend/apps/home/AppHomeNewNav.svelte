@@ -4,11 +4,10 @@
     import { FarmType } from '@/enums'
     import { farmTypeIcons, iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
-    import { newNavState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
 
+    import Filter from './AppHomeNewNavFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
 
     type NavItem = [string, string, string, boolean?]
     const navItems: NavItem[] = [
@@ -50,9 +49,6 @@
         ['settings/', 'Settings', 'mdiCogOutline', true],
     ]
 
-    const clearFilter = function() {
-        $newNavState.characterFilter = ''
-    }
 </script>
 
 <style lang="scss">
@@ -102,14 +98,6 @@
     .wip:not(.active) {
         --link-color: #ffbb00;
     }
-    .character-filter {
-        align-items: center;
-        display: none;
-
-        :global(svg) {
-            color: $colour-fail;
-        }
-    }
 </style>
 
 <nav
@@ -139,20 +127,5 @@
         {/if}
     {/each}
 
-    <div class="character-filter" id="character-filter">
-        <TextInput
-            name="character-filter"
-            placeholder="Character filter..."
-            bind:value={$newNavState.characterFilter}
-        />
-        <div
-            on:click={clearFilter}
-            on:keypress={clearFilter}
-        >
-            <IconifyIcon
-                icon={iconLibrary.mdiClose}
-                tooltip="Clear filter"
-            />
-        </div>
-    </div>
+    <Filter />
 </nav>

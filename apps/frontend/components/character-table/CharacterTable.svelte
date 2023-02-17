@@ -46,7 +46,6 @@
                 )
         )
 
-
         characters = characters.filter((char) => useCharacterFilter(filterFunc, char, $newNavState.characterFilter))
 
         if (characterLimit > 0) {
