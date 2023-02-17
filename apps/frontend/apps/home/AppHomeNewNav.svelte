@@ -4,9 +4,11 @@
     import { FarmType } from '@/enums'
     import { farmTypeIcons, iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
+    import { newNavState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import TextInput from '@/components/forms/TextInput.svelte'
 
     type NavItem = [string, string, string, boolean?]
     const navItems: NavItem[] = [
@@ -47,12 +49,17 @@
 
         ['settings/', 'Settings', 'mdiCogOutline', true],
     ]
+
+    const clearFilter = function() {
+        $newNavState.characterFilter = ''
+    }
 </script>
 
 <style lang="scss">
     .subnav {
         --image-margin-top: -0.2rem;
 
+        align-items: center;
         border-width: 0;
         //display: flex;
         flex-wrap: wrap;
@@ -95,6 +102,14 @@
     .wip:not(.active) {
         --link-color: #ffbb00;
     }
+    .character-filter {
+        align-items: center;
+        display: none;
+
+        :global(svg) {
+            color: $colour-fail;
+        }
+    }
 </style>
 
 <nav
@@ -105,7 +120,7 @@
         {#if path !== null}
             {#if !privateOnly || ($userStore.loaded && !$userStore.public)}
                 <a 
-                    class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
+                    class:spacer={navIndex < (navItems.length) && !navItems[navIndex+1]?.[0]}
                     class:wip={linkText.indexOf('WIP') >= 0}
                     href="#/{path}"
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
@@ -123,4 +138,21 @@
             {/if}
         {/if}
     {/each}
+
+    <div class="character-filter" id="character-filter">
+        <TextInput
+            name="character-filter"
+            placeholder="Character filter..."
+            bind:value={$newNavState.characterFilter}
+        />
+        <div
+            on:click={clearFilter}
+            on:keypress={clearFilter}
+        >
+            <IconifyIcon
+                icon={iconLibrary.mdiClose}
+                tooltip="Clear filter"
+            />
+        </div>
+    </div>
 </nav>
