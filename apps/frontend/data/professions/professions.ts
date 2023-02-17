@@ -10,9 +10,12 @@ import { dragonflightAlchemy } from './alchemy'
 import { dragonflightBlacksmithing } from './blacksmithing'
 import { dragonflightEnchanting } from './enchanting'
 import { dragonflightEngineering } from './engineering'
+import { dragonflightHerbalism } from './herbalism'
 import { dragonflightInscription } from './inscription'
 import { dragonflightJewelcrafting } from './jewelcrafting'
 import { dragonflightLeatherworking } from './leatherworking'
+import { dragonflightMining } from './mining'
+import { dragonflightSkinning } from './skinning'
 import { dragonflightTailoring } from './tailoring'
 
 
@@ -73,18 +76,9 @@ const dragonflightProfessions: DragonflightProfession[] = [
     dragonflightLeatherworking,
     dragonflightTailoring,
 
-    {
-        id: Profession.Herbalism,
-        masterQuestId: 70253,
-    },
-    {
-        id: Profession.Mining,
-        masterQuestId: 70258,
-    },
-    {
-        id: Profession.Skinning,
-        masterQuestId: 70259,
-    },
+    dragonflightHerbalism,
+    dragonflightMining,
+    dragonflightSkinning,
 ]
 
 export const dragonflightProfessionMap: Record<number, DragonflightProfession> = Object.fromEntries(
