@@ -16,13 +16,14 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
+    import { RewardType } from '@/enums'
+    import { iconLibrary } from '@/icons'
     import { lazyStore, settingsStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import { RewardType } from '@/enums'
 
     let transmogSetsPercent: number
     $: {
@@ -140,9 +141,9 @@
         </a>
     </li>
 
-    <li class="separator"></li>
-
     {#if $userStore.loaded && !$userStore.public}
+        <li class="separator"></li>
+
         <li use:active={'/auctions/*'}>
             <a href="#/auctions/">
                 <IconifyIcon icon={iconBank} dropShadow={true} />
@@ -150,6 +151,15 @@
             </a>
         </li>
     {/if}
+
+    <li class="separator"></li>
+
+    <li use:active={'/collections/*'}>
+        <a href="#/collections">
+            <IconifyIcon icon={iconLibrary.gameCompanionCube} dropShadow={true} />
+            Collections
+        </a>
+    </li>
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
@@ -214,34 +224,6 @@
         <a href="#/achievements/">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
             Achievements
-        </a>
-    </li>
-
-    <li use:active={'/appearances/*'}>
-        <a href="#/appearances">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Appearances
-        </a>
-    </li>
-
-    <li use:active={'/collections/*'}>
-        <a href="#/collections">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Collections
-        </a>
-    </li>
-
-    <li use:active={'/heirlooms'}>
-        <a href="#/heirlooms">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Heirlooms
-        </a>
-    </li>
-
-    <li use:active={'/illusions'}>
-        <a href="#/illusions">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Illusions
         </a>
     </li>
 
