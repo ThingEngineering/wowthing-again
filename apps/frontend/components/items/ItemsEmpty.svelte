@@ -1,9 +1,10 @@
 <script lang="ts">
+    export let opacity: string = null
     export let text = ''
 </script>
 
 <style lang="scss">
-    .empty {
+    div {
         background: $highlight-background;
         border: 2px solid lighten($colour-fail, 15%);
         border-radius: $border-radius;
@@ -21,7 +22,7 @@
 </style>
 
 <td>
-    <div class="empty">
+    <div style:opacity={opacity}>
         {@html text}
     </div>
 </td>

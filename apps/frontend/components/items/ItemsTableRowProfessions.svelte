@@ -1,7 +1,7 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy'
 
-    import { imageStrings } from '@/data/icons'
+    import { iconStrings, imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
     import { staticStore } from '@/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
@@ -10,12 +10,13 @@
     import type { StaticDataProfession } from '@/types/data/static'
 
     import Empty from './ItemsEmpty.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Item from './ItemsItem.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     
     export let character: Character
     
-    let professions: [Partial<StaticDataProfession>, Partial<CharacterGear>[]][]
+    let professions: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][]
     $: {
         professions = []
         let type0s = 0
@@ -38,6 +39,7 @@
 
             professions.push([
                 profession,
+                !!charProfession,
                 orderBy(
                     Object.entries(equipment),
                     ([slot,]) => slot
@@ -58,6 +60,7 @@
                     type: 0,
                     name: 'ZZZ',
                 },
+                false,
                 [null, null, null],
             ])
         }
@@ -73,13 +76,21 @@
         border-left: 1px solid $border-color;
         padding: 0 0.4rem;
     }
+    .no-profession {
+        --scale: 1.3;
+
+        color: $colour-fail;
+    }
 </style>
 
-{#each professions as [profession, slots]}
+{#each professions as [profession, userHas, slots]}
     <td class="spacer"></td>
     
-    <td class="profession-icon">
-        {#if profession.name !== 'ZZZ'}
+    <td
+        class="profession-icon"
+        class:no-profession={!userHas}
+    >
+        {#if userHas}
             <WowthingImage
                 name="{imageStrings[professionIdToString[profession.id]]}"
                 size={24}
@@ -87,10 +98,8 @@
                 tooltip={getNameForFaction(profession.name, character.faction)}
             />
         {:else}
-            <WowthingImage
-                name="unknown"
-                size={24}
-                border={2}
+            <IconifyIcon
+                icon={iconStrings.no}
                 tooltip="No profession!"
             />
         {/if}
@@ -103,8 +112,12 @@
                 forceCrafted={true}
                 {gear}
             />
+        {:else if !userHas}
+            <Empty opacity="0.3" />
         {:else}
-            <Empty text={slot === 0 ? 'Tool' : 'Acc'} />
+            <Empty
+                text={slot === 0 ? 'Tool' : 'Acc'}
+            />
         {/if}
     {/each}
 {/each}
