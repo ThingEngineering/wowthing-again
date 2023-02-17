@@ -16,12 +16,14 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
+    import { RewardType } from '@/enums'
+    import { iconLibrary } from '@/icons'
     import { lazyStore, settingsStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
+    import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import { RewardType } from '@/enums'
 
     let transmogSetsPercent: number
     $: {
@@ -60,6 +62,10 @@
         top: 50%;
         transform: translateY(-50%);
         word-spacing: -0.2ch;
+    }
+    .character-filter-wrapper {
+        margin: 1rem 1rem 0 -1rem;
+        width: 10rem;
     }
 </style>
 
@@ -135,9 +141,9 @@
         </a>
     </li>
 
-    <li class="separator"></li>
-
     {#if $userStore.loaded && !$userStore.public}
+        <li class="separator"></li>
+
         <li use:active={'/auctions/*'}>
             <a href="#/auctions/">
                 <IconifyIcon icon={iconBank} dropShadow={true} />
@@ -145,6 +151,15 @@
             </a>
         </li>
     {/if}
+
+    <li class="separator"></li>
+
+    <li use:active={'/collections/*'}>
+        <a href="#/collections">
+            <IconifyIcon icon={iconLibrary.gameCompanionCube} dropShadow={true} />
+            Collections
+        </a>
+    </li>
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
@@ -212,34 +227,6 @@
         </a>
     </li>
 
-    <li use:active={'/appearances/*'}>
-        <a href="#/appearances">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Appearances
-        </a>
-    </li>
-
-    <li use:active={'/collections/*'}>
-        <a href="#/collections">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Collections
-        </a>
-    </li>
-
-    <li use:active={'/heirlooms'}>
-        <a href="#/heirlooms">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Heirlooms
-        </a>
-    </li>
-
-    <li use:active={'/illusions'}>
-        <a href="#/illusions">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
-            Illusions
-        </a>
-    </li>
-
     <li use:active={'/matrix'}>
         <a href="#/matrix">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
@@ -272,4 +259,8 @@
             </a>
         </li>
     {/if}
+
+    <div class="character-filter-wrapper" slot="after">
+        <CharacterFilter />
+    </div>
 </Sidebar>

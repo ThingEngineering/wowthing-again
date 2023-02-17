@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 64,
+        Version = 65,
     };
 
     public override async Task Run(params string[] data)
@@ -143,6 +143,9 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .ToDictionaryAsync(
                 race => race.Id,
                 race => new StaticCharacterRace(race)
+                {
+                    Slug = GetString(StringType.WowCharacterRaceName, Language.enUS, race.Id).Slugify(),
+                }
             );
 
         cacheData.CharacterSpecializations = await Context.WowCharacterSpecialization

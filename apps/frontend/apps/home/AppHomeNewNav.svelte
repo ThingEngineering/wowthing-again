@@ -6,6 +6,7 @@
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 
+    import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     type NavItem = [string, string, string, boolean?]
@@ -47,12 +48,14 @@
 
         ['settings/', 'Settings', 'mdiCogOutline', true],
     ]
+
 </script>
 
 <style lang="scss">
     .subnav {
         --image-margin-top: -0.2rem;
 
+        align-items: center;
         border-width: 0;
         //display: flex;
         flex-wrap: wrap;
@@ -105,7 +108,7 @@
         {#if path !== null}
             {#if !privateOnly || ($userStore.loaded && !$userStore.public)}
                 <a 
-                    class:spacer={navIndex < (navItems.length - 1) && navItems[navIndex+1][0] === null}
+                    class:spacer={navIndex < (navItems.length) && !navItems[navIndex+1]?.[0]}
                     class:wip={linkText.indexOf('WIP') >= 0}
                     href="#/{path}"
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
@@ -123,4 +126,6 @@
             {/if}
         {/if}
     {/each}
+
+    <CharacterFilter />
 </nav>

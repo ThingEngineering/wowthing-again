@@ -26,6 +26,7 @@ export interface StaticData {
     characterClasses: Record<number, StaticDataCharacterClass>
     characterClassesBySlug: Record<string, StaticDataCharacterClass>
     characterRaces: Record<number, StaticDataCharacterRace>
+    characterRacesBySlug: Record<string, StaticDataCharacterRace>
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>
 
     bags: Record<number, StaticDataBag>

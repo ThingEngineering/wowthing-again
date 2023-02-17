@@ -56,8 +56,23 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
     }
 }
 
+export interface TippyComponentProps {
+    component: any
+    props: any
+    tippyProps?: TippyProps
+}
+
 // TODO: fix typing of this mess
-export function tippyComponent(node: SingleTarget, {component, props, tippyProps}: TippyComponentProps): SvelteActionResult {
+export function tippyComponent(
+    node: SingleTarget,
+    componentProps: TippyComponentProps
+): SvelteActionResult {
+    if (!componentProps) {
+        return
+    }
+
+    const { component, props, tippyProps } = componentProps
+
     let cmp: any
     const elementProps: any = props
 
@@ -96,10 +111,4 @@ export function tippyComponent(node: SingleTarget, {component, props, tippyProps
             }
         }
     }
-}
-
-interface TippyComponentProps {
-    component: any
-    props: any
-    tippyProps?: TippyProps
 }

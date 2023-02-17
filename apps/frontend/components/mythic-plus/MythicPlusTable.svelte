@@ -46,7 +46,6 @@
                 for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks)) {
                     const weekStamp = parseInt(timestamp)
                     if (weekStamp > startStamp && weekStamp <= endStamp) {
-                        console.log(startStamp, endStamp, weekStamp, runs)
                         return runs
                             .filter((run) => run.mapId === dungeonId)
                             .map((run) => ({
