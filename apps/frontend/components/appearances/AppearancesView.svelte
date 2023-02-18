@@ -23,7 +23,7 @@
             }
             else {
                 const element = document.getElementById('sub-sidebar')
-                    ?.querySelector(`a[href="#/appearances/${params.slug1}/${params.slug2}"] span`)
+                    ?.querySelector(`a[href$="/appearances/${params.slug1}/${params.slug2}"] span`)
                 if (element) {
                     name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${element.innerHTML}`
                 }
@@ -31,8 +31,8 @@
                     name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${params.slug2[0].toUpperCase()}${params.slug2.slice(1)}`
                 }
             }
-            dataSlug = `${params.slug1}--${params.slug2}`
 
+            dataSlug = `${params.slug1}--${params.slug2}`
             sets = $appearanceStore.appearances[dataSlug]
         }
     }

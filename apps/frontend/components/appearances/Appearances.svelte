@@ -16,6 +16,7 @@
 
 <div class="view">
     <Sidebar {basePath} />
+    
     {#if $appearanceStore.loaded && params.slug1}
         <View
             {params}
