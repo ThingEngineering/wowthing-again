@@ -10,6 +10,9 @@ public static partial class Hardcoded
         370771, // Dragon Isles Alchemy Troubleshooting Test Recipe (DNT)
         371635, // Demonstration Item Recipe
 
+        // Jewelcrafting
+        25614, // Silver Rose Pendant
+
         // Mining
         389465, // Severite Seam
         389458, // Draconium Seam
