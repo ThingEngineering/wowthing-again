@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
 import { professionSlugToId } from '@/data/professions'
-import { Role } from '@/enums'
+import { Faction, Role } from '@/enums'
 import { staticStore } from '@/stores'
 import type { Character } from '@/types'
 
@@ -25,6 +25,17 @@ export function useCharacterFilter(
                 (part) => {
                     if (char.name.toLocaleLowerCase().indexOf(part) >= 0) {
                         return true
+                    }
+
+                    // Faction
+                    if (part === 'alliance') {
+                        return char.faction === Faction.Alliance
+                    }
+                    else if (part === 'horde') {
+                        return char.faction === Faction.Horde
+                    }
+                    else if (part === 'netural') {
+                        return char.faction === Faction.Neutral
                     }
 
                     // Class slug
