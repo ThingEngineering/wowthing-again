@@ -27,6 +27,18 @@ export function useCharacterFilter(
                         return true
                     }
 
+                    // Level
+                    const match = part.match(/^(level|lvl)(<|<=|=|>=|>)(\d+)$/)
+                    if (match) {
+                        const comparison = match[2].toString()
+                        const value = parseInt(match[3])
+                        if (comparison === '<') return char.level < value
+                        else if (comparison === '<=') return char.level <= value
+                        else if (comparison === '=') return char.level === value
+                        else if (comparison === '>=') return char.level >= value
+                        else if (comparison === '>') return char.level > value
+                    }
+
                     // Faction
                     if (part === 'alliance') {
                         return char.faction === Faction.Alliance
