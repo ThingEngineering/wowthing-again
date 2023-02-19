@@ -13,7 +13,6 @@
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
-    import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
     import HeadTasks from './head/HomeTableHeadTasks.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
@@ -37,6 +36,11 @@
         gold = sumBy(group, (c: Character) => c.gold)
         playedTotal = sumBy(group, (c: Character) => c.playedTotal)
     }
+
+    function setSorting(column: string) {
+        const current = $homeState.groupSort[groupIndex]
+        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+    }
 </script>
 
 <style lang="scss">
@@ -49,6 +53,18 @@
         :global(td:not(:first-child)) {
             border-left: 1px solid $border-color;
         }
+    }
+    td {
+        text-align: center;
+    }
+    .sortable {
+        cursor: pointer;
+    }
+    .sorted-by {
+        border: 1px solid #eee !important;
+    }
+    .mythic-plus-score {
+        @include cell-width($width-raider-io);
     }
 </style>
 
@@ -77,7 +93,7 @@
                 <HeadCovenant />
             {/if}
         
-            {:else if field === 'currentLocation'}
+        {:else if field === 'currentLocation'}
             {#if !$homeState.onlyWeekly}
                 <HeadCurrentLocation />
             {/if}
@@ -113,12 +129,26 @@
 
         {:else if field === 'itemLevel'}
             {#if !$homeState.onlyWeekly}
-                <td use:tippy={'Item Level'}>ilvl</td>
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                    use:tippy={'Item Level'}
+                >ilvl</td>
             {/if}
 
         {:else if field === 'keystone'}
             {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
-                <td>M+ Key</td>
+                {@const sortKey = 'mythicPlusKeystone'}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+                    on:click={() => setSorting(sortKey)}
+                    on:keypress={() => setSorting(sortKey)}
+                >
+                    M+ Key
+                </td>
             {/if}
 
         {:else if field === 'lockouts'}
@@ -133,7 +163,14 @@
 
         {:else if field === 'mythicPlusScore'}
             {#if !$homeState.onlyWeekly}
-                <HeadMythicPlusScore />
+                <td
+                    class="mythic-plus-score sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                >
+                    M+
+                </td>
             {/if}
 
         {:else if field === 'playedTime'}
