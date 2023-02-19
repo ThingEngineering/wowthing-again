@@ -1,0 +1,45 @@
+name: "Love is in the Air"
+groups:
+  
+- name: "Love is in the Air Intro Quests"
+  icon: "achievement/1695" # Dangerous Love
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "Uncommon Scents"
+        id: 24804
+
+      - name: "Something Stinks"
+        id: 24655
+
+      - name: "Pilfering Perfume"
+        id: 24656
+
+      - name: "Fireworks at the Gilded Rose"
+        id: 24848
+
+      - name: "Hot on the Trail"
+        id: 24849
+
+      - name: "A Friendly Chat..."
+        id: 24657
+
+    horde:
+      - name: "Uncommon Scents"
+        id: 24805
+
+      - name: "Something Stinks"
+        id: 24536
+
+      - name: "Pilfering Perfume"
+        id: 24541
+
+      - name: "Fireworks at the Gilded Rose"
+        id: 24850
+
+      - name: "Hot on the Trail"
+        id: 24851
+
+      - name: "A Friendly Chat..."
+        id: 24576
