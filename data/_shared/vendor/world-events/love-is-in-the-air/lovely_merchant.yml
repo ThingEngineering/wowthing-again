@@ -60,3 +60,38 @@ sells:
     id: 144339 # Sturdy Love Fool
     costs:
       1049927: 100
+
+  - type: transmog
+    id: 151770 # Lovely Black Dress
+    costs:
+      1049927: 20
+
+  - type: transmog
+    id: 151768 # Lovely Blue Dress
+    costs:
+      1049927: 20
+
+  - type: transmog
+    id: 151767 # Lovely Purple Dress
+    costs:
+      1049927: 20
+
+  - type: transmog
+    id: 151769 # Lovely Red Dress
+    costs:
+      1049927: 20
+  
+  - type: transmog
+    id: 151765 # Blue Dinner Suit
+    costs:
+      1049927: 20
+
+  - type: transmog
+    id: 151764 # Purple Dinner Suit
+    costs:
+      1049927: 20
+
+  - type: transmog
+    id: 151766 # Red Dinner Suit
+    costs:
+      1049927: 20
