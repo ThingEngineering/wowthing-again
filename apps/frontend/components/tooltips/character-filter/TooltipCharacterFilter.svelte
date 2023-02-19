@@ -36,6 +36,16 @@
                 <code>momo | steve | ...</code>
             </dd>
 
+            <dt>Level</dt>
+            <dd>
+                <code>level &lt;=,&lt;,=,&gt;,&gt;= 60</code>
+            </dd>
+
+            <dt>Faction</dt>
+            <dd>
+                <code>alliance | horde | neutral</code>
+            </dd>
+
             <dt>Class</dt>
             <dd>
                 <code>dh | dk | hunter | ...</code>

@@ -4,9 +4,10 @@
     import { onDestroy, onMount } from 'svelte'
 
     import { settingsStore, staticStore, userStore } from '@/stores'
-    import { newNavState } from '@/stores/local-storage'
+    import { homeState, newNavState } from '@/stores/local-storage'
     import { useCharacterFilter } from '@/utils/characters'
     import { setElementStyleById } from '@/utils/dom'
+    import { homeSort } from '@/utils/home'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
@@ -14,6 +15,7 @@
     import CharacterRow from './CharacterTableRow.svelte'
 
     export let characterLimit = 0
+    export let isHome = false
     export let skipGrouping = false
     export let skipIgnored = false
     export let filterFunc: (char: Character) => boolean = undefined
@@ -29,6 +31,7 @@
         if (!filterFunc) {
             filterFunc = () => true
         }
+
         if (noSortFunc) {
             sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
@@ -62,9 +65,21 @@
             grouped = groupBy(characters, groupFunc)
         }
 
+        const groupKeys = Object.keys(grouped)
+        groupKeys.sort()
+
         const pairs: [string, Character[]][] = []
-        for (const key of Object.keys(grouped)) {
-            pairs.push([key, sortBy(grouped[key], sortFunc)])
+        for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
+            const key = groupKeys[keyIndex]
+            pairs.push([
+                key,
+                sortBy(
+                    grouped[key],
+                    (isHome && $homeState.groupSort[keyIndex])
+                        ? (char) => homeSort($homeState.groupSort[keyIndex], char)
+                        : sortFunc
+                )
+            ])
         }
 
         pairs.sort()

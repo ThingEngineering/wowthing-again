@@ -385,7 +385,7 @@ export class LazyStore implements LazyUgh {
         const overallSeen: Record<number, boolean> = {}
 
         for (const [key, sets] of Object.entries(this.appearanceData.appearances)) {
-            const parentData = counts[key.split('--')[0]] = new UserCount()
+            const parentData = counts[key.split('--')[0]] ||= new UserCount()
             const catData = counts[key] = new UserCount()
 
             for (const set of sets) {

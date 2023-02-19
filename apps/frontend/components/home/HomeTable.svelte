@@ -33,8 +33,17 @@
     }
 </script>
 
-<CharacterTable {characterLimit}>
-    <GroupHead slot="groupHead" let:group let:groupIndex {group} {groupIndex} />
+<CharacterTable
+    isHome={true}
+    {characterLimit}
+>
+    <GroupHead
+        slot="groupHead"
+        {group}
+        {groupIndex}
+        let:group
+        let:groupIndex
+    />
 
     <svelte:fragment slot="rowExtra" let:character>
         {#each $settingsStore.layout.homeFields as field}
