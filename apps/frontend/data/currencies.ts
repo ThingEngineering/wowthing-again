@@ -18,15 +18,24 @@ export const categoryOrder: number[] = [
 ]
 
 export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
+    // Miscellaneous
+    1: [
+        {
+            id: 100101,
+            name: 'World Events',
+            slug: 'world-events',
+        }
+    ],
+
     // Dragonflight
     250: [
         {
-            id: 250001,
+            id: 125001,
             name: 'Crafting Knowledge',
             slug: 'crafting-knowledge',
         },
         {
-            id: 250002,
+            id: 125002,
             name: 'Crafting Materials',
             slug: 'crafting-materials',
         },
@@ -38,7 +47,7 @@ export const currencyExtra: Record<number, number[]> = {
     250: [
         2167, // Catalyst Charges
     ],
-    250001: [
+    125001: [
         2023, // Blacksmithing Knowledge
         2024, // Alchemy Knowledge
         2025, // Leatherworking Knowledge
@@ -59,34 +68,39 @@ export const currencyItems: Record<number, number[]> = {
         26045, // Halaa Battle Token
         26044, // Halaa Research Token
     ],
+
     // Warlords of Draenor
     137: [
         124099, // Blackfang Claw
     ],
+
     // Legion
     141: [
         124124, // Blood of Sargeras
         146963, // Desecrated Seaweed
         153021, // Intact Demon Eye
     ],
+
     // Battle for Azeroth
     143: [
         152668, // Expulsom
         162460, // Hydrocore
         168802, // Nazjatar Battle Commendation
     ],
+
     // Shadowlands
     245: [
-        199202, // Attendant's Token of Merit [S4]
         188957, // Genesis Mote
         190189, // Sandworn Relic
     ],
+
     // Dragonflight > Crafting Knowledge
-    250001: [
+    125001: [
         191784, // Dragon Shard of Knowledge [DF]
     ],
+
     // Dragonflight > Crafting Materials
-    250002: [
+    125002: [
         198048, // Titan Training Matrix I [DF]
         198056, // Titan Training Matrix II [DF]
         198058, // Titan Training Matrix III [DF]
@@ -101,21 +115,26 @@ export const currencyItems: Record<number, number[]> = {
         190455, // Concentrated Primal Focus [DF]
         198046, // Concentrated Primal Infusion [DF]
     ],
+
     // Player vs Player
     2: [
         137642, // Mark of Honor
     ],
+
     // Miscellaneous
     1: [
         163036, // Polished Pet Charm
         116415, // Shiny Pet Charm
+    ],
+
+    // Miscellaneous > World Events
+    100101: [
         37829, // Brewfest Prize Token
         23247, // Burning Blossom
         21100, // Coin of Ancestry
         49927, // Love Token
         44791, // Noblegarden Chocolate
         33226, // Tricky Treat
-        199211, // Primeval Essence [DF invasion event]
     ],
 }
 
@@ -176,6 +195,7 @@ const skipCurrencies: number[] = [
     2013, // Frost Talent Points (DNT)
     2014, // Unholy Talent Points (DNT)
     2015, // Blood Talent Points (DNT)
+    2032, // Trader's Tender
 
     // Player vs. Player
     103, // Arena Points
