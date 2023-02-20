@@ -14,7 +14,7 @@
 
     let valor: CharacterCurrency
     $: {
-        valor = character.currencies?.[Constants.valorCurrencyId]
+        valor = character.currencies?.[Constants.currencies.valor]
     }
 </script>
 
@@ -71,12 +71,12 @@
         <div class="bottom">
             <div>
                 <WowthingImage
-                    name="currency/{Constants.valorCurrencyId}"
+                    name="currency/{Constants.currencies.valor}"
                     size={20}
                     border={1}
                 />
                 {valor.quantity.toLocaleString()}
-                {$staticStore.currencies?.[Constants.valorCurrencyId]?.name}
+                {$staticStore.currencies?.[Constants.currencies.valor]?.name}
             </div>
 
             {#if valor.max > 0}

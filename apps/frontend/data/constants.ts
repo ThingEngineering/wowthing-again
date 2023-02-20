@@ -4,12 +4,15 @@ export abstract class Constants {
     static readonly maxRenown: number = 80
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
     
-    static readonly catalystCurrencyId: number = 2167
-    static readonly valorCurrencyId: number = 1191
-
     static readonly mythicPlusSeason: number = 9
 
     static readonly holidayCycleStart: number = 845
+
+    static readonly currencies = {
+        catalyst: 2167,
+        dragonridingPassengers: 2133,
+        valor: 1191,
+    }
 
     static readonly icons = {
         alliance: 'achievement/13467', // Tides of Vengeance
