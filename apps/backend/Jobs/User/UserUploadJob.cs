@@ -405,12 +405,12 @@ public class UserUploadJob : JobBase
 
         if (!string.IsNullOrWhiteSpace(characterData.BindLocation))
         {
-            character.AddonData.BindLocation = characterData.BindLocation.Truncate(32);
+            character.AddonData.BindLocation = characterData.BindLocation.Truncate(64);
         }
 
         if (!string.IsNullOrWhiteSpace(characterData.CurrentLocation))
         {
-            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
+            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(64);
         }
 
         character.AddonData.Auras = characterData.Auras.EmptyIfNull();

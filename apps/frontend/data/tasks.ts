@@ -1,9 +1,11 @@
 import { get } from 'svelte/store'
 import some from 'lodash/some'
 
-import { dragonflightProfessionTasks } from './professions'
 import { staticStore } from '@/stores'
 import type { Chore, Task } from '@/types/tasks'
+
+import { Constants } from './constants'
+import { dragonflightProfessionTasks } from './professions'
 
 
 export const taskList: Task[] = [
@@ -44,7 +46,7 @@ export const taskList: Task[] = [
         key: 'timewalking',
         name: '[Holiday] Timewalking Item',
         shortName: 'TW :item:',
-        minimumLevel: 50,
+        minimumLevel: Constants.characterMaxLevel - 10,
     },
     {
         key: 'holidayWorldQuests',
