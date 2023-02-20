@@ -22,6 +22,9 @@
         if (character.isWarMode) {
             images.push([Constants.icons.warMode, 'War Mode'])
         }
+        if (character.currencies?.[2133]?.quantity > 0) {
+            images.push([Constants.icons.dragonridingPassengers, 'Dragonriding Passengers'])
+        }
     }
 </script>
 

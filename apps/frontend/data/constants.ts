@@ -17,6 +17,7 @@ export abstract class Constants {
 
         anniversary: 'item/71134', // Celebration Package
         chromieTime: 'spell/96794', // Time Warp
+        dragonridingPassengers: 'spell/372610', // Skyward Ascent
         enchant: 'spell/7411', // Enchanting
         gem: 'spell/25229', // Jewelcrafting
         resting: 'spell/140430', // Passed Out
