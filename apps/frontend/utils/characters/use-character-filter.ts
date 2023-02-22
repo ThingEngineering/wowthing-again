@@ -84,7 +84,6 @@ export function useCharacterFilter(
 
                     // Mythic+ score
                     if (part === 'm+') {
-                        console.log(char)
                         return char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] > 0
                     }
 

@@ -11,11 +11,11 @@
     let haveCharges: number
     let maxCharges: number
     $: {
-        charCatalyst = character.currencies?.[Constants.catalystCurrencyId]
+        charCatalyst = character.currencies?.[Constants.currencies.catalyst]
 
         const accountMaxCharges = Math.max(
             ...$userStore.characters
-                .map((char) => char.currencies?.[Constants.catalystCurrencyId]?.max || 0)
+                .map((char) => char.currencies?.[Constants.currencies.catalyst]?.max || 0)
         )
 
         if (!charCatalyst) {
