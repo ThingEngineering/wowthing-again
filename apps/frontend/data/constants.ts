@@ -22,7 +22,7 @@ export abstract class Constants {
         chromieTime: 'spell/96794', // Time Warp
         dragonridingPassengers: 'spell/372610', // Skyward Ascent
         enchant: 'spell/7411', // Enchanting
-        gem: 'spell/25229', // Jewelcrafting
+        gem: 'item/12361', // Blue Sapphire
         resting: 'spell/140430', // Passed Out
         torghast: 'spell/334746', // Access to Torghast
         upgrade: 'spell/331516', // Enhance Soulkeeper
