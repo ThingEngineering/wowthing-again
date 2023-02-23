@@ -1,9 +1,10 @@
 import every from 'lodash/every'
 import { get } from 'svelte/store'
 
+import { classByArmorType } from '@/data/character-class'
 import { Constants } from '@/data/constants'
 import { professionSlugToId } from '@/data/professions'
-import { Faction, Role } from '@/enums'
+import { ArmorType, Faction, Role } from '@/enums'
 import { staticStore } from '@/stores'
 import type { Character } from '@/types'
 
@@ -50,6 +51,12 @@ export function useCharacterFilter(
                         return char.faction === Faction.Neutral
                     }
 
+                    // Race slug
+                    const raceSlug = part === 'pandaren' ? `pandaren${char.faction}` : part
+                    if (staticData.characterRacesBySlug[raceSlug]) {
+                        return char.raceId === staticData.characterRacesBySlug[raceSlug].id
+                    }
+
                     // Class slug
                     let classSlug = part
                     if (classSlug === 'dh') {
@@ -62,10 +69,18 @@ export function useCharacterFilter(
                         return char.classId === staticData.characterClassesBySlug[classSlug].id
                     }
 
-                    // Race slug
-                    const raceSlug = part === 'pandaren' ? `pandaren${char.faction}` : part
-                    if (staticData.characterRacesBySlug[raceSlug]) {
-                        return char.raceId === staticData.characterRacesBySlug[raceSlug].id
+                    // Armor type
+                    if (part === 'cloth') {
+                        return classByArmorType[ArmorType.Cloth].indexOf(char.classId) >= 0
+                    }
+                    else if (part === 'leather') {
+                        return classByArmorType[ArmorType.Leather].indexOf(char.classId) >= 0
+                    }
+                    else if (part === 'mail') {
+                        return classByArmorType[ArmorType.Mail].indexOf(char.classId) >= 0
+                    }
+                    else if (part === 'plate') {
+                        return classByArmorType[ArmorType.Plate].indexOf(char.classId) >= 0
                     }
 
                     // Specializations
