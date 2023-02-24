@@ -57,8 +57,8 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             questId: 70277,
         },
         {
-            itemId: 201009, // Falconer Gauntlet Drawings
-            questId: 70353,
+            itemId: 198660, // Fragmented Key
+            questId: 70263,
         },
         {
             itemId: 201016, // Harmonic Crystal Harmonizer
