@@ -5,7 +5,7 @@
     import type { CharacterCurrency, Character } from '@/types'
 
     export let character: Character
-    export let tierPieces: [string, number][]
+    export let tierPieces: [string, number, number][]
 
     let charCatalyst: CharacterCurrency
     let haveCharges: number
@@ -48,7 +48,7 @@
     <h5>Tier Set Pieces</h5>
     <table class="table-striped">
         <tbody>
-            {#each tierPieces as [slot, itemLevel]}
+            {#each tierPieces as [slot, , itemLevel]}
                 <tr>
                     <td class="slot">{slot}</td>
                     <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
