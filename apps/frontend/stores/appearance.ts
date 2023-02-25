@@ -6,7 +6,7 @@ import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons'
 import { WritableFancyStore } from '@/types'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
 import { ArmorType, InventoryType, ItemClass } from '@/enums'
-import leftPad from '@/utils/left-pad'
+import { leftPad } from '@/utils/formatting'
 
 
 export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {

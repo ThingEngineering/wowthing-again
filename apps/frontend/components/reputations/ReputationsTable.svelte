@@ -5,7 +5,7 @@
     import { settingsStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { StaticDataReputationCategory } from '@/types/data/static'
 

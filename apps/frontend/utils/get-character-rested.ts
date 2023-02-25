@@ -4,7 +4,7 @@ import parseApiTime from './parse-api-time'
 import { Constants } from '@/data/constants'
 import { experiencePerLevel } from '@/data/experience'
 import type { Character } from '@/types'
-import { toNiceDuration } from './to-nice'
+import { toNiceDuration } from '@/utils/formatting'
 
 
 export function getCharacterRested(now: DateTime, character: Character): [string, string?] {

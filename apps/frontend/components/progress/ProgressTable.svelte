@@ -9,7 +9,7 @@
     import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { ManualDataProgressCategory} from '@/types/data/manual'
     import type { ProgressInfo } from '@/utils/get-progress'

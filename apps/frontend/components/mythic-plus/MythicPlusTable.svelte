@@ -7,7 +7,7 @@
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
     import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'

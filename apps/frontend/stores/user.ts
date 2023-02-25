@@ -21,7 +21,7 @@ import { InventorySlot, TypedArray } from '@/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import { getGenderedName } from '@/utils/get-gendered-name'
 import getItemLevelQuality from '@/utils/get-item-level-quality'
-import leftPad from '@/utils/left-pad'
+import { leftPad } from '@/utils/formatting'
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
 import type {
     Account,

@@ -3,7 +3,7 @@
 
     import { iconStrings } from '@/data/icons'
     import { itemStore, staticStore, timeStore } from '@/stores'
-    import { toNiceDuration } from '@/utils/to-nice'
+    import { toNiceDuration } from '@/utils/formatting'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 

@@ -9,7 +9,6 @@
     import { getRunQualityAffix } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types'
     import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
-    import { defaultsDeep } from 'lodash';
 
     export let character: Character
     export let scores: CharacterRaiderIoSeason

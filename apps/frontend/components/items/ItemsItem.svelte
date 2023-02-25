@@ -2,14 +2,16 @@
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { getItemUrl } from '@/utils/get-item-url'
-    import type { CharacterGear } from '@/types'
+    import type { Character, CharacterGear } from '@/types'
 
     import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '../images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let character: Character = undefined
     export let forceCrafted = false
     export let gear: Partial<CharacterGear>
+    export let tierPieces: number[] = undefined
     export let useHighlighting = false
 </script>
 
@@ -23,6 +25,13 @@
 
         --image-border-width: 2px;
         --image-margin-top: 0;
+
+        :global(.quality3 .item-level) {
+            filter: brightness(120%);
+        }
+        :global(.quality4 .item-level) {
+            filter: brightness(120%);
+        }
     }
     .item-level {
         background-color: $highlight-background;
@@ -81,7 +90,9 @@
     class:no-problem={useHighlighting && !gear.highlight}
 >
     {#if gear.equipped !== undefined}
-        <a class="quality{gear.equipped.quality}" href={getItemUrl(gear.equipped)}>
+        <a
+            class="quality{gear.equipped.quality}"
+            href={getItemUrl(gear.equipped, character, tierPieces)}>
             <WowthingImage
                 name="item/{gear.equipped.itemId}"
                 size={40}
@@ -89,7 +100,7 @@
             />
             <span class="item-level">{gear.equipped.itemLevel}</span>
         </a>
-
+ 
         {#if gear.highlight}
             <div class="problems">
                 {#if gear.missingEnchant}

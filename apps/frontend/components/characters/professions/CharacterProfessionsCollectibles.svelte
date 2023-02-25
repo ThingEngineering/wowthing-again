@@ -54,15 +54,6 @@
         margin-top: 1rem;
         width: 100%;
     }
-    .collectible-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-
-        > div {
-            position: relative;
-        }
-    }
 </style>
 
 {#if dfData}

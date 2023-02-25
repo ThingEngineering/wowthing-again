@@ -4,7 +4,7 @@
     import { settingsStore, userStore } from '@/stores'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getFilteredCharacters } from '@/utils/get-filtered-characters'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/types/data/static'

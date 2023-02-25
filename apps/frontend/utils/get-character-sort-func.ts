@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
 import { userStore } from '@/stores'
-import leftPad from '@/utils/left-pad'
+import { leftPad } from '@/utils/formatting'
 import { Region } from '@/enums'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'

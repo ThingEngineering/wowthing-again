@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/stores/static'
-    import { toNiceNumber } from '@/utils/to-nice'
+    import { toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterReputationParagon } from '@/types'
     import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/types/data/static'
 

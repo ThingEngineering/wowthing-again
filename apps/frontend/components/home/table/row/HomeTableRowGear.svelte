@@ -1,8 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { currentTier } from '@/data/gear'
-    import { InventoryType } from '@/enums'
-    import { itemStore } from '@/stores'
+    import { getTierPieces } from '@/utils/characters/get-tier-pieces'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -11,33 +9,12 @@
     export let character: Character
 
     let tierCount: number
-    let tierPieces: [string, number][]
-    $:
-    {
-        tierCount = 0
-
-        if (character.equippedItems) {
-            const tierPieceMap: Record<string, number> = {}
-            for (const tierSlot in currentTier.slots) {
-                tierPieceMap[tierSlot] = 0
-            }
-
-            for (const slot in character.equippedItems) {
-                const item = character.equippedItems[slot]
-                const tierSlot = $itemStore.currentTier[item.itemId]
-                if (tierSlot) {
-                    tierCount++
-                    tierPieceMap[tierSlot === InventoryType.Chest2 ? InventoryType.Chest : tierSlot] = item.itemLevel
-                }
-            }
-
-            tierPieces = currentTier.slots
-                .filter(slot => slot !== InventoryType.Chest2)
-                .map((slot) => [
-                    InventoryType[slot],
-                    tierPieceMap[slot],
-                ])
-        }
+    let tierPieces: [string, number, number][]
+    $: {
+        tierPieces = getTierPieces(character)
+        tierCount = tierPieces
+            .filter(([, itemId]) => itemId > 0)
+            .length
     }
 </script>
 

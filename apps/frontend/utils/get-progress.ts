@@ -1,7 +1,7 @@
 import find from 'lodash/find'
 import some from 'lodash/some'
 
-import { toNiceNumber } from './to-nice'
+import { toNiceNumber } from '@/utils/formatting'
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison'

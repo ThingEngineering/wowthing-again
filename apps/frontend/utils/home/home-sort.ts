@@ -1,6 +1,6 @@
 import { Constants } from '@/data/constants'
 import { dungeonMap } from '@/data/dungeon'
-import leftPad from '@/utils/left-pad'
+import { leftPad } from '@/utils/formatting'
 import type { Character } from '@/types'
 
 

@@ -1,8 +1,8 @@
 import every from 'lodash/every'
 
 import { costOrderMap } from '@/data/vendors'
-import leftPad from '@/utils/left-pad'
-import { toNiceNumber } from '@/utils/to-nice'
+import { leftPad } from '@/utils/formatting'
+import { toNiceNumber } from '@/utils/formatting'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
 

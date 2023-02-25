@@ -1,6 +1,6 @@
 <script lang="ts">
     import { pvpVaultItemLevel } from '@/data/pvp'
-    import { toNiceNumber } from '@/utils/to-nice'
+    import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
 
     import VaultShared from './VaultShared.svelte'
