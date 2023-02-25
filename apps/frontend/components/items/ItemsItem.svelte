@@ -8,10 +8,10 @@
     import IconifyIcon from '../images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let character: Character
+    export let character: Character = undefined
     export let forceCrafted = false
     export let gear: Partial<CharacterGear>
-    export let tierPieces: number[]
+    export let tierPieces: number[] = undefined
     export let useHighlighting = false
 </script>
 

@@ -15,7 +15,6 @@ import { itemStore } from '@/stores'
 import getFirstMatch from '@/utils/get-first-match'
 import type { GearState } from '@/stores/local-storage'
 import type { Character, CharacterGear } from '@/types'
-import { weaponSubclassToString } from '@/data/weapons'
 
 
 export default function getCharacterGear(
