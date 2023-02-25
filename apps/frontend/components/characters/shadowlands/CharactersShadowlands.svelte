@@ -6,7 +6,7 @@
     import { covenantMap, covenantOrder, covenantSlugMap } from '@/data/covenant'
     import { garrisonTrees } from '@/data/garrison'
     import getPercentClass from '@/utils/get-percent-class'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character, MultiSlugParams } from '@/types'
 
     import Covenant from './CharactersShadowlandsCovenant.svelte'

@@ -6,7 +6,7 @@
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType, InventoryType } from '@/enums'
     import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'

@@ -3,7 +3,7 @@
 
     import { covenantMap, covenantOrder } from '@/data/covenant'
     import { timeStore } from '@/stores'
-    import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

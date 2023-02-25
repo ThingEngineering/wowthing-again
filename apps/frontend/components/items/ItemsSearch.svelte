@@ -6,7 +6,7 @@
     import { itemSearchState, itemStore, userStore } from '@/stores'
     import { ItemLocation } from '@/enums'
     import tippy from '@/utils/tippy'
-    import { toNiceNumber } from '@/utils/to-nice'
+    import { toNiceNumber } from '@/utils/formatting'
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchRow.svelte'

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { toNiceDuration } from '@/utils/to-nice'
+    import { toNiceDuration } from '@/utils/formatting'
 
     export let playedTotal: number
 

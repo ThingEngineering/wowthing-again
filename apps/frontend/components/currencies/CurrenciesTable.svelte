@@ -6,7 +6,7 @@
     import { settingsStore, staticStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataCurrency, StaticDataCurrencyCategory } from '@/types/data/static'
 

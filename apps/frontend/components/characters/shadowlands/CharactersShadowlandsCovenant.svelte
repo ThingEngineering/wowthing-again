@@ -6,7 +6,7 @@
     import { staticStore, timeStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
-    import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'

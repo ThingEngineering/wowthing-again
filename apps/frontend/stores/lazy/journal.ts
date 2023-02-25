@@ -5,7 +5,7 @@ import { RewardType } from '@/enums'
 import { UserCount, type Settings, type UserData } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
-import leftPad from '@/utils/left-pad'
+import { leftPad } from '@/utils/formatting'
 
 import { JournalDataEncounterItem, type JournalData, type UserTransmogData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'

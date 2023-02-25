@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { settingsStore } from '@/stores'
     import { getCharacterLevel } from '@/utils/get-character-level'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 

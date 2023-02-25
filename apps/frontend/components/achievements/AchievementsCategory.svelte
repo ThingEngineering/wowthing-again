@@ -5,7 +5,7 @@
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
