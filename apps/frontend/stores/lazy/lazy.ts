@@ -327,8 +327,12 @@ export class LazyStore implements LazyUgh {
     private hashObject(obj: object): string {
         const entries = Object.entries(obj)
         entries.sort()
-        return entries.map(([key, value]) => `${key}_${value}`)
-            .join('|')
+        return entries.map(([key, value]) => {
+            if (typeof value === 'object') {
+                return `${key}_${this.hashObject(value)}`
+            }
+            return `${key}_${value}`
+        }).join('|')
     }
 
     lookup(key: string): LazyCollectible|UserCounts {
