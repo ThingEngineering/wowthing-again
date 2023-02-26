@@ -33,6 +33,7 @@ groups:
     iconText: "HR"
     lookup: faction
     minimumLevel: 10
+    type: quest
     data:
       alliance:
         - id: 29529

@@ -17,6 +17,7 @@
 
     let dungeonIds: number[]
     let runCounts: number[]
+    let scoreCount: number
     let totalRuns: number
     $: {
 
@@ -49,6 +50,10 @@
 
         runCounts = getRunCounts(allRuns)
         totalRuns = runCounts.reduce((a, b) => a + b, 0)
+
+        scoreCount = Object.entries(scores)
+            .filter(([key, score]) => !key.startsWith('spec') && score > 0)
+            .length
     }
 </script>
 
@@ -106,15 +111,17 @@
                 <tbody>
                     {#each raiderIoScoreOrder as scoreKey}
                         {@const score = scores[scoreKey] || 0}
-                        <tr>
-                            <td class="role">{raiderIoScores[scoreKey]}</td>
-                            <td
-                                class="score drop-shadow"
-                                style:color={getRaiderIoColor(tiers, score)}
-                            >
-                                {score.toFixed(1)}
-                            </td>
-                        </tr>
+                        {#if score > 0 && !(scoreCount === 2 && scoreKey === 'all')}
+                            <tr>
+                                <td class="role">{raiderIoScores[scoreKey]}</td>
+                                <td
+                                    class="score drop-shadow"
+                                    style:color={getRaiderIoColor(tiers, score)}
+                                >
+                                    {score.toFixed(1)}
+                                </td>
+                            </tr>
+                        {/if}
                     {/each}
                 </tbody>
             </table>

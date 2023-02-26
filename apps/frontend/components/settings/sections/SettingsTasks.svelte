@@ -5,6 +5,7 @@
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
+    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
  
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
@@ -52,6 +53,15 @@
         active={taskActive}
         inactive={taskInactive}
     />
+
+    <h3>Dragonflight Settings</h3>
+
+    <CheckboxInput
+        bind:value={$settingsStore.tasks.dragonflightTreatises}
+        name="tasks_dragonflightTreatises"
+    >
+        Show Treatises in Profession Weeklies.
+    </CheckboxInput>
 
     <h3>Dragonflight Chores</h3>
 

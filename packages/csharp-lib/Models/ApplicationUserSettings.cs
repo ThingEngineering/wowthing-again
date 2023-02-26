@@ -316,6 +316,7 @@ public class ApplicationUserSettingsPrivacy
 public class ApplicationUserSettingsTasks
 {
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
+    public bool DragonflightTreatises { get; set; } = true;
 }
 
 public class ApplicationUserSettingsTransmog

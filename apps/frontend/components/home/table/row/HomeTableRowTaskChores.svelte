@@ -41,6 +41,14 @@
                 continue
             }
 
+            if (
+                !progressQuest &&
+                choreTask.taskKey.endsWith('Treatise') &&
+                !$settingsStore.tasks.dragonflightTreatises
+            ) {
+                continue
+            }
+
             countTotal++
 
             let status = 0

@@ -177,7 +177,9 @@ export default function getProgress(
                             const quest = userQuestData.characters[character.id]?.progressQuests?.[questKey]
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed
-                                have = (haveThis ? total - 1 : quest.have)
+                                have = haveThis
+                                    ? total - 1
+                                    : quest.objectives.reduce((a, b) => a + b.have, 0)
                             }
                             break
                         }
