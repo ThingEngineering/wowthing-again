@@ -344,7 +344,7 @@ farms:
       note: "{price:3|2026}" # Tailoring Knowledge
 
 - name: "Silky Surprise"
-  location: 35.3 40.1
+  location: 66.1 52.9
   note: "Click Catnip Frond, gather 5 leaves, throw them at Playful Prowler"
   objectId: 380608
   questId: 70303
