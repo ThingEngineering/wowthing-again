@@ -36,6 +36,7 @@ export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
         3368, // Rune of the Fallen Crusader [DK]
         6243, // Rune of Hysteria [DK]
+        6527, // High Intensity Thermal Scanner 2 [Ranged]
         6528, // High Intensity Thermal Scanner 3 [Ranged]
         // 6641, // Sophic Devotion 1
         6642, // Sophic Devotion 2
