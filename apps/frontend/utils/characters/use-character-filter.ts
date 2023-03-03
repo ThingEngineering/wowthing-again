@@ -1,9 +1,10 @@
 import every from 'lodash/every'
+import some from 'lodash/some'
 import { get } from 'svelte/store'
 
 import { classByArmorType } from '@/data/character-class'
 import { Constants } from '@/data/constants'
-import { professionSlugToId } from '@/data/professions'
+import { isGatheringProfession, isCraftingProfession, professionSlugToId } from '@/data/professions'
 import { ArmorType, Faction, Role } from '@/enums'
 import { staticStore } from '@/stores'
 import type { Character } from '@/types'
@@ -105,6 +106,19 @@ export function useCharacterFilter(
                     // Profession slug
                     if (professionSlugToId[part]) {
                         return !!char.professions?.[professionSlugToId[part]]
+                    }
+                    // Profession type
+                    if (part.match(/^(craft|crafter|crafting)$/)) {
+                        return some(
+                            Object.keys(char.professions || {}),
+                            (professionId) => isCraftingProfession[parseInt(professionId)]
+                        )
+                    }
+                    if (part.match(/^(gather|gatherer|gathering)$/)) {
+                        return some(
+                            Object.keys(char.professions || {}),
+                            (professionId) => isGatheringProfession[parseInt(professionId)]
+                        )
                     }
 
                     // console.log('unmatched filter:', part)
