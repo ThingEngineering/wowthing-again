@@ -2,6 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
+    import { dragonflightProfessionMap } from '@/data/professions'
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { Profession, QuestStatus } from '@/enums'
     import { settingsStore, timeStore, userQuestStore } from '@/stores'
@@ -9,7 +10,6 @@
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte'
-    import { dragonflightProfessionMap } from '@/data/professions'
 
     export let character: Character
     export let taskName: string
@@ -34,9 +34,7 @@
             }
 
             const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-            if (choreTask.couldGetFunc?.(character) === false &&
-                progressQuest?.status !== QuestStatus.InProgress &&
-                progressQuest?.status !== QuestStatus.Completed)
+            if (choreTask.couldGetFunc?.(character) === false)
             {
                 continue
             }
