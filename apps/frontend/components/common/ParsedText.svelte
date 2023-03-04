@@ -6,6 +6,7 @@
     import { RewardReputation } from '@/enums'
 
     import ClassIcon from '../images/ClassIcon.svelte'
+    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -91,6 +92,8 @@
             (_, itemId) => $itemStore.items[parseInt(itemId)]?.name || `Item #${itemId}`
         )
 
+        html = html.replaceAll(/\{craftedQuality:(\d+)\}/g, '<span data-crafted-quality="$1"></span>')
+
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
@@ -102,62 +105,71 @@
     }
 
     afterUpdate(() => {
-        for (const span of element.querySelectorAll('[data-string]')) {
+        for (const span of element.querySelectorAll('span')) {
             span.replaceChildren()
-            const dataString = span.getAttribute('data-string')
 
-            if (iconStrings[dataString] || !imageStrings[dataString]) {
-                new IconifyIcon({
-                    target: span,
-                    props: {
-                        icon: iconStrings[dataString] || iconStrings.question,
-                        scale: '0.75',
-                        dropShadow,
-                    }
-                })
+            if (span.hasAttribute('data-string')) {
+                const dataString = span.getAttribute('data-string')
+
+                if (iconStrings[dataString] || !imageStrings[dataString]) {
+                    new IconifyIcon({
+                        target: span,
+                        props: {
+                            icon: iconStrings[dataString] || iconStrings.question,
+                            scale: '0.75',
+                            dropShadow,
+                        }
+                    })
+                }
+                else {
+                    new WowthingImage({
+                        target: span,
+                        props: {
+                            border: 0,
+                            name: imageStrings[dataString],
+                            size: 20,
+                        }
+                    })
+                }
             }
-            else {
+
+            else if (span.hasAttribute('data-icon')) {
                 new WowthingImage({
                     target: span,
                     props: {
                         border: 0,
-                        name: imageStrings[dataString],
-                        size: 20,
+                        name: span.getAttribute('data-icon'),
+                        size: 16,
                     }
                 })
             }
-        }
 
-        for (const span of element.querySelectorAll('[data-icon]')) {
-            span.replaceChildren()
-            new WowthingImage({
-                target: span,
-                props: {
-                    border: 0,
-                    name: span.getAttribute('data-icon'),
-                    size: 16,
-                }
-            })
-        }
+            else if (span.hasAttribute('[data-class')) {
+                new ClassIcon({
+                    target: span,
+                    props: {
+                        classId: parseInt(span.getAttribute('data-class'))
+                    }
+                })
+            }
+            
+            else if (span.hasAttribute('[data-race')) {
+                new RaceIcon({
+                    target: span,
+                    props: {
+                        raceId: parseInt(span.getAttribute('data-race'))
+                    }
+                })
+            }
 
-        for (const span of element.querySelectorAll('[data-class]')) {
-            span.replaceChildren()
-            new ClassIcon({
-                target: span,
-                props: {
-                    classId: parseInt(span.getAttribute('data-class'))
-                }
-            })
-        }
-        
-        for (const span of element.querySelectorAll('[data-race]')) {
-            span.replaceChildren()
-            new RaceIcon({
-                target: span,
-                props: {
-                    raceId: parseInt(span.getAttribute('data-race'))
-                }
-            })
+            else if (span.hasAttribute('data-crafted-quality')) {
+                new CraftedQualityIcon({
+                    target: span,
+                    props: {
+                        quality: parseInt(span.getAttribute('data-crafted-quality'))
+                    }
+                })
+            }
         }
     })
 </script>
