@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { TippyProps } from '@/types'
-    import tippy from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
+
+    import Tooltip from '@/components/tooltips/parsed-text/TooltipParsedText.svelte'
 
     export let src: string
     export let alt: string
@@ -17,6 +19,8 @@
     $: {
         actualHeight = (height || size) + (border * 2)
         actualWidth = (width || size) + (border * 2)
+
+        console.log(tooltip)
     }
 </script>
 
@@ -37,5 +41,10 @@
     height={actualHeight}
     alt={alt}
     loading="{lazy ? 'lazy' : null}"
-    use:tippy={tooltip}
+    use:tippyComponent={{
+        component: Tooltip,
+        props: {
+            content: tooltip,
+        }
+    }}
 />
