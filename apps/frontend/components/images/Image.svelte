@@ -19,8 +19,6 @@
     $: {
         actualHeight = (height || size) + (border * 2)
         actualWidth = (width || size) + (border * 2)
-
-        console.log(tooltip)
     }
 </script>
 

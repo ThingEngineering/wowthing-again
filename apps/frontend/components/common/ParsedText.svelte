@@ -106,9 +106,8 @@
 
     afterUpdate(() => {
         for (const span of element.querySelectorAll('span')) {
-            span.replaceChildren()
-
             if (span.hasAttribute('data-string')) {
+                span.replaceChildren()
                 const dataString = span.getAttribute('data-string')
 
                 if (iconStrings[dataString] || !imageStrings[dataString]) {
@@ -134,6 +133,7 @@
             }
 
             else if (span.hasAttribute('data-icon')) {
+                span.replaceChildren()
                 new WowthingImage({
                     target: span,
                     props: {
@@ -145,6 +145,7 @@
             }
 
             else if (span.hasAttribute('[data-class')) {
+                span.replaceChildren()
                 new ClassIcon({
                     target: span,
                     props: {
@@ -154,6 +155,7 @@
             }
             
             else if (span.hasAttribute('[data-race')) {
+                span.replaceChildren()
                 new RaceIcon({
                     target: span,
                     props: {
@@ -163,6 +165,7 @@
             }
 
             else if (span.hasAttribute('data-crafted-quality')) {
+                span.replaceChildren()
                 new CraftedQualityIcon({
                     target: span,
                     props: {
