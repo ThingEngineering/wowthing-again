@@ -47,6 +47,17 @@ export const isGatheringProfession: Record<number, boolean> = {
     186: true, // Mining
     393: true, // Skinning
 }
+export const isSecondaryProfession: Record<number, boolean> = {
+    794: true, // Archaeology
+    185: true, // Cooking
+    356: true, // Fishing
+}
+export const isCraftingProfession: Record<number, boolean> = Object.fromEntries(
+    Object.keys(professionIdToString)
+        .map((id) => parseInt(id))
+        .filter((id) => !isGatheringProfession[id] && !isSecondaryProfession[id])
+        .map((id) => [id, true])
+)
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion
