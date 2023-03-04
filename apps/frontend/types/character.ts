@@ -30,7 +30,7 @@ export class Character {
 
     lastSeenAddon: string
 
-    auras: number[]
+    auras: Record<number, number>
     bags: Record<number, number>
     configuration: CharacterConfiguration
     currenciesRaw: CharacterCurrencyArray[]

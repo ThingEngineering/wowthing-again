@@ -413,7 +413,18 @@ public class UserUploadJob : JobBase
             character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(64);
         }
 
-        character.AddonData.Auras = characterData.Auras.EmptyIfNull();
+        if (characterData.AurasV2 != null)
+        {
+            character.AddonData.Auras = characterData.AurasV2
+                .Select(aura => aura.Split(':'))
+                .ToDictionary(parts => int.Parse(parts[0]), parts => int.Parse(parts[1]));
+        }
+        else
+        {
+            character.AddonData.Auras = characterData.Auras
+                .EmptyIfNull()
+                .ToDictionary(auraId => auraId, _ => 0);
+        }
 
         // Currencies
         character.AddonData.Currencies = new();

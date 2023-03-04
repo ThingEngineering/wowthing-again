@@ -40,7 +40,7 @@ public class UserApiCharacter
 
     public UserApiCharacterConfiguration Configuration { get; set; }
 
-    public List<int> Auras { get; set; }
+    public Dictionary<int, int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
     public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
