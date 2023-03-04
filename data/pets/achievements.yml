@@ -46,7 +46,7 @@ groups:
     - 3264 # Crystalline Mini-Monster (Many More Minin Minions - 1200 unique pets)
     - 3263 # Secretive Frogduck (Proven Pet Parent - 1400 unique pets)
     - 3262 # Violet Violence (What Can I Say? They Love Me - 1600 unique pets)
-    - 3265 # Mister Muskoxeles (Good Things Come in Small Packages - 2000 unique pets)
+#    - 3265 # Mister Muskoxeles (Good Things Come in Small Packages - 2000 unique pets)
 
 - name: Instances
   things:
