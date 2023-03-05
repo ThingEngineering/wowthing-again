@@ -43,6 +43,7 @@
         component: Tooltip,
         props: {
             content: tooltip,
-        }
+        },
+        testFunc: (props) => props.content !== undefined
     }}
 />
