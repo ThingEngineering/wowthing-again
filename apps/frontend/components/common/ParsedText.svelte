@@ -144,7 +144,7 @@
                 })
             }
 
-            else if (span.hasAttribute('[data-class')) {
+            else if (span.hasAttribute('data-class')) {
                 span.replaceChildren()
                 new ClassIcon({
                     target: span,
@@ -154,7 +154,7 @@
                 })
             }
             
-            else if (span.hasAttribute('[data-race')) {
+            else if (span.hasAttribute('data-race')) {
                 span.replaceChildren()
                 new RaceIcon({
                     target: span,
