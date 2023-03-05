@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
 import { Profession } from '@/enums'
@@ -58,6 +59,15 @@ export const isCraftingProfession: Record<number, boolean> = Object.fromEntries(
         .filter((id) => !isGatheringProfession[id] && !isSecondaryProfession[id])
         .map((id) => [id, true])
 )
+// I hate that object keys are always strings, ugh
+export const professionOrder: number[] = sortBy(
+    Object.entries(professionIdToString),
+    ([id, slug]) => [
+        isSecondaryProfession[parseInt(id)] ? 2 : (isGatheringProfession[parseInt(id)] ? 1 : 0),
+        slug
+    ].join('|')
+)
+.map(([id,]) => parseInt(id))
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion

@@ -6,6 +6,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { Constants } from '@/data/constants'
+    import { isSecondaryProfession, professionOrder } from '@/data/professions'
     import { settingsStore, staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
     import { Gender, genderValues, Region } from '@/enums'
@@ -75,6 +76,13 @@
                             parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null)
                             parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null)
 
+                            const professionIds = Object.keys(char.professions || {})
+                                .map((id) => parseInt(id))
+                                .filter((professionId) => !isSecondaryProfession[professionId])
+                            
+                            parts.push(allAxis.indexOf('profession') >= 0 ? (professionIds[0] || null) : null)
+                            parts.push(allAxis.indexOf('profession') >= 0 ? (professionIds[1] || null) : null)
+
                             return parts
                         }
                     ) 
@@ -86,12 +94,11 @@
             )
         )
 
+        // unique ID|display text?
         const combos: string[][] = []
 
         for (let i = 0; i < 2; i++) {
             const axis = i === 0 ? sortedX : sortedY
-
-            //const axisCombos
                 
             if (axis.indexOf('realm') >= 0) {
                 combos.push(realms
@@ -151,6 +158,14 @@
             else {
                 combos.push([''])
             }
+
+            if (axis.indexOf('profession') >= 0) {
+                combos.push(professionOrder
+                    .map((professionId) => `${professionId}|:profession-${professionId}:`))
+            }
+            else {
+                combos.push([''])
+            }
         }
 
         xEntries = []
@@ -159,10 +174,10 @@
         yKeys = []
 
         const products = cartesianProduct(...combos)
-        for (const product of products) {
 
-            const xParts = product.slice(0, 6)
-            const yParts = product.slice(6, 12)
+        for (const product of products) {
+            const xParts = product.slice(0, product.length / 2)
+            const yParts = product.slice(product.length / 2, product.length)
 
             // console.log(xParts, yParts)
 
@@ -214,6 +229,7 @@
         ['class', 'Class'],
         ['gender', 'Gender'],
         ['race', 'Race'],
+        ['profession', 'Profession'],
     ]
     const axisOrder = axisOptions.map(([key,]) => key)
 
@@ -226,6 +242,41 @@
             }
         }
         return xParts.join(',')
+    }
+
+    const regexCache: Record<string, RegExp> = {}
+    const getCharacters = (xKey: string, yKey: string): Character[] => {
+        // merge the keys into a single string
+        const xParts = xKey.split(',')
+        const yParts = yKey.split(',')
+        for (let index = 0; index < xParts.length; index++) {
+            if (yParts[index]) {
+                xParts[index] = yParts[index]
+            }
+        }
+
+        // professions, oof
+        if (xParts[xParts.length - 1]) {
+            const re1 = [...xParts, '\\d*'].join(',')
+            const re2 = [...xParts.slice(0, -1), '\\d*', xParts[xParts.length - 1]].join(',')
+
+            const match1 = regexCache[re1] ||= new RegExp(re1)
+            const match2 = regexCache[re2] ||= new RegExp(re2)
+
+            const characters: Character[] = []
+            for (const key in matrix) {
+                if (key.match(match1) || key.match(match2)) {
+                    characters.push(...matrix[key])
+                }
+            }
+            return characters
+        }
+        else {
+            xParts.push('')
+            return matrix[xParts.join(',')] || []
+        }
+
+        return []
     }
 </script>
 
@@ -359,14 +410,13 @@
                         {/each}
                     </td>
                     {#each xKeys as xKey}
-                        {@const key = mergeKeys(xKey, yKey)}
-                        {@const characters = matrix[key] || []}
+                        {@const keyCharacters = getCharacters(xKey, yKey)}
                         <td
                             class="characters"
-                            class:max-level={some(characters, (char) => char.level === Constants.characterMaxLevel)}
-                            class:no-characters={characters.length === 0}
+                            class:max-level={some(keyCharacters, (char) => char.level === Constants.characterMaxLevel)}
+                            class:no-characters={keyCharacters.length === 0}
                         >
-                            {#each characters as character}
+                            {#each keyCharacters as character}
                                 <div class="level">
                                     {#if $matrixState.showCovenant && character.shadowlands?.covenantId}
                                         <CovenantIcon covenantId={character.shadowlands.covenantId} />
