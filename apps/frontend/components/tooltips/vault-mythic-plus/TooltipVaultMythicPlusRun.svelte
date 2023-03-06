@@ -56,22 +56,19 @@
     }
 
     .key-level {
-        max-width: 2.1rem;
+        min-width: 2.1rem;
         text-align: right;
         white-space: nowrap;
     }
     .dungeon-name {
-        max-width: 15rem;
+        max-width: 10rem;
+        min-width: 10rem;
         text-align: left;
         white-space: nowrap;
     }
     .item-level {
         max-width: 3rem;
-        white-space: nowrap;
-    }
-
-    .do-some {
-        width: 15rem;
+        min-width: 3rem;
         white-space: nowrap;
     }
 </style>

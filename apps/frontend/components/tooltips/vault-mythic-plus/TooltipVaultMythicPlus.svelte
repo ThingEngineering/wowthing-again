@@ -1,27 +1,75 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
+    import { keyVaultItemLevel } from '@/data/dungeon'
     import type { Character, CharacterWeeklyProgress } from '@/types'
 
     import Run from './TooltipVaultMythicPlusRun.svelte'
 
     export let character: Character
 
+    let improve: [string, number][]
     let progress: CharacterWeeklyProgress[]
     let runs: number[][]
     $: {
         progress = character.weekly?.vault?.mythicPlusProgress
         runs = sortBy(character.weekly?.vault?.mythicPlusRuns || [], (run: number[]) => -run[1])
+
+        const betterOptions = keyVaultItemLevel.filter(([level,]) => level > progress[0].level)
+        improve = []
+        for (let i = betterOptions.length - 1; i >= 0; i--) {
+            const [keyLevel, itemLevel] = betterOptions[i]
+            improve.push([
+                betterOptions[i-1] && (betterOptions[i-1][0] - keyLevel) > 1
+                    ? `${keyLevel} - ${betterOptions[i-1][0] - 1}`
+                    : keyLevel.toString(),
+                betterOptions[i][1]
+            ])
+            if (improve.length === 3) {
+                break
+            }
+        }
+        improve.reverse()
     }
 </script>
 
+<style lang="scss">
+    .view {
+        gap: 1rem;
+    }
+    .level-range {
+        word-spacing: -0.3ch;
+    }
+</style>
+
 <div class="wowthing-tooltip">
     <h4>{character.name} - M+ Vault</h4>
-    <table class="table-striped">
-        <tbody>
-            {#each Array(progress[2].threshold) as _, i}
-                <Run index={i} run={runs[i]} {progress} />
-            {/each}
-        </tbody>
-    </table>
+    <div class="view">
+        <table
+            class="table-striped"
+            class:border-right={improve.length > 0}
+        >
+            <tbody>
+                {#each Array(progress[2].threshold) as _, i}
+                    <Run index={i} run={runs[i]} {progress} />
+                {/each}
+            </tbody>
+        </table>
+
+        {#if improve.length > 0}
+            <table
+                class="table-striped border-left"
+                class:border-bottom={runs.length > 1}
+            >
+                <tbody>
+                    {#each improve.slice(0, 3) as [levelRange, itemLevel]}
+                        <tr>
+                            <td class="level-range">{levelRange}</td>
+                            <td>{itemLevel}</td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {/if}
+    </div>
 </div>

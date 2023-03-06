@@ -5,10 +5,11 @@
     import { itemStore, staticStore } from '@/stores'
     import { RewardReputation } from '@/enums'
 
-    import ClassIcon from '../images/ClassIcon.svelte'
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import RaceIcon from '../images/RaceIcon.svelte'
+    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import RaceIcon from '@/components/images/RaceIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let cls: string = undefined
@@ -95,6 +96,7 @@
         html = html.replaceAll(/\{craftedQuality:(\d+)\}/g, '<span data-crafted-quality="$1"></span>')
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
+        html = html.replaceAll(/:profession-(\d+):/g, '<span data-profession="$1"></span>')
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
         // :foo: icon strings
@@ -144,7 +146,7 @@
                 })
             }
 
-            else if (span.hasAttribute('[data-class')) {
+            else if (span.hasAttribute('data-class')) {
                 span.replaceChildren()
                 new ClassIcon({
                     target: span,
@@ -153,8 +155,18 @@
                     }
                 })
             }
+
+            else if (span.hasAttribute('data-profession')) {
+                span.replaceChildren()
+                new ProfessionIcon({
+                    target: span,
+                    props: {
+                        id: parseInt(span.getAttribute('data-profession'))
+                    }
+                })
+            }
             
-            else if (span.hasAttribute('[data-race')) {
+            else if (span.hasAttribute('data-race')) {
                 span.replaceChildren()
                 new RaceIcon({
                     target: span,

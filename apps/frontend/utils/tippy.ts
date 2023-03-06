@@ -59,6 +59,7 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
 export interface TippyComponentProps {
     component: any
     props: any
+    testFunc?: (props: any) => boolean
     tippyProps?: TippyProps
 }
 
@@ -71,7 +72,11 @@ export function tippyComponent(
         return
     }
 
-    const { component, props, tippyProps } = componentProps
+    const { component, props, testFunc, tippyProps } = componentProps
+
+    if (testFunc?.(props) === false) {
+        return
+    }
 
     let cmp: any
     const elementProps: any = props
