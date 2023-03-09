@@ -67,16 +67,6 @@
         flex-direction: column;
         gap: 1rem;
         justify-content: space-between;
-
-        table {
-            border-right: 1px solid $border-color;
-        }
-    }
-    .column2 table {
-        border-left: 1px solid $border-color;
-    }
-    .run-counts {
-        border-top: 1px solid $border-color;
     }
     td {
         padding: 0.2rem 0.4rem;
@@ -107,7 +97,7 @@
     <h5>Mythic+ Stats</h5>
     <div class="flex-wrapper">
         <div class="column1">
-            <table class="table-striped">
+            <table class="table-striped border-bottom border-right">
                 <tbody>
                     {#each raiderIoScoreOrder as scoreKey}
                         {@const score = scores[scoreKey] || 0}
@@ -127,7 +117,7 @@
             </table>
 
             {#if totalRuns > 0}
-                <table class="table-striped run-counts">
+                <table class="table-striped run-counts border-top border-right">
                     <tbody>
                         {#each runCounts as count, countIndex}
                             <tr>
@@ -147,7 +137,7 @@
         </div>
 
         <div class="column2">
-            <table class="table-striped">
+            <table class="table-striped border-left">
                 <tbody>
                     {#each dungeonIds as dungeonId}
                         {@const dungeon = dungeonMap[dungeonId]}
