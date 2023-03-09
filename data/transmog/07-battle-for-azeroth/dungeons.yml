@@ -231,9 +231,9 @@ groups:
     - name: Zandalar Dungeon (Mythic)
       wowheadSetId: 2795
       items:
-        1:  37335 # Head
-        3:  37337 # Shoulders
-        5:  37333 # Chest
+        1:  37325 # Head
+        3:  37329 # Shoulders
+        5:  37323 # Chest
         6:  37320 # Waist
         7:  37327 # Legs
         8:  37321 # Feet
