@@ -13,5 +13,6 @@ global using Microsoft.EntityFrameworkCore;
 global using Wowthing.Lib.Enums;
 global using Wowthing.Lib.Extensions;
 global using Wowthing.Lib.Utilities;
+global using Wowthing.Tool.Converters;
 global using Wowthing.Tool.Data;
 global using Wowthing.Tool.Utilities;

@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Wowthing.Tool.Enums;
 
 // ReSharper disable InconsistentNaming
 namespace Wowthing.Tool.Models.Items;

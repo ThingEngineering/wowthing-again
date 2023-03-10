@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Tool.Models.Illusions;
 
-[JsonConverter(typeof(DataIllusionGroupConverter))]
+// [JsonConverter(typeof(DataIllusionGroupConverter))]
 public class DataIllusionGroup : ICloneable, IDataCategory
 {
     public string Name { get; set; }

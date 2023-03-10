@@ -2,5 +2,5 @@
 
 public class RedisTransmogCache
 {
-    public List<List<ManualTransmogCategory>> Sets { get; set; }
+    // public List<List<ManualTransmogCategory>> Sets { get; set; }
 }

@@ -1,6 +1,4 @@
-﻿using Wowthing.Tool.Converters;
-
-namespace Wowthing.Tool.Models;
+﻿namespace Wowthing.Tool.Models;
 
 [JsonConverter(typeof(OutInstanceConverter))]
 public class OutInstance

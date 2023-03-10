@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Constants;
+﻿using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;

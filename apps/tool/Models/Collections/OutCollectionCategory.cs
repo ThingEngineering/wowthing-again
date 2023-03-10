@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Tool.Models.Collections;
 
-[JsonConverter(typeof(OutCollectionCategoryConverter))]
+// [JsonConverter(typeof(OutCollectionCategoryConverter))]
 public class OutCollectionCategory
 {
     public string Name { get; set; }

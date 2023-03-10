@@ -1,86 +1,92 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Wowthing.Tool.Models.Journal;
 
 namespace Wowthing.Tool.Converters;
 
-public class OutJournalEncounterConverter : JsonConverter
+public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var encounter = (OutJournalEncounter) value;
-
-        var encounterArray = new JArray();
-        encounterArray.Add(encounter.Id);
-        encounterArray.Add(encounter.Name);
-
-        var groupsArray = new JArray();
-        foreach (var group in encounter.Groups)
-        {
-            var groupArray = new JArray();
-            groupArray.Add(group.Name);
-
-            var itemsArray = new JArray();
-            foreach (var item in group.Items)
-            {
-                var itemArray = new JArray();
-                itemArray.Add(item.Type);
-                itemArray.Add(item.Id);
-                itemArray.Add(item.Quality);
-                itemArray.Add(item.ClassId);
-                itemArray.Add(item.SubclassId);
-                itemArray.Add(item.ClassMask);
-
-                var appearancesArray = new JArray();
-                foreach (var appearance in item.Appearances)
-                {
-                    var appearanceArray = new JArray();
-                    appearanceArray.Add(appearance.AppearanceId);
-                    appearanceArray.Add(appearance.ModifierId);
-                    appearanceArray.Add(new JArray(appearance.Difficulties));
-
-                    appearancesArray.Add(appearanceArray);
-                }
-
-                itemArray.Add(appearancesArray);
-                itemsArray.Add(itemArray);
-            }
-
-            groupArray.Add(itemsArray);
-            groupsArray.Add(groupArray);
-        }
-        encounterArray.Add(groupsArray);
-
-        if (encounter.Statistics != null)
-        {
-            var statsArray = new JArray();
-            foreach (var (difficulty, statisticIds) in encounter.Statistics)
-            {
-                var diffArray = new JArray();
-                diffArray.Add(difficulty);
-
-                var statisticsArray = new JArray();
-                foreach (int statisticId in statisticIds)
-                {
-                    statisticsArray.Add(statisticId);
-                }
-                diffArray.Add(statisticsArray);
-
-                statsArray.Add(diffArray);
-            }
-            encounterArray.Add(statsArray);
-        }
-
-        encounterArray.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override OutJournalEncounter? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, OutJournalEncounter encounter, JsonSerializerOptions options)
     {
-        return typeof(OutJournalEncounter) == objectType;
-    }
+        writer.WriteStartArray();
 
-    public override bool CanRead => false;
+        writer.WriteNumberValue(encounter.Id);
+        writer.WriteStringValue(encounter.Name);
+
+        // Groups
+        writer.WriteStartArray();
+        foreach (var group in encounter.Groups)
+        {
+            writer.WriteStartArray();
+            writer.WriteStringValue(group.Name);
+
+            // Items
+            writer.WriteStartArray();
+            foreach (var item in group.Items)
+            {
+                writer.WriteStartArray();
+                writer.WriteNumberValue((int)item.Type);
+                writer.WriteNumberValue(item.Id);
+                writer.WriteNumberValue((int)item.Quality);
+                writer.WriteNumberValue(item.ClassId);
+                writer.WriteNumberValue(item.SubclassId);
+                writer.WriteNumberValue(item.ClassMask);
+
+                // Appearances
+                writer.WriteStartArray();
+                foreach (var appearance in item.Appearances)
+                {
+                    writer.WriteStartArray();
+
+                    writer.WriteNumberValue(appearance.AppearanceId);
+                    writer.WriteNumberValue(appearance.ModifierId);
+
+                    // Difficulties
+                    writer.WriteStartArray();
+                    foreach (int difficulty in appearance.Difficulties)
+                    {
+                        writer.WriteNumberValue(difficulty);
+                    }
+                    writer.WriteEndArray();
+
+                    writer.WriteEndArray();
+                }
+                writer.WriteEndArray();
+
+                writer.WriteEndArray();
+            }
+            writer.WriteEndArray();
+
+            writer.WriteEndArray();
+        }
+        writer.WriteEndArray();
+
+        if (encounter.Statistics != null)
+        {
+            writer.WriteStartArray();
+
+            foreach ((int difficulty, int[] statisticIds) in encounter.Statistics)
+            {
+                writer.WriteStartArray();
+                writer.WriteNumberValue(difficulty);
+
+                // Statistic Ids
+                writer.WriteStartArray();
+                foreach (int statisticId in statisticIds)
+                {
+                    writer.WriteNumberValue(statisticId);
+                }
+                writer.WriteEndArray();
+
+                writer.WriteEndArray();
+            }
+
+            writer.WriteEndArray();
+        }
+
+        writer.WriteEndArray();
+    }
 }

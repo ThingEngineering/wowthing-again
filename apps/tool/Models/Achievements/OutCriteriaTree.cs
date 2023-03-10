@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Tool.Models.Achievements;
 
-[JsonConverter(typeof(OutCriteriaTreeConverter))]
+// [JsonConverter(typeof(OutCriteriaTreeConverter))]
 public class OutCriteriaTree : ICloneable
 {
     public int Amount { get; set; }

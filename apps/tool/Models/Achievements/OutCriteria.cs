@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Tool.Models.Achievements;
 
-[JsonConverter(typeof(OutCriteriaConverter))]
+// [JsonConverter(typeof(OutCriteriaConverter))]
 public class OutCriteria
 {
     public int Asset { get; }

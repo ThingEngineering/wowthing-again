@@ -6,10 +6,10 @@ public class OutJournalInstance
     public string Name { get; set; }
     public string Slug { get; set; }
 
-    [JsonProperty(PropertyName = "encountersRaw")]
+    // [JsonProperty(PropertyName = "encountersRaw")]
     public List<OutJournalEncounter> Encounters { get; set; } = new();
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<int, int> BonusIds { get; set; }
 }
 

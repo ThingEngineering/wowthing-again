@@ -6,7 +6,7 @@ public class OutProgress
     public List<int> RequiredQuestIds { get; set; }
     public List<OutProgressGroup> Groups { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? MinimumLevel { get; set; }
 
     public string Slug => Name.Slugify();

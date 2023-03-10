@@ -1,6 +1,4 @@
-﻿using Wowthing.Lib.Enums;
-
-namespace Wowthing.Tool.Data;
+﻿namespace Wowthing.Tool.Data;
 
 public static partial class Hardcoded
 {

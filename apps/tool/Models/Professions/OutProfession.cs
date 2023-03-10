@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Tool.Models.Professions;
+﻿namespace Wowthing.Tool.Models.Professions;
 
 public class OutProfession
 {

@@ -4,17 +4,17 @@ public class OutProgressData
 {
     public List<int> Ids { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public string Description { get; set; }
 
     public string Name { get; set; }
 
     public ProgressDataType Type { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? Value { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public bool? Required { get; set; }
 
     public OutProgressData(DataProgressData data)
