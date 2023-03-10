@@ -29,7 +29,7 @@
                 break
             }
         }
-        improve.reverse()
+    //improve.reverse()
     }
 </script>
 
