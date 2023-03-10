@@ -4,6 +4,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Holidays;
 using Wowthing.Tool.Models.Items;
@@ -13,12 +14,10 @@ namespace Wowthing.Tool.Tools;
 
 public class DumpsTool
 {
-    private JankTimer _timer;
+    private readonly Language[] _languages = Enum.GetValues<Language>();
+    private readonly JankTimer _timer = new();
 
-    public DumpsTool()
-    {
-
-    }
+    private Dictionary<int, int[]> _spellTeachMap;
 
     public async Task Run()
     {
@@ -40,8 +39,6 @@ public class DumpsTool
             ImportToys,
         };
 
-        _timer = new JankTimer();
-
         foreach (var action in actions)
         {
             //Logger.Information("Running {0}", action.Method.Name);
@@ -51,6 +48,68 @@ public class DumpsTool
         }
 
         return;
+    }
+
+    private async Task ImportStrings<TDump>(
+        WowDbContext context,
+        StringType type,
+        string dumpName,
+        Func<TDump, int> getIdFunc,
+        Func<TDump, string> getStringFunc,
+        Func<TDump, bool> filterFunc = null
+    )
+    {
+        var dbLanguageMap = await context.LanguageString
+            .Where(ls => ls.Type == type)
+            .AsNoTracking()
+            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+
+        foreach (var language in Enum.GetValues<Language>())
+        {
+            string dumpPath = Path.Join(language.ToString(), dumpName);
+            if (!File.Exists(dumpPath) && language != Language.enUS)
+            {
+                // Logger.Warning("Dump does not exist: {path}", dumpPath);
+                continue;
+            }
+
+            var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(dumpPath, skipValidation: true);
+            if (dumpObjects == null)
+            {
+                // Logger.Warning("No dump objects: {path}", dumpPath);
+                continue;
+            }
+
+            foreach (var dumpObject in dumpObjects)
+            {
+                if (filterFunc != null && !filterFunc(dumpObject))
+                {
+                    continue;
+                }
+
+                int objectId = getIdFunc(dumpObject);
+                string objectString = getStringFunc(dumpObject);
+
+                if (!dbLanguageMap.TryGetValue((language, objectId), out var languageString))
+                {
+                    languageString = dbLanguageMap[(language, objectId)] = new LanguageString
+                    {
+                        Language = language,
+                        Type = type,
+                        Id = objectId,
+                        String = objectString,
+                    };
+                    context.LanguageString.Add(languageString);
+                }
+                else if (objectString != languageString.String)
+                {
+                    context.LanguageString.Update(languageString);
+                    languageString.String = objectString;
+                }
+            }
+        }
+
+        _timer.AddPoint(type.ToString());
     }
 
     private async Task ImportCharacterClasses(WowDbContext context)
@@ -336,8 +395,8 @@ public class DumpsTool
         {
             if (!nameMap.TryGetValue(holiday.HolidayNameID, out string name))
             {
-                Logger<>.Warning("No holiday name for {holidayId} {nameId}",
-                    holiday.ID, holiday.HolidayNameID);
+                // Logger<>.Warning("No holiday name for {holidayId} {nameId}",
+                //     holiday.ID, holiday.HolidayNameID);
                 continue;
             }
 
@@ -476,7 +535,7 @@ public class DumpsTool
             dbItem.SubclassId = item.SubclassID;
             dbItem.InventoryType = item.InventoryType;
 
-            if (Backend.Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
+            if (Tool.Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
             {
                 dbItem.ClassId = (short)classTuple.Item1;
                 dbItem.SubclassId = (short)classTuple.Item2;
@@ -779,7 +838,7 @@ public class DumpsTool
             }
 
             dbPet.CreatureId = pet.CreatureID;
-            dbPet.SpellId = _fixedPetSpell.GetValueOrDefault(pet.ID, pet.SummonSpellID);
+            dbPet.SpellId = Data.Hardcoded.PetSpellOverride.GetValueOrDefault(pet.ID, pet.SummonSpellID);
             dbPet.Flags = pet.Flags;
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
@@ -818,5 +877,4 @@ public class DumpsTool
 
         _timer.AddPoint("Toys");
     }
-
 }
