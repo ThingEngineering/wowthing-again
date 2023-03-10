@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Data;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
@@ -535,7 +534,7 @@ public class DumpsTool
             dbItem.SubclassId = item.SubclassID;
             dbItem.InventoryType = item.InventoryType;
 
-            if (Tool.Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
+            if (Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
             {
                 dbItem.ClassId = (short)classTuple.Item1;
                 dbItem.SubclassId = (short)classTuple.Item2;

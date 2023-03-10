@@ -2,7 +2,7 @@
 using Wowthing.Tool.Tools;
 
 
-return await CommandLine.Parser.Default.ParseArguments<AllOptions, CacheOptions, DumpsOptions>(args)
+return await Parser.Default.ParseArguments<AllOptions, CacheOptions, DumpsOptions>(args)
     .MapResult(
         (AllOptions opts) => RunAll(),
         (CacheOptions opts) => RunCacheTool(),

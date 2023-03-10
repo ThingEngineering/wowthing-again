@@ -1,6 +1,8 @@
-﻿namespace Wowthing.Tool.Models;
+﻿using Wowthing.Tool.Converters;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(OutInstanceConverter))]
+namespace Wowthing.Tool.Models;
+
+[JsonConverter(typeof(OutInstanceConverter))]
 public class OutInstance
 {
     public int Expansion { get; set; }
