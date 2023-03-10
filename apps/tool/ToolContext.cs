@@ -13,5 +13,5 @@ public static class ToolContext
         _optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("WOWTHING_DATABASE"));
     }
 
-    public static WowDbContext GetDbContext() => new WowDbContext(_optionsBuilder.Options);
+    public static WowDbContext GetDbContext() => new(_optionsBuilder.Options);
 }

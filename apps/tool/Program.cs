@@ -1,22 +1,39 @@
 ﻿using CommandLine;
+using Microsoft.EntityFrameworkCore.Internal;
+using Wowthing.Lib.Contexts;
 using Wowthing.Tool.Tools;
 
 
-return CommandLine.Parser.Default.ParseArguments<AllOptions, CacheOptions, DumpsOptions>(args)
+return await CommandLine.Parser.Default.ParseArguments<AllOptions, CacheOptions, DumpsOptions>(args)
     .MapResult(
         (AllOptions opts) => RunAll(),
-        (CacheOptions opts) => CacheTool.Run(),
-        (DumpsOptions opts) => DumpsTool.Run(),
-        errs => 1);
+        (CacheOptions opts) => RunCacheTool(),
+        (DumpsOptions opts) => RunDumpsTool(),
+        errs => Task.FromResult(1));
 
-int RunAll()
+async Task<int> RunAll()
 {
-    DumpsTool.Run();
-    CacheTool.Run();
+    await RunDumpsTool();
+    await RunCacheTool();
 
     return 0;
 }
 
+async Task<int> RunDumpsTool()
+{
+    var tool = new DumpsTool();
+    await tool.Run();
+
+    return 0;
+}
+
+async Task<int> RunCacheTool()
+{
+    var tool = new CacheTool();
+    await tool.Run();
+
+    return 0;
+}
 
 [Verb("all", HelpText = "Run all tools")]
 class AllOptions
