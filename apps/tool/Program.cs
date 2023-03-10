@@ -1,6 +1,4 @@
 ﻿using CommandLine;
-using Microsoft.EntityFrameworkCore.Internal;
-using Wowthing.Lib.Contexts;
 using Wowthing.Tool.Tools;
 
 

@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Internal;
-using Wowthing.Lib.Contexts;
-
-namespace Wowthing.Tool.Tools;
+﻿namespace Wowthing.Tool.Tools;
 
 public class CacheTool
 {

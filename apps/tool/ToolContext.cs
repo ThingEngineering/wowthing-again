@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Wowthing.Lib.Contexts;
+﻿using Wowthing.Lib.Contexts;
 
 namespace Wowthing.Tool;
 
