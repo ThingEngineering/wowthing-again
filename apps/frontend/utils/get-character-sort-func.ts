@@ -78,7 +78,11 @@ export default function getCharacterSortFunc(
                 out.push(leftPad(10_000_000 - char.gold, 8, '0'))
             }
             else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
-                out.push(leftPad(1000 - parseInt(char.calculatedItemLevel || '0'), 4, '0'))
+                out.push(leftPad(
+                    10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
+                    5,
+                    '0'
+                ))
             }
             else if (thing === 'level') {
                 // in descending order
