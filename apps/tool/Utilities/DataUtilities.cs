@@ -10,13 +10,18 @@ namespace Wowthing.Tool.Utilities;
 
 public static class DataUtilities
 {
-#if DEBUG
-    public static readonly string DataPath = Path.Join("..", "..", "data");
-    public static readonly string DumpsPath = Path.Join("..", "..", "dumps");
-#else
-    public static readonly string DataPath = "data";
-    public static readonly string DumpsPath = "dumps";
-#endif
+    public static string DataPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DATA_PATH"));
+    public static string DumpsPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DUMP_PATH"));
+
+    private static string ResolvePath(string path)
+    {
+        if (path.StartsWith("~/"))
+        {
+            path = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}/{path[2..]}";
+        }
+
+        return path;
+    }
 
     public static readonly IDeserializer YamlDeserializer = new DeserializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -25,30 +30,19 @@ public static class DataUtilities
 
     public static async Task<List<T>> LoadDumpCsvAsync<T>(
         string fileName,
-        Func<T, bool> validFunc = null,
-        bool skipValidation = false
+        Language language = Language.enUS,
+        Func<T, bool> validFunc = null
+        // bool skipValidation = false
     )
     {
-        var files = Directory.GetFiles(DumpsPath, $"{fileName}-*.csv");
-        // FIXME crappy hack until importing works
-        if (files.Length == 0 && fileName.IndexOf(Path.DirectorySeparatorChar) == -1)
-        {
-            files = Directory.GetFiles(Path.Join(DumpsPath, "enUS"), $"{fileName}-*.csv");
-        }
-
-        if (files.Length == 0)
-        {
-            return null;
-        }
-
-        var filePath = files.OrderByDescending(f => f).First();
+        string filePath = Path.Join(DumpsPath, language.ToString(), fileName + ".csv");
 
         var config = new CsvConfiguration(CultureInfo.InvariantCulture);
-        if (skipValidation)
-        {
-            config.HeaderValidated = null;
-            config.MissingFieldFound = null;
-        }
+        // if (skipValidation)
+        // {
+        //     config.HeaderValidated = null;
+        //     config.MissingFieldFound = null;
+        // }
 
         using var reader = new StreamReader(filePath);
         using var csvReader = new CsvReader(reader, config);

@@ -1,12 +1,16 @@
-﻿using Wowthing.Lib.Constants;
+﻿using Serilog.Context;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Holidays;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
+using Wowthing.Tool.Models.Professions;
+using Wowthing.Tool.Models.Transmog;
 
 namespace Wowthing.Tool.Tools;
 
@@ -35,17 +39,32 @@ public class DumpsTool
             ImportMounts,
             ImportPets,
             ImportToys,
+
+            ImportCreatureStrings,
+            ImportJournalEncounterStrings,
+            ImportJournalInstanceStrings,
+            ImportJournalTierStrings,
+            ImportSkillLineStrings,
+            ImportSoulbindStrings,
+            ImportSpellItemEnchantmentStrings,
         };
 
         foreach (var action in actions)
         {
-            //Logger.Information("Running {0}", action.Method.Name);
-            await using var context = ToolContext.GetDbContext();
-            await action(context);
-            await context.SaveChangesAsync();
-        }
+            using (LogContext.PushProperty("Task", action.Method.Name))
+            {
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+                ToolContext.Logger.Information("Starting...");
 
-        return;
+                await using var context = ToolContext.GetDbContext();
+                await action(context);
+                await context.SaveChangesAsync();
+
+                watch.Stop();
+                ToolContext.Logger.Information("Finished after {time}s",
+                    watch.ElapsedMilliseconds / 1000.0);
+            }
+        }
     }
 
     private async Task ImportStrings<TDump>(
@@ -54,7 +73,7 @@ public class DumpsTool
         string dumpName,
         Func<TDump, int> getIdFunc,
         Func<TDump, string> getStringFunc,
-        Func<TDump, bool> filterFunc = null
+        Func<TDump, bool>? filterFunc = null
     )
     {
         var dbLanguageMap = await context.LanguageString
@@ -62,19 +81,13 @@ public class DumpsTool
             .AsNoTracking()
             .ToDictionaryAsync(ls => (ls.Language, ls.Id));
 
-        foreach (var language in Enum.GetValues<Language>())
+        foreach (var language in _languages)
         {
-            string dumpPath = Path.Join(language.ToString(), dumpName);
-            if (!File.Exists(dumpPath) && language != Language.enUS)
-            {
-                // Logger.Warning("Dump does not exist: {path}", dumpPath);
-                continue;
-            }
-
-            var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(dumpPath, skipValidation: true);
+            var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(dumpName, language);
             if (dumpObjects == null)
             {
-                // Logger.Warning("No dump objects: {path}", dumpPath);
+                ToolContext.Logger.Warning("No dump objects: {lang} {path}",
+                    language.ToString(), dumpName);
                 continue;
             }
 
@@ -110,10 +123,73 @@ public class DumpsTool
         _timer.AddPoint(type.ToString());
     }
 
+    private async Task ImportCreatureStrings(WowDbContext context) =>
+        await ImportStrings<DumpCreature>(
+            context,
+            StringType.WowCreatureName,
+            "creature",
+            creature => creature.ID,
+            creature => creature.Name
+        );
+
+    private async Task ImportJournalEncounterStrings(WowDbContext context) =>
+        await ImportStrings<DumpJournalEncounter>(
+            context,
+            StringType.WowJournalEncounterName,
+            "journalencounter",
+            encounter => encounter.ID,
+            encounter => encounter.Name
+        );
+
+    private async Task ImportJournalInstanceStrings(WowDbContext context) =>
+        await ImportStrings<DumpJournalInstance>(
+            context,
+            StringType.WowJournalInstanceName,
+            "journalinstance",
+            instance => instance.ID,
+            instance => instance.Name
+        );
+
+    private async Task ImportJournalTierStrings(WowDbContext context) =>
+        await ImportStrings<DumpJournalTier>(
+            context,
+            StringType.WowJournalTierName,
+            "journaltier",
+            tier => tier.ID,
+            tier => tier.Name
+        );
+
+    private async Task ImportSkillLineStrings(WowDbContext context) =>
+        await ImportStrings<DumpSkillLine>(
+            context,
+            StringType.WowSkillLineName,
+            "skillline",
+            line => line.ID,
+            line => $"{line.DisplayName}|{line.HordeDisplayName}"
+        );
+
+    private async Task ImportSoulbindStrings(WowDbContext context) =>
+        await ImportStrings<DumpSoulbind>(
+            context,
+            StringType.WowSoulbindName,
+            "soulbind",
+            soulbind => soulbind.ID,
+            soulbind => soulbind.Name
+        );
+
+    private async Task ImportSpellItemEnchantmentStrings(WowDbContext context) =>
+        await ImportStrings<DumpSpellItemEnchantment>(
+            context,
+            StringType.WowSpellItemEnchantmentName,
+            "spellitemenchantment",
+            ench => ench.ID,
+            ench => ench.Name
+        );
+
     private async Task ImportCharacterClasses(WowDbContext context)
     {
         var classes = await DataUtilities
-            .LoadDumpCsvAsync<DumpChrClasses>(Path.Join("enUS", "chrclasses"));
+            .LoadDumpCsvAsync<DumpChrClasses>("chrclasses");
 
         var dbClassMap = await context.WowCharacterClass
             .ToDictionaryAsync(spec => spec.Id);
@@ -148,7 +224,7 @@ public class DumpsTool
     private async Task ImportCharacterRaces(WowDbContext context)
     {
         var dumpRaces = await DataUtilities
-            .LoadDumpCsvAsync<DumpChrRaces>(Path.Join("enUS", "chrraces"));
+            .LoadDumpCsvAsync<DumpChrRaces>("chrraces");
 
         var dbRaceMap = await context.WowCharacterRace
             .ToDictionaryAsync(race => race.Id);
@@ -181,7 +257,7 @@ public class DumpsTool
     private async Task ImportCharacterSpecializations(WowDbContext context)
     {
         var specs = await DataUtilities
-            .LoadDumpCsvAsync<DumpChrSpecialization>(Path.Join("enUS", "chrspecialization"));
+            .LoadDumpCsvAsync<DumpChrSpecialization>("chrspecialization");
 
         var dbSpecMap = await context.WowCharacterSpecialization
             .ToDictionaryAsync(spec => spec.Id);
@@ -234,7 +310,7 @@ public class DumpsTool
     private async Task ImportCurrencies(WowDbContext context)
     {
         var currencies = await DataUtilities
-            .LoadDumpCsvAsync<DumpCurrencyTypes>(Path.Join("enUS", "currencytypes"));
+            .LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
 
         var dbCurrencyMap = await context.WowCurrency
             .ToDictionaryAsync(currency => currency.Id);
@@ -269,7 +345,7 @@ public class DumpsTool
     private async Task ImportCurrencyCategories(WowDbContext context)
     {
         var categories = await DataUtilities
-            .LoadDumpCsvAsync<DumpCurrencyCategory>(Path.Join("enUS", "currencycategory"));
+            .LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
 
         var dbCategoryMap = await context.WowCurrencyCategory
             .ToDictionaryAsync(currency => currency.Id);
@@ -303,7 +379,7 @@ public class DumpsTool
     private async Task ImportFactions(WowDbContext context)
     {
         var factions = await DataUtilities
-            .LoadDumpCsvAsync<DumpFaction>(Path.Join("enUS", "faction"));
+            .LoadDumpCsvAsync<DumpFaction>("faction");
 
         var dbReputationMap = await context.WowReputation
             .ToDictionaryAsync(rep => rep.Id);
@@ -347,7 +423,7 @@ public class DumpsTool
     private async Task ImportHolidays(WowDbContext context)
     {
         var holidays = await DataUtilities
-            .LoadDumpCsvAsync<DumpHolidays>(Path.Join("enUS", "holidays"));
+            .LoadDumpCsvAsync<DumpHolidays>("holidays");
 
         var dbHolidayMap = await context.WowHoliday
             .ToDictionaryAsync(holiday => holiday.Id);
@@ -380,7 +456,7 @@ public class DumpsTool
                 .ToList();
         }
 
-        var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>(Path.Join("enUS", "holidaynames")))
+        var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>("holidaynames"))
             .ToDictionary(dhn => dhn.ID, dhn => dhn.Name);
 
         var dbLanguageMap = await context.LanguageString
@@ -393,7 +469,7 @@ public class DumpsTool
         {
             if (!nameMap.TryGetValue(holiday.HolidayNameID, out string name))
             {
-                // Logger<>.Warning("No holiday name for {holidayId} {nameId}",
+                // ToolContext.Logger.Warning("No holiday name for {holidayId} {nameId}",
                 //     holiday.ID, holiday.HolidayNameID);
                 continue;
             }
@@ -422,7 +498,7 @@ public class DumpsTool
     private async Task ImportInstances(WowDbContext context)
     {
         var instances = await DataUtilities
-            .LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance"));
+            .LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
 
         var mapIdToInstanceId = instances
             .Where(instance => !Hardcoded.SkipInstances.Contains(instance.ID))
@@ -447,7 +523,7 @@ public class DumpsTool
     {
         var items = await DataUtilities.LoadDumpCsvAsync<DumpItem>("item");
 
-        var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(Path.Join("enUS", "itemsparse")))
+        var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>("itemsparse"))
             .ToDictionary(itemSparse => itemSparse.ID);
 
         var dbItemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
@@ -456,7 +532,7 @@ public class DumpsTool
         {
             if (!baseItemSparseMap.TryGetValue(item.ID, out var itemSparse))
             {
-                //Logger.Debug("Item with no matching ItemSparse: {Id}", item.ID);
+                ToolContext.Logger.Debug("Item with no matching ItemSparse: {Id}", item.ID);
                 continue;
             }
 
@@ -580,8 +656,6 @@ public class DumpsTool
             }*/
         }
 
-        await ImportItemStrings(context, Language.enUS, baseItemSparseMap.Values);
-
         foreach (var language in _languages)
         {
             await ImportItemStrings(context, language);
@@ -590,13 +664,9 @@ public class DumpsTool
         _timer.AddPoint("Items");
     }
 
-    private async Task ImportItemStrings(WowDbContext context, Language language,
-        ICollection<DumpItemSparse> itemSparses = null)
+    private async Task ImportItemStrings(WowDbContext context, Language language)
     {
-        itemSparses ??= await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(
-            Path.Join(language.ToString(), "itemsparse"),
-            skipValidation: true
-        );
+        var itemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>("itemsparse", language);
 
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
@@ -626,7 +696,8 @@ public class DumpsTool
 
     private async Task ImportItemAppearances(WowDbContext context)
     {
-        var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+        var itemModifiedAppearances =
+            await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
         var dbMap = await context.WowItemModifiedAppearance
             .ToDictionaryAsync(wima => wima.Id);
 
@@ -674,7 +745,7 @@ public class DumpsTool
             {
                 if (!spellEffectMap.TryGetValue(dumpItemEffect.SpellID, out var spellEffects))
                 {
-                    //Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
+                    ToolContext.Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
                     continue;
                 }
 
@@ -742,7 +813,7 @@ public class DumpsTool
 
     private async Task ImportMounts(WowDbContext context)
     {
-        var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join("enUS", "mount"));
+        var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>("mount");
 
         var dbMountMap = await context.WowMount
             .ToDictionaryAsync(mount => mount.Id);
@@ -792,7 +863,7 @@ public class DumpsTool
 
         foreach (var language in _languages)
         {
-            var languageMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join(language.ToString(), "mount"), skipValidation: true);
+            var languageMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>("mount", language);
             foreach (var mount in languageMounts)
             {
                 if (!dbLanguageMap.TryGetValue((language, mount.ID), out var languageString))
