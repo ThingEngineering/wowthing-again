@@ -38,7 +38,7 @@
                     {#each set.appearances as appearance}
                         {@const has = $userTransmogStore.hasAppearance.has(appearance.appearanceId)}
                         {@const show = (
-                            (has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected)
+                            ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected))
                             && $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true
                         )}
                         {#if show}

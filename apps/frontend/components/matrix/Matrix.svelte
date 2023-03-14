@@ -233,16 +233,16 @@
     ]
     const axisOrder = axisOptions.map(([key,]) => key)
 
-    const mergeKeys = (xKey: string, yKey: string): string => {
-        const xParts = xKey.split(',')
-        const yParts = yKey.split(',')
-        for (let index = 0; index < xParts.length; index++) {
-            if (yParts[index]) {
-                xParts[index] = yParts[index]
-            }
-        }
-        return xParts.join(',')
-    }
+    // const mergeKeys = (xKey: string, yKey: string): string => {
+    //     const xParts = xKey.split(',')
+    //     const yParts = yKey.split(',')
+    //     for (let index = 0; index < xParts.length; index++) {
+    //         if (yParts[index]) {
+    //             xParts[index] = yParts[index]
+    //         }
+    //     }
+    //     return xParts.join(',')
+    // }
 
     const regexCache: Record<string, RegExp> = {}
     const getCharacters = (xKey: string, yKey: string): Character[] => {
@@ -275,8 +275,6 @@
             xParts.push('')
             return matrix[xParts.join(',')] || []
         }
-
-        return []
     }
 </script>
 

@@ -14,6 +14,14 @@ export interface StaticDataSubProfession {
     name: string
 }
 
+export type StaticDataProfessionCategoryArray = [
+    id: number,
+    order: number,
+    name: string,
+    childArrays: StaticDataProfessionCategoryArray[],
+    abilityArrays: StaticDataProfessionAbilityArray[],
+]
+
 export class StaticDataProfessionCategory {
     public abilities: StaticDataProfessionAbility[]
     public children: StaticDataProfessionCategory[]
@@ -30,7 +38,8 @@ export class StaticDataProfessionCategory {
         this.abilities = abilityArrays.map((abilityArray) => new StaticDataProfessionAbility(...abilityArray))
     }
 }
-export type StaticDataProfessionCategoryArray = ConstructorParameters<typeof StaticDataProfessionCategory>
+// Can't use this and have it reference itself, alas
+// export type StaticDataProfessionCategoryArray = ConstructorParameters<typeof StaticDataProfessionCategory>
 
 export class StaticDataProfessionAbility {
     constructor(

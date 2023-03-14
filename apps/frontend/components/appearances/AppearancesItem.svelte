@@ -2,7 +2,6 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { itemModifierMap } from '@/data/item-modifier'
-    import { userTransmogStore } from '@/stores'
     import { appearanceState } from '@/stores/local-storage'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 

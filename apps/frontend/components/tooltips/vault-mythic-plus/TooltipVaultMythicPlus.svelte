@@ -18,7 +18,7 @@
         const betterOptions = keyVaultItemLevel.filter(([level,]) => level > progress[0].level)
         improve = []
         for (let i = betterOptions.length - 1; i >= 0; i--) {
-            const [keyLevel, itemLevel] = betterOptions[i]
+            const [keyLevel,] = betterOptions[i]
             improve.push([
                 betterOptions[i-1] && (betterOptions[i-1][0] - keyLevel) > 1
                     ? `${keyLevel} - ${betterOptions[i-1][0] - 1}`
