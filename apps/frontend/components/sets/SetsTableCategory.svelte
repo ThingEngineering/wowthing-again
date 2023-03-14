@@ -32,7 +32,7 @@
         setKey = slugs.join('--')
     }
 
-    const getPercent = function(groupIndex: number, setIndex: number): number {
+    $: getPercent = function(groupIndex: number, setIndex: number): number {
         let key: string
         if (setIndex >= 0) {
             key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`

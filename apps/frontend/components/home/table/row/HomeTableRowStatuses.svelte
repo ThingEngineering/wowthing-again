@@ -8,7 +8,6 @@
     import type { Character } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte';
 
     export let character: Character
 

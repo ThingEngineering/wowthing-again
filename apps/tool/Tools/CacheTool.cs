@@ -2,9 +2,12 @@
 
 public class CacheTool
 {
-    public static int Run()
+    public CacheTool()
     {
+    }
 
-        return 0;
+    public async Task Run()
+    {
+        return;
     }
 }

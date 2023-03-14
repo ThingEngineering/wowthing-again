@@ -2,7 +2,6 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { itemModifierMap } from '@/data/item-modifier'
-    import { userTransmogStore } from '@/stores'
     import { appearanceState } from '@/stores/local-storage'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 
@@ -11,16 +10,11 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let appearance: AppearanceDataAppearance
+    export let has: boolean
 
     let difficulty: string
-    let has: boolean
     let imageName: string
-    let show: boolean
     $: {
-        has = $userTransmogStore.hasAppearance.has(appearance.appearanceId)
-        show = ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected)) &&
-            $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true
-
         const mod = appearance.modifiedAppearances[0]
 
         imageName = `item/${mod.itemId}`
@@ -49,35 +43,35 @@
 
 </style>
 
-{#if show}
-    <div
-        class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
-        class:missing={
-            (has && $appearanceState.highlightMissing) ||
-            (!has && !$appearanceState.highlightMissing)
-        }
+<svelte:options immutable={true} />
+
+<div
+    class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
+    class:missing={
+        (has && $appearanceState.highlightMissing) ||
+        (!has && !$appearanceState.highlightMissing)
+    }
+>
+    <WowheadLink
+        id={appearance.modifiedAppearances[0].itemId}
+        type="item"
     >
-        <WowheadLink
-            id={appearance.modifiedAppearances[0].itemId}
-            type="item"
-        >
-            <WowthingImage
-                name={imageName}
-                size={48}
-                border={1}
-            />
+        <WowthingImage
+            name={imageName}
+            size={48}
+            border={1}
+        />
 
-            {#if has}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
-            {/if}
-        </WowheadLink>
-
-        {#if difficulty}
-            <div class="pill difficulty">
-                {difficulty}
+        {#if has}
+            <div class="collected-icon drop-shadow">
+                <IconifyIcon icon={mdiCheckboxOutline} />
             </div>
         {/if}
-    </div>
-{/if}
+    </WowheadLink>
+
+    {#if difficulty}
+        <div class="pill difficulty">
+            {difficulty}
+        </div>
+    {/if}
+</div>

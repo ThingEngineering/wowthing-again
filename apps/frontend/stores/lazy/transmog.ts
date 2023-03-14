@@ -49,7 +49,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                     }
 
                     const groupKey = `${catKey}--${groupIndex}`
-                    const groupStats = stats[groupKey] = stats[groupKey] || new UserCount()
+                    const groupStats = stats[groupKey] ||= new UserCount()
 
                     for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
                         const setName = group.sets[setIndex]
@@ -67,7 +67,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         }
 
                         const setKey = `${groupKey}--${setIndex}`
-                        const setStats = stats[setKey] = stats[setKey] || new UserCount()
+                        const setStats = stats[setKey] ||= new UserCount()
 
                         const groupSigh = dataValue[setIndex]
                         const slotKeys = Object.keys(groupSigh.items)

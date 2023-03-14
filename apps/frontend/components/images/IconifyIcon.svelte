@@ -26,6 +26,8 @@
     }
 </style>
 
+<svelte:options immutable={true} />
+
 <svg
     style:--scale={scale}
     viewBox="0 0 {icon.width} {icon.height}"
