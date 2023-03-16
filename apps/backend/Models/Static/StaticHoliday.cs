@@ -8,9 +8,8 @@ public class StaticHoliday : WowHoliday
 {
     public string Name { get; set; }
 
-    public StaticHoliday(WowHoliday holiday)
+    public StaticHoliday(WowHoliday holiday) : base(holiday.Id)
     {
-        Id = holiday.Id;
         FilterType = holiday.FilterType;
         Flags = holiday.Flags;
         Looping = holiday.Looping;

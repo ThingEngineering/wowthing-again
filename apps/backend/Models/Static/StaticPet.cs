@@ -8,9 +8,8 @@ public class StaticPet : WowPet
 {
     public string Name { get; set; }
 
-    public StaticPet(WowPet pet)
+    public StaticPet(WowPet pet) : base(pet.Id)
     {
-        Id = pet.Id;
         CreatureId = pet.CreatureId;
         Flags = pet.Flags;
         ItemId = pet.ItemId;

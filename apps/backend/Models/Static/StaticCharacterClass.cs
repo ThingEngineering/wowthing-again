@@ -6,9 +6,8 @@ public class StaticCharacterClass : WowCharacterClass
 {
     public string Name { get; set; }
 
-    public StaticCharacterClass(WowCharacterClass dbClass)
+    public StaticCharacterClass(WowCharacterClass dbClass) : base(dbClass.Id)
     {
-        Id = dbClass.Id;
         ArmorMask = dbClass.ArmorMask;
         RolesMask = dbClass.RolesMask;
         Slug = dbClass.Slug;

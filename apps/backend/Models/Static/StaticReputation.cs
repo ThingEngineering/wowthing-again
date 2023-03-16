@@ -9,9 +9,8 @@ public class StaticReputation : WowReputation
     public string Description { get; set; }
     public string Name { get; set; }
 
-    public StaticReputation(WowReputation reputation)
+    public StaticReputation(WowReputation reputation) : base(reputation.Id)
     {
-        Id = reputation.Id;
         Expansion = reputation.Expansion;
         ParagonId = reputation.ParagonId;
         ParentId = reputation.ParagonId;

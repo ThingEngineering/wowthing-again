@@ -22,6 +22,11 @@ public class WowItem
     public short ItemLevel { get; set; }
     public short RequiredLevel { get; set; }
 
+    public WowItem(int id)
+    {
+        Id = id;
+    }
+
     public int GetCalculatedClassMask(bool legacyLoot = false)
     {
         if (ClassMask > 0)

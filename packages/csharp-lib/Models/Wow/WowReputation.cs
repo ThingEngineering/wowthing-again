@@ -11,4 +11,9 @@ public class WowReputation
     public short ParagonId { get; set; }
     public short ParentId { get; set; }
     public short TierId { get; set; }
+
+    public WowReputation(short id)
+    {
+        Id = id;
+    }
 }

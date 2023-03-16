@@ -198,10 +198,7 @@ public class DumpsTool
         {
             if (!dbClassMap.TryGetValue(cls.ID, out var dbClass))
             {
-                dbClass = new WowCharacterClass
-                {
-                    Id = cls.ID,
-                };
+                dbClass = new WowCharacterClass(cls.ID);
                 context.WowCharacterClass.Add(dbClass);
             }
 
@@ -233,10 +230,7 @@ public class DumpsTool
         {
             if (!dbRaceMap.TryGetValue(dumpRace.ID, out var dbRace))
             {
-                dbRace = new WowCharacterRace
-                {
-                    Id = dumpRace.ID,
-                };
+                dbRace = new WowCharacterRace(dumpRace.ID);
                 context.WowCharacterRace.Add(dbRace);
             }
 
@@ -319,10 +313,7 @@ public class DumpsTool
         {
             if (!dbCurrencyMap.TryGetValue(currency.ID, out var dbCurrency))
             {
-                dbCurrency = dbCurrencyMap[currency.ID] = new WowCurrency
-                {
-                    Id = currency.ID,
-                };
+                dbCurrency = dbCurrencyMap[currency.ID] = new WowCurrency(currency.ID);
                 context.WowCurrency.Add(dbCurrency);
             }
 
@@ -354,10 +345,7 @@ public class DumpsTool
         {
             if (!dbCategoryMap.TryGetValue(category.ID, out var dbCategory))
             {
-                dbCategory = dbCategoryMap[category.ID] = new WowCurrencyCategory
-                {
-                    Id = category.ID,
-                };
+                dbCategory = dbCategoryMap[category.ID] = new WowCurrencyCategory(category.ID);
                 context.WowCurrencyCategory.Add(dbCategory);
             }
 
@@ -388,10 +376,7 @@ public class DumpsTool
         {
             if (!dbReputationMap.TryGetValue(faction.ID, out var dbReputation))
             {
-                dbReputation = dbReputationMap[faction.ID] = new WowReputation
-                {
-                    Id = faction.ID,
-                };
+                dbReputation = dbReputationMap[faction.ID] = new WowReputation(faction.ID);
                 context.WowReputation.Add(dbReputation);
             }
 
@@ -432,10 +417,7 @@ public class DumpsTool
         {
             if (!dbHolidayMap.TryGetValue(holiday.ID, out var dbHoliday))
             {
-                dbHoliday = dbHolidayMap[holiday.ID] = new WowHoliday
-                {
-                    Id = holiday.ID,
-                };
+                dbHoliday = dbHolidayMap[holiday.ID] = new WowHoliday(holiday.ID);
                 context.WowHoliday.Add(dbHoliday);
             }
 
@@ -538,10 +520,7 @@ public class DumpsTool
 
             if (!dbItemMap.TryGetValue(item.ID, out var dbItem))
             {
-                dbItem = new WowItem
-                {
-                    Id = item.ID,
-                };
+                dbItem = new WowItem(item.ID);
                 context.WowItem.Add(dbItem);
             }
 
@@ -705,10 +684,7 @@ public class DumpsTool
         {
             if (!dbMap.TryGetValue(ima.ID, out var dbAppearance))
             {
-                dbAppearance = new WowItemModifiedAppearance
-                {
-                    Id = ima.ID,
-                };
+                dbAppearance = new WowItemModifiedAppearance(ima.ID);
                 context.WowItemModifiedAppearance.Add(dbAppearance);
             }
 
@@ -827,10 +803,7 @@ public class DumpsTool
         {
             if (!dbMountMap.TryGetValue(mount.ID, out var dbMount))
             {
-                dbMount = new WowMount
-                {
-                    Id = mount.ID,
-                };
+                dbMount = new WowMount(mount.ID);
                 context.WowMount.Add(dbMount);
             }
 
@@ -899,10 +872,7 @@ public class DumpsTool
         {
             if (!dbPetMap.TryGetValue(pet.ID, out var dbPet))
             {
-                dbPet = new WowPet
-                {
-                    Id = pet.ID,
-                };
+                dbPet = new WowPet(pet.ID);
                 context.WowPet.Add(dbPet);
             }
 
@@ -932,10 +902,7 @@ public class DumpsTool
         {
             if (!dbToyMap.TryGetValue(toy.ID, out var dbToy))
             {
-                dbToy = new WowToy
-                {
-                    Id = toy.ID,
-                };
+                dbToy = new WowToy(toy.ID);
                 context.WowToy.Add(dbToy);
             }
 

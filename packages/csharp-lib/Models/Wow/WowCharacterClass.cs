@@ -11,4 +11,9 @@ public class WowCharacterClass
     public short RolesMask { get; set; }
 
     public string Slug { get; set; }
+
+    public WowCharacterClass(short id)
+    {
+        Id = id;
+    }
 }
