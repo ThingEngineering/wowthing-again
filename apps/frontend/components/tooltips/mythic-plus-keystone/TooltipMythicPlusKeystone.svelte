@@ -16,11 +16,16 @@
     let affixes: MythicPlusAffix[]
     let isUpgrade = false
     let mapInfo: CharacterMythicPlusAddonMapAffix
-    let scoreIncrease = 0
+    let maxScoreIncrease = 0
+    let minScoreIncrease = 0
+    let plus = ''
     $: {
         affixes = getWeeklyAffixes(character)
         if (affixes && dungeon) {
-            ({isUpgrade, mapInfo, scoreIncrease} = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
+            ({isUpgrade, mapInfo, minScoreIncrease, maxScoreIncrease} = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
+            
+            const timedData = dungeon.getTimed(mapInfo?.durationSec * 1000)
+            plus = '+'.repeat(timedData?.plus || 0)
         }
     }
 </script>
@@ -41,6 +46,9 @@
             margin-left: 5px;
         }
     }
+    .status-success {
+        word-spacing: -0.4ch;
+    }
 </style>
 
 <div class="wowthing-tooltip">
@@ -60,15 +68,19 @@
                         {#if mapInfo}
                             <p>
                                 Previous best {affixes[0].name} key:
-                                <span class="{getRunQualityAffix(mapInfo)}">{mapInfo.level}</span>
+                                <span class="{getRunQualityAffix(mapInfo)}">{mapInfo.level}{plus}</span>
                             </p>
                             {#if isUpgrade}
-                                <p>Timing this key would be a score upgrade!</p>
-                                <p>Expected score increase is <span class="status-success">{scoreIncrease}</span></p>
+                                {#if minScoreIncrease > 0}
+                                    <p>This key would be a score upgrade!</p>
+                                {:else}
+                                    <p>This key could be a score upgrade.</p>
+                                {/if}
+                                <p>Expected score increase is <span class="status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
                             {/if}
                         {:else}
-                            <p>This character has not run this dungeon on {affixes[0].name}</p>
-                            <p>Expected score increase is <span class="status-success">{scoreIncrease}</span></p>
+                            <p>No {affixes[0].name} score!</p>
+                            <p>Expected score increase is <span class="status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
                         {/if}
                     </td>
                 </tr>
