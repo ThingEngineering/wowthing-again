@@ -44,6 +44,7 @@ public class DumpsTool
             ImportJournalEncounterStrings,
             ImportJournalInstanceStrings,
             ImportJournalTierStrings,
+            ImportKeystoneAffixStrings,
             ImportSkillLineStrings,
             ImportSoulbindStrings,
             ImportSpellItemEnchantmentStrings,
@@ -157,6 +158,15 @@ public class DumpsTool
             "journaltier",
             tier => tier.ID,
             tier => tier.Name
+        );
+
+    private async Task ImportKeystoneAffixStrings(WowDbContext context) =>
+        await ImportStrings<DumpKeystoneAffix>(
+            context,
+            StringType.WowKeystoneAffixName,
+            "keystoneaffix",
+            affix => affix.ID,
+            affix => affix.Name
         );
 
     private async Task ImportSkillLineStrings(WowDbContext context) =>
