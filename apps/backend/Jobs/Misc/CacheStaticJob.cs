@@ -34,7 +34,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 65,
+        Version = 66,
     };
 
     public override async Task Run(params string[] data)
@@ -56,6 +56,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         StringType.WowCurrencyCategoryName,
         StringType.WowHolidayName,
         StringType.WowItemName,
+        StringType.WowKeystoneAffixName,
         StringType.WowMountName,
         StringType.WowQuestName,
         StringType.WowReputationDescription,
@@ -190,6 +191,20 @@ public class CacheStaticJob : JobBase, IScheduledJob
         cacheData.InstancesRaw = await LoadInstances();
         _timer.AddPoint("Instances");
 
+        // Keystone Affixes
+        var affixMaps = _stringMap
+            .Where(kvp => kvp.Key.Type == StringType.WowKeystoneAffixName)
+            .GroupBy(kvp => kvp.Key.Language)
+            .ToDictionary(
+                group => group.Key,
+                group => group.ToDictionary(
+                    kvp => kvp.Key.Id,
+                    kvp => kvp.Value
+            ));
+        cacheData.KeystoneAffixes = affixMaps[Language.enUS]
+            .Select(kvp => new StaticKeystoneAffix(kvp.Key, kvp.Value))
+            .ToDictionary(ska => ska.Id);
+
         // Professions
         var professions = await LoadProfessions();
         _timer.AddPoint("Professions");
@@ -283,6 +298,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
             foreach (var illusion in cacheData.Illusions.Values)
             {
                 illusion.Name = GetString(StringType.WowSpellItemEnchantmentName, language, illusion.EnchantmentId);
+            }
+
+            foreach (var keystoneAffix in cacheData.KeystoneAffixes.Values)
+            {
+                keystoneAffix.Name = affixMaps[language][keystoneAffix.Id];
             }
 
             foreach (var currency in cacheData.RawCurrencies)
