@@ -1,11 +1,19 @@
+import find from 'lodash/find'
 import { get } from 'svelte/store'
 
-import { weeklyAffixes } from '@/data/dungeon'
-import { userStore } from '@/stores'
-import type { Character, MythicPlusAffix } from '@/types'
+import { seasonMap, weeklyAffixes } from '@/data/dungeon'
+import { staticStore, userStore } from '@/stores'
+import type { Character } from '@/types'
+import type { StaticDataKeystoneAffix } from '@/types/data/static'
+import { Constants } from '@/data/constants'
 
 
-export function getWeeklyAffixes(character: Character): MythicPlusAffix[] {
+export function getWeeklyAffixes(character?: Character): StaticDataKeystoneAffix[] {
+    const staticData = get(staticStore)
     const userData = get(userStore)
-    return weeklyAffixes[(userData.currentPeriod[character.realm.region].id - 809) % weeklyAffixes.length]
+
+    const regionId = character?.realm.region || userData.allRegions[0]
+    const startPeriod = seasonMap[Constants.mythicPlusSeason].startPeriod
+    return weeklyAffixes[(userData.currentPeriod[regionId].id - startPeriod) % weeklyAffixes.length]
+        .map((affixSlug) => find(staticData.keystoneAffixes, (ka) => ka.slug === affixSlug))
 }

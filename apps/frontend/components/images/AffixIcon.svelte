@@ -1,21 +1,16 @@
 <script lang="ts">
-    import type { MythicPlusAffix } from '@/types'
-    import { affixMap } from '@/data/dungeon'
+    import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 
-    export let affix: MythicPlusAffix = undefined
+    export let affix: StaticDataKeystoneAffix = undefined
     export let affixId = 0
     export let size = 20
     export let border = 1
-
-    $: {
-        affix = affix || affixMap[affixId]
-    }
 </script>
 
 <WowthingImage
-    name="affix_{affix.id}"
+    name="affix/{affix?.id || affixId}"
     tooltip={affix.name}
     {size}
     {border}

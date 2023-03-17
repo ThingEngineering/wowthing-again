@@ -6,14 +6,15 @@
         getWeeklyAffixes,
         isKeystoneUpgrade
     } from '@/utils/mythic-plus'
-    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon, MythicPlusAffix } from '@/types'
+    import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon } from '@/types'
+    import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
 
     export let character: Character
     export let dungeon: Dungeon
 
-    let affixes: MythicPlusAffix[]
+    let affixes: StaticDataKeystoneAffix[]
     let isUpgrade = false
     let mapInfo: CharacterMythicPlusAddonMapAffix
     let maxScoreIncrease = 0
