@@ -1,6 +1,7 @@
 import { Constants } from '@/data/constants'
 import { dungeonMap } from '@/data/dungeon'
 import { leftPad } from '@/utils/formatting'
+import { getVaultItemLevel } from '@/utils/mythic-plus'
 import type { Character } from '@/types'
 
 
@@ -25,5 +26,13 @@ export function homeSort(sortBy: string, char: Character): string {
             5,
             '0'
         )
+    }
+    else if (sortBy === 'vaultMythicPlus') {
+        const progress = char.isMaxLevel ? char.weekly?.vault?.mythicPlusProgress : []
+        return [
+            leftPad(999 - getVaultItemLevel(progress?.[0]?.level || 0), 3, '0'),
+            leftPad(999 - getVaultItemLevel(progress?.[1]?.level || 0), 3, '0'),
+            leftPad(999 - getVaultItemLevel(progress?.[2]?.level || 0), 3, '0'),
+        ].join('|')
     }
 }
