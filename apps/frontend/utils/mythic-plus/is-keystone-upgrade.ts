@@ -7,6 +7,7 @@ import type { Character, CharacterMythicPlusAddonMapAffix } from '@/types'
 type IsKeystoneUpgradeResult = {
     isUpgrade: boolean
     mapInfo: CharacterMythicPlusAddonMapAffix
+    mapInfoAlt: CharacterMythicPlusAddonMapAffix
     maxScoreIncrease: number
     minScoreIncrease: number
 }
@@ -22,22 +23,22 @@ export function isKeystoneUpgrade(
     const ret: IsKeystoneUpgradeResult = {
         isUpgrade: false,
         mapInfo: null,
+        mapInfoAlt: null,
         maxScoreIncrease: 0,
         minScoreIncrease: 0,
     }
 
     if (addonMap && affixes) {
-        let altMapInfo: CharacterMythicPlusAddonMapAffix
-        if (affixes[0].name === 'Fortified') {
+        if (affixes[0].slug === 'fortified') {
             ret.mapInfo = addonMap.fortifiedScore
-            altMapInfo = addonMap.tyrannicalScore
+            ret.mapInfoAlt = addonMap.tyrannicalScore
         }
         else {
             ret.mapInfo = addonMap.tyrannicalScore
-            altMapInfo = addonMap.fortifiedScore
+            ret.mapInfoAlt = addonMap.fortifiedScore
         }
 
-        const scoreValues = [ret.mapInfo?.score ?? 0, altMapInfo?.score ?? 0]
+        const scoreValues = [ret.mapInfo?.score ?? 0, ret.mapInfoAlt?.score ?? 0]
         const score = Math.max(...scoreValues) + (scoreValues.reduce((a, b) => a + b, 0) / 2)
 
         const baseScore = getBaseScoreForKeyLevel(character.weekly.keystoneLevel)
