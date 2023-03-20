@@ -180,6 +180,7 @@ export class LazyStore implements LazyUgh {
             vendorState: this.hashObject(vendorState),
             zoneMapState: this.hashObject(zoneMapState),
             
+            completionistMode: `${settings.transmog.completionistMode}`,
             hideUnavailable: `${settings.collections.hideUnavailable}`,
         }
         const changedEntries = Object.entries(newHashes)
@@ -251,7 +252,7 @@ export class LazyStore implements LazyUgh {
             ))
         }
 
-        if (changedData.userTransmogData || changedHashes.appearanceState) {
+        if (changedData.userTransmogData || changedHashes.appearanceState || changedHashes.completionistMode) {
             this.appearancesFunc = once(() => this.doAppearances())
         }
 
@@ -267,7 +268,7 @@ export class LazyStore implements LazyUgh {
             this.illusionsFunc = once(() => this.doIllusions())
         }
 
-        if (changedData.userData || changedData.userTransmogData || changedHashes.journalState)
+        if (changedData.userData || changedData.userTransmogData || changedHashes.journalState || changedHashes.completionistMode)
         {
             this.journalFunc = once(() => doJournal({
                 settings,
