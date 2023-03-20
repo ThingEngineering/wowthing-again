@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/stores'
+    import { leftPad } from '@/utils/formatting'
     import {
         getRunQuality,
         getRunQualityAffix,
@@ -11,7 +12,6 @@
     import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
-    import { leftPad } from '@/utils/formatting';
 
     export let character: Character
     export let dungeon: Dungeon

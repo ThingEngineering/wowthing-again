@@ -1,4 +1,5 @@
-import type { StaticDataCurrencyCategory } from "@/types/data/static"
+import type { StaticDataCurrencyCategory } from '@/types/data/static'
+
 
 export const categoryOrder: number[] = [
     23, // Burning Crusade

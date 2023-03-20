@@ -4,10 +4,11 @@
     import { replace } from 'svelte-spa-router'
 
     import { Constants } from '@/data/constants'
-    import { seasonMap, weeklyAffixes } from '@/data/dungeon'
+    import { seasonMap } from '@/data/dungeon'
     import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
+    import { getWeeklyAffixes } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
     import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
@@ -25,7 +26,6 @@
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
     import RowUpgrade from './MythicPlusTableRowUpgrade.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
-    import { getWeeklyAffixes } from '@/utils/mythic-plus';
 
     export let slug: string
 

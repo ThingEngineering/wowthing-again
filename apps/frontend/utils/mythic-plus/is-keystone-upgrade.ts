@@ -1,4 +1,3 @@
-import { dungeons } from '@/data/dungeon'
 import { getBaseScoreForKeyLevel } from './get-base-score-for-key-level'
 import { getWeeklyAffixes } from './get-weekly-affixes'
 import type { Character, CharacterMythicPlusAddonMapAffix } from '@/types'
