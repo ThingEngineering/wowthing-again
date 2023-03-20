@@ -15,4 +15,9 @@ public class WowHoliday
 
     public List<short> Durations { get; set; }
     public List<DateTime> StartDates { get; set; }
+
+    public WowHoliday(short id)
+    {
+        Id = id;
+    }
 }

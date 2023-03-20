@@ -197,7 +197,12 @@
             <HeadTasks />
 
         {:else if field === 'vaultMythicPlus'}
-            <td>M+ Vault</td>
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >M+ Vault</td>
 
         {:else if field === 'vaultPvp'}
             <td>PvP Vault</td>

@@ -4,6 +4,7 @@ import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCat
 import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday'
 import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
+import type { StaticDataKeystoneAffix } from './keystone-affix'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'
@@ -17,6 +18,7 @@ import type { StaticDataToy, StaticDataToyArray } from './toy'
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
     illusions: Record<number, StaticDataIllusion>
+    keystoneAffixes: Record<number, StaticDataKeystoneAffix>
     professions: Record<number, StaticDataProfession>
     questNames: Record<number, string>
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>

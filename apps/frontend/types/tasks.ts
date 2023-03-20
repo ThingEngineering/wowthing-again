@@ -1,4 +1,5 @@
-import type { Character } from "./character"
+import type { Character } from './character'
+
 
 export type Task = {
     minimumLevel?: number

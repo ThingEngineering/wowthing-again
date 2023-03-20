@@ -13,4 +13,9 @@ public class WowPet
     public short PetType { get; set; }
     public short SourceType { get; set; }
     public int ItemId { get; set; }
+
+    public WowPet(int id)
+    {
+        Id = id;
+    }
 }

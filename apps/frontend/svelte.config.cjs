@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const sveltePreprocess = require('svelte-preprocess')
 

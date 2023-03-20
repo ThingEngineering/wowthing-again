@@ -8,4 +8,9 @@ public class WowItemModifiedAppearance
     public short Modifier { get; set; }
     public short Order { get; set; }
     public short SourceType { get; set; }
+
+    public WowItemModifiedAppearance(int id)
+    {
+        Id = id;
+    }
 }

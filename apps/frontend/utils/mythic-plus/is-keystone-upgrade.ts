@@ -3,48 +3,53 @@ import { getWeeklyAffixes } from './get-weekly-affixes'
 import type { Character, CharacterMythicPlusAddonMapAffix } from '@/types'
 
 
-interface IsKeystoneUpgradeResult {
+type IsKeystoneUpgradeResult = {
     isUpgrade: boolean
     mapInfo: CharacterMythicPlusAddonMapAffix
-    scoreIncrease: number
+    mapInfoAlt: CharacterMythicPlusAddonMapAffix
+    maxScoreIncrease: number
+    minScoreIncrease: number
 }
 
-export function isKeystoneUpgrade(character: Character, season: number, dungeonId: number): IsKeystoneUpgradeResult {
+export function isKeystoneUpgrade(
+    character: Character,
+    season: number,
+    dungeonId: number
+): IsKeystoneUpgradeResult {
     const addonMap = character.mythicPlusSeasons?.[season]?.[dungeonId]
     const affixes = getWeeklyAffixes(character)
 
-    let isUpgrade = false
-    let mapInfo: CharacterMythicPlusAddonMapAffix
-    let scoreIncrease = 0
+    const ret: IsKeystoneUpgradeResult = {
+        isUpgrade: false,
+        mapInfo: null,
+        mapInfoAlt: null,
+        maxScoreIncrease: 0,
+        minScoreIncrease: 0,
+    }
+
     if (addonMap && affixes) {
-        let altMapInfo: CharacterMythicPlusAddonMapAffix
-        if (affixes[0].name === 'Fortified') {
-            mapInfo = addonMap.fortifiedScore
-            altMapInfo = addonMap.tyrannicalScore
+        if (affixes[0].slug === 'fortified') {
+            ret.mapInfo = addonMap.fortifiedScore
+            ret.mapInfoAlt = addonMap.tyrannicalScore
         }
         else {
-            mapInfo = addonMap.tyrannicalScore
-            altMapInfo = addonMap.fortifiedScore
+            ret.mapInfo = addonMap.tyrannicalScore
+            ret.mapInfoAlt = addonMap.fortifiedScore
         }
 
-        isUpgrade = (
-            (!mapInfo) ||
-            (character.weekly.keystoneLevel > mapInfo.level) ||
-            (character.weekly.keystoneLevel === mapInfo.level && mapInfo.overTime)
-        )
-
-        const scoreValues = [mapInfo?.score ?? 0, altMapInfo?.score ?? 0]
+        const scoreValues = [ret.mapInfo?.score ?? 0, ret.mapInfoAlt?.score ?? 0]
         const score = Math.max(...scoreValues) + (scoreValues.reduce((a, b) => a + b, 0) / 2)
 
-        const expectedValues = [getBaseScoreForKeyLevel(character.weekly.keystoneLevel), scoreValues[1]]
-        const expectedScore = Math.max(...expectedValues) + (expectedValues.reduce((a, b) => a + b, 0) / 2)
+        const baseScore = getBaseScoreForKeyLevel(character.weekly.keystoneLevel)
+        ret.minScoreIncrease = Math.max(0, getExpectedScore(baseScore - 5 - 5, scoreValues[1]) - score)
+        ret.maxScoreIncrease = Math.max(0, getExpectedScore(baseScore + 5, scoreValues[1]) - score)
 
-        scoreIncrease = expectedScore - score
+        ret.isUpgrade = !ret.mapInfo || ret.maxScoreIncrease > 0
     }
 
-    return {
-        isUpgrade,
-        mapInfo,
-        scoreIncrease,
-    }
+    return ret
+}
+
+function getExpectedScore(score1: number, score2: number): number {
+    return Math.max(score1, score2) + ((score1 + score2) / 2)
 }

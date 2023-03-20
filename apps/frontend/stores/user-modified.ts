@@ -1,5 +1,5 @@
-import { WritableFancyStore } from "@/types";
-import type { UserModifiedData } from "@/types/user-modified";
+import { WritableFancyStore } from '@/types'
+import type { UserModifiedData } from '@/types/user-modified'
 
 
 export class UserModifiedStore extends WritableFancyStore<UserModifiedData> {

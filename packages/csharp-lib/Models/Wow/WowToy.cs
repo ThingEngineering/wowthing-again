@@ -10,4 +10,9 @@ public class WowToy
     public int ItemId { get; set; }
     public int Flags { get; set; }
     public short SourceType { get; set; }
+
+    public WowToy(int id)
+    {
+        Id = id;
+    }
 }

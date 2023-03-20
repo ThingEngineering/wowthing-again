@@ -9,4 +9,9 @@ public class WowCharacterRace
     public short Id { get; set; }
 
     public WowFaction Faction { get; set; }
+
+    public WowCharacterRace(short id)
+    {
+        Id = id;
+    }
 }

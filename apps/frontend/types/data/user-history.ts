@@ -1,4 +1,5 @@
-import type { DateTime } from "luxon"
+import type { DateTime } from 'luxon'
+
 
 export interface UserHistoryData {
     gold: Record<number, [string, number][]>

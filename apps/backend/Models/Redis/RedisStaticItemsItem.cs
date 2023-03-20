@@ -9,9 +9,8 @@ public class RedisStaticItemsItem : WowItem
     public string Name { get; set; }
     public WowItemModifiedAppearance[] Appearances { get; set; }
 
-    public RedisStaticItemsItem(WowItem item)
+    public RedisStaticItemsItem(WowItem item) : base(item.Id)
     {
-        Id = item.Id;
         ClassMask = item.GetCalculatedClassMask();
         RaceMask = item.RaceMask;
         Stackable = item.Stackable;

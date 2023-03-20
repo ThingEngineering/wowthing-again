@@ -10,4 +10,9 @@ public class WowCurrency
     public short CategoryId { get; set; }
     public int MaxPerWeek { get; set; }
     public int MaxTotal { get; set; }
+
+    public WowCurrency(short id)
+    {
+        Id = id;
+    }
 }

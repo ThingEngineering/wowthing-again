@@ -7,9 +7,8 @@ public class StaticCharacterRace : WowCharacterRace
     public string Name { get; set; }
     public string Slug { get; set; }
 
-    public StaticCharacterRace(WowCharacterRace dbRace)
+    public StaticCharacterRace(WowCharacterRace dbRace) : base(dbRace.Id)
     {
-        Id = dbRace.Id;
         Faction = dbRace.Faction;
     }
 }

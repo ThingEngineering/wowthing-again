@@ -8,9 +8,8 @@ public class StaticMount : WowMount
 {
     public string Name { get; set; }
 
-    public StaticMount(WowMount mount)
+    public StaticMount(WowMount mount) : base(mount.Id)
     {
-        Id = mount.Id;
         Flags = mount.Flags;
         ItemId = mount.ItemId;
         SpellId = mount.SpellId;

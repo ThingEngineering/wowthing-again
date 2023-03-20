@@ -17,5 +17,5 @@ export function getBaseScoreForKeyLevel(keyLevel: number): number {
     else {
         affixes = 5
     }
-    return 25 + (affixes * 5) + (keyLevel * 5)
+    return 25 + (affixes * 5) + (Math.max(2, Math.min(10, keyLevel)) * 5) + (Math.max(0, keyLevel - 10) * 7)
 }

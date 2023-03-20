@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { MythicPlusAffix } from '@/types'
+    import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
 
-    export let affixes: MythicPlusAffix[]
+    export let affixes: StaticDataKeystoneAffix[]
 </script>
 
 <style lang="scss">

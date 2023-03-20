@@ -8,9 +8,8 @@ public class StaticToy : WowToy
 {
     public string Name { get; set; }
 
-    public StaticToy(WowToy toy)
+    public StaticToy(WowToy toy) : base(toy.Id)
     {
-        Id = toy.Id;
         Flags = toy.Flags;
         ItemId = toy.ItemId;
         SourceType = toy.SourceType;

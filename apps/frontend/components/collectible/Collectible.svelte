@@ -1,15 +1,15 @@
 <script lang="ts">
     import { afterUpdate, setContext } from 'svelte'
 
+    import { lazyStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
+    import type { LazyCollectible } from '@/stores/lazy/collectible'
     import type { MultiSlugParams } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory} from '@/types/data/manual'
 
     import CollectibleSection from './CollectibleSection.svelte'
     import CollectibleSidebar from './CollectibleSidebar.svelte'
-    import { lazyStore } from '@/stores';
-    import type { LazyCollectible } from '@/stores/lazy/collectible';
 
     export let params: MultiSlugParams
     export let route: string

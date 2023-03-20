@@ -57,6 +57,13 @@
     <h3>Dragonflight Settings</h3>
 
     <CheckboxInput
+        bind:value={$settingsStore.tasks.dragonflightCountGathering}
+        name="tasks_dragonflightTreatises"
+    >
+        Count incomplete gathering in Profession Weeklies.
+    </CheckboxInput>
+
+    <CheckboxInput
         bind:value={$settingsStore.tasks.dragonflightTreatises}
         name="tasks_dragonflightTreatises"
     >

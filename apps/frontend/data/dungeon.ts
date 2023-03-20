@@ -1,61 +1,19 @@
-import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
+import { Dungeon, MythicPlusSeason } from '@/types'
 import type { StaticDataInstance } from '@/types/data/static'
 
 
-export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
-    [
-        new MythicPlusAffix(0, 'Unknown'),
-        // Always
-        new MythicPlusAffix(9, 'Tyrannical'),
-        new MythicPlusAffix(10, 'Fortified'),
-        // Set A
-        new MythicPlusAffix(6, 'Raging'),
-        new MythicPlusAffix(11, 'Bursting'),
-        new MythicPlusAffix(122, 'Inspiring'),
-        new MythicPlusAffix(123, 'Spiteful'),
-        new MythicPlusAffix(7, 'Bolstering'),
-        new MythicPlusAffix(8, 'Sanguine'),
-        // Set B
-        new MythicPlusAffix(3, 'Volcanic'),
-        new MythicPlusAffix(4, 'Necrotic'),
-        new MythicPlusAffix(12, 'Grievous'),
-        new MythicPlusAffix(13, 'Explosive'),
-        new MythicPlusAffix(14, 'Quaking'),
-        new MythicPlusAffix(124, 'Storming'),
-        // Retired
-        new MythicPlusAffix(1, 'Overflowing'),
-        new MythicPlusAffix(2, 'Skittish'),
-        new MythicPlusAffix(5, 'Teeming'),
-        // Seasonal
-        new MythicPlusAffix(16, 'Infested'), // BfA S1
-        new MythicPlusAffix(117, 'Reaping'), // BfA S2
-        new MythicPlusAffix(119, 'Beguiling'), // BfA S3
-        new MythicPlusAffix(120, 'Awakened'), // BfA S4
-        new MythicPlusAffix(121, 'Prideful'), // SL S1
-        new MythicPlusAffix(128, 'Tormented'), // SL S2
-        new MythicPlusAffix(129, 'Infernal'), // Legion TW S1
-        new MythicPlusAffix(130, 'Encrypted'), // SL S3
-    ].map((affix) => [affix.id, affix])
-)
-
-const affixNameMap = Object.fromEntries(
-    Object.entries(affixMap).map(([, affix]) => [affix.name, affix])
-)
-
-export const weeklyAffixes: MythicPlusAffix[][] = [
-    ['Fortified', 'Bursting', 'Storming'],
-    ['Tyrannical', 'Raging', 'Volcanic'],
-    ['Fortified', 'Inspiring', 'Grievous'],
-    ['Tyrannical', 'Spiteful', 'Necrotic'],
-    ['Fortified', 'Bolstering', 'Quaking'],
-    ['Tyrannical', 'Sanguine', 'Storming'],
-    ['Fortified', 'Raging', 'Explosive'],
-    ['Tyrannical', 'Bursting', 'Volcanic'],
-    ['Fortified', 'Spiteful', 'Necrotic'],
-    ['Tyrannical', 'Inspiring', 'Quaking'],
-    ['Fortified', 'Sanguine', 'Grievous'],
-    ['Tyrannical', 'Bolstering', 'Explosive'],
-].map((arr) => arr.map((affix) => affixNameMap[affix]))
+export const weeklyAffixes: string[][] = [
+    ['fortified', 'raging', 'quaking'],
+    ['tyrannical', 'bursting', 'grievous'],
+    ['fortified', 'sanguine', 'volcanic'],
+    ['tyrannical', 'raging', 'storming'],
+    ['fortified', 'spiteful', 'grievous'],
+    ['tyrannical', 'sanguine', 'explosive'],
+    ['fortified', 'bolstering', 'storming'],
+    ['tyrannical', 'spiteful', 'quaking'],
+    ['fortified', 'bursting', 'explosive'],
+    ['tyrannical', 'bolstering', 'volcanic'],
+]
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
@@ -295,10 +253,10 @@ export const dungeons: Dungeon[] = [
     ),
     new Dungeon(
         401,
-        'The Azure Vault',
+        'The Azure Vaults',
         'AV',
         'achievement/16272',
-        34
+        35.5
     ),
     new Dungeon(
         402,

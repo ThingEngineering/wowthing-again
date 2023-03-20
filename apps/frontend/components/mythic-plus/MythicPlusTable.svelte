@@ -4,11 +4,13 @@
     import { replace } from 'svelte-spa-router'
 
     import { Constants } from '@/data/constants'
-    import { seasonMap, weeklyAffixes } from '@/data/dungeon'
+    import { seasonMap } from '@/data/dungeon'
     import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
-    import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
+    import { getWeeklyAffixes } from '@/utils/mythic-plus'
+    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
+    import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -27,7 +29,7 @@
 
     export let slug: string
 
-    let affixes: MythicPlusAffix[]
+    let affixes: StaticDataKeystoneAffix[]
     let isCurrentSeason: boolean
     let isThisWeek: boolean
     let season: MythicPlusSeason
@@ -91,8 +93,7 @@
 
         isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
-            const week = ($userStore.currentPeriod[1].id - 809) % weeklyAffixes.length
-            affixes = weeklyAffixes[week]
+            affixes = getWeeklyAffixes()
         }
     }
 
