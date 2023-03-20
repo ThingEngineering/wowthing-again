@@ -27,7 +27,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 31,
+        Version = 32,
     };
 
     public override async Task Run(params string[] data)
@@ -257,6 +257,12 @@ public class CacheJournalJob : JobBase, IScheduledJob
                 {
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
+
+                    if (Hardcoded.JournalDungeonsOnly.Contains(tier.ID) && map.InstanceType != 1)
+                    {
+                        continue;
+                    }
+
                     if (lastInstanceType == -1)
                     {
                         lastInstanceType = map.InstanceType;
