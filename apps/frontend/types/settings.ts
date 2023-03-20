@@ -67,6 +67,7 @@ export interface Settings {
 
     tasks: {
         disabledChores: Record<string, string[]>
+        dragonflightCountGathering: boolean
         dragonflightTreatises: boolean
     }
 

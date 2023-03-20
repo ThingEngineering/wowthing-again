@@ -47,7 +47,17 @@
                 continue
             }
 
-            countTotal++
+            const nameParts = choreTask.taskName.split(': ')
+            const skipCounting = (
+                !$settingsStore.tasks.dragonflightCountGathering &&
+                ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0 &&
+                ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
+                progressQuest?.status !== QuestStatus.Completed
+            )
+
+            if (!skipCounting) {
+                countTotal++
+            }
 
             let status = 0
             let statusTexts = [
@@ -128,7 +138,7 @@
                 statusTexts,
             ])
             
-            if (status === 2) {
+            if (status === QuestStatus.Completed && !skipCounting) {
                 countCompleted++
             }
         }
