@@ -47,22 +47,23 @@
                 continue
             }
 
+            let status = 0
+            let statusTexts = [
+                !progressQuest ? choreTask.canGetFunc?.(character) || '' : ''
+            ]
+
             const nameParts = choreTask.taskName.split(': ')
             const skipCounting = (
                 !$settingsStore.tasks.dragonflightCountGathering &&
                 ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0 &&
                 ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
                 progressQuest?.status !== QuestStatus.Completed
-            )
+            ) || statusTexts[0] !== ''
 
             if (!skipCounting) {
                 countTotal++
             }
 
-            let status = 0
-            let statusTexts = [
-                !progressQuest ? choreTask.canGetFunc?.(character) || '' : ''
-            ]
             if (statusTexts[0].startsWith('Need')) {
                 status = 3
             }
