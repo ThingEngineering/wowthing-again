@@ -14,8 +14,8 @@
     }
     else
     {
-        <link rel="stylesheet" asp-href-include="~/dist/vendor.*css">
-        <link rel="stylesheet" asp-href-include="~/dist/home.*css">
+        <link rel="stylesheet" asp-href-include="~/dist/vendor-*css">
+        <link rel="stylesheet" asp-href-include="~/dist/home-*css">
     }
 
     @await RenderSectionAsync("head", required: false)
