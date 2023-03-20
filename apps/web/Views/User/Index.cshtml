@@ -30,8 +30,8 @@
     }
     else
     {
-        <script type="module" asp-src-include="~/dist/vendor.*js"></script>
-        <script type="module" asp-src-include="~/dist/home.*js"></script>
+        <script type="module" asp-src-include="~/dist/vendor-*js"></script>
+        <script type="module" asp-src-include="~/dist/home-*js"></script>
     }
 
     @if (Model.Settings.General?.UseWowdb == true)
