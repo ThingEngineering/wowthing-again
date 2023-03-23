@@ -828,7 +828,7 @@ public class DumpsTool
 
             if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
             {
-                languageString = new LanguageString
+                dbLanguageMap[(Language.enUS, mount.ID)] = languageString = new LanguageString
                 {
                     Language = Language.enUS,
                     Type = StringType.WowMountName,
