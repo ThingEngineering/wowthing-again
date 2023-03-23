@@ -95,6 +95,11 @@ export const currencyItems: Record<number, number[]> = {
         190189, // Sandworn Relic
     ],
 
+    // Dragonflight
+    250: [
+        204276, // Untapped Forbidden Knowledge
+        202196, // Zskera Vault Key
+    ],
     // Dragonflight > Crafting Knowledge
     125001: [
         191784, // Dragon Shard of Knowledge [DF]
