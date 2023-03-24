@@ -1,16 +1,13 @@
 <script lang="ts">
     import { itemStore, userStore } from '@/stores'
-    import { ItemLocation, Region } from '@/enums'
+    import { ItemLocation } from '@/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
-    import type { Character } from '@/types'
-    import type { StaticDataRealm } from '@/types/data/static'
     import type {
         ItemSearchResponseCharacter,
         ItemSearchResponseCommon,
         ItemSearchResponseGuildBank
     } from '@/types/items'
-    import type { Guild } from '@/types/guild'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -19,7 +16,6 @@
     export let itemId: number
 
     let item: ItemSearchResponseCommon
-    let realm: StaticDataRealm
     $: {
         item = characterItem || guildBankItem
     }

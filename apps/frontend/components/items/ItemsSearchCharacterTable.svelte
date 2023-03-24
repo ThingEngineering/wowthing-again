@@ -2,14 +2,11 @@
     import sortBy from 'lodash/sortBy'
 
     import { Region } from '@/enums'
-    import { itemStore, userStore } from '@/stores'
-    import { toNiceNumber } from '@/utils/formatting'
-    import tippy from '@/utils/tippy'
+    import { userStore } from '@/stores'
     import type { Character } from '@/types'
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchCharacterRow.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let response: ItemSearchResponseItem[]
 
@@ -17,8 +14,8 @@
 
     let characters: [Character, CharacterItem[]][]
     $: {
-        let characterMap: Record<number, CharacterItem[]> = {}
-        let guildBanks = {}
+        const characterMap: Record<number, CharacterItem[]> = {}
+        // let guildBanks = {}
         for (const item of response) {
             for (const character of (item.characters || [])) {
                 characterMap[character.characterId] ||= []
@@ -28,7 +25,7 @@
                 })
             }
             // for (const guildBank of (item.guildBanks || [])) {
-            //     characterMap[character.characterId] ||= []
+            //     characterMap[character.characterId] ||= [] 1`2
             //     characterMap[character.characterId].push(character)
             // }
         }
@@ -40,7 +37,7 @@
                     data
                 ])
             ,
-            ([character, data]) => [
+            ([character,]) => [
                 Region[character.realm.region],
                 character.realm.name,
                 character.name,
