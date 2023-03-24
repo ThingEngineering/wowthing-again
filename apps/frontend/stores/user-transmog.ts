@@ -173,7 +173,6 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                         
                         for (const setSet of setSets) {
                             let key: string
-                            console.log(TransmogSetType[group.type], setSet.tags.map((tagId) => manualData.tagsById[tagId]), group)
                             if (group.type === TransmogSetType.Armor) {
                                 key = setSet.tags
                                     .map((tagId) => manualData.tagsById[tagId])

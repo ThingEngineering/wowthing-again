@@ -46,7 +46,6 @@
                 character.name,
             ].join('|')
         )
-        console.log(characters)
     }
 </script>
 
