@@ -8,7 +8,6 @@ public class ManualTransmogSetCategory
 {
     public string Name { get; set; }
     public List<ManualTransmogSetGroup> Groups { get; set; }
-    public List<ManualTransmogSetSet> Sets { get; set; }
 
     public string Slug => Name.Slugify();
 
@@ -19,11 +18,6 @@ public class ManualTransmogSetCategory
         Groups = category.Groups
             .EmptyIfNull()
             .Select(group => new ManualTransmogSetGroup(group, tagMap))
-            .ToList();
-
-        Sets = category.Sets
-            .EmptyIfNull()
-            .Select(set => new ManualTransmogSetSet(set, tagMap))
             .ToList();
     }
 }

@@ -13,7 +13,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogSetCategory
-    export let skipClasses: Record<string, boolean>
+    export let skipClasses: Record<string, boolean|number>
     export let slugs: string[]
     export let startSpacer = false
 
@@ -22,6 +22,8 @@
     let getPercent: (groupIndex: number, setIndex: number) => number
     let setKey: string
     let showPercent: boolean
+    let shownArmor: number
+    let shownClass: number
     $: {
         anyClass = some(category.filteredGroups, (group) => group.type === TransmogSetType.Class)
 
@@ -29,6 +31,9 @@
         categoryPercent = categoryHas.have / categoryHas.total * 100
         showPercent = !isNaN(categoryPercent)
         
+        shownArmor = skipClasses['shownArmor'] as number
+        shownClass = skipClasses['shownClass'] as number
+
         setKey = slugs.join('--')
 
         getPercent = function(groupIndex: number, setIndex: number): number {
@@ -63,6 +68,13 @@
             position: sticky;
             top: 0;
             z-index: 1;
+
+            &.blank {
+                border-bottom-width: 0;
+                border-left: 1px solid $border-color;
+                border-right-width: 0;
+                border-top-width: 0;
+            }
         }
         .icon {
             border-left: 1px solid $border-color;
@@ -113,8 +125,10 @@
         text-align: right;
         word-spacing: -0.2ch;
     }
-    .group .percent-cell {
-        background-color: $highlight-background;
+    .group {
+        .percent-cell {
+            background-color: $highlight-background;
+        }
     }
 </style>
 
@@ -247,7 +261,7 @@
             </td>
         {/if}
 
-        <td class="icon" colspan="100"></td>
+        <td class="blank" colspan="100"></td>
     {/if}
 </tr>
 
@@ -258,7 +272,7 @@
                 {Math.floor(getPercent(groupIndex, -1)).toFixed(0)} %
             </span>
         </td>
-        <td class="name highlight" colspan="100">
+        <td class="name highlight" colspan="{1 + (anyClass ? shownClass : shownArmor)}">
             {#if group.prefix}
                 <span class="tag">
                     [{group.prefix}]
@@ -269,7 +283,7 @@
         </td>
     </tr>
 
-    {#each category.filteredSets as set, setIndex}
+    {#each group.filteredSets as set, setIndex}
         <tr class:faded={set.name.endsWith('*')}>
                 <td class="percent-cell">
                     <span class="drop-shadow {getPercentClass(getPercent(groupIndex, setIndex))}">

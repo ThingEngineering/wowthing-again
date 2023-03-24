@@ -17,7 +17,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogCategory
-    export let skipClasses: Record<string, boolean>
+    export let skipClasses: Record<string, boolean|number>
     export let slugs: string[]
     export let startSpacer = false
 

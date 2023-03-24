@@ -21,13 +21,6 @@ public class ManualTransmogSetCategoryConverter : JsonConverter
         }
         catArray.Add(groupsArray);
 
-        var setsArray = new JArray();
-        foreach (var set in category.Sets.EmptyIfNull())
-        {
-            setsArray.Add(CreateSetArray(set));
-        }
-        catArray.Add(setsArray);
-
         catArray.WriteTo(writer);
     }
 
@@ -36,6 +29,7 @@ public class ManualTransmogSetCategoryConverter : JsonConverter
         var groupArray = new JArray();
         groupArray.Add(group.Type);
         groupArray.Add(group.Name);
+        groupArray.Add(group.MatchType);
 
         var tagsArray = new JArray();
         foreach (int tag in group.MatchTags.EmptyIfNull())
@@ -43,6 +37,13 @@ public class ManualTransmogSetCategoryConverter : JsonConverter
             tagsArray.Add(tag);
         }
         groupArray.Add(tagsArray);
+
+        var setsArray = new JArray();
+        foreach (var set in group.Sets.EmptyIfNull())
+        {
+            setsArray.Add(CreateSetArray(set));
+        }
+        groupArray.Add(setsArray);
 
         bool usePrefix = !string.IsNullOrWhiteSpace(group.Prefix);
         bool useBonusIds = group.BonusIds != null;
