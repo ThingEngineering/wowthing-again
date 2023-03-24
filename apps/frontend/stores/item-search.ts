@@ -10,9 +10,14 @@ import type {
 } from '@/types/items'
 
 
+type ItemSearchGroupBy =
+    | 'character'
+    | 'item'
+
 export class ItemSearchState {
-    public searchTerms = ''
+    public groupBy: ItemSearchGroupBy = 'item'
     public location = ItemLocation.Any
+    public searchTerms = ''
 
     private static minimumTermsLength = 3
     private static url = '/api/item-search'
