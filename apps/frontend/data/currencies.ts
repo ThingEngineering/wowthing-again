@@ -46,6 +46,7 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 export const currencyExtra: Record<number, number[]> = {
     // Dragonflight
     250: [
+        1191, // Valor
         2167, // Catalyst Charges
     ],
     125001: [
