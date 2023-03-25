@@ -18,7 +18,8 @@
 
     const sortByChoices: SettingsChoice[] = [
         {key: 'account', name: 'Account'},
-        {key: 'armor', name: 'Armor type'},
+        {key: 'armor', name: 'Armor: Cloth > Plate'},
+        {key: '-armor', name: 'Armor: Plate > Cloth'},
         {key: 'class', name: 'Class name'},
         {key: 'enabled', name: 'Active accounts first'},
         {key: 'faction', name: 'Alliance > Horde'},
