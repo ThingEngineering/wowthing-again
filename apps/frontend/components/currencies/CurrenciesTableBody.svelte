@@ -42,6 +42,12 @@
             
             amount = toNiceNumber(characterItemCount)
             tooltip = `${characterItemCount.toLocaleString()} ${name}`
+
+            // TODO remove this once unique count is in item data
+            if (itemId === 201836) {
+                per = characterItemCount / 12 * 100
+                tooltip = tooltip.replace(' ', ` / ${12} `)
+            }
         }
     }
 </script>

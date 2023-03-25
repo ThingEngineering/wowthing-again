@@ -4,11 +4,12 @@ input[type='checkbox'] {
     padding: 0.3rem;
 }
 
-.fancy-checkbox {
-    &.disabled {
-        color: $colour-fail;
-    }
+input.disabled {
+    @extend .border-fail;
+    opacity: 0.5;
+}
 
+.fancy-checkbox {
     label {
         cursor: pointer;
         position: relative;

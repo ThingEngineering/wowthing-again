@@ -50,7 +50,7 @@ export class WritableFancyStore<T> {
     async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = this.value.loaded
         if (options?.evenIfLoaded !== true && wasLoaded) {
-            //console.log('evenIfLoaded', options)
+            //789'evenIfLoaded', options)
             return false
         }
         if (options?.onlyIfLoaded === true && !wasLoaded) {

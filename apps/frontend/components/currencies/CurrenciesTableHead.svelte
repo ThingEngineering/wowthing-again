@@ -17,7 +17,7 @@
     let cls: string
     let onClick: (event: Event) => void
     $: {
-        cls = itemId ? `quality${$itemStore.items[itemId].quality}` : 'quality1'
+        cls = itemId ? `quality${$itemStore.items[itemId]?.quality || 1}` : 'quality1'
 
         onClick = function(event: Event) {
             event.preventDefault()

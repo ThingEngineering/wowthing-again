@@ -40,6 +40,10 @@ ARMOR_MASKS = {
         1 + 2 + 32,
     ]
 }
+ARMOR_MASK = {}
+for armor_type, masks in ARMOR_MASKS.items():
+    for mask in masks:
+        ARMOR_MASK[mask] = armor_type
 
 SLOT_MAP = {
      1: 'Head',
@@ -258,6 +262,8 @@ def main():
             mask = set['class_mask']
             if mask in CLASS_MASK:
                 print(f'      - "class:{CLASS_MASK[mask]}"')
+            elif mask in ARMOR_MASK:
+                print(f'      - "armor:{ARMOR_MASK[mask]}"')
 
             print_items(set_items[set_id], appearances, item_slot, output_items=True, set_mode=True)
 

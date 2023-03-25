@@ -5,7 +5,7 @@ import type { ManualDataTransmogGroup } from '@/types/data/manual'
 export default function getTransmogSpan(
     group: ManualDataTransmogGroup,
     set: TransmogSetData,
-    skipClasses: Record<string, boolean>
+    skipClasses: Record<string, boolean|number>
 ): number {
     let span = set.span
     if (group.type === 'armor') {

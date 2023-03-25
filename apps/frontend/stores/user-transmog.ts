@@ -1,4 +1,6 @@
 import every from 'lodash/every'
+import flatten from 'lodash/flatten'
+import intersection from 'lodash/intersection'
 import some from 'lodash/some'
 import uniq from 'lodash/uniq'
 import { get } from 'svelte/store'
@@ -6,7 +8,7 @@ import { get } from 'svelte/store'
 import { itemStore } from './item'
 import { manualStore } from './manual'
 import { userModifiedStore } from './user-modified'
-import { TransmogSetType } from '@/enums'
+import { TransmogSetMatchType, TransmogSetType } from '@/enums'
 import { UserCount, WritableFancyStore } from '@/types'
 import type { FancyStoreType, Settings } from '@/types'
 import type { UserTransmogData } from '@/types/data'
@@ -88,10 +90,11 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 const catStats = stats[catKey] = new UserCount()
 
                 category.filteredGroups = []
-                category.filteredSets = []
 
                 // Pre-filter data
                 for (const group of category.groups) {
+                    group.filteredSets = []
+                    
                     if (
                         (completionist && group.completionist === false) ||
                         (!completionist && group.completionist === true) ||
@@ -103,21 +106,21 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                     }
 
                     category.filteredGroups.push(group)
-                }
 
-                for (const set of category.sets) {
-                    if (
-                        (completionist && set.completionist === false) ||
-                        (!completionist && set.completionist === true) ||
-                        (skipAlliance && set.name.startsWith(':alliance:')) ||
-                        (skipHorde && set.name.startsWith(':horde:')) ||
-                        (skipUnavailable && set.name.endsWith('*'))
-                    ) {
-                        continue
+                    for (const set of group.sets) {
+                        if (
+                            (completionist && set.completionist === false) ||
+                            (!completionist && set.completionist === true) ||
+                            (skipAlliance && set.name.startsWith(':alliance:')) ||
+                            (skipHorde && set.name.startsWith(':horde:')) ||
+                            (skipUnavailable && set.name.endsWith('*'))
+                        ) {
+                            continue
+                        }
+    
+                        group.filteredSets.push(set)
                     }
-
-                    category.filteredSets.push(set)
-                }
+                    }
 
                 // Boop
                 for (let groupIndex = 0; groupIndex < category.filteredGroups.length; groupIndex++) {
@@ -127,21 +130,35 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                     group.setData = []
 
-                    let itemSets: ManualDataSharedItemSet[] = []
-                    for (const tag of group.matchTags) {
-                        const setsByTag = manualData.shared.itemSetsByTag[tag]
-                        if (setsByTag) {
-                            itemSets.push(...setsByTag)
-                        }
-                        else {
-                            console.log('Invalid tag?', group, tag)
-                        }
+                    let itemSets: ManualDataSharedItemSet[]
+                    if (group.matchType === TransmogSetMatchType.Any) {
+                        itemSets = uniq(
+                            flatten(
+                                group.matchTags.map((tag) => manualData.shared.itemSetsByTag[tag])
+                            )
+                        )
                     }
-                    itemSets = uniq(itemSets)
+                    else if (group.matchType === TransmogSetMatchType.All) {
+                        itemSets = intersection(
+                            ...group.matchTags.map((tag) => manualData.shared.itemSetsByTag[tag])
+                        )
+                    }
+
+                    // let itemSets: ManualDataSharedItemSet[] = []
+                    // for (const tag of group.matchTags) {
+                    //     const setsByTag = manualData.shared.itemSetsByTag[tag]
+                    //     if (setsByTag) {
+                    //         itemSets.push(...setsByTag)
+                    //     }
+                    //     else {
+                    //         console.log('Invalid tag?', group, tag)
+                    //     }
+                    // }
+                    // itemSets = uniq(itemSets)
 
                     // Work out sources for each set
-                    for (let setIndex = 0; setIndex < category.filteredSets.length; setIndex++) {
-                        const set = category.filteredSets[setIndex]
+                    for (let setIndex = 0; setIndex < group.filteredSets.length; setIndex++) {
+                        const set = group.filteredSets[setIndex]
                         const setKey = `${groupKey}--${setIndex}`
                         const setStats = stats[setKey] ||= new UserCount()
                         
@@ -156,7 +173,13 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                         
                         for (const setSet of setSets) {
                             let key: string
-                            if (group.type === TransmogSetType.Class) {
+                            if (group.type === TransmogSetType.Armor) {
+                                key = setSet.tags
+                                    .map((tagId) => manualData.tagsById[tagId])
+                                    .filter((tagName) => tagName.startsWith('armor:'))[0]
+                                    .split(':')[1]
+                            }
+                            else if (group.type === TransmogSetType.Class) {
                                 key = setSet.tags
                                     .map((tagId) => manualData.tagsById[tagId])
                                     .filter((tagName) => tagName.startsWith('class:'))[0]
@@ -177,6 +200,11 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                         slotData.sourceIds.push(source)
                                     }
                                     else {
+                                        if (!item.appearances[modifier]) {
+                                            console.log('Missing appearance?', modifier, item)
+                                            continue
+                                        }
+
                                         const appearanceId = item.appearances[modifier].appearanceId
                                         const otherItems = itemData.appearanceToItems[appearanceId]
                                         for (const otherItemId of otherItems) {

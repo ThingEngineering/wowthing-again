@@ -34,6 +34,7 @@ public class ApplicationUserSettings
     {
         "account",
         "armor",
+        "-armor",
         "class",
         "enabled",
         "faction",

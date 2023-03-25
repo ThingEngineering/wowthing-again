@@ -7,8 +7,8 @@ import type { ManualDataTransmogCategory } from '@/types/data/manual'
 export default function getSkipClasses(
     settingsData: Settings,
     category?: ManualDataTransmogCategory
-): Record<string, boolean> {
-    const skipClasses: Record<string, boolean> = {}
+): Record<string, boolean|number> {
+    const skipClasses: Record<string, boolean|number> = {}
 
     skipClasses['death-knight'] = !settingsData.transmog.showDeathKnight
     skipClasses['demon-hunter'] = !settingsData.transmog.showDemonHunter
@@ -29,6 +29,10 @@ export default function getSkipClasses(
             skipClasses[skipClass] = true
         }
     }
+
+    skipClasses['shownClass'] = Object.values(skipClasses)
+        .filter((skip) => !skip)
+        .length
 
     skipClasses['cloth'] = every([
         skipClasses['mage'],
@@ -51,6 +55,10 @@ export default function getSkipClasses(
         skipClasses['paladin'],
         skipClasses['warrior'],
     ])
+
+    skipClasses['shownArmor'] = [skipClasses['cloth'], skipClasses['leather'], skipClasses['mail'], skipClasses['plate']]
+        .filter((skip) => !skip)
+        .length
 
     return skipClasses
 }

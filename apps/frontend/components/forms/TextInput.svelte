@@ -11,7 +11,7 @@
 
 <style lang="scss">
     input {
-        border: 1px solid $border-color;
+        border-radius: $border-radius;
         width: 100%;
     }
     label {
@@ -26,6 +26,7 @@
 
     <input
         id="input-{name}"
+        class="border"
         name={name}
         placeholder={placeholder}
         {maxlength}

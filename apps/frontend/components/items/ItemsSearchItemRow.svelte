@@ -36,47 +36,6 @@
     }
 </script>
 
-<style lang="scss">
-    .tag {
-        @include cell-width(0.5rem);
-
-        background: $highlight-background;
-        border-right: 1px solid $border-color;
-        text-align: center;
-    }
-    .name, .guild-name {
-        a {
-            text-decoration: underline;
-        }
-    }
-    .name {
-        @include cell-width(8rem);
-    }
-    .guild-name {
-        @include cell-width(9.5rem);
-    }
-    .realm {
-        @include cell-width(5rem);
-
-        white-space: nowrap;
-    }
-    .location {
-        @include cell-width($width-item-location);
-
-        white-space: nowrap;
-    }
-    .count {
-        @include cell-width($width-item-count);
-
-        text-align: right;
-    }
-    .item-level {
-        @include cell-width($width-item-level);
-
-        text-align: right;
-    }
-</style>
-
 <tr class:highlight={!!guildBankItem}>
     {#if character}
         {#if userStore.useAccountTags}

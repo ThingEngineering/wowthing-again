@@ -26,6 +26,7 @@
 
         border-left: 1px solid $border-color;
         text-align: center;
+        word-spacing: -0.1ch;
     }
 </style>
 

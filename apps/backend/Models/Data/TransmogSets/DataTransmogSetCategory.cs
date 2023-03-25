@@ -4,7 +4,6 @@ public class DataTransmogSetCategory : ICloneable, IDataCategory
 {
     public string Name { get; set; }
     public List<DataTransmogSetGroup> Groups { get; set; }
-    public List<DataTransmogSetSet> Sets { get; set; }
 
     public object Clone()
     {
@@ -12,7 +11,6 @@ public class DataTransmogSetCategory : ICloneable, IDataCategory
         {
             Name = (string)Name.Clone(),
             Groups = Groups,
-            Sets = Sets,
         };
     }
 }

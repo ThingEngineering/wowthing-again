@@ -62,7 +62,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 23,
+        Version = 24,
     };
 
     public override async Task Run(params string[] data)
@@ -389,6 +389,11 @@ public class CacheManualJob : JobBase, IScheduledJob
             Logger.Debug("Parsing {file}", file.FullName);
             var itemSets = DataUtilities.YamlDeserializer.Deserialize<DataSharedItemSets>(File.OpenText(file.FullName));
 
+            if (itemSets == null)
+            {
+                continue;
+            }
+
             AddTags(itemSets.Tags);
 
             foreach (var itemSet in itemSets.Sets)
@@ -499,11 +504,11 @@ public class CacheManualJob : JobBase, IScheduledJob
                 foreach (var group in cat.Groups.EmptyIfNull())
                 {
                     AddTags(group.MatchTags);
-                }
 
-                foreach (var set in cat.Sets.EmptyIfNull())
-                {
-                    AddTags(set.MatchTags);
+                    foreach (var set in group.Sets.EmptyIfNull())
+                    {
+                        AddTags(set.MatchTags);
+                    }
                 }
 
                 newCatList.Add(new ManualTransmogSetCategory(cat, _tagMap));

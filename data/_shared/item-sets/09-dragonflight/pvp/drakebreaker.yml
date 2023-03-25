@@ -1,0 +1,61 @@
+tags:
+  - "expansion:dragonflight"
+  - "pvp:season-31"
+  - "set:drakebreaker"
+
+sets:
+  - name: "transmog:2662" # Drakebreaker
+    tags:
+      - "armor:cloth"
+    items:
+      - 198568 # Head
+      - 198572 # Shoulders
+      - 198961 # Back
+      - 198565 # Chest
+      - 198571 # Wrists
+      - 198567 # Hands
+      - 198570 # Waist
+      - 198569 # Legs
+      - 198566 # Feet
+
+  - name: "transmog:2666" # Drakebreaker
+    tags:
+      - "armor:leather"
+    items:
+      - 198575 # Head
+      - 198580 # Shoulders
+      - 198962 # Back
+      - 198579 # Chest
+      - 198578 # Wrists
+      - 198574 # Hands
+      - 198577 # Waist
+      - 198576 # Legs
+      - 198573 # Feet
+
+  - name: "transmog:2664" # Drakebreaker
+    tags:
+      - "armor:mail"
+    items:
+      - 198592 # Head
+      - 198594 # Shoulders
+      - 198959 # Back
+      - 198589 # Chest
+      - 198596 # Wrists
+      - 198591 # Hands
+      - 198595 # Waist
+      - 198593 # Legs
+      - 198590 # Feet
+
+  - name: "transmog:2668" # Drakebreaker
+    tags:
+      - "armor:plate"
+    items:
+      - 198581 # Head
+      - 198586 # Shoulders
+      - 198960 # Back
+      - 198582 # Chest
+      - 198588 # Wrists
+      - 198584 # Hands
+      - 198587 # Waist
+      - 198585 # Legs
+      - 198583 # Feet

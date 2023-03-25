@@ -10,9 +10,14 @@ import type {
 } from '@/types/items'
 
 
+type ItemSearchGroupBy =
+    | 'character'
+    | 'item'
+
 export class ItemSearchState {
-    public searchTerms = ''
+    public groupBy: ItemSearchGroupBy = 'item'
     public location = ItemLocation.Any
+    public searchTerms = ''
 
     private static minimumTermsLength = 3
     private static url = '/api/item-search'
@@ -114,4 +119,10 @@ export class ItemSearchState {
 }
 
 
-export const itemSearchState = writable<ItemSearchState>(new ItemSearchState())
+const key = 'state-item-search'
+const initialState = new ItemSearchState()
+Object.assign(initialState, JSON.parse(localStorage.getItem(key) ?? '{}'))
+
+export const itemSearchState = writable<ItemSearchState>(initialState)
+
+itemSearchState.subscribe(state => localStorage.setItem(key, JSON.stringify(state)))

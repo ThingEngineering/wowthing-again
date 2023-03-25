@@ -25,22 +25,10 @@ public static partial class Hardcoded
         178061, // Malleable Flesh
         183744, // Superior Parts
         188957, // Genesis Mote
-        198046, // Concentrated Primal Infusion [DF]
         190189, // Sandworn Relic
-        190453, // Spark of Ingenuity [DF]
-        190454, // Primal Chaos [DF]
-        190455, // Concentrated Primal Focus [DF]
-        190456, // Artisan's Mettle [DF]
-        191784, // Dragon Shard of Knowledge [DF]
-        197921, // Primal Infusion [DF]
-        198048, // Titan Training Matrix I [DF]
-        198056, // Titan Training Matrix II [DF]
-        198058, // Titan Training Matrix III [DF]
-        198059, // Titan Training Matrix IV [DF]
         199202, // Attendant's Token of Merit [SL S4]
-        199211, // Primeval Essence [pre-DF invasions]
-        200686, // Primal Focus [DF]
 
+        // Shadowlands - Castle Nathria
         183888, // Apogee Anima Bead
         183889, // Thaumaturgic Anima Bead
         183890, // Zenith Anima Spherule
@@ -53,5 +41,25 @@ public static partial class Hardcoded
         183897, // Mystic Anima Spherule
         183898, // Venerated Anima Spherule
         183899, // Zenith Anima Spherule
+
+        199211, // Primeval Essence [pre-DF invasions]
+
+        // Dragonflight
+        198046, // Concentrated Primal Infusion
+        190453, // Spark of Ingenuity
+        190454, // Primal Chaos
+        190455, // Concentrated Primal Focus
+        190456, // Artisan's Mettle
+        191784, // Dragon Shard of Knowledge
+        197921, // Primal Infusion
+        198048, // Titan Training Matrix I
+        198056, // Titan Training Matrix II
+        198058, // Titan Training Matrix III
+        198059, // Titan Training Matrix IV
+        199197, // Bottled Essence
+        200686, // Primal Focus
+        201836, // Aspects' Token of Merit
+        202196, // Zskera Vault Key
+        204276, // Untapped Forbidden Knowledge
     };
 }

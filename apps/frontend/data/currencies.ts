@@ -46,6 +46,7 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 export const currencyExtra: Record<number, number[]> = {
     // Dragonflight
     250: [
+        1191, // Valor
         2167, // Catalyst Charges
     ],
     125001: [
@@ -95,6 +96,12 @@ export const currencyItems: Record<number, number[]> = {
         190189, // Sandworn Relic
     ],
 
+    // Dragonflight
+    250: [
+        201836, // Aspects' Token of Merit
+        204276, // Untapped Forbidden Knowledge
+        202196, // Zskera Vault Key
+    ],
     // Dragonflight > Crafting Knowledge
     125001: [
         191784, // Dragon Shard of Knowledge [DF]
@@ -102,19 +109,20 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight > Crafting Materials
     125002: [
-        198048, // Titan Training Matrix I [DF]
-        198056, // Titan Training Matrix II [DF]
-        198058, // Titan Training Matrix III [DF]
-        198059, // Titan Training Matrix IV [DF]
+        198048, // Titan Training Matrix I
+        198056, // Titan Training Matrix II
+        198058, // Titan Training Matrix III
+        198059, // Titan Training Matrix IV
         null,
-        190456, // Artisan's Mettle [DF]
-        190454, // Primal Chaos [DF]
-        190453, // Spark of Ingenuity [DF]
+        190456, // Artisan's Mettle
+        190454, // Primal Chaos
+        199197, // Bottled Essence
+        190453, // Spark of Ingenuity
         null,
-        200686, // Primal Focus [DF]
-        197921, // Primal Infusion [DF]
-        190455, // Concentrated Primal Focus [DF]
-        198046, // Concentrated Primal Infusion [DF]
+        200686, // Primal Focus
+        197921, // Primal Infusion
+        190455, // Concentrated Primal Focus
+        198046, // Concentrated Primal Infusion
     ],
 
     // Player vs Player
@@ -179,6 +187,7 @@ const skipCurrencies: number[] = [
     1874, // Sanctum Anima Weaver-Necrolord
 
     // Dragonflight
+    2045, // Dragon Glyph Embers
     2073, // [AC] Major Faction Test Currency
 
     // Miscellaneous

@@ -1,6 +1,7 @@
 import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
+import { PlayableClass } from '@/enums'
 import { userStore } from '@/stores'
 import { leftPad } from '@/utils/formatting'
 import { Region } from '@/enums'
@@ -31,33 +32,36 @@ export default function getCharacterSortFunc(
             if (thing === 'account') {
                 out.push(userData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`)
             }
-            else if (thing === 'armor') {
+            else if (thing === 'armor' || thing === '-armor') {
+                const desc = thing === '-armor'
                 switch (char.classId) {
-                    // Priest, Mage, Warlock
-                    case 5:
-                    case 8:
-                    case 9:
-                        out.push('C')
+                    case PlayableClass.Mage:
+                    case PlayableClass.Priest:
+                    case PlayableClass.Warlock:
+                        out.push(desc ? '4' : '1')
                         break
                     
-                    // Rogue, Monk, Druid, Demon Hunter
-                    case 4:
-                    case 10:
-                    case 11:
-                    case 12:
-                        out.push('L')
+                    case PlayableClass.DemonHunter:
+                    case PlayableClass.Druid:
+                    case PlayableClass.Monk:
+                    case PlayableClass.Rogue:
+                        out.push(desc ? '3' : '2')
                         break
                     
-                    // Hunter, Shaman, Evoker
-                    case 3:
-                    case 7:
-                    case 13:
-                        out.push('M')
+                    case PlayableClass.Hunter:
+                    case PlayableClass.Shaman:
+                    case PlayableClass.Evoker:
+                        out.push(desc ? '2' : '3')
                         break
                     
-                    //
+                    case PlayableClass.Paladin:
+                    case PlayableClass.DeathKnight:
+                    case PlayableClass.Warrior:
+                        out.push(desc ? '1' : '4')
+                        break
+                    
                     default:
-                        out.push('P')
+                        out.push('9')
                         break
                 }
             }

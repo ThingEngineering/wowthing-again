@@ -2,39 +2,53 @@
     import { gearState } from '@/stores/local-storage'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte';
 
     export let slug: string
 </script>
 
 <style lang="scss">
+    div {
+        align-items: center;
+        display: flex;
+    }
+    span {
+        margin-right: 0.3rem;
+    }
     button {
+        align-items: center;
         background: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius;
+        display: flex;
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
+
+        :global(input[type="number"]) {
+            margin: 0;
+            padding: 0 0.2rem;
+            width: 3.5rem;
+        }
     }
 </style>
-
-<div>
-    <span>Show:</span>
-
-    <button>
-        <CheckboxInput
-            name="show_max_level"
-            bind:value={$gearState.showMaxLevel}
-        >Max level</CheckboxInput>
-    </button>
-
-    <button>
-        <CheckboxInput
-            name="show_other_level"
-            bind:value={$gearState.showOtherLevel}
-        >Other level</CheckboxInput>
-    </button>
-</div>
 
 {#if slug === 'equipped'}
     <div>
         <span>Highlight:</span>
+
+        <button>
+            <CheckboxInput
+                name="highlight_item_level"
+                bind:value={$gearState.highlightItemLevel}
+            >Item level &lt;</CheckboxInput>
+            <NumberInput
+                name="minimum_item_level"
+                bind:value={$gearState.minimumItemLevel}
+                disabled={!$gearState.highlightItemLevel}
+                minValue={0}
+                maxValue={999}
+            />
+        </button>
 
         <button>
             <CheckboxInput
