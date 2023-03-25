@@ -5,6 +5,7 @@
     import type { SettingsChoice } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte';
 
     export let active: SettingsChoice[]
     export let inactive: SettingsChoice[]
@@ -14,9 +15,6 @@
 
     const keyType = `item/${key}`
     const keyFunc = (item: SettingsChoice) => item.key
-
-    $: active.forEach((sc) => sc.name = sc.name.replace(/(\[.*?\])/, '<code>$1</code>'))
-    $: inactive.forEach((sc) => sc.name = sc.name.replace(/(\[.*?\])/, '<code>$1</code>'))
 </script>
 
 <style lang="scss">
@@ -97,7 +95,9 @@
                 on:sorted-items={onFunc}
                 let:Item
             >
-                <span class="name">{@html Item.name}</span>
+                <span class="name">
+                    <ParsedText text={Item.name} />
+                </span>
                 <IconifyIcon icon={iconStrings.yes} />
             </ListView>
         </div>
@@ -115,7 +115,9 @@
                 withTransitions={false}
                 let:Item
             >
-                <span class="name">{@html Item.name}</span>
+                <span class="name">
+                    <ParsedText text={Item.name} />
+                </span>
                 <IconifyIcon icon={iconStrings.no} />
             </ListView>
         </div>
