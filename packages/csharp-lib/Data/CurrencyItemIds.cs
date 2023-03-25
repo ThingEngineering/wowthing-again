@@ -56,6 +56,7 @@ public static partial class Hardcoded
         198056, // Titan Training Matrix II
         198058, // Titan Training Matrix III
         198059, // Titan Training Matrix IV
+        199197, // Bottled Essence
         200686, // Primal Focus
         202196, // Zskera Vault Key
         204276, // Untapped Forbidden Knowledge
