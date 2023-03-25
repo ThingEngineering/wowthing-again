@@ -3,10 +3,11 @@
 
     import { iconStrings, imageStrings } from '@/data/icons'
     import { itemStore, staticStore } from '@/stores'
-    import { RewardReputation } from '@/enums'
+    import { Faction, RewardReputation } from '@/enums'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
@@ -96,6 +97,7 @@
         html = html.replaceAll(/\{craftedQuality:(\d+)\}/g, '<span data-crafted-quality="$1"></span>')
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
+        html = html.replaceAll(/:(alliance|horde):/g, '<span data-faction="$1"></span>')
         html = html.replaceAll(/:profession-(\d+):/g, '<span data-profession="$1"></span>')
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
@@ -152,6 +154,18 @@
                     target: span,
                     props: {
                         classId: parseInt(span.getAttribute('data-class'))
+                    }
+                })
+            }
+
+            else if (span.hasAttribute('data-faction')) {
+                span.replaceChildren()
+                new FactionIcon({
+                    target: span,
+                    props: {
+                        faction: span.getAttribute('data-faction') === 'alliance'
+                            ? Faction.Alliance
+                            : Faction.Horde
                     }
                 })
             }
