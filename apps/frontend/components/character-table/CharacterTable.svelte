@@ -71,14 +71,12 @@
         const pairs: [string, Character[]][] = []
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex]
+            const keySort = isHome && $homeState.groupSort[keyIndex]
+                ? getCharacterSortFunc($settingsStore, $staticStore, (char) => homeSort($homeState.groupSort[keyIndex], char))
+                : sortFunc
             pairs.push([
                 key,
-                sortBy(
-                    grouped[key],
-                    (isHome && $homeState.groupSort[keyIndex])
-                        ? (char) => homeSort($homeState.groupSort[keyIndex], char)
-                        : sortFunc
-                )
+                sortBy(grouped[key], keySort)
             ])
         }
 
