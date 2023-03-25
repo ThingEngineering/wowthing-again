@@ -2,10 +2,8 @@
     import { afterUpdate } from 'svelte'
     import active from 'svelte-spa-router/active'
 
-    import { Constants } from '@/data/constants'
-    import { gearState } from '@/stores/local-storage'
     import getSavedRoute from '@/utils/get-saved-route'
-    import type { Character, MultiSlugParams } from '@/types'
+    import type { MultiSlugParams } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import Options from './ItemsOptions.svelte'
