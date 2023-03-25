@@ -187,6 +187,7 @@ const skipCurrencies: number[] = [
     1874, // Sanctum Anima Weaver-Necrolord
 
     // Dragonflight
+    2045, // Dragon Glyph Embers
     2073, // [AC] Major Faction Test Currency
 
     // Miscellaneous
