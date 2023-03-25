@@ -28,6 +28,7 @@ export default function getCharacterGear(
         const gear: CharacterGear = {
             equipped: character.equippedItems[inventorySlot],
             highlight: false,
+            lowItemLevel: false,
             missingEnchant: false,
             missingGem: false,
             missingHeirloom: false,
@@ -45,6 +46,13 @@ export default function getCharacterGear(
             if (heirloomSlots[inventorySlot] && gear.equipped.quality !== 7) {
                 gear.missingHeirloom = true
             }
+        }
+
+        if (character.level === Constants.characterMaxLevel
+            && state.highlightItemLevel
+            && gear.equipped.itemLevel < state.minimumItemLevel)
+        {
+            gear.lowItemLevel = true
         }
 
         if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 340) {
@@ -117,7 +125,11 @@ export default function getCharacterGear(
             }
         }
 
-        gear.highlight = gear.missingEnchant || gear.missingGem || gear.missingHeirloom || gear.missingUpgrade
+        gear.highlight = gear.lowItemLevel
+            || gear.missingEnchant
+            || gear.missingGem
+            || gear.missingHeirloom
+            || gear.missingUpgrade
     }
 
     return ret

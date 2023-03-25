@@ -5,13 +5,16 @@ export class GearState {
     highlightEnchants = false
     highlightGems = false
     highlightHeirlooms = false
+    highlightItemLevel = false
     highlightUpgrades = false
 
-    showMaxLevel = true
-    showOtherLevel = true
+    minimumItemLevel = 0
 
     get highlightAny(): boolean {
-        return this.highlightEnchants || this.highlightGems || this.highlightUpgrades
+        return this.highlightEnchants
+            || this.highlightGems
+            || this.highlightItemLevel
+            || this.highlightUpgrades
     }
 }
 

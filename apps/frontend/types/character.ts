@@ -130,6 +130,7 @@ export interface CharacterGarrisonBuilding {
 export interface CharacterGear {
     equipped: CharacterEquippedItem
     highlight: boolean
+    lowItemLevel: boolean
     missingEnchant: boolean
     missingGem: boolean
     missingHeirloom: boolean

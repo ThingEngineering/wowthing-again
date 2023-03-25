@@ -10,20 +10,13 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import Options from './ItemsOptions.svelte'
     import RowBags from './ItemsTableRowBags.svelte'
+    import RowGear from '@/components/home/table/row/HomeTableRowGear.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './ItemsTableRowItems.svelte'
     import RowProfessions from './ItemsTableRowProfessions.svelte'
     import Search from './ItemsSearch.svelte'
 
     export let params: MultiSlugParams
-
-    let filterFunc: (char: Character) => boolean
-    $: {
-        filterFunc = (char) => (
-            ($gearState.showMaxLevel && char.level === Constants.characterMaxLevel) ||
-            ($gearState.showOtherLevel && char.level < Constants.characterMaxLevel)
-        )
-    }
 
     afterUpdate(() => getSavedRoute('items', params.slug1, null, 'items-subnav'))
 </script>
@@ -55,7 +48,6 @@
     {:else}
         <CharacterTable
             skipIgnored={true}
-            {filterFunc}
         >
             <div class="items-pre" slot="preTable">
                 <Options slug={params.slug1} />
@@ -66,6 +58,7 @@
                     <RowBags {character} />
                 {:else if params.slug1 === 'equipped'}
                     <RowItemLevel />
+                    <RowGear {character} />
                     <RowItems {character} />
                 {:else if params.slug1 === 'professions'}
                     <RowProfessions {character} />
