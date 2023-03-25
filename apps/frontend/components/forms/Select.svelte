@@ -21,6 +21,7 @@
 
 <fieldset>
     <select
+        class="border"
         name={name}
         bind:value={selected}
     >
