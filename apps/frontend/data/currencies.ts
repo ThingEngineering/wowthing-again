@@ -97,6 +97,7 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight
     250: [
+        201836, // Aspects' Token of Merit
         204276, // Untapped Forbidden Knowledge
         202196, // Zskera Vault Key
     ],

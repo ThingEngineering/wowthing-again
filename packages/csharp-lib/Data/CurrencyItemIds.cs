@@ -58,6 +58,7 @@ public static partial class Hardcoded
         198059, // Titan Training Matrix IV
         199197, // Bottled Essence
         200686, // Primal Focus
+        201836, // Aspects' Token of Merit
         202196, // Zskera Vault Key
         204276, // Untapped Forbidden Knowledge
     };
