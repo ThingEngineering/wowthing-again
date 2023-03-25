@@ -1,7 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
     import { onMount } from 'svelte'
-    import { location, querystring, replace } from 'svelte-spa-router'
 
     import { itemSearchState, userStore } from '@/stores'
     import { ItemLocation } from '@/enums'
@@ -13,22 +12,9 @@
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
 
-    let formValid: boolean
     let response: ItemSearchResponseItem[]
 
-    $: {
-        // Parse query string
-        const parsed = new URLSearchParams($querystring)
-        itemSearchState.update(state => {
-            state.searchTerms = parsed.get('terms') || ''
-            state.location = parseInt(parsed.get('location')) || 0
-            return state
-        })
-    }
-
-    $: {
-        formValid = $itemSearchState.isValid
-    }
+    $: formValid = $itemSearchState.isValid
 
     onMount(() => {
         if (formValid) {
@@ -46,22 +32,6 @@
                     $userStore.characterMap[char.characterId].name
                 ]
             )
-        }
-
-        // Update query string
-        const queryParts = []
-        if ($itemSearchState.isValid) {
-            if ($itemSearchState.searchTerms !== '') {
-                queryParts.push(`terms=${$itemSearchState.searchTerms}`)
-            }
-            if ($itemSearchState.location != ItemLocation.Any) {
-                queryParts.push(`location=${$itemSearchState.location}`)
-            }
-        }
-
-        const qs = queryParts.join('&')
-        if (qs !== $querystring) {
-            replace($location + (qs ? '?' + qs : ''))
         }
     }
 </script>
@@ -99,6 +69,9 @@
         }
     }
 
+    button {
+        cursor: pointer;
+    }
     .state-valid {
         background: #0f4f0f;
         color: $body-text;
@@ -137,20 +110,21 @@
         <span>group by</span>
 
         <RadioGroup
-        bind:value={$itemSearchState.groupBy}
-        name="sort_by"
-        options={[
-            ['character', 'Character'],
-            ['item', 'Item'],
-        ]}
-
+            bind:value={$itemSearchState.groupBy}
+            name="sort_by"
+            options={[
+                ['character', 'Character'],
+                ['item', 'Item'],
+            ]}
         />
 
         <button
             id="item-search-submit"
+            class="border"
             class:state-valid={formValid}
             class:state-invalid={!formValid}
             disabled={!formValid}
+            type="submit"
         >Search!</button>
     </form>
 

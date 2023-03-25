@@ -119,4 +119,10 @@ export class ItemSearchState {
 }
 
 
-export const itemSearchState = writable<ItemSearchState>(new ItemSearchState())
+const key = 'state-item-search'
+const initialState = new ItemSearchState()
+Object.assign(initialState, JSON.parse(localStorage.getItem(key) ?? '{}'))
+
+export const itemSearchState = writable<ItemSearchState>(initialState)
+
+itemSearchState.subscribe(state => localStorage.setItem(key, JSON.stringify(state)))
