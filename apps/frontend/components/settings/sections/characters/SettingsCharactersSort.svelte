@@ -9,7 +9,7 @@
 
     const groupByChoices: SettingsChoice[] = [
         {key: 'account', name: 'Account ID'},
-        {key: 'enabled', name: 'Account enabled'},
+        {key: 'enabled', name: 'Account status'},
         {key: 'faction', name: 'Faction'},
         {key: 'maxlevel', name: 'Max level'},
         {key: 'pinned', name: 'Pinned'},
@@ -18,12 +18,12 @@
 
     const sortByChoices: SettingsChoice[] = [
         {key: 'account', name: 'Account'},
+        {key: 'enabled', name: 'Account status'},
         {key: 'armor', name: 'Armor: Cloth > Plate'},
         {key: '-armor', name: 'Armor: Plate > Cloth'},
         {key: 'class', name: 'Class name'},
-        {key: 'enabled', name: 'Active accounts first'},
-        {key: 'faction', name: 'Alliance > Horde'},
-        {key: '-faction', name: 'Horde > Alliance'},
+        {key: 'faction', name: 'Faction: :alliance: > :horde:'},
+        {key: '-faction', name: 'Faction: :horde: > :alliance:'},
         {key: 'mplusrating', name: 'Mythic+ Rating'},
         {key: 'name', name: 'Character name'},
         {key: 'realm', name: 'Realm name'},
