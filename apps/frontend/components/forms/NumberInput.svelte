@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let disabled = false
     export let label: string = null
     export let name: string
     export let value: number
@@ -21,6 +22,16 @@
     {#if label}
         <label for="input-{name}">{label}</label>
     {/if}
-    <input id="input-{name}" name={name} type="number" min="{minValue}" max="{maxValue}" bind:value={value} on:input>
+    <input
+        id="input-{name}"
+        name={name}
+        type="number"
+        min="{minValue}"
+        max="{maxValue}"
+        class:disabled
+        {disabled}
+        bind:value={value}
+        on:input
+    >
     <slot />
 </fieldset>
