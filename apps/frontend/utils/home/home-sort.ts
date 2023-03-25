@@ -35,4 +35,17 @@ export function homeSort(sortBy: string, char: Character): string {
             leftPad(999 - getVaultItemLevel(progress?.[2]?.level || 0), 3, '0'),
         ].join('|')
     }
+    else if (sortBy.startsWith('lockout:')) {
+        const key = sortBy.split(':')[1]
+        const lockout = char.lockouts?.[key]
+        if (lockout?.locked === true) {
+            return [
+                leftPad(100 - lockout.defeatedBosses, 3, '0'),
+                leftPad(100 - lockout.maxBosses, 3, '0')
+            ].join('|')
+        }
+        else {
+            return '999|999'
+        }
+    }
 }
