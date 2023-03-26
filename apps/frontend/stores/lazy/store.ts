@@ -4,6 +4,7 @@ import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 
+import { doCharacters, type LazyCharacter } from './character'
 import { doCollectible, type LazyCollectible } from './collectible'
 import { doJournal, type LazyJournal } from './journal'
 import { doTransmog, type LazyTransmog } from './transmog'
@@ -29,6 +30,7 @@ import { journalStore } from '../journal'
 import { manualStore } from '../manual'
 import { settingsStore } from '../settings'
 import { staticStore } from '../static'
+import { timeStore } from '../time'
 import { userStore } from '../user'
 import { userAchievementStore } from '../user-achievements'
 import { userQuestStore } from '../user-quests'
@@ -46,6 +48,7 @@ import type {
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
+import type { DateTime } from 'luxon'
 
 
 type LazyKey =
@@ -70,6 +73,7 @@ type UserCounts = Record<string, UserCount>
 export const lazyStore = derived(
     [
         settingsStore,
+        timeStore,
         appearanceState,
         collectibleState,
         journalState,
@@ -83,6 +87,7 @@ export const lazyStore = derived(
     debounce(
         ([
             $settingsStore,
+            $timeStore,
             $appearanceState,
             $collectibleState,
             $journalState,
@@ -94,6 +99,7 @@ export const lazyStore = derived(
             $userTransmogStore
         ]: [
             Settings,
+            DateTime,
             AppearancesState,
             CollectibleState,
             JournalState,
@@ -106,6 +112,7 @@ export const lazyStore = derived(
         ]) => {
             storeInstance.update(
                 $settingsStore,
+                $timeStore,
                 $appearanceState,
                 $collectibleState,
                 $journalState,
@@ -150,6 +157,7 @@ export class LazyStore implements LazyUgh {
     private heirloomsFunc: () => UserCounts
     private illusionsFunc: () => UserCounts
 
+    private charactersFunc: () => Record<string, LazyCharacter>
     private journalFunc: () => LazyJournal
     private mountsFunc: () => LazyCollectible
     private petsFunc: () => LazyCollectible
@@ -162,6 +170,7 @@ export class LazyStore implements LazyUgh {
 
     update(
         settings: Settings,
+        currentTime: DateTime,
         appearanceState: AppearancesState,
         collectibleState: CollectibleState,
         journalState: JournalState,
@@ -174,6 +183,8 @@ export class LazyStore implements LazyUgh {
     )
     {
         const newHashes: Record<string, string> = {
+            currentTime: currentTime.toString(),
+
             appearanceState: this.hashObject(appearanceState), 
             collectibleState: this.hashObject(collectibleState),
             journalState: this.hashObject(journalState),
@@ -203,7 +214,7 @@ export class LazyStore implements LazyUgh {
             return
         }
 
-        console.time('LazyStore.update')
+        // console.time('LazyStore.update')
 
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
@@ -225,6 +236,18 @@ export class LazyStore implements LazyUgh {
         this.userAchievementData = userAchievementData
         this.userQuestData = userQuestData
         this.userTransmogData = userTransmogData
+
+        if (changedData.userData ||
+            changedData.userQuestData ||
+            changedHashes.currentTime)
+        {
+            this.charactersFunc = once(() => doCharacters({
+                currentTime,
+                settings,
+                userData,
+                userQuestData
+            }))
+        }
 
         if (changedData.userData ||
             changedHashes.collectibleState ||
@@ -332,7 +355,7 @@ export class LazyStore implements LazyUgh {
             }))
         }
 
-        console.timeEnd('LazyStore.update')
+        // console.timeEnd('LazyStore.update')
     }
 
     private hashObject(obj: object): string {
@@ -351,6 +374,7 @@ export class LazyStore implements LazyUgh {
     }
 
     get appearances(): UserCounts { return this.appearancesFunc() }
+    get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
     get dragonriding(): UserCounts { return this.dragonridingFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
