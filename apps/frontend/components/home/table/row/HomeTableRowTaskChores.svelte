@@ -1,11 +1,5 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
-
-    import { Constants } from '@/data/constants'
-    import { dragonflightProfessionMap } from '@/data/professions'
-    import { multiTaskMap, taskMap } from '@/data/tasks'
-    import { Profession, QuestStatus } from '@/enums'
-    import { settingsStore, timeStore, userQuestStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -14,136 +8,7 @@
     export let character: Character
     export let taskName: string
 
-    let chores: [string, number, string[]?][]
-    let countCompleted: number
-    let countTotal: number
-    $: {
-        chores = []
-        if (character.level < (taskMap[taskName].minimumLevel || Constants.characterMaxLevel)) {
-            break $
-        }
-
-        countCompleted = 0
-        countTotal = 0
-        for (const choreTask of multiTaskMap[taskName]) {
-            if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
-                continue
-            }
-            if (($settingsStore.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
-                continue
-            }
-
-            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-            if (choreTask.couldGetFunc?.(character) === false)
-            {
-                continue
-            }
-
-            if (
-                !progressQuest &&
-                choreTask.taskKey.endsWith('Treatise') &&
-                !$settingsStore.tasks.dragonflightTreatises
-            ) {
-                continue
-            }
-
-            let status = 0
-            let statusTexts = [
-                !progressQuest ? choreTask.canGetFunc?.(character) || '' : ''
-            ]
-
-            const nameParts = choreTask.taskName.split(': ')
-            const skipCounting = (
-                !$settingsStore.tasks.dragonflightCountGathering &&
-                ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0 &&
-                ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
-                progressQuest?.status !== QuestStatus.Completed
-            ) || statusTexts[0] !== ''
-
-            if (!skipCounting) {
-                countTotal++
-            }
-
-            if (statusTexts[0].startsWith('Need')) {
-                status = 3
-            }
-            else if (choreTask.taskKey.endsWith('Drop#')) {
-                statusTexts = []
-                let haveCount = 0
-                let needCount = 0
-
-                if (taskName === 'dfProfessionWeeklies') {
-                    const professionName = choreTask.taskKey.replace('dfProfession', '').replace('Drop#', '')
-                    const profession = Profession[professionName as keyof typeof Profession]
-                    const professionData = dragonflightProfessionMap[profession]
-                    
-                    if (professionData.dropQuests?.length > 0) {
-                        needCount = professionData.dropQuests.length
-
-                        professionData.dropQuests.forEach((drop, index) => {
-                            const dropKey = choreTask.taskKey.replace('#', (index + 1).toString())
-                            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
-
-                            let statusText = ''
-                            if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
-                                haveCount++
-                                statusText += '<span class="status-success">:yes:</span>'
-                            }
-                            else {
-                                statusText += '<span class="status-fail">:no:</span>'
-                            }
-                            
-                            statusText += `{item:${drop.itemId}}`
-                            statusText += ` <span class="status-shrug">(${drop.source})</span>`
-
-                            statusTexts.push(statusText)
-                        })
-                    }
-                }
-
-                if (statusTexts.length === 0) {
-                    needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
-                    for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
-                        const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
-                        const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[dropKey]
-                        if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
-                            haveCount++
-                        }
-                    }
-                }
-
-                if (haveCount === needCount) {
-                    status = QuestStatus.Completed
-                }
-                else {
-                    status = QuestStatus.InProgress
-                    if (statusTexts.length === 0) {
-                        statusTexts.push(`${haveCount}/${needCount} Collected`)
-                    }
-                }
-            }
-            else {
-                if (!!progressQuest && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
-                    status = progressQuest.status
-                    if (status === QuestStatus.InProgress && progressQuest.objectives?.length > 0) {
-                        statusTexts[0] = progressQuest.objectives[0].text
-                    }
-                }
-            }
-
-            chores.push([
-                taskName === 'dfDungeonWeeklies'
-                    ? $userQuestStore.questNames[choreTask.taskKey] || choreTask.taskName
-                    : choreTask.taskName,
-                status,
-                statusTexts,
-            ])
-            
-            if (status === QuestStatus.Completed && !skipCounting) {
-                countCompleted++
-            }
-        }
-    }
+    $: chore = $lazyStore.characters[character.id].chores[taskName]
 </script>
 
 <style lang="scss">
@@ -156,21 +21,35 @@
     }
 </style>
 
-{#if chores.length > 0}
+{#if chore.countTotal === 0}
     <td
-        class:status-fail={countCompleted === 0}
-        class:status-shrug={countCompleted < countTotal}
-        class:status-success={countCompleted === countTotal}
+        class="status-fail"
         use:tippyComponent={{
             component: Tooltip,
             props: {
                 character,
-                chores,
+                chore,
                 taskName,
             },
         }}
     >
-        {countCompleted} / {countTotal}
+        ---
+    </td>
+{:else if chore.tasks.length > 0}
+    <td
+        class:status-fail={chore.countCompleted === 0}
+        class:status-shrug={chore.countCompleted < chore.countTotal}
+        class:status-success={chore.countCompleted === chore.countTotal}
+        use:tippyComponent={{
+            component: Tooltip,
+            props: {
+                character,
+                chore,
+                taskName,
+            },
+        }}
+    >
+        {chore.countCompleted} / {chore.countTotal}
     </td>
 {:else}
     <td></td>

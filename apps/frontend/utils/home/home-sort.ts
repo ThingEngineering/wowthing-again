@@ -57,25 +57,30 @@ export function homeSort(
         let value = 0
 
         const taskName = sortBy.split(':')[1]
-        const charTask = lazyStore.characters[char.id].tasks[taskName]
 
-        if (charTask) {
-
-            if (charTask.text === 'Done') {
-                value = 100
-            }
-            else if (charTask.text === 'Get!') {
-                value = -1
-            }
-            else {
-                const percentMatch = charTask.text.match(/^(\d+) %$/)
-                if (percentMatch) {
-                    value = parseInt(percentMatch[1])
+        const charChore = lazyStore.characters[char.id].chores[taskName]
+        if (charChore) {
+            value = Math.floor(charChore.countCompleted / charChore.countTotal * 100)
+        }
+        else {
+            const charTask = lazyStore.characters[char.id].tasks[taskName]
+            if (charTask) {
+                if (charTask.text === 'Done') {
+                    value = 100
+                }
+                else if (charTask.text === 'Get!') {
+                    value = -1
                 }
                 else {
-                    const countMatch = charTask.text.match(/^(\d+) \/ (\d+)$/)
-                    if (countMatch) {
-                        value = Math.floor(parseInt(countMatch[1]) / parseInt(countMatch[2]) * 100)
+                    const percentMatch = charTask.text.match(/^(\d+) %$/)
+                    if (percentMatch) {
+                        value = parseInt(percentMatch[1])
+                    }
+                    else {
+                        const countMatch = charTask.text.match(/^(\d+) \/ (\d+)$/)
+                        if (countMatch) {
+                            value = Math.floor(parseInt(countMatch[1]) / parseInt(countMatch[2]) * 100)
+                        }
                     }
                 }
             }
