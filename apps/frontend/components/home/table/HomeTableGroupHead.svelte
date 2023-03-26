@@ -194,7 +194,7 @@
             {/if}
 
         {:else if field === 'tasks'}
-            <HeadTasks />
+            <HeadTasks {groupIndex} />
 
         {:else if field === 'vaultMythicPlus'}
             <td

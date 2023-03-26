@@ -3,9 +3,14 @@ import { dungeonMap } from '@/data/dungeon'
 import { leftPad } from '@/utils/formatting'
 import { getVaultItemLevel } from '@/utils/mythic-plus'
 import type { Character } from '@/types'
+import type { LazyStore } from '@/stores'
 
 
-export function homeSort(sortBy: string, char: Character): string {
+export function homeSort(
+    lazyStore: LazyStore,
+    sortBy: string,
+    char: Character
+): string {
     if (sortBy === 'itemLevel') {
         return leftPad(
             10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
@@ -36,8 +41,8 @@ export function homeSort(sortBy: string, char: Character): string {
         ].join('|')
     }
     else if (sortBy.startsWith('lockout:')) {
-        const key = sortBy.split(':')[1]
-        const lockout = char.lockouts?.[key]
+        const lockoutKey = sortBy.split(':')[1]
+        const lockout = char.lockouts?.[lockoutKey]
         if (lockout?.locked === true) {
             return [
                 leftPad(100 - lockout.defeatedBosses, 3, '0'),
@@ -47,5 +52,35 @@ export function homeSort(sortBy: string, char: Character): string {
         else {
             return '999|999'
         }
+    }
+    else if (sortBy.startsWith('task:')) {
+        let value = 0
+
+        const taskName = sortBy.split(':')[1]
+        const charTask = lazyStore.characters[char.id].tasks[taskName]
+
+        if (charTask) {
+
+            if (charTask.text === 'Done') {
+                value = 100
+            }
+            else if (charTask.text === 'Get!') {
+                value = -1
+            }
+            else {
+                const percentMatch = charTask.text.match(/^(\d+) %$/)
+                if (percentMatch) {
+                    value = parseInt(percentMatch[1])
+                }
+                else {
+                    const countMatch = charTask.text.match(/^(\d+) \/ (\d+)$/)
+                    if (countMatch) {
+                        value = Math.floor(parseInt(countMatch[1]) / parseInt(countMatch[2]) * 100)
+                    }
+                }
+            }
+        }
+
+        return leftPad(100 - value, 3, '0')
     }
 }
