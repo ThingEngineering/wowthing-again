@@ -44,9 +44,6 @@
                 ) && task.name !== ''
             )
         )
-        if (anyErrors) {
-            console.log('why tho', taskSets)
-        }
     }
 
     const getFixedText = function(text: string): string {
