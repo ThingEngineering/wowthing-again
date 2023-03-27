@@ -11,7 +11,10 @@ export function homeSort(
     sortBy: string,
     char: Character
 ): string {
-    if (sortBy === 'itemLevel') {
+    if (sortBy === 'gold') {
+        return leftPad(10_000_000 - char.gold, 8, '0')
+    }
+    else if (sortBy === 'itemLevel') {
         return leftPad(
             10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
             5,

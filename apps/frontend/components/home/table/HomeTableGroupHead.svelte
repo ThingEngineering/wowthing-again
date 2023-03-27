@@ -119,7 +119,11 @@
 
         {:else if field === 'gold'}
             {#if !isPublic && !$homeState.onlyWeekly}
-                <RowGold {gold} />
+                <RowGold
+                    {gold}
+                    {groupIndex}
+                    showSortable={true}
+                />
             {/if}
 
         {:else if field === 'hearthLocation'}
