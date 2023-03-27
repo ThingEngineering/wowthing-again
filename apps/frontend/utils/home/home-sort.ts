@@ -57,7 +57,7 @@ export function homeSort(
         }
     }
     else if (sortBy.startsWith('task:')) {
-        let value = 0
+        let value = -5
 
         const taskName = sortBy.split(':')[1]
 
