@@ -21,7 +21,7 @@
     }
 </style>
 
-{#if chore.countTotal === 0}
+{#if chore?.countTotal === 0}
     <td
         class="status-fail"
         use:tippyComponent={{
@@ -35,7 +35,7 @@
     >
         ---
     </td>
-{:else if chore.tasks.length > 0}
+{:else if chore?.tasks?.length > 0}
     <td
         class:status-fail={chore.countCompleted === 0}
         class:status-shrug={chore.countCompleted < chore.countTotal}
