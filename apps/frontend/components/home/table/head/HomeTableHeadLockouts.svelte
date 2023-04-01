@@ -22,7 +22,7 @@
 {#each $userStore.homeLockouts as {difficulty, instanceId}}
     {@const instance = $staticStore.instances[instanceId]}
     {#if instance}
-        {@const sortKey = `lockout:${instanceId}-${difficulty.id}`}
+        {@const sortKey = `lockout:${instanceId}-${difficulty?.id || 0}`}
         <td
             class="sortable"
             class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
