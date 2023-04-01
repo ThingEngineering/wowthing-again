@@ -1,4 +1,5 @@
 ﻿using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Converters.Appearances;
 using Wowthing.Tool.Models.Items;
 
 namespace Wowthing.Tool.Models.Appearances;

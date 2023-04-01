@@ -1,6 +1,6 @@
 ﻿using Wowthing.Tool.Models.Appearances;
 
-namespace Wowthing.Tool.Converters;
+namespace Wowthing.Tool.Converters.Appearances;
 
 public class RedisAppearanceDataConverter : JsonConverter<RedisAppearanceData>
 {
