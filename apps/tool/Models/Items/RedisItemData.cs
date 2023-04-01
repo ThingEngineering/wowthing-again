@@ -6,8 +6,8 @@ namespace Wowthing.Tool.Models.Items;
 [JsonConverter(typeof(RedisItemDataConverter))]
 public class RedisItemData : WowItem
 {
-    public string Name { get; set; }
-    public WowItemModifiedAppearance[] Appearances { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public WowItemModifiedAppearance[]? Appearances { get; set; }
 
     public RedisItemData(WowItem item) : base(item.Id)
     {

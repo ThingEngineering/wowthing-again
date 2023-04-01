@@ -10,8 +10,8 @@ public class DumpChrClasses
     public short RolesMask { get; set; }
 
     [Name("Name_female_lang")]
-    public string FemaleName { get; set; }
+    public string FemaleName { get; set; } = string.Empty;
 
     [Name("Name_male_lang")]
-    public string MaleName { get; set; }
+    public string MaleName { get; set; } = string.Empty;
 }

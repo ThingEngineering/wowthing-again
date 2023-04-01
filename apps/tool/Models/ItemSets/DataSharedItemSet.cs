@@ -2,7 +2,7 @@
 
 public class DataSharedItemSet
 {
-    public List<string> Items { get; set; }
-    public string Name { get; set; }
-    public List<string> Tags { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public List<string>? Items { get; set; }
+    public List<string>? Tags { get; set; }
 }

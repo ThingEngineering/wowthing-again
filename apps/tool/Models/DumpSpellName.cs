@@ -8,5 +8,5 @@ public class DumpSpellName
     public int ID { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

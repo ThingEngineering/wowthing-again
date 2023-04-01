@@ -5,7 +5,7 @@ public class OutProgressData
     public List<int> Ids { get; set; }
 
     // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     public string Name { get; set; }
 

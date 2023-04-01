@@ -8,8 +8,8 @@ public class DumpKeystoneAffix
     public int ID { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Name("Description_lang")]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 }

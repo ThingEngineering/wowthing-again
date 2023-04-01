@@ -2,7 +2,7 @@
 
 public class DataVendorGroup
 {
-    public string Name { get; set; }
-    public string Type { get; set; }
-    public List<DataVendorItem> Things { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string? Type { get; set; }
+    public List<DataVendorItem>? Things { get; set; }
 }

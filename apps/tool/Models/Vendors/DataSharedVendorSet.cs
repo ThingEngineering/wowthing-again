@@ -2,8 +2,8 @@
 
 public class DataSharedVendorSet
 {
-    public string Name { get; set; }
-    public string Range { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string? Range { get; set; }
     public bool SkipTooltip { get; set; }
-    public string SortKey { get; set; }
+    public string? SortKey { get; set; }
 }

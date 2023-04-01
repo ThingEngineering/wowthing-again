@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Achievements;
 
 public class OutAchievementConverter : JsonConverter<OutAchievement>
 {
-    public override OutAchievement? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutAchievement Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

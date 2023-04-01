@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Appearances;
 
 public class RedisAppearanceDataConverter : JsonConverter<RedisAppearanceData>
 {
-    public override RedisAppearanceData? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override RedisAppearanceData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -13,7 +13,7 @@ public class RedisAppearanceDataConverter : JsonConverter<RedisAppearanceData>
     {
         writer.WriteStartArray();
 
-        writer.WriteNumberValue(rad.Appearance.ID);
+        writer.WriteNumberValue(rad.Appearance!.ID);
 
         writer.WriteStartArray();
         foreach (var (modifiedAppearance, quality) in rad.ModifiedAppearances.OrderBy(mod => mod.Item1.Order))

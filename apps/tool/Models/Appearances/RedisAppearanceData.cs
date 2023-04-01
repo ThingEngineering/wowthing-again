@@ -7,6 +7,6 @@ namespace Wowthing.Tool.Models.Appearances;
 [JsonConverter(typeof(RedisAppearanceDataConverter))]
 public class RedisAppearanceData
 {
-    public DumpItemAppearance Appearance { get; set; }
+    public DumpItemAppearance? Appearance { get; set; }
     public List<(WowItemModifiedAppearance, WowQuality)> ModifiedAppearances { get; set; } = new();
 }

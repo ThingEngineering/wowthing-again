@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters;
 
 public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
 {
-    public override OutJournalEncounter? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutJournalEncounter Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -64,7 +64,7 @@ public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
         }
         writer.WriteEndArray();
 
-        if (encounter.Statistics != null)
+        if (encounter.Statistics.Count > 0)
         {
             writer.WriteStartArray();
 

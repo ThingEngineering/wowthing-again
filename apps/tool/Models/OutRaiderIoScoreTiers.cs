@@ -2,6 +2,6 @@
 
 public class OutRaiderIoScoreTiers
 {
-    public List<int> Score { get; set; }
-    public List<string> RgbHex { get; set; }
+    public List<int> Score { get; set; } = new();
+    public List<string> RgbHex { get; set; } = new();
 }

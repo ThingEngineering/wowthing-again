@@ -12,8 +12,8 @@ public class DumpSkillLine
     public int ParentTierIndex { get; set; }
 
     [Name("DisplayName_lang")]
-    public string DisplayName { get; set; }
+    public string DisplayName { get; set; } = string.Empty;
 
     [Name("HordeDisplayName_lang")]
-    public string HordeDisplayName { get; set; }
+    public string HordeDisplayName { get; set; } = string.Empty;
 }

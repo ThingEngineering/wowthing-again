@@ -11,8 +11,8 @@ public class DumpTradeSkillCategory
     public int SkillLineID { get; set; }
 
     [Name("Name_lang")]
-    public string AllianceName { get; set; }
+    public string AllianceName { get; set; } = string.Empty;
 
     [Name("HordeName_lang")]
-    public string HordeName { get; set; }
+    public string HordeName { get; set; } = string.Empty;
 }

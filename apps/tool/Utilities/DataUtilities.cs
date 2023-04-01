@@ -10,8 +10,8 @@ namespace Wowthing.Tool.Utilities;
 
 public static class DataUtilities
 {
-    public static string DataPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DATA_PATH"));
-    public static string DumpsPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DUMP_PATH"));
+    public static string DataPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DATA_PATH")!);
+    public static string DumpsPath => ResolvePath(Environment.GetEnvironmentVariable("WOWTHING_DUMP_PATH")!);
 
     private static string ResolvePath(string path)
     {
@@ -31,7 +31,7 @@ public static class DataUtilities
     public static async Task<List<T>> LoadDumpCsvAsync<T>(
         string fileName,
         Language language = Language.enUS,
-        Func<T, bool> validFunc = null
+        Func<T, bool>? validFunc = null
         // bool skipValidation = false
     )
     {
@@ -65,13 +65,13 @@ public static class DataUtilities
         var cache = new Dictionary<string, TCategory>();
 
         basePath = Path.Join(DataPath, basePath);
-        var orderFile = Path.Join(basePath, "_order");
+        // var orderFile = Path.Join(basePath, "_order");
 
         // logger?.Debug("Loading {0}", orderFile);
 
         bool inGlobal = false;
         List<string> globalFiles = new();
-        List<TCategory> things = null;
+        List<TCategory>? things = null;
         foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
         {
             if (line == "*")
@@ -100,7 +100,7 @@ public static class DataUtilities
                     categories.Add(things);
                     things = null;
                 }
-                categories.Add(null);
+                categories.Add(null!);
             }
             else if (line.StartsWith("    "))
             {
@@ -109,7 +109,7 @@ public static class DataUtilities
                 var trimmed = line.Trim();
                 if (trimmed == "-")
                 {
-                    things.Add(null);
+                    things.Add(null!);
                 }
                 else
                 {
@@ -166,7 +166,7 @@ public static class DataUtilities
         var parts = line.Trim().Split(' ', 2);
         var filePath = Path.Join(basePath, parts[0]);
 
-        if (!categoryCache.TryGetValue(filePath, out TCategory cat))
+        if (!categoryCache.TryGetValue(filePath, out TCategory? cat))
         {
             //Logger.Debug("Loading {0}", parts[0]);
             cat = categoryCache[filePath] = YamlDeserializer.Deserialize<TCategory>(File.OpenText(filePath));

@@ -3,8 +3,8 @@
 // [JsonConverter(typeof(DataHeirloomGroupConverter))]
 public class DataHeirloomGroup : ICloneable, IDataCategory
 {
-    public string Name { get; set; }
-    public DataHeirloomItem[] Items { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public DataHeirloomItem[]? Items { get; set; }
 
     public object Clone()
     {

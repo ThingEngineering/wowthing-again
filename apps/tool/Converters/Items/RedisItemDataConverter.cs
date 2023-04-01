@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Items;
 
 public class RedisItemDataConverter : JsonConverter<RedisItemData>
 {
-    public override RedisItemData? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override RedisItemData Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -29,7 +29,7 @@ public class RedisItemDataConverter : JsonConverter<RedisItemData>
         writer.WriteNumberValue(item.RequiredLevel);
         writer.WriteStringValue(item.Name);
 
-        if (item.Appearances.Length > 0)
+        if (item.Appearances?.Length > 0)
         {
             writer.WriteStartArray();
             foreach (var appearance in item.Appearances.OrderBy(ima => ima.Order))

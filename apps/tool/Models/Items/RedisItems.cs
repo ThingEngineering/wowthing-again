@@ -2,5 +2,5 @@
 
 public class RedisItems
 {
-    public RedisItemData[] RawItems { get; set; }
+    public RedisItemData[]? RawItems { get; set; }
 }

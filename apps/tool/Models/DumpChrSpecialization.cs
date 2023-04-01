@@ -12,8 +12,8 @@ public class DumpChrSpecialization
     public WowRole Role { get; set; }
 
     [Name("FemaleName_lang")]
-    public string FemaleName { get; set; }
+    public string FemaleName { get; set; } = string.Empty;
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

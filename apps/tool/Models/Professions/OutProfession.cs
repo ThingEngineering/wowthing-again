@@ -4,11 +4,10 @@ public class OutProfession
 {
     public int Id { get; set; }
     public int Type { get; set; }
-    public string Name { get; set; }
-    public string Slug { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
 
-    public List<OutSubProfession> SubProfessions { get; set; }
+    public List<OutSubProfession> SubProfessions { get; set; } = new();
 
-    [JsonPropertyName("rawCategories")]
-    public List<OutProfessionCategory> Categories { get; set; }
+    public List<OutProfessionCategory> RawCategories { get; set; } = new();
 }

@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Achievements;
 
 public class OutCriteriaConverter : JsonConverter<OutCriteria>
 {
-    public override OutCriteria? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutCriteria Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

@@ -39,7 +39,7 @@ public class ItemsTool
         var db = ToolContext.Redis.GetDatabase();
 
         var cacheData = new RedisItems();
-        string cacheHash = null;
+        string? cacheHash = null;
 
         foreach (var language in Enum.GetValues<Language>())
         {

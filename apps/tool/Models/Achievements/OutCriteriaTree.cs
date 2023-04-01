@@ -10,9 +10,9 @@ public class OutCriteriaTree : ICloneable
     public int Flags { get; set; }
     public int Id { get; set; }
     public int Operator { get; set; }
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
-    public List<int> Children { get; set; }
+    public List<int> Children { get; set; } = new();
 
     public OutCriteriaTree()
     { }

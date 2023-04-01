@@ -14,9 +14,9 @@ public class OutAchievement : ICloneable
     public int Points { get; set; }
     public int SupersededBy { get; set; }
     public int Supersedes { get; set; }
-    public string Description { get; set; }
-    public string Name { get; set; }
-    public string Reward { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Reward { get; set; } = string.Empty;
     public WowAchievementFlags Flags { get; set; }
 
     public OutAchievement()

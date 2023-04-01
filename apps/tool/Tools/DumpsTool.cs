@@ -19,7 +19,7 @@ public class DumpsTool
     private readonly Language[] _languages = Enum.GetValues<Language>();
     private readonly JankTimer _timer = new();
 
-    private Dictionary<int, int[]> _spellTeachMap;
+    private Dictionary<int, int[]>? _spellTeachMap;
 
     public async Task Run()
     {
@@ -85,12 +85,12 @@ public class DumpsTool
         foreach (var language in _languages)
         {
             var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(dumpName, language);
-            if (dumpObjects == null)
-            {
-                ToolContext.Logger.Warning("No dump objects: {lang} {path}",
-                    language.ToString(), dumpName);
-                continue;
-            }
+            // if (dumpObjects == null)
+            // {
+            //     ToolContext.Logger.Warning("No dump objects: {lang} {path}",
+            //         language.ToString(), dumpName);
+            //     continue;
+            // }
 
             foreach (var dumpObject in dumpObjects)
             {
@@ -459,7 +459,7 @@ public class DumpsTool
         // TODO fix language support with dumps
         foreach (var holiday in holidays)
         {
-            if (!nameMap.TryGetValue(holiday.HolidayNameID, out string name))
+            if (!nameMap.TryGetValue(holiday.HolidayNameID, out string? name))
             {
                 // ToolContext.Logger.Warning("No holiday name for {holidayId} {nameId}",
                 //     holiday.ID, holiday.HolidayNameID);
@@ -598,7 +598,7 @@ public class DumpsTool
             dbItem.SubclassId = item.SubclassID;
             dbItem.InventoryType = item.InventoryType;
 
-            if (Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
+            if (Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
             {
                 dbItem.ClassId = (short)classTuple.Item1;
                 dbItem.SubclassId = (short)classTuple.Item2;
@@ -821,7 +821,7 @@ public class DumpsTool
             dbMount.Flags = mount.Flags;
             dbMount.SourceType = mount.SourceTypeEnum;
 
-            if (_spellTeachMap.TryGetValue(dbMount.SpellId, out var itemIds))
+            if (_spellTeachMap!.TryGetValue(dbMount.SpellId, out var itemIds))
             {
                 dbMount.ItemId = itemIds.Last();
             }
@@ -887,12 +887,12 @@ public class DumpsTool
             }
 
             dbPet.CreatureId = pet.CreatureID;
-            dbPet.SpellId = Data.Hardcoded.PetSpellOverride.GetValueOrDefault(pet.ID, pet.SummonSpellID);
+            dbPet.SpellId = Hardcoded.PetSpellOverride.GetValueOrDefault(pet.ID, pet.SummonSpellID);
             dbPet.Flags = pet.Flags;
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
 
-            if (_spellTeachMap.TryGetValue(dbPet.SpellId, out var itemIds))
+            if (_spellTeachMap!.TryGetValue(dbPet.SpellId, out var itemIds))
             {
                 dbPet.ItemId = itemIds.Last();
             }

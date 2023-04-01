@@ -48,7 +48,7 @@ public class AchievementsTool
             CriteriaRaw = criteria[Language.enUS].Criteria.Values.ToList(),
         };
 
-        string cacheHash = null;
+        string? cacheHash = null;
         foreach (var language in Enum.GetValues<Language>())
         {
             ToolContext.Logger.Information("Generating {Lang}...", language);
