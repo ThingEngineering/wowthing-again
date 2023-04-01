@@ -14,13 +14,16 @@ return await Parser.Default.ParseArguments<
         (AppearancesOptions opts) => RunAppearancesTool(),
         (CacheOptions opts) => RunCacheTool(),
         (DumpsOptions opts) => RunDumpsTool(),
-        (ItemsOptions opts) => RunItemsTools(),
+        (ItemsOptions opts) => RunItemsTool(),
         errs => Task.FromResult(1));
 
 async Task<int> RunAll()
 {
     await RunDumpsTool();
-    await RunCacheTool();
+
+    await RunAppearancesTool();
+    await RunItemsTool();
+    
     return 0;
 }
 
@@ -45,7 +48,7 @@ async Task<int> RunDumpsTool()
     return 0;
 }
 
-async Task<int> RunItemsTools()
+async Task<int> RunItemsTool()
 {
     var tool = new ItemsTool();
     await tool.Run();
