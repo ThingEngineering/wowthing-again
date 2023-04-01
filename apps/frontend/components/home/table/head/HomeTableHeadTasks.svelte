@@ -1,16 +1,24 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
     import { settingsStore, userStore } from '@/stores'
+    import { homeState } from '@/stores/local-storage'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
     import { tippyComponent } from '@/utils/tippy'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
+    export let groupIndex: number
+
     let activeHoliday: string
     $: {
         const firstRegion = $userStore.allRegions?.[0] || 1
         activeHoliday = getActiveHoliday($userStore, firstRegion)
+    }
+
+    function setSorting(column: string) {
+        const current = $homeState.groupSort[groupIndex]
+        $homeState.groupSort[groupIndex] = current === column ? undefined : column
     }
 </script>
 
@@ -28,22 +36,25 @@
 
 {#each $settingsStore.layout.homeTasks as taskName}
     {@const task = taskMap[taskName]}
-    {#if task}
-        {#if
-            task.name.indexOf('[Holiday]') === -1
-            || taskName === activeHoliday
-            || (taskName === 'timewalking' && activeHoliday === 'holidayTimewalking')
-        }
-            <td
-                use:tippyComponent={{
-                    component: Tooltip,
-                    props: {
-                        taskName,
-                    },
-                }}
-            >
-                <ParsedText text={taskMap[taskName].shortName} />
-            </td>
-        {/if}
+    {#if
+        task?.name?.indexOf('[Holiday]') === -1
+        || taskName === activeHoliday
+        || (taskName === 'timewalking' && activeHoliday === 'holidayTimewalking')
+    }
+        {@const sortKey = `task:${taskName}`}
+        <td
+            class="sortable"
+            class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+            on:click={() => setSorting(sortKey)}
+            on:keypress={() => setSorting(sortKey)}
+            use:tippyComponent={{
+                component: Tooltip,
+                props: {
+                    taskName,
+                },
+            }}
+        >
+            <ParsedText text={taskMap[taskName].shortName} />
+        </td>
     {/if}
 {/each}

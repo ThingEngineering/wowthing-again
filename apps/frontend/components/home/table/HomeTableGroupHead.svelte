@@ -53,15 +53,15 @@
         :global(td:not(:first-child)) {
             border-left: 1px solid $border-color;
         }
+        :global(.sortable) {
+            cursor: pointer;
+        }
+        :global(.sorted-by) {
+            border: 1px solid #eee !important;
+        }
     }
     td {
         text-align: center;
-    }
-    .sortable {
-        cursor: pointer;
-    }
-    .sorted-by {
-        border: 1px solid #eee !important;
     }
     .mythic-plus-score {
         @include cell-width($width-raider-io);
@@ -119,7 +119,11 @@
 
         {:else if field === 'gold'}
             {#if !isPublic && !$homeState.onlyWeekly}
-                <RowGold {gold} />
+                <RowGold
+                    {gold}
+                    {groupIndex}
+                    showSortable={true}
+                />
             {/if}
 
         {:else if field === 'hearthLocation'}
@@ -153,7 +157,7 @@
 
         {:else if field === 'lockouts'}
             {#if !isPublic || $settingsStore.privacy.publicLockouts}
-                <HeadLockouts />
+                <HeadLockouts {groupIndex} />
             {/if}
 
         {:else if field === 'mountSpeed'}
@@ -194,7 +198,7 @@
             {/if}
 
         {:else if field === 'tasks'}
-            <HeadTasks />
+            <HeadTasks {groupIndex} />
 
         {:else if field === 'vaultMythicPlus'}
             <td

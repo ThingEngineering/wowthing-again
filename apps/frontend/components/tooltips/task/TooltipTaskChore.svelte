@@ -4,41 +4,44 @@
 
     import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
+    import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-
-    type ChoreArray = [string, number, string[]?]
+    import { QuestStatus } from '@/enums';
 
     export let character: Character
-    export let chores: ChoreArray[]
+    export let chore: LazyCharacterChore
     export let taskName: string
 
     let anyErrors: boolean
-    let choreSets: Array<ChoreArray[]>
+    let taskSets: Array<LazyCharacterChoreTask[]>
     $: {
-        choreSets = []
+        taskSets = []
 
         if (taskName === 'dfProfessionWeeklies') {
-            choreSets.push(chores.slice(0, 1))
+            taskSets.push(chore.tasks.slice(0, 1))
 
-            const grouped = groupBy(chores.slice(1), (chore) => chore[0].split(' ')[0])
+            const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0])
             const keys = Object.keys(grouped)
             keys.sort()
             for (const key of keys) {
-                choreSets.push(grouped[key])
+                taskSets.push(grouped[key])
             }
         }
         else {
-            choreSets.push(chores)
+            taskSets.push(chore.tasks)
         }
 
         anyErrors = some(
-            choreSets,
-            (choreSet) => some(
-                choreSet,
-                ([, status, statusTexts]) => (status === 0 || status === 3) && statusTexts[0] !== ''
+            taskSets,
+            (taskSet) => some(
+                taskSet,
+                (task) => (
+                    task.status === QuestStatus.NotStarted ||
+                    task.status === QuestStatus.Error
+                ) && task.name !== ''
             )
         )
     }
@@ -108,43 +111,43 @@
     <h4>{character.name}</h4>
     <h5>{taskMap[taskName].name}</h5>
 
-    {#each choreSets as choreSet}
+    {#each taskSets as taskSet}
         <table class="table-striped">
             <tbody>
-                {#each choreSet as [choreName, status, statusTexts]}
+                {#each taskSet as charTask}
                     <tr>
                         <td
                             class="name text-overflow"
-                            class:status-shrug={status === 3}
+                            class:status-shrug={charTask.status === QuestStatus.Error}
                         >
-                            {choreName}
+                            {charTask.name}
                         </td>
                         <td class="status">
                             <IconifyIcon
-                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][status]}"
-                                icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][status]]}
+                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][charTask.status]}"
+                                icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][charTask.status]]}
                             />
                         </td>
                         {#if anyErrors}
                             <td class="error-text">
-                                {#if status === 3}
-                                    {statusTexts[0]}
+                                {#if charTask.status === QuestStatus.Error}
+                                    {charTask.statusTexts[0]}
                                 {/if}
                             </td>
                         {/if}
                     </tr>
 
-                    {#if status === 1 && statusTexts[0]}
+                    {#if charTask.status === QuestStatus.InProgress && charTask.statusTexts[0]}
                         <tr>
                             <td
                                 class="status-text"
-                                class:tier2={statusTexts[0].includes('[[tier2]]')}
-                                class:tier3={statusTexts[0].includes('[[tier3]]')}
+                                class:tier2={charTask.statusTexts[0].includes('[[tier2]]')}
+                                class:tier3={charTask.statusTexts[0].includes('[[tier3]]')}
                                 colspan="{anyErrors ? 3 : 2}"
                             >
-                                {#each statusTexts as statusText}
+                                {#each charTask.statusTexts as statusText}
                                     <div>
-                                        {#if statusTexts.length === 1}
+                                        {#if charTask.statusTexts.length === 1}
                                             &ndash;
                                         {/if}
                                         <ParsedText text={getFixedText(statusText)} />
