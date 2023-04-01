@@ -135,7 +135,7 @@ public class MemoryCacheService
             string.Format(MemoryCacheKeys.UserModified, apiResult.User.NormalizedUserName),
             cacheEntry =>
             {
-                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
                 return GetUserModifiedJsonTask(apiResult);
             }
         );
