@@ -1,7 +1,6 @@
 ﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
-using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
@@ -818,10 +817,4 @@ public class CacheStaticJob : JobBase, IScheduledJob
     }
     #endregion
 
-}
-
-internal struct AchievementCriteria
-{
-    public Dictionary<int, OutCriteria> Criteria;
-    public Dictionary<int, OutCriteriaTree> CriteriaTree;
 }
