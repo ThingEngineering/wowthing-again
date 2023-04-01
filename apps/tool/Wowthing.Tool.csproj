@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\packages\csharp-lib\Wowthing.Lib.csproj" />
+      <ProjectReference Include="..\backend\Wowthing.Backend.csproj" />
     </ItemGroup>
 
     <ItemGroup>
