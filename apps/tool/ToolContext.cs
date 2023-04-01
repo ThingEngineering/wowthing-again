@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using System.Text.Encodings.Web;
+using Serilog;
 using Serilog.Templates;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
@@ -17,8 +18,10 @@ public static class ToolContext
     {
         JsonOptions = new JsonSerializerOptions
         {
-            AllowTrailingCommas = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
+            // We control both ends of the pipeline and don't write anything weird, stop
+            // escaping my damn apostrophes
+            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
