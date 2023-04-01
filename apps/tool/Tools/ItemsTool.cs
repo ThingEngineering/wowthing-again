@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Models.Wow;
+﻿using Serilog.Context;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Items;
 
 namespace Wowthing.Tool.Tools;
@@ -9,7 +10,10 @@ public class ItemsTool
 
     public async Task Run(params string[] data)
     {
+        using var foo = LogContext.PushProperty("Task", "Items");
         await using var context = ToolContext.GetDbContext();
+
+        ToolContext.Logger.Information("Loading data...");
 
         var items = await context.WowItem
             .AsNoTracking()
@@ -35,11 +39,11 @@ public class ItemsTool
         var db = ToolContext.Redis.GetDatabase();
 
         var cacheData = new RedisItems();
-
         string cacheHash = null;
+
         foreach (var language in Enum.GetValues<Language>())
         {
-            ToolContext.Logger.Information("{Lang}", language);
+            ToolContext.Logger.Information("Generating {Lang}...", language);
 
             cacheData.RawItems = items.Select(item => new RedisItemData(item)
                 {
@@ -58,7 +62,7 @@ public class ItemsTool
             await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, cacheHash);
         }
 
-        _timer.AddPoint("Cache", true);
+        _timer.AddPoint("Generate", true);
         ToolContext.Logger.Information("{0}", _timer.ToString());
     }
 }

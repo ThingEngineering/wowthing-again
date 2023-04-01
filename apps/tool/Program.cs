@@ -23,7 +23,7 @@ async Task<int> RunAll()
 
     await RunAppearancesTool();
     await RunItemsTool();
-    
+
     return 0;
 }
 

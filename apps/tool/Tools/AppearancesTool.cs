@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Contexts;
+﻿using Serilog.Context;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Appearances;
 using Wowthing.Tool.Models.Items;
@@ -11,7 +12,10 @@ public class AppearancesTool
 
     public async Task Run(params string[] data)
     {
+        using var foo = LogContext.PushProperty("Task", "Appearances");
         await using var context = ToolContext.GetDbContext();
+
+        ToolContext.Logger.Information("Loading data...");
 
         var appearances = await LoadAppearances();
         var itemsByIconId = await LoadItems();
@@ -19,6 +23,8 @@ public class AppearancesTool
         var dbItemMap = await LoadWowItems(context);
 
         _timer.AddPoint("Load");
+
+        ToolContext.Logger.Information("Generating...");
 
         var cacheData = new RedisAppearances();
 
@@ -88,7 +94,7 @@ public class AppearancesTool
         var db = ToolContext.Redis.GetDatabase();
         await db.SetCacheDataAndHash("appearance", cacheJson, cacheHash);
 
-        _timer.AddPoint("Cache", true);
+        _timer.AddPoint("Generate", true);
 
         ToolContext.Logger.Information("{0}", _timer.ToString());
     }
