@@ -1,0 +1,175 @@
+name: "Black Empire (8.3)"
+groups:
+
+- name: "Intro"
+  icon: "item/158075" # Heart of Azeroth
+  iconText: "Intro"
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "An Unwelcome Advisor"
+        id: 58496
+      
+      - name: "Return of the Warrior King"
+        id: 58498
+      
+      - name: "Where the Heart Is"
+        id: 58502
+
+    horde:
+      - name: "Return of the Black Prince"
+        id: 58582
+
+      - name: "Where the Heart Is"
+        id: 58583
+
+- name: "Uldum"
+  icon: "achievement/14153" # Uldum Under Assault
+  iconText: "Uldum"
+  type: quest
+  data:
+    0:
+      - name: "Network Diagnostics"
+        id: 58506
+      
+      - name: "A Titanic Problem"
+        id: 56374
+      
+      - name: "The Halls of Origination"
+        id: 56209
+      
+      - name: "To Ramkahen"
+        id: 56375
+      
+      - name: "The Uldum Accord"
+        id: 56472
+
+      - name: "Surfacing Threats"
+        id: 56376
+        description: "Unlocks Uldum Assaults"
+
+- name: "Vale of Eternal Blossoms"
+  icon: "achievement/14514" # Defend the Vale
+  iconText: "Vale"
+  type: quest
+  data:
+    0:
+      - name: "It's Never Easy"
+        id: 56536
+
+      - name: "The Mysterious Sigil"
+        id: 56537
+
+      - name: "Clans of the Mogu"
+        id: 56538
+
+      - name: "Finding the Rajani"
+        id: 56539
+
+      - name: "Time-Lost Warriors"
+        id: 56771
+
+      - name: "Proof of Tenacity"
+        id: 56540
+
+      - name: "The Engine of Nalak'sha"
+        id: 56541
+
+      - name: "Restored Hope"
+        id: 56542
+
+      - name: "Magni's Findings"
+        id: 58737
+        description: "Unlocks Vale of Eternal Blossoms Assaults"
+  
+- name: "Legendary Cloak"
+  icon: "item/169223"
+  iconText: "Cloak"
+  type: quest
+  data:
+    0:
+      - name: "Power Protocol Initiation"
+        id: 57220
+
+      - name: "Re-Origination"
+        id: 57221
+
+      - name: "Investigating the Halls"
+        id: 57222
+
+      - name: "Beginning the Descent"
+        id: 57290
+        description: "Rewards {item:169223}"
+  
+- name: "Visions"
+  icon: "achievement/13994" # Through the Depths of Visions
+  iconText: "Vis"
+  type: quest
+  data:
+    0:
+      - name: "Deeper into the Darkness"
+        id: 57362
+
+      - name: "Opening the Gateway"
+        id: 58634
+
+      - name: "Descending into Madness"
+        id: 57373
+
+      - name: "Into the Darkest Depths"
+        id: 57374
+        description: "Unlocks Visions"
+  
+- name: "Titanic Research Archive"
+  icon: "achievement/14061" # We Have the Technology
+  iconText: "TRA"
+  type: quest
+  data:
+    0:
+      - name: "Whispers in the Dark"
+        id: 58615
+
+      - name: "Into Dreams"
+        id: 58631
+
+      - name: "Ny'alotha, the Waking City: The Corruptor's End"
+        id: 58632
+
+      - name: "Accessing the Archives"
+        id: 57524
+        description: "Unlocks Archival Research Database"
+
+- name: separator
+
+- name: "Void Focus"
+  icon: "item/171320" # Void Focus
+  iconText: "Focus"
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "Something in Your Mind"
+        id: 57275
+        description: "Unlocks Void Focus"
+      
+      - name: "Maintaining Focus"
+        id: 57464
+        description: "Unlocks Empowered Void Focus"
+      
+      - name: "Dream Catcher"
+        id: 57462
+        description: "Unlocks Dreadful Void Focus"
+
+    horde:
+      - name: "Something in Your Mind"
+        id: 57275
+        description: "Unlocks Void Focus"
+      
+      - name: "Maintaining Focus"
+        id: 57276
+        description: "Unlocks Empowered Void Focus"
+      
+      - name: "Dream Catcher"
+        id: 57462
+        description: "Unlocks Dreadful Void Focus"
