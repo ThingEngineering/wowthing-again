@@ -26,6 +26,9 @@ async Task<int> RunAll()
     await RunAchievementsTool();
     await RunAppearancesTool();
     await RunItemsTool();
+    await RunJournalTool();
+    await RunManualTool();
+    await RunStaticTool();
 
     return 0;
 }
@@ -65,6 +68,27 @@ async Task<int> RunItemsTool()
     return 0;
 }
 
+async Task<int> RunJournalTool()
+{
+    var tool = new JournalTool();
+    await tool.Run();
+    return 0;
+}
+
+async Task<int> RunManualTool()
+{
+    var tool = new ManualTool();
+    await tool.Run();
+    return 0;
+}
+
+async Task<int> RunStaticTool()
+{
+    var tool = new StaticTool();
+    await tool.Run();
+    return 0;
+}
+
 [Verb("all", HelpText = "Run all tools")]
 class AllOptions { }
 
@@ -82,3 +106,12 @@ class DumpsOptions { }
 
 [Verb("items", HelpText = "Generate item data")]
 class ItemsOptions { }
+
+[Verb("journal", HelpText = "Generate journal data")]
+class JournalOptions { }
+
+[Verb("manual", HelpText = "Generate manual data")]
+class ManualOptions { }
+
+[Verb("static", HelpText = "Generate static data")]
+class StaticOptions { }
