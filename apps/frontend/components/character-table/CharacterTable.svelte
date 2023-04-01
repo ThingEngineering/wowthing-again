@@ -3,7 +3,7 @@
     import sortBy from 'lodash/sortBy'
     import { onDestroy, onMount } from 'svelte'
 
-    import { lazyStore, settingsStore, staticStore, userStore } from '@/stores'
+    import { lazyStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { homeState, newNavState } from '@/stores/local-storage'
     import { useCharacterFilter } from '@/utils/characters'
     import { setElementStyleById } from '@/utils/dom'
@@ -75,7 +75,7 @@
                 ? getCharacterSortFunc(
                     $settingsStore,
                     $staticStore,
-                    (char) => homeSort($lazyStore, $homeState.groupSort[keyIndex], char))
+                    (char) => homeSort($lazyStore, $timeStore, $homeState.groupSort[keyIndex], char))
                 : sortFunc
             pairs.push([
                 key,

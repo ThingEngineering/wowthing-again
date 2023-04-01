@@ -1,6 +1,9 @@
+import type { DateTime } from 'luxon'
+
 import { Constants } from '@/data/constants'
 import { dungeonMap } from '@/data/dungeon'
 import { leftPad } from '@/utils/formatting'
+import { getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getVaultItemLevel } from '@/utils/mythic-plus'
 import type { Character } from '@/types'
 import type { LazyStore } from '@/stores'
@@ -8,6 +11,7 @@ import type { LazyStore } from '@/stores'
 
 export function homeSort(
     lazyStore: LazyStore,
+    currentTime: DateTime,
     sortBy: string,
     char: Character
 ): string {
@@ -22,11 +26,18 @@ export function homeSort(
         )
     }
     else if (sortBy === 'mythicPlusKeystone') {
-        return leftPad(
-            100 - (char.weekly?.keystoneLevel || 0),
-            3,
-            '0'
-        ) + (dungeonMap[char.weekly?.keystoneDungeon]?.abbreviation || 'ZZ')
+        if (char.level === Constants.characterMaxLevel) {
+            const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region)
+            if (resetTime > currentTime) {
+                return leftPad(
+                    100 - (char.weekly?.keystoneLevel || 0),
+                    3,
+                    '0'
+                ) + (dungeonMap[char.weekly?.keystoneDungeon]?.abbreviation || 'ZZ')
+            }
+        }
+
+        return '100|ZZ'
     }
     else if (sortBy === 'mythicPlusScore') {
         return leftPad(
