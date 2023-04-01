@@ -214,7 +214,7 @@ export class LazyStore implements LazyUgh {
             return
         }
 
-        // console.time('LazyStore.update')
+        console.time('LazyStore.update')
 
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
@@ -243,9 +243,9 @@ export class LazyStore implements LazyUgh {
         {
             this.charactersFunc = once(() => doCharacters({
                 currentTime,
-                settings,
-                userData,
-                userQuestData
+                settings: this.settings,
+                userData: this.userData,
+                userQuestData: this.userQuestData
             }))
         }
 
@@ -355,7 +355,7 @@ export class LazyStore implements LazyUgh {
             }))
         }
 
-        // console.timeEnd('LazyStore.update')
+        console.timeEnd('LazyStore.update')
     }
 
     private hashObject(obj: object): string {

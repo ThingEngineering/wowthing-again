@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
+import { dragonflightProfessionMap } from '@/data/professions'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
+import { Profession, QuestStatus } from '@/enums'
 import type { Settings, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
-import { Profession, QuestStatus } from '@/enums'
-import { dragonflightProfessionMap } from '@/data/professions'
 
 
 export interface LazyCharacter {
@@ -44,7 +44,7 @@ interface LazyStores {
 }
 
 export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> {
-    // console.time('doCharacters')
+    console.time('doCharacters')
 
     const ret: Record<string, LazyCharacter> = {}
 
@@ -148,7 +148,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                                 const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
                                 const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
-                                if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > $timeStore) {
+                                if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
                                     haveCount++
                                 }
                             }
@@ -259,7 +259,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         }
     }
 
-    // console.timeEnd('doCharacters')
+    console.timeEnd('doCharacters')
 
     return ret
 }

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
+    import type { LazyCharacterChore } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte'
@@ -8,7 +9,11 @@
     export let character: Character
     export let taskName: string
 
-    $: chore = $lazyStore.characters[character.id].chores[taskName]
+    let chore: LazyCharacterChore
+    $: {
+        const lazyCharacter = $lazyStore.characters[character.id]
+        chore = lazyCharacter.chores[taskName]
+    }
 </script>
 
 <style lang="scss">
