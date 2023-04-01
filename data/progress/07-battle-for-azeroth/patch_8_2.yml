@@ -1,4 +1,4 @@
-name: Zone Quests
+name: Rise of Azshara (8.2)
 #requiredQuestId: 47189 52131 # A Nation Divided / We Need Each Other
 groups:
 
@@ -116,7 +116,7 @@ groups:
 
 - name: "Welcome to Nazjatar"
   icon: achievement/13635 # Tour of the Depths
-  iconText: "Nazj 1"
+  iconText: "Naz 1"
   lookup: faction
   type: quest
   data:
@@ -254,7 +254,7 @@ groups:
 
 - name: "Secrets in the Sea"
   icon: achievement/13635 # Tour of the Depths
-  iconText: "Nazj 2"
+  iconText: "Naz 2"
   lookup: faction
   type: quest
   data:
@@ -384,7 +384,7 @@ groups:
 
 - name: "Turning the Tide"
   icon: achievement/13635 # Tour of the Depths
-  iconText: "Nazj 3"
+  iconText: "Naz 3"
   lookup: faction
   type: quest
   data:
@@ -440,3 +440,43 @@ groups:
  
       - name: "The Tide Turns" # 8
         id: 55799
+
+- name: separator
+
+- name: "Abyssal Focus"
+  icon: "spell/310160" # Abyssal Focus
+  iconText: "Focus"
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "Ancient Technology"
+        id: 56346
+      
+      - name: "An Abyssal Opportunity"
+        id: 56347
+        description: "Unlocks Abyssal Focus"
+      
+      - name: "The Eternal Palace: We Can Make It Stronger..."
+        id: 56348
+        description: "Unlocks Empowered Abyssal Focus"
+      
+      - name: "The Eternal Palace: Pushing the Limits"
+        id: 56349
+        description: "Unlocks Radiating Abyssal Focus"
+
+    horde:
+      - name: "Ancient Technology"
+        id: 56354
+      
+      - name: "An Abyssal Opportunity"
+        id: 56353
+        description: "Unlocks Abyssal Focus"
+      
+      - name: "The Eternal Palace: We Can Make It Stronger..."
+        id: 56352
+        description: "Unlocks Empowered Abyssal Focus"
+      
+      - name: "The Eternal Palace: Pushing the Limits"
+        id: 56351
+        description: "Unlocks Radiating Abyssal Focus"
