@@ -4,6 +4,7 @@ using Wowthing.Tool.Tools;
 
 return await Parser.Default.ParseArguments<
     AllOptions,
+    AchievementsOptions,
     AppearancesOptions,
     CacheOptions,
     DumpsOptions,
@@ -11,6 +12,7 @@ return await Parser.Default.ParseArguments<
 >(args)
     .MapResult(
         (AllOptions opts) => RunAll(),
+        (AchievementsOptions opts) => RunAchievementsTool(),
         (AppearancesOptions opts) => RunAppearancesTool(),
         (CacheOptions opts) => RunCacheTool(),
         (DumpsOptions opts) => RunDumpsTool(),
@@ -21,9 +23,17 @@ async Task<int> RunAll()
 {
     await RunDumpsTool();
 
+    await RunAchievementsTool();
     await RunAppearancesTool();
     await RunItemsTool();
 
+    return 0;
+}
+
+async Task<int> RunAchievementsTool()
+{
+    var tool = new AchievementsTool();
+    await tool.Run();
     return 0;
 }
 
@@ -57,6 +67,9 @@ async Task<int> RunItemsTool()
 
 [Verb("all", HelpText = "Run all tools")]
 class AllOptions { }
+
+[Verb("achievements", HelpText = "Generate achievement data")]
+class AchievementsOptions { }
 
 [Verb("appearances", HelpText = "Generate appearance data")]
 class AppearancesOptions { }

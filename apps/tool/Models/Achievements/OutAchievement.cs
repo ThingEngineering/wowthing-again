@@ -1,6 +1,8 @@
-﻿namespace Wowthing.Tool.Models.Achievements;
+﻿using Wowthing.Tool.Converters.Achievements;
 
-// [JsonConverter(typeof(OutAchievementConverter))]
+namespace Wowthing.Tool.Models.Achievements;
+
+[JsonConverter(typeof(OutAchievementConverter))]
 public class OutAchievement : ICloneable
 {
     public int CategoryId { get; set; }
