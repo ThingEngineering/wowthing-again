@@ -6,13 +6,15 @@ return await Parser.Default.ParseArguments<
     AllOptions,
     AppearancesOptions,
     CacheOptions,
-    DumpsOptions
+    DumpsOptions,
+    ItemsOptions
 >(args)
     .MapResult(
         (AllOptions opts) => RunAll(),
         (AppearancesOptions opts) => RunAppearancesTool(),
         (CacheOptions opts) => RunCacheTool(),
         (DumpsOptions opts) => RunDumpsTool(),
+        (ItemsOptions opts) => RunItemsTools(),
         errs => Task.FromResult(1));
 
 async Task<int> RunAll()
@@ -29,13 +31,6 @@ async Task<int> RunAppearancesTool()
     return 0;
 }
 
-async Task<int> RunDumpsTool()
-{
-    var tool = new DumpsTool();
-    await tool.Run();
-    return 0;
-}
-
 async Task<int> RunCacheTool()
 {
     var tool = new CacheTool();
@@ -43,26 +38,31 @@ async Task<int> RunCacheTool()
     return 0;
 }
 
-[Verb("all", HelpText = "Run all tools")]
-class AllOptions
+async Task<int> RunDumpsTool()
 {
-
+    var tool = new DumpsTool();
+    await tool.Run();
+    return 0;
 }
+
+async Task<int> RunItemsTools()
+{
+    var tool = new ItemsTool();
+    await tool.Run();
+    return 0;
+}
+
+[Verb("all", HelpText = "Run all tools")]
+class AllOptions { }
 
 [Verb("appearances", HelpText = "Generate appearance data")]
-class AppearancesOptions
-{
-
-}
+class AppearancesOptions { }
 
 [Verb("cache", HelpText = "Generate cache data")]
-class CacheOptions
-{
-
-}
+class CacheOptions { }
 
 [Verb("dumps", HelpText = "Import data dumps")]
-class DumpsOptions
-{
+class DumpsOptions { }
 
-}
+[Verb("items", HelpText = "Generate item data")]
+class ItemsOptions { }
