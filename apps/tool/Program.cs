@@ -7,7 +7,10 @@ return await Parser.Default.ParseArguments<
     AchievementsOptions,
     AppearancesOptions,
     DumpsOptions,
-    ItemsOptions
+    ItemsOptions,
+    JournalOptions,
+    ManualOptions,
+    StaticOptions
 >(args)
     .MapResult(
         (AllOptions _) => RunAll(),

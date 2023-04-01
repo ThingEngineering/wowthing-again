@@ -64,7 +64,7 @@ public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
         }
         writer.WriteEndArray();
 
-        if (encounter.Statistics.Count > 0)
+        if (encounter.Statistics?.Count > 0)
         {
             writer.WriteStartArray();
 
