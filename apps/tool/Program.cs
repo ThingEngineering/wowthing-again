@@ -25,6 +25,7 @@ return await Parser.Default.ParseArguments<
 
 async Task<int> RunAll()
 {
+    // Other tools generally depend on raw data from this one
     await RunDumpsTool();
 
     await RunAchievementsTool();
