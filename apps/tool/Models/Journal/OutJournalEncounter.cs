@@ -1,4 +1,6 @@
-﻿namespace Wowthing.Tool.Models.Journal;
+﻿using Wowthing.Tool.Converters.Journal;
+
+namespace Wowthing.Tool.Models.Journal;
 
 [JsonConverter(typeof(OutJournalEncounterConverter))]
 public class OutJournalEncounter

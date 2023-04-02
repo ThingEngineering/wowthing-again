@@ -52,7 +52,7 @@ public class DumpsTool
 
         foreach (var action in actions)
         {
-            using (LogContext.PushProperty("Task", action.Method.Name))
+            using (LogContext.PushProperty("Task", $"Dumps: {action.Method.Name}"))
             {
                 var watch = System.Diagnostics.Stopwatch.StartNew();
                 ToolContext.Logger.Information("Starting...");

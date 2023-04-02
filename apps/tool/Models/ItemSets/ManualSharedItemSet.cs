@@ -1,6 +1,8 @@
-﻿namespace Wowthing.Tool.Models.ItemSets;
+﻿using Wowthing.Tool.Converters.Manual;
 
-// [JsonConverter(typeof(ManualSharedItemSetConverter))]
+namespace Wowthing.Tool.Models.ItemSets;
+
+[JsonConverter(typeof(ManualSharedItemSetConverter))]
 public class ManualSharedItemSet
 {
     public int[][] Items { get; set; }

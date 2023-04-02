@@ -15,7 +15,7 @@ public class DataZoneMapFarm
     public string? QuestId { get; set; }
     public string? RequiredQuestId { get; set; }
     public string? Reset { get; set; }
-    public string Type { get; set; } = string.Empty;
+    public string? Type { get; set; }
 
     public List<DataZoneMapDrop>? Drops { get; set; }
 }

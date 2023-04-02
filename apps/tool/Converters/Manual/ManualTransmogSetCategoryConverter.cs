@@ -1,122 +1,89 @@
-﻿// using Newtonsoft.Json.Linq;
-//
-// namespace Wowthing.Tool.Converters.Manual;
-//
-// public class ManualTransmogSetCategoryConverter : JsonConverter
-// {
-//         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         var category = (ManualTransmogSetCategory)value;
-//
-//         var catArray = new JArray();
-//         catArray.Add(category.Name);
-//         catArray.Add(category.Slug);
-//
-//         var groupsArray = new JArray();
-//         foreach (var group in category.Groups.EmptyIfNull())
-//         {
-//             groupsArray.Add(CreateGroupArray(group));
-//         }
-//         catArray.Add(groupsArray);
-//
-//         var setsArray = new JArray();
-//         foreach (var set in category.Sets.EmptyIfNull())
-//         {
-//             setsArray.Add(CreateSetArray(set));
-//         }
-//         catArray.Add(setsArray);
-//
-//         catArray.WriteTo(writer);
-//     }
-//
-//     private JToken CreateGroupArray(ManualTransmogSetGroup group)
-//     {
-//         var groupArray = new JArray();
-//         groupArray.Add(group.Type);
-//         groupArray.Add(group.Name);
-//
-//         var tagsArray = new JArray();
-//         foreach (int tag in group.MatchTags.EmptyIfNull())
-//         {
-//             tagsArray.Add(tag);
-//         }
-//         groupArray.Add(tagsArray);
-//
-//         bool usePrefix = !string.IsNullOrWhiteSpace(group.Prefix);
-//         bool useBonusIds = group.BonusIds != null;
-//         bool useCompletionist = group.Completionist.HasValue;
-//
-//         if (useCompletionist || useBonusIds || usePrefix)
-//         {
-//             groupArray.Add(group.Prefix);
-//         }
-//
-//         if (useCompletionist || useBonusIds)
-//         {
-//             var bonusArray = new JArray();
-//             foreach ((int key, var value) in group.BonusIds.EmptyIfNull())
-//             {
-//                 var kvArray = new JArray();
-//                 kvArray.Add(key);
-//
-//                 var valueArray = new JArray();
-//                 foreach (int bonusId in value)
-//                 {
-//                     valueArray.Add(bonusId);
-//                 }
-//                 kvArray.Add(valueArray);
-//
-//                 bonusArray.Add(kvArray);
-//             }
-//             groupArray.Add(bonusArray);
-//         }
-//
-//         if (useCompletionist)
-//         {
-//             groupArray.Add(group.Completionist.Value);
-//         }
-//
-//         return groupArray;
-//     }
-//
-//     private JArray CreateSetArray(ManualTransmogSetSet set)
-//     {
-//         var setArray = new JArray();
-//         setArray.Add(set.Name);
-//
-//         var tagsArray = new JArray();
-//         foreach (var tag in set.MatchTags.EmptyIfNull())
-//         {
-//             tagsArray.Add(tag);
-//         }
-//         setArray.Add(tagsArray);
-//
-//         bool useCompletionist = set.Completionist.HasValue;
-//         bool useModifier = set.Modifier.HasValue;
-//
-//         if (useCompletionist || useModifier)
-//         {
-//             setArray.Add(set.Modifier ?? 0);
-//         }
-//
-//         if (useCompletionist)
-//         {
-//             setArray.Add(set.Completionist.Value);
-//         }
-//
-//         return setArray;
-//     }
-//
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-//         JsonSerializer serializer)
-//     {
-//         throw new NotImplementedException();
-//     }
-//
-//     public override bool CanConvert(Type objectType)
-//     {
-//         return typeof(DataTransmogSetCategory) == objectType;
-//     }
-//
-//     public override bool CanRead => false;
-// }
+﻿using Wowthing.Tool.Models.TransmogSets;
+
+namespace Wowthing.Tool.Converters.Manual;
+
+public class ManualTransmogSetCategoryConverter : JsonConverter<ManualTransmogSetCategory>
+{
+    public override ManualTransmogSetCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write(Utf8JsonWriter writer, ManualTransmogSetCategory category, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(category.Name);
+        writer.WriteStringValue(category.Slug);
+
+        writer.WriteObjectArray(category.Groups.EmptyIfNull(), WriteGroupArray);
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteGroupArray(Utf8JsonWriter writer, ManualTransmogSetGroup group)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteNumberValue((int)group.Type);
+        writer.WriteStringValue(group.Name);
+        writer.WriteNumberValue((int)group.MatchType);
+
+        writer.WriteNumberArray(group.MatchTags.EmptyIfNull());
+
+        writer.WriteObjectArray(group.Sets, WriteSetArray);
+
+        bool usePrefix = !string.IsNullOrWhiteSpace(group.Prefix);
+        bool useBonusIds = group.BonusIds != null;
+        bool useCompletionist = group.Completionist.HasValue;
+
+        if (useCompletionist || useBonusIds || usePrefix)
+        {
+            writer.WriteStringValue(group.Prefix);
+        }
+
+        if (useCompletionist || useBonusIds)
+        {
+            writer.WriteStartArray();
+            foreach ((int key, var bonusIds) in group.BonusIds.EmptyIfNull())
+            {
+                writer.WriteStartArray();
+                writer.WriteNumberValue(key);
+                writer.WriteNumberArray(bonusIds);
+                writer.WriteEndArray();
+            }
+            writer.WriteEndArray();
+        }
+
+        if (useCompletionist)
+        {
+            writer.WriteBooleanValue(group.Completionist.Value);
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteSetArray(Utf8JsonWriter writer, ManualTransmogSetSet set)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(set.Name);
+
+        writer.WriteNumberArray(set.MatchTags.EmptyIfNull());
+
+        bool useCompletionist = set.Completionist.HasValue;
+        bool useModifier = set.Modifier.HasValue;
+
+        if (useCompletionist || useModifier)
+        {
+            writer.WriteNumberValue(set.Modifier ?? 0);
+        }
+
+        if (useCompletionist)
+        {
+            writer.WriteBooleanValue(set.Completionist!.Value);
+        }
+
+        writer.WriteEndArray();
+    }
+}

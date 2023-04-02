@@ -1,6 +1,8 @@
-﻿namespace Wowthing.Tool.Models.Heirlooms;
+﻿using Wowthing.Tool.Converters.Manual;
 
-// [JsonConverter(typeof(DataHeirloomGroupConverter))]
+namespace Wowthing.Tool.Models.Heirlooms;
+
+[JsonConverter(typeof(DataHeirloomGroupConverter))]
 public class DataHeirloomGroup : ICloneable, IDataCategory
 {
     public string Name { get; set; } = string.Empty;

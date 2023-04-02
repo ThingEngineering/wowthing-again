@@ -9,7 +9,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\packages\csharp-lib\Wowthing.Lib.csproj" />
-      <ProjectReference Include="..\backend\Wowthing.Backend.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -20,6 +19,10 @@
       <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
       <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
       <PackageReference Include="YamlDotNet" Version="13.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions" />
     </ItemGroup>
 
 </Project>

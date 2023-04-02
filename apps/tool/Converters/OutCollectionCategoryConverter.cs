@@ -1,38 +1,39 @@
-﻿// using Newtonsoft.Json.Linq;
-//
-// namespace Wowthing.Tool.Converters;
-//
-// public class OutCollectionCategoryConverter : JsonConverter
-// {
-//     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         var category = (OutCollectionCategory) value;
-//         var arr = new JArray();
-//         arr.Add(category.Name);
-//         arr.Add(category.Slug);
-//         arr.Add(
-//             new JArray(
-//                 category.Groups.Select(group => new JArray(
-//                     group.Name,
-//                     new JArray(
-//                         group.Things
-//                             .Select(thing => new JArray(thing))
-//                     )
-//                 ))
-//             )
-//         );
-//         arr.WriteTo(writer);
-//     }
-//
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-//     {
-//         throw new NotImplementedException();
-//     }
-//
-//     public override bool CanConvert(Type objectType)
-//     {
-//         return typeof(OutCollectionCategory) == objectType;
-//     }
-//
-//     public override bool CanRead => false;
-// }
+﻿using Newtonsoft.Json.Linq;
+using Wowthing.Tool.Models.Collections;
+
+namespace Wowthing.Tool.Converters;
+
+public class OutCollectionCategoryConverter : JsonConverter<OutCollectionCategory>
+{
+    public override OutCollectionCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write(Utf8JsonWriter writer, OutCollectionCategory category, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(category.Name);
+        writer.WriteStringValue(category.Slug);
+
+        writer.WriteStartArray();
+        foreach (var group in category.Groups)
+        {
+            writer.WriteStartArray();
+            writer.WriteStringValue(group.Name);
+
+            writer.WriteStartArray();
+            foreach (int[] thing in group.Things)
+            {
+                writer.WriteNumberArray(thing);
+            }
+            writer.WriteEndArray();
+
+            writer.WriteEndArray();
+        }
+        writer.WriteEndArray();
+
+        writer.WriteEndArray();
+    }
+}

@@ -1,17 +1,17 @@
 ﻿using CommandLine;
+using Wowthing.Tool;
 using Wowthing.Tool.Tools;
 
-
 return await Parser.Default.ParseArguments<
-    AllOptions,
-    AchievementsOptions,
-    AppearancesOptions,
-    DumpsOptions,
-    ItemsOptions,
-    JournalOptions,
-    ManualOptions,
-    StaticOptions
->(args)
+        AllOptions,
+        AchievementsOptions,
+        AppearancesOptions,
+        DumpsOptions,
+        ItemsOptions,
+        JournalOptions,
+        ManualOptions,
+        StaticOptions
+    >(args)
     .MapResult(
         (AllOptions _) => RunAll(),
         (AchievementsOptions _) => RunAchievementsTool(),
@@ -86,26 +86,29 @@ async Task<int> RunStaticTool()
     return 0;
 }
 
-[Verb("all", HelpText = "Run all tools")]
-class AllOptions { }
+namespace Wowthing.Tool
+{
+    [Verb("all", HelpText = "Run all tools")]
+    class AllOptions { }
 
-[Verb("achievements", HelpText = "Generate achievement data")]
-class AchievementsOptions { }
+    [Verb("achievements", HelpText = "Generate achievement data")]
+    class AchievementsOptions { }
 
-[Verb("appearances", HelpText = "Generate appearance data")]
-class AppearancesOptions { }
+    [Verb("appearances", HelpText = "Generate appearance data")]
+    class AppearancesOptions { }
 
-[Verb("dumps", HelpText = "Import data dumps")]
-class DumpsOptions { }
+    [Verb("dumps", HelpText = "Import data dumps")]
+    class DumpsOptions { }
 
-[Verb("items", HelpText = "Generate item data")]
-class ItemsOptions { }
+    [Verb("items", HelpText = "Generate item data")]
+    class ItemsOptions { }
 
-[Verb("journal", HelpText = "Generate journal data")]
-class JournalOptions { }
+    [Verb("journal", HelpText = "Generate journal data")]
+    class JournalOptions { }
 
-[Verb("manual", HelpText = "Generate manual data")]
-class ManualOptions { }
+    [Verb("manual", HelpText = "Generate manual data")]
+    class ManualOptions { }
 
-[Verb("static", HelpText = "Generate static data")]
-class StaticOptions { }
+    [Verb("static", HelpText = "Generate static data")]
+    class StaticOptions { }
+}

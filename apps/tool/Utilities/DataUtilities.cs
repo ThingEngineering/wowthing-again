@@ -2,6 +2,7 @@
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Serilog;
 using Wowthing.Tool.Models;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -58,21 +59,20 @@ public static class DataUtilities
         return ret;
     }
 
-    public static List<List<TCategory>> LoadData<TCategory>(string basePath/*, ILogger logger = null*/)
+    public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger? logger = null)
         where TCategory : class, ICloneable, IDataCategory
     {
         var categories = new List<List<TCategory>>();
         var cache = new Dictionary<string, TCategory>();
 
         basePath = Path.Join(DataPath, basePath);
-        // var orderFile = Path.Join(basePath, "_order");
-
-        // logger?.Debug("Loading {0}", orderFile);
+        var orderFile = Path.Join(basePath, "_order");
+        logger?.Debug("Loading {0}", orderFile);
 
         bool inGlobal = false;
         List<string> globalFiles = new();
         List<TCategory>? things = null;
-        foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
+        foreach (var line in File.ReadLines(orderFile))
         {
             if (line == "*")
             {
@@ -114,7 +114,7 @@ public static class DataUtilities
                 else
                 {
                     // Subgroup
-                    // logger?.Debug("Loading subgroup: {0}", trimmed);
+                    logger?.Debug("Loading subgroup: {0}", trimmed);
                     things.Add(LoadFile(basePath, trimmed, cache));
                 }
             }
@@ -126,7 +126,7 @@ public static class DataUtilities
                     categories.Add(things);
                 }
 
-                // logger?.Debug("Loading group: {0}", line.Trim());
+                logger?.Debug("Loading group: {0}", line.Trim());
                 things = new List<TCategory>
                 {
                     LoadFile(basePath, line, cache),
@@ -140,7 +140,7 @@ public static class DataUtilities
                         var globalFilePath = Path.Join(linePath, globalFile);
                         if (File.Exists(Path.Join(basePath, globalFilePath)))
                         {
-                            // logger?.Debug("Loading autogroup: {0}", globalFilePath);
+                            logger?.Debug("Loading autogroup: {0}", globalFilePath);
                             things.Add(LoadFile(basePath, globalFilePath, cache));
 
                             var last = things.Last();

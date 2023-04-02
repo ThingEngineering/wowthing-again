@@ -1,6 +1,6 @@
 ﻿using Wowthing.Tool.Models.Journal;
 
-namespace Wowthing.Tool.Converters;
+namespace Wowthing.Tool.Converters.Journal;
 
 public class OutJournalEncounterConverter : JsonConverter<OutJournalEncounter>
 {

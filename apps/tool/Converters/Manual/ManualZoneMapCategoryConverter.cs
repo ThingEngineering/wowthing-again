@@ -1,161 +1,137 @@
-﻿// using Newtonsoft.Json.Linq;
-//
-// namespace Wowthing.Tool.Converters.Manual;
-//
-// public class ManualZoneMapCategoryConverter : JsonConverter
-// {
-//     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         var category = (ManualZoneMapCategory)value;
-//         var catArray = new JArray();
-//
-//         catArray.Add(category.Name);
-//         catArray.Add(category.Slug);
-//         catArray.Add(category.MapName);
-//         catArray.Add(category.MinimumLevel);
-//
-//         var questArray = new JArray();
-//         foreach (var questId in category.RequiredQuestIds)
-//         {
-//             questArray.Add(questId);
-//         }
-//         catArray.Add(questArray);
-//
-//         var farmArray = new JArray();
-//         foreach (var farm in category.Farms)
-//         {
-//             farmArray.Add(CreateFarmArray(farm));
-//         }
-//         catArray.Add(farmArray);
-//
-//         if (!string.IsNullOrWhiteSpace(category.WowheadGuide))
-//         {
-//             catArray.Add(category.WowheadGuide);
-//         }
-//
-//         catArray.WriteTo(writer);
-//     }
-//
-//     private JArray CreateFarmArray(ManualZoneMapFarm farm)
-//     {
-//         var farmArray = new JArray();
-//
-//         farmArray.Add(farm.Type);
-//         farmArray.Add(farm.Reset);
-//         farmArray.Add(farm.IdType);
-//         farmArray.Add(farm.Id);
-//         farmArray.Add(farm.Name);
-//         farmArray.Add(string.Join(",", farm.Location));
-//         farmArray.Add(new JArray(farm.QuestIds));
-//
-//         var dropsArray = new JArray();
-//         foreach (var drop in farm.Drops.EmptyIfNull())
-//         {
-//             dropsArray.Add(CreateDropArray(drop));
-//         }
-//
-//         farmArray.Add(dropsArray);
-//
-//         bool useMinimumLevel = farm.MinimumLevel > 0;
-//         bool useStatisticId = farm.StatisticId > 0;
-//         bool useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
-//         bool useNote = !string.IsNullOrEmpty(farm.Note);
-//         bool useFaction = !string.IsNullOrEmpty(farm.Faction);
-//         bool useGroupId = farm.GroupId > 0;
-//
-//         if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
-//         {
-//             farmArray.Add(farm.MinimumLevel ?? 0);
-//         }
-//
-//         if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
-//         {
-//             farmArray.Add(farm.StatisticId ?? 0);
-//         }
-//
-//         if (useGroupId || useFaction || useNote || useRequiredQuestIds)
-//         {
-//             farmArray.Add(new JArray(farm.RequiredQuestIds));
-//         }
-//
-//         if (useGroupId || useFaction || useNote)
-//         {
-//             farmArray.Add(farm.Note ?? "");
-//         }
-//
-//         if (useGroupId || useFaction)
-//         {
-//             farmArray.Add(farm.Faction);
-//         }
-//
-//         if (useGroupId)
-//         {
-//             farmArray.Add(farm.GroupId);
-//         }
-//
-//         return farmArray;
-//     }
-//
-//     private JArray CreateDropArray(ManualZoneMapDrop drop)
-//     {
-//         var dropArray = new JArray();
-//
-//         var dropType = Enum.Parse<RewardType>(drop.Type, true);
-//
-//         dropArray.Add(drop.Id);
-//         dropArray.Add(dropType);
-//         dropArray.Add(drop.SubType);
-//         dropArray.Add(drop.ClassMask);
-//
-//         // Optional things
-//         var limit = drop.Limit.EmptyIfNull();
-//         var questIds = drop.QuestIds.EmptyIfNull();
-//         var requiredQuestId = drop.RequiredQuestId ?? 0;
-//
-//         var useLimit = limit.Length > 0;
-//         var useQuestIds = questIds.Length > 0;
-//         var useRequiredQuestId = requiredQuestId > 0;
-//         var useAmount = drop.Amount > 0;
-//         var useNote = !string.IsNullOrEmpty(drop.Note);
-//
-//         if (useNote || useAmount || useRequiredQuestId || useQuestIds || useLimit)
-//         {
-//             dropArray.Add(JArray.FromObject(limit));
-//         }
-//
-//         if (useNote || useAmount || useRequiredQuestId || useQuestIds)
-//         {
-//             dropArray.Add(JArray.FromObject(questIds));
-//         }
-//
-//         if (useNote || useAmount || useRequiredQuestId)
-//         {
-//             dropArray.Add(requiredQuestId);
-//         }
-//
-//         if (useNote || useAmount)
-//         {
-//             dropArray.Add(drop.Amount);
-//         }
-//
-//         if (useNote)
-//         {
-//             dropArray.Add(drop.Note);
-//         }
-//
-//         return dropArray;
-//     }
-//
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-//         JsonSerializer serializer)
-//     {
-//         throw new NotImplementedException();
-//     }
-//
-//     public override bool CanConvert(Type objectType)
-//     {
-//         return typeof(ManualZoneMapCategory) == objectType;
-//     }
-//
-//     public override bool CanRead => false;
-// }
+﻿using Wowthing.Tool.Models.ZoneMaps;
+
+namespace Wowthing.Tool.Converters.Manual;
+
+public class ManualZoneMapCategoryConverter : JsonConverter<ManualZoneMapCategory>
+{
+    public override ManualZoneMapCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write(Utf8JsonWriter writer, ManualZoneMapCategory category, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(category.Name);
+        writer.WriteStringValue(category.Slug);
+        writer.WriteStringValue(category.MapName);
+        writer.WriteNumberValue(category.MinimumLevel);
+
+        writer.WriteNumberArray(category.RequiredQuestIds);
+
+        writer.WriteObjectArray(category.Farms, WriteFarmArray);
+
+        if (!string.IsNullOrWhiteSpace(category.WowheadGuide))
+        {
+            writer.WriteStringValue(category.WowheadGuide);
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteFarmArray(Utf8JsonWriter writer, ManualZoneMapFarm farm)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteNumberValue((int)farm.Type);
+        writer.WriteNumberValue((int)farm.Reset);
+        writer.WriteNumberValue((int)farm.IdType);
+        writer.WriteNumberValue(farm.Id);
+        writer.WriteStringValue(farm.Name);
+        writer.WriteStringValue(string.Join(",", farm.Location));
+
+        writer.WriteNumberArray(farm.QuestIds);
+
+        writer.WriteObjectArray(farm.Drops.EmptyIfNull(), WriteDropArray);
+
+        bool useMinimumLevel = farm.MinimumLevel > 0;
+        bool useStatisticId = farm.StatisticId > 0;
+        bool useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
+        bool useNote = !string.IsNullOrEmpty(farm.Note);
+        bool useFaction = !string.IsNullOrEmpty(farm.Faction);
+        bool useGroupId = farm.GroupId > 0;
+
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
+        {
+            writer.WriteNumberValue(farm.MinimumLevel ?? 0);
+        }
+
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
+        {
+            writer.WriteNumberValue(farm.StatisticId ?? 0);
+        }
+
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds)
+        {
+            writer.WriteNumberArray(farm.RequiredQuestIds);
+        }
+
+        if (useGroupId || useFaction || useNote)
+        {
+            writer.WriteStringValue(farm.Note ?? "");
+        }
+
+        if (useGroupId || useFaction)
+        {
+            writer.WriteStringValue(farm.Faction);
+        }
+
+        if (useGroupId)
+        {
+            writer.WriteNumberValue(farm.GroupId!.Value);
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteDropArray(Utf8JsonWriter writer, ManualZoneMapDrop drop)
+    {
+        writer.WriteStartArray();
+
+        var dropType = Enum.Parse<RewardType>(drop.Type, true);
+
+        writer.WriteNumberValue(drop.Id);
+        writer.WriteNumberValue((int)dropType);
+        writer.WriteNumberValue(drop.SubType);
+        writer.WriteNumberValue(drop.ClassMask);
+
+        // Optional things
+        var limit = drop.Limit.EmptyIfNull();
+        var questIds = drop.QuestIds.EmptyIfNull();
+        var requiredQuestId = drop.RequiredQuestId ?? 0;
+
+        var useLimit = limit.Length > 0;
+        var useQuestIds = questIds.Length > 0;
+        var useRequiredQuestId = requiredQuestId > 0;
+        var useAmount = drop.Amount > 0;
+        var useNote = !string.IsNullOrEmpty(drop.Note);
+
+        if (useNote || useAmount || useRequiredQuestId || useQuestIds || useLimit)
+        {
+            writer.WriteStringArray(limit);
+        }
+
+        if (useNote || useAmount || useRequiredQuestId || useQuestIds)
+        {
+            writer.WriteNumberArray(questIds);
+        }
+
+        if (useNote || useAmount || useRequiredQuestId)
+        {
+            writer.WriteNumberValue(requiredQuestId);
+        }
+
+        if (useNote || useAmount)
+        {
+            writer.WriteNumberValue(drop.Amount);
+        }
+
+        if (useNote)
+        {
+            writer.WriteStringValue(drop.Note);
+        }
+
+        writer.WriteEndArray();
+    }
+}
