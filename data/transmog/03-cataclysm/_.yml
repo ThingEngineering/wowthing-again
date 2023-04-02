@@ -1,8 +1,0 @@
-name: Cataclysm
-skipClasses:
-- demon-hunter
-- evoker
-- monk
-groups:
-
-- name: Empty

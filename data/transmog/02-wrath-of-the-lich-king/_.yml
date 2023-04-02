@@ -1,8 +1,0 @@
-name: Wrath of the Lich King
-skipClasses:
-- demon-hunter
-- evoker
-- monk
-groups:
-
-- name: Empty

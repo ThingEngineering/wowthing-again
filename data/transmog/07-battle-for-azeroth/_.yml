@@ -1,6 +1,0 @@
-name: Battle for Azeroth
-skipClasses:
-- evoker
-groups:
-
-- name: Empty
