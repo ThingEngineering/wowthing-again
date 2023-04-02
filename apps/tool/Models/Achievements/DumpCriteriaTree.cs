@@ -14,7 +14,7 @@ public class DumpCriteriaTree
     public int Parent { get; set; }
 
     [Name("Description_lang")]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     public List<DumpCriteriaTree> Children { get; set; } = new();
 }

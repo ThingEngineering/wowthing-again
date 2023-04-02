@@ -21,4 +21,8 @@
       <PackageReference Include="YamlDotNet" Version="13.0.2" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Extensions" />
+    </ItemGroup>
+
 </Project>

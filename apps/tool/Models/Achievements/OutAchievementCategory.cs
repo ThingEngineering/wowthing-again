@@ -3,7 +3,7 @@
 public class OutAchievementCategory : ICloneable
 {
     public int Id { get; set; }
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public List<int> AchievementIds { get; set; } = new();
     public List<OutAchievementCategory> Children { get; set; } = new();
 
@@ -13,7 +13,7 @@ public class OutAchievementCategory : ICloneable
     [JsonIgnore]
     public int Parent { get; set; }
 
-    public string Slug { get; set; }
+    public string Slug { get; set; } = string.Empty;
 
     public OutAchievementCategory()
     { }

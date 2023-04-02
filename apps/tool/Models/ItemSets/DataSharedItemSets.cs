@@ -2,6 +2,6 @@
 
 public class DataSharedItemSets
 {
-    public List<DataSharedItemSet> Sets { get; set; }
-    public List<string> Tags { get; set; }
+    public List<DataSharedItemSet>? Sets { get; set; }
+    public List<string>? Tags { get; set; }
 }

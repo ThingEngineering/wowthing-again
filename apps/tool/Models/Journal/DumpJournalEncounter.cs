@@ -13,5 +13,5 @@ public class DumpJournalEncounter
     public int OrderIndex { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

@@ -13,5 +13,5 @@ public class DumpMap
     public int MaxPlayers { get; set; }
 
     [Name("MapName_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

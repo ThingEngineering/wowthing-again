@@ -43,7 +43,7 @@ public class DumpItemSparse
     public int StatType9 { get; set; }
 
     [Name("Display_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public int[] Stats => new[]
     {

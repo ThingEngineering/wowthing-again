@@ -1,120 +1,87 @@
-﻿// using Newtonsoft.Json.Linq;
-//
-// namespace Wowthing.Tool.Converters.Manual;
-//
-// public class ManualTransmogCategoryConverter : JsonConverter
-// {
-//     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-//     {
-//         var category = (ManualTransmogCategory)value;
-//
-//         var catArray = new JArray();
-//         catArray.Add(category.Name);
-//         catArray.Add(category.Slug);
-//
-//         var groupsArray = new JArray();
-//         foreach (var group in category.Groups)
-//         {
-//             groupsArray.Add(CreateGroupArray(group));
-//         }
-//         catArray.Add(groupsArray);
-//
-//         if (category.SkipClasses?.Count > 0)
-//         {
-//             var skipArray = new JArray();
-//             foreach (var skipClass in category.SkipClasses)
-//             {
-//                 skipArray.Add(skipClass);
-//             }
-//             catArray.Add(skipArray);
-//         }
-//
-//         catArray.WriteTo(writer);
-//     }
-//
-//     private JToken CreateGroupArray(ManualTransmogGroup group)
-//     {
-//         var groupArray = new JArray();
-//         groupArray.Add(group.Name);
-//         groupArray.Add(group.Type);
-//
-//         var setsArray = new JArray();
-//         foreach (var set in group.Sets)
-//         {
-//             setsArray.Add(set);
-//         }
-//
-//         groupArray.Add(setsArray);
-//
-//         var datasArray = new JArray();
-//         foreach (var (key, sets) in group.Data)
-//         {
-//             var dataArray = new JArray();
-//             dataArray.Add(key);
-//
-//             var dataSetsArray = new JArray();
-//             foreach (var set in sets)
-//             {
-//                 dataSetsArray.Add(CreateSetArray(set));
-//             }
-//             dataArray.Add(dataSetsArray);
-//
-//             datasArray.Add(dataArray);
-//         }
-//         groupArray.Add(datasArray);
-//
-//         if (!string.IsNullOrWhiteSpace(group.Tag))
-//         {
-//             groupArray.Add(group.Tag);
-//         }
-//
-//         return groupArray;
-//     }
-//
-//     private JArray CreateSetArray(ManualTransmogSet set)
-//     {
-//         bool useAchievementId = set.AchievementId > 0;
-//         bool useWowheadSetId = set.WowheadSetId > 0;
-//
-//         var setArray = new JArray();
-//         setArray.Add(set.Name);
-//
-//         var itemsObject = new JObject();
-//         foreach (var (key, items) in set.Items)
-//         {
-//             var itemArray = new JArray();
-//             foreach (var itemId in items)
-//             {
-//                 itemArray.Add(itemId);
-//             }
-//
-//             itemsObject[key] = itemArray;
-//         }
-//         setArray.Add(itemsObject);
-//
-//         if (useAchievementId || useWowheadSetId)
-//         {
-//             setArray.Add(set.WowheadSetId);
-//         }
-//
-//         if (useAchievementId)
-//         {
-//             setArray.Add(set.AchievementId);
-//         }
-//
-//         return setArray;
-//     }
-//
-//     public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-//         JsonSerializer serializer)
-//     {
-//         throw new NotImplementedException();
-//     }
-//
-//     public override bool CanConvert(Type objectType)
-//     {
-//         return typeof(ManualTransmogCategory) == objectType;
-//     }
-//
-//     public override bool CanRead => false;
-// }
+﻿using Wowthing.Tool.Models.Transmog;
+
+namespace Wowthing.Tool.Converters.Manual;
+
+public class ManualTransmogCategoryConverter : JsonConverter<ManualTransmogCategory>
+{
+
+    public override ManualTransmogCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write(Utf8JsonWriter writer, ManualTransmogCategory category, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(category.Name);
+        writer.WriteStringValue(category.Slug);
+
+        writer.WriteObjectArray(category.Groups, WriteGroupArray);
+
+        if (category.SkipClasses?.Count > 0)
+        {
+            writer.WriteStringArray(category.SkipClasses);
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteGroupArray(Utf8JsonWriter writer, ManualTransmogGroup group)
+    {
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(group.Name);
+        writer.WriteStringValue(group.Type);
+
+        writer.WriteStringArray(group.Sets);
+
+        // Data
+        writer.WriteStartArray();
+        foreach (var (key, sets) in group.Data)
+        {
+            writer.WriteStartArray();
+            writer.WriteStringValue(key);
+            writer.WriteObjectArray(sets, WriteSetArray);
+            writer.WriteEndArray();
+        }
+        writer.WriteEndArray();
+
+        if (!string.IsNullOrWhiteSpace(group.Tag))
+        {
+            writer.WriteStringValue(group.Tag);
+        }
+
+        writer.WriteEndArray();
+    }
+
+    private void WriteSetArray(Utf8JsonWriter writer, ManualTransmogSet set)
+    {
+        bool useAchievementId = set.AchievementId > 0;
+        bool useWowheadSetId = set.WowheadSetId > 0;
+
+        writer.WriteStartArray();
+        writer.WriteStringValue(set.Name);
+
+        // Items
+        writer.WriteStartObject();
+        foreach (var (key, items) in set.Items)
+        {
+            writer.WritePropertyName(key);
+            writer.WriteNumberArray(items);
+        }
+        writer.WriteEndObject();
+
+        if (useAchievementId || useWowheadSetId)
+        {
+            writer.WriteNumberValue(set.WowheadSetId);
+        }
+
+        if (useAchievementId)
+        {
+            writer.WriteNumberValue(set.AchievementId);
+        }
+
+        writer.WriteEndArray();
+    }
+}

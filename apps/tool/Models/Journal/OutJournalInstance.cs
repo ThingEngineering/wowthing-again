@@ -3,13 +3,10 @@
 public class OutJournalInstance
 {
     public int Id { get; set; }
-    public string Name { get; set; }
-    public string Slug { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Slug { get; set; } = string.Empty;
 
-    // [JsonProperty(PropertyName = "encountersRaw")]
-    public List<OutJournalEncounter> Encounters { get; set; } = new();
+    public List<OutJournalEncounter> EncountersRaw { get; set; } = new();
 
-    // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public Dictionary<int, int> BonusIds { get; set; }
+    public Dictionary<int, int> BonusIds { get; set; } = new();
 }
-

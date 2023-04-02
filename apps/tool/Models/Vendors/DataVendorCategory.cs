@@ -2,10 +2,10 @@
 
 public class DataVendorCategory : ICloneable, IDataCategory
 {
-    public string Name { get; set; }
-    public List<string> VendorMaps { get; set; }
-    public List<string> VendorTags { get; set; }
-    public List<DataVendorGroup> Groups { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public List<string>? VendorMaps { get; set; }
+    public List<string>? VendorTags { get; set; }
+    public List<DataVendorGroup>? Groups { get; set; }
 
     public object Clone()
     {

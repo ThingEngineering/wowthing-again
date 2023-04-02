@@ -12,8 +12,8 @@ public class DumpChrRaces
     public WowFaction Faction { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Name("Name_female_lang")]
-    public string FemaleName { get; set; }
+    public string FemaleName { get; set; } = string.Empty;
 }

@@ -12,5 +12,5 @@ public class DumpAchievementCategory
     public int UiOrder { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

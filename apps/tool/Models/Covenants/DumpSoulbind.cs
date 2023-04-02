@@ -11,5 +11,5 @@ public class DumpSoulbind
     public int GarrTalentTreeID { get; set; }
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

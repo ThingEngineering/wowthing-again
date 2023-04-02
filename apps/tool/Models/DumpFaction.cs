@@ -12,8 +12,8 @@ public class DumpFaction
     public short ParentFactionID { get; set; }
 
     [Name("Description_lang")]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Name("Name_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 }

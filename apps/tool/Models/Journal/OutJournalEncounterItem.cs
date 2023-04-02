@@ -8,5 +8,5 @@ public class OutJournalEncounterItem
     public int SubclassId { get; set; }
     public RewardType Type { get; set; }
     public WowQuality Quality { get; set; }
-    public List<OutJournalEncounterItemAppearance> Appearances { get; set; }
+    public List<OutJournalEncounterItemAppearance> Appearances { get; set; } = new();
 }

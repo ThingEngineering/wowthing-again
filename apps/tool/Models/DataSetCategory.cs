@@ -2,6 +2,6 @@
 
 public class DataSetCategory
 {
-    public string Name { get; set; }
-    public List<DataSetGroup> Groups { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public List<DataSetGroup>? Groups { get; set; }
 }

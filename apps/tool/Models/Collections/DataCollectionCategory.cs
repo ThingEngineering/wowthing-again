@@ -2,8 +2,8 @@
 
 public class DataCollectionCategory : ICloneable, IDataCategory
 {
-    public string Name { get; set; }
-    public List<DataCollectionGroup> Groups { get; set; } = new();
+    public string Name { get; set; } = string.Empty;
+    public List<DataCollectionGroup>? Groups { get; set; }
 
     public object Clone()
     {

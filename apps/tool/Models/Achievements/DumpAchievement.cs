@@ -27,11 +27,11 @@ public class DumpAchievement
     public int UiOrder { get; set; }
 
     [Name("Description_lang")]
-    public string Description { get; set; }
+    public string Description { get; set; } = string.Empty;
 
     [Name("Title_lang")]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Name("Reward_lang")]
-    public string Reward { get; set; }
+    public string Reward { get; set; } = string.Empty;
 }
