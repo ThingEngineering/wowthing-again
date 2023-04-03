@@ -1,6 +1,0 @@
-name: Shadowlands
-skipClasses:
-- evoker
-groups:
-
-- name: Empty

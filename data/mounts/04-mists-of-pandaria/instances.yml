@@ -1,9 +1,0 @@
-name: Instances
-groups:
-
-- name: Raids
-  things:
-  - 478 # Astral Cloud Serpent (MSV)
-  - 543 # Clutch of Ji-Kun (ToT)
-  - 531 # Spawn of Horridon (ToT)
-  - 559 # Kor'kron Juggernaut (SoO)

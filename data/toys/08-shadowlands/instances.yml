@@ -1,9 +1,0 @@
-name: Instances
-groups:
-
-- name: Torghast
-  things:
-  - 187417 # Adamant Vaults Cell (Adamant Vaults)
-  - 187075 # Box of Rattling Chains (Layer 9-12 boss)
-  - 186974 # Experimental Anima Cell (Layer 9-12 broker)
-  - 184223 # Helm of the Dominated (Twisting Corridors: Layer 4)

@@ -26,8 +26,6 @@ jobs:
             backend:
               - 'apps/backend/**'
               - 'packages/csharp-lib/**'
-              - 'data/**'
-              - 'dumps/**'
               - 'Directory.Build.props'
 
             web:

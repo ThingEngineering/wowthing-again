@@ -1,9 +1,0 @@
-id: 95650
-name: "Skoller"
-locations:
-  z5_tanaan_jungle:
-    - 55.2 75.0
-sells:
-  - type: toy
-    id: 128328 # Skoller's Bag of Squirrel Treats
-    note: "Just talk to him"

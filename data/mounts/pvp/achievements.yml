@@ -1,9 +1,0 @@
-name: Achievements
-groups:
-
-- name: Achievements
-  things:
-  - 271 272 # Black War Bear (For The Alliance!/For The Horde!)
-  - 272 271 # ^ reversed
-  - 422 # Vicious War Steed (Veteran of the Alliance II)
-  - 423 # Vicious War Wolf (Veteran of the Horde II)
