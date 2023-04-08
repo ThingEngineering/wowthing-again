@@ -4,12 +4,12 @@
 
     import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
+    import { QuestStatus } from '@/enums'
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import { QuestStatus } from '@/enums';
 
     export let character: Character
     export let chore: LazyCharacterChore
@@ -118,11 +118,12 @@
         <table class="table-striped">
             <tbody>
                 {#each taskSet as charTask}
-                    <tr>
+                    <tr
+                        class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}
+                    >
                         <td
                             class="name text-overflow"
                             class:status-shrug={charTask.status === QuestStatus.Error}
-                            class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}
                         >
                             {charTask.name}
                         </td>
@@ -142,7 +143,9 @@
                     </tr>
 
                     {#if charTask.status === QuestStatus.InProgress && charTask.statusTexts[0]}
-                        <tr>
+                        <tr
+                            class:skipped={charTask.skipped}
+                        >
                             <td
                                 class="status-text"
                                 class:tier2={charTask.statusTexts[0].includes('[[tier2]]')}
