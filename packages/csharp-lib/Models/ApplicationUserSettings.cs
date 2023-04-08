@@ -1,6 +1,4 @@
-﻿
-
-#nullable enable
+﻿#nullable enable
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Wowthing.Lib.Enums;
@@ -9,6 +7,7 @@ namespace Wowthing.Lib.Models;
 public class ApplicationUserSettings
 {
     private static readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
+    private static readonly Regex ValidTaskString = new Regex(@"^\w{1,30}$", RegexOptions.Compiled);
 
     public ApplicationUserSettingsAchievements? Achievements { get; set; } = new();
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
@@ -92,38 +91,6 @@ public class ApplicationUserSettings
         "vaultMythicPlus",
         "vaultPvp",
         "vaultRaid",
-    };
-
-    private readonly HashSet<string> _validHomeTasks = new()
-    {
-        "somethingDifferent",
-
-        "dmfProfessions",
-
-        "holidayArenaSkirmishes",
-        "holidayBattlegrounds",
-        "holidayDungeons",
-        "holidayPetBattles",
-        "holidayTimewalking",
-        "holidayWorldQuests",
-        "timewalking", // unfortunately named TW item turn-in
-
-        "legionWitheredTraining",
-
-        "slAnima",
-        "slFatedWorldQuest",
-        "slKorthia",
-        "slMawAssault",
-        "slNewDeal",
-        "slTormentors",
-        "slZerethMortis",
-
-        "dfAidingAccord",
-        "dfCatchRelease",
-        "dfChores",
-        "dfDungeonWeeklies",
-        "dfProfessionWeeklies",
-        "dfSparks",
     };
 
     public void Migrate()
@@ -222,12 +189,12 @@ public class ApplicationUserSettings
 
         Layout.HomeTasks = Layout.HomeTasks
             .EmptyIfNull()
-            .Where(field => _validHomeTasks.Contains(field))
+            .Where(field => ValidTaskString.IsMatch(field))
             .Distinct()
             .ToList();
 
         Tasks.DisabledChores = Tasks.DisabledChores
-            .Where(kvp => kvp.Key.EndsWith("Chores") && _validHomeTasks.Contains(kvp.Key))
+            .Where(kvp => kvp.Key.EndsWith("Chores") && ValidTaskString.IsMatch(kvp.Key))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }

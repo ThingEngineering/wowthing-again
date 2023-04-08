@@ -22,6 +22,8 @@ public class RedisStaticData
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
     public Dictionary<int, List<List<int>>> Talents { get; set; }
 
+    public Dictionary<string, List<int>> HolidayIds { get; set; }
+
     public StaticCurrency[] RawCurrencies { get; set; }
     public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
     public StaticHoliday[] RawHolidays { get; set; }

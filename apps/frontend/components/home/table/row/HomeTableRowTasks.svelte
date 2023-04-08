@@ -1,7 +1,7 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { settingsStore, userStore } from '@/stores'
-    import { getActiveHoliday } from '@/utils/get-active-holiday'
+    import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
+    import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
     import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte'
@@ -10,7 +10,7 @@
 
     export let character: Character
 
-    $: activeHoliday = getActiveHoliday($userStore, character.realm.region)
+    $: activeHolidays = getActiveHolidays($timeStore, $userStore, ...$userStore.allRegions)
 </script>
 
 {#each $settingsStore.layout.homeTasks as taskName}
@@ -23,14 +23,14 @@
                 {character}
                 {taskName}
             />
-        {:else if
-            task.name.indexOf('[Holiday]') === -1
-            || taskName === activeHoliday
-            || (taskName === 'timewalking' && activeHoliday === 'holidayTimewalking')
-        }
+        {:else if (
+            activeHolidays[taskName] ||
+            ($staticStore.holidayIds[taskName] === undefined && !taskName.startsWith('pvp'))
+        )}
             <RowProgressQuest
                 {character}
                 quest={taskName}
+                title={activeHolidays[taskName]?.name}
             />
         {/if}
     {/if}

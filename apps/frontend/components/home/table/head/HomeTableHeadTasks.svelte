@@ -1,8 +1,8 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { settingsStore, userStore } from '@/stores'
+    import { settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { getActiveHoliday } from '@/utils/get-active-holiday'
+    import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { tippyComponent } from '@/utils/tippy'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
@@ -10,11 +10,7 @@
 
     export let groupIndex: number
 
-    let activeHoliday: string
-    $: {
-        const firstRegion = $userStore.allRegions?.[0] || 1
-        activeHoliday = getActiveHoliday($userStore, firstRegion)
-    }
+    $: activeHolidays = getActiveHolidays($timeStore, $userStore, ...$userStore.allRegions)
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[groupIndex]
@@ -36,11 +32,10 @@
 
 {#each $settingsStore.layout.homeTasks as taskName}
     {@const task = taskMap[taskName]}
-    {#if
-        task?.name?.indexOf('[Holiday]') === -1
-        || taskName === activeHoliday
-        || (taskName === 'timewalking' && activeHoliday === 'holidayTimewalking')
-    }
+    {#if task && (
+        activeHolidays[taskName] ||
+        ($staticStore.holidayIds[taskName] === undefined && !taskName.startsWith('pvp'))
+    )}
         {@const sortKey = `task:${taskName}`}
         <td
             class="sortable"

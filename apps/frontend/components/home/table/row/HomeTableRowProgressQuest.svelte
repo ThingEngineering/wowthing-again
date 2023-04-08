@@ -1,6 +1,5 @@
 <script lang="ts">
     import { lazyStore, userStore } from '@/stores'
-    import { getActiveHoliday } from '@/utils/get-active-holiday'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -8,11 +7,7 @@
 
     export let character: Character
     export let quest: string
-
-    $: activeHoliday = getActiveHoliday($userStore, character.realm.region)
-
-    let actualQuest: string
-    let title: string
+    export let title: string
 
     $: charTask = $lazyStore.characters[character.id].tasks[quest]
 
@@ -42,7 +37,7 @@
 {#if charTask}
     <td
         class="status-{charTask.status}"
-        class:center={actualQuest === 'weeklyHoliday' || !charTask.text?.endsWith('%')}
+        class:center={!charTask.text?.endsWith('%')}
         use:tippyComponent={{
             component: Tooltip,
             props: {
