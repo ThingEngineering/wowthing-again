@@ -57,10 +57,17 @@
     <h3>Dragonflight Settings</h3>
 
     <CheckboxInput
+        bind:value={$settingsStore.tasks.dragonflightCountCraftingDrops}
+        name="tasks_dragonflightCountCraftingDrops"
+    >
+        Count incomplete crafting drops in Profession Weeklies.
+    </CheckboxInput>
+
+    <CheckboxInput
         bind:value={$settingsStore.tasks.dragonflightCountGathering}
         name="tasks_dragonflightCountGathering"
     >
-        Count incomplete gathering in Profession Weeklies.
+        Count incomplete gathering tasks in Profession Weeklies.
     </CheckboxInput>
 
     <CheckboxInput

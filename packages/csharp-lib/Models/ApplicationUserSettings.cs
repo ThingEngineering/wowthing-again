@@ -284,6 +284,7 @@ public class ApplicationUserSettingsPrivacy
 public class ApplicationUserSettingsTasks
 {
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
+    public bool DragonflightCountCraftingDrops { get; set; } = true;
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
 }

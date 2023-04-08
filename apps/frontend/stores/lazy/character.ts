@@ -22,6 +22,7 @@ export class LazyCharacterChore {
 }
 export class LazyCharacterChoreTask {
     name: string
+    skipped = false
     status: QuestStatus = QuestStatus.NotStarted
     statusTexts: string[] = []
 
@@ -93,14 +94,26 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     charTask.statusTexts.push(!charTask.quest ? choreTask.canGetFunc?.(character) || '' : '')
 
                     const nameParts = choreTask.taskName.split(': ')
-                    const skipCounting = (
-                        !stores.settings.tasks.dragonflightCountGathering &&
-                        ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0 &&
-                        ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
-                        charTask.quest?.status !== QuestStatus.Completed
-                    ) || charTask.statusTexts[0] !== ''
+                    const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
+                    charTask.skipped = (
+                        (
+                            !stores.settings.tasks.dragonflightCountCraftingDrops &&
+                            !isGathering &&
+                            nameParts[1] === 'Drops' &&
+                            charTask.status !== QuestStatus.Completed
+                        )
+                        ||
+                        (
+                            !stores.settings.tasks.dragonflightCountGathering &&
+                            isGathering &&
+                            ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
+                            charTask.status !== QuestStatus.Completed
+                        )
+                        ||
+                        charTask.statusTexts[0] !== ''
+                    )
         
-                    if (!skipCounting) {
+                    if (!charTask.skipped) {
                         charChore.countTotal++
                     }
 
@@ -179,7 +192,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         ? stores.userQuestData.questNames[choreTask.taskKey] || choreTask.taskName
                         : choreTask.taskName
                     
-                    if (charTask.status === QuestStatus.Completed && !skipCounting) {
+                    if (charTask.status === QuestStatus.Completed && !charTask.skipped) {
                         charChore.countCompleted++
                     }
                 
