@@ -105,6 +105,9 @@
             color: rgb(255, 215, 0);
         }
     }
+    .skipped {
+        opacity: 0.7;
+    }
 </style>
 
 <div class="wowthing-tooltip">
@@ -119,6 +122,7 @@
                         <td
                             class="name text-overflow"
                             class:status-shrug={charTask.status === QuestStatus.Error}
+                            class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}
                         >
                             {charTask.name}
                         </td>

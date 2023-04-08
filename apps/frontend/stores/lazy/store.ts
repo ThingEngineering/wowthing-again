@@ -193,6 +193,7 @@ export class LazyStore implements LazyUgh {
             
             completionistMode: `${settings.transmog.completionistMode}`,
             hideUnavailable: `${settings.collections.hideUnavailable}`,
+            settingsTasks: this.hashObject(settings.tasks),
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
@@ -239,7 +240,8 @@ export class LazyStore implements LazyUgh {
 
         if (changedData.userData ||
             changedData.userQuestData ||
-            changedHashes.currentTime)
+            changedHashes.currentTime ||
+            changedHashes.settingsTasks)
         {
             this.charactersFunc = once(() => doCharacters({
                 currentTime,
