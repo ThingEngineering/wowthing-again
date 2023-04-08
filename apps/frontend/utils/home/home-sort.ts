@@ -26,7 +26,7 @@ export function homeSort(
         )
     }
     else if (sortBy === 'mythicPlusKeystone') {
-        if (char.level === Constants.characterMaxLevel) {
+        if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region)
             if (resetTime > currentTime) {
                 return leftPad(
