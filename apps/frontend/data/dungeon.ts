@@ -504,6 +504,12 @@ export const extraInstances: StaticDataInstance[] = [
         name: 'Oondasta',
         shortName: 'Oon',
     },
+    {
+        expansion: 4,
+        id: 104005,
+        name: 'The Four Celestials',
+        shortName: 'Cel',
+    },
 
     // Warlords of Draenor
     {
