@@ -18,9 +18,9 @@ export const taskList: Task[] = [
 
     // Holidays
     {
-        key: 'holidayArenaSkirmishes',
-        name: '[Holiday] Arena Skirmishes',
-        shortName: 'Skirm',
+        key: 'holidayArena',
+        name: '[Holiday] Arena',
+        shortName: 'Arena',
     },
     {
         key: 'holidayBattlegrounds',
@@ -33,8 +33,8 @@ export const taskList: Task[] = [
         shortName: 'Dung',
     },
     {
-        key: 'holidayPetBattles',
-        name: '[Holiday] Pet Battles',
+        key: 'holidayPetPvp',
+        name: '[Holiday] Pet PvP',
         shortName: 'Pets',
     },
     {
@@ -43,7 +43,7 @@ export const taskList: Task[] = [
         shortName: 'TW :exclamation:',
     },
     {
-        key: 'timewalking',
+        key: 'holidayTimewalkingItem',
         name: '[Holiday] Timewalking Item',
         shortName: 'TW :item:',
         minimumLevel: Constants.characterMaxLevel - 10,
@@ -56,9 +56,39 @@ export const taskList: Task[] = [
 
     // PvP
     {
-        key: 'somethingDifferent',
-        name: '[PvP] Something Different (Brawl)',
+        key: 'pvpBattlegrounds',
+        name: '[PvP] Battlegrounds',
+        shortName: 'BGs',
+    },
+    {
+        key: 'pvpWar',
+        name: '[PvP] Epic Battlegrounds',
+        shortName: 'EBGs',
+    },
+    {
+        key: 'pvpTeamwork',
+        name: '[PvP] Rated Battlegrounds',
+        shortName: 'RBGs',
+    },
+    {
+        key: 'pvpBrawl',
+        name: '[PvP] Brawl (Something Different)',
         shortName: 'Brawl',
+    },
+    {
+        key: 'pvpArenas',
+        name: '[PvP] Arenas',
+        shortName: 'Arena',
+    },
+    {
+        key: 'pvpSolo',
+        name: '[PvP] Solo Shuffle',
+        shortName: 'Solo',
+    },
+    {
+        key: 'pvpOverwhelmingOdds',
+        name: '[PvP] Overwhelming Odds',
+        shortName: 'WM',
     },
 
     // Legion

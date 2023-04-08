@@ -5,7 +5,6 @@ import { toNiceNumber } from '@/utils/formatting'
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison'
-import { progressQuestId } from '@/data/quests'
 import { ProgressDataType, QuestStatus } from '@/enums'
 import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
@@ -173,8 +172,7 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.AddonQuest: {
-                            const questKey = progressQuestId[data.value]
-                            const quest = userQuestData.characters[character.id]?.progressQuests?.[questKey]
+                            const quest = userQuestData.characters[character.id]?.progressQuests?.[data.value]
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed
                                 have = haveThis

@@ -1,19 +1,8 @@
 import { GlobalDailyQuest } from '@/types/data'
 import { ItemQuality } from '@/enums'
 
-export const progressQuests: Record<string, string[]> = {
-    'allAnima': ['kyrianAnima', 'necrolordAnima', 'nightFaeAnima', 'venthyrAnima'],
-    'allSouls': ['kyrianSouls', 'necrolordSouls', 'nightFaeSouls', 'venthyrSouls'],
-}
 
 export const progressQuestMap: Record<string, string> = {
-    holidayArenaSkirmishes: 'weeklyHoliday',
-    holidayBattlegrounds: 'weeklyHoliday',
-    holidayDungeons: 'weeklyHoliday',
-    holidayPetBattles: 'weeklyHoliday',
-    holidayTimewalking: 'weeklyHoliday',
-    holidayWorldQuests: 'weeklyHoliday',
-
     slKorthia: 'shapingFate',
     slNewDeal: 'newDeal',
     slZerethMortis: 'patterns',
@@ -28,46 +17,24 @@ export const progressQuestHead: Record<string, string> = {
     weeklySouls: 'Souls',
 }
 
-export const progressQuestId: Record<number, string> = {
-    // 66648: 'slFatedDinar1',
-    // 66649: 'slFatedDinar2',
-    // 66650: 'slFatedDinar3',
-}
-
 export const forcedReset: Record<string, boolean> = {
-    kyrianSouls: true,
-    necrolordSouls: true,
-    nightFaeSouls: true,
-    venthyrSouls: true,
-    weeklyHoliday: true,
-    weeklyPvP: true,
-    weeklySouls: true,
+    holidayArena: true,
+    holidayBattlegrounds: true,
+    holidayDungeons: true,
+    holidayPetPvp: true,
+    holidayTimewalking: true,
+    holidayTimewalkingItem: true,
+    holidayWorldQuests: true,
+    pvpArenas: true,
+    pvpBattlegrounds: true,
+    pvpBrawl: true,
+    pvpOverwhelmingOdds: true,
+    pvpSkirmishes: true,
+    pvpSolo: true,
+    pvpTeamwork: true,
+    pvpWar: true,
+    slSouls: true,
 }
-
-export const holidayQuestCycle: string[] = [
-    'holidayWorldQuests',
-    
-    'holidayBattlegrounds',
-    'holidayDungeons',
-    'holidayTimewalking',
-    'holidayArenaSkirmishes', // Pets
-    'holidayWorldQuests',
-    'holidayTimewalking',
-
-    'holidayBattlegrounds',
-    'holidayDungeons',
-    'holidayTimewalking',
-    'holidayArenaSkirmishes',
-    'holidayWorldQuests', // Pets
-    'holidayTimewalking',
-
-    'holidayBattlegrounds',
-    'holidayDungeons',
-    'holidayTimewalking',
-    'holidayArenaSkirmishes',
-    'holidayWorldQuests',
-    'holidayTimewalking', // Pets
-]
 
 export const dailyQuestLevel: Record<number, number> = {
     6: 45,
