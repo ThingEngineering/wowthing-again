@@ -40,6 +40,7 @@ public class DumpsTool
             ImportPets,
             ImportToys,
 
+            ImportCharacterTitleStrings,
             ImportCreatureStrings,
             ImportJournalEncounterStrings,
             ImportJournalInstanceStrings,
@@ -123,6 +124,15 @@ public class DumpsTool
 
         _timer.AddPoint(type.ToString());
     }
+
+    private async Task ImportCharacterTitleStrings(WowDbContext context) =>
+        await ImportStrings<DumpCharTitles>(
+            context,
+            StringType.WowCharacterTitle,
+            "chartitles",
+            title => title.ID,
+            title => $"{title.MaleName}|{title.FemaleName}"
+        );
 
     private async Task ImportCreatureStrings(WowDbContext context) =>
         await ImportStrings<DumpCreature>(
