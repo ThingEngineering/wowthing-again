@@ -157,9 +157,56 @@ public class StaticTool
 
         // Holidays
         cacheData.RawHolidays = await context.WowHoliday
+            .Where(holiday => holiday.Region == 0 || (holiday.Region & 31) != 0)
             .OrderBy(holiday => holiday.Id)
             .Select(holiday => new StaticHoliday(holiday))
             .ToArrayAsync();
+
+        cacheData.HolidayIds = new()
+        {
+            { "holidayArena", new() },
+            { "holidayBattlegrounds", new() },
+            { "holidayDungeons", new() },
+            { "holidayPetPvp", new() },
+            { "holidayTimewalking", new() },
+            { "holidayTimewalkingItem", new() },
+            { "holidayWorldQuests", new() },
+            { "pvpBrawl", new() },
+        };
+
+        foreach (var holiday in cacheData.RawHolidays)
+        {
+            string holidayName = GetString(StringType.WowHolidayName, Language.enUS, holiday.Id);
+            if (holidayName == "Arena Skirmish Bonus Event")
+            {
+                cacheData.HolidayIds["holidayArena"].Add(holiday.Id);
+            }
+            else if (holidayName == "Battleground Bonus Event")
+            {
+                cacheData.HolidayIds["holidayBattlegrounds"].Add(holiday.Id);
+            }
+            else if (holidayName == "Pet Battle Bonus Event")
+            {
+                cacheData.HolidayIds["holidayPetPvp"].Add(holiday.Id);
+            }
+            else if (holidayName == "Timewalking Dungeon Event")
+            {
+                cacheData.HolidayIds["holidayTimewalking"].Add(holiday.Id);
+                cacheData.HolidayIds["holidayTimewalkingItem"].Add(holiday.Id);
+            }
+            else if (holidayName == "World Quest Bonus Event")
+            {
+                cacheData.HolidayIds["holidayWorldQuests"].Add(holiday.Id);
+            }
+            else if (holidayName.StartsWith("PvP Brawl"))
+            {
+                cacheData.HolidayIds["pvpBrawl"].Add(holiday.Id);
+            }
+            else if (holidayName.EndsWith("Dungeon Event"))
+            {
+                cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
+            }
+        }
 
         _timer.AddPoint("Holidays");
 

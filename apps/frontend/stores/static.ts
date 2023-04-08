@@ -5,6 +5,7 @@ import {
     StaticDataBag,
     StaticDataCurrency,
     StaticDataCurrencyCategory,
+    StaticDataHoliday,
     StaticDataInstance,
     StaticDataMount,
     StaticDataPet,
@@ -68,6 +69,21 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawCurrencyCategories !== null) {
             data.currencyCategories = StaticDataStore.createObjects(data.rawCurrencyCategories, StaticDataCurrencyCategory)
             data.rawCurrencyCategories = null
+        }
+
+        if (data.rawHolidays !== null) {
+            data.holidays = StaticDataStore.createObjects(data.rawHolidays, StaticDataHoliday)
+            data.rawHolidays = null
+
+            data.holidayIdToKeys = {}
+            for (const [key, ids] of Object.entries(data.holidayIds)) {
+                for (const id of ids) {
+                    data.holidayIdToKeys[id] ||= []
+                    if (data.holidayIdToKeys[id].indexOf(key) === -1) {
+                        data.holidayIdToKeys[id].push(key)
+                    }
+                }
+            }
         }
 
         if (data.instancesRaw !== null) {

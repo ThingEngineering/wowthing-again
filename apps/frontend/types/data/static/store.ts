@@ -43,6 +43,9 @@ export interface StaticData {
     holidays: Record<number, StaticDataHoliday>
     rawHolidays: StaticDataHolidayArray[]
 
+    holidayIds: Record<string, number[]>
+    holidayIdToKeys: Record<number, string[]>
+
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 

@@ -9,9 +9,9 @@ export class StaticDataHoliday {
         public name: string,
         public filterType: number,
         public flags: number,
-        public looping: string,
+        public looping: number,
         public priority: number,
-        public region: number,
+        public regionMask: number,
         public durations: number[],
         startDates: number[]
     )
