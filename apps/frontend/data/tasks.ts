@@ -108,8 +108,8 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'slKorthia',
-        name: '[SL] Korthia',
+        key: 'slShapingFate',
+        name: '[SL] Shaping Fate (Korthia)',
         shortName: 'Korth',
         minimumLevel: 60,
     },
@@ -126,8 +126,8 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'slZerethMortis',
-        name: '[SL] Zereth Mortis',
+        key: 'slPatterns',
+        name: '[SL] Patterns (Zereth Mortis)',
         shortName: 'ZM',
         minimumLevel: 60,
     },
