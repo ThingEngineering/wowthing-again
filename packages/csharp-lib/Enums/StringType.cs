@@ -22,6 +22,7 @@ public enum StringType : short
     WowHolidayName = 18,
     WowHolidayDescription = 19,
     WowKeystoneAffixName = 20,
+    WowCharacterTitle = 21,
 
     // Hacky garbage
     WowJournalInstanceMapName = 1000,
