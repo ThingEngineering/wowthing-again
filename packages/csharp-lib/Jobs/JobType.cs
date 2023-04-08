@@ -20,7 +20,6 @@ public enum JobType
     CharacterStatistics,
 
     DataReputationTiers = 202,
-    DataTitle = 203,
     DataConnectedRealmIndex = 204,
     DataConnectedRealm = 205,
 
@@ -41,7 +40,6 @@ public enum JobType
     DataRaiderIoScoreTiers = 1006,
     DataRealmIndex = 1007,
     DataReputationTiersIndex = 1009,
-    DataTitleIndex = 1010,
     DataAuctionsStart = 1015,
     DataAuctions = 1016,
     DataQuestsStart = 1021,
