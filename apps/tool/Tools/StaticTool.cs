@@ -26,6 +26,7 @@ public class StaticTool
         StringType.WowCharacterClassName,
         StringType.WowCharacterRaceName,
         StringType.WowCharacterSpecializationName,
+        StringType.WowCharacterTitle,
         StringType.WowCreatureName,
         StringType.WowCurrencyName,
         StringType.WowCurrencyCategoryName,
@@ -306,6 +307,13 @@ public class StaticTool
                     kvp.Key.Language == language
                 )
                 .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
+
+            cacheData.Titles = _stringMap
+                .Where(kvp => kvp.Key.Type == StringType.WowCharacterTitle && kvp.Key.Language == language)
+                .ToDictionary(
+                    kvp => kvp.Key.Id,
+                    kvp => kvp.Value
+                );
 
             foreach (var characterClass in cacheData.CharacterClasses.Values)
             {

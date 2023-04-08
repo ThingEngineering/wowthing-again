@@ -21,6 +21,7 @@ public class RedisStaticData
     public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
     public Dictionary<int, List<List<int>>> Talents { get; set; }
+    public Dictionary<int, string> Titles { get; set; }
 
     public Dictionary<string, List<int>> HolidayIds { get; set; }
 
