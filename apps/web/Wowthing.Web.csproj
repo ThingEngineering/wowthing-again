@@ -20,6 +20,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="prometheus-net" Version="7.0.0" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="7.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.6.104" />
   </ItemGroup>
 
   <ItemGroup>
