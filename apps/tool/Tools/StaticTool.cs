@@ -31,6 +31,8 @@ public class StaticTool
         StringType.WowCurrencyName,
         StringType.WowCurrencyCategoryName,
         StringType.WowHolidayName,
+        StringType.WowInventorySlot,
+        StringType.WowInventoryType,
         StringType.WowItemName,
         StringType.WowKeystoneAffixName,
         StringType.WowMountName,
@@ -305,19 +307,21 @@ public class StaticTool
             cacheData.Professions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
 
+            cacheData.InventorySlots = _stringMap
+                .Where(kvp => kvp.Key.Type == StringType.WowInventorySlot && kvp.Key.Language == language)
+                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
+
+            cacheData.InventoryTypes = _stringMap
+                .Where(kvp => kvp.Key.Type == StringType.WowInventoryType && kvp.Key.Language == language)
+                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
+
             cacheData.QuestNames = _stringMap
-                .Where(kvp =>
-                    kvp.Key.Type == StringType.WowQuestName &&
-                    kvp.Key.Language == language
-                )
+                .Where(kvp => kvp.Key.Type == StringType.WowQuestName && kvp.Key.Language == language)
                 .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             cacheData.Titles = _stringMap
                 .Where(kvp => kvp.Key.Type == StringType.WowCharacterTitle && kvp.Key.Language == language)
-                .ToDictionary(
-                    kvp => kvp.Key.Id,
-                    kvp => kvp.Value
-                );
+                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             foreach (var characterClass in cacheData.CharacterClasses.Values)
             {
