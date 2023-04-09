@@ -1,5 +1,4 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { extraReputationTiers } from '@/data/reputation'
 import { WritableFancyStore } from '@/types'
 import {
     StaticDataBag,
@@ -131,10 +130,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawReputations !== null) {
             data.reputations = StaticDataStore.createObjects(data.rawReputations, StaticDataReputation)
             data.rawReputations = null
-
-            for (const extraReputation of extraReputationTiers) {
-                data.reputationTiers[extraReputation.id] = extraReputation
-            }
         }
 
         if (data.rawReputationSets !== null) {
