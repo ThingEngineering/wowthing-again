@@ -38,6 +38,7 @@ public class DumpsTool
             ImportItemEffects,
             ImportMounts,
             ImportPets,
+            ImportReputationTiers,
             ImportToys,
 
             ImportCharacterTitleStrings,
@@ -909,6 +910,105 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Pets");
+    }
+
+
+    private async Task ImportReputationTiers(WowDbContext context)
+    {
+        var dbLanguageMap = await context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Type == StringType.WowReputationTier)
+            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+
+        foreach (var language in _languages)
+        {
+            var groupedTiers =
+                (await DataUtilities.LoadDumpCsvAsync<DumpFriendshipRepReaction>("friendshiprepreaction", language))
+                .GroupBy(tier => tier.FriendshipRepID)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(tier => tier.ReactionThreshold)
+                        .ToArray()
+            );
+
+            if (language == Language.enUS)
+            {
+                var dbTierMap = await context.WowReputationTier
+                    .ToDictionaryAsync(tier => tier.Id);
+
+                if (!dbTierMap.ContainsKey(0))
+                {
+                    dbTierMap[0] = new WowReputationTier(0)
+                    {
+                        MinValues = new[] { -42000, -6000, -3000, 0, 3000, 9000, 21000, 42000 },
+                    };
+                    context.WowReputationTier.Add(dbTierMap[0]);
+                }
+
+                foreach (var (tierId, tiers) in groupedTiers)
+                {
+                    if (!dbTierMap.TryGetValue(tierId, out var dbTier))
+                    {
+                        dbTier = new WowReputationTier(tierId);
+                        context.WowReputationTier.Add(dbTier);
+                    }
+
+                    dbTier.MinValues = tiers
+                        .Select(tier => tier.ReactionThreshold)
+                        .ToArray();
+                }
+            }
+
+            // Hack for weird hardcoded OG tier
+            var globalStrings = (await DataUtilities.LoadDumpCsvAsync<DumpGlobalStrings>(
+                "globalstrings",
+                language,
+                gs => gs.BaseTag.StartsWith("FACTION_STANDING_LABEL") && gs.BaseTag.Length == 23
+            )).OrderBy(gs => gs.BaseTag);
+
+            var basicString = string.Join('|', globalStrings.Select(gs => gs.TagText));
+            if (!dbLanguageMap.TryGetValue((language, 0), out var basicLanguageString))
+            {
+                context.LanguageString.Add(new LanguageString
+                {
+                    Language = language,
+                    Type = StringType.WowReputationTier,
+                    Id = 0,
+                    String = basicString,
+                });
+            }
+            else if (basicString != basicLanguageString.String)
+            {
+                context.LanguageString.Update(basicLanguageString);
+                basicLanguageString.String = basicString;
+            }
+            // End hack
+
+            foreach (var (tierId, tiers) in groupedTiers)
+            {
+                var tierString = string.Join('|', tiers.Select(tier => tier.Reaction));
+
+                if (!dbLanguageMap.TryGetValue((language, tierId), out var languageString))
+                {
+                    languageString = dbLanguageMap[(language, tierId)] = new LanguageString
+                    {
+                        Language = language,
+                        Type = StringType.WowReputationTier,
+                        Id = tierId,
+                        String = tierString,
+                    };
+                    context.LanguageString.Add(languageString);
+                }
+                else if (tierString != languageString.String)
+                {
+                    context.LanguageString.Update(languageString);
+                    languageString.String = tierString;
+                }
+            }
+        }
+
+        _timer.AddPoint("ReputationTiers");
     }
 
     private async Task ImportToys(WowDbContext context)

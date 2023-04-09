@@ -18,7 +18,7 @@ public class RedisStaticData
     public Dictionary<int, string> QuestNames { get; set; }
     public List<WowRealm> RawRealms { get; set; }
     public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
-    public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
+    public SortedDictionary<int, StaticReputationTier> ReputationTiers { get; set; }
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
     public Dictionary<int, List<List<int>>> Talents { get; set; }
     public Dictionary<int, string> Titles { get; set; }
