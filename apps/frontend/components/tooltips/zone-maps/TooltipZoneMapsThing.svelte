@@ -4,8 +4,8 @@
 
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType, InventoryType } from '@/enums'
-    import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
+    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
+    import { achievementStore, itemStore, lazyStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
@@ -218,7 +218,7 @@
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
                             {#if drop.subType >= 1 && drop.subType <= 4}
-                                {InventoryType[$itemStore.items[drop.id]?.inventoryType].toLowerCase()}
+                                {$staticStore.inventoryTypes[$itemStore.items[drop.id]?.inventoryType].toLowerCase()}
                             {/if}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType].toLowerCase()}

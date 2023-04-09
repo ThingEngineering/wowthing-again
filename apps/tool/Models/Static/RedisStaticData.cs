@@ -8,8 +8,8 @@ public class RedisStaticData
 {
     public List<List<int>> RawBags { get; set; }
 
-    public Dictionary<int, string> InventorySlots { get; internal set; }
-    public Dictionary<int, string> InventoryTypes { get; internal set; }
+    public Dictionary<int, string> InventorySlots { get; set; }
+    public Dictionary<int, string> InventoryTypes { get; set; }
     public Dictionary<int, string> QuestNames { get; set; }
     public Dictionary<int, string> Titles { get; set; }
 
