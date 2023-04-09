@@ -1,4 +1,5 @@
 import sortBy from 'lodash/sortBy'
+import { get } from 'svelte/store'
 
 import { expansionMap, expansionSlugMap } from '@/data/expansion'
 import { typeOrderMap } from '@/data/inventory-type'
@@ -8,6 +9,7 @@ import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from
 import { ArmorType, InventoryType, ItemClass } from '@/enums'
 import { leftPad } from '@/utils/formatting'
 
+import { staticStore } from './static'
 
 export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     get dataUrl(): string {
@@ -114,7 +116,8 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     private getArmorSubType(subClass: number, inventoryType: number): string {
-        const slotString = (InventoryType[inventoryType] || `?${inventoryType}?`).replace('2', '')
+        const slotString = get(staticStore).inventoryTypes[inventoryType]
+        //const slotString = (InventoryType[inventoryType] || `?${inventoryType}?`).replace('2', '')
         if (subClass >= 1 && subClass <= 4) {
             const typeString = ArmorType[subClass] || `?${subClass}?`
             return `${typeString} ${slotString}`

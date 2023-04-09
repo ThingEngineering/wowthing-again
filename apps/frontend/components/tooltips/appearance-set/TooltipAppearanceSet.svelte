@@ -1,6 +1,6 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type'
-    import { InventoryType } from '@/enums'
+    import { staticStore } from '@/stores'
     import type { ManualDataTransmogGroup } from '@/types/data/manual'
 
     export let set: ManualDataTransmogGroup
@@ -28,7 +28,7 @@
                 {#if slotHave[type] !== undefined}
                     <tr>
                         <td class="have">{slotHave[type] ? '✔' : '❌'}</td>
-                        <td class="type">{InventoryType[type]}</td>
+                        <td class="type">{$staticStore.inventoryTypes[type]}</td>
                     </tr>
                 {/if}
             {/each}
