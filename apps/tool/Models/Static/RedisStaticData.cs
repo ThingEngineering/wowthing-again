@@ -8,6 +8,11 @@ public class RedisStaticData
 {
     public List<List<int>> RawBags { get; set; }
 
+    public Dictionary<int, string> InventorySlots { get; internal set; }
+    public Dictionary<int, string> InventoryTypes { get; internal set; }
+    public Dictionary<int, string> QuestNames { get; set; }
+    public Dictionary<int, string> Titles { get; set; }
+
     public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
     public Dictionary<short, StaticCharacterRace> CharacterRaces { get; set; }
     public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations { get; set; }
@@ -15,13 +20,11 @@ public class RedisStaticData
     public List<OutInstance> InstancesRaw { get; set; }
     public Dictionary<int, StaticKeystoneAffix> KeystoneAffixes { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
-    public Dictionary<int, string> QuestNames { get; set; }
     public List<WowRealm> RawRealms { get; set; }
     public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
     public SortedDictionary<int, StaticReputationTier> ReputationTiers { get; set; }
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
     public Dictionary<int, List<List<int>>> Talents { get; set; }
-    public Dictionary<int, string> Titles { get; set; }
 
     public Dictionary<string, List<int>> HolidayIds { get; set; }
 
