@@ -20,6 +20,45 @@ public class DumpsTool
     private readonly JankTimer _timer = new();
 
     private Dictionary<int, int[]>? _spellTeachMap;
+    private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
+
+    private static readonly Dictionary<string, int> _inventorySlotMap = new()
+    {
+        { "AMMOSLOT", 0 },
+        { "HEADSLOT", 1 },
+        { "NECKSLOT", 2 },
+        { "SHOULDERSLOT", 3 },
+        { "SHIRTSLOT", 4 },
+        { "CHESTSLOT", 5 },
+        { "WAISTSLOT", 6 },
+        { "LEGSSLOT", 7 },
+        { "FEETSLOT", 8 },
+        { "WRISTSLOT", 9 },
+        { "HANDSSLOT", 10 },
+        { "FINGER0SLOT", 11 },
+        { "FINGER1SLOT", 12 },
+        { "TRINKET0SLOT", 13 },
+        { "TRINKET1SLOT", 14 },
+        { "BACKSLOT", 15 },
+        { "MAINHANDSLOT", 16 },
+        { "SECONDARYHANDSLOT", 17 },
+        { "RANGEDSLOT", 18 },
+        { "TABARDSLOT", 19 },
+        // { "BAGSLOT", 0 },
+        // { "RELICSLOT", 0 },
+        // { "SHIELDSLOT", 0 },
+        { "PROF0TOOLSLOT", 20 },
+        { "PROF0GEAR0SLOT", 21 },
+        { "PROF0GEAR1SLOT", 22 },
+        { "PROF1TOOLSLOT", 23 },
+        { "PROF1GEAR0SLOT", 24 },
+        { "PROF1GEAR1SLOT", 25 },
+        { "COOKINGTOOLSLOT", 26 },
+        { "COOKINGGEAR0SLOT", 27 },
+        { "FISHINGTOOLSLOT", 28 },
+        { "FISHINGGEAR0SLOT", 29 },
+        { "FISHINGGEAR1SLOT", 30 },
+    };
 
     public async Task Run()
     {
@@ -41,6 +80,8 @@ public class DumpsTool
             ImportReputationTiers,
             ImportToys,
 
+            ImportInventoryStrings,
+
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
             ImportJournalEncounterStrings,
@@ -51,6 +92,14 @@ public class DumpsTool
             ImportSoulbindStrings,
             ImportSpellItemEnchantmentStrings,
         };
+
+        foreach (var language in _languages)
+        {
+            _globalStringMap[language] = (
+                await DataUtilities.LoadDumpCsvAsync<DumpGlobalStrings>("globalstrings", language)
+            ).ToDictionary(gs => gs.BaseTag, gs => gs.TagText);
+
+        }
 
         foreach (var action in actions)
         {
@@ -961,13 +1010,13 @@ public class DumpsTool
             }
 
             // Hack for weird hardcoded OG tier
-            var globalStrings = (await DataUtilities.LoadDumpCsvAsync<DumpGlobalStrings>(
-                "globalstrings",
-                language,
-                gs => gs.BaseTag.StartsWith("FACTION_STANDING_LABEL") && gs.BaseTag.Length == 23
-            )).OrderBy(gs => gs.BaseTag);
-
-            var basicString = string.Join('|', globalStrings.Select(gs => gs.TagText));
+            var basicString = string.Join(
+                '|',
+                _globalStringMap[language]
+                    .Where(kvp => kvp.Key.StartsWith("FACTION_STANDING_LABEL") && kvp.Key.Length == 23)
+                    .Select(kvp => kvp.Value)
+                    .OrderBy(value => value)
+            );
             if (!dbLanguageMap.TryGetValue((language, 0), out var basicLanguageString))
             {
                 context.LanguageString.Add(new LanguageString
@@ -1032,5 +1081,40 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Toys");
+    }
+
+    private async Task ImportInventoryStrings(WowDbContext context)
+    {
+        var dbLanguageMap = await context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Type == StringType.WowInventorySlot)
+            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+
+        foreach (var language in _languages)
+        {
+            foreach (var (stringKey, slotId) in _inventorySlotMap)
+            {
+                var stringValue = _globalStringMap[language][stringKey];
+
+                if (!dbLanguageMap.TryGetValue((language, slotId), out var languageString))
+                {
+                    languageString = new LanguageString
+                    {
+                        Language = language,
+                        Type = StringType.WowInventorySlot,
+                        Id = slotId,
+                        String = stringValue,
+                    };
+                    context.LanguageString.Add(languageString);
+                }
+                else if (stringValue != languageString.String)
+                {
+                    context.LanguageString.Update(languageString);
+                    languageString.String = stringValue;
+                }
+            }
+        }
+
+        _timer.AddPoint("InventoryStrings");
     }
 }
