@@ -60,6 +60,45 @@ public class DumpsTool
         { "FISHINGGEAR1SLOT", 30 },
     };
 
+    private static readonly Dictionary<string, int> _inventoryTypeMap = new()
+    {
+        { "INVTYPE_NON_EQUIP", 0 },
+        { "INVTYPE_HEAD", 1 },
+        { "INVTYPE_NECK", 2 },
+        { "INVTYPE_SHOULDER", 3 },
+        { "INVTYPE_BODY", 4 }, // Shirt
+        { "INVTYPE_CHEST", 5 },
+        { "INVTYPE_WAIST", 6 },
+        { "INVTYPE_LEGS", 7 },
+        { "INVTYPE_FEET", 8 },
+        { "INVTYPE_WRIST", 9 },
+        { "INVTYPE_HAND", 10 },
+        { "INVTYPE_FINGER", 11 },
+        { "INVTYPE_TRINKET", 12 },
+        { "INVTYPE_WEAPON", 13 },
+        { "INVTYPE_SHIELD", 14 }, // Off Hand
+        { "INVTYPE_RANGED", 15 },
+        { "INVTYPE_CLOAK", 16 },
+        { "INVTYPE_2HWEAPON", 17 },
+        { "INVTYPE_BAG", 18 },
+        { "INVTYPE_TABARD", 19 },
+        { "INVTYPE_ROBE", 20 },
+        { "INVTYPE_WEAPONMAINHAND", 21 },
+        { "INVTYPE_WEAPONOFFHAND", 22 },
+        { "INVTYPE_HOLDABLE", 23 }, // Held in Off-Hand
+        { "INVTYPE_AMMO", 24 },
+        { "INVTYPE_THROWN", 25 },
+        { "INVTYPE_RANGEDRIGHT", 26 },
+        { "INVTYPE_QUIVER", 27 },
+        { "INVTYPE_RELIC", 28 },
+        { "INVTYPE_PROFESSION_TOOL", 29 },
+        { "INVTYPE_PROFESSION_GEAR", 30 },
+        { "INVTYPE_EQUIPABLESPELL_OFFENSIVE", 31 },
+        { "INVTYPE_EQUIPABLESPELL_UTILITY", 32 },
+        { "INVTYPE_EQUIPABLESPELL_DEFENSIVE", 33 },
+        { "INVTYPE_EQUIPABLESPELL_MOBILITY", 34 },
+    };
+
     public async Task Run()
     {
         Func<WowDbContext, Task>[] actions =
@@ -1087,8 +1126,8 @@ public class DumpsTool
     {
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
-            .Where(ls => ls.Type == StringType.WowInventorySlot)
-            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+            .Where(ls => ls.Type == StringType.WowInventorySlot || ls.Type == StringType.WowInventoryType)
+            .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id));
 
         foreach (var language in _languages)
         {
@@ -1096,7 +1135,7 @@ public class DumpsTool
             {
                 var stringValue = _globalStringMap[language][stringKey];
 
-                if (!dbLanguageMap.TryGetValue((language, slotId), out var languageString))
+                if (!dbLanguageMap.TryGetValue((StringType.WowInventorySlot, language, slotId), out var languageString))
                 {
                     languageString = new LanguageString
                     {
@@ -1113,6 +1152,29 @@ public class DumpsTool
                     languageString.String = stringValue;
                 }
             }
+
+            foreach (var (stringKey, slotId) in _inventoryTypeMap)
+            {
+                var stringValue = _globalStringMap[language][stringKey];
+
+                if (!dbLanguageMap.TryGetValue((StringType.WowInventoryType, language, slotId), out var languageString))
+                {
+                    languageString = new LanguageString
+                    {
+                        Language = language,
+                        Type = StringType.WowInventoryType,
+                        Id = slotId,
+                        String = stringValue,
+                    };
+                    context.LanguageString.Add(languageString);
+                }
+                else if (stringValue != languageString.String)
+                {
+                    context.LanguageString.Update(languageString);
+                    languageString.String = stringValue;
+                }
+            }
+
         }
 
         _timer.AddPoint("InventoryStrings");
