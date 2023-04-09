@@ -6,7 +6,7 @@ import { typeOrderMap } from '@/data/inventory-type'
 import { weaponSubclassOrderMap, weaponSubclassToString } from '@/data/weapons'
 import { WritableFancyStore } from '@/types'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
-import { ArmorType, InventoryType, ItemClass } from '@/enums'
+import { ArmorType, ItemClass } from '@/enums'
 import { leftPad } from '@/utils/formatting'
 
 import { staticStore } from './static'

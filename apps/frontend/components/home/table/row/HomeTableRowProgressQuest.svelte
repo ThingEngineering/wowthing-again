@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lazyStore, userStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
