@@ -27,10 +27,14 @@
         const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]
 
         for (let i = 0; i < tiers.names.length; i++) {
-            const thisOne = (characterRep >= tiers.minValues[i] && characterRep < tiers.maxValues[i])
+            const nextValue = tiers.minValues[i + 1] || tiers.minValues[i]
+            const thisOne = (
+                characterRep >= tiers.minValues[i] &&
+                (nextValue === 0 || characterRep < nextValue)
+            )
             reps.push({
                 cls: 'quality0',
-                maxValue: tiers.maxValues[i],
+                maxValue: nextValue,
                 minValue: tiers.minValues[i],
                 name: tiers.names[i],
                 thisOne,

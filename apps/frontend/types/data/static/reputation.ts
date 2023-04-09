@@ -17,7 +17,6 @@ export type StaticDataReputationArray = ConstructorParameters<typeof StaticDataR
 export interface StaticDataReputationTier {
     id: number
     minValues: number[]
-    maxValues: number[]
     names: string[]
 }
 
