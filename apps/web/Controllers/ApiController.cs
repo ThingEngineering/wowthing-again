@@ -348,7 +348,7 @@ public class ApiController : Controller
 
         // Pets
         var accountPets = tempAccounts
-            .Where(pa => pa.Pets != null)
+            .Where(pa => pa.Enabled && pa.Pets != null)
             .Select(pa => pa.Pets)
             .OrderByDescending(pap => pap.UpdatedAt)
             .ToArray();
@@ -366,7 +366,8 @@ public class ApiController : Controller
 
         // Toys
         var toyIds = tempAccounts
-            .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
+            .Where(pa => pa.Enabled)
+            .SelectMany(pa => pa.Toys?.ToyIds ?? Enumerable.Empty<int>())
             .Distinct()
             .ToArray();
 
