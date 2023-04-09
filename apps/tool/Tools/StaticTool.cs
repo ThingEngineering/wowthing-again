@@ -37,6 +37,7 @@ public class StaticTool
         StringType.WowQuestName,
         StringType.WowReputationDescription,
         StringType.WowReputationName,
+        StringType.WowReputationTier,
         StringType.WowSoulbindName,
         StringType.WowSkillLineName,
         StringType.WowSpellItemEnchantmentName,
@@ -260,10 +261,13 @@ public class StaticTool
             .OrderBy(realm => realm.Id)
             .ToListAsync();
 
-        cacheData.ReputationTiers = new SortedDictionary<int, WowReputationTier>(
+        cacheData.ReputationTiers = new SortedDictionary<int, StaticReputationTier>(
             await context.WowReputationTier
                 .AsNoTracking()
-                .ToDictionaryAsync(c => c.Id)
+                .ToDictionaryAsync(
+                    tier => tier.Id,
+                    tier => new StaticReputationTier(tier)
+                )
         );
 
         _timer.AddPoint("Load");
@@ -374,6 +378,12 @@ public class StaticTool
             foreach (var toy in cacheData.RawToys)
             {
                 toy.Name = GetString(StringType.WowItemName, language, toy.ItemId);
+            }
+
+            foreach (var reputationTier in cacheData.ReputationTiers.Values)
+            {
+                reputationTier.Names = GetString(StringType.WowReputationTier, language, reputationTier.Id)
+                    .Split('|');
             }
 
             string cacheJson = ToolContext.SerializeJson(cacheData);
