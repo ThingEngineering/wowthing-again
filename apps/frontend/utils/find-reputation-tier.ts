@@ -6,12 +6,9 @@ export default function findReputationTier(
     tiers: StaticDataReputationTier,
     characterRep: number,
 ): ReputationTier | undefined {
-    for (let i = 0; i < tiers.minValues.length; i++) {
-        const finalTier = tiers.minValues[i] === tiers.maxValues[i]
-        if (
-            characterRep >= tiers.minValues[i] &&
-            (characterRep < tiers.maxValues[i] || finalTier)
-        ) {
+    for (let i = tiers.minValues.length - 1; i >= 0; i--) {
+        const finalTier = i === tiers.minValues.length - 1
+        if (characterRep >= tiers.minValues[i]) {
             let value: number
             let maxValue: number
             let percent: string
@@ -23,7 +20,7 @@ export default function findReputationTier(
             }
             else {
                 value = characterRep - tiers.minValues[i]
-                maxValue = tiers.maxValues[i] - tiers.minValues[i]
+                maxValue = tiers.minValues[i + 1] - tiers.minValues[i]
                 percent = ((value / maxValue) * 100).toFixed(1)
             }
 
