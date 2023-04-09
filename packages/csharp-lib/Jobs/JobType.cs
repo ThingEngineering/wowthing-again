@@ -19,7 +19,6 @@ public enum JobType
     CharacterSpecializations,
     CharacterStatistics,
 
-    DataReputationTiers = 202,
     DataConnectedRealmIndex = 204,
     DataConnectedRealm = 205,
 
@@ -39,7 +38,6 @@ public enum JobType
     DataMythicKeystoneSeasonIndex = 1003,
     DataRaiderIoScoreTiers = 1006,
     DataRealmIndex = 1007,
-    DataReputationTiersIndex = 1009,
     DataAuctionsStart = 1015,
     DataAuctions = 1016,
     DataQuestsStart = 1021,
