@@ -42,5 +42,10 @@ export const dragonflightInscription: DragonflightProfession = {
             questId: 70519,
             source: 'Mobs: Dragonkin',
         },
+        {
+            itemId: 204229, // Glimmering Rune of Arcantrix
+            questId: 74328,
+            source: 'FR: Arcantrix',
+        },
     ],
 }

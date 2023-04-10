@@ -39,8 +39,13 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         },
         {
             itemId: 198966, // Molten Globule
-            questId: 66381,
+            questId: 70513,
             source: 'Mobs: Fire',
+        },
+        {
+            itemId: 204230, // Dense Seaforged Javelin
+            questId: 74325,
+            source: 'FR: Tidesmith Zarviss',
         },
     ],
     treasureQuests: [

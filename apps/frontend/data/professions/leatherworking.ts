@@ -42,5 +42,10 @@ export const dragonflightLeatherworking: DragonflightProfession = {
             questId: 70523,
             source: 'Mobs: Slyvern & Vorquin',
         },
+        {
+            itemId: 204232, // Slyvern Alpha Claw
+            questId: 74307,
+            source: 'FR: Snarfang',
+        },
     ],
 }
