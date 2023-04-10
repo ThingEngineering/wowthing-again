@@ -39,7 +39,7 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         },
         {
             itemId: 198966, // Molten Globule
-            questId: 66381,
+            questId: 70513,
             source: 'Mobs: Fire',
         },
     ],
