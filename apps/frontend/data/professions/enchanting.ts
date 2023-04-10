@@ -41,5 +41,10 @@ export const dragonflightEnchanting: DragonflightProfession = {
             questId: 70515,
             source: 'Mobs: Primalist',
         },
+        {
+            itemId: 204224, // Speck of Arcane Awareness
+            questId: 74306,
+            source: 'FR: Manathema',
+        },
     ],
 }

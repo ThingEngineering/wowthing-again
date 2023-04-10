@@ -41,5 +41,10 @@ export const dragonflightAlchemy: DragonflightProfession = {
             questId: 70511,
             source: 'Mobs: Elemental',
         },
+        {
+            itemId: 204226, // Blazehoof Ashes
+            questId: 74331,
+            source: 'FR: Agni Blazehoof',
+        },
     ],
 }

@@ -42,5 +42,10 @@ export const dragonflightEngineering: DragonflightProfession = {
             questId: 70517,
             source: 'Mobs: Dragonkin',
         },
+        {
+            itemId: 204227, // Everflowing Antifreeze
+            questId: 74330,
+            source: 'FR: Fimbol',
+        },
     ],
 }

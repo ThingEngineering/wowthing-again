@@ -42,5 +42,10 @@ export const dragonflightTailoring: DragonflightProfession = {
             questId: 70525,
             source: 'Mobs: Gnoll',
         },
+        {
+            itemId: 204225, // Perfect Windfeather
+            questId: 74321,
+            source: 'FR: Gareed',
+        },
     ],
 }

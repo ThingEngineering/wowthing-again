@@ -42,6 +42,11 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             questId: 70513,
             source: 'Mobs: Fire',
         },
+        {
+            itemId: 204230, // Dense Seaforged Javelin
+            questId: 74325,
+            source: 'FR: Tidesmith Zarviss',
+        },
     ],
     treasureQuests: [
         {

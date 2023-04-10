@@ -42,6 +42,11 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             questId: 70521,
             source: 'Mobs: Dragonkin',
         },
+        {
+            itemId: 204222, // Conductive Ametrine Shard
+            questId: 74333,
+            source: 'FR: Amephyst',
+        },
     ],
     treasureQuests: [
         {
