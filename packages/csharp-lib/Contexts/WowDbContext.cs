@@ -120,6 +120,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     {
         base.OnModelCreating(builder);
 
+        // Override ASP.NET table names
         builder.Entity<ApplicationUser>().ToTable("asp_net_users");
         builder.Entity<IdentityUserToken<long>>().ToTable("asp_net_user_tokens");
         builder.Entity<IdentityUserLogin<long>>().ToTable("asp_net_user_logins");
@@ -186,6 +187,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasOne(c => c.Account)
             .WithMany(a => a.Characters)
             .OnDelete(DeleteBehavior.SetNull);
+
+        // Global filters
+        builder.Entity<PlayerAccount>().HasQueryFilter(pa => pa.Enabled);
 
         // Query types have no tables either
         builder.Entity<AccountTransmogQuery>()

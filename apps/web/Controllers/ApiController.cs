@@ -193,6 +193,7 @@ public class ApiController : Controller
         var accounts = new List<PlayerAccount>();
         var tempAccounts = await _context.PlayerAccount
             .AsNoTracking()
+            .IgnoreQueryFilters()
             .Where(a => a.UserId == apiResult.User.Id)
             .Include(pa => pa.AddonData)
             .Include(pa => pa.Pets)
