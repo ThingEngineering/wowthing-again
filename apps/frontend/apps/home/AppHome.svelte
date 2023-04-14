@@ -45,7 +45,8 @@
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $itemStore.error
+        error = $appearanceStore.error
+            || $itemStore.error
             || $journalStore.error
             || $manualStore.error
             || $staticStore.error
@@ -54,7 +55,8 @@
             || $userStore.error
             || $userTransmogStore.error
 
-        loaded = $itemStore.loaded
+        loaded = $appearanceStore.loaded
+            && $itemStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
             && $staticStore.loaded
