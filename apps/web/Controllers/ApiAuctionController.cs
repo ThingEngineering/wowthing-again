@@ -45,7 +45,7 @@ public class ApiAuctionController : Controller
 
         var accounts = await _context.PlayerAccount
             .AsNoTracking()
-            .Where(pa => pa.UserId == user.Id && pa.Enabled)
+            .Where(pa => pa.UserId == user.Id)
             .Include(pa => pa.Pets)
             .ToArrayAsync();
 
@@ -245,7 +245,7 @@ public class ApiAuctionController : Controller
 
         var accountQuery = _context.PlayerAccount
             .AsNoTracking()
-            .Where(pa => pa.UserId == user.Id && pa.Enabled);
+            .Where(pa => pa.UserId == user.Id);
 
         if (form.Type == "pets")
         {
