@@ -66,6 +66,10 @@
             && $userTransmogStore.loaded
 
         if (!error && loaded) {
+            appearanceStore.setup(
+                $staticStore
+            )
+
             userStore.setup(
                 $settingsStore,
                 $userStore,
