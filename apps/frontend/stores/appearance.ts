@@ -16,6 +16,10 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     setup(staticData: StaticData): void {
+        if (this.value.rawAppearances === null) {
+            return
+        }
+
         console.time('AppearanceDataStore.setup')
 
         this.update((state) => {
