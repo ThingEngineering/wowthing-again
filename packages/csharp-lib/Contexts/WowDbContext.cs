@@ -188,9 +188,6 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .WithMany(a => a.Characters)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // Global filters
-        builder.Entity<PlayerAccount>().HasQueryFilter(pa => pa.Enabled);
-
         // Query types have no tables either
         builder.Entity<AccountTransmogQuery>()
             .ToTable("AccountTransmogQuery", t => t.ExcludeFromMigrations());
