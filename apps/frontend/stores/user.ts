@@ -120,6 +120,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
+        // Temporary until static data loads
+        userData.allRegions = [1, 2, 3, 4]
+
         console.timeEnd('UserDataStore.initialize')
     }
 
