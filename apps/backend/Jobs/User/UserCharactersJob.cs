@@ -59,6 +59,7 @@ public class UserCharactersJob : JobBase
                     .Select(apiAccount => apiAccount.Id)
                     .ToArray();
                 var accounts = await Context.PlayerAccount
+                    .IgnoreQueryFilters()
                     .Where(pa => pa.Region == region && accountIds.Contains(pa.AccountId))
                     .ToArrayAsync();
 
@@ -86,6 +87,7 @@ public class UserCharactersJob : JobBase
                     {
                         Logger.Warning("Changing owner of account {region} {id} from {user1} to {user2}",
                             region, playerAccount.AccountId, playerAccount.UserId, userId);
+                        playerAccount.Enabled = true;
                     }
 
                     playerAccount.UserId = userId;
