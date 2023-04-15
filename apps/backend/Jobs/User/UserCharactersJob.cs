@@ -87,6 +87,7 @@ public class UserCharactersJob : JobBase
                     {
                         Logger.Warning("Changing owner of account {region} {id} from {user1} to {user2}",
                             region, playerAccount.AccountId, playerAccount.UserId, userId);
+                        playerAccount.Enabled = true;
                     }
 
                     playerAccount.UserId = userId;
