@@ -59,7 +59,6 @@ public class UserCharactersJob : JobBase
                     .Select(apiAccount => apiAccount.Id)
                     .ToArray();
                 var accounts = await Context.PlayerAccount
-                    .IgnoreQueryFilters()
                     .Where(pa => pa.Region == region && accountIds.Contains(pa.AccountId))
                     .ToArrayAsync();
 

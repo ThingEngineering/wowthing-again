@@ -11,7 +11,7 @@ WITH character_ids AS (
     SELECT  pc.id
     FROM    player_character pc
     LEFT JOIN player_account pa ON pa.id = pc.account_id
-    WHERE pa.user_id = {0}
+    WHERE   pa.enabled = TRUE AND pa.user_id = {0}
 ),
 exploded AS (
     SELECT
