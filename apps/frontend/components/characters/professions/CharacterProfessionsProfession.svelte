@@ -24,6 +24,10 @@
         }
         
         const charProfession = character.professions[staticProfession.id]
+        if (!charProfession) {
+            break $
+        }
+        
         charSubProfession = charProfession[staticProfession.subProfessions[expansion.id].id]
         knownRecipes = new Set<number>()
         for (const subProfession of Object.values(charProfession)) {
