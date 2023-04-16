@@ -1053,8 +1053,8 @@ public class DumpsTool
                 '|',
                 _globalStringMap[language]
                     .Where(kvp => kvp.Key.StartsWith("FACTION_STANDING_LABEL") && kvp.Key.Length == 23)
+                    .OrderBy(kvp => kvp.Key)
                     .Select(kvp => kvp.Value)
-                    .OrderBy(value => value)
             );
             if (!dbLanguageMap.TryGetValue((language, 0), out var basicLanguageString))
             {
