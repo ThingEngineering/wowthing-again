@@ -1,5 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { tick } from 'svelte'
+    import { replace } from 'svelte-spa-router'
 
     import { staticStore } from '@/stores'
     import { UserCount } from '@/types'
@@ -23,11 +25,17 @@
         stats = {}
 
         staticProfession = find($staticStore.professions, (prof) => prof.slug === params.slug4)
-        if (!staticProfession) {
+        const charProfession = character.professions[staticProfession?.id]
+        if (!staticProfession || !charProfession) {
+            // Profession doesn't exist or character doesn't have it, redirect to the first one
+            setTimeout(async () => {
+                await tick();
+                const link = document.getElementById('character-professions-subnav')
+                    .querySelector('a:first-child')
+                replace(link.getAttribute('href').replace('#', ''))
+            }, 1)
             break $
         }
-
-        const charProfession = character.professions[staticProfession.id]
 
         staticProfession.subProfessions.forEach((subProfession) => {
             charProfession[subProfession.id]

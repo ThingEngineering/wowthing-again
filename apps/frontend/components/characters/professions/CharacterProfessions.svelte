@@ -78,7 +78,7 @@
     {/if}
 </nav>
 
-{#if params.slug4}
+{#if params.slug4 && (primaryProfessions.length > 0 || secondaryProfessions.length > 0)}
     <View
         {character}
         {params}
