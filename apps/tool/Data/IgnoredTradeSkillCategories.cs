@@ -40,6 +40,7 @@ public static partial class Hardcoded
         1686, // Dragonflight - Quest Designs
 
         // Leatherworking
+        402, // Warlords - Tents
         468, // Legion - Basic Training
         484, // Legion - Material Preparation Training
         485, // Legion - Tanning Training
