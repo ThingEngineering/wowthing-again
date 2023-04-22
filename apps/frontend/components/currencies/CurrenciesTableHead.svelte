@@ -28,7 +28,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-currency);
+        @include cell-width($width-currency, $maxWidth: $width-currency-max);
 
         --image-border-width: 2px;
 

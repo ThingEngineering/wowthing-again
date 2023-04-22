@@ -95,7 +95,7 @@
         
         {:else if field === 'currentLocation'}
             {#if !$homeState.onlyWeekly}
-                <HeadCurrentLocation />
+                <HeadCurrentLocation {groupIndex} />
             {/if}
 
         {:else if field === 'emissariesBfa'}
@@ -125,10 +125,13 @@
                     showSortable={true}
                 />
             {/if}
+        
+        {:else if field === 'guild'}
+            <td>Guild</td>
 
         {:else if field === 'hearthLocation'}
             {#if !$homeState.onlyWeekly}
-                <HeadHearthLocation />
+                <HeadHearthLocation {groupIndex} />
             {/if}
 
         {:else if field === 'itemLevel'}
@@ -194,7 +197,15 @@
 
         {:else if field === 'restedExperience'}
             {#if !isPublic && !$homeState.onlyWeekly}
-                <td>Rest</td>
+                {@const sortKey = 'restedExperience'}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+                    on:click={() => setSorting(sortKey)}
+                    on:keypress={() => setSorting(sortKey)}
+                >
+                    Rest
+                </td>
             {/if}
 
         {:else if field === 'tasks'}

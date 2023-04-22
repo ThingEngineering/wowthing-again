@@ -10,6 +10,7 @@
     import RowDailies from './table/row/HomeTableRowDailies.svelte'
     import RowGear from './table/row/HomeTableRowGear.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'
+    import RowGuild from './table/row/HomeTableRowGuild.svelte'
     import RowHearthLocation from './table/row/HomeTableRowHearthLocation.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
@@ -90,6 +91,9 @@
                 {#if !isPublic && !$homeState.onlyWeekly}
                     <RowGold gold={character.gold} />
                 {/if}
+            
+            {:else if field === 'guild'}
+                <RowGuild {character} />
 
             {:else if field === 'hearthLocation'}
                 {#if !$homeState.onlyWeekly}

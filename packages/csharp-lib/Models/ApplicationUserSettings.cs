@@ -76,6 +76,7 @@ public class ApplicationUserSettings
         "emissariesLegion",
         "gear",
         "gold",
+        "guild",
         "hearthLocation",
         "itemLevel",
         "keystone",

@@ -16,7 +16,6 @@
         
         ['characters/', 'Characters', 'mdiAccountGroupOutline'],
         ['currencies/', 'Currencies', 'gameCash', true],
-        ['history/', 'History', 'mdiChartLine'],
         ['items/', 'Items', 'gameBackpack'],
         ['lockouts', 'Lockouts', 'gameLockedFortress'],
         ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
@@ -32,6 +31,7 @@
         [null, null, null],
         
         ['auctions/', 'Auctions', 'mdiBank', true],
+        ['history/', 'History', 'mdiChartLine'],
         ['matrix', 'Matrix', 'carbonScatterMatrix'],
         // ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
         // ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
@@ -70,7 +70,7 @@
         --scale: 1.3;
 
         a {
-            padding: 0.5rem 0.8rem;
+            padding: 0.5rem 0.75rem;
         }
     }
     a {

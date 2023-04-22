@@ -1,8 +1,18 @@
 <script lang="ts">
+    import { homeState } from '@/stores/local-storage'
     import { imageStrings } from '@/data/icons'
     import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+
+    export let groupIndex: number
+
+    function setSorting(column: string) {
+        const current = $homeState.groupSort[groupIndex]
+        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+    }
+
+    const sortKey = 'locationHearth'
 </script>
 
 <style lang="scss">
@@ -13,7 +23,13 @@
     }
 </style>
 
-<td use:tippy={'Hearth Location'}>
+<td
+    class="sortable"
+    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+    on:click={() => setSorting(sortKey)}
+    on:keypress={() => setSorting(sortKey)}
+    use:tippy={'Hearth Location'}
+>
     <WowthingImage
         name={imageStrings.hearthstone}
         size={20}
