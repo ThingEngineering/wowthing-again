@@ -95,7 +95,7 @@
         
         {:else if field === 'currentLocation'}
             {#if !$homeState.onlyWeekly}
-                <HeadCurrentLocation />
+                <HeadCurrentLocation {groupIndex} />
             {/if}
 
         {:else if field === 'emissariesBfa'}
@@ -131,7 +131,7 @@
 
         {:else if field === 'hearthLocation'}
             {#if !$homeState.onlyWeekly}
-                <HeadHearthLocation />
+                <HeadHearthLocation {groupIndex} />
             {/if}
 
         {:else if field === 'itemLevel'}

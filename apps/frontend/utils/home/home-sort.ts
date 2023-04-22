@@ -26,6 +26,14 @@ export function homeSort(
             '0'
         )
     }
+    else if (sortBy === 'locationCurrent') {
+        // adding two spaces makes it sort before " > blah"
+        return char.currentLocation + '  ' || 'ZZZZZ'
+    }
+    else if (sortBy === 'locationHearth') {
+        // adding two spaces makes it sort before " > blah"
+        return char.hearthLocation + '  ' || 'ZZZZZ'
+    }
     else if (sortBy === 'mythicPlusKeystone') {
         if (char.level === Constants.characterMaxLevel && char.weekly?.keystoneScannedAt) {
             const resetTime = getNextWeeklyReset(char.weekly.keystoneScannedAt, char.realm.region)
