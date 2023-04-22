@@ -16,7 +16,6 @@
         
         ['characters/', 'Characters', 'mdiAccountGroupOutline'],
         ['currencies/', 'Currencies', 'gameCash', true],
-        ['history/', 'History', 'mdiChartLine'],
         ['items/', 'Items', 'gameBackpack'],
         ['lockouts', 'Lockouts', 'gameLockedFortress'],
         ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
@@ -32,6 +31,7 @@
         [null, null, null],
         
         ['auctions/', 'Auctions', 'mdiBank', true],
+        ['history/', 'History', 'mdiChartLine'],
         ['matrix', 'Matrix', 'carbonScatterMatrix'],
         // ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
         // ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
