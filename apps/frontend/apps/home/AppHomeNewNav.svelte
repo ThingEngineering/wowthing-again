@@ -70,7 +70,7 @@
         --scale: 1.3;
 
         a {
-            padding: 0.5rem 0.8rem;
+            padding: 0.5rem 0.75rem;
         }
     }
     a {
