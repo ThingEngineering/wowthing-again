@@ -197,7 +197,15 @@
 
         {:else if field === 'restedExperience'}
             {#if !isPublic && !$homeState.onlyWeekly}
-                <td>Rest</td>
+                {@const sortKey = 'restedExperience'}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+                    on:click={() => setSorting(sortKey)}
+                    on:keypress={() => setSorting(sortKey)}
+                >
+                    Rest
+                </td>
             {/if}
 
         {:else if field === 'tasks'}

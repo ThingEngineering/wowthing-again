@@ -7,6 +7,7 @@ import { getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getVaultItemLevel } from '@/utils/mythic-plus'
 import type { Character } from '@/types'
 import type { LazyStore } from '@/stores'
+import { getCharacterRested } from '../get-character-rested'
 
 
 export function homeSort(
@@ -45,6 +46,15 @@ export function homeSort(
             5,
             '0'
         )
+    }
+    else if (sortBy === 'restedExperience') {
+        if (char.level === Constants.characterMaxLevel) {
+            return '999'
+        }
+        else {
+            const [rested,] = getCharacterRested(currentTime, char)
+            return leftPad(999 - parseInt(rested), 3, '0')
+        }
     }
     else if (sortBy === 'vaultMythicPlus') {
         const progress = char.isMaxLevel ? char.weekly?.vault?.mythicPlusProgress : []
