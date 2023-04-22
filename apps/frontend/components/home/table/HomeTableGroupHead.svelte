@@ -125,6 +125,9 @@
                     showSortable={true}
                 />
             {/if}
+        
+        {:else if field === 'guild'}
+            <td>Guild</td>
 
         {:else if field === 'hearthLocation'}
             {#if !$homeState.onlyWeekly}

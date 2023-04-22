@@ -25,6 +25,7 @@
         {key: 'emissariesLegion', name: 'Emissaries - Legion'},
         {key: 'gear', name: 'Gear'},
         {key: 'gold', name: 'Gold'},
+        {key: 'guild', name: 'Guild'},
         {key: 'itemLevel', name: 'Item level'},
         {key: 'currentLocation', name: 'Location - Current'},
         {key: 'hearthLocation', name: 'Location - Hearth'},
