@@ -54,7 +54,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-currency);
+        @include cell-width($width-currency, $maxWidth: $width-currency-max);
 
         border-left: 1px solid $border-color;
         text-align: center;

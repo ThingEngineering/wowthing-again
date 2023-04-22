@@ -13,7 +13,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadCurrency from './CurrenciesTableHead.svelte'
-    import RowCurrency from './CurrenciesTableBody.svelte'
+    import RowCurrency from './CurrenciesTableRow.svelte'
 
     export let params: MultiSlugParams
 
