@@ -10,4 +10,5 @@ public class DataProgressGroup
     public string? RequiredQuestId { get; set; }
     public string Type { get; set; } = string.Empty;
     public Dictionary<string, List<DataProgressData>> Data { get; set; } = new();
+    public List<int>? Currencies { get; set; }
 }

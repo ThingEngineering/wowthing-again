@@ -17,6 +17,7 @@ export interface ManualDataProgressGroup {
     name: string
     requiredQuestIds?: number[]
     type: string
+    currencies?: number[]
     data: Record<string, ManualDataProgressData[]>
 }
 

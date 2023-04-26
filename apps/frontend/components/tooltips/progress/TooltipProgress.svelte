@@ -20,6 +20,7 @@
     export let showCurrencies: number[] = []
 
     let cls: string
+    let dataChunks: [ManualDataProgressData, number][][]
     $: {
         cls = some(datas, (data, i) => {
             const desc = descriptionText[i] || data.description
@@ -70,11 +71,35 @@
             haveIndexes = newHaveIndexes
             showCurrencies = [1810, 1813]
         }
+        else {
+            showCurrencies = group.currencies || []
+        }
+
+        // Split data
+        dataChunks = [[]]
+        for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
+            const data = datas[dataIndex]
+            if (data.name === 'separator') {
+                dataChunks.push([])
+                continue
+            }
+
+            dataChunks[dataChunks.length - 1].push([data, dataIndex])
+        }
     }
 </script>
 
 <style lang="scss">
+    table:not(:last-child) {
+        border-bottom: 1px solid $border-color;
+    }
+    table + table {
+        border-top: 1px solid $border-color;
+        margin-top: 1rem;
+    }
     .progress {
+        @include cell-width(1.2rem);
+
         padding-right: 0;
         vertical-align: top;
     }
@@ -106,40 +131,42 @@
     <h4>{character.name}</h4>
     <h5>{group.name}</h5>
 
-    <table class="table-striped">
-        <tbody>
-            {#each datas as data, dataIndex}
-                {@const description = descriptionText[dataIndex] || data.description}
-                <tr>
-                    <td class="progress">
-                        {#if iconOverride}
-                            <WowthingImage
-                                name="{iconOverride}"
-                                size={20}
-                                border={1}
-                            />
-                        {:else}
-                            {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
-                        {/if}
-                    </td>
-                    <td class="name">
-                        <ParsedText text={nameOverride[dataIndex] || data.name} />
+    {#each dataChunks as dataChunk}
+        <table class="table-striped">
+            <tbody>
+                {#each dataChunk as [data, dataIndex]}
+                    {@const description = descriptionText[dataIndex] || data.description}
+                    <tr>
+                        <td class="progress">
+                            {#if iconOverride}
+                                <WowthingImage
+                                    name="{iconOverride}"
+                                    size={20}
+                                    border={1}
+                                />
+                            {:else}
+                                {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                            {/if}
+                        </td>
+                        <td class="name">
+                            <ParsedText text={nameOverride[dataIndex] || data.name} />
 
-                        {#if description && (
-                            haveIndexes.indexOf(dataIndex) === -1 ||
-                            datas[0].type === ProgressDataType.GarrisonTree
-                        )}
-                            {#if cls === 'short'}&ndash;{/if}
-                            <ParsedText
-                                cls="description-{cls}"
-                                text={description}
-                             />
-                        {/if}
-                    </td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+                            {#if description && (
+                                haveIndexes.indexOf(dataIndex) === -1 ||
+                                datas[0].type === ProgressDataType.GarrisonTree
+                            )}
+                                {#if cls === 'short'}&ndash;{/if}
+                                <ParsedText
+                                    cls="description-{cls}"
+                                    text={description}
+                                />
+                            {/if}
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    {/each}
 
     {#if showCurrencies?.length > 0 && !(showCurrencies.length === 1 && showCurrencies[0] === 0)}
         <div class="bottom">
