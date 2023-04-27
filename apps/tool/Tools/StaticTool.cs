@@ -345,7 +345,7 @@ public class StaticTool
 
             foreach (var keystoneAffix in cacheData.KeystoneAffixes.Values)
             {
-                keystoneAffix.Name = affixMaps[language][keystoneAffix.Id];
+                keystoneAffix.Name = affixMaps[language].GetValueOrDefault(keystoneAffix.Id, affixMaps[Language.enUS][keystoneAffix.Id]);
             }
 
             foreach (var currency in cacheData.RawCurrencies)
