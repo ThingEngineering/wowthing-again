@@ -27,7 +27,7 @@
         const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]
 
         for (let i = 0; i < tiers.names.length; i++) {
-            const nextValue = tiers.minValues[i + 1] || tiers.minValues[i]
+            const nextValue = tiers.minValues[i + 1] !== undefined ? tiers.minValues[i + 1] : tiers.minValues[i]
             const thisOne = (
                 characterRep >= tiers.minValues[i] &&
                 (nextValue === 0 || characterRep < nextValue)

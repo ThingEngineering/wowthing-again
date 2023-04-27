@@ -59,7 +59,28 @@ public static partial class Hardcoded
         199197, // Bottled Essence
         200686, // Primal Focus
         201836, // Aspects' Token of Merit
+
+        // Dragonflight - 10.0.7
         202196, // Zskera Vault Key
         204276, // Untapped Forbidden Knowledge
+
+        // Dragonflight - 10.1
+        204075, // Whelpling's Shadowflame Crest Fragment
+        204076, // Drake's Shadowflame Crest Fragment
+        204077, // Wyrm's Shadowflame Crest Fragment
+        204078, // Aspect's Shadowflame Crest Fragment
+        204193, // Whelpling's Shadowflame Crest
+        204194, // Aspect's Shadowflame Crest
+        204195, // Drake's Shadowflame Crest
+        204196, // Wyrm's Shadowflame Crest
+        204460, // Zaralek Glowspores
+        204673, // Titan Training Matrix V
+        204681, // Enchanted Whelpling's Shadowflame Crest
+        204682, // Enchanted Wyrm's Shadowflame Crest
+        204697, // Enchanted Aspect's Shadowflame Crest
+        204715, // Unearthed Fragrant Coin
+        204727, // Coveted Bauble
+        204985, // Barter Brick
+        205188, // Barter Boulder
     };
 }

@@ -9,6 +9,7 @@ public class OutProgressGroup
     public string Name { get; set; }
     public string Type { get; set; }
     public Dictionary<string, List<OutProgressData>> Data { get; set; }
+    public List<int>? Currencies { get; set; }
 
     public string? IconText { get; set; }
 
@@ -26,6 +27,8 @@ public class OutProgressGroup
         Lookup = data.Lookup;
         Name = data.Name;
         Type = data.Type;
+        Currencies = data.Currencies;
+
         Data = data.Data
             .EmptyIfNull()
             .ToDictionary(

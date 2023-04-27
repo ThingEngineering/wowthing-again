@@ -40,6 +40,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Crafting Materials',
             slug: 'crafting-materials',
         },
+        {
+            id: 125003,
+            name: 'S2/Zaralek Cavern',
+            slug: 's2-zaralek-cavern',
+        },
     ],
 }
 
@@ -61,6 +66,9 @@ export const currencyExtra: Record<number, number[]> = {
         2033, // Skinning Knowledge
         2034, // Herbalism Knowledge
         2035, // Mining Knowledge
+    ],
+    125003: [
+        2245, // Flightstones
     ],
 }
 
@@ -113,6 +121,7 @@ export const currencyItems: Record<number, number[]> = {
         198056, // Titan Training Matrix II
         198058, // Titan Training Matrix III
         198059, // Titan Training Matrix IV
+        204673, // Titan Training Matrix V
         null,
         190456, // Artisan's Mettle
         190454, // Primal Chaos
@@ -123,6 +132,30 @@ export const currencyItems: Record<number, number[]> = {
         197921, // Primal Infusion
         190455, // Concentrated Primal Focus
         198046, // Concentrated Primal Infusion
+    ],
+    
+    // Dragonflight > S2/Zaralek Cavern
+    125003: [
+        204715, // Unearthed Fragrant Coin
+        204727, // Coveted Bauble
+        204985, // Barter Brick
+        205188, // Barter Boulder
+        204460, // Zaralek Glowspores
+        null,
+        204075, // Whelpling's Shadowflame Crest Fragment
+        204193, // Whelpling's Shadowflame Crest
+        204681, // Enchanted Whelpling's Shadowflame Crest
+        null,
+        204076, // Drake's Shadowflame Crest Fragment
+        204195, // Drake's Shadowflame Crest
+        null,
+        204077, // Wyrm's Shadowflame Crest Fragment
+        204196, // Wyrm's Shadowflame Crest
+        204682, // Enchanted Wyrm's Shadowflame Crest
+        null,
+        204078, // Aspect's Shadowflame Crest Fragment
+        204194, // Aspect's Shadowflame Crest
+        204697, // Enchanted Aspect's Shadowflame Crest
     ],
 
     // Player vs Player

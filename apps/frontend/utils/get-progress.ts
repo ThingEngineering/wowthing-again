@@ -77,13 +77,16 @@ export default function getProgress(
                 total = datas.reduce((a, b) => a + b.value, 0)
             }
             else {
-                total = datas.length
+                total = datas.filter((data) => data.name !== 'separator').length
             }
 
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
                 const data = datas[dataIndex]
-                let haveThis = false
+                if (data.name === 'separator') {
+                    continue
+                }
 
+                let haveThis = false
                 if (
                     (group.type === 'quest' && checkCharacterQuestIds(userQuestData, character.id, data.ids)) ||
                     (group.type === 'accountQuest' && checkAccountQuestIds(userQuestData, data.ids))

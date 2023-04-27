@@ -96,7 +96,7 @@ public class DumpsTool
         { "INVTYPE_EQUIPABLESPELL_OFFENSIVE", 31 },
         { "INVTYPE_EQUIPABLESPELL_UTILITY", 32 },
         { "INVTYPE_EQUIPABLESPELL_DEFENSIVE", 33 },
-        { "INVTYPE_EQUIPABLESPELL_MOBILITY", 34 },
+        { "INVTYPE_EQUIPABLESPELL_WEAPON", 34 },
     };
 
     public async Task Run()
@@ -1155,7 +1155,11 @@ public class DumpsTool
 
             foreach (var (stringKey, slotId) in _inventoryTypeMap)
             {
-                var stringValue = _globalStringMap[language][stringKey];
+                if (!_globalStringMap[language].TryGetValue(stringKey, out string stringValue))
+                {
+                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", stringKey);
+                    continue;
+                }
 
                 if (!dbLanguageMap.TryGetValue((StringType.WowInventoryType, language, slotId), out var languageString))
                 {
