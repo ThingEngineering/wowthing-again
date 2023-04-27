@@ -21,4 +21,7 @@ export const contractAuras: Record<number, [number, number]> = {
     384462: [2510, 1], // Contract: Valdrakken Accord 1
     384463: [2510, 2], // Contract: Valdrakken Accord 2
     384464: [2510, 3], // Contract: Valdrakken Accord 3
+    409666: [2564, 1], // Contract: Loamm Niffen 1
+    409665: [2564, 2], // Contract: Loamm Niffen 2
+    409664: [2564, 3], // Contract: Loamm Niffen 3
 }
