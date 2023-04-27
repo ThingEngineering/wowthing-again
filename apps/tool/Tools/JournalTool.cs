@@ -226,8 +226,8 @@ public class JournalTool
                 var tierData = new OutJournalTier
                 {
                     Id = tier.ID,
-                    Name = _stringMap[(StringType.WowJournalTierName, language, tier.ID)],
-                    Slug = _stringMap[(StringType.WowJournalTierName, Language.enUS, tier.ID)].Slugify(),
+                    Name = GetString(StringType.WowJournalTierName, language, tier.ID),
+                    Slug = GetString(StringType.WowJournalTierName, Language.enUS, tier.ID).Slugify(),
                 };
 
                 var legacyLoot = tier.ID <= 396; // Battle for Azeroth
@@ -261,8 +261,8 @@ public class JournalTool
                     var instanceData = new OutJournalInstance
                     {
                         Id = instance.ID,
-                        Name = _stringMap[(StringType.WowJournalInstanceName, language, instance.ID)],
-                        Slug = _stringMap[(StringType.WowJournalInstanceName, Language.enUS, instance.ID)].Slugify(),
+                        Name = GetString(StringType.WowJournalInstanceName, language, instance.ID),
+                        Slug = GetString(StringType.WowJournalInstanceName, Language.enUS, instance.ID).Slugify(),
                     };
 
                     if (Hardcoded.InstanceBonusIds.TryGetValue(instanceId, out var bonusIds))
@@ -354,7 +354,7 @@ public class JournalTool
                         }
                         else
                         {
-                            encounterData.Name = _stringMap[(StringType.WowJournalEncounterName, language, encounter.ID)];
+                            encounterData.Name = GetString(StringType.WowJournalEncounterName, language, encounter.ID);
 
                             var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                             foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
@@ -447,7 +447,7 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }
-                                else if (_stringMap[(StringType.WowItemName, Language.enUS, item.Id)]
+                                else if (GetString(StringType.WowItemName, Language.enUS, item.Id)
                                          .StartsWith("Illusion:"))
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties, _itemEffectIllusionMap[item.Id]);
@@ -575,7 +575,7 @@ public class JournalTool
                                         return 1000;
                                     }
                                 })
-                                .ThenBy(item => _stringMap[(StringType.WowItemName, language, item.Id)])
+                                .ThenBy(item => GetString(StringType.WowItemName, language, item.Id))
                                 .ThenBy(item =>
                                     item.Appearances
                                         .SelectMany(app => app
@@ -614,6 +614,25 @@ public class JournalTool
         _timer.AddPoint("Generate", true);
 
         ToolContext.Logger.Information("{Timers}", _timer.ToString());
+    }
+
+    private string GetString(StringType type, Language language, int id)
+    {
+        if (!_stringMap.TryGetValue((type, language, id), out var languageName))
+        {
+            if (language != Language.enUS)
+            {
+                _stringMap.TryGetValue((type, Language.enUS, id), out languageName);
+            }
+
+            if (string.IsNullOrEmpty(languageName))
+            {
+                languageName = _stringMap.GetValueOrDefault(
+                    (type, language, id), $"{type.ToString()} #{id}");
+            }
+        }
+
+        return languageName;
     }
 
     private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item)
