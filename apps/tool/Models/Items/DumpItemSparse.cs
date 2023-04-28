@@ -10,10 +10,12 @@ public class DumpItemSparse
 
     public int AllowableClass { get; set; }
     public long AllowableRace { get; set; }
+    public WowBindType Bonding { get; set; }
     public short ContainerSlots { get; set; }
     public short ExpansionID { get; set; }
     public short ItemLevel { get; set; }
     public int ItemNameDescriptionID { get; set; }
+    public int MaxCount { get; set; }
     public short OverallQualityID { get; set; }
     public short RequiredLevel { get; set; }
     public int Stackable { get; set; }
