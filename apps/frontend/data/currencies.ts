@@ -42,8 +42,8 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
         },
         {
             id: 125003,
-            name: 'S2/Zaralek Cavern',
-            slug: 's2-zaralek-cavern',
+            name: 'Season 2',
+            slug: 'season-2',
         },
     ],
 }
@@ -109,12 +109,17 @@ export const currencyItems: Record<number, number[]> = {
         201836, // Aspects' Token of Merit
         204276, // Untapped Forbidden Knowledge
         202196, // Zskera Vault Key
+        null,
+        204715, // Unearthed Fragrant Coin
+        204727, // Coveted Bauble
+        204985, // Barter Brick
+        205188, // Barter Boulder
+        204460, // Zaralek Glowspores
     ],
     // Dragonflight > Crafting Knowledge
     125001: [
         191784, // Dragon Shard of Knowledge [DF]
     ],
-
     // Dragonflight > Crafting Materials
     125002: [
         198048, // Titan Training Matrix I
@@ -133,14 +138,10 @@ export const currencyItems: Record<number, number[]> = {
         190455, // Concentrated Primal Focus
         198046, // Concentrated Primal Infusion
     ],
-    
-    // Dragonflight > S2/Zaralek Cavern
+    // Dragonflight > Season 2
     125003: [
-        204715, // Unearthed Fragrant Coin
-        204727, // Coveted Bauble
-        204985, // Barter Brick
-        205188, // Barter Boulder
-        204460, // Zaralek Glowspores
+        204717, // Splintered Spark of Shadowflame
+        204440, // Spark of Shadowflame
         null,
         204075, // Whelpling's Shadowflame Crest Fragment
         204193, // Whelpling's Shadowflame Crest

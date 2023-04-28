@@ -73,12 +73,14 @@ public static partial class Hardcoded
         204194, // Aspect's Shadowflame Crest
         204195, // Drake's Shadowflame Crest
         204196, // Wyrm's Shadowflame Crest
+        204440, // Spark of Shadowflame
         204460, // Zaralek Glowspores
         204673, // Titan Training Matrix V
         204681, // Enchanted Whelpling's Shadowflame Crest
         204682, // Enchanted Wyrm's Shadowflame Crest
         204697, // Enchanted Aspect's Shadowflame Crest
         204715, // Unearthed Fragrant Coin
+        204717, // Splintered Spark of Shadowflame
         204727, // Coveted Bauble
         204985, // Barter Brick
         205188, // Barter Boulder
