@@ -31,6 +31,7 @@
         @include cell-width($width-currency, $maxWidth: $width-currency-max);
 
         --image-border-width: 2px;
+        --padding: 0;
 
         background: $thing-background;
         border: 1px solid $border-color;

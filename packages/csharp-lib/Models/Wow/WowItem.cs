@@ -21,6 +21,8 @@ public class WowItem
     public short Expansion { get; set; }
     public short ItemLevel { get; set; }
     public short RequiredLevel { get; set; }
+    public WowBindType BindType { get; set; }
+    public short Unique { get; set; }
 
     public WowItem(int id)
     {

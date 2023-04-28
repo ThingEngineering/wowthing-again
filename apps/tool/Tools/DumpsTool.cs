@@ -99,6 +99,8 @@ public class DumpsTool
         { "INVTYPE_EQUIPABLESPELL_WEAPON", 34 },
     };
 
+    private Dictionary<int, WowItem> _itemMap;
+
     public async Task Run()
     {
         Func<WowDbContext, Task>[] actions =
@@ -617,7 +619,7 @@ public class DumpsTool
         var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>("itemsparse"))
             .ToDictionary(itemSparse => itemSparse.ID);
 
-        var dbItemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
+        _itemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
 
         foreach (var item in items)
         {
@@ -627,12 +629,13 @@ public class DumpsTool
                 continue;
             }
 
-            if (!dbItemMap.TryGetValue(item.ID, out var dbItem))
+            if (!_itemMap.TryGetValue(item.ID, out var dbItem))
             {
-                dbItem = new WowItem(item.ID);
+                _itemMap[item.ID] = dbItem = new WowItem(item.ID);
                 context.WowItem.Add(dbItem);
             }
 
+            dbItem.BindType = itemSparse.Bonding;
             dbItem.ContainerSlots = itemSparse.ContainerSlots;
             dbItem.Expansion = itemSparse.ExpansionID;
             dbItem.ItemLevel = itemSparse.ItemLevel;
@@ -640,6 +643,7 @@ public class DumpsTool
             dbItem.RaceMask = itemSparse.AllowableRace;
             dbItem.RequiredLevel = itemSparse.RequiredLevel;
             dbItem.Stackable = itemSparse.Stackable;
+            dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             // Flags
             if (itemSparse.ItemNameDescriptionID == 13805 || // Cosmetic
@@ -916,13 +920,27 @@ public class DumpsTool
                 context.WowMount.Add(dbMount);
             }
 
-            dbMount.SpellId = mount.SourceSpellID;
             dbMount.Flags = mount.Flags;
             dbMount.SourceType = mount.SourceTypeEnum;
+            dbMount.SpellId = mount.SourceSpellID;
 
+            dbMount.ItemId = 0;
             if (_spellTeachMap!.TryGetValue(dbMount.SpellId, out var itemIds))
             {
-                dbMount.ItemId = itemIds.Last();
+                foreach (int itemId in itemIds)
+                {
+                    if (_itemMap.TryGetValue(itemId, out var item) &&
+                        item.BindType is WowBindType.NotBound or WowBindType.BindOnEquip or WowBindType.BindOnUse)
+                    {
+                        dbMount.ItemId = itemId;
+                        break;
+                    }
+                }
+
+                if (dbMount.ItemId == 0)
+                {
+                    dbMount.ItemId = itemIds.Last();
+                }
             }
 
             if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
