@@ -335,7 +335,6 @@ const orderBattleForAzeroth2: number[] = [
     370, // Operation: Mechagon - Workshop
 ]
 
-// Shadowlands S1/2
 const orderShadowlands: number[] = [
     377, // De Other Side
     378, // Halls of Atonement
@@ -347,13 +346,11 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
-// Shadowlands S3
-const orderShadowlandsExtraS3: number[] = [
+const orderShadowlandsS3: number[] = orderShadowlands.concat([
     392, // Tazavesh: So'leah's Gambit
     391, // Tazavesh: Streets of Wonder
-]
+])
 
-// Shadowlands S4
 const orderShadowlandsS4: number[] = [
     166, // Grimrail Depot
     169, // Iron Docks
@@ -365,7 +362,6 @@ const orderShadowlandsS4: number[] = [
     391, // Tazavesh: Streets of Wonder
 ]
 
-// Dragonflight S1
 const orderDragonflightS1: number[] = [
     402, // Algeth'ar Academy
     401, // The Azure Vault
@@ -377,8 +373,27 @@ const orderDragonflightS1: number[] = [
     2, // Temple of the Jade Serpent
 ]
 
+const orderDragonflightS2: number[] = [
+    405, // Brackenhide Hollow
+    406, // Halls of Infusion
+    404, // Neltharus
+    403, // Uldaman: Legacy of Tyr
+    245, // Freehold
+    206, // Neltharion's Lair
+    251, // The Underrot
+    438, // The Vortex Pinnacle
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason(
+            10,
+            '[DF] Season 2',
+            'dragonflight-2',
+            70,
+            [orderDragonflightS2],
+            906, // 2023-05-09
+        ),
         new MythicPlusSeason(
             9,
             '[DF] Season 1',
@@ -400,7 +415,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             '[SL] Season 3',
             'shadowlands-3',
             60,
-            [orderShadowlands, orderShadowlandsExtraS3]
+            [orderShadowlandsS3]
         ),
         new MythicPlusSeason(
             6,
