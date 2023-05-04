@@ -1,16 +1,10 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
-    import { lazyStore, manualStore, staticStore, userStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
-    import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
-    import Count from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import Group from './HeirloomsGroup.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
 
     let sections: [string, ManualDataHeirloomGroup[]][]
     $: {
@@ -43,26 +37,6 @@
     }
 </script>
 
-<style lang="scss">
-    .collection-v2-group {
-        width: 17.5rem;
-    }
-    .collection-object {
-        min-height: 52px;
-        width: 52px;
-
-        :global(img) {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-    }
-    .pill {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        margin-top: -1px;
-    }
-</style>
-
 <svelte:window on:resize={debouncedResize} />
 
 <div class="resizer-view" bind:this={containerElement}>
@@ -74,52 +48,7 @@
             />
             <div class="collection-v2-section">
                 {#each groups as group}
-                    {@const groupCount = $lazyStore.heirlooms[group.name]}
-                    <div class="collection-v2-group">
-                        <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
-                            {group.name.replace('Unavailable - ', '')}
-                            <Count counts={groupCount} />
-                        </h4>
-
-                        <div class="collection-objects">
-                            {#each group.items as item}
-                                {@const level = $userStore.heirlooms?.[item.itemId]}
-                                {@const [bonusIdsIndex, itemIdsIndex] = $staticStore.heirlooms[item.itemId]}
-                                {@const upgradeBonusIds = $staticStore.heirlooms[bonusIdsIndex]}
-                                {@const upgradeItemIds = $staticStore.heirlooms[itemIdsIndex]}
-                                <div
-                                    class="collection-object quality7"
-                                    class:missing={level === undefined}
-                                >
-                                    <WowheadLink
-                                        type="item"
-                                        id={item.itemId}
-                                        extraParams={{
-                                            bonus: (upgradeBonusIds[(level || 0) - 1] || 0).toString()
-                                        }}
-                                    >
-                                        <WowthingImage
-                                            name="item/{item.itemId}"
-                                            size={48}
-                                            border={2}
-                                        />
-                                    </WowheadLink>
-
-                                    {#if level !== undefined}
-                                        <div class="pill {getPercentClass(level / upgradeBonusIds.length * 100)}">
-                                            {level} / {upgradeBonusIds.length}
-                                        </div>
-
-                                        {#if level === upgradeBonusIds.length}
-                                            <div class="collected-icon drop-shadow">
-                                                <IconifyIcon icon={mdiCheckboxOutline} />
-                                            </div>
-                                        {/if}
-                                    {/if}
-                                </div>
-                            {/each}
-                        </div>
-                    </div>
+                    <Group {group} />
                 {/each}
             </div>
         {/each}
