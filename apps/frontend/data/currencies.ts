@@ -129,7 +129,6 @@ export const currencyItems: Record<number, number[]> = {
         204673, // Titan Training Matrix V
         null,
         190456, // Artisan's Mettle
-        190454, // Primal Chaos
         199197, // Bottled Essence
         190453, // Spark of Ingenuity
         null,
