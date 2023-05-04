@@ -30,7 +30,7 @@ export const taskList: Task[] = [
     {
         key: 'holidayDungeons',
         name: '[Holiday] Mythic Dungeons',
-        shortName: 'Dung',
+        shortName: 'MDun',
     },
     {
         key: 'holidayPetPvp',
@@ -159,10 +159,9 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
-        key: 'dfDungeonWeeklies',
-        name: '[DF] Dungeon Weeklies',
-        shortName: 'Dun',
-        type: 'multi',
+        key: 'dfFighting',
+        name: '[DF] Heroic Dungeons',
+        shortName: 'HDun',
     },
     {
         key: 'dfProfessionWeeklies',
