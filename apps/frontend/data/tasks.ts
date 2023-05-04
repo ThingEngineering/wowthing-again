@@ -140,6 +140,12 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
+        key: 'dfWorthyAlly',
+        name: '[DF] A Worthy Ally',
+        shortName: 'AWA',
+        minimumLevel: 70,
+    },
+    {
         key: 'dfCatchRelease',
         name: '[DF] Catch and Release (Fishing)',
         shortName: 'CaR',
