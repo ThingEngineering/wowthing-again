@@ -278,6 +278,16 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'dfTrialFlood',
             taskName: 'Trial of the Flood',
         },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfReachStormsChest',
+            taskName: '[FR] Chest of Storms', 
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfReachStormsEvent',
+            taskName: '[FR] Primal Storm',
+        },
     ],
     'dfDungeonWeeklies': [
         {
