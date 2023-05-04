@@ -22,7 +22,6 @@ public class DataHeirloomGroupConverter : JsonConverter<DataHeirloomGroup>
             writer.WriteStartArray();
 
             writer.WriteNumberValue(item.Id);
-            writer.WriteNumberValue(item.Upgrades);
 
             if (!string.IsNullOrWhiteSpace(item.Faction))
             {

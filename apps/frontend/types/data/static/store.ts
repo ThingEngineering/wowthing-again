@@ -42,6 +42,8 @@ export interface StaticData {
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
 
+    heirlooms: Record<number, number[]>
+
     holidays: Record<number, StaticDataHoliday>
     rawHolidays: StaticDataHolidayArray[]
 

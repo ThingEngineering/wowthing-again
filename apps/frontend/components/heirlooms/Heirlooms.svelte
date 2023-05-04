@@ -1,8 +1,7 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
-    import { heirloomBonusIds } from '@/data/heirlooms'
-    import { lazyStore, manualStore, userStore } from '@/stores'
+    import { lazyStore, manualStore, staticStore, userStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
@@ -41,12 +40,6 @@
         else {
             debouncedResize = null
         }
-    }
-
-    function getHeirloomBonus(groupName: string, level: number, maxUpgrade: number): string {
-        return heirloomBonusIds[groupName]
-            ? heirloomBonusIds[groupName][level]
-            : heirloomBonusIds['default'][5 - maxUpgrade + (level)]
     }
 </script>
 
@@ -91,6 +84,9 @@
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const level = $userStore.heirlooms?.[item.itemId]}
+                                {@const [bonusIdsIndex, itemIdsIndex] = $staticStore.heirlooms[item.itemId]}
+                                {@const upgradeBonusIds = $staticStore.heirlooms[bonusIdsIndex]}
+                                {@const upgradeItemIds = $staticStore.heirlooms[itemIdsIndex]}
                                 <div
                                     class="collection-object quality7"
                                     class:missing={level === undefined}
@@ -99,7 +95,7 @@
                                         type="item"
                                         id={item.itemId}
                                         extraParams={{
-                                            bonus: getHeirloomBonus(group.name, level || 0, item.maxUpgrade)
+                                            bonus: (upgradeBonusIds[(level || 0) - 1] || 0).toString()
                                         }}
                                     >
                                         <WowthingImage
@@ -110,11 +106,11 @@
                                     </WowheadLink>
 
                                     {#if level !== undefined}
-                                        <div class="pill {getPercentClass(level / item.maxUpgrade * 100)}">
-                                            {level} / {item.maxUpgrade}
+                                        <div class="pill {getPercentClass(level / upgradeBonusIds.length * 100)}">
+                                            {level} / {upgradeBonusIds.length}
                                         </div>
 
-                                        {#if level === item.maxUpgrade}
+                                        {#if level === upgradeBonusIds.length}
                                             <div class="collected-icon drop-shadow">
                                                 <IconifyIcon icon={mdiCheckboxOutline} />
                                             </div>
