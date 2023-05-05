@@ -495,7 +495,8 @@ export class LazyStore implements LazyUgh {
         return this.doGeneric(
             this.manualData.heirlooms,
             (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[heirloom.itemId] > 0,
-            (heirloom: ManualDataHeirloomItem) => heirloom.maxUpgrade,
+            (heirloom: ManualDataHeirloomItem) => this.staticData.heirlooms[
+                this.staticData.heirlooms[heirloom.itemId][0]].length,
             (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[heirloom.itemId] || 0,
         )
     }

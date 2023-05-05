@@ -2,6 +2,7 @@
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Covenants;
+using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Static;
@@ -158,6 +159,10 @@ public class StaticTool
         }
 
         _timer.AddPoint("Currencies");
+
+        // Heirlooms
+        cacheData.Heirlooms = await LoadHeirlooms();
+        _timer.AddPoint("Heirlooms");
 
         // Holidays
         cacheData.RawHolidays = await context.WowHoliday
@@ -782,6 +787,39 @@ public class StaticTool
             }
 
             ret[specId] = specData;
+        }
+
+        return ret;
+    }
+
+    private async Task<Dictionary<int, int[]>> LoadHeirlooms()
+    {
+        var heirlooms = await DataUtilities.LoadDumpCsvAsync<DumpHeirloom>("heirloom");
+
+        var arrays = new List<int[]>();
+        var ret = new Dictionary<int, int[]>();
+
+        foreach (var heirloom in heirlooms)
+        {
+            var bonusIds = heirloom.UpgradeBonusIDs.ToArray();
+            var bonusIdsIndex = arrays.FindIndex((a) => a.SequenceEqual(bonusIds));
+            if (bonusIdsIndex == -1)
+            {
+                arrays.Add(bonusIds);
+                bonusIdsIndex = arrays.Count - 1;
+                ret[bonusIdsIndex] = bonusIds;
+            }
+
+            var itemIds = heirloom.UpgradeItemIDs.ToArray();
+            var itemIdsIndex = arrays.FindIndex((a) => a.SequenceEqual(itemIds));
+            if (itemIdsIndex == -1)
+            {
+                arrays.Add(itemIds);
+                itemIdsIndex = arrays.Count - 1;
+                ret[itemIdsIndex] = itemIds;
+            }
+
+            ret.Add(heirloom.ItemID, new[] { bonusIdsIndex, itemIdsIndex });
         }
 
         return ret;

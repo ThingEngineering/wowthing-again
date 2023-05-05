@@ -32,7 +32,7 @@
     }
 </style>
 
-{#if progressData.total > 0}
+{#if progressData?.total > 0}
     <td
         class:has-icon={!!progressData.icon}
         use:tippyComponent={{
@@ -60,7 +60,7 @@
             class="{progressData.missingRequired ? 'status-fail' : getPercentClass(progressData.have / progressData.total * 100)}"
         >{progressData.have} / {progressData.total}</span>
     </td>
-{:else if progressData.have === -1 && progressData.total >= 0}
+{:else if progressData?.have === -1 && progressData?.total >= 0}
     <td class="status-fail">---</td>
 {:else if (group.minimumLevel || 0) > character.level}
     <td class="status-fail">

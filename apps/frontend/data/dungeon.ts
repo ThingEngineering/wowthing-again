@@ -58,6 +58,13 @@ export const dungeons: Dungeon[] = [
         38
     ),
     new Dungeon(
+        206,
+        "Neltharion's Lair",
+        'NL',
+        'achievement/10795',
+        33
+    ),
+    new Dungeon(
         210,
         'Court of Stars',
         'CoS',
@@ -84,85 +91,85 @@ export const dungeons: Dungeon[] = [
         244,
         "Atal'Dazar",
         'AD',
-        'dungeon_atal_dazar',
-        0
+        'achievement/12824',
+        1800 / 60
     ),
     new Dungeon(
         245,
         'Freehold',
         'FH',
-        'dungeon_freehold',
-        0
+        'achievement/12831',
+        1860 / 60
     ),
     new Dungeon(
         246,
         'Tol Dagor',
         'TD',
-        'dungeon_tol_dagor',
-        0
+        'achievement/12840',
+        2160 / 60
     ),
     new Dungeon(
         247,
         'The MOTHERLODE!!',
         'ML',
-        'dungeon_the_motherlode',
-        0
+        'achievement/12844',
+        2340 / 60
     ),
     new Dungeon(
         248,
         'Waycrest Manor',
         'WM',
-        'dungeon_waycrest_manor',
-        0
+        'achievement/12483',
+        2340 / 60
     ),
     new Dungeon(
         249,
-        "King's Rest",
+        "Kings' Rest",
         'KR',
-        'dungeon_kings_rest',
-        0
+        'achievement/12848',
+        2520 / 60
     ),
     new Dungeon(
         250,
         'Temple of Sethraliss',
         'ToS',
-        'dungeon_temple_of_sethraliss',
-        0
+        'achievement/12504',
+        2160 / 60
     ),
     new Dungeon(
         251,
         'The Underrot',
         'UR',
-        'dungeon_the_underrot',
-        0
+        'achievement/12500',
+        1920 / 60
     ),
     new Dungeon(
         252,
         'Shrine of the Storm',
         'SoS',
-        'dungeon_shrine_of_the_storm',
-        0
+        'achievement/12835',
+        2520 / 60
     ),
     new Dungeon(
         353,
         'Siege of Boralus',
         'SoB',
-        'dungeon_siege_of_boralus',
-        0
+        'achievement/12847',
+        2160 / 60
     ),
     new Dungeon(
         369,
         'Operation: Mechagon - Junkyard',
         'YARD',
-        'dungeon_operation_mechagon_junkyard',
-        0,
+        'achievement/15693',
+        2280 / 60
     ),
     new Dungeon(
         370,
         'Operation: Mechagon - Workshop',
         'WORK',
-        'dungeon_operation_mechagon_workshop',
-        0
+        'achievement/15693',
+        1920 / 60
     ),
 
     // Shadowlands
@@ -270,29 +277,38 @@ export const dungeons: Dungeon[] = [
         'Uldaman: Legacy of Tyr',
         'ULT',
         'achievement/16278',
-        0
+        2280 / 60
     ),
     new Dungeon(
         404,
         'Neltharus',
         'Nel',
         'achievement/16263',
-        0
+        1980 / 60
     ),
     new Dungeon(
         405,
         'Brackenhide Hollow',
         'BH',
         'achievement/16255',
-        0
+        2100 / 60
     ),
     new Dungeon(
         406,
         'Halls of Infusion',
         'HoI',
         'achievement/16260',
-        0
+        2100 / 60
     ),
+
+    // Random
+    new Dungeon(
+        438,
+        'The Vortex Pinnacle',
+        'VP',
+        'achievement/4847',
+        1800 / 60
+    )
 ]
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
@@ -319,7 +335,6 @@ const orderBattleForAzeroth2: number[] = [
     370, // Operation: Mechagon - Workshop
 ]
 
-// Shadowlands S1/2
 const orderShadowlands: number[] = [
     377, // De Other Side
     378, // Halls of Atonement
@@ -331,13 +346,11 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
-// Shadowlands S3
-const orderShadowlandsExtraS3: number[] = [
+const orderShadowlandsS3: number[] = orderShadowlands.concat([
     392, // Tazavesh: So'leah's Gambit
     391, // Tazavesh: Streets of Wonder
-]
+])
 
-// Shadowlands S4
 const orderShadowlandsS4: number[] = [
     166, // Grimrail Depot
     169, // Iron Docks
@@ -349,7 +362,6 @@ const orderShadowlandsS4: number[] = [
     391, // Tazavesh: Streets of Wonder
 ]
 
-// Dragonflight S1
 const orderDragonflightS1: number[] = [
     402, // Algeth'ar Academy
     401, // The Azure Vault
@@ -361,8 +373,27 @@ const orderDragonflightS1: number[] = [
     2, // Temple of the Jade Serpent
 ]
 
+const orderDragonflightS2: number[] = [
+    405, // Brackenhide Hollow
+    406, // Halls of Infusion
+    404, // Neltharus
+    403, // Uldaman: Legacy of Tyr
+    245, // Freehold
+    206, // Neltharion's Lair
+    251, // The Underrot
+    438, // The Vortex Pinnacle
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason(
+            10,
+            '[DF] Season 2',
+            'dragonflight-2',
+            70,
+            [orderDragonflightS2],
+            906, // 2023-05-09
+        ),
         new MythicPlusSeason(
             9,
             '[DF] Season 1',
@@ -384,7 +415,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             '[SL] Season 3',
             'shadowlands-3',
             60,
-            [orderShadowlands, orderShadowlandsExtraS3]
+            [orderShadowlandsS3]
         ),
         new MythicPlusSeason(
             6,

@@ -47,7 +47,6 @@ public static partial class Hardcoded
         // Dragonflight
         198046, // Concentrated Primal Infusion
         190453, // Spark of Ingenuity
-        190454, // Primal Chaos
         190455, // Concentrated Primal Focus
         190456, // Artisan's Mettle
         191784, // Dragon Shard of Knowledge

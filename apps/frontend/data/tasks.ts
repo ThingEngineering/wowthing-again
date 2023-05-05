@@ -30,7 +30,7 @@ export const taskList: Task[] = [
     {
         key: 'holidayDungeons',
         name: '[Holiday] Mythic Dungeons',
-        shortName: 'Dung',
+        shortName: 'MDun',
     },
     {
         key: 'holidayPetPvp',
@@ -140,6 +140,12 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
+        key: 'dfWorthyAlly',
+        name: '[DF] A Worthy Ally',
+        shortName: 'AWA',
+        minimumLevel: 70,
+    },
+    {
         key: 'dfCatchRelease',
         name: '[DF] Catch and Release (Fishing)',
         shortName: 'CaR',
@@ -153,10 +159,9 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
-        key: 'dfDungeonWeeklies',
-        name: '[DF] Dungeon Weeklies',
-        shortName: 'Dun',
-        type: 'multi',
+        key: 'dfFighting',
+        name: '[DF] Heroic Dungeons',
+        shortName: 'HDun',
     },
     {
         key: 'dfProfessionWeeklies',
@@ -272,6 +277,16 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             taskKey: 'dfTrialFlood',
             taskName: 'Trial of the Flood',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfReachStormsChest',
+            taskName: '[FR] Chest of Storms', 
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfReachStormsEvent',
+            taskName: '[FR] Primal Storm',
         },
     ],
     'dfDungeonWeeklies': [

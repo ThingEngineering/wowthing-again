@@ -275,37 +275,22 @@ public class ManualTool
 
     private DataHeirloomGroup[] LoadHeirlooms()
     {
-        var groups = DataUtilities.YamlDeserializer
+        return DataUtilities.YamlDeserializer
             .Deserialize<DataHeirloomGroup[]>(
                 File.OpenText(
                     Path.Join(DataUtilities.DataPath, "heirlooms", "heirlooms.yml")
                 )
             );
-
-        foreach (var group in groups)
-        {
-            foreach (var item in group.Items)
-            {
-                if (item.Upgrades == 0)
-                {
-                    item.Upgrades = 5;
-                }
-            }
-        }
-
-        return groups;
     }
 
     private DataIllusionGroup[] LoadIllusions()
     {
-        var groups = DataUtilities.YamlDeserializer
+        return DataUtilities.YamlDeserializer
             .Deserialize<DataIllusionGroup[]>(
                 File.OpenText(
                     Path.Join(DataUtilities.DataPath, "illusions", "illusions.yml")
                 )
             );
-
-        return groups;
     }
 
     private List<List<OutProgress>> LoadProgress()
