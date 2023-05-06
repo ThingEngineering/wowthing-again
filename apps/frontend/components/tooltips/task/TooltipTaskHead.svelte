@@ -84,11 +84,11 @@
     <table class="table-striped">
         <tbody>
             {#if needToGet > 0}
-            <tr>
-                <td class="label status-fail">Not started:</td>
-                <td class="value">{needToGet}</td>
-            </tr>
-        {/if}
+                <tr>
+                    <td class="label status-fail">Not started:</td>
+                    <td class="value">{needToGet}</td>
+                </tr>
+            {/if}
             {#if inProgress > 0}
                 <tr>
                     <td class="label status-shrug">In progress:</td>
@@ -97,7 +97,7 @@
             {/if}
             <tr>
                 <td class="label status-success">Completed:</td>
-                <td class="value">{completed} / {total}</td>
+                <td class="value">{completed}</td>
             </tr>
         </tbody>
     </table>
