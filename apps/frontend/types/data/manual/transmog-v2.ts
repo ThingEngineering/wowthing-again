@@ -48,6 +48,7 @@ export type ManualDataTransmogSetGroupArray = ConstructorParameters<typeof Manua
 
 export class ManualDataTransmogSetSet {
     constructor(
+        public type: TransmogSetType,
         public name: string,
         public matchTags: number[],
         public modifier?: number,
