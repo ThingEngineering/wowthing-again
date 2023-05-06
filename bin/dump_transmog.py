@@ -1,5 +1,4 @@
 import csv
-import glob
 import os
 import os.path
 import re
@@ -174,20 +173,27 @@ DESCRIPTION_ORDER = [
 
 
 def main():
-    dumps_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'dumps')
+    dumps_path = os.path.join(os.path.abspath(os.path.expanduser(os.environ['WOWTHING_DUMP_PATH'])), 'enUS')
 
+    groups = {}
     sets = {}
-    with open(glob.glob(os.path.join(dumps_path, 'enUS', 'transmogset-*.csv'))[0]) as csv_file:
+    with open(os.path.join(dumps_path, 'transmogset.csv')) as csv_file:
         # Name_lang,ID,ClassMask,TrackingQuestID,Flags,TransmogSetGroupID,
         # ItemNameDescriptionID,ParentTransmogSetID,Field_8_1_0_28294_008,
         # ExpansionID,PatchIntroduced,UiOrder,ConditionID
         for row in csv.DictReader(csv_file):
-            sets[int(row['ID'])] = dict(
+            set_id = int(row['ID'])
+            new_set = dict(
                 name=row['Name_lang'],
                 class_mask=int(row['ClassMask']),
                 description_id=int(row['ItemNameDescriptionID']),
                 flags=int(row['Flags']),
             )
+            sets[set_id] = new_set
+
+            group_id = int(row['TransmogSetGroupID'])
+            if group_id > 0:
+                groups.setdefault(group_id, []).append(set_id)
 
     combine = False
     output_items = False
@@ -195,26 +201,40 @@ def main():
     item_ids = []
     set_ids = []
 
+    # combined sets
     if sys.argv[1] == 'c':
         combine = True
         set_ids = sys.argv[2:]
+    # specific itemIDs
     elif sys.argv[1] == 'i':
         item_ids = sys.argv[2:]
+    # something from wowhead?
     elif sys.argv[1] == 'm':
         # compare?items=29093:28340:27456:28398:27800:137029:27827:28268
         item_ids = sys.argv[2].split('=')[1].split(':')
+    # set names
     elif sys.argv[1] == 'name':
         name_res = []
         for set_name in sys.argv[2:]:
             name_res.append(re.compile(set_name.replace('*', '.*?')))
         for name_re in name_res:
             set_ids.extend(k for k, v in sets.items() if name_re.match(v['name']))
+    # ?? sets
     elif sys.argv[1] == '2':
         output_items = True
         set_ids = sys.argv[2:]
+    # ?? sets
+    elif sys.argv[1] == 'g2':
+        set_mode = True
+        if len(sys.argv) == 4:
+            set_ids = [set_id for set_id in groups[int(sys.argv[2])] if sets[set_id]['description_id'] == int(sys.argv[3])]
+        else:
+            set_ids = groups[int(sys.argv[3])]
+    # ?? sets
     elif sys.argv[1] == 'ts':
         set_mode = True
         set_ids = sys.argv[2:]
+    # ?? sets
     else:
         set_ids = sys.argv[1:]
 
@@ -222,7 +242,7 @@ def main():
     set_ids = [int(set_id) for set_id in set_ids]
 
     set_items = {}
-    with open(glob.glob(os.path.join(dumps_path, 'transmogsetitem-*.csv'))[0]) as csv_file:
+    with open(os.path.join(dumps_path, 'transmogsetitem.csv')) as csv_file:
         # ID,TransmogSetID,ItemModifiedAppearanceID,Flags
         for row in csv.DictReader(csv_file):
             if set_mode and (int(row['Flags']) & 0x1) == 0:
@@ -230,7 +250,7 @@ def main():
             set_items.setdefault(int(row['TransmogSetID']), []).append(int(row['ItemModifiedAppearanceID']))
 
     appearances = {}
-    with open(glob.glob(os.path.join(dumps_path, 'itemmodifiedappearance-*.csv'))[0]) as csv_file:
+    with open(os.path.join(dumps_path, 'itemmodifiedappearance.csv')) as csv_file:
         for row in csv.DictReader(csv_file):
             appearances[int(row['ID'])] = [
                 int(row['ItemID']),
@@ -239,12 +259,21 @@ def main():
             ]
 
     item_slot = {}
-    with open(glob.glob(os.path.join(dumps_path, 'item-*.csv'))[0]) as csv_file:
+    with open(os.path.join(dumps_path, 'item.csv')) as csv_file:
         for row in csv.DictReader(csv_file):
             item_slot[int(row['ID'])] = int(row['InventoryType'])
 
     if set_mode:
-        for set_id in set_ids:
+        sort_me = [
+            (
+                CLASS_MASK.get(sets[set_id]['class_mask'], ''),
+                ARMOR_MASK.get(sets[set_id]['class_mask'], ''),
+                set_id,
+            ) for set_id in set_ids
+        ]
+        sort_me.sort()
+
+        for (_, _, set_id) in sort_me:
             set = sets[set_id]
             faction = None
             if (set['flags'] & 0x4) == 0x4:
@@ -256,7 +285,7 @@ def main():
                 print(f'  - name: "transmog:{set_id}" # {set["name"]} [{faction}]')
             else:
                 print(f'  - name: "transmog:{set_id}" # {set["name"]}')
-            
+
             print(f'    tags:')
 
             mask = set['class_mask']
