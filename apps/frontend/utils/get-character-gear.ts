@@ -43,8 +43,20 @@ export default function getCharacterGear(
         }
 
         if (state.highlightHeirlooms && character.level < (Constants.characterMaxLevel - 10)) {
+            // Rings are annoying, only need one though
             if (heirloomSlots[inventorySlot] && gear.equipped.quality !== 7) {
-                gear.missingHeirloom = true
+                if (
+                    !(
+                        inventorySlot === InventorySlot.Ring1 &&
+                        character.equippedItems[InventorySlot.Ring2]?.quality === 7
+                    ) &&
+                    !(
+                        inventorySlot === InventorySlot.Ring2 &&
+                        character.equippedItems[InventorySlot.Ring1]?.quality === 7
+                    )
+                ) {
+                    gear.missingHeirloom = true
+                }
             }
         }
 
