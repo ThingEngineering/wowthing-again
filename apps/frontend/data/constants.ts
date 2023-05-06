@@ -6,8 +6,6 @@ export abstract class Constants {
     
     static readonly mythicPlusSeason: number = 9
 
-    static readonly holidayCycleStart: number = 845
-
     static readonly currencies = {
         catalyst: 2167,
         dragonridingPassengers: 2133,
