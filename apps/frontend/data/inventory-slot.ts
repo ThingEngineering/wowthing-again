@@ -27,9 +27,13 @@ export const heirloomSlots: Record<number, boolean> = Object.fromEntries([
     [InventorySlot.Shoulders],
     [InventorySlot.Back],
     [InventorySlot.Chest],
+    [InventorySlot.Legs],
     [InventorySlot.Ring1],
+    [InventorySlot.Ring2],
     [InventorySlot.Trinket1],
     [InventorySlot.Trinket2],
+    [InventorySlot.MainHand],
+    [InventorySlot.OffHand],
 ].map(n => [n, true]))
 
 export const validEnchants: Record<number, number[]> = {
