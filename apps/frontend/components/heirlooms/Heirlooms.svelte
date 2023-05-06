@@ -4,6 +4,7 @@
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
     import Group from './HeirloomsGroup.svelte'
+    import Options from './HeirloomsOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
 
     let sections: [string, ManualDataHeirloomGroup[]][]
@@ -40,6 +41,8 @@
 <svelte:window on:resize={debouncedResize} />
 
 <div class="resizer-view" bind:this={containerElement}>
+    <Options />
+
     <div class="collection thing-container" bind:this={resizeableElement}>
         {#each sections as [name, groups]}
             <SectionTitle
