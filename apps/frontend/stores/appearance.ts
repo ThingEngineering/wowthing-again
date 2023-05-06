@@ -31,6 +31,11 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             for (const [key, objects] of Object.entries(state.rawAppearances)) {
                 const [expansion, cls, subClass, inventoryType] = key.split('|').map(n => parseInt(n))
 
+                if (byExpansion[expansion] === undefined) {
+                    console.warn('Invalid appearance expansion:', key)
+                    continue
+                }
+
                 let sortKey: string
                 let nameParts: string[]
                 switch (cls) {
