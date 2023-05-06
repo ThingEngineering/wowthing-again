@@ -40,6 +40,29 @@ public class UserUploadJob : JobBase
         "強悍", // zhTW
     };
 
+    private static readonly HashSet<int> BankBags = new()
+    {
+        -3, // Reagent Bank
+        -1, // Bank
+        6, // Bank bag 1
+        7, // Bank bag 2
+        8, // Bank bag 3
+        9, // Bank bag 4
+        10, // Bank bag 5
+        11, // Bank bag 6
+        12, // Bank bag 7
+    };
+
+    private static readonly HashSet<int> PlayerBags = new()
+    {
+        0, // Backpack
+        1, // Bag 1
+        2, // Bag 2
+        3, // Bag 3
+        4, // Bag 4
+        5, // Reagent bag
+    };
+
     public override async Task Run(params string[] data)
     {
         _timer = new JankTimer();
@@ -242,7 +265,7 @@ public class UserUploadJob : JobBase
                 updatedCharacters++;
             }
 
-            Logger.Warning("Saving character {id}", addonId);
+            Logger.Warning("Saving character {id} {addonId}", character.Id, addonId);
             await Context.SaveChangesAsync();
         }
 
@@ -942,17 +965,49 @@ public class UserUploadJob : JobBase
 
     private async Task HandleItems(PlayerCharacter character, UploadCharacter characterData)
     {
-        var itemMap = character.Items
-            .EmptyIfNull()
+        characterData.ScanTimes.TryGetValue("bags", out int bagsTimestamp);
+        characterData.ScanTimes.TryGetValue("bank", out int bankTimestamp);
+        if (bagsTimestamp == 0 && bankTimestamp == 0)
+        {
+            Logger.Debug("Bags and bank not scanned");
+            return;
+        }
+
+        var bagsScanned = bagsTimestamp.AsUtcDateTime();
+        var bankScanned = bankTimestamp.AsUtcDateTime();
+        bool updateBags = bagsScanned > character.AddonData.BagsScannedAt;
+        bool updateBank = bankScanned > character.AddonData.BankScannedAt;
+
+        if (!updateBags && !updateBank)
+        {
+            Logger.Debug("Bags and bank not scanned since last time");
+            return;
+        }
+
+        List<int> bagIds = new();
+        if (updateBags)
+        {
+            character.AddonData.BagsScannedAt = bagsScanned;
+            bagIds.AddRange(PlayerBags);
+        }
+        if (updateBank)
+        {
+            character.AddonData.BankScannedAt = bankScanned;
+            bagIds.AddRange(BankBags);
+        }
+
+        // Logger.Debug("bags={bags} bank={bank}", updateBags, updateBank);
+
+        var itemMap = Context.PlayerCharacterItem
+            .Where(pci => pci.CharacterId == character.Id)
+            .Where(pci => bagIds.Contains(pci.BagId))
             .ToGroupedDictionary(item => (item.Location, item.BagId, item.Slot));
 
-        var itemIds = new HashSet<long>(
-            character.Items
-                .EmptyIfNull()
-                .Select(item => item.Id)
-        );
+        var itemIds = new HashSet<long>(itemMap.Values
+            .SelectMany(items => items.Select(item => item.Id)));
         var seenIds = new HashSet<long>();
 
+        // Bags
         foreach ((string location, int itemId) in characterData.Bags.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
@@ -962,6 +1017,11 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
+            if (!bagIds.Contains(bagId))
+            {
+                // Logger.Debug("Skipping bag {id}", bagId);
+                continue;
+            }
             var locationType = GetBagLocation(bagId);
 
             var key = (locationType, bagId, (short)0);
@@ -987,6 +1047,7 @@ public class UserUploadJob : JobBase
             item.ItemId = itemId;
         }
 
+        // Items
         foreach ((string location, var contents) in characterData.Items.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
@@ -996,6 +1057,11 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
+            if (!bagIds.Contains(bagId))
+            {
+                // Logger.Debug("Skipping item in bag {id}", bagId);
+                continue;
+            }
             var locationType = GetBagLocation(bagId);
 
             foreach ((string slotString, string itemString) in contents)
@@ -1045,12 +1111,12 @@ public class UserUploadJob : JobBase
 
     private ItemLocation GetBagLocation(short bagId)
     {
-        if (bagId >= 0 && bagId <= 5)
+        if (bagId is >= 0 and <= 5)
         {
             return ItemLocation.Bags;
         }
 
-        if (bagId == -1 || (bagId >= 5 && bagId <= 11))
+        if (bagId is -1 or (>= 6 and <= 12))
         {
             return ItemLocation.Bank;
         }
