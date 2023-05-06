@@ -23,6 +23,7 @@ export abstract class Constants {
         dragonridingPassengers: 'spell/372610', // Skyward Ascent
         enchant: 'spell/7411', // Enchanting
         gem: 'item/12361', // Blue Sapphire
+        heirloom: 'item/122338', // Ancient Heirloom Armor Casing
         resting: 'spell/140430', // Passed Out
         torghast: 'spell/334746', // Access to Torghast
         upgrade: 'spell/331516', // Enhance Soulkeeper
