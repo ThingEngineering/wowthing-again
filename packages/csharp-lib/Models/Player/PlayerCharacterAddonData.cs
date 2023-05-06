@@ -18,6 +18,8 @@ public class PlayerCharacterAddonData
     public string BindLocation { get; set; }
     public string CurrentLocation { get; set; }
 
+    public DateTime BagsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime BankScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
