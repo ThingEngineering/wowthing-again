@@ -59,7 +59,7 @@
     }
 
     const getFixedName = function(name: string): string {
-        name = name.replace(/(- )?\|A:Professions-Icon-Quality-Tier\d-Small:20:20\|a/, ':starFull:')
+        name = name.replace(/(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/, '{craftedQuality:$2}')
         return name
     }
 </script>

@@ -7,6 +7,7 @@
         --shadow-color: rgba(70, 70, 70, 0.5);
 
         height: 26px;
+        margin-top: var(--image-margin-top, 0);
     }
     .crafted-quality-2 {
         height: 24px;
