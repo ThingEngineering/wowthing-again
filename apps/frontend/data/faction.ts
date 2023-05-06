@@ -3,7 +3,7 @@ export const factionMap: Record<string, number> = {
     horde: 1,
 }
 
-export const factionIdMap: Record<number, string> = {
-    0: 'alliance',
-    1: 'horde',
-}
+export const factionIdMap: Record<number, string> = Object.fromEntries(
+    Object.entries(factionMap)
+        .map(([slug, id]) => [id, slug])
+)
