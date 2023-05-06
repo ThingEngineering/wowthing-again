@@ -14,9 +14,6 @@ export const expansionMap: Record<number, Expansion> = {
     7: new Expansion(7, 'Battle for Azeroth', 'battle-for-azeroth', 'BfA'),
     8: new Expansion(8, 'Shadowlands', 'shadowlands', 'SL'),
     9: new Expansion(9, 'Dragonflight', 'dragonflight', 'DF'),
-    
-    [-3]: new Expansion(-3, 'Trading Post', 'trading-post', 'TP'),
-    100: new Expansion(100, 'Event', 'event', 'Event'),
 }
 
 export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
