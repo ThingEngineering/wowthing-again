@@ -219,22 +219,25 @@ def main():
             name_res.append(re.compile(set_name.replace('*', '.*?')))
         for name_re in name_res:
             set_ids.extend(k for k, v in sets.items() if name_re.match(v['name']))
-    # ?? sets
+    # sets, item+modifier output
     elif sys.argv[1] == '2':
         output_items = True
         set_ids = sys.argv[2:]
-    # ?? sets
+    # sets v2 by group id
     elif sys.argv[1] == 'g2':
         set_mode = True
         if len(sys.argv) == 4:
             set_ids = [set_id for set_id in groups[int(sys.argv[2])] if sets[set_id]['description_id'] == int(sys.argv[3])]
         else:
-            set_ids = groups[int(sys.argv[3])]
-    # ?? sets
+            set_ids = groups[int(sys.argv[2])]
+    # sets v2 by set id
     elif sys.argv[1] == 'ts':
         set_mode = True
         set_ids = sys.argv[2:]
-    # ?? sets
+    # sets v1 by group id
+    elif sys.argv[1] == 'g':
+        set_ids = groups[int(sys.argv[2])]
+    # sets v1 by set id
     else:
         set_ids = sys.argv[1:]
 
@@ -337,6 +340,8 @@ def main():
         else:
             sort_me = [
                 (
+                    CLASS_MASK.get(sets[set_id]['class_mask'], ''),
+                    ARMOR_MASK.get(sets[set_id]['class_mask'], ''),
                     DESCRIPTION_ORDER.index(sets[set_id]['description_id']),
                     get_description(sets, set_id),
                     set_id,
@@ -344,7 +349,7 @@ def main():
             ]
             sort_me.sort()
 
-            for (order, description, set_id) in sort_me:
+            for (_, _, _, description, set_id) in sort_me:
                 print(f'      # {description} set={set_id}')
                 print(f'      - name: "{sets[set_id]["name"]}"')
 
