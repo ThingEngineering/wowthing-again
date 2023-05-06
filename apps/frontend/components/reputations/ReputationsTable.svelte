@@ -89,11 +89,11 @@
 
                     {#each reputationSet as reputation, reputationIndex}
                         {#if reputation.major}
-                        <TableRowMajor
-                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                            {character}
-                            {reputation}
-                        />
+                            <TableRowMajor
+                                characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                                {character}
+                                {reputation}
+                            />
                         {:else}
                             <TableRow
                                 characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
