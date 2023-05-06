@@ -45,7 +45,7 @@
         <Search />
     {:else}
         <CharacterTable
-            skipIgnored={true}
+            skipIgnored={params.slug1 !== 'bags'}
         >
             <div class="items-pre" slot="preTable">
                 <Options slug={params.slug1} />
