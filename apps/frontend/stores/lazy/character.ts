@@ -183,7 +183,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             if (charTask.status === QuestStatus.InProgress &&
                                 charTask.quest.objectives?.length > 0)
                             {
-                                charTask.statusTexts[0] = charTask.quest.objectives[0].text
+                                charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
                             }
                         }
                     }
