@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models;
@@ -17,7 +18,8 @@ public class WorldQuestReport
     public long UserId { get; set; }
     public ApplicationUser User { get; set; }
 
-    public DateTime ExpiresAt { get; set; }
+    public DateTime ExpiresAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime ReportedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     // 4 bytes
     public int ZoneId { get; set; }
