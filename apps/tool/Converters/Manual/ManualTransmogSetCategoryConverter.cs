@@ -67,12 +67,13 @@ public class ManualTransmogSetCategoryConverter : JsonConverter<ManualTransmogSe
     {
         writer.WriteStartArray();
 
+        writer.WriteNumberValue((int)set.Type);
         writer.WriteStringValue(set.Name);
 
         writer.WriteNumberArray(set.MatchTags.EmptyIfNull());
 
-        bool useCompletionist = set.Completionist.HasValue;
         bool useModifier = set.Modifier.HasValue;
+        bool useCompletionist = set.Completionist.HasValue;
 
         if (useCompletionist || useModifier)
         {

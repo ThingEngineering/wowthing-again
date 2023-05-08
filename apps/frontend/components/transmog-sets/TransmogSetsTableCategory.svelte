@@ -25,7 +25,11 @@
     let shownArmor: number
     let shownClass: number
     $: {
-        anyClass = some(category.filteredGroups, (group) => group.type === TransmogSetType.Class)
+        anyClass = some(
+            category.filteredGroups,
+            (group) => group.type === TransmogSetType.Class ||
+                some(group.sets, (set) => set.type === TransmogSetType.Class)
+        )
 
         const categoryHas = $userTransmogStore.statsV2[`${slugs[0]}--${category.slug}`]
         categoryPercent = categoryHas.have / categoryHas.total * 100

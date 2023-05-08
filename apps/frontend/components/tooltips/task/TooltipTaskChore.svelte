@@ -41,7 +41,9 @@
                 (task) => (
                     task.status === QuestStatus.NotStarted ||
                     task.status === QuestStatus.Error
-                ) && task.name !== ''
+                )
+                && task.name !== ''
+                && some(task.statusTexts, (st) => !!st)
             )
         )
     }

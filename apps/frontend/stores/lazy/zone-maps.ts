@@ -412,7 +412,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 
                                 case 'profession':
                                     dropCharacters = dropCharacters.filter(
-                                        (c) => !!c.professions?.[professionSlugToId[drop.limit[1]]]
+                                        (c) => !!c.professions?.[professionSlugToId[drop.limit[1]]] &&
+                                            (drop.limit.length === 4
+                                            ? c.professions[professionSlugToId[drop.limit[1]]][parseInt(drop.limit[2])]?.currentSkill >= parseInt(drop.limit[3])
+                                            : true)
                                     )
                                     break
                             }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -16,9 +17,11 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230508003215_Add_WorldQuestReport")]
+    partial class Add_WorldQuestReport
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -898,10 +901,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("quests_scanned_at");
 
-                    b.Property<DateTime>("WorldQuestsScannedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("world_quests_scanned_at");
-
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_addon_quests");
 
@@ -1761,10 +1760,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("Faction")
                         .HasColumnType("smallint")
                         .HasColumnName("faction");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("text")
-                        .HasColumnName("location");
 
                     b.Property<int>("QuestId")
                         .HasColumnType("integer")

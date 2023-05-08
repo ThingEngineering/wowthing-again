@@ -13,6 +13,7 @@ export class GearState {
     get highlightAny(): boolean {
         return this.highlightEnchants
             || this.highlightGems
+            || this.highlightHeirlooms
             || this.highlightItemLevel
             || this.highlightUpgrades
     }

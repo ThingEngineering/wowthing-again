@@ -81,6 +81,8 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
+    public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
+
     // Garbage query types
     public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
     public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }

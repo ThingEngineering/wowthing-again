@@ -69,6 +69,10 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     125003: [
         2245, // Flightstones
+        // 2409, // Whelpling Quest Fragment
+        // 2410, // Drake Crest Fragment
+        // 2411, // Wyrm Crest Fragment
+        // 2412, // Aspect Crest Fragment
     ],
 }
 
@@ -144,17 +148,15 @@ export const currencyItems: Record<number, number[]> = {
         null,
         204075, // Whelpling's Shadowflame Crest Fragment
         204193, // Whelpling's Shadowflame Crest
-        204681, // Enchanted Whelpling's Shadowflame Crest
-        null,
         204076, // Drake's Shadowflame Crest Fragment
         204195, // Drake's Shadowflame Crest
-        null,
         204077, // Wyrm's Shadowflame Crest Fragment
         204196, // Wyrm's Shadowflame Crest
-        204682, // Enchanted Wyrm's Shadowflame Crest
-        null,
         204078, // Aspect's Shadowflame Crest Fragment
         204194, // Aspect's Shadowflame Crest
+        null,
+        204681, // Enchanted Whelpling's Shadowflame Crest
+        204682, // Enchanted Wyrm's Shadowflame Crest
         204697, // Enchanted Aspect's Shadowflame Crest
     ],
 

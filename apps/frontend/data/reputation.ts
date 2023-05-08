@@ -3,6 +3,7 @@ export const factionMaxRenown: Record<number, number> = {
     2511: 30, // Iskaara Tuskarr
     2503: 25, // Maruuk Centaur
     2510: 30, // Valdrakken Accord
+    2564: 20, // Loamm Niffen
 }
 
 export const contractAuras: Record<number, [number, number]> = {
