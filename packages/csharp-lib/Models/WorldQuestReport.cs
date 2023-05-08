@@ -29,14 +29,9 @@ public class WorldQuestReport
     public short Faction { get; set; }
     public short Class { get; set; }
 
-    // blob
-    [Column(TypeName = "jsonb")]
-    public List<WorldQuestReportReward> Rewards { get; set; }
-}
+    // variable
+    public string Location { get; set; }
 
-public class WorldQuestReportReward
-{
-    public RewardType Type { get; set; }
-    public int Id { get; set; }
-    public int Amount { get; set; }
+    [Column(TypeName = "jsonb")]
+    public List<int[]> Rewards { get; set; }
 }

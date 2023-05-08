@@ -1769,7 +1769,7 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("region");
 
-                    b.Property<List<WorldQuestReportReward>>("Rewards")
+                    b.Property<List<int[]>>("Rewards")
                         .HasColumnType("jsonb")
                         .HasColumnName("rewards");
 

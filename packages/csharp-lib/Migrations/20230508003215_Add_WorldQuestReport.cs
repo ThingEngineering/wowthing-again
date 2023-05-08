@@ -28,7 +28,7 @@ namespace Wowthing.Lib.Migrations
                     expansion = table.Column<short>(type: "smallint", nullable: false),
                     faction = table.Column<short>(type: "smallint", nullable: false),
                     @class = table.Column<short>(name: "class", type: "smallint", nullable: false),
-                    rewards = table.Column<List<WorldQuestReportReward>>(type: "jsonb", nullable: true)
+                    rewards = table.Column<List<int[]>>(type: "jsonb", nullable: true)
                 },
                 constraints: table =>
                 {
