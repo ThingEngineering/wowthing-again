@@ -1653,12 +1653,19 @@ public class UserUploadJob : JobBase
                             QuestId = questId,
                             Class = (short)character.ClassId,
                             Faction = (short)character.Faction,
+                            ReportedAt = DateTime.UtcNow,
                         };
                         Context.WorldQuestReport.Add(reportQuest);
                     }
 
                     reportQuest.ExpiresAt = int.Parse(parts[1]).AsUtcDateTime();
                     reportQuest.Location = $"{parts[2]} {parts[3]}";
+
+                    // Fix wonky data, remove later
+                    if (reportQuest.ReportedAt <= MiscConstants.DefaultDateTime)
+                    {
+                        reportQuest.ReportedAt = DateTime.UtcNow;
+                    }
 
                     // type:id:amount
                     reportQuest.Rewards = new();
