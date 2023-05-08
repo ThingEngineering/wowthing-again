@@ -4,6 +4,7 @@ using Wowthing.Lib.Comparers;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
@@ -17,6 +18,7 @@ public class UserUploadJob : JobBase
     private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
+    private Dictionary<short, Dictionary<(short Expansion, int ZoneId, int QuestId, short Faction, short Class), WorldQuestReport>> _worldQuestReportMap;
 
     private bool _resetAchievementCache;
     private bool _resetQuestCache;
@@ -106,6 +108,25 @@ public class UserUploadJob : JobBase
                 }
             }
         }
+
+        _worldQuestReportMap = (
+                await Context.WorldQuestReport
+                    .Where(wqr => wqr.UserId == userId)
+                    .ToArrayAsync()
+            )
+            .GroupBy(wqr => wqr.Region)
+            .ToDictionary(
+                group => group.Key,
+                group => group.ToDictionary(wqr => (
+                    wqr.Expansion,
+                    wqr.ZoneId,
+                    wqr.QuestId,
+                    wqr.Faction,
+                    wqr.Class
+                ))
+            );
+
+        _timer.AddPoint("Load");
 
         Logger.Information("Processing upload...");
 
@@ -254,7 +275,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
-            HandleQuests(character, characterData, realm.Region);
+            HandleQuests(character, characterData, realm.Region, userId);
             HandleReputations(character, characterData);
             HandleTransmog(character, characterData);
             HandleWeekly(character, characterData);
@@ -1329,11 +1350,12 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
+    private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region, long userId)
     {
         bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
         bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
-        if (!hasCallings && !hasQuests)
+        bool hasWorldQuests = characterData.ScanTimes.TryGetValue("worldQuests", out int worldQuestsScanTimestamp);
+        if (!hasCallings && !hasQuests && !hasWorldQuests)
         {
             return;
         }
@@ -1573,11 +1595,79 @@ public class UserUploadJob : JobBase
             }
         }
 
+        if (worldQuestsScanTimestamp > 0)
+        {
+            var scanTime = worldQuestsScanTimestamp.AsUtcDateTime();
+            if (scanTime >= character.AddonQuests.WorldQuestsScannedAt)
+            {
+                character.AddonQuests.WorldQuestsScannedAt = scanTime;
+                HandleQuestsWorld(character, characterData, region, userId);
+            }
+        }
+
         if (dailiesUpdated)
         {
             Context.Entry(character.AddonQuests)
                 .Property(caq => caq.Dailies)
                 .IsModified = true;
+        }
+    }
+
+    private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region, long userId)
+    {
+        if (!_worldQuestReportMap.TryGetValue((short)region, out var reportMap))
+        {
+            reportMap = new();
+        }
+
+        foreach ((short expansion, var zones) in characterData.WorldQuests.EmptyIfNull())
+        {
+            foreach ((int zoneId, string[] questStrings) in zones)
+            {
+                foreach (string questString in questStrings)
+                {
+                    var parts = questString.Split(':');
+                    if (parts.Length != 5)
+                    {
+                        Logger.Warning("Invalid quest string: {s}", questString);
+                        continue;
+                    }
+
+                    int questId = int.Parse(parts[0]);
+
+                    var reportKey = (
+                        expansion,
+                        zoneId,
+                        questId,
+                        (short)character.Faction,
+                        (short)character.ClassId
+                    );
+                    if (!reportMap.TryGetValue(reportKey, out var reportQuest))
+                    {
+                        reportQuest = new WorldQuestReport()
+                        {
+                            UserId = userId,
+                            Expansion = expansion,
+                            Region = (short)region,
+                            ZoneId = zoneId,
+                            QuestId = questId,
+                            Class = (short)character.ClassId,
+                            Faction = (short)character.Faction,
+                        };
+                        Context.WorldQuestReport.Add(reportQuest);
+                    }
+
+                    reportQuest.ExpiresAt = int.Parse(parts[1]).AsUtcDateTime();
+                    reportQuest.Location = $"{parts[2]} {parts[3]}";
+
+                    // type:id:amount
+                    reportQuest.Rewards = new();
+                    foreach (string rewardString in parts[4].Split('|'))
+                    {
+                        reportQuest.Rewards.Add(rewardString.Split('-').Select(int.Parse).ToArray());
+                    }
+                }
+            }
         }
     }
 

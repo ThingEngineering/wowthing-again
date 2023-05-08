@@ -49,6 +49,7 @@ public class UploadCharacter
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
+    public Dictionary<short, Dictionary<int, string[]>> WorldQuests { get; set; }
 }
 
 public class UploadCharacterAchievement
