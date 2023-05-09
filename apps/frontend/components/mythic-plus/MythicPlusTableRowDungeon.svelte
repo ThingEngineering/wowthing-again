@@ -25,7 +25,7 @@
     let showBoth: boolean
     $: {
         const affixes = getWeeklyAffixes(character)
-        isTyrannical = affixes[0].name === 'Tyrannical'
+        isTyrannical = affixes[0]?.name === 'Tyrannical'
 
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it
