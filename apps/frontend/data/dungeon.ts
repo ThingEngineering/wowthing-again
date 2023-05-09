@@ -646,6 +646,12 @@ export const extraInstances: StaticDataInstance[] = [
         name: 'Dragonflight World Bosses',
         shortName: 'DWB',
     },
+    {
+        expansion: 9,
+        id: 109002,
+        name: 'The Zaqali Elders',
+        shortName: 'TZE',
+    },
 
     // Holidays
     {
