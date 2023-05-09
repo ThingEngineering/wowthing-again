@@ -463,17 +463,6 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     .map((season) => [season.id, season])
 )
 
-// [rating, max item level] first match >= rating is used
-export const ratingItemLevelUpgrade: Array<Array<number>> = [
-    [2400, 415],
-    [2000, 411],
-    [1700, 408],
-    [1400, 405],
-    [1000, 402],
-    [600, 395],
-    [0, 392],
-]
-
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
     [20, 447],

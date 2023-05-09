@@ -18,13 +18,11 @@
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
-    import HeadUpgrade from './MythicPlusTableHeadUpgrade.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
     import RowDungeon from './MythicPlusTableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
-    import RowUpgrade from './MythicPlusTableRowUpgrade.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 
     export let slug: string
@@ -130,10 +128,6 @@
             <HeadVault vaultType={'M+'} />
         {/if}
 
-        {#if isCurrentSeason && !isThisWeek}
-            <HeadUpgrade />
-        {/if}
-
         {#key season.id}
             {#each season.orders as order}
                 {#each order as dungeonId}
@@ -157,10 +151,6 @@
 
             {#if isThisWeek}
                 <RowVaultMythicPlus {character} />
-            {/if}
-
-            {#if isCurrentSeason && !isThisWeek}
-                <RowUpgrade {character} {season} />
             {/if}
 
             {#each season.orders as order}

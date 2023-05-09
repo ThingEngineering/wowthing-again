@@ -2,7 +2,6 @@ import some from 'lodash/some'
 import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
-import { ratingItemLevelUpgrade } from '@/data/dungeon'
 import {
     gemBonusIds,
     heirloomSlots,
@@ -125,15 +124,16 @@ export default function getCharacterGear(
             // 245 = 8259-8272
             // 244 = 8273-8286
             if (state.highlightUpgrades) {
-                if (some(gear.equipped.bonusIds, (b) => b >= 8961 && b <= 8972)) {
-                    gear.upgradeHas = Math.round((gear.equipped.itemLevel - 376) / 3.33)
-                    gear.upgradeMax = 13
+                // TODO fix for DF S2
+                // if (some(gear.equipped.bonusIds, (b) => b >= 8961 && b <= 8972)) {
+                //     gear.upgradeHas = Math.round((gear.equipped.itemLevel - 376) / 3.33)
+                //     gear.upgradeMax = 13
 
-                    const score = character.mythicPlusSeasonScores[Constants.mythicPlusSeason] || 0
-                    const maxUpgrade = getFirstMatch(ratingItemLevelUpgrade, score)
+                //     const score = character.mythicPlusSeasonScores[Constants.mythicPlusSeason] || 0
+                //     const maxUpgrade = getFirstMatch(ratingItemLevelUpgrade, score)
 
-                    gear.missingUpgrade = (gear.upgradeHas < gear.upgradeMax) && gear.equipped.itemLevel < maxUpgrade
-                }
+                //     gear.missingUpgrade = (gear.upgradeHas < gear.upgradeMax) && gear.equipped.itemLevel < maxUpgrade
+                // }
             }
         }
 
