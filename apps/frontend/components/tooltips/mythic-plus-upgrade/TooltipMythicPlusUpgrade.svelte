@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { ratingItemLevelUpgrade } from '@/data/dungeon'
     import { staticStore } from '@/stores'
     import type { Character, CharacterCurrency } from '@/types'
 
@@ -9,8 +8,7 @@
     export let character: Character
     export let score: number
 
-    const ratings = ratingItemLevelUpgrade.slice()
-    ratings.reverse()
+    const ratings: [number, number][] = []
 
     let valor: CharacterCurrency
     $: {

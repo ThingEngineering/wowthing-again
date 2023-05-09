@@ -45,4 +45,5 @@ public enum JobType
 
     MaintenanceUnlinkCharacters = 2000,
     MaintenanceDeleteAchievements = 2001,
+    MaintenanceDeleteWorldQuestReports = 2002,
 }

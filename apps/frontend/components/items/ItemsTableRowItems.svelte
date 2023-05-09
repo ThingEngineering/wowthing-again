@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { ratingItemLevelUpgrade } from '@/data/dungeon'
     import { gearState } from '@/stores/local-storage'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
     import getCharacterGear from '@/utils/get-character-gear'
@@ -14,7 +13,6 @@
     export let character: Character
 
     let characterGear: CharacterGear[]
-    let maxUpgrade: number
     let score: number
     let tierPieces: number[]
     $: {
@@ -23,7 +21,6 @@
         score = character.mythicPlusSeasonScores[Constants.mythicPlusSeason]
             || character.raiderIo?.[Constants.mythicPlusSeason]?.all
             || 0
-        maxUpgrade = getFirstMatch(ratingItemLevelUpgrade, score)
 
         tierPieces = getTierPieces(character).map(([, itemId,]) => itemId)
     }
@@ -46,21 +43,3 @@
         useHighlighting={$gearState.highlightAny}
     />
 {/each}
-
-{#if $gearState.highlightUpgrades}
-    <td class="spacer"></td>
-    <td
-        class="max-upgrade"
-        use:tippyComponent={{
-            component: UpgradeTooltip,
-            props: {
-                character,
-                score
-            },
-        }}
-    >
-        {#if character.level === Constants.characterMaxLevel}
-            {maxUpgrade}
-        {/if}
-    </td>
-{/if}

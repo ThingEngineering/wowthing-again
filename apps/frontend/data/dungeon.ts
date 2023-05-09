@@ -463,39 +463,26 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     .map((season) => [season.id, season])
 )
 
-// [rating, max item level] first match >= rating is used
-export const ratingItemLevelUpgrade: Array<Array<number>> = [
-    [2400, 415],
-    [2000, 411],
-    [1700, 408],
-    [1400, 405],
-    [1000, 402],
-    [600, 395],
-    [0, 392],
-]
-
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [20, 421],
-    [18, 418],
-    [16, 415],
-    [15, 411],
-    [13, 408],
-    [12, 405],
-    [11, 402],
-    [10, 398],
-    [8, 395],
-    [7, 392],
-    [5, 389],
-    [3, 385],
-    [2, 382],
+    [20, 447],
+    [18, 444],
+    [16, 441],
+    [14, 437],
+    [12, 434],
+    [10, 431],
+    [8, 428],
+    [6, 424],
+    [4, 421],
+    [3, 418],
+    [2, 415],
 ]
 
 export const raidVaultItemLevel: Record<number, number> = {
-    17: 376, // LFR
-    14: 389, // Normal
-    15: 402, // Heroic
-    16: 415, // Mythic
+    17: 402, // LFR
+    14: 415, // Normal
+    15: 428, // Heroic
+    16: 441, // Mythic
 }
 
 export const keyTiers = [
@@ -658,6 +645,12 @@ export const extraInstances: StaticDataInstance[] = [
         id: 109001,
         name: 'Dragonflight World Bosses',
         shortName: 'DWB',
+    },
+    {
+        expansion: 9,
+        id: 109002,
+        name: 'The Zaqali Elders',
+        shortName: 'TZE',
     },
 
     // Holidays

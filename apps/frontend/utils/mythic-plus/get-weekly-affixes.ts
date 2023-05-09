@@ -14,6 +14,10 @@ export function getWeeklyAffixes(character?: Character): StaticDataKeystoneAffix
 
     const regionId = character?.realm.region || userData.allRegions[0]
     const startPeriod = seasonMap[Constants.mythicPlusSeason].startPeriod
+    if (!startPeriod) {
+        return []
+    }
+
     return weeklyAffixes[(userData.currentPeriod[regionId].id - startPeriod) % weeklyAffixes.length]
-        .map((affixSlug) => find(staticData.keystoneAffixes, (ka) => ka.slug === affixSlug))
+        ?.map((affixSlug) => find(staticData.keystoneAffixes, (ka) => ka.slug === affixSlug)) || []
 }
