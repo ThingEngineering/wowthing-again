@@ -13,9 +13,13 @@ public class MaintenanceDeleteWorldQuestReportsJob : JobBase, IScheduledJob
     };
 
     private const string DeleteQuery = @"
-DELETE FROM world_quest_reports
-WHERE (expires_at + '1 hour'::interval) < current_timestamp
-LIMIT 10000
+DELETE FROM world_quest_report
+WHERE   id IN (
+    SELECT  id
+    FROM    world_quest_report
+    WHERE   (expires_at + '1 hour'::interval) < current_timestamp
+    LIMIT   10000
+)
 ";
 
     public override async Task Run(params string[] data)
