@@ -263,17 +263,11 @@ public class ApiController : Controller
         timer.AddPoint("Characters");
 
         // Bags
-        var bagItems = new Dictionary<int, PlayerCharacterItem[]>();
-        if (!apiResult.Public)
-        {
-            bagItems = (
-                    await _context.PlayerCharacterItem
-                        .AsNoTracking()
-                        .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
-                        .ToArrayAsync()
-                )
-                .ToGroupedDictionary(pci => pci.CharacterId);
-        }
+        var bagItems = (await _context.PlayerCharacterItem
+                .AsNoTracking()
+                .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
+                .ToArrayAsync()
+            ).ToGroupedDictionary(pci => pci.CharacterId);
 
         // Progress items
         var progressItems = (
