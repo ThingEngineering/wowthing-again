@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
     import { onMount } from 'svelte'
+    import { replace } from 'svelte-spa-router'
 
     import { itemSearchState, userStore } from '@/stores'
     import { ItemLocation } from '@/enums'
@@ -15,6 +16,7 @@
     let response: ItemSearchResponseItem[]
 
     $: formValid = $itemSearchState.isValid
+    $: if ($userStore.public) { replace('/items/bags') }
 
     onMount(() => {
         if (formValid) {

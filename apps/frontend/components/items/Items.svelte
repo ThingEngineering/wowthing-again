@@ -2,6 +2,7 @@
     import { afterUpdate } from 'svelte'
     import active from 'svelte-spa-router/active'
 
+    import { userStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
@@ -38,7 +39,9 @@
         <a href="#/items/equipped" use:active>Equipped</a>
         <a href="#/items/professions" use:active>Professions</a>
 
-        <a href="#/items/search" use:active={{path: /^\/items\/search/}}>Search</a>
+        {#if !$userStore.public}
+            <a href="#/items/search" use:active={{path: /^\/items\/search/}}>Search</a>
+        {/if}
     </nav>
 
     {#if params.slug1 === 'search'}
