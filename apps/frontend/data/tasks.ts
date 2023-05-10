@@ -285,8 +285,8 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         {
             minimumLevel: 70,
-            taskKey: 'dfReachStormsEvent',
-            taskName: '[FR] Primal Storm',
+            taskKey: 'dfResearchersUnderFire',
+            taskName: '[ZC] Researchers Under Fire',
         },
     ],
     'dfDungeonWeeklies': [
