@@ -3,12 +3,9 @@
     import { gearState } from '@/stores/local-storage'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
     import getCharacterGear from '@/utils/get-character-gear'
-    import getFirstMatch from '@/utils/get-first-match'
-    import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterGear } from '@/types'
 
     import Item from './ItemsItem.svelte'
-    import UpgradeTooltip from '@/components/tooltips/mythic-plus-upgrade/TooltipMythicPlusUpgrade.svelte'
 
     export let character: Character
 
