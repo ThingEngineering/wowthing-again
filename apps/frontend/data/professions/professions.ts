@@ -9,8 +9,10 @@ import type { Chore } from '@/types/tasks'
 
 import { dragonflightAlchemy } from './alchemy'
 import { dragonflightBlacksmithing } from './blacksmithing'
+import { dragonflightCooking } from './cooking'
 import { dragonflightEnchanting } from './enchanting'
 import { dragonflightEngineering } from './engineering'
+import { dragonflightFishing } from './fishing'
 import { dragonflightHerbalism } from './herbalism'
 import { dragonflightInscription } from './inscription'
 import { dragonflightJewelcrafting } from './jewelcrafting'
@@ -100,6 +102,9 @@ const dragonflightProfessions: DragonflightProfession[] = [
     dragonflightHerbalism,
     dragonflightMining,
     dragonflightSkinning,
+
+    dragonflightCooking,
+    dragonflightFishing,
 ]
 
 export const dragonflightProfessionMap: Record<number, DragonflightProfession> = Object.fromEntries(
