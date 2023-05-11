@@ -71,7 +71,7 @@
     }
     .name {
         direction: rtl; // not happy with this but ugh
-        max-width: 14rem;
+        max-width: 15rem;
         min-width: 11rem;
         text-align: left;
         white-space: nowrap;
@@ -127,7 +127,7 @@
                             class="name text-overflow"
                             class:status-shrug={charTask.status === QuestStatus.Error}
                         >
-                            {charTask.name}
+                            <ParsedText text={charTask.name.replace(/^\[.*?\] /, '')} />
                         </td>
                         <td class="status">
                             <IconifyIcon

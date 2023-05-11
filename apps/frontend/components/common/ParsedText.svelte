@@ -101,6 +101,8 @@
         html = html.replaceAll(/:profession-(\d+):/g, '<span data-profession="$1"></span>')
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
+        html = html.replaceAll(/:quality-(\d+)-(.*?):/g, '<span class="quality$1">$2</span>')
+
         // :foo: icon strings
         html = html.replaceAll(/:([a-zA-Z0-9_-]+):/g, '<span data-string="$1"></span>')
 

@@ -75,8 +75,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     if ((stores.settings.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
                         continue
                     }
-                    if (choreTask.couldGetFunc?.(character) === false)
-                    {
+                    if (choreTask.couldGetFunc?.(character) === false) {
                         continue
                     }
 
@@ -94,6 +93,10 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     charTask.statusTexts.push(!charTask.quest ? choreTask.canGetFunc?.(character) || '' : '')
 
                     const nameParts = choreTask.taskName.split(': ')
+                    if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
+                        continue
+                    }
+
                     const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
                     charTask.skipped = (
                         (
