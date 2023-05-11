@@ -11,7 +11,7 @@ import {
 } from '@/data/inventory-slot'
 import { InventorySlot, ItemClass, WeaponSubclass } from '@/enums'
 import { itemStore } from '@/stores'
-import getFirstMatch from '@/utils/get-first-match'
+// import getFirstMatch from '@/utils/get-first-match'
 import type { GearState } from '@/stores/local-storage'
 import type { Character, CharacterGear } from '@/types'
 

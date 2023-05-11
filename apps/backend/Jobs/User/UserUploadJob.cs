@@ -1617,7 +1617,7 @@ public class UserUploadJob : JobBase
     {
         if (!_worldQuestReportMap.TryGetValue((short)region, out var reportMap))
         {
-            reportMap = new();
+            _worldQuestReportMap[(short)region] = reportMap = new();
         }
 
         foreach ((short expansion, var zones) in characterData.WorldQuests.EmptyIfNull())
@@ -1644,7 +1644,7 @@ public class UserUploadJob : JobBase
                     );
                     if (!reportMap.TryGetValue(reportKey, out var reportQuest))
                     {
-                        reportQuest = new WorldQuestReport()
+                        reportMap[reportKey] = reportQuest = new WorldQuestReport()
                         {
                             UserId = userId,
                             Expansion = expansion,
