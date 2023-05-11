@@ -285,8 +285,23 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         {
             minimumLevel: 70,
-            taskKey: 'dfResearchersUnderFire',
-            taskName: '[ZC] Researchers Under Fire',
+            taskKey: 'dfResearchersUnderFire1',
+            taskName: '[ZC] Researchers Under Fire :quality-1-T1:',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfResearchersUnderFire2',
+            taskName: '[ZC] Researchers Under Fire :quality-2-T2:',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfResearchersUnderFire3',
+            taskName: '[ZC] Researchers Under Fire :quality-3-T3:',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfResearchersUnderFire4',
+            taskName: '[ZC] Researchers Under Fire :quality-4-T4:',
         },
     ],
     'dfDungeonWeeklies': [
