@@ -139,7 +139,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         251,
         'The Underrot',
-        'UR',
+        'UNDR',
         'achievement/12500',
         1920 / 60
     ),
@@ -275,14 +275,14 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         403,
         'Uldaman: Legacy of Tyr',
-        'ULT',
+        'ULD',
         'achievement/16278',
         2280 / 60
     ),
     new Dungeon(
         404,
         'Neltharus',
-        'Nel',
+        'NELT',
         'achievement/16263',
         1980 / 60
     ),
@@ -296,7 +296,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         406,
         'Halls of Infusion',
-        'HoI',
+        'HOI',
         'achievement/16260',
         2100 / 60
     ),
