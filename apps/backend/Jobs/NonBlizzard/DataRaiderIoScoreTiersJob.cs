@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.NonBlizzard;
 
@@ -20,15 +21,35 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
 
     public override async Task Run(params string[] data)
     {
+        var db = Redis.GetDatabase();
         var seasons = new Dictionary<int, OutRaiderIoScoreTiers>();
-        
-        foreach (var (seasonSlug, seasonId) in ApiCharacterRaiderIoSeason.SeasonMap)
+
+        int minimumSeason = 0;
+        var cached = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(CacheKey);
+        if (cached?.Count > 0)
         {
+            minimumSeason = cached.Keys.Max() - 1;
+        }
+
+        foreach ((string seasonSlug, int seasonId) in ApiCharacterRaiderIoSeason.SeasonMap)
+        {
+            if (seasonId < minimumSeason)
+            {
+                Logger.Debug("Skipping season {id}", seasonId);
+                continue;
+            }
+
             // Fetch API data
-            var url = string.Format(ApiUrl, seasonSlug);
+            var timer = new JankTimer();
+            string url = string.Format(ApiUrl, seasonSlug);
             try
             {
-                var result = await GetJson<ApiDataRaiderIoScoreTier[]>(new Uri(url), useAuthorization: false, useLastModified: false);
+                var result = await GetJson<ApiDataRaiderIoScoreTier[]>(
+                    new Uri(url),
+                    timer: timer,
+                    useAuthorization: false,
+                    useLastModified: false
+                );
 
                 var ordered = result.Data.OrderByDescending(t => t.Score ?? 0).ToArray();
                 seasons[seasonId] = new OutRaiderIoScoreTiers
@@ -36,14 +57,16 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
                     Score = ordered.Select(t => t.Score ?? 0).ToList(),
                     RgbHex = ordered.Select(t => t.RgbHex).ToList(),
                 };
+
+                timer.Stop();
+                Logger.Information("Updated season {id} - {timer}", seasonId, timer.ToString());
             }
             catch (HttpRequestException ex)
             {
-                Logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom! season={id}/{slug}", seasonId, seasonSlug);
             }
         }
 
-        var db = Redis.GetDatabase();
         await db.JsonSetAsync(CacheKey, seasons);
     }
 }
