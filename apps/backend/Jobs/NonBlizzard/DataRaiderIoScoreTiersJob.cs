@@ -22,18 +22,21 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
     public override async Task Run(params string[] data)
     {
         var db = Redis.GetDatabase();
-        var seasons = new Dictionary<int, OutRaiderIoScoreTiers>();
 
         int minimumSeason = 0;
-        var cached = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(CacheKey);
-        if (cached?.Count > 0)
+        var seasons = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(CacheKey);
+        if (seasons?.Count > 0)
         {
-            minimumSeason = cached.Keys.Max() - 1;
+            minimumSeason = seasons.Keys.Max() - 1;
+        }
+        else
+        {
+            seasons = new();
         }
 
         foreach ((string seasonSlug, int seasonId) in ApiCharacterRaiderIoSeason.SeasonMap)
         {
-            if (seasonId < minimumSeason)
+            if (seasonId < minimumSeason && seasons.ContainsKey(seasonId))
             {
                 Logger.Debug("Skipping season {id}", seasonId);
                 continue;
