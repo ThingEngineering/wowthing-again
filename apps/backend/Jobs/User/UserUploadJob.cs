@@ -1635,12 +1635,12 @@ public class UserUploadJob : JobBase
                         reportMap[reportKey] = reportQuest = new WorldQuestReport()
                         {
                             UserId = userId,
-                            Expansion = expansion,
                             Region = (short)region,
+                            Expansion = expansion,
                             ZoneId = zoneId,
                             QuestId = questId,
-                            Class = (short)character.ClassId,
                             Faction = (short)character.Faction,
+                            Class = (short)character.ClassId,
                             ReportedAt = DateTime.UtcNow,
                         };
                         Context.WorldQuestReport.Add(reportQuest);
