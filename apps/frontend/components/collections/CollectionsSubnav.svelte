@@ -6,6 +6,21 @@
     import Percent from '@/components/common/Percent.svelte'
 </script>
 
+<style lang="scss">
+    .subnav-wrapper {
+        background: $body-background;
+        padding-bottom: 1rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+    .subnav {
+        --image-margin-top: -0.2rem;
+
+        font-size: 1.1rem;
+    }
+</style>
+
 <div class="subnav-wrapper wrapper-column">
     <nav class="subnav" id="collections-subnav">
         <a href={"#/collections/appearances"} use:active={"/collections/appearances/*"}>
@@ -44,18 +59,3 @@
         </a>
     </nav>
 </div>
-
-<style lang="scss">
-    .subnav-wrapper {
-        background: $body-background;
-        padding-bottom: 1rem;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-    }
-    .subnav {
-        --image-margin-top: -0.2rem;
-
-        font-size: 1.1rem;
-    }
-</style>
