@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { currencyItemCurrencies } from '@/data/currencies'
     import { itemStore } from '@/stores'
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/formatting'
@@ -43,8 +44,15 @@
             amount = toNiceNumber(characterItemCount)
             tooltip = `${characterItemCount.toLocaleString()} ${name}`
 
+            if (currencyItemCurrencies[itemId]) {
+                const characterCurrency = character.currencies?.[currencyItemCurrencies[itemId]]
+                if (characterCurrency?.max > 0) {
+                    per = characterCurrency.quantity / characterCurrency.max * 100
+                    tooltip += ` &ndash; ${characterCurrency.quantity} / ${characterCurrency.max}`
+                }
+            }
             // TODO remove this once unique count is in item data
-            if (itemId === 201836) {
+            else if (itemId === 201836) {
                 per = characterItemCount / 12 * 100
                 tooltip = tooltip.replace(' ', ` / ${12} `)
             }
@@ -66,7 +74,10 @@
         class:alt={sortingBy}
         class:status-shrug={per > 50}
         class:status-fail={per > 90}
-        use:tippy={tooltip}
+        use:tippy={{
+            allowHTML: true,
+            content: tooltip
+        }}
     >{amount}</td>
 {:else}
     <td>&nbsp;</td>

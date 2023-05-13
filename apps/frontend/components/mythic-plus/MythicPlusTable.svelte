@@ -108,7 +108,7 @@
 </script>
 
 <CharacterTable
-    skipGrouping={slug !== 'this-week'}
+    skipGrouping={!isThisWeek}
     skipIgnored={true}
     {filterFunc}
     {sortFunc}
