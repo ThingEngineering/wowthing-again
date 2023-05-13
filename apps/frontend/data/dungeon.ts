@@ -139,7 +139,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         251,
         'The Underrot',
-        'UNDR',
+        'UR',
         'achievement/12500',
         1920 / 60
     ),
