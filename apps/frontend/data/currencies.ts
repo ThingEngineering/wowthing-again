@@ -182,6 +182,13 @@ export const currencyItems: Record<number, number[]> = {
     ],
 }
 
+export const currencyItemCurrencies: Record<number, number> = {
+    204075: 2409, // Whelpling Crest Fragment
+    204076: 2410, // Drake Crest Fragment
+    204077: 2411, // Wyrm Crest Fragment
+    204078: 2412, // Aspect Crest Fragment
+}
+
 const skipCurrencies: number[] = [
     // Warlords of Draenor
     897, // UNUSED
