@@ -13,7 +13,7 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
         Type = JobType.DataRaiderIoScoreTiers,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 2,
+        Version = 3,
     };
 
     private const string ApiUrl = "https://raider.io/api/v1/mythic-plus/score-tiers?season={0}";
