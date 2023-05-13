@@ -752,26 +752,14 @@ public class UserUploadJob : JobBase
                     }
 
                     // Weeks
-                    if (character.AddonData.MythicPlusWeeks == null)
-                    {
-                        character.AddonData.MythicPlusWeeks = new();
-                    }
+                    character.AddonData.MythicPlusWeeks ??= new();
 
                     foreach (var (weekEnds, runStrings) in characterData.MythicPlusV2.Weeks.EmptyIfNull())
                     {
-                        if (!character.AddonData.MythicPlusWeeks.TryGetValue(weekEnds, out var week))
+                        var week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
+                        foreach (string runString in runStrings)
                         {
-                            week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
-                        }
-
-                        if (week.Count > runStrings.Count)
-                        {
-                            continue;
-                        }
-
-                        foreach (var runString in runStrings)
-                        {
-                            var runParts = runString.Split(':');
+                            string[] runParts = runString.Split(':');
                             week.Add(new PlayerCharacterAddonDataMythicPlusRun
                             {
                                 MapId = int.Parse(runParts[0]),
