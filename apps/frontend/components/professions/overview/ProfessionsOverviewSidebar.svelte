@@ -41,7 +41,7 @@
 </style>
 
 <Sidebar
-    baseUrl="/professions"
+    baseUrl="/professions/overview"
     items={categories}
     width="10rem"
 >
