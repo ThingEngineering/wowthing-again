@@ -11,14 +11,22 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         {
             itemId: 200972, // Artisan's Consortium, Preferred
             questId: 71894,
+            source: 'AC',
         },
         {
             itemId: 201268, // Artisan's Consortium, Valued
             questId: 71905,
+            source: 'AC',
         },
         {
             itemId: 201279, // Artisan's Consortium, Esteemed
             questId: 71916,
+            source: 'AC',
+        },
+        {
+            itemId: 205352, // Niffen Notebook of Blacksmithing Knowledge
+            questId: 75755,
+            source: 'LN',
         },
     ],
     dropQuests: [
@@ -52,38 +60,62 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         {
             itemId: 201007, // Ancient Monument
             questId: 70246,
+            source: 'WS',
         },
         {
             itemId: 201004, // Ancient Spear Shards
             questId: 70313,
+            source: 'OP',
+        },
+        {
+            itemId: 205987, // Brimstone Rescue Ring
+            questId: 76079,
+            source: 'ZC',
         },
         {
             itemId: 201005, // Curious Ingots
             questId: 70312,
+            source: 'WS',
         },
         {
             itemId: 201006, // Draconic Flux
             questId: 70311,
+            source: 'TD',
         },
         {
             itemId: 201009, // Falconer Gauntlet Drawings
             questId: 70353,
+            source: 'OP',
         },
         {
             itemId: 198791, // Glimmer of Blacksmithing Wisdom
             questId: 70314,
+            source: 'WS',
         },
         {
             itemId: 201008, // Molten Ingot
             questId: 70296,
+            source: 'WS',
         },
         {
             itemId: 201010, // Qalashi Weapon Diagram
             questId: 70310,
+            source: 'WS',
         },
         {
             itemId: 201011, // Spelltouched Tongs
             questId: 70314,
+            source: 'AS',
+        },
+        {
+            itemId: 205986, // Well-Worn Kiln
+            questId: 76078,
+            source: 'ZC',
+        },
+        {
+            itemId: 205988, // Zaqali Elder Spear
+            questId: 76080,
+            source: 'ZC',
         },
     ],
 }

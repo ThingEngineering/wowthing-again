@@ -46,6 +46,6 @@
     {/if}
 
     {#if text}
-        <span class="pill abs-center">{text}</span>
+        <span class="pill abs-center quality1">{text}</span>
     {/if}
 </div>

@@ -89,7 +89,7 @@ export const darkmoonFaireProfessionQuests: Record<number, number> = {
     356: 29513, // Fishing - Spoilin' for Salty Sea Dogs
 }
 
-const dragonflightProfessions: DragonflightProfession[] = [
+export const dragonflightProfessions: DragonflightProfession[] = [
     dragonflightAlchemy,
     dragonflightBlacksmithing,
     dragonflightEnchanting,

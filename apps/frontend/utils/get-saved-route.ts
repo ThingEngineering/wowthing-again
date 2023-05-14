@@ -9,7 +9,7 @@ export default function getSavedRoute(
     lastChild = false
 ): void {
     const key = `route-${route.replace('/', '--')}`
-    if (slug1 === null) {
+    if (!slug1) {
         const saved = localStorage.getItem(key)
         const subSidebar = document.getElementById(sidebarId)
         if (subSidebar !== null) {

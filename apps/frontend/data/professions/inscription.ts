@@ -11,14 +11,22 @@ export const dragonflightInscription: DragonflightProfession = {
         {
             itemId: 200973, // Artisan's Consortium, Preferred
             questId: 71898,
+            source: 'AC',
         },
         {
             itemId: 201269, // Artisan's Consortium, Valued
             questId: 71909,
+            source: 'AC',
         },
         {
             itemId: 201280, // Artisan's Consortium, Esteemed
             questId: 71920,
+            source: 'AC',
+        },
+        {
+            itemId: 205354, // Niffen Notebook of Inscription Knowledge
+            questId: 75761,
+            source: 'LN',
         },
     ],
     dropQuests: [
@@ -48,4 +56,61 @@ export const dragonflightInscription: DragonflightProfession = {
             source: 'FR: Arcantrix',
         },
     ],
+    treasureQuests: [
+        {
+            itemId: 206035, // Ancient Research
+            questId: 76121,
+            source: 'ZC',
+        },
+        {
+            itemId: 201015, // Counterfeit Darkmoon Deck
+            questId: 70287,
+            source: 'TD',
+        },
+        {
+            itemId: 198693, // Dusty Darkmoon Card
+            questId: 70297,
+            source: 'AS',
+        },
+        {
+            itemId: 198659, // Forgetful Apprentice's Tome 1
+            questId: 70248,
+            source: 'TD',
+        },
+        {
+            itemId: 198659, // Forgetful Apprentice's Tome 2
+            questId: 70264,
+            source: 'TD',
+        },
+        {
+            itemId: 198686, // Frosted Parchment
+            questId: 70293,
+            source: 'AS',
+        },
+        {
+            itemId: 206034, // Hissing Rune Draft
+            questId: 76120,
+            source: 'ZC',
+        },
+        {
+            itemId: 198669, // How to Train Your Whelpling
+            questId: 70281,
+            source: 'VD',
+        },
+        {
+            itemId: 206031, // Intricate Zaqali Runes
+            questId: 76117,
+            source: 'ZC',
+        },
+        {
+            itemId: 198704, // Pulsing Earth Rune
+            questId: 70306,
+            source: 'WS',
+        },
+        {
+            itemId: 198703, // Sign Language Reference Sheet
+            questId: 70307,
+            source: 'OP',
+        },
+    ]
 }
