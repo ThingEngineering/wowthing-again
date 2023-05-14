@@ -10,14 +10,22 @@ export const dragonflightEnchanting: DragonflightProfession = {
         {
             itemId: 200976, // Artisan's Consortium, Preferred
             questId: 71895,
+            source: 'AC',
         },
         {
             itemId: 201272, // Artisan's Consortium, Valued
             questId: 71906,
+            source: 'AC',
         },
         {
             itemId: 201283, // Artisan's Consortium, Esteemed
             questId: 71917,
+            source: 'AC',
+        },
+        {
+            itemId: 205351, // Niffen Notebook of Enchanting Knowledge
+            questId: 75752,
+            source: 'LN',
         },
     ],
     dropQuests: [

@@ -11,14 +11,22 @@ export const dragonflightLeatherworking: DragonflightProfession = {
         {
             itemId: 200979, // Artisan's Consortium, Preferred
             questId: 71900,
+            source: 'AC',
         },
         {
             itemId: 201275, // Artisan's Consortium, Valued
             questId: 71911,
+            source: 'AC',
         },
         {
             itemId: 201286, // Artisan's Consortium, Esteemed
             questId: 71922,
+            source: 'AC',
+        },
+        {
+            itemId: 205350, // Niffen Notebook of Leatherworking Knowledge
+            questId: 75751,
+            source: 'LN',
         },
     ],
     dropQuests: [

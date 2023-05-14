@@ -11,14 +11,22 @@ export const dragonflightTailoring: DragonflightProfession = {
         {
             itemId: 200975, // Artisan's Consortium, Preferred
             questId: 71903,
+            source: 'AC',
         },
         {
             itemId: 201271, // Artisan's Consortium, Valued
             questId: 71914,
+            source: 'AC',
         },
         {
             itemId: 201282, // Artisan's Consortium, Esteemed
             questId: 71925,
+            source: 'AC',
+        },
+        {
+            itemId: 205355, // Niffen Notebook of Tailoring Knowledge
+            questId: 75757,
+            source: 'LN',
         },
     ],
     dropQuests: [

@@ -11,14 +11,22 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
         {
             itemId: 200978, // Artisan's Consortium, Preferred
             questId: 71899,
+            source: 'AC',
         },
         {
             itemId: 201274, // Artisan's Consortium, Valued
             questId: 71910,
+            source: 'AC',
         },
         {
             itemId: 201285, // Artisan's Consortium, Esteemed
             questId: 71921,
+            source: 'AC',
+        },
+        {
+            itemId: 205348, // Niffen Notebook of Jewelcrafting Knowledge
+            questId: 75754,
+            source: 'LN',
         },
     ],
     dropQuests: [

@@ -11,14 +11,22 @@ export const dragonflightEngineering: DragonflightProfession = {
         {
             itemId: 200977, // Artisan's Consortium, Preferred
             questId: 71896,
+            source: 'AC',
         },
         {
             itemId: 201273, // Artisan's Consortium, Valued
             questId: 71907,
+            source: 'AC',
         },
         {
             itemId: 201284, // Artisan's Consortium, Esteemed
             questId: 71918,
+            source: 'AC',
+        },
+        {
+            itemId: 205349, // Niffen Notebook of Engineering Knowledge
+            questId: 75759,
+            source: 'LN',
         },
     ],
     dropQuests: [

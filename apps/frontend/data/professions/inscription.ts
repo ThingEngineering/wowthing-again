@@ -11,14 +11,22 @@ export const dragonflightInscription: DragonflightProfession = {
         {
             itemId: 200973, // Artisan's Consortium, Preferred
             questId: 71898,
+            source: 'AC',
         },
         {
             itemId: 201269, // Artisan's Consortium, Valued
             questId: 71909,
+            source: 'AC',
         },
         {
             itemId: 201280, // Artisan's Consortium, Esteemed
             questId: 71920,
+            source: 'AC',
+        },
+        {
+            itemId: 205354, // Niffen Notebook of Inscription Knowledge
+            questId: 75761,
+            source: 'LN',
         },
     ],
     dropQuests: [

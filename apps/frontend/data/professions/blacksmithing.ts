@@ -11,14 +11,22 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         {
             itemId: 200972, // Artisan's Consortium, Preferred
             questId: 71894,
+            source: 'AC',
         },
         {
             itemId: 201268, // Artisan's Consortium, Valued
             questId: 71905,
+            source: 'AC',
         },
         {
             itemId: 201279, // Artisan's Consortium, Esteemed
             questId: 71916,
+            source: 'AC',
+        },
+        {
+            itemId: 205352, // Niffen Notebook of Blacksmithing Knowledge
+            questId: 75755,
+            source: 'LN',
         },
     ],
     dropQuests: [
