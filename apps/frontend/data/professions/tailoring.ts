@@ -48,4 +48,61 @@ export const dragonflightTailoring: DragonflightProfession = {
             source: 'FR: Gareed',
         },
     ],
+    treasureQuests: [
+        {
+            itemId: 206019, // Abandoned Reserve Chute
+            questId: 76102,
+            source: 'ZC',
+        },
+        {
+            itemId: 201019, // Ancient Dragonweave Bolt
+            questId: 70372,
+            source: 'TD',
+        },
+        {
+            itemId: 198692, // Noteworthy Scrap of Carpet
+            questId: 70295,
+            source: 'OP',
+        },
+        {
+            itemId: 198680, // Decaying Brackenhide Blanket
+            questId: 70284,
+            source: 'AS',
+        },
+        {
+            itemId: 206030, // Exquisitely Embroidered Banner
+            questId: 76116,
+            source: 'ZC',
+        },
+        {
+            itemId: 198662, // Intriguing Bolt of Blue Cloth
+            questId: 70267,
+            source: 'AS',
+        },
+        {
+            itemId: 198702, // Itinerant Singed Fabric
+            questId: 70304,
+            source: 'WS',
+        },
+        {
+            itemId: 198684, // Miniature Bronze Dragonflight Banner
+            questId: 70288,
+            source: 'TD',
+        },
+        {
+            itemId: 198699, // Mysterious Banner
+            questId: 70302,
+            source: 'WS',
+        },
+        {
+            itemId: 201020, // Silky Surprise
+            questId: 70303,
+            source: 'OP',
+        },
+        {
+            itemId: 206025, // Used Medical Wrap Kit
+            questId: 76110,
+            source: 'ZC',
+        },
+    ]
 }

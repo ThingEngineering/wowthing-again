@@ -48,4 +48,56 @@ export const dragonflightLeatherworking: DragonflightProfession = {
             source: 'FR: Snarfang',
         },
     ],
+    treasureQuests: [
+        {
+            itemId: 198690, // Bag of Decayed Scales
+            questId: 70294,
+            source: 'TD',
+        },
+        {
+            itemId: 198683, // Treated Hides
+            questId: 70286,
+            source: 'AS',
+        },
+        {
+            itemId: 198658, // Decay-Infused Tanning Oil
+            questId: 70266,
+            source: 'AS',
+        },
+        {
+            itemId: 204986, // Flame-Infused Scale Oil
+            questId: 75495,
+            source: 'ZC',
+        },
+        {
+            itemId: 204987, // Lava-Forged Leatherworker's "Knife"
+            questId: 75496,
+            source: 'ZC',
+        },
+        {
+            itemId: 198711, // Poacher's Pack
+            questId: 70308,
+            source: 'WS',
+        },
+        {
+            itemId: 198667, // Spare Djaradin Tools
+            questId: 70280,
+            source: 'WS',
+        },
+        {
+            itemId: 204988, // Sulfur-Soaked Skins
+            questId: 75502,
+            source: 'ZC',
+        },
+        {
+            itemId: 201018, // Well-Danced Drum
+            questId: 70269,
+            source: 'AS',
+        },
+        {
+            itemId: 198696, // Wind-Blessed Hide
+            questId: 70300,
+            source: 'OP',
+        },
+    ]
 }
