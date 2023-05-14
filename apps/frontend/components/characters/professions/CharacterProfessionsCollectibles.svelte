@@ -1,12 +1,15 @@
 <script lang="ts">
+    import maxBy from 'lodash/maxBy'
+    import sortBy from 'lodash/sortBy'
+
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { dragonflightProfessionMap } from '@/data/professions'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { itemStore, staticStore, userQuestStore, userStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import type { Character } from '@/types'
+    import type { Character, ReputationTier } from '@/types'
     import type { DragonflightProfession } from '@/types/data'
     import type { StaticDataProfession } from '@/types/data/static'
 
@@ -36,9 +39,13 @@
         dfData = dragonflightProfessionMap[staticProfession.id]
     }
 
-    $: tiers = $staticStore.reputationTiers[398]
-                
-
+    let repTier: ReputationTier
+    $: {
+        repTier = findReputationTier(
+            $staticStore.reputationTiers[398],
+            maxBy($userStore.characters, (c) => c.reputations?.[2544] || 0).reputations?.[2544]
+        )
+    }
 </script>
 
 <style lang="scss">
@@ -83,7 +90,6 @@
 
                 {#each (dfData.bookQuests || []) as bookQuest, questIndex}
                     {@const repRank = [2, 4, 5][questIndex]}
-                    {@const repTier = findReputationTier(tiers, character.reputations?.[2544] || 0)}
                     <Collectible
                         disabled={repTier.tier > (6 - repRank)}
                         itemId={bookQuest.itemId}
@@ -96,9 +102,10 @@
 
         {#if dfData.treasureQuests?.length > 0}
             <div class="collection-objects">
-                {#each dfData.treasureQuests as treasureQuest}
+                {#each sortBy(dfData.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]]) as treasureQuest}
                     <Collectible
                         itemId={treasureQuest.itemId}
+                        text={treasureQuest.source}
                         userHas={userQuestStore.hasAny(character.id, treasureQuest.questId)}
                     />
                 {/each}
