@@ -28,6 +28,16 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             questId: 75754,
             source: 'LN',
         },
+        {
+            itemId: 205435, // Bartered Jewelcrafting Journal
+            questId: 75854,
+            source: 'ZC',
+        },
+        {
+            itemId: 205424, // Bartered Jewelcrafting Notes
+            questId: 75841,
+            source: 'ZC',
+        },
     ],
     dropQuests: [
         {

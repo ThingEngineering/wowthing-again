@@ -25,5 +25,15 @@ export const dragonflightHerbalism: DragonflightProfession = {
             questId: 75753,
             source: 'LN',
         },
+        {
+            itemId: 205445, // Bartered Herbalism Journal
+            questId: 75852,
+            source: 'ZC',
+        },
+        {
+            itemId: 205434, // Bartered Herbalism Notes
+            questId: 75843,
+            source: 'ZC',
+        },
     ],
 }

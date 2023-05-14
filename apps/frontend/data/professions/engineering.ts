@@ -28,6 +28,16 @@ export const dragonflightEngineering: DragonflightProfession = {
             questId: 75759,
             source: 'LN',
         },
+        {
+            itemId: 205436, // Bartered Engineering Journal
+            questId: 75851,
+            source: 'ZC',
+        },
+        {
+            itemId: 205425, // Bartered Engineering Notes
+            questId: 75844,
+            source: 'ZC',
+        },
     ],
     dropQuests: [
         {
