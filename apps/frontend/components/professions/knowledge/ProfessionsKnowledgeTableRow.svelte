@@ -1,33 +1,45 @@
 <script lang="ts">
-    import { dragonflightKnowledge, dragonflightProfessionMap, dragonflightProfessions } from '@/data/professions'
+    import {
+        dragonflightKnowledge,
+        dragonflightProfessionMap,
+        dragonflightProfessions
+    } from '@/data/professions'
+    import { Profession } from '@/enums'
     import { userQuestStore } from '@/stores'
-    import { UserCount } from '@/types'
-    import type { Profession } from '@/enums'
+    import { tippyComponent } from '@/utils/tippy'
     import type {  Character } from '@/types'
-    import getPercentClass from '@/utils/get-percent-class';
+
+    import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte'
 
     export let character: Character
 
-    let counts: UserCount[]
+    type ZoneData  = {
+        have: boolean
+        itemId: number
+        profession: Profession
+    }
+    let data: ZoneData[][]
     $: {
-        counts = []
+        data = []
 
-        dragonflightKnowledge.forEach((dk) => {
-            if (dk === null) {
-                counts.push(null)
+        // Zones
+        dragonflightKnowledge.forEach((dkZone) => {
+            if (dkZone === null) {
+                data.push(null)
                 return
             }
 
-            const dkCount = new UserCount()
-            
-            for (const professionId of dk.masters) {
+            const zoneData: ZoneData[] = []
+
+            for (const professionId of dkZone.masters) {
                 if (character.professions?.[professionId]) {
                     const profData = dragonflightProfessionMap[professionId]
-                    
-                    dkCount.total++
-                    if (userQuestStore.hasAny(character.id, profData.masterQuestId)) {
-                        dkCount.have++
-                    }
+
+                    zoneData.push({
+                        have: userQuestStore.hasAny(character.id, profData.masterQuestId),
+                        itemId: -1,
+                        profession: professionId,
+                    })
                 }
             }
             
@@ -37,26 +49,30 @@
                 }
 
                 const bookQuests = (profData.bookQuests || []).filter((bq) =>
-                    (bq.source === 'AC' && dk.shortName === 'VD') ||
-                    (bq.source === 'LN' && dk.shortName === 'ZC')
+                    (bq.source === 'AC' && dkZone.shortName === 'VD') ||
+                    (bq.source === 'LN' && dkZone.shortName === 'ZC')
                 )
                 for (const bookQuest of bookQuests) {
-                    dkCount.total++
-                    if (userQuestStore.hasAny(character.id, bookQuest.questId)) {
-                        dkCount.have++
-                    }
+                    zoneData.push({
+                        have: userQuestStore.hasAny(character.id, bookQuest.questId),
+                        itemId: bookQuest.itemId,
+                        profession: profData.id,
+                    })
                 }
 
-                const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dk.shortName)
+                const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dkZone.shortName)
                 for (const treasureQuest of treasureQuests) {
-                    dkCount.total++
-                    if (userQuestStore.hasAny(character.id, treasureQuest.questId)) {
-                        dkCount.have++
-                    }
+                    zoneData.push({
+                        have: userQuestStore.hasAny(character.id, treasureQuest.questId),
+                        itemId: treasureQuest.itemId,
+                        profession: profData.id,
+                    })
                 }
             }
 
-            counts.push(dkCount)
+            zoneData.sort((a, b) => Profession[a.profession].localeCompare(Profession[b.profession]))
+
+            data.push(zoneData)
         })
     }
 </script>
@@ -75,19 +91,31 @@
 
 <td class="spacer"></td>
 {#each dragonflightKnowledge as dk, dkIndex}
-    {@const count = counts[dkIndex]}
     {#if dk === null}
         <td class="spacer"></td>
-    {:else if count.total > 0}
-        <td
-            class="profession-knowledge"
-            class:status-fail={count.have === 0}
-            class:status-shrug={count.have > 0 && count.have < count.total}
-            class:status-success={count.have === count.total}
-        >
-            {count.have} / {count.total}
-        </td>
     {:else}
-        <td class="profession-knowledge faded">---</td>
+        {@const zoneData = data[dkIndex]}
+        {@const zoneHave = zoneData.filter((zd) => zd.have).length}
+        {@const zoneTotal = zoneData.length}
+        {#if zoneData.length > 0}
+            <td
+                class="profession-knowledge"
+                class:status-fail={zoneHave === 0}
+                class:status-shrug={zoneHave > 0 && zoneHave < zoneTotal}
+                class:status-success={zoneHave === zoneTotal}
+                use:tippyComponent={{
+                    component: Tooltip,
+                    props: {
+                        character,
+                        zoneData,
+                        zoneName: dk.name,
+                    }
+                }}
+            >
+                {zoneHave} / {zoneTotal}
+            </td>
+        {:else}
+            <td class="profession-knowledge faded">---</td>
+        {/if}
     {/if}
 {/each}
