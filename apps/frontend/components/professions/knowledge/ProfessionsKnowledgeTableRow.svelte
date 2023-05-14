@@ -50,7 +50,7 @@
 
                 const bookQuests = (profData.bookQuests || []).filter((bq) =>
                     (bq.source === 'AC' && dkZone.shortName === 'VD') ||
-                    (bq.source === 'LN' && dkZone.shortName === 'ZC')
+                    (['LN', 'ZC'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC')
                 )
                 for (const bookQuest of bookQuests) {
                     zoneData.push({

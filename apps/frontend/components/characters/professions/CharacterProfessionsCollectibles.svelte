@@ -39,16 +39,17 @@
         dfData = dragonflightProfessionMap[staticProfession.id]
     }
 
-    let acRepTier: ReputationTier
-    $: {
-        acRepTier = findReputationTier(
-            $staticStore.reputationTiers[398],
-            maxBy(
-                $userStore.characters,
-                (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
-            ).reputations?.[Constants.reputations.artisansConsortium]
-        )
-    }
+    $: acRepTier = findReputationTier(
+        $staticStore.reputationTiers[398],
+        maxBy(
+            $userStore.characters,
+            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
+        ).reputations?.[Constants.reputations.artisansConsortium]
+    )
+    $: lnRep = (maxBy(
+        $userStore.characters,
+        (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0
+    ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500
 </script>
 
 <style lang="scss">
@@ -92,13 +93,29 @@
                 {/if}
 
                 {#each (dfData.bookQuests || []) as bookQuest, questIndex}
-                    {@const repRank = [2, 4, 5][questIndex]}
-                    <Collectible
-                        disabled={acRepTier.tier > (6 - repRank)}
-                        itemId={bookQuest.itemId}
-                        text={`AC ${repRank}`}
-                        userHas={userQuestStore.hasAny(character.id, bookQuest.questId)}
-                    />
+                    {@const userHas = userQuestStore.hasAny(character.id, bookQuest.questId)}
+                    {#if bookQuest.source === 'AC'}
+                        {@const repRank = [2, 4, 5][questIndex]}
+                        <Collectible
+                            disabled={acRepTier.tier > (6 - repRank)}
+                            itemId={bookQuest.itemId}
+                            text={`AC ${repRank}`}
+                            {userHas}
+                        />
+                    {:else if bookQuest.source === 'LN'}
+                        <Collectible
+                            disabled={lnRep < 12}
+                            itemId={bookQuest.itemId}
+                            text="LN 12"
+                            {userHas}
+                        />
+                    {:else}
+                        <Collectible
+                            itemId={bookQuest.itemId}
+                            text={bookQuest.source}
+                            {userHas}
+                        />
+                    {/if}
                 {/each}
             </div>
         {/if}

@@ -14,6 +14,7 @@ export abstract class Constants {
 
     static readonly reputations = {
         artisansConsortium: 2544,
+        loammNiffen: 2564,
     }
 
     static readonly icons = {

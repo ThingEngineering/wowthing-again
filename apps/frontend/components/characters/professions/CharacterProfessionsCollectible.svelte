@@ -17,6 +17,7 @@
     .pill {
         bottom: 0;
         pointer-events: none;
+        word-spacing: -0.2ch;
     }
     .disabled {
         filter: grayscale(100%) brightness(80%) sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(0.9);
