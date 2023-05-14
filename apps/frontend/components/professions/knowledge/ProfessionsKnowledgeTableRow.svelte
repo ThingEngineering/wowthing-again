@@ -1,11 +1,13 @@
 <script lang="ts">
+    import orderBy from 'lodash/orderBy'
+
     import {
         dragonflightKnowledge,
         dragonflightProfessionMap,
         dragonflightProfessions
     } from '@/data/professions'
     import { Profession } from '@/enums'
-    import { userQuestStore } from '@/stores'
+    import { itemStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type {  Character } from '@/types'
 
@@ -50,9 +52,9 @@
 
                 const bookQuests = (profData.bookQuests || []).filter((bq) =>
                     (bq.source === 'AC' && dkZone.shortName === 'VD') ||
-                    (bq.source === 'LN' && dkZone.shortName === 'ZC')
+                    (['LN', 'ZC'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC')
                 )
-                for (const bookQuest of bookQuests) {
+                for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
                     zoneData.push({
                         have: userQuestStore.hasAny(character.id, bookQuest.questId),
                         itemId: bookQuest.itemId,

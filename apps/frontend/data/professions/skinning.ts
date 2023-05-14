@@ -25,5 +25,15 @@ export const dragonflightSkinning: DragonflightProfession = {
             questId: 75760,
             source: 'LN',
         },
+        {
+            itemId: 205444, // Bartered Skinning Journal
+            questId: 75857,
+            source: 'ZC',
+        },
+        {
+            itemId: 205433, // Bartered Skinning Notes
+            questId: 75838,
+            source: 'ZC',
+        },
     ],
 }
