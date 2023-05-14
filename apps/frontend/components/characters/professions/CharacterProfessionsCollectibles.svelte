@@ -39,11 +39,14 @@
         dfData = dragonflightProfessionMap[staticProfession.id]
     }
 
-    let repTier: ReputationTier
+    let acRepTier: ReputationTier
     $: {
-        repTier = findReputationTier(
+        acRepTier = findReputationTier(
             $staticStore.reputationTiers[398],
-            maxBy($userStore.characters, (c) => c.reputations?.[2544] || 0).reputations?.[2544]
+            maxBy(
+                $userStore.characters,
+                (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
+            ).reputations?.[Constants.reputations.artisansConsortium]
         )
     }
 </script>
@@ -91,7 +94,7 @@
                 {#each (dfData.bookQuests || []) as bookQuest, questIndex}
                     {@const repRank = [2, 4, 5][questIndex]}
                     <Collectible
-                        disabled={repTier.tier > (6 - repRank)}
+                        disabled={acRepTier.tier > (6 - repRank)}
                         itemId={bookQuest.itemId}
                         text={`AC ${repRank}`}
                         userHas={userQuestStore.hasAny(character.id, bookQuest.questId)}

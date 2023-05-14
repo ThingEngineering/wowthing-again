@@ -12,6 +12,10 @@ export abstract class Constants {
         valor: 1191,
     }
 
+    static readonly reputations = {
+        artisansConsortium: 2544,
+    }
+
     static readonly icons = {
         alliance: 'achievement/13467', // Tides of Vengeance
         horde: 'achievement/13466', // Tides of Vengeance
