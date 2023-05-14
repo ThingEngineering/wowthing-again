@@ -1,5 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
+    import { currentTier } from '@/data/gear'
+    import { itemStore } from '@/stores'
     import { gearState } from '@/stores/local-storage'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
     import getCharacterGear from '@/utils/get-character-gear'
@@ -19,7 +21,7 @@
             || character.raiderIo?.[Constants.mythicPlusSeason]?.all
             || 0
 
-        tierPieces = getTierPieces(character).map(([, itemId,]) => itemId)
+        tierPieces = getTierPieces(currentTier, $itemStore.currentTier, character).map(([, itemId,]) => itemId)
     }
 </script>
 

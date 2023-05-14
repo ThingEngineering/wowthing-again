@@ -5,7 +5,7 @@
     import type { CharacterCurrency, Character } from '@/types'
 
     export let character: Character
-    export let tierPieces: [string, number, number][]
+    export let tierSets: [string, number, number][][]
 
     let charCatalyst: CharacterCurrency
     let haveCharges: number
@@ -33,6 +33,9 @@
 </script>
 
 <style lang="scss">
+    .flex-wrapper {
+        gap: 1rem;
+    }
     .slot {
         text-align: left;
     }
@@ -46,22 +49,39 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>Tier Set Pieces</h5>
-    <table class="table-striped">
-        <tbody>
-            {#each tierPieces as [slot, , itemLevel]}
-                <tr>
-                    <td class="slot">{slot}</td>
-                    <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
-                        {#if itemLevel > 0}
-                            {itemLevel}
-                        {:else}
-                            &mdash;
-                        {/if}
-                    </td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+
+    <div class="flex-wrapper">
+        {#each tierSets as tierPieces, setIndex}
+            <table
+                class="table-striped"
+                class:border-left="{tierSets.length > 1 && setIndex === 1}"
+                class:border-right="{tierSets.length > 1 && setIndex === 0}"
+            >
+                <tbody>
+                    {#if tierSets.length > 1}
+                        <tr>
+                            <td colspan="2">{setIndex === 0 ? 'Current' : 'Previous'}
+                        </tr>
+                    {/if}
+
+                    {#each tierPieces as [slot, , itemLevel]}
+                        <tr>
+                            <td class="slot">{slot}</td>
+                            <td
+                                class="itemLevel quality{getItemLevelQuality(itemLevel)}"
+                            >
+                                {#if itemLevel > 0}
+                                    {itemLevel}
+                                {:else}
+                                    &mdash;
+                                {/if}
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {/each}
+    </div>
 
     {#if maxCharges}
         <div class="bottom">

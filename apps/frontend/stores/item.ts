@@ -1,4 +1,4 @@
-import { currentTier } from '@/data/gear'
+import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types'
 import { ItemDataItem, type ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
@@ -47,6 +47,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
 
         this.update((state) => {
             state.currentTier = {}
+            state.previousTier = {}
 
             for (const set of manualData.shared.itemSets) {
                 if (currentTier.sets[set.name]) {
@@ -55,6 +56,15 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
                         if (currentTier.slots.indexOf(item.inventoryType) >= 0)
                         {
                             state.currentTier[item.id] = item.inventoryType
+                        }
+                    }
+                }
+                if (previousTier?.sets[set.name]) {
+                    for (const itemIds of set.items) {
+                        const item = this.value.items[itemIds[0]]
+                        if (previousTier.slots.indexOf(item.inventoryType) >= 0)
+                        {
+                            state.previousTier[item.id] = item.inventoryType
                         }
                     }
                 }
