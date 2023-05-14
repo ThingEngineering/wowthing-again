@@ -47,4 +47,61 @@ export const dragonflightEnchanting: DragonflightProfession = {
             source: 'FR: Manathema',
         },
     ],
+    treasureQuests: [
+        {
+            itemId: 201012, // Enchanted Debris
+            questId: 70272,
+            source: 'WS',
+        },
+        {
+            itemId: 198694, // Enriched Earthen Shard
+            questId: 70298,
+            source: 'AS',
+        },
+        {
+            itemId: 201013, // Faintly Enchanted Remains
+            questId: 70290,
+            source: 'AS',
+        },
+        {
+            itemId: 198798, // Flashfrozen Scroll
+            questId: 70320,
+            source: 'WS',
+        },
+        {
+            itemId: 198799, // Forgotten Arcane Tome
+            questId: 70336,
+            source: 'AS',
+        },
+        {
+            itemId: 198800, // Fractured Titanic Sphere
+            questId: 70342,
+            source: 'TD',
+        },
+        {
+            itemId: 204990, // Lava-Drenched Shadow Crystal
+            questId: 75508,
+            source: 'ZC',
+        },
+        {
+            itemId: 198675, // Lava-Infused Seed
+            questId: 70283,
+            source: 'WS',
+        },
+        {
+            itemId: 205001, // Resonating Arcane Crystal
+            questId: 75510,
+            source: 'ZC',
+        },
+        {
+            itemId: 204999, // Shimmering Aqueous Orb
+            questId: 75509,
+            source: 'ZC',
+        },
+        {
+            itemId: 198689, // Stormbound Horn
+            questId: 70291,
+            source: 'OP',
+        },
+    ],
 }

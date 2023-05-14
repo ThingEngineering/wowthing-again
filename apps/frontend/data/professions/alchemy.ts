@@ -47,4 +47,56 @@ export const dragonflightAlchemy: DragonflightProfession = {
             source: 'FR: Agni Blazehoof',
         },
     ],
+    treasureQuests: [
+        {
+            itemId: 198710, // Canteen of Suspicious Water
+            questId: 70305,
+            source: 'OP',
+        },
+        {
+            itemId: 198697, // Contraband Concoction
+            questId: 70301,
+            source: 'TD',
+        },
+        {
+            itemId: 198599, // Experimental Decay Sample
+            questId: 70208,
+            source: 'AS',
+        },
+        {
+            itemId: 198663, // Frostforged Potion
+            questId: 70274,
+            source: 'WS',
+        },
+        {
+            itemId: 205212, // Marrow-Ripened Slime
+            questId: 75649,
+            source: 'ZC',
+        },
+        {
+            itemId: 205211, // Nutrient Diluted Protofluid
+            questId: 75646,
+            source: 'ZC',
+        },
+        {
+            itemId: 198712, // Small Basket of Firewater Powder
+            questId: 70309,
+            source: 'AS',
+        },
+        {
+            itemId: 205213, // Suspicious Mold
+            questId: 75651,
+            source: 'ZC',
+        },
+        {
+            itemId: 203471, // Tasty Candy
+            questId: 70278,
+            source: 'TD',
+        },
+        {
+            itemId: 198685, // Well Insulated Mug
+            questId: 70289,
+            source: 'WS',
+        },
+    ],
 }

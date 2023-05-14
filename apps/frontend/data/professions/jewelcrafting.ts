@@ -52,34 +52,57 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
         {
             itemId: 198682, // Alexstraszite Cluster
             questId: 70285,
+            source: 'TD',
+        },
+        {
+            itemId: 205219, // Broken Barter Boulder
+            questId: 75654,
+            source: 'ZC',
         },
         {
             itemId: 198687, // Closely Guarded Shiny
             questId: 70292,
+            source: 'WS',
         },
         {
             itemId: 198664, // Crystalline Overgrowth
             questId: 70277,
+            source: 'AS',
         },
         {
-            itemId: 198660, // Fragmented Key
+            itemId: 198657, // Fragmented Key
             questId: 70263,
+            source: 'OP',
+        },
+        {
+            itemId: 205216, // Gently Jostled Jewels
+            questId: 75653,
+            source: 'ZC',
         },
         {
             itemId: 201016, // Harmonic Crystal Harmonizer
             questId: 70271,
+            source: 'AS',
         },
         {
             itemId: 201017, // Igneous Gem
             questId: 70273,
+            source: 'WS',
         },
         {
             itemId: 198670, // Lofty Malygite
             questId: 70282,
+            source: 'OP',
         },
         {
             itemId: 198656, // Painter's Pretty Jewel
             questId: 70261,
+            source: 'TD',
+        },
+        {
+            itemId: 205214, // Snubbed Snail Shells
+            questId: 75652,
+            source: 'ZC',
         },
     ],
 }
