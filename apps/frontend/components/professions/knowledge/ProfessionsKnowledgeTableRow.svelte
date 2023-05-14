@@ -20,7 +20,7 @@
 
             const dkCount = new UserCount()
             
-            for (const professionId of (dk.masters || [])) {
+            for (const professionId of dk.masters) {
                 if (character.professions?.[professionId]) {
                     const profData = dragonflightProfessionMap[professionId]
                     
@@ -45,20 +45,17 @@
                     }
                 }
 
-                for (const treasureQuest of (profData.treasureQuests || [])) {
-                    if (treasureQuest.source === dk.shortName) {
-                        dkCount.total++
-                        if (userQuestStore.hasAny(character.id, treasureQuest.questId)) {
-                            dkCount.have++
-                        }
+                const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dk.shortName)
+                for (const treasureQuest of treasureQuests) {
+                    dkCount.total++
+                    if (userQuestStore.hasAny(character.id, treasureQuest.questId)) {
+                        dkCount.have++
                     }
                 }
             }
 
             counts.push(dkCount)
         })
-
-        console.log(counts)
     }
 </script>
 
