@@ -7,6 +7,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Row from './ProfessionsKnowledgeTableRow.svelte'
+    import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
 
     const filterFunc = (char: Character) => some(dragonflightProfessions, (p) => char.professions?.[p.id])
 </script>
@@ -22,6 +23,7 @@
 
 <CharacterTable {filterFunc}>
     <CharacterTableHead slot="head">
+        <th></th>
         <th class="spacer"></th>
         {#each dragonflightKnowledge as dk}
             {#if dk === null}
@@ -33,6 +35,7 @@
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
+        <RowProfessions {character} />
         <Row {character} />
     </svelte:fragment>
 </CharacterTable>
