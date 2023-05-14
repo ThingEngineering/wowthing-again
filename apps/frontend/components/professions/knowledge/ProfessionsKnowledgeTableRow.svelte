@@ -36,12 +36,14 @@
                     continue
                 }
 
-                if (dk.shortName === 'VD') {
-                    for (const bookQuest of (profData.bookQuests || [])) {
-                        dkCount.total++
-                        if (userQuestStore.hasAny(character.id, bookQuest.questId)) {
-                            dkCount.have++
-                        }
+                const bookQuests = (profData.bookQuests || []).filter((bq) =>
+                    (bq.source === 'AC' && dk.shortName === 'VD') ||
+                    (bq.source === 'LN' && dk.shortName === 'ZC')
+                )
+                for (const bookQuest of bookQuests) {
+                    dkCount.total++
+                    if (userQuestStore.hasAny(character.id, bookQuest.questId)) {
+                        dkCount.have++
                     }
                 }
 
