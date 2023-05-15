@@ -6,7 +6,7 @@
     import { lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { FarmType, PlayableClass, RewardType } from '@/enums'
+    import { FarmAnchorPoint, FarmType, PlayableClass, RewardType } from '@/enums'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -72,7 +72,17 @@
 
         groups = Object.values(groupMap)
         for (const group of groups) {
-            group.children.sort((a, b) => a[0].name.localeCompare(b[0].name))
+            group.children.sort((a, b) => {
+                const aData = [
+                    a[0].faction || 'zzz',
+                    a[0].name
+                ].join('|')
+                const bData = [
+                    b[0].faction || 'zzz',
+                    b[0].name
+                ].join('|')
+                return aData.localeCompare(bData)
+            })
         }
     }
 
@@ -113,6 +123,34 @@
         const sqrt = Math.ceil(Math.sqrt(len))
         // border + padding + icons
         return `calc(2px + 0.2rem + (24px * ${sqrt})`
+    }
+
+    const getAnchorX = function(farm: ManualDataZoneMapFarm): string {
+        if (!farm.anchorPoint) {
+            return '-50%'
+        }
+
+        if (
+            farm.anchorPoint === FarmAnchorPoint.TopLeft ||
+            farm.anchorPoint === FarmAnchorPoint.Left ||
+            farm.anchorPoint === FarmAnchorPoint.BottomLeft
+        ) {
+            return '-12px'
+        }
+    }
+
+    const getAnchorY = function(farm: ManualDataZoneMapFarm): string {
+        if (!farm.anchorPoint) {
+            return '-50%'
+        }
+
+        if (
+            farm.anchorPoint === FarmAnchorPoint.TopLeft ||
+            farm.anchorPoint === FarmAnchorPoint.Top ||
+            farm.anchorPoint === FarmAnchorPoint.TopRight
+        ) {
+            return '-12px'
+        }
     }
 
     const lootFarmTypes: FarmType[] = [
@@ -236,7 +274,7 @@
         flex-wrap: wrap;
         padding: 0.1rem;
         position: absolute;
-        transform: scale(0.9) translate(-50%, -50%);
+        transform: scale(0.9) translate(var(--translate-x, -50%), var(--translate-y, -50%));
 
         :global(.wrapper) {
             left: initial !important;
@@ -388,6 +426,8 @@
                 style:left="{group.location[0]}%"
                 style:top="{group.location[1]}%"
                 style:width="{getGroupWidth(children.length)}"
+                style:--translate-x={getAnchorX(group)}
+                style:--translate-y={getAnchorY(group)}
             >
                 {#each children as [farm, farmIndex]}
                     <Thing
