@@ -156,7 +156,7 @@
                             >
                                 {#each charTask.statusTexts as statusText}
                                     <div>
-                                        {#if charTask.statusTexts.length === 1}
+                                        {#if !statusText.startsWith('<')}
                                             &ndash;
                                         {/if}
                                         <ParsedText text={getFixedText(statusText)} />
