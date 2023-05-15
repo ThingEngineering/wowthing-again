@@ -49,7 +49,7 @@
     }
 
     const getFixedText = function(text: string): string {
-        text = text.replace(/\[\[tier\d\]\]/, ':starFull:')
+        text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}')
         return text
     }
 </script>
