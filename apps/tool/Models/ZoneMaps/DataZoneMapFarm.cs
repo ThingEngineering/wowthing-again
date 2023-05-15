@@ -8,6 +8,7 @@ public class DataZoneMapFarm
     public int NpcId { get; set; }
     public int ObjectId { get; set; }
     public int StatisticId { get; set; }
+    public string? AnchorPoint { get; set; }
     public string? Faction { get; set; }
     public string Location { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

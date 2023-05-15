@@ -49,7 +49,7 @@
     }
 
     const getFixedText = function(text: string): string {
-        text = text.replace(/\[\[tier\d\]\]/, ':starFull:')
+        text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}')
         return text
     }
 </script>
@@ -156,7 +156,7 @@
                             >
                                 {#each charTask.statusTexts as statusText}
                                     <div>
-                                        {#if charTask.statusTexts.length === 1}
+                                        {#if !statusText.startsWith('<')}
                                             &ndash;
                                         {/if}
                                         <ParsedText text={getFixedText(statusText)} />

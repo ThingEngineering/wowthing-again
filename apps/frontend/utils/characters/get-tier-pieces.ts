@@ -1,25 +1,28 @@
 import { get } from 'svelte/store'
 
-import { currentTier } from '@/data/gear'
 import { InventoryType } from '@/enums'
-import { itemStore, staticStore } from '@/stores'
+import { staticStore } from '@/stores'
+import type { TierData } from '@/data/gear'
 import type { Character } from '@/types'
 
 
 type TierPieces = [string, number, number][]
 
-export function getTierPieces(character: Character): TierPieces {
+export function getTierPieces(
+    tierData: TierData,
+    tierMap: Record<number, InventoryType>,
+    character: Character
+): TierPieces {
     if (character.equippedItems) {
-        const itemData = get(itemStore)
         const staticData = get(staticStore)
 
         const tierPieceMap: Record<string, [number, number]> = {}
-        for (const tierSlot in currentTier.slots) {
+        for (const tierSlot in tierData.slots) {
             tierPieceMap[tierSlot] = [0, 0]
         }
 
         for (const item of Object.values(character.equippedItems)) {
-            const tierSlot = itemData.currentTier[item.itemId]
+            const tierSlot = tierMap[item.itemId]
             if (tierSlot) {
                 tierPieceMap[tierSlot === InventoryType.Chest2 ? InventoryType.Chest : tierSlot] = [
                     item.itemId,
@@ -28,7 +31,7 @@ export function getTierPieces(character: Character): TierPieces {
             }
         }
 
-        return currentTier.slots
+        return tierData.slots
             .filter(slot => slot !== InventoryType.Chest2)
             .map((slot) => [
                 staticData.inventoryTypes[slot],

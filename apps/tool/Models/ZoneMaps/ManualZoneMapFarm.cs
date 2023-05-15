@@ -1,4 +1,6 @@
-﻿namespace Wowthing.Tool.Models.ZoneMaps;
+﻿using Wowthing.Tool.Enums;
+
+namespace Wowthing.Tool.Models.ZoneMaps;
 
 public class ManualZoneMapFarm
 {
@@ -10,6 +12,7 @@ public class ManualZoneMapFarm
     public string Name { get; set; }
     public string Note { get; set; }
     public string[] Location { get; set; }
+    public FarmAnchorPoint AnchorPoint { get; set; }
     public FarmIdType IdType { get; set; }
     public FarmResetType Reset { get; set; }
     public FarmType Type { get; set; }
@@ -77,6 +80,11 @@ public class ManualZoneMapFarm
         if (farm.StatisticId > 0)
         {
             StatisticId = farm.StatisticId;
+        }
+
+        if (!string.IsNullOrEmpty(farm.AnchorPoint))
+        {
+            AnchorPoint = Enum.Parse<FarmAnchorPoint>(farm.AnchorPoint.Replace("-", ""), true);
         }
 
         if (!string.IsNullOrEmpty(farm.Faction))

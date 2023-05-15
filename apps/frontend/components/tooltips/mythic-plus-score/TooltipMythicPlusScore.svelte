@@ -9,6 +9,7 @@
     import { getRunQualityAffix } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types'
     import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
+    import { Constants } from '@/data/constants';
 
     export let character: Character
     export let scores: CharacterRaiderIoSeason
@@ -33,17 +34,22 @@
 
         runCounts = []
         const allRuns: CharacterMythicPlusAddonRun[] = []
-        for (const [timestamp, runs] of Object.entries(character.mythicPlusWeeks)) {
+        for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks)) {
             const weekStamp = parseInt(timestamp)
             if (weekStamp > startStamp && weekStamp <= endStamp) {
-                // data from the in-game API is wonky, roughly de-duplicate it
-                const dedupe = new Set<string>()
-                for (const run of runs) {
-                    const runKey = `${run.mapId}-${run.level}-${run.score}-${run.completed ? 1 : 0}`
-                    if (!dedupe.has(runKey)) {
-                        dedupe.add(runKey)
-                        allRuns.push(run)
+                // data before this season is wonky, deduplicate it :(
+                if (seasonId < 10) {
+                    const dedupe = new Set<string>()
+                    for (const run of weekRuns) {
+                        const runKey = `${run.mapId}-${run.level}-${run.score}-${run.completed ? 1 : 0}`
+                        if (!dedupe.has(runKey)) {
+                            dedupe.add(runKey)
+                            allRuns.push(run)
+                        }
                     }
+                }
+                else {
+                    allRuns.push(...weekRuns)
                 }
             }
         }

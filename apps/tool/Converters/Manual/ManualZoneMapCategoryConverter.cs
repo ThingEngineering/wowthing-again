@@ -1,4 +1,5 @@
-﻿using Wowthing.Tool.Models.ZoneMaps;
+﻿using Wowthing.Tool.Enums;
+using Wowthing.Tool.Models.ZoneMaps;
 
 namespace Wowthing.Tool.Converters.Manual;
 
@@ -51,35 +52,41 @@ public class ManualZoneMapCategoryConverter : JsonConverter<ManualZoneMapCategor
         bool useNote = !string.IsNullOrEmpty(farm.Note);
         bool useFaction = !string.IsNullOrEmpty(farm.Faction);
         bool useGroupId = farm.GroupId > 0;
+        bool useAnchorPoint = farm.AnchorPoint != FarmAnchorPoint.None;
 
-        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
         {
             writer.WriteNumberValue(farm.MinimumLevel ?? 0);
         }
 
-        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
         {
             writer.WriteNumberValue(farm.StatisticId ?? 0);
         }
 
-        if (useGroupId || useFaction || useNote || useRequiredQuestIds)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds)
         {
             writer.WriteNumberArray(farm.RequiredQuestIds);
         }
 
-        if (useGroupId || useFaction || useNote)
+        if (useAnchorPoint || useGroupId || useFaction || useNote)
         {
             writer.WriteStringValue(farm.Note ?? "");
         }
 
-        if (useGroupId || useFaction)
+        if (useAnchorPoint || useGroupId || useFaction)
         {
             writer.WriteStringValue(farm.Faction);
         }
 
-        if (useGroupId)
+        if (useAnchorPoint || useGroupId)
         {
-            writer.WriteNumberValue(farm.GroupId!.Value);
+            writer.WriteNumberValue(farm.GroupId ?? 0);
+        }
+
+        if (useAnchorPoint)
+        {
+            writer.WriteNumberValue((int)farm.AnchorPoint);
         }
 
         writer.WriteEndArray();

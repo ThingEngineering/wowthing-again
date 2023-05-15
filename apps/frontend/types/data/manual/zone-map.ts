@@ -1,4 +1,4 @@
-import type { FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
+import type { FarmAnchorPoint, FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
 import type { ManualDataVendorItem } from './vendor'
 
 
@@ -39,6 +39,7 @@ export class ManualDataZoneMapFarm {
         public note?: string,
         public faction?: string,
         public groupId?: number,
+        public anchorPoint?: FarmAnchorPoint,
     )
     {
         this.location = location.split(',')
