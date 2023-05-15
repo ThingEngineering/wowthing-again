@@ -43,7 +43,7 @@
                 const startStamp = currentPeriod.startTime.toUnixInteger()
                 const endStamp = currentPeriod.endTime.toUnixInteger()
 
-                for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks)) {
+                for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks || {})) {
                     const weekStamp = parseInt(timestamp)
                     if (weekStamp > startStamp && weekStamp <= endStamp) {
                         return runs
