@@ -31,12 +31,12 @@ export const dragonflightInscription: DragonflightProfession = {
         {
             itemId: 205441, // Bartered Inscription Journal
             questId: 75853,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205430, // Bartered Inscription Notes
             questId: 75842,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [

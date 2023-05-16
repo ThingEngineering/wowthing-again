@@ -30,12 +30,12 @@ export const dragonflightAlchemy: DragonflightProfession = {
         {
             itemId: 205440, // Bartered Alchemy Journal
             questId: 75848,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205429, // Bartered Alchemy Notes
             questId: 75847,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [

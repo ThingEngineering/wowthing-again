@@ -31,12 +31,12 @@ export const dragonflightLeatherworking: DragonflightProfession = {
         {
             itemId: 205437, // Bartered Leatherworking Journal
             questId: 75855,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205426, // Bartered Leatherworking Notes
             questId: 75840,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [

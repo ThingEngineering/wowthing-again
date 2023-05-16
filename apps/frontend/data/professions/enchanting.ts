@@ -30,12 +30,12 @@ export const dragonflightEnchanting: DragonflightProfession = {
         {
             itemId: 205438, // Bartered Enchanting Journal
             questId: 75850,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205427, // Bartered Enchanting Notes
             questId: 75845,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [
