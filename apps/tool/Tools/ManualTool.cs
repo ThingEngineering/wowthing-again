@@ -125,17 +125,30 @@ public class ManualTool
         var transmogSets = (await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem"))
             .ToGroupedDictionary(tsi => tsi.TransmogSetID);
 
-        var transmogSetEffects = await  context.WowItemEffect
-            .AsNoTracking()
-            .Where(wie => wie.Effect == WowSpellEffectEffect.LearnTransmogSet)
+        var itemEffects = await context.WowItemEffectV2
             .ToArrayAsync();
+
+        var transmogSetEffects = itemEffects.Where(itemEffect =>
+            itemEffect.SpellEffects.Any(kvp =>
+                kvp.Value.Any(kvp2 =>
+                    kvp2.Value.Effect == WowSpellEffectEffect.LearnTransmogSet
+                )
+            )
+        ).ToArray();
 
         _collectionItemToModifiedAppearances = transmogSetEffects
             .GroupBy(wie => wie.ItemId)
             .ToDictionary(
                 group => group.Key,
                 group => transmogSets.GetValueOrDefault(
-                        group.OrderByDescending(wie => wie.ItemXItemEffectId)
+                        group
+                            .First()
+                            .SpellEffects
+                            .SelectMany(se =>
+                                se.Value.Where(se2 =>
+                                    se2.Value.Effect == WowSpellEffectEffect.LearnTransmogSet
+                                ).Select(se2 => se2.Value)
+                            )
                             .First()
                             .Values[0],
                         Array.Empty<DumpTransmogSetItem>()
