@@ -19,7 +19,7 @@ public class DumpsTool
     private readonly Language[] _languages = Enum.GetValues<Language>();
     private readonly JankTimer _timer = new();
 
-    private Dictionary<int, int[]>? _spellTeachMap;
+    private Dictionary<int, List<int>>? _spellTeachMap;
     private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
 
     private static readonly Dictionary<string, int> _inventorySlotMap = new()
@@ -825,9 +825,8 @@ public class DumpsTool
         var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
             .ToGroupedDictionary(se => se.SpellID);
 
-        var dbMap = await context.WowItemEffect
-            .ToDictionaryAsync(wie => wie.ItemXItemEffectId);
-
+        _spellTeachMap = new();
+        var newMap = new Dictionary<int, WowItemEffectV2>();
         foreach (var dumpItemEffect in itemEffects)
         {
             if (dumpItemEffect.TriggerType == 0) // On Use
@@ -847,21 +846,27 @@ public class DumpsTool
 
                     foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
                     {
-                        if (!dbMap.TryGetValue(itemXItemEffect.ID, out var dbItemEffect))
+                        if (!newMap.TryGetValue(itemXItemEffect.ItemID, out var newItemEffect))
                         {
-                            dbItemEffect = dbMap[itemXItemEffect.ID] = new WowItemEffect
+                            newItemEffect = newMap[itemXItemEffect.ItemID] = new()
                             {
-                                ItemXItemEffectId = itemXItemEffect.ID,
+                                ItemId = itemXItemEffect.ItemID,
                             };
-                            context.WowItemEffect.Add(dbItemEffect);
                         }
 
-                        dbItemEffect.Effect = (WowSpellEffectEffect)spellEffect.Effect;
-                        dbItemEffect.ItemId = itemXItemEffect.ItemID;
-                        dbItemEffect.Values = new[]
+                        if (!newItemEffect.SpellEffects.TryGetValue(spellEffect.SpellID, out var newSpellEffects))
                         {
-                            spellEffect.EffectMiscValue0,
-                            spellEffect.EffectMiscValue1,
+                            newSpellEffects = newItemEffect.SpellEffects[spellEffect.SpellID] = new();
+                        }
+
+                        newSpellEffects[spellEffect.EffectIndex] = new()
+                        {
+                            Effect = (WowSpellEffectEffect)spellEffect.Effect,
+                            Values = new[]
+                            {
+                                spellEffect.EffectMiscValue0,
+                                spellEffect.EffectMiscValue1,
+                            },
                         };
                     }
                 }
@@ -870,32 +875,52 @@ public class DumpsTool
             {
                 foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
                 {
-                    if (!dbMap.TryGetValue(itemXItemEffect.ID, out var dbItemEffect))
+                    if (!newMap.TryGetValue(itemXItemEffect.ItemID, out var newItemEffect))
                     {
-                        dbItemEffect = dbMap[dumpItemEffect.ID] = new WowItemEffect
+                        newItemEffect = newMap[itemXItemEffect.ItemID] = new()
                         {
-                            ItemXItemEffectId = itemXItemEffect.ID,
+                            ItemId = itemXItemEffect.ItemID,
                         };
-                        context.WowItemEffect.Add(dbItemEffect);
                     }
 
-                    dbItemEffect.Effect = WowSpellEffectEffect.LearnSpell;
-                    dbItemEffect.ItemId = itemXItemEffect.ItemID;
-                    dbItemEffect.Values = new[]
+                    if (!newItemEffect.SpellEffects.TryGetValue(dumpItemEffect.SpellID, out var newSpellEffects))
                     {
-                        dumpItemEffect.SpellID,
+                        newSpellEffects = newItemEffect.SpellEffects[dumpItemEffect.SpellID] = new();
+                    }
+
+                    newSpellEffects[0] = new()
+                    {
+                        Effect = WowSpellEffectEffect.LearnSpell,
+                        Values = new[]
+                        {
+                            dumpItemEffect.SpellID,
+                        },
                     };
+
+                    if (!_spellTeachMap.TryGetValue(dumpItemEffect.SpellID, out var teachItemIds))
+                    {
+                        teachItemIds = _spellTeachMap[dumpItemEffect.SpellID] = new();
+                    }
+                    teachItemIds.Add(itemXItemEffect.ItemID);
                 }
             }
         }
 
-        _spellTeachMap = dbMap.Values
-            .Where(wie => wie.Effect == WowSpellEffectEffect.LearnSpell)
-            .ToGroupedDictionary(
-                wie => wie.Values[0],
-                wie => wie.ItemId
-            );
-        //_itemEffectsMap = itemEffectToItems;
+        var dbMap = await context.WowItemEffectV2
+            .ToDictionaryAsync(wie2 => wie2.ItemId);
+
+        foreach (var newEffect in newMap.Values)
+        {
+            if (!dbMap.TryGetValue(newEffect.ItemId, out var dbEffect))
+            {
+                dbMap[newEffect.ItemId] = newEffect;
+                context.WowItemEffectV2.Add(newEffect);
+            }
+            else
+            {
+                dbEffect.SpellEffects = newEffect.SpellEffects;
+            }
+        }
 
         _timer.AddPoint("ItemEffects");
     }
