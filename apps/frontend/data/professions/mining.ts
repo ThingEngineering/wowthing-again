@@ -28,12 +28,12 @@ export const dragonflightMining: DragonflightProfession = {
         {
             itemId: 205443, // Bartered Mining Journal
             questId: 75856,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205432, // Bartered Mining Notes
             questId: 75839,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
 }

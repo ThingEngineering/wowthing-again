@@ -9,6 +9,19 @@ type DragonflightKnowledge = {
 
 export const dragonflightKnowledge: DragonflightKnowledge[] = [
     {
+        name: 'Valdrakken Books',
+        shortName: 'VD',
+        icon: 'spell/339979', // Booksmart
+        masters: [],
+    },
+    {
+        name: 'Zaralek Cavern Books',
+        shortName: 'ZC',
+        icon: 'spell/339979', // Booksmart
+        masters: [],
+    },
+    null,
+    {
         name: 'Valdrakken',
         shortName: 'VD',
         icon: 'achievement/16530',
@@ -16,7 +29,6 @@ export const dragonflightKnowledge: DragonflightKnowledge[] = [
             Profession.Tailoring,
         ],
     },
-    null,
     {
         name: 'Azure Span',
         shortName: 'AS',

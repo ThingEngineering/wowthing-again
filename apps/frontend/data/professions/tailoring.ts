@@ -31,12 +31,12 @@ export const dragonflightTailoring: DragonflightProfession = {
         {
             itemId: 205442, // Bartered Tailoring Journal
             questId: 75858,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205431, // Bartered Tailoring Notes
             questId: 75837,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [

@@ -50,25 +50,28 @@
                     continue
                 }
 
-                const bookQuests = (profData.bookQuests || []).filter((bq) =>
-                    (bq.source === 'AC' && dkZone.shortName === 'VD') ||
-                    (['LN', 'ZC'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC')
-                )
-                for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
-                    zoneData.push({
-                        have: userQuestStore.hasAny(character.id, bookQuest.questId),
-                        itemId: bookQuest.itemId,
-                        profession: profData.id,
-                    })
+                if (dkZone.name.endsWith('Books')) {
+                    const bookQuests = (profData.bookQuests || []).filter((bq) =>
+                        (bq.source === 'AC' && dkZone.shortName === 'VD') ||
+                        (['LN', 'ZCB'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC')
+                    )
+                    for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
+                        zoneData.push({
+                            have: userQuestStore.hasAny(character.id, bookQuest.questId),
+                            itemId: bookQuest.itemId,
+                            profession: profData.id,
+                        })
+                    }
                 }
-
-                const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dkZone.shortName)
-                for (const treasureQuest of treasureQuests) {
-                    zoneData.push({
-                        have: userQuestStore.hasAny(character.id, treasureQuest.questId),
-                        itemId: treasureQuest.itemId,
-                        profession: profData.id,
-                    })
+                else { // not books
+                    const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dkZone.shortName)
+                    for (const treasureQuest of treasureQuests) {
+                        zoneData.push({
+                            have: userQuestStore.hasAny(character.id, treasureQuest.questId),
+                            itemId: treasureQuest.itemId,
+                            profession: profData.id,
+                        })
+                    }
                 }
             }
 

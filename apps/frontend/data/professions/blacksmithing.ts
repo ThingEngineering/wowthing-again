@@ -31,12 +31,12 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
         {
             itemId: 205439, // Bartered Blacksmithing Journal
             questId: 75849,
-            source: 'ZC',
+            source: 'ZCB',
         },
         {
             itemId: 205428, // Bartered Blacksmithing Notes
             questId: 75846,
-            source: 'ZC',
+            source: 'ZCB',
         },
     ],
     dropQuests: [

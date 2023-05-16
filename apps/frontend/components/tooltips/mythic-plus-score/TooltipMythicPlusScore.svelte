@@ -34,7 +34,7 @@
 
         runCounts = []
         const allRuns: CharacterMythicPlusAddonRun[] = []
-        for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks)) {
+        for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks || {})) {
             const weekStamp = parseInt(timestamp)
             if (weekStamp > startStamp && weekStamp <= endStamp) {
                 // data before this season is wonky, deduplicate it :(
