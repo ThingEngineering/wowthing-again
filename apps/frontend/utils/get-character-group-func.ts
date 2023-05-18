@@ -34,7 +34,7 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
                 out.push(settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z')
             }
             else if (thing === 'realm') {
-                out.push(get(staticStore).connectedRealms[char.realm.connectedRealmId].displayText)
+                out.push(get(staticStore).connectedRealms[char.realm.connectedRealmId]?.displayText || '???')
             }
         }
 
