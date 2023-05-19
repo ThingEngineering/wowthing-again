@@ -9,20 +9,22 @@ using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
+using Polly;
+using Polly.Retry;
 
 namespace Wowthing.Backend.Jobs.User;
 
 public class UserUploadJob : JobBase
 {
+    private bool _resetAchievementCache;
+    private bool _resetQuestCache;
+    private bool _resetTransmogCache;
+    private long _userId;
     private JankTimer _timer;
     private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
     private Dictionary<short, Dictionary<(short Expansion, int ZoneId, int QuestId, short Faction, short Class), WorldQuestReport>> _worldQuestReportMap;
-
-    private bool _resetAchievementCache;
-    private bool _resetQuestCache;
-    private bool _resetTransmogCache;
 
     private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
         new(new PlayerCharacterAddonAchievementsAchievementComparer());
@@ -65,13 +67,55 @@ public class UserUploadJob : JobBase
         5, // Reagent bag
     };
 
+    private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
+        .HandleResult<bool>(r => r == false)
+        .WaitAndRetryAsync(
+            retryCount: 20,
+            retryNumber => TimeSpan.FromMilliseconds(250)
+        );
+
     public override async Task Run(params string[] data)
     {
         _timer = new JankTimer();
 
-        long userId = long.Parse(data[0]);
-        using var shrug = UserLog(userId);
+        _userId = long.Parse(data[0]);
+        using var shrug = UserLog(_userId);
 
+        Logger.Information("Processing upload...");
+
+        string lockKey = $"user_upload:{_userId}";
+        string lockValue = Guid.NewGuid().ToString("N");
+        try
+        {
+            // Attempt to get exclusive scheduler lock
+            var lockResult = await LockRetryPolicy.ExecuteAndCaptureAsync(
+                () => JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1))
+            );
+            if (lockResult.Outcome == OutcomeType.Failure)
+            {
+                Logger.Error("Failed to acquire lock!");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Kaboom!");
+            return;
+        }
+
+        try
+        {
+            await Process(data[1]);
+        }
+        finally
+        {
+            await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+        }
+
+        Logger.Information("{Timer}", _timer.ToString());
+    }
+
+    public async Task Process(string luaData) {
         _instanceNameToIdMap = (await MemoryCacheService.GetJournalInstanceMap())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
@@ -80,7 +124,7 @@ public class UserUploadJob : JobBase
 
         var trustedRole = await MemoryCacheService.GetTrustedRole();
         bool hasTrustedRole = await Context.UserRoles
-            .Where(ur => ur.UserId == userId && ur.RoleId == trustedRole)
+            .Where(ur => ur.UserId == _userId && ur.RoleId == trustedRole)
             .AnyAsync();
         if (hasTrustedRole)
         {
@@ -111,7 +155,7 @@ public class UserUploadJob : JobBase
 
         _worldQuestReportMap = (
                 await Context.WorldQuestReport
-                    .Where(wqr => wqr.UserId == userId)
+                    .Where(wqr => wqr.UserId == _userId)
                     .ToArrayAsync()
             )
             .GroupBy(wqr => wqr.Region)
@@ -128,10 +172,8 @@ public class UserUploadJob : JobBase
 
         _timer.AddPoint("Load");
 
-        Logger.Information("Processing upload...");
-
         var json = LuaToJsonConverter4
-            .Convert(data[1].Replace("WWTCSaved = ", ""))[1..^1];
+            .Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
         _timer.AddPoint("Convert");
 
 #if DEBUG
@@ -145,7 +187,7 @@ public class UserUploadJob : JobBase
 
         // Fetch guild data
         var guildMap = await Context.PlayerGuild
-            .Where(pg => pg.UserId == userId)
+            .Where(pg => pg.UserId == _userId)
             .Include(pg => pg.Items)
             .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
 
@@ -162,7 +204,7 @@ public class UserUploadJob : JobBase
             {
                 guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
                 {
-                    UserId = userId,
+                    UserId = _userId,
                     RealmId = realm.Id,
                     Name = guildName,
                 };
@@ -196,7 +238,7 @@ public class UserUploadJob : JobBase
 
         // Fetch character data
         var characterMap = await Context.PlayerCharacter
-            .Where(c => c.Account.UserId == userId)
+            .Where(c => c.Account.UserId == _userId)
             .Where(characterPredicate)
             .Include(c => c.AddonAchievements)
             .Include(c => c.AddonData)
@@ -275,7 +317,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
-            HandleQuests(character, characterData, realm.Region, userId);
+            HandleQuests(character, characterData, realm.Region);
             HandleReputations(character, characterData);
             HandleTransmog(character, characterData);
             HandleWeekly(character, characterData);
@@ -397,30 +439,28 @@ public class UserUploadJob : JobBase
         if (updatedCharacters > 0)
         {
             Logger.Information("Updating {Count} character(s) immediately", updatedCharacters);
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _userId);
         }
 
         if (_resetAchievementCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, data[0]);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, _userId.ToString());
         }
 
         if (_resetQuestCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, data[0]);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, _userId.ToString());
         }
 
         if (_resetTransmogCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, data[0]);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, _userId.ToString());
         }
 
         Logger.Warning("Trying to save");
 
         await Context.SaveChangesAsync();
         _timer.AddPoint("Save", true);
-
-        Logger.Information("{Timer}", _timer.ToString());
     }
 
     private (WowRealm, string) ParseAddonId(string addonId)
@@ -1338,7 +1378,7 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region, long userId)
+    private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
     {
         bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
         bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
@@ -1589,7 +1629,7 @@ public class UserUploadJob : JobBase
             if (scanTime >= character.AddonQuests.WorldQuestsScannedAt)
             {
                 character.AddonQuests.WorldQuestsScannedAt = scanTime;
-                HandleQuestsWorld(character, characterData, region, userId);
+                HandleQuestsWorld(character, characterData, region);
             }
         }
 
@@ -1601,7 +1641,7 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region, long userId)
+    private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
     {
         if (!_worldQuestReportMap.TryGetValue((short)region, out var reportMap))
         {
@@ -1634,7 +1674,7 @@ public class UserUploadJob : JobBase
                     {
                         reportMap[reportKey] = reportQuest = new WorldQuestReport()
                         {
-                            UserId = userId,
+                            UserId = _userId,
                             Region = (short)region,
                             Expansion = expansion,
                             ZoneId = zoneId,
