@@ -285,23 +285,38 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         {
             minimumLevel: 70,
+            taskKey: 'dfFyrakkAssault',
+            taskName: '[10.1] Fyrakk - Assault',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfFyrakkDisciple',
+            taskName: '[10.1] Fyrakk - Disciple Head',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfFyrakkShipment',
+            taskName: '[10.1] Fyrakk - Secured Shipment',
+        },
+        {
+            minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire1',
-            taskName: '[ZC] Researchers Under Fire :quality-1-T1:',
+            taskName: '[10.1] Researchers Under Fire :quality-1-T1:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire2',
-            taskName: '[ZC] Researchers Under Fire :quality-2-T2:',
+            taskName: '[10.1] Researchers Under Fire :quality-2-T2:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire3',
-            taskName: '[ZC] Researchers Under Fire :quality-3-T3:',
+            taskName: '[10.1] Researchers Under Fire :quality-3-T3:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire4',
-            taskName: '[ZC] Researchers Under Fire :quality-4-T4:',
+            taskName: '[10.1] Researchers Under Fire :quality-4-T4:',
         },
     ],
     'dfDungeonWeeklies': [
