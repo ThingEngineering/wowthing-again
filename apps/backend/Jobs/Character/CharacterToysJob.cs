@@ -1,14 +1,14 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
-using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Backend.Jobs.Character;
 
-public class CharacterPetsJob : JobBase
+public class CharacterToysJob : JobBase
 {
-    private const string ApiPath = "profile/wow/character/{0}/{1}/collections/pets";
+    private const string ApiPath = "profile/wow/character/{0}/{1}/collections/toys";
+
     public override async Task Run(params string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
@@ -19,7 +19,7 @@ public class CharacterPetsJob : JobBase
             throw new InvalidDataException("AccountId is null");
         }
 
-        string lockKey = $"character_pets:{query.AccountId}";
+        string lockKey = $"character_toys:{query.AccountId}";
         string lockValue = Guid.NewGuid().ToString("N");
         try
         {
@@ -27,7 +27,7 @@ public class CharacterPetsJob : JobBase
             bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
             if (!lockSuccess)
             {
-                Logger.Debug("Skipping pets, lock failed");
+                Logger.Debug("Skipping toys, lock failed");
                 return;
             }
         }
@@ -38,11 +38,11 @@ public class CharacterPetsJob : JobBase
         }
 
         // Fetch API data
-        ApiCharacterPets resultData;
+        ApiCharacterToys resultData;
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterPets>(uri, useLastModified: false);
+            var result = await GetJson<ApiCharacterToys>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -58,30 +58,20 @@ public class CharacterPetsJob : JobBase
         }
 
         // Fetch character data
-        var pets = await Context.PlayerAccountPets.FindAsync(query.AccountId.Value);
-        if (pets == null)
+        var toys = await Context.PlayerAccountToys.FindAsync(query.AccountId.Value);
+        if (toys == null)
         {
-            pets = new PlayerAccountPets
+            toys = new PlayerAccountToys
             {
                 AccountId = query.AccountId.Value,
             };
-            Context.PlayerAccountPets.Add(pets);
+            Context.PlayerAccountToys.Add(toys);
         }
 
-        pets.Pets = resultData.Pets
+        toys.ToyIds = resultData.Toys
             .EmptyIfNull()
-            .ToDictionary(
-                k => k.Id,
-                v => new PlayerAccountPetsPet
-                {
-                    BreedId = v.Stats.BreedId,
-                    Level = v.Level,
-                    Quality = v.Quality.EnumParse<WowQuality>(),
-                    SpeciesId = v.Species.Id,
-                }
-            );
-
-        pets.UpdatedAt = DateTime.UtcNow;
+            .Select(toy => toy.Toy.Id)
+            .ToList();
 
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)

@@ -161,10 +161,12 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterSoulbinds);
         }
 
-        // Pets
+        // Account stuff
         if (query.AccountId.HasValue)
         {
+            jobs.Add(JobType.CharacterHeirlooms);
             jobs.Add(JobType.CharacterPets);
+            jobs.Add(JobType.CharacterToys);
         }
 
         foreach (var jobType in jobs)

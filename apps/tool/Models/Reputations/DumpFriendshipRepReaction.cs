@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
-namespace Wowthing.Tool.Models;
+namespace Wowthing.Tool.Models.Reputations;
 
 // ReSharper disable InconsistentNaming
 public class DumpFriendshipRepReaction

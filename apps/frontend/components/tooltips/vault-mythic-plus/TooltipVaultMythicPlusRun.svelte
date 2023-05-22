@@ -1,11 +1,11 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon'
     import { getVaultItemLevel } from '@/utils/mythic-plus'
-    import type { CharacterWeeklyProgress } from '@/types'
+    import type { CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
 
     export let index: number
     export let progress: CharacterWeeklyProgress[]
-    export let run: number[]
+    export let run: CharacterMythicPlusAddonRun
 
     let cls: string
     let dungeonName: string
@@ -13,6 +13,7 @@
     let keyLevel: number
 
     $: {
+        console.log(run, dungeonMap[run?.mapId])
         let prog: CharacterWeeklyProgress
         for (const thing of progress) {
             if (index === (thing.threshold - 1)) {
@@ -24,7 +25,7 @@
         if (prog) {
             if (prog.level > 0) {
                 cls = 'vault-reward'
-                dungeonName = run ? dungeonMap[run[0]].name : 'Unknown dungeon'
+                dungeonName = run ? dungeonMap[run.mapId].name : 'Unknown dungeon'
                 keyLevel = prog.level
             }
             else {
@@ -34,8 +35,8 @@
             }
         }
         else if (index < progress[2].progress) {
-            dungeonName = run ? dungeonMap[run[0]].name : 'Unknown dungeon'
-            keyLevel = run ? run[1] : 0
+            dungeonName = run ? dungeonMap[run.mapId].name : 'Unknown dungeon'
+            keyLevel = run ? run.level : 0
         }
 
         if (keyLevel > 0) {

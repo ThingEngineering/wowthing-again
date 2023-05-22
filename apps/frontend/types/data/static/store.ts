@@ -1,6 +1,7 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
+import type { StaticDataHeirloom } from './heirloom'
 import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday'
 import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
@@ -8,7 +9,6 @@ import type { StaticDataKeystoneAffix } from './keystone-affix'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'
-import type { StaticDataRaiderIoScoreTiers } from './raider-io'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
 import type { StaticDataSoulbind } from './soulbind'
@@ -23,7 +23,6 @@ export interface StaticData {
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>
     professions: Record<number, StaticDataProfession>
     questNames: Record<number, string>
-    raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
 
@@ -42,7 +41,9 @@ export interface StaticData {
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
 
-    heirlooms: Record<number, number[]>
+    heirlooms: StaticDataHeirloom[]
+    heirloomsById: Record<number, StaticDataHeirloom>
+    heirloomsByItemId: Record<number, StaticDataHeirloom>
 
     holidays: Record<number, StaticDataHoliday>
     rawHolidays: StaticDataHolidayArray[]

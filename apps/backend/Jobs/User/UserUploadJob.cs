@@ -352,33 +352,33 @@ public class UserUploadJob : JobBase
             accountAddonData.HonorMax = parsed.HonorMax;
 
             // Heirlooms
-            accountAddonData.Heirlooms ??= new();
-
-            bool changedHeirlooms = false;
-            foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
-            {
-                var heirloomParts = heirloom.Split(':');
-                if (heirloomParts.Length == 3)
-                {
-                    var itemId = int.Parse(heirloomParts[0]);
-                    var userHas = heirloomParts[1] == "1";
-                    var upgradeLevel = short.Parse(heirloomParts[2]);
-
-                    if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
-                    {
-                        accountAddonData.Heirlooms[itemId] = upgradeLevel;
-                        changedHeirlooms = true;
-                    }
-                }
-            }
-
-            if (changedHeirlooms)
-            {
-                // Change detection for this is obnoxious, just update it
-                Context.Entry(accountAddonData)
-                    .Property(ad => ad.Heirlooms)
-                    .IsModified = true;
-            }
+            // accountAddonData.Heirlooms ??= new();
+            //
+            // bool changedHeirlooms = false;
+            // foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
+            // {
+            //     var heirloomParts = heirloom.Split(':');
+            //     if (heirloomParts.Length == 3)
+            //     {
+            //         var itemId = int.Parse(heirloomParts[0]);
+            //         var userHas = heirloomParts[1] == "1";
+            //         var upgradeLevel = short.Parse(heirloomParts[2]);
+            //
+            //         if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
+            //         {
+            //             accountAddonData.Heirlooms[itemId] = upgradeLevel;
+            //             changedHeirlooms = true;
+            //         }
+            //     }
+            // }
+            //
+            // if (changedHeirlooms)
+            // {
+            //     // Change detection for this is obnoxious, just update it
+            //     Context.Entry(accountAddonData)
+            //         .Property(ad => ad.Heirlooms)
+            //         .IsModified = true;
+            // }
 
             // Quests
             var newQuests = parsed.Quests
@@ -392,22 +392,22 @@ public class UserUploadJob : JobBase
             }
 
             // Toys
-            var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
-            if (accountToys == null)
-            {
-                accountToys = new PlayerAccountToys
-                {
-                    AccountId = accountId,
-                };
-                Context.PlayerAccountToys.Add(accountToys);
-            }
-
-            if (parsed.Toys?.Count > 0)
-            {
-                accountToys.ToyIds = parsed.Toys
-                    .OrderBy(toyId => toyId)
-                    .ToList();
-            }
+            // var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
+            // if (accountToys == null)
+            // {
+            //     accountToys = new PlayerAccountToys
+            //     {
+            //         AccountId = accountId,
+            //     };
+            //     Context.PlayerAccountToys.Add(accountToys);
+            // }
+            //
+            // if (parsed.Toys?.Count > 0)
+            // {
+            //     accountToys.ToyIds = parsed.Toys
+            //         .OrderBy(toyId => toyId)
+            //         .ToList();
+            // }
 
             // Transmog
             var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);

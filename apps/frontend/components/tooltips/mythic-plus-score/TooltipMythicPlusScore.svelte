@@ -8,13 +8,12 @@
     import getRaiderIoColor from'@/utils/get-raider-io-color'
     import { getRunQualityAffix } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types'
-    import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
-    import { Constants } from '@/data/constants';
+    import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
 
     export let character: Character
     export let scores: CharacterRaiderIoSeason
     export let seasonId: number
-    export let tiers: StaticDataRaiderIoScoreTiers
+    export let tiers: UserDataRaiderIoScoreTiers
 
     let dungeonIds: number[]
     let runCounts: number[]

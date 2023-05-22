@@ -2,7 +2,8 @@
     import sortBy from 'lodash/sortBy'
 
     import { keyVaultItemLevel } from '@/data/dungeon'
-    import type { Character, CharacterWeeklyProgress } from '@/types'
+    import { timeStore, userStore } from '@/stores'
+    import type { Character, CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
 
     import Run from './TooltipVaultMythicPlusRun.svelte'
 
@@ -10,10 +11,16 @@
 
     let improve: [string, number][]
     let progress: CharacterWeeklyProgress[]
-    let runs: number[][]
+    let runs: CharacterMythicPlusAddonRun[]
     $: {
         progress = character.weekly?.vault?.mythicPlusProgress
-        runs = sortBy(character.weekly?.vault?.mythicPlusRuns || [], (run: number[]) => -run[1])
+
+        const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, character)
+        runs = sortBy(
+            character.mythicPlusWeeks?.[currentPeriod.endTime.toUnixInteger()] || [],
+            (run: CharacterMythicPlusAddonRun) => -run.level
+        )
+        console.log(character.name, runs, character.mythicPlusWeeks, currentPeriod.endTime.toUnixInteger())
 
         const betterOptions = keyVaultItemLevel.filter(([level,]) => level > progress[0].level)
         improve = []
@@ -29,7 +36,6 @@
                 break
             }
         }
-    //improve.reverse()
     }
 </script>
 

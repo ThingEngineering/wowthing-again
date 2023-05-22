@@ -85,6 +85,9 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
+        data.heirloomsById = Object.fromEntries(data.heirlooms.map((heirloom) => [heirloom.id, heirloom]))
+        data.heirloomsByItemId = Object.fromEntries(data.heirlooms.map((heirloom) => [heirloom.itemId, heirloom]))
+
         if (data.instancesRaw !== null) {
             data.instances = StaticDataStore.createObjects(data.instancesRaw, StaticDataInstance)
             data.instancesRaw = null

@@ -7,16 +7,13 @@
     import type { ManualDataHeirloomItem } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let item: ManualDataHeirloomItem
 
-    $: level = $userStore.heirlooms?.[item.itemId]
-    $: [bonusIdsIndex, itemIdsIndex] = $staticStore.heirlooms[item.itemId]
-    $: upgradeBonusIds = $staticStore.heirlooms[bonusIdsIndex]
-    $: upgradeItemIds = $staticStore.heirlooms[itemIdsIndex]
-    
+    $: heirloom = $staticStore.heirloomsByItemId[item.itemId]
+    $: level = $userStore.heirlooms?.[heirloom.id]
     $: userHas = level !== undefined
     $: show = (userHas && $heirloomState.showCollected) || (!userHas && $heirloomState.showUncollected)
 </script>
@@ -47,7 +44,7 @@
             type="item"
             id={item.itemId}
             extraParams={{
-                bonus: (upgradeBonusIds[(level || 0) - 1] || 0).toString()
+                bonus: (heirloom.upgradeBonusIds[(level || 0) - 1] || 0).toString()
             }}
         >
             <WowthingImage
@@ -58,11 +55,11 @@
         </WowheadLink>
 
         {#if level !== undefined}
-            <div class="pill {getPercentClass(level / upgradeItemIds.length * 100)}">
-                {level} / {upgradeBonusIds.length}
+            <div class="pill {getPercentClass(level / heirloom.upgradeItemIds.length * 100)}">
+                {level} / {heirloom.upgradeBonusIds.length}
             </div>
 
-            {#if level === upgradeBonusIds.length}
+            {#if level === heirloom.upgradeBonusIds.length}
                 <div class="collected-icon drop-shadow">
                     <IconifyIcon icon={mdiCheckboxOutline} />
                 </div>
