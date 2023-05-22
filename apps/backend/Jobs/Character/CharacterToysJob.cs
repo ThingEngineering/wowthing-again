@@ -24,10 +24,10 @@ public class CharacterToysJob : JobBase
         try
         {
             // Attempt to get exclusive scheduler lock
-            var lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
+            bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
             if (!lockSuccess)
             {
-                Logger.Debug("Skipping pets, lock failed");
+                Logger.Debug("Skipping toys, lock failed");
                 return;
             }
         }
@@ -78,5 +78,7 @@ public class CharacterToysJob : JobBase
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
         }
+
+        await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 }

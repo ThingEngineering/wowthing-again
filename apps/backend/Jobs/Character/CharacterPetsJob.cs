@@ -19,12 +19,12 @@ public class CharacterPetsJob : JobBase
             throw new InvalidDataException("AccountId is null");
         }
 
-        var lockKey = $"character_pets:{query.AccountId}";
-        var lockValue = Guid.NewGuid().ToString("N");
+        string lockKey = $"character_pets:{query.AccountId}";
+        string lockValue = Guid.NewGuid().ToString("N");
         try
         {
             // Attempt to get exclusive scheduler lock
-            var lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
+            bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
             if (!lockSuccess)
             {
                 Logger.Debug("Skipping pets, lock failed");
@@ -88,5 +88,7 @@ public class CharacterPetsJob : JobBase
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
         }
+
+        await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 }
