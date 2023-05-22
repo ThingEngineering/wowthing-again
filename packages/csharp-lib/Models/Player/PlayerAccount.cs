@@ -22,6 +22,7 @@ public class PlayerAccount
     // Navigation properties
     public PlayerAccountAddonData AddonData { get; set; }
     public List<PlayerCharacter> Characters { get; set; }
+    public PlayerAccountHeirlooms Heirlooms { get; set; }
     public PlayerAccountPets Pets { get; set; }
     public PlayerAccountToys Toys { get; set; }
     public PlayerAccountTransmogSources TransmogSources { get; set; }

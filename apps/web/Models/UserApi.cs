@@ -26,7 +26,7 @@ public class UserApi
     public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
     public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
-    public Dictionary<int, short> Heirlooms { get; set; }
+    public Dictionary<int, int> Heirlooms { get; set; }
     public Dictionary<string, string> Images { get; set; }
     public Dictionary<int, RedisRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
 

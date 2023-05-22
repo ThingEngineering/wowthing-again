@@ -195,6 +195,7 @@ public class ApiController : Controller
             .AsNoTracking()
             .Where(a => a.UserId == apiResult.User.Id)
             .Include(pa => pa.AddonData)
+            .Include(pa => pa.Heirlooms)
             .Include(pa => pa.Pets)
             .Include(pa => pa.Toys)
             .ToListAsync();
@@ -321,12 +322,12 @@ public class ApiController : Controller
         timer.AddPoint("Periods");
 
         // Heirlooms
-        var heirlooms = new Dictionary<int, short>();
-        foreach (var account in tempAccounts.Where(pa => pa.AddonData?.Heirlooms != null))
+        var heirlooms = new Dictionary<int, int>();
+        foreach (var account in tempAccounts.Where(pa => pa.Heirlooms != null))
         {
-            foreach (var (itemId, upgradeLevel) in account.AddonData.Heirlooms)
+            foreach ((int heirloomId, int upgradeLevel) in account.Heirlooms.Heirlooms)
             {
-                heirlooms[itemId] = upgradeLevel;
+                heirlooms[heirloomId] = Math.Max(heirlooms.GetValueOrDefault(heirloomId), upgradeLevel);
             }
         }
 
