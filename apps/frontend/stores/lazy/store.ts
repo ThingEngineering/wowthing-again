@@ -494,10 +494,11 @@ export class LazyStore implements LazyUgh {
     private doHeirlooms(): UserCounts {
         return this.doGeneric(
             this.manualData.heirlooms,
-            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[heirloom.itemId] > 0,
-            (heirloom: ManualDataHeirloomItem) => this.staticData.heirlooms[
-                this.staticData.heirlooms[heirloom.itemId][0]].length,
-            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[heirloom.itemId] || 0,
+            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
+                this.staticData.heirloomsByItemId[heirloom.itemId].id] > 0,
+            (heirloom: ManualDataHeirloomItem) => this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length,
+            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
+                this.staticData.heirloomsByItemId[heirloom.itemId].id] || 0,
         )
     }
 

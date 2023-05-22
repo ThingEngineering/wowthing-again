@@ -788,34 +788,21 @@ public class StaticTool
         return ret;
     }
 
-    private async Task<Dictionary<int, int[]>> LoadHeirlooms()
+    private async Task<List<StaticHeirloom>> LoadHeirlooms()
     {
         var heirlooms = await DataUtilities.LoadDumpCsvAsync<DumpHeirloom>("heirloom");
 
-        var arrays = new List<int[]>();
-        var ret = new Dictionary<int, int[]>();
+        var ret = new List<StaticHeirloom>();
 
         foreach (var heirloom in heirlooms)
         {
-            var bonusIds = heirloom.UpgradeBonusIDs.ToArray();
-            var bonusIdsIndex = arrays.FindIndex((a) => a.SequenceEqual(bonusIds));
-            if (bonusIdsIndex == -1)
+            ret.Add(new StaticHeirloom
             {
-                arrays.Add(bonusIds);
-                bonusIdsIndex = arrays.Count - 1;
-                ret[bonusIdsIndex] = bonusIds;
-            }
-
-            var itemIds = heirloom.UpgradeItemIDs.ToArray();
-            var itemIdsIndex = arrays.FindIndex((a) => a.SequenceEqual(itemIds));
-            if (itemIdsIndex == -1)
-            {
-                arrays.Add(itemIds);
-                itemIdsIndex = arrays.Count - 1;
-                ret[itemIdsIndex] = itemIds;
-            }
-
-            ret.Add(heirloom.ItemID, new[] { bonusIdsIndex, itemIdsIndex });
+                Id = heirloom.ID,
+                ItemId = heirloom.ItemID,
+                UpgradeBonusIds = heirloom.UpgradeBonusIDs.ToList(),
+                UpgradeItemIds = heirloom.UpgradeItemIDs.ToList(),
+            });
         }
 
         return ret;

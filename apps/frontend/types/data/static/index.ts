@@ -1,6 +1,7 @@
 export * from './bag'
 export * from './character'
 export * from './currency'
+export * from './heirloom'
 export * from './holiday'
 export * from './instance'
 export * from './item'

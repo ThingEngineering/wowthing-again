@@ -1,6 +1,7 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
+import type { StaticDataHeirloom } from './heirloom'
 import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday'
 import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
@@ -40,7 +41,9 @@ export interface StaticData {
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
 
-    heirlooms: Record<number, number[]>
+    heirlooms: StaticDataHeirloom[]
+    heirloomsById: Record<number, StaticDataHeirloom>
+    heirloomsByItemId: Record<number, StaticDataHeirloom>
 
     holidays: Record<number, StaticDataHoliday>
     rawHolidays: StaticDataHolidayArray[]
