@@ -22,6 +22,18 @@
     $: {
         html = text || ''
 
+        // {reputation:amount|factionId}
+        html = html.replaceAll(
+            /\{reputation:(\d+)\|(\d+)\}/g,
+            (_, amount: Number, repId: number) => {
+                const parts: string[] = []
+                parts.push(amount.toString())
+                parts.push('rep with')
+                parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`)
+                return parts.join(' ')
+            }
+        )
+
         html = html.replaceAll(
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
             (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
