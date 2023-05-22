@@ -164,6 +164,7 @@ public class CharacterJob : JobBase
         // Account stuff
         if (query.AccountId.HasValue)
         {
+            jobs.Add(JobType.CharacterHeirlooms);
             jobs.Add(JobType.CharacterPets);
             jobs.Add(JobType.CharacterToys);
         }
