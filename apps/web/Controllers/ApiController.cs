@@ -378,6 +378,10 @@ public class ApiController : Controller
             timer.AddPoint("GoldHistory");
         }
 
+        // RaiderIO
+        var raiderIoScoreTiers = await _cacheService.GetRaiderIoTiers();
+        timer.AddPoint("RaiderIO");
+
         // Objects
         var characterObjects = characters
             .Select(character => new UserApiCharacter(
@@ -426,6 +430,7 @@ public class ApiController : Controller
             HonorMax = maxHonorAccount?.AddonData?.HonorMax ?? 0,
             Images = images,
             Public = apiResult.Public,
+            RaiderIoScoreTiers = raiderIoScoreTiers,
 
             AddonMounts = mounts.AddonMounts
                 .EmptyIfNull()

@@ -1,8 +1,8 @@
-import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
+import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
 
 
 export default function getRaiderIoColor(
-    tiers: StaticDataRaiderIoScoreTiers,
+    tiers: UserDataRaiderIoScoreTiers,
     score: number
 ): string {
     if (score === 0) {

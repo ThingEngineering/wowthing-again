@@ -184,6 +184,15 @@ public class CacheService
     }
     #endregion
 
+    #region RaiderIO
+    public async Task<Dictionary<int, RedisRaiderIoScoreTiers>> GetRaiderIoTiers()
+    {
+        var db = _redis.GetDatabase();
+        var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, RedisRaiderIoScoreTiers>>("raider_io_tiers");
+        return raiderIoScoreTiers ?? new Dictionary<int, RedisRaiderIoScoreTiers>();
+    }
+    #endregion
+
     #region Quests
     public async Task<(string, DateTimeOffset)> GetOrCreateQuestCacheAsync(
         WowDbContext context,

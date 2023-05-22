@@ -100,10 +100,6 @@ public class StaticTool
                     )
             );
 
-        // RaiderIO
-        var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>("raider_io_tiers");
-        cacheData.RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>();
-
         // Bags
         cacheData.RawBags = _itemMap.Values
             .Where(item => item.ContainerSlots > 0)

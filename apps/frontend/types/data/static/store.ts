@@ -8,7 +8,6 @@ import type { StaticDataKeystoneAffix } from './keystone-affix'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'
-import type { StaticDataRaiderIoScoreTiers } from './raider-io'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
 import type { StaticDataSoulbind } from './soulbind'
@@ -23,7 +22,6 @@ export interface StaticData {
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>
     professions: Record<number, StaticDataProfession>
     questNames: Record<number, string>
-    raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
 

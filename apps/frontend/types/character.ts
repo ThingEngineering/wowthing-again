@@ -288,7 +288,6 @@ interface CharacterWeekly {
 
 interface CharacterWeeklyVault {
     mythicPlusProgress: CharacterWeeklyProgress[]
-    mythicPlusRuns: number[][]
     rankedPvpProgress: CharacterWeeklyProgress[]
     raidProgress: CharacterWeeklyProgress[]
 }

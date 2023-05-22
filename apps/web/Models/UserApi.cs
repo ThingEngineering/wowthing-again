@@ -28,6 +28,7 @@ public class UserApi
     public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
     public Dictionary<int, short> Heirlooms { get; set; }
     public Dictionary<string, string> Images { get; set; }
+    public Dictionary<int, RedisRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
 
     public Dictionary<int, bool> AddonMounts { get; set; }
 

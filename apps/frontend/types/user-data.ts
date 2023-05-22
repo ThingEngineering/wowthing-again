@@ -20,6 +20,7 @@ export interface UserData {
     guilds: Record<number, Guild>
     goldHistoryRealms: number[]
     heirlooms: Record<number, number>
+    raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>
 
     honorCurrent: number
     honorLevel: number
@@ -103,6 +104,11 @@ export class UserDataPet {
 }
 
 export type UserDataPetArray = ConstructorParameters<typeof UserDataPet>
+
+export interface UserDataRaiderIoScoreTiers {
+    score: number[]
+    rgbHex: string[]
+}
 
 export interface DailyQuests {
     expansion: number
