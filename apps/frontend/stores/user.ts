@@ -73,7 +73,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         if (userData.toysPacked !== null) {
-            userData.hasToy = base64ToRecord(TypedArray.Int32, userData.toysPacked)
+            userData.hasToyById = base64ToRecord(TypedArray.Int32, userData.toysPacked)
             userData.toysPacked = null
         }
 
@@ -214,6 +214,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 })
             }
         }
+
+        userData.hasToy = Object.fromEntries(
+            Object.keys(userData.hasToyById)
+                .map((toyId) => [staticData.toysById[parseInt(toyId)].itemId, true])
+        )
 
         console.timeEnd('UserDataStore.setup')
     }

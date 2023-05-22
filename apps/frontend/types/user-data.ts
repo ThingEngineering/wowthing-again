@@ -50,6 +50,7 @@ export interface UserData {
     hasMount: Record<number, boolean>
     hasPet: Record<number, boolean>
     hasToy: Record<number, boolean>
+    hasToyById: Record<number, boolean>
 
     pets: Record<number, UserDataPet[]>
     setCounts: Record<string, Record<string, UserCount>>
