@@ -9,7 +9,7 @@
     import { dragonflightProfessionMap } from '@/data/professions'
     import { itemStore, staticStore, userQuestStore, userStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import type { Character, ReputationTier } from '@/types'
+    import type { Character } from '@/types'
     import type { DragonflightProfession } from '@/types/data'
     import type { StaticDataProfession } from '@/types/data/static'
 

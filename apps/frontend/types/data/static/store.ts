@@ -73,5 +73,6 @@ export interface StaticData {
     reputationTiers: Record<number, StaticDataReputationTier>
 
     toys: Record<number, StaticDataToy>
+    toysById: Record<number, StaticDataToy>
     rawToys: StaticDataToyArray[]
 }

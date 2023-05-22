@@ -170,6 +170,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         if (data.rawToys !== null) {
             data.toys = StaticDataStore.createObjects(data.rawToys, StaticDataToy, (toy) => toy.itemId)
+            data.toysById = Object.fromEntries(
+                Object.entries(data.toys)
+                    .map(([, toy]) => [toy.id, toy])
+            )
             data.rawToys = null
         }
 

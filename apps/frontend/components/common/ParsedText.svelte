@@ -25,7 +25,7 @@
         // {reputation:amount|factionId}
         html = html.replaceAll(
             /\{reputation:(\d+)\|(\d+)\}/g,
-            (_, amount: Number, repId: number) => {
+            (_, amount: number, repId: number) => {
                 const parts: string[] = []
                 parts.push(amount.toString())
                 parts.push('rep with')
