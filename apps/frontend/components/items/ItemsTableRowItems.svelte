@@ -25,13 +25,6 @@
     }
 </script>
 
-<style lang="scss">
-    .max-upgrade {
-        border-left: 1px solid $border-color;
-        padding: 0.2rem 0.5rem;
-    }
-</style>
-
 <td class="spacer"></td>
 
 {#each characterGear as gear}
