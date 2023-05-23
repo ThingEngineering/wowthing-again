@@ -140,12 +140,13 @@
 {:then things}
     <Paginate
         items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
-        perPage={$auctionState.allRealms ? 6 : 20}
+        perPage={$auctionState.allRealms ? 6 : 18}
         {page}
         let:paginated
     >
         <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as item}
+                {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
                 {@const ignored = $auctionState.ignored[slug]?.[item.id] === true}
                 <table
                     class="table table-striped"
@@ -179,7 +180,7 @@
 
                     {#if !ignored}
                         <tbody>
-                            {#each item.auctions as auction}
+                            {#each auctions as auction}
                                 {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
                                 <tr>
                                     <td
