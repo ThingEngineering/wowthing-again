@@ -427,7 +427,7 @@ public class ApiAuctionController : Controller
                 .AsNoTracking()
                 .Where(toy =>
                     toy.ItemId > 0 &&
-                    !accountToyIds.Contains(toy.ItemId)
+                    !accountToyIds.Contains(toy.Id)
                 )
                 .ToArrayAsync();
 
