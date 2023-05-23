@@ -56,7 +56,7 @@
         runCounts = getRunCounts(allRuns)
         totalRuns = runCounts.reduce((a, b) => a + b, 0)
 
-        scoreCount = Object.entries(scores)
+        scoreCount = Object.entries(scores || {})
             .filter(([key, score]) => !key.startsWith('spec') && score > 0)
             .length
     }
