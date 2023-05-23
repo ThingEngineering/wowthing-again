@@ -215,10 +215,17 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        userData.hasToy = Object.fromEntries(
-            Object.keys(userData.hasToyById)
-                .map((toyId) => [staticData.toysById[parseInt(toyId)].itemId, true])
-        )
+        userData.hasToy = {}
+        for (const toyIdString of Object.keys(userData.hasToyById)) {
+            const toyId = parseInt(toyIdString)
+            const toy = staticData.toysById[toyId]
+            if (toy) {
+                userData.hasToy[toy.itemId] = true
+            }
+            else {
+                console.error('Missing toy id', toyId)
+            }
+        }
 
         console.timeEnd('UserDataStore.setup')
     }
