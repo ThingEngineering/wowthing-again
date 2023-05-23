@@ -478,11 +478,11 @@ export const keyVaultItemLevel: Array<Array<number>> = [
     [2, 415, 3],
 ]
 
-export const raidVaultItemLevel: Record<number, number> = {
-    17: 402, // LFR
-    14: 415, // Normal
-    15: 428, // Heroic
-    16: 441, // Mythic
+export const raidVaultItemLevel: Record<number, Array<number>> = {
+    17: [402, 2], // LFR
+    14: [415, 3], // Normal
+    15: [428, 4], // Heroic
+    16: [441, 5], // Mythic
 }
 
 export const keyTiers = [
