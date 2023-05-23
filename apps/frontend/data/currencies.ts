@@ -99,6 +99,7 @@ export const currencyItems: Record<number, number[]> = {
     143: [
         152668, // Expulsom
         162460, // Hydrocore
+        165948, // Tidalcore
         168802, // Nazjatar Battle Commendation
     ],
 

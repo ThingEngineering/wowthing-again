@@ -21,6 +21,7 @@ public static partial class Hardcoded
         153021, // Intact Demon Eye
         162460, // Hydrocore
         163036, // Polished Pet Charm
+        165948, // Tidalcore
         168802, // Nazjatar Battle Commendation
         178061, // Malleable Flesh
         183744, // Superior Parts
