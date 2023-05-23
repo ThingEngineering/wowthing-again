@@ -14,6 +14,7 @@ export class AuctionState {
     public allRealms = false
     public extraPetsIgnoreJournal = false
     public hideIgnored = false
+    public limitToBestRealms = false
     public missingPetsMaxLevel = false
     public region = '0'
 

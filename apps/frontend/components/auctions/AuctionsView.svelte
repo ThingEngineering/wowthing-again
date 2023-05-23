@@ -114,6 +114,13 @@
             </div>
         {/if}
 
+        <div class="options-group">
+            <Checkbox
+                name="limit_to_best_realms"
+                bind:value={$auctionState.limitToBestRealms}
+            >Only top 5</Checkbox>
+        </div>
+
         {#if params.slug1 === 'extra-pets'}
             <div class="options-group">
                 Extra pets:
