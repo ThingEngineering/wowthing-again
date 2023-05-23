@@ -64,8 +64,8 @@
         word-spacing: -0.2ch;
     }
     .character-filter-wrapper {
-        margin: 1rem 1rem 0 -1rem;
-        width: 10rem;
+        margin: 1rem 0 0 0;
+        width: 10.2rem;
     }
 </style>
 

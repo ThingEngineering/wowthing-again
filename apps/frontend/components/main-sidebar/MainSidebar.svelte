@@ -5,10 +5,6 @@
 
 <style lang="scss">
     nav {
-        border: 1px solid $border-color;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left-width: 0;
         margin-left: -1rem;
         margin-right: 1rem;
         min-width: var(--width);
@@ -18,6 +14,10 @@
         width: var(--width);
     }
     ul {
+        border: 1px solid $border-color;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-width: 0;
         margin: 0;
     }
     ul :global(li a) {
@@ -36,11 +36,11 @@
 </style>
 
 <div>
-    <nav id="{id}" class="thing-container" style="--width: {width}">
-        <ul>
+    <nav id="{id}" style="--width: {width}">
+        <ul class="thing-container">
             <slot />
         </ul>
-    </nav>
 
-    <slot name="after" />
+        <slot name="after" />
+    </nav>
 </div>
