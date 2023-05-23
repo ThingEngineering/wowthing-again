@@ -67,9 +67,9 @@ export function homeSort(
     else if (sortBy === 'vaultMythicPlus') {
         const progress = char.isMaxLevel ? char.weekly?.vault?.mythicPlusProgress : []
         return [
-            leftPad(999 - getVaultItemLevel(progress?.[0]?.level || 0), 3, '0'),
-            leftPad(999 - getVaultItemLevel(progress?.[1]?.level || 0), 3, '0'),
-            leftPad(999 - getVaultItemLevel(progress?.[2]?.level || 0), 3, '0'),
+            leftPad(999 - getVaultItemLevel(progress?.[0]?.level || 0)[0], 3, '0'),
+            leftPad(999 - getVaultItemLevel(progress?.[1]?.level || 0)[0], 3, '0'),
+            leftPad(999 - getVaultItemLevel(progress?.[2]?.level || 0)[0], 3, '0'),
         ].join('|')
     }
     else if (sortBy.startsWith('lockout:')) {
