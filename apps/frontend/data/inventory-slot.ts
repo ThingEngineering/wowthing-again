@@ -48,6 +48,8 @@ export const validEnchants: Record<number, number[]> = {
         // 6647, // Frozen Devotion 1
         6648, // Frozen Devotion 2
         6649, // Frozen Devotion 3
+        6826, // Shadowflame Wreathe 2
+        6827, // Shadowflame Wreathe 3
     ],
 
     [InventorySlot.Back]: [
@@ -73,6 +75,8 @@ export const validEnchants: Record<number, number[]> = {
         6490, // Fierce Armor Kit 3
         6540, // Frozen Spellthread 2
         6541, // Frozen Spellthread 3
+        6829, // Lambent Armor Kit 2
+        6830, // Lambent Armor Kit 3
     ],
 
     [InventorySlot.Feet]: [
