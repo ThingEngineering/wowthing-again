@@ -2,6 +2,7 @@
     import type { CharacterWeeklyProgress } from '@/types'
 
     export let progresses: CharacterWeeklyProgress[]
+    export let qualityFunc: (progress: CharacterWeeklyProgress) => number = null
     export let textFunc: (progress: CharacterWeeklyProgress) => string
 </script>
 
@@ -20,7 +21,7 @@
 <div class="flex-wrapper">
     {#each progresses as progress, progressIndex}
         {#if progress.progress >= progress.threshold}
-            <span class="quality4">{textFunc(progress)}</span>
+            <span class="quality{qualityFunc?.(progress) || 4}">{textFunc(progress)}</span>
         {:else}
             <span
                 class:ugh={

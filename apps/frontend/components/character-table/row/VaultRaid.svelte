@@ -9,12 +9,7 @@
 
     export let character: Character
 
-    $: raidVault = character.isMaxLevel ? character.weekly?.vault?.rankedPvpProgress : []
-    $: {
-        if (character.level === Constants.characterMaxLevel) {
-            raidVault = character.weekly?.vault?.raidProgress
-        }
-    }
+    $: raidVault = character.isMaxLevel ? character.weekly?.vault?.raidProgress : []
 </script>
 
 <style lang="scss">
@@ -29,8 +24,9 @@
     <td use:tippyComponent={{component: TooltipVaultRaid, props: {character}}}>
         <VaultShared
             progresses={raidVault}
+            qualityFunc={(prog) => getRaidVaultItemLevel(prog)[1]}
             textFunc={(prog) => prog.progress >= prog.threshold
-                ? getRaidVaultItemLevel(prog).toString()
+                ? getRaidVaultItemLevel(prog)[0].toString()
                 : `${prog.threshold - prog.progress} !`}
         />
     </td>

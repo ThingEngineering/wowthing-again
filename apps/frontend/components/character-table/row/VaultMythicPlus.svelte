@@ -23,8 +23,9 @@
     <td use:tippyComponent={{component: TooltipMythicPlusVault, props: { character }}}>
         <VaultShared
             progresses={mythicPlus}
+            qualityFunc={(prog) => getVaultItemLevel(prog.level)[1]}
             textFunc={(prog) => prog.progress >= prog.threshold
-                ? getVaultItemLevel(prog.level).toString()
+                ? getVaultItemLevel(prog.level)[0].toString()
                 : `${prog.threshold - prog.progress} !`}
         />
     </td>

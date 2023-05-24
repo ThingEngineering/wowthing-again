@@ -40,7 +40,7 @@
         }
 
         if (keyLevel > 0) {
-            itemLevel = getVaultItemLevel(keyLevel)
+            itemLevel = getVaultItemLevel(keyLevel)[0]
         }
     }
 </script>

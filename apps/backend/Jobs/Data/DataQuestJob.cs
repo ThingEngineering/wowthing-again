@@ -19,8 +19,11 @@ public class DataQuestJob : JobBase
         { Language.esMX, "es_MX" },
         { Language.itIT, "it_IT" },
         { Language.frFR, "fr_FR" },
+        { Language.koKR, "ko_KR" },
         { Language.ptBR, "pt_BR" },
         { Language.ruRU, "ru_RU" },
+        { Language.zhCN, "zh_CN" },
+        { Language.zhTW, "zh_TW" },
     };
 
     public override async Task Run(params string[] data)

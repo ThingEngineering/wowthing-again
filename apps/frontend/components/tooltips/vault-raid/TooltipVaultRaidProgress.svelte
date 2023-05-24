@@ -13,7 +13,7 @@
         if (progress.progress >= progress.threshold) {
             cls = 'vault-reward'
             dungeonName = difficultyMap[progress.level].name
-            itemLevel = getRaidVaultItemLevel(progress)
+            itemLevel = getRaidVaultItemLevel(progress)[0]
         }
         else {
             const more = progress.threshold - progress.progress
