@@ -1,11 +1,12 @@
 <script lang='ts'>
     import debounce from 'lodash/debounce'
 
-    import { multiTaskMap, taskList } from '@/data/tasks'
+    import { taskList } from '@/data/tasks'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import Multi from './SettingsTasksMulti.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
  
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
@@ -21,28 +22,13 @@
             return state
         })
     }, 100)
-
-    // Dragonflight Chores
-    const dfChoreChoices: SettingsChoice[] = multiTaskMap.dfChores.map((t) => ({ key: t.taskKey, name: t.taskName }))
-
-    const dfChoreInactive = ($settingsStore.tasks.disabledChores?.dfChores || [])
-        .map((f) => dfChoreChoices.filter((c) => c.key === f)[0])
-        .filter(f => f !== undefined)
-    const dfChoreActive = dfChoreChoices.filter((c) => dfChoreInactive.indexOf(c) === -1)
-
-    const onDfChoreChange = debounce(() => {
-        settingsStore.update(state => {
-            (state.tasks.disabledChores ||= {})['dfChores'] = dfChoreInactive.map((c) => c.key)
-            return state
-        })
-    }, 100)
 </script>
 
-<div class='thing-container settings-container'>
+<div class="settings-block">
     <h2>Tasks</h2>
 
     <p>
-        <code>Holiday</code> tasks will only show that column when that holiday is active.
+        <code>[Holiday]</code> tasks will only show that column when that holiday is active.
         You'll also need to add <code>Tasks</code> to <code>Home columns</code> in
         <a href='#/settings/layout'>Settings->Layout</a>.
     </p>
@@ -53,8 +39,10 @@
         active={taskActive}
         inactive={taskInactive}
     />
+</div>
 
-    <h3>Dragonflight Settings</h3>
+<div class="settings-block">
+    <h3>Dragonflight Profession Weeklies</h3>
 
     <CheckboxInput
         bind:value={$settingsStore.tasks.dragonflightCountCraftingDrops}
@@ -76,13 +64,26 @@
     >
         Show Treatises in Profession Weeklies.
     </CheckboxInput>
+</div>
 
-    <h3>Dragonflight Chores</h3>
+<div class="settings-block">
+    <div>
+        <h3>Dragonflight Chores</h3>
+        {#if taskActive.filter((task) => task.key === 'dfChores').length > 0}
+            <Multi multiTaskKey="dfChores" />
+        {:else}
+            <span>Add "<code>[DF]</code> Chores" to your Tasks list</span>
+        {/if}
+    </div>
+</div>
 
-    <MagicLists
-        key='dragonflight-chore'
-        onFunc={onDfChoreChange}
-        active={dfChoreActive}
-        inactive={dfChoreInactive}
-    />
+<div class="settings-block">
+    <div>
+        <h3>Dragonflight Chores - 10.1.0</h3>
+        {#if taskActive.filter((task) => task.key === 'dfChores10_1_0').length > 0}
+            <Multi multiTaskKey="dfChores10_1_0" />
+        {:else}
+            <span>Add "<code>[DF]</code> Chores - 10.1.0" to your Tasks list</span>
+        {/if}
+    </div>
 </div>

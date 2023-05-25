@@ -71,9 +71,7 @@
     }
 </style>
 
-<div class="thing-container settings-container">
-    <h2>Lockouts</h2>
-
+<div class="settings-block">
     <h3>Settings</h3>
 
     <div class="setting setting-checkbox setting-layout">

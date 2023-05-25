@@ -7,7 +7,7 @@
 <style lang="scss">
 </style>
 
-<div class="thing-container settings-container">
+<div class="settings-block">
     <h2>Achievements</h2>
 
     <div class="setting">

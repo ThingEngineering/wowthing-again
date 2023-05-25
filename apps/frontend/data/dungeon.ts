@@ -5,7 +5,7 @@ import type { StaticDataInstance } from '@/types/data/static'
 export const weeklyAffixes: string[][] = [
     ['tyrannical', 'storming', 'raging'],
     ['fortified', 'entangling', 'bolstering'],
-    ['tyrannical', 'quaking', 'quaking'],
+    ['tyrannical', 'incorporeal', 'spiteful'],
     ['fortified', 'quaking', 'quaking'],
     ['tyrannical', 'quaking', 'quaking'],
     ['fortified', 'quaking', 'quaking'],

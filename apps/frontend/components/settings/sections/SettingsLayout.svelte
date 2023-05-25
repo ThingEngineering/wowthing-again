@@ -89,105 +89,108 @@
     }
 </style>
 
-<div>
-    <div class="thing-container settings-container">
-        <h2>Layout</h2>
+<div class="settings-block">
+    <h3>Navigation</h3>
 
-        <h3>Navigation</h3>
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsStore.layout.newNavigation}
+            name="layout_newNavigation"
+        >
+            Use new navigation
+        </CheckboxInput>
+    </div>
 
-        <div class="setting setting-checkbox setting-layout">
-            <CheckboxInput
-                bind:value={$settingsStore.layout.newNavigation}
-                name="layout_newNavigation"
-            >
-                Use new navigation
-            </CheckboxInput>
-        </div>
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsStore.layout.newNavigationIcons}
+            name="layout_newNavigationIcons"
+        >
+            Only show icons
+        </CheckboxInput>
+    </div>
+</div>
 
-        <div class="setting setting-checkbox setting-layout">
-            <CheckboxInput
-                bind:value={$settingsStore.layout.newNavigationIcons}
-                name="layout_newNavigationIcons"
-            >
-                Only show icons
-            </CheckboxInput>
-        </div>
+<div class="settings-block">
+    <h3>Padding</h3>
 
+    <div class="setting setting-layout">
+        <RadioGroup
+            bind:value={$settingsStore.layout.padding}
+            name="layout_padding"
+            options={[
+                ['small', 'Small'],
+                ['medium', 'Medium'],
+                ['large', 'Large'],
+            ]}
+        />
+        <p>How much white space is used between columns.</p>
+    </div>
+</div>
 
-        <h3>Padding</h3>
+<div class="settings-block">
+    <h3>Covenant column</h3>
 
-        <div class="setting setting-layout">
-            <RadioGroup
-                bind:value={$settingsStore.layout.padding}
-                name="layout_padding"
-                options={[
-                    ['small', 'Small'],
-                    ['medium', 'Medium'],
-                    ['large', 'Large'],
-                ]}
-            />
-            <p>How much white space is used between columns.</p>
-        </div>
-        
-        <h3>Covenant column</h3>
+    <div class="setting setting-layout">
+        <RadioGroup
+            bind:value={$settingsStore.layout.covenantColumn}
+            name="layout_covenantColumn"
+            options={[
+                ['current', 'Current only'],
+                ['all', 'All'],
+            ]}
+        />
+        <p>How many covenants to display in the covenant column.</p>
+    </div>
+</div>
 
-        <div class="setting setting-layout">
-            <RadioGroup
-                bind:value={$settingsStore.layout.covenantColumn}
-                name="layout_covenantColumn"
-                options={[
-                    ['current', 'Current only'],
-                    ['all', 'All'],
-                ]}
-            />
-            <p>How many covenants to display in the covenant column.</p>
-        </div>
-        
-        <h3>Misc</h3>
+<div class="settings-block">
+    <h3>Misc</h3>
 
-        <div class="setting setting-checkbox setting-layout">
-            <CheckboxInput
-                bind:value={$settingsStore.layout.showPartialLevel}
-                name="layout_showPartialLevel"
-            >
-                Show partial levels in Character Level column.
-            </CheckboxInput>
-        </div>
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsStore.layout.showPartialLevel}
+            name="layout_showPartialLevel"
+        >
+            Show partial levels in Character Level column.
+        </CheckboxInput>
+    </div>
 
-        <div class="setting setting-checkbox setting-layout">
-            <CheckboxInput
-                bind:value={$settingsStore.layout.includeArchaeology}
-                name="layout_includeArchaeology"
-            >
-                Include Archaeology in Professions - Sec column.
-            </CheckboxInput>
-        </div>
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsStore.layout.includeArchaeology}
+            name="layout_includeArchaeology"
+        >
+            Include Archaeology in Professions - Sec column.
+        </CheckboxInput>
+    </div>
+</div>
 
-        <h3>Character table columns</h3>
+<div class="settings-block">
+    <h3>Character table columns</h3>
 
-        <p>
-            Drag items between the two lists on the left to control the layout of the
-            "common" information shown on many tables. Drag items between the two lists
-            on the right to control the extra columns that Home uses.
-        </p>
+    <p>
+        Drag items between the two lists on the left to control the layout of the
+        "common" information shown on many tables. Drag items between the two lists
+        on the right to control the extra columns that Home uses.
+    </p>
 
-        <div class="wrapper">
-            <MagicLists
-                key="common"
-                title="Common columns"
-                onFunc={onCommonChange}
-                active={commonActive}
-                inactive={commonInactive}
-            />
+    <div class="wrapper">
+        <MagicLists
+            key="common"
+            title="Common columns"
+            onFunc={onCommonChange}
+            active={commonActive}
+            inactive={commonInactive}
+        />
 
-            <MagicLists
-                key="home"
-                title="Home columns"
-                onFunc={onHomeChange}
-                active={homeActive}
-                inactive={homeInactive}
-            />
-        </div>
+        <MagicLists
+            key="home"
+            title="Home columns"
+            onFunc={onHomeChange}
+            active={homeActive}
+            inactive={homeInactive}
+        />
     </div>
 
     <HomeTable characterLimit={2} />

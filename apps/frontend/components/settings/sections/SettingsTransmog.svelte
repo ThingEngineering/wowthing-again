@@ -5,17 +5,16 @@
 </script>
 
 <style lang="scss">
-    .armor-type {
+    .transmog-type {
         h4 {
             display: inline-block;
-            top: 50%;
-            transform: translateY(-55%);
-            width: 4.5rem;
+            transform: translateY(-1px);
+            width: 5rem;
         }
 
         :global(fieldset) {
             display: inline-block;
-            width: 8.8rem;
+            width: 9rem;
         }
     }
     .separator {
@@ -24,8 +23,8 @@
     }
 </style>
 
-<div class="thing-container settings-container">
-    <h2>Transmog</h2>
+<div class="settings-block">
+    <h3>Misc settings</h3>
 
     <div class="setting">
         <Checkbox
@@ -38,10 +37,12 @@
             that exact source, not any other item that shares the same appearance.
         </p>
     </div>
+</div>
 
-    <h3>Included Items</h3>
+<div class="settings-block">
+    <h3>Item Filters</h3>
 
-    <div class="armor-type">
+    <div class="transmog-type">
         <h4>Cloth</h4>
 
         <Checkbox
@@ -63,7 +64,7 @@
         >Warlock</Checkbox>
     </div>
 
-    <div class="armor-type">
+    <div class="transmog-type">
         <h4>Leather</h4>
 
         <Checkbox
@@ -88,7 +89,7 @@
         >Rogue</Checkbox>
     </div>
 
-    <div class="armor-type">
+    <div class="transmog-type">
         <h4>Mail</h4>
 
         <Checkbox
@@ -108,7 +109,7 @@
         >Shaman</Checkbox>
     </div>
 
-    <div class="armor-type">
+    <div class="transmog-type">
         <h4>Plate</h4>
 
         <Checkbox
@@ -130,7 +131,7 @@
 
     <div class="separator"></div>
 
-    <div class="armor-type">
+    <div class="transmog-type">
         <h4>Faction</h4>
 
         <Checkbox

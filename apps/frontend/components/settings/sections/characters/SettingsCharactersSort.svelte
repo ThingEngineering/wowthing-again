@@ -68,7 +68,7 @@
     }
 </style>
 
-<div class="thing-container settings-container">
+<div class="settings-block">
     <h2>Sort Characters</h2>
 
     <p>
@@ -94,7 +94,9 @@
             inactive={sortByInactive}
         />
     </div>
+</div>
 
+<div class="settings-block">
     <CharacterTable>
         <tr slot="groupHead">
             <td class="new-group" colspan="999">--- NEW GROUP ---</td>
