@@ -159,6 +159,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'dfChores10_1_0',
+        name: '[DF] Chores - 10.1.0',
+        shortName: '10.1',
+        minimumLevel: 70,
+        type: 'multi',
+    },
+    {
         key: 'dfFighting',
         name: '[DF] Heroic Dungeons',
         shortName: 'HDun',
@@ -283,40 +290,57 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'dfReachStormsChest',
             taskName: '[FR] Chest of Storms', 
         },
+    ],
+    'dfChores10_1_0': [
         {
             minimumLevel: 70,
             taskKey: 'dfFyrakkAssault',
-            taskName: '[10.1] Fyrakk - Assault',
+            taskName: 'Fyrakk - Assault',
         },
-        {
-            minimumLevel: 70,
-            taskKey: 'dfFyrakkDisciple',
-            taskName: '[10.1] Fyrakk - Disciple Head',
-        },
+        // {
+        //     minimumLevel: 70,
+        //     taskKey: 'dfFyrakkDisciple',
+        //     taskName: '[10.1] Fyrakk - Disciple Head',
+        // },
         {
             minimumLevel: 70,
             taskKey: 'dfFyrakkShipment',
-            taskName: '[10.1] Fyrakk - Secured Shipment',
+            taskName: 'Fyrakk - Secured Shipment',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire1',
-            taskName: '[10.1] Researchers Under Fire :quality-1-T1:',
+            taskName: 'Researchers Under Fire :quality-1-T1:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire2',
-            taskName: '[10.1] Researchers Under Fire :quality-2-T2:',
+            taskName: 'Researchers Under Fire :quality-2-T2:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire3',
-            taskName: '[10.1] Researchers Under Fire :quality-3-T3:',
+            taskName: 'Researchers Under Fire :quality-3-T3:',
         },
         {
             minimumLevel: 70,
             taskKey: 'dfResearchersUnderFire4',
-            taskName: '[10.1] Researchers Under Fire :quality-4-T4:',
+            taskName: 'Researchers Under Fire :quality-4-T4:',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfSniffenDig1',
+            taskName: 'Sniffenseeking - Dig 1',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfSniffenDig2',
+            taskName: 'Sniffenseeking - Dig 2',
+        },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfSniffenDig3',
+            taskName: 'Sniffenseeking - Dig 3',
         },
     ],
     'dfDungeonWeeklies': [
