@@ -40,7 +40,7 @@
 <style lang="scss">
 </style>
 
-<div class="thing-container settings-container">
+<div class="settings-block">
     <h2>Pin Characters</h2>
 
     <p>

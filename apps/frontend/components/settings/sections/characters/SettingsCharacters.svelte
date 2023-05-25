@@ -16,6 +16,11 @@
 </script>
 
 <style lang="scss">
+    .thing-container {
+        break-inside: avoid;
+        overflow: hidden; /* Firefox fix */
+        padding-bottom: 0.5rem;
+    }
     .background-sliders {
         align-items: center;
         display: flex;
@@ -35,9 +40,7 @@
     }
 </style>
 
-<div
-    class="thing-container settings-container"
->
+<div class="thing-container">
     <h2>Characters</h2>
 
     <h3>Default Background</h3>

@@ -29,9 +29,7 @@
     }, 100)
 </script>
 
-<div class="thing-container settings-container">
-    <h2>History</h2>
-
+<div class="settings-block">
     <h3>Shown Realms</h3>
 
     {#each realms as realm}

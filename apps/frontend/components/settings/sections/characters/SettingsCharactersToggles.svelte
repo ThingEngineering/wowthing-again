@@ -76,6 +76,12 @@
 </script>
 
 <style lang="scss">
+    .settings-block {
+        width: 28rem;
+    }
+    ul {
+        margin-bottom: 0;
+    }
     table {
         margin-top: 1rem;
     }
@@ -121,16 +127,16 @@
     }
 </style>
 
-<div class="thing-container settings-container">
-    <h2>Character Toggles</h2>
-
+<div class="settings-block">
     <ul>
         <li>"Ignore" will stop including this character in most things, basically marking as inactive.</li>
         <li>"Hide" will completely hide this character.</li>
     </ul>
+</div>
 
-    {#each realms as [realm, characters]}
-        {@const realmParts = realm.split('|')}
+{#each realms as [realm, characters]}
+    {@const realmParts = realm.split('|')}
+    <div class="settings-block">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -177,5 +183,5 @@
                 {/each}
             </tbody>
         </table>
-    {/each}
-</div>
+    </div>
+{/each}

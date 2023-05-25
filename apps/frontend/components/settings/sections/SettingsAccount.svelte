@@ -91,9 +91,7 @@
     }
 </style>
 
-<div class="thing-container settings-container">
-    <h2>Account</h2>
-
+<div class="settings-block">
     <h3>Language</h3>
 
     <div class="setting">
@@ -116,7 +114,9 @@
             work is ongoing.
         </p>
     </div>
+</div>
 
+<div class="settings-block">
     <h3 class="space-me">User Name</h3>
 
     <div class="setting">
@@ -137,7 +137,9 @@
             </p>
         </div>
     </div>
+</div>
 
+<div class="settings-block">
     <h3 class="space-me">Auto Refresh</h3>
 
     <div class="setting">
@@ -150,7 +152,9 @@
         />
         <p>How long in minutes to wait between requesting updated data. Set to 0 to disable.</p>
     </div>
+</div>
 
+<div class="settings-block">
     <h3 class="space-me">WoW Accounts</h3>
 
     <p>
@@ -197,13 +201,15 @@
         </tbody>
     </table>
 
-    <div class="setting">
+    <div class="setting full-width">
         <Checkbox
             name="characters_hideDisabledAccounts"
             bind:value={$settingsStore.characters.hideDisabledAccounts}
         >Hide characters on disabled accounts</Checkbox>
     </div>
+</div>
 
+<div class="settings-block">
     <h3 class="space-me">API Key</h3>
 
     <div class="api-key">

@@ -9,7 +9,7 @@
 <style lang="scss">
 </style>
 
-<div class="thing-container settings-container">
+<div class="settings-block">
     <h2>Privacy</h2>
 
     <div class="setting">
@@ -26,7 +26,7 @@
         <Checkbox
             name="privacy_anonymized"
             bind:value={$settingsStore.privacy.anonymized}
-        >Anonymize character/realm names</Checkbox>
+        >Anonymize names</Checkbox>
         <p>
             Use "SecretGoose" for every character name and "Honkstrasza" for every realm name
         </p>

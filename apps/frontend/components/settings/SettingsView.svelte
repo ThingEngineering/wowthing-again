@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { SvelteComponent } from 'svelte'
 
+    import { getColumnResizer } from '@/utils/get-column-resizer'
+
     import Achievements from './sections/SettingsAchievements.svelte'
     import Auctions from './sections/SettingsAuctions.svelte'
     import AuctionsCustom from './sections/SettingsAuctionsCustom.svelte'
@@ -45,8 +47,38 @@
         'layout/lockouts': Lockouts,
         'layout/tasks': Tasks,
     }
+
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement && slug !== 'characters') {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'settings-block',
+                {
+                    columnCount: '--column-count',
+                    gap: 30,
+                    padding: '2rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
 </script>
 
-<svelte:component
-    this={components[slug]}
-/>
+<svelte:window on:resize={debouncedResize} />
+
+<div class="resizer-view" bind:this={containerElement}>
+    <div bind:this={resizeableElement}>
+        <div class="thing-container settings-container">
+            <svelte:component
+                this={components[slug]}
+            />
+        </div>
+    </div>
+</div>

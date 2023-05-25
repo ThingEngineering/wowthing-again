@@ -4,7 +4,7 @@
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
 </script>
 
-<div class="thing-container settings-container">
+<div class="settings-block">
     <h2>Collections</h2>
 
     <div class="setting">

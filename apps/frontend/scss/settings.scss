@@ -1,8 +1,10 @@
 .settings-container {
     border: 1px solid $border-color;
+    column-count: var(--column-count, 1);
+    column-gap: 30px;
     margin-bottom: 1rem;
     padding: 0.5rem 1.0rem;
-    width: $settings-column-width;
+    width: 100%;
 
     h2,
     h3 {
@@ -58,12 +60,19 @@
     }
 
     .setting {
+        align-items: center;
         display: flex;
+
+        &.full-width {
+            fieldset {
+                flex-basis: 100%;
+            }
+        }
 
         fieldset {
             align-items: center;
             display: flex;
-            flex: 0 0 20rem;
+            flex: 0 0 15rem;
         }
 
         p {
@@ -79,7 +88,13 @@
 
     .setting-checkbox {
         fieldset {
-            flex: 1 0 20rem;
+            flex: 1 0 30rem;
         }
     }
+}
+
+.settings-block {
+    break-inside: avoid;
+    overflow: hidden; /* Firefox fix */
+    width: $settings-column-width;
 }
