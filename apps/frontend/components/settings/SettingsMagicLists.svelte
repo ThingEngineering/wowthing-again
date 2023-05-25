@@ -46,7 +46,7 @@
         display: flex;
         flex: 1;
         flex-direction: column;
-        max-height: 40rem;
+        max-height: 21rem;
         overflow-y: auto;
 
         & :global(.defaultListView) {
