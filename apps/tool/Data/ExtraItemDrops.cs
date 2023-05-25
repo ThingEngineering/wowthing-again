@@ -218,6 +218,29 @@ public static partial class Hardcoded
                 new (186468, DungeonDifficultiesNormal), // Talon of the Tempest
             }
         },
+        {
+            100031, // Treasure Goblin
+            new List<ExtraItemDrop>
+            {
+                // Mount
+                new (76755, DungeonDifficultiesNormal), // Tyrael's Charger
+                // Pet
+                new (3580, DungeonDifficultiesNormal), // Baa'lial
+                // Toy
+                new (206008, DungeonDifficultiesNormal), // Nightmare Banner
+                new (142542, DungeonDifficultiesNormal), // Tome of Town Portal
+                new (143543, DungeonDifficultiesNormal), // Twelve-String Guitar
+                // Cosmetic
+                new (206020, DungeonDifficultiesNormal), // Enmity Hood
+                new (206004, DungeonDifficultiesNormal), // Enmity Cloak
+                new (206007, DungeonDifficultiesNormal), // Treasure Nabbin' Bag
+                // Weapon
+                new (206275, DungeonDifficultiesNormal), // Wirt's Fighting Leg
+                new (206276, DungeonDifficultiesNormal), // Wirt's Haunted Leg
+                new (206005, DungeonDifficultiesNormal), // Wirt's Last Leg
+                new (143327, DungeonDifficultiesNormal), // Livestock Lochaber Axe
+            }
+        },
         #endregion
 
         #region Classic
