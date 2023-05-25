@@ -195,7 +195,7 @@ public class ApplicationUserSettings
             .ToList();
 
         Tasks.DisabledChores = Tasks.DisabledChores
-            .Where(kvp => kvp.Key.EndsWith("Chores") && ValidTaskString.IsMatch(kvp.Key))
+            .Where(kvp => ValidTaskString.IsMatch(kvp.Key))
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }
