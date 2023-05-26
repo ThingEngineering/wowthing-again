@@ -219,7 +219,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100031, // Treasure Goblin
+            100030, // Treasure Goblin
             new List<ExtraItemDrop>
             {
                 // Mount
