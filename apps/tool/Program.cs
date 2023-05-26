@@ -6,6 +6,7 @@ return await Parser.Default.ParseArguments<
         AllOptions,
         AchievementsOptions,
         AppearancesOptions,
+        DbOptions,
         DumpsOptions,
         ItemsOptions,
         JournalOptions,
@@ -107,7 +108,7 @@ namespace Wowthing.Tool
     [Verb("appearances", HelpText = "Generate appearance data")]
     class AppearancesOptions { }
 
-    [Verb("appearances", HelpText = "Generate db data")]
+    [Verb("db", HelpText = "Generate db data")]
     class DbOptions { }
 
     [Verb("dumps", HelpText = "Import data dumps")]
