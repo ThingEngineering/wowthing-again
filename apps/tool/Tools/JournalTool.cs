@@ -254,6 +254,12 @@ public class JournalTool
                     }
 
                     var mapDifficulties = difficultiesByMapId[instance.MapID];
+                    // Some dungeons don't have a Timewalking map difficulty, check for the TW flag and manually
+                    // add the damn thing
+                    // if (map.InstanceType == 1 && (instance.Flags & 0x1) == 0x1 && !mapDifficulties.Contains(24))
+                    // {
+                    //     mapDifficulties = mapDifficulties.Concat(new[] { 24 }).ToArray();
+                    // }
 
                     var hadDifficulties = Hardcoded.InstanceDifficulties
                         .TryGetValue((tier.ID, instanceId), out int[] difficulties);
@@ -420,14 +426,18 @@ public class JournalTool
                                 continue;
                             }
 
+                            bool difficultiesOverridden = false;
                             if (!hadDifficulties)
                             {
                                 if (encounterItem.DifficultyMask == -1)
                                 {
                                     difficulties = mapDifficulties;
                                 }
-                                else if (!difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                else if (difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
                                 {
+                                    difficultiesOverridden = true;
+                                }
+                                else {
                                     ToolContext.Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
                                     continue;
                                 }
@@ -462,20 +472,28 @@ public class JournalTool
 
                             // Skip any items that aren't for this difficulty
                             // TODO handle multiple difficulties better
-                            /*if (encounterItem.DifficultyMask > 0 && difficulties.Length == 1)
+                            if (!difficultiesOverridden && encounterItem.DifficultyMask > 0 && difficulties?.Length >= 1)
                             {
-                                int difficultyValue = 1 << (difficulties[0] - 1);
-                                if ((encounterItem.DifficultyMask & difficultyValue) == 0)
+                                var forThis = (
+                                    // Basic difficulty mask check
+                                    difficulties.Any(diff => (encounterItem.DifficultyMask & (1 << (diff - 1))) > 0) ||
+                                    // Flex-normal check for old 10/25 normal flags
+                                    (difficulties.Contains(14) && (encounterItem.DifficultyMask & 12) > 0) ||
+                                    // Flex-heroic check for old 10/25 heroic flags
+                                    (difficulties.Contains(15) && (encounterItem.DifficultyMask & 48) > 0)
+                                );
+                                if (!forThis)
                                 {
-                                    if (encounter.ID == 1617)
-                                    {
-                                        ToolContext.Logger.Warning("Difficulty skip? {Mask} {Difficulty}",
-                                            encounterItem.DifficultyMask, difficultyValue);
-                                    }
-
+                                    ToolContext.Logger.Warning("Difficulty skip? {instanceId} {instanceName} / {encounterId} {encounterName} / {mask} {diffs}",
+                                        instance.ID,
+                                        instance.Name,
+                                        encounter.ID,
+                                        encounter.Name,
+                                        encounterItem.DifficultyMask,
+                                        string.Join(',', difficulties));
                                     continue;
                                 }
-                            }*/
+                            }
 
                             difficulties = difficulties
                                 .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
