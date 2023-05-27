@@ -5,7 +5,6 @@
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import HomeTable from '@/components/home/HomeTable.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     
@@ -83,9 +82,11 @@
             display: flex;
         }
     }
-    .wrapper {
-        display: flex;
-        gap: 1rem;
+    .settings-block {
+        :global(.columns h3) {
+            border-top: none;
+            padding-top: 0;
+        }
     }
 </style>
 
@@ -168,30 +169,20 @@
 
 <div class="settings-block">
     <h3>Character table columns</h3>
+    
+    <MagicLists
+        key="common"
+        title="Common columns"
+        onFunc={onCommonChange}
+        active={commonActive}
+        inactive={commonInactive}
+    />
 
-    <p>
-        Drag items between the two lists on the left to control the layout of the
-        "common" information shown on many tables. Drag items between the two lists
-        on the right to control the extra columns that Home uses.
-    </p>
-
-    <div class="wrapper">
-        <MagicLists
-            key="common"
-            title="Common columns"
-            onFunc={onCommonChange}
-            active={commonActive}
-            inactive={commonInactive}
-        />
-
-        <MagicLists
-            key="home"
-            title="Home columns"
-            onFunc={onHomeChange}
-            active={homeActive}
-            inactive={homeInactive}
-        />
-    </div>
-
-    <HomeTable characterLimit={2} />
+    <MagicLists
+        key="home"
+        title="Home columns"
+        onFunc={onHomeChange}
+        active={homeActive}
+        inactive={homeInactive}
+    />
 </div>

@@ -9,6 +9,7 @@
     import Account from './sections/SettingsAccount.svelte'
     import Collections from './sections/SettingsCollections.svelte'
     import History from './sections/SettingsHistory.svelte'
+    import HomeTable from '@/components/home/HomeTable.svelte'
     import Layout from './sections/SettingsLayout.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
@@ -52,7 +53,7 @@
     let resizeableElement: HTMLElement
     let debouncedResize: () => void
     $: {
-        if (resizeableElement && slug !== 'characters') {
+        if (resizeableElement) {
             debouncedResize = getColumnResizer(
                 containerElement,
                 resizeableElement,
@@ -73,12 +74,18 @@
 
 <svelte:window on:resize={debouncedResize} />
 
-<div class="resizer-view" bind:this={containerElement}>
-    <div bind:this={resizeableElement}>
-        <div class="thing-container settings-container">
-            <svelte:component
-                this={components[slug]}
-            />
+<div class="wrapper-column">
+    <div class="resizer-view" bind:this={containerElement}>
+        <div bind:this={resizeableElement}>
+            <div class="thing-container settings-container">
+                <svelte:component
+                    this={components[slug]}
+                />
+            </div>
         </div>
     </div>
+
+    {#if slug === 'layout'}
+        <HomeTable characterLimit={2} />
+    {/if}
 </div>
