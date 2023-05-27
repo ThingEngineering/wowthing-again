@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using Wowthing.Tool.Extensions;
 using Wowthing.Tool.Models.Db;
 
 namespace Wowthing.Tool.Tools;
@@ -7,18 +8,51 @@ public class DbTool
 {
     private readonly JankTimer _timer = new();
 
+    private int _mapIndex = 1;
+    private int _requirementIndex = 1;
     private int _tagIndex = 1;
-    private readonly Dictionary<string, int> _tagMap = new();
-    private readonly List<DataDbThing> _things = new();
+    private readonly Dictionary<string, int> _mapToId = new();
+    private readonly Dictionary<string, int> _requirementToId = new();
+    private readonly Dictionary<string, int> _tagToId = new();
+
+    private readonly List<OutDbThing> _things = new();
 
     public async Task Run(params string[] data)
     {
         using var foo = LogContext.PushProperty("Task", "Db");
         await using var context = ToolContext.GetDbContext();
 
+        ToolContext.Logger.Information("Loading...");
+
         LoadDbFiles();
 
-        _timer.AddPoint("Generate", true);
+        _timer.AddPoint("Load");
+
+
+        var outData = new RedisDbData()
+        {
+            MapsById = _mapToId.ToReverseDictionary(),
+            RequirementsById = _requirementToId.ToReverseDictionary(),
+            TagsById = _tagToId.ToReverseDictionary(),
+            Things = _things,
+        };
+
+        // Save the data to Redis
+        ToolContext.Logger.Information("Saving...");
+
+        string cacheJson = ToolContext.SerializeJson(outData); // cacheData
+        string cacheHash = cacheJson.Md5();
+        _timer.AddPoint("JSON");
+
+        var db = ToolContext.Redis.GetDatabase();
+
+        foreach (var language in Enum.GetValues<Language>())
+        {
+            await db.SetCacheDataAndHash($"db-{language.ToString()}", cacheJson, cacheHash);
+        }
+
+        _timer.AddPoint("Save", true);
+
         ToolContext.Logger.Information("{0}", _timer.ToString());
     }
 
@@ -26,13 +60,19 @@ public class DbTool
     {
         ToolContext.Logger.Information("📁_db/");
         var rootDirInfo = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_db"));
-        RecurseDirectory(rootDirInfo, 0, new HashSet<int>());
+        RecurseDirectory(rootDirInfo, 0, null, new HashSet<int>(), new HashSet<int>());
     }
 
-    private void RecurseDirectory(DirectoryInfo dirInfo, int depth, HashSet<int> tagIds)
+    private void RecurseDirectory(
+        DirectoryInfo dirInfo,
+        int depth,
+        string? baseLocation,
+        HashSet<int>? requirementIds,
+        HashSet<int>? tagIds
+    )
     {
-        string? baseLocation = null;
         string indent = new string(' ', ++depth * 2);
+        var dirRequirementIds = new HashSet<int>(requirementIds);
         var dirTagIds = new HashSet<int>(tagIds);
 
         var fileInfos = dirInfo.GetFiles()
@@ -44,17 +84,13 @@ public class DbTool
             var parsed = DataUtilities.YamlDeserializer.Deserialize<DataDbFile>(File.OpenText(fileInfo.FullName));
             if (fileInfo.Name == "_.yml")
             {
-                AddTags(dirTagIds, parsed.Tags);
                 baseLocation = parsed.Location;
+                AddRequirements(dirRequirementIds, parsed.Requirements);
+                AddTags(dirTagIds, parsed.Tags);
             }
             else
             {
-                var fileTagIds = new HashSet<int>(dirTagIds);
-                AddTags(fileTagIds, parsed.Tags);
-
-                ProcessFile(fileTagIds, baseLocation, parsed);
-
-                ToolContext.Logger.Information("tags: {tags}", string.Join(',', fileTagIds));
+                ProcessFile(parsed, baseLocation, new HashSet<int>(dirRequirementIds), new HashSet<int>(dirTagIds));
             }
         }
 
@@ -64,17 +100,69 @@ public class DbTool
         foreach (var subDirInfo in dirInfos)
         {
             ToolContext.Logger.Information("{indent}📁{dirName}/", indent, subDirInfo.Name);
-            RecurseDirectory(subDirInfo, depth, new HashSet<int>(dirTagIds));
+            RecurseDirectory(subDirInfo, depth, baseLocation, new HashSet<int>(dirRequirementIds), new HashSet<int>(dirTagIds));
         }
     }
 
-    private void ProcessFile(HashSet<int> fileTagIds, string? baseLocation, DataDbFile parsed)
+    private void ProcessFile(DataDbFile parsed, string? baseLocation, HashSet<int> fileRequirementIds, HashSet<int> fileTagIds)
     {
-        foreach (var thing in parsed.Things.EmptyIfNull())
+        AddRequirements(fileRequirementIds, parsed.Requirements);
+        AddTags(fileTagIds, parsed.Tags);
+
+        if (!string.IsNullOrEmpty(parsed.Location))
         {
+            baseLocation = parsed.Location;
+        }
+
+        foreach (var dataThing in parsed.Things.EmptyIfNull())
+        {
+            var thingRequirementIds = new HashSet<int>(fileRequirementIds);
+            AddRequirements(thingRequirementIds, dataThing.Requirements);
+
             var thingTagIds = new HashSet<int>(fileTagIds);
-            AddTags(thingTagIds, thing.Tags);
-            // convert to an output object
+            AddTags(thingTagIds, dataThing.Tags);
+
+            var outThing = new OutDbThing(dataThing, thingRequirementIds, thingTagIds);
+
+            // Locations
+            foreach ((string mapName, var locations) in dataThing.Locations.EmptyIfNull())
+            {
+                int mapId = AddMap(mapName == "here" && baseLocation != null ? baseLocation : mapName);
+                foreach (string locationString in locations.EmptyIfNull())
+                {
+                    outThing.AddLocation(mapId, locationString);
+                }
+            }
+
+            _things.Add(outThing);
+        }
+    }
+
+    private int AddMap(string mapName)
+    {
+        if (!_mapToId.ContainsKey(mapName))
+        {
+            _mapToId[mapName] = _mapIndex++;
+        }
+
+        return _mapToId[mapName];
+    }
+
+    private void AddRequirements(HashSet<int> requirementIds, List<string>? requirementStrings)
+    {
+        if (requirementStrings == null)
+        {
+            return;
+        }
+
+        foreach (string requirementString in requirementStrings)
+        {
+            if (!_requirementToId.ContainsKey(requirementString))
+            {
+                _requirementToId[requirementString] = _requirementIndex++;
+            }
+
+            requirementIds.Add(_requirementToId[requirementString]);
         }
     }
 
@@ -87,12 +175,12 @@ public class DbTool
 
         foreach (string tagString in tagStrings)
         {
-            if (!_tagMap.ContainsKey(tagString))
+            if (!_tagToId.ContainsKey(tagString))
             {
-                _tagMap[tagString] = _tagIndex++;
+                _tagToId[tagString] = _tagIndex++;
             }
 
-            tagIds.Add(_tagMap[tagString]);
+            tagIds.Add(_tagToId[tagString]);
         }
     }
 }
