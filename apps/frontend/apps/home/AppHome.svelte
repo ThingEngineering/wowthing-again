@@ -3,6 +3,7 @@
 
     import {
         appearanceStore,
+        dbStore,
         itemStore,
         journalStore,
         manualStore,
@@ -23,6 +24,7 @@
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),
+        dbStore.fetch({ language: $settingsStore.general.language }),
         itemStore.fetch({ language: $settingsStore.general.language }),
         journalStore.fetch({ language: $settingsStore.general.language }),
         manualStore.fetch({ language: $settingsStore.general.language }),
@@ -46,6 +48,7 @@
     let ready: boolean
     $: {
         error = $appearanceStore.error
+            || $dbStore.error
             || $itemStore.error
             || $journalStore.error
             || $manualStore.error
@@ -56,6 +59,7 @@
             || $userTransmogStore.error
 
         loaded = $appearanceStore.loaded
+            && $dbStore.loaded
             && $itemStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
