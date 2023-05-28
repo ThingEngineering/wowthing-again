@@ -31,6 +31,14 @@ public static partial class Hardcoded
                 new ExtraEncounter("Doomwalker"),
             }
         },
+        // ??? > Diablo 4 Launch Event
+        {
+            3,
+            new[]
+            {
+                new ExtraEncounter("Treasure Goblin"),
+            }
+        },
         #endregion
 
         #region Classic

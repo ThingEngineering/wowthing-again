@@ -140,7 +140,7 @@
     <svelte:fragment slot="rowExtra" let:character>
         {#key slug}
             {#if isCurrentSeason}
-                <RowItemLevel />
+                <RowItemLevel {character} />
             {/if}
 
             <RowRaiderIo {character} {season} />

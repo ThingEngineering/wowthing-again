@@ -58,13 +58,15 @@
 </script>
 
 <style lang="scss">
-    .wrapper {
-        display: flex;
-        gap: 0.5rem;
-    }
     .new-group {
         background: $highlight-background;;
         text-align: center;
+    }
+    .settings-block {
+        :global(.columns h3) {
+            border-top: none;
+            padding-top: 0;
+        }
     }
 </style>
 
@@ -72,28 +74,24 @@
     <h2>Sort Characters</h2>
 
     <p>
-        Drag items between the two lists on the left to control the way that characters
-        are grouped - this happens before sorting! Drag items between the two lists on
-        the right to control the way that characters are sorted.
+        Grouping happens before sorting and may give unexpected results!
     </p>
 
-    <div class="wrapper">
-        <MagicLists
-            key="group-by"
-            title="Group By"
-            onFunc={onGroupByChange}
-            active={groupByActive}
-            inactive={groupByInactive}
-        />
+    <MagicLists
+        key="group-by"
+        title="Group By"
+        onFunc={onGroupByChange}
+        active={groupByActive}
+        inactive={groupByInactive}
+    />
 
-        <MagicLists
-            key="sort-by"
-            title="Sort By"
-            onFunc={onSortByChange}
-            active={sortByActive}
-            inactive={sortByInactive}
-        />
-    </div>
+    <MagicLists
+        key="sort-by"
+        title="Sort By"
+        onFunc={onSortByChange}
+        active={sortByActive}
+        inactive={sortByInactive}
+    />
 </div>
 
 <div class="settings-block">

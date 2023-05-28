@@ -6,6 +6,7 @@ return await Parser.Default.ParseArguments<
         AllOptions,
         AchievementsOptions,
         AppearancesOptions,
+        DbOptions,
         DumpsOptions,
         ItemsOptions,
         JournalOptions,
@@ -16,6 +17,7 @@ return await Parser.Default.ParseArguments<
         (AllOptions _) => RunAll(),
         (AchievementsOptions _) => RunAchievementsTool(),
         (AppearancesOptions _) => RunAppearancesTool(),
+        (DbOptions _) => RunDbTool(),
         (DumpsOptions _) => RunDumpsTool(),
         (ItemsOptions _) => RunItemsTool(),
         (JournalOptions _) => RunJournalTool(),
@@ -30,6 +32,7 @@ async Task<int> RunAll()
 
     await RunAchievementsTool();
     await RunAppearancesTool();
+    await RunDbTool();
     await RunItemsTool();
     await RunJournalTool();
     await RunManualTool();
@@ -48,6 +51,13 @@ async Task<int> RunAchievementsTool()
 async Task<int> RunAppearancesTool()
 {
     var tool = new AppearancesTool();
+    await tool.Run();
+    return 0;
+}
+
+async Task<int> RunDbTool()
+{
+    var tool = new DbTool();
     await tool.Run();
     return 0;
 }
@@ -97,6 +107,9 @@ namespace Wowthing.Tool
 
     [Verb("appearances", HelpText = "Generate appearance data")]
     class AppearancesOptions { }
+
+    [Verb("db", HelpText = "Generate db data")]
+    class DbOptions { }
 
     [Verb("dumps", HelpText = "Import data dumps")]
     class DumpsOptions { }

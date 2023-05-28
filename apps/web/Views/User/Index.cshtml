@@ -51,6 +51,7 @@
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("CachedJson", "CachedJson", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
      data-appearance="@Url.Action("CachedJson", "CachedJson", new { type = "appearance", languageCode = "zzZZ", hash = Model.AppearanceHash })"
+     data-db="@Url.Action("CachedJson", "CachedJson", new { type = "db", languageCode = "zzZZ", hash = Model.DbHash })"
      data-item="@Url.Action("CachedJson", "CachedJson", new { type = "item", languageCode = "zzZZ", hash = Model.ItemHash })"
      data-journal="@Url.Action("CachedJson", "CachedJson", new { type = "journal", languageCode = "zzZZ", hash = Model.JournalHash })"
      data-manual="@Url.Action("CachedJson", "CachedJson", new { type = "manual", languageCode = "zzZZ", hash = Model.ManualHash })"
