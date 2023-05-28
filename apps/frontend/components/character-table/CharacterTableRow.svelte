@@ -2,11 +2,11 @@
     import { setContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { Region } from '@/enums'
     import { settingsStore, userStore } from '@/stores'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'
+    import CharacterName from './row/CharacterName.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
     import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
@@ -47,11 +47,6 @@
 
         text-align: right;
     }
-    .name {
-        @include cell-width($width-name, $maxWidth: $width-name-max);
-
-        white-space: nowrap;
-    }
     .realm {
         @include cell-width($width-realm, $maxWidth: $width-realm-max);
 
@@ -91,11 +86,7 @@
                     <CharacterLevel {character} />
 
                 {:else if field === 'characterName'}
-                    <td class="name">
-                        <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}">
-                            {character.name}
-                        </a>
-                    </td>
+                    <CharacterName {character} />
 
                 {:else if field === 'realmName'}
                     <td class="realm">{character.realm.name}</td>

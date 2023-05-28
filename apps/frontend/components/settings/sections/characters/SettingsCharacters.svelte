@@ -3,7 +3,7 @@
 
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
     import RangeInput from '@/components/forms/RangeInput.svelte'
-
+    
     let filter: string
     $: {
         filter = [

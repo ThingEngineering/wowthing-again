@@ -102,7 +102,7 @@
 
             {:else if field === 'itemLevel'}
                 {#if !$homeState.onlyWeekly}
-                    <RowItemLevel />
+                    <RowItemLevel {character} />
                 {/if}
 
             {:else if field === 'mountSpeed'}

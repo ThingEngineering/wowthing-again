@@ -20,7 +20,6 @@
     let scoreCount: number
     let totalRuns: number
     $: {
-
         dungeonIds = flatten(seasonMap[seasonId].orders)
 
         const startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[seasonId].startPeriod)

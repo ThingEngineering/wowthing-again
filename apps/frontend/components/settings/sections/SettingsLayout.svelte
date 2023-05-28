@@ -6,6 +6,7 @@
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
+    import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     
     const commonChoices: SettingsChoice[] = [
@@ -166,6 +167,8 @@
         </CheckboxInput>
     </div>
 </div>
+
+<NameTooltip />
 
 <div class="settings-block">
     <h3>Character table columns</h3>

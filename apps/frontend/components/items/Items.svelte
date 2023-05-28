@@ -58,7 +58,7 @@
                 {#if params.slug1 === 'bags'}
                     <RowBags {character} />
                 {:else if params.slug1 === 'equipped'}
-                    <RowItemLevel />
+                    <RowItemLevel {character} />
                     <RowGear {character} />
                     <RowItems {character} />
                 {:else if params.slug1 === 'professions'}
