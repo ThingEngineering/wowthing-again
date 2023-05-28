@@ -881,6 +881,11 @@ public class UserUploadJob : JobBase
             Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
         }
 
+        if (characterData.ActiveCovenantId > 0)
+        {
+            character.Shadowlands.CovenantId = characterData.ActiveCovenantId;
+        }
+
         character.Shadowlands.Covenants ??= new();
 
         foreach (var covenantData in characterData.Covenants.EmptyIfNull())
