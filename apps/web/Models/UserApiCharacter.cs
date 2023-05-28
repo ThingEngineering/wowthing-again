@@ -332,8 +332,15 @@ public class UserApiCharacterShadowlands
         RenownLevel = shadowlands.RenownLevel;
         SoulbindId = shadowlands.SoulbindId;
 
-        Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
-            .Select(z => new[] { z.First, z.Second }).ToList();
+        if (shadowlands.ConduitIds != null && shadowlands.ConduitRanks != null)
+        {
+            Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
+                .Select(z => new[] { z.First, z.Second }).ToList();
+        }
+        else
+        {
+            Conduits = new();
+        }
 
         Covenants = shadowlands.Covenants;
     }
