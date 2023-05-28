@@ -62,28 +62,26 @@
         props: { character },
     }}
 >
-    {#if covenant !== undefined}
-        <div class="flex-wrapper">
-            {#if $settingsStore.layout.covenantColumn === 'current'}
+    <div class="flex-wrapper">
+        {#if $settingsStore.layout.covenantColumn === 'current'}
+            {#if covenant !== undefined}
                 <WowthingImage name={covenant.icon} size={20} border={1} />
                 <span
                     class:status-success={character.shadowlands.renownLevel >= Constants.maxRenown}
                 >{character.shadowlands.renownLevel}</span>
-            {:else}
-                {#each covenantOrder as covenantId}
-                    {#if characterCovenants[covenantId]}
-                        <a
-                            href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
-                            class:active={covenantId === character.shadowlands?.covenantId}
-                            class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
-                        >{characterCovenants[covenantId].renown}</a>
-                    {:else}
-                        <span class="status-fail">---</span>
-                    {/if}
-                {/each}
             {/if}
-        </div>
-    {:else}
-        &nbsp;
-    {/if}
+        {:else}
+            {#each covenantOrder as covenantId}
+                {#if characterCovenants[covenantId]}
+                    <a
+                        href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
+                        class:active={covenantId === character.shadowlands?.covenantId}
+                        class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
+                    >{characterCovenants[covenantId].renown}</a>
+                {:else}
+                    <span class="status-fail">---</span>
+                {/if}
+            {/each}
+        {/if}
+    </div>
 </td>
