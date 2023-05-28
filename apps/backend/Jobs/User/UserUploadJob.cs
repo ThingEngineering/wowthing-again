@@ -874,7 +874,11 @@ public class UserUploadJob : JobBase
     {
         if (character.Shadowlands == null)
         {
-            return;
+            character.Shadowlands = new PlayerCharacterShadowlands()
+            {
+                CharacterId = character.Id,
+            };
+            Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
         }
 
         character.Shadowlands.Covenants ??= new();
@@ -899,7 +903,9 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
+        Context.Entry(character.Shadowlands)
+            .Property(cs => cs.Covenants)
+            .IsModified = true;
     }
 
     private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
