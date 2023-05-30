@@ -12,6 +12,7 @@
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
     import Profession from './CharacterProfessionsProfession.svelte'
     import Sidebar from './CharacterProfessionsSidebar.svelte'
+    import Traits from './CharacterProfessionsTraits.svelte'
 
     export let character: Character
     export let params: MultiSlugParams
@@ -90,6 +91,7 @@
     <div class="professions-sidebar">
         <Sidebar
             {params}
+            {staticProfession}
             {stats}
         >
             <svelt:fragment slot="after">
@@ -111,11 +113,19 @@
         </Sidebar>
     </div>
 
-    {#if params.slug5 && staticProfession}
-        <Profession
-            {character}
-            {params}
-            {staticProfession}
-        />
+    {#if staticProfession}
+        {#if params.slug6}
+            <Traits
+                {character}
+                {params}
+                {staticProfession}
+            />
+        {:else if params.slug5}
+            <Profession
+                {character}
+                {params}
+                {staticProfession}
+            />
+        {/if}
     {/if}
 </div>
