@@ -12,6 +12,23 @@ export interface StaticDataProfession {
 export interface StaticDataSubProfession {
     id: number
     name: string
+    traitTrees?: StaticDataSubProfessionTraitTree[]
+}
+
+export interface StaticDataSubProfessionTraitTree {
+    id: number
+    name: string
+    firstNode: StaticDataSubProfessionTraitNode
+}
+
+export interface StaticDataSubProfessionTraitNode {
+    name: string
+    nodeId: number
+    rankEntryId: number
+    rankMax: number
+    unlockEntryId: number
+
+    children: StaticDataSubProfessionTraitNode[]
 }
 
 export type StaticDataProfessionCategoryArray = [

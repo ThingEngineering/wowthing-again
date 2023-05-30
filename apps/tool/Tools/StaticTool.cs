@@ -1,4 +1,6 @@
-﻿using Serilog.Context;
+﻿using System.Collections.Immutable;
+using Microsoft.Extensions.Logging;
+using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Covenants;
@@ -6,6 +8,7 @@ using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Static;
+using Wowthing.Tool.Models.Traits;
 using Wowthing.Tool.Models.Transmog;
 
 namespace Wowthing.Tool.Tools;
@@ -237,8 +240,12 @@ public class StaticTool
             .Select(kvp => new StaticKeystoneAffix(kvp.Key, kvp.Value))
             .ToDictionary(ska => ska.Id);
 
+        // Traits
+        var traits = await LoadTraits();
+        _timer.AddPoint("Traits");
+
         // Professions
-        var professions = await LoadProfessions();
+        var professions = await LoadProfessions(traits);
         _timer.AddPoint("Professions");
 
         // Reputations
@@ -435,7 +442,8 @@ public class StaticTool
         return categories;
     }
 
-    private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
+    private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions(
+        Dictionary<int, List<OutTraitTree>> outSkillLineTraitsMap)
     {
         var itemNameToId = _stringMap
             .Where(kvp => kvp.Key is { Type: StringType.WowItemName, Language: Language.enUS })
@@ -624,6 +632,7 @@ public class StaticTool
                             {
                                 Id = line.ID,
                                 Name = GetString(StringType.WowSkillLineName, language, line.ID),
+                                TraitTrees = outSkillLineTraitsMap.GetValueOrDefault(line.ID),
                             })
                             .ToList(),
                         RawCategories = professionRootCategories.GetValueOrDefault(profession.ID),
@@ -783,6 +792,148 @@ public class StaticTool
             }
 
             ret[specId] = specData;
+        }
+
+        return ret;
+    }
+
+    private static async Task<List<T>> LoadCsv<T>(
+        string fileName,
+        Language language = Language.enUS,
+        Func<T, bool>? validFunc = null
+    ) => await DataUtilities.LoadDumpCsvAsync<T>(fileName, language, validFunc);
+
+    private static async Task<Dictionary<int, List<OutTraitTree>>> LoadTraits()
+    {
+        // Simple mappings
+        var traitDefinitionById = (await LoadCsv<DumpTraitDefinition>("traitdefinition"))
+            .ToDictionary(td => td.ID);
+
+        var traitNodeById = (await LoadCsv<DumpTraitNode>("traitnode"))
+            .ToDictionary(tn => tn.ID);
+
+        var traitNodeIdToTraitEdges = (await LoadCsv<DumpTraitEdge>("traitedge"))
+            .ToGroupedDictionary(group => group.LeftTraitNodeID);
+
+        var traitNodeEntryById = (await LoadCsv<DumpTraitNodeEntry>("traitnodeentry"))
+            .ToDictionary(tne => tne.ID);
+
+        var traitNodeGroupById = (await LoadCsv<DumpTraitNodeGroup>("traitnodegroup"))
+            .ToDictionary(tng => tng.ID);
+
+        var traitNodeGroupXTraitNodes = await LoadCsv<DumpTraitNodeGroupXTraitNode>("traitnodegroupxtraitnode");
+
+        var traitTreeById = (await LoadCsv<DumpTraitTree>("traittree"))
+            .ToDictionary(tt => tt.ID);
+
+        // Annoying mappings
+        var skillLineIdToTraitTrees = (await LoadCsv<DumpSkillLineXTraitTree>("skilllinextraittree"))
+            .GroupBy(slxtt => slxtt.SkillLineID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(slxtt => slxtt.Variant)
+                    .Select(slxtt => traitTreeById[slxtt.TraitTreeID])
+                    .ToArray()
+            );
+
+        var traitNodeIdToTraitNodeEntries = (await LoadCsv<DumpTraitNodeXTraitNodeEntry>("traitnodextraitnodeentry"))
+            .GroupBy(tnxtne => tnxtne.TraitNodeID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(tnxtne => tnxtne.Index)
+                    .Select(tnxtne => traitNodeEntryById[tnxtne.TraitNodeEntryID])
+                    .ToArray()
+            );
+
+        var traitNodeIdToTraitNodeGroups = traitNodeGroupXTraitNodes
+            .Where(tngxtn => tngxtn.TraitNodeGroupID > 0)
+            .GroupBy(tngxtn => tngxtn.TraitNodeID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .Select(tngxtn => traitNodeGroupById[tngxtn.TraitNodeGroupID])
+                    .ToArray()
+            );
+
+        var traitNodeGroupIdToTraitNodes = traitNodeGroupXTraitNodes
+            .Where(tngxtn => tngxtn.TraitNodeGroupID > 0)
+            .GroupBy(tngxtn => tngxtn.TraitNodeGroupID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(tngxtn => tngxtn.Index)
+                    .Select(tngxtn => traitNodeById[tngxtn.TraitNodeID])
+                    .ToArray()
+            );
+
+        var traitTreeIdToTraitNodeGroups = traitNodeGroupById.Values
+            .ToGroupedDictionary(tng => tng.TraitTreeID);
+
+        // Work it
+        var ret = new Dictionary<int, List<OutTraitTree>>();
+
+        foreach ((int skillLineId, var dumpTrees) in skillLineIdToTraitTrees.OrderBy(kvp => kvp.Key))
+        {
+            ToolContext.Logger.Information("SkillLine {id}", skillLineId);
+
+            var outTrees = ret[skillLineId] = new();
+            foreach (var dumpTree in dumpTrees)
+            {
+                if (dumpTree.FirstTraitNodeID == 0)
+                {
+                    continue;
+                }
+
+                ToolContext.Logger.Information("  Tree {tree}", dumpTree.ID);
+
+                var outTree = new OutTraitTree(dumpTree.ID);
+                outTrees.Add(outTree);
+
+                var nodeIdQueue = new Queue<int>();
+                var nodeMap = new Dictionary<int, OutTraitNode>();
+
+                nodeIdQueue.Enqueue(dumpTree.FirstTraitNodeID);
+                outTree.FirstNode = nodeMap[dumpTree.FirstTraitNodeID] = new OutTraitNode(dumpTree.FirstTraitNodeID);
+
+                while (nodeIdQueue.Count > 0)
+                {
+                    int nodeId = nodeIdQueue.Dequeue();
+                    ToolContext.Logger.Information("    Node: {id}", nodeId);
+
+                    var traitNode = traitNodeById[nodeId];
+
+                    var entries = traitNodeIdToTraitNodeEntries[nodeId];
+                    if (entries.Length != 2)
+                    {
+                        ToolContext.Logger.Error("      {n} entrie(s)??", entries.Length);
+                        continue;
+                    }
+
+                    var outNode = nodeMap[nodeId];
+
+                    outNode.UnlockEntryId = entries[0].ID;
+                    outNode.RankEntryId = entries[1].ID;
+                    outNode.RankMax = entries[1].MaxRanks;
+
+                    var def = traitDefinitionById[entries[0].TraitDefinitionID];
+                    outNode.Name = def.OverrideName;
+
+                    if (traitNodeIdToTraitEdges.TryGetValue(nodeId, out var edges))
+                    {
+                        foreach (var edge in edges)
+                        {
+                            nodeIdQueue.Enqueue(edge.RightTraitNodeID);
+                            var edgeNode = nodeMap[edge.RightTraitNodeID] = new OutTraitNode(edge.RightTraitNodeID);
+                            outNode.Children.Add(edgeNode);
+                        }
+                    }
+
+                    ToolContext.Logger.Information("      UnlockEntry: {unlock} RankEntry: {rank} RankMax: {max} Children: {kids} Name: {name}",
+                        outNode.UnlockEntryId, outNode.RankEntryId, outNode.RankMax, outNode.Children.Count, outNode.Name);
+                }
+            }
         }
 
         return ret;
