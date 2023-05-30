@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'

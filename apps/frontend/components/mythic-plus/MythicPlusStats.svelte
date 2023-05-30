@@ -33,7 +33,6 @@
                     .endTime
                     .toUnixInteger()
 
-                const pre = allRuns.length
                 for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks || {})) {
                     const weekStamp = parseInt(timestamp)
                     if (weekStamp > startStamp && weekStamp <= endStamp) {

@@ -44,6 +44,7 @@ export class Character {
     mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
     mythicPlusWeeks: Record<number, Array<CharacterMythicPlusAddonRun>>
     paragons: Record<number, CharacterReputationParagon>
+    professionTraits: Record<number, Record<number, number>>
     progressItems: number[]
     raiderIo: Record<number, CharacterRaiderIoSeason>
     reputations: Record<number, number>

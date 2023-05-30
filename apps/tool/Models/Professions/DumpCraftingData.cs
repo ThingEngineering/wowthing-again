@@ -1,8 +1,6 @@
-﻿
+﻿namespace Wowthing.Tool.Models.Professions;
 
 // ReSharper disable InconsistentNaming
-namespace Wowthing.Tool.Models.Professions;
-
 public class DumpCraftingData
 {
     public int CraftedItemID { get; set; }

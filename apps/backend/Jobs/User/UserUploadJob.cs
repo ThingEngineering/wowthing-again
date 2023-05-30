@@ -317,6 +317,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
+            HandleProfessionTraits(character, characterData);
             HandleQuests(character, characterData, realm.Region);
             HandleReputations(character, characterData);
             HandleTransmog(character, characterData);
@@ -874,7 +875,16 @@ public class UserUploadJob : JobBase
     {
         if (character.Shadowlands == null)
         {
-            return;
+            character.Shadowlands = new PlayerCharacterShadowlands()
+            {
+                CharacterId = character.Id,
+            };
+            Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
+        }
+
+        if (characterData.ActiveCovenantId > 0)
+        {
+            character.Shadowlands.CovenantId = characterData.ActiveCovenantId;
         }
 
         character.Shadowlands.Covenants ??= new();
@@ -899,7 +909,9 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
+        Context.Entry(character.Shadowlands)
+            .Property(cs => cs.Covenants)
+            .IsModified = true;
     }
 
     private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
@@ -1375,6 +1387,24 @@ public class UserUploadJob : JobBase
                 .EmptyIfNull()
                 .OrderBy(mountId => mountId)
                 .ToList();
+        }
+    }
+
+    private void HandleProfessionTraits(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.ProfessionTraits = new();
+
+        foreach (string traitString in characterData.ProfessionTraits.EmptyIfNull())
+        {
+            string[] traitParts = traitString.Split('|');
+            character.AddonData.ProfessionTraits[int.Parse(traitParts[0])] = traitParts
+                .Skip(1)
+                .Select(part => part
+                    .Split(':')
+                    .Select(int.Parse)
+                    .ToArray()
+                )
+                .ToDictionary(pair => pair[0], pair => pair[1]);
         }
     }
 

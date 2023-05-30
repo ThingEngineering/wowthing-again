@@ -70,9 +70,6 @@
 </script>
 
 <style lang="scss">
-    h2 + h3 {
-        border-top: 0;
-    }
     h3 {
         border-top: 1px dashed $border-color;
         margin-top: 0.5rem;

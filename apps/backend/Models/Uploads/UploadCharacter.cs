@@ -5,6 +5,7 @@ public class UploadCharacter
 {
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
+    public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
     public int FlightSpeed { get; set; }
     public int GroundSpeed { get; set; }
@@ -40,6 +41,7 @@ public class UploadCharacter
     public UploadCharacterMythicPlus MythicPlus { get; set; }
     public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
+    public List<string> ProfessionTraits { get; set; }
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
     public List<UploadCharacterTorghast> Torghast { get; set; }

@@ -46,6 +46,9 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
 }
 
 [System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
