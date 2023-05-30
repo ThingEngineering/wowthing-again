@@ -53,6 +53,7 @@ public class UserApiCharacter
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
+    public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
     public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
@@ -122,6 +123,8 @@ public class UserApiCharacter
         Auras = character.AddonData?.Auras;
         Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
+        ProfessionTraits = character.AddonData?.ProfessionTraits;
+
         Professions = character.Professions?.Professions;
         Specializations = character.Specializations?.Specializations;
 
