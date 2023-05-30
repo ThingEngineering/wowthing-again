@@ -37,7 +37,7 @@
     class:status-shrug={value > 0 && (value - 1) < node.rankMax}
     class:status-success={value > node.rankMax}
 >
-    <td class="name": style:padding-left={`${(indent * 1) + 0.5}rem`}>
+    <td class="name" style:padding-left={`${(indent * 1) + 0.5}rem`}>
         <WowthingImage
             name="unknown"
             border={1}
