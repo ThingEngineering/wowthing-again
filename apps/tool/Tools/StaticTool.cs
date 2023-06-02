@@ -806,6 +806,9 @@ public class StaticTool
     private static async Task<Dictionary<int, List<OutTraitTree>>> LoadTraits()
     {
         // Simple mappings
+        var traitCondById = (await LoadCsv<DumpTraitCond>("traitcond"))
+            .ToDictionary(tc => tc.ID);
+
         var traitDefinitionById = (await LoadCsv<DumpTraitDefinition>("traitdefinition"))
             .ToDictionary(td => td.ID);
 
@@ -821,10 +824,10 @@ public class StaticTool
         var traitNodeGroupById = (await LoadCsv<DumpTraitNodeGroup>("traitnodegroup"))
             .ToDictionary(tng => tng.ID);
 
-        var traitNodeGroupXTraitNodes = await LoadCsv<DumpTraitNodeGroupXTraitNode>("traitnodegroupxtraitnode");
-
         var traitTreeById = (await LoadCsv<DumpTraitTree>("traittree"))
             .ToDictionary(tt => tt.ID);
+
+        var traitNodeGroupXTraitNodes = await LoadCsv<DumpTraitNodeGroupXTraitNode>("traitnodegroupxtraitnode");
 
         // Annoying mappings
         var skillLineIdToTraitTrees = (await LoadCsv<DumpSkillLineXTraitTree>("skilllinextraittree"))
@@ -865,6 +868,32 @@ public class StaticTool
                 group => group
                     .OrderBy(tngxtn => tngxtn.Index)
                     .Select(tngxtn => traitNodeById[tngxtn.TraitNodeID])
+                    .ToArray()
+            );
+
+        // TraitNodeXTraitCond
+        var traitCondIdToTraitNode = (await LoadCsv<DumpTraitNodeXTraitCond>("traitnodextraitcond"))
+            .ToDictionary(
+                tnxtc => tnxtc.TraitCondID,
+                tnxtc => traitNodeById[tnxtc.TraitNodeID]
+            );
+            // .GroupBy(tnxtc => tnxtc.TraitCondID)
+            // .ToDictionary(
+            //     group => group.Key,
+            //     group => group
+            //         .Select(tnxtc => traitNodeById[tnxtc.TraitNodeID])
+            //         .ToArray()
+            // );
+
+        // Reverse lookup from TraitCond.TraitNodeID
+        var traitNodeIdToRelatedTraitConds = traitCondById
+            .Values
+            .Where(tc => tc.TraitNodeID > 0)
+            .GroupBy(tc => tc.TraitNodeID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(tc => tc.SpentAmountRequired)
                     .ToArray()
             );
 
@@ -930,8 +959,26 @@ public class StaticTool
                         }
                     }
 
-                    ToolContext.Logger.Information("      UnlockEntry: {unlock} RankEntry: {rank} RankMax: {max} Children: {kids} Name: {name}",
-                        outNode.UnlockEntryId, outNode.RankEntryId, outNode.RankMax, outNode.Children.Count, outNode.Name);
+                    var conds = traitNodeIdToRelatedTraitConds[nodeId];
+                    foreach (var cond in conds)
+                    {
+                        if (traitCondIdToTraitNode.TryGetValue(cond.ID, out var condNode))
+                        {
+                            var condEntries = traitNodeIdToTraitNodeEntries[condNode.ID];
+                            var condDef = traitDefinitionById[condEntries[0].TraitDefinitionID];
+
+                            outNode.Perks.Add(new OutTraitPerk
+                            {
+                                Description = condDef.OverrideDescription,
+                                NodeId = condNode.ID,
+                                SpentPoints = cond.SpentAmountRequired,
+                            });
+                        }
+                        else
+                        {
+                            ToolContext.Logger.Warning("        No TraitCond->TraitNode for {cond}", cond.ID);
+                        }
+                    }
                 }
             }
         }
