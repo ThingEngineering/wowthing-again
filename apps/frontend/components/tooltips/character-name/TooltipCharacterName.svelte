@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { settingsStore, userStore } from '@/stores'
+    import { settingsStore, timeStore, userStore } from '@/stores'
     import { toNiceDuration } from '@/utils/formatting'
+    import { getCharacterRested } from '@/utils/get-character-rested'
     import getRaiderIoColor from '@/utils/get-raider-io-color'
     import type { Character } from '@/types'
 
@@ -95,6 +96,18 @@
                         <td>Played time</td>
                         <td>
                             <code>{@html toNiceDuration(character.playedTotal * 1000).replace('&nbsp;', '')}</code>
+                        </td>
+                    </tr>
+
+                {:else if key === 'restedXp'}
+                    {@const [rested, restedRemaining] = getCharacterRested($timeStore, character)}
+                    <tr>
+                        <td>Rested XP</td>
+                        <td>
+                            {rested}
+                            {#if restedRemaining}
+                                <span> | {@html restedRemaining}</span>
+                            {/if}
                         </td>
                     </tr>
 

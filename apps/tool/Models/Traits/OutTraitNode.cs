@@ -9,6 +9,7 @@ public class OutTraitNode
     public string Name { get; set; }
 
     public List<OutTraitNode> Children { get; set; } = new();
+    public List<OutTraitPerk> Perks { get; set; } = new();
 
     public OutTraitNode(int nodeId)
     {
