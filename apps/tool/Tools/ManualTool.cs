@@ -713,7 +713,7 @@ public class ManualTool
     )
     {
         var seenQuestIds = new HashSet<int>();
-        using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt"));
+        using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "auto_zone_maps.txt"));
 
         foreach (var vendor in sharedVendors)
         {
@@ -755,8 +755,13 @@ public class ManualTool
             }
         }
 
-        outFile.WriteLine("-- This data is overwritten by the wowthing-again manual tool, don't edit by hand");
-        outFile.WriteLine("Module.db.auto = {{ {0} }}", string.Join(", ", seenQuestIds.OrderBy(id => id)));
+        outFile.WriteLine("-- This data is overwritten by the *manual* tool, don't edit by hand");
+        outFile.WriteLine("Module.db.auto.zoneMaps = {");
+        foreach (int[] chunk in seenQuestIds.OrderBy(id => id).Chunk(12))
+        {
+            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+        }
+        outFile.WriteLine("}");
     }
 
     #region Collections

@@ -639,7 +639,33 @@ public class StaticTool
                     }
                 );
         }
+
+#if DEBUG
+        DumpFirstCraftQuestIDs(craftingDataMap);
+#endif
+
         return ret;
+    }
+
+    private void DumpFirstCraftQuestIDs(Dictionary<int, DumpCraftingData> craftingDataMap)
+    {
+        using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "auto_crafting_data.txt"));
+
+        var questIds = craftingDataMap
+            .Values
+            .Select(cd => cd.FirstCraftFlagQuestID)
+            .Where(id => id > 0)
+            .OrderBy(id => id);
+
+        outFile.WriteLine("-- This data is overwritten by the *static* tool, don't edit by hand");
+        outFile.WriteLine("Module.db.auto.crafting = {");
+
+        foreach (int[] chunk in questIds.Chunk(12))
+        {
+            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+        }
+
+        outFile.WriteLine("}");
     }
 
     private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()
