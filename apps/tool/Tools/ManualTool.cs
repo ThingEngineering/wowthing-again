@@ -712,7 +712,7 @@ public class ManualTool
         List<List<ManualZoneMapCategory>> zoneMaps
     )
     {
-        var seenQuests = new HashSet<int>();
+        var seenQuestIds = new HashSet<int>();
         using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt"));
 
         foreach (var vendor in sharedVendors)
@@ -722,19 +722,9 @@ public class ManualTool
                 .Where(sell => sell.Type == RewardType.Quest)
                 .ToArray();
 
-            if (questSells.Length == 0)
-            {
-                continue;
-            }
-
-            outFile.WriteLine("    -- Vendors: {0}", vendor.Name);
             foreach (var sell in questSells)
             {
-                if (!seenQuests.Contains(sell.Id))
-                {
-                    outFile.WriteLine("    {0}, -- ??", sell.Id);
-                    seenQuests.Add(sell.Id);
-                }
+                seenQuestIds.Add(sell.Id);
             }
         }
 
@@ -742,28 +732,11 @@ public class ManualTool
         {
             foreach (var category in categories.Where(cat => cat != null))
             {
-                bool nameWritten = false;
-
-                foreach (var farm in category.Farms)
+                foreach (var farm in category.Farms.Where(farm => farm.Type != FarmType.Quest))
                 {
-                    if (farm.Type == FarmType.Quest)
+                    foreach (int questId in farm.QuestIds.Where(id => id > 0))
                     {
-                        continue;
-                    }
-
-                    foreach (var questId in farm.QuestIds)
-                    {
-                        if (questId > 0 && !seenQuests.Contains(questId))
-                        {
-                            if (!nameWritten)
-                            {
-                                outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
-                                nameWritten = true;
-                            }
-
-                            outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
-                            seenQuests.Add(questId);
-                        }
+                        seenQuestIds.Add(questId);
                     }
 
                     foreach (var drop in farm.Drops)
@@ -773,24 +746,17 @@ public class ManualTool
                             .Concat(drop.Type == "xpquest" ? new[] { drop.Id } : Array.Empty<int>())
                             .ToArray();
 
-                        foreach (var dropQuestId in questIds)
+                        foreach (int dropQuestId in questIds)
                         {
-                            if (!seenQuests.Contains(dropQuestId))
-                            {
-                                if (!nameWritten)
-                                {
-                                    outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
-                                    nameWritten = true;
-                                }
-
-                                outFile.WriteLine("    {0}, -- {1}", dropQuestId, farm.Name);
-                                seenQuests.Add(dropQuestId);
-                            }
+                            seenQuestIds.Add(dropQuestId);
                         }
                     }
                 }
             }
         }
+
+        outFile.WriteLine("-- This data is overwritten by the wowthing-again manual tool, don't edit by hand");
+        outFile.WriteLine("Module.db.auto = {{ {0} }}", string.Join(", ", seenQuestIds.OrderBy(id => id)));
     }
 
     #region Collections
@@ -893,5 +859,4 @@ public class ManualTool
     }
 
     #endregion
-
 }
