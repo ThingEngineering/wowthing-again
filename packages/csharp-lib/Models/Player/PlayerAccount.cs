@@ -10,7 +10,7 @@ public class PlayerAccount
     public int Id { get; set; }
 
     [ForeignKey("User")]
-    public long UserId { get; set; }
+    public long? UserId { get; set; }
     public ApplicationUser User { get; set; }
 
     public WowRegion Region { get; set; }
