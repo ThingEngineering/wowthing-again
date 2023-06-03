@@ -115,6 +115,9 @@
                 {#if rootCategory.abilities.length > 0}
                     <Table
                         category={rootCategory}
+                        {character}
+                        {charSubProfession}
+                        {expansion}
                         {knownRecipes}
                     />
                 {/if}
@@ -122,6 +125,9 @@
                 {#each rootCategory.children as child}
                     <Table
                         category={child}
+                        {character}
+                        {charSubProfession}
+                        {expansion}
                         {knownRecipes}
                     />
                 {/each}

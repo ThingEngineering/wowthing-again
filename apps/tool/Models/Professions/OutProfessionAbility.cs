@@ -2,6 +2,7 @@
 
 public class OutProfessionAbility
 {
+    public int FirstCraftQuestId { get; set; }
     public int Id { get; set; }
     public int ItemId { get; set; }
     public int Min { get; set; }

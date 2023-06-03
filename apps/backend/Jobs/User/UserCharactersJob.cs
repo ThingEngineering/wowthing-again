@@ -84,7 +84,7 @@ public class UserCharactersJob : JobBase
                     }
                     else if (playerAccount.UserId != userId)
                     {
-                        Logger.Warning("Changing owner of account {region} {id} from {user1} to {user2}",
+                        Logger.Warning("Changed owner of account {region} {id} from {user1} to {user2}",
                             region, playerAccount.AccountId, playerAccount.UserId, userId);
                         playerAccount.Enabled = true;
                     }
@@ -128,10 +128,9 @@ public class UserCharactersJob : JobBase
         // Loop over API results
         foreach ((var region, var apiAccount) in apiAccounts)
         {
-            int accountId = 0;
+            int accountId = accountMap[(region, apiAccount.Id)].Id;
             int added = 0;
 
-            accountId = accountMap[(region, apiAccount.Id)].Id;
             foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
             {
                 try
@@ -182,10 +181,13 @@ public class UserCharactersJob : JobBase
 
         timer.AddPoint("Save");
 
-        // Delete any characters that weren't in the API response
+        // Unlink any characters that weren't in the API response
+        var seenAccountIds = new List<int>();
         foreach (var (region, apiAccount) in apiAccounts)
         {
-            var accountId = accountMap[(region, apiAccount.Id)].Id;
+            int accountId = accountMap[(region, apiAccount.Id)].Id;
+            seenAccountIds.Add(accountId);
+
             var characterIds = new List<int>();
             foreach (var apiCharacter in apiAccount.Characters)
             {
@@ -199,17 +201,32 @@ public class UserCharactersJob : JobBase
                 }
             }
 
-            int updated = await Context.PlayerCharacter
+            int unlinkedCharacters = await Context.PlayerCharacter
                 .Where(pc => pc.AccountId == accountId && !characterIds.Contains(pc.Id))
                 .ExecuteUpdateAsync(s => s
                     .SetProperty(pc => pc.AccountId, pc => null)
                 );
 
-            if (updated > 0)
+            if (unlinkedCharacters > 0)
             {
                 Logger.Information("Unlinked {0} character(s) from account {1}/{2}",
-                    updated, region, accountId);
+                    unlinkedCharacters, region, accountId);
             }
+        }
+
+        // Unlink accounts that weren't in the response
+        var otherAccounts = await Context.PlayerAccount
+            .Where(pa => pa.UserId == userId && !seenAccountIds.Contains(pa.Id))
+            .ToArrayAsync();
+        if (otherAccounts.Length > 0)
+        {
+            foreach (var otherAccount in otherAccounts)
+            {
+                otherAccount.UserId = null;
+                Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+            }
+
+            await Context.SaveChangesAsync();
         }
 
         timer.AddPoint("Unlink", true);

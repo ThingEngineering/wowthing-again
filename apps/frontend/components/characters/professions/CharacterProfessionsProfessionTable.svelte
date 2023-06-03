@@ -1,14 +1,21 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
+    import { userQuestStore } from '@/stores'
+    import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    export let knownRecipes: Set<number>
     export let category: StaticDataProfessionCategory
+    export let character: Character
+    export let charSubProfession: CharacterProfession
+    export let expansion: Expansion
+    export let knownRecipes: Set<number>
 
     let abilities: [StaticDataProfessionAbility, boolean, number, number, number][]
     let hasRanks: boolean
@@ -84,6 +91,11 @@
             }
         }
     }
+    .has-crafted {
+        padding-left: 0.3rem;
+        text-align: center;
+        width: 1.6rem;
+    }
     .ability-name {
         --image-border-width: 1px;
         --image-margin-top: -2px;
@@ -104,31 +116,6 @@
             color: rgb(255, 215, 0);
         }
     }
-    .ranks {
-        --scale: 0.9;
-
-        padding-left: 0;
-        text-align: right;
-        width: 5rem;
-
-        :global(a + a) {
-            margin-left: -0.5rem;
-        }
-    }
-    .trivial {
-        padding-left: 0;
-        text-align: right;
-        width: 2.2rem;
-    }
-    .trivial-low {
-        color: $colour-shrug;
-    }
-    .trivial-mid {
-        color: $colour-success;
-    }
-    .trivial-high {
-        color: #bbb;
-    }
 </style>
 
 {#if abilities.length > 0}
@@ -136,18 +123,10 @@
         <thead>
             <tr>
                 <th class="category-name">{category.name}</th>
-                {#if hasRanks}
-                    <th class="ranks"></th>
-                {:else}
-                    <th class="trivial"></th>
-                    <th class="trivial"></th>
-                    <th class="trivial"></th>
-                {/if}
             </tr>
         </thead>
         <tbody>
             {#each abilities as [ability, userHas, spellId, currentRank, totalRanks]}
-                {@const useLow=ability.trivialLow && ability.trivialLow < ability.trivialHigh}
                 <tr data-ability-id={ability.id}>
                     <td
                         class="ability-name text-overflow"
@@ -156,57 +135,55 @@
                         class:tier2={ability.name.includes('Tier2')}
                         class:tier3={ability.name.includes('Tier3')}
                     >
-                        <WowheadLink
-                            id={spellId}
-                            type={"spell"}
-                        >
-                            <WowthingImage
-                                name={ability.itemId ? `item/${ability.itemId}` : `spell/${spellId}`}
-                                size={20}
-                                border={1}
-                            />
+                        <div class="flex-wrapper">
+                            <div class="item-info text-overflow">
+                                <WowheadLink
+                                    id={spellId}
+                                    type={"spell"}
+                                >
+                                    <WowthingImage
+                                        name={ability.itemId ? `item/${ability.itemId}` : `spell/${spellId}`}
+                                        size={20}
+                                        border={1}
+                                    />
 
-                            <ParsedText text={getFixedName(ability.name)} />
-                        </WowheadLink>
+                                    <ParsedText text={getFixedName(ability.name)} />
+                                </WowheadLink>
+                            </div>
+
+                            <div class="extra-info flex-wrapper">
+                                {#if hasRanks}
+                                    <SkillRanks
+                                        {ability}
+                                        {currentRank}
+                                        {totalRanks}
+                                        {userHas}
+                                    />
+                                {:else}
+                                    <CraftLevels
+                                        {ability}
+                                        {charSubProfession}
+                                    />
+
+                                    {#if expansion.id >= 9}
+                                        <span class="has-crafted">
+                                            {#if ability.firstCraftQuestId}
+                                                {@const hasCrafted = userQuestStore.hasAny(character.id, ability.firstCraftQuestId)}
+                                                <IconifyIcon
+                                                    extraClass={hasCrafted ? 'status-success': 'status-fail' }
+                                                    icon={hasCrafted ? iconStrings.yes : iconStrings.no}
+                                                    tooltip={hasCrafted
+                                                        ? 'Learned and crafted'
+                                                        : (userHas ? 'Learned and not crafted' : 'Unlearned')
+                                                    }
+                                                />
+                                            {/if}
+                                        </span>
+                                    {/if}
+                                {/if}
+                            </div>
+                        </div>
                     </td>
-                    
-                    {#if hasRanks}
-                        <td
-                            class="ranks"
-                            class:status-success={userHas && currentRank === totalRanks}
-                            class:status-shrug={userHas && currentRank < totalRanks}
-                            class:status-fail={!userHas}
-                        >
-                            {#if totalRanks > 1}
-                                {#each Array(3) as _, index}
-                                    <WowheadLink
-                                        id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
-                                        type={"spell"}
-                                    >
-                                        <IconifyIcon
-                                            icon={iconStrings[index < currentRank && userHas ? 'starFull' : 'starEmpty']}
-                                        />
-                                    </WowheadLink>
-                                {/each}
-                            {/if}
-                        </td>
-                    {:else}
-                        <td class="trivial trivial-low">
-                            {#if useLow}
-                                {ability.trivialLow}
-                            {/if}
-                        </td>
-                        <td class="trivial trivial-mid">
-                            {#if useLow}
-                                {Math.floor((ability.trivialLow + ability.trivialHigh) / 2)}
-                            {/if}
-                        </td>
-                        <td class="trivial trivial-high">
-                            {#if ability.trivialHigh > 1}
-                                {ability.trivialHigh}
-                            {/if}
-                        </td>
-                    {/if}
                 </tr>
             {/each}
         </tbody>
