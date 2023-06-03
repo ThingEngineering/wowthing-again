@@ -30,7 +30,7 @@
     />
 
     <CharacterTable
-        filterFunc={(char) => $userQuestStore.characters[char.id]?.quests?.has($exploreState.questId)}
+        filterFunc={(char) => userQuestStore.hasAny(char.id, $exploreState.questId)}
     >
         <svelte:fragment slot="rowExtra">
             <td>✔</td>
