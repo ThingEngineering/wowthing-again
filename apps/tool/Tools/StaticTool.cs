@@ -457,7 +457,7 @@ public class StaticTool
             .ToGroupedDictionary(se => se.SpellID);
 
         var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
-            .ToDictionary(cd => cd.ID, cd => cd.CraftedItemID);
+            .ToDictionary(cd => cd.ID, cd => cd);
 
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>("skillline");
 
@@ -571,9 +571,10 @@ public class StaticTool
                             foreach (var abilityEffect in abilityEffects)
                             {
                                 if (abilityEffect.Effect == 288 &&
-                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out int effectItemId))
+                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData))
                                 {
-                                    outAbility.ItemId = effectItemId;
+                                    outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
+                                    outAbility.ItemId = craftingData.CraftedItemID;
                                     break;
                                 }
                             }

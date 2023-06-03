@@ -63,6 +63,7 @@ export class StaticDataProfessionAbility {
         public id: number,
         public spellId: number,
         public itemId: number,
+        public firstCraftQuestId: number,
         public skillups: number,
         public minSkill: number,
         public trivialLow: number,
