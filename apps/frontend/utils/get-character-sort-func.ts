@@ -15,7 +15,7 @@ export default function getCharacterSortFunc(
     prefixFunc?: (char: Character) => string
 ): (char: Character) => string
 {
-    const sortBy = settingsData.general.sortBy ?? ['level', 'name']
+    const sortBy = settingsData.general.sortBy || ['level', 'name']
 
     return (char: Character) => {
         const out: string[] = []
@@ -80,6 +80,14 @@ export default function getCharacterSortFunc(
             }
             else if (thing === 'gold') {
                 out.push(leftPad(10_000_000 - char.gold, 8, '0'))
+            }
+            else if (thing === 'guild') {
+                if (char.guild) {
+                    out.push(`${char.guild.name}--${char.realm?.name || 'ZZZ'}`)
+                }
+                else {
+                    out.push('ZZZZZZ')
+                }
             }
             else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
                 out.push(leftPad(

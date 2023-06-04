@@ -39,6 +39,7 @@ public class ApplicationUserSettings
         "faction",
         "-faction",
         "gold",
+        "guild",
         "itemlevel",
         "level",
         "mplusrating",

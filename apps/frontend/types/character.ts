@@ -1,6 +1,7 @@
 import { Constants } from '@/data/constants'
 import type { Faction } from '@/enums'
 import type { StaticDataRealm } from '@/types/data/static'
+import type { Guild } from './guild'
 
 
 export class Character {
@@ -60,6 +61,7 @@ export class Character {
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>
+    guild: Guild
     mythicPlusSeasonScores: Record<number, number>
     professions: Record<number, Record<number, CharacterProfession>>
     realm: StaticDataRealm

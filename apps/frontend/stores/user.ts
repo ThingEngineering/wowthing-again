@@ -250,6 +250,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // realm
         character.realm = staticData.realms[character.realmId] || staticData.realms[0]
         
+        // guild
+        character.guild = this.value.guilds[character.guildId]
+
         // item levels
         if (Object.keys(character.equippedItems).length > 0) {
             let count = 0,
