@@ -24,6 +24,7 @@
         {key: 'class', name: 'Class name'},
         {key: 'faction', name: 'Faction: :alliance: > :horde:'},
         {key: '-faction', name: 'Faction: :horde: > :alliance:'},
+        {key: 'guild', name: 'Guild name'},
         {key: 'mplusrating', name: 'Mythic+ Rating'},
         {key: 'name', name: 'Character name'},
         {key: 'realm', name: 'Realm name'},
