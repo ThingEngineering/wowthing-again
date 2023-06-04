@@ -1,6 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { userQuestStore } from '@/stores'
+    import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
 
@@ -46,13 +47,32 @@
                 }
                 
                 if (totalRanks > 1) {
+                    if (!$charactersState.professionsShowLearned) {
+                        continue
+                    }
+
                     hasRanks = true
                 }
             }
             else {
                 if (knownRecipes.has(ability.id)) {
+                    if (!$charactersState.professionsShowLearned) {
+                        continue
+                    }
+
+                    if (ability.firstCraftQuestId &&
+                        userQuestStore.hasAny(character.id, ability.firstCraftQuestId) &&
+                        !$charactersState.professionsShowAlreadyCrafted)
+                    {
+                        continue
+                    }
+
                     has = true
                 }
+            }
+
+            if (!has && !$charactersState.professionsShowUnlearned) {
+                continue
             }
 
             abilities.push([

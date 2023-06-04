@@ -9,6 +9,7 @@
     export let params: MultiSlugParams
 
     import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte'
+    import Options from './CharacterProfessionsOptions.svelte'
     import View from './CharacterProfessionsView.svelte'
 
     let primaryProfessions: ProfessionData[]
@@ -76,6 +77,8 @@
             />
         </div>
     {/if}
+
+    <Options />
 </nav>
 
 {#if params.slug4 && (primaryProfessions.length > 0 || secondaryProfessions.length > 0)}

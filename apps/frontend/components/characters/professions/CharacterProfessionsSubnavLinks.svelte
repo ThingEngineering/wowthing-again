@@ -37,7 +37,7 @@
             use:active={`${url}/*`}
         >
             {getName(staticProfession)}
-            <code>{characterProfession.currentSkill} / {characterProfession.maxSkill}</code>
+            <!-- <code>{characterProfession.currentSkill} / {characterProfession.maxSkill}</code> -->
         </a>
     {/if}
 {/each}
