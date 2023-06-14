@@ -8,7 +8,7 @@ export const weeklyAffixes: string[][] = [
     ['tyrannical', 'incorporeal', 'spiteful'],
     ['fortified', 'afflicted', 'raging'],
     ['tyrannical', 'volcanic', 'sanguine'],
-    ['fortified', 'quaking', 'quaking'],
+    ['fortified', 'storming', 'bursting'],
     ['tyrannical', 'quaking', 'quaking'],
     ['fortified', 'quaking', 'quaking'],
     ['tyrannical', 'quaking', 'quaking'],
