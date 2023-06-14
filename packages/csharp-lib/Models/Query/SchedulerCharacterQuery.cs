@@ -13,7 +13,7 @@ public class SchedulerCharacterQuery
     public string CharacterName { get; set; }
     public DateTime LastApiCheck { get; set; }
     public DateTime LastApiModified { get; set; }
-        
+
     public static string SqlQuery = @"
 SELECT  c.id AS character_id,
         c.account_id AS account_id,
@@ -27,8 +27,9 @@ FROM    player_character c
 INNER JOIN player_account a ON c.account_id = a.id
 INNER JOIN wow_realm r ON c.realm_id = r.id
 WHERE (
-    c.account_id IS NOT NULL AND
-    (current_timestamp - c.last_api_check) > (
+    c.account_id IS NOT NULL
+    AND a.user_id IS NOT NULL
+    AND (current_timestamp - c.last_api_check) > (
         '8 hours'::interval +
         ('1 hour'::interval * c.delay_hours)
     )
