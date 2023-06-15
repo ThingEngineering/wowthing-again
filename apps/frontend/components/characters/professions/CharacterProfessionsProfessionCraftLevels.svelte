@@ -1,13 +1,12 @@
 <script lang="ts">
-    import type { CharacterProfession } from '@/types'
     import type { StaticDataProfessionAbility } from '@/types/data/static'
 
     export let ability: StaticDataProfessionAbility
-    export let charSubProfession: CharacterProfession
+    export let currentSkill: number
 
     $: useLow = ability.trivialLow &&
                 ability.trivialLow < ability.trivialHigh &&
-                ability.trivialLow > charSubProfession.currentSkill
+                ability.trivialLow > currentSkill
     $: mid = Math.floor((ability.trivialLow + ability.trivialHigh) / 2)
 </script>
 
@@ -37,7 +36,7 @@
     {#if useLow}
         <span class="trivial-low">{ability.trivialLow}</span>
 
-        {#if mid > charSubProfession.currentSkill}
+        {#if mid > currentSkill}
             <span class="trivial-mid">{mid}</span>
         {/if}
     {/if}

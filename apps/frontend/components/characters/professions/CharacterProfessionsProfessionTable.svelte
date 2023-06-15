@@ -176,8 +176,8 @@
                                     />
                                 {:else}
                                     <CraftLevels
+                                        currentSkill={charSubProfession?.currentSkill || 0}
                                         {ability}
-                                        {charSubProfession}
                                     />
 
                                     {#if expansion.id >= 9}
