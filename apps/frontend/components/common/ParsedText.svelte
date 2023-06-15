@@ -22,6 +22,8 @@
     $: {
         html = text || ''
 
+        html = html.replace(/(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/, '{craftedQuality:$2}')
+
         // {reputation:amount|factionId}
         html = html.replaceAll(
             /\{reputation:(\d+)\|(\d+)\}/g,

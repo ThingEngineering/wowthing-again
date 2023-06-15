@@ -84,11 +84,6 @@
             ])
         }
     }
-
-    const getFixedName = function(name: string): string {
-        name = name.replace(/(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/, '{craftedQuality:$2}')
-        return name
-    }
 </script>
 
 <style lang="scss">
@@ -167,7 +162,7 @@
                                         border={1}
                                     />
 
-                                    <ParsedText text={getFixedName(ability.name)} />
+                                    <ParsedText text={ability.name} />
                                 </WowheadLink>
                             </div>
 
