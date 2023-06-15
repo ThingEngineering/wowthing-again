@@ -17,6 +17,7 @@ import type { StaticDataToy, StaticDataToyArray } from './toy'
 
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
+    enchantments: Record<number, string>
     illusions: Record<number, StaticDataIllusion>
     inventorySlots: Record<number, string>
     inventoryTypes: Record<number, string>

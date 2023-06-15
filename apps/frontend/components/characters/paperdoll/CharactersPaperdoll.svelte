@@ -149,19 +149,22 @@
         gap: 0.8rem;
 
         &.left {
-            left: 2rem;
+            left: 1.5rem;
         }
         &.right {
-            right: 2rem;
+            right: 1.5rem;
         }
     }
-    .weapons {
-        position: absolute;
+    .weapon {
         bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 0.8rem;
+        position: absolute;
+
+        &.left {
+            right: calc(50% + 0.5rem);
+        }
+        &.right {
+            left: calc(50% + 0.5rem);
+        }
     }
     .attribution {
         position: absolute;
@@ -202,15 +205,20 @@
             <Equipped
                 {character}
                 {inventorySlot}
+                leftSide={true}
             />
         {/each}
     </div>
 
-    <div class="weapons">
+    <div class="weapon left">
         <Equipped
             inventorySlot={InventorySlot.MainHand}
             {character}
+            leftSide={true}
         />
+    </div>
+
+    <div class="weapon right">
         <Equipped
             inventorySlot={InventorySlot.OffHand}
             {character}

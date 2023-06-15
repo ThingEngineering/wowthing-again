@@ -54,6 +54,7 @@ export const currencyExtra: Record<number, number[]> = {
         1191, // Valor
         2167, // Catalyst Charges
     ],
+    // Dragonflight - Crafting Knowledge
     125001: [
         2023, // Blacksmithing Knowledge
         2024, // Alchemy Knowledge
@@ -67,12 +68,10 @@ export const currencyExtra: Record<number, number[]> = {
         2034, // Herbalism Knowledge
         2035, // Mining Knowledge
     ],
+    // Dragonflight - Season 2
     125003: [
         2245, // Flightstones
-        // 2409, // Whelpling Quest Fragment
-        // 2410, // Drake Crest Fragment
-        // 2411, // Wyrm Crest Fragment
-        // 2412, // Aspect Crest Fragment
+        2533, // Renascent Shadowflame
     ],
 }
 
