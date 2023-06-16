@@ -86,10 +86,11 @@
             <span class="quality{equippedItem.quality}">{item.name}</span>
             
             {#if equippedItem.enchantmentIds?.length > 0}
+                {@const enchantId = equippedItem.enchantmentIds[0]}
                 <span>
                     <ParsedText
                         cls="quality2"
-                        text={$staticStore.enchantments[equippedItem.enchantmentIds[0]]}
+                        text={$staticStore.enchantments[enchantId] || `Enchant #${enchantId}`}
                     />
                 </span>
             {/if}
