@@ -124,6 +124,14 @@ public static partial class Hardcoded
         { 17, 7186 }, // LFR
     };
 
+    private static readonly Dictionary<int, int> DfRaid = new()
+    {
+        { 14, 9324 }, // Normal
+        { 15, 9333 }, // Heroic
+        { 16, 9385 }, // Mythic
+        { 17, 9316 }, // LFR
+    };
+
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
     {
         { 369, MopSiege }, // Siege of Orgrimmar
@@ -196,5 +204,9 @@ public static partial class Hardcoded
         { 1190, SlRaid }, // Castle Nathria
         { 1193, SlRaid }, // Sanctum of Domination
         { 1195, SlRaid2 }, // Sepulcher of the First Ones
+
+        // Dragonflight
+        { 1200, DfRaid }, // Vault of the Incarnates
+        { 1208, DfRaid }, // Aberrus, the Shadow Crucible
     };
 }
