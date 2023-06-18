@@ -140,7 +140,7 @@
 {:then things}
     <Paginate
         items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
-        perPage={$auctionState.allRealms ? 6 : 18}
+        perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 6 : 18}
         {page}
         let:paginated
     >
