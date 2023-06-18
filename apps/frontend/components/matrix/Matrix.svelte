@@ -22,8 +22,10 @@
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
     let matrix: Record<string, Character[]>
+    let xCounts: Record<string, number>
     let xEntries: string[][]
     let xKeys: string[]
+    let yCounts: Record<string, number>
     let yEntries: string[][]
     let yKeys: string[]
     $: {
@@ -220,6 +222,17 @@
         if (yEntries.length === 1 && !some(yEntries[0], (y) => y !== '')) {
             yEntries[0] = ['All']
         }
+
+        // Counts
+        xCounts = {}
+        yCounts = {}
+        for (const yKey of yKeys) {
+            for (const xKey of xKeys) {
+                const keyCharacters = getCharacters(xKey, yKey)
+                xCounts[xKey] = (xCounts[xKey] || 0) + keyCharacters.length
+                yCounts[yKey] = (yCounts[yKey] || 0) + keyCharacters.length
+            }
+        }
     }
 
     const axisOptions: [string, string][] = [
@@ -333,6 +346,9 @@
     .level {
         --image-margin-top: -4px;
     }
+    .counts {
+        color: #44ffff;
+    }
 </style>
 
 <div class="wrapper">
@@ -426,8 +442,16 @@
                             {/each}
                         </td>
                     {/each}
+                    <td class="counts">{yCounts[yKey]}</td>
                 </tr>
             {/each}
+            <tr>
+                <td></td>
+                {#each xKeys as xKey}
+                    <td class="counts">{xCounts[xKey]}</td>
+                {/each}
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </div>
