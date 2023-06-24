@@ -1,10 +1,12 @@
 <script lang="ts">
     import { currencyItemCurrencies } from '@/data/currencies'
-    import { itemStore } from '@/stores'
+    import { itemStore, timeStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { StaticDataCurrency } from '@/types/data/static'
+    import { seasonMap } from '@/data/dungeon';
+    import { Constants } from '@/data/constants';
 
     export let character: Character
     export let currency: StaticDataCurrency = undefined
@@ -24,6 +26,15 @@
                     per = characterCurrency.totalQuantity / characterCurrency.max * 100
                     tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
                 }
+                // The max lies and it's weekly
+                else if (currency.id === 2533) {
+                    const period = userStore.getCurrentPeriodForCharacter($timeStore, character)
+                    const max = Math.min(period.id - 910, characterCurrency.max)
+                    per = characterCurrency.quantity / max * 100
+
+                    per = characterCurrency.quantity / max * 100
+                    tooltip = `${characterCurrency.quantity.toLocaleString()} / ${max.toLocaleString()}`
+                }
                 else {
                     if (characterCurrency.max > 0) {
                         per = characterCurrency.quantity / characterCurrency.max * 100
@@ -42,7 +53,7 @@
             const name = $itemStore.items[itemId]?.name || `Item #${itemId}`
             
             amount = toNiceNumber(characterItemCount)
-            tooltip = `${characterItemCount.toLocaleString()} ${name}`
+            tooltip = `${characterItemCount.toLocaleString()}x ${name}`
 
             if (currencyItemCurrencies[itemId]) {
                 const characterCurrency = character.currencies?.[currencyItemCurrencies[itemId]]
@@ -51,10 +62,21 @@
                     tooltip += ` &ndash; ${characterCurrency.quantity} / ${characterCurrency.max}`
                 }
             }
+            // This has a backing currency which does not have a max, whee
+            else if (itemId === 204717) {
+                const characterCurrency = character.currencies?.[2413]
+                const quantity = characterCurrency?.quantity || 0
+                
+                const period = userStore.getCurrentPeriodForCharacter($timeStore, character)
+                const max = period.id - 904
+
+                per = quantity / max * 100
+                tooltip += ` &ndash; ${quantity} / ${max}`
+            }
             // TODO remove this once unique count is in item data
             else if (itemId === 201836) {
                 per = characterItemCount / 12 * 100
-                tooltip = tooltip.replace(' ', ` / ${12} `)
+                tooltip = tooltip.replace('x ', ` / ${12} `)
             }
         }
     }
@@ -78,7 +100,9 @@
             allowHTML: true,
             content: tooltip
         }}
-    >{amount}</td>
+    >
+        {amount}
+    </td>
 {:else}
     <td>&nbsp;</td>
 {/if}
