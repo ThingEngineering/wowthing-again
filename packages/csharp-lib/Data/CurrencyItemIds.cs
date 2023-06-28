@@ -84,5 +84,6 @@ public static partial class Hardcoded
         204727, // Coveted Bauble
         204985, // Barter Brick
         205188, // Barter Boulder
+        205225, // Aspects' Token of Merit
     };
 }
