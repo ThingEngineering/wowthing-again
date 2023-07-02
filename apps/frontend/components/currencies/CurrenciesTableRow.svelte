@@ -30,7 +30,6 @@
                 else if (currency.id === 2533) {
                     const period = userStore.getCurrentPeriodForCharacter($timeStore, character)
                     const max = Math.min(period.id - 910, characterCurrency.max)
-                    per = characterCurrency.quantity / max * 100
 
                     per = characterCurrency.quantity / max * 100
                     tooltip = `${characterCurrency.quantity.toLocaleString()} / ${max.toLocaleString()}`

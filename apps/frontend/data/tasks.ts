@@ -297,11 +297,11 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'dfFyrakkAssault',
             taskName: 'Fyrakk - Assault',
         },
-        // {
-        //     minimumLevel: 70,
-        //     taskKey: 'dfFyrakkDisciple',
-        //     taskName: '[10.1] Fyrakk - Disciple Head',
-        // },
+        {
+            minimumLevel: 70,
+            taskKey: 'dfFyrakkDisciple',
+            taskName: 'Fyrakk - Disciple',
+        },
         {
             minimumLevel: 70,
             taskKey: 'dfFyrakkShipment',

@@ -41,7 +41,12 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             slug: 'crafting-materials',
         },
         {
-            id: 125003,
+            id: 125011,
+            name: 'Season 1',
+            slug: 'season-1',
+        },
+        {
+            id: 125012,
             name: 'Season 2',
             slug: 'season-2',
         },
@@ -51,8 +56,8 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 export const currencyExtra: Record<number, number[]> = {
     // Dragonflight
     250: [
-        1191, // Valor
-        2167, // Catalyst Charges
+        // 1191, // Valor
+        // 2167, // Catalyst Charges
     ],
     // Dragonflight - Crafting Knowledge
     125001: [
@@ -69,7 +74,7 @@ export const currencyExtra: Record<number, number[]> = {
         2035, // Mining Knowledge
     ],
     // Dragonflight - Season 2
-    125003: [
+    125012: [
         2245, // Flightstones
         2533, // Renascent Shadowflame
     ],
@@ -110,8 +115,8 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight
     250: [
-        201836, // Aspects' Token of Merit
         204276, // Untapped Forbidden Knowledge
+        null,
         202196, // Zskera Vault Key
         null,
         204715, // Unearthed Fragrant Coin
@@ -133,6 +138,10 @@ export const currencyItems: Record<number, number[]> = {
         204673, // Titan Training Matrix V
         null,
         190456, // Artisan's Mettle
+    ],
+    // Dragonflight > Season 1
+    125011: [
+        201836, // Aspects' Token of Merit
         199197, // Bottled Essence
         190453, // Spark of Ingenuity
         null,
@@ -142,7 +151,8 @@ export const currencyItems: Record<number, number[]> = {
         198046, // Concentrated Primal Infusion
     ],
     // Dragonflight > Season 2
-    125003: [
+    125012: [
+        205225, // Aspects' Token of Merit
         204717, // Splintered Spark of Shadowflame
         204440, // Spark of Shadowflame
         null,
