@@ -3,10 +3,12 @@
     import { farmTypeIcons } from '@/data/icons'
     import { FarmType } from '@/enums'
     import { lazyStore, userAchievementStore } from '@/stores'
+    import { UserCount } from '@/types'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'
 
+    import CollectibleCount from '../collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let encounter: JournalDataEncounter = undefined
@@ -63,6 +65,9 @@
         + .stats {
             margin-left: 0.4rem;
         }
+        :global(.collectible-count) {
+            padding: 1px 0;
+        }
     }
     .difficulty {
         background: $active-background;
@@ -71,10 +76,6 @@
         font-weight: 600;
         margin: -1px 0;
         padding: 0 0.3rem;
-    }
-    .counts {
-        font-size: 0.95rem;
-        margin-left: 0.3rem;
     }
     .kills {
         font-size: 0.95rem;
@@ -93,9 +94,7 @@
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}
                 </span>
-                <span class="counts {getPercentClass(have / total * 100)}">
-                    <em>{have}</em> / <em>{total}</em>
-                </span>
+                <CollectibleCount counts={new UserCount(have, total)} />
                 
                 {#if kills >= 0}
                     <span class="kills">

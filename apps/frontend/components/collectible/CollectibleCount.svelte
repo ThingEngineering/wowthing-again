@@ -19,7 +19,7 @@
     }
 </style>
 
-<span>
+<span class="collectible-count">
     <em class="quality{Math.floor(per / 25) + 1}">{counts?.have ?? '??'}</em> /
     <em class="quality{Math.floor(per / 25) + 1}">{counts?.total ?? '??'}</em>
 </span>
