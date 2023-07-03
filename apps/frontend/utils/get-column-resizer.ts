@@ -4,6 +4,7 @@ import debounce from 'lodash/debounce'
 type ColumnResizerOptions = {
     columnCount: string
     gap: number
+    minColumns: number
     padding: string
 }
 
@@ -28,13 +29,13 @@ export function getColumnResizer(
         childWidth = children[0].getBoundingClientRect().width
 
         const totalWidth = widthElement.getBoundingClientRect().width
-        const fitCount = Math.floor(totalWidth / childWidth)
+        const fitCount = Math.max(options.minColumns || 0, Math.floor(totalWidth / childWidth))
 
         let finalWidth: string
         if (fitCount > 1) {
             for (let i = fitCount; i > 1; i--) {
                 const newWidth = (i * childWidth) + ((i - 1) * (gap))
-                if (newWidth <= totalWidth) {
+                if (newWidth <= totalWidth || i >= options.minColumns) {
                     finalWidth = `${newWidth}px`
                     resizeableElement.style.setProperty(columnCount, i.toString())
                     break
@@ -47,6 +48,8 @@ export function getColumnResizer(
             finalWidth = `${childWidth}px`
         }
 
-        resizeableElement.style.width = options?.padding ? `calc(${finalWidth} + ${options.padding})` : finalWidth
+        // console.log({ childWidth, finalWidth, fitCount, totalWidth })
+
+        resizeableElement.style.width = options?.padding ? `calc(${finalWidth} + (${options.padding} * 2))` : finalWidth
     }, 100, { maxWait: 250 })
 }
