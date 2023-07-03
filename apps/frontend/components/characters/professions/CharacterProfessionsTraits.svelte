@@ -38,8 +38,6 @@
         for (const traitTree of subProfession.traitTrees) {
             recurse(traitTree.firstNode)
         }
-
-        console.log({totalHave, totalPoints})
     }
 
     const recurse = (node: StaticDataSubProfessionTraitNode) => {
