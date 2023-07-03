@@ -10,6 +10,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import getPercentClass from '@/utils/get-percent-class';
 
     export let character: Character
     export let chore: LazyCharacterChore
@@ -48,9 +49,23 @@
         )
     }
 
-    const getFixedText = function(text: string): string {
+    const getFixedText = function(text: string): [string, string] {
         text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}')
-        return text
+        
+        let cls = ''
+        const m = text.match(/^(\d+)\/(\d+) /)
+        if (m) {
+            const have = parseInt(m[1])
+            const total = parseInt(m[2])
+            const per = have / total * 100
+            if (per === 100) {
+                cls = 'status-success'
+            }
+            else if (per > 0) {
+                cls = 'status-shrug'
+            }
+        }
+        return [text, cls]
     }
 </script>
 
@@ -88,23 +103,13 @@
         width: 7rem;
     }
     .status-text {
-        color: #8fffff;
+        color: #afffff;
         font-size: 0.95rem;
         padding-left: 0.7rem;
         text-align: left;
 
         :global(svg) {
             margin-left: -0.5rem;
-        }
-    }
-    .tier2 {
-        :global(span[data-string="starFull"]) {
-            color: rgb(215, 215, 215);
-        }
-    }
-    .tier3 {
-        :global(span[data-string="starFull"]) {
-            color: rgb(255, 215, 0);
         }
     }
     .skipped {
@@ -150,16 +155,17 @@
                         >
                             <td
                                 class="status-text"
-                                class:tier2={charTask.statusTexts[0].includes('[[tier2]]')}
-                                class:tier3={charTask.statusTexts[0].includes('[[tier3]]')}
                                 colspan="{anyErrors ? 3 : 2}"
                             >
                                 {#each charTask.statusTexts as statusText}
+                                    {@const [fixedText, textClass] = getFixedText(statusText)}
                                     <div>
                                         {#if !statusText.startsWith('<')}
                                             &ndash;
                                         {/if}
-                                        <ParsedText text={getFixedText(statusText)} />
+                                        <ParsedText
+                                            cls={textClass}
+                                            text={fixedText} />
                                     </div>
                                 {/each}
                             </td>

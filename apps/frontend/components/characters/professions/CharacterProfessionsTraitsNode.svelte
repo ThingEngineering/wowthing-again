@@ -39,7 +39,7 @@
 >
     <td class="name" style:padding-left={`${(indent * 1) + 0.5}rem`}>
         <WowthingImage
-            name="unknown"
+            name="trait-node/{node.unlockEntryId}"
             border={1}
             size={16}
         />
