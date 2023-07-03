@@ -162,7 +162,7 @@ export const taskList: Task[] = [
         key: 'dfChores10_1_0',
         name: '[DF] Chores - 10.1.0',
         shortName: '10.1',
-        minimumLevel: 70,
+        minimumLevel: 60,
         type: 'multi',
     },
     {
@@ -293,17 +293,17 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     'dfChores10_1_0': [
         {
-            minimumLevel: 70,
+            minimumLevel: 60,
             taskKey: 'dfFyrakkAssault',
             taskName: 'Fyrakk - Assault',
         },
         {
-            minimumLevel: 70,
+            minimumLevel: 60,
             taskKey: 'dfFyrakkDisciple',
             taskName: 'Fyrakk - Disciple',
         },
         {
-            minimumLevel: 70,
+            minimumLevel: 60,
             taskKey: 'dfFyrakkShipment',
             taskName: 'Fyrakk - Secured Shipment',
         },
