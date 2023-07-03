@@ -1,10 +1,11 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
-    import { onMount } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
     import { replace } from 'svelte-spa-router'
 
-    import { itemSearchState, userStore } from '@/stores'
     import { ItemLocation } from '@/enums'
+    import { itemSearchState, userStore } from '@/stores'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import CharacterTable from './ItemsSearchCharacterTable.svelte'
@@ -36,13 +37,37 @@
             )
         }
     }
+
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'search-table',
+                {
+                    columnCount: '--column-count',
+                    gap: 20,
+                    minColumns: 2,
+                    padding: '0.75rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
+
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
     .thing-container {
         border: 1px solid $border-color;
         padding: 1rem 0.75rem;
-        width: 100%;
     }
     form {
         align-items: center;
@@ -50,24 +75,16 @@
         gap: 0.5rem;
     }
     .results-container {
-        column-count: 1;
+        column-count: max(2, var(--column-count, 1));
+        column-gap: 20px;
         margin-top: 1rem;
-        width: 29.5rem;
-
-        @media screen and (min-width: 1350px) {
-            column-count: 2;
-            width: 60rem;
-        }
-        @media screen and (min-width: 1830px) {
-            column-count: 3;
-            width: 90.5rem;
-        }
 
         :global(table) {
             --padding: 2;
 
             display: inline-block;
             margin-bottom: 0.5rem;
+            width: 29.5rem;
         }
     }
 
@@ -84,59 +101,63 @@
     }
 </style>
 
-<div class="thing-container">
-    <form
-        on:submit|preventDefault={onSubmit}
-    >
-        <TextInput
-            name="terms"
-            maxlength={20}
-            placeholder="Search terms"
-            bind:value={$itemSearchState.searchTerms}
-        />
+<svelte:window on:resize={debouncedResize} />
 
-        <span>in</span>
+<div class="wrapper-column" bind:this={containerElement}>
+    <div class="thing-container" bind:this={resizeableElement}>
+        <form
+            on:submit|preventDefault={onSubmit}
+        >
+            <TextInput
+                name="terms"
+                maxlength={20}
+                placeholder="Search terms"
+                bind:value={$itemSearchState.searchTerms}
+            />
 
-        <Select
-            name="location"
-            bind:selected={$itemSearchState.location}
-            options={[
-                [ItemLocation.Any, '-Any-'],
-                [ItemLocation.Bags, 'Bags'],
-                [ItemLocation.Bank, 'Bank'],
-                [ItemLocation.Reagent, 'Reagent Bank'],
-                [ItemLocation.GuildBank, 'Guild Bank'],
-            ]}
-        />
+            <span>in</span>
 
-        <span>group by</span>
+            <Select
+                name="location"
+                bind:selected={$itemSearchState.location}
+                options={[
+                    [ItemLocation.Any, '-Any-'],
+                    [ItemLocation.Bags, 'Bags'],
+                    [ItemLocation.Bank, 'Bank'],
+                    [ItemLocation.Reagent, 'Reagent Bank'],
+                    [ItemLocation.GuildBank, 'Guild Bank'],
+                ]}
+            />
 
-        <RadioGroup
-            bind:value={$itemSearchState.groupBy}
-            name="sort_by"
-            options={[
-                ['character', 'Character'],
-                ['item', 'Item'],
-            ]}
-        />
+            <span>group by</span>
 
-        <button
-            id="item-search-submit"
-            class="border"
-            class:state-valid={formValid}
-            class:state-invalid={!formValid}
-            disabled={!formValid}
-            type="submit"
-        >Search!</button>
-    </form>
+            <RadioGroup
+                bind:value={$itemSearchState.groupBy}
+                name="sort_by"
+                options={[
+                    ['character', 'Character'],
+                    ['item', 'Item'],
+                ]}
+            />
 
-    {#if response !== undefined}
-        <div class="results-container">
-            {#if $itemSearchState.groupBy === 'character'}
-                <CharacterTable {response} />
-            {:else}
-                <ItemTable {response} />
-            {/if}
-        </div>
-    {/if}
+            <button
+                id="item-search-submit"
+                class="border"
+                class:state-valid={formValid}
+                class:state-invalid={!formValid}
+                disabled={!formValid}
+                type="submit"
+            >Search!</button>
+        </form>
+
+        {#if response !== undefined}
+            <div class="results-container">
+                {#if $itemSearchState.groupBy === 'character'}
+                    <CharacterTable {response} />
+                {:else}
+                    <ItemTable {response} />
+                {/if}
+            </div>
+        {/if}
+    </div>
 </div>
