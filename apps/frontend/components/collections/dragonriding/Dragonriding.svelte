@@ -4,13 +4,14 @@
     import { itemStore, lazyStore, manualStore, userQuestStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import Manuscript from './DragonridingManuscript.svelte'
+    import Options from './DragonridingOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
 </script>
 
 <div class="resizer-view">
+    <Options />
+
     <div class="collection thing-container">
         {#each $manualStore.dragonriding as category}
             <SectionTitle
@@ -25,29 +26,10 @@
                         </h4>
                         <div class="collection-objects">
                             {#each group.things as {itemId, questId}}
-                                {@const item = $itemStore.items[itemId]}
-                                {@const userHas = $userQuestStore.accountHas?.has(questId)}
-                                <div
-                                    class="collection-object quality{item.quality}"
-                                    class:missing={userHas}
-                                >
-                                    <WowheadLink
-                                        type="item"
-                                        id={itemId}
-                                    >
-                                        <WowthingImage
-                                            name="item/{itemId}"
-                                            size={48}
-                                            border={2}
-                                        />
-                                    </WowheadLink>
-
-                                    {#if userHas}
-                                        <div class="collected-icon drop-shadow">
-                                            <IconifyIcon icon={mdiCheckboxOutline} />
-                                        </div>
-                                    {/if}
-                                </div>
+                                <Manuscript
+                                    {itemId}
+                                    {questId}
+                                />
                             {/each}
                         </div>
                     </div>
