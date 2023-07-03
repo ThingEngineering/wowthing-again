@@ -26,11 +26,10 @@
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-    }
-    .items-pre {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
+
+        :global(> .thing-container) {
+
+        }
     }
 </style>
 

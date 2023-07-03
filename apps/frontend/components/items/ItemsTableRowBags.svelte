@@ -1,6 +1,7 @@
 <script lang="ts">
     import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
     import { staticStore } from '@/stores'
+    import { gearState } from '@/stores/local-storage'
     import type { Character, CharacterGear } from '@/types'
 
     import Empty from './ItemsEmpty.svelte'
@@ -31,7 +32,8 @@
                                 bonusIds: [],
                                 enchantmentIds: [],
                                 gemIds: [],
-                            }
+                            },
+                            highlight: $gearState.minimumBagSize > 0 && bag.slots < $gearState.minimumBagSize
                         }
                     ])
                 }
@@ -62,7 +64,10 @@
 
     {#each bagSlots as [bagSlot, gear]}
         {#if gear}
-            <Item {gear} />
+            <Item
+                {gear}
+                useHighlighting={$gearState.highlightBagSize && $gearState.minimumBagSize > 0}
+            />
         {:else}
             <Empty text={getSlotText(bagSlot)} />
         {/if}
