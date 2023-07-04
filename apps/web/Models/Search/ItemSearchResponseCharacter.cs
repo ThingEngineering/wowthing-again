@@ -11,13 +11,13 @@ public class ItemSearchResponseCharacter
     public short Quality { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public short? Context { get; set; }
+    public short Context { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public short? EnchantId { get; set; }
+    public short EnchantId { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public short? SuffixId { get; set; }
+    public short SuffixId { get; set; }
 
     public List<short> BonusIds { get; set; }
     public List<int> Gems { get; set; }

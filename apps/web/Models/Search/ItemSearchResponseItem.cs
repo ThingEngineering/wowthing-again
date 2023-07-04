@@ -9,5 +9,8 @@ public class ItemSearchResponseItem
     public List<ItemSearchResponseCharacter> Characters { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public List<ItemSearchResponseCharacter> Equipped { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public List<ItemSearchResponseGuildBank> GuildBanks { get; set; }
 }

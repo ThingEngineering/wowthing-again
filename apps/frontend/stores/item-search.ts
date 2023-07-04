@@ -16,6 +16,7 @@ type ItemSearchGroupBy =
 
 export class ItemSearchState {
     public groupBy: ItemSearchGroupBy = 'item'
+    public includeEquipped = false
     public location = ItemLocation.Any
     public searchTerms = ''
 

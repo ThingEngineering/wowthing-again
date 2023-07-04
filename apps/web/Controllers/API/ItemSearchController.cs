@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models.Search;
 
@@ -82,18 +83,42 @@ public class ItemSearchController : Controller
             .Select(t => t.GuildId.Value)
             .ToArray();
 
+        // Character items
         var characterItems = await _context.PlayerCharacterItem
             .Where(pci => characterIds.Contains(pci.CharacterId))
             .Where(pci => itemIds.Contains(pci.ItemId))
             .ToArrayAsync();
 
+        var characterGrouped = characterItems
+            .ToGroupedDictionary(pci => pci.ItemId);
+
+        // Character equipped
+        var equippedItems = await _context.PlayerCharacterEquippedItems
+            .Where(pcei => characterIds.Contains(pcei.CharacterId))
+            .ToArrayAsync();
+
+        var equippedGrouped = new Dictionary<int, List<(int CharacterId, PlayerCharacterEquippedItem EquippedItem)>>();
+        foreach (var pcei in equippedItems)
+        {
+            foreach (var equippedItem in pcei.Items.Values)
+            {
+                if (itemMap.ContainsKey(equippedItem.ItemId))
+                {
+                    if (!equippedGrouped.ContainsKey(equippedItem.ItemId))
+                    {
+                        equippedGrouped[equippedItem.ItemId] = new();
+                    }
+
+                    equippedGrouped[equippedItem.ItemId].Add((pcei.CharacterId, equippedItem));
+                }
+            }
+        }
+
+        // Guild items
         var guildItems = await _context.PlayerGuildItem
             .Where(pgi => guildIds.Contains(pgi.GuildId))
             .Where(pgi => itemIds.Contains(pgi.ItemId))
             .ToArrayAsync();
-
-        var characterGrouped = characterItems
-            .ToGroupedDictionary(pci => pci.ItemId);
 
         var guildGrouped = guildItems
             .ToGroupedDictionary(pgi => pgi.ItemId);
@@ -122,11 +147,28 @@ public class ItemSearchController : Controller
                     Location = result.Location,
                     ItemLevel = result.ItemLevel,
                     Quality = result.Quality,
-                    Context = result.Context > 0 ? result.Context : null,
-                    EnchantId = result.EnchantId > 0 ? result.EnchantId : null,
-                    SuffixId = result.SuffixId > 0 ? result.SuffixId : null,
+                    Context = result.Context,
+                    EnchantId = result.EnchantId,
+                    SuffixId = result.SuffixId,
                     BonusIds = result.BonusIds,
                     Gems = result.Gems,
+                }).ToList();
+            }
+
+            if (equippedGrouped.TryGetValue(itemId, out var equippedResults))
+            {
+                item.Equipped = equippedResults.Select(result => new ItemSearchResponseCharacter
+                {
+                    CharacterId = result.CharacterId,
+                    Count = 1,
+                    Location = ItemLocation.Equipped,
+                    ItemLevel = (short)result.EquippedItem.ItemLevel,
+                    Quality = (short)result.EquippedItem.Quality,
+                    Context = (short)result.EquippedItem.Context,
+                    EnchantId = (short)result.EquippedItem.EnchantmentIds.FirstOrDefault(),
+                    SuffixId = 0, // TODO why no suffix
+                    BonusIds = result.EquippedItem.BonusIds.Select(b => (short)b).ToList(),
+                    Gems = result.EquippedItem.GemIds
                 }).ToList();
             }
 

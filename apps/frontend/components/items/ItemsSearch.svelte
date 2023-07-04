@@ -9,6 +9,7 @@
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import CharacterTable from './ItemsSearchCharacterTable.svelte'
+    import Checkbox from '../forms/CheckboxInput.svelte'
     import ItemTable from './ItemsSearchItemTable.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
@@ -139,6 +140,11 @@
                     ['item', 'Item'],
                 ]}
             />
+
+            <Checkbox
+                    name="include_equipped"
+                    bind:value={$itemSearchState.includeEquipped}
+            >Include equipped</Checkbox>
 
             <button
                 id="item-search-submit"

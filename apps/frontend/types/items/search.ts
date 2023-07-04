@@ -5,6 +5,7 @@ export interface ItemSearchResponseItem {
     itemId: number
     itemName: string
     characters: ItemSearchResponseCharacter[]
+    equipped: ItemSearchResponseCharacter[]
     guildBanks: ItemSearchResponseGuildBank[]
 }
 

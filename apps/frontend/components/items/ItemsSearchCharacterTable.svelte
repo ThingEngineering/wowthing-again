@@ -3,6 +3,7 @@
 
     import { Region } from '@/enums'
     import { userStore } from '@/stores'
+    import { itemSearchState } from '@/stores'
     import type { Character } from '@/types'
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
@@ -24,6 +25,17 @@
                     ...character,
                 })
             }
+
+            if ($itemSearchState.includeEquipped) {
+                for (const character of (item.equipped || [])) {
+                    characterMap[character.characterId] ||= []
+                    characterMap[character.characterId].push({
+                        itemId: item.itemId,
+                        ...character,
+                    })
+                }
+            }
+            
             // for (const guildBank of (item.guildBanks || [])) {
             //     characterMap[character.characterId] ||= [] 1`2
             //     characterMap[character.characterId].push(character)

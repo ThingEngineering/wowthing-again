@@ -6,6 +6,7 @@ export enum ItemLocation {
     Reagent = 3,
     GuildBank = 4,
     PetCollection = 10,
+    Equipped = 100,
 }
 
 export enum ItemQuality {
