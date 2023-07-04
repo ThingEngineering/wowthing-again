@@ -63,9 +63,4 @@
 
         text-align: right;
     }
-    .item-level {
-        @include cell-width($width-item-level);
-
-        text-align: right;
-    }
 }

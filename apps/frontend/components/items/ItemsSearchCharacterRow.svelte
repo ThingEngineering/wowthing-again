@@ -3,6 +3,7 @@
     import { ItemLocation } from '@/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
+    import tippy from '@/utils/tippy'
     import type {
         ItemSearchResponseCharacter,
         ItemSearchResponseCommon,
@@ -36,7 +37,10 @@
         </a>
     </td>
 
-    <td class="location">
+    <td
+        class="location text-overflow"
+        use:tippy={characterItem ? ItemLocation[characterItem.location] : `Tab ${guildBankItem.tab}`}
+    >
         {#if characterItem}
             {ItemLocation[characterItem.location]}
         {:else}

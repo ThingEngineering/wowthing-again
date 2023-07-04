@@ -29,7 +29,7 @@ export function getColumnResizer(
         childWidth = children[0].getBoundingClientRect().width
 
         const totalWidth = widthElement.getBoundingClientRect().width
-        const fitCount = Math.max(options.minColumns || 0, Math.floor(totalWidth / childWidth))
+        const fitCount = Math.max(options?.minColumns || 0, Math.floor(totalWidth / childWidth))
 
         let finalWidth: string
         if (fitCount > 1) {
