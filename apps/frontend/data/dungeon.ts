@@ -10,9 +10,9 @@ export const weeklyAffixes: string[][] = [
     ['tyrannical', 'volcanic', 'sanguine'],
     ['fortified', 'storming', 'bursting'],
     ['tyrannical', 'afflicted', 'bolstering'],
-    ['fortified', 'quaking', 'quaking'],
-    ['tyrannical', 'quaking', 'quaking'],
-    ['fortified', 'quaking', 'quaking'],
+    ['fortified', 'incorporeal', 'sanguine'],
+    ['tyrannical', 'entangling', 'bursting'],
+    ['fortified', 'volcanic', 'spiteful'],
 ]
 
 // MapChallengeMode.db2
