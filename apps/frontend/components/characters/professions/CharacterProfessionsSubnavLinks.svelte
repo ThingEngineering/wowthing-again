@@ -23,10 +23,6 @@
             background: $highlight-background;
         }
     }
-    code {
-        background: inherit;
-        word-spacing: -0.5ch;
-    }
 </style>
 
 {#each professions as [staticProfession, characterProfession, ]}

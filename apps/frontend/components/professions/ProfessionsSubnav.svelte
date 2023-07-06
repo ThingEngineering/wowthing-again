@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import ParsedText from '@/components/common/ParsedText.svelte';
+    import ParsedText from '@/components/common/ParsedText.svelte'
 </script>
 
 <style lang="scss">

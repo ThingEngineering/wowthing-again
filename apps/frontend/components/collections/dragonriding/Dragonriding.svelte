@@ -1,7 +1,5 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
-    import { itemStore, lazyStore, manualStore, userQuestStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import Manuscript from './DragonridingManuscript.svelte'
