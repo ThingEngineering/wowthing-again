@@ -20,7 +20,6 @@
             character.mythicPlusWeeks?.[currentPeriod.endTime.toUnixInteger()] || [],
             (run: CharacterMythicPlusAddonRun) => -run.level
         )
-        console.log(character.name, runs, character.mythicPlusWeeks, currentPeriod.endTime.toUnixInteger())
 
         const betterOptions = keyVaultItemLevel.filter(([level,]) => level > progress[0].level)
         improve = []

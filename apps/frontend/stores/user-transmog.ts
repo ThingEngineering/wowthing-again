@@ -201,7 +201,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                     }
                                     else {
                                         if (!item.appearances[modifier]) {
-                                            console.log('Missing appearance?', modifier, item)
+                                            // console.log('Missing appearance?', modifier, item)
                                             continue
                                         }
 
