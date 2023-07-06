@@ -25,7 +25,6 @@
             $staticStore.reputationTiers[$staticStore.reputations[2445].tierId],
             character.reputations?.[2445] ?? 0
         )
-        console.log($staticStore.reputationTiers[$staticStore.reputations[2445].tierId])
 
         quests = $userQuestStore.characters[character.id]?.quests
     }

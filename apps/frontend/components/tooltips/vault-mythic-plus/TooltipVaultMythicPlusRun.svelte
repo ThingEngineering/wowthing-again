@@ -13,7 +13,6 @@
     let keyLevel: number
 
     $: {
-        console.log(run, dungeonMap[run?.mapId])
         let prog: CharacterWeeklyProgress
         for (const thing of progress) {
             if (index === (thing.threshold - 1)) {

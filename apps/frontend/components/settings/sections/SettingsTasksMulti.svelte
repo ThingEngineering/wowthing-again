@@ -19,12 +19,9 @@
     const onTaskChange = debounce(() => {
         settingsStore.update(state => {
             (state.tasks.disabledChores ||= {})[multiTaskKey] = taskInactive.map((c) => c.key)
-            console.log({taskChoices, taskInactive, taskActive, state})
             return state
         })
     }, 100)
-
-    console.log({taskChoices, taskInactive, taskActive})
 </script>
 
 <MagicLists

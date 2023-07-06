@@ -10,7 +10,6 @@
     let status: Record<number, number[]>
     $: {
         status = character.garrisonTrees?.[tree.id]
-        console.log({tree, status})
     }
 </script>
 

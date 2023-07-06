@@ -1,19 +1,22 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
+
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { farmTypeIcons } from '@/data/icons'
-    import { FarmType } from '@/enums'
+    import { FarmType, PlayableClass, playableClasses } from '@/enums'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
-    import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'
 
-    import CollectibleCount from '../collectible/CollectibleCount.svelte'
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let encounter: JournalDataEncounter = undefined
     export let statsKey: string
 
+    let classCounts: [number, keyof typeof PlayableClass][]
     let difficulties: [number, number, number, number][]
     $: {
         difficulties = []
@@ -43,6 +46,17 @@
                 ])
             }
         }
+
+        classCounts = []
+        for (const [className,] of playableClasses) {
+            const classKey = `${statsKey}--class:${className}`
+            const classStats = $lazyStore.journal.stats[classKey]
+            if (classStats) {
+                classCounts.push([classStats.total, className as keyof typeof PlayableClass])
+            }
+        }
+
+        classCounts = sortBy(classCounts, ([count,]) => 1000 - count)
     }
 
     const difficultyUgh: Record<number, number[]> = {
@@ -58,15 +72,24 @@
         //margin-left: auto;
         margin-left: 1rem;
     }
+    .classes {
+        --image-border-width: 1px;
+        --image-margin-top: 1px;
+
+        align-items: center;
+        display: flex;
+        margin-left: auto;
+    }
     .stats {
+        align-items: center;
         display: flex;
         white-space: nowrap;
 
         + .stats {
             margin-left: 0.4rem;
         }
-        :global(.collectible-count) {
-            padding: 1px 0;
+        :global(img) {
+            margin-right: 0.2rem;
         }
     }
     .difficulty {
@@ -105,6 +128,21 @@
                         {kills.toLocaleString()}
                     </span>
                 {/if}
+            </div>
+        {/each}
+    </div>
+{/if}
+
+{#if classCounts}
+    <div class="classes">
+        {#each classCounts as [count, className]}
+            <div class="stats">
+                <ClassIcon
+                    border={1}
+                    classId={PlayableClass[className]}
+                    size={16}
+                />
+                {count}
             </div>
         {/each}
     </div>
