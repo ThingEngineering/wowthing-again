@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
 import { journalDifficultyMap } from '@/data/difficulty'
-import { RewardType } from '@/enums'
+import { PlayableClassMask, RewardType, playableClasses } from '@/enums'
 import { UserCount, type Settings, type UserData } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
@@ -267,13 +267,27 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             }
                         }
 
+                        if (!allCollected) {
+                            for (const [className, classMask] of playableClasses) {
+                                if (item.classMask === 0 || (item.classMask & classMask) > 0) {
+                                    const classInstanceKey = `${instanceKey}--class:${className}`
+                                    const classInstanceStats = ret.stats[classInstanceKey] ||= new UserCount()
+                                    classInstanceStats.total++
+
+                                    const classEncounterKey = `${instanceKey}--${encounter.name}--class:${className}`
+                                    const classEncounterStats = ret.stats[classEncounterKey] ||= new UserCount()
+                                    classEncounterStats.total++
+                                }
+                            }
+                        }
+
                         if (
                             (stores.journalState.showUncollected && !allCollected) ||
                             (stores.journalState.showCollected && allCollected)
                         ) {
                             item.show = true
                         }
-                    }
+                    } // item of filteredItems
 
                     ret.filteredItems[groupKey] = filteredItems
                     //group.filteredItems = filteredItems

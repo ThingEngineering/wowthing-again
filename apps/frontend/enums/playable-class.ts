@@ -1,3 +1,6 @@
+import sortBy from 'lodash/sortBy'
+
+
 export enum PlayableClass {
     DeathKnight = 6,
     DemonHunter = 12,
@@ -29,3 +32,7 @@ export enum PlayableClassMask {
     Warlock = 2 ** (PlayableClass.Warlock - 1),
     Warrior = 2 ** (PlayableClass.Warrior - 1),
 }
+
+export const playableClasses: [string, number][] = Object.entries(PlayableClassMask)
+    .filter(([a,]) => isNaN(parseInt(a)))
+    .map(([a, b]) => [a, <number>b])
