@@ -94,7 +94,7 @@
 
                 {#each (dfData.bookQuests || []) as bookQuest, questIndex}
                     {@const userHas = userQuestStore.hasAny(character.id, bookQuest.questId)}
-                    {#if bookQuest.source === 'AC'}
+                    {#if bookQuest.source.startsWith('AC')}
                         {@const repRank = [2, 4, 5][questIndex]}
                         <Collectible
                             disabled={acRepTier.tier > (6 - repRank)}
