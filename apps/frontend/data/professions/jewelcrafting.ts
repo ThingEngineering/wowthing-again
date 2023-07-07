@@ -11,17 +11,37 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
         {
             itemId: 200978, // Artisan's Consortium, Preferred
             questId: 71899,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201274, // Artisan's Consortium, Valued
             questId: 71910,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201285, // Artisan's Consortium, Esteemed
             questId: 71921,
-            source: 'AC',
+            source: 'AC 5',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72301, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72306, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72320, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72325, // Iskaaran Crafting Mastery
+            source: 'IT 24',
         },
         {
             itemId: 205348, // Niffen Notebook of Jewelcrafting Knowledge

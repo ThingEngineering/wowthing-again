@@ -11,17 +11,37 @@ export const dragonflightTailoring: DragonflightProfession = {
         {
             itemId: 200975, // Artisan's Consortium, Preferred
             questId: 71903,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201271, // Artisan's Consortium, Valued
             questId: 71914,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201282, // Artisan's Consortium, Esteemed
             questId: 71925,
-            source: 'AC',
+            source: 'AC 5',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72303, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72309, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72333, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72336, // Crafting for Expertise
+            source: 'VA 24',
         },
         {
             itemId: 205355, // Niffen Notebook of Tailoring Knowledge

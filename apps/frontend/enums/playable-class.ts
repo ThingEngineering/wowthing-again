@@ -1,6 +1,3 @@
-import sortBy from 'lodash/sortBy'
-
-
 export enum PlayableClass {
     DeathKnight = 6,
     DemonHunter = 12,

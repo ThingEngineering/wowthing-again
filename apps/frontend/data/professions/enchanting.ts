@@ -10,17 +10,37 @@ export const dragonflightEnchanting: DragonflightProfession = {
         {
             itemId: 200976, // Artisan's Consortium, Preferred
             questId: 71895,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201272, // Artisan's Consortium, Valued
             questId: 71906,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201283, // Artisan's Consortium, Esteemed
             questId: 71917,
-            source: 'AC',
+            source: 'AC 5',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72299, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72304, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72318, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72323, // Iskaaran Crafting Mastery
+            source: 'IT 24',
         },
         {
             itemId: 205351, // Niffen Notebook of Enchanting Knowledge

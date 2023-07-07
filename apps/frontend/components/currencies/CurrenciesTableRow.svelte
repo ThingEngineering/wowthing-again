@@ -5,8 +5,6 @@
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { StaticDataCurrency } from '@/types/data/static'
-    import { seasonMap } from '@/data/dungeon';
-    import { Constants } from '@/data/constants';
 
     export let character: Character
     export let currency: StaticDataCurrency = undefined

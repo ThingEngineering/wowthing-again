@@ -11,17 +11,37 @@ export const dragonflightInscription: DragonflightProfession = {
         {
             itemId: 200973, // Artisan's Consortium, Preferred
             questId: 71898,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201269, // Artisan's Consortium, Valued
             questId: 71909,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201280, // Artisan's Consortium, Esteemed
             questId: 71920,
-            source: 'AC',
+            source: 'AC 5',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72294, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72295, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72331, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72334, // Crafting for Expertise
+            source: 'VA 24',
         },
         {
             itemId: 205354, // Niffen Notebook of Inscription Knowledge

@@ -10,7 +10,6 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import getPercentClass from '@/utils/get-percent-class';
 
     export let character: Character
     export let chore: LazyCharacterChore

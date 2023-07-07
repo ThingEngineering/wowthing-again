@@ -26,10 +26,6 @@
         flex-direction: column;
         gap: 1rem;
         width: 100%;
-
-        :global(> .thing-container) {
-
-        }
     }
 </style>
 

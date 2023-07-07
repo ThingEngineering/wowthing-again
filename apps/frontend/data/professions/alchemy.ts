@@ -10,17 +10,37 @@ export const dragonflightAlchemy: DragonflightProfession = {
         {
             itemId: 200974, // Artisan's Consortium, Preferred
             questId: 71893,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201270, // Artisan's Consortium, Valued
             questId: 71904,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201281, // Artisan's Consortium, Esteemed
             questId: 71915,
-            source: 'AC',
+            source: 'AC 5',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 72311, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 72314, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 70892, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 70889, // Crafting for Expertise
+            source: 'VA 24',
         },
         {
             itemId: 205353, // Niffen Notebook of Alchemy Knowledge

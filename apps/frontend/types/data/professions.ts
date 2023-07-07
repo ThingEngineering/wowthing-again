@@ -3,6 +3,7 @@ import type { Profession } from '@/enums'
 
 interface DragonflightProfessionQuest {
     itemId: number
+    points?: number
     questId: number
     source?: string
 }
