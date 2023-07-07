@@ -8,17 +8,17 @@ export const dragonflightSkinning: DragonflightProfession = {
         {
             itemId: 200982, // Artisan's Consortium, Preferred
             questId: 71902,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201278, // Artisan's Consortium, Valued
             questId: 71913,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201289, // Artisan's Consortium, Esteemed
             questId: 71924,
-            source: 'AC',
+            source: 'AC 5',
         },
         {
             itemId: 201714, // Notebook of Crafting Knowledge

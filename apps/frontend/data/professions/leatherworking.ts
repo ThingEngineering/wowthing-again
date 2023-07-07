@@ -11,17 +11,17 @@ export const dragonflightLeatherworking: DragonflightProfession = {
         {
             itemId: 200979, // Artisan's Consortium, Preferred
             questId: 71900,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201275, // Artisan's Consortium, Valued
             questId: 71911,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201286, // Artisan's Consortium, Esteemed
             questId: 71922,
-            source: 'AC',
+            source: 'AC 5',
         },
         {
             itemId: 201713, // Notebook of Crafting Knowledge

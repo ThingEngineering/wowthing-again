@@ -10,17 +10,17 @@ export const dragonflightEnchanting: DragonflightProfession = {
         {
             itemId: 200976, // Artisan's Consortium, Preferred
             questId: 71895,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201272, // Artisan's Consortium, Valued
             questId: 71906,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201283, // Artisan's Consortium, Esteemed
             questId: 71917,
-            source: 'AC',
+            source: 'AC 5',
         },
         {
             itemId: 201709, // Notebook of Crafting Knowledge

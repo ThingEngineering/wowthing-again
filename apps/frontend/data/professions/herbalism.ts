@@ -8,17 +8,17 @@ export const dragonflightHerbalism: DragonflightProfession = {
         {
             itemId: 200980, // Artisan's Consortium, Preferred
             questId: 71897,
-            source: 'AC',
+            source: 'AC 2',
         },
         {
             itemId: 201276, // Artisan's Consortium, Valued
             questId: 71908,
-            source: 'AC',
+            source: 'AC 4',
         },
         {
             itemId: 201287, // Artisan's Consortium, Esteemed
             questId: 71919,
-            source: 'AC',
+            source: 'AC 5',
         },
         {
             itemId: 201705, // Notebook of Crafting Knowledge
