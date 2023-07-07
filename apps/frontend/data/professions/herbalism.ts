@@ -21,6 +21,28 @@ export const dragonflightHerbalism: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201705, // Notebook of Crafting Knowledge
+            questId: 72319, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201717, // Notebook of Crafting Knowledge
+            points: 10,
+            questId: 72324, // Iskaaran Crafting Mastery
+            source: 'IT 24',
+        },
+        {
+            itemId: 201705, // Notebook of Crafting Knowledge
+            questId: 72313, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201717, // Notebook of Crafting Knowledge
+            points: 10,
+            questId: 72316, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
             itemId: 205358, // Niffen Notebook of Herbalism Knowledge
             questId: 75753,
             source: 'LN',

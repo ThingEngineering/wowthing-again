@@ -23,6 +23,26 @@ export const dragonflightAlchemy: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 72311, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 72314, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 70892, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201706, // Notebook of Crafting Knowledge
+            questId: 70889, // Crafting for Expertise
+            source: 'VA 24',
+        },
+        {
             itemId: 205353, // Niffen Notebook of Alchemy Knowledge
             questId: 75756,
             source: 'LN',

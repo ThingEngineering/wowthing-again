@@ -24,6 +24,26 @@ export const dragonflightLeatherworking: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201713, // Notebook of Crafting Knowledge
+            questId: 72321, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201713, // Notebook of Crafting Knowledge
+            questId: 72326, // Iskaaran Crafting Mastery
+            source: 'IT 24',
+        },
+        {
+            itemId: 201713, // Notebook of Crafting Knowledge
+            questId: 72296, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201713, // Notebook of Crafting Knowledge
+            questId: 72297, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
             itemId: 205350, // Niffen Notebook of Leatherworking Knowledge
             questId: 75751,
             source: 'LN',

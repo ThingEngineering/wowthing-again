@@ -23,6 +23,26 @@ export const dragonflightEnchanting: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72299, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72304, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72318, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201709, // Notebook of Crafting Knowledge
+            questId: 72323, // Iskaaran Crafting Mastery
+            source: 'IT 24',
+        },
+        {
             itemId: 205351, // Niffen Notebook of Enchanting Knowledge
             questId: 75752,
             source: 'LN',

@@ -24,6 +24,26 @@ export const dragonflightInscription: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72294, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72295, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72331, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201711, // Notebook of Crafting Knowledge
+            questId: 72334, // Crafting for Expertise
+            source: 'VA 24',
+        },
+        {
             itemId: 205354, // Niffen Notebook of Inscription Knowledge
             questId: 75761,
             source: 'LN',

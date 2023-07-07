@@ -24,6 +24,26 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201708, // Notebook of Crafting Knowledge
+            questId: 72312, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201708, // Notebook of Crafting Knowledge
+            questId: 72315, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
+            itemId: 201708, // Notebook of Crafting Knowledge
+            questId: 72329, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201708, // Notebook of Crafting Knowledge
+            questId: 70909, // Crafting for Expertise
+            source: 'VA 24',
+        },
+        {
             itemId: 205352, // Niffen Notebook of Blacksmithing Knowledge
             questId: 75755,
             source: 'LN',

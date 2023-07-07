@@ -24,6 +24,26 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72301, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72306, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72320, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201712, // Notebook of Crafting Knowledge
+            questId: 72325, // Iskaaran Crafting Mastery
+            source: 'IT 24',
+        },
+        {
             itemId: 205348, // Niffen Notebook of Jewelcrafting Knowledge
             questId: 75754,
             source: 'LN',

@@ -21,6 +21,28 @@ export const dragonflightSkinning: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201714, // Notebook of Crafting Knowledge
+            questId: 72322, // Iskaaran Crafter's Knowledge
+            source: 'IT 14',
+        },
+        {
+            itemId: 201718, // Notebook of Crafting Knowledge
+            points: 10,
+            questId: 72327, // Iskaaran Crafting Mastery
+            source: 'IT 24',
+        },
+        {
+            itemId: 201714, // Notebook of Crafting Knowledge
+            questId: 72310, // A Gift of Knowledge
+            source: 'MC 14',
+        },
+        {
+            itemId: 201718, // Notebook of Crafting Knowledge
+            points: 10,
+            questId: 72317, // A Gift of Secrets
+            source: 'MC 24',
+        },
+        {
             itemId: 205357, // Niffen Notebook of Skinning Knowledge
             questId: 75760,
             source: 'LN',

@@ -24,6 +24,26 @@ export const dragonflightEngineering: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201710, // Notebook of Crafting Knowledge
+            questId: 72300, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201710, // Notebook of Crafting Knowledge
+            questId: 72305, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201710, // Notebook of Crafting Knowledge
+            questId: 72330, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201710, // Notebook of Crafting Knowledge
+            questId: 70902, // Crafting for Expertise
+            source: 'VA 24',
+        },
+        {
             itemId: 205349, // Niffen Notebook of Engineering Knowledge
             questId: 75759,
             source: 'LN',

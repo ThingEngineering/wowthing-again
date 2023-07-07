@@ -24,6 +24,26 @@ export const dragonflightTailoring: DragonflightProfession = {
             source: 'AC',
         },
         {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72303, // Expedition Crafting Knowledge
+            source: 'DE 14',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72309, // Expedition Crafting Knowledge
+            source: 'DE 23',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72333, // Crafting Your Start
+            source: 'VA 14',
+        },
+        {
+            itemId: 201715, // Notebook of Crafting Knowledge
+            questId: 72336, // Crafting for Expertise
+            source: 'VA 24',
+        },
+        {
             itemId: 205355, // Niffen Notebook of Tailoring Knowledge
             questId: 75757,
             source: 'LN',
