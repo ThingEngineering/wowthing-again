@@ -19,6 +19,7 @@
         have: boolean
         itemId: number
         profession: Profession
+        source?: string
     }
     let data: ZoneData[][]
     $: {
@@ -51,15 +52,17 @@
                 }
 
                 if (dkZone.name.endsWith('Books')) {
+                    console.log({ profData, dkZone })
                     const bookQuests = (profData.bookQuests || []).filter((bq) =>
-                        (bq.source === 'AC' && dkZone.shortName === 'VD') ||
-                        (['LN', 'ZCB'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC')
+                        (['LN', 'ZCB'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC') ||
+                        (bq.source.startsWith(`${dkZone.shortName} `))
                     )
                     for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
                         zoneData.push({
                             have: userQuestStore.hasAny(character.id, bookQuest.questId),
                             itemId: bookQuest.itemId,
                             profession: profData.id,
+                            source: bookQuest.source,
                         })
                     }
                 }
@@ -112,6 +115,7 @@
                     component: Tooltip,
                     props: {
                         character,
+                        reputationId: dk.reputationId,
                         zoneData,
                         zoneName: dk.name,
                     }
