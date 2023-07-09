@@ -126,7 +126,7 @@
                 </div>
             {/each}
 
-            {#if feature.rank > 0}
+            {#if feature?.rank > 0}
                 <div style="width:52px"></div>
 
                 <div class="currencies">
