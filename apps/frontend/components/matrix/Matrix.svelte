@@ -450,7 +450,7 @@
                 {#each xKeys as xKey}
                     <td class="counts">{xCounts[xKey]}</td>
                 {/each}
-                <td></td>
+                <td>{Object.values(xCounts).reduce((a, b) => a + b, 0)}</td>
             </tr>
         </tbody>
     </table>
