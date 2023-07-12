@@ -822,6 +822,7 @@ public class ManualTool
                         {
                             Name = "UNCATEGORIZED",
                             Things = missing
+                                .OrderBy(m => m)
                                 .Select(m => m.ToString())
                                 .ToList(),
                         },
@@ -840,7 +841,6 @@ public class ManualTool
 #endif
         }
     }
-
 
     private List<List<OutCollectionCategory>> FinalizeCollections(List<List<DataCollectionCategory>> categorySets)
     {
