@@ -67,9 +67,10 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         for (const achievement of Object.values(achievementData.achievement)) {
             if (
                 (achievement.faction === 1 && !achievementState.showHorde) ||
-                (achievement.faction === 0 && !achievementState.showAlliance)
+                (achievement.faction === 0 && !achievementState.showAlliance) ||
+                ((achievement.flags & 0x100_000) > 0)
             ) {
-                console.log('skip', achievement)
+                // console.log('skip', achievement)
                 continue
             }
 
