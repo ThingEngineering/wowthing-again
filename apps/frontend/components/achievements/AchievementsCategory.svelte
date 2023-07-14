@@ -18,29 +18,38 @@
     let category: AchievementDataCategory
     $: {
         category = find($achievementStore.categories, (c) => c !== null && c.slug === slug1)
+        if (!category) { break $ }
+
         if (slug2) {
             category = find(category.children, (c) => c !== null && c.slug === slug2)
+            if (!category) { break $ }
         }
         else if (category.achievementIds.length === 0 && category.children.length > 0) {
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = (
-            category.slug === 'back-from-the-beyond' ? category.achievementIds : sortBy(
-                category.achievementIds,
-                id => [
-                    $userAchievementStore.achievements[id] === undefined ? '1' : '0',
-                    leftPad($achievementStore.achievement[id].order, 4, '0'),
-                    leftPad(100000 - id, 6, '0')
-                ].join('|')
-            )).filter((id) => {
-                const faction = $achievementStore.achievement[id].faction
-                return (
-                    (faction === -1) ||
-                    (faction === 1 && $achievementState.showAlliance) ||
-                    (faction === 0 && $achievementState.showHorde)
-                )
-            })
+        achievementIds = sortBy(
+            category.achievementIds,
+            id => [
+                $userAchievementStore.achievements[id] === undefined ? '1' : '0',
+                leftPad($achievementStore.achievement[id].order, 4, '0'),
+                leftPad(100000 - id, 6, '0')
+            ].join('|')
+        ).filter((id) => {
+            const cheev = $achievementStore.achievement[id]
+
+            // Don't show tracking achievements
+            if ((cheev.flags & 0x100_000) > 0) {
+                return false
+            }
+
+            // Obey faction filters
+            return (
+                (cheev.faction === -1) ||
+                (cheev.faction === 1 && $achievementState.showAlliance) ||
+                (cheev.faction === 0 && $achievementState.showHorde)
+            )
+        })
     }
 </script>
 
@@ -106,7 +115,6 @@
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
                 <AchievementsAchievement
-                    kindaAlwaysShow={category.slug === 'back-from-the-beyond'}
                     {achievementId}
                 />
             {/each}
