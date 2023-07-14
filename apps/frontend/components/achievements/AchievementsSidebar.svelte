@@ -30,6 +30,7 @@
 <Sidebar
     baseUrl="/achievements"
     items={categories}
+    scrollable={true}
     width="17rem"
     percentFunc={percentFunc}
 />

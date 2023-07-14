@@ -4,29 +4,38 @@
     import type { SidebarItem } from '@/types'
 
     import SidebarEntry from './SubSidebarEntry.svelte'
+    import { settingsStore } from '@/stores';
 
     export let alwaysExpand = false
     export let baseUrl: string
     export let items: SidebarItem[]
     export let id = 'sub-sidebar'
     export let noVisitRoot = false
+    export let scrollable = false
     export let width = '10rem'
     export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
     export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
-    let anyChildren: boolean
-    $: {
-        anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
-    }
+    $: anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
+    $: lessHeight = $settingsStore.layout.newNavigation ? '8rem' : '4.4rem'
 </script>
 
 <style lang="scss">
     div {
         margin-right: 1rem;
-        min-width: var(--width);
         position: sticky;
         top: 0;
-        width: var(--width);
+
+        &.scrollable {
+            max-height: calc(100vh - var(--less-height));
+            min-width: calc(var(--width) + 1rem);
+            overflow-y: scroll;
+            width: calc(var(--width) + 1rem);
+        }
+        &.sticky {
+            min-width: var(--width);
+            width: var(--width);
+        }
     }
 
     nav {
@@ -38,7 +47,10 @@
     }
 </style>
 
-<div style="--width: {width}">
+<div
+    class:scrollable={scrollable}
+    class:sticky={!scrollable}
+    style="--less-height: {lessHeight}; --width: {width}">
     <slot name="before" />
 
     <nav id="{id}" class="thing-container">
