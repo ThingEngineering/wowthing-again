@@ -121,6 +121,7 @@ public class DumpsTool
             ImportPets,
             ImportReputationTiers,
             ImportToys,
+            ImportTransmogSets,
 
             ImportInventoryStrings,
 
@@ -133,6 +134,8 @@ public class DumpsTool
             ImportSkillLineStrings,
             ImportSoulbindStrings,
             ImportSpellItemEnchantmentStrings,
+            ImportTransmogSetStrings,
+            ImportTransmogSetGroupStrings,
         };
 
         foreach (var language in _languages)
@@ -296,6 +299,24 @@ public class DumpsTool
             "spellitemenchantment",
             ench => ench.ID,
             ench => ench.Name
+        );
+
+    private async Task ImportTransmogSetStrings(WowDbContext context) =>
+        await ImportStrings<DumpTransmogSet>(
+            context,
+            StringType.WowTransmogSetName,
+            "transmogset",
+            set => set.ID,
+            set => set.Name
+        );
+
+    private async Task ImportTransmogSetGroupStrings(WowDbContext context) =>
+        await ImportStrings<DumpTransmogSetGroup>(
+            context,
+            StringType.WowTransmogSetGroupName,
+            "transmogsetgroup",
+            group => group.ID,
+            group => group.Name
         );
 
     private async Task ImportCharacterClasses(WowDbContext context)
@@ -1147,8 +1168,7 @@ public class DumpsTool
     {
         var toys = await DataUtilities.LoadDumpCsvAsync<DumpToy>("toy");
 
-        var dbToyMap = await context.WowToy
-            .ToDictionaryAsync(toy => toy.Id);
+        var dbToyMap = await context.WowToy.ToDictionaryAsync(toy => toy.Id);
 
         foreach (var toy in toys)
         {
@@ -1164,6 +1184,43 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Toys");
+    }
+
+    private async Task ImportTransmogSets(WowDbContext context)
+    {
+        var transmogSets = await DataUtilities.LoadDumpCsvAsync<DumpTransmogSet>("transmogset");
+        var transmogSetItems = await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem");
+
+        var itemsBySet = transmogSetItems.ToGroupedDictionary(tsi => tsi.TransmogSetID);
+
+        var dbSetMap = await context.WowTransmogSet.ToDictionaryAsync(set => set.Id);
+
+        foreach (var transmogSet in transmogSets)
+        {
+            if (!itemsBySet.TryGetValue(transmogSet.ID, out var items))
+            {
+                ToolContext.Logger.Warning("No set items for set {id}", transmogSet.ID);
+                continue;
+            }
+
+            if (!dbSetMap.TryGetValue(transmogSet.ID, out var dbSet))
+            {
+                dbSet = new WowTransmogSet(transmogSet.ID);
+                context.WowTransmogSet.Add(dbSet);
+            }
+
+            dbSet.ClassMask = transmogSet.ClassMask;
+            dbSet.Flags = transmogSet.Flags;
+            dbSet.GroupId = transmogSet.TransmogSetGroupID;
+            dbSet.ItemNameDescriptionId = transmogSet.ItemNameDescriptionID;
+
+            dbSet.ItemModifiedAppearanceIds = items
+                .Select(dtsi => dtsi.ItemModifiedAppearanceID)
+                .Order()
+                .ToList();
+        }
+
+        _timer.AddPoint("TransmogSets");
     }
 
     private async Task ImportInventoryStrings(WowDbContext context)
