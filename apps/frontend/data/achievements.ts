@@ -161,4 +161,15 @@ export const extraCategories: [string, [string, number, string?, string?][]][] =
         ['expansion-features/covenant-sanctums', 2],
         ['expansion-features/torghast', 2],
     ]],
+    ['dragonflight', [
+        ['exploration/dragonflight', 1],
+        ['quests/dragonflight', 1],
+        ['reputation/dragonflight', 1],
+        null,
+        ['dungeons-raids/dragonflight-dungeon', 3, 'dungeons', 'Dungeons'],
+        ['dungeons-raids/dragonflight-raid', 3, 'raids', 'Raids'],
+        null,
+        ['expansion-features/dragonriding', 2],
+        ['collections/dragon-isle-drake-cosmetics', 2],
+    ]],
 ]
