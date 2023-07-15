@@ -85,5 +85,9 @@ public static partial class Hardcoded
         204985, // Barter Brick
         205188, // Barter Boulder
         205225, // Aspects' Token of Merit
+
+        // Dragonflight - 10.1.5
+        207002, // Encapsulated Destiny
+        207030, // Dilated Time Capsule
     };
 }
