@@ -1807,6 +1807,7 @@ public class UserUploadJob : JobBase
             .EmptyIfNullOrWhitespace()
             .Split(':', StringSplitOptions.RemoveEmptyEntries)
             .Select(int.Parse)
+            .Order()
             .ToList();
         if (transmog.Count > 0 && (character.Transmog.TransmogIds == null || !transmog.SequenceEqual(character.Transmog.TransmogIds)))
         {
