@@ -375,10 +375,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     'dfTimeRifts': [
         {
+            minimumLevel: 60,
             taskKey: 'dfTimeRift',
             taskName: 'Time Rift completed'
         },
         {
+            minimumLevel: 60,
             taskKey: 'dfWhenTimeNeedsMending',
             taskName: 'When Time Needs Mending',
         },
