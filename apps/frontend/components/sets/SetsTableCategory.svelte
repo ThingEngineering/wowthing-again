@@ -318,7 +318,7 @@
                     {/if}
                 </td>
 
-                <td class="name">
+                <td class="name text-overflow">
                     &ndash; <ParsedText text={setName.replace('*', '')} />
                 </td>
 
