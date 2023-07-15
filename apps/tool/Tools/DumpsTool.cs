@@ -1215,8 +1215,9 @@ public class DumpsTool
             dbSet.ItemNameDescriptionId = transmogSet.ItemNameDescriptionID;
 
             dbSet.ItemModifiedAppearanceIds = items
+                .OrderByDescending(dtsi => dtsi.Flags & 0x1)
+                .ThenBy(dtsi => dtsi.ItemModifiedAppearanceID)
                 .Select(dtsi => dtsi.ItemModifiedAppearanceID)
-                .Order()
                 .ToList();
         }
 
