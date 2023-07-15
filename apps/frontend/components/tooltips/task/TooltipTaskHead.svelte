@@ -64,7 +64,7 @@
         needToGet = total - inProgress - completed
 
         // Use the fallback title
-        if (title === undefined) {
+        if (!title) {
             title = task?.name
         }
     }
