@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { userTransmogStore } from '@/stores'
+    import { itemStore, settingsStore, staticStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import { tippyComponent } from '@/utils/tippy'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
+    import { InventoryType } from '@/enums';
 
     export let set: ManualDataTransmogGroupData
     export let span = 1
@@ -20,7 +21,43 @@
         percent = 0
         total = 0
         slotHave = {}
-        if (set?.items) {
+        
+        if (!set) { break $ }
+
+        if (set.transmogSetId) {
+            const transmogSet = $staticStore.transmogSets[set.transmogSetId]
+            for (const [itemId, maybeModifier] of transmogSet.items) {
+                const modifier = maybeModifier || 0
+                const item = $itemStore.items[itemId]
+                const actualSlot = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
+                if (slotHave[actualSlot]) {
+                    continue
+                }
+                slotHave[actualSlot] = false
+
+                let userHas = false
+                if (
+                    $settingsStore.transmog.completionistMode
+                    || transmogSet.allianceOnly
+                    || transmogSet.hordeOnly
+                )
+                {
+                    userHas = $userTransmogStore.hasSource.has(`${itemId}_${modifier}`)
+                }
+                else {
+                    const appearance = item.appearances[modifier]
+                    userHas = $userTransmogStore.hasAppearance.has(appearance.appearanceId)
+                }
+
+                if (userHas) {
+                    have++
+                    slotHave[actualSlot] = true
+                }
+            }
+
+            total = Object.keys(slotHave).length
+        }
+        else if (set.items) {
             for (const [slot, items] of Object.entries(set.items)) {
                 slotHave[slot] = false
                 for (const itemId of items) {
@@ -32,6 +69,9 @@
                 }
             }
             total = Object.keys(set.items).length
+        }
+
+        if (total > 0) {
             percent = have / total * 100
         }
     }
