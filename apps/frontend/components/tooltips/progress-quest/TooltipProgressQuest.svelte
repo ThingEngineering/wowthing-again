@@ -50,7 +50,7 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
-    <h5>{progressQuest?.name ?? title}</h5>
+    <h5>{progressQuest?.name || title}</h5>
 
     <table class="table-striped">
         <tbody>

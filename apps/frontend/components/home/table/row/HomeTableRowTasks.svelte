@@ -30,7 +30,7 @@
             <RowProgressQuest
                 {character}
                 quest={taskName}
-                title={activeHolidays[taskName]?.name}
+                title={activeHolidays[taskName]?.name || taskMap[taskName]?.name}
             />
         {/if}
     {/if}

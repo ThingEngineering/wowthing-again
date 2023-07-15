@@ -146,7 +146,7 @@
                         props: {
                             border: 0,
                             name: imageStrings[dataString],
-                            size: 20,
+                            size: 16,
                         }
                     })
                 }
@@ -169,7 +169,8 @@
                 new ClassIcon({
                     target: span,
                     props: {
-                        classId: parseInt(span.getAttribute('data-class'))
+                        classId: parseInt(span.getAttribute('data-class')),
+                        size: 16,
                     }
                 })
             }
@@ -181,7 +182,8 @@
                     props: {
                         faction: span.getAttribute('data-faction') === 'alliance'
                             ? Faction.Alliance
-                            : Faction.Horde
+                            : Faction.Horde,
+                        size: 16,
                     }
                 })
             }
@@ -191,7 +193,8 @@
                 new ProfessionIcon({
                     target: span,
                     props: {
-                        id: parseInt(span.getAttribute('data-profession'))
+                        id: parseInt(span.getAttribute('data-profession')),
+                        size: 16,
                     }
                 })
             }
@@ -201,7 +204,8 @@
                 new RaceIcon({
                     target: span,
                     props: {
-                        raceId: parseInt(span.getAttribute('data-race'))
+                        raceId: parseInt(span.getAttribute('data-race')),
+                        size: 16,
                     }
                 })
             }
@@ -211,7 +215,7 @@
                 new CraftedQualityIcon({
                     target: span,
                     props: {
-                        quality: parseInt(span.getAttribute('data-crafted-quality'))
+                        quality: parseInt(span.getAttribute('data-crafted-quality')),
                     }
                 })
             }

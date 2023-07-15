@@ -67,6 +67,10 @@
                         continue
                     }
 
+                    if (!ability.firstCraftQuestId && !$charactersState.professionsShowAlreadyCrafted) {
+                        continue
+                    }
+
                     has = true
                 }
             }

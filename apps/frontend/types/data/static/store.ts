@@ -13,6 +13,7 @@ import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } 
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
 import type { StaticDataSoulbind } from './soulbind'
 import type { StaticDataToy, StaticDataToyArray } from './toy'
+import type { StaticDataTransmogSet, StaticDataTransmogSetArray } from './transmog-set'
 
 
 export interface StaticData {
@@ -76,4 +77,7 @@ export interface StaticData {
     toys: Record<number, StaticDataToy>
     toysById: Record<number, StaticDataToy>
     rawToys: StaticDataToyArray[]
+
+    transmogSets: Record<number, StaticDataTransmogSet>
+    rawTransmogSets: StaticDataTransmogSetArray[]
 }

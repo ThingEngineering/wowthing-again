@@ -1,7 +1,4 @@
-﻿using System.Collections.Immutable;
-using Microsoft.Extensions.Logging;
-using Serilog.Context;
-using Wowthing.Lib.Models.Wow;
+﻿using Serilog.Context;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
@@ -16,13 +13,6 @@ namespace Wowthing.Tool.Tools;
 public class StaticTool
 {
     private JankTimer _timer = new();
-
-    private Dictionary<int, WowItem> _itemMap;
-    private Dictionary<int, WowMount> _mountMap;
-    private Dictionary<int, WowPet> _petMap;
-    private Dictionary<int, WowToy> _toyMap;
-
-    private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
 
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -47,6 +37,7 @@ public class StaticTool
         StringType.WowSoulbindName,
         StringType.WowSkillLineName,
         StringType.WowSpellItemEnchantmentName,
+        StringType.WowTransmogSetName,
     };
 
     public async Task Run()
@@ -60,22 +51,26 @@ public class StaticTool
         ToolContext.Logger.Information("Loading data...");
 
         // Bulk data
-        _itemMap = await context.WowItem
+        var itemMap = await context.WowItem
             .AsNoTracking()
             .ToDictionaryAsync(item => item.Id);
 
-        _mountMap = await context.WowMount
+        var mountMap = await context.WowMount
             .AsNoTracking()
             .ToDictionaryAsync(mount => mount.Id);
 
-        _petMap = await context.WowPet
+        var petMap = await context.WowPet
             .AsNoTracking()
             .Where(pet => (pet.Flags & 32) == 0)
             .ToDictionaryAsync(pet => pet.Id);
 
-        _toyMap = await context.WowToy
+        var toyMap = await context.WowToy
             .AsNoTracking()
             .ToDictionaryAsync(toy => toy.ItemId);
+
+        var transmogSetMap = await context.WowTransmogSet
+            .AsNoTracking()
+            .ToDictionaryAsync(transmogSet => transmogSet.Id);
 
         _stringMap = await context.LanguageString
             .AsNoTracking()
@@ -88,23 +83,11 @@ public class StaticTool
         var itemModifiedAppearances = await context.WowItemModifiedAppearance
             .AsNoTracking()
             .ToArrayAsync();
-        _itemToAppearance = itemModifiedAppearances
-            .GroupBy(ima => ima.ItemId)
-            .ToDictionary(
-                itemIdGroup => itemIdGroup.Key,
-                itemIdGroup => itemIdGroup
-                    .GroupBy(ima => ima.Modifier)
-                    .ToDictionary(
-                        modifierGroup => modifierGroup.Key,
-                        modifierGroup => modifierGroup
-                            .OrderByDescending(ima => ima.Id)
-                            .Select(ima => ima.AppearanceId)
-                            .First()
-                    )
-            );
+
+        var imaMap = itemModifiedAppearances.ToDictionary(ima => ima.Id);
 
         // Bags
-        cacheData.RawBags = _itemMap.Values
+        cacheData.RawBags = itemMap.Values
             .Where(item => item.ContainerSlots > 0)
             .Select(item => new List<int> { item.Id, (int)item.Quality, item.ContainerSlots })
             .ToList();
@@ -286,22 +269,28 @@ public class StaticTool
         cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep))
             .ToArray();
 
-        cacheData.RawMounts = _mountMap
+        cacheData.RawMounts = mountMap
             .Values
             .OrderBy(mount => mount.Id)
             .Select(mount => new StaticMount(mount))
             .ToArray();
 
-        cacheData.RawPets = _petMap
+        cacheData.RawPets = petMap
             .Values
             .OrderBy(pet => pet.Id)
             .Select(pet => new StaticPet(pet))
             .ToArray();
 
-        cacheData.RawToys = _toyMap
+        cacheData.RawToys = toyMap
             .Values
             .OrderBy(toy => toy.Id)
             .Select(toy => new StaticToy(toy))
+            .ToArray();
+
+        cacheData.RawTransmogSets = transmogSetMap
+            .Values
+            .OrderBy(transmogSet => transmogSet.Id)
+            .Select(transmogSet => new StaticTransmogSet(transmogSet, imaMap))
             .ToArray();
 
         _timer.AddPoint("Objects");
@@ -394,6 +383,11 @@ public class StaticTool
             foreach (var toy in cacheData.RawToys)
             {
                 toy.Name = GetString(StringType.WowItemName, language, toy.ItemId);
+            }
+
+            foreach (var transmogSet in cacheData.RawTransmogSets)
+            {
+                transmogSet.Name = GetString(StringType.WowTransmogSetName, language, transmogSet.Id);
             }
 
             foreach (var reputationTier in cacheData.ReputationTiers.Values)

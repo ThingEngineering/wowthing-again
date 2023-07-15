@@ -13,6 +13,7 @@ import {
     StaticDataReputation,
     StaticDataReputationCategory,
     StaticDataToy,
+    StaticDataTransmogSet,
 } from '@/types/data/static'
 import type { StaticData } from '@/types/data/static/store'
 
@@ -176,6 +177,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             )
             data.rawToys = null
         }
+
+        if (data.rawTransmogSets !== null) {
+            data.transmogSets = StaticDataStore.createObjects(data.rawTransmogSets, StaticDataTransmogSet, (set) => set.id)
+            data.rawTransmogSets = null
+        }
+        console.log(data.transmogSets)
 
         console.timeEnd('StaticDataStore.initialize')
     }

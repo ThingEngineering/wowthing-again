@@ -36,6 +36,7 @@ public class RedisStaticData
     public StaticPet[] RawPets { get; set; }
     public StaticReputation[] RawReputations { get; set; }
     public StaticToy[] RawToys { get; set; }
+    public StaticTransmogSet[] RawTransmogSets { get; set; }
 
     public List<StaticReputationCategory> RawReputationSets { get; set; }
 }

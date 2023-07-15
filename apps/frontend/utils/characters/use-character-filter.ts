@@ -17,12 +17,14 @@ export function useCharacterFilter(
     char: Character,
     filterString: string
 ): boolean {
+    let result = true
     if (filterString?.length >= 2) {
         const staticData = get(staticStore)
 
+        result = false
         const parts = filterString.toLocaleLowerCase().split(/\s+/)
         if (parts.length > 0) {
-            return every(
+            result = every(
                 parts,
                 (part) => {
                     if (char.name.toLocaleLowerCase().indexOf(part) >= 0) {
@@ -128,5 +130,5 @@ export function useCharacterFilter(
         }
     }
 
-    return filterFunc(char)
+    return filterFunc ? filterFunc(char) && result : result
 }
