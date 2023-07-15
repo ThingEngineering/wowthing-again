@@ -183,6 +183,12 @@ export const taskList: Task[] = [
         shortName: 'SoL',
         minimumLevel: 60,
     },
+    {
+        key: 'dfTimeRift',
+        name: '[DF] Time Rift',
+        shortName: 'TR',
+        minimumLevel: 70,
+    },
 ]
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
