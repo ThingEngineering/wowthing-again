@@ -326,6 +326,7 @@
                     {#if !skipClasses[transmogSet.type]}
                         <TableSet
                             set={group.data?.[transmogSet.type]?.[setIndex]}
+                            setKey={`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`}
                             span={anyClass ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
                             subType={transmogSet.subType}
                         />

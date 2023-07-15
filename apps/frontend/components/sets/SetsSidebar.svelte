@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { lazyStore, manualStore } from '@/stores'
+    import { lazyStore, manualStore, settingsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
@@ -28,6 +29,10 @@
 <style lang="scss">
     div {
         margin-bottom: 0.75rem;
+
+        :global(fieldset) {
+            margin-top: 0.5rem;
+        }
     }
 </style>
 
@@ -43,5 +48,10 @@
             have={overall.have}
             total={overall.total}
         />
+
+        <Checkbox
+            name="transmog_completionistMode"
+            bind:value={$settingsStore.transmog.completionistMode}
+        >Completionist Mode</Checkbox>
     </div>
 </Sidebar>
