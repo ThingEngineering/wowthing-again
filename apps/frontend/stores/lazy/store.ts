@@ -191,9 +191,9 @@ export class LazyStore implements LazyUgh {
             vendorState: this.hashObject(vendorState),
             zoneMapState: this.hashObject(zoneMapState),
             
-            completionistMode: `${settings.transmog.completionistMode}`,
             hideUnavailable: `${settings.collections.hideUnavailable}`,
             settingsTasks: this.hashObject(settings.tasks),
+            settingsTransmog: this.hashObject(settings.transmog),
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
@@ -282,7 +282,7 @@ export class LazyStore implements LazyUgh {
 
         if (changedData.userTransmogData ||
             changedHashes.appearanceState ||
-            changedHashes.completionistMode)
+            changedHashes.settingsTransmog)
         {
             this.appearancesFunc = once(() => this.doAppearances())
         }
@@ -302,7 +302,7 @@ export class LazyStore implements LazyUgh {
         if (changedData.userData ||
             changedData.userTransmogData ||
             changedHashes.journalState ||
-            changedHashes.completionistMode)
+            changedHashes.settingsTransmog)
         {
             this.journalFunc = once(() => doJournal({
                 settings,
@@ -314,18 +314,22 @@ export class LazyStore implements LazyUgh {
             }))
         }
 
-        if (changedData.userData) {
+        if (changedData.userData ||
+            changedData.userTransmogData ||
+            changedHashes.settingsTransmog) {
             this.transmogFunc = once(() => doTransmog({
                 settings,
+                itemData,
                 manualData,
+                staticData,
                 userTransmogData,
             }))
         }
 
         if (changedData.userData ||
             changedData.userTransmogData ||
-            changedHashes.vendorState ||
-            changedHashes.completionistMode)
+            changedHashes.settingsTransmog ||
+            changedHashes.vendorState)
         {
             this.vendorsFunc = once(() => doVendors({
                 settings,
