@@ -1,11 +1,13 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
+    import { classOrder } from '@/data/character-class'
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { farmTypeIcons } from '@/data/icons'
     import { FarmType, PlayableClass, playableClasses } from '@/enums'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
+    import { leftPad } from '@/utils/formatting'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'
 
@@ -56,7 +58,12 @@
             }
         }
 
-        classCounts = sortBy(classCounts, ([count,]) => 1000 - count)
+        classCounts = sortBy(
+            classCounts,
+            ([count, className]) => [
+                leftPad(1000 - count, 3, '0'),
+                leftPad(classOrder.indexOf(PlayableClass[className]), 2, '0')
+            ])
     }
 
     const difficultyUgh: Record<number, number[]> = {
