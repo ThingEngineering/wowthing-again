@@ -24,14 +24,6 @@
                     per = characterCurrency.totalQuantity / characterCurrency.max * 100
                     tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
                 }
-                // The max lies and it's weekly
-                else if (currency.id === 2533) {
-                    const period = userStore.getCurrentPeriodForCharacter($timeStore, character)
-                    const max = Math.min(period.id - 910, characterCurrency.max)
-
-                    per = characterCurrency.quantity / max * 100
-                    tooltip = `${characterCurrency.quantity.toLocaleString()} / ${max.toLocaleString()}`
-                }
                 else {
                     if (characterCurrency.max > 0) {
                         per = characterCurrency.quantity / characterCurrency.max * 100

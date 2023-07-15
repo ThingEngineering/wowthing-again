@@ -74,7 +74,6 @@ public static partial class Hardcoded
         204195, // Drake's Shadowflame Crest
         204196, // Wyrm's Shadowflame Crest
         204440, // Spark of Shadowflame
-        204460, // Zaralek Glowspores
         204673, // Titan Training Matrix V
         204681, // Enchanted Whelpling's Shadowflame Crest
         204682, // Enchanted Wyrm's Shadowflame Crest
@@ -85,5 +84,9 @@ public static partial class Hardcoded
         204985, // Barter Brick
         205188, // Barter Boulder
         205225, // Aspects' Token of Merit
+
+        // Dragonflight - 10.1.5
+        207002, // Encapsulated Destiny
+        207030, // Dilated Time Capsule
     };
 }

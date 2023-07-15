@@ -184,10 +184,11 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'dfTimeRift',
-        name: '[DF] Time Rift',
+        key: 'dfTimeRifts',
+        name: '[DF] Time Rifts',
         shortName: 'TR',
         minimumLevel: 70,
+        type: 'multi',
     },
 ]
 
@@ -372,4 +373,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
+    'dfTimeRifts': [
+        {
+            taskKey: 'dfTimeRift',
+            taskName: 'Time Rift completed'
+        },
+        {
+            taskKey: 'dfWhenTimeNeedsMending',
+            taskName: 'When Time Needs Mending',
+        },
+    ]
 }
