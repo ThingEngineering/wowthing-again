@@ -123,7 +123,6 @@ export const currencyItems: Record<number, number[]> = {
         204727, // Coveted Bauble
         204985, // Barter Brick
         205188, // Barter Boulder
-        204460, // Zaralek Glowspores
         null,
         207030, // Dilated Time Capsule
         207002, // Encapsulated Destiny
