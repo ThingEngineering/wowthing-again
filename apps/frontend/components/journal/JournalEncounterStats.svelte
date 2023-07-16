@@ -85,6 +85,8 @@
 
         align-items: center;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         margin-left: auto;
     }
     .stats {
@@ -108,8 +110,10 @@
         padding: 0 0.3rem;
     }
     .kills {
-        font-size: 0.95rem;
+        color: #aaa;
+        font-size: 90%;
         margin-left: 0.3rem;
+        word-spacing: -0.3ch;
     }
 </style>
 
@@ -119,7 +123,7 @@
             <div
                 class="stats"
                 data-id="{difficulty}"
-                use:tippy={difficultyMap[difficulty].name}
+                use:tippy={`${difficultyMap[difficulty].name}${kills >= 0 ? ` - ${kills} kill(s)` : ''}`}
             >
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}
@@ -128,11 +132,7 @@
                 
                 {#if kills >= 0}
                     <span class="kills">
-                        <IconifyIcon
-                            icon={farmTypeIcons[FarmType.Kill]}
-                            scale='0.81'
-                        />
-                        {kills.toLocaleString()}
+                        ( {kills.toLocaleString()} )
                     </span>
                 {/if}
             </div>
