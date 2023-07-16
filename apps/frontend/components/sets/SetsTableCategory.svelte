@@ -3,15 +3,18 @@
 
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog'
+    import { iconLibrary } from '@/icons'
     import { lazyStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
+    import tippy from '@/utils/tippy'
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -87,9 +90,22 @@
         opacity: 0.5;
     }
     .name {
-        @include cell-width(15rem, $paddingLeft: 0.5rem);
+        @include cell-width(18rem, $paddingLeft: 0.5rem);
 
         position: relative;
+
+        .flex-wrapper {
+            :global(.text-overflow) {
+                min-width: 0;
+            }
+            .has-transmog-set-id {
+                color: $colour-shrug;
+            }
+        }
+        
+        span:last-child {
+            margin-left: auto;
+        }
     }
     .highlight {
         background-color: $highlight-background;
@@ -319,7 +335,21 @@
                 </td>
 
                 <td class="name text-overflow">
-                    &ndash; <ParsedText text={setName.replace('*', '')} />
+                    <div class="flex-wrapper">
+                        <ParsedText
+                            cls="text-overflow"
+                            text={setName.replace('*', '')}
+                        />
+                    
+                        {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
+                            <span class="has-transmog-set-id" use:tippy={'Updated for completionist!'}>
+                                <IconifyIcon
+                                    icon={iconLibrary.gameStaryu}
+                                    scale={'0.8'}
+                                />
+                            </span>
+                        {/if}
+                    </div>
                 </td>
 
                 {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
