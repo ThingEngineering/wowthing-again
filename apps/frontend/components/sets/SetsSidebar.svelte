@@ -39,6 +39,7 @@
 <Sidebar
     baseUrl="/sets"
     items={categories}
+    scrollable={true}
     width="16rem"
     {percentFunc}
 >
