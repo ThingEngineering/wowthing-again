@@ -4,7 +4,8 @@
     import type { SidebarItem } from '@/types'
 
     import SidebarEntry from './SubSidebarEntry.svelte'
-    import { settingsStore } from '@/stores';
+    import { settingsStore } from '@/stores'
+    import { measureScrollbar } from '@/utils/measure-scrollbar'
 
     export let alwaysExpand = false
     export let baseUrl: string
@@ -18,19 +19,24 @@
 
     $: anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
     $: lessHeight = $settingsStore.layout.newNavigation ? '8rem' : '4.4rem'
+
+    const scrollbarWidth = measureScrollbar()
 </script>
 
 <style lang="scss">
     div {
         margin-right: 1rem;
+        min-width: var(--width);
         position: sticky;
         top: 0;
+        width: var(--width);
 
         &.scrollable {
             max-height: calc(100vh - var(--less-height));
-            min-width: calc(var(--width) + 1rem);
-            overflow-y: scroll;
-            width: calc(var(--width) + 1rem);
+            min-width: calc(var(--width) + var(--scrollbar-width));
+            overflow-y: auto;
+            scrollbar-gutter: stable;
+            width: calc(var(--width) + var(--scrollbar-width));
         }
         &.sticky {
             min-width: var(--width);
@@ -50,7 +56,7 @@
 <div
     class:scrollable={scrollable}
     class:sticky={!scrollable}
-    style="--less-height: {lessHeight}; --width: {width}">
+    style="--less-height: {lessHeight}; --width: {width}; --scrollbar-width: {scrollbarWidth}px">
     <slot name="before" />
 
     <nav id="{id}" class="thing-container">
