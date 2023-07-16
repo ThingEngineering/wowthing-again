@@ -105,7 +105,10 @@
         // {item:id}
         html = html.replaceAll(
             /\{item:(\d+)\}/g,
-            (_, itemId) => $itemStore.items[parseInt(itemId)]?.name || `Item #${itemId}`
+            (_, itemId) => {
+                const item = $itemStore.items[parseInt(itemId)]
+                return `<span class="quality${item?.quality || 1}">${item?.name || `Item #${itemId}`}</span>`
+            }
         )
 
         html = html.replaceAll(/\{craftedQuality:(\d+)\}/g, '<span data-crafted-quality="$1"></span>')

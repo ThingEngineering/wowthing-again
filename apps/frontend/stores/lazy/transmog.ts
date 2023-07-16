@@ -10,10 +10,12 @@ import type { StaticData } from '@/types/data/static'
 import { InventoryType } from '@/enums'
 
 
+export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>
+
 export interface LazyTransmog {
     filteredCategories: ManualDataTransmogCategory[][]
     skip: Set<string>
-    slots: Record<string, Record<number, boolean>>
+    slots: Record<string, TransmogSlotData>
     stats: Record<string, UserCount>
 }
 
@@ -91,37 +93,36 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const setStats = ret.stats[setKey] ||= new UserCount()
 
                         const groupSigh = dataValue[setIndex]
-                        const slotData: Record<number, boolean> = ret.slots[`${setKey}--${dataKey}`] = {}
+                        const slotData: TransmogSlotData = ret.slots[`${setKey}--${dataKey}`] = {}
                         if (groupSigh.transmogSetId) {
                             const transmogSet = stores.staticData.transmogSets[groupSigh.transmogSetId]
                             for (const [itemId, maybeModifier] of transmogSet.items) {
                                 const modifier = maybeModifier || 0
                                 const item = stores.itemData.items[itemId]
                                 const actualSlot = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
-                                if (
-                                    slotData[actualSlot] === true
-                                    || (completionistMode && slotData[actualSlot] !== undefined)
-                                ) {
+                                if (completionistMode && slotData[actualSlot] !== undefined) {
                                     continue
                                 }
-                                slotData[actualSlot] = false
-                
-                                let userHas = false
-                                if (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly) {
-                                    userHas = stores.userTransmogData.hasSource.has(`${itemId}_${modifier}`)
-                                }
-                                else {
-                                    const appearance = item.appearances[modifier]
-                                    userHas = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
-                                }
+
+                                slotData[actualSlot] ||= [false, []]
+                                
+                                const appearance = item.appearances[modifier]
+                                const hasAppearance = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+
+                                const hasSource = stores.userTransmogData.hasSource.has(`${itemId}_${modifier}`)
+                                
+                                const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
+                                    ? hasSource : hasAppearance
                                 
                                 if (userHas) {
-                                    slotData[actualSlot] = true
+                                    slotData[actualSlot][0] = true
                                 }
+                                
+                                slotData[actualSlot][1].push([hasSource, itemId, modifier])
                             }
 
                             const setTotal = Object.values(slotData).length
-                            const setHave = Object.values(slotData).filter((has) => has === true).length
+                            const setHave = Object.values(slotData).filter((has) => has[0] === true).length
 
                             overallStats.total += setTotal
                             baseStats.total += setTotal
@@ -168,7 +169,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     }
                                 }
 
-                                slotData[slotKey] = haveAny
+                                slotData[slotKey] = [haveAny]
 
                                 for (const transmogId of transmogIds) {
                                     overallSeen[transmogId] = true

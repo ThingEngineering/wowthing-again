@@ -1,22 +1,23 @@
 <script lang="ts">
-    import { itemStore, lazyStore, settingsStore, staticStore, userTransmogStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import { tippyComponent } from '@/utils/tippy'
+    import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
-    import { InventoryType } from '@/enums';
 
     export let set: ManualDataTransmogGroupData
     export let setKey: string
+    export let setTitle: string
     export let span = 1
     export let subType: string
 
     let have: number
     let percent: number
     let total: number
-    let slotHave: Record<string, boolean>
+    let slotHave: TransmogSlotData
     $: {
         have = 0
         percent = 0
@@ -28,7 +29,7 @@
         if (!set || !slotHave) { break $ }
 
         total = Object.keys(slotHave).length
-        have = Object.values(slotHave).filter((s) => s === true).length
+        have = Object.values(slotHave).filter((s) => s[0] === true).length
 
         if (total > 0) {
             percent = have / total * 100
@@ -50,8 +51,16 @@
         colspan="{span}"
         use:tippyComponent={{
             component: Tooltip,
-            props: {set, slotHave, subType},
-            tippyProps: {placement: 'left-end'},
+            props: {
+                set,
+                setTitle,
+                slotHave,
+                subType,
+            },
+            tippyProps: {
+                allowHTML: true,
+                placement: 'left-end',
+            },
         }}
     >
         {#if set.wowheadSetId}
