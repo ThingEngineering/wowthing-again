@@ -7,7 +7,7 @@ import type { UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import { InventoryType } from '@/enums'
+import { InventoryType, ItemClass, WeaponSubclass, weaponInventoryTypes } from '@/enums'
 
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>
@@ -94,21 +94,41 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                         const groupSigh = dataValue[setIndex]
                         const slotData: TransmogSlotData = ret.slots[`${setKey}--${dataKey}`] = {}
+                        const weaponGarbage: Record<number, number> = {}
+                        let weaponIndex = 100
                         if (groupSigh.transmogSetId) {
                             const transmogSet = stores.staticData.transmogSets[groupSigh.transmogSetId]
-                            for (const [itemId, maybeModifier] of transmogSet.items) {
+                            for (let itemIndex = 0; itemIndex < transmogSet.items.length; itemIndex++) {
+                                const [itemId, maybeModifier] = transmogSet.items[itemIndex]
                                 const modifier = maybeModifier || 0
                                 const item = stores.itemData.items[itemId]
-                                const actualSlot = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
-                                if (completionistMode && slotData[actualSlot] !== undefined) {
+                                const appearance = item.appearances[modifier]
+
+                                let actualSlot: number
+                                if (weaponInventoryTypes.indexOf(item.inventoryType) >= 0) {
+                                    if (completionistMode) {
+                                        actualSlot = weaponIndex++
+                                    }
+                                    else {
+                                        if (!weaponGarbage[appearance.appearanceId]) {
+                                            weaponGarbage[appearance.appearanceId] = weaponIndex++
+                                        }
+                                        actualSlot = weaponGarbage[appearance.appearanceId]
+                                    }
+                                }
+                                else {
+                                    actualSlot = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
+                                }
+
+                                if (completionistMode
+                                    && weaponInventoryTypes.indexOf(item.inventoryType) === -1
+                                    && slotData[actualSlot] !== undefined) {
                                     continue
                                 }
 
                                 slotData[actualSlot] ||= [false, []]
                                 
-                                const appearance = item.appearances[modifier]
                                 const hasAppearance = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
-
                                 const hasSource = stores.userTransmogData.hasSource.has(`${itemId}_${modifier}`)
                                 
                                 const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
