@@ -12,7 +12,6 @@
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
-    import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadTasks from './head/HomeTableHeadTasks.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
