@@ -164,9 +164,7 @@
             {/if}
 
         {:else if field === 'mountSpeed'}
-            {#if !$homeState.onlyWeekly}
-                <HeadMount />
-            {/if}
+            <!-- remove later -->
 
         {:else if field === 'mythicPlusScore'}
             {#if !$homeState.onlyWeekly}
