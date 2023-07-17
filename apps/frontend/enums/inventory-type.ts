@@ -31,3 +31,13 @@ export enum InventoryType {
     ProfessionTool = 29,
     ProfessionGear = 30,
 }
+
+export const weaponInventoryTypes: InventoryType[] = [
+    InventoryType.OneHand,
+    InventoryType.OffHand,
+    InventoryType.Ranged,
+    InventoryType.TwoHand,
+    InventoryType.MainHand,
+    InventoryType.OffHand2,
+    InventoryType.HeldInOffHand,
+]

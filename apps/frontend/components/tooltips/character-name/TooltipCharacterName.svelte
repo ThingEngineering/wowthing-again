@@ -9,7 +9,6 @@
     import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
     import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import Keystone from '@/components/character-table/row/Keystone.svelte'
-    import MountSpeed from '@/components/home/table/row/HomeTableRowMountSpeed.svelte'
 
     export let character: Character
 </script>
@@ -30,12 +29,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-        }
-        .mount-speed {
-            :global(.flex-wrapper) {
-                gap: 0.4rem;
-                justify-content: normal;
-            }
         }
     }
 </style>
@@ -66,12 +59,6 @@
                     <tr>
                         <td>Item level</td>
                         <ItemLevel {character} />
-                    </tr>
-                
-                {:else if key === 'mountSpeed'}
-                    <tr class="mount-speed">
-                        <td>Mount speed</td>
-                        <MountSpeed {character} />
                     </tr>
 
                 {:else if key === 'mythicPlusKeystone'}

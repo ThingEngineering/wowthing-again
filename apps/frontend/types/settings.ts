@@ -74,6 +74,8 @@ export interface Settings {
     }
 
     transmog: {
+        [index: string]: boolean
+
         completionistMode: boolean
 
         showAllianceOnly: boolean

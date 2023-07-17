@@ -13,8 +13,10 @@
 
     let setName: string
     $: setName = set.transmogSetId
-            ? $staticStore.transmogSets[set.transmogSetId].name
-            : set.name
+        ? $staticStore.transmogSets[set.transmogSetId].name
+        : set.name
+    
+    $: weapons = Object.keys(slotHave).filter((key) => parseInt(key) >= 100)
 </script>
 
 <style lang="scss">
@@ -44,25 +46,29 @@
     {/if}
     <table class="table-tooltip-vault table-striped">
         <tbody>
-            {#each typeOrder as type}
-                {#if slotHave[type] !== undefined}
-                    <tr>
-                        <td class="have">{slotHave[type][0] ? '✔' : '❌'}</td>
-                        <td class="type">{$staticStore.inventoryTypes[type]}</td>
-                        {#if slotHave[type][1]?.length > 0}
-                            <td class="items">
-                                {#each slotHave[type][1] as [itemHave, itemId]}
-                                    <div class="item">
-                                        <ParsedText
-                                            text={`:${itemHave ? 'yes' : 'no'}: {item:${itemId}}`}
-                                        />
-                                    </div>
-                                {/each}
-                            </td>
-                        {/if}
-                    </tr>
-                {/if}
-            {/each}
+            {#if weapons.length > 0}
+                <!-- NYI -->
+            {:else}
+                {#each typeOrder as type}
+                    {#if slotHave[type] !== undefined}
+                        <tr>
+                            <td class="have">{slotHave[type][0] ? '✔' : '❌'}</td>
+                            <td class="type">{$staticStore.inventoryTypes[type]}</td>
+                            {#if slotHave[type][1]?.length > 0}
+                                <td class="items">
+                                    {#each slotHave[type][1] as [itemHave, itemId]}
+                                        <div class="item">
+                                            <ParsedText
+                                                text={`:${itemHave ? 'yes' : 'no'}: {item:${itemId}}`}
+                                            />
+                                        </div>
+                                    {/each}
+                                </td>
+                            {/if}
+                        </tr>
+                    {/if}
+                {/each}
+            {/if}
         </tbody>
     </table>
 </div>

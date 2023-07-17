@@ -3,15 +3,18 @@
 
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog'
+    import { iconLibrary } from '@/icons'
     import { lazyStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
+    import tippy from '@/utils/tippy'
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -87,9 +90,22 @@
         opacity: 0.5;
     }
     .name {
-        @include cell-width(15rem, $paddingLeft: 0.5rem);
+        @include cell-width(18rem, $paddingLeft: 0.5rem);
 
         position: relative;
+
+        .flex-wrapper {
+            :global(.text-overflow) {
+                min-width: 0;
+            }
+            .has-transmog-set-id {
+                color: $colour-shrug;
+            }
+        }
+        
+        span:last-child {
+            margin-left: auto;
+        }
     }
     .highlight {
         background-color: $highlight-background;
@@ -217,67 +233,67 @@
             {:else}
                 {#if !skipClasses['mage']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={8} />
+                        <ClassIcon border={0} size={40} classId={8} />
                     </td>
                 {/if}
                 {#if !skipClasses['priest']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={5} />
+                        <ClassIcon border={0} size={40} classId={5} />
                     </td>
                 {/if}
                 {#if !skipClasses['warlock']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={9} />
+                        <ClassIcon border={0} size={40} classId={9} />
                     </td>
                 {/if}
                 {#if !skipClasses['demon-hunter']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={12} />
+                        <ClassIcon border={0} size={40} classId={12} />
                     </td>
                 {/if}
                 {#if !skipClasses['druid']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={11} />
+                        <ClassIcon border={0} size={40} classId={11} />
                     </td>
                 {/if}
                 {#if !skipClasses['monk']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={10} />
+                        <ClassIcon border={0} size={40} classId={10} />
                     </td>
                 {/if}
                 {#if !skipClasses['rogue']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={4} />
+                        <ClassIcon border={0} size={40} classId={4} />
                     </td>
                 {/if}
                 {#if !skipClasses['evoker']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={13} />
+                        <ClassIcon border={0} size={40} classId={13} />
                     </td>
                 {/if}
                 {#if !skipClasses['hunter']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={3} />
+                        <ClassIcon border={0} size={40} classId={3} />
                     </td>
                 {/if}
                 {#if !skipClasses['shaman']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={7} />
+                        <ClassIcon border={0} size={40} classId={7} />
                     </td>
                 {/if}
                 {#if !skipClasses['death-knight']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={6} />
+                        <ClassIcon border={0} size={40} classId={6} />
                     </td>
                 {/if}
                 {#if !skipClasses['paladin']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={2} />
+                        <ClassIcon border={0} size={40} classId={2} />
                     </td>
                 {/if}
                 {#if !skipClasses['warrior']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={1} />
+                        <ClassIcon border={0} size={40} classId={1} />
                     </td>
                 {/if}
             {/if}
@@ -319,7 +335,21 @@
                 </td>
 
                 <td class="name text-overflow">
-                    &ndash; <ParsedText text={setName.replace('*', '')} />
+                    <div class="flex-wrapper">
+                        <ParsedText
+                            cls="text-overflow"
+                            text={setName.replace('*', '')}
+                        />
+                    
+                        {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
+                            <span class="has-transmog-set-id" use:tippy={'Updated for completionist!'}>
+                                <IconifyIcon
+                                    icon={iconLibrary.gameStaryu}
+                                    scale={'0.8'}
+                                />
+                            </span>
+                        {/if}
+                    </div>
                 </td>
 
                 {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}

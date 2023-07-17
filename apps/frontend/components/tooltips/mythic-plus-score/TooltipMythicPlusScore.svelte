@@ -91,7 +91,7 @@
     }
     .dungeon-level {
         &:last-child {
-            padding-right: 0.5rem;
+            padding-right: 0.6rem;
         }
     }
 </style>
@@ -163,6 +163,9 @@
                                     {/if}
                                 </td>
                             {/each}
+                            <td class="dungeon-level">
+                                {scores?.overallScore || 0}
+                            </td>
                         </tr>
                     {/each}
                 </tbody>

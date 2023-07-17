@@ -5,8 +5,8 @@
     import { covenantMap } from '@/data/covenant'
     import { progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { timeStore, userQuestStore, userStore } from '@/stores'
     import { QuestStatus } from '@/enums'
+    import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
     
     export let taskName: string
 
@@ -33,8 +33,6 @@
                     $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId)
                 )
             ) {
-                total++
-
                 let oofName = questName
                 if (questName === 'slAnima') {
                     const covenant = covenantMap[character.shadowlands?.covenantId]
@@ -43,19 +41,39 @@
                     }
                 }
 
-                const characterQuest = $userQuestStore.characters[characterId]?.progressQuests?.[oofName]
-                if (characterQuest) {
-                    if (questName === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
-                        continue
-                    }
+                if (task.type === 'multi') {
+                    const { chores: charChores } = $lazyStore.characters[characterId]
+                    const taskChores = charChores?.[taskName]
 
-                    title = characterQuest.name
+                    total += taskChores.countTotal
+                    completed += taskChores.countCompleted
+                    inProgress += taskChores.countStarted
+                    
+                    //console.log({charChores, charTasks})
+                    // for (const multiTask of multiTaskMap[taskName]) {
+                    //     if (multiTask?.couldGetFunc(character) === false) {
+                    //         continue
+                    //     }
+                    //     console.log(multiTask)
+                    // }
+                }
+                else {
+                    total++
 
-                    if (characterQuest.status === QuestStatus.InProgress) {
-                        inProgress++
-                    }
-                    else if (characterQuest.status === QuestStatus.Completed) {
-                        completed++
+                    const characterQuest = $userQuestStore.characters[characterId]?.progressQuests?.[oofName]
+                    if (characterQuest) {
+                        if (questName === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
+                            continue
+                        }
+
+                        title = characterQuest.name
+
+                        if (characterQuest.status === QuestStatus.InProgress) {
+                            inProgress++
+                        }
+                        else if (characterQuest.status === QuestStatus.Completed) {
+                            completed++
+                        }
                     }
                 }
             }
@@ -83,22 +101,22 @@
     <h4>{title}</h4>
     <table class="table-striped">
         <tbody>
-            {#if needToGet > 0}
-                <tr>
-                    <td class="label status-fail">Not started:</td>
-                    <td class="value">{needToGet}</td>
-                </tr>
-            {/if}
+            <tr>
+                <td class="label status-success">Completed:</td>
+                <td class="value">{completed}</td>
+            </tr>
             {#if inProgress > 0}
                 <tr>
                     <td class="label status-shrug">In progress:</td>
                     <td class="value">{inProgress}</td>
                 </tr>
             {/if}
-            <tr>
-                <td class="label status-success">Completed:</td>
-                <td class="value">{completed}</td>
-            </tr>
+            {#if needToGet > 0}
+                <tr>
+                    <td class="label status-fail">Not started:</td>
+                    <td class="value">{needToGet}</td>
+                </tr>
+            {/if}
         </tbody>
     </table>
 </div>

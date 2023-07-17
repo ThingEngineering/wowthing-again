@@ -3,8 +3,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { farmTypeIcons } from '@/data/icons'
-    import { FarmType, PlayableClass, playableClasses } from '@/enums'
+    import { PlayableClass, playableClasses } from '@/enums'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
     import { leftPad } from '@/utils/formatting'
@@ -13,7 +12,6 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let encounter: JournalDataEncounter = undefined
     export let statsKey: string
@@ -85,6 +83,8 @@
 
         align-items: center;
         display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
         margin-left: auto;
     }
     .stats {
@@ -108,8 +108,10 @@
         padding: 0 0.3rem;
     }
     .kills {
-        font-size: 0.95rem;
+        color: #aaa;
+        font-size: 90%;
         margin-left: 0.3rem;
+        word-spacing: -0.3ch;
     }
 </style>
 
@@ -119,7 +121,7 @@
             <div
                 class="stats"
                 data-id="{difficulty}"
-                use:tippy={difficultyMap[difficulty].name}
+                use:tippy={`${difficultyMap[difficulty].name}${kills >= 0 ? ` - ${kills} kill(s)` : ''}`}
             >
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}
@@ -128,11 +130,7 @@
                 
                 {#if kills >= 0}
                     <span class="kills">
-                        <IconifyIcon
-                            icon={farmTypeIcons[FarmType.Kill]}
-                            scale='0.81'
-                        />
-                        {kills.toLocaleString()}
+                        ( {kills.toLocaleString()} )
                     </span>
                 {/if}
             </div>

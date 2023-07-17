@@ -15,6 +15,7 @@ export interface LazyCharacter {
 }
 export class LazyCharacterChore {
     countCompleted = 0
+    countStarted = 0
     countTotal = 0
     name: string
     status = QuestStatus.NotStarted
@@ -195,8 +196,13 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         ? stores.userQuestData.questNames[choreTask.taskKey] || choreTask.taskName
                         : choreTask.taskName
                     
-                    if (charTask.status === QuestStatus.Completed && !charTask.skipped) {
-                        charChore.countCompleted++
+                    if (!charTask.skipped) {
+                        if (charTask.status === QuestStatus.Completed) {
+                            charChore.countCompleted++
+                        }
+                        else if (charTask.status === QuestStatus.InProgress) {
+                            charChore.countStarted++
+                        }
                     }
                 
                     charChore.tasks.push(charTask)
