@@ -233,67 +233,67 @@
             {:else}
                 {#if !skipClasses['mage']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={8} />
+                        <ClassIcon border={0} size={40} classId={8} />
                     </td>
                 {/if}
                 {#if !skipClasses['priest']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={5} />
+                        <ClassIcon border={0} size={40} classId={5} />
                     </td>
                 {/if}
                 {#if !skipClasses['warlock']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={9} />
+                        <ClassIcon border={0} size={40} classId={9} />
                     </td>
                 {/if}
                 {#if !skipClasses['demon-hunter']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={12} />
+                        <ClassIcon border={0} size={40} classId={12} />
                     </td>
                 {/if}
                 {#if !skipClasses['druid']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={11} />
+                        <ClassIcon border={0} size={40} classId={11} />
                     </td>
                 {/if}
                 {#if !skipClasses['monk']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={10} />
+                        <ClassIcon border={0} size={40} classId={10} />
                     </td>
                 {/if}
                 {#if !skipClasses['rogue']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={4} />
+                        <ClassIcon border={0} size={40} classId={4} />
                     </td>
                 {/if}
                 {#if !skipClasses['evoker']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={13} />
+                        <ClassIcon border={0} size={40} classId={13} />
                     </td>
                 {/if}
                 {#if !skipClasses['hunter']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={3} />
+                        <ClassIcon border={0} size={40} classId={3} />
                     </td>
                 {/if}
                 {#if !skipClasses['shaman']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={7} />
+                        <ClassIcon border={0} size={40} classId={7} />
                     </td>
                 {/if}
                 {#if !skipClasses['death-knight']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={6} />
+                        <ClassIcon border={0} size={40} classId={6} />
                     </td>
                 {/if}
                 {#if !skipClasses['paladin']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={2} />
+                        <ClassIcon border={0} size={40} classId={2} />
                     </td>
                 {/if}
                 {#if !skipClasses['warrior']}
                     <td class="icon">
-                        <ClassIcon size={40} classId={1} />
+                        <ClassIcon border={0} size={40} classId={1} />
                     </td>
                 {/if}
             {/if}
