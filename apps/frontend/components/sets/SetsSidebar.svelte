@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lazyStore, manualStore, settingsStore } from '@/stores'
+    import { lazyStore, manualStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'

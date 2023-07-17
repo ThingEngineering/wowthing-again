@@ -106,6 +106,5 @@
                 {/each}
             </div>
         {/each}
-    {:else}
     {/if}
 </div>

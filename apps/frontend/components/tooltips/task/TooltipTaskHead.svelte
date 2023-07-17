@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { progressQuestMap } from '@/data/quests'
-    import { multiTaskMap, taskMap } from '@/data/tasks'
+    import { taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums'
     import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
     
@@ -42,14 +42,13 @@
                 }
 
                 if (task.type === 'multi') {
-                    const { chores: charChores, tasks: charTasks } = $lazyStore.characters[characterId]
+                    const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
 
                     total += taskChores.countTotal
                     completed += taskChores.countCompleted
                     inProgress += taskChores.countStarted
-
-                    console.log(taskChores)
+                    
                     //console.log({charChores, charTasks})
                     // for (const multiTask of multiTaskMap[taskName]) {
                     //     if (multiTask?.couldGetFunc(character) === false) {

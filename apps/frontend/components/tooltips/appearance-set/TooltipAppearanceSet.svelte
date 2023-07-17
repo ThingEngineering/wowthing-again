@@ -47,6 +47,7 @@
     <table class="table-tooltip-vault table-striped">
         <tbody>
             {#if weapons.length > 0}
+                <!-- NYI -->
             {:else}
                 {#each typeOrder as type}
                     {#if slotHave[type] !== undefined}

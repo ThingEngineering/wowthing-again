@@ -7,7 +7,7 @@ import type { UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import { InventoryType, ItemClass, WeaponSubclass, weaponInventoryTypes } from '@/enums'
+import { InventoryType, weaponInventoryTypes } from '@/enums'
 
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>

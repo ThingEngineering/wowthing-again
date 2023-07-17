@@ -3,8 +3,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { farmTypeIcons } from '@/data/icons'
-    import { FarmType, PlayableClass, playableClasses } from '@/enums'
+    import { PlayableClass, playableClasses } from '@/enums'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
     import { leftPad } from '@/utils/formatting'
@@ -13,7 +12,6 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let encounter: JournalDataEncounter = undefined
     export let statsKey: string

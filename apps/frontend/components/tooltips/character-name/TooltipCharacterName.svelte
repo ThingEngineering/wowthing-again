@@ -30,12 +30,6 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .mount-speed {
-            :global(.flex-wrapper) {
-                gap: 0.4rem;
-                justify-content: normal;
-            }
-        }
     }
 </style>
 
