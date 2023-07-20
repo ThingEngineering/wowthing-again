@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { itemStore, userStore } from '@/stores'
+    import { itemSearchState, itemStore, userStore } from '@/stores'
     import { ItemLocation } from '@/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
@@ -17,40 +17,44 @@
     export let itemId: number
 
     let item: ItemSearchResponseCommon
+    let show: boolean
     $: {
         item = characterItem || guildBankItem
+        show = $itemSearchState.minimumQuality <= item.quality
     }
 </script>
 
-<tr class:highlight={!!guildBankItem}>
-    <td class="item text-overflow" colspan="{userStore.useAccountTags ? 2 : 1}">
-        <a
-            class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
-            href={getItemUrlSearch(itemId, item)}
-        >
-            <WowthingImage
-                name="item/{itemId}"
-                size={20}
-                border={1}
-            />
-            {$itemStore.items[itemId]?.name || `Item #${itemId}`}
-        </a>
-    </td>
+{#if show}
+    <tr class:highlight={!!guildBankItem}>
+        <td class="item text-overflow" colspan="{userStore.useAccountTags ? 2 : 1}">
+            <a
+                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
+                href={getItemUrlSearch(itemId, item)}
+            >
+                <WowthingImage
+                    name="item/{itemId}"
+                    size={20}
+                    border={1}
+                />
+                {$itemStore.items[itemId]?.name || `Item #${itemId}`}
+            </a>
+        </td>
 
-    <td
-        class="location text-overflow"
-        use:tippy={characterItem ? ItemLocation[characterItem.location] : `Tab ${guildBankItem.tab}`}
-    >
-        {#if characterItem}
-            {ItemLocation[characterItem.location]}
-        {:else}
-            Tab {guildBankItem.tab}
-        {/if}
-    </td>
-    <td class="count">
-        {toNiceNumber(characterItem?.count || guildBankItem.count)}
-    </td>
-    <td class="item-level">
-        {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.items[itemId].itemLevel || 0}
-    </td>
-</tr>
+        <td
+            class="location text-overflow"
+            use:tippy={characterItem ? ItemLocation[characterItem.location] : `Tab ${guildBankItem.tab}`}
+        >
+            {#if characterItem}
+                {ItemLocation[characterItem.location]}
+            {:else}
+                Tab {guildBankItem.tab}
+            {/if}
+        </td>
+        <td class="count">
+            {toNiceNumber(characterItem?.count || guildBankItem.count)}
+        </td>
+        <td class="item-level">
+            {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.items[itemId].itemLevel || 0}
+        </td>
+    </tr>
+{/if}
