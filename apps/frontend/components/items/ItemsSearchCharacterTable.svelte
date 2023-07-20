@@ -8,6 +8,7 @@
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchCharacterRow.svelte'
+    import ClassIcon from '../images/ClassIcon.svelte';
 
     export let response: ItemSearchResponseItem[]
 
@@ -68,6 +69,11 @@
                     </td>
                 {/if}
                 <th class="item">
+                    <ClassIcon
+                        classId={character.classId}
+                        size={16}
+                        border={1}
+                    />
                     {character.name}
                 </th>
                 <th class="realm text-overflow" colspan="3">
