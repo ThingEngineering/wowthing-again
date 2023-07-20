@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 import { get, writable } from 'svelte/store'
 
 import { userStore } from '@/stores'
-import { ItemLocation } from '@/enums'
+import { ItemLocation, ItemQuality } from '@/enums'
 import type {
     ItemSearchResponseCharacter,
     ItemSearchResponseGuildBank,
@@ -18,6 +18,7 @@ export class ItemSearchState {
     public groupBy: ItemSearchGroupBy = 'item'
     public includeEquipped = false
     public location = ItemLocation.Any
+    public minimumQuality = ItemQuality.Uncommon
     public searchTerms = ''
 
     private static minimumTermsLength = 3

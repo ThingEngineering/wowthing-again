@@ -3,7 +3,7 @@
     import { afterUpdate, onMount } from 'svelte'
     import { replace } from 'svelte-spa-router'
 
-    import { ItemLocation } from '@/enums'
+    import { ItemLocation, ItemQuality } from '@/enums'
     import { itemSearchState, userStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ItemSearchResponseItem } from '@/types/items'
@@ -145,6 +145,19 @@
                     name="include_equipped"
                     bind:value={$itemSearchState.includeEquipped}
             >Include equipped</Checkbox>
+
+            <Select
+                name="minimum_quality"
+                bind:selected={$itemSearchState.minimumQuality}
+                options={[
+                    [ItemQuality.Poor, 'Poor'],
+                    [ItemQuality.Common, 'Common'],
+                    [ItemQuality.Uncommon, 'Uncommon'],
+                    [ItemQuality.Rare, 'Rare'],
+                    [ItemQuality.Epic, 'Epic'],
+                    [ItemQuality.Legendary, 'Legendary'],
+               ]}
+            />
 
             <button
                 id="item-search-submit"
