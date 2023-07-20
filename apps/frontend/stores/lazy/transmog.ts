@@ -126,19 +126,20 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     continue
                                 }
 
-                                slotData[actualSlot] ||= [false, []]
-                                
-                                const hasAppearance = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+                                // const hasAppearance = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
                                 const hasSource = stores.userTransmogData.hasSource.has(`${itemId}_${modifier}`)
                                 
-                                const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
-                                    ? hasSource : hasAppearance
+                                // const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
+                                //     ? hasSource : hasAppearance
                                 
-                                if (userHas) {
-                                    slotData[actualSlot][0] = true
-                                }
+                                // if (userHas) {
+                                //     slotData[actualSlot][0] = true
+                                // }
+
+                                slotData[actualSlot] ||= [false, []]
                                 
                                 slotData[actualSlot][1].push([hasSource, itemId, modifier])
+                                slotData[actualSlot][0] = slotData[actualSlot][1].filter((s) => s[0]).length > 0
                             }
 
                             const setTotal = Object.values(slotData).length
