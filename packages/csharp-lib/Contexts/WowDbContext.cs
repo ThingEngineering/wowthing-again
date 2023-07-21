@@ -183,6 +183,14 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasMethod("gin")
             .HasOperators("gin_trgm_ops");
 
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })
+            .HasFilter("appearance_id IS NOT NULL");
+
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceSource, wa.BuyoutPrice })
+            .HasFilter("appearance_source IS NOT NULL");
+
         // Relationships
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasOne(s => s.Character)
