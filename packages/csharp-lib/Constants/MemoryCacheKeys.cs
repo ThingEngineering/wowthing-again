@@ -3,6 +3,8 @@
 public static class MemoryCacheKeys
 {
     public const string BackgroundImages = "background-images";
+    public const string ItemBonuses = "item-bonuses";
+    public const string ItemModifiedAppearances = "item-modified-appearances";
     public const string JournalInstanceMap = "journal-instance-map";
     public const string Periods = "periods";
     public const string TrustedRole = "trusted-role";

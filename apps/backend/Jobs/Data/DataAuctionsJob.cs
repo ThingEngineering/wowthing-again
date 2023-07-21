@@ -52,6 +52,8 @@ COPY {0} (
     pet_level,
     pet_quality,
     pet_species_id,
+    appearance_id,
+    appearance_source,
     bonus_ids,
     modifier_values,
     modifier_types
@@ -92,7 +94,11 @@ COPY {0} (
             return;
         }
 
-        var tableName = $"wow_auction_{realmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
+        var itemBonuses = await MemoryCacheService.GetItemBonuses();
+        var itemAppearanceBonuses = itemBonuses.ByType[WowItemBonusType.SetItemAppearanceModifier];
+        var itemModifiedAppearances = await MemoryCacheService.GetItemModifiedAppearances();
+
+        string tableName = $"wow_auction_{realmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
         await using (var connection = Context.GetConnection())
         {
             await connection.OpenAsync();
@@ -116,6 +122,33 @@ COPY {0} (
                     {
                         foreach (var auction in result.Data.Auctions)
                         {
+                            short modifier = 0;
+                            foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
+                            {
+                                if (!itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
+                                {
+                                    continue;
+                                }
+
+                                foreach (var bonus in itemBonus.Bonuses)
+                                {
+                                    if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
+                                    {
+                                        modifier = (short)bonus[1];
+                                        break;
+                                    }
+                                }
+                            }
+
+                            int? appearanceId = null;
+                            string appearanceSource = null;
+                            if (itemModifiedAppearances.ByItemIdAndModifier
+                                .TryGetValue((auction.Item.Id, modifier), out var actualAppearanceId) && actualAppearanceId > 0)
+                            {
+                                appearanceId = actualAppearanceId;
+                                appearanceSource = $"{auction.Item.Id}_{modifier}";
+                            }
+
                             await writer.StartRowAsync();
                             await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
                             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
@@ -130,6 +163,25 @@ COPY {0} (
                             await writer.WriteAsync(auction.Item.PetLevel, NpgsqlDbType.Smallint);
                             await writer.WriteAsync(auction.Item.PetQualityId, NpgsqlDbType.Smallint);
                             await writer.WriteAsync(auction.Item.PetSpeciesId, NpgsqlDbType.Smallint);
+
+                            if (appearanceId.HasValue)
+                            {
+                                await writer.WriteAsync(appearanceId.Value, NpgsqlDbType.Integer);
+                            }
+                            else
+                            {
+                                await writer.WriteNullAsync();
+                            }
+
+                            if (appearanceSource != null)
+                            {
+                                await writer.WriteAsync(appearanceSource, NpgsqlDbType.Varchar);
+                            }
+                            else
+                            {
+                                await writer.WriteNullAsync();
+                            }
+
                             await writer.WriteAsync(auction.Item.BonusLists.EmptyIfNull(),
                                 NpgsqlDbType.Array | NpgsqlDbType.Integer);
                             await writer.WriteAsync(
