@@ -865,13 +865,23 @@ public class DumpsTool
                 if (dumpItemBonus.Type > 0)
                 {
                     dbItemBonus.BonusTypeFlags |= (uint)1 << (dumpItemBonus.Type - 1);
-                    dbItemBonus.Bonuses.Add(new()
+
+                    var bonusList = new List<int>
                     {
                         dumpItemBonus.Type,
                         dumpItemBonus.Value0,
-                        dumpItemBonus.Value1,
-                        dumpItemBonus.Value2,
-                    });
+                    };
+
+                    if (dumpItemBonus.Value2 > 0 || dumpItemBonus.Value1 > 0)
+                    {
+                        bonusList.Add(dumpItemBonus.Value1);
+                    }
+                    if (dumpItemBonus.Value2 > 0)
+                    {
+                        bonusList.Add(dumpItemBonus.Value2);
+                    }
+
+                    dbItemBonus.Bonuses.Add(bonusList);
                 }
             }
         }
