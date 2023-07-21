@@ -86,9 +86,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         keptAny = true
 
                         // Sets that are explicitly not counted
-                        if (setName.endsWith('*')) {
-                            continue
-                        }
+                        const countUncollected = !setName.endsWith('*')
                         
                         const setStats = ret.stats[setKey] ||= new UserCount()
 
@@ -145,17 +143,32 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             const setTotal = Object.values(slotData).length
                             const setHave = Object.values(slotData).filter((has) => has[0] === true).length
 
-                            overallStats.total += setTotal
-                            baseStats.total += setTotal
-                            catStats.total += setTotal
-                            groupStats.total += setTotal
-                            setStats.total += setTotal
+                            if (countUncollected) {
+                                overallStats.total += setTotal
+                                overallStats.have += setHave
 
-                            overallStats.have += setHave
-                            baseStats.have += setHave
-                            catStats.have += setHave
-                            groupStats.have += setHave
-                            setStats.have += setHave
+                                baseStats.total += setTotal
+                                baseStats.have += setHave
+
+                                catStats.total += setTotal
+                                catStats.have += setHave
+
+                                groupStats.total += setTotal
+                                groupStats.have += setHave
+
+                                setStats.total += setTotal
+                                setStats.have += setHave
+                            }
+                            else {
+                                catStats.total += setHave
+                                catStats.have += setHave
+
+                                groupStats.total += setHave
+                                groupStats.have += setHave
+
+                                setStats.total += setHave
+                                setStats.have += setHave
+                            }
                         }
                         else {
                             const slotKeys = Object.keys(groupSigh.items)
@@ -165,23 +178,33 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 const transmogIds = groupSigh.items[slotKey]
                                 const seenAny = some(transmogIds, (id) => overallSeen[id])
 
-                                if (!seenAny) {
-                                    overallStats.total++
+                                if (countUncollected) {
+                                    if (!seenAny) {
+                                        overallStats.total++
+                                    }
+                                    baseStats.total++
+                                    catStats.total++
+                                    groupStats.total++
+                                    setStats.total++
                                 }
-                                baseStats.total++
-                                catStats.total++
-                                groupStats.total++
-                                setStats.total++
 
                                 let haveAny = false
                                 for (const transmogId of transmogIds) {
                                     if (stores.userTransmogData.hasAppearance.has(transmogId)) {
                                         haveAny = true
 
-                                        if (!overallSeen[transmogId]) {
-                                            overallStats.have++
+                                        if (countUncollected) {
+                                            if (!overallSeen[transmogId]) {
+                                                overallStats.have++
+                                            }
+                                            baseStats.have++
                                         }
-                                        baseStats.have++
+                                        else {
+                                            catStats.total++
+                                            groupStats.total++
+                                            setStats.total++
+                                        }
+
                                         catStats.have++
                                         groupStats.have++
                                         setStats.have++
