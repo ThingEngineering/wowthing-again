@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Wowthing.Backend.Models.Cache;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
@@ -23,6 +24,44 @@ public class MemoryCacheService
         _serviceScopeFactory = serviceScopeFactory;
 
         _logger = Log.ForContext("Service", $"MemoryCache");
+    }
+
+    public async Task<ItemBonusCache> GetItemBonuses()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemBonuses,
+            cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var itemBonuses = contextWrapper.Context.WowItemBonus
+                    .AsNoTracking()
+                    .ToArray();
+
+                return Task.FromResult(new ItemBonusCache(itemBonuses));
+            }
+        );
+    }
+
+    public async Task<ItemModifiedAppearanceCache> GetItemModifiedAppearances()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemModifiedAppearances,
+            cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var itemModifiedAppearances = contextWrapper.Context.WowItemModifiedAppearance
+                    .AsNoTracking()
+                    .ToArray();
+
+                return Task.FromResult(new ItemModifiedAppearanceCache(itemModifiedAppearances));
+            }
+        );
     }
 
     public async Task<Dictionary<string, int>> GetJournalInstanceMap()

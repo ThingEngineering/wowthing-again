@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721024326_Add_WowItemBonus")]
+    partial class Add_WowItemBonus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1833,14 +1836,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("integer")
                         .HasColumnName("auction_id");
-
-                    b.Property<int?>("AppearanceId")
-                        .HasColumnType("integer")
-                        .HasColumnName("appearance_id");
-
-                    b.Property<string>("AppearanceSource")
-                        .HasColumnType("text")
-                        .HasColumnName("appearance_source");
 
                     b.Property<long>("BidPrice")
                         .HasColumnType("bigint")

@@ -116,6 +116,7 @@ public class DumpsTool
             ImportInstances,
             ImportItems,
             ImportItemAppearances,
+            ImportItemBonuses,
             ImportItemEffects,
             ImportMounts,
             ImportPets,
@@ -833,6 +834,55 @@ public class DumpsTool
             if ((ima.ItemID == 32837 || ima.ItemID == 32838) && ima.ItemAppearanceModifierID == 0)
             {
                 dbAppearance.AppearanceId = 34777;
+            }
+        }
+    }
+
+    private async Task ImportItemBonuses(WowDbContext context)
+    {
+        var dumpMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonus>("itembonus"))
+            .GroupBy(dib => dib.ParentItemBonusListID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderBy(dib => dib.OrderIndex).ToArray()
+            );
+
+        var dbMap = await context.WowItemBonus
+            .ToDictionaryAsync(wib => wib.Id);
+
+        foreach (var (itemBonusId, dumpItemBonuses) in dumpMap)
+        {
+            if (!dbMap.TryGetValue(itemBonusId, out var dbItemBonus))
+            {
+                dbItemBonus = new WowItemBonus(itemBonusId);
+                context.WowItemBonus.Add(dbItemBonus);
+            }
+
+            dbItemBonus.BonusTypeFlags = 0;
+            dbItemBonus.Bonuses = new();
+            foreach (var dumpItemBonus in dumpItemBonuses)
+            {
+                if (dumpItemBonus.Type > 0)
+                {
+                    dbItemBonus.BonusTypeFlags |= (uint)1 << (dumpItemBonus.Type - 1);
+
+                    var bonusList = new List<int>
+                    {
+                        dumpItemBonus.Type,
+                        dumpItemBonus.Value0,
+                    };
+
+                    if (dumpItemBonus.Value2 > 0 || dumpItemBonus.Value1 > 0)
+                    {
+                        bonusList.Add(dumpItemBonus.Value1);
+                    }
+                    if (dumpItemBonus.Value2 > 0)
+                    {
+                        bonusList.Add(dumpItemBonus.Value2);
+                    }
+
+                    dbItemBonus.Bonuses.Add(bonusList);
+                }
             }
         }
     }
