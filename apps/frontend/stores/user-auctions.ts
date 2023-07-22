@@ -1,3 +1,4 @@
+import { ItemClass } from '@/enums'
 import type { AuctionState } from './local-storage'
 import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
@@ -189,10 +190,37 @@ export class UserAuctionMissingTransmogDataStore {
         const searchLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
-            return (
-                item.quality >= auctionState.missingTransmogMinQuality
-                && item.name.toLocaleLowerCase().indexOf(searchLower) >= 0
-            )
+            
+            const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
+            const matchesName = item.name.toLocaleLowerCase().indexOf(searchLower) >= 0
+
+            let matchesArmor = true
+            if (auctionState.missingTransmogItemClass === 'armor') {
+                if (item.classId !== ItemClass.Armor) {
+                    matchesArmor = false
+                }
+                if (
+                    auctionState.missingTransmogItemSubclassArmor >= 0 &&
+                    item.subclassId !== auctionState.missingTransmogItemSubclassArmor
+                ) {
+                    matchesArmor = false
+                }
+            }
+
+            let matchesWeapon = true
+            if (auctionState.missingTransmogItemClass === 'weapon') {
+                if (item.classId !== ItemClass.Weapon) {
+                    matchesWeapon = false
+                }
+                if (
+                    auctionState.missingTransmogItemSubclassWeapon >= 0 &&
+                    item.subclassId !== auctionState.missingTransmogItemSubclassWeapon
+                ) {
+                    matchesWeapon = false
+                }
+            }
+
+            return meetsMinQuality && matchesName && matchesArmor && matchesWeapon
         })
 
         return things
