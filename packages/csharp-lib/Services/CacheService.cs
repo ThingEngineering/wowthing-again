@@ -6,6 +6,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Lib.Services;
@@ -314,13 +315,28 @@ public class CacheService
             .Where(pats => pats.Account.UserId == userId)
             .ToArrayAsync();
 
-        timer.AddPoint("Database");
+        timer.AddPoint("Select");
 
         var allSources = new HashSet<string>();
         foreach (var sources in accountSources)
         {
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
+
+        var transmogCache = await context.UserTransmogCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+        if (transmogCache == null)
+        {
+            transmogCache = new UserTransmogCache(userId);
+            context.UserTransmogCache.Add(transmogCache);
+        }
+
+        transmogCache.AppearanceIds = allTransmog.TransmogIds.Distinct().Order().ToList();
+        transmogCache.AppearanceSources = allSources.Order().ToList();
+        await context.SaveChangesAsync();
+
+        timer.AddPoint("Save");
 
         var json = JsonSerializer.Serialize(new ApiUserTransmog
         {

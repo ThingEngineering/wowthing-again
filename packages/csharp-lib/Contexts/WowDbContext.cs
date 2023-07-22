@@ -8,6 +8,7 @@ using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Team;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Contexts;
@@ -84,6 +85,8 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
+
+    public DbSet<UserTransmogCache> UserTransmogCache { get; set; }
 
     public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
 
@@ -182,6 +185,14 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasIndex(ls => new { ls.String })
             .HasMethod("gin")
             .HasOperators("gin_trgm_ops");
+
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })
+            .HasFilter("appearance_id IS NOT NULL");
+
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceSource, wa.BuyoutPrice })
+            .HasFilter("appearance_source IS NOT NULL");
 
         // Relationships
         builder.Entity<PlayerCharacterMythicPlusSeason>()

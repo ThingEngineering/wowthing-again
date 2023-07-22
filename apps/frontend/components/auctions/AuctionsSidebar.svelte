@@ -24,6 +24,12 @@
             },
             null,
             {
+                name: 'Missing Transmog',
+                slug: 'missing-transmog',
+                forceWildcard: true,
+            },
+            null,
+            {
                 name: 'Extra Pets',
                 slug: 'extra-pets',
                 forceWildcard: true,

@@ -258,8 +258,6 @@ public class ApiAuctionController : Controller
 
         var accounts = await accountQuery.ToArrayAsync();
 
-        var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-
         timer.AddPoint("Accounts");
 
         var auctionQuery = _context.WowAuction
@@ -267,6 +265,7 @@ public class ApiAuctionController : Controller
 
         if (!form.AllRealms)
         {
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
             auctionQuery = auctionQuery
                 .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
         }
@@ -461,7 +460,65 @@ public class ApiAuctionController : Controller
         return Ok(data);
     }
 
-    private static Dictionary<int, List<WowAuction>> DoAuctionStuff(IEnumerable<IGrouping<int, WowAuction>> groupedAuctions, bool includeLowBid = true)
+    [HttpPost("missing-transmog")]
+    [Authorize]
+    public async Task<IActionResult> MissingTransmog([FromBody] ApiMissingTransmogForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        var auctionQuery = _context.WowAuction
+            .FromSql($@"
+SELECT  DISTINCT ON (connected_realm_id, appearance_id) a.*
+FROM (
+    WITH transmog_cache (appearance_id) AS (
+        SELECT  UNNEST(appearance_ids) AS appearance_id
+        FROM    user_transmog_cache
+        WHERE   user_id = {user.Id}
+    )
+    SELECT  wa.*
+    FROM    wow_auction wa
+    LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
+    WHERE   tc.appearance_id IS NULL
+            AND wa.buyout_price > 0
+) a
+ORDER BY connected_realm_id, appearance_id, buyout_price
+");
+
+
+        if (!form.AllRealms)
+        {
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id && pa.Enabled)
+                .Include(pa => pa.Pets)
+                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            auctionQuery = auctionQuery
+                .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
+        }
+
+        var auctions = await auctionQuery.ToArrayAsync();
+
+        var data = new UserAuctionData();
+        data.Auctions = DoAuctionStuff(
+            auctions.GroupBy(auction => auction.AppearanceId ?? 0),
+            false
+        );
+
+        return Ok(data);
+    }
+
+    private static Dictionary<int, List<WowAuction>> DoAuctionStuff(
+        IEnumerable<IGrouping<int, WowAuction>> groupedAuctions,
+        bool includeLowBid = true
+    )
     {
         var groupedThings = groupedAuctions
             .ToDictionary(
@@ -478,12 +535,10 @@ public class ApiAuctionController : Controller
             {
                 var lowestBid = realmAuctions
                     .Where(auction => auction.BidPrice > 0)
-                    .OrderBy(auction => auction.BidPrice)
-                    .FirstOrDefault();
+                    .MinBy(auction => auction.BidPrice);
                 var lowestBuyout = realmAuctions
                     .Where(auction => auction.BuyoutPrice > 0)
-                    .OrderBy(auction => auction.BuyoutPrice)
-                    .FirstOrDefault();
+                    .MinBy(auction => auction.BuyoutPrice);
 
                 if (lowestBid == null)
                 {
