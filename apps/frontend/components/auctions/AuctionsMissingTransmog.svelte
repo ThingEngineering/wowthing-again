@@ -100,6 +100,9 @@
                                 <WowheadLink
                                     type={'item'}
                                     id={itemId}
+                                    extraParams={{
+                                        bonus: (auctions[0].bonusIds || []).join(':')
+                                    }}
                                 >
                                     <div class="flex-wrapper">
                                         <WowthingImage
