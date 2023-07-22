@@ -1,4 +1,4 @@
-import { ItemClass } from '@/enums'
+import { ItemClass, ItemFlags } from '@/enums'
 import type { AuctionState } from './local-storage'
 import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
@@ -190,6 +190,9 @@ export class UserAuctionMissingTransmogDataStore {
         const searchLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
+            if ((item.flags & ItemFlags.CannotTransmogToThisItem) > 0) {
+                return false
+            }
             
             const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
             const matchesName = item.name.toLocaleLowerCase().indexOf(searchLower) >= 0
