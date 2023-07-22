@@ -258,8 +258,6 @@ public class ApiAuctionController : Controller
 
         var accounts = await accountQuery.ToArrayAsync();
 
-        var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-
         timer.AddPoint("Accounts");
 
         var auctionQuery = _context.WowAuction
@@ -267,6 +265,7 @@ public class ApiAuctionController : Controller
 
         if (!form.AllRealms)
         {
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
             auctionQuery = auctionQuery
                 .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
         }
@@ -536,12 +535,10 @@ ORDER BY connected_realm_id, appearance_id, buyout_price
             {
                 var lowestBid = realmAuctions
                     .Where(auction => auction.BidPrice > 0)
-                    .OrderBy(auction => auction.BidPrice)
-                    .FirstOrDefault();
+                    .MinBy(auction => auction.BidPrice);
                 var lowestBuyout = realmAuctions
                     .Where(auction => auction.BuyoutPrice > 0)
-                    .OrderBy(auction => auction.BuyoutPrice)
-                    .FirstOrDefault();
+                    .MinBy(auction => auction.BuyoutPrice);
 
                 if (lowestBid == null)
                 {
