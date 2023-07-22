@@ -22,14 +22,19 @@
         have = 0
         percent = 0
         total = 0
-        slotHave = {}
         
         slotHave = $lazyStore.transmog.slots[setKey]
-
         if (!set || !slotHave) { break $ }
 
-        total = Object.keys(slotHave).length
-        have = Object.values(slotHave).filter((s) => s[0] === true).length
+        const stats = $lazyStore.transmog.stats[setKey]
+        if (stats) {
+            total = stats.total
+            have = stats.have
+        }
+        else {
+            total = Object.keys(slotHave).length
+            have = Object.values(slotHave).filter((s) => s[0] === true).length
+        }
 
         if (total > 0) {
             percent = have / total * 100
@@ -40,6 +45,8 @@
 <style lang="scss">
     td {
         border-left: 1px solid $border-color;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
         text-align: center;
         word-spacing: -0.2ch;
     }

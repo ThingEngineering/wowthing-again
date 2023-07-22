@@ -77,6 +77,7 @@ export interface Settings {
         [index: string]: boolean
 
         completionistMode: boolean
+        completionistSets: boolean
 
         showAllianceOnly: boolean
         showHordeOnly: boolean

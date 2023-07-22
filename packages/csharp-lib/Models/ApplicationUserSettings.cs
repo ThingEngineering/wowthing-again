@@ -295,6 +295,7 @@ public class ApplicationUserSettingsTasks
 public class ApplicationUserSettingsTransmog
 {
     public bool CompletionistMode { get; set; } = false;
+    public bool CompletionistSets { get; set; } = false;
 
     public bool ShowAllianceOnly { get; set; } = true;
     public bool ShowHordeOnly { get; set; } = true;
