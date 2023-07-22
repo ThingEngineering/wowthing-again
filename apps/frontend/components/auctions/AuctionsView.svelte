@@ -4,7 +4,7 @@
 
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { ItemQuality, Region } from '@/enums'
+    import { ItemQuality, Region, WeaponSubclass } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -38,6 +38,11 @@
         }
     }
 
+    const weaponOptions: [number, string][] = Object.entries(WeaponSubclass)
+        .filter(([key,]) => !isNaN(parseInt(key)))
+        .map(([key, value]) => [parseInt(key), value as string])
+    weaponOptions.splice(0, 0, [-1, 'Any'])
+
     const componentMap: Record<string, typeof SvelteComponent> = {
         'custom-1': Custom,
         'custom-2': Custom,
@@ -66,6 +71,7 @@
         padding: 0.2rem 0.3rem;
     }
     .options-group {
+        align-items: center;
         display: flex;
         gap: 0.5rem;
 
@@ -73,6 +79,13 @@
             border-right: 1px solid $border-color;
             margin-right: 0.5rem;
             padding-right: 0.5rem;
+        }
+
+        :global(select[name="transmog_min_quality"]) {
+            width: 8rem;
+        }
+        :global(select[name="transmog_item_subclass_weapon"]) {
+            width: 10rem;
         }
     }
 </style>
@@ -144,7 +157,10 @@
             </div>
         {/if}
 
-        {#if params.slug1 === 'missing-transmog'}
+    </div>
+
+    {#if params.slug1 === 'missing-transmog'}
+        <div class="options-container border">
             <div class="options-group">
                 Min quality:
                 <Select
@@ -162,6 +178,42 @@
             </div>
 
             <div class="options-group">
+                <div class="options-group">
+                    Item type:
+                    <RadioGroup
+                        bind:value={$auctionState.missingTransmogItemClass}
+                        name="transmog_item_class"
+                        options={[
+                            ['any', 'Any'],
+                            ['armor', 'Armor'],
+                            ['weapon', 'Weapon'],
+                        ]}
+                    />
+
+                    {#if $auctionState.missingTransmogItemClass === 'armor'}
+                        <Select
+                            name="transmog_item_subclass_armor"
+                            bind:selected={$auctionState.missingTransmogItemSubclassArmor}
+                            options={[
+                                [-1, 'Any'],
+                                [1, 'Cloth'],
+                                [2, 'Leather'],
+                                [3, 'Mail'],
+                                [4, 'Plate'],
+                            ]}
+                        />
+                    {:else if $auctionState.missingTransmogItemClass === 'weapon'}
+                        <Select
+                            name="transmog_item_subclass_weapon"
+                            bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
+                            options={weaponOptions}
+                        />
+                    {/if}
+                </div>
+        
+            </div>
+
+            <div class="options-group">
                 <TextInput
                     name="transmog_name_search"
                     maxlength={20}
@@ -169,8 +221,8 @@
                     bind:value={$auctionState.missingTransmogNameSearch}
                 />
             </div>
-        {/if}
-    </div>
+        </div>
+    {/if}
 
     <svelte:component
         this={componentMap[params.slug1]}

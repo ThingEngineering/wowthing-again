@@ -1,3 +1,4 @@
+import { ItemClass } from '@/enums'
 import { writable } from 'svelte/store'
 
 
@@ -16,6 +17,9 @@ export class AuctionState {
     public hideIgnored = false
     public limitToBestRealms = false
     public missingPetsMaxLevel = false
+    public missingTransmogItemClass = 'any'
+    public missingTransmogItemSubclassArmor = -1
+    public missingTransmogItemSubclassWeapon = -1
     public missingTransmogMinQuality = 0
     public missingTransmogNameSearch = ''
     public region = '0'
@@ -27,6 +31,7 @@ export class AuctionState {
         'missing-mounts': 'name_up',
         'missing-pets': 'name_up',
         'missing-toys': 'name_up',
+        'missing-transmog': 'price_up',
     }
 }
 
@@ -34,9 +39,13 @@ const key = 'state-auctions'
 const initialState = new AuctionState()
 
 const stored = JSON.parse(localStorage.getItem(key) ?? '{}') as AuctionState
-if (stored.perPage) {
-    initialState.perPage = stored.perPage
+
+for (const [sortKey, sortValue] of Object.entries(initialState.sortBy)) {
+    if (!stored.sortBy[sortKey]) {
+        stored.sortBy[sortKey] = sortValue
+    }
 }
+
 Object.assign(initialState, stored || {})
 
 export const auctionState = writable<AuctionState>(initialState)
