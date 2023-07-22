@@ -50,6 +50,13 @@
             padding-inline-start: 1.3rem;
         }
 
+        &.disabled {
+            label {
+                cursor: not-allowed !important;
+                opacity: 0.5;
+            }
+        }
+
         &[data-state="false"] {
             background: rgba(255, 0, 0, 0.2);
 
