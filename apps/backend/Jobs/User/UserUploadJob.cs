@@ -445,17 +445,17 @@ public class UserUploadJob : JobBase
 
         if (_resetAchievementCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, _userId.ToString());
+            await CacheService.DeleteAchievementCacheAsync(_userId);
         }
 
         if (_resetQuestCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, _userId.ToString());
+            await CacheService.DeleteQuestCacheAsync(_userId);
         }
 
         if (_resetTransmogCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, _userId.ToString());
+            await CacheService.DeleteTransmogCacheAsync(_userId);
         }
 
         Logger.Warning("Trying to save");

@@ -183,6 +183,12 @@ public class CacheService
 
         return (json, lastModified);
     }
+
+    public async Task DeleteAchievementCacheAsync(long userId, IDatabase db = null)
+    {
+        db ??= _redis.GetDatabase();
+        await db.KeyDeleteAsync(string.Format(RedisKeys.UserAchievements, userId));
+    }
     #endregion
 
     #region RaiderIO
@@ -278,6 +284,12 @@ public class CacheService
 
         return (json, lastModified);
     }
+
+    public async Task DeleteQuestCacheAsync(long userId, IDatabase db = null)
+    {
+        db ??= _redis.GetDatabase();
+        await db.KeyDeleteAsync(string.Format(RedisKeys.UserQuests, userId));
+    }
     #endregion
 
     #region Transmog
@@ -363,6 +375,12 @@ public class CacheService
         timer.AddPoint("Redis", true);
 
         return (json, lastModified);
+    }
+
+    public async Task DeleteTransmogCacheAsync(long userId, IDatabase db = null)
+    {
+        db ??= _redis.GetDatabase();
+        await db.KeyDeleteAsync(string.Format(RedisKeys.UserTransmog, userId));
     }
     #endregion
 }
