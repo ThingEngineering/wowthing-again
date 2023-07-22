@@ -4,14 +4,13 @@
     import { itemStore, staticStore, userAuctionMissingTransmogStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
 
     import Paginate from '@/components/common/Paginate.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import ParsedText from '../common/ParsedText.svelte';
-    import { toNicePrice } from '@/utils/formatting';
-    import { getColumnResizer } from '@/utils/get-column-resizer';
 
     export let auctionsContainer: HTMLElement
     export let page: number

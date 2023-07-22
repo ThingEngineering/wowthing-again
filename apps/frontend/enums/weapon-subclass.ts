@@ -13,7 +13,7 @@ export enum WeaponSubclass {
     //11: bear claws?
     //12: cat claws?
     Fist = 13,
-    //14: misc?
+    Miscellaneous = 14,
     Dagger = 15,
     Thrown = 16,
     //17: spear?
