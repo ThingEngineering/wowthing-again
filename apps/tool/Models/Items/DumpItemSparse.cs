@@ -20,6 +20,9 @@ public class DumpItemSparse
     public short RequiredLevel { get; set; }
     public int Stackable { get; set; }
 
+    [Name("Flags[1]")]
+    public WowItemFlags2 Flags2 { get; set; }
+
     [Name("Flags[3]")]
     public WowItemFlags4 Flags4 { get; set; }
 
