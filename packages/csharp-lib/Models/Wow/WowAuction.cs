@@ -1,10 +1,12 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow;
 
 [Index(nameof(ItemId))]
 [Index(nameof(PetSpeciesId))]
+[JsonConverter(typeof(WowAuctionConverter))]
 public class WowAuction
 {
     public long BidPrice { get; set; }
@@ -29,6 +31,5 @@ public class WowAuction
     public List<int> ModifierValues { get; set; }
     public List<short> ModifierTypes { get; set; }
 
-    [JsonIgnore]
     public long UsefulPrice => BidPrice > 0 ? BidPrice : BuyoutPrice;
 }

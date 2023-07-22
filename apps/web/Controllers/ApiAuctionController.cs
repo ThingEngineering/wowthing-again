@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.Mime;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Contexts;
@@ -10,6 +12,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Web.Controllers;
 
@@ -17,15 +20,18 @@ namespace Wowthing.Web.Controllers;
 public class ApiAuctionController : Controller
 {
     private readonly ILogger<ApiAuctionController> _logger;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
     public ApiAuctionController(
         ILogger<ApiAuctionController> logger,
+        JsonSerializerOptions jsonSerializerOptions,
         UserManager<ApplicationUser> userManager,
         WowDbContext context)
     {
         _logger = logger;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _userManager = userManager;
         _context = context;
     }
@@ -201,7 +207,7 @@ public class ApiAuctionController : Controller
             )
             .ToArrayAsync();
 
-        data.Auctions = DoAuctionStuff(auctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]), false);
+        data.RawAuctions = DoAuctionStuff(auctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]), false);
 
         timer.AddPoint("Auctions");
 
@@ -230,7 +236,8 @@ public class ApiAuctionController : Controller
 
         _logger.LogInformation($"{timer}");
 
-        return Ok(data);
+        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        return Content(json, MediaTypeNames.Application.Json);
     }
 
     [HttpPost("missing")]
@@ -325,7 +332,7 @@ public class ApiAuctionController : Controller
                 .Where(auction => missingMounts.Select(mount => mount.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
 
-            data.Auctions = DoAuctionStuff(mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]));
+            data.RawAuctions = DoAuctionStuff(mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]));
 
             // Strings
             var mountIdToSpellId = missingMounts
@@ -394,7 +401,7 @@ public class ApiAuctionController : Controller
 
             var petAuctions = await petAuctionQuery.ToArrayAsync();
 
-            data.Auctions = DoAuctionStuff(
+            data.RawAuctions = DoAuctionStuff(
                 petAuctions.GroupBy(auction => auction.PetSpeciesId > 0
                     ? petSpeciesMap[auction.PetSpeciesId]
                     : petItemMap[auction.ItemId]
@@ -438,10 +445,10 @@ public class ApiAuctionController : Controller
                 .Where(auction => missingToys.Select(toy => toy.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
 
-            data.Auctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
+            data.RawAuctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
 
             // Strings
-            var allItemIds = data.Auctions.Keys
+            var allItemIds = data.RawAuctions.Keys
                 .Distinct()
                 .ToArray();
 
@@ -460,7 +467,8 @@ public class ApiAuctionController : Controller
 
         _logger.LogInformation($"{timer}");
 
-        return Ok(data);
+        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        return Content(json, MediaTypeNames.Application.Json);
     }
 
     [HttpPost("missing-transmog")]
@@ -526,12 +534,13 @@ ORDER BY connected_realm_id, appearance_id, buyout_price
         var auctions = await auctionQuery.ToArrayAsync();
 
         var data = new UserAuctionData();
-        data.Auctions = DoAuctionStuff(
+        data.RawAuctions = DoAuctionStuff(
             auctions.GroupBy(auction => auction.AppearanceId ?? 0),
             false
         );
 
-        return Ok(data);
+        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        return Content(json, MediaTypeNames.Application.Json);
     }
 
     private static Dictionary<int, List<WowAuction>> DoAuctionStuff(

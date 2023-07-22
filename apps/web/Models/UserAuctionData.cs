@@ -6,7 +6,7 @@ namespace Wowthing.Web.Models;
 
 public class UserAuctionData
 {
-    public Dictionary<int, List<WowAuction>> Auctions { get; set; }
+    public Dictionary<int, List<WowAuction>> RawAuctions { get; set; }
     public Dictionary<int, string> Names { get; set; }
         
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
