@@ -473,6 +473,28 @@ public class ApiAuctionController : Controller
             return NotFound();
         }
 
+        // Always apply a region limit
+        int[] connectedRealmIds = await _context.WowRealm
+            .AsNoTracking()
+            .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        if (!form.AllRealms)
+        {
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id && pa.Enabled)
+                .Include(pa => pa.Pets)
+                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+
+            connectedRealmIds = connectedRealmIds
+                .Intersect(accountConnectedRealmIds)
+                .ToArray();
+        }
+
         var auctionQuery = _context.WowAuction
             .FromSql($@"
 SELECT  DISTINCT ON (connected_realm_id, appearance_id) a.*
@@ -487,22 +509,10 @@ FROM (
     LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
     WHERE   tc.appearance_id IS NULL
             AND wa.buyout_price > 0
+            AND wa.connected_realm_id = ANY({connectedRealmIds})
 ) a
 ORDER BY connected_realm_id, appearance_id, buyout_price
 ");
-
-
-        if (!form.AllRealms)
-        {
-            var accounts = await _context.PlayerAccount
-                .AsNoTracking()
-                .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
-                .ToArrayAsync();
-            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-            auctionQuery = auctionQuery
-                .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
-        }
 
         var auctions = await auctionQuery.ToArrayAsync();
 
