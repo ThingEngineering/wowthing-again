@@ -37,6 +37,17 @@
             that exact source, not any other item that shares the same appearance.
         </p>
     </div>
+
+    <div class="setting">
+        <Checkbox
+            name="transmog_completionistSets"
+            disabled={!$settingsStore.transmog.completionistMode}
+            bind:value={$settingsStore.transmog.completionistSets}
+        >Completionist Sets</Checkbox>
+        <p>
+            Sets will require you to collect every appearance for every slot.
+        </p>
+    </div>
 </div>
 
 <div class="settings-block">

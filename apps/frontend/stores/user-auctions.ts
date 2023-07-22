@@ -1,6 +1,6 @@
 import { InventoryType, ItemClass, ItemFlags, WeaponSubclass } from '@/enums'
 import type { AuctionState } from './local-storage'
-import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
+import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
 
@@ -44,6 +44,12 @@ export class UserAuctionExtraPetsStore {
 
             if (response.ok) {
                 const responseData = await response.json() as UserAuctionData
+
+                responseData.auctions = {}
+                for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
+                    responseData.auctions[parseInt(creatureId)] = rawAuctions
+                        .map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
+                }
 
                 for (const creatureId in responseData.auctions) {
                     things.push({
@@ -102,6 +108,12 @@ export class UserAuctionMissingDataStore {
             if (response.ok) {
                 const responseData = await response.json() as UserAuctionData
 
+                responseData.auctions = {}
+                for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
+                    responseData.auctions[parseInt(creatureId)] = rawAuctions
+                        .map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
+                }
+    
                 if (responseData?.auctions) {
                     for (const thingId in responseData.auctions) {
                         things.push({
@@ -162,6 +174,12 @@ export class UserAuctionMissingTransmogDataStore {
             if (response.ok) {
                 const responseData = await response.json() as UserAuctionData
 
+                responseData.auctions = {}
+                for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
+                    responseData.auctions[parseInt(creatureId)] = rawAuctions
+                        .map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
+                }
+    
                 if (responseData?.auctions) {
                     for (const [thingId, auctions] of Object.entries(responseData.auctions)) {
                         const id = parseInt(thingId)

@@ -2,22 +2,35 @@ import type { ItemLocation, ItemQuality } from '@/enums'
 
 
 export interface UserAuctionData {
-    auctions: Record<number, UserAuctionDataAuction[]>
     names: Record<number, string>
 
     pets?: Record<number, UserAuctionDataPet[]>
+
+    auctions: Record<number, UserAuctionDataAuction[]>
+    rawAuctions: Record<number, UserAuctionDataAuctionArray[]>
 }
 
-export interface UserAuctionDataAuction {
-    bidPrice: number
-    buyoutPrice: number
-    connectedRealmId: number
-    itemId: number
-    petBreedId: number
-    petLevel: number
-    petQuality: number
-    timeLeft: number
+export class UserAuctionDataAuction {
+    constructor(
+        public connectedRealmId: number,
+        public context: number,
+        public quantity: number,
+        public timeLeft: number,
+        public itemId: number,
+        public petSpeciesId: number,
+        public petBreedId: number,
+        public petLevel: number,
+        public petQuality: number,
+        public bidPrice: number,
+        public buyoutPrice: number,
+        public bonusIds: number[],
+        public modifierTypes: number[],
+        public modifierValues: number[]
+    )
+    { }
 }
+
+export type UserAuctionDataAuctionArray = ConstructorParameters<typeof UserAuctionDataAuction>
 
 export interface UserAuctionDataPet {
     breedId: number

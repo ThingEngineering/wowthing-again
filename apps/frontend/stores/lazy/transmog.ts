@@ -38,6 +38,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
     }
 
     const completionistMode = stores.settings.transmog.completionistMode
+    const completionistSets = completionistMode && stores.settings.transmog.completionistSets
     const skipAlliance = !stores.settings.transmog.showAllianceOnly
     const skipHorde = !stores.settings.transmog.showHordeOnly
     const skipClasses = getSkipClasses(stores.settings)
@@ -62,17 +63,21 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex]
 
+                const groupKey = `${catKey}--${groupIndex}`
+                const groupStats = ret.stats[groupKey] ||= new UserCount()
+
                 for (const [dataKey, dataValue] of Object.entries(group.data)) {
                     if (skipClasses[dataKey]) {
                         continue
                     }
 
-                    const groupKey = `${catKey}--${groupIndex}`
-                    const groupStats = ret.stats[groupKey] ||= new UserCount()
-
                     for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
                         const setKey = `${groupKey}--${setIndex}`
+                        const setStats = ret.stats[setKey] ||= new UserCount()
                         const setName = group.sets[setIndex]
+
+                        const setDataKey = `${setKey}--${dataKey}`
+                        const setDataStats = ret.stats[setDataKey] ||= new UserCount()
 
                         // Faction filters
                         if (
@@ -87,11 +92,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                         // Sets that are explicitly not counted
                         const countUncollected = !setName.endsWith('*')
-                        
-                        const setStats = ret.stats[setKey] ||= new UserCount()
 
                         const groupSigh = dataValue[setIndex]
-                        const slotData: TransmogSlotData = ret.slots[`${setKey}--${dataKey}`] = {}
+                        const slotData: TransmogSlotData = ret.slots[setDataKey] = {}
                         const weaponGarbage: Record<number, number> = {}
                         let weaponIndex = 100
                         if (groupSigh.transmogSetId) {
@@ -119,6 +122,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 }
 
                                 if (completionistMode
+                                    && !completionistSets
                                     && weaponInventoryTypes.indexOf(item.inventoryType) === -1
                                     && slotData[actualSlot] !== undefined) {
                                     continue
@@ -140,34 +144,48 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 slotData[actualSlot][0] = slotData[actualSlot][1].filter((s) => s[0]).length > 0
                             }
 
-                            const setTotal = Object.values(slotData).length
-                            const setHave = Object.values(slotData).filter((has) => has[0] === true).length
+                            // let setTotal = 0
+                            // let setHave = 0
 
-                            if (countUncollected) {
-                                overallStats.total += setTotal
-                                overallStats.have += setHave
-
-                                baseStats.total += setTotal
-                                baseStats.have += setHave
-
-                                catStats.total += setTotal
-                                catStats.have += setHave
-
-                                groupStats.total += setTotal
-                                groupStats.have += setHave
-
-                                setStats.total += setTotal
-                                setStats.have += setHave
+                            if (completionistSets) {
+                                setDataStats.total = Object.values(slotData)
+                                    .reduce((a, b) => a + b[1].length, 0)
+                                setDataStats.have = Object.values(slotData)
+                                    .reduce(
+                                        (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
+                                        0
+                                    )
                             }
                             else {
-                                catStats.total += setHave
-                                catStats.have += setHave
+                                setDataStats.total = Object.values(slotData).length
+                                setDataStats.have = Object.values(slotData).filter((has) => has[0] === true).length
+                            }
 
-                                groupStats.total += setHave
-                                groupStats.have += setHave
+                            if (countUncollected) {
+                                overallStats.total += setDataStats.total
+                                overallStats.have += setDataStats.have
 
-                                setStats.total += setHave
-                                setStats.have += setHave
+                                baseStats.total += setDataStats.total
+                                baseStats.have += setDataStats.have
+
+                                catStats.total += setDataStats.total
+                                catStats.have += setDataStats.have
+
+                                groupStats.total += setDataStats.total
+                                groupStats.have += setDataStats.have
+
+                                setStats.total += setDataStats.total
+                                setStats.have += setDataStats.have
+                            }
+                            else {
+                                catStats.total += setDataStats.have
+                                catStats.have += setDataStats.have
+
+                                groupStats.total += setDataStats.have
+                                groupStats.have += setDataStats.have
+
+                                setStats.total += setDataStats.have
+                                setStats.have += setDataStats.have
                             }
                         }
                         else {
