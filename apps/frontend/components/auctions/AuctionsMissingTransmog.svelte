@@ -57,7 +57,6 @@
         }
 
         :global(.text-overflow) {
-            direction: rtl; // not happy with this but ugh
             text-align: left;
         }
     }
