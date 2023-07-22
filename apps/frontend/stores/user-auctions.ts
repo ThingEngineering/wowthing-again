@@ -201,7 +201,13 @@ export class UserAuctionMissingTransmogDataStore {
             }
 
             // These are weird fake weapons
-            if (item.classId === ItemClass.Weapon && item.subclassId === WeaponSubclass.Miscellaneous) {
+            if (
+                item.classId === ItemClass.Weapon &&
+                (
+                    item.subclassId === WeaponSubclass.Miscellaneous
+                    || item.subclassId === WeaponSubclass.Thrown
+                )
+            ) {
                 return false
             }
             
