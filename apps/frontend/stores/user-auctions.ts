@@ -1,4 +1,4 @@
-import { ItemClass, ItemFlags } from '@/enums'
+import { InventoryType, ItemClass, ItemFlags } from '@/enums'
 import type { AuctionState } from './local-storage'
 import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
@@ -191,6 +191,12 @@ export class UserAuctionMissingTransmogDataStore {
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
             if ((item.flags & ItemFlags.CannotTransmogToThisItem) > 0) {
+                return false
+            }
+
+            // Why doesn't profession gear have the above flag? WHO KNOWS
+            if (item.inventoryType === InventoryType.ProfessionGear ||
+                item.inventoryType === InventoryType.ProfessionTool) {
                 return false
             }
             
