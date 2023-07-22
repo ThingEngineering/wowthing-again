@@ -41,7 +41,7 @@ const initialState = new AuctionState()
 const stored = JSON.parse(localStorage.getItem(key) ?? '{}') as AuctionState
 
 for (const [sortKey, sortValue] of Object.entries(initialState.sortBy)) {
-    if (!stored.sortBy[sortKey]) {
+    if (!!stored && !!stored.sortBy && stored.sortBy[sortKey] === undefined) {
         stored.sortBy[sortKey] = sortValue
     }
 }
