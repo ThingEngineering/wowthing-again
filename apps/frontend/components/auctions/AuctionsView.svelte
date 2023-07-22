@@ -39,7 +39,7 @@
     }
 
     const weaponOptions: [number, string][] = Object.entries(WeaponSubclass)
-        .filter(([key,]) => !isNaN(parseInt(key)))
+        .filter(([key, value]) => !isNaN(parseInt(key)) && value !== 'Thrown' && value !== 'FishingPole')
         .map(([key, value]) => [parseInt(key), value as string])
     weaponOptions.splice(0, 0, [-1, 'Any'])
 
