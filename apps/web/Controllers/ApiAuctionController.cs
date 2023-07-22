@@ -20,7 +20,10 @@ public class ApiAuctionController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
-    public ApiAuctionController(ILogger<ApiAuctionController> logger, UserManager<ApplicationUser> userManager, WowDbContext context)
+    public ApiAuctionController(
+        ILogger<ApiAuctionController> logger,
+        UserManager<ApplicationUser> userManager,
+        WowDbContext context)
     {
         _logger = logger;
         _userManager = userManager;
@@ -471,6 +474,12 @@ public class ApiAuctionController : Controller
         {
             _logger.LogWarning("ruh roh");
             return NotFound();
+        }
+
+        bool hasCache = await _context.UserTransmogCache.AnyAsync(utc => utc.UserId == user.Id);
+        if (!hasCache)
+        {
+            return NoContent();
         }
 
         // Always apply a region limit
