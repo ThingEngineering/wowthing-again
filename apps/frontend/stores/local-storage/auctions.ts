@@ -16,6 +16,8 @@ export class AuctionState {
     public hideIgnored = false
     public limitToBestRealms = false
     public missingPetsMaxLevel = false
+    public missingTransmogMinQuality = 0
+    public missingTransmogNameSearch = ''
     public region = '0'
 
     public ignored: Record<string, Record<number, boolean>> = {}

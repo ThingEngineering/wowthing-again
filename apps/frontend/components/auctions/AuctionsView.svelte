@@ -4,14 +4,17 @@
 
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { Region } from '@/enums'
+    import { ItemQuality, Region } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
+    import MissingTransmog from './AuctionsMissingTransmog.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
+    import Select from '@/components/forms/Select.svelte'
+    import TextInput from '@/components/forms/TextInput.svelte'
 
     export let params: MultiSlugParams
 
@@ -50,6 +53,7 @@
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
+        'missing-transmog': MissingTransmog,
     }
 </script>
 
@@ -106,12 +110,14 @@
                 >All realms</Checkbox>
             </div>
 
-            <div class="options-group">
-                <Checkbox
-                    name="hide_ignored"
-                    bind:value={$auctionState.hideIgnored}
-                >Hide ignored</Checkbox>
-            </div>
+            {#if !params.slug1.endsWith('-transmog')}
+                <div class="options-group">
+                    <Checkbox
+                        name="hide_ignored"
+                        bind:value={$auctionState.hideIgnored}
+                    >Hide ignored</Checkbox>
+                </div>
+            {/if}
         {/if}
 
         <div class="options-group">
@@ -131,11 +137,37 @@
             </div>
         {:else if params.slug1 === 'missing-pets'}
             <div class="options-group">
-                Pets:
                 <Checkbox
-                    name="pets_max_level"
-                    bind:value={$auctionState.missingPetsMaxLevel}
-                >Max level</Checkbox>
+                    name="hide_ignored"
+                    bind:value={$auctionState.hideIgnored}
+                >Hide ignored</Checkbox>
+            </div>
+        {/if}
+
+        {#if params.slug1 === 'missing-transmog'}
+            <div class="options-group">
+                Min quality:
+                <Select
+                    name="transmog_min_quality"
+                    bind:selected={$auctionState.missingTransmogMinQuality}
+                    options={[
+                        [ItemQuality.Poor, 'Poor'],
+                        [ItemQuality.Common, 'Common'],
+                        [ItemQuality.Uncommon, 'Uncommon'],
+                        [ItemQuality.Rare, 'Rare'],
+                        [ItemQuality.Epic, 'Epic'],
+                        [ItemQuality.Legendary, 'Legendary'],
+                    ]}
+                />
+            </div>
+
+            <div class="options-group">
+                <TextInput
+                    name="transmog_name_search"
+                    maxlength={20}
+                    placeholder={"Name search"}
+                    bind:value={$auctionState.missingTransmogNameSearch}
+                />
             </div>
         {/if}
     </div>
