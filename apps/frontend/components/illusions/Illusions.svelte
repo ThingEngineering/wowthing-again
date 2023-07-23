@@ -52,8 +52,8 @@
         width: 17.5rem;
     }
     .collection-object {
-        min-height: 52px;
-        width: 52px;
+        min-height: 44px;
+        width: 44px;
     }
     .pill {
         border-top-left-radius: 0;
@@ -131,7 +131,7 @@
                                 >
                                     <WowthingImage
                                         name="enchantment/{item.enchantmentId}"
-                                        size={48}
+                                        size={40}
                                         border={2}
                                     />
 

@@ -467,7 +467,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 export const keyVaultItemLevel: Array<Array<number>> = [
     [20, 447, 5],
     [18, 444, 5],
-    [16, 441, 4],
+    [16, 441, 5],
     [14, 437, 4],
     [12, 434, 4],
     [10, 431, 4],
