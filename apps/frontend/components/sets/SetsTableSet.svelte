@@ -27,13 +27,13 @@
         if (!set || !slotHave) { break $ }
 
         const stats = $lazyStore.transmog.stats[setKey]
-        if (stats) {
-            total = stats.total
+        if (stats?.total > 0) {
             have = stats.have
+            total = stats.total
         }
         else {
-            total = Object.keys(slotHave).length
             have = Object.values(slotHave).filter((s) => s[0] === true).length
+            total = Object.keys(slotHave).length
         }
 
         if (total > 0) {
