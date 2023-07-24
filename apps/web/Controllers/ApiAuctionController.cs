@@ -514,36 +514,38 @@ public class ApiAuctionController : Controller
 
         var auctionQuery = _context.WowAuction
             .FromSql($@"
-WITH transmog_cache (appearance_id) AS MATERIALIZED (
-    SELECT  UNNEST(appearance_ids) AS appearance_id
-    FROM    user_transmog_cache
-    WHERE   user_id = {user.Id}
-)
-SELECT * FROM (
-    SELECT  DISTINCT ON (appearance_id, connected_realm_id) a.*,
-            ROW_NUMBER() OVER (
-                PARTITION BY appearance_id
-            ) AS rank
-    FROM (
-        SELECT  wa.*
-        FROM    wow_auction wa
-        LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
-        WHERE   tc.appearance_id IS NULL
-                AND wa.buyout_price > 0
-                AND wa.connected_realm_id = ANY({connectedRealmIds})
-    ) a
-    ORDER BY appearance_id, connected_realm_id, buyout_price
-) rank
-WHERE rank <= 5
+SELECT  DISTINCT ON (connected_realm_id, appearance_id) a.*
+FROM (
+    WITH transmog_cache (appearance_id) AS (
+        SELECT  UNNEST(appearance_ids) AS appearance_id
+        FROM    user_transmog_cache
+        WHERE   user_id = {user.Id}
+    )
+    SELECT  wa.*
+    FROM    wow_auction wa
+    LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
+    WHERE   tc.appearance_id IS NULL
+            AND wa.buyout_price > 0
+            AND wa.connected_realm_id = ANY({connectedRealmIds})
+) a
+ORDER BY connected_realm_id, appearance_id, buyout_price
 ");
 
         var auctions = await auctionQuery.ToArrayAsync();
 
+        var grouped = auctions
+            .Where(auction => auction.AppearanceId > 0)
+            .GroupBy(auction => auction.AppearanceId.Value)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(auction => auction.BuyoutPrice)
+                    .Take(5)
+                    .ToList()
+            );
+
         var data = new UserAuctionData();
-        data.RawAuctions = DoAuctionStuff(
-            auctions.GroupBy(auction => auction.AppearanceId ?? 0),
-            false
-        );
+        data.RawAuctions = grouped;
 
         var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
         return Content(json, MediaTypeNames.Application.Json);
