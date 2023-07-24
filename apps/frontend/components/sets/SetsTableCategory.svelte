@@ -95,6 +95,8 @@
         position: relative;
 
         .flex-wrapper {
+            --image-margin-top: -6px;
+
             :global(.text-overflow) {
                 min-width: 0;
             }
@@ -334,7 +336,7 @@
                     {/if}
                 </td>
 
-                <td class="name text-overflow">
+                <td class="name">
                     <div class="flex-wrapper">
                         <ParsedText
                             cls="text-overflow"
