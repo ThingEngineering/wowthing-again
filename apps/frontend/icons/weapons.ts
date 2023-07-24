@@ -21,4 +21,5 @@ export const weaponIcons: Record<WeaponSubclass, string> = {
     [WeaponSubclass.FishingPole]: undefined,
     [WeaponSubclass.HeldInOffHand]: 'gameSecretBook',
     [WeaponSubclass.Shield]: 'gameShield',
+    [WeaponSubclass.Miscellaneous]: 'mdiProgressQuestion',
 }
