@@ -514,27 +514,21 @@ public class ApiAuctionController : Controller
 
         var auctionQuery = _context.WowAuction
             .FromSql($@"
-WITH transmog_cache (appearance_id) AS MATERIALIZED (
-    SELECT  UNNEST(appearance_ids) AS appearance_id
-    FROM    user_transmog_cache
-    WHERE   user_id = {user.Id}
-)
-SELECT * FROM (
-    SELECT  DISTINCT ON (appearance_id, connected_realm_id) a.*,
-            ROW_NUMBER() OVER (
-                PARTITION BY appearance_id
-            ) AS rank
-    FROM (
-        SELECT  wa.*
-        FROM    wow_auction wa
-        LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
-        WHERE   tc.appearance_id IS NULL
-                AND wa.buyout_price > 0
-                AND wa.connected_realm_id = ANY({connectedRealmIds})
-    ) a
-    ORDER BY appearance_id, connected_realm_id, buyout_price
-) rank
-WHERE rank <= 5
+SELECT  DISTINCT ON (connected_realm_id, appearance_id) a.*
+FROM (
+    WITH transmog_cache (appearance_id) AS (
+        SELECT  UNNEST(appearance_ids) AS appearance_id
+        FROM    user_transmog_cache
+        WHERE   user_id = {user.Id}
+    )
+    SELECT  wa.*
+    FROM    wow_auction wa
+    LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
+    WHERE   tc.appearance_id IS NULL
+            AND wa.buyout_price > 0
+            AND wa.connected_realm_id = ANY({connectedRealmIds})
+) a
+ORDER BY connected_realm_id, appearance_id, buyout_price
 ");
 
         var auctions = await auctionQuery.ToArrayAsync();
