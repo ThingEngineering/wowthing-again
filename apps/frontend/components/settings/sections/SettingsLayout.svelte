@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import some from 'lodash/some'
 
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
