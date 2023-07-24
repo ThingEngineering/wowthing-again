@@ -4,7 +4,6 @@
     import { itemStore, staticStore, userAuctionMissingTransmogStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
 
     import Paginate from '@/components/common/Paginate.svelte'
@@ -12,24 +11,15 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let auctionsContainer: HTMLElement
     export let page: number
-
-    let debouncedResize: () => void
-    let wrapperDiv: HTMLElement
-    $: {
-        console.log(auctionsContainer, wrapperDiv)
-        if (wrapperDiv) {
-            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'table')
-            debouncedResize()
-        }
-    }
 </script>
 
 <style lang="scss">
     .wrapper {
-        column-count: 1;
-        gap: 20px;
+        align-items: flex-start;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.75rem;
     }
     table {
         --padding: 2;
@@ -76,8 +66,6 @@
     }
 </style>
 
-<svelte:window on:resize={debouncedResize} />
-
 {#await userAuctionMissingTransmogStore.search($auctionState, $itemStore)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
@@ -87,9 +75,9 @@
         {page}
         let:paginated
     >
-        <div class="wrapper" bind:this={wrapperDiv}>
+        <div class="wrapper">
             {#each paginated as item}
-                {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
+                {@const auctions = item.auctions.slice(0, 5)}
                 {@const itemId = auctions[0].itemId}
                 <table
                     class="table table-striped"
