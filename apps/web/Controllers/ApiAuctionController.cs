@@ -512,26 +512,31 @@ public class ApiAuctionController : Controller
                 .ToArray();
         }
 
+        var missingAppearanceIds = await _context.Database
+            .SqlQuery<int>($@"
+WITH transmog_cache (appearance_id) AS (
+    SELECT  UNNEST(appearance_ids) AS appearance_id
+    FROM    user_transmog_cache
+    WHERE   user_id = {user.Id}
+)
+SELECT  DISTINCT wima.appearance_id
+FROM    wow_item_modified_appearance wima
+LEFT OUTER JOIN transmog_cache tc
+    ON wima.appearance_id = tc.appearance_id
+WHERE   tc.appearance_id IS NULL
+").ToArrayAsync();
+
         var auctionQuery = _context.WowAuction
             .FromSql($@"
-SELECT  DISTINCT ON (connected_realm_id, appearance_id) a.*
-FROM (
-    WITH transmog_cache (appearance_id) AS (
-        SELECT  UNNEST(appearance_ids) AS appearance_id
-        FROM    user_transmog_cache
-        WHERE   user_id = {user.Id}
-    )
-    SELECT  wa.*
-    FROM    wow_auction wa
-    LEFT OUTER JOIN transmog_cache tc ON (wa.appearance_id = tc.appearance_id)
-    WHERE   tc.appearance_id IS NULL
-            AND wa.buyout_price > 0
-            AND wa.connected_realm_id = ANY({connectedRealmIds})
-) a
-ORDER BY connected_realm_id, appearance_id, buyout_price
+SELECT  DISTINCT ON (appearance_id, connected_realm_id) wa.*
+FROM    wow_auction wa
+WHERE   wa.buyout_price > 0
+        AND wa.appearance_id = ANY({missingAppearanceIds})
+        AND wa.connected_realm_id = ANY({connectedRealmIds})
+ORDER BY wa.appearance_id, wa.connected_realm_id, wa.buyout_price
 ");
 
-        var auctions = await auctionQuery.ToArrayAsync();
+        var auctions = await auctionQuery.AsNoTracking().ToArrayAsync();
 
         var grouped = auctions
             .Where(auction => auction.AppearanceId > 0)
