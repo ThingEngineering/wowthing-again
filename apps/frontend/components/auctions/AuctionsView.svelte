@@ -84,8 +84,11 @@
         :global(select[name="transmog_min_quality"]) {
             width: 8rem;
         }
+        :global(select[name="transmog_item_subclass_armor"]) {
+            width: 8rem;
+        }
         :global(select[name="transmog_item_subclass_weapon"]) {
-            width: 10rem;
+            width: 11rem;
         }
     }
 </style>
@@ -164,6 +167,15 @@
     {#if params.slug1 === 'missing-transmog'}
         <div class="options-container border">
             <div class="options-group">
+                <TextInput
+                    name="transmog_name_search"
+                    maxlength={20}
+                    placeholder={"Name search"}
+                    bind:value={$auctionState.missingTransmogNameSearch}
+                />
+            </div>
+            
+            <div class="options-group">
                 Min quality:
                 <Select
                     name="transmog_min_quality"
@@ -180,49 +192,38 @@
             </div>
 
             <div class="options-group">
-                <div class="options-group">
-                    Item type:
-                    <RadioGroup
-                        bind:value={$auctionState.missingTransmogItemClass}
-                        name="transmog_item_class"
+                Item type:
+                <RadioGroup
+                    bind:value={$auctionState.missingTransmogItemClass}
+                    name="transmog_item_class"
+                    options={[
+                        ['any', 'Any'],
+                        ['armor', 'Armor'],
+                        ['weapon', 'Weapon'],
+                    ]}
+                />
+
+                {#if $auctionState.missingTransmogItemClass === 'armor'}
+                    <Select
+                        name="transmog_item_subclass_armor"
+                        bind:selected={$auctionState.missingTransmogItemSubclassArmor}
                         options={[
-                            ['any', 'Any'],
-                            ['armor', 'Armor'],
-                            ['weapon', 'Weapon'],
+                            [-1, 'Any'],
+                            [1, 'Cloth'],
+                            [2, 'Leather'],
+                            [3, 'Mail'],
+                            [4, 'Plate'],
                         ]}
                     />
-
-                    {#if $auctionState.missingTransmogItemClass === 'armor'}
-                        <Select
-                            name="transmog_item_subclass_armor"
-                            bind:selected={$auctionState.missingTransmogItemSubclassArmor}
-                            options={[
-                                [-1, 'Any'],
-                                [1, 'Cloth'],
-                                [2, 'Leather'],
-                                [3, 'Mail'],
-                                [4, 'Plate'],
-                            ]}
-                        />
-                    {:else if $auctionState.missingTransmogItemClass === 'weapon'}
-                        <Select
-                            name="transmog_item_subclass_weapon"
-                            bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
-                            options={weaponOptions}
-                        />
-                    {/if}
-                </div>
-        
+                {:else if $auctionState.missingTransmogItemClass === 'weapon'}
+                    <Select
+                        name="transmog_item_subclass_weapon"
+                        bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
+                        options={weaponOptions}
+                    />
+                {/if}
             </div>
 
-            <div class="options-group">
-                <TextInput
-                    name="transmog_name_search"
-                    maxlength={20}
-                    placeholder={"Name search"}
-                    bind:value={$auctionState.missingTransmogNameSearch}
-                />
-            </div>
         </div>
     {/if}
 
