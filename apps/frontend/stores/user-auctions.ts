@@ -202,7 +202,7 @@ export class UserAuctionMissingTransmogDataStore {
             }
         }
 
-        things = sortAuctions(auctionState.sortBy[`missing-transmog`], things)
+        things = sortAuctions(auctionState.sortBy[`missing-transmog`], things, true)
         this.cache[cacheKey] = things
 
         const searchLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
