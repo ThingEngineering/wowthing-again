@@ -13,7 +13,7 @@ public class MissingTransmogByAppearanceIdQuery
     public int ItemId { get; set; }
     public WowAuctionTimeLeft TimeLeft { get; set; }
     public long BuyoutPrice { get; set; }
-    public List<int> BonusIds { get; set; }
+    public int[] BonusIds { get; set; }
 
     public static string Sql = @"
 WITH cheapest AS (
@@ -21,8 +21,8 @@ WITH cheapest AS (
             appearance_id,
             auction_id
     FROM    wow_auction_cheapest_by_appearance_id
-    WHERE   connected_realm_id = ANY({0})
-            AND appearance_id = ANY({1})
+    WHERE   connected_realm_id = ANY($1)
+            AND appearance_id = ANY($2)
 )
 SELECT  wa.connected_realm_id,
         wa.appearance_id,

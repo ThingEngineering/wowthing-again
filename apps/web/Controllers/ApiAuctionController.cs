@@ -531,9 +531,36 @@ WHERE   tc.appearance_id IS NULL
 
         timer.AddPoint("MissingAppearances");
 
-        var auctions = await _context.MissingTransmogByAppearanceIdQuery
-            .FromSqlRaw(MissingTransmogByAppearanceIdQuery.Sql, connectedRealmIds, missingAppearanceIds)
-            .ToArrayAsync();
+        // var auctions = await _context.MissingTransmogByAppearanceIdQuery
+        //     .FromSqlRaw(MissingTransmogByAppearanceIdQuery.Sql, connectedRealmIds, missingAppearanceIds)
+        //     .ToArrayAsync();
+
+        await using var connection = _context.GetConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(MissingTransmogByAppearanceIdQuery.Sql, connection)
+        {
+            Parameters =
+            {
+                new() { Value = connectedRealmIds },
+                new() { Value = missingAppearanceIds },
+            }
+        };
+
+        await using var reader = await command.ExecuteReaderAsync();
+        var auctions = new List<MissingTransmogByAppearanceIdQuery>();
+        while (await reader.ReadAsync())
+        {
+            auctions.Add(new()
+            {
+                ConnectedRealmId = reader.GetInt32(0),
+                AppearanceId = reader.GetInt32(1),
+                ItemId = reader.GetInt32(2),
+                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
+                BuyoutPrice = reader.GetInt64(4),
+                BonusIds = (int[])reader.GetValue(5),
+            });
+        }
 
         timer.AddPoint("Auctions");
 
@@ -556,7 +583,7 @@ WHERE   tc.appearance_id IS NULL
         int kept = grouped.Values
             .Select(groupAuctions => groupAuctions.Count)
             .Sum();
-        _logger.LogInformation($"{auctions.Length} rows, kept {kept}");
+        _logger.LogInformation($"{auctions.Count} rows, kept {kept}");
         _logger.LogInformation($"{timer}");
 
         return Content(json, MediaTypeNames.Application.Json);
