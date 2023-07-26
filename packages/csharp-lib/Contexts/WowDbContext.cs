@@ -22,6 +22,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<LanguageString> LanguageString { get; set; }
 
     public DbSet<WowAuction> WowAuction { get; set; }
+    public DbSet<WowAuctionCheapestByAppearanceId> WowAuctionCheapestByAppearanceId { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
@@ -153,6 +154,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<WowAuction>()
             .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
+
+        builder.Entity<WowAuctionCheapestByAppearanceId>()
+            .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceId });
 
         builder.Entity<WowPeriod>()
             .HasKey(p => new { p.Region, p.Id });
