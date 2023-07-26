@@ -3,6 +3,7 @@ import type { AuctionState } from './local-storage'
 import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
+import type { StaticData } from '@/types/data/static'
 
 
 export type UserExtraPetEntry = {
@@ -140,7 +141,8 @@ export class UserAuctionMissingTransmogDataStore {
 
     async search(
         auctionState: AuctionState,
-        itemData: ItemData
+        itemData: ItemData,
+        staticData: StaticData
     ): Promise<UserAuctionEntry[]> {
         let things: UserAuctionEntry[] = []
 
@@ -205,7 +207,8 @@ export class UserAuctionMissingTransmogDataStore {
         things = sortAuctions(auctionState.sortBy[`missing-transmog`], things, true)
         this.cache[cacheKey] = things
 
-        const searchLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
+        const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
+        const realmLower = auctionState.missingTransmogRealmSearch.toLocaleLowerCase()
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
             if ((item.flags & ItemFlags.CannotTransmogToThisItem) > 0) {
@@ -230,7 +233,11 @@ export class UserAuctionMissingTransmogDataStore {
             }
             
             const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
-            const matchesName = item.name.toLocaleLowerCase().indexOf(searchLower) >= 0
+            const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
+            const matchesRealm = staticData.connectedRealms[thing.auctions[0].connectedRealmId]
+                .realmNames
+                .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
+                .length > 0
 
             let matchesArmor = true
             if (auctionState.missingTransmogItemClass === 'armor') {
@@ -258,7 +265,7 @@ export class UserAuctionMissingTransmogDataStore {
                 }
             }
 
-            return meetsMinQuality && matchesName && matchesArmor && matchesWeapon
+            return meetsMinQuality && matchesName && matchesRealm && matchesArmor && matchesWeapon
         })
 
         return things

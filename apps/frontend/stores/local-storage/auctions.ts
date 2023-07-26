@@ -21,6 +21,7 @@ export class AuctionState {
     public missingTransmogItemSubclassWeapon = -1
     public missingTransmogMinQuality = 0
     public missingTransmogNameSearch = ''
+    public missingTransmogRealmSearch = ''
     public region = '0'
 
     public ignored: Record<string, Record<number, boolean>> = {}
