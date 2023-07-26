@@ -513,6 +513,8 @@ public class ApiAuctionController : Controller
                 .ToArray();
         }
 
+        timer.AddPoint("Realms");
+
         var missingAppearanceIds = await _context.Database
             .SqlQuery<int>($@"
 WITH transmog_cache (appearance_id) AS (
@@ -527,29 +529,16 @@ LEFT OUTER JOIN transmog_cache tc
 WHERE   tc.appearance_id IS NULL
 ").ToArrayAsync();
 
-        var auctionQuery = _context.WowAuction
-            .FromSql($@"
-WITH cheapest AS (
-    SELECT  connected_realm_id,
-            appearance_id,
-            auction_id
-    FROM    wow_auction_cheapest_by_appearance_id
-    WHERE   connected_realm_id = ANY({connectedRealmIds})
-            AND appearance_id = ANY({missingAppearanceIds})
-)
-SELECT  wa.*
-FROM    wow_auction wa
-INNER JOIN cheapest ch
-    ON ch.connected_realm_id = wa.connected_realm_id
-        AND ch.auction_id = wa.auction_id
-");
+        timer.AddPoint("MissingAppearances");
 
+        var auctions = await _context.MissingTransmogByAppearanceIdQuery
+            .FromSqlRaw(MissingTransmogByAppearanceIdQuery.Sql, connectedRealmIds, missingAppearanceIds)
+            .ToArrayAsync();
 
-        var auctions = await auctionQuery.AsNoTracking().ToArrayAsync();
+        timer.AddPoint("Auctions");
 
         var grouped = auctions
-            .Where(auction => auction.AppearanceId > 0)
-            .GroupBy(auction => auction.AppearanceId.Value)
+            .GroupBy(auction => auction.AppearanceId)
             .ToDictionary(
                 group => group.Key,
                 group => group
@@ -558,10 +547,18 @@ INNER JOIN cheapest ch
                     .ToList()
             );
 
-        var data = new UserAuctionData();
-        data.RawAuctions = grouped;
+        timer.AddPoint("Grouping");
 
-        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+
+        int kept = grouped.Values
+            .Select(groupAuctions => groupAuctions.Count)
+            .Sum();
+        _logger.LogInformation($"{auctions.Length} rows, kept {kept}");
+        _logger.LogInformation($"{timer}");
+
         return Content(json, MediaTypeNames.Application.Json);
     }
 

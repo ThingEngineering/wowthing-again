@@ -97,6 +97,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
     public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
+    public DbSet<MissingTransmogByAppearanceIdQuery> MissingTransmogByAppearanceIdQuery { get; set; }
     public DbSet<MountQuery> MountQuery { get; set; }
     public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
     public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
@@ -224,6 +225,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<LatestGoldSnapshotQuery>()
             .ToTable("LatestGoldSnapshotQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<MissingTransmogByAppearanceIdQuery>()
+            .ToTable("MissingTransmogByAppearanceIdQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<MountQuery>()
             .ToTable("MountQuery", t => t.ExcludeFromMigrations());

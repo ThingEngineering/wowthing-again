@@ -1,8 +1,8 @@
 import { InventoryType, ItemClass, ItemFlags, WeaponSubclass } from '@/enums'
 import type { AuctionState } from './local-storage'
-import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
+import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet, type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
-import { sortAuctions } from '@/utils/auctions/sort-auctions'
+import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import type { StaticData } from '@/types/data/static'
 
 
@@ -11,6 +11,12 @@ export type UserExtraPetEntry = {
     name: string
     auctions: UserAuctionDataAuction[]
     pets: UserAuctionDataPet[]
+}
+
+export type UserAuctionEntry = {
+    id: number,
+    name: string,
+    auctions: Partial<UserAuctionDataAuction>[]
 }
 
 export class UserAuctionExtraPetsStore {
@@ -69,8 +75,6 @@ export class UserAuctionExtraPetsStore {
     }
 }
 export const userAuctionExtraPetsStore = new UserAuctionExtraPetsStore()
-
-export type UserAuctionEntry = { id: number, name: string, auctions: UserAuctionDataAuction[] }
 
 export class UserAuctionMissingDataStore {
     private static url = '/api/auctions/missing'
@@ -174,37 +178,35 @@ export class UserAuctionMissingTransmogDataStore {
             })
 
             if (response.ok) {
-                const responseData = await response.json() as UserAuctionData
+                const responseData = await response.json() as Record<string, UserAuctionDataMissingTransmogAuctionArray[]>
 
-                responseData.auctions = {}
-                for (const [creatureId, rawAuctions] of Object.entries(responseData.rawAuctions)) {
-                    responseData.auctions[parseInt(creatureId)] = rawAuctions
-                        .map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
+                const parsedData: Record<number, UserAuctionDataMissingTransmogAuction[]> = {}
+                for (const [appearanceId, rawAuctions] of Object.entries(responseData)) {
+                    parsedData[parseInt(appearanceId)] = rawAuctions
+                        .map((auctionArray) => new UserAuctionDataMissingTransmogAuction(...auctionArray))
                 }
     
-                if (responseData?.auctions) {
-                    for (const [thingId, auctions] of Object.entries(responseData.auctions)) {
-                        const id = parseInt(thingId)
-                        if (id === 0) {
-                            continue
-                        }
-
-                        const item = itemData.items[auctions[0].itemId]
-                        if (!item) {
-                            continue
-                        }
-
-                        things.push({
-                            id: parseInt(thingId),
-                            name: item.name,
-                            auctions,
-                        })
+                for (const [thingId, auctions] of Object.entries(parsedData)) {
+                    const id = parseInt(thingId)
+                    if (id === 0) {
+                        continue
                     }
+
+                    const item = itemData.items[auctions[0].itemId]
+                    if (!item) {
+                        continue
+                    }
+
+                    things.push({
+                        id: parseInt(thingId),
+                        name: item.name,
+                        auctions,
+                    })
                 }
             }
         }
 
-        things = sortAuctions(auctionState.sortBy[`missing-transmog`], things, true)
+        things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true)
         this.cache[cacheKey] = things
 
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
