@@ -103,6 +103,8 @@
         <div class="showing">
             Showing {(page - 1) * perPage + 1}-{Math.min(items.length, page * perPage)} of {items.length}
         </div>
+
+        <slot name="bar-end" />
     </div>
 {/if}
 

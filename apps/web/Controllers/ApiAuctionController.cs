@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
@@ -528,13 +529,21 @@ WHERE   tc.appearance_id IS NULL
 
         var auctionQuery = _context.WowAuction
             .FromSql($@"
-SELECT  DISTINCT ON (appearance_id, connected_realm_id) wa.*
+WITH cheapest AS (
+    SELECT  connected_realm_id,
+            appearance_id,
+            auction_id
+    FROM    wow_auction_cheapest_by_appearance_id
+    WHERE   connected_realm_id = ANY({connectedRealmIds})
+            AND appearance_id = ANY({missingAppearanceIds})
+)
+SELECT  wa.*
 FROM    wow_auction wa
-WHERE   wa.buyout_price > 0
-        AND wa.appearance_id = ANY({missingAppearanceIds})
-        AND wa.connected_realm_id = ANY({connectedRealmIds})
-ORDER BY wa.appearance_id, wa.connected_realm_id, wa.buyout_price
+INNER JOIN cheapest ch
+    ON ch.connected_realm_id = wa.connected_realm_id
+        AND ch.auction_id = wa.auction_id
 ");
+
 
         var auctions = await auctionQuery.AsNoTracking().ToArrayAsync();
 

@@ -170,11 +170,20 @@
                 <TextInput
                     name="transmog_name_search"
                     maxlength={20}
-                    placeholder={"Name search"}
+                    placeholder={"Name filter"}
                     bind:value={$auctionState.missingTransmogNameSearch}
                 />
             </div>
-            
+
+            <div class="options-group">
+                <TextInput
+                    name="transmog_realm_search"
+                    maxlength={20}
+                    placeholder={"Realm filter"}
+                    bind:value={$auctionState.missingTransmogRealmSearch}
+                />
+            </div>
+
             <div class="options-group">
                 Min quality:
                 <Select
