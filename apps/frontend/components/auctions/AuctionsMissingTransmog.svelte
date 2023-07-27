@@ -87,13 +87,13 @@
 {:then things}
     <Paginate
         items={(things || [])}
-        perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 12 : 24}
+        perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
         {page}
         let:paginated
     >
         <div class="wrapper">
             {#each paginated as item}
-                {@const auctions = item.auctions.slice(0, 5)}
+                {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                 {@const itemId = auctions[0].itemId}
                 <table
                     class="table table-striped"

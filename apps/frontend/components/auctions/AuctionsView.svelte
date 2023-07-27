@@ -136,7 +136,14 @@
             {/if}
         {/if}
 
-        {#if params.slug1 !== 'missing-transmog'}
+        {#if params.slug1 === 'missing-transmog'}
+            <div class="options-group">
+                <Checkbox
+                    name="limit_to_cheapest_realm"
+                    bind:value={$auctionState.limitToCheapestRealm}
+                >Only cheapest</Checkbox>
+            </div>
+        {:else}
             <div class="options-group">
                 <Checkbox
                     name="limit_to_best_realms"
