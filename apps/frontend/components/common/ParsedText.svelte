@@ -107,7 +107,7 @@
             /\{item:(\d+)\}/g,
             (_, itemId) => {
                 const item = $itemStore.items[parseInt(itemId)]
-                return `<span class="quality${item?.quality || 1}">${item?.name || `Item #${itemId}`}</span>`
+                return `<span class="quality${item?.quality || 0}">${item?.name || `Item #${itemId}`}</span>`
             }
         )
 

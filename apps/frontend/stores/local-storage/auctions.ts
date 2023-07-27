@@ -15,6 +15,7 @@ export class AuctionState {
     public extraPetsIgnoreJournal = false
     public hideIgnored = false
     public limitToBestRealms = false
+    public limitToCheapestRealm = false
     public missingPetsMaxLevel = false
     public missingTransmogItemClass = 'any'
     public missingTransmogItemSubclassArmor = -1
