@@ -485,7 +485,7 @@ public class ApiAuctionController : Controller
             return NotFound();
         }
 
-        bool hasCache = await _context.UserTransmogCache.AnyAsync(utc => utc.UserId == user.Id);
+        bool hasCache = await _context.UserCache.AnyAsync(utc => utc.UserId == user.Id);
         if (!hasCache)
         {
             return NoContent();
