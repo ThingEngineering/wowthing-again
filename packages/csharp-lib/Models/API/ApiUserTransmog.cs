@@ -2,7 +2,7 @@
 
 public class ApiUserTransmog
 {
-    public int[] Illusions { get; set; }
-    public string[] Sources { get; set; }
-    public int[] Transmog { get; set; }
+    public List<int> AppearanceIds { get; set; }
+    public List<string> AppearanceSources { get; set; }
+    public List<short> IllusionIds { get; set; }
 }

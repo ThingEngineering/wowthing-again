@@ -1,10 +1,12 @@
 ﻿using System.Net.Mime;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Services;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Web.Controllers.API;
 
@@ -12,18 +14,21 @@ public class UserTransmogController : Controller
 {
     private readonly CacheService _cacheService;
     private readonly ILogger<UserTransmogController> _logger;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
 
     public UserTransmogController(
         CacheService cacheService,
         ILogger<UserTransmogController> logger,
+        JsonSerializerOptions jsonSerializerOptions,
         UserService userService,
         WowDbContext context
     )
     {
         _cacheService = cacheService;
         _logger = logger;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _userService = userService;
         _context = context;
     }
@@ -41,26 +46,28 @@ public class UserTransmogController : Controller
 
         timer.AddPoint("CheckUser");
 
-        var (isModified, lastModified) =
-            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, null, apiResult);
-        var lastUnix = lastModified.ToUnixTimeSeconds();
+        var userCache = await _cacheService.CreateOrUpdateTransmogCacheAsync(
+            _context, timer, apiResult.User.Id, DateTimeOffset.FromUnixTimeSeconds(modified));
+
+        long lastUnix = userCache.TransmogUpdated.ToUnixTimeSeconds();
         if (lastUnix != modified)
         {
             return RedirectToAction("UserTransmogData", new { username, modified = lastUnix });
         }
 
-        timer.AddPoint("LastModified");
+        timer.AddPoint("Fetch");
 
-        (string json, lastModified) = await _cacheService
-            .GetOrCreateTransmogCacheAsync(_context, timer, apiResult.User.Id, lastModified);
+        string json = JsonSerializer.Serialize(new ApiUserTransmog
+        {
+            AppearanceIds = userCache.AppearanceIds,
+            AppearanceSources = userCache.AppearanceSources,
+            IllusionIds = userCache.IllusionIds,
+        }, _jsonSerializerOptions);
 
-        timer.AddPoint("Build", true);
+        timer.AddPoint("JSON", true);
         _logger.LogDebug("{Timer}", timer);
 
-        if (lastModified > DateTimeOffset.MinValue)
-        {
-            Response.AddLongApiCacheHeaders(lastModified);
-        }
+        Response.AddLongApiCacheHeaders(userCache.TransmogUpdated);
 
         return Content(json, MediaTypeNames.Application.Json);
     }

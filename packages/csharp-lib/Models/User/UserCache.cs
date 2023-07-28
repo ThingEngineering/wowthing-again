@@ -9,8 +9,15 @@ public class UserCache
     public long UserId { get; set; }
     public ApplicationUser User { get; set; }
 
+    // Transmog
+    public DateTimeOffset TransmogUpdated { get; set; }
     public List<int> AppearanceIds { get; set; }
     public List<string> AppearanceSources { get; set; }
+    public List<short> IllusionIds { get; set; }
+
+    // Mounts
+    public DateTimeOffset MountsUpdated { get; set; }
+    public List<short> MountIds { get; set; }
 
     public UserCache(long userId)
     {
