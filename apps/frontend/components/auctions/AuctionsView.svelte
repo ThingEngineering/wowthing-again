@@ -178,6 +178,8 @@
                     name="transmog_name_search"
                     maxlength={20}
                     placeholder={"Name filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
                     bind:value={$auctionState.missingTransmogNameSearch}
                 />
             </div>
@@ -187,6 +189,8 @@
                     name="transmog_realm_search"
                     maxlength={20}
                     placeholder={"Realm filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
                     bind:value={$auctionState.missingTransmogRealmSearch}
                 />
             </div>

@@ -295,31 +295,29 @@ public class CacheService
     #endregion
 
     #region Transmog
-    public async Task<(string, DateTimeOffset)> GetOrCreateTransmogCacheAsync(
+    public async Task<UserCache> CreateOrUpdateTransmogCacheAsync(
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset lastModified
+        DateTimeOffset? lastModified = null
     )
     {
-        var db = _redis.GetDatabase();
-
-        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserTransmog, userId));
-        if (string.IsNullOrEmpty(json))
+        var userCache = await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+        if (userCache == null)
         {
-            (json, lastModified) = await CreateTransmogCacheAsync(context, db, timer, userId);
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.TransmogUpdated)
+        {
+            return userCache;
         }
 
-        return (json, lastModified);
-    }
+        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue;
+        var now = DateTimeOffset.UtcNow;
 
-    public async Task<(string, DateTimeOffset)> CreateTransmogCacheAsync(
-        WowDbContext context,
-        IDatabase db,
-        JankTimer timer,
-        long userId
-    )
-    {
         var allTransmog = await context.AccountTransmogQuery
             .FromSqlRaw(AccountTransmogQuery.Sql, userId)
             .SingleAsync();
@@ -337,53 +335,59 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var transmogCache = await context.UserTransmogCache
-            .Where(utc => utc.UserId == userId)
-            .SingleOrDefaultAsync();
-        if (transmogCache == null)
+        var sortedAppearanceIds = allTransmog.TransmogIds
+            .Distinct()
+            .Order()
+            .ToList();
+
+        if (forceUpdate || userCache.AppearanceIds == null || !sortedAppearanceIds.SequenceEqual(userCache.AppearanceIds))
         {
-            transmogCache = new UserTransmogCache(userId);
-            context.UserTransmogCache.Add(transmogCache);
+            userCache.TransmogUpdated = now;
+            userCache.AppearanceIds = sortedAppearanceIds;
         }
 
-        transmogCache.AppearanceIds = allTransmog.TransmogIds.Distinct().Order().ToList();
-        transmogCache.AppearanceSources = allSources.Order().ToList();
+        var sortedAppearanceSources = allSources
+            .Select(source =>
+            {
+                string[] parts = source.Split('_');
+                return ((long.Parse(parts[0]) * 1000) + int.Parse(parts[1]), source);
+            })
+            .OrderBy(tup => tup.Item1)
+            .Select(tup => tup.Item2)
+            .ToList();
+
+        if (forceUpdate || userCache.AppearanceSources == null || !sortedAppearanceSources.SequenceEqual(userCache.AppearanceSources))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.AppearanceSources = sortedAppearanceSources;
+        }
+
+        var sortedIllusions = allTransmog.IllusionIds
+            .Distinct()
+            .Select(id => (short)id)
+            .Order()
+            .ToList();
+
+        if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.IllusionIds = sortedIllusions;
+        }
+
         await context.SaveChangesAsync();
 
         timer.AddPoint("Save");
 
-        var json = JsonSerializer.Serialize(new ApiUserTransmog
-        {
-            Illusions = allTransmog.IllusionIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToArray(),
-
-            Sources = allSources
-                .OrderBy(source => source)
-                .ToArray(),
-
-            Transmog = allTransmog.TransmogIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToArray(),
-        }, _jsonSerializerOptions);
-
-        timer.AddPoint("JSON");
-
-        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
-
-        timer.AddPoint("Redis", true);
-
-        return (json, lastModified);
+        return userCache;
     }
 
-    public async Task DeleteTransmogCacheAsync(long userId, IDatabase db = null)
+    public async Task DeleteTransmogCacheAsync(WowDbContext context, long userId)
     {
-        db ??= _redis.GetDatabase();
-        await db.KeyDeleteAsync(string.Format(RedisKeys.UserTransmog, userId));
-        await db.KeyDeleteAsync(string.Format(RedisKeys.UserLastModifiedTransmog, userId));
+        await context.UserCache
+            .Where(uc => uc.UserId == userId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(uc => uc.TransmogUpdated, uc => DateTimeOffset.MinValue)
+            );
     }
     #endregion
 }

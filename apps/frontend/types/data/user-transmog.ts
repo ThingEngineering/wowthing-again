@@ -2,9 +2,9 @@ import type { UserCount } from '@/types'
 
 
 export interface UserTransmogData {
-    illusions: number[]
-    sources: string[]
-    transmog: number[]
+    appearanceIds: number[]
+    appearanceSources: string[]
+    illusionIds: number[]
 
     hasAppearance?: Set<number>
     hasIllusion?: Set<number>

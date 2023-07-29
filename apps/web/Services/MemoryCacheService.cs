@@ -150,13 +150,16 @@ public class MemoryCacheService
             ["achievements"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, null, apiResult),
             ["general"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, null, apiResult),
             ["quests"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, null, apiResult),
-            ["transmog"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, null, apiResult),
+            ["transmog"] = _context.UserCache
+                .Where(uc => uc.UserId == apiResult.User.Id)
+                .Select(uc => new Tuple<bool, DateTimeOffset>(true, uc.TransmogUpdated).ToValueTuple())
+                .FirstOrDefaultAsync(),
         };
         await Task.WhenAll(wait.Values.ToArray());
 
         var times = wait.ToDictionary(
             task => task.Key,
-            task => task.Value.Result.Item2.ToUnixTimeSeconds()
+            task => Math.Max(0, task.Value.Result.Item2.ToUnixTimeSeconds())
         );
         string json = System.Text.Json.JsonSerializer.Serialize(times);
         return json;

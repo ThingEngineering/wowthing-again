@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230727191003_Rename_UserTransmogCache_to_UserCache_part_2")]
+    partial class Rename_UserTransmogCache_to_UserCache_part_2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1803,22 +1806,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<List<string>>("AppearanceSources")
                         .HasColumnType("text[]")
                         .HasColumnName("appearance_sources");
-
-                    b.Property<List<short>>("IllusionIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("illusion_ids");
-
-                    b.Property<List<short>>("MountIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("mount_ids");
-
-                    b.Property<DateTimeOffset>("MountsUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("mounts_updated");
-
-                    b.Property<DateTimeOffset>("TransmogUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("transmog_updated");
 
                     b.HasKey("UserId")
                         .HasName("pk_user_cache");

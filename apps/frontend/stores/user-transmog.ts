@@ -29,9 +29,9 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     initialize(data: UserTransmogData): void {
         console.time('UserTransmogDataStore.initialize')
 
-        data.hasAppearance = new Set<number>(data.transmog || [])
+        data.hasAppearance = new Set<number>(data.appearanceIds || [])
         data.hasIllusion = new Set<number>(data.illusions || [])
-        data.hasSource = new Set<string>(data.sources || [])
+        data.hasSource = new Set<string>(data.appearanceSources || [])
 
         console.timeEnd('UserTransmogDataStore.initialize')
     }

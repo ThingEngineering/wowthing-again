@@ -485,7 +485,7 @@ public class ApiAuctionController : Controller
             return NotFound();
         }
 
-        bool hasCache = await _context.UserTransmogCache.AnyAsync(utc => utc.UserId == user.Id);
+        bool hasCache = await _context.UserCache.AnyAsync(utc => utc.UserId == user.Id);
         if (!hasCache)
         {
             return NoContent();
@@ -519,7 +519,7 @@ public class ApiAuctionController : Controller
             .SqlQuery<int>($@"
 WITH transmog_cache (appearance_id) AS (
     SELECT  UNNEST(appearance_ids) AS appearance_id
-    FROM    user_transmog_cache
+    FROM    user_cache
     WHERE   user_id = {user.Id}
 )
 SELECT  DISTINCT wima.appearance_id

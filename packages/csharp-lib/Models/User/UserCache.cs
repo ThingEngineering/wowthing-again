@@ -3,16 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wowthing.Lib.Models.User;
 
-public class UserTransmogCache
+public class UserCache
 {
     [Key, ForeignKey("User")]
     public long UserId { get; set; }
     public ApplicationUser User { get; set; }
 
+    // Transmog
+    public DateTimeOffset TransmogUpdated { get; set; }
     public List<int> AppearanceIds { get; set; }
     public List<string> AppearanceSources { get; set; }
+    public List<short> IllusionIds { get; set; }
 
-    public UserTransmogCache(long userId)
+    // Mounts
+    public DateTimeOffset MountsUpdated { get; set; }
+    public List<short> MountIds { get; set; }
+
+    public UserCache(long userId)
     {
         UserId = userId;
     }

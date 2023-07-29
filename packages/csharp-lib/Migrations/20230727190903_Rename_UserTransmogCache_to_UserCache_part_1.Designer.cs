@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230727190903_Rename_UserTransmogCache_to_UserCache_part_1")]
+    partial class Rename_UserTransmogCache_to_UserCache_part_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1790,7 +1793,7 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("team_character", (string)null);
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserCache", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserTransmogCache", b =>
                 {
                     b.Property<long>("UserId")
                         .HasColumnType("bigint")
@@ -1803,22 +1806,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<List<string>>("AppearanceSources")
                         .HasColumnType("text[]")
                         .HasColumnName("appearance_sources");
-
-                    b.Property<List<short>>("IllusionIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("illusion_ids");
-
-                    b.Property<List<short>>("MountIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("mount_ids");
-
-                    b.Property<DateTimeOffset>("MountsUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("mounts_updated");
-
-                    b.Property<DateTimeOffset>("TransmogUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("transmog_updated");
 
                     b.HasKey("UserId")
                         .HasName("pk_user_cache");
@@ -3117,14 +3104,14 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserCache", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserTransmogCache", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_user_cache_application_user_user_id");
+                        .HasConstraintName("fk_user_cache_asp_net_users_user_id");
 
                     b.Navigation("User");
                 });
