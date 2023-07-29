@@ -13,10 +13,13 @@ export type UserExtraPetEntry = {
     pets: UserAuctionDataPet[]
 }
 
+type MangledAuctionType = Partial<Omit<UserAuctionDataAuction, 'bidPrice' | 'buyoutPrice'>>
+    & Pick<UserAuctionDataAuction, 'bidPrice' | 'buyoutPrice'>
+
 export type UserAuctionEntry = {
     id: number,
     name: string,
-    auctions: Partial<UserAuctionDataAuction>[]
+    auctions: MangledAuctionType[]
 }
 
 export class UserAuctionExtraPetsStore {
@@ -206,7 +209,7 @@ export class UserAuctionMissingTransmogDataStore {
             }
         }
 
-        things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true)
+        things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true) as UserAuctionEntry[]
         this.cache[cacheKey] = things
 
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()

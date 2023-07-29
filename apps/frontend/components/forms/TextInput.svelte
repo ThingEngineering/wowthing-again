@@ -12,8 +12,6 @@
     export let placeholder = ''
     export let tooltipComponent: TippyComponentProps = undefined
     export let value: string
-
-    const clearFilter = (event: Event) => console.log(event)
 </script>
 
 <style lang="scss">
