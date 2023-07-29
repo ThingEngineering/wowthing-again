@@ -192,6 +192,56 @@ public class CacheService
     }
     #endregion
 
+    #region Mounts
+    public async Task<UserCache> CreateOrUpdateMountCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset? lastModified = null
+    )
+    {
+        var userCache = await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.MountsUpdated)
+        {
+            return userCache;
+        }
+
+        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue;
+        var now = DateTimeOffset.UtcNow;
+
+        // Mounts
+        var mounts = await context.MountQuery
+            .FromSqlRaw(MountQuery.UserQuery, userId)
+            .SingleAsync();
+
+        var sortedMountIds = mounts.AddonMounts.EmptyIfNull()
+            .Union(mounts.Mounts.EmptyIfNull())
+            .Select(id => (short)id)
+            .Distinct()
+            .Order()
+            .ToList();
+
+        if (forceUpdate || userCache.MountIds == null || !sortedMountIds.SequenceEqual(userCache.MountIds))
+        {
+            userCache.MountsUpdated = now;
+            userCache.MountIds = sortedMountIds;
+        }
+
+        await context.SaveChangesAsync();
+
+        timer.AddPoint("Save");
+
+        return userCache;
+    }
+    #endregion
+
     #region RaiderIO
     public async Task<Dictionary<int, RedisRaiderIoScoreTiers>> GetRaiderIoTiers()
     {

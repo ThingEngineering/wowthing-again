@@ -335,9 +335,8 @@ public class ApiController : Controller
         var maxHonorAccount = tempAccounts.MaxBy(pa => pa.AddonData?.HonorLevel);
 
         // Mounts
-        var mounts = await _context.MountQuery
-            .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
-            .SingleAsync();
+        var userCache = await _cacheService.CreateOrUpdateMountCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified);
 
         timer.AddPoint("Mounts");
 
@@ -433,11 +432,7 @@ public class ApiController : Controller
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
 
-            AddonMounts = mounts.AddonMounts
-                .EmptyIfNull()
-                .ToDictionary(m => m, _ => true),
-
-            MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
+            MountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
                 .EmptyIfNull()
                 .Select(m => (ushort)m).ToArray()),
 

@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Jobs.User;
 public class UserUploadJob : JobBase
 {
     private bool _resetAchievementCache;
+    private bool _resetMountCache;
     private bool _resetQuestCache;
     private bool _resetTransmogCache;
     private long _userId;
@@ -447,6 +448,12 @@ public class UserUploadJob : JobBase
         {
             await CacheService.DeleteAchievementCacheAsync(_userId);
             Logger.Debug("Reset achievement cache");
+        }
+
+        if (_resetMountCache)
+        {
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheMounts, _userId.ToString());
+            Logger.Debug("Regenerating mount cache");
         }
 
         if (_resetQuestCache)
@@ -1386,10 +1393,15 @@ public class UserUploadJob : JobBase
         if (scanTime > character.AddonMounts.ScannedAt)
         {
             character.AddonMounts.ScannedAt = scanTime;
-            character.AddonMounts.Mounts = characterData.Mounts
+            var sortedMountIds = characterData.Mounts
                 .EmptyIfNull()
-                .OrderBy(mountId => mountId)
+                .Order()
                 .ToList();
+            if (character.AddonMounts.Mounts == null || !sortedMountIds.SequenceEqual(character.AddonMounts.Mounts))
+            {
+                _resetMountCache = true;
+                character.AddonMounts.Mounts = sortedMountIds;
+            }
         }
     }
 

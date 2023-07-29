@@ -30,8 +30,6 @@ public class UserApi
     public Dictionary<string, string> Images { get; set; }
     public Dictionary<int, RedisRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
 
-    public Dictionary<int, bool> AddonMounts { get; set; }
-
     public Dictionary<int, List<UserPetDataPet>> PetsRaw { get; set; }
 
     public string MountsPacked { get; init; }
