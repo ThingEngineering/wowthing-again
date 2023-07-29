@@ -1,21 +1,36 @@
 <script lang="ts">
+    import { iconLibrary } from '@/icons'
     import { tippyComponent, type TippyComponentProps } from '@/utils/tippy'
 
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+
+    export let clearButton = false
+    export let inputWidth: string = null
     export let label = ''
     export let maxlength: number = null
     export let name: string
     export let placeholder = ''
     export let tooltipComponent: TippyComponentProps = undefined
     export let value: string
+
+    const clearFilter = (event: Event) => console.log(event)
 </script>
 
 <style lang="scss">
+    fieldset {
+        display: flex;
+        gap: 0.2rem;
+        align-items: center;
+    }
     input {
         border-radius: $border-radius;
         width: 100%;
     }
     label {
         display: block;
+    }
+    .clear-text {
+        cursor: pointer;
     }
 </style>
 
@@ -32,7 +47,21 @@
         {maxlength}
         bind:value={value}
         use:tippyComponent={tooltipComponent}
+        style:width={inputWidth}
     >
+
+    {#if clearButton}
+        <div
+            class="clear-text"
+            on:click={() => value = ''}
+            on:keypress={() => value = ''}
+        >
+            <IconifyIcon
+                icon={iconLibrary.mdiClose}
+                tooltip="Clear text"
+            />
+        </div>
+    {/if}
 
     <slot />
 </fieldset>
