@@ -519,7 +519,7 @@ public class ApiAuctionController : Controller
             .SqlQuery<int>($@"
 WITH transmog_cache (appearance_id) AS (
     SELECT  UNNEST(appearance_ids) AS appearance_id
-    FROM    user_transmog_cache
+    FROM    user_cache
     WHERE   user_id = {user.Id}
 )
 SELECT  DISTINCT wima.appearance_id
