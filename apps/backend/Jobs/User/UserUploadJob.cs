@@ -457,8 +457,8 @@ public class UserUploadJob : JobBase
 
         if (_resetTransmogCache)
         {
-            await CacheService.DeleteTransmogCacheAsync(Context, _userId);
-            Logger.Debug("Reset transmog cache");
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, _userId.ToString());
+            Logger.Debug("Regenerating transmog cache");
         }
 
         Logger.Warning("Trying to save");
