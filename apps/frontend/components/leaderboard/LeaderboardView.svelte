@@ -30,6 +30,7 @@
         for (const [username, linkTo, value] of tempData) {
             if (value !== lastValue) {
                 rank++
+                lastValue = value
             }
 
             for (let i = 0; i < 1000; i++) {
