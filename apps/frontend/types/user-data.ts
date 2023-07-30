@@ -31,8 +31,6 @@ export interface UserData {
     globalDailies: Record<string, DailyQuests>
     images: Record<string, string>
 
-    addonMounts: Record<number, boolean>
-
     // Packed data
     mountsPacked: string
     toysPacked: string

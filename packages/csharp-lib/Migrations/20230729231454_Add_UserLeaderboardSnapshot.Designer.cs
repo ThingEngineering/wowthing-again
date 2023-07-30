@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230729231454_Add_UserLeaderboardSnapshot")]
+    partial class Add_UserLeaderboardSnapshot
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1701,22 +1704,6 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.UserLeaderboardQuery", b =>
                 {
-                    b.Property<int>("AppearanceIdCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("appearance_id_count");
-
-                    b.Property<int>("AppearanceSourceCount")
-                        .HasColumnType("integer")
-                        .HasColumnName("appearance_source_count");
-
-                    b.Property<short>("IllusionCount")
-                        .HasColumnType("smallint")
-                        .HasColumnName("illusion_count");
-
-                    b.Property<short>("MountCount")
-                        .HasColumnType("smallint")
-                        .HasColumnName("mount_count");
-
                     b.Property<long>("UserId")
                         .HasColumnType("bigint")
                         .HasColumnName("user_id");
@@ -1843,14 +1830,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<DateTimeOffset>("MountsUpdated")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("mounts_updated");
-
-                    b.Property<List<short>>("ToyIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("toy_ids");
-
-                    b.Property<DateTimeOffset>("ToysUpdated")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("toys_updated");
 
                     b.Property<DateTimeOffset>("TransmogUpdated")
                         .HasColumnType("timestamp with time zone")

@@ -228,8 +228,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break
 
                         case RewardType.Mount:
-                            if (!stores.userData.hasMount[drop.id] &&
-                                !stores.userData.addonMounts[drop.id]) {
+                            if (!stores.userData.hasMount[drop.id]) {
                                 dropStatus.need = true
                             }
                             break

@@ -33,6 +33,7 @@ public enum JobType
     UserCacheAchievements = 902,
     UserCacheTransmog = 903,
     UserCacheQuests = 904,
+    UserCacheMounts = 905,
 
     // Scheduled jobs
     DataMythicKeystonePeriod = 1001,

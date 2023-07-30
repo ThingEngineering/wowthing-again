@@ -88,6 +88,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
     public DbSet<UserCache> UserCache { get; set; }
+    public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
 
     public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
 
@@ -102,6 +103,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
     public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
     public DbSet<StatisticsQuery> StatisticsQuery { get; set; }
+    public DbSet<UserLeaderboardQuery> UserLeaderboardQuery { get; set; }
 
     /*public WowDbContext(string connectionString)
     {
@@ -152,6 +154,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasKey(mps => new { mps.CharacterId, mps.Season });
+
+        builder.Entity<UserLeaderboardSnapshot>()
+            .HasKey(uls => new { uls.UserId, uls.Date });
 
         builder.Entity<WowAuction>()
             .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
@@ -240,6 +245,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<StatisticsQuery>()
             .ToTable("StatisticsQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<UserLeaderboardQuery>()
+            .ToTable("UserLeaderboardQuery", t => t.ExcludeFromMigrations());
     }
 
     public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();

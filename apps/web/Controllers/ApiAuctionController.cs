@@ -10,6 +10,7 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
@@ -20,17 +21,20 @@ namespace Wowthing.Web.Controllers;
 [Route("api/auctions")]
 public class ApiAuctionController : Controller
 {
+    private readonly CacheService _cacheService;
     private readonly ILogger<ApiAuctionController> _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
     public ApiAuctionController(
+        CacheService cacheService,
         ILogger<ApiAuctionController> logger,
         JsonSerializerOptions jsonSerializerOptions,
         UserManager<ApplicationUser> userManager,
         WowDbContext context)
     {
+        _cacheService = cacheService;
         _logger = logger;
         _jsonSerializerOptions = jsonSerializerOptions;
         _userManager = userManager;
@@ -308,21 +312,14 @@ public class ApiAuctionController : Controller
         if (form.Type == "mounts")
         {
             // Missing
-            var accountMounts = await _context.MountQuery
-                .FromSqlRaw(MountQuery.UserQuery, user.Id)
-                .SingleAsync();
-
-            var allMountIds = accountMounts.Mounts
-                .EmptyIfNull()
-                .Union(accountMounts.AddonMounts.EmptyIfNull())
-                .Distinct()
-                .ToArray();
+            var userCache = await _cacheService.CreateOrUpdateMountCacheAsync(_context, timer, user.Id);
+            var mountIds = userCache.MountIds.Select(id => (int)id).ToArray();
 
             var missingMounts = await _context.WowMount
                 .AsNoTracking()
                 .Where(mount =>
                     mount.ItemId > 0 &&
-                    !allMountIds.Contains(mount.Id)
+                    !mountIds.Contains(mount.Id)
                 )
                 .ToArrayAsync();
 
