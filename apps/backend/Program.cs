@@ -118,6 +118,7 @@ public class Program
         services.AddHostedService<GoldSnapshotService>();
         services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();
+        services.AddHostedService<UserLeaderboardService>();
 
         for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
         {

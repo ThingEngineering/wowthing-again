@@ -31,4 +31,9 @@ public class UserLeaderboardSnapshot
     public short ReputationCount { get; set; }
     public short TitleCount { get; set; }
     public short ToyCount { get; set; }
+
+    public UserLeaderboardSnapshot(long userId)
+    {
+        UserId = userId;
+    }
 }
