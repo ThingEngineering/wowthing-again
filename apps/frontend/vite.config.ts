@@ -41,7 +41,10 @@ const config = <UserConfig> defineConfig({
 	build: {
 		manifest: true,
 		rollupOptions: {
-			input: 'apps/home.ts',
+			input: {
+				home: 'apps/home.ts',
+				leaderboard: 'apps/leaderboard.ts',
+			},
 		},
 		sourcemap: sourceMapsInProduction,
 	},

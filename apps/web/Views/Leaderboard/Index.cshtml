@@ -1,0 +1,22 @@
+﻿@model LeaderboardViewModel
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+
+@section scripts
+{
+    @if (HostEnv.EnvironmentName == "Development")
+    {
+        <script type="module" src="http://localhost:55505/apps/leaderboard.ts"></script>
+    }
+    else
+    {
+        <script type="module" asp-src-include="~/dist/vendor-*js"></script>
+        <script type="module" asp-src-include="~/dist/leaderboard-*js"></script>
+    }
+}
+
+<div
+    id="app"
+    data-leaderboard="@Model.LeaderboardJson"
+    data-settings="@Model.SettingsJson"
+>
+</div>

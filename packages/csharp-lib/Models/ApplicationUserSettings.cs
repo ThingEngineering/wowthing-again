@@ -16,6 +16,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
+    public ApplicationUserSettingsLeaderboard? Leaderboard { get; set; } = new();
     public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
     public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
@@ -271,6 +272,12 @@ public class ApplicationUserSettingsLayout
     public List<string> HomeWeeklies { get; set; } = new();
 }
 
+public class ApplicationUserSettingsLeaderboard
+{
+    public bool Anonymous { get; set; } = false;
+    public bool Enabled { get; set; } = true;
+}
+
 public class ApplicationUserSettingsPrivacy
 {
     public bool Anonymized { get; set; } = true;
@@ -281,7 +288,6 @@ public class ApplicationUserSettingsPrivacy
     public bool PublicMythicPlus { get; set; } = true;
     public bool PublicQuests { get; set; } = true;
     public bool PublicTransmog { get; set; } = true;
-    public bool ShowInLeaderboards { get; set; } = true;
 }
 
 public class ApplicationUserSettingsTasks
