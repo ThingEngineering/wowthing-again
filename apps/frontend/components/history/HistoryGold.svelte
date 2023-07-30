@@ -291,6 +291,7 @@
                         bodySpacing: 5,
                         boxPadding: 3,
                         position: 'average',
+                        filter: (data, index) => index < 10 || data.dataset.label === 'Total',
                         callbacks: {
                             footer: (tooltipItems) =>
                             {
