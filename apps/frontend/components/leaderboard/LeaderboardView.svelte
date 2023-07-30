@@ -33,9 +33,7 @@
                 lastValue = value
             }
 
-            for (let i = 0; i < 1000; i++) {
-                sortedData.push([rank, username, linkTo, value])
-            }
+            sortedData.push([rank, username, linkTo, value])
         }
     }
 </script>
