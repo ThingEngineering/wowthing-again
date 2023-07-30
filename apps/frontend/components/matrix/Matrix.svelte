@@ -293,7 +293,7 @@
 
 <style lang="scss">
     .wrapper {
-        align-items: start;
+        align-items: flex-start;
         display: flex;
         flex-direction: column;
         //width: 100%;
