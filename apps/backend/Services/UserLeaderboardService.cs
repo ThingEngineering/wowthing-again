@@ -85,10 +85,18 @@ public class UserLeaderboardService : BackgroundService
                 context.UserLeaderboardSnapshot.Add(snapshot);
             }
 
+            //snapshot.AchievementPointsAlliance
+            //snapshot.AchievementPointsHorde
+            //snapshot.AchievementPointsOverall
             snapshot.AppearanceIdCount = leaderboardResult.AppearanceIdCount;
             snapshot.AppearanceSourceCount = leaderboardResult.AppearanceSourceCount;
+            snapshot.CompletedQuestCount = leaderboardResult.CompletedQuestCount;
+            //snapshot.HeirloomCount
+            //snapshot.HeirloomLevels
             snapshot.IllusionCount = leaderboardResult.IllusionCount;
             snapshot.MountCount = leaderboardResult.MountCount;
+            //snapshot.RecipeCount
+            //snapshot.TitleCount
             snapshot.ToyCount = leaderboardResult.ToyCount;
         }
 
