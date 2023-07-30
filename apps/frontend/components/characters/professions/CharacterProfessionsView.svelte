@@ -81,7 +81,7 @@
 
 <style lang="scss">
     .professions {
-        align-items: start;
+        align-items: flex-start;
         display: flex;
         margin-left: calc(-1rem - 1px);
     }
