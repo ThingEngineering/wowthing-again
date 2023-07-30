@@ -23,6 +23,9 @@ public class UserCache
     public DateTimeOffset ToysUpdated { get; set; }
     public List<short> ToyIds { get; set; }
 
+    // Misc
+    public int CompletedQuests { get; set; }
+
     public UserCache(long userId)
     {
         UserId = userId;
