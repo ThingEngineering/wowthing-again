@@ -33,6 +33,6 @@ INNER JOIN (
     FROM    user_cache
 ) uc ON uc.user_id = anu.id
 WHERE   anu.last_api_check != '-infinity'
-        AND (current_timestamp - anu.last_api_check) < '1 week'::interval
+        AND (current_timestamp - anu.last_api_check) < '3 months'::interval
 ";
 }
