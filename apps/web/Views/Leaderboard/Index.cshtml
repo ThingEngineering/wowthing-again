@@ -1,6 +1,10 @@
 ﻿@model LeaderboardViewModel
 @inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
 
+@{
+    ViewData["Title"] = "Leaderboard";
+}
+
 @section scripts
 {
     @if (HostEnv.EnvironmentName == "Development")
@@ -18,5 +22,4 @@
     id="app"
     data-leaderboard="@Model.LeaderboardJson"
     data-settings="@Model.SettingsJson"
->
-</div>
+></div>
