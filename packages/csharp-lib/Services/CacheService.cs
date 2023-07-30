@@ -197,12 +197,14 @@ public class CacheService
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset? lastModified = null
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
     )
     {
-        var userCache = await context.UserCache
+        userCache ??= await context.UserCache
             .Where(utc => utc.UserId == userId)
             .SingleOrDefaultAsync();
+
         if (userCache == null)
         {
             userCache = new UserCache(userId);
@@ -341,6 +343,58 @@ public class CacheService
         db ??= _redis.GetDatabase();
         await db.KeyDeleteAsync(string.Format(RedisKeys.UserQuests, userId));
         await db.KeyDeleteAsync(string.Format(RedisKeys.UserLastModifiedQuests, userId));
+    }
+    #endregion
+
+    #region Toys
+    public async Task<UserCache> CreateOrUpdateToyCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
+    )
+    {
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.MountsUpdated)
+        {
+            return userCache;
+        }
+
+        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue;
+        var now = DateTimeOffset.UtcNow;
+
+        // Toys
+        var accountToys = await context.PlayerAccountToys
+            .Where(pat => pat.Account.UserId == userId)
+            .ToArrayAsync();
+
+        var sortedToyIds = accountToys
+            .SelectMany(pat => pat.ToyIds.EmptyIfNull())
+            .Distinct()
+            .Select(id => (short)id)
+            .Order()
+            .ToList();
+
+        if (forceUpdate || userCache.ToyIds == null || !sortedToyIds.SequenceEqual(userCache.ToyIds))
+        {
+            userCache.ToysUpdated = now;
+            userCache.ToyIds = sortedToyIds;
+        }
+
+        await context.SaveChangesAsync();
+
+        timer.AddPoint("Save");
+
+        return userCache;
     }
     #endregion
 

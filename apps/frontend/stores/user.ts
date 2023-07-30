@@ -73,7 +73,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         if (userData.toysPacked !== null) {
-            userData.hasToyById = base64ToRecord(TypedArray.Int32, userData.toysPacked)
+            userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked)
             userData.toysPacked = null
         }
 

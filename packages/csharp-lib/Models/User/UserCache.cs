@@ -19,6 +19,10 @@ public class UserCache
     public DateTimeOffset MountsUpdated { get; set; }
     public List<short> MountIds { get; set; }
 
+    // Toys
+    public DateTimeOffset ToysUpdated { get; set; }
+    public List<short> ToyIds { get; set; }
+
     public UserCache(long userId)
     {
         UserId = userId;

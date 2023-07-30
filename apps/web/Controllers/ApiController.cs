@@ -359,11 +359,8 @@ public class ApiController : Controller
         timer.AddPoint("Pets");
 
         // Toys
-        var toyIds = tempAccounts
-            .Where(pa => pa.Enabled)
-            .SelectMany(pa => pa.Toys?.ToyIds ?? Enumerable.Empty<int>())
-            .Distinct()
-            .ToArray();
+        await _cacheService.CreateOrUpdateToyCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified, userCache);
 
         timer.AddPoint("Toys");
 
@@ -432,13 +429,19 @@ public class ApiController : Controller
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
 
-            MountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
-                .EmptyIfNull()
-                .Select(m => (ushort)m).ToArray()),
-
             PetsRaw = petObjects,
 
-            ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
+            MountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
+                .EmptyIfNull()
+                .Select(id => (ushort)id)
+                .ToArray()
+            ),
+
+            ToysPacked = SerializationUtilities.SerializeUInt16Array(userCache.ToyIds
+                .EmptyIfNull()
+                .Select(id => (ushort)id)
+                .ToArray()
+            ),
         };
         //var json = JsonConvert.SerializeObject(apiData);
         var json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
