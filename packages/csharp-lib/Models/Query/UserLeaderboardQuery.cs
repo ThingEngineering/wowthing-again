@@ -24,12 +24,12 @@ SELECT  anu.id AS user_id,
 FROM    asp_net_users anu
 INNER JOIN (
     SELECT  user_id,
-            completed_quests AS completed_quest_count,
-            ARRAY_LENGTH(appearance_ids, 1) AS appearance_id_count,
-            ARRAY_LENGTH(appearance_sources, 1) AS appearance_source_count,
-            ARRAY_LENGTH(illusion_ids, 1)::smallint AS illusion_count,
-            ARRAY_LENGTH(mount_ids, 1)::smallint AS mount_count,
-            ARRAY_LENGTH(toy_ids, 1)::smallint AS toy_count,
+            COALESCE(completed_quests, 0) AS completed_quest_count,
+            COALESCE(ARRAY_LENGTH(appearance_ids, 1), 0) AS appearance_id_count,
+            COALESCE(ARRAY_LENGTH(appearance_sources, 1), 0) AS appearance_source_count,
+            COALESCE(ARRAY_LENGTH(illusion_ids, 1), 0)::smallint AS illusion_count,
+            COALESCE(ARRAY_LENGTH(mount_ids, 1), 0)::smallint AS mount_count,
+            COALESCE(ARRAY_LENGTH(toy_ids, 1), 0)::smallint AS toy_count
     FROM    user_cache
 ) uc ON uc.user_id = anu.id
 WHERE   anu.last_api_check != '-infinity'
