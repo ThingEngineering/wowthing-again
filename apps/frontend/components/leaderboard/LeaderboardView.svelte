@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
+    import tippy from '@/utils/tippy'
     import type { LeaderboardEntry } from '@/types'
 
     import Paginate from '@/components/common/Paginate.svelte'
@@ -59,6 +60,7 @@
     }
     .rank {
         border-right: 1px solid $border-color;
+        flex-shrink: 0;
         font-size: 150%;
         padding-right: 0.3rem;
         text-align: center;
@@ -66,6 +68,7 @@
     }
     .info {
         flex-grow: 1;
+        min-width: 0;
         padding-left: 0.3rem;
 
         > div {
@@ -88,7 +91,10 @@
                         {rank.toLocaleString()}
                     </div>
                     <div class="info">
-                        <div class="name">
+                        <div
+                            class="name text-overflow"
+                            use:tippy={username}
+                        >
                             {#if linkTo}
                                 <a href="/user/{username}#/" target="_blank">{username}</a>
                             {:else}
