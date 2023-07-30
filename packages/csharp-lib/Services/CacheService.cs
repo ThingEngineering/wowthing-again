@@ -258,7 +258,8 @@ public class CacheService
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset lastModified
+        DateTimeOffset lastModified,
+        UserCache userCache = null
     )
     {
         var db = _redis.GetDatabase();
@@ -266,7 +267,7 @@ public class CacheService
         string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
         if (string.IsNullOrEmpty(json))
         {
-            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId);
+            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId, userCache);
         }
 
         return (json, lastModified);
@@ -276,7 +277,8 @@ public class CacheService
         WowDbContext context,
         IDatabase db,
         JankTimer timer,
-        long userId
+        long userId,
+        UserCache userCache = null
     )
     {
         var accountAddonQuests = await context.PlayerAccountAddonData
@@ -326,14 +328,34 @@ public class CacheService
             Account = accountQuests,
             Characters = characterData,
         };
-        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
 
         timer.AddPoint("JSON");
 
         await db.CompressedStringSetAsync(string.Format(RedisKeys.UserQuests, userId), json, CacheDuration);
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
 
-        timer.AddPoint("Redis", true);
+        timer.AddPoint("Redis");
+
+        // Update user cache
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+
+        userCache.CompletedQuests = characters
+            .SelectMany(pc => pc.Quests?.CompletedIds ?? new List<int>())
+            .Distinct()
+            .Count();
+
+        await context.SaveChangesAsync();
+
+        timer.AddPoint("Cache", true);
 
         return (json, lastModified);
     }

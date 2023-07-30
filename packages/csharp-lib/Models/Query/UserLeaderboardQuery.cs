@@ -29,6 +29,7 @@ INNER JOIN (
             ARRAY_LENGTH(toy_ids, 1)::smallint AS toy_count
     FROM    user_cache
 ) uc ON uc.user_id = anu.id
-WHERE   (current_timestamp - anu.last_api_check) < '1 week'::interval
+WHERE   anu.last_api_check != '-infinity'
+        AND (current_timestamp - anu.last_api_check) < '1 week'::interval
 ";
 }
