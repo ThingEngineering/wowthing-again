@@ -17,9 +17,29 @@
     let title: string
     $: {
         let tempData: [string, boolean, number][]
-        if (slug === 'completed-quests') {
+        if (slug === 'appearance-ids') {
+            tempData = data.map((entry) => [entry.username, entry.linkTo, entry.appearanceIdCount])
+            title = 'Appearance IDs'
+        }
+        else if (slug === 'appearance-sources') {
+            tempData = data.map((entry) => [entry.username, entry.linkTo, entry.appearanceSourceCount])
+            title = 'Appearance Sources'
+        }
+        else if (slug === 'completed-quests') {
             tempData = data.map((entry) => [entry.username, entry.linkTo, entry.completedQuestCount])
             title = 'Completed Quests'
+        }
+        else if (slug === 'illusions') {
+            tempData = data.map((entry) => [entry.username, entry.linkTo, entry.illusionCount])
+            title = 'Illusions'
+        }
+        else if (slug === 'mounts') {
+            tempData = data.map((entry) => [entry.username, entry.linkTo, entry.mountCount])
+            title = 'Mounts'
+        }
+        else if (slug === 'toys') {
+            tempData = data.map((entry) => [entry.username, entry.linkTo, entry.toyCount])
+            title = 'Toys'
         }
 
         tempData = sortBy(
