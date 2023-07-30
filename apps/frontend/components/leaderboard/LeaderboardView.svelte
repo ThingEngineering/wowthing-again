@@ -27,11 +27,16 @@
 
         let lastValue = 0
         let rank = 0
+        let rankSkip = 1
         sortedData = []
         for (const [username, linkTo, value] of tempData) {
-            if (value !== lastValue) {
-                rank++
+            if (value === lastValue) {
+                rankSkip++
+            }
+            else {
                 lastValue = value
+                rank += rankSkip
+                rankSkip = 1
             }
 
             sortedData.push([rank, username, linkTo, value])
