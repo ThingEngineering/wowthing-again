@@ -11,6 +11,8 @@
 
     const data = JSON.parse(document.getElementById('app').getAttribute('data-leaderboard')) as LeaderboardEntry[]
 
+    const currentUser = document.getElementById('user-name')?.innerText || null
+
     let sortedData: [number, string, boolean, number][]
     let title: string
     $: {
@@ -91,7 +93,10 @@
     >
         <div class="leaderboard">
             {#each paginated as [rank, username, linkTo, score]}
-                <div class="leaderboard-entry border">
+                <div
+                    class="leaderboard-entry border"
+                    class:border-success={username !== null && username === currentUser}
+                >
                     <div class="rank">
                         {rank.toLocaleString()}
                     </div>
