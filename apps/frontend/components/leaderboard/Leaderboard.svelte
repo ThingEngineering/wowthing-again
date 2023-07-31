@@ -11,7 +11,7 @@
 
 {#if params.slug1}
     <View
-        page={params.slug2 ? parseInt(params.slug2) || 1 : 1}
+        page={parseInt(params.slug2) || 0}
         slug={params.slug1}
     />
 {/if}
