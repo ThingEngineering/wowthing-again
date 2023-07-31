@@ -172,6 +172,7 @@
         </thead>
         <tbody>
             {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account}
+                {@const accountCharacters = getAccountCharacters($userStore, account.id)}
                 <tr>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
@@ -191,10 +192,14 @@
                         />
                     </td>
                     <td class="account-characters">
-                        {#each getAccountCharacters($userStore, account.id) as character, characterIndex}
+                        {#each accountCharacters as character, characterIndex}
                             {characterIndex > 0 ? ', ' : ''}
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}
+                        <code
+                            class:status-fail={accountCharacters.length == 60}
+                            class:status-shrug={accountCharacters.length > 45 && accountCharacters.length < 60}
+                        > ({accountCharacters.length})</code>
                     </td>
                 </tr>
             {/each}
