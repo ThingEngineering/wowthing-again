@@ -71,9 +71,7 @@
             sortedData.push([rank, username, linkTo, value])
         }
 
-        console.log(actualPage, page)
-
-        if (actualPage !== page) {
+        if (page === 0) {
             replace(`/${slug}/${actualPage}`)
         }
     }
