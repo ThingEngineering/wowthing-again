@@ -1,12 +1,13 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
+    import { replace } from 'svelte-spa-router'
 
     import tippy from '@/utils/tippy'
     import type { LeaderboardEntry } from '@/types'
 
     import Paginate from '@/components/common/Paginate.svelte'
 
-    export let page = 1
+    export let page: number
     export let slug: string
 
     const data = JSON.parse(document.getElementById('app').getAttribute('data-leaderboard')) as LeaderboardEntry[]
@@ -47,11 +48,13 @@
             ([,, value]) => 1_000_000 - value
         )
 
+        let actualPage = 1
         let lastValue = 0
         let rank = 0
         let rankSkip = 1
         sortedData = []
-        for (const [username, linkTo, value] of tempData) {
+        for (let tempIndex = 0; tempIndex < tempData.length; tempIndex++) {
+            const [username, linkTo, value] = tempData[tempIndex]
             if (value === lastValue) {
                 rankSkip++
             }
@@ -61,7 +64,17 @@
                 rankSkip = 1
             }
 
+            if (username !== null && username === currentUser) {
+                actualPage = Math.floor(tempIndex / 100) + 1
+            }
+
             sortedData.push([rank, username, linkTo, value])
+        }
+
+        console.log(actualPage, page)
+
+        if (actualPage !== page) {
+            replace(`/${slug}/${actualPage}`)
         }
     }
 </script>
@@ -76,14 +89,20 @@
     .leaderboard {
         display: flex;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.5rem;
         padding-top: 0.5rem;
     }
     .leaderboard-entry {
         align-items: center;
+        background: $thing-background;
+        border-radius: $border-radius;
         display: flex;
         padding: 0.3rem;
         width: 10rem;
+
+        &.border-success {
+            background: transparent;
+        }
     }
     .rank {
         border-right: 1px solid $border-color;
