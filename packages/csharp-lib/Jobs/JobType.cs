@@ -50,4 +50,5 @@ public enum JobType
     MaintenanceDeleteAchievements = 2001,
     MaintenanceDeleteWorldQuestReports = 2002,
     MaintenanceDeleteOldAuctionTables = 2003,
+    MaintenanceBackfillUserCache = 2004,
 }
