@@ -3,6 +3,7 @@ import find from 'lodash/find'
 import once from 'lodash/once'
 import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
+import type { DateTime } from 'luxon'
 
 import { doCharacters, type LazyCharacter } from './character'
 import { doCollectible, type LazyCollectible } from './collectible'
@@ -38,6 +39,7 @@ import { userTransmogStore } from '../user-transmog'
 
 import { UserCount } from '@/types'
 
+import { hashObject } from '@/utils/hash-object'
 import type { FancyStoreType, Settings, UserAchievementData, UserData } from '@/types'
 import type { JournalData, UserQuestData, UserTransmogData } from '@/types/data'
 import type { AppearanceData } from '@/types/data/appearance'
@@ -48,7 +50,6 @@ import type {
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import type { DateTime } from 'luxon'
 
 
 type LazyKey =
@@ -185,15 +186,15 @@ export class LazyStore implements LazyUgh {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
 
-            appearanceState: this.hashObject(appearanceState), 
-            collectibleState: this.hashObject(collectibleState),
-            journalState: this.hashObject(journalState),
-            vendorState: this.hashObject(vendorState),
-            zoneMapState: this.hashObject(zoneMapState),
+            appearanceState: hashObject(appearanceState), 
+            collectibleState: hashObject(collectibleState),
+            journalState: hashObject(journalState),
+            vendorState: hashObject(vendorState),
+            zoneMapState: hashObject(zoneMapState),
             
             hideUnavailable: `${settings.collections.hideUnavailable}`,
-            settingsTasks: this.hashObject(settings.tasks),
-            settingsTransmog: this.hashObject(settings.transmog),
+            settingsTasks: hashObject(settings.tasks),
+            settingsTransmog: hashObject(settings.transmog),
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
@@ -362,17 +363,6 @@ export class LazyStore implements LazyUgh {
         }
 
         console.timeEnd('LazyStore.update')
-    }
-
-    private hashObject(obj: object): string {
-        const entries = Object.entries(obj)
-        entries.sort()
-        return entries.map(([key, value]) => {
-            if (typeof value === 'object') {
-                return `${key}_${this.hashObject(value)}`
-            }
-            return `${key}_${value}`
-        }).join('|')
     }
 
     lookup(key: string): LazyCollectible|UserCounts {
