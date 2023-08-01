@@ -182,7 +182,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.transmogSets = StaticDataStore.createObjects(data.rawTransmogSets, StaticDataTransmogSet, (set) => set.id)
             data.rawTransmogSets = null
         }
-        console.log(data.transmogSets)
 
         console.timeEnd('StaticDataStore.initialize')
     }

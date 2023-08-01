@@ -32,7 +32,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
                 const [expansion, cls, subClass, inventoryType] = key.split('|').map(n => parseInt(n))
 
                 if (byExpansion[expansion] === undefined) {
-                    console.warn('Invalid appearance expansion:', key)
+                    // console.warn('Invalid appearance expansion:', key)
                     continue
                 }
 
