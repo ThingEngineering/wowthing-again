@@ -155,6 +155,24 @@
 </div>
 
 <div class="settings-block">
+    <h3 class="space-me">API Key</h3>
+
+    <div class="api-key">
+        {#if apiKey}
+            <span>{apiKey}</span>
+        {:else}
+            <button on:click|preventDefault={onClick}>Reveal API Key</button>
+        {/if}
+
+        <p>
+            Use this API key with <a href="https://github.com/ThingEngineering/wowthing-sync">WoWthing Sync</a>
+            to automate the uploading of your <code>WoWthing_Collector.lua</code>
+            files.
+        </p>
+    </div>
+</div>
+
+<div class="settings-block">
     <h3 class="space-me">WoW Accounts</h3>
 
     <p>
@@ -172,6 +190,7 @@
         </thead>
         <tbody>
             {#each sortBy(Object.values($userStore.accounts), (a) => a.accountId) as account}
+                {@const accountCharacters = getAccountCharacters($userStore, account.id)}
                 <tr>
                     <td class="account-id">
                         <code>{Region[account.region]}</code>
@@ -191,10 +210,14 @@
                         />
                     </td>
                     <td class="account-characters">
-                        {#each getAccountCharacters($userStore, account.id) as character, characterIndex}
+                        {#each accountCharacters as character, characterIndex}
                             {characterIndex > 0 ? ', ' : ''}
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}
+                        <code
+                            class:status-fail={accountCharacters.length == 60}
+                            class:status-shrug={accountCharacters.length > 45 && accountCharacters.length < 60}
+                        > ({accountCharacters.length})</code>
                     </td>
                 </tr>
             {/each}
@@ -206,23 +229,5 @@
             name="characters_hideDisabledAccounts"
             bind:value={$settingsStore.characters.hideDisabledAccounts}
         >Hide characters on disabled accounts</Checkbox>
-    </div>
-</div>
-
-<div class="settings-block">
-    <h3 class="space-me">API Key</h3>
-
-    <div class="api-key">
-        {#if apiKey}
-            <span>{apiKey}</span>
-        {:else}
-            <button on:click|preventDefault={onClick}>Reveal API Key</button>
-        {/if}
-
-        <p>
-            Use this API key with <a href="https://github.com/ThingEngineering/wowthing-sync">WoWthing Sync</a>
-            to automate the uploading of your <code>WoWthing_Collector.lua</code>
-            files.
-        </p>
     </div>
 </div>

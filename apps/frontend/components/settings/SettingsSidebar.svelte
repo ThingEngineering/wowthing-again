@@ -1,6 +1,6 @@
 <script lang="ts">
     import { achievementStore, journalStore, manualStore, staticStore, userStore } from '@/stores'
-    import { settingsStore } from '@/stores'
+    import { settingsState, settingsStore } from '@/stores'
     import type { Account, FancyStoreFetchOptions, Settings, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
@@ -75,64 +75,12 @@
             slug: 'transmog',
         },
     ]
-
-    let buttonText = 'Save changes'
-    async function saveOnClick() {
-        buttonText = 'Saving...'
-
-        const xsrf = document.getElementById('app').getAttribute('data-xsrf')
-        const data = {
-            accounts: $userStore.accounts,
-            settings: $settingsStore,
-        }
-
-        const response = await fetch('/api/settings', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': xsrf,
-            },
-            body: JSON.stringify(data),
-        })
-
-        if (response.ok) {
-            const json = await response.json()
-            const settings = json.settings as Settings
-            settingsStore.set(settings)
-
-            userStore.update(state => {
-                for (const account of json.accounts as Account[]) {
-                    state.accounts[account.id] = account
-                }
-                return state
-            })
-            buttonText = 'Saved!'
-
-            const fetchOptions: Partial<FancyStoreFetchOptions> = {
-                language: settings.general.language,
-                evenIfLoaded: true,
-                onlyIfLoaded: true,
-            }
-            await Promise.all([
-                achievementStore.fetch(fetchOptions),
-                journalStore.fetch(fetchOptions),
-                manualStore.fetch(fetchOptions),
-                staticStore.fetch(fetchOptions),
-            ])
-
-            setTimeout(() => { buttonText = 'Save changes'}, 1000)
-        }
-    }
 </script>
 
 <style lang="scss">
-    button {
-        background: $button-success;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        cursor: pointer;
-        font-size: 1.1rem;
-        margin-top: 1rem;
+    .state {
+        padding: 0.5rem;
+        text-align: center;
         width: 100%;
     }
 </style>
@@ -144,6 +92,12 @@
     width="10rem"
 >
     <svelte:fragment slot="after">
-        <button on:click|preventDefault={saveOnClick}>{buttonText}</button>
+        <div class="state">
+            {#if $settingsState === 1}
+                Saving...
+            {:else if $settingsState === 2}
+                Saved!
+            {/if}
+        </div>
     </svelte:fragment>
 </Sidebar>

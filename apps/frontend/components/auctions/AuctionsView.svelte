@@ -163,12 +163,11 @@
         {:else if params.slug1 === 'missing-pets'}
             <div class="options-group">
                 <Checkbox
-                    name="hide_ignored"
-                    bind:value={$auctionState.hideIgnored}
-                >Hide ignored</Checkbox>
+                    name="pets_max_level"
+                    bind:value={$auctionState.missingPetsMaxLevel}
+                >Only level 25</Checkbox>
             </div>
         {/if}
-
     </div>
 
     {#if params.slug1 === 'missing-transmog'}

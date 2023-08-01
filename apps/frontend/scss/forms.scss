@@ -23,3 +23,7 @@ input.disabled {
         width: 0;
     }
 }
+
+fieldset.disabled {
+    opacity: 0.5;
+}

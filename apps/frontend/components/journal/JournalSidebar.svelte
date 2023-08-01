@@ -1,11 +1,10 @@
 <script lang="ts">
     import { journalStore, lazyStore } from '@/stores'
-    import { settingsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
@@ -48,8 +47,9 @@
 <Sidebar
     baseUrl="/journal"
     items={categories}
-    width="16rem"
     noVisitRoot={true}
+    scrollable={true}
+    width="16rem"
     {percentFunc}
 >
     <div slot="before">
@@ -59,9 +59,6 @@
             total={overall.total}
         />
         
-        <Checkbox
-            name="transmog_completionistMode"
-            bind:value={$settingsStore.transmog.completionistMode}
-        >Completionist Mode</Checkbox>
+        <Settings />
     </div>
 </Sidebar>
