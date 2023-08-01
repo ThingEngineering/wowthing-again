@@ -20,7 +20,7 @@
         --image-margin-top: -2px;
 
         margin-top: 0.75rem;
-        padding: 0.15rem 0.5rem;
+        padding: 0.25rem 0.5rem;
 
         :global(fieldset) {
             margin-bottom: 0.15rem;
@@ -41,7 +41,7 @@
     }
     .spacer {
         border-bottom: 1px solid $border-color;
-        margin: 0.1rem -0.5rem;
+        margin: 0.2rem -0.5rem;
     }
     .flex-wrapper {
         justify-content: flex-start;
@@ -68,6 +68,12 @@
             bind:value={$settingsStore.transmog.completionistMode}
         >Completionist Mode</Checkbox>
 
+        <Checkbox
+            name="transmog_completionistSets"
+            disabled={!$settingsStore.transmog.completionistMode}
+            bind:value={$settingsStore.transmog.completionistSets}
+        >Completionist Sets</Checkbox>
+        
         <div class="spacer"></div>
 
         <div class="flex-wrapper">
