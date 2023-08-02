@@ -37,6 +37,21 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             data.appearanceToItems[appearanceId] = Array.from(itemIds)
         }
 
+        data.itemBonusToUpgrade = {}
+        for (const bonusGroups of Object.values(data.itemBonusListGroups)) {
+            for (const [sharedStringId, itemBonuses] of Object.entries(bonusGroups)) {
+                if (itemBonuses.length > 1) {
+                    for (let i = 0; i < itemBonuses.length; i++) {
+                        const itemBonus = itemBonuses[i]
+                        if (data.itemBonusToUpgrade[itemBonus]) {
+                            console.log('ruh roh', itemBonus)
+                        }
+                        data.itemBonusToUpgrade[itemBonus] = [parseInt(sharedStringId), i + 1, itemBonuses.length]
+                    }
+                }
+            }
+        }
+
         console.timeEnd('ItemDataStore.initialize')
     }
 

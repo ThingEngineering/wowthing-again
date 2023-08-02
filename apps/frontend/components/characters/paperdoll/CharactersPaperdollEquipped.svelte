@@ -1,6 +1,7 @@
 <script lang="ts">
     import { itemStore, staticStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
+    import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
     import type { InventorySlot } from '@/enums'
 
@@ -14,6 +15,16 @@
 
     $: equippedItem = character.equippedItems[inventorySlot]
     $: item = $itemStore.items[equippedItem?.itemId]
+
+    const getUpgradeData = () => {
+        for (const bonusId of equippedItem.bonusIds) {
+            const upgrades = $itemStore.itemBonusToUpgrade[bonusId]
+            if (upgrades) {
+                console.log(bonusId, upgrades)
+                return upgrades
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -39,7 +50,12 @@
             height: 100%;
             width: 100%;
         }
-        .pill {
+        .upgrade-level {
+            font-size: 90%;
+            top: 2px;
+            word-spacing: -0.2ch;
+        }
+        .item-level {
             bottom: 2px;
         }    
     }
@@ -70,13 +86,30 @@
         class:drop-shadow={equippedItem}
     >
         {#if equippedItem}
-            <a class="quality{equippedItem.quality}" href={getItemUrl(equippedItem)}>
+            {@const upgradeData = getUpgradeData()}
+            <a
+                class="quality{equippedItem.quality}"
+                href={getItemUrl(equippedItem)}
+            >
                 <WowthingImage
                     name="item/{equippedItem.itemId}"
                     size={56}
                     border={2}
                 />
-                <span class="pill abs-center">{equippedItem.itemLevel}</span>
+                <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
+
+                {#if upgradeData?.[0] > 0}
+                    {@const upgradeString = $staticStore.sharedStrings[upgradeData[0]]}
+                    {@const percent = upgradeData[1] / upgradeData[2] * 100}
+                    <span
+                        class="upgrade-level pill abs-center"
+                        class:status-fail={percent === 0}
+                        class:status-shrug={percent > 0 && percent < 100}
+                        class:status-success={percent === 100}
+                    >
+                        {upgradeString.charAt(0)} {upgradeData[1]} / {upgradeData[2]}
+                    </span>
+                {/if}
             </a>
         {:else}
             <div class="empty-slot border"></div>
