@@ -45,7 +45,7 @@
     }
     .item-text {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: 60px;
         justify-content: space-around;
         padding-right: 0.1rem;
