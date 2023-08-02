@@ -28,6 +28,7 @@
     import type { UserHistoryData } from '@/types/data'
     import type { StaticDataRealm } from '@/types/data/static'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
 
     Chart.register(
@@ -202,6 +203,7 @@
         }
 
         // Pad out each dataset with data for all time periods
+        const smalls: Record<number, DataPoint> = {}
         const totals: Record<number, DataPoint> = {}
 
         const allPoints: [number, DateTime][] = Object.entries(pointMap)
@@ -229,22 +231,44 @@
                 }
 
                 if (totals[ts] === undefined) {
+                    smalls[ts] = {x: dateTime, y: 0}
                     totals[ts] = {x: dateTime, y: 0}
                 }
-                totals[ts].y += newData[pointIndex].y
+
+                const newValue = newData[pointIndex].y
+                totals[ts].y += newValue
+
+                if (historyState.tooltipCombineSmall && newValue < 10000) {
+                    smalls[ts].y += newValue
+                }
             }
 
             dataset.data = newData
         }
 
-        if (historyState.scaleType === 'logarithmic') {
-            data.datasets.sort((a, b) => a.data[a.data.length - 1].y - b.data[b.data.length - 1].y)
-        }
-        else {
-            data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y)
-        }
+        data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y)
 
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
+            if (historyState.tooltipCombineSmall) {
+                const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0
+                if (anyUseful) {
+                    const smallPoints = sortBy(
+                        Object.values(smalls),
+                        (point: DataPoint) => point.x.toUnixInteger()
+                    )
+
+                    data.datasets.push({
+                        backgroundColor: colors[colors.length - 2],
+                        borderColor: colors[colors.length - 2],
+                        borderWidth: 2,
+                        fill: stacked,
+                        label: 'Other',
+                        spanGaps: true,
+                        data: smallPoints,
+                    })
+                }
+            }
+
             const totalPoints = sortBy(
                 Object.values(totals),
                 (point: DataPoint) => point.x.toUnixInteger()
@@ -290,19 +314,8 @@
                     tooltip: {
                         bodySpacing: 5,
                         boxPadding: 3,
-                        position: 'average',
-                        filter: (data, index) => index < 10 || data.dataset.label === 'Total',
-                        callbacks: {
-                            footer: (tooltipItems) =>
-                            {
-                                if (historyState.chartType === 'line') {
-                                    return undefined
-                                }
-
-                                const total: number = tooltipItems.reduce((a: number, b) => a + b.parsed.y, 0)
-                                return `Total: ${total.toLocaleString()}`
-                            },
-                        },
+                        position: 'nearest',
+                        filter: (e) => !historyState.tooltipCombineSmall || e.parsed.y >= 10000,
                         bodyFont: {
                             size: 15,
                         },
@@ -379,7 +392,7 @@
                 bind:value={$historyState.chartType}
                 name="chart_type"
                 options={[
-                    ['area-stacked', 'Area (stacked)'],
+                    ['area-stacked', 'Area'],
                     ['line', 'Line'],
                 ]}
             />
@@ -404,23 +417,30 @@
                 name="timeframe"
                 options={[
                     ['all', 'All'],
-                    ['6month', '6 months'],
-                    ['3month', '3 months'],
-                    ['1month', '1 month'],
-                    ['1week', '1 week'],
+                    ['6month', '6 mo'],
+                    ['3month', '3 mo'],
+                    ['1month', '1 mo'],
+                    ['1week', '1 wk'],
                 ]}
             />
         </div>
 
         <div class="radio-container border">
             <RadioGroup
-                    bind:value={$historyState.scaleType}
-                    name="scale_type"
-                    options={[
+                bind:value={$historyState.scaleType}
+                name="scale_type"
+                options={[
                     ['linear', 'Linear'],
-                    ['logarithmic', 'Logarithmic'],
+                    ['logarithmic', 'Log'],
                 ]}
             />
+        </div>
+
+        <div class="radio-container border">
+            <Checkbox
+                bind:value={$historyState.tooltipCombineSmall}
+                name="tooltip_combine_small"
+            >Combine &lt;10k tooltip values</Checkbox>
         </div>
     </div>
 
