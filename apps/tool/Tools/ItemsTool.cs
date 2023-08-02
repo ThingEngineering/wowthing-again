@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Items;
 
@@ -36,9 +37,16 @@ public class ItemsTool
 
         _timer.AddPoint("Database");
 
+        var listGroups = await LoadItemBonusListGroups(context);
+
+        _timer.AddPoint("File");
+
         var db = ToolContext.Redis.GetDatabase();
 
-        var cacheData = new RedisItems();
+        var cacheData = new RedisItems
+        {
+            ItemBonusListGroups = listGroups,
+        };
         string? cacheHash = null;
 
         foreach (var language in Enum.GetValues<Language>())
@@ -64,5 +72,56 @@ public class ItemsTool
 
         _timer.AddPoint("Generate", true);
         ToolContext.Logger.Information("{0}", _timer.ToString());
+    }
+
+    private async Task<Dictionary<int, Dictionary<int, List<int>>>> LoadItemBonusListGroups(WowDbContext context)
+    {
+        var entries = await DataUtilities.LoadDumpCsvAsync<DumpItemBonusListGroupEntry>("itembonuslistgroupentry");
+        // Flag 0x1 = hidden maybe?
+        var grouped = entries
+            .Where(entry => (entry.Flags & 0x1) == 0)
+            .GroupBy(entry => entry.ItemBonusListGroupID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(entry => entry.SequenceValue)
+                    .Select(entry => entry.ItemBonusListID)
+                    .ToArray()
+            );
+
+        int[] itemBonusIds = grouped.Values
+            .SelectMany(e => e)
+            .Distinct()
+            .ToArray();
+        var itemBonusMap = await context.WowItemBonus
+            .Where(wib => itemBonusIds.Contains(wib.Id))
+            .ToDictionaryAsync(wib => wib.Id);
+
+        var groupedBySharedString = new Dictionary<int, Dictionary<int, List<int>>>();
+        foreach ((int bonusGroupId, int[] group) in grouped)
+        {
+            groupedBySharedString[bonusGroupId] = new();
+
+            foreach (int itemBonusId in group)
+            {
+                foreach (var bonusData in itemBonusMap[itemBonusId].Bonuses)
+                {
+                    // Bonus type 34, ItemBonusListGroupID, SharedStringID?
+                    if (bonusData[0] == 34 && bonusData.Count >= 3)
+                    {
+                        int sharedStringId = bonusData[2];
+                        if (!groupedBySharedString[bonusGroupId].TryGetValue(sharedStringId, out var oof))
+                        {
+                            oof = groupedBySharedString[bonusGroupId][sharedStringId] = new();
+                        }
+
+                        oof.Add(itemBonusId);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return groupedBySharedString;
     }
 }

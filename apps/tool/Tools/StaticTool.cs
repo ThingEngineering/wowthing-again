@@ -34,6 +34,7 @@ public class StaticTool
         StringType.WowReputationDescription,
         StringType.WowReputationName,
         StringType.WowReputationTier,
+        StringType.WowSharedString,
         StringType.WowSoulbindName,
         StringType.WowSkillLineName,
         StringType.WowSpellItemEnchantmentName,
@@ -318,6 +319,10 @@ public class StaticTool
 
             cacheData.QuestNames = _stringMap
                 .Where(kvp => kvp.Key.Type == StringType.WowQuestName && kvp.Key.Language == language)
+                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
+
+            cacheData.SharedStrings = _stringMap
+                .Where(kvp => kvp.Key.Type == StringType.WowSharedString && kvp.Key.Language == language)
                 .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
 
             cacheData.Titles = _stringMap

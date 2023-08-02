@@ -11,6 +11,7 @@ public class RedisStaticData
     public Dictionary<int, string> InventorySlots { get; set; }
     public Dictionary<int, string> InventoryTypes { get; set; }
     public Dictionary<int, string> QuestNames { get; set; }
+    public Dictionary<int, string> SharedStrings { get; set; }
     public Dictionary<int, string> Titles { get; set; }
 
     public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
