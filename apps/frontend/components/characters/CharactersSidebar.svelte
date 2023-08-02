@@ -42,7 +42,9 @@
             })
         }
 
-        categories = sortBy(categories, (category) => category.name)
+        categories = sortBy(categories, (category) => [
+            100 - category.children.length, category.name
+        ].join('|'))
 
         decorationFunc = (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
             if (parentEntries?.length < 1) {
