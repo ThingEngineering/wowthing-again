@@ -6,6 +6,7 @@
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import { getEnchantmentText } from '@/utils/get-enchantment-text';
 
     export let character: Character
     export let inventorySlot: InventorySlot
@@ -90,7 +91,7 @@
                 <span>
                     <ParsedText
                         cls="quality2"
-                        text={$staticStore.enchantments[enchantId] || `Enchant #${enchantId}`}
+                        text={getEnchantmentText(enchantId, $staticStore.enchantments[enchantId])}
                     />
                 </span>
             {/if}
