@@ -60,12 +60,9 @@ public class ItemsTool
                 })
                 .ToArray();
 
-            var cacheJson = ToolContext.SerializeJson(cacheData);
+            string cacheJson = ToolContext.SerializeJson(cacheData);
             // This ends up being the MD5 of enUS, close enough
-            if (cacheHash == null)
-            {
-                cacheHash = cacheJson.Md5();
-            }
+            cacheHash ??= cacheJson.Md5();
 
             await db.SetCacheDataAndHash($"item-{language.ToString()}", cacheJson, cacheHash);
         }
