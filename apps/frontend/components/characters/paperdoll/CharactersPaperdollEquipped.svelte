@@ -46,14 +46,18 @@
     .item-text {
         display: flex;
         flex-direction: column;
+        gap: 3px;
         height: 60px;
-        justify-content: space-around;
+        justify-content: center;
         padding-right: 0.1rem;
 
         span {
             background-color: rgba(0, 0, 0, 0.75);
             padding: 0 3px 1px 3px;
         }
+    }
+    .enchant {
+        font-size: 90%;
     }
 </style>
 
@@ -88,7 +92,7 @@
             
             {#if equippedItem.enchantmentIds?.length > 0}
                 {@const enchantId = equippedItem.enchantmentIds[0]}
-                <span>
+                <span class="enchant">
                     <ParsedText
                         cls="quality2"
                         text={getEnchantmentText(enchantId, $staticStore.enchantments[enchantId])}
