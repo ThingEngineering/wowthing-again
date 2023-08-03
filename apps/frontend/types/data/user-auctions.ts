@@ -47,6 +47,20 @@ export class UserAuctionDataMissingTransmogAuction {
 
 export type UserAuctionDataMissingTransmogAuctionArray = ConstructorParameters<typeof UserAuctionDataMissingTransmogAuction>
 
+export class UserAuctionDataMissingRecipeAuction {
+    public bidPrice = 0
+
+    constructor(
+        public connectedRealmId: number,
+        public timeLeft: number,
+        public itemId: number,
+        public buyoutPrice: number
+    )
+    { }
+}
+
+export type UserAuctionDataMissingRecipeAuctionArray = ConstructorParameters<typeof UserAuctionDataMissingRecipeAuction>
+    
 export interface UserAuctionDataPet {
     breedId: number
     level: number

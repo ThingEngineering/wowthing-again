@@ -11,6 +11,7 @@
     import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
+    import MissingRecipes from './AuctionsMissingRecipes.svelte'
     import MissingTransmog from './AuctionsMissingTransmog.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
@@ -60,6 +61,7 @@
         'missing-toys': Missing,
         'missing-appearance-ids': MissingTransmog,
         'missing-appearance-sources': MissingTransmog,
+        'missing-recipes': MissingRecipes,
     }
 </script>
 
@@ -127,7 +129,7 @@
                 >All realms</Checkbox>
             </div>
 
-            {#if !params.slug1.startsWith('missing-appearance-')}
+            {#if !params.slug1.startsWith('missing-appearance-') && params.slug1 !== 'missing-recipes'}
                 <div class="options-group">
                     <Checkbox
                         name="hide_ignored"
@@ -137,7 +139,7 @@
             {/if}
         {/if}
 
-        {#if params.slug1.startsWith('missing-appearance-')}
+        {#if params.slug1.startsWith('missing-appearance-') || params.slug1 === 'missing-recipes'}
             <div class="options-group">
                 <Checkbox
                     name="limit_to_cheapest_realm"
@@ -170,6 +172,44 @@
             </div>
         {/if}
     </div>
+
+    {#if params.slug1 === 'missing-recipes'}
+        <div class="options-container border">
+            <div class="options-group">
+                <TextInput
+                    name="recipe_name_search"
+                    maxlength={20}
+                    placeholder={"Name filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
+                    bind:value={$auctionState.missingRecipeNameSearch}
+                />
+            </div>
+
+            <div class="options-group">
+                <TextInput
+                    name="recipe_realm_search"
+                    maxlength={20}
+                    placeholder={"Realm filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
+                    bind:value={$auctionState.missingRecipeRealmSearch}
+                />
+            </div>
+
+            <div class="options-group">
+                Character:
+                <Select
+                    name="recipe_character_id"
+                    bind:selected={$auctionState.missingRecipeCharacterId}
+                    options={$userStore.characters.map((char) => [
+                        char.id,
+                        char.name
+                    ])}
+                />
+            </div>
+        </div>
+    {/if}
 
     {#if params.slug1.startsWith('missing-appearance-')}
         <div class="options-container border">

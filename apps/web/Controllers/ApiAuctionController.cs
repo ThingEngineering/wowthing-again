@@ -698,6 +698,135 @@ WHERE   tc.appearance_source IS NULL
         return Content(json, MediaTypeNames.Application.Json);
     }
 
+    [HttpPost("missing-recipes")]
+    [Authorize]
+    public async Task<IActionResult> MissingProfessionRecipes([FromBody] ApiMissingProfessionRecipesForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        timer.AddPoint("User");
+
+        var character = await _context.PlayerCharacter
+            .Include(pc => pc.Professions)
+            .Where(pc => pc.Account.UserId == user.Id && pc.Id == form.CharacterId)
+            .FirstOrDefaultAsync();
+        if (character == null)
+        {
+            return NotFound();
+        }
+
+        var characterRealm = await _context.WowRealm.FirstAsync(wr => wr.Id == character.RealmId);
+
+        timer.AddPoint("Character");
+
+        // Always apply a region limit
+        int[] connectedRealmIds = await _context.WowRealm
+            .AsNoTracking()
+            .Where(realm => realm.Region == characterRealm.Region)
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        if (!form.AllRealms)
+        {
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id && pa.Enabled)
+                .Include(pa => pa.Pets)
+                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+
+            connectedRealmIds = connectedRealmIds
+                .Intersect(accountConnectedRealmIds)
+                .ToArray();
+        }
+
+        timer.AddPoint("Realms");
+
+        // Profession info
+        var skillLineIds = new List<int>();
+        var skillLineAbilityIds = new List<int>();
+        foreach (var (rootId, subProfessions) in character.Professions.Professions)
+        {
+            skillLineIds.Add(rootId);
+            foreach (var (subProfessionId, subProfession) in subProfessions)
+            {
+                skillLineIds.Add(subProfessionId);
+                skillLineAbilityIds.AddRange(subProfession.KnownRecipes);
+            }
+        }
+
+        // Missing recipes
+        var missingRecipeItemIds = await _context.Database
+            .SqlQuery<int>($@"
+SELECT  item_id
+FROM    wow_profession_recipe_item
+WHERE   skill_line_id = ANY({skillLineIds})
+        AND NOT skill_line_ability_id = ANY({skillLineAbilityIds})
+").ToArrayAsync();
+
+        timer.AddPoint("MissingRecipes");
+
+        // Auctions
+        await using var connection = _context.GetConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
+        {
+            Parameters =
+            {
+                new() { Value = connectedRealmIds },
+                new() { Value = missingRecipeItemIds },
+            },
+        };
+
+        await using var reader = await command.ExecuteReaderAsync();
+        var auctions = new List<MissingRecipeQuery>();
+        while (await reader.ReadAsync())
+        {
+            auctions.Add(new()
+            {
+                ConnectedRealmId = reader.GetInt32(0),
+                ItemId = reader.GetInt32(1),
+                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(2),
+                BuyoutPrice = reader.GetInt64(3)
+            });
+        }
+
+        timer.AddPoint("Auctions");
+
+        var grouped = auctions
+            .GroupBy(auction => auction.ItemId)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(auction => auction.BuyoutPrice)
+                    .Take(5)
+                    .ToList()
+            );
+
+        timer.AddPoint("Grouping");
+
+        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+
+        int kept = grouped.Values
+            .Select(groupAuctions => groupAuctions.Count)
+            .Sum();
+        _logger.LogInformation($"{auctions.Count} rows, kept {kept}");
+        _logger.LogInformation($"{timer}");
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
     private static Dictionary<int, List<WowAuction>> DoAuctionStuff(
         IEnumerable<IGrouping<int, WowAuction>> groupedAuctions,
         bool includeLowBid = true
