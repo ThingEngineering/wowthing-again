@@ -37,7 +37,9 @@ export class AuctionState {
         'missing-mounts': 'name_up',
         'missing-pets': 'name_up',
         'missing-toys': 'name_up',
-        'missing-transmog': 'price_up',
+        'missing-appearance-ids': 'price_up',
+        'missing-appearance-sources': 'price_up',
+        'missing-recipes': 'price_up',
     }
 }
 
