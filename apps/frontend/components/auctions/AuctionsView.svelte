@@ -127,7 +127,7 @@
                 >All realms</Checkbox>
             </div>
 
-            {#if !params.slug1.endsWith('-transmog')}
+            {#if !params.slug1.startsWith('missing-appearance-')}
                 <div class="options-group">
                     <Checkbox
                         name="hide_ignored"
@@ -137,7 +137,7 @@
             {/if}
         {/if}
 
-        {#if params.slug1 === 'missing-transmog'}
+        {#if params.slug1.startsWith('missing-appearance-')}
             <div class="options-group">
                 <Checkbox
                     name="limit_to_cheapest_realm"
