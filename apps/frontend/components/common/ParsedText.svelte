@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte'
 
     import { iconStrings, imageStrings } from '@/data/icons'
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore, parsedTextStore, staticStore } from '@/stores'
     import { Faction, RewardReputation } from '@/enums'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -20,6 +20,11 @@
     let element: HTMLElement
     let html: string
     $: {
+        if (text && $parsedTextStore[text]) {
+            html = $parsedTextStore[text]
+            break $
+        }
+
         html = text || ''
 
         html = html.replace(/(- )?\|A:Professions-ChatIcon-Quality-Tier(\d):20:20\|a/, '{craftedQuality:$2}')
@@ -125,6 +130,10 @@
 
         // Square brackets => code
         html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>')
+
+        if (text) {
+            $parsedTextStore[text] = html
+        }
     }
 
     afterUpdate(() => {
