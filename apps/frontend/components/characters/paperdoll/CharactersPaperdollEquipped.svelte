@@ -1,11 +1,13 @@
 <script lang="ts">
     import { itemStore, staticStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
+    import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
     import type { InventorySlot } from '@/enums'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import { getEnchantmentText } from '@/utils/get-enchantment-text';
 
     export let character: Character
     export let inventorySlot: InventorySlot
@@ -13,6 +15,16 @@
 
     $: equippedItem = character.equippedItems[inventorySlot]
     $: item = $itemStore.items[equippedItem?.itemId]
+
+    const getUpgradeData = () => {
+        for (const bonusId of equippedItem.bonusIds) {
+            const upgrades = $itemStore.itemBonusToUpgrade[bonusId]
+            if (upgrades) {
+                console.log(bonusId, upgrades)
+                return upgrades
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -38,21 +50,30 @@
             height: 100%;
             width: 100%;
         }
-        .pill {
+        .upgrade-level {
+            font-size: 90%;
+            top: 2px;
+            word-spacing: -0.2ch;
+        }
+        .item-level {
             bottom: 2px;
         }    
     }
     .item-text {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
+        gap: 3px;
         height: 60px;
-        justify-content: space-around;
+        justify-content: center;
         padding-right: 0.1rem;
 
         span {
             background-color: rgba(0, 0, 0, 0.75);
             padding: 0 3px 1px 3px;
         }
+    }
+    .enchant {
+        font-size: 90%;
     }
 </style>
 
@@ -65,13 +86,30 @@
         class:drop-shadow={equippedItem}
     >
         {#if equippedItem}
-            <a class="quality{equippedItem.quality}" href={getItemUrl(equippedItem)}>
+            {@const upgradeData = getUpgradeData()}
+            <a
+                class="quality{equippedItem.quality}"
+                href={getItemUrl(equippedItem)}
+            >
                 <WowthingImage
                     name="item/{equippedItem.itemId}"
                     size={56}
                     border={2}
                 />
-                <span class="pill abs-center">{equippedItem.itemLevel}</span>
+                <span class="item-level pill abs-center">{equippedItem.itemLevel}</span>
+
+                {#if upgradeData?.[0] > 0}
+                    {@const upgradeString = $staticStore.sharedStrings[upgradeData[0]]}
+                    {@const percent = upgradeData[1] / upgradeData[2] * 100}
+                    <span
+                        class="upgrade-level pill abs-center"
+                        class:status-fail={percent === 0}
+                        class:status-shrug={percent > 0 && percent < 100}
+                        class:status-success={percent === 100}
+                    >
+                        {upgradeString.charAt(0)} {upgradeData[1]} / {upgradeData[2]}
+                    </span>
+                {/if}
             </a>
         {:else}
             <div class="empty-slot border"></div>
@@ -87,10 +125,10 @@
             
             {#if equippedItem.enchantmentIds?.length > 0}
                 {@const enchantId = equippedItem.enchantmentIds[0]}
-                <span>
+                <span class="enchant">
                     <ParsedText
                         cls="quality2"
-                        text={$staticStore.enchantments[enchantId] || `Enchant #${enchantId}`}
+                        text={getEnchantmentText(enchantId, $staticStore.enchantments[enchantId])}
                     />
                 </span>
             {/if}

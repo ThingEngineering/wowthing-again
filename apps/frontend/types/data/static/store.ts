@@ -25,6 +25,7 @@ export interface StaticData {
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>
     professions: Record<number, StaticDataProfession>
     questNames: Record<number, string>
+    sharedStrings: Record<number, string>
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
 

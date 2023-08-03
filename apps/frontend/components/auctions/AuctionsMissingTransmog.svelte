@@ -1,6 +1,7 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
+    import { iconLibrary } from '@/icons'
     import { itemStore, staticStore, userAuctionMissingTransmogStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
@@ -11,9 +12,9 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { iconLibrary } from '@/icons';
 
     export let page: number
+    export let slug: string
 </script>
 
 <style lang="scss">
@@ -82,7 +83,7 @@
     }
 </style>
 
-{#await userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore)}
+{#await userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
     <Paginate

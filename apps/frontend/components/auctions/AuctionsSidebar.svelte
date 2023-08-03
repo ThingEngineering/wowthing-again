@@ -24,8 +24,13 @@
             },
             null,
             {
-                name: 'Missing Transmog',
-                slug: 'missing-transmog',
+                name: 'Missing Appearance IDs',
+                slug: 'missing-appearance-ids',
+                forceWildcard: true,
+            },
+            {
+                name: 'Missing Appearance Sources',
+                slug: 'missing-appearance-sources',
                 forceWildcard: true,
             },
             null,
@@ -52,6 +57,6 @@
 <Sidebar
     baseUrl={'/auctions'}
     items={categories}
-    width="10rem"
+    width="14rem"
 >
 </Sidebar>

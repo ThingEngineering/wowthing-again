@@ -132,6 +132,7 @@ public class DumpsTool
             ImportJournalInstanceStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
+            ImportSharedStrings,
             ImportSkillLineStrings,
             ImportSoulbindStrings,
             ImportSpellItemEnchantmentStrings,
@@ -273,6 +274,15 @@ public class DumpsTool
             "keystoneaffix",
             affix => affix.ID,
             affix => affix.Name
+        );
+
+    private async Task ImportSharedStrings(WowDbContext context) =>
+        await ImportStrings<DumpSharedString>(
+            context,
+            StringType.WowSharedString,
+            "sharedstring",
+            sharedString => sharedString.ID,
+            sharedString => sharedString.String
         );
 
     private async Task ImportSkillLineStrings(WowDbContext context) =>

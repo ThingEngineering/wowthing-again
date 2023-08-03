@@ -73,6 +73,14 @@ COPY wow_auction_cheapest_by_appearance_id (
 ) FROM STDIN (FORMAT BINARY)
 ";
 
+    private const string CopyCheapestByAppearanceSource = @"
+COPY wow_auction_cheapest_by_appearance_source (
+    connected_realm_id,
+    appearance_source,
+    auction_id
+) FROM STDIN (FORMAT BINARY)
+";
+
     public override async Task Run(params string[] data)
     {
         var timer = new JankTimer();
@@ -142,9 +150,10 @@ COPY wow_auction_cheapest_by_appearance_id (
 
         // Copy auction data
         Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId;
+        Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource;
         await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            auctionsByAppearanceId = await WriteAuctionData(writer, realmId, result.Data.Auctions);
+            (auctionsByAppearanceId, auctionsByAppearanceSource) = await WriteAuctionData(writer, realmId, result.Data.Auctions);
         }
 
         timer.AddPoint("Copy");
@@ -180,13 +189,23 @@ COPY wow_auction_cheapest_by_appearance_id (
         timer.AddPoint("Partition");
 
         // Update WowAuctionCheapestByAppearanceId
-        int deleted = await Context.WowAuctionCheapestByAppearanceId
+        await Context.WowAuctionCheapestByAppearanceId
             .Where(cheapest => cheapest.ConnectedRealmId == realmId)
             .ExecuteDeleteAsync();
 
         await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
         {
             await WriteCheapestByAppearanceIdData(writer, realmId, auctionsByAppearanceId);
+        }
+
+        // Update WowAuctionCheapestByAppearanceSource
+        await Context.WowAuctionCheapestByAppearanceSource
+            .Where(cheapest => cheapest.ConnectedRealmId == realmId)
+            .ExecuteDeleteAsync();
+
+        await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
+        {
+            await WriteCheapestByAppearanceSourceData(writer, realmId, auctionsByAppearanceSource);
         }
 
         // Finalize the transaction
@@ -200,9 +219,10 @@ COPY wow_auction_cheapest_by_appearance_id (
         Logger.Information("{Timer}", timer.ToString());
     }
 
-    private async Task<Dictionary<int, List<ApiDataAuctionsAuction>>> WriteAuctionData(NpgsqlBinaryImporter writer, int realmId, List<ApiDataAuctionsAuction> dataAuctions)
+    private async Task<(Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds, Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources)> WriteAuctionData(NpgsqlBinaryImporter writer, int realmId, List<ApiDataAuctionsAuction> dataAuctions)
     {
         var appearanceIds = new Dictionary<int, List<ApiDataAuctionsAuction>>();
+        var appearanceSources = new Dictionary<string, List<ApiDataAuctionsAuction>>();
 
         foreach (var auction in dataAuctions)
         {
@@ -236,8 +256,13 @@ COPY wow_auction_cheapest_by_appearance_id (
                 {
                     idAuctions = appearanceIds[actualAppearanceId] = new();
                 }
-
                 idAuctions.Add(auction);
+
+                if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
+                {
+                    sourceAuctions = appearanceSources[appearanceSource] = new();
+                }
+                sourceAuctions.Add(auction);
             }
 
             await writer.StartRowAsync();
@@ -293,7 +318,7 @@ COPY wow_auction_cheapest_by_appearance_id (
 
         await writer.CompleteAsync();
 
-        return appearanceIds;
+        return (appearanceIds, appearanceSources);
     }
 
     private async Task WriteCheapestByAppearanceIdData(
@@ -314,6 +339,30 @@ COPY wow_auction_cheapest_by_appearance_id (
             await writer.StartRowAsync();
             await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
             await writer.WriteAsync(appearanceId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
+        }
+
+        await writer.CompleteAsync();
+    }
+
+    private async Task WriteCheapestByAppearanceSourceData(
+        NpgsqlBinaryImporter writer,
+        int realmId,
+        Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource)
+    {
+        foreach (var (appearanceSource, auctions) in auctionsByAppearanceSource)
+        {
+            var auction = auctions
+                .Where(auction => auction.Buyout > 0)
+                .MinBy(auction => auction.Buyout);
+            if (auction == null)
+            {
+                continue;
+            }
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(appearanceSource, NpgsqlDbType.Varchar);
             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
         }
 

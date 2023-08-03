@@ -36,13 +36,15 @@
                 name: `[${Region[realm.region]}] ${realm.name}`,
                 slug: `${Region[realm.region].toLowerCase()}-${realm.slug}`,
                 children: characters.map((character) => ({
-                   name: character.name,
+                   name: `:class-${character.classId}: ${character.name}`,
                    slug: character.name,
                 }))
             })
         }
 
-        categories = sortBy(categories, (category) => category.name)
+        categories = sortBy(categories, (category) => [
+            100 - category.children.length, category.name
+        ].join('|'))
 
         decorationFunc = (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
             if (parentEntries?.length < 1) {
@@ -55,7 +57,7 @@
                     (character: Character) => (
                         Region[character.realm.region].toLowerCase() === region &&
                         character.realm.slug === realm &&
-                        character.name === entry.name
+                        character.name === entry.name.split(' ')[1]
                     )
                 )
                 return character?.level.toString() ?? '??'

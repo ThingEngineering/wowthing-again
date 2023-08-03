@@ -143,20 +143,21 @@ export const userAuctionMissingStore = new UserAuctionMissingDataStore()
 
 
 export class UserAuctionMissingTransmogDataStore {
-    private static url = '/api/auctions/missing-transmog'
+    private static url = '/api/auctions/missing-appearance-'
     private cache: Record<string, UserAuctionEntry[]> = {}
 
     async search(
         auctionState: AuctionState,
         itemData: ItemData,
-        staticData: StaticData
+        staticData: StaticData,
+        searchType: string
     ): Promise<UserAuctionEntry[]> {
         let things: UserAuctionEntry[] = []
 
         const cacheKey = [
+            searchType,
             auctionState.region,
             auctionState.allRealms ? '1' : '0',
-            // auctionState.missingTransmogMinQuality.toString()
         ].join('--')
 
         if (this.cache[cacheKey]) {
@@ -171,7 +172,7 @@ export class UserAuctionMissingTransmogDataStore {
             const xsrf = document.getElementById('app')
                 .getAttribute('data-xsrf')
 
-            const response = await fetch(UserAuctionMissingTransmogDataStore.url, {
+            const response = await fetch(UserAuctionMissingTransmogDataStore.url + searchType, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
