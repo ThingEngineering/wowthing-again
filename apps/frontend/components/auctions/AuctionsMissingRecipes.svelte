@@ -4,18 +4,18 @@
     import { iconLibrary } from '@/icons'
     import { itemStore, staticStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let page: number
-    export let slug: string
 </script>
 
 <style lang="scss">
@@ -84,7 +84,9 @@
     }
 </style>
 
-{#await userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))}
+<UnderConstruction />
+
+{#await userAuctionMissingRecipeStore.search($auctionState, $itemStore, $staticStore)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
     <Paginate

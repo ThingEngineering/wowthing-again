@@ -120,6 +120,7 @@ public class DumpsTool
             ImportItemEffects,
             ImportMounts,
             ImportPets,
+            ImportRecipeItems,
             ImportReputationTiers,
             ImportToys,
             ImportTransmogSets,
@@ -1130,6 +1131,48 @@ public class DumpsTool
         _timer.AddPoint("Pets");
     }
 
+    private async Task ImportRecipeItems(WowDbContext context)
+    {
+        var dbRecipeMap = await context.WowProfessionRecipeItem
+            .AsNoTracking()
+            .ToDictionaryAsync(wpri => wpri.SkillLineAbilityId);
+
+        var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>("skilllineability");
+
+        foreach (var skillLineAbility in skillLineAbilities)
+        {
+            if (skillLineAbility.Spell == 0 || !_spellTeachMap.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
+            {
+                continue;
+            }
+
+            foreach (int recipeItemId in recipeItemIds)
+            {
+                var item = _itemMap.GetValueOrDefault(recipeItemId);
+                if (item == null)
+                {
+                    continue;
+                }
+
+                if (item.BindType is WowBindType.BindOnUse or WowBindType.NotBound)
+                {
+                    if (!dbRecipeMap.TryGetValue(skillLineAbility.ID, out var dbRecipe))
+                    {
+                        dbRecipe = dbRecipeMap[skillLineAbility.ID] = new()
+                        {
+                            SkillLineAbilityId = skillLineAbility.ID,
+                        };
+                        context.WowProfessionRecipeItem.Add(dbRecipe);
+                    }
+
+                    dbRecipe.SkillLineId = skillLineAbility.SkillLine;
+                    dbRecipe.ItemId = recipeItemId;
+                }
+            }
+        }
+
+        _timer.AddPoint("RecipeItems");
+    }
 
     private async Task ImportReputationTiers(WowDbContext context)
     {

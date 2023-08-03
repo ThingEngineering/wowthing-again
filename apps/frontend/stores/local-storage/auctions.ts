@@ -17,12 +17,17 @@ export class AuctionState {
     public limitToBestRealms = false
     public limitToCheapestRealm = false
     public missingPetsMaxLevel = false
+
     public missingTransmogItemClass = 'any'
     public missingTransmogItemSubclassArmor = -1
     public missingTransmogItemSubclassWeapon = -1
     public missingTransmogMinQuality = 0
     public missingTransmogNameSearch = ''
     public missingTransmogRealmSearch = ''
+
+    public missingRecipeNameSearch = ''
+    public missingRecipeRealmSearch = ''
+    public missingRecipeCharacterId = 0
     public region = '0'
 
     public ignored: Record<string, Record<number, boolean>> = {}

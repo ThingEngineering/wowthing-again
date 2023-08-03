@@ -1,7 +1,6 @@
 <script lang="ts">
     import { itemStore, staticStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
-    import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
     import type { InventorySlot } from '@/enums'
 

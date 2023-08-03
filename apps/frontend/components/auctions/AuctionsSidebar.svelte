@@ -33,6 +33,11 @@
                 slug: 'missing-appearance-sources',
                 forceWildcard: true,
             },
+            {
+                name: 'Missing Recipes',
+                slug: 'missing-recipes',
+                forceWildcard: true,
+            },
             null,
             {
                 name: 'Extra Pets',
