@@ -1,9 +1,6 @@
-import { InventoryType, ItemClass, ItemFlags, WeaponSubclass } from '@/enums'
-import type { AuctionState } from './local-storage'
-import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet, type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
-import type { ItemData } from '@/types/data/item'
-import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
-import type { StaticData } from '@/types/data/static'
+import type { AuctionState } from '../local-storage'
+import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
+import { sortAuctions } from '@/utils/auctions/sort-auctions'
 
 
 export type UserExtraPetEntry = {

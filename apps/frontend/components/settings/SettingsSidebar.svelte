@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { achievementStore, journalStore, manualStore, staticStore, userStore } from '@/stores'
-    import { settingsState, settingsStore } from '@/stores'
-    import type { Account, FancyStoreFetchOptions, Settings, SidebarItem } from '@/types'
+    import { settingsState } from '@/stores'
+    import type { SidebarItem } from '@/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte';
 
     export const categories: SidebarItem[] = [
         {
