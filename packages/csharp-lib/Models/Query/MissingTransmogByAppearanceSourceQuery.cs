@@ -24,15 +24,23 @@ WITH cheapest AS (
     WHERE   connected_realm_id = ANY($1)
             AND appearance_source = ANY($2)
 )
-SELECT  wa.connected_realm_id,
-        wa.appearance_source,
-        wa.item_id,
-        wa.time_left,
-        wa.buyout_price,
-        wa.bonus_ids
-FROM    wow_auction wa
-INNER JOIN cheapest ch
-    ON ch.connected_realm_id = wa.connected_realm_id
-        AND ch.auction_id = wa.auction_id
+SELECT ranked.*
+FROM (
+    SELECT  wa.connected_realm_id,
+            wa.appearance_source,
+            wa.item_id,
+            wa.time_left,
+            wa.buyout_price,
+            wa.bonus_ids,
+            RANK() OVER (
+                PARTITION BY wa.appearance_source
+                ORDER BY buyout_price
+            ) AS rank
+    FROM    wow_auction wa
+    INNER JOIN cheapest ch
+        ON ch.connected_realm_id = wa.connected_realm_id
+            AND ch.auction_id = wa.auction_id
+) ranked
+WHERE rank <= 5
 ";
 }

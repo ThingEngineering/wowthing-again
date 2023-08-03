@@ -19,7 +19,7 @@ export function sortAuctions<T extends SortableAuction>(
         auctions = sortBy(auctions, (item) => item.name)
         auctions.reverse()
     }
-    else if (sortType.startsWith('price_')) {
+    else if (sortType?.startsWith('price_')) {
         auctions = sortBy(auctions, (item) => ignoreBid ? item.auctions[0].buyoutPrice : item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
         if (sortType === 'price_down') {
             auctions.reverse()

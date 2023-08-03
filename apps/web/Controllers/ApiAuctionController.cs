@@ -657,6 +657,9 @@ WHERE   tc.appearance_source IS NULL
         };
 
         await using var reader = await command.ExecuteReaderAsync();
+
+        timer.AddPoint("Query");
+
         var auctions = new List<MissingTransmogByAppearanceSourceQuery>();
         while (await reader.ReadAsync())
         {
@@ -671,7 +674,7 @@ WHERE   tc.appearance_source IS NULL
             });
         }
 
-        timer.AddPoint("Auctions");
+        timer.AddPoint("Load");
 
         var grouped = auctions
             .GroupBy(auction => auction.AppearanceSource)
@@ -683,7 +686,7 @@ WHERE   tc.appearance_source IS NULL
                     .ToList()
             );
 
-        timer.AddPoint("Grouping");
+        timer.AddPoint("Group");
 
         string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
 
@@ -788,6 +791,9 @@ WHERE   skill_line_id = ANY({skillLineIds})
         };
 
         await using var reader = await command.ExecuteReaderAsync();
+
+        timer.AddPoint("Query");
+
         var auctions = new List<MissingRecipeQuery>();
         while (await reader.ReadAsync())
         {
@@ -800,7 +806,7 @@ WHERE   skill_line_id = ANY({skillLineIds})
             });
         }
 
-        timer.AddPoint("Auctions");
+        timer.AddPoint("Load");
 
         var grouped = auctions
             .GroupBy(auction => auction.ItemId)
@@ -812,7 +818,7 @@ WHERE   skill_line_id = ANY({skillLineIds})
                     .ToList()
             );
 
-        timer.AddPoint("Grouping");
+        timer.AddPoint("Group");
 
         string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
 
