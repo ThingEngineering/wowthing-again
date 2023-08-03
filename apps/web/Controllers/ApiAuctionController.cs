@@ -469,9 +469,9 @@ public class ApiAuctionController : Controller
         return Content(json, MediaTypeNames.Application.Json);
     }
 
-    [HttpPost("missing-transmog")]
+    [HttpPost("missing-appearance-ids")]
     [Authorize]
-    public async Task<IActionResult> MissingTransmog([FromBody] ApiMissingTransmogForm form)
+    public async Task<IActionResult> MissingAppearanceIds([FromBody] ApiMissingTransmogForm form)
     {
         var timer = new JankTimer();
 
@@ -528,10 +528,6 @@ WHERE   tc.appearance_id IS NULL
 
         timer.AddPoint("MissingAppearances");
 
-        // var auctions = await _context.MissingTransmogByAppearanceIdQuery
-        //     .FromSqlRaw(MissingTransmogByAppearanceIdQuery.Sql, connectedRealmIds, missingAppearanceIds)
-        //     .ToArrayAsync();
-
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
 
@@ -563,6 +559,122 @@ WHERE   tc.appearance_id IS NULL
 
         var grouped = auctions
             .GroupBy(auction => auction.AppearanceId)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(auction => auction.BuyoutPrice)
+                    .Take(5)
+                    .ToList()
+            );
+
+        timer.AddPoint("Grouping");
+
+        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+
+        int kept = grouped.Values
+            .Select(groupAuctions => groupAuctions.Count)
+            .Sum();
+        _logger.LogInformation($"{auctions.Count} rows, kept {kept}");
+        _logger.LogInformation($"{timer}");
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
+    [HttpPost("missing-appearance-sources")]
+    [Authorize]
+    public async Task<IActionResult> MissingAppearanceSources([FromBody] ApiMissingTransmogForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        bool hasCache = await _context.UserCache.AnyAsync(utc => utc.UserId == user.Id);
+        if (!hasCache)
+        {
+            return NoContent();
+        }
+
+        // Always apply a region limit
+        int[] connectedRealmIds = await _context.WowRealm
+            .AsNoTracking()
+            .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        if (!form.AllRealms)
+        {
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id && pa.Enabled)
+                .Include(pa => pa.Pets)
+                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+
+            connectedRealmIds = connectedRealmIds
+                .Intersect(accountConnectedRealmIds)
+                .ToArray();
+        }
+
+        timer.AddPoint("Realms");
+
+        var missingAppearanceSources = await _context.Database
+            .SqlQuery<string>($@"
+WITH transmog_cache (appearance_source) AS (
+    SELECT  UNNEST(appearance_sources) AS appearance_source
+    FROM    user_cache
+    WHERE   user_id = {user.Id}
+)
+SELECT  sigh.oof
+FROM (
+    SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS oof
+    FROM    wow_item_modified_appearance wima
+) sigh
+LEFT OUTER JOIN transmog_cache tc
+    ON sigh.oof = tc.appearance_source
+WHERE   tc.appearance_source IS NULL
+").ToArrayAsync();
+
+        timer.AddPoint("MissingAppearances");
+
+        await using var connection = _context.GetConnection();
+        await connection.OpenAsync();
+
+        await using var command = new NpgsqlCommand(MissingTransmogByAppearanceSourceQuery.Sql, connection)
+        {
+            Parameters =
+            {
+                new() { Value = connectedRealmIds },
+                new() { Value = missingAppearanceSources },
+            }
+        };
+
+        await using var reader = await command.ExecuteReaderAsync();
+        var auctions = new List<MissingTransmogByAppearanceSourceQuery>();
+        while (await reader.ReadAsync())
+        {
+            auctions.Add(new()
+            {
+                ConnectedRealmId = reader.GetInt32(0),
+                AppearanceSource = reader.GetString(1),
+                ItemId = reader.GetInt32(2),
+                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
+                BuyoutPrice = reader.GetInt64(4),
+                BonusIds = (int[])reader.GetValue(5),
+            });
+        }
+
+        timer.AddPoint("Auctions");
+
+        var grouped = auctions
+            .GroupBy(auction => auction.AppearanceSource)
             .ToDictionary(
                 group => group.Key,
                 group => group

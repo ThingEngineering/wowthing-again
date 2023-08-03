@@ -4,7 +4,7 @@ using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Query;
 
-[JsonConverter(typeof(MissingTransmogByAppearanceIdQueryConverter))]
+[JsonConverter(typeof(MissingTransmogByAppearanceSourceQueryConverter))]
 [Keyless]
 public class MissingTransmogByAppearanceSourceQuery
 {

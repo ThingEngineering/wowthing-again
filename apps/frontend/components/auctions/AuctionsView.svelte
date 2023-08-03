@@ -58,7 +58,8 @@
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
-        'missing-transmog': MissingTransmog,
+        'missing-appearance-ids': MissingTransmog,
+        'missing-appearance-sources': MissingTransmog,
     }
 </script>
 
@@ -170,7 +171,7 @@
         {/if}
     </div>
 
-    {#if params.slug1 === 'missing-transmog'}
+    {#if params.slug1.startsWith('missing-appearance-')}
         <div class="options-container border">
             <div class="options-group">
                 <TextInput
