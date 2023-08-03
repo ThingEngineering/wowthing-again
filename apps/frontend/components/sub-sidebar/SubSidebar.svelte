@@ -25,6 +25,8 @@
 
 <style lang="scss">
     div {
+        --image-border-width: 1px;
+
         margin-right: 1rem;
         min-width: var(--width);
         position: sticky;
