@@ -757,9 +757,10 @@ WHERE   tc.appearance_source IS NULL
                 }
             }
 
-            timer.AddPoint("Character");
+            timer.AddPoint("CharacterProfessions");
 
-            var characterRealm = await _context.WowRealm.FirstAsync(wr => wr.Id == character.RealmId);
+            var characterRealm = await _context.WowRealm
+                .FirstAsync(wr => wr.Id == character.RealmId);
 
             connectedRealmIds = await _context.WowRealm
                 .AsNoTracking()
@@ -779,6 +780,7 @@ WHERE   tc.appearance_source IS NULL
                 .ToArrayAsync();
 
             var characterProfessions = await _context.PlayerCharacterProfessions
+                .AsNoTracking()
                 .Where(pcp => connectedRealmIds.Contains(pcp.Character.RealmId))
                 .ToArrayAsync();
             foreach (var characterProfession in characterProfessions)
@@ -793,6 +795,8 @@ WHERE   tc.appearance_source IS NULL
                     }
                 }
             }
+
+            timer.AddPoint("CharacterProfessions");
         }
 
         if (!form.AllRealms)
@@ -825,6 +829,9 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
         // Auctions
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
+
+        _logger.LogInformation("connectedRealmIds: {0}", string.Join(",", connectedRealmIds));
+        _logger.LogInformation("missingRecipeItemIds: {0}", string.Join(",", missingRecipeItemIds));
 
         var auctions = new List<MissingRecipeQuery>();
         await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
