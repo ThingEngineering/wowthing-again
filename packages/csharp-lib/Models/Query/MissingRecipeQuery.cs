@@ -19,11 +19,7 @@ SELECT  wa.connected_realm_id,
         wa.time_left,
         wa.buyout_price
 FROM (
-    SELECT  DISTINCT ON (connected_realm_id, item_id)
-            connected_realm_id,
-            item_id,
-            time_left,
-            buyout_price
+    SELECT  DISTINCT ON (connected_realm_id, item_id) *
     FROM    wow_auction
     WHERE   connected_realm_id = ANY($1)
             AND item_id = ANY($2)
