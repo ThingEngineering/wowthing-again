@@ -781,14 +781,14 @@ WHERE   tc.appearance_source IS NULL
                 .Distinct()
                 .ToArrayAsync();
 
-            var characters = await _context.PlayerCharacter
+            var characterProfessions = await _context.PlayerCharacterProfessions
                 .AsNoTracking()
-                .Include(pc => pc.Professions)
-                .Where(pc => connectedRealmIds.Contains(pc.RealmId))
+                .Where(pcp => pcp.Character.Account.UserId == user.Id
+                    && connectedRealmIds.Contains(pcp.Character.RealmId))
                 .ToArrayAsync();
-            foreach (var character in characters.Where(pc => pc.Professions?.Professions != null))
+            foreach (var characterProfession in characterProfessions)
             {
-                if (character.Professions.Professions.TryGetValue(form.ProfessionId, out var profession))
+                if (characterProfession.Professions.TryGetValue(form.ProfessionId, out var profession))
                 {
                     foreach (var (subProfessionId, subProfession) in profession)
                     {
