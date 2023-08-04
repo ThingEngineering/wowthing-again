@@ -182,11 +182,14 @@ public class ApiController : Controller
         timer.AddPoint("LastModified");
 
         // Update user last visit
-        // if (!apiResult.Public)
-        // {
-        //     apiResult.User.LastVisit = DateTime.UtcNow;
-        //     await _userManager.UpdateAsync(apiResult.User);
-        // }
+        if (!apiResult.Public)
+        {
+            await _context.Users
+                .Where(au => au.Id == apiResult.User.Id)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(au => au.LastVisit, au => DateTime.UtcNow)
+                );
+        }
 
         // Retrieve data
         var accounts = new List<PlayerAccount>();
