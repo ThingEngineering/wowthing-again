@@ -771,6 +771,8 @@ WHERE   tc.appearance_source IS NULL
         }
         else
         {
+            skillLineIds.Add(form.ProfessionId);
+
             // Always apply a region limit
             connectedRealmIds = await _context.WowRealm
                 .AsNoTracking()
@@ -779,15 +781,15 @@ WHERE   tc.appearance_source IS NULL
                 .Distinct()
                 .ToArrayAsync();
 
-            var characterProfessions = await _context.PlayerCharacterProfessions
+            var characters = await _context.PlayerCharacter
                 .AsNoTracking()
-                .Where(pcp => connectedRealmIds.Contains(pcp.Character.RealmId))
+                .Include(pc => pc.Professions)
+                .Where(pc => connectedRealmIds.Contains(pc.RealmId))
                 .ToArrayAsync();
-            foreach (var characterProfession in characterProfessions)
+            foreach (var character in characters.Where(pc => pc.Professions?.Professions != null))
             {
-                if (characterProfession.Professions.TryGetValue(form.ProfessionId, out var profession))
+                if (character.Professions.Professions.TryGetValue(form.ProfessionId, out var profession))
                 {
-                    skillLineIds.Add(form.ProfessionId);
                     foreach (var (subProfessionId, subProfession) in profession)
                     {
                         skillLineIds.Add(subProfessionId);
@@ -814,6 +816,9 @@ WHERE   tc.appearance_source IS NULL
         }
 
         timer.AddPoint("Realms");
+
+        _logger.LogInformation("skillLineIds: {0}", string.Join(",", skillLineIds));
+        _logger.LogInformation("skillLineAbilityIds: {0}", string.Join(",", skillLineAbilityIds));
 
         // Missing recipes
         var missingRecipeItemIds = await _context.Database
