@@ -2,6 +2,7 @@
 
 public static class MemoryCacheKeys
 {
+    public const string AuctionHouseUpdatedTimes = "auction-house-updated-times";
     public const string BackgroundImages = "background-images";
     public const string ItemBonuses = "item-bonuses";
     public const string ItemModifiedAppearances = "item-modified-appearances";

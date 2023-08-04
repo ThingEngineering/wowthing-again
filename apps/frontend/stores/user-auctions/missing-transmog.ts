@@ -9,15 +9,16 @@ import type { UserAuctionEntry } from '../user-auctions'
 
 export class UserAuctionMissingTransmogDataStore {
     private static url = '/api/auctions/missing-appearance-'
-    private cache: Record<string, UserAuctionEntry[]> = {}
+    private cache: Record<string, [UserAuctionEntry[], Record<number, number>]> = {}
 
     async search(
         auctionState: AuctionState,
         itemData: ItemData,
         staticData: StaticData,
         searchType: string
-    ): Promise<UserAuctionEntry[]> {
+    ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = []
+        let updated: Record<number, number>
 
         const cacheKey = [
             searchType,
@@ -26,7 +27,7 @@ export class UserAuctionMissingTransmogDataStore {
         ].join('--')
 
         if (this.cache[cacheKey]) {
-            things = this.cache[cacheKey]
+            [things, updated] = this.cache[cacheKey]
         }
         else {
             const data = {
@@ -47,10 +48,14 @@ export class UserAuctionMissingTransmogDataStore {
             })
 
             if (response.ok) {
-                const responseData = await response.json() as Record<string, UserAuctionDataMissingTransmogAuctionArray[]>
+                const responseData = await response.json() as {
+                    auctions: Record<string, UserAuctionDataMissingTransmogAuctionArray[]>,
+                    updated: Record<number, number>
+                }
+                updated = responseData.updated
 
                 const parsedData: Record<number, UserAuctionDataMissingTransmogAuction[]> = {}
-                for (const [appearanceId, rawAuctions] of Object.entries(responseData)) {
+                for (const [appearanceId, rawAuctions] of Object.entries(responseData.auctions)) {
                     parsedData[parseInt(appearanceId)] = rawAuctions
                         .map((auctionArray) => new UserAuctionDataMissingTransmogAuction(...auctionArray))
                 }
@@ -76,7 +81,7 @@ export class UserAuctionMissingTransmogDataStore {
         }
 
         things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true) as UserAuctionEntry[]
-        this.cache[cacheKey] = things
+        this.cache[cacheKey] = [things, updated]
 
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
         const realmLower = auctionState.missingTransmogRealmSearch.toLocaleLowerCase()
@@ -139,7 +144,7 @@ export class UserAuctionMissingTransmogDataStore {
             return meetsMinQuality && matchesName && matchesRealm && matchesArmor && matchesWeapon
         })
 
-        return things
+        return [things, updated]
     }
 }
 export const userAuctionMissingTransmogStore = new UserAuctionMissingTransmogDataStore()

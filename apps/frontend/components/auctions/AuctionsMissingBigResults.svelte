@@ -1,16 +1,19 @@
 <script lang="ts">
+    import { DateTime } from 'luxon'
+
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore, staticStore, timeStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -82,11 +85,31 @@
         margin-left: auto;
         padding-right: 0.5rem;
     }
+    // .age-1 {
+    //     color: #f8f;
+    // }
+    .age-2 {
+        color: #ff9;
+    }
+    .age-3 {
+        color: #fa5;
+    }
+    .age-4 {
+        color: #f51;
+    }
+    code {
+        color: $body-text;
+    }
 </style>
 
-{#await userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))}
+<UnderConstruction />
+
+{#await slug === 'missing-recipes'
+    ? userAuctionMissingRecipeStore.search($auctionState, $itemStore, $staticStore)
+    : userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
+}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then things}
+{:then [things, updated]}
     <Paginate
         items={(things || [])}
         perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
@@ -143,18 +166,35 @@
                     <tbody>
                         {#each auctions as auction}
                             {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                            {@const ageInMinutes = Math.floor(
+                                $timeStore.diff(
+                                    DateTime.fromSeconds(updated[auction.connectedRealmId])
+                                ).toMillis() / 1000 / 60
+                            )}
                             <tr>
                                 <td
                                     class="realm text-overflow"
-                                    use:tippy={connectedRealm.realmNames.join(' / ')}
+                                    use:tippy={{
+                                        allowHTML: true,
+                                        content: `
+${connectedRealm.realmNames.join(' / ')}
+<br><br>
+Data is ${ageInMinutes} minute(s) old
+${ageInMinutes >= 60 ? '- refresh!' : ''}
+`
+                                    }}
                                 >
                                     <code>[{Region[connectedRealm.region]}]</code>
-                                    {connectedRealmName(auction.connectedRealmId)}
+                                    <span
+                                        class:age-1={ageInMinutes < 20}
+                                        class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}
+                                        class:age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                        class:age-4={ageInMinutes >= 60}
+                                    >
+                                        {connectedRealmName(auction.connectedRealmId)}
+                                    </span>
                                 </td>
-                                <td
-                                    class="price"
-                                    use:tippy={`${auction.buyoutPrice.toLocaleString()} copper`}
-                                >
+                                <td class="price">
                                     {#if auction.buyoutPrice < 10000}
                                         &lt;1 g
                                     {:else}
