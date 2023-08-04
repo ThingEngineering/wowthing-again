@@ -773,25 +773,25 @@ WHERE   tc.appearance_source IS NULL
         {
             skillLineIds.Add(form.ProfessionId);
 
-            // Always apply a region limit
-            connectedRealmIds = await _context.WowRealm
-                .AsNoTracking()
-                .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
-                .Select(realm => realm.ConnectedRealmId)
-                .Distinct()
+            var region = (WowRegion)Math.Max(1, (int)form.Region);
+            int[] realmIds = await _context.WowRealm
+                .Where(wr => wr.Region == region)
+                .Select(wr => wr.Id)
                 .ToArrayAsync();
 
             var characterProfessions = await _context.PlayerCharacterProfessions
                 .AsNoTracking()
                 .Where(pcp => pcp.Character.Account.UserId == user.Id
-                    && connectedRealmIds.Contains(pcp.Character.RealmId))
+                    && realmIds.Contains(pcp.Character.RealmId))
                 .ToArrayAsync();
             foreach (var characterProfession in characterProfessions)
             {
+                _logger.LogDebug("{0}", characterProfession.CharacterId);
                 if (characterProfession.Professions.TryGetValue(form.ProfessionId, out var profession))
                 {
                     foreach (var (subProfessionId, subProfession) in profession)
                     {
+                        _logger.LogDebug("{0} {1} {2}", characterProfession.CharacterId, subProfessionId, string.Join(",", subProfession.KnownRecipes));
                         skillLineIds.Add(subProfessionId);
                         skillLineAbilityIds.UnionWith(subProfession.KnownRecipes);
                     }
@@ -799,6 +799,14 @@ WHERE   tc.appearance_source IS NULL
             }
 
             timer.AddPoint("CharacterProfessions");
+
+            // Always apply a region limit
+            connectedRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => realm.Region == region)
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
         }
 
         if (!form.AllRealms)
