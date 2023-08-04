@@ -2,6 +2,7 @@
     export let name: string
     export let options: [number|string, number|string][]
     export let selected: number|string
+    export let width = ''
 </script>
 
 <style lang="scss">
@@ -24,6 +25,7 @@
         class="border"
         name={name}
         bind:value={selected}
+        style:width
     >
         {#each options as [value, text]}
             <option value="{value}">{text}</option>

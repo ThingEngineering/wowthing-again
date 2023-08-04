@@ -18,6 +18,12 @@ export class AuctionState {
     public limitToCheapestRealm = false
     public missingPetsMaxLevel = false
 
+    public missingRecipeCharacterId = 0
+    public missingRecipeProfessionId = 0
+    public missingRecipeNameSearch = ''
+    public missingRecipeRealmSearch = ''
+    public missingRecipeSearchType: 'account' | 'character' = 'character'
+
     public missingTransmogItemClass = 'any'
     public missingTransmogItemSubclassArmor = -1
     public missingTransmogItemSubclassWeapon = -1
@@ -25,9 +31,6 @@ export class AuctionState {
     public missingTransmogNameSearch = ''
     public missingTransmogRealmSearch = ''
 
-    public missingRecipeNameSearch = ''
-    public missingRecipeRealmSearch = ''
-    public missingRecipeCharacterId = 0
     public region = '0'
 
     public ignored: Record<string, Record<number, boolean>> = {}

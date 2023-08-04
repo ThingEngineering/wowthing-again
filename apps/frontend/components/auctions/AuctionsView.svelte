@@ -4,15 +4,14 @@
 
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { ItemQuality, Region, WeaponSubclass } from '@/enums'
+    import { ItemQuality, Profession, Region, WeaponSubclass } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
-    import MissingRecipes from './AuctionsMissingRecipes.svelte'
-    import MissingTransmog from './AuctionsMissingTransmog.svelte'
+    import MissingBigResults from './AuctionsMissingBigResults.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
@@ -39,6 +38,12 @@
         }
     }
 
+    const professionOptions: [number, string][] = Object.entries(Profession)
+        .filter(([key, value]) => !isNaN(parseInt(key)))
+        .map(([key, value]) => [parseInt(key), value] as [number, string])
+        .filter(([, value]) => ['Archaeology', 'Fishing', 'Herbalism', 'Mining', 'Skinning'].indexOf(value) === -1)
+    professionOptions.sort((a, b) => a[1].localeCompare(b[1]))
+
     const weaponOptions: [number, string][] = Object.entries(WeaponSubclass)
         .filter(([key, value]) => !isNaN(parseInt(key)) && value !== 'Thrown' && value !== 'FishingPole')
         .map(([key, value]) => [parseInt(key), value as string])
@@ -59,9 +64,9 @@
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
-        'missing-appearance-ids': MissingTransmog,
-        'missing-appearance-sources': MissingTransmog,
-        'missing-recipes': MissingRecipes,
+        'missing-appearance-ids': MissingBigResults,
+        'missing-appearance-sources': MissingBigResults,
+        'missing-recipes': MissingBigResults,
     }
 </script>
 
@@ -196,17 +201,41 @@
                     bind:value={$auctionState.missingRecipeRealmSearch}
                 />
             </div>
-
+            
             <div class="options-group">
-                Character:
-                <Select
-                    name="recipe_character_id"
-                    bind:selected={$auctionState.missingRecipeCharacterId}
-                    options={$userStore.characters.map((char) => [
-                        char.id,
-                        char.name
-                    ])}
+                Item type:
+                <RadioGroup
+                    bind:value={$auctionState.missingRecipeSearchType}
+                    name="recipe_search_type"
+                    options={[
+                        ['account', 'Account'],
+                        ['character', 'Character'],
+                    ]}
                 />
+
+                {#if $auctionState.missingRecipeSearchType === 'account'}
+                    <div class="options-group">
+                        Profession:
+                        <Select
+                            name="recipe_profession_id"
+                            bind:selected={$auctionState.missingRecipeProfessionId}
+                            options={professionOptions}
+                            width={"10rem"}
+                        />
+                    </div>
+                {:else}
+                    <div class="options-group">
+                        Character:
+                        <Select
+                            name="recipe_character_id"
+                            bind:selected={$auctionState.missingRecipeCharacterId}
+                            options={$userStore.characters.map((char) => [
+                                char.id,
+                                char.name
+                            ])}
+                        />
+                    </div>
+                {/if}
             </div>
         </div>
     {/if}
@@ -273,6 +302,9 @@
                             [2, 'Leather'],
                             [3, 'Mail'],
                             [4, 'Plate'],
+                            [5, 'Cosmetic'],
+                            [20, 'Cloak'],
+                            [21, 'Tabard'],
                         ]}
                     />
                 {:else if $auctionState.missingTransmogItemClass === 'weapon'}

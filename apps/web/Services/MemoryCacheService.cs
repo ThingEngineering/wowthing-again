@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
@@ -30,6 +31,39 @@ public class MemoryCacheService
         _memoryCache = memoryCache;
         _redis = redis;
         _userManager = userManager;
+    }
+
+    public async Task<Dictionary<int, long>> GetAuctionHouseUpdatedTimes()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.AuctionHouseUpdatedTimes,
+            cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+
+                string[] tableNames = _context.Database
+                    .SqlQuery<string>($@"
+SELECT  pgc.relname
+FROM    pg_catalog.pg_inherits pgi
+INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
+WHERE   pgi.inhparent = 'wow_auction'::regclass
+").ToArray();
+
+                var ret = new Dictionary<int, long>();
+                foreach (string tableName in tableNames)
+                {
+                    string[] nameParts = tableName.Split('_');
+                    int realmId = int.Parse(nameParts[2]);
+                    long timestamp = ((DateTimeOffset)(DateTime.ParseExact(
+                            nameParts[3],
+                            "yyyyMMddHHmmss",
+                            CultureInfo.InvariantCulture
+                        ))).ToUnixTimeSeconds();
+                    ret[realmId] = timestamp;
+                }
+
+                return Task.FromResult(ret);
+            });
     }
 
     public async Task<Dictionary<int, BackgroundImage>> GetBackgroundImages()

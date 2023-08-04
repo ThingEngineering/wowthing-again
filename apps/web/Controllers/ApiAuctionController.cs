@@ -14,6 +14,7 @@ using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
+using Wowthing.Web.Services;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Web.Controllers;
@@ -24,6 +25,7 @@ public class ApiAuctionController : Controller
     private readonly CacheService _cacheService;
     private readonly ILogger<ApiAuctionController> _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
@@ -31,12 +33,14 @@ public class ApiAuctionController : Controller
         CacheService cacheService,
         ILogger<ApiAuctionController> logger,
         JsonSerializerOptions jsonSerializerOptions,
+        MemoryCacheService memoryCacheService,
         UserManager<ApplicationUser> userManager,
         WowDbContext context)
     {
         _cacheService = cacheService;
         _logger = logger;
         _jsonSerializerOptions = jsonSerializerOptions;
+        _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _context = context;
     }
@@ -531,28 +535,29 @@ WHERE   tc.appearance_id IS NULL
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
 
-        await using var command = new NpgsqlCommand(MissingTransmogByAppearanceIdQuery.Sql, connection)
-        {
-            Parameters =
-            {
-                new() { Value = connectedRealmIds },
-                new() { Value = missingAppearanceIds },
-            }
-        };
-
-        await using var reader = await command.ExecuteReaderAsync();
         var auctions = new List<MissingTransmogByAppearanceIdQuery>();
-        while (await reader.ReadAsync())
+        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceIdQuery.Sql, connection)
+                     {
+                         Parameters =
+                         {
+                             new() { Value = connectedRealmIds },
+                             new() { Value = missingAppearanceIds },
+                         }
+                     })
         {
-            auctions.Add(new()
+            await using var reader = await command.ExecuteReaderAsync();
+            while (await reader.ReadAsync())
             {
-                ConnectedRealmId = reader.GetInt32(0),
-                AppearanceId = reader.GetInt32(1),
-                ItemId = reader.GetInt32(2),
-                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
-                BuyoutPrice = reader.GetInt64(4),
-                BonusIds = (int[])reader.GetValue(5),
-            });
+                auctions.Add(new()
+                {
+                    ConnectedRealmId = reader.GetInt32(0),
+                    AppearanceId = reader.GetInt32(1),
+                    ItemId = reader.GetInt32(2),
+                    TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
+                    BuyoutPrice = reader.GetInt64(4),
+                    BonusIds = (int[])reader.GetValue(5),
+                });
+            }
         }
 
         timer.AddPoint("Auctions");
@@ -569,7 +574,12 @@ WHERE   tc.appearance_id IS NULL
 
         timer.AddPoint("Grouping");
 
-        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+        var data = new
+        {
+            Auctions = grouped,
+            Updated = await _memoryCacheService.GetAuctionHouseUpdatedTimes(),
+        };
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);
 
@@ -647,31 +657,32 @@ WHERE   tc.appearance_source IS NULL
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
 
-        await using var command = new NpgsqlCommand(MissingTransmogByAppearanceSourceQuery.Sql, connection)
-        {
-            Parameters =
-            {
-                new() { Value = connectedRealmIds },
-                new() { Value = missingAppearanceSources },
-            }
-        };
-
-        await using var reader = await command.ExecuteReaderAsync();
-
-        timer.AddPoint("Query");
-
         var auctions = new List<MissingTransmogByAppearanceSourceQuery>();
-        while (await reader.ReadAsync())
+        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceSourceQuery.Sql, connection)
+                     {
+                         Parameters =
+                         {
+                             new() { Value = connectedRealmIds },
+                             new() { Value = missingAppearanceSources },
+                         }
+                     })
         {
-            auctions.Add(new()
+            await using var reader = await command.ExecuteReaderAsync();
+
+            timer.AddPoint("Query");
+
+            while (await reader.ReadAsync())
             {
-                ConnectedRealmId = reader.GetInt32(0),
-                AppearanceSource = reader.GetString(1),
-                ItemId = reader.GetInt32(2),
-                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
-                BuyoutPrice = reader.GetInt64(4),
-                BonusIds = (int[])reader.GetValue(5),
-            });
+                auctions.Add(new()
+                {
+                    ConnectedRealmId = reader.GetInt32(0),
+                    AppearanceSource = reader.GetString(1),
+                    ItemId = reader.GetInt32(2),
+                    TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(3),
+                    BuyoutPrice = reader.GetInt64(4),
+                    BonusIds = (int[])reader.GetValue(5),
+                });
+            }
         }
 
         timer.AddPoint("Load");
@@ -688,7 +699,12 @@ WHERE   tc.appearance_source IS NULL
 
         timer.AddPoint("Group");
 
-        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+        var data = new
+        {
+            Auctions = grouped,
+            Updated = await _memoryCacheService.GetAuctionHouseUpdatedTimes(),
+        };
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);
 
@@ -716,26 +732,68 @@ WHERE   tc.appearance_source IS NULL
 
         timer.AddPoint("User");
 
-        var character = await _context.PlayerCharacter
-            .Include(pc => pc.Professions)
-            .Where(pc => pc.Account.UserId == user.Id && pc.Id == form.CharacterId)
-            .FirstOrDefaultAsync();
-        if (character == null)
+        int[] connectedRealmIds;
+        var skillLineIds = new HashSet<int>();
+        var skillLineAbilityIds = new HashSet<int>();
+        if (form.CharacterId > 0)
         {
-            return NotFound();
+            var character = await _context.PlayerCharacter
+                .Include(pc => pc.Professions)
+                .Where(pc => pc.Account.UserId == user.Id && pc.Id == form.CharacterId)
+                .FirstOrDefaultAsync();
+            if (character == null)
+            {
+                return NotFound();
+            }
+
+            // Profession info
+            foreach (var (rootId, subProfessions) in character.Professions.Professions)
+            {
+                skillLineIds.Add(rootId);
+                foreach (var (subProfessionId, subProfession) in subProfessions)
+                {
+                    skillLineIds.Add(subProfessionId);
+                    skillLineAbilityIds.UnionWith(subProfession.KnownRecipes);
+                }
+            }
+
+            timer.AddPoint("Character");
+
+            var characterRealm = await _context.WowRealm.FirstAsync(wr => wr.Id == character.RealmId);
+
+            connectedRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => realm.Region == characterRealm.Region)
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
         }
+        else
+        {
+            // Always apply a region limit
+            connectedRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
 
-        var characterRealm = await _context.WowRealm.FirstAsync(wr => wr.Id == character.RealmId);
-
-        timer.AddPoint("Character");
-
-        // Always apply a region limit
-        int[] connectedRealmIds = await _context.WowRealm
-            .AsNoTracking()
-            .Where(realm => realm.Region == characterRealm.Region)
-            .Select(realm => realm.ConnectedRealmId)
-            .Distinct()
-            .ToArrayAsync();
+            var characterProfessions = await _context.PlayerCharacterProfessions
+                .Where(pcp => connectedRealmIds.Contains(pcp.Character.RealmId))
+                .ToArrayAsync();
+            foreach (var characterProfession in characterProfessions)
+            {
+                if (characterProfession.Professions.TryGetValue(form.ProfessionId, out var profession))
+                {
+                    skillLineIds.Add(form.ProfessionId);
+                    foreach (var (subProfessionId, subProfession) in profession)
+                    {
+                        skillLineIds.Add(subProfessionId);
+                        skillLineAbilityIds.UnionWith(subProfession.KnownRecipes);
+                    }
+                }
+            }
+        }
 
         if (!form.AllRealms)
         {
@@ -744,7 +802,7 @@ WHERE   tc.appearance_source IS NULL
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
                 .Include(pa => pa.Pets)
                 .ToArrayAsync();
-            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
             connectedRealmIds = connectedRealmIds
                 .Intersect(accountConnectedRealmIds)
@@ -753,26 +811,13 @@ WHERE   tc.appearance_source IS NULL
 
         timer.AddPoint("Realms");
 
-        // Profession info
-        var skillLineIds = new List<int>();
-        var skillLineAbilityIds = new List<int>();
-        foreach (var (rootId, subProfessions) in character.Professions.Professions)
-        {
-            skillLineIds.Add(rootId);
-            foreach (var (subProfessionId, subProfession) in subProfessions)
-            {
-                skillLineIds.Add(subProfessionId);
-                skillLineAbilityIds.AddRange(subProfession.KnownRecipes);
-            }
-        }
-
         // Missing recipes
         var missingRecipeItemIds = await _context.Database
             .SqlQuery<int>($@"
 SELECT  item_id
 FROM    wow_profession_recipe_item
-WHERE   skill_line_id = ANY({skillLineIds})
-        AND NOT skill_line_ability_id = ANY({skillLineAbilityIds})
+WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
+        AND NOT skill_line_ability_id = ANY({skillLineAbilityIds.ToArray()})
 ").ToArrayAsync();
 
         timer.AddPoint("MissingRecipes");
@@ -781,29 +826,29 @@ WHERE   skill_line_id = ANY({skillLineIds})
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
 
-        await using var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
-        {
-            Parameters =
-            {
-                new() { Value = connectedRealmIds },
-                new() { Value = missingRecipeItemIds },
-            },
-        };
-
-        await using var reader = await command.ExecuteReaderAsync();
-
-        timer.AddPoint("Query");
-
         var auctions = new List<MissingRecipeQuery>();
-        while (await reader.ReadAsync())
+        await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
+                     {
+                         Parameters =
+                         {
+                             new() { Value = connectedRealmIds },
+                             new() { Value = missingRecipeItemIds },
+                         },
+                     })
         {
-            auctions.Add(new()
+            await using var reader = await command.ExecuteReaderAsync();
+            timer.AddPoint("Query");
+
+            while (await reader.ReadAsync())
             {
-                ConnectedRealmId = reader.GetInt32(0),
-                ItemId = reader.GetInt32(1),
-                TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(2),
-                BuyoutPrice = reader.GetInt64(3)
-            });
+                auctions.Add(new()
+                {
+                    ConnectedRealmId = reader.GetInt32(0),
+                    ItemId = reader.GetInt32(1),
+                    TimeLeft = (WowAuctionTimeLeft)reader.GetInt16(2),
+                    BuyoutPrice = reader.GetInt64(3)
+                });
+            }
         }
 
         timer.AddPoint("Load");
@@ -820,7 +865,12 @@ WHERE   skill_line_id = ANY({skillLineIds})
 
         timer.AddPoint("Group");
 
-        string json = JsonSerializer.Serialize(grouped, _jsonSerializerOptions);
+        var data = new
+        {
+            Auctions = grouped,
+            Updated = await _memoryCacheService.GetAuctionHouseUpdatedTimes(),
+        };
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);
 
