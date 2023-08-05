@@ -600,7 +600,7 @@ public class UserUploadJob : JobBase
         }
 
         // Garrisons
-        character.AddonData.Garrisons = new();
+        character.AddonData.Garrisons ??= new();
         foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
         {
             var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
