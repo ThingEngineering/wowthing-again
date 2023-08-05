@@ -116,24 +116,11 @@ export default function getCharacterGear(
                 }
             }
 
-            // 241 = 8189-8202
-            // 240 = 8203-8216
-            // 246 = 8217-8230
-            // 242 = 8231-8244
-            // 243 = 8245-8258
-            // 245 = 8259-8272
-            // 244 = 8273-8286
             if (state.highlightUpgrades) {
-                // TODO fix for DF S2
-                // if (some(gear.equipped.bonusIds, (b) => b >= 8961 && b <= 8972)) {
-                //     gear.upgradeHas = Math.round((gear.equipped.itemLevel - 376) / 3.33)
-                //     gear.upgradeMax = 13
-
-                //     const score = character.mythicPlusSeasonScores[Constants.mythicPlusSeason] || 0
-                //     const maxUpgrade = getFirstMatch(ratingItemLevelUpgrade, score)
-
-                //     gear.missingUpgrade = (gear.upgradeHas < gear.upgradeMax) && gear.equipped.itemLevel < maxUpgrade
-                // }
+                for (const bonusId of gear.equipped.bonusIds) {
+                    const upgradeData = itemData.itemBonusToUpgrade[bonusId]
+                    gear.missingUpgrade = (upgradeData?.[0] > 0 && upgradeData[1] < upgradeData[2])
+                }
             }
         }
 
