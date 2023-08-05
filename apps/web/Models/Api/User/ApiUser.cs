@@ -3,19 +3,19 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Wow;
 
-namespace Wowthing.Web.Models;
+namespace Wowthing.Web.Models.Api.User;
 
-public class UserApi
+public class ApiUser
 {
     public DateTime? LastApiCheck { get; set; }
     public bool Public { get; init; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public Dictionary<int, UserApiAccount> Accounts { get; init; }
+    public Dictionary<int, ApiUserAccount> Accounts { get; init; }
 
     [JsonPropertyName("charactersRaw")]
-    public List<UserApiCharacter> Characters { get; init; }
-    public Dictionary<int, UserApiGuild> Guilds { get; set; }
+    public List<ApiUserCharacter> Characters { get; init; }
+    public Dictionary<int, ApiUserGuild> Guilds { get; set; }
 
     public List<int> GoldHistoryRealms { get; set; }
 

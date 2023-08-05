@@ -1,15 +1,15 @@
 ﻿using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 
-namespace Wowthing.Web.Models;
+namespace Wowthing.Web.Models.Api.User;
 
-public class UserApiGuild
+public class ApiUserGuild
 {
     public int Id { get; set; }
     public int RealmId { get; set; }
     public string Name { get; set; }
 
-    public UserApiGuild(
+    public ApiUserGuild(
         PlayerGuild guild,
         bool pub,
         ApplicationUserSettingsPrivacy privacy = null)

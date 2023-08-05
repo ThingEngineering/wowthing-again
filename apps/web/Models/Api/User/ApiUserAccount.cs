@@ -1,8 +1,8 @@
 ﻿using Wowthing.Lib.Models.Player;
 
-namespace Wowthing.Web.Models;
+namespace Wowthing.Web.Models.Api.User;
 
-public class UserApiAccount
+public class ApiUserAccount
 {
     public int Id { get; set; }
     public int Region { get; set; }
@@ -10,7 +10,7 @@ public class UserApiAccount
     public string Tag { get; set; }
     public bool Enabled { get; set; }
 
-    public UserApiAccount(PlayerAccount playerAccount)
+    public ApiUserAccount(PlayerAccount playerAccount)
     {
         Id = playerAccount.Id;
         AccountId = playerAccount.AccountId;

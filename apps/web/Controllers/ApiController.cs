@@ -13,6 +13,7 @@ using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
+using Wowthing.Web.Models.Api.User;
 using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
 
@@ -383,7 +384,7 @@ public class ApiController : Controller
 
         // Objects
         var characterObjects = characters
-            .Select(character => new UserApiCharacter(
+            .Select(character => new ApiUserCharacter(
                 character,
                 bagItems.GetValueOrDefault(character.Id),
                 currencyItems.GetValueOrDefault(character.Id),
@@ -393,7 +394,7 @@ public class ApiController : Controller
             .ToList();
 
         var guildObjects = guilds
-            .Select(guild => new UserApiGuild(guild, apiResult.Public, apiResult.Privacy))
+            .Select(guild => new ApiUserGuild(guild, apiResult.Public, apiResult.Privacy))
             .ToDictionary(guild => guild.Id);
 
         var petObjects = allPets
@@ -411,9 +412,9 @@ public class ApiController : Controller
         timer.AddPoint("Objects");
 
         // Build response
-        var apiData = new UserApi
+        var apiData = new ApiUser
         {
-            Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
+            Accounts = accounts.ToDictionary(k => k.Id, v => new ApiUserAccount(v)),
             Characters = characterObjects,
             Guilds = guildObjects,
 

@@ -4,9 +4,9 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Web.Converters;
 
-namespace Wowthing.Web.Models;
+namespace Wowthing.Web.Models.Api.User;
 
-public class UserApiCharacter
+public class ApiUserCharacter
 {
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
@@ -38,17 +38,17 @@ public class UserApiCharacter
     public WowGender Gender { get; set; }
     public WowMountSkill MountSkill { get; set; }
 
-    public UserApiCharacterConfiguration Configuration { get; set; }
+    public ApiUserCharacterConfiguration Configuration { get; set; }
 
     public Dictionary<int, int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
     public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
-    public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; }
+    public Dictionary<int, ApiUserCharacterEquippedItem> EquippedItems { get; }
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
-    public UserApiCharacterMythicPlus MythicPlus { get; }
+    public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
@@ -64,12 +64,12 @@ public class UserApiCharacter
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public UserApiCharacterShadowlands Shadowlands { get; set; }
+    public ApiUserCharacterShadowlands Shadowlands { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public UserApiCharacterWeekly Weekly { get; }
+    public ApiUserCharacterWeekly Weekly { get; }
 
-    public UserApiCharacter(
+    public ApiUserCharacter(
         PlayerCharacter character,
         PlayerCharacterItem[] bagItems,
         PlayerCharacterItem[] currencyItems,
@@ -128,7 +128,7 @@ public class UserApiCharacter
         Professions = character.Professions?.Professions;
         Specializations = character.Specializations?.Specializations;
 
-        Configuration = new UserApiCharacterConfiguration(character.Configuration);
+        Configuration = new ApiUserCharacterConfiguration(character.Configuration);
         Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
 
         Bags = bagItems
@@ -166,7 +166,7 @@ public class UserApiCharacter
             EquippedItems = character.EquippedItems.Items
                 .ToDictionary(
                     k => (int)k.Key,
-                    v => new UserApiCharacterEquippedItem(v.Value)
+                    v => new ApiUserCharacterEquippedItem(v.Value)
                 );
         }
         else
@@ -178,7 +178,7 @@ public class UserApiCharacter
         {
             foreach ((int slot, var equippedItem) in character.AddonData.EquippedItems)
             {
-                EquippedItems[slot] = new UserApiCharacterEquippedItem(equippedItem);
+                EquippedItems[slot] = new ApiUserCharacterEquippedItem(equippedItem);
             }
         }
 
@@ -199,7 +199,7 @@ public class UserApiCharacter
         {
             if (character.MythicPlus != null)
             {
-                MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons,
+                MythicPlus = new ApiUserCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons,
                     pub && privacy?.Anonymized == true);
             }
 
@@ -222,151 +222,13 @@ public class UserApiCharacter
         // Shadowlands
         if (character.Shadowlands != null)
         {
-            Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
+            Shadowlands = new ApiUserCharacterShadowlands(character.Shadowlands);
         }
 
         // Weekly
         if (character.Weekly != null)
         {
-            Weekly = new UserApiCharacterWeekly(character.Weekly, pub, privacy);
-        }
-    }
-}
-
-public class UserApiCharacterConfiguration
-{
-    public short BackgroundId { get; set; }
-    public short BackgroundBrightness { get; set; }
-    public short BackgroundSaturation { get; set; }
-
-    public UserApiCharacterConfiguration(PlayerCharacterConfiguration config)
-    {
-        BackgroundId = config?.BackgroundId ?? -1;
-        BackgroundBrightness = config?.BackgroundBrightness ?? -1;
-        BackgroundSaturation = config?.BackgroundSaturation ?? -1;
-    }
-}
-
-public class UserApiCharacterEquippedItem
-{
-    public int Context { get; set; }
-    public int CraftedQuality { get; set; }
-    public int ItemId { get; set; }
-    public int ItemLevel { get; set; }
-    public WowQuality Quality { get; set; }
-
-    public List<int> BonusIds { get; set; }
-    public List<int> EnchantmentIds { get; set; }
-    public List<int> GemIds { get; set; }
-
-    public UserApiCharacterEquippedItem(PlayerCharacterEquippedItem equippedItem)
-    {
-        Context = equippedItem.Context;
-        CraftedQuality = equippedItem.CraftedQuality;
-        ItemId = equippedItem.ItemId;
-        ItemLevel = equippedItem.ItemLevel;
-        Quality = equippedItem.Quality;
-
-        BonusIds = equippedItem.BonusIds;
-        EnchantmentIds = equippedItem.EnchantmentIds;
-        GemIds = equippedItem.GemIds;
-    }
-}
-
-public class UserApiCharacterMythicPlus
-{
-    public int CurrentPeriodId { get; }
-    public Dictionary<int, List<PlayerCharacterMythicPlusRun>> PeriodRuns { get; }
-    public Dictionary<int, Dictionary<int, List<PlayerCharacterMythicPlusRun>>> Seasons { get; }
-
-    public UserApiCharacterMythicPlus(PlayerCharacterMythicPlus mythicPlus, List<PlayerCharacterMythicPlusSeason> seasons, bool anon)
-    {
-        CurrentPeriodId = mythicPlus.CurrentPeriodId;
-        PeriodRuns = mythicPlus.PeriodRuns
-            .EmptyIfNull()
-            .GroupBy(k => k.DungeonId)
-            .ToDictionary(k => k.Key, v => v.ToList());
-        Seasons = seasons
-            .EmptyIfNull()
-            .ToDictionary(season => season.Season, season => season.Runs
-                .EmptyIfNull()
-                .GroupBy(run => run.DungeonId)
-                .ToDictionary(group => group.Key, group => group.OrderByDescending(r => r.Timed).ToList())
-            );
-
-        if (anon)
-        {
-            var allRuns = PeriodRuns.Values
-                .SelectMany(x => x)
-                .Concat(
-                    Seasons.Values
-                        .SelectMany(x => x.Values.SelectMany(y => y))
-                );
-
-            foreach (var run in allRuns)
-            {
-                run.Members = run.Members
-                    .EmptyIfNull()
-                    .Select(orig => new PlayerCharacterMythicPlusRunMember()
-                    {
-                        ItemLevel = orig.ItemLevel,
-                        Name = "SecretGoose",
-                        RealmId = 0,
-                        SpecializationId = orig.SpecializationId,
-                    })
-                    .ToList();
-            }
-        }
-    }
-}
-
-public class UserApiCharacterShadowlands
-{
-    public int CovenantId { get; }
-    public int RenownLevel { get; }
-    public int SoulbindId { get; }
-
-    public Dictionary<int, PlayerCharacterShadowlandsCovenant> Covenants { get; }
-    public List<int[]> Conduits { get; }
-
-    public UserApiCharacterShadowlands(PlayerCharacterShadowlands shadowlands)
-    {
-        CovenantId = shadowlands.CovenantId;
-        RenownLevel = shadowlands.RenownLevel;
-        SoulbindId = shadowlands.SoulbindId;
-
-        if (shadowlands.ConduitIds != null && shadowlands.ConduitRanks != null)
-        {
-            Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
-                .Select(z => new[] { z.First, z.Second }).ToList();
-        }
-        else
-        {
-            Conduits = new();
-        }
-
-        Covenants = shadowlands.Covenants;
-    }
-}
-
-public class UserApiCharacterWeekly
-{
-    public DateTime KeystoneScannedAt { get; set; }
-    public DateTime UghQuestsScannedAt { get; set; }
-
-    public int KeystoneDungeon { get; set; }
-    public int KeystoneLevel { get; set; }
-    public PlayerCharacterWeeklyVault Vault { get; set; }
-
-    public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy privacy)
-    {
-        Vault = weekly.Vault;
-
-        if (!pub || privacy?.PublicMythicPlus == true)
-        {
-            KeystoneDungeon = weekly.KeystoneDungeon;
-            KeystoneLevel = weekly.KeystoneLevel;
-            KeystoneScannedAt = weekly.KeystoneScannedAt;
+            Weekly = new ApiUserCharacterWeekly(character.Weekly, pub, privacy);
         }
     }
 }
