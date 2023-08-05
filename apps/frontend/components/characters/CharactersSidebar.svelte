@@ -74,5 +74,6 @@
     items={categories}
     width="14rem"
     noVisitRoot={true}
+    scrollable={true}
     {decorationFunc}
 />
