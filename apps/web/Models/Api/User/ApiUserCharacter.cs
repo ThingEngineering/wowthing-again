@@ -50,7 +50,10 @@ public class ApiUserCharacter
     public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
-    public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
+
+    [JsonPropertyName("rawMythicPlusWeeks")]
+    public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> MythicPlusWeeks { get; set; }
+    
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
     public int[] ProgressItems { get; set; }
@@ -206,8 +209,18 @@ public class ApiUserCharacter
 
             MythicPlusAddon = character.AddonData?.MythicPlus;
             MythicPlusSeasons = character.AddonData?.MythicPlusSeasons;
-            MythicPlusWeeks = character.AddonData?.MythicPlusWeeks;
-            RaiderIo = character.RaiderIo?.Seasons;
+
+            if (character.AddonData?.MythicPlusWeeks != null)
+            {
+                MythicPlusWeeks = character.AddonData.MythicPlusWeeks
+                    .ToDictionary(
+                        kvp => kvp.Key,
+                        kvp => kvp.Value
+                            .Select(run => new ApiUserCharacterMythicPlusRun(run))
+                            .ToList()
+                    );
+                RaiderIo = character.RaiderIo?.Seasons;
+            }
         }
 
         // Reputations

@@ -43,7 +43,6 @@ export class Character {
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
     mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
-    mythicPlusWeeks: Record<number, Array<CharacterMythicPlusAddonRun>>
     paragons: Record<number, CharacterReputationParagon>
     professionTraits: Record<number, Record<number, number>>
     progressItems: number[]
@@ -52,6 +51,9 @@ export class Character {
     shadowlands?: CharacterShadowlands
     specializationsRaw: Record<number, CharacterApiSpecialization>
     weekly?: CharacterWeekly
+
+    mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]>
+    rawMythicPlusWeeks: Record<number, CharacterMythicPlusAddonRunArray[]>
 
     // Calculated
     className: string
@@ -68,9 +70,19 @@ export class Character {
     reputationData: Record<string, CharacterReputation>
     specializations: Record<number, Record<number, number>>
 
+    initialize(): void {
+        this.mythicPlusWeeks = {}
+        for (const [week, runsArray] of Object.entries(this.rawMythicPlusWeeks)) {
+            this.mythicPlusWeeks[parseInt(week)] = runsArray
+                .map((runArray) => new CharacterMythicPlusAddonRun(...runArray))
+        }
+        this.rawMythicPlusWeeks = null
+    }
+
     get isMaxLevel(): boolean {
         return this.level === Constants.characterMaxLevel
     }
+
 }
 
 export class CharacterApiSpecialization {
@@ -170,12 +182,15 @@ export interface CharacterMythicPlusAddon {
     season: number
 }
 
-export interface CharacterMythicPlusAddonRun {
-    completed: boolean
-    level: number
-    mapId: number
-    score: number
+export class CharacterMythicPlusAddonRun {
+    constructor(
+        public mapId: number,
+        public level: number,
+        public score: number,
+        public completed: boolean
+    ) { }
 }
+export type CharacterMythicPlusAddonRunArray = ConstructorParameters<typeof CharacterMythicPlusAddonRun>
 
 export interface CharacterMythicPlusAddonMap {
     overallScore: number
