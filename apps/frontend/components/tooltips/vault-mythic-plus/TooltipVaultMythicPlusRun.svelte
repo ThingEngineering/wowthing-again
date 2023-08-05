@@ -1,6 +1,6 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon'
-    import { getVaultItemLevel } from '@/utils/mythic-plus'
+    import { getVaultItemLevel, getVaultQualityByItemLevel } from '@/utils/mythic-plus'
     import type { CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
 
     export let index: number
@@ -78,7 +78,7 @@
         {#if keyLevel}
             <td class="key-level">{keyLevel}</td>
             <td class="dungeon-name text-overflow">{dungeonName}</td>
-            <td class="item-level">{itemLevel}</td>
+            <td class="item-level quality{getVaultQualityByItemLevel(itemLevel)}">{itemLevel}</td>
         {:else if dungeonName}
             <td class="key-level">&nbsp;</td>
             <td class="dungeon-name">{dungeonName}</td>
