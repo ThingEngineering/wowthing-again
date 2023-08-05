@@ -69,6 +69,7 @@ public class PlayerCharacter
     public PlayerCharacterReputations Reputations { get; set; }
     public PlayerCharacterShadowlands Shadowlands { get; set; }
     public PlayerCharacterSpecializations Specializations { get; set; }
+    public PlayerCharacterStats Stats { get; set; }
     public PlayerCharacterTransmog Transmog { get; set; }
     public PlayerCharacterWeekly Weekly { get; set; }
 

@@ -150,6 +150,11 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterReputations);
         }
 
+        if (apiCharacter.StatisticsLink?.Href != null)
+        {
+            jobs.Add(JobType.CharacterStats);
+        }
+
         if (apiCharacter.SpecializationsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterSpecializations);
