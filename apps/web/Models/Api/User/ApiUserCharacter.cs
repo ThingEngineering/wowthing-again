@@ -2,27 +2,25 @@
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
+[System.Text.Json.Serialization.JsonConverter(typeof(ApiUserCharacterConverter))]
 public class ApiUserCharacter
 {
+    public int Id { get; }
+
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public int? AccountId { get; set; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public int? GuildId { get; set; }
-
+    public int AccountId { get; set; }
     public int ActiveSpecId { get; }
     public int AddonLevel { get; set; }
     public int AddonLevelXp { get; set; }
     public int ChromieTime { get; set; }
     public int ClassId { get; set; }
     public int EquippedItemLevel { get; set; }
-    public int Id { get; }
+    public int GuildId { get; set; }
     public int Level { get; set; }
     public int PlayedTotal { get; set; }
     public int RaceId { get; set; }
@@ -40,7 +38,6 @@ public class ApiUserCharacter
 
     public Dictionary<int, int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
-    public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, ApiUserCharacterEquippedItem> EquippedItems { get; }
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
@@ -49,28 +46,19 @@ public class ApiUserCharacter
     public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
-
-    [JsonPropertyName("rawMythicPlusWeeks")]
-    public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> MythicPlusWeeks { get; set; }
-
+    public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
     public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
-    public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, int> Reputations { get; } = new();
-
-    [JsonPropertyName("specializationsRaw")]
-    public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public ApiUserCharacterShadowlands Shadowlands { get; set; }
-
-    [JsonPropertyName("rawStatistics")]
-    public ApiUserCharacterStatistics Statistics { get; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public ApiUserCharacterWeekly Weekly { get; }
+
+    public List<PlayerCharacterAddonDataCurrency> RawCurrencies { get; }
+    public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> RawMythicPlusWeeks { get; set; }
+    public Dictionary<int, PlayerCharacterSpecializationsSpecialization> RawSpecializations { get; }
+    public ApiUserCharacterStatistics RawStatistics { get; }
 
     public ApiUserCharacter(
         PlayerCharacter character,
@@ -88,7 +76,7 @@ public class ApiUserCharacter
         EquippedItemLevel = character.EquippedItemLevel;
         Faction = character.Faction;
         Gender = character.Gender;
-        GuildId = character.GuildId;
+        GuildId = character.GuildId ?? 0;
         Id = character.Id;
         Level = character.Level;
         RaceId = character.RaceId;
@@ -105,7 +93,7 @@ public class ApiUserCharacter
 
         if (!pub || privacy?.PublicAccounts == true)
         {
-            AccountId = character.AccountId;
+            AccountId = character.AccountId ?? 0;
         }
 
         if (!pub)
@@ -128,7 +116,7 @@ public class ApiUserCharacter
         ProfessionTraits = character.AddonData?.ProfessionTraits;
 
         Professions = character.Professions?.Professions;
-        Specializations = character.Specializations?.Specializations;
+        RawSpecializations = character.Specializations?.Specializations;
 
         Configuration = new ApiUserCharacterConfiguration(character.Configuration);
         Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
@@ -151,7 +139,7 @@ public class ApiUserCharacter
         if (!pub || privacy?.PublicCurrencies == true)
         {
             var currencyValues = character.AddonData?.Currencies?.Values.ToList();
-            CurrenciesRaw = currencyValues.EmptyIfNull();
+            RawCurrencies = currencyValues.EmptyIfNull();
 
             CurrencyItems = currencyItems
                 .EmptyIfNull()
@@ -210,7 +198,7 @@ public class ApiUserCharacter
 
             if (character.AddonData?.MythicPlusWeeks != null)
             {
-                MythicPlusWeeks = character.AddonData.MythicPlusWeeks
+                RawMythicPlusWeeks = character.AddonData.MythicPlusWeeks
                     .ToDictionary(
                         kvp => kvp.Key,
                         kvp => kvp.Value
@@ -240,7 +228,7 @@ public class ApiUserCharacter
         // Stats
         if (character.Stats != null)
         {
-            Statistics = new ApiUserCharacterStatistics(character.Stats);
+            RawStatistics = new ApiUserCharacterStatistics(character.Stats);
         }
 
         // Weekly

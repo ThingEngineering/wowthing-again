@@ -1,7 +1,6 @@
 export * from './account'
 export * from './achievement-data'
 export * from './background-image'
-export * from './character'
 export * from './character-race'
 export * from './covenant'
 export * from './difficulty'
@@ -24,3 +23,5 @@ export * from './user-count'
 export * from './user-data'
 export * from './user-modified'
 export * from './zone-maps'
+
+export * from './character'
