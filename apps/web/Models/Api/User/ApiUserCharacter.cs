@@ -2,7 +2,6 @@
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
@@ -59,12 +58,14 @@ public class ApiUserCharacter
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, int> Reputations { get; } = new();
 
-    [JsonProperty("specializationsRaw")]
     [JsonPropertyName("specializationsRaw")]
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public ApiUserCharacterShadowlands Shadowlands { get; set; }
+
+    [JsonPropertyName("rawStatistics")]
+    public ApiUserCharacterStatistics Statistics { get; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public ApiUserCharacterWeekly Weekly { get; }
@@ -223,6 +224,12 @@ public class ApiUserCharacter
         if (character.Shadowlands != null)
         {
             Shadowlands = new ApiUserCharacterShadowlands(character.Shadowlands);
+        }
+
+        // Stats
+        if (character.Stats != null)
+        {
+            Statistics = new ApiUserCharacterStatistics(character.Stats);
         }
 
         // Weekly

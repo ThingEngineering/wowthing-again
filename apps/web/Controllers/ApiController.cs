@@ -233,6 +233,7 @@ public class ApiController : Controller
             .Include(c => c.Reputations)
             .Include(c => c.Shadowlands)
             .Include(c => c.Specializations)
+            .Include(c => c.Stats)
             .Include(c => c.Weekly);
 
         if (!apiResult.Public || apiResult.Privacy.PublicLockouts)
@@ -446,7 +447,6 @@ public class ApiController : Controller
                 .ToArray()
             ),
         };
-        //var json = JsonConvert.SerializeObject(apiData);
         var json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
 
         timer.AddPoint("Build", true);
