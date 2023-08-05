@@ -87,17 +87,10 @@
         }
 
         &.race-6,  // Tauren
-        &.race-28, // Highmountain Tauren
-        &.race-32  // Kul Tiran
-        {
-            --scale: 0.75;
-        }
-
-        &.race-2,  // Orc
-        &.race-36, // Mag'har Orc
         &.race-8,  // Troll
+        &.race-28, // Highmountain Tauren
         &.race-31, // Zandalari Troll
-        &.race-52  // Dracthyr
+        &.race-32  // Kul Tiran
         {
             --scale: 0.75;
         }
@@ -107,10 +100,16 @@
             --scale: 0.95;
         }
 
+        &.race-2,  // Orc
+        &.race-3,  // Dwarf
         &.race-4,  // Night Elf
         &.race-11, // Draenei
         &.race-27, // Nightborne
-        &.race-30  // Lightforged Draenei
+        &.race-30, // Lightforged Draenei
+        &.race-35, // Vulpera
+        &.race-36, // Mag'har Orc
+        &.race-52, // Dracthyr [A]
+        &.race-70  // Dracthyr [H]
         {
             --scale: 0.8;
         }
