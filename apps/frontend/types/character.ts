@@ -22,7 +22,6 @@ export class Character {
     isResting: boolean
     isWarMode: boolean
     level: number
-    mountSkill: number
     name: string
     playedTotal: number
     raceId: number

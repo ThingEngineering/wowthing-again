@@ -35,7 +35,6 @@ public class ApiUserCharacter
     public DateTime LastSeenAddon { get; set; }
     public WowFaction Faction { get; set; }
     public WowGender Gender { get; set; }
-    public WowMountSkill MountSkill { get; set; }
 
     public ApiUserCharacterConfiguration Configuration { get; set; }
 
@@ -53,7 +52,7 @@ public class ApiUserCharacter
 
     [JsonPropertyName("rawMythicPlusWeeks")]
     public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> MythicPlusWeeks { get; set; }
-    
+
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
     public int[] ProgressItems { get; set; }
@@ -92,7 +91,6 @@ public class ApiUserCharacter
         GuildId = character.GuildId;
         Id = character.Id;
         Level = character.Level;
-        MountSkill = character.MountSkill;
         RaceId = character.RaceId;
 
         if (pub && privacy?.Anonymized == true)

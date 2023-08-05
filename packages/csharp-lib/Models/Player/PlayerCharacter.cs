@@ -41,7 +41,6 @@ public class PlayerCharacter
     public int PlayedTotal { get; set; } = 0;
     public int RestedExperience { get; set; } = 0;
     public long Copper { get; set; } = 0;
-    public WowMountSkill MountSkill { get; set; } = 0;
 
     [ForeignKey("Guild")]
     public int? GuildId { get; set; }
