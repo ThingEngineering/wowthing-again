@@ -111,7 +111,7 @@ public class CharacterJob : JobBase
         if (apiCharacter.AchievementsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterAchievements);
-            jobs.Add(JobType.CharacterStatistics);
+            jobs.Add(JobType.CharacterAchievementStatistics);
         }
 
         if (apiCharacter.CollectionsLink?.Href != null)

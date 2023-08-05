@@ -17,7 +17,7 @@ public enum JobType
     CharacterSoulbinds,
     CharacterMedia,
     CharacterSpecializations,
-    CharacterStatistics,
+    CharacterAchievementStatistics,
     CharacterToys,
     CharacterHeirlooms,
     CharacterStats,

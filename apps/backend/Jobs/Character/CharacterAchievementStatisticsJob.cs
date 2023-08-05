@@ -6,7 +6,7 @@ using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Character;
 
-public class CharacterStatisticsJob : JobBase
+public class CharacterAchievementStatisticsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/achievements/statistics";
 
@@ -18,11 +18,11 @@ public class CharacterStatisticsJob : JobBase
         var timer = new JankTimer();
 
         // Fetch API data
-        ApiCharacterStatistics resultData;
+        ApiCharacterAchievementStatistics resultData;
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterStatistics>(uri, useLastModified: false, timer: timer);
+            var result = await GetJson<ApiCharacterAchievementStatistics>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -51,7 +51,7 @@ public class CharacterStatisticsJob : JobBase
         timer.AddPoint("Select");
 
         // Parse API data
-        List<ApiCharacterStatisticsStatistic> statistics = new();
+        List<ApiCharacterAchievementStatisticsStatistic> statistics = new();
         foreach (var dataCategory in resultData.Categories.EmptyIfNull())
         {
             RecurseCategory(statistics, dataCategory);
@@ -100,8 +100,8 @@ public class CharacterStatisticsJob : JobBase
     }
 
     private static void RecurseCategory(
-        List<ApiCharacterStatisticsStatistic> statistics,
-        ApiCharacterStatisticsCategory category
+        List<ApiCharacterAchievementStatisticsStatistic> statistics,
+        ApiCharacterAchievementStatisticsCategory category
     )
     {
         foreach (var subCategory in category.SubCategories.EmptyIfNull())
