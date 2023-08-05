@@ -33,7 +33,9 @@
                 await tick();
                 const link = document.getElementById('character-professions-subnav')
                     .querySelector('a:first-child')
-                replace(link.getAttribute('href').replace('#', ''))
+                if (link) {
+                    replace(link.getAttribute('href').replace('#', ''))
+                }
             }, 1)
             break $
         }
