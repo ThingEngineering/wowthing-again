@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Npgsql;
 using NpgsqlTypes;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
@@ -246,8 +247,9 @@ COPY wow_auction_cheapest_by_appearance_source (
 
             int? appearanceId = null;
             string appearanceSource = null;
-            if (_itemModifiedAppearances.ByItemIdAndModifier
-                .TryGetValue((auction.Item.Id, modifier), out var actualAppearanceId) && actualAppearanceId > 0)
+            if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id)
+                && _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier), out int actualAppearanceId)
+                && actualAppearanceId > 0)
             {
                 appearanceId = actualAppearanceId;
                 appearanceSource = $"{auction.Item.Id}_{modifier}";

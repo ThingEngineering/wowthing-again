@@ -749,6 +749,11 @@ WHERE   tc.appearance_source IS NULL
             // Profession info
             foreach (var (rootId, subProfessions) in character.Professions.Professions)
             {
+                if (form.ProfessionId > 0 && form.ProfessionId != rootId)
+                {
+                    continue;
+                }
+
                 skillLineIds.Add(rootId);
                 foreach (var (subProfessionId, subProfession) in subProfessions)
                 {
@@ -787,11 +792,17 @@ WHERE   tc.appearance_source IS NULL
             foreach (var characterProfession in characterProfessions)
             {
                 _logger.LogDebug("{0}", characterProfession.CharacterId);
-                if (characterProfession.Professions.TryGetValue(form.ProfessionId, out var profession))
+                foreach (var (rootId, subProfessions) in characterProfession.Professions)
                 {
-                    foreach (var (subProfessionId, subProfession) in profession)
+                    if (form.ProfessionId > 0 && form.ProfessionId != rootId)
                     {
-                        _logger.LogDebug("{0} {1} {2}", characterProfession.CharacterId, subProfessionId, string.Join(",", subProfession.KnownRecipes));
+                        continue;
+                    }
+
+                    skillLineIds.Add(rootId);
+
+                    foreach (var (subProfessionId, subProfession) in subProfessions)
+                    {
                         skillLineIds.Add(subProfessionId);
                         skillLineAbilityIds.UnionWith(subProfession.KnownRecipes);
                     }
