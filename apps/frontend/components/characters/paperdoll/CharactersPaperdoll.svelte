@@ -5,6 +5,7 @@
 
     import Configure from './CharactersPaperdollConfigure.svelte'
     import Equipped from './CharactersPaperdollEquipped.svelte'
+    import Stats from './CharactersPaperdollStats.svelte'
 
     export let character: Character
 
@@ -229,6 +230,8 @@
             {@html backgroundImage.attribution}
         </div>
     {/if}
+
+    <Stats {character} />
 </div>
 
 {#if !$userStore.public}

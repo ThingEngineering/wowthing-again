@@ -57,6 +57,7 @@
     .thing-container {
         min-width: 1100px;
         padding: 1rem;
+        position: relative;
         width: 1100px;
     }
 
