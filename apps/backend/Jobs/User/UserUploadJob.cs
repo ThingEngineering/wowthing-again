@@ -286,7 +286,6 @@ public class UserUploadJob : JobBase
             character.Copper = characterData.Copper;
             character.IsResting = characterData.IsResting;
             character.IsWarMode = characterData.IsWarMode;
-            character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
             character.PlayedTotal = characterData.PlayedTotal;
             character.RestedExperience = characterData.RestedXp;
 
