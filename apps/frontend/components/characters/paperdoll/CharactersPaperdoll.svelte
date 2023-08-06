@@ -148,14 +148,14 @@
         gap: 0.8rem;
 
         &.left {
-            left: 1.5rem;
+            left: 1rem;
         }
         &.right {
-            right: 1.5rem;
+            right: 1rem;
         }
     }
     .weapon {
-        bottom: 2rem;
+        bottom: 1rem;
         position: absolute;
 
         &.left {
