@@ -15,6 +15,7 @@
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
+    import { expansionOrder } from '@/data/expansion';
 
     export let params: MultiSlugParams
 
@@ -37,6 +38,9 @@
             ])
         }
     }
+
+    const expansionOptions: [number, string][] = expansionOrder
+        .map((expansion) => [expansion.id, expansion.name])
 
     const professionOptions: [number, string][] = Object.entries(Profession)
         .filter(([key, value]) => !isNaN(parseInt(key)))
@@ -238,7 +242,22 @@
                     options={
                         [
                             [-1, '- All -'],
-                            ...professionOptions
+                            ...professionOptions,
+                        ]
+                    }
+                />
+            </div>
+
+            <div class="options-group">
+                Expansion:
+                <Select
+                    name="recipe_expansion"
+                    width={'12.5rem'}
+                    bind:selected={$auctionState.missingRecipeExpansion}
+                    options={
+                        [
+                            [-1, '- All -'],
+                            ...expansionOptions,
                         ]
                     }
                 />
@@ -322,6 +341,20 @@
                 {/if}
             </div>
 
+            <div class="options-group">
+                Expansion:
+                <Select
+                    name="transmog_expansion"
+                    width={'12.5rem'}
+                    bind:selected={$auctionState.missingTransmogExpansion}
+                    options={
+                        [
+                            [-1, '- All -'],
+                            ...expansionOptions,
+                        ]
+                    }
+                />
+            </div>
         </div>
     {/if}
 

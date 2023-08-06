@@ -82,6 +82,7 @@
     .covenant {
         display: flex;
         justify-content: space-between;
+        padding: 0 1rem;
     }
     .left {
         display: flex;

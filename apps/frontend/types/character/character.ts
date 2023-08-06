@@ -22,6 +22,15 @@ import type { CharacterReputation, CharacterReputationParagon } from './reputati
 import type { CharacterShadowlands } from './shadowlands'
 import type { CharacterSpecializationRaw } from './specialization'
 import type { CharacterWeekly } from './weekly'
+import {
+    CharacterStatistics,
+    CharacterStatisticBasic,
+    CharacterStatisticMisc,
+    CharacterStatisticRating,
+    type CharacterStatisticBasicArray,
+    type CharacterStatisticMiscArray,
+    type CharacterStatisticRatingArray
+} from './statistics'
 
 
 export class Character {
@@ -40,6 +49,7 @@ export class Character {
     public currencies: Record<number, CharacterCurrency> = {}
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
     public specializations: Record<number, Record<number, number>> = {}
+    public statistics: CharacterStatistics = new CharacterStatistics()
 
     constructor(
         public id: number,
@@ -90,7 +100,11 @@ export class Character {
         rawCurrencies: CharacterCurrencyArray[],
         rawMythicPlusWeeks: Record<number, CharacterMythicPlusAddonRunArray[]>,
         rawSpecializations: Record<number, CharacterSpecializationRaw>,
-        rawStatistics: []
+        rawStatistics: [
+            CharacterStatisticBasicArray[],
+            CharacterStatisticMiscArray[],
+            CharacterStatisticRatingArray[]
+        ]
     )
     {
         for (const rawCurrency of (rawCurrencies || [])) {
@@ -109,6 +123,25 @@ export class Character {
                 specData[tierId] = spellId
             }
             this.specializations[specializationId] = specData
+        }
+
+        if (rawStatistics) {
+            for (const basicArray of rawStatistics[0]) {
+                const obj = new CharacterStatisticBasic(...basicArray)
+                this.statistics.basic[obj.type] = obj
+            }
+
+            for (const miscArray of rawStatistics[1]) {
+                const obj = new CharacterStatisticMisc(...miscArray)
+                this.statistics.misc[obj.type] = obj
+            }
+
+            for (const ratingArray of rawStatistics[2]) {
+                const obj = new CharacterStatisticRating(...ratingArray)
+                this.statistics.rating[obj.type] = obj
+            }
+
+            console.log(this.statistics)
         }
     }
 

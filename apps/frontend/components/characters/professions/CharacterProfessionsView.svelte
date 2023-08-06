@@ -85,7 +85,6 @@
     .professions {
         align-items: flex-start;
         display: flex;
-        margin-left: calc(-1rem - 1px);
     }
 </style>
 

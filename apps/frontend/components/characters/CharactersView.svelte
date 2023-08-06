@@ -56,7 +56,7 @@
 <style lang="scss">
     .thing-container {
         min-width: 1100px;
-        padding: 1rem;
+        position: relative;
         width: 1100px;
     }
 
@@ -74,11 +74,9 @@
     }
     nav {
         background: $highlight-background;
+        border-right-width: 0;
         display: flex;
-        margin-bottom: 1rem;
-        margin-left: calc(-1rem + -1px);
         padding: 0;
-        width: calc(100% + 2rem + 2px);
 
         a {
             border-right: 1px solid $border-color;
@@ -91,27 +89,36 @@
             }
         }
     }
+    .character-info {
+        padding: 0.5rem;
+
+        p {
+            margin: 0;
+        }
+    }
 </style>
 
 {#if character}
     <div class="thing-container border">
-        <h2>
-            {character.name}
+        <div class="character-info">
+            <h2>
+                {character.name}
 
-            {#if character.guildId}
-                <span class="guild-name">&lt;{$userStore.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
-            {/if}
+                {#if character.guildId}
+                    <span class="guild-name">&lt;{$userStore.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
+                {/if}
 
-            <span>{Region[character.realm.region]}-{character.realm.name}</span>
-        </h2>
+                <span>{Region[character.realm.region]}-{character.realm.name}</span>
+            </h2>
 
-        <p>
-            Level {character.level}
-            {Gender[character.gender]}
-            {character.raceName}
-            {character.specializationName}
-            {character.className}
-        </p>
+            <p>
+                Level {character.level}
+                {Gender[character.gender]}
+                {character.raceName}
+                {character.specializationName}
+                {character.className}
+            </p>
+        </div>
 
         {#key `${params.slug1}--${params.slug2}`}
             <nav class="border">

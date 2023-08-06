@@ -44,8 +44,8 @@
     .subnav {
         background: transparent;
         margin-bottom: 1rem;
-        margin-left: calc(-1rem + -1px);
-        width: calc(100% + 2rem);
+        margin-top: 1rem;
+        width: calc(100%);
     }
     .profession-links {
         display: flex;

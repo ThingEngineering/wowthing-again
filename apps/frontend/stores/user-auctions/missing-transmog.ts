@@ -107,8 +107,12 @@ export class UserAuctionMissingTransmogDataStore {
             ) {
                 return false
             }
-            
+
             const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
+
+            const matchesExpansion = auctionState.missingTransmogExpansion === -1
+                || item.expansion === auctionState.missingTransmogExpansion 
+            
             const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
             const matchesRealm = staticData.connectedRealms[thing.auctions[0].connectedRealmId]
                 .realmNames
@@ -141,7 +145,7 @@ export class UserAuctionMissingTransmogDataStore {
                 }
             }
 
-            return meetsMinQuality && matchesName && matchesRealm && matchesArmor && matchesWeapon
+            return meetsMinQuality && matchesExpansion && matchesName && matchesRealm && matchesArmor && matchesWeapon
         })
 
         return [things, updated]

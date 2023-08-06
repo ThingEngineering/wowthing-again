@@ -95,13 +95,16 @@ export class UserAuctionMissingRecipeDataStore {
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
 
+            const matchesExpansion = auctionState.missingRecipeExpansion === -1
+                || item.expansion === auctionState.missingRecipeExpansion 
+
             const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
             const matchesRealm = staticData.connectedRealms[thing.auctions[0].connectedRealmId]
                 .realmNames
                 .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
                 .length > 0
 
-            return matchesName && matchesRealm
+            return matchesExpansion && matchesName && matchesRealm
         })
 
         return [things, updated]

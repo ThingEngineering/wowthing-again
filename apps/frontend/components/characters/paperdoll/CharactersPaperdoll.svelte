@@ -5,6 +5,7 @@
 
     import Configure from './CharactersPaperdollConfigure.svelte'
     import Equipped from './CharactersPaperdollEquipped.svelte'
+    import Stats from './CharactersPaperdollStats.svelte'
 
     export let character: Character
 
@@ -67,9 +68,8 @@
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
         height: 750px;
-        margin: -1rem;
         position: relative;
-        width: calc(100% + 2rem);
+        width: 100%;
 
         &::before {
             background-image: var(--background-image);
@@ -148,14 +148,14 @@
         gap: 0.8rem;
 
         &.left {
-            left: 1.5rem;
+            left: 1rem;
         }
         &.right {
-            right: 1.5rem;
+            right: 1rem;
         }
     }
     .weapon {
-        bottom: 2rem;
+        bottom: 1rem;
         position: absolute;
 
         &.left {
@@ -229,6 +229,8 @@
             {@html backgroundImage.attribution}
         </div>
     {/if}
+
+    <Stats {character} />
 </div>
 
 {#if !$userStore.public}
