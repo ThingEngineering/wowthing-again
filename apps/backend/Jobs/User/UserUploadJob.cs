@@ -825,6 +825,7 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
+        entry.Property(ad => ad.Garrisons).IsModified = true;
         entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
         entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
     }
