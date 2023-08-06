@@ -76,6 +76,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
     public DbSet<PlayerCharacterSpecializations> PlayerCharacterSpecializations { get; set; }
     public DbSet<PlayerCharacterStatistics> PlayerCharacterStatistics { get; set; }
+    public DbSet<PlayerCharacterStats> PlayerCharacterStats { get; set; }
     public DbSet<PlayerCharacterTransmog> PlayerCharacterTransmog { get; set; }
     public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 

@@ -87,6 +87,10 @@ public class ApiCharacter
     [JsonPropertyName("specializations")]
     public ApiObnoxiousHref SpecializationsLink { get; set; }
 
+    [JsonProperty("statistics")]
+    [JsonPropertyName("statistics")]
+    public ApiObnoxiousHref StatisticsLink { get; set; }
+
     [JsonProperty("titles")]
     [JsonPropertyName("titles")]
     public ApiObnoxiousHref TitlesLink { get; set; }

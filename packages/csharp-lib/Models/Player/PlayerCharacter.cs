@@ -41,7 +41,6 @@ public class PlayerCharacter
     public int PlayedTotal { get; set; } = 0;
     public int RestedExperience { get; set; } = 0;
     public long Copper { get; set; } = 0;
-    public WowMountSkill MountSkill { get; set; } = 0;
 
     [ForeignKey("Guild")]
     public int? GuildId { get; set; }
@@ -69,6 +68,7 @@ public class PlayerCharacter
     public PlayerCharacterReputations Reputations { get; set; }
     public PlayerCharacterShadowlands Shadowlands { get; set; }
     public PlayerCharacterSpecializations Specializations { get; set; }
+    public PlayerCharacterStats Stats { get; set; }
     public PlayerCharacterTransmog Transmog { get; set; }
     public PlayerCharacterWeekly Weekly { get; set; }
 

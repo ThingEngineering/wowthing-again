@@ -11,7 +11,6 @@ import { slotOrder } from '@/data/inventory-slot'
 import { staticStore } from '@/stores'
 import {
     Character,
-    CharacterCurrency,
     CharacterMythicPlusRunMember,
     UserDataCurrentPeriod,
     UserDataPet,
@@ -87,38 +86,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             userData.petsRaw = null
         }
 
-        if (userData.charactersRaw !== null) {
-            userData.characters = userData.charactersRaw
-                .map((char) => Object.assign(new Character(), char))
-            userData.charactersRaw = null
-        }
-
         // Characters
         userData.characterMap = {}
-        for (const character of userData.characters) {
+        userData.characters = []
+        for (const charArray of (userData.charactersRaw || [])) {
+            const character = new Character(...charArray)
+            userData.characters.push(character)
             userData.characterMap[character.id] = character
-
-            if (character.currenciesRaw) {
-                character.currencies = {}
-                for (const rawCurrency of character.currenciesRaw) {
-                    const obj = new CharacterCurrency(...rawCurrency)
-                    character.currencies[obj.id] = obj
-                }
-                character.currenciesRaw = null
-            }
-
-            if (character.specializationsRaw) {
-                character.specializations = {}
-                for (const specializationId in character.specializationsRaw) {
-                    const specData: Record<number, number> = {}
-                    for (const [tierId, , spellId] of character.specializationsRaw[specializationId].talents) {
-                        specData[tierId] = spellId
-                    }
-                    character.specializations[specializationId] = specData
-                }
-                character.specializationsRaw = null
-            }
         }
+        userData.charactersRaw = null
 
         // Temporary until static data loads
         userData.allRegions = [1, 2, 3, 4]

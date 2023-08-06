@@ -17,9 +17,10 @@ public enum JobType
     CharacterSoulbinds,
     CharacterMedia,
     CharacterSpecializations,
-    CharacterStatistics,
+    CharacterAchievementStatistics,
     CharacterToys,
     CharacterHeirlooms,
+    CharacterStats,
 
     DataConnectedRealmIndex = 204,
     DataConnectedRealm = 205,

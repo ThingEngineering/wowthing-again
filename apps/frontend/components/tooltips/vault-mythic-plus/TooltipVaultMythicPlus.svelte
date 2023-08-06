@@ -3,6 +3,7 @@
 
     import { keyVaultItemLevel } from '@/data/dungeon'
     import { timeStore, userStore } from '@/stores'
+    import { getVaultQualityByItemLevel } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
 
     import Run from './TooltipVaultMythicPlusRun.svelte'
@@ -62,15 +63,18 @@
         </table>
 
         {#if improve.length > 0}
+            {@const useImprove = improve.slice(0, 3)}
             <table
                 class="table-striped border-left"
-                class:border-bottom={runs.length > 1}
+                class:border-bottom={runs.length > 1 || useImprove.length < 3}
             >
                 <tbody>
-                    {#each improve.slice(0, 3) as [levelRange, itemLevel]}
+                    {#each useImprove as [levelRange, itemLevel]}
                         <tr>
                             <td class="level-range">{levelRange}</td>
-                            <td>{itemLevel}</td>
+                            <td
+                                class="quality{getVaultQualityByItemLevel(itemLevel)}"
+                            >{itemLevel}</td>
                         </tr>
                     {/each}
                 </tbody>

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;

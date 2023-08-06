@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 
 import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
-import type { Character } from './character'
+import type { Character, CharacterArray } from './character'
 import type { InstanceDifficulty } from './dungeon'
 import type { ItemQuality } from '../enums'
 import type { Guild } from './guild'
@@ -15,8 +15,7 @@ export interface UserData {
     public: boolean
 
     accounts: Record<number, Account>
-    characters: Character[]
-    charactersRaw: Character[]
+    charactersRaw: CharacterArray[]
     guilds: Record<number, Guild>
     goldHistoryRealms: number[]
     heirlooms: Record<number, number>
@@ -43,6 +42,7 @@ export interface UserData {
     allRegions: number[]
     backgroundList: BackgroundImage[]
     characterMap: Record<number, Character>
+    characters: Character[]
     homeLockouts: InstanceDifficulty[]
 
     hasMount: Record<number, boolean>

@@ -111,7 +111,7 @@ public class CharacterJob : JobBase
         if (apiCharacter.AchievementsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterAchievements);
-            jobs.Add(JobType.CharacterStatistics);
+            jobs.Add(JobType.CharacterAchievementStatistics);
         }
 
         if (apiCharacter.CollectionsLink?.Href != null)
@@ -148,6 +148,11 @@ public class CharacterJob : JobBase
         if (apiCharacter.ReputationsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterReputations);
+        }
+
+        if (apiCharacter.StatisticsLink?.Href != null)
+        {
+            jobs.Add(JobType.CharacterStats);
         }
 
         if (apiCharacter.SpecializationsLink?.Href != null)

@@ -286,7 +286,6 @@ public class UserUploadJob : JobBase
             character.Copper = characterData.Copper;
             character.IsResting = characterData.IsResting;
             character.IsWarMode = characterData.IsWarMode;
-            character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
             character.PlayedTotal = characterData.PlayedTotal;
             character.RestedExperience = characterData.RestedXp;
 
@@ -600,7 +599,7 @@ public class UserUploadJob : JobBase
         }
 
         // Garrisons
-        character.AddonData.Garrisons = new();
+        character.AddonData.Garrisons ??= new();
         foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
         {
             var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
@@ -826,6 +825,7 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
+        entry.Property(ad => ad.Garrisons).IsModified = true;
         entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
         entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
     }
