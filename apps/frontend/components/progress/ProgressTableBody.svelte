@@ -19,6 +19,10 @@
 
         border-left: 1px solid $border-color;
         text-align: right;
+
+        &.status-fail {
+            text-align: center;
+        }
     }
     .has-icon {
         @include cell-width(3.7rem, $maxWidth: $width-progress-max);
