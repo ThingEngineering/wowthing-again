@@ -110,118 +110,124 @@
 }
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
-    <Paginate
-        items={(things || [])}
-        perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
-        {page}
-        let:paginated
-    >
-        <div class="wrapper">
-            {#each paginated as item}
-                {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
-                {@const itemId = auctions[0].itemId}
-                <table
-                    class="table table-striped"
-                >
-                    <thead>
-                        <tr>
-                            <th class="item text-overflow" colspan="3">
-                                <div class="flex-wrapper">
-                                    <WowheadLink
-                                        type={'item'}
-                                        id={itemId}
-                                        extraParams={{
-                                            bonus: (auctions[0].bonusIds || []).join(':')
+    {#if things.length > 0}
+        <Paginate
+            items={(things || [])}
+            perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
+            {page}
+            let:paginated
+        >
+            <div class="wrapper">
+                {#each paginated as item}
+                    {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
+                    {@const itemId = auctions[0].itemId}
+                    <table
+                        class="table table-striped"
+                    >
+                        <thead>
+                            <tr>
+                                <th class="item text-overflow" colspan="3">
+                                    <div class="flex-wrapper">
+                                        <WowheadLink
+                                            type={'item'}
+                                            id={itemId}
+                                            extraParams={{
+                                                bonus: (auctions[0].bonusIds || []).join(':')
+                                            }}
+                                        >
+                                            <div class="flex-wrapper">
+                                                <WowthingImage
+                                                    name="item/{itemId}"
+                                                    size={20}
+                                                    border={1}
+                                                />
+
+                                                <ParsedText
+                                                    cls="text-overflow"
+                                                    text={'{' + `item:${itemId}` + '}'}
+                                                />
+                                            </div>
+                                        </WowheadLink>
+
+                                        <!-- svelte-ignore a11y-click-events-have-key-events -->
+                                        <span
+                                            class="clipboard"
+                                            use:tippy={"Copy to clipboard"}
+                                            on:click={() => navigator.clipboard.writeText($itemStore.items[itemId].name)}
+                                        >
+                                            <IconifyIcon
+                                                icon={iconLibrary.mdiClipboardPlusOutline}
+                                                scale={'0.9'}
+                                            />
+                                        </span>
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each auctions as auction}
+                                {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const ageInMinutes = Math.floor(
+                                    $timeStore.diff(
+                                        DateTime.fromSeconds(updated[auction.connectedRealmId])
+                                    ).toMillis() / 1000 / 60
+                                )}
+                                <tr>
+                                    <td
+                                        class="realm text-overflow"
+                                        use:tippy={{
+                                            allowHTML: true,
+                                            content: `
+    ${connectedRealm.realmNames.join(' / ')}
+    <br><br>
+    Data is ${ageInMinutes} minute(s) old
+    ${ageInMinutes >= 60 ? '- refresh!' : ''}
+    `
                                         }}
                                     >
-                                        <div class="flex-wrapper">
-                                            <WowthingImage
-                                                name="item/{itemId}"
-                                                size={20}
-                                                border={1}
-                                            />
-
-                                            <ParsedText
-                                                cls="text-overflow"
-                                                text={'{' + `item:${itemId}` + '}'}
-                                            />
-                                        </div>
-                                    </WowheadLink>
-
-                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
-                                    <span
-                                        class="clipboard"
-                                        use:tippy={"Copy to clipboard"}
-                                        on:click={() => navigator.clipboard.writeText($itemStore.items[itemId].name)}
+                                        <code>[{Region[connectedRealm.region]}]</code>
+                                        <span
+                                            class:age-1={ageInMinutes < 20}
+                                            class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}
+                                            class:age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                            class:age-4={ageInMinutes >= 60}
+                                        >
+                                            {connectedRealmName(auction.connectedRealmId)}
+                                        </span>
+                                    </td>
+                                    <td class="price">
+                                        {#if auction.buyoutPrice < 10000}
+                                            &lt;1 g
+                                        {:else}
+                                            {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                        {/if}
+                                    </td>
+                                    <td
+                                        class="time-left"
+                                        class:status-fail={auction.timeLeft === 0}
+                                        class:status-shrug={auction.timeLeft === 1}
+                                        class:status-success={auction.timeLeft > 1}
                                     >
-                                        <IconifyIcon
-                                            icon={iconLibrary.mdiClipboardPlusOutline}
-                                            scale={'0.9'}
-                                        />
-                                    </span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each auctions as auction}
-                            {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
-                            {@const ageInMinutes = Math.floor(
-                                $timeStore.diff(
-                                    DateTime.fromSeconds(updated[auction.connectedRealmId])
-                                ).toMillis() / 1000 / 60
-                            )}
-                            <tr>
-                                <td
-                                    class="realm text-overflow"
-                                    use:tippy={{
-                                        allowHTML: true,
-                                        content: `
-${connectedRealm.realmNames.join(' / ')}
-<br><br>
-Data is ${ageInMinutes} minute(s) old
-${ageInMinutes >= 60 ? '- refresh!' : ''}
-`
-                                    }}
-                                >
-                                    <code>[{Region[connectedRealm.region]}]</code>
-                                    <span
-                                        class:age-1={ageInMinutes < 20}
-                                        class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}
-                                        class:age-3={ageInMinutes >= 40 && ageInMinutes < 60}
-                                        class:age-4={ageInMinutes >= 60}
-                                    >
-                                        {connectedRealmName(auction.connectedRealmId)}
-                                    </span>
-                                </td>
-                                <td class="price">
-                                    {#if auction.buyoutPrice < 10000}
-                                        &lt;1 g
-                                    {:else}
-                                        {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
-                                    {/if}
-                                </td>
-                                <td
-                                    class="time-left"
-                                    class:status-fail={auction.timeLeft === 0}
-                                    class:status-shrug={auction.timeLeft === 1}
-                                    class:status-success={auction.timeLeft > 1}
-                                >
-                                    {timeLeft[auction.timeLeft]}
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
-            {/each}
-        </div>
+                                        {timeLeft[auction.timeLeft]}
+                                    </td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    </table>
+                {/each}
+            </div>
 
-        <div
-            slot="bar-end"
-            class="total-gold"
-            use:tippy={"Total gold required to buy the cheapest of each item"}
-        >
-            {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+            <div
+                slot="bar-end"
+                class="total-gold"
+                use:tippy={"Total gold required to buy the cheapest of each item"}
+            >
+                {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+            </div>
+        </Paginate>
+    {:else}
+        <div class="wrapper">
+            <div>No results!</div>
         </div>
-    </Paginate>
+    {/if}
 {/await}

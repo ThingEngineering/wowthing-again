@@ -19,11 +19,13 @@ export class AuctionState {
     public missingPetsMaxLevel = false
 
     public missingRecipeCharacterId = 0
+    public missingRecipeExpansion = -1
     public missingRecipeProfessionId = 0
     public missingRecipeNameSearch = ''
     public missingRecipeRealmSearch = ''
     public missingRecipeSearchType: 'account' | 'character' = 'character'
 
+    public missingTransmogExpansion = -1
     public missingTransmogItemClass = 'any'
     public missingTransmogItemSubclassArmor = -1
     public missingTransmogItemSubclassWeapon = -1
