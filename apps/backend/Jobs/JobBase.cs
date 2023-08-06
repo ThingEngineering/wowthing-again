@@ -132,8 +132,7 @@ public abstract class JobBase : IJob, IDisposable
             return new JobHttpResult<T> { NotModified = true };
         }
 
-        var jsonString = Encoding.UTF8.GetString(result.Data);
-        if (uri.ToString().Contains("/statistics")) Logger.Debug("JSON: {json}", jsonString);
+        string jsonString = Encoding.UTF8.GetString(result.Data);
         var obj = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString, JsonSerializerOptions);
         timer.AddPoint("JSON");
 
