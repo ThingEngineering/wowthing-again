@@ -20,8 +20,9 @@ export class UserAuctionMissingRecipeDataStore {
 
         const cacheKey = [
             auctionState.missingRecipeSearchType,
+            auctionState.missingRecipeProfessionId,
             auctionState.missingRecipeSearchType === 'account'
-                ? auctionState.missingRecipeProfessionId
+                ? 0
                 : auctionState.missingRecipeCharacterId,
             auctionState.missingRecipeSearchType === 'account'
                 ? auctionState.region
@@ -36,14 +37,11 @@ export class UserAuctionMissingRecipeDataStore {
             const data = {
                 allRealms: auctionState.allRealms,
                 characterId: 0,
-                professionId: 0,
+                professionId: auctionState.missingRecipeProfessionId,
                 region: parseInt(auctionState.region) || 0,
             }
 
-            if (auctionState.missingRecipeSearchType === 'account') {
-                data.professionId = auctionState.missingRecipeProfessionId
-            }
-            else {
+            if (auctionState.missingRecipeSearchType === 'character') {
                 data.characterId = auctionState.missingRecipeCharacterId
             }
 

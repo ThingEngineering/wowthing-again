@@ -212,30 +212,36 @@
                         ['character', 'Character'],
                     ]}
                 />
+            </div>
 
-                {#if $auctionState.missingRecipeSearchType === 'account'}
-                    <div class="options-group">
-                        Profession:
-                        <Select
-                            name="recipe_profession_id"
-                            bind:selected={$auctionState.missingRecipeProfessionId}
-                            options={professionOptions}
-                            width={"10rem"}
-                        />
-                    </div>
-                {:else}
-                    <div class="options-group">
-                        Character:
-                        <Select
-                            name="recipe_character_id"
-                            bind:selected={$auctionState.missingRecipeCharacterId}
-                            options={$userStore.characters.map((char) => [
-                                char.id,
-                                char.name
-                            ])}
-                        />
-                    </div>
-                {/if}
+            {#if $auctionState.missingRecipeSearchType === 'character'}
+                <div class="options-group">
+                    Character:
+                    <Select
+                        name="recipe_character_id"
+                        width={'9.5rem'}
+                        bind:selected={$auctionState.missingRecipeCharacterId}
+                        options={$userStore.characters.map((char) => [
+                            char.id,
+                            char.name
+                        ])}
+                    />
+                </div>
+            {/if}
+
+            <div class="options-group">
+                Profession:
+                <Select
+                    name="recipe_profession_id"
+                    width={'9.5rem'}
+                    bind:selected={$auctionState.missingRecipeProfessionId}
+                    options={
+                        [
+                            [-1, '- All -'],
+                            ...professionOptions
+                        ]
+                    }
+                />
             </div>
         </div>
     {/if}
