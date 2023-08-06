@@ -1,3 +1,6 @@
+import type { CharacterEquippedItem } from './equipped-item'
+
+
 export interface CharacterGear {
     equipped: CharacterEquippedItem
     highlight: boolean

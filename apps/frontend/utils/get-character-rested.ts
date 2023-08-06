@@ -1,6 +1,5 @@
-import type { DateTime } from 'luxon'
+import { DateTime } from 'luxon'
 
-import parseApiTime from './parse-api-time'
 import { Constants } from '@/data/constants'
 import { experiencePerLevel } from '@/data/experience'
 import type { Character } from '@/types'
@@ -11,9 +10,9 @@ export function getCharacterRested(now: DateTime, character: Character): [string
     if (character.level === Constants.characterMaxLevel) {
         return ['']
     }
-    if (character.lastSeenAddon.startsWith('0001-')) {
-        return ['???']
-    }
+    // if (character.lastSeenAddon.startsWith('0001-')) {
+    //     return ['???']
+    // }
 
     // Pandas rest twice as fast and go up to 300%??
     const isPandaren = character.raceId === 24 || character.raceId === 25 || character.raceId === 26
@@ -27,7 +26,7 @@ export function getCharacterRested(now: DateTime, character: Character): [string
 
     // Calculate earned since last seen
     if (restedPercent < maxPercent) {
-        const lastSeen = parseApiTime(character.lastSeenAddon)
+        const lastSeen = DateTime.fromSeconds(character.lastSeenAddon)
         const restedEarned = (now.diff(lastSeen).toMillis() / 1000) / Constants.restedDuration * maxPercent * earnRate
         restedPercent = Math.min(maxPercent, restedPercent + restedEarned)
     }
