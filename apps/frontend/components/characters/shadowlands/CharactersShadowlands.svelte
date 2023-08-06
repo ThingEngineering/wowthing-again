@@ -31,8 +31,8 @@
 
 <style lang="scss">
     .subnav {
-        margin: 0 -1rem 1.5rem calc(-1rem - 1px);
-        width: calc(100% + 2rem + 1px);
+        margin: 1rem 0 1rem 0;
+        width: 100%;
     }
     .end {
         border-bottom: 1px solid $border-color;

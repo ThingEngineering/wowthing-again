@@ -68,9 +68,8 @@
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
         height: 750px;
-        margin: -1rem;
         position: relative;
-        width: calc(100% + 2rem);
+        width: 100%;
 
         &::before {
             background-image: var(--background-image);
