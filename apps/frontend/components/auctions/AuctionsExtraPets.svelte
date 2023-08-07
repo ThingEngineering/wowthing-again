@@ -93,6 +93,7 @@
     >
         <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as thing}
+                {@const auctions = $auctionState.limitToBestRealms ? thing.auctions.slice(0, 5) : thing.auctions}
                 <div class="pet-wrapper">
                     <table class="table table-striped">
                         <thead>
@@ -113,7 +114,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {#each thing.auctions as auction}
+                            {#each auctions as auction}
                                 <tr>
                                     <td class="realm text-overflow">
                                         {connectedRealmName(auction.connectedRealmId)}
