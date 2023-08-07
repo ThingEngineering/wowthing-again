@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Player;
 
 [Index(nameof(GuildId), nameof(ItemId))]
+[System.Text.Json.Serialization.JsonConverter(typeof(PlayerGuildItemConverter))]
 public class PlayerGuildItem : IPlayerItem
 {
     // Fields are ordered from largest to smallest for database table size reasons. Postgres doesn't go

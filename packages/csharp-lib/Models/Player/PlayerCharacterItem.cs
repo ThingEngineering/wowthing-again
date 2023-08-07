@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player;
 
 [Index(nameof(CharacterId), nameof(ItemId), nameof(Location))]
 [Index(nameof(CharacterId), nameof(Slot))]
+[System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterItemConverter))]
 public class PlayerCharacterItem : IPlayerItem
 {
     // Fields are ordered from largest to smallest for database table size reasons. Postgres doesn't go

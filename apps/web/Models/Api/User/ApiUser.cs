@@ -15,7 +15,9 @@ public class ApiUser
 
     [JsonPropertyName("charactersRaw")]
     public List<ApiUserCharacter> Characters { get; init; }
-    public Dictionary<int, ApiUserGuild> Guilds { get; set; }
+
+    [JsonPropertyName("guildsRaw")]
+    public List<ApiUserGuild> Guilds { get; set; }
 
     public List<int> GoldHistoryRealms { get; set; }
 

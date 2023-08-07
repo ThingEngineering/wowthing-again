@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Web.Converters;
@@ -37,11 +36,12 @@ public class ApiUserCharacter
     public ApiUserCharacterConfiguration Configuration { get; set; }
 
     public Dictionary<int, int> Auras { get; set; }
-    public Dictionary<short, int> Bags { get; set; }
-    public Dictionary<int, int> CurrencyItems { get; set; }
+    // public Dictionary<short, int> Bags { get; set; }
+    // public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, ApiUserCharacterEquippedItem> EquippedItems { get; }
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
+
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
     public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
@@ -49,22 +49,21 @@ public class ApiUserCharacter
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
-    public int[] ProgressItems { get; set; }
+    // public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
     public Dictionary<int, int> Reputations { get; } = new();
     public ApiUserCharacterShadowlands Shadowlands { get; set; }
     public ApiUserCharacterWeekly Weekly { get; }
 
     public List<PlayerCharacterAddonDataCurrency> RawCurrencies { get; }
+    public PlayerCharacterItem[] RawItems { get; set; }
     public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> RawMythicPlusWeeks { get; set; }
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> RawSpecializations { get; }
     public ApiUserCharacterStatistics RawStatistics { get; }
 
     public ApiUserCharacter(
         PlayerCharacter character,
-        PlayerCharacterItem[] bagItems,
-        PlayerCharacterItem[] currencyItems,
-        PlayerCharacterItem[] progressItems,
+        PlayerCharacterItem[] items,
         bool pub = false,
         ApplicationUserSettingsPrivacy privacy = null
     )
@@ -121,34 +120,35 @@ public class ApiUserCharacter
         Configuration = new ApiUserCharacterConfiguration(character.Configuration);
         Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
 
-        Bags = bagItems
-            .EmptyIfNull()
-            .GroupBy(bi => bi.BagId)
-            .ToDictionary(
-                group => group.Key,
-                group => group.First().ItemId
-            );
-
-        ProgressItems = progressItems
-            .EmptyIfNull()
-            .Select(pi => pi.ItemId)
-            .Distinct()
-            .ToArray();
-
-        // Currencies
-        if (!pub || privacy?.PublicCurrencies == true)
-        {
-            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
-            RawCurrencies = currencyValues.EmptyIfNull();
-
-            CurrencyItems = currencyItems
-                .EmptyIfNull()
-                .GroupBy(ci => ci.ItemId)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.Sum(ci => ci.Count)
-                );
-        }
+        RawItems = items;
+        // Bags = bagItems
+        //     .EmptyIfNull()
+        //     .GroupBy(bi => bi.BagId)
+        //     .ToDictionary(
+        //         group => group.Key,
+        //         group => group.First().ItemId
+        //     );
+        //
+        // ProgressItems = progressItems
+        //     .EmptyIfNull()
+        //     .Select(pi => pi.ItemId)
+        //     .Distinct()
+        //     .ToArray();
+        //
+        // // Currencies
+        // if (!pub || privacy?.PublicCurrencies == true)
+        // {
+        //     var currencyValues = character.AddonData?.Currencies?.Values.ToList();
+        //     RawCurrencies = currencyValues.EmptyIfNull();
+        //
+        //     CurrencyItems = currencyItems
+        //         .EmptyIfNull()
+        //         .GroupBy(ci => ci.ItemId)
+        //         .ToDictionary(
+        //             group => group.Key,
+        //             group => group.Sum(ci => ci.Count)
+        //         );
+        // }
 
         // Equipped Items
         if (character.EquippedItems?.Items != null)
