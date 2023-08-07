@@ -15,8 +15,6 @@
             break $
         }
 
-        console.log(character.statistics)
-
         let maxValue = 0
         for (const testType of [StatType.Agility, StatType.Intellect, StatType.Strength]) {
             const testValue = character.statistics.basic[testType]?.effective ?? 0
