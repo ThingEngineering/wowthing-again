@@ -228,6 +228,7 @@ COPY wow_auction_cheapest_by_appearance_source (
         foreach (var auction in dataAuctions)
         {
             short modifier = 0;
+            int priority = 999;
             foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
             {
                 if (!_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
@@ -239,8 +240,12 @@ COPY wow_auction_cheapest_by_appearance_source (
                 {
                     if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
                     {
-                        modifier = (short)bonus[1];
-                        break;
+                        int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
+                        if (priority < bonusPriority)
+                        {
+                            modifier = (short)bonus[1];
+                            priority = bonusPriority;
+                        }
                     }
                 }
             }
