@@ -14,7 +14,7 @@ type MangledAuctionType = Partial<Omit<UserAuctionDataAuction, 'bidPrice' | 'buy
     & Pick<UserAuctionDataAuction, 'bidPrice' | 'buyoutPrice'>
 
 export type UserAuctionEntry = {
-    id: number,
+    id: string,
     name: string,
     auctions: MangledAuctionType[]
 }

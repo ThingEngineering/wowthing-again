@@ -102,9 +102,9 @@ export class ItemSearchState {
                 item.guildBanks = sortBy(
                     newGuildBanks,
                     (guild) => [
-                        userData.guilds[guild.guildId].realm.region,
-                        userData.guilds[guild.guildId].realm.name,
-                        userData.guilds[guild.guildId].name,
+                        userData.guildMap[guild.guildId].realm.region,
+                        userData.guildMap[guild.guildId].realm.name,
+                        userData.guildMap[guild.guildId].name,
                         guild.tab,
                         guild.slot,
                     ]

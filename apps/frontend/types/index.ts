@@ -25,3 +25,4 @@ export * from './user-modified'
 export * from './zone-maps'
 
 export * from './character'
+export * from './guild'

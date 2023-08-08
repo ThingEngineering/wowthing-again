@@ -1,6 +1,5 @@
 import { Constants } from '@/data/constants'
 import type { Faction } from '@/enums'
-
 import type { StaticDataRealm } from '@/types/data/static'
 import type { Guild } from '@/types/guild'
 
@@ -8,6 +7,7 @@ import type { CharacterConfiguration } from './configuration'
 import { CharacterCurrency, type CharacterCurrencyArray } from './currency'
 import type { CharacterEquippedItem } from './equipped-item'
 import type { CharacterGarrison } from './garrison'
+import { CharacterItem, type CharacterItemArray } from './item'
 import type { CharacterLockout } from './lockout'
 import {
     CharacterMythicPlusAddonRun,
@@ -21,7 +21,6 @@ import type { CharacterRaiderIoSeason } from './raider-io-season'
 import type { CharacterReputation, CharacterReputationParagon } from './reputation'
 import type { CharacterShadowlands } from './shadowlands'
 import type { CharacterSpecializationRaw } from './specialization'
-import type { CharacterWeekly } from './weekly'
 import {
     CharacterStatistics,
     CharacterStatisticBasic,
@@ -31,9 +30,12 @@ import {
     type CharacterStatisticMiscArray,
     type CharacterStatisticRatingArray
 } from './statistics'
+import type { CharacterWeekly } from './weekly'
+
+import type { ContainsItems, HasNameAndRealm } from '../shared'
 
 
-export class Character {
+export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
     public className: string
     public raceName: string
@@ -46,7 +48,12 @@ export class Character {
     public realm: StaticDataRealm
     public reputationData: Record<string, CharacterReputation>
 
+    public bags: Record<number, number> = {}
     public currencies: Record<number, CharacterCurrency> = {}
+    public itemsByAppearanceId: Record<number, CharacterItem[]> = {}
+    public itemsByAppearanceSource: Record<string, CharacterItem[]> = {}
+    public itemsById: Record<number, CharacterItem[]> = {}
+    public itemsByLocation: Record<number, CharacterItem[]> = {}
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
@@ -79,8 +86,7 @@ export class Character {
         public configuration: CharacterConfiguration,
 
         public auras: Record<number, number>,
-        public bags: Record<number, number>,
-        public currencyItems: Record<number, number>,
+        // public currencyItems: Record<number, number>,
         public equippedItems: Record<number, CharacterEquippedItem>,
         public garrisons: Record<number, CharacterGarrison>,
         public garrisonTrees: Record<number, Record<number, number[]>>,
@@ -91,13 +97,14 @@ export class Character {
         public paragons: Record<number, CharacterReputationParagon>,
         public professions: Record<number, Record<number, CharacterProfession>>,
         public professionTraits: Record<number, Record<number, number>>,
-        public progressItems: number[],
+        // public progressItems: number[],
         public raiderIo: Record<number, CharacterRaiderIoSeason>,
         public reputations: Record<number, number>,
         public shadowlands: CharacterShadowlands,
         public weekly: CharacterWeekly,
 
         rawCurrencies: CharacterCurrencyArray[],
+        rawItems: CharacterItemArray[],
         rawMythicPlusWeeks: Record<number, CharacterMythicPlusAddonRunArray[]>,
         rawSpecializations: Record<number, CharacterSpecializationRaw>,
         rawStatistics: [
@@ -112,6 +119,17 @@ export class Character {
             this.currencies[obj.id] = obj
         }
 
+        for (const rawItem of (rawItems || [])) {
+            const obj = new CharacterItem(...rawItem) 
+            if (obj.slot === 0) {
+                this.bags[obj.bagId] = obj.itemId
+            }
+            else {
+                (this.itemsByLocation[obj.location] ||= []).push(obj)
+            }
+        }
+        // console.log(this.itemsByLocation)
+
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {
             this.mythicPlusWeeks[parseInt(week)] = runsArray
                 .map((runArray) => new CharacterMythicPlusAddonRun(...runArray))
@@ -125,7 +143,7 @@ export class Character {
             this.specializations[specializationId] = specData
         }
 
-        if (rawStatistics) {
+        if (rawStatistics?.length === 3) {
             for (const basicArray of rawStatistics[0]) {
                 const obj = new CharacterStatisticBasic(...basicArray)
                 this.statistics.basic[obj.type] = obj
@@ -140,8 +158,6 @@ export class Character {
                 const obj = new CharacterStatisticRating(...ratingArray)
                 this.statistics.rating[obj.type] = obj
             }
-
-            console.log(this.statistics)
         }
     }
 

@@ -4,21 +4,37 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore, timeStore } from '@/stores'
+    import { itemStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import tippy from '@/utils/tippy'
+    import tippy, { tippyComponent } from '@/utils/tippy'
+    import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let page: number
     export let slug: string
+
+    type HasItems = [HasNameAndRealm, UserItem[]][]
+
+    function userHasItem(item: UserAuctionEntry): HasItems {
+        if (slug === 'missing-appearance-ids') {
+            return $userStore.itemsByAppearanceId[parseInt(item.id)] || []
+        }
+        else if (slug === 'missing-appearance-sources') {
+            return $userStore.itemsByAppearanceSource[item.id] || []
+        }
+        else {
+            return $userStore.itemsById[parseInt(item.id)] || []
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -34,6 +50,10 @@
         display: inline-block;
         margin-bottom: 0.5rem;
         width: 23.5rem;
+
+        &.faded {
+            opacity: 0.6;
+        }
     }
     th {
         background-color: $highlight-background;
@@ -60,9 +80,15 @@
             text-align: left;
         }
     }
-    .clipboard {
-        --image-margin-top: -6px;
+    .icons {
+        --image-margin-top: -5px;
 
+        margin-left: auto;
+    }
+    .already-have {
+        color: $colour-fail;
+    }
+    .clipboard {
         cursor: pointer;
         margin-right: -2px;
     }
@@ -121,8 +147,10 @@
                 {#each paginated as item}
                     {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
+                    {@const hasItems = userHasItem(item)}
                     <table
                         class="table table-striped"
+                        class:faded={hasItems.length > 0}
                     >
                         <thead>
                             <tr>
@@ -149,16 +177,35 @@
                                             </div>
                                         </WowheadLink>
 
-                                        <!-- svelte-ignore a11y-click-events-have-key-events -->
-                                        <span
-                                            class="clipboard"
-                                            use:tippy={"Copy to clipboard"}
-                                            on:click={() => navigator.clipboard.writeText($itemStore.items[itemId].name)}
-                                        >
-                                            <IconifyIcon
-                                                icon={iconLibrary.mdiClipboardPlusOutline}
-                                                scale={'0.9'}
-                                            />
+                                        <span class="icons">
+                                            {#if hasItems?.length > 0}
+                                                <span
+                                                    class="already-have"
+                                                    use:tippyComponent={{
+                                                        component: TooltipAlreadyHave,
+                                                        props: {
+                                                            hasItems,
+                                                        },
+                                                    }}
+                                                >
+                                                    <IconifyIcon
+                                                        icon={iconLibrary.mdiAlertOutline}
+                                                        scale={'0.9'}
+                                                    />
+                                                </span>
+                                            {:else}
+                                                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                                                <span
+                                                    class="clipboard"
+                                                    use:tippy={"Copy to clipboard"}
+                                                    on:click={() => navigator.clipboard.writeText($itemStore.items[itemId].name)}
+                                                >
+                                                    <IconifyIcon
+                                                        icon={iconLibrary.mdiClipboardPlusOutline}
+                                                        scale={'0.9'}
+                                                    />
+                                                </span>
+                                            {/if}
                                         </span>
                                     </div>
                                 </th>

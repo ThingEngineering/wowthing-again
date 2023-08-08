@@ -8,15 +8,16 @@ import { userModifiedStore } from './user-modified'
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
-import { staticStore } from '@/stores'
+import { itemStore, staticStore } from '@/stores'
 import {
     Character,
     CharacterMythicPlusRunMember,
+    Guild,
     UserDataCurrentPeriod,
     UserDataPet,
     WritableFancyStore,
 } from '@/types'
-import { InventorySlot, TypedArray } from '@/enums'
+import { InventorySlot, ItemBonusType, TypedArray } from '@/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import { getGenderedName } from '@/utils/get-gendered-name'
 import getItemLevelQuality from '@/utils/get-item-level-quality'
@@ -30,7 +31,9 @@ import type {
     Settings,
     UserData,
 } from '@/types'
+import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
+import type { ContainsItems, UserItem } from '@/types/shared'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -96,6 +99,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
         userData.charactersRaw = null
 
+        // Guilds
+        userData.guildMap = {}
+        for (const guildArray of (userData.guildsRaw || [])) {
+            const guild = new Guild(...guildArray)
+            userData.guildMap[guild.id] = guild
+        }
+
         // Temporary until static data loads
         userData.allRegions = [1, 2, 3, 4]
 
@@ -108,15 +118,33 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     ): void {
         console.time('UserDataStore.setup')
 
+        const itemData = get(itemStore)
         const staticData = get(staticStore)
         
         // Initialize characters
+        userData.itemsByAppearanceId = {}
+        userData.itemsByAppearanceSource = {}
+        userData.itemsById = {}
+
         const allLockouts: Record<string, boolean> = {}
         for (const character of userData.characters) {
-            this.initializeCharacter(staticData, character)
+            this.initializeCharacter(itemData, staticData, character)
 
             for (const key of Object.keys(character.lockouts || {})) {
                 allLockouts[key] = true
+            }
+
+            for (const [appearanceId, items] of Object.entries(character.itemsByAppearanceId)) {
+                (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= [])
+                    .push([character, items]);
+            }
+            for (const [appearanceSource, items] of Object.entries(character.itemsByAppearanceSource)) {
+                (userData.itemsByAppearanceSource[appearanceSource] ||= [])
+                    .push([character, items]);
+            }
+            for (const [itemId, items] of Object.entries(character.itemsById)) {
+                (userData.itemsById[parseInt(itemId)] ||= [])
+                    .push([character, items]);
             }
         }
 
@@ -129,8 +157,23 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         )
 
         // Initialize guilds
-        for (const guild of Object.values(userData.guilds)) {
+        for (const guild of Object.values(userData.guildMap)) {
+            this.initializeGuild(itemData, guild)
+
             guild.realm = staticData.realms[guild.realmId] || staticData.realms[0]
+
+            for (const [appearanceId, items] of Object.entries(guild.itemsByAppearanceId)) {
+                (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= [])
+                    .push([guild, items]);
+            }
+            for (const [appearanceSource, items] of Object.entries(guild.itemsByAppearanceSource)) {
+                (userData.itemsByAppearanceSource[appearanceSource] ||= [])
+                    .push([guild, items]);
+            }
+            for (const [itemId, items] of Object.entries(guild.itemsById)) {
+                (userData.itemsById[parseInt(itemId)] ||= [])
+                    .push([guild, items]);
+            }
         }
 
         // Pre-calculate lockouts
@@ -206,7 +249,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('UserDataStore.setup')
     }
 
-    private initializeCharacter(staticData: StaticData, character: Character): void {
+    private initializeCharacter(itemData: ItemData, staticData: StaticData, character: Character): void {
         // names
         character.className = getGenderedName(
             staticData.characterClasses[character.classId].name,
@@ -227,7 +270,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         character.realm = staticData.realms[character.realmId] || staticData.realms[0]
         
         // guild
-        character.guild = this.value.guilds[character.guildId]
+        character.guild = this.value.guildMap[character.guildId]
 
         // item levels
         if (Object.keys(character.equippedItems).length > 0) {
@@ -339,6 +382,84 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
     
             character.reputationData[category.slug] = catData
+        }
+
+        // item appearance data
+        for (const characterItems of Object.values(character.itemsByLocation)) {
+            for (const characterItem of characterItems) {
+                (character.itemsById[characterItem.itemId] ||= [])
+                    .push(characterItem);
+
+                const item = itemData.items[characterItem.itemId]
+                if (Object.values(item?.appearances || {}).length === 0) {
+                    continue
+                }
+
+                this.setAppearanceData(itemData, character, characterItem, item)
+            }
+        }
+
+        // console.log(character.realm.name, character.name, character.itemsByAppearanceId, character.itemsByAppearanceSource)
+    }
+
+    private initializeGuild(
+        itemData: ItemData,
+        guild: Guild
+    ): void {
+        // item appearance data
+        for (const guildItem of guild.items) {
+            (guild.itemsById[guildItem.itemId] ||= [])
+                .push(guildItem);
+
+            const item = itemData.items[guildItem.itemId]
+            if (Object.values(item?.appearances || {}).length === 0) {
+                continue
+            }
+
+            this.setAppearanceData(itemData, guild, guildItem, item)
+        }
+    }
+
+    private setAppearanceData(
+        itemData: ItemData,
+        userContainer: ContainsItems,
+        userItem: UserItem,
+        item: ItemDataItem
+    ): void {
+        let modifier = 0
+        let priority = 999
+        if (userItem.bonusIds.length > 0) {
+            for (const bonusId of userItem.bonusIds) {
+                const itemBonus = itemData.itemBonuses[bonusId]
+                if (!(itemBonus?.bonuses?.length > 0)) {
+                    continue
+                }
+
+                for (const [bonusType, ...bonusValues] of itemBonus.bonuses) {
+                    if (bonusType === ItemBonusType.SetItemAppearanceModifier) {
+                        const bonusPriority = bonusValues[1] || 0
+                        if (bonusPriority < priority) {
+                            modifier = bonusValues[0]
+                            priority = bonusPriority
+                        }
+                    }
+                }
+            }
+        }
+
+        userItem.appearanceId = item.appearances[modifier]?.appearanceId
+        if (userItem.appearanceId === undefined && modifier > 0) {
+            modifier = 0
+            userItem.appearanceId = item.appearances[modifier]?.appearanceId
+        }
+        userItem.appearanceModifier = modifier
+        userItem.appearanceSource = `${userItem.itemId}_${modifier}`
+        
+        if (userItem.appearanceId !== undefined) {
+            (userContainer.itemsByAppearanceId[userItem.appearanceId] ||= [])
+                .push(userItem);
+            (userContainer.itemsByAppearanceSource[userItem.appearanceSource] ||= [])
+                .push(userItem);
         }
     }
 

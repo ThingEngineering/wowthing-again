@@ -1,6 +1,6 @@
 import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types'
-import { ItemDataItem, type ItemData } from '@/types/data/item'
+import { ItemDataItem, type ItemData, DataItemBonus } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 
 
@@ -30,6 +30,13 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             }
         }
         data.rawItems = null
+
+        data.itemBonuses = {}
+        for (const itemBonusArray of data.rawItemBonuses) {
+            const obj = new DataItemBonus(...itemBonusArray)
+            data.itemBonuses[obj.id] = obj
+        }
+        data.rawItemBonuses = null
 
         data.appearanceToItems = {}
         for (const [appearanceId, itemIds] of appearanceIds.entries())

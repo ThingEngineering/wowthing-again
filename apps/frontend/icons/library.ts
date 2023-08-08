@@ -71,6 +71,7 @@ export { default as icSharpMoreTime } from '@iconify/icons-ic/sharp-more-time'
 
 export { default as mdiAccountGroupOutline } from '@iconify/icons-mdi/account-group-outline'
 export { default as mdiAccountStarOutline } from '@iconify/icons-mdi/account-star-outline'
+export { default as mdiAlertOutline } from '@iconify/icons-mdi/alert-outline'
 export { default as mdiAutoFix } from '@iconify/icons-mdi/auto-fix'
 export { default as mdiBank } from '@iconify/icons-mdi/bank'
 export { default as mdiCart } from '@iconify/icons-mdi/cart'
