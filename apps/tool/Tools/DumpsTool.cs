@@ -888,11 +888,11 @@ public class DumpsTool
                         dumpItemBonus.Value0,
                     };
 
-                    if (dumpItemBonus.Value2 > 0 || dumpItemBonus.Value1 > 0)
+                    if (dumpItemBonus.Value2 != 0 || dumpItemBonus.Value1 != 0)
                     {
                         bonusList.Add(dumpItemBonus.Value1);
                     }
-                    if (dumpItemBonus.Value2 > 0)
+                    if (dumpItemBonus.Value2 != 0)
                     {
                         bonusList.Add(dumpItemBonus.Value2);
                     }
