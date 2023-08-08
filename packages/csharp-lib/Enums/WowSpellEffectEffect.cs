@@ -3,8 +3,7 @@
 public enum WowSpellEffectEffect
 {
     CompleteQuest = 16,
+    LearnSpell = 36,
     LearnTransmogSet = 255,
     LearnTransmogIllusion = 276,
-
-    LearnSpell = 100006,
 }

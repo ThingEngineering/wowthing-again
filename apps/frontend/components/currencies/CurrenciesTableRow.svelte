@@ -38,7 +38,7 @@
             }
         }
         else {
-            const characterItemCount = character.currencyItems?.[itemId] || 0
+            const characterItemCount = character.getItemCount(itemId)
             const name = $itemStore.items[itemId]?.name || `Item #${itemId}`
             
             amount = toNiceNumber(characterItemCount)

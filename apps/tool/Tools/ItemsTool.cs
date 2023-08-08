@@ -8,6 +8,7 @@ namespace Wowthing.Tool.Tools;
 public class ItemsTool
 {
     private readonly JankTimer _timer = new();
+    private Dictionary<int, WowItemBonus> _itemBonusMap;
 
     public async Task Run(params string[] data)
     {
@@ -19,6 +20,9 @@ public class ItemsTool
         var items = await context.WowItem
             .AsNoTracking()
             .ToArrayAsync();
+
+        _itemBonusMap = await context.WowItemBonus
+            .ToDictionaryAsync(wib => wib.Id);
 
         var modifiedAppearances = await context.WowItemModifiedAppearance
             .AsNoTracking()
@@ -46,6 +50,7 @@ public class ItemsTool
         var cacheData = new RedisItems
         {
             ItemBonusListGroups = listGroups,
+            RawItemBonuses = _itemBonusMap.Values.ToArray(),
         };
         string? cacheHash = null;
 
@@ -86,14 +91,6 @@ public class ItemsTool
                     .ToArray()
             );
 
-        int[] itemBonusIds = grouped.Values
-            .SelectMany(e => e)
-            .Distinct()
-            .ToArray();
-        var itemBonusMap = await context.WowItemBonus
-            .Where(wib => itemBonusIds.Contains(wib.Id))
-            .ToDictionaryAsync(wib => wib.Id);
-
         var groupedBySharedString = new Dictionary<int, Dictionary<int, List<int>>>();
         foreach ((int bonusGroupId, int[] group) in grouped)
         {
@@ -101,7 +98,7 @@ public class ItemsTool
 
             foreach (int itemBonusId in group)
             {
-                foreach (var bonusData in itemBonusMap[itemBonusId].Bonuses)
+                foreach (var bonusData in _itemBonusMap[itemBonusId].Bonuses)
                 {
                     // Bonus type 34, ItemBonusListGroupID, SharedStringID?
                     if (bonusData[0] == 34 && bonusData.Count >= 3)

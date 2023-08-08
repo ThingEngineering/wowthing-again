@@ -17,8 +17,6 @@ public class TeamApiCharacter
         Character = new ApiUserCharacter(
             character.Character,
             Array.Empty<PlayerCharacterItem>(),
-            Array.Empty<PlayerCharacterItem>(),
-            Array.Empty<PlayerCharacterItem>(),
             pub: true
         );
         Note = character.Note;

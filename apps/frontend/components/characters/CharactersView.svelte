@@ -105,7 +105,7 @@
                 {character.name}
 
                 {#if character.guildId}
-                    <span class="guild-name">&lt;{$userStore.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
+                    <span class="guild-name">&lt;{$userStore.guildMap[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
                 {/if}
 
                 <span>{Region[character.realm.region]}-{character.realm.name}</span>

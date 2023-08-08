@@ -29,7 +29,7 @@
             else if (item) {
                 currencyName = item.name
                 iconName = `item/${item.id}`
-                quantity = character.currencyItems[item.id] || 0
+                quantity = character.getItemCount(item.id)
             }
             else {
                 currencyName = 'Gold'

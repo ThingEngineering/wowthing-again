@@ -54,15 +54,14 @@ export class UserAuctionMissingTransmogDataStore {
                 }
                 updated = responseData.updated
 
-                const parsedData: Record<number, UserAuctionDataMissingTransmogAuction[]> = {}
-                for (const [appearanceId, rawAuctions] of Object.entries(responseData.auctions)) {
-                    parsedData[parseInt(appearanceId)] = rawAuctions
+                const parsedData: Record<string, UserAuctionDataMissingTransmogAuction[]> = {}
+                for (const [auctionKey, rawAuctions] of Object.entries(responseData.auctions)) {
+                    parsedData[auctionKey] = rawAuctions
                         .map((auctionArray) => new UserAuctionDataMissingTransmogAuction(...auctionArray))
                 }
     
                 for (const [thingId, auctions] of Object.entries(parsedData)) {
-                    const id = parseInt(thingId)
-                    if (id === 0) {
+                    if (thingId === '0') {
                         continue
                     }
 
@@ -72,7 +71,7 @@ export class UserAuctionMissingTransmogDataStore {
                     }
 
                     things.push({
-                        id: parseInt(thingId),
+                        id: thingId,
                         name: item.name,
                         auctions,
                     })

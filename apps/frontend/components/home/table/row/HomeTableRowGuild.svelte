@@ -5,7 +5,7 @@
 
     export let character: Character
 
-    $: guild = $userStore.guilds[character.guildId]
+    $: guild = $userStore.guildMap[character.guildId]
 </script>
 
 <style lang="scss">

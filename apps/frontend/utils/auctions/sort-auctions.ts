@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 
 
 export interface SortableAuction {
-    id: number
+    id: number | string
     name: string
     auctions: {
         bidPrice: number

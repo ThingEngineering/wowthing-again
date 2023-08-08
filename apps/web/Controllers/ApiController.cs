@@ -214,6 +214,17 @@ public class ApiController : Controller
             .Where(pg => pg.UserId == apiResult.User.Id)
             .ToArrayAsync();
 
+        Dictionary<int, PlayerGuildItem[]> guildItemsMap = new();
+        if (!apiResult.Public)
+        {
+            int[] guildIds = guilds.Select(g => g.Id).ToArray();
+            var guildItems = await _context.PlayerGuildItem
+                .Where(pgi => guildIds.Contains(pgi.GuildId))
+                .ToArrayAsync();
+            guildItemsMap = guildItems
+                .ToGroupedDictionary(pgi => pgi.GuildId);
+        }
+
         timer.AddPoint("Guilds");
 
         var characterQuery = _context.PlayerCharacter
@@ -267,30 +278,20 @@ public class ApiController : Controller
 
         timer.AddPoint("Characters");
 
-        // Bags
-        var bagItems = (await _context.PlayerCharacterItem
-                .AsNoTracking()
-                .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
-                .ToArrayAsync()
-            ).ToGroupedDictionary(pci => pci.CharacterId);
+        var itemQuery = _context.PlayerCharacterItem
+            .AsNoTracking()
+            .Where(pci => characterIds.Contains(pci.CharacterId));
 
-        // Progress items
-        var progressItems = (
-                await _context.PlayerCharacterItem
-                    .AsNoTracking()
-                    .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
-                    .ToArrayAsync()
-            )
-            .ToGroupedDictionary(pci => pci.CharacterId);
+        if (apiResult.Public)
+        {
+            itemQuery = itemQuery.Where(pci =>
+                pci.Slot == 0
+                || Hardcoded.CurrencyItemIds.Contains(pci.ItemId)
+                || Hardcoded.ProgressItemIds.Contains(pci.ItemId)
+            );
+        }
 
-        // Currency items
-        var currencyItems = (
-                await _context.PlayerCharacterItem
-                    .AsNoTracking()
-                    .Where(pci =>
-                        characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
-                    .ToArrayAsync()
-            )
+        var characterItemsMap = (await itemQuery.ToArrayAsync())
             .ToGroupedDictionary(pci => pci.CharacterId);
 
         timer.AddPoint("Items");
@@ -387,16 +388,20 @@ public class ApiController : Controller
         var characterObjects = characters
             .Select(character => new ApiUserCharacter(
                 character,
-                bagItems.GetValueOrDefault(character.Id),
-                currencyItems.GetValueOrDefault(character.Id),
-                progressItems.GetValueOrDefault(character.Id),
+                characterItemsMap.GetValueOrDefault(character.Id),
                 apiResult.Public,
-                apiResult.Privacy))
+                apiResult.Privacy
+            ))
             .ToList();
 
         var guildObjects = guilds
-            .Select(guild => new ApiUserGuild(guild, apiResult.Public, apiResult.Privacy))
-            .ToDictionary(guild => guild.Id);
+            .Select(guild => new ApiUserGuild(
+                guild,
+                guildItemsMap.GetValueOrDefault(guild.Id),
+                apiResult.Public,
+                apiResult.Privacy
+            ))
+            .ToList();
 
         var petObjects = allPets
             .Values

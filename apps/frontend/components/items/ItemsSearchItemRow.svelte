@@ -29,7 +29,7 @@
         }
         else {
             character = undefined
-            guild = $userStore.guilds[guildBankItem.guildId]
+            guild = $userStore.guildMap[guildBankItem.guildId]
             item = guildBankItem
             realm = guild.realm
         }

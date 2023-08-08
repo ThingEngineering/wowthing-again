@@ -254,6 +254,5 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
     console.timeEnd('LazyStore.doTransmog')
 
-    console.log(ret)
     return ret
 }

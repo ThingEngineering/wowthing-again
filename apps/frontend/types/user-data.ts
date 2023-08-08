@@ -1,13 +1,15 @@
 import { DateTime } from 'luxon'
 
+import parseApiTime from '@/utils/parse-api-time'
+
 import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
-import type { Character, CharacterArray } from './character'
+import type { Character, CharacterArray, CharacterItem } from './character'
 import type { InstanceDifficulty } from './dungeon'
 import type { ItemQuality } from '../enums'
-import type { Guild } from './guild'
+import type { Guild, GuildArray } from './guild'
 import type { UserCount } from './user-count'
-import parseApiTime from '@/utils/parse-api-time'
+import type { HasNameAndRealm, UserItem } from './shared'
 
 
 export interface UserData {
@@ -16,8 +18,8 @@ export interface UserData {
 
     accounts: Record<number, Account>
     charactersRaw: CharacterArray[]
-    guilds: Record<number, Guild>
     goldHistoryRealms: number[]
+    guildsRaw: GuildArray[]
     heirlooms: Record<number, number>
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>
 
@@ -43,12 +45,17 @@ export interface UserData {
     backgroundList: BackgroundImage[]
     characterMap: Record<number, Character>
     characters: Character[]
+    guildMap: Record<number, Guild>
     homeLockouts: InstanceDifficulty[]
 
     hasMount: Record<number, boolean>
     hasPet: Record<number, boolean>
     hasToy: Record<number, boolean>
     hasToyById: Record<number, boolean>
+
+    itemsByAppearanceId: Record<number, [HasNameAndRealm, UserItem[]][]>
+    itemsByAppearanceSource: Record<string, [HasNameAndRealm, UserItem[]][]>
+    itemsById: Record<number, [HasNameAndRealm, UserItem[]][]>
 
     pets: Record<number, UserDataPet[]>
     setCounts: Record<string, Record<string, UserCount>>

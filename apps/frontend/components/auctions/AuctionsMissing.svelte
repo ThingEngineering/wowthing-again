@@ -139,7 +139,9 @@
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
     <Paginate
-        items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
+        items={(things || []).filter((thing) => $auctionState.hideIgnored
+            ? $auctionState.ignored[slug]?.[parseInt(thing.id)] !== true
+            : true)}
         perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 6 : 18}
         {page}
         let:paginated

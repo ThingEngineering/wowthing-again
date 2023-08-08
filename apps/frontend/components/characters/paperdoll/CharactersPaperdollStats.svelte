@@ -15,8 +15,6 @@
             break $
         }
 
-        console.log(character.statistics)
-
         let maxValue = 0
         for (const testType of [StatType.Agility, StatType.Intellect, StatType.Strength]) {
             const testValue = character.statistics.basic[testType]?.effective ?? 0
@@ -62,9 +60,6 @@
             padding: 0.2rem 0.4rem;
         }
 
-        td:first-child {
-
-        }
         :global(td:last-child) {
             line-height: 1.4;
             text-align: right;

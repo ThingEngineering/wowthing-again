@@ -33,7 +33,7 @@ export class DbDataStore extends WritableFancyStore<DbData> {
             }
         }
 
-        console.log(data)
+        // console.log(data)
 
         console.timeEnd('DbDataStore.initialize')
     }
