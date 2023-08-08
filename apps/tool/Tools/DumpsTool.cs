@@ -956,6 +956,15 @@ public class DumpsTool
                                 spellEffect.EffectMiscValue1,
                             },
                         };
+
+                        if (spellEffect.Effect == (int)WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
+                        {
+                            if (!_spellTeachMap.TryGetValue(spellEffect.EffectTriggerSpell, out var teachItemIds))
+                            {
+                                teachItemIds = _spellTeachMap[spellEffect.EffectTriggerSpell] = new();
+                            }
+                            teachItemIds.Add(itemXItemEffect.ItemID);
+                        }
                     }
                 }
             }
@@ -1134,11 +1143,11 @@ public class DumpsTool
     private async Task ImportRecipeItems(WowDbContext context)
     {
         var dbRecipeMap = await context.WowProfessionRecipeItem
-            .AsNoTracking()
-            .ToDictionaryAsync(wpri => wpri.SkillLineAbilityId);
+            .ToDictionaryAsync(wpri => (wpri.SkillLineAbilityId, wpri.ItemId));
 
         var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>("skilllineability");
 
+        var seen = new HashSet<(int, int)>();
         foreach (var skillLineAbility in skillLineAbilities)
         {
             if (skillLineAbility.Spell == 0 || !_spellTeachMap.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
@@ -1149,27 +1158,27 @@ public class DumpsTool
             foreach (int recipeItemId in recipeItemIds)
             {
                 var item = _itemMap.GetValueOrDefault(recipeItemId);
-                if (item == null)
+                if (item?.BindType is WowBindType.BindOnUse or WowBindType.NotBound)
                 {
-                    continue;
-                }
+                    var key = (skillLineAbility.ID, recipeItemId);
+                    seen.Add(key);
 
-                if (item.BindType is WowBindType.BindOnUse or WowBindType.NotBound)
-                {
-                    if (!dbRecipeMap.TryGetValue(skillLineAbility.ID, out var dbRecipe))
+                    if (!dbRecipeMap.TryGetValue(key, out var dbRecipe))
                     {
-                        dbRecipe = dbRecipeMap[skillLineAbility.ID] = new()
+                        dbRecipe = dbRecipeMap[key] = new()
                         {
                             SkillLineAbilityId = skillLineAbility.ID,
+                            ItemId = recipeItemId,
                         };
                         context.WowProfessionRecipeItem.Add(dbRecipe);
                     }
 
                     dbRecipe.SkillLineId = skillLineAbility.SkillLine;
-                    dbRecipe.ItemId = recipeItemId;
                 }
             }
         }
+
+        // TODO deletes
 
         _timer.AddPoint("RecipeItems");
     }

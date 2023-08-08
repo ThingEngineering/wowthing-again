@@ -169,11 +169,14 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<WowAuctionCheapestByAppearanceSource>()
             .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceSource });
 
+        builder.Entity<WowMythicPlusSeason>()
+            .HasKey(s => new { s.Region, s.Id });
+
         builder.Entity<WowPeriod>()
             .HasKey(p => new { p.Region, p.Id });
 
-        builder.Entity<WowMythicPlusSeason>()
-            .HasKey(s => new { s.Region, s.Id });
+        builder.Entity<WowProfessionRecipeItem>()
+            .HasKey(wpri => new { wpri.SkillLineAbilityId, wpri.ItemId });
 
         // Unique indexes
         builder.Entity<PlayerAccount>()
