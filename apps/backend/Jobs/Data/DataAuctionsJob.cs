@@ -241,7 +241,7 @@ COPY wow_auction_cheapest_by_appearance_source (
                     if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
                     {
                         int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
-                        if (priority < bonusPriority)
+                        if (bonusPriority < priority)
                         {
                             modifier = (short)bonus[1];
                             priority = bonusPriority;
