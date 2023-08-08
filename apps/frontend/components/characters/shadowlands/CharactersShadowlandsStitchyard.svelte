@@ -96,7 +96,7 @@
                         <div class="costs">
                             <div
                                 class="cost"
-                                class:status-success={character.currencyItems?.[178061] >= abomination.flesh}
+                                class:status-success={character.getItemCount(178061) >= abomination.flesh}
                                 use:tippy={`${abomination.flesh}x ${$itemStore.items[178061].name}`}
                             >
                                 {abomination.flesh}
@@ -110,7 +110,7 @@
                             {#if abomination.parts > 0}
                                 <div
                                     class="cost"
-                                    class:status-success={character.currencyItems?.[183744] >= abomination.parts}
+                                    class:status-success={character.getItemCount(183744) >= abomination.parts}
                                     use:tippy={`${abomination.parts}x ${$itemStore.items[183744].name}`}
                                 >
                                     {abomination.parts}
@@ -132,9 +132,9 @@
                 <div class="currencies">
                     <div
                         class="currency"
-                        use:tippy={`${character.currencyItems?.[178061] || 0}x ${$itemStore.items[183744].name}`}
+                        use:tippy={`${character.getItemCount(178061)}x ${$itemStore.items[178061].name}`}
                     >
-                        {character.currencyItems?.[178061] || 0}
+                        {character.getItemCount(178061)}
                         <WowthingImage
                             name="item/178061"
                             size={16}
@@ -143,9 +143,9 @@
                     </div>
                     <div
                         class="currency"
-                        use:tippy={`${character.currencyItems?.[183744] || 0}x ${$itemStore.items[183744].name}`}
+                        use:tippy={`${character.getItemCount(183744)}x ${$itemStore.items[183744].name}`}
                     >
-                        {character.currencyItems?.[183744] || 0}
+                        {character.getItemCount(183744)}
                         <WowthingImage
                             name="item/183744"
                             size={16}

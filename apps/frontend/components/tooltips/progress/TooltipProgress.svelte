@@ -178,7 +178,7 @@
                             size={20}
                             border={1}
                         />
-                        {(character.currencyItems?.[currencyId - 1000000] ?? 0).toLocaleString()}
+                        {(character.getItemCount(currencyId - 1000000)).toLocaleString()}
                     {:else}
                         <WowthingImage
                             name="currency/{currencyId}"

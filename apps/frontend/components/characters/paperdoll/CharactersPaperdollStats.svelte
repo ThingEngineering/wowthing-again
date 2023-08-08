@@ -60,9 +60,6 @@
             padding: 0.2rem 0.4rem;
         }
 
-        td:first-child {
-
-        }
         :global(td:last-child) {
             line-height: 1.4;
             text-align: right;

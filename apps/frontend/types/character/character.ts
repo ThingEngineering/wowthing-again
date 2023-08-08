@@ -165,5 +165,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel
     }
 
+    getItemCount(itemId: number): number {
+        return (this.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0)
+    }
 }
 export type CharacterArray = ConstructorParameters<typeof Character>

@@ -48,8 +48,8 @@
         if (order > 0) {
             sorted = true
             sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) => leftPad(1000000 - (
-                char.currencyItems?.[order] ??
-                char.currencies?.[order]?.quantity ??
+                char.getItemCount(order) ||
+                char.currencies?.[order]?.quantity ||
                 -1
             ), 7, '0'))
         }
