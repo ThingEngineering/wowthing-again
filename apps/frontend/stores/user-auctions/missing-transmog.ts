@@ -1,3 +1,5 @@
+import some from 'lodash/some'
+
 import { ItemFlags, InventoryType, ItemClass, WeaponSubclass } from '@/enums'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
@@ -113,10 +115,13 @@ export class UserAuctionMissingTransmogDataStore {
                 || item.expansion === auctionState.missingTransmogExpansion 
             
             const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
-            const matchesRealm = staticData.connectedRealms[thing.auctions[0].connectedRealmId]
-                .realmNames
-                .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
-                .length > 0
+            const matchesRealm = some(
+                thing.auctions.slice(0, auctionState.limitToCheapestRealm ? 1 : undefined),
+                (auction) => staticData.connectedRealms[auction.connectedRealmId]
+                    .realmNames
+                    .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
+                    .length > 0
+            )
 
             let matchesArmor = true
             if (auctionState.missingTransmogItemClass === 'armor') {

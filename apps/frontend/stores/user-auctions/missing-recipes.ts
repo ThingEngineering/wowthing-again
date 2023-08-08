@@ -1,3 +1,5 @@
+import some from 'lodash/some'
+
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
@@ -99,10 +101,13 @@ export class UserAuctionMissingRecipeDataStore {
                 || item.expansion === auctionState.missingRecipeExpansion 
 
             const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
-            const matchesRealm = staticData.connectedRealms[thing.auctions[0].connectedRealmId]
-                .realmNames
-                .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
-                .length > 0
+            const matchesRealm = some(
+                thing.auctions.slice(0, auctionState.limitToCheapestRealm ? 1 : undefined),
+                (auction) => staticData.connectedRealms[auction.connectedRealmId]
+                    .realmNames
+                    .filter((name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0)
+                    .length > 0
+            )
 
             return matchesExpansion && matchesName && matchesRealm
         })
