@@ -122,7 +122,7 @@ export class UserAuctionMissingDataStore {
                 if (responseData?.auctions) {
                     for (const thingId in responseData.auctions) {
                         things.push({
-                            id: parseInt(thingId),
+                            id: thingId,
                             name: responseData.names[thingId],
                             auctions: responseData.auctions[thingId],
                         })

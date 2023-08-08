@@ -43,7 +43,7 @@
         .map((expansion) => [expansion.id, expansion.name])
 
     const professionOptions: [number, string][] = Object.entries(Profession)
-        .filter(([key, value]) => !isNaN(parseInt(key)))
+        .filter(([key,]) => !isNaN(parseInt(key)))
         .map(([key, value]) => [parseInt(key), value] as [number, string])
         .filter(([, value]) => ['Archaeology', 'Fishing', 'Herbalism', 'Mining', 'Skinning'].indexOf(value) === -1)
     professionOptions.sort((a, b) => a[1].localeCompare(b[1]))

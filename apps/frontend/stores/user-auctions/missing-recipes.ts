@@ -79,7 +79,7 @@ export class UserAuctionMissingRecipeDataStore {
                     }
 
                     things.push({
-                        id,
+                        id: thingId,
                         name: item.name,
                         auctions,
                     })
