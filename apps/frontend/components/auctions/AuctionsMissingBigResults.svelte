@@ -5,7 +5,7 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore, timeStore, userStore } from '@/stores'
+    import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
@@ -48,6 +48,7 @@
     table {
         --padding: 2;
 
+        border-collapse: collapse;
         display: inline-block;
         margin-bottom: 0.5rem;
         width: 23.5rem;
@@ -138,7 +139,7 @@
 
 {#await slug === 'missing-recipes'
     ? userAuctionMissingRecipeStore.search($auctionState, $itemStore, $staticStore)
-    : userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
+    : userAuctionMissingTransmogStore.search($settingsStore, $auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
 }
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
