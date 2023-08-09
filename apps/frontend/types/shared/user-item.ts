@@ -18,6 +18,9 @@ export interface UserItem {
     bonusIds: number[]
     gems: number[]
 
+    enchantmentIds: number[]
+    gemIds: number[]
+
     containerId: number
     containerName: string
 }

@@ -2,9 +2,12 @@ import some from 'lodash/some'
 
 import { ItemFlags, InventoryType, ItemClass, WeaponSubclass } from '@/enums'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
+import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
+import type { Settings } from '@/types'
+
 import type { AuctionState } from '../local-storage'
 import type { UserAuctionEntry } from '../user-auctions'
 
@@ -14,6 +17,7 @@ export class UserAuctionMissingTransmogDataStore {
     private cache: Record<string, [UserAuctionEntry[], Record<number, number>]> = {}
 
     async search(
+        settings: Settings,
         auctionState: AuctionState,
         itemData: ItemData,
         staticData: StaticData,
@@ -84,10 +88,15 @@ export class UserAuctionMissingTransmogDataStore {
         things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true) as UserAuctionEntry[]
         this.cache[cacheKey] = [things, updated]
 
+        const classMask = getTransmogClassMask(settings)
         const nameLower = auctionState.missingTransmogNameSearch.toLocaleLowerCase()
         const realmLower = auctionState.missingTransmogRealmSearch.toLocaleLowerCase()
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
+            if (classMask && (item.classMask & classMask) === 0) {
+                return false
+            }
+
             if ((item.flags & ItemFlags.CannotTransmogToThisItem) > 0) {
                 return false
             }

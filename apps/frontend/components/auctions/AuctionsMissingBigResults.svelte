@@ -1,10 +1,11 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
+    import some from 'lodash/some'
 
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore, timeStore, userStore } from '@/stores'
+    import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
@@ -47,6 +48,7 @@
     table {
         --padding: 2;
 
+        border-collapse: collapse;
         display: inline-block;
         margin-bottom: 0.5rem;
         width: 23.5rem;
@@ -58,6 +60,11 @@
     th {
         background-color: $highlight-background;
         font-weight: normal;
+    }
+    .filter-highlight {
+        td {
+            background: rgba(0, 255, 255, 0.13);
+        }
     }
     .item {
         --image-border-width: 1px;
@@ -132,11 +139,14 @@
 
 {#await slug === 'missing-recipes'
     ? userAuctionMissingRecipeStore.search($auctionState, $itemStore, $staticStore)
-    : userAuctionMissingTransmogStore.search($auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
+    : userAuctionMissingTransmogStore.search($settingsStore, $auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
 }
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
+        {@const realmSearch = (slug === 'missing-recipes'
+            ? $auctionState.missingRecipeRealmSearch
+            : $auctionState.missingTransmogRealmSearch).toLocaleLowerCase()}
         <Paginate
             items={(things || [])}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
@@ -219,7 +229,15 @@
                                         DateTime.fromSeconds(updated[auction.connectedRealmId])
                                     ).toMillis() / 1000 / 60
                                 )}
-                                <tr>
+                                <tr
+                                    class:filter-highlight={realmSearch
+                                        && !$auctionState.limitToCheapestRealm
+                                        && some(
+                                            connectedRealm.realmNames,
+                                            (name) => name.toLocaleLowerCase().indexOf(realmSearch) >= 0
+                                        )
+                                    }
+                                >
                                     <td
                                         class="realm text-overflow"
                                         use:tippy={{
