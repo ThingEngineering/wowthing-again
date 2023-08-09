@@ -1,5 +1,6 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
+    import some from 'lodash/some'
 
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums'
@@ -58,6 +59,11 @@
     th {
         background-color: $highlight-background;
         font-weight: normal;
+    }
+    .filter-highlight {
+        td {
+            background: rgba(0, 255, 255, 0.13);
+        }
     }
     .item {
         --image-border-width: 1px;
@@ -137,6 +143,9 @@
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
+        {@const realmSearch = (slug === 'missing-recipes'
+            ? $auctionState.missingRecipeRealmSearch
+            : $auctionState.missingTransmogRealmSearch).toLocaleLowerCase()}
         <Paginate
             items={(things || [])}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
@@ -219,7 +228,15 @@
                                         DateTime.fromSeconds(updated[auction.connectedRealmId])
                                     ).toMillis() / 1000 / 60
                                 )}
-                                <tr>
+                                <tr
+                                    class:filter-highlight={realmSearch
+                                        && !$auctionState.limitToCheapestRealm
+                                        && some(
+                                            connectedRealm.realmNames,
+                                            (name) => name.toLocaleLowerCase().indexOf(realmSearch) >= 0
+                                        )
+                                    }
+                                >
                                     <td
                                         class="realm text-overflow"
                                         use:tippy={{
