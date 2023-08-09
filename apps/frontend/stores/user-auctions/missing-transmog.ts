@@ -93,7 +93,7 @@ export class UserAuctionMissingTransmogDataStore {
         const realmLower = auctionState.missingTransmogRealmSearch.toLocaleLowerCase()
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
-            if (classMask && (item.classMask & classMask) === 0) {
+            if (classMask && item.classMask && (item.classMask & classMask) === 0) {
                 return false
             }
 
