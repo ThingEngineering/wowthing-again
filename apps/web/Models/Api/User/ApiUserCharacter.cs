@@ -135,12 +135,12 @@ public class ApiUserCharacter
         //     .Distinct()
         //     .ToArray();
         //
-        // // Currencies
-        // if (!pub || privacy?.PublicCurrencies == true)
-        // {
-        //     var currencyValues = character.AddonData?.Currencies?.Values.ToList();
-        //     RawCurrencies = currencyValues.EmptyIfNull();
-        //
+        // Currencies
+        if (!pub || privacy?.PublicCurrencies == true)
+        {
+            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
+            RawCurrencies = currencyValues.EmptyIfNull();
+
         //     CurrencyItems = currencyItems
         //         .EmptyIfNull()
         //         .GroupBy(ci => ci.ItemId)
@@ -148,7 +148,7 @@ public class ApiUserCharacter
         //             group => group.Key,
         //             group => group.Sum(ci => ci.Count)
         //         );
-        // }
+        }
 
         // Equipped Items
         if (character.EquippedItems?.Items != null)
