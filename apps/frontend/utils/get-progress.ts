@@ -100,7 +100,7 @@ export default function getProgress(
                 else if (group.type === 'item') {
                       haveThis = some(
                         data.ids,
-                        (id) => character.getItemCount(id) >= 0
+                        (id) => character.getItemCount(id) > 0
                     )
                 }
                 else if (group.type === 'mixed') {
