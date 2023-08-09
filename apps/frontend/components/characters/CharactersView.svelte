@@ -10,6 +10,7 @@
     import { splitOnce } from '@/utils/split-once'
     import type { Character, MultiSlugParams } from '@/types'
 
+    import Items from './items/CharactersItems.svelte'
     import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
     import Professions from './professions/CharacterProfessions.svelte'
     import Shadowlands from './shadowlands/CharactersShadowlands.svelte'
@@ -46,6 +47,7 @@
     }
 
     const componentMap: Record<string, typeof SvelteComponent> = {
+        items: Items,
         paperdoll: Paperdoll,
         professions: Professions,
         shadowlands: Shadowlands,
@@ -126,14 +128,17 @@
                     href="#{baseUrl}/paperdoll"
                     use:active
                 >Paperdoll</a>
+                <a href="#{baseUrl}/items"
+                    use:active
+                >Items</a>
+                <!-- <a
+                    href="#{baseUrl}/specializations"
+                    use:active
+                >Specializations</a> -->
                 <a
                     href="#{baseUrl}/professions"
                     use:active={`${baseUrl}/professions/*`}
                 >Professions</a>
-                <a
-                    href="#{baseUrl}/specializations"
-                    use:active
-                >Specializations</a>
                 <a
                     href="#{baseUrl}/shadowlands"
                     use:active={`${baseUrl}/shadowlands/*`}
