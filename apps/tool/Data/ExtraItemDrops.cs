@@ -324,6 +324,15 @@ public static partial class Hardcoded
                 new (13399, DungeonDifficultiesNormal), // Gargoyle Shredder Talons
             }
         },
+        // Molten Core / Ragnaros
+        {
+            1528,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (17182, RaidDifficultiesLegacy40), // Sulfuras, Hand of Ragnaros
+            }
+        },
         #endregion
 
         #region Classic Trash
