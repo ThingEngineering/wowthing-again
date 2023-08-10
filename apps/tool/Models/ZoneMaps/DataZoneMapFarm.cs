@@ -3,6 +3,7 @@
 public class DataZoneMapFarm
 {
     public int MinimumLevel { get; set; }
+    public int CriteriaId { get; set; }
     public int InstanceId { get; set; }
     public int GroupId { get; set; }
     public int NpcId { get; set; }
