@@ -10,7 +10,7 @@ import { manualStore } from './manual'
 import { userModifiedStore } from './user-modified'
 import { TransmogSetMatchType, TransmogSetType } from '@/enums'
 import { UserCount, WritableFancyStore } from '@/types'
-import type { FancyStoreType, Settings } from '@/types'
+import type { FancyStoreType, Settings, UserAchievementData } from '@/types'
 import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData, ManualDataSharedItemSet, ManualDataTransmogSetFiltered } from '@/types/data/manual'
@@ -37,13 +37,20 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     setup(
-        settings: Settings
+        settings: Settings,
+        userAchievementData: UserAchievementData
     ): void {
         console.time('UserTransmogDataStore.setup')
 
         const itemData = get(itemStore)
         const manualData = get(manualStore)
         const userTransmogData = this.value
+
+        // HACK: Warglaives of Azzinoth
+        if (userAchievementData.achievements[426]) {
+            userTransmogData.hasSource.add('32837_0')
+            userTransmogData.hasSource.add('32838_0')
+        }
 
         this.update((state) => {
             this.setupTransmogSetsV2(
