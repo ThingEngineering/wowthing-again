@@ -506,15 +506,15 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (32593, RaidDifficultiesLegacy25Normal), // Treads of the Den Mother
+                new (32593, RaidDifficultiesNormal), // Treads of the Den Mother
                 // Plate
-                new (32606, RaidDifficultiesLegacy25Normal), // Girdle of the Lightbearer
-                new (32608, RaidDifficultiesLegacy25Normal), // Pillager's Gauntlets
+                new (32606, RaidDifficultiesNormal), // Girdle of the Lightbearer
+                new (32608, RaidDifficultiesNormal), // Pillager's Gauntlets
                 // Cloak
-                new (34012, RaidDifficultiesLegacy25Normal), // Shroud of the Final Stand
+                new (34012, RaidDifficultiesNormal), // Shroud of the Final Stand
                 // Weapon
-                new (32943, RaidDifficultiesLegacy25Normal), // Swiftsteel Bludgeon
-                new (34011, RaidDifficultiesLegacy25Normal), // Illidari Runeshield
+                new (32943, RaidDifficultiesNormal), // Swiftsteel Bludgeon
+                new (34011, RaidDifficultiesNormal), // Illidari Runeshield
             }
         },
         {
