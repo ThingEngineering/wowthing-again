@@ -21,7 +21,6 @@
     $: {
         difficulties = []
         for (const difficulty of journalDifficultyOrder) {
-
             const difficultyKey = `${statsKey}--${difficulty}`
             const difficultyStats = $lazyStore.journal.stats[difficultyKey]
             if (difficultyStats) {

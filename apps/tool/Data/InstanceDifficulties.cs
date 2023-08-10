@@ -22,6 +22,9 @@ public static partial class Hardcoded
         { (68, 64), new[] { 1 } }, // Classic > Shadowfang Keep [N]
         { (73, 64), new[] { 2 } }, // Cata > Shadowfang Keep [H]
 
+        { (68, 246), new[] { 1 } }, // Classic > Scholomance [N]
+        { (74, 246), new[] { 2, 24 } }, // MoP > Scholomance [N,T]
+
         // Timewalking
         { (395, 740), new[] { 1, 2, 23, 24 } }, // Legion > Black Rook Hold
         { (395, 800), new[] { 1, 2, 23, 24 } }, // Legion > Court of Stars
