@@ -49,24 +49,30 @@ public class ManualZoneMapCategoryConverter : JsonConverter<ManualZoneMapCategor
         bool useMinimumLevel = farm.MinimumLevel > 0;
         bool useStatisticId = farm.StatisticId > 0;
         bool useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
+        bool useCriteriaId = farm.CriteriaId > 0;
         bool useNote = !string.IsNullOrEmpty(farm.Note);
         bool useFaction = !string.IsNullOrEmpty(farm.Faction);
         bool useGroupId = farm.GroupId > 0;
         bool useAnchorPoint = farm.AnchorPoint != FarmAnchorPoint.None;
 
-        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useCriteriaId || useRequiredQuestIds || useStatisticId || useMinimumLevel)
         {
             writer.WriteNumberValue(farm.MinimumLevel ?? 0);
         }
 
-        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useCriteriaId || useRequiredQuestIds || useStatisticId)
         {
             writer.WriteNumberValue(farm.StatisticId ?? 0);
         }
 
-        if (useAnchorPoint || useGroupId || useFaction || useNote || useRequiredQuestIds)
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useCriteriaId || useRequiredQuestIds)
         {
             writer.WriteNumberArray(farm.RequiredQuestIds);
+        }
+
+        if (useAnchorPoint || useGroupId || useFaction || useNote || useCriteriaId)
+        {
+            writer.WriteNumberValue(farm.CriteriaId ?? 0);
         }
 
         if (useAnchorPoint || useGroupId || useFaction || useNote)

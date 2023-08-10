@@ -5,6 +5,7 @@ namespace Wowthing.Tool.Models.ZoneMaps;
 public class ManualZoneMapFarm
 {
     public int Id { get; set; }
+    public int? CriteriaId { get; set; }
     public int? GroupId { get; set; }
     public int? MinimumLevel { get; set; }
     public int? StatisticId { get; set; }
@@ -75,6 +76,11 @@ public class ManualZoneMapFarm
         if (farm.Type != "group" && farm.GroupId > 0)
         {
             GroupId = farm.GroupId;
+        }
+
+        if (farm.CriteriaId > 0)
+        {
+            CriteriaId = farm.CriteriaId;
         }
 
         if (farm.StatisticId > 0)

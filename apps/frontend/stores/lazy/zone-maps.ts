@@ -482,6 +482,17 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     dropStatus.completedCharacterIds.push(character.id)
                                 }
                             }
+                            else if (farm.criteriaId) {
+                                const hasCriteria = (stores.userAchievementData.criteria[farm.criteriaId] || [])
+                                    .filter(([charId,]) => charId === character.id)
+                                    .length > 0
+                                if (!hasCriteria) {
+                                    dropStatus.characterIds.push(character.id)
+                                }
+                                else {
+                                    dropStatus.completedCharacterIds.push(character.id)
+                                }
+                            }
                             else {
                                 if (
                                     expiredFunc(character.id) ||

@@ -36,6 +36,7 @@ export class ManualDataZoneMapFarm {
         public minimumLevel?: number,
         public statisticId?: number,
         public requiredQuestIds?: number[],
+        public criteriaId?: number,
         public note?: string,
         public faction?: string,
         public groupId?: number,
