@@ -41,7 +41,8 @@
                 }
             }
 
-            let [charNext, charHave, charMax] = charCooldown
+            const [charNext, , charMax] = charCooldown
+            let [, charHave] = charCooldown
             let charFull: DateTime = undefined
 
             // if the next charge timestamp is in the past, add up to max charges and work

@@ -1,13 +1,10 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
-
     import { timeStore } from '@/stores'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character, ProfessionCooldown } from '@/types'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
-    import { data } from 'autoprefixer';
 
     export let character: Character
     export let cooldowns: ProfessionCooldown[]
@@ -31,7 +28,7 @@
         text-align: left;
         width: 10rem;
     }
-    .cooldown {
+    .full {
         width: 4rem;
     }
     .value {

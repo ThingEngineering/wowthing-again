@@ -2,9 +2,10 @@
     import sortBy from 'lodash/sortBy'
     import type { SvelteComponent } from 'svelte'
 
+    import { expansionOrder } from '@/data/expansion'
+    import { ItemQuality, Profession, Region, WeaponSubclass } from '@/enums'
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { ItemQuality, Profession, Region, WeaponSubclass } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -15,7 +16,6 @@
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
-    import { expansionOrder } from '@/data/expansion';
 
     export let params: MultiSlugParams
 

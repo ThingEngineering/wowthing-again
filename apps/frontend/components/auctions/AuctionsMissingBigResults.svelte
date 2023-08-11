@@ -7,10 +7,9 @@
     import { iconLibrary } from '@/icons'
     import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy, { tippyComponent } from '@/utils/tippy'
-    import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
@@ -247,8 +246,10 @@
                                         )
                                     }
                                 >
+                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                                     <td
                                         class="realm text-overflow"
+                                        on:click={() => setRealmSearch(auction.connectedRealmId)}
                                         use:tippy={{
                                             allowHTML: true,
                                             content: `
@@ -265,7 +266,6 @@
                                             class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}
                                             class:age-3={ageInMinutes >= 40 && ageInMinutes < 60}
                                             class:age-4={ageInMinutes >= 60}
-                                            on:click={() => setRealmSearch(auction.connectedRealmId)}
                                         >
                                             {connectedRealmName(auction.connectedRealmId)}
                                         </span>
