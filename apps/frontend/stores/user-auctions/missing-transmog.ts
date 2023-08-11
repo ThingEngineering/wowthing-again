@@ -85,7 +85,7 @@ export class UserAuctionMissingTransmogDataStore {
             }
         }
 
-        things = sortAuctions(auctionState.sortBy['missing-transmog'], things as SortableAuction[], true) as UserAuctionEntry[]
+        things = sortAuctions(auctionState.sortBy[`missing-appearance-${searchType}`], things as SortableAuction[], true) as UserAuctionEntry[]
         this.cache[cacheKey] = [things, updated]
 
         const classMask = getTransmogClassMask(settings)
