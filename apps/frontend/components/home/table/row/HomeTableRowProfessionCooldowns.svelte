@@ -49,7 +49,7 @@
             if (charNext > 0) {
                 const diff = Math.floor($timeStore.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000)
                 if (diff > 0) {
-                    charHave = Math.max(charMax, charHave + Math.floor(diff / seconds))
+                    charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds))
                 }
                 if (charHave < charMax) {
                     charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
