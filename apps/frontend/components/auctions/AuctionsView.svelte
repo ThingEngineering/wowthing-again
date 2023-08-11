@@ -155,6 +155,12 @@
                     bind:value={$auctionState.limitToCheapestRealm}
                 >Only cheapest</Checkbox>
             </div>
+            <div class="options-group">
+                <Checkbox
+                    name="limit_to_have"
+                    bind:value={$auctionState.limitToHave}
+                >Only if have</Checkbox>
+            </div>
         {:else}
             <div class="options-group">
                 <Checkbox
