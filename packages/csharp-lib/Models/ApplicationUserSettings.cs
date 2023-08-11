@@ -86,6 +86,7 @@ public class ApplicationUserSettings
         "mountSpeed",
         "mythicPlusScore",
         "playedTime",
+        "professionCooldowns",
         "professions",
         "professionsSecondary",
         "restedExperience",

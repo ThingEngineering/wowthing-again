@@ -317,6 +317,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
+            HandleProfessionCooldowns(character, characterData);
             HandleProfessionTraits(character, characterData);
             HandleQuests(character, characterData, realm.Region);
             HandleReputations(character, characterData);
@@ -1402,6 +1403,20 @@ public class UserUploadJob : JobBase
                 _resetMountCache = true;
                 character.AddonMounts.Mounts = sortedMountIds;
             }
+        }
+    }
+
+    private void HandleProfessionCooldowns(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.ProfessionCooldowns = new();
+
+        foreach (string cooldownString in characterData.ProfessionCooldowns.EmptyIfNull())
+        {
+            string[] cooldownParts = cooldownString.Split(':');
+            character.AddonData.ProfessionCooldowns[cooldownParts[0]] = cooldownParts
+                .Skip(1)
+                .Select(int.Parse)
+                .ToList();
         }
     }
 

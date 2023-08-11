@@ -182,11 +182,16 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
 
+        {:else if field === 'professionCooldowns'}
+            {#if !$homeState.onlyWeekly}
+                <td>CDs</td>
+            {/if}
+
         {:else if field === 'professions'}
             {#if !$homeState.onlyWeekly}
                 <td>Professions</td>
             {/if}
-            
+
         {:else if field === 'professionsSecondary'}
             {#if !$homeState.onlyWeekly}
                 <td>Secondary Profs</td>

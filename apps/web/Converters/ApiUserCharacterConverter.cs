@@ -42,8 +42,6 @@ public class ApiUserCharacterConverter : System.Text.Json.Serialization.JsonConv
         JsonSerializer.Serialize(writer, character.Configuration, options);
 
         JsonSerializer.Serialize(writer, character.Auras, options);
-        // JsonSerializer.Serialize(writer, character.Bags, options);
-        // JsonSerializer.Serialize(writer, character.CurrencyItems, options);
         JsonSerializer.Serialize(writer, character.EquippedItems, options);
         JsonSerializer.Serialize(writer, character.Garrisons, options);
         JsonSerializer.Serialize(writer, character.GarrisonTrees, options);
@@ -53,8 +51,8 @@ public class ApiUserCharacterConverter : System.Text.Json.Serialization.JsonConv
         JsonSerializer.Serialize(writer, character.MythicPlusSeasons, options);
         JsonSerializer.Serialize(writer, character.Paragons, options);
         JsonSerializer.Serialize(writer, character.Professions, options);
+        JsonSerializer.Serialize(writer, character.ProfessionCooldowns, options);
         JsonSerializer.Serialize(writer, character.ProfessionTraits, options);
-        // JsonSerializer.Serialize(writer, character.ProgressItems, options);
         JsonSerializer.Serialize(writer, character.RaiderIo, options);
         JsonSerializer.Serialize(writer, character.Reputations, options);
         JsonSerializer.Serialize(writer, character.Shadowlands, options);
