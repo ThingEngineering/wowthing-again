@@ -9,13 +9,15 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLegacy10Heroic = { 5 };
     private static readonly int[] RaidDifficultiesLegacy25Heroic = { 6 };
     private static readonly int[] RaidDifficultiesLegacy40 = { 9 };
+    private static readonly int[] RaidDifficultiesLegacyLfr = { 7 };
     private static readonly int[] RaidDifficultiesNormal = { 14 };
+    private static readonly int[] RaidDifficultiesHeroic = { 15 };
 
     private static readonly int[] RaidDifficultiesAll = { 17, 14, 15, 16 };
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = { 3, 4, 5, 6, 7 };
     private static readonly int[] RaidDifficultiesNoLfr = { 14, 15, 16 };
 
-    private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops = new List<ExtraItemDrop>
+    private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops = new()
     {
         // Cloth
         new (49854, DungeonDifficultiesNormal), // Mantle of Tattered Feathers [N]
@@ -949,6 +951,127 @@ public static partial class Hardcoded
                 new(88566, DungeonDifficultiesHeroic), // Krastinov's Bag of Horrors - Heroic
             }
         },
+        // Throne of Thunder > Shared Boss Drops
+        {
+            103620,
+            new()
+            {
+                new (95870, RaidDifficultiesLegacyLfr), // Abandoned Spaulders of Arrowflight [L]
+                new (95871, RaidDifficultiesLegacyLfr), // Abandoned Spaulders of Renewal [L]
+                new (95877, RaidDifficultiesLegacyLfr), // Bo-Ris, Horror in the Night [L]
+                new (95862, RaidDifficultiesLegacyLfr), // Darkwood Spiritstaff [L]
+                new (95876, RaidDifficultiesLegacyLfr), // Do-tharak, the Swordbreaker [L]
+                new (95868, RaidDifficultiesLegacyLfr), // Forgotten Mantle of the Moon [L]
+                new (95869, RaidDifficultiesLegacyLfr), // Forgotten Mantle of the Sun [L]
+                new (95860, RaidDifficultiesLegacyLfr), // Fyn's Flickering Dagger [L]
+                new (95875, RaidDifficultiesLegacyLfr), // Greatsword of Frozen Hells [L]
+                new (95858, RaidDifficultiesLegacyLfr), // Invocation of the Dawn [L]
+                new (95867, RaidDifficultiesLegacyLfr), // Jerthud, Graceful Hand of the Savior [L]
+                new (95863, RaidDifficultiesLegacyLfr), // Lost Shoulders of Fire [L]
+                new (95864, RaidDifficultiesLegacyLfr), // Lost Shoulders of Healing [L]
+                new (95865, RaidDifficultiesLegacyLfr), // Lost Shoulders of Fluidity [L]
+                new (95859, RaidDifficultiesLegacyLfr), // Miracoran, the Vehement Chord [L]
+                new (95866, RaidDifficultiesLegacyLfr), // Nadagast's Exsanguinator [L]
+                new (95872, RaidDifficultiesLegacyLfr), // Reconstructed Holy Shoulderplates [L]
+                new (95873, RaidDifficultiesLegacyLfr), // Reconstructed Furious Shoulderplates [L]
+                new (95874, RaidDifficultiesLegacyLfr), // Reconstructed Bloody Shoulderplates [L]
+                new (97129, RaidDifficultiesLegacyLfr), // Tia-Tia, the Scything Star [L]
+                new (95878, RaidDifficultiesLegacyLfr), // Visage of the Doomed [L]
+                new (95861, RaidDifficultiesLegacyLfr), // Zeeg's Ancient Kegsmasher [L]
+
+                new (95060, RaidDifficultiesNormal), // Abandoned Spaulders of Arrowflight [N]
+                new (95064, RaidDifficultiesNormal), // Abandoned Spaulders of Renewal [N]
+                new (95498, RaidDifficultiesNormal), // Bo-Ris, Horror in the Night [N]
+                new (95507, RaidDifficultiesNormal), // Darkwood Spiritstaff [N]
+                new (95502, RaidDifficultiesNormal), // Do-tharak, the Swordbreaker [N]
+                new (95062, RaidDifficultiesNormal), // Forgotten Mantle of the Sun [N]
+                new (95065, RaidDifficultiesNormal), // Forgotten Mantle of the Moon [N]
+                new (95501, RaidDifficultiesNormal), // Fyn's Flickering Dagger [N]
+                new (95505, RaidDifficultiesNormal), // Greatsword of Frozen Hells [N]
+                new (95499, RaidDifficultiesNormal), // Invocation of the Dawn [N]
+                new (95500, RaidDifficultiesNormal), // Jerthud, Graceful Hand of the Savior [N]
+                new (95061, RaidDifficultiesNormal), // Lost Shoulders of Fire [N]
+                new (95066, RaidDifficultiesNormal), // Lost Shoulders of Healing [N]
+                new (95067, RaidDifficultiesNormal), // Lost Shoulders of Fluidity [N]
+                new (95503, RaidDifficultiesNormal), // Miracoran, the Vehement Chord [N]
+                new (95506, RaidDifficultiesNormal), // Nadagast's Exsanguinator [N]
+                new (95063, RaidDifficultiesNormal), // Reconstructed Furious Shoulderplates [N]
+                new (95068, RaidDifficultiesNormal), // Reconstructed Bloody Shoulderplates [N]
+                new (95069, RaidDifficultiesNormal), // Reconstructed Holy Shoulderplates [N]
+                new (97126, RaidDifficultiesNormal), // Tia-Tia, the Scything Star [N]
+                new (95516, RaidDifficultiesNormal), // Visage of the Doomed [N]
+                new (95504, RaidDifficultiesNormal), // Zeeg's Ancient Kegsmasher [N]
+
+                new (96242, RaidDifficultiesNormal), // Abandoned Spaulders of Arrowflight [N TF]
+                new (96243, RaidDifficultiesNormal), // Abandoned Spaulders of Renewal [N TF]
+                new (96249, RaidDifficultiesNormal), // Bo-Ris, Horror in the Night [N TF]
+                new (96234, RaidDifficultiesNormal), // Darkwood Spiritstaff [N TF]
+                new (96248, RaidDifficultiesNormal), // Do-tharak, the Swordbreaker [N TF]
+                new (96240, RaidDifficultiesNormal), // Forgotten Mantle of the Moon [N TF]
+                new (96241, RaidDifficultiesNormal), // Forgotten Mantle of the Sun [N TF]
+                new (96232, RaidDifficultiesNormal), // Fyn's Flickering Dagger [N TF]
+                new (96247, RaidDifficultiesNormal), // Greatsword of Frozen Hells [N TF]
+                new (96230, RaidDifficultiesNormal), // Invocation of the Dawn [N TF]
+                new (96239, RaidDifficultiesNormal), // Jerthud, Graceful Hand of the Savior [N TF]
+                new (96235, RaidDifficultiesNormal), // Lost Shoulders of Fire [N TF]
+                new (96236, RaidDifficultiesNormal), // Lost Shoulders of Healing [N TF]
+                new (96237, RaidDifficultiesNormal), // Lost Shoulders of Fluidity [N TF]
+                new (96231, RaidDifficultiesNormal), // Miracoran, the Vehement Chord [N TF]
+                new (96238, RaidDifficultiesNormal), // Nadagast's Exsanguinator [N TF]
+                new (96244, RaidDifficultiesNormal), // Reconstructed Holy Shoulderplates [N TF]
+                new (96245, RaidDifficultiesNormal), // Reconstructed Furious Shoulderplates [N TF]
+                new (96246, RaidDifficultiesNormal), // Reconstructed Bloody Shoulderplates [N TF]
+                new (97128, RaidDifficultiesNormal), // Tia-Tia, the Scything Star [N TF]
+                new (96250, RaidDifficultiesNormal), // Visage of the Doomed [N TF]
+                new (96233, RaidDifficultiesNormal), // Zeeg's Ancient Kegsmasher [N TF]
+
+                new (96614, RaidDifficultiesHeroic), // Abandoned Spaulders of Arrowflight [H]
+                new (96615, RaidDifficultiesHeroic), // Abandoned Spaulders of Renewal [H]
+                new (96621, RaidDifficultiesHeroic), // Bo-Ris, Horror in the Night [H]
+                new (96606, RaidDifficultiesHeroic), // Darkwood Spiritstaff [H]
+                new (96620, RaidDifficultiesHeroic), // Do-tharak, the Swordbreaker [H]
+                new (96612, RaidDifficultiesHeroic), // Forgotten Mantle of the Moon [H]
+                new (96613, RaidDifficultiesHeroic), // Forgotten Mantle of the Sun [H]
+                new (96604, RaidDifficultiesHeroic), // Fyn's Flickering Dagger [H]
+                new (96619, RaidDifficultiesHeroic), // Greatsword of Frozen Hells [H]
+                new (96602, RaidDifficultiesHeroic), // Invocation of the Dawn [H]
+                new (96611, RaidDifficultiesHeroic), // Jerthud, Graceful Hand of the Savior [H]
+                new (96607, RaidDifficultiesHeroic), // Lost Shoulders of Fire [H]
+                new (96608, RaidDifficultiesHeroic), // Lost Shoulders of Healing [H]
+                new (96609, RaidDifficultiesHeroic), // Lost Shoulders of Fluidity [H]
+                new (96603, RaidDifficultiesHeroic), // Miracoran, the Vehement Chord [H]
+                new (96610, RaidDifficultiesHeroic), // Nadagast's Exsanguinator [H]
+                new (96616, RaidDifficultiesHeroic), // Reconstructed Holy Shoulderplates [H]
+                new (96617, RaidDifficultiesHeroic), // Reconstructed Furious Shoulderplates [H]
+                new (96618, RaidDifficultiesHeroic), // Reconstructed Bloody Shoulderplates [H]
+                new (97127, RaidDifficultiesHeroic), // Tia-Tia, the Scything Star [H]
+                new (96622, RaidDifficultiesHeroic), // Visage of the Doomed [H]
+                new (96605, RaidDifficultiesHeroic), // Zeeg's Ancient Kegsmasher [H]
+
+                new (96986, RaidDifficultiesHeroic), // Abandoned Spaulders of Arrowflight [H TF]
+                new (96987, RaidDifficultiesHeroic), // Abandoned Spaulders of Renewal [H TF]
+                new (96993, RaidDifficultiesHeroic), // Bo-Ris, Horror in the Night [H TF]
+                new (96978, RaidDifficultiesHeroic), // Darkwood Spiritstaff [H TF]
+                new (96992, RaidDifficultiesHeroic), // Do-tharak, the Swordbreaker [H TF]
+                new (96984, RaidDifficultiesHeroic), // Forgotten Mantle of the Moon [H TF]
+                new (96985, RaidDifficultiesHeroic), // Forgotten Mantle of the Sun [H TF]
+                new (96976, RaidDifficultiesHeroic), // Fyn's Flickering Dagger [H TF]
+                new (96991, RaidDifficultiesHeroic), // Greatsword of Frozen Hells [H TF]
+                new (96974, RaidDifficultiesHeroic), // Invocation of the Dawn [H TF]
+                new (96983, RaidDifficultiesHeroic), // Jerthud, Graceful Hand of the Savior [H TF]
+                new (96979, RaidDifficultiesHeroic), // Lost Shoulders of Fire [H TF]
+                new (96980, RaidDifficultiesHeroic), // Lost Shoulders of Healing [H TF]
+                new (96981, RaidDifficultiesHeroic), // Lost Shoulders of Fluidity [H TF]
+                new (96975, RaidDifficultiesHeroic), // Miracoran, the Vehement Chord [H TF]
+                new (96982, RaidDifficultiesHeroic), // Nadagast's Exsanguinator [H TF]
+                new (96988, RaidDifficultiesHeroic), // Reconstructed Holy Shoulderplates [H TF]
+                new (96989, RaidDifficultiesHeroic), // Reconstructed Furious Shoulderplates [H TF]
+                new (96990, RaidDifficultiesHeroic), // Reconstructed Bloody Shoulderplates [H TF]
+                new (97130, RaidDifficultiesHeroic), // Tia-Tia, the Scything Star [H TF]
+                new (96994, RaidDifficultiesHeroic), // Visage of the Doomed [H TF]
+                new (96977, RaidDifficultiesHeroic), // Zeeg's Ancient Kegsmasher [H TF]
+            }
+        },
         // Siege of Orgrimmar > Garrosh Hellscream
         {
             869,
@@ -1000,28 +1123,28 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (86850, new[]{ 17 }), // Darting Damselfly Cuffs
+                new (86850, RaidDifficultiesLegacyLfr), // Darting Damselfly Cuffs
                 new (86192, RaidDifficultiesNormal), // Darting Damselfly Cuffs
-                new (86844, new[]{ 17 }), // Gleaming Moth Cuffs
+                new (86844, RaidDifficultiesLegacyLfr), // Gleaming Moth Cuffs
                 new (86186, RaidDifficultiesNormal), // Gleaming Moth Cuffs
-                new (86841, new[]{ 17 }), // Shining Cicada Bracers
+                new (86841, RaidDifficultiesLegacyLfr), // Shining Cicada Bracers
                 new (86183, RaidDifficultiesNormal), // Shining Cicada Bracers
                 // Leather
-                new (86845, new[]{ 17 }), // Pearlescent Butterfly Wristbands
+                new (86845, RaidDifficultiesLegacyLfr), // Pearlescent Butterfly Wristbands
                 new (86187, RaidDifficultiesNormal), // Pearlescent Butterfly Wristbands
-                new (86843, new[]{ 17 }), // Smooth Beetle Wristbands
+                new (86843, RaidDifficultiesLegacyLfr), // Smooth Beetle Wristbands
                 new (86185, RaidDifficultiesNormal), // Smooth Beetle Wristbands
                 // Mail
-                new (86847, new[]{ 17 }), // Jagged Hornet Bracers
+                new (86847, RaidDifficultiesLegacyLfr), // Jagged Hornet Bracers
                 new (86189, RaidDifficultiesNormal), // Jagged Hornet Bracers
-                new (86842, new[]{ 17 }), // Luminescent Firefly Wristguards
+                new (86842, RaidDifficultiesLegacyLfr), // Luminescent Firefly Wristguards
                 new (86184, RaidDifficultiesNormal), // Luminescent Firefly Wristguards
                 // Plate
-                new (86846, new[]{ 17 }), // Inlaid Cricket Bracers
+                new (86846, RaidDifficultiesLegacyLfr), // Inlaid Cricket Bracers
                 new (86188, RaidDifficultiesNormal), // Inlaid Cricket Bracers
-                new (86849, new[]{ 17 }), // Plated Locust Bracers
+                new (86849, RaidDifficultiesLegacyLfr), // Plated Locust Bracers
                 new (86191, RaidDifficultiesNormal), // Plated Locust Bracers
-                new (86848, new[]{ 17 }), // Serrated Wasp Bracers
+                new (86848, RaidDifficultiesLegacyLfr), // Serrated Wasp Bracers
                 new (86190, RaidDifficultiesNormal), // Serrated Wasp Bracers
             }
         },
@@ -1033,26 +1156,44 @@ public static partial class Hardcoded
                 new (98136, RaidDifficultiesLfrNormalHeroic), // Gastropod Shell
                 // Cloth
                 new (95207, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Firecord
+                new (96333, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Firecord [TF]
                 new (95208, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Shadowgirdle
+                new (96334, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Shadowgirdle [TF]
                 new (95224, RaidDifficultiesLfrNormalHeroic), // Home-Warding Slippers
+                new (96337, RaidDifficultiesLfrNormalHeroic), // Home-Warding Slippers [TF]
                 new (95223, RaidDifficultiesLfrNormalHeroic), // Silentflame Sandals
+                new (96335, RaidDifficultiesLfrNormalHeroic), // Silentflame Sandals [TF]
                 // Leather
                 new (95210, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Moonstrap
+                new (96343, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Moonstrap [TF]
                 new (95209, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Silentbelt
+                new (96342, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Silentbelt [TF]
                 new (95221, RaidDifficultiesLfrNormalHeroic), // Deeproot Treads
+                new (96338, RaidDifficultiesLfrNormalHeroic), // Deeproot Treads [TF]
                 new (95219, RaidDifficultiesLfrNormalHeroic), // Spiderweb Tabi
+                new (96331, RaidDifficultiesLfrNormalHeroic), // Spiderweb Tabi [TF]
                 // Mail
                 new (95211, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Arrowlinks
+                new (96344, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Arrowlinks [TF]
                 new (95212, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Waterchain
+                new (96345, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Waterchain [TF]
                 new (95220, RaidDifficultiesLfrNormalHeroic), // Scalehide Spurs
+                new (96332, RaidDifficultiesLfrNormalHeroic), // Scalehide Spurs [TF]
                 new (95222, RaidDifficultiesLfrNormalHeroic), // Spiritbound Boots
+                new (96339, RaidDifficultiesLfrNormalHeroic), // Spiritbound Boots [TF]
                 // Plate
                 new (95215, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Bucklebreaker
+                new (96348, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Bucklebreaker [TF]
                 new (95214, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Goreplate
+                new (96347, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Goreplate [TF]
                 new (95213, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Greatbelt
+                new (96346, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Greatbelt [TF]
                 new (95218, RaidDifficultiesLfrNormalHeroic), // Columnbreaker Stompers
+                new (96351, RaidDifficultiesLfrNormalHeroic), // Columnbreaker Stompers [TF]
                 new (95217, RaidDifficultiesLfrNormalHeroic), // Locksmasher Greaves
+                new (96350, RaidDifficultiesLfrNormalHeroic), // Locksmasher Greaves [TF]
                 new (95216, RaidDifficultiesLfrNormalHeroic), // Vaultwalker Sabatons
+                new (96340, RaidDifficultiesLfrNormalHeroic), // Vaultwalker Sabatons [TF]
             }
         },
         {

@@ -138,7 +138,18 @@ public static partial class Hardcoded
                 new ExtraEncounter("Doctor Theolen Krastinov")
                 {
                     AfterEncounter = 665, // Rattlegore
-                }
+                },
+            }
+        },
+        // MoP > Throne of Thunder
+        {
+            362,
+            new[]
+            {
+                new ExtraEncounter("Shared Boss Drops")
+                {
+                    // AfterEncounter = 1000362,
+                },
             }
         },
         #endregion

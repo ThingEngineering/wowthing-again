@@ -86,7 +86,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public configuration: CharacterConfiguration,
 
         public auras: Record<number, number>,
-        // public currencyItems: Record<number, number>,
         public equippedItems: Record<number, CharacterEquippedItem>,
         public garrisons: Record<number, CharacterGarrison>,
         public garrisonTrees: Record<number, Record<number, number[]>>,
@@ -96,8 +95,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>,
         public paragons: Record<number, CharacterReputationParagon>,
         public professions: Record<number, Record<number, CharacterProfession>>,
+        public professionCooldowns: Record<string, [number, number, number]>,
         public professionTraits: Record<number, Record<number, number>>,
-        // public progressItems: number[],
         public raiderIo: Record<number, CharacterRaiderIoSeason>,
         public reputations: Record<number, number>,
         public shadowlands: CharacterShadowlands,

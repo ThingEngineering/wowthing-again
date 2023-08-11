@@ -46,6 +46,42 @@
             }
         }
 
+        // Fix weird old instances
+        const normalDifficulties = difficulties.filter((d) => d[0] === 3 || d[0] === 4)
+        const heroicDifficulties = difficulties.filter((d) => d[0] === 5 || d[0] === 6)
+        if (
+            normalDifficulties.length === 2 &&
+            normalDifficulties[0][1] === normalDifficulties[1][1] &&
+            normalDifficulties[0][2] === normalDifficulties[1][2] &&
+            heroicDifficulties.length === 2 &&
+            heroicDifficulties[0][1] === heroicDifficulties[1][1] &&
+            heroicDifficulties[0][2] === heroicDifficulties[1][2]
+        ) {
+            const newNormal = difficulties.filter((d) => d[0] === 14)[0]
+            if (newNormal) {
+                difficulties = difficulties.filter((d) => d[0] !== 3 && d[0] !== 4)
+                newNormal[1] += normalDifficulties[0][1]
+                newNormal[2] += normalDifficulties[0][2]
+            }
+            else {
+                difficulties = difficulties.filter((d) => d[0] !== 4)
+                normalDifficulties[0][0] = 14
+            }
+
+            const newHeroic = difficulties.filter((d) => d[0] === 15)[0]
+            if (newHeroic) {
+                difficulties = difficulties.filter((d) => d[0] !== 5 && d[0] !== 6)
+                newHeroic[1] += heroicDifficulties[0][1]
+                newHeroic[2] += heroicDifficulties[0][2]
+            }
+            else {
+                difficulties = difficulties.filter((d) => d[0] !== 6)
+                heroicDifficulties[0][0] = 15
+            }
+
+            difficulties.sort((a, b) => journalDifficultyOrder.indexOf(a[0]) - journalDifficultyOrder.indexOf(b[0]))
+        }
+
         classCounts = []
         for (const [className,] of playableClasses) {
             const classKey = `${statsKey}--class:${className}`
