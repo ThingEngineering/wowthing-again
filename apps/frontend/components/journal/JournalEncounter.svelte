@@ -14,9 +14,17 @@
     $: useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30
 
     const reduceFunc = function(a: number, b: JournalDataEncounterItemGroup) {
-        return a + $lazyStore.journal.filteredItems[`${statsKey}--${b.name}`]
-            .filter((item) => item.show)
-            .reduce((a, b) => a + b.appearances.length, 0)
+        const groupKey = `${statsKey}--${b.name}`
+        const groupFiltered = $lazyStore.journal.filteredItems[groupKey]
+        if (!groupFiltered) {
+            console.log('No stats for group', groupKey)
+            return a
+        }
+        else {
+            return a + $lazyStore.journal.filteredItems[`${statsKey}--${b.name}`]
+                .filter((item) => item.show)
+                .reduce((a, b) => a + b.appearances.length, 0)
+        }
     }
 </script>
 
