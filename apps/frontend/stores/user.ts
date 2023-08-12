@@ -121,41 +121,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         const itemData = get(itemStore)
         const staticData = get(staticStore)
         
-        // Initialize characters
-        userData.itemsByAppearanceId = {}
-        userData.itemsByAppearanceSource = {}
-        userData.itemsById = {}
-
-        const allLockouts: Record<string, boolean> = {}
-        for (const character of userData.characters) {
-            this.initializeCharacter(itemData, staticData, character)
-
-            for (const key of Object.keys(character.lockouts || {})) {
-                allLockouts[key] = true
-            }
-
-            for (const [appearanceId, items] of Object.entries(character.itemsByAppearanceId)) {
-                (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= [])
-                    .push([character, items]);
-            }
-            for (const [appearanceSource, items] of Object.entries(character.itemsByAppearanceSource)) {
-                (userData.itemsByAppearanceSource[appearanceSource] ||= [])
-                    .push([character, items]);
-            }
-            for (const [itemId, items] of Object.entries(character.itemsById)) {
-                (userData.itemsById[parseInt(itemId)] ||= [])
-                    .push([character, items]);
-            }
-        }
-
-        userData.allRegions = sortBy(
-            uniq(
-                userData.characters
-                    .map((char) => char.realm.region)
-            ),
-            (region) => region
-        )
-
         // Initialize guilds
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(itemData, guild)
@@ -173,6 +138,51 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             for (const [itemId, items] of Object.entries(guild.itemsById)) {
                 (userData.itemsById[parseInt(itemId)] ||= [])
                     .push([guild, items]);
+            }
+        }
+
+        // Initialize characters
+        userData.itemsByAppearanceId = {}
+        userData.itemsByAppearanceSource = {}
+        userData.itemsById = {}
+
+        const allLockouts: Record<string, boolean> = {}
+        for (const character of userData.characters) {
+            this.initializeCharacter(itemData, staticData, character)
+
+            for (const key of Object.keys(character.lockouts || {})) {
+                allLockouts[key] = true
+            }
+
+            if (userData.public || character.account?.enabled === true) {
+                for (const [appearanceId, items] of Object.entries(character.itemsByAppearanceId)) {
+                    (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= [])
+                        .push([character, items])
+                }
+                for (const [appearanceSource, items] of Object.entries(character.itemsByAppearanceSource)) {
+                    (userData.itemsByAppearanceSource[appearanceSource] ||= [])
+                        .push([character, items])
+                }
+                for (const [itemId, items] of Object.entries(character.itemsById)) {
+                    (userData.itemsById[parseInt(itemId)] ||= [])
+                        .push([character, items])
+                }
+            }
+        }
+
+        userData.allRegions = sortBy(
+            uniq(
+                userData.characters
+                    .map((char) => char.realm.region)
+            ),
+            (region) => region
+        )
+        
+        // Accounts
+        userData.activeCharacters = []
+        for (const character of userData.characters) {
+            if (userData.public || character.account?.enabled === true) {
+                userData.activeCharacters.push(character)
             }
         }
 
@@ -250,6 +260,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     private initializeCharacter(itemData: ItemData, staticData: StaticData, character: Character): void {
+        // account
+        character.account = this.value.accounts[character.accountId]
+
         // names
         character.className = getGenderedName(
             staticData.characterClasses[character.classId].name,
