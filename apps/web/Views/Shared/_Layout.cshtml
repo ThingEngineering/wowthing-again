@@ -26,9 +26,6 @@
     <header>
         <nav class="nav">
             <ul id="nav-left">
-                <li class="header-title">
-                    <a href="@UriService.GetBaseAction("Leaderboard", "Index")">Leaderboard</a>
-                </li>
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <li>
@@ -38,6 +35,9 @@
                         <a asp-controller="Upload" asp-action="Index">Upload Addon Data</a>
                     </li>
                 }
+                <li class="header-title">
+                    <a href="@UriService.GetBaseAction("Leaderboard", "Index")">Leaderboard</a>
+                </li>
             </ul>
 
             <ul id="nav-center">
