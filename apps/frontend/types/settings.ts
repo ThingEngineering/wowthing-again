@@ -54,6 +54,11 @@ export interface Settings {
         homeTasks: string[]
     }
 
+    leaderboard: {
+        anonymous: boolean
+        enabled: boolean
+    }
+
     privacy: {
         anonymized: boolean
         public: boolean

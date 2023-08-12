@@ -11,6 +11,7 @@
     import History from './sections/SettingsHistory.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
     import Layout from './sections/SettingsLayout.svelte'
+    import Leaderboard from './sections/SettingsLeaderboard.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import Tasks from './sections/SettingsTasks.svelte'
@@ -36,6 +37,7 @@
         'auctions/custom': AuctionsCustom,
         'collections': Collections,
         'history': History,
+        'leaderboard': Leaderboard,
         'privacy': Privacy,
         'transmog': Transmog,
         

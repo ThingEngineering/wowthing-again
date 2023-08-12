@@ -145,11 +145,15 @@
                             {#if linkTo}
                                 <a href="/user/{username}#/" target="_blank">{username}</a>
                             {:else}
-                                {username}
+                                {username || '[Anonygoose]'}
                             {/if}
                         </div>
                         <div class="score">{score.toLocaleString()}</div>
                     </div>
+                </div>
+            {:else}
+                <div class="leaderboard-entry border">
+                    Nobody is here 😢
                 </div>
             {/each}
         </div>

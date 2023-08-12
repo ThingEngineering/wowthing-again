@@ -24,6 +24,10 @@
             ],
         },
         {
+            name: 'Leaderboard',
+            slug: 'leaderboard',
+        },
+        {
             name: 'Privacy',
             slug: 'privacy',
         },

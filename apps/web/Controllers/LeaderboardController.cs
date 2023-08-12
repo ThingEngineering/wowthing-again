@@ -45,7 +45,7 @@ ORDER BY user_id, date DESC
             var leaderboardUser = userMap[leaderboard.UserId];
             bool isCurrentUser = User.Identity?.Name == leaderboardUser.UserName;
 
-            if (leaderboardUser.Settings?.Leaderboard?.Enabled == false && !isCurrentUser)
+            if (leaderboardUser.Settings?.Leaderboard?.Enabled == false)
             {
                 continue;
             }
