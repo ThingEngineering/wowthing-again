@@ -121,6 +121,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         const itemData = get(itemStore)
         const staticData = get(staticStore)
         
+        userData.itemsByAppearanceId = {}
+        userData.itemsByAppearanceSource = {}
+        userData.itemsById = {}
+
         // Initialize guilds
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(itemData, guild)
@@ -142,10 +146,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // Initialize characters
-        userData.itemsByAppearanceId = {}
-        userData.itemsByAppearanceSource = {}
-        userData.itemsById = {}
-
         const allLockouts: Record<string, boolean> = {}
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, staticData, character)
