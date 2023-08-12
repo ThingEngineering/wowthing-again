@@ -13,19 +13,13 @@
 
     afterUpdate(() => getSavedRoute('settings', params.slug1, params.slug2))
 
-    $: {
-        if ($userStore.public) {
-            replace('/')
-        }
-    }
+    $: if ($userStore.public) { replace('/') }
 </script>
 
-<style lang="scss">
-
-</style>
-
-<Sidebar />
-<View
-    slug1={params.slug1}
-    slug2={params.slug2}
-/>
+{#if !$userStore.public}
+    <Sidebar />
+    <View
+        slug1={params.slug1}
+        slug2={params.slug2}
+    />
+{/if}

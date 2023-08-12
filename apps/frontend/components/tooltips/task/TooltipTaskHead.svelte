@@ -26,6 +26,10 @@
         // Check other characters for a quest title
         for (const characterId in $userQuestStore.characters) {
             const character = $userStore.characterMap[characterId]
+            if (!character) {
+                continue
+            }
+
             if (
                 character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
                 (

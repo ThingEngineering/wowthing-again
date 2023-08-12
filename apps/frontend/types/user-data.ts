@@ -43,10 +43,12 @@ export interface UserData {
     allLockoutsMap: Record<string, InstanceDifficulty>
     allRegions: number[]
     backgroundList: BackgroundImage[]
+    homeLockouts: InstanceDifficulty[]
+
+    activeCharacters: Character[]
     characterMap: Record<number, Character>
     characters: Character[]
     guildMap: Record<number, Guild>
-    homeLockouts: InstanceDifficulty[]
 
     hasMount: Record<number, boolean>
     hasPet: Record<number, boolean>

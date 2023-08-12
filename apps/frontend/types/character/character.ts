@@ -33,20 +33,21 @@ import {
 import type { CharacterWeekly } from './weekly'
 
 import type { ContainsItems, HasNameAndRealm } from '../shared'
+import type { Account } from '../account'
 
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
+    public account: Account
+    public guild: Guild
+    public realm: StaticDataRealm
+
     public className: string
     public raceName: string
     public specializationName: string
 
     public calculatedItemLevel: string
     public calculatedItemLevelQuality: number
-    public guild: Guild
-    public mythicPlusSeasonScores: Record<number, number>
-    public realm: StaticDataRealm
-    public reputationData: Record<string, CharacterReputation>
 
     public bags: Record<number, number> = {}
     public currencies: Record<number, CharacterCurrency> = {}
@@ -54,7 +55,9 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByAppearanceSource: Record<string, CharacterItem[]>
     public itemsById: Record<number, CharacterItem[]>
     public itemsByLocation: Record<number, CharacterItem[]>
+    public mythicPlusSeasonScores: Record<number, number>
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
+    public reputationData: Record<string, CharacterReputation>
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
 
