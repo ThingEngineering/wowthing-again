@@ -50,10 +50,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public bags: Record<number, number> = {}
     public currencies: Record<number, CharacterCurrency> = {}
-    public itemsByAppearanceId: Record<number, CharacterItem[]> = {}
-    public itemsByAppearanceSource: Record<string, CharacterItem[]> = {}
-    public itemsById: Record<number, CharacterItem[]> = {}
-    public itemsByLocation: Record<number, CharacterItem[]> = {}
+    public itemsByAppearanceId: Record<number, CharacterItem[]>
+    public itemsByAppearanceSource: Record<string, CharacterItem[]>
+    public itemsById: Record<number, CharacterItem[]>
+    public itemsByLocation: Record<number, CharacterItem[]>
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
@@ -113,6 +113,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
         ]
     )
     {
+        this.itemsByAppearanceId = {}
+        this.itemsByAppearanceSource = {}
+        this.itemsById = {}
+        this.itemsByLocation = {}
+
         for (const rawCurrency of (rawCurrencies || [])) {
             const obj = new CharacterCurrency(...rawCurrency)
             this.currencies[obj.id] = obj

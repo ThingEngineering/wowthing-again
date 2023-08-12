@@ -94,19 +94,26 @@
     
     $: {
         if (ready && !$userStore.public && $userStore.lastApiCheck) {
-                const parsedTime = parseApiTime($userStore.lastApiCheck)
-                const diff = $timeStore.diff(parsedTime).toMillis()
-                // Add the refresh button if lastApiCheck is more than 24 hours ago
-                if (diff > (24 * 60 * 60 * 1000)) {
-                    const navCenter = document.getElementById('nav-center')
-                    navCenter.replaceChildren()
-                    new Refresh({
-                        target: navCenter,
-                        props: {},
-                    })
-                }
+            const parsedTime = parseApiTime($userStore.lastApiCheck)
+            const diff = $timeStore.diff(parsedTime).toMillis()
+            // Add the refresh button if lastApiCheck is more than 24 hours ago
+            if (diff > (24 * 60 * 60 * 1000)) {
+                const navCenter = document.getElementById('nav-center')
+                navCenter.replaceChildren()
+                new Refresh({
+                    target: navCenter,
+                    props: {},
+                })
             }
+        }
+    }
 
+    $: {
+        const headerLinks = document.getElementById('nav-left')
+            .getElementsByClassName('header-title')
+        ;(headerLinks[0] as HTMLElement).style.display = $settingsStore.leaderboard.enabled
+            ? 'inline-block'
+            : 'none'
     }
 </script>
 

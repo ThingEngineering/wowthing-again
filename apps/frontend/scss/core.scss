@@ -36,10 +36,10 @@ footer {
                 margin-left: 3rem;
             }
 
-            & + li:not(.margin-left) {
-                border-left: 1px solid #888;
-                margin-left: 0.4rem;
-                padding-left: 0.6rem;
+            &:not(:last-child) {
+                border-right: 1px solid #888;
+                margin-right: 0.4rem;
+                padding-right: 0.6rem;
             }
         }
     }

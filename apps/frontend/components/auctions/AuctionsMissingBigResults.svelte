@@ -7,10 +7,9 @@
     import { iconLibrary } from '@/icons'
     import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy, { tippyComponent } from '@/utils/tippy'
-    import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
@@ -23,17 +22,13 @@
     export let page: number
     export let slug: string
 
-    type HasItems = [HasNameAndRealm, UserItem[]][]
-
-    function userHasItem(item: UserAuctionEntry): HasItems {
-        if (slug === 'missing-appearance-ids') {
-            return $userStore.itemsByAppearanceId[parseInt(item.id)] || []
-        }
-        else if (slug === 'missing-appearance-sources') {
-            return $userStore.itemsByAppearanceSource[item.id] || []
+    function setRealmSearch(connectedRealmId: number) {
+        const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0]
+        if (slug === 'missing-recipes') {
+            $auctionState.missingRecipeRealmSearch = realmName
         }
         else {
-            return $userStore.itemsById[parseInt(item.id)] || []
+            $auctionState.missingTransmogRealmSearch = realmName
         }
     }
 </script>
@@ -101,6 +96,8 @@
     }
     .realm {
         @include cell-width(11.0rem, $paddingLeft: 0px);
+
+        cursor: pointer;
     }
     .price {
         @include cell-width(5.5rem);
@@ -138,8 +135,20 @@
 <UnderConstruction />
 
 {#await slug === 'missing-recipes'
-    ? userAuctionMissingRecipeStore.search($auctionState, $itemStore, $staticStore)
-    : userAuctionMissingTransmogStore.search($settingsStore, $auctionState, $itemStore, $staticStore, slug.replace('missing-appearance-', ''))
+    ? userAuctionMissingRecipeStore.search(
+        $auctionState,
+        $itemStore,
+        $staticStore,
+        $userStore
+    )
+    : userAuctionMissingTransmogStore.search(
+        $settingsStore,
+        $auctionState,
+        $itemStore,
+        $staticStore,
+        $userStore,
+        slug.replace('missing-appearance-', '')
+    )
 }
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
@@ -157,10 +166,9 @@
                 {#each paginated as item}
                     {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
-                    {@const hasItems = userHasItem(item)}
                     <table
                         class="table table-striped"
-                        class:faded={hasItems.length > 0}
+                        class:faded={item.hasItems.length > 0}
                     >
                         <thead>
                             <tr>
@@ -188,13 +196,13 @@
                                         </WowheadLink>
 
                                         <span class="icons">
-                                            {#if hasItems?.length > 0}
+                                            {#if item.hasItems.length > 0}
                                                 <span
                                                     class="already-have"
                                                     use:tippyComponent={{
                                                         component: TooltipAlreadyHave,
                                                         props: {
-                                                            hasItems,
+                                                            hasItems: item.hasItems,
                                                         },
                                                     }}
                                                 >
@@ -238,8 +246,10 @@
                                         )
                                     }
                                 >
+                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                                     <td
                                         class="realm text-overflow"
+                                        on:click={() => setRealmSearch(auction.connectedRealmId)}
                                         use:tippy={{
                                             allowHTML: true,
                                             content: `

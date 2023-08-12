@@ -6,7 +6,7 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import type { Settings } from '@/types'
+import type { Settings, UserData } from '@/types'
 
 import type { AuctionState } from '../local-storage'
 import type { UserAuctionEntry } from '../user-auctions'
@@ -21,6 +21,7 @@ export class UserAuctionMissingTransmogDataStore {
         auctionState: AuctionState,
         itemData: ItemData,
         staticData: StaticData,
+        userData: UserData,
         searchType: string
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = []
@@ -80,6 +81,9 @@ export class UserAuctionMissingTransmogDataStore {
                         id: thingId,
                         name: item.name,
                         auctions,
+                        hasItems: searchType === 'ids'
+                            ? userData.itemsByAppearanceId[parseInt(thingId)] || []
+                            : userData.itemsByAppearanceSource[thingId] || [],
                     })
                 }
             }
@@ -117,6 +121,8 @@ export class UserAuctionMissingTransmogDataStore {
             ) {
                 return false
             }
+
+            const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
 
             const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
 
@@ -158,7 +164,13 @@ export class UserAuctionMissingTransmogDataStore {
                 }
             }
 
-            return meetsMinQuality && matchesExpansion && matchesName && matchesRealm && matchesArmor && matchesWeapon
+            return meetsHave
+                && meetsMinQuality
+                && matchesExpansion
+                && matchesName
+                && matchesRealm
+                && matchesArmor
+                && matchesWeapon
         })
 
         return [things, updated]

@@ -2,6 +2,7 @@ import some from 'lodash/some'
 
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
+import type { UserData } from '@/types'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
 import type { AuctionState } from '../local-storage'
@@ -15,7 +16,8 @@ export class UserAuctionMissingRecipeDataStore {
     async search(
         auctionState: AuctionState,
         itemData: ItemData,
-        staticData: StaticData
+        staticData: StaticData,
+        userData: UserData
     ): Promise<[UserAuctionEntry[], Record<number, number>]> {
         let things: UserAuctionEntry[] = []
         let updated: Record<number, number>
@@ -84,6 +86,7 @@ export class UserAuctionMissingRecipeDataStore {
                         id: thingId,
                         name: item.name,
                         auctions,
+                        hasItems: userData.itemsById[item.id] || [],
                     })
                 }
             }
@@ -97,11 +100,13 @@ export class UserAuctionMissingRecipeDataStore {
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
 
-            const matchesExpansion = auctionState.missingRecipeExpansion === -1
+            const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
+
+            const meetsExpansion = auctionState.missingRecipeExpansion === -1
                 || item.expansion === auctionState.missingRecipeExpansion 
 
-            const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
-            const matchesRealm = some(
+            const meetsName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
+            const meetsRealm = some(
                 thing.auctions.slice(0, auctionState.limitToCheapestRealm ? 1 : undefined),
                 (auction) => staticData.connectedRealms[auction.connectedRealmId]
                     .realmNames
@@ -109,7 +114,7 @@ export class UserAuctionMissingRecipeDataStore {
                     .length > 0
             )
 
-            return matchesExpansion && matchesName && matchesRealm
+            return meetsHave && meetsExpansion && meetsName && meetsRealm
         })
 
         return [things, updated]

@@ -4,12 +4,12 @@ import parseApiTime from '@/utils/parse-api-time'
 
 import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
-import type { Character, CharacterArray, CharacterItem } from './character'
+import type { Character, CharacterArray } from './character'
 import type { InstanceDifficulty } from './dungeon'
 import type { ItemQuality } from '../enums'
 import type { Guild, GuildArray } from './guild'
-import type { UserCount } from './user-count'
 import type { HasNameAndRealm, UserItem } from './shared'
+import type { UserCount } from './user-count'
 
 
 export interface UserData {

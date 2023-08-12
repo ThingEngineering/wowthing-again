@@ -30,6 +30,10 @@
     .clear-text {
         cursor: pointer;
     }
+    .disabled {
+        cursor: default;
+        opacity: 0.5;
+    }
 </style>
 
 <fieldset>
@@ -51,6 +55,7 @@
     {#if clearButton}
         <div
             class="clear-text"
+            class:disabled={!value}
             on:click={() => value = ''}
             on:keypress={() => value = ''}
         >

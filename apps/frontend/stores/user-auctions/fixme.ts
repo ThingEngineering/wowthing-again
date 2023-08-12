@@ -1,6 +1,7 @@
-import type { AuctionState } from '../local-storage'
 import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
+import type { HasNameAndRealm, UserItem } from '@/types/shared'
+import type { AuctionState } from '../local-storage'
 
 
 export type UserExtraPetEntry = {
@@ -17,6 +18,7 @@ export type UserAuctionEntry = {
     id: string,
     name: string,
     auctions: MangledAuctionType[]
+    hasItems?: [HasNameAndRealm, UserItem[]][]
 }
 
 export class UserAuctionExtraPetsStore {

@@ -7,7 +7,6 @@ export interface UserItem {
     context: number
     count: number
     craftedQuality: number
-    enchantId: number
     itemId: number
     itemLevel: number
     location: ItemLocation
@@ -16,8 +15,6 @@ export interface UserItem {
     suffix: number
 
     bonusIds: number[]
-    gems: number[]
-
     enchantmentIds: number[]
     gemIds: number[]
 
