@@ -385,6 +385,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // item appearance data
+        character.itemsByAppearanceId = {}
+        character.itemsByAppearanceSource = {}
+        character.itemsById = {}
         for (const characterItems of Object.values(character.itemsByLocation)) {
             for (const characterItem of characterItems) {
                 (character.itemsById[characterItem.itemId] ||= [])
@@ -407,6 +410,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         guild: Guild
     ): void {
         // item appearance data
+        guild.itemsByAppearanceId = {}
+        guild.itemsByAppearanceSource = {}
+        guild.itemsById = {}
         for (const guildItem of guild.items) {
             (guild.itemsById[guildItem.itemId] ||= [])
                 .push(guildItem);
