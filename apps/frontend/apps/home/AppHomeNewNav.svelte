@@ -105,7 +105,10 @@
 >
     {#each navItems as [path, linkText, iconName, privateOnly], navIndex}
         {#if path !== null}
-            {#if !privateOnly || ($userStore.loaded && !$userStore.public)}
+            {#if !privateOnly
+                || (privateOnly && linkText === 'Currencies' && $settingsStore.privacy.publicCurrencies)
+                || ($userStore.loaded && !$userStore.public)
+            }
                 <a 
                     class:spacer={navIndex < (navItems.length) && !navItems[navIndex+1]?.[0]}
                     class:wip={linkText.indexOf('WIP') >= 0}
