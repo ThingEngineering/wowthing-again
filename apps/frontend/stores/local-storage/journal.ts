@@ -28,6 +28,8 @@ export class JournalState {
     public showRaidMythic = true
     public showRaidMythicOld = true
     public showRaidTimewalking = true
+    public showRaid10 = true
+    public showRaid25 = true
 }
 
 const key = 'state-journal'
