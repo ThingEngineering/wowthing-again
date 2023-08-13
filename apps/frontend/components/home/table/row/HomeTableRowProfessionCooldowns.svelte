@@ -48,12 +48,10 @@
             // if the next charge timestamp is in the past, add up to max charges and work
             // out when this character will be full
             if (charNext > 0) {
+                charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
                 const diff = Math.floor($timeStore.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000)
                 if (diff > 0) {
                     charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds))
-                }
-                if (charHave < charMax) {
-                    charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
                 }
             }
 
