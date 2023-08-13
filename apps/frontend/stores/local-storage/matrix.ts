@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 
 export class MatrixState {
     public minLevel = 0
+    public showCharacterAs: 'level' | 'name' = 'level'
     public showCovenant = true
 
     public xAxis: string[] = []

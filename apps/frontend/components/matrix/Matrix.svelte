@@ -11,6 +11,7 @@
     import { matrixState } from '@/stores/local-storage'
     import { Gender, genderValues, Region } from '@/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/types/data/static'
 
@@ -19,6 +20,8 @@
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import RadioGroup from '@/components/forms/RadioGroup.svelte'
+    import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
     let matrix: Record<string, Character[]>
@@ -334,8 +337,13 @@
         @include cell-width(4rem, $maxWidth: 10rem);
     }
     .characters {
-        @include cell-width(4rem);
-
+        white-space: nowrap;
+        &.as-level {
+            @include cell-width(2.5rem);
+        }
+        &.as-name {
+            @include cell-width(6rem);
+        }
         &.max-level {
             background: mix($thing-background, $colour-success, 90%);
         }
@@ -343,8 +351,12 @@
             background: mix($thing-background, $colour-fail, 90%);
         }
     }
-    .level {
+    .character {
         --image-margin-top: -4px;
+
+        a {
+            color: var(--colour-class, inherit);
+        }
     }
     .counts {
         color: #44ffff;
@@ -393,6 +405,18 @@
         </div>
 
         <div class="options-container background-box">
+            Show as:&nbsp;
+            <RadioGroup
+                name="show_character_as"
+                bind:value={$matrixState.showCharacterAs}
+                options={[
+                    ['level', 'Level'],
+                    ['name', 'Name'],
+                ]}
+            />
+        </div>
+
+        <div class="options-container background-box">
             <CheckboxInput
                 name="show_covenant"
                 bind:value={$matrixState.showCovenant}
@@ -426,16 +450,33 @@
                     {#each xKeys as xKey}
                         {@const keyCharacters = getCharacters(xKey, yKey)}
                         <td
-                            class="characters"
+                            class="characters as-{$matrixState.showCharacterAs}"
                             class:max-level={some(keyCharacters, (char) => char.level === Constants.characterMaxLevel)}
                             class:no-characters={keyCharacters.length === 0}
                         >
                             {#each keyCharacters as character}
-                                <div class="level">
+                                <div
+                                    class="character"
+                                    use:tippyComponent={{
+                                        component: TooltipCharacter,
+                                        props: {
+                                            character,
+                                        },
+                                    }}
+                                >
                                     {#if $matrixState.showCovenant && character.shadowlands?.covenantId}
                                         <CovenantIcon covenantId={character.shadowlands.covenantId} />
                                     {/if}
-                                    {character.level}
+                                    {#if $matrixState.showCharacterAs === 'level'}
+                                        {character.level}
+                                    {:else}
+                                        <a
+                                            class="class-{character.classId} drop-shadow"
+                                            href="#/characters/{Region[character.realm.region].toLocaleLowerCase()}-{character.realm.slug}/{character.name}"
+                                        >
+                                            {character.name}
+                                        </a>
+                                    {/if}
                                 </div>
                             {:else}
                                 ---
