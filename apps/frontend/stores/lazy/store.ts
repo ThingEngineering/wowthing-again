@@ -188,8 +188,8 @@ export class LazyStore implements LazyUgh {
 
             appearanceState: hashObject(appearanceState), 
             collectibleState: hashObject(collectibleState),
-            journalState: hashObject(journalState),
-            vendorState: hashObject(vendorState),
+            journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
+            vendorState: hashObject(vendorState, ['filtersExpanded']),
             zoneMapState: hashObject(zoneMapState),
             
             hideUnavailable: `${settings.collections.hideUnavailable}`,

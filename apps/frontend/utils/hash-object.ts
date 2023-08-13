@@ -1,10 +1,15 @@
-export function hashObject(obj: object): string {
+export function hashObject(obj: object, skipKeys?: string[]): string {
     const entries = Object.entries(obj)
     entries.sort()
     return entries.map(([key, value]) => {
-        if (typeof value === 'object') {
+        if (skipKeys?.indexOf(key) >= 0) {
+            return `${key}_`
+        }
+        else if (typeof value === 'object') {
             return `${key}_${hashObject(value)}`
         }
-        return `${key}_${value}`
+        else {
+            return `${key}_${value}`
+        }
     }).join('|')
 }
