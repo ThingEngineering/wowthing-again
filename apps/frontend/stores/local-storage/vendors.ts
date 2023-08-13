@@ -2,7 +2,7 @@ import { writable } from 'svelte/store'
 
 
 export class VendorState {
-    public filtersExpanded = true
+    public filtersExpanded = false
 
     public highlightMissing = true
     public showCollected = true
