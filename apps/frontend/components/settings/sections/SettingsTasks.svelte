@@ -69,7 +69,7 @@
 <div class="settings-block">
     <div>
         <h3>Dragonflight Chores</h3>
-        {#if taskActive.filter((task) => task.key === 'dfChores').length > 0}
+        {#if $settingsStore.layout.homeTasks.indexOf('dfChores') >= 0}
             <Multi multiTaskKey="dfChores" />
         {:else}
             <span>Add "<code>[DF]</code> Chores" to your Tasks list</span>
@@ -80,7 +80,7 @@
 <div class="settings-block">
     <div>
         <h3>Dragonflight Chores - 10.1.0</h3>
-        {#if taskActive.filter((task) => task.key === 'dfChores10_1_0').length > 0}
+        {#if $settingsStore.layout.homeTasks.indexOf('dfChores10_1_0') >= 0}
             <Multi multiTaskKey="dfChores10_1_0" />
         {:else}
             <span>Add "<code>[DF]</code> Chores - 10.1.0" to your Tasks list</span>

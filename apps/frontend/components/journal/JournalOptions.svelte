@@ -282,4 +282,18 @@
             bind:value={$journalState.showRaidTimewalking}
         >Timewalking</CheckboxInput>
     </button>
+    
+    <button class="margin-left">
+        <CheckboxInput
+            name="show_raid_10"
+            bind:value={$journalState.showRaid10}
+        >10 Player</CheckboxInput>
+    </button>
+    
+    <button>
+        <CheckboxInput
+            name="show_raid_25"
+            bind:value={$journalState.showRaid25}
+        >25 Player</CheckboxInput>
+    </button>
 </div>

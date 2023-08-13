@@ -54,6 +54,15 @@ export default function getFilteredItems(
                 const difficulties: number[] = []
 
                 for (const difficulty of appearance.difficulties) {
+                    // Early skip for 10 player
+                    if ((difficulty === 3 || difficulty === 5) && !journalState.showRaid10) {
+                        continue
+                    }
+                    // Early skip for 25 player
+                    if ((difficulty === 4 || difficulty === 6) && !journalState.showRaid25) {
+                        continue
+                    }
+
                     // LFR
                     if (difficulty === 7 || difficulty === 17) {
                         if (journalState.showRaidLfr) {
@@ -77,7 +86,7 @@ export default function getFilteredItems(
                             difficulties.push(difficulty)
                         }
                     }
-                    else if (difficulty === 5 || difficulty ===6 || difficulty === 15) {
+                    else if (difficulty === 5 || difficulty === 6 || difficulty === 15) {
                         if (journalState.showRaidHeroic) {
                             difficulties.push(difficulty)
                         }

@@ -2,7 +2,7 @@ import { writable } from 'svelte/store'
 
 
 export class JournalState {
-    public filtersExpanded = true
+    public filtersExpanded = false
 
     public highlightMissing = true
     public showCollected = true
@@ -28,6 +28,8 @@ export class JournalState {
     public showRaidMythic = true
     public showRaidMythicOld = true
     public showRaidTimewalking = true
+    public showRaid10 = true
+    public showRaid25 = true
 }
 
 const key = 'state-journal'
