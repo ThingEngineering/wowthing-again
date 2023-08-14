@@ -13,6 +13,8 @@
 
 <style lang="scss">
     label {
+        white-space: nowrap;
+
         & :global(svg) {
             margin-top: -4px;
         }
