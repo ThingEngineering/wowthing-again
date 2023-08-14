@@ -1,5 +1,6 @@
 <script lang="ts">
     import { Region } from '@/enums'
+    import { settingsStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
@@ -14,6 +15,9 @@
 
         white-space: nowrap;
     }
+    a {
+        color: var(--colour-class, var(--link-color));
+    }
 </style>
 
 <td
@@ -24,7 +28,10 @@
         }
     }}
 >
-    <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}">
+    <a
+        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : undefined}"
+        href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}"
+    >
         {character.name}
     </a>
 </td>

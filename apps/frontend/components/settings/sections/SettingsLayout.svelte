@@ -148,6 +148,15 @@
 
     <div class="setting setting-checkbox setting-layout">
         <CheckboxInput
+            bind:value={$settingsStore.layout.useClassColors}
+            name="layout_useClassColors"
+        >
+            Use class colors instead of faction colors for character names.
+        </CheckboxInput>
+    </div>
+
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
             bind:value={$settingsStore.layout.showPartialLevel}
             name="layout_showPartialLevel"
         >
