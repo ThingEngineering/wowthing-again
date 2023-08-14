@@ -41,11 +41,14 @@ export interface Settings {
     }
 
     layout: {
-        includeArchaeology: boolean
         newNavigation: boolean
         newNavigationIcons: boolean
+
+        includeArchaeology: boolean
         showEmptyLockouts: boolean
         showPartialLevel: boolean
+        useClassColors: boolean
+
         covenantColumn: 'current' | 'all'
         padding: 'small' | 'medium' | 'large'
         commonFields: string[]

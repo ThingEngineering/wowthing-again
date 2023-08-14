@@ -264,6 +264,8 @@ public class ApplicationUserSettingsLayout
     public bool NewNavigation { get; set; } = false;
     public bool NewNavigationIcons { get; set; } = false;
 
+    public bool UseClassColors { get; set; } = false;
+
     public string CovenantColumn { get; set; } = "current";
     public string Padding { get; set; } = "medium";
     public List<string> CommonFields { get; set; } = new();
