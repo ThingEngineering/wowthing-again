@@ -7,6 +7,7 @@ import { Constants } from '@/data/constants'
 import { isGatheringProfession, isCraftingProfession, professionSlugToId } from '@/data/professions'
 import { ArmorType, Faction, Role } from '@/enums'
 import { staticStore } from '@/stores'
+import { userStore } from '@/stores'
 import type { Character } from '@/types'
 
 
@@ -20,6 +21,7 @@ export function useCharacterFilter(
     let result = true
     if (filterString?.length >= 2) {
         const staticData = get(staticStore)
+        const userData = get(userStore)
 
         result = false
         const parts = filterString.toLocaleLowerCase().split(/\s+/)
@@ -41,6 +43,12 @@ export function useCharacterFilter(
                         else if (comparison === '=') return char.level === value
                         else if (comparison === '>=') return char.level >= value
                         else if (comparison === '>') return char.level > value
+                    }
+
+                    const match2 = part.match(/^tag=(.*)$/)
+                    if (match2) {
+                        const tag = match2[1].toString()
+                        return userData.accounts[char.accountId].tag.toLocaleLowerCase() == tag
                     }
 
                     // Faction
