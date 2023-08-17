@@ -74,11 +74,16 @@ export interface Settings {
         showInLeaderboards: boolean
     }
 
+    professions: {
+        disabledCooldowns: string[]
+    }
+
     tasks: {
-        disabledChores: Record<string, string[]>
         dragonflightCountCraftingDrops: boolean
         dragonflightCountGathering: boolean
         dragonflightTreatises: boolean
+
+        disabledChores: Record<string, string[]>
     }
 
     transmog: {

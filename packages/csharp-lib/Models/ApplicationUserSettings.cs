@@ -18,6 +18,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
     public ApplicationUserSettingsLeaderboard? Leaderboard { get; set; } = new();
     public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
+    public ApplicationUserSettingsProfessions? Professions { get; set; } = new();
     public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
 
@@ -107,6 +108,7 @@ public class ApplicationUserSettings
         History ??= new ApplicationUserSettingsHistory();
         Layout ??= new ApplicationUserSettingsLayout();
         Privacy ??= new ApplicationUserSettingsPrivacy();
+        Professions ??= new ApplicationUserSettingsProfessions();
         Tasks ??= new ApplicationUserSettingsTasks();
         Transmog ??= new ApplicationUserSettingsTransmog();
 
@@ -293,12 +295,18 @@ public class ApplicationUserSettingsPrivacy
     public bool PublicTransmog { get; set; } = true;
 }
 
+public class ApplicationUserSettingsProfessions
+{
+    public List<string> DisabledProfessionCooldowns { get; set; } = new();
+}
+
 public class ApplicationUserSettingsTasks
 {
-    public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
     public bool DragonflightCountCraftingDrops { get; set; } = true;
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
+
+    public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
 }
 
 public class ApplicationUserSettingsTransmog
