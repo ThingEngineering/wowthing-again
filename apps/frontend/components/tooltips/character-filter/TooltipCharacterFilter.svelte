@@ -80,6 +80,11 @@
             <dd>
                 <code>m+</code>
             </dd>
+
+            <dt>Account tag</dt>
+            <dd>
+                <code>tag=[acc]</code>
+            </dd>
         </dl>
     </div>
 </div>

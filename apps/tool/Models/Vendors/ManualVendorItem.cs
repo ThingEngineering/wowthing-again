@@ -25,9 +25,9 @@ public class ManualVendorItem
         Type = Enum.Parse<RewardType>(item.Type, true);
         Costs = item.Costs;
 
-        if (item.AppearanceId > 0)
+        if (!string.IsNullOrWhiteSpace(item.AppearanceId))
         {
-            AppearanceIds = new[] { item.AppearanceId.Value };
+            AppearanceIds = item.AppearanceId.Split(' ').Select(int.Parse).ToArray();
         }
 
         if (!string.IsNullOrWhiteSpace(item.Quality))

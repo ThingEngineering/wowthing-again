@@ -231,7 +231,6 @@ public class UserCharactersJob : JobBase
 
         timer.AddPoint("Unlink", true);
 
-        Logger.Debug("{Timer}", timer);
-        Logger.Information("Completed in {Z}", timer.TotalDuration);
+        Logger.Information("{timer}", timer.ToString());
     }
 }
