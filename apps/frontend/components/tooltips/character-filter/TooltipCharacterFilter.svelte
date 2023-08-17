@@ -83,7 +83,7 @@
 
             <dt>Account tag</dt>
             <dd>
-                <code>tag = acc</code>
+                <code>tag=[acc]</code>
             </dd>
         </dl>
     </div>
