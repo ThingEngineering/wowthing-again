@@ -88,11 +88,14 @@ public class JournalTool
         var instancesById = (await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance"))
             .ToDictionary(instance => instance.ID);
 
-        var tierToInstance = (await DataUtilities.LoadDumpCsvAsync<DumpJournalTierXInstance>("journaltierxinstance"))
+        var tierToInstances = (await DataUtilities.LoadDumpCsvAsync<DumpJournalTierXInstance>("journaltierxinstance"))
             .GroupBy(x => x.JournalTierID)
             .ToDictionary(
                 group => group.Key,
                 group => group
+                    .GroupBy(group2 => group2.MaybePlayerConditionID)
+                    .OrderByDescending(group2 => group2.Key)
+                    .First()
                     .OrderBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].InstanceType)
                     //.ThenBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].ExpansionID)
                     .ThenBy(jtxi => jtxi.OrderIndex)
@@ -192,7 +195,7 @@ public class JournalTool
         foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
         {
             tiers.Add(tier);
-            tierToInstance[tier.ID] = dungeons
+            tierToInstances[tier.ID] = dungeons
                 .Select(dungeon => dungeon.ID)
                 .ToArray();
 
@@ -233,7 +236,7 @@ public class JournalTool
                 var legacyLoot = tier.ID <= 396; // Battle for Azeroth
 
                 int lastInstanceType = -1;
-                foreach (var instanceId in tierToInstance[tier.ID])
+                foreach (var instanceId in tierToInstances[tier.ID])
                 {
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
@@ -253,7 +256,16 @@ public class JournalTool
                         tierData.Instances.Add(null);
                     }
 
-                    var mapDifficulties = difficultiesByMapId[instance.MapID];
+                    int[] mapDifficulties = difficultiesByMapId[instance.MapID];
+
+                    // Current Season hack
+                    if (tier.ID == 505)
+                    {
+                        mapDifficulties = mapDifficulties
+                            .Where(difficulty => difficulty == 8)
+                            .ToArray();
+                    }
+
                     // Some dungeons don't have a Timewalking map difficulty, check for the TW flag and manually
                     // add the damn thing
                     // if (map.InstanceType == 1 && (instance.Flags & 0x1) == 0x1 && !mapDifficulties.Contains(24))
@@ -436,6 +448,17 @@ public class JournalTool
                                 else if (difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
                                 {
                                     difficultiesOverridden = true;
+                                    // Current Season hack
+                                    if (tier.ID == 505)
+                                    {
+                                        difficulties = difficulties
+                                            .Where(difficulty => difficulty == 8)
+                                            .ToArray();
+                                        if (difficulties.Length == 0)
+                                        {
+                                            continue;
+                                        }
+                                    }
                                 }
                                 else {
                                     ToolContext.Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
