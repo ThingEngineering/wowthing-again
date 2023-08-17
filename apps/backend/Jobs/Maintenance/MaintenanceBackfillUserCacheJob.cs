@@ -54,6 +54,6 @@ public class MaintenanceBackfillUserCacheJob : JobBase, IScheduledJob
 
         timer.Stop();
 
-        Logger.Information("{timer}");
+        Logger.Information("{timer}", timer.ToString());
     }
 }
