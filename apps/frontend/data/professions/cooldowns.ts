@@ -11,10 +11,58 @@ export const professionCooldowns: ProfessionCooldownData[] = [
         cooldown: [
             [86400], // 24h
             [60480, 2823, 19538, 21], // 16h48m @ 20 points in Transmutation
-        ]
+        ],
+    },
+
+    // Blacksmithing
+    {
+        key: 'orders164',
+        name: '[DF] Work Orders',
+        profession: Profession.Blacksmithing,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+
+    // Enchanting
+    {
+        key: 'orders333',
+        name: '[DF] Work Orders',
+        profession: Profession.Enchanting,
+        cooldown: [
+            [86400], // 24h
+        ],
     },
     
+    // Engineering
+    {
+        key: 'orders202',
+        name: '[DF] Work Orders',
+        profession: Profession.Engineering,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+
+    // Inscription
+    {
+        key: 'orders773',
+        name: '[DF] Work Orders',
+        profession: Profession.Inscription,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+
     // Jewelcrafting
+    {
+        key: 'orders755',
+        name: '[DF] Work Orders',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
     {
         key: 'dfJeweledDragonsHeart',
         name: "[DF] Jeweled Dragon's Heart",
@@ -70,7 +118,25 @@ export const professionCooldowns: ProfessionCooldownData[] = [
         ]
     },
 
+    // Leatherworking
+    {
+        key: 'orders165',
+        name: '[DF] Work Orders',
+        profession: Profession.Leatherworking,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+
     // Tailoring
+    {
+        key: 'orders197',
+        name: '[DF] Work Orders',
+        profession: Profession.Tailoring,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
     {
         key: 'dfAzureweave',
         name: '[DF] Azureweave',

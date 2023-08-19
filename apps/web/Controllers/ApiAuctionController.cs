@@ -493,9 +493,17 @@ public class ApiAuctionController : Controller
         }
 
         // Always apply a region limit
-        int[] connectedRealmIds = await _context.WowRealm
+        var region = (WowRegion)Math.Max(1, (int)form.Region);
+        var connectedRealmQuery = _context.WowRealm
             .AsNoTracking()
-            .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
+            .Where(realm => realm.Region == region);
+
+        if (region == WowRegion.EU && !form.IncludeRussia)
+        {
+            connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
+        }
+
+        int[] connectedRealmIds = await connectedRealmQuery
             .Select(realm => realm.ConnectedRealmId)
             .Distinct()
             .ToArrayAsync();
@@ -612,9 +620,17 @@ WHERE   tc.appearance_id IS NULL
         }
 
         // Always apply a region limit
-        int[] connectedRealmIds = await _context.WowRealm
+        var region = (WowRegion)Math.Max(1, (int)form.Region);
+        var connectedRealmQuery = _context.WowRealm
             .AsNoTracking()
-            .Where(realm => realm.Region == (WowRegion)Math.Max(1, (int)form.Region))
+            .Where(realm => realm.Region == region);
+
+        if (region == WowRegion.EU && !form.IncludeRussia)
+        {
+            connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
+        }
+
+        int[] connectedRealmIds = await connectedRealmQuery
             .Select(realm => realm.ConnectedRealmId)
             .Distinct()
             .ToArrayAsync();
@@ -626,7 +642,7 @@ WHERE   tc.appearance_id IS NULL
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
                 .Include(pa => pa.Pets)
                 .ToArrayAsync();
-            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
             connectedRealmIds = connectedRealmIds
                 .Intersect(accountConnectedRealmIds)

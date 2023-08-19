@@ -13,4 +13,5 @@ public class WowRealm
     public WowRegion Region { get; set; }
     public string Name { get; set; }
     public string Slug { get; set; }
+    public string Locale { get; set; }
 }

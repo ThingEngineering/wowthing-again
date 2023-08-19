@@ -41,6 +41,7 @@ public class UploadCharacter
     public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
     public List<string> ProfessionCooldowns { get; set; }
+    public List<string> ProfessionOrders { get; set; }
     public List<string> ProfessionTraits { get; set; }
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }

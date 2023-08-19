@@ -38,9 +38,11 @@ export class UserAuctionMissingRecipeDataStore {
             [things, updated] = this.cache[cacheKey]
         }
         else {
+            const region = parseInt(auctionState.region) || 0
             const data = {
                 allRealms: auctionState.allRealms,
                 characterId: 0,
+                includeRussia: region === 3 ? auctionState.includeRussia : false,
                 professionId: auctionState.missingRecipeProfessionId,
                 region: parseInt(auctionState.region) || 0,
             }
