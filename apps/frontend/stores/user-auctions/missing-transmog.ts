@@ -37,9 +37,11 @@ export class UserAuctionMissingTransmogDataStore {
             [things, updated] = this.cache[cacheKey]
         }
         else {
+            const region = parseInt(auctionState.region) || 0
             const data = {
                 allRealms: auctionState.allRealms,
-                region: parseInt(auctionState.region) || 0,
+                includeRussia: region === 3 ? auctionState.includeRussia : false,
+                region,
             }
 
             const xsrf = document.getElementById('app')

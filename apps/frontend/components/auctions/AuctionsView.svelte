@@ -128,6 +128,13 @@
                 name="region"
                 options={regions}
             />
+
+            {#if $auctionState.region === '3'}
+                <Checkbox
+                    name="include_russia"
+                    bind:value={$auctionState.includeRussia}
+                >Include RU</Checkbox>
+            {/if}
         </div>
 
         {#if params.slug1.startsWith('missing-')}

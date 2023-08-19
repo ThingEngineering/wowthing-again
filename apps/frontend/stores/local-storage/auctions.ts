@@ -1,7 +1,6 @@
 import { writable } from 'svelte/store'
 
 
-export type AuctionStatePerPage = 25 | 50 | 100
 export type AuctionStateSortBy =
     | 'name_down'
     | 'name_up'
@@ -9,8 +8,6 @@ export type AuctionStateSortBy =
     | 'price_up'
 
 export class AuctionState {
-    public perPage: AuctionStatePerPage = 50
-
     public allRealms = false
     public extraPetsIgnoreJournal = false
     public hideIgnored = false
@@ -34,15 +31,15 @@ export class AuctionState {
     public missingTransmogNameSearch = ''
     public missingTransmogRealmSearch = ''
 
-    public region = '0'
-
     public ignored: Record<string, Record<number, boolean>> = {}
+    public includeRussia = false
+    public region = '0'
 
     public sortBy: Record<string, AuctionStateSortBy> = {
         'extra-pets': 'price_down',
-        'missing-mounts': 'name_up',
-        'missing-pets': 'name_up',
-        'missing-toys': 'name_up',
+        'missing-mounts': 'price_up',
+        'missing-pets': 'price_up',
+        'missing-toys': 'price_up',
         'missing-appearance-ids': 'price_up',
         'missing-appearance-sources': 'price_up',
         'missing-recipes': 'price_up',
