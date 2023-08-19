@@ -284,29 +284,35 @@ public class ApiAuctionController : Controller
 
         if (!form.AllRealms)
         {
-            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
             auctionQuery = auctionQuery
                 .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
         }
 
+        int[] validRealmIds;
         if (form.Region > 0)
         {
-            var validRealmIds = await _context.WowRealm
+            var connectedRealmQuery = _context.WowRealm
                 .AsNoTracking()
-                .Where(realm => realm.Region == form.Region)
+                .Where(realm => realm.Region == form.Region);
+
+            if (form.Region == WowRegion.EU && !form.IncludeRussia)
+            {
+                connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
+            }
+
+            validRealmIds = await connectedRealmQuery
                 .Select(realm => realm.ConnectedRealmId)
                 .Distinct()
                 .ToArrayAsync();
-
-            auctionQuery = auctionQuery
-                .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
         }
         else
         {
-            var validRealmIds = await GetRegionRealmIds(user, accounts);
-            auctionQuery = auctionQuery
-                .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
+            validRealmIds = await GetRegionRealmIds(user, accounts);
         }
+
+        auctionQuery = auctionQuery
+            .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
 
         var languageQuery = _context.LanguageString
             .AsNoTracking()

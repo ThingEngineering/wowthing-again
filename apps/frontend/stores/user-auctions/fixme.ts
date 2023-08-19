@@ -88,15 +88,24 @@ export class UserAuctionMissingDataStore {
     ): Promise<UserAuctionEntry[]> {
         let things: UserAuctionEntry[] = []
 
-        const cacheKey = `${type}--${auctionState.region}--${auctionState.allRealms ? 1 : 0}--${auctionState.missingPetsMaxLevel ? 1 : 0}`
+        const cacheKey = [
+            auctionState.region,
+            auctionState.allRealms ? '1' : '0',
+            auctionState.includeRussia ? '1' : '0',
+            type,
+            auctionState.missingPetsMaxLevel ? '1' : '0',
+        ].join('--')
+        
         if (this.cache[cacheKey]) {
             things = this.cache[cacheKey]
         }
         else {
+            const region = parseInt(auctionState.region) || 0
             const data = {
                 allRealms: auctionState.allRealms,
+                includeRussia: region === 3 ? auctionState.includeRussia : false,
                 missingPetsMaxLevel: type === 'pets' && auctionState.missingPetsMaxLevel,
-                region: parseInt(auctionState.region) || 0,
+                region,
                 type: type,
             }
 

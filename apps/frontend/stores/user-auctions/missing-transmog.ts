@@ -28,9 +28,10 @@ export class UserAuctionMissingTransmogDataStore {
         let updated: Record<number, number>
 
         const cacheKey = [
-            searchType,
             auctionState.region,
             auctionState.allRealms ? '1' : '0',
+            auctionState.includeRussia ? '1' : '0',
+            searchType,
         ].join('--')
 
         if (this.cache[cacheKey]) {
