@@ -23,15 +23,14 @@ export class UserAuctionMissingRecipeDataStore {
         let updated: Record<number, number>
 
         const cacheKey = [
+            auctionState.region,
+            auctionState.allRealms ? '1' : '0',
+            auctionState.includeRussia ? '1' : '0',
             auctionState.missingRecipeSearchType,
             auctionState.missingRecipeProfessionId,
             auctionState.missingRecipeSearchType === 'account'
                 ? 0
                 : auctionState.missingRecipeCharacterId,
-            auctionState.missingRecipeSearchType === 'account'
-                ? auctionState.region
-                : 0,
-            auctionState.allRealms ? '1' : '0',
         ].join('--')
 
         if (this.cache[cacheKey]) {
