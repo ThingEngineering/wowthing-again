@@ -14,7 +14,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         Type = JobType.DataRealmIndex,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromDays(1),
-        Version = 2,
+        Version = 3,
     };
 
     private const string ApiPath = "data/wow/realm/index";
@@ -27,7 +27,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
             // Fetch API data
-            var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
+            var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, region == WowRegion.EU ? "ru_RU" : null);
             var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
 
             foreach (var apiRealm in result.Data.Realms)
@@ -48,7 +48,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         }
 
         await Context.SaveChangesAsync();
-            
+
         await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
     }
 }
