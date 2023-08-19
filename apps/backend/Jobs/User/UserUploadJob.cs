@@ -1418,6 +1418,19 @@ public class UserUploadJob : JobBase
                 .Select(int.Parse)
                 .ToList();
         }
+
+        foreach (string orderString in characterData.ProfessionOrders.EmptyIfNull())
+        {
+            // skill line, current, next
+            string[] orderParts = orderString.Split(':');
+            // next, current, max
+            character.AddonData.ProfessionCooldowns[$"orders{orderParts[0]}"] = new()
+            {
+                int.Parse(orderParts[2]),
+                int.Parse(orderParts[1]),
+                4,
+            };
+        }
     }
 
     private void HandleProfessionTraits(PlayerCharacter character, UploadCharacter characterData)
