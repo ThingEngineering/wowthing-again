@@ -52,7 +52,6 @@
                 }
 
                 if (dkZone.name.endsWith('Books')) {
-                    console.log({ profData, dkZone })
                     const bookQuests = (profData.bookQuests || []).filter((bq) =>
                         (['LN', 'ZCB'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC') ||
                         (bq.source.startsWith(`${dkZone.shortName} `))
