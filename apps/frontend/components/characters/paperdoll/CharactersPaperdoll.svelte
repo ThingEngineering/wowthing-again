@@ -167,8 +167,9 @@
     }
     .attribution {
         position: absolute;
-        bottom: -1px;
+        bottom: 0;
         right: -1px;
+        transform: translateY(100%);
         background: $thing-background;
         border-bottom-left-radius: 0;
         border-top-right-radius: 0;
