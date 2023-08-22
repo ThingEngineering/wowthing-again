@@ -19,6 +19,14 @@ export function getEnchantmentText(id: number, text: string): string {
     else if ([6540].indexOf(id) >= 0) {
         text = text.replace('$k1', '151').replace('$k2', '111')
     }
+    // Legs: int + sta T3
+    else if ([6541].indexOf(id) >= 0) {
+        text = text.replace('$k1', '171').replace('$k2', '131')
+    }
+    // Legs: int + mana T2
+    else if ([6543].indexOf(id) >= 0) {
+        text = text.replace('$k1', '151').replace('$387303s1', '4')
+    }
     // Legs: int + mana T3
     else if ([6544].indexOf(id) >= 0) {
         text = text.replace('$k1', '177').replace('$387306s1', '5')
