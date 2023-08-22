@@ -47,7 +47,7 @@
                 }
                 
                 if (totalRanks > 1) {
-                    if (!$charactersState.professionsShowLearned) {
+                    if (currentRank === totalRanks && !$charactersState.professionsShowLearned) {
                         continue
                     }
 
@@ -75,7 +75,7 @@
                 }
             }
 
-            if (!has && !$charactersState.professionsShowUnlearned) {
+            if ((!has || (hasRanks && currentRank === 0)) && !$charactersState.professionsShowUnlearned) {
                 continue
             }
 
