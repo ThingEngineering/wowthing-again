@@ -18,6 +18,7 @@ public static partial class Hardcoded
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
+        409224, // Reclaimed Gauntlet Chassis (temporary legendary craft)
 
         // Blacksmithing - Draenic Steel
         153605,
@@ -59,11 +60,21 @@ public static partial class Hardcoded
         153667,
         153668,
 
+        // Cooking
+        145167, // Grand Noodle Cart Kit
+        145170, // Grand Deluxe Noodle Cart Kit
+        145197, // Grand Pandaren Treasure Noodle Cart Kit
+        169693, // Whole Pot-Roasted Elekk
+        169696, // Marinated Elekk Steak
+        169699, // Seasoned Elekk Ribeye
+
         // Engineering
         12900, // Mobile Alarm
+        407170, // Inspired Order Recalibrator (temporary legendary craft)
 
         // Jewelcrafting
         25614, // Silver Rose Pendant
+        407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
         // Mining
         389465, // Severite Seam

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
     import type { SvelteComponent } from 'svelte'
 
     import { expansionOrder } from '@/data/expansion'
@@ -24,17 +23,12 @@
     let regions: [string, string][]
     $: {
         page = parseInt(params.slug2) || 1
-        
-        const regionMap: Record<number, boolean> = {}
-        for (const character of $userStore.characters) {
-            regionMap[character.realm.region] = true
-        }
 
         regions = [['0', 'All']]
-        for (const regionId of sortBy(Object.keys(regionMap), (key) => key)) {
+        for (const regionId of $userStore.allRegions) {
             regions.push([
-                regionId,
-                Region[parseInt(regionId)],
+                regionId.toString(),
+                Region[regionId],
             ])
         }
     }
@@ -92,16 +86,6 @@
             margin-right: 0.5rem;
             padding-right: 0.5rem;
         }
-
-        :global(select[name="transmog_min_quality"]) {
-            width: 8rem;
-        }
-        :global(select[name="transmog_item_subclass_armor"]) {
-            width: 8rem;
-        }
-        :global(select[name="transmog_item_subclass_weapon"]) {
-            width: 11rem;
-        }
     }
 </style>
 
@@ -136,6 +120,7 @@
                 >Include RU</Checkbox>
             {/if}
         </div>
+
 
         {#if params.slug1.startsWith('missing-')}
             <div class="options-group">
@@ -306,6 +291,7 @@
                 Min quality:
                 <Select
                     name="transmog_min_quality"
+                    width={"8rem"}
                     bind:selected={$auctionState.missingTransmogMinQuality}
                     options={[
                         [ItemQuality.Poor, 'Poor'],
@@ -333,6 +319,7 @@
                 {#if $auctionState.missingTransmogItemClass === 'armor'}
                     <Select
                         name="transmog_item_subclass_armor"
+                        width={"8rem"}
                         bind:selected={$auctionState.missingTransmogItemSubclassArmor}
                         options={[
                             [-1, 'Any'],
@@ -348,6 +335,7 @@
                 {:else if $auctionState.missingTransmogItemClass === 'weapon'}
                     <Select
                         name="transmog_item_subclass_weapon"
+                        width={"11rem"}
                         bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
                         options={weaponOptions}
                     />
@@ -358,7 +346,7 @@
                 Expansion:
                 <Select
                     name="transmog_expansion"
-                    width={'12.5rem'}
+                    width={"12.5rem"}
                     bind:selected={$auctionState.missingTransmogExpansion}
                     options={
                         [

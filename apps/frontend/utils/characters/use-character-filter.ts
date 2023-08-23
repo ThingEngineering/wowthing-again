@@ -114,9 +114,11 @@ export function useCharacterFilter(
                     }
 
                     // Profession slug
-                    if (professionSlugToId[part]) {
-                        return !!char.professions?.[professionSlugToId[part]]
+                    const professionSlug = professionSlugMap[part] || part
+                    if (professionSlugToId[professionSlug]) {
+                        return !!char.professions?.[professionSlugToId[professionSlug]]
                     }
+
                     // Profession type
                     if (part.match(/^(craft|crafter|crafting)$/)) {
                         return some(
@@ -139,4 +141,21 @@ export function useCharacterFilter(
     }
 
     return filterFunc ? filterFunc(char) && result : result
+}
+
+const professionSlugMap: Record<string, string> = {
+    blacksmith: 'blacksmithing',
+    cook: 'cooking',
+    ench: 'enchanting',
+    enchant: 'enchanting',
+    eng: 'engineering',
+    engi: 'engineering',
+    engineer: 'engineering',
+    engy: 'engineering',
+    herb: 'herbalism',
+    mine: 'mining',
+    scribe: 'inscription',
+    skin: 'skinning',
+    smith: 'blacksmithing',
+    tailor: 'tailoring',
 }

@@ -54,7 +54,7 @@
     {:else}
         <td class="guild-name text-overflow" colspan="2">
             <a
-                class="quality{item.quality || 0}"
+                class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 {guild?.name || 'Unknown Guild'}
