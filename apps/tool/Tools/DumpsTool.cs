@@ -676,6 +676,8 @@ public class DumpsTool
             dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
             dbItem.RaceMask = itemSparse.AllowableRace;
             dbItem.RequiredLevel = itemSparse.RequiredLevel;
+            dbItem.RequiredSkill = itemSparse.RequiredSkill;
+            dbItem.RequiredSkillRank = itemSparse.RequiredSkillRank;
             dbItem.Stackable = itemSparse.Stackable;
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 

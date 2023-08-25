@@ -230,6 +230,12 @@ public class StaticTool
 
         // Professions
         var professions = await LoadProfessions(traits);
+        cacheData.ItemToSkillLine = itemMap.Values
+            .Where(item => item.RequiredSkill > 0)
+            .ToDictionary(
+                item => item.Id,
+                item => new[] { item.RequiredSkill, item.RequiredSkillRank }
+            );
         _timer.AddPoint("Professions");
 
         // Reputations

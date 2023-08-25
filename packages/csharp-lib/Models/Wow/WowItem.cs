@@ -23,6 +23,8 @@ public class WowItem
     public short RequiredLevel { get; set; }
     public WowBindType BindType { get; set; }
     public short Unique { get; set; }
+    public short RequiredSkill { get; set; }
+    public short RequiredSkillRank { get; set; }
 
     public WowItem(int id)
     {
