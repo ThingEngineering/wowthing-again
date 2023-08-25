@@ -22,6 +22,7 @@ public class RedisStaticData
     public Dictionary<int, StaticIllusion> Illusions { get; set; }
     public List<OutInstance> InstancesRaw { get; set; }
     public Dictionary<int, StaticKeystoneAffix> KeystoneAffixes { get; set; }
+    public Dictionary<int, short[]> ItemToSkillLine { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
     public List<WowRealm> RawRealms { get; set; }
     public SortedDictionary<int, StaticReputationTier> ReputationTiers { get; set; }
