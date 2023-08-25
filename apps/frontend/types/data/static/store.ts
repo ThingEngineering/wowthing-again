@@ -23,7 +23,6 @@ export interface StaticData {
     inventorySlots: Record<number, string>
     inventoryTypes: Record<number, string>
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>
-    professions: Record<number, StaticDataProfession>
     questNames: Record<number, string>
     sharedStrings: Record<number, string>
     soulbinds: Record<number, StaticDataSoulbind[]>
@@ -34,6 +33,10 @@ export interface StaticData {
     characterRaces: Record<number, StaticDataCharacterRace>
     characterRacesBySlug: Record<string, StaticDataCharacterRace>
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>
+
+    itemToSkillLine: Record<number, [number, number]>
+    professionBySkillLine: Record<number, [StaticDataProfession, number]>
+    professions: Record<number, StaticDataProfession>
 
     bags: Record<number, StaticDataBag>
     rawBags: StaticDataBagArray[]

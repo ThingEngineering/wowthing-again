@@ -47,6 +47,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 ])
         )
 
+        data.professionBySkillLine = {}
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
                 profession.categories = profession.rawCategories.map(
@@ -54,7 +55,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 )
                 profession.rawCategories = null
             }
+
+            data.professionBySkillLine[profession.id] = [profession, 0]
+            for (let i = 0; i < profession.subProfessions.length; i++) {
+                const subProfession = profession.subProfessions[i]
+                data.professionBySkillLine[subProfession.id] = [profession, i]
+            }
         }
+        console.log(data.professionBySkillLine)
 
         if (data.rawBags !== null) {
             data.bags = StaticDataStore.createObjects(data.rawBags, StaticDataBag)
