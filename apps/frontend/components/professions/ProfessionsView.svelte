@@ -14,6 +14,6 @@
     {:else if params.slug1 === 'overview'}
         <Overview slug={params.slug2} />
     {:else if params.slug1 === 'recipes'}
-        <Recipes />
+        <Recipes {params} />
     {/if}
 </div>
