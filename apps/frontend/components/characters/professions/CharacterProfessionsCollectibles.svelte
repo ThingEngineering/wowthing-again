@@ -62,7 +62,6 @@
     .collection-objects {
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 1rem;
         padding-bottom: 1rem;
         width: 100%;
     }

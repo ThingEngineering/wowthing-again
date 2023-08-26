@@ -21,7 +21,6 @@
         display: flex;
         gap: 0.2rem;
         justify-content: center;
-        margin-top: 1rem;
     }
     .item {
         height: 52px;
@@ -38,7 +37,11 @@
     }
     .empty-slot {
         background: rgba(0, 0, 0, 0.2);
-        border-width: var(--image-border-width);
+        border: var(--image-border-width) solid lighten($colour-fail, 15%);
+        border-radius: $border-radius;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 52px;
         width: 52px;
     }
@@ -69,7 +72,13 @@
                 </a>
             </div>
         {:else}
-            <div class="empty-slot border"></div>
+            <div class="empty-slot border">
+                {#if index === 0}
+                    Tool
+                {:else}
+                    Acc
+                {/if}
+            </div>
         {/if}
     {/each}
 </div>
