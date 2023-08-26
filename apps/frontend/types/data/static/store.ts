@@ -34,6 +34,7 @@ export interface StaticData {
     characterRacesBySlug: Record<string, StaticDataCharacterRace>
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>
 
+    itemToRequiredAbility: Record<number, number>
     itemToSkillLine: Record<number, [number, number]>
     professionBySkillLine: Record<number, [StaticDataProfession, number]>
     professions: Record<number, StaticDataProfession>
