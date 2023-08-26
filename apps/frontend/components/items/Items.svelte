@@ -9,6 +9,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import Options from './ItemsOptions.svelte'
     import RowBags from './ItemsTableRowBags.svelte'
+    import RowCrests from './ItemsTableRowCrests.svelte'
     import RowGear from '@/components/home/table/row/HomeTableRowGear.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './ItemsTableRowItems.svelte'
@@ -57,6 +58,7 @@
                     <RowItemLevel {character} />
                     <RowGear {character} />
                     <RowItems {character} />
+                    <RowCrests {character} />
                 {:else if params.slug1 === 'professions'}
                     <RowProfessions {character} />
                 {/if}
