@@ -17,7 +17,10 @@ public class DumpItemSparse
     public int ItemNameDescriptionID { get; set; }
     public int MaxCount { get; set; }
     public short OverallQualityID { get; set; }
+    public int RequiredAbility { get; set; }
     public short RequiredLevel { get; set; }
+    public short RequiredSkill { get; set; }
+    public short RequiredSkillRank { get; set; }
     public int Stackable { get; set; }
 
     [Name("Flags[1]")]

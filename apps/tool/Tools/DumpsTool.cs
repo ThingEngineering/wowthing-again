@@ -11,6 +11,7 @@ using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Reputations;
+using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Transmog;
 
 namespace Wowthing.Tool.Tools;
@@ -675,7 +676,10 @@ public class DumpsTool
             dbItem.ItemLevel = itemSparse.ItemLevel;
             dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
             dbItem.RaceMask = itemSparse.AllowableRace;
+            dbItem.RequiredAbility = itemSparse.RequiredAbility;
             dbItem.RequiredLevel = itemSparse.RequiredLevel;
+            dbItem.RequiredSkill = itemSparse.RequiredSkill;
+            dbItem.RequiredSkillRank = itemSparse.RequiredSkillRank;
             dbItem.Stackable = itemSparse.Stackable;
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 

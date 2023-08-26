@@ -1,9 +1,11 @@
 ﻿using Serilog.Context;
+using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
+using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Static;
 using Wowthing.Tool.Models.Traits;
 using Wowthing.Tool.Models.Transmog;
@@ -230,6 +232,21 @@ public class StaticTool
 
         // Professions
         var professions = await LoadProfessions(traits);
+
+        cacheData.ItemToRequiredAbility = itemMap.Values
+            .Where(item => item.RequiredAbility > 0)
+            .ToDictionary(
+                item => item.Id,
+                item => item.RequiredAbility
+            );
+
+        cacheData.ItemToSkillLine = itemMap.Values
+            .Where(item => item.RequiredSkill > 0)
+            .ToDictionary(
+                item => item.Id,
+                item => new[] { item.RequiredSkill, item.RequiredSkillRank }
+            );
+
         _timer.AddPoint("Professions");
 
         // Reputations
@@ -459,6 +476,10 @@ public class StaticTool
         var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
             .ToGroupedDictionary(se => se.SpellID);
 
+        var spellMiscMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellMisc>("spellmisc"))
+            .Where(sm => sm.Flags8.HasFlag(WowSpellFlags8.AllianceOnly) || sm.Flags8.HasFlag(WowSpellFlags8.HordeOnly))
+            .ToDictionary(sm => sm.SpellID);
+
         var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
             .ToDictionary(cd => cd.ID, cd => cd);
 
@@ -586,6 +607,18 @@ public class StaticTool
                         if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemid))
                         {
                             outAbility.ItemId = nameItemid;
+                        }
+
+                        if (spellMiscMap.TryGetValue(outAbility.SpellId, out var spellMisc))
+                        {
+                            if (spellMisc.Flags8.HasFlag(WowSpellFlags8.AllianceOnly))
+                            {
+                                outAbility.Faction = (short)WowFaction.Alliance;
+                            }
+                            else
+                            {
+                                outAbility.Faction = (short)WowFaction.Horde;
+                            }
                         }
 
                         outCategory.Abilities.Add(outAbility);

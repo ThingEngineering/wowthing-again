@@ -25,6 +25,10 @@
             Overview
         </a>
 
+        <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
+            <ParsedText text="Recipes" />
+        </a>
+
         <a href={"#/professions/dragonflight-knowledge"} use:active>
             <ParsedText text="[DF] Knowledge" />
         </a>

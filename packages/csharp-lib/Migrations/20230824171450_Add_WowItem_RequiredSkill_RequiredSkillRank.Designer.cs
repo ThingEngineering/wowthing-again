@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230824171450_Add_WowItem_RequiredSkill_RequiredSkillRank")]
+    partial class Add_WowItem_RequiredSkill_RequiredSkillRank
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1175,10 +1178,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("CharacterId")
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
-
-                    b.Property<Dictionary<int, string>>("ProfessionSpecializations")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("profession_specializations");
 
                     b.Property<Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>>>("Professions")
                         .HasColumnType("jsonb")
@@ -2368,10 +2367,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<long>("RaceMask")
                         .HasColumnType("bigint")
                         .HasColumnName("race_mask");
-
-                    b.Property<int>("RequiredAbility")
-                        .HasColumnType("integer")
-                        .HasColumnName("required_ability");
 
                     b.Property<short>("RequiredLevel")
                         .HasColumnType("smallint")

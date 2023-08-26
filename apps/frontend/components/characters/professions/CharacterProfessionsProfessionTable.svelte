@@ -1,29 +1,38 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { userQuestStore } from '@/stores'
+    import { Faction } from '@/enums'
+    import { staticStore, userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import { professionSpecializationSpells } from '@/data/professions';
 
     export let category: StaticDataProfessionCategory
     export let character: Character
     export let charSubProfession: CharacterProfession
     export let expansion: Expansion
+    export let filteredCategories: Record<number, StaticDataProfessionAbility[]>
     export let knownRecipes: Set<number>
 
-    let abilities: [StaticDataProfessionAbility, boolean, number, number, number][]
+    let abilities: [StaticDataProfessionAbility, boolean, number, number, number, number][]
     let hasRanks: boolean
     $: {
         abilities = []
         hasRanks = false
-        for (const ability of (category.abilities || [])) {
+        for (const ability of (filteredCategories[category.id] || [])) {
+            let requiredAbility = $staticStore.itemToRequiredAbility[ability.itemId]
+            if (!professionSpecializationSpells[requiredAbility]) {
+                requiredAbility = 0
+            }
+
             let has = false
             let spellId = ability.spellId
             let currentRank = 1
@@ -84,7 +93,8 @@
                 has,
                 spellId,
                 currentRank,
-                totalRanks
+                totalRanks,
+                requiredAbility
             ])
         }
     }
@@ -117,7 +127,7 @@
     }
     .ability-name {
         --image-border-width: 1px;
-        --image-margin-top: -2px;
+        --image-margin-top: -5px;
 
         width: 100%;
 
@@ -145,7 +155,7 @@
             </tr>
         </thead>
         <tbody>
-            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks]}
+            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility]}
                 <tr data-ability-id={ability.id}>
                     <td
                         class="ability-name text-overflow"
@@ -165,6 +175,21 @@
                                         size={20}
                                         border={1}
                                     />
+
+                                    {#if ability.faction !== Faction.Neutral}
+                                        <FactionIcon
+                                            faction={ability.faction}
+                                        />
+                                    {/if}
+
+                                    {#if requiredAbility}
+                                        <WowthingImage
+                                            name={`spell/${requiredAbility}`}
+                                            size={20}
+                                            border={1}
+                                            tooltip={professionSpecializationSpells[requiredAbility]}
+                                        />
+                                    {/if}
 
                                     <ParsedText text={ability.name} />
                                 </WowheadLink>

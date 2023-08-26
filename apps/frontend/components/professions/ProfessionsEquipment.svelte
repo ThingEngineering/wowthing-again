@@ -18,11 +18,10 @@
         --image-border-width: 2px;
         --image-margin-top: 0;
 
-        border-top: 1px solid $border-color;
         display: flex;
         gap: 0.2rem;
         justify-content: center;
-        padding: 0.75rem 0;
+        margin-top: 1rem;
     }
     .item {
         height: 52px;

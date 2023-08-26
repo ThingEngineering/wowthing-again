@@ -103,8 +103,11 @@ export class UserAuctionMissingRecipeDataStore {
 
             const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
 
+            const [skillLineId,] = staticData.itemToSkillLine[item.id]
+            const [, skillLineExpansion] = staticData.professionBySkillLine[skillLineId]
+
             const meetsExpansion = auctionState.missingRecipeExpansion === -1
-                || item.expansion === auctionState.missingRecipeExpansion 
+                || skillLineExpansion === auctionState.missingRecipeExpansion 
 
             const meetsName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
             const meetsRealm = some(

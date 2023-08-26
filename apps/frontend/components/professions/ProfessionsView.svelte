@@ -3,6 +3,7 @@
 
     import Knowledge from './knowledge/ProfessionsKnowledge.svelte'
     import Overview from './overview/ProfessionsOverview.svelte'
+    import Recipes from './recipes/ProfessionsRecipes.svelte'
 
     export let params: MultiSlugParams
 </script>
@@ -12,5 +13,7 @@
         <Knowledge />
     {:else if params.slug1 === 'overview'}
         <Overview slug={params.slug2} />
+    {:else if params.slug1 === 'recipes'}
+        <Recipes {params} />
     {/if}
 </div>

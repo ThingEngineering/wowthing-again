@@ -49,7 +49,7 @@
         '/lockouts': Lockouts,
         '/matrix': Matrix,
         '/mythic-plus/:slug?': MythicPlus,
-        '/professions/:slug1?/:slug2?': Professions,
+        '/professions/:slug1?/:slug2?/:slug3?': Professions,
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,

@@ -2,6 +2,7 @@
 
 public class OutProfessionAbility
 {
+    public short Faction { get; set; } = (short)WowFaction.Neutral;
     public int FirstCraftQuestId { get; set; }
     public int Id { get; set; }
     public int ItemId { get; set; }

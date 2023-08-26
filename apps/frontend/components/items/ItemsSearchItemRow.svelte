@@ -52,7 +52,7 @@
             </a>
         </td>
     {:else}
-        <td class="guild-name text-overflow" colspan="2">
+        <td class="guild-name text-overflow" colspan="{userStore.useAccountTags ? 2 : 1}">
             <a
                 class="quality{item.quality || $itemStore.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}

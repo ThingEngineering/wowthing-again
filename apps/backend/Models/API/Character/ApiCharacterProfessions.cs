@@ -23,6 +23,8 @@ public class ApiCharacterProfessionsProfession
     [JsonPropertyName("skill_points")]
     public int? SkillPoints { get; set; }
 
+    public ApiObnoxiousObject Specialization { get; set; }
+
     public List<ApiCharacterProfessionsProfessionTier> Tiers { get; set; }
 }
 

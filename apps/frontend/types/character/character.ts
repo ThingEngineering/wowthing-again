@@ -1,4 +1,5 @@
 import { Constants } from '@/data/constants'
+import { professionSpecializationToSpell } from '@/data/professions'
 import type { Faction } from '@/enums'
 import type { StaticDataRealm } from '@/types/data/static'
 import type { Guild } from '@/types/guild'
@@ -57,6 +58,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsByLocation: Record<number, CharacterItem[]>
     public mythicPlusSeasonScores: Record<number, number>
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
+    public professionSpecializations: Record<number, number>
     public reputationData: Record<string, CharacterReputation>
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
@@ -99,6 +101,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public paragons: Record<number, CharacterReputationParagon>,
         public professions: Record<number, Record<number, CharacterProfession>>,
         public professionCooldowns: Record<string, [number, number, number]>,
+        professionSpecializations: Record<number, string>,
         public professionTraits: Record<number, Record<number, number>>,
         public raiderIo: Record<number, CharacterRaiderIoSeason>,
         public reputations: Record<number, number>,
@@ -116,6 +119,17 @@ export class Character implements ContainsItems, HasNameAndRealm {
         ]
     )
     {
+        this.professionSpecializations = {}
+        for (const [professionId, specialization] of Object.entries(professionSpecializations)) {
+            const spellId = professionSpecializationToSpell[specialization]
+            if (spellId) {
+                this.professionSpecializations[parseInt(professionId)] = spellId
+            }
+            else {
+                console.log(`Unknown profession specialization: ${professionId} ${specialization}`)
+            }
+        }
+
         this.itemsByAppearanceId = {}
         this.itemsByAppearanceSource = {}
         this.itemsById = {}
