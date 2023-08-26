@@ -72,9 +72,14 @@ export const professionOrder: number[] = sortBy(
 .map(([id,]) => parseInt(id))
 
 export const professionSpecializationToSpell: Record<string, number> = {
-    'Gnomish Engineering': 20219,
-    'Goblin Engineering': 20222,
+    'Gnomish Engineer': 20219,
+    'Goblin Engineer': 20222,
 }
+
+export const professionSpecializationSpells: Record<number, string> = Object.fromEntries(
+    Object.entries(professionSpecializationToSpell)
+        .map(([spellName, spellId]) => [spellId, spellName])
+)
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion

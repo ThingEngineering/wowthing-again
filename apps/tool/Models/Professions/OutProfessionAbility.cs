@@ -7,7 +7,6 @@ public class OutProfessionAbility
     public int Id { get; set; }
     public int ItemId { get; set; }
     public int Min { get; set; }
-    public int RequiredAbility { get; set; }
     public int Skillups { get; set; }
     public int SpellId { get; set; }
     public int TrivialHigh { get; set; }

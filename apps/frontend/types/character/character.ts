@@ -120,7 +120,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     )
     {
         this.professionSpecializations = {}
-        for (const [professionId, specialization] of Object.values(professionSpecializations)) {
+        for (const [professionId, specialization] of Object.entries(professionSpecializations)) {
             const spellId = professionSpecializationToSpell[specialization]
             if (spellId) {
                 this.professionSpecializations[parseInt(professionId)] = spellId
