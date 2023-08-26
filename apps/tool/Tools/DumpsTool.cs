@@ -11,6 +11,7 @@ using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
 using Wowthing.Tool.Models.Reputations;
+using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Transmog;
 
 namespace Wowthing.Tool.Tools;

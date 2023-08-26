@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
-namespace Wowthing.Tool.Models;
+namespace Wowthing.Tool.Models.Spells;
 
 // ReSharper disable InconsistentNaming
 public class DumpSpellEffect
