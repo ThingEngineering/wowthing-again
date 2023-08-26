@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
+    import { Faction } from '@/enums'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { UserCount, type Character, type CharacterProfession, type Expansion, type MultiSlugParams } from '@/types'
     import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
@@ -49,6 +50,10 @@
 
     const recurse = function(category: StaticDataProfessionCategory) {
         for (const ability of (category.abilities || [])) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== character.faction) {
+                continue
+            }
+
             if (ability.extraRanks) {
                 stats.total += (ability.extraRanks.length + 1)
 

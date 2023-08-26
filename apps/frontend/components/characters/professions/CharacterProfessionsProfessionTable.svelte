@@ -1,5 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
+    import { Faction } from '@/enums'
     import { userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
@@ -24,6 +25,10 @@
         abilities = []
         hasRanks = false
         for (const ability of (category.abilities || [])) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== character.faction) {
+                continue
+            }
+
             let has = false
             let spellId = ability.spellId
             let currentRank = 1
@@ -88,6 +93,18 @@
             ])
         }
     }
+
+    const withFaction = (ability: StaticDataProfessionAbility): string => {
+        if (ability.faction === Faction.Alliance) {
+            return `:alliance: ${ability.name}`
+        }
+        else if (ability.faction === Faction.Horde) {
+            return `:horde: ${ability.name}`
+        }
+        else {
+            return ability.name
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -117,7 +134,7 @@
     }
     .ability-name {
         --image-border-width: 1px;
-        --image-margin-top: -2px;
+        --image-margin-top: -5px;
 
         width: 100%;
 
@@ -166,7 +183,7 @@
                                         border={1}
                                     />
 
-                                    <ParsedText text={ability.name} />
+                                    <ParsedText text={withFaction(ability)} />
                                 </WowheadLink>
                             </div>
 
