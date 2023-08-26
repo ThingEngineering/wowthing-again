@@ -52,6 +52,7 @@ public class ApiUserCharacterConverter : System.Text.Json.Serialization.JsonConv
         JsonSerializer.Serialize(writer, character.Paragons, options);
         JsonSerializer.Serialize(writer, character.Professions, options);
         JsonSerializer.Serialize(writer, character.ProfessionCooldowns, options);
+        JsonSerializer.Serialize(writer, character.ProfessionSpecializations, options);
         JsonSerializer.Serialize(writer, character.ProfessionTraits, options);
         JsonSerializer.Serialize(writer, character.RaiderIo, options);
         JsonSerializer.Serialize(writer, character.Reputations, options);

@@ -45,7 +45,8 @@ public class CharacterProfessionsJob : JobBase
             Context.PlayerCharacterProfessions.Add(professions);
         }
 
-        professions.Professions = new Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>>();
+        professions.Professions = new();
+        professions.ProfessionSpecializations = new();
 
         // Parse API data
         foreach (var dataProfession in resultData.All)
@@ -76,6 +77,12 @@ public class CharacterProfessionsJob : JobBase
                             .ToList(),
                     };
                 }
+            }
+
+            if (dataProfession.Specialization != null)
+            {
+                professions.ProfessionSpecializations[dataProfession.Profession.Id] =
+                    dataProfession.Specialization.Name;
             }
         }
 

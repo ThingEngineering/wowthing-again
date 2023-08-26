@@ -49,6 +49,7 @@ public class ApiUserCharacter
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public Dictionary<string, List<int>> ProfessionCooldowns { get; set; }
+    public Dictionary<int, string> ProfessionSpecializations { get; set; }
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; }
     // public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
@@ -117,6 +118,7 @@ public class ApiUserCharacter
         ProfessionTraits = character.AddonData?.ProfessionTraits;
 
         Professions = character.Professions?.Professions;
+        ProfessionSpecializations = character.Professions?.ProfessionSpecializations ?? new();
         RawSpecializations = character.Specializations?.Specializations;
 
         Configuration = new ApiUserCharacterConfiguration(character.Configuration);
