@@ -152,10 +152,10 @@
                         <td class="source">
                             {#if recipes}
                                 {@const recipeItem = $itemStore.items[recipes[0]]}
-                                <span class="quality{recipeItem.quality}">
+                                <span class="quality{recipeItem?.quality ?? 1}">
                                     <WowheadLink
                                         type="item"
-                                        id={recipeItem.id}
+                                        id={recipes[0]}
                                     >
                                         <WowthingImage
                                             name="item/{recipes[0]}"
