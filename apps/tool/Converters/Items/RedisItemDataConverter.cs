@@ -27,6 +27,7 @@ public class RedisItemDataConverter : JsonConverter<RedisItemData>
         writer.WriteNumberValue(item.Expansion);
         writer.WriteNumberValue(item.ItemLevel);
         writer.WriteNumberValue(item.RequiredLevel);
+        writer.WriteNumberValue((int)item.BindType);
         writer.WriteStringValue(item.Name);
 
         if (item.Appearances?.Length > 0)

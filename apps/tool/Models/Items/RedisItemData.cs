@@ -24,5 +24,6 @@ public class RedisItemData : WowItem
         Expansion = item.Expansion;
         ItemLevel = item.ItemLevel;
         RequiredLevel = item.RequiredLevel;
+        BindType = item.BindType;
     }
 }
