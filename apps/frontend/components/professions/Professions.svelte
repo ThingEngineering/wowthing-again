@@ -20,7 +20,10 @@
     }
 </style>
 
-<div class="wrapper-column">
+<div
+    class="wrapper-column"
+    style:--sticky-top={'3.35rem'}
+>
     <Subnav />
 
     {#if params.slug1}
