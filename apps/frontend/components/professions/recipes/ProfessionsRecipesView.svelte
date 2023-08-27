@@ -4,6 +4,7 @@
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { itemStore, staticStore, userStore } from '@/stores'
+    import { professionsRecipesState } from '@/stores/local-storage'
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -12,10 +13,10 @@
         StaticDataSubProfession
     } from '@/types/data/static'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte';
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
 
@@ -41,9 +42,12 @@
         colspan = 2 + characters.length
     }
 
-    const sortAbilities = (abilities: StaticDataProfessionAbility[]) => {
+    const getAbilities = (abilities: StaticDataProfessionAbility[], includeTrainerRecipes: boolean) => {
         return sortBy(
-            abilities,
+            abilities.filter((ability) =>
+                includeTrainerRecipes ||
+                !!$staticStore.skillLineAbilityItems[ability.id]
+            ),
             (ability) => {
                 const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
                 if (ability.itemId) {
@@ -60,7 +64,12 @@
 
 <style lang="scss">
     th {
+        font-weight: normal;
         top: 3.35rem;
+
+        &:first-child {
+            text-align: left;
+        }
     }
     .spacer {
         td {
@@ -103,7 +112,12 @@
 <table class="table table-striped character-table">
     <thead>
         <tr>
-            <th colspan="2">&nbsp;</th>
+            <th colspan="2">
+                <Checkbox
+                    name="include_trainer_recipes"
+                    bind:value={$professionsRecipesState.includeTrainerRecipes}
+                >Include trainer recipes</Checkbox>
+            </th>
             {#each characters as character}
                 <th class="character-icon">
                     <div>
@@ -120,67 +134,66 @@
     </thead>
     <tbody>
         {#each categoryChildren as category, categoryIndex}
-            {@const abilities = sortAbilities(category.abilities)}
-            
-            {#if categoryIndex > 0}
+            {@const abilities = getAbilities(category.abilities, $professionsRecipesState.includeTrainerRecipes)}
+            {#if abilities.length > 0}
                 <tr class="spacer">
                     <td colspan="{colspan}">&nbsp;</td>
                 </tr>
-            {/if}
 
-            <tr>
-                <td class="category" colspan="{colspan}">
-                    {category.name}
-                </td>
-            </tr>
-
-            {#each abilities as ability}
-                {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
-                <tr data-id={ability.id}>
-                    <td class="source">
-                        {#if recipes}
-                            {@const recipeItem = $itemStore.items[recipes[0]]}
-                            <span class="quality{recipeItem.quality}">
-                                <WowheadLink
-                                    type="item"
-                                    id={recipeItem.id}
-                                >
-                                    <WowthingImage
-                                        name="item/{recipes[0]}"
-                                        size={20}
-                                    />
-                                </WowheadLink>
-                            </span>
-                        {:else}
-                            <ProfessionIcon id={profession.id} />
-                        {/if}
+                <tr>
+                    <td class="category" colspan="{colspan}">
+                        {category.name}
                     </td>
-                    <td
-                        class="name {ability.itemId ? `quality${$itemStore.items[ability.itemId].quality}` : undefined}"
-                    >
-                        <WowheadLink
-                            type="spell"
-                            id={ability.spellId}
-                        >
-                            {ability.name}
-                        </WowheadLink>
-                    </td>
-
-                    {#each characters as character}
-                        {@const charProf = character.professions[profession.id][subProfession.id]}
-                        {@const charHas = charProf.knownRecipes.indexOf(ability.id) >= 0}
-                        <td
-                            class="status"
-                            class:status-success={charHas}
-                            class:status-fail={!charHas}
-                        >
-                            <IconifyIcon
-                                icon={charHas ? iconStrings.yes : iconStrings.no}
-                            />
-                        </td>
-                    {/each}
                 </tr>
-            {/each}
+
+                {#each abilities as ability}
+                    {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
+                    <tr data-id={ability.id}>
+                        <td class="source">
+                            {#if recipes}
+                                {@const recipeItem = $itemStore.items[recipes[0]]}
+                                <span class="quality{recipeItem.quality}">
+                                    <WowheadLink
+                                        type="item"
+                                        id={recipeItem.id}
+                                    >
+                                        <WowthingImage
+                                            name="item/{recipes[0]}"
+                                            size={20}
+                                        />
+                                    </WowheadLink>
+                                </span>
+                            {:else}
+                                <ProfessionIcon id={profession.id} />
+                            {/if}
+                        </td>
+                        <td
+                            class="name {ability.itemId ? `quality${$itemStore.items[ability.itemId].quality}` : undefined}"
+                        >
+                            <WowheadLink
+                                type="spell"
+                                id={ability.spellId}
+                            >
+                                {ability.name}
+                            </WowheadLink>
+                        </td>
+
+                        {#each characters as character}
+                            {@const charProf = character.professions[profession.id][subProfession.id]}
+                            {@const charHas = charProf.knownRecipes.indexOf(ability.id) >= 0}
+                            <td
+                                class="status"
+                                class:status-success={charHas}
+                                class:status-fail={!charHas}
+                            >
+                                <IconifyIcon
+                                    icon={charHas ? iconStrings.yes : iconStrings.no}
+                                />
+                            </td>
+                        {/each}
+                    </tr>
+                {/each}
+            {/if}
         {/each}
     </tbody>
 </table>
