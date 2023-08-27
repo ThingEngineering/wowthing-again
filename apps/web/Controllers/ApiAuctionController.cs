@@ -936,6 +936,81 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
         return Content(json, MediaTypeNames.Application.Json);
     }
 
+    [HttpPost("specific-item")]
+    [Authorize]
+    public async Task<IActionResult> SpecificItem([FromBody] ApiAuctionSpecificItemForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        var accounts = await _context.PlayerAccount
+            .AsNoTracking()
+            .Where(pa => pa.UserId == user.Id && pa.Enabled)
+            .ToArrayAsync();
+
+        timer.AddPoint("Accounts");
+
+        var auctionQuery = _context.WowAuction
+            .AsNoTracking();
+
+        if (!form.AllRealms)
+        {
+            int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            auctionQuery = auctionQuery
+                .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
+        }
+
+        int[] validRealmIds;
+        if (form.Region > 0)
+        {
+            var connectedRealmQuery = _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => realm.Region == form.Region);
+
+            if (form.Region == WowRegion.EU && !form.IncludeRussia)
+            {
+                connectedRealmQuery = connectedRealmQuery.Where(realm => realm.Locale != "ruRU");
+            }
+
+            validRealmIds = await connectedRealmQuery
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
+        }
+        else
+        {
+            validRealmIds = await GetRegionRealmIds(user, accounts);
+        }
+
+        auctionQuery = auctionQuery
+            .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
+
+        var languageQuery = _context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Language == user.Settings.General.Language);
+
+        var data = new UserAuctionData();
+
+        var auctions = await auctionQuery
+            .Where(auction => auction.ItemId == form.ItemId)
+            .ToArrayAsync();
+
+        data.RawAuctions = DoAuctionStuff(auctions.GroupBy(auction => auction.ItemId));
+
+        timer.AddPoint("Data", true);
+
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
     private static Dictionary<int, List<WowAuction>> DoAuctionStuff(
         IEnumerable<IGrouping<int, WowAuction>> groupedAuctions,
         bool includeLowBid = true

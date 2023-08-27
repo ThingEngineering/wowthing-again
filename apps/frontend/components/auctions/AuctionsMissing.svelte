@@ -13,25 +13,25 @@
 
     export let auctionsContainer: HTMLElement
     export let page: number
-    export let slug: string
+    export let slug1: string
 
     let searchType: string
     let thingType: string
     $: {
-        searchType = slug.replace('missing-', '')
-        if (slug === 'missing-mounts') {
+        searchType = slug1.replace('missing-', '')
+        if (slug1 === 'missing-mounts') {
             thingType = 'spell'
         }
-        else if (slug === 'missing-pets') {
+        else if (slug1 === 'missing-pets') {
             thingType = 'npc'
         }
-        else if (slug === 'missing-toys') {
+        else if (slug1 === 'missing-toys') {
             thingType = 'item'
         }
     }
 
     const ignoreClick = function(id: number): void {
-        const ignored = $auctionState.ignored[slug] ||= {}
+        const ignored = $auctionState.ignored[slug1] ||= {}
         if (ignored[id]) {
             delete ignored[id]
         }
@@ -140,7 +140,7 @@
 {:then things}
     <Paginate
         items={(things || []).filter((thing) => $auctionState.hideIgnored
-            ? $auctionState.ignored[slug]?.[parseInt(thing.id)] !== true
+            ? $auctionState.ignored[slug1]?.[parseInt(thing.id)] !== true
             : true)}
         perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 6 : 18}
         {page}
@@ -149,14 +149,14 @@
         <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as item}
                 {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
-                {@const ignored = $auctionState.ignored[slug]?.[item.id] === true}
+                {@const ignored = $auctionState.ignored[slug1]?.[item.id] === true}
                 <table
                     class="table table-striped"
                     class:ignored
                 >
                     <thead>
                         <tr>
-                            <th class="item" colspan="{slug === 'missing-pets' ? 4 : 3}">
+                            <th class="item" colspan="{slug1 === 'missing-pets' ? 4 : 3}">
                                 <WowheadLink
                                     type={thingType}
                                     id={item.id}
@@ -192,7 +192,7 @@
                                         <code>[{Region[connectedRealm.region]}]</code>
                                         {connectedRealmName(auction.connectedRealmId)}
                                     </td>
-                                    {#if slug === 'missing-pets'}
+                                    {#if slug1 === 'missing-pets'}
                                         <td class="level quality{auction.petQuality}">
                                             {auction.petLevel}
                                         </td>
