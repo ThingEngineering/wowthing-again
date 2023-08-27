@@ -15,12 +15,15 @@
 }
 
 .border-success {
+    --image-border-color: #{mix($colour-success, $border-color, 90%)} !important;
     border-color: mix($colour-success, $border-color, 90%) !important;
 }
 .border-shrug {
+    --image-border-color: #{mix($colour-shrug, $border-color, 90%)} !important;
     border-color: mix($colour-shrug, $border-color, 90%) !important;
 }
 .border-fail {
+    --image-border-color: #{mix($colour-fail, $border-color, 90%)} !important;
     border-color: mix($colour-fail, $border-color, 90%) !important;
 }
 

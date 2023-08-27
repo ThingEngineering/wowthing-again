@@ -13,6 +13,7 @@
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './ItemsTableRowItems.svelte'
     import RowProfessions from './ItemsTableRowProfessions.svelte'
+    import RowUpgrades from './ItemsTableRowUpgrades.svelte'
     import Search from './ItemsSearch.svelte'
 
     export let params: MultiSlugParams
@@ -57,6 +58,7 @@
                     <RowItemLevel {character} />
                     <RowGear {character} />
                     <RowItems {character} />
+                    <RowUpgrades {character} />
                 {:else if params.slug1 === 'professions'}
                     <RowProfessions {character} />
                 {/if}

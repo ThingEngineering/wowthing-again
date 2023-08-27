@@ -45,6 +45,9 @@
     .status-fail {
         text-align: center;
     }
+    .equipment {
+        margin: 0.5rem 0;
+    }
 </style>
 
 <div class="wowthing-tooltip">
@@ -57,6 +60,7 @@
         />
         {name}
     </h5>
+
     <table class="table-striped">
         <tbody>
             {#each subProfessions as [name, current, max]}
@@ -74,8 +78,10 @@
         </tbody>
     </table>
 
-    <Equipment
-        {character}
-        {profession}
-    />
+    <div class="equipment">
+        <Equipment
+            {character}
+            {profession}
+        />
+    </div>
 </div>

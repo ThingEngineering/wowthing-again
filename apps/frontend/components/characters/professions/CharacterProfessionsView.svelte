@@ -86,6 +86,12 @@
         align-items: flex-start;
         display: flex;
     }
+    .sidebar-after {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1.0rem 0;
+    }
 </style>
 
 <div class="professions">
@@ -97,18 +103,20 @@
         >
             <svelt:fragment slot="after">
                 {#if staticProfession}
-                    <Equipment
-                        profession={staticProfession}
-                        {character}
-                    />
-
-                    {#if params.slug5}
-                        <Collectibles
-                            expansionSlug={params.slug5}
-                            staticProfession={staticProfession}
+                    <div class="sidebar-after">
+                        <Equipment
+                            profession={staticProfession}
                             {character}
                         />
-                    {/if}
+
+                        {#if params.slug5}
+                            <Collectibles
+                                expansionSlug={params.slug5}
+                                staticProfession={staticProfession}
+                                {character}
+                            />
+                        {/if}
+                    </div>
                 {/if}
             </svelt:fragment>
         </Sidebar>
