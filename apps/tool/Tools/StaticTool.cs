@@ -247,6 +247,12 @@ public class StaticTool
                 item => new[] { item.RequiredSkill, item.RequiredSkillRank }
             );
 
+        cacheData.SkillLineAbilityItems = (await context.WowProfessionRecipeItem.ToArrayAsync())
+            .GroupBy(wpri => wpri.SkillLineAbilityId)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(wpri => wpri.ItemId).ToArray());
+
         _timer.AddPoint("Professions");
 
         // Reputations
