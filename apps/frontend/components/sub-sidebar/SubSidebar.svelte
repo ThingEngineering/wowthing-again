@@ -30,7 +30,7 @@
         margin-right: 1rem;
         min-width: var(--width);
         position: sticky;
-        top: 0;
+        top: var(--sticky-top, 0);
         width: var(--width);
 
         &.scrollable {
