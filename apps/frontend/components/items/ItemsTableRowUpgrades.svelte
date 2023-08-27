@@ -20,6 +20,18 @@
 </script>
 
 <style lang="scss">
+    .flightstones {
+        --image-margin-top: 0;
+
+        border-left: 1px solid $border-color;
+        padding: 0 0.4rem 0 0.2rem;
+    }
+    .flightstones-wrapper {
+        align-items: center;
+        display: flex;
+        gap: 4px;
+        justify-content: space-between;
+    }
     .crests {
         border-left: 1px solid $border-color;
         padding: 0 0.4rem 0 0.2rem;
@@ -44,6 +56,17 @@
 </style>
 
 <td class="spacer"></td>
+
+<td class="flightstones">
+    <div class="flightstones-wrapper">
+        <WowthingImage
+            border={1}
+            name='currency/2245'
+            size={24}
+        />
+        {(character.currencies?.[2245]?.quantity || 0).toLocaleString()}
+    </div>
+</td>
 
 {#each pairs as pair}
     <td class="crests">

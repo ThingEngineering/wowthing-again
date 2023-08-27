@@ -13,6 +13,28 @@
     export let gear: Partial<CharacterGear>
     export let tierPieces: number[] = undefined
     export let useHighlighting = false
+
+    function getIconName(): [string, number] {
+        if (gear.equipped.itemLevel >= 437) {
+            return ['item/204194', countCrests(204078, 204194)] // Aspect
+        }
+        else if (gear.equipped.itemLevel >= 424) {
+            return ['item/204196', countCrests(204077, 204196)] // Wyrm
+        }
+        else if (gear.equipped.itemLevel >= 411) {
+            return ['item/204195', countCrests(204076, 204195)] // Drake
+        }
+        else if (gear.equipped.itemLevel >= 398) {
+            return ['item/204193', countCrests(204075, 204193)] // Whelp
+        }
+        else {
+            return ['', 0]
+        }
+    }
+    function countCrests(fragmentId: number, crestId: number): number {
+        const fragments = character.getItemCount(fragmentId)
+        return Math.floor(fragments / 15) + character.getItemCount(crestId)
+    }
 </script>
 
 <style lang="scss">
@@ -67,8 +89,7 @@
         z-index: 1;
     }
     .icon {
-        --image-margin-top: -2px;
-        //--scale: 0.9;
+        --image-border-width: 0;
 
         background: $thing-background;
         border: 2px solid var(--image-border-color);
@@ -77,6 +98,10 @@
         display: flex;
         height: 24px;
         width: 24px;
+
+        &.faded {
+            --image-border-color: #bbb;
+        }
     }
     .crafted-quality {
         position: absolute;
@@ -128,10 +153,24 @@
                 {/if}
 
                 {#if gear.missingUpgrade}
-                    <div class="icon">
-                        <IconifyIcon
-                            icon={iconStrings['plus']}
-                        />
+                    {@const [iconName, crestCount] = getIconName()}
+                    <div
+                        class="icon"
+                        style:--image-margin-top={iconName ? '0' : '-2px'}
+                        class:border-success={iconName && crestCount > 0}
+                        class:faded={iconName && crestCount === 0}
+                    >
+                        {#if iconName}
+                            <WowthingImage
+                                border={0}
+                                name={iconName}
+                                size={20}
+                            />
+                        {:else}
+                            <IconifyIcon
+                                icon={iconStrings['plus']}
+                            />
+                        {/if}
                     </div>
                 {/if}
             </div>
