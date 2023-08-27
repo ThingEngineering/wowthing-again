@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
-    import { itemStore, userStore } from '@/stores'
+    import { itemStore, staticStore, userStore } from '@/stores'
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -15,6 +15,9 @@
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
 
     export let expansion: Expansion
     export let profession: StaticDataProfession
@@ -35,19 +38,20 @@
         )
         characters.sort((a, b) => a.name.localeCompare(b.name))
 
-        colspan = 1 + characters.length
+        colspan = 2 + characters.length
     }
 
     const sortAbilities = (abilities: StaticDataProfessionAbility[]) => {
         return sortBy(
             abilities,
             (ability) => {
+                const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
                 if (ability.itemId) {
                     const item = $itemStore.items[ability.itemId]
-                    return `${9 - item.quality}${item.name}`
+                    return `${hasItems ? 0 : 1}|${9 - item.quality}|${item.name}`
                 }
                 else {
-                    return `9${ability.name}`
+                    return `${hasItems ? 0 : 1}|9|${ability.name}`
                 }
             }
         )
@@ -85,6 +89,9 @@
     }
     // .category {
     // }
+    .source {
+        padding-right: 0;
+    }
     // .name {
     // }
     .status {
@@ -96,7 +103,7 @@
 <table class="table table-striped character-table">
     <thead>
         <tr>
-            <th>&nbsp;</th>
+            <th colspan="2">&nbsp;</th>
             {#each characters as character}
                 <th class="character-icon">
                     <div>
@@ -128,13 +135,35 @@
             </tr>
 
             {#each abilities as ability}
-                <tr>
-                    <td class="name" data-id={ability.id}>
-                        {#if ability.itemId}
-                            <ParsedText text={`{item:${ability.itemId}}`} />
+                {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
+                <tr data-id={ability.id}>
+                    <td class="source">
+                        {#if recipes}
+                            {@const recipeItem = $itemStore.items[recipes[0]]}
+                            <span class="quality{recipeItem.quality}">
+                                <WowheadLink
+                                    type="item"
+                                    id={recipeItem.id}
+                                >
+                                    <WowthingImage
+                                        name="item/{recipes[0]}"
+                                        size={20}
+                                    />
+                                </WowheadLink>
+                            </span>
                         {:else}
-                            {ability.name}
+                            <ProfessionIcon id={profession.id} />
                         {/if}
+                    </td>
+                    <td
+                        class="name {ability.itemId ? `quality${$itemStore.items[ability.itemId].quality}` : undefined}"
+                    >
+                        <WowheadLink
+                            type="spell"
+                            id={ability.spellId}
+                        >
+                            {ability.name}
+                        </WowheadLink>
                     </td>
 
                     {#each characters as character}
