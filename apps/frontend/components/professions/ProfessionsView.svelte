@@ -8,12 +8,12 @@
     export let params: MultiSlugParams
 </script>
 
-<div>
+<div class="view">
     {#if params.slug1 === 'dragonflight-knowledge'}
         <Knowledge />
     {:else if params.slug1 === 'overview'}
         <Overview slug={params.slug2} />
     {:else if params.slug1 === 'recipes'}
-        <Recipes {params} />
+        <Recipes slug1={params.slug2} slug2={params.slug3} />
     {/if}
 </div>

@@ -989,7 +989,13 @@ public class DumpsTool
                         newSpellEffects = newItemEffect.SpellEffects[dumpItemEffect.SpellID] = new();
                     }
 
-                    newSpellEffects[0] = new()
+                    int effectIndex = 100;
+                    while (newSpellEffects.ContainsKey(effectIndex))
+                    {
+                        effectIndex++;
+                    }
+
+                    newSpellEffects[effectIndex] = new()
                     {
                         Effect = WowSpellEffectEffect.LearnSpell,
                         Values = new[]
@@ -1161,24 +1167,20 @@ public class DumpsTool
 
             foreach (int recipeItemId in recipeItemIds)
             {
-                var item = _itemMap.GetValueOrDefault(recipeItemId);
-                if (item?.BindType is WowBindType.BindOnUse or WowBindType.NotBound)
+                var key = (skillLineAbility.ID, recipeItemId);
+                seen.Add(key);
+
+                if (!dbRecipeMap.TryGetValue(key, out var dbRecipe))
                 {
-                    var key = (skillLineAbility.ID, recipeItemId);
-                    seen.Add(key);
-
-                    if (!dbRecipeMap.TryGetValue(key, out var dbRecipe))
+                    dbRecipe = dbRecipeMap[key] = new()
                     {
-                        dbRecipe = dbRecipeMap[key] = new()
-                        {
-                            SkillLineAbilityId = skillLineAbility.ID,
-                            ItemId = recipeItemId,
-                        };
-                        context.WowProfessionRecipeItem.Add(dbRecipe);
-                    }
-
-                    dbRecipe.SkillLineId = skillLineAbility.SkillLine;
+                        SkillLineAbilityId = skillLineAbility.ID,
+                        ItemId = recipeItemId,
+                    };
+                    context.WowProfessionRecipeItem.Add(dbRecipe);
                 }
+
+                dbRecipe.SkillLineId = skillLineAbility.SkillLine;
             }
         }
 
