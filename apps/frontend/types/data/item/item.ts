@@ -1,4 +1,4 @@
-import type { InventoryType, ItemQuality, PrimaryStat } from '@/enums'
+import type { BindType, InventoryType, ItemQuality, PrimaryStat } from '@/enums'
 
 
 export class ItemDataItem {
@@ -19,6 +19,7 @@ export class ItemDataItem {
         public expansion: number,
         public itemLevel: number,
         public requiredLevel: number,
+        public bindType: BindType,
         public name: string,
         appearanceArrays?: ItemDataItemAppearanceArray[]
     )

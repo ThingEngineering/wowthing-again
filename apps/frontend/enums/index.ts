@@ -1,6 +1,7 @@
 export * from './appearance-modifier'
 export * from './armor-subclass'
 export * from './armor-type'
+export * from './bind-type'
 export * from './chromie-time'
 export * from './criteria-tree-operator'
 export * from './criteria-type'

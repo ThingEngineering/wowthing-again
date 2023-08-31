@@ -20,11 +20,11 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let page: number
-    export let slug: string
+    export let slug1: string
 
     function setRealmSearch(connectedRealmId: number) {
         const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0]
-        if (slug === 'missing-recipes') {
+        if (slug1 === 'missing-recipes') {
             $auctionState.missingRecipeRealmSearch = realmName
         }
         else {
@@ -134,7 +134,7 @@
 
 <UnderConstruction />
 
-{#await slug === 'missing-recipes'
+{#await slug1 === 'missing-recipes'
     ? userAuctionMissingRecipeStore.search(
         $auctionState,
         $itemStore,
@@ -147,13 +147,13 @@
         $itemStore,
         $staticStore,
         $userStore,
-        slug.replace('missing-appearance-', '')
+        slug1.replace('missing-appearance-', '')
     )
 }
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
-        {@const realmSearch = (slug === 'missing-recipes'
+        {@const realmSearch = (slug1 === 'missing-recipes'
             ? $auctionState.missingRecipeRealmSearch
             : $auctionState.missingTransmogRealmSearch).toLocaleLowerCase()}
         <Paginate

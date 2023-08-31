@@ -31,6 +31,8 @@ export class AuctionState {
     public missingTransmogNameSearch = ''
     public missingTransmogRealmSearch = ''
 
+    public specificItemId = 0
+
     public ignored: Record<string, Record<number, boolean>> = {}
     public includeRussia = false
     public region = '0'
@@ -43,6 +45,7 @@ export class AuctionState {
         'missing-appearance-ids': 'price_up',
         'missing-appearance-sources': 'price_up',
         'missing-recipes': 'price_up',
+        'specific-item': 'price_up',
     }
 }
 

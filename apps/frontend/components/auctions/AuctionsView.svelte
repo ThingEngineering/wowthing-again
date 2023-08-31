@@ -14,6 +14,7 @@
     import MissingBigResults from './AuctionsMissingBigResults.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
     import Select from '@/components/forms/Select.svelte'
+    import SpecificItem from './AuctionsSpecificItem.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
 
     export let params: MultiSlugParams
@@ -65,6 +66,7 @@
         'missing-appearance-ids': MissingBigResults,
         'missing-appearance-sources': MissingBigResults,
         'missing-recipes': MissingBigResults,
+        'specific-item': SpecificItem,
     }
 </script>
 
@@ -361,7 +363,8 @@
 
     <svelte:component
         this={componentMap[params.slug1]}
-        slug={params.slug1}
+        slug1={params.slug1}
+        slug2={params.slug2}
         {auctionsContainer}
         {page}
     />

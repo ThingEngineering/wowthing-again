@@ -484,7 +484,8 @@ public class UserUploadJob : JobBase
         }
 
         var region = Enum.Parse<WowRegion>(parts[0]);
-        if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
+        if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm) &&
+            !_realmMap.TryGetValue((region, parts[1].Slugify()), out realm))
         {
             Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
             return (null, null);

@@ -19,7 +19,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             const obj = new ItemDataItem(...itemArray)
             data.items[obj.id] = obj
 
-            for (const appearanceData of (itemArray[15] || [])) {
+            for (const appearanceData of (itemArray[16] || [])) {
                 let appSet = appearanceIds.get(appearanceData[1])
                 if (!appSet)
                 {

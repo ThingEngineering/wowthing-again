@@ -1,10 +1,13 @@
 <script lang="ts">
+    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
+    import { iconLibrary } from '@/icons'
     import { itemStore, staticStore, userStore } from '@/stores'
     import { professionsRecipesState } from '@/stores/local-storage'
+    import tippy from '@/utils/tippy'
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -19,6 +22,7 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
+    import { BindType } from '@/enums';
 
     export let expansion: Expansion
     export let profession: StaticDataProfession
@@ -39,7 +43,7 @@
         )
         characters.sort((a, b) => a.name.localeCompare(b.name))
 
-        colspan = 2 + characters.length
+        colspan = 3 + characters.length
     }
 
     const getAbilities = (abilities: StaticDataProfessionAbility[], includeTrainerRecipes: boolean) => {
@@ -65,7 +69,7 @@
 <style lang="scss">
     th {
         font-weight: normal;
-        top: 3.35rem;
+        top: var(--sticky-top);
 
         &:first-child {
             text-align: left;
@@ -112,7 +116,7 @@
 <table class="table table-striped character-table">
     <thead>
         <tr>
-            <th colspan="2">
+            <th colspan="3">
                 <Checkbox
                     name="include_trainer_recipes"
                     bind:value={$professionsRecipesState.includeTrainerRecipes}
@@ -152,10 +156,10 @@
                         <td class="source">
                             {#if recipes}
                                 {@const recipeItem = $itemStore.items[recipes[0]]}
-                                <span class="quality{recipeItem.quality}">
+                                <span class="quality{recipeItem?.quality ?? 1}">
                                     <WowheadLink
                                         type="item"
-                                        id={recipeItem.id}
+                                        id={recipes[0]}
                                     >
                                         <WowthingImage
                                             name="item/{recipes[0]}"
@@ -176,6 +180,17 @@
                             >
                                 {ability.name}
                             </WowheadLink>
+                        </td>
+                        <td class="auctions">
+                            {#if recipes && some(recipes, (id) => $itemStore.items[id]?.bindType !== BindType.BindOnAcquire) }
+                                <a
+                                    href="#/auctions/specific-item/{recipes[0]}"
+                                    target="_blank"
+                                    use:tippy={'Find auctions'}
+                                >
+                                    <IconifyIcon icon={iconLibrary.mdiBank} />
+                                </a>
+                            {/if}
                         </td>
 
                         {#each characters as character}
