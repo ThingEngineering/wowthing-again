@@ -105,9 +105,12 @@ public class MemoryCacheService
                     .AsNoTracking()
                     .ToDictionary(wr => (wr.Region, wr.Name));
 
-                // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
-                foreach (var (region, realmName) in realmMap.Keys.ToArray())
+                foreach (var ((region, realmName), realm) in realmMap.ToArray())
                 {
+                    // Index by slug too
+                    realmMap[(region, realm.Slug)] = realm;
+
+                    // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
                     if (realmName.Contains(' '))
                     {
                         realmMap[(region, realmName.Replace(" ", ""))] = realmMap[(region, realmName)];
