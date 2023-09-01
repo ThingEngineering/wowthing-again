@@ -1,5 +1,6 @@
 import some from 'lodash/some'
 
+import { Faction } from '@/enums'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
 import type { UserData } from '@/types'
@@ -108,7 +109,14 @@ export class UserAuctionMissingRecipeDataStore {
 
             const meetsExpansion = auctionState.missingRecipeExpansion === -1
                 || skillLineExpansion === auctionState.missingRecipeExpansion 
-
+            
+            let meetsFaction = true
+            if (auctionState.missingRecipeSearchType === 'character' && (item.allianceOnly || item.hordeOnly)) {
+                const character = userData.characterMap[auctionState.missingRecipeCharacterId]
+                meetsFaction = (item.allianceOnly && character.faction === Faction.Alliance) ||
+                    (item.hordeOnly && character.faction === Faction.Horde)
+            }
+            
             const meetsName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
             const meetsRealm = some(
                 thing.auctions.slice(0, auctionState.limitToCheapestRealm ? 1 : undefined),
@@ -118,7 +126,7 @@ export class UserAuctionMissingRecipeDataStore {
                     .length > 0
             )
 
-            return meetsHave && meetsExpansion && meetsName && meetsRealm
+            return meetsHave && meetsExpansion && meetsFaction && meetsName && meetsRealm
         })
 
         return [things, updated]
