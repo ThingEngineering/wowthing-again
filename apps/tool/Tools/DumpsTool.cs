@@ -674,6 +674,7 @@ public class DumpsTool
             dbItem.ContainerSlots = itemSparse.ContainerSlots;
             dbItem.Expansion = itemSparse.ExpansionID;
             dbItem.ItemLevel = itemSparse.ItemLevel;
+            dbItem.OppositeFactionId = itemSparse.OppositeFactionItemID;
             dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
             dbItem.RaceMask = itemSparse.AllowableRace;
             dbItem.RequiredAbility = itemSparse.RequiredAbility;

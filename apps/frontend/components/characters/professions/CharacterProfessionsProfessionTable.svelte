@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { Faction } from '@/enums'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { itemStore, staticStore, userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
@@ -28,7 +28,7 @@
         abilities = []
         hasRanks = false
         for (const ability of (filteredCategories[category.id] || [])) {
-            let requiredAbility = $staticStore.itemToRequiredAbility[ability.itemId]
+            let requiredAbility = $staticStore.itemToRequiredAbility[ability.itemIds[0]]
             if (!professionSpecializationSpells[requiredAbility]) {
                 requiredAbility = 0
             }
@@ -156,13 +156,14 @@
         </thead>
         <tbody>
             {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility]}
+                {@const name = ability.name || $itemStore.items[ability.itemIds[0]]?.name || `Spell #${spellId}`}
                 <tr data-ability-id={ability.id}>
                     <td
                         class="ability-name text-overflow"
                         class:status-success={userHas}
                         class:status-fail={!userHas}
-                        class:tier2={ability.name.includes('Tier2')}
-                        class:tier3={ability.name.includes('Tier3')}
+                        class:tier2={name.includes('Tier2')}
+                        class:tier3={name.includes('Tier3')}
                     >
                         <div class="flex-wrapper">
                             <div class="item-info text-overflow">
@@ -171,7 +172,7 @@
                                     type={"spell"}
                                 >
                                     <WowthingImage
-                                        name={ability.itemId ? `item/${ability.itemId}` : `spell/${spellId}`}
+                                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}
                                         size={20}
                                         border={1}
                                     />
@@ -191,7 +192,7 @@
                                         />
                                     {/if}
 
-                                    <ParsedText text={ability.name} />
+                                    <ParsedText text={name} />
                                 </WowheadLink>
                             </div>
 

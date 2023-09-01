@@ -47,6 +47,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 ])
         )
 
+        data.itemToSkillLineAbility = {}
         data.professionBySkillLine = {}
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
@@ -60,6 +61,20 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (let i = 0; i < profession.subProfessions.length; i++) {
                 const subProfession = profession.subProfessions[i]
                 data.professionBySkillLine[subProfession.id] = [profession, i]
+            }
+
+            for (const category of (profession.categories || [])) {
+                for (const subCategory of category.children) {
+                    for (const subSubCategory of subCategory.children) {
+                        for (const ability of subSubCategory.abilities) {
+                            for (const itemId of ability.itemIds) {
+                                if (itemId > 0) {
+                                    data.itemToSkillLineAbility[itemId] = ability.id
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 

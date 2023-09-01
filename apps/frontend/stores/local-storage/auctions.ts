@@ -30,6 +30,7 @@ export class AuctionState {
     public missingTransmogMinQuality = 0
     public missingTransmogNameSearch = ''
     public missingTransmogRealmSearch = ''
+    public missingTransmogShowCrafted = true
 
     public specificItemId = 0
 

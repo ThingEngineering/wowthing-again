@@ -1,5 +1,6 @@
 import some from 'lodash/some'
 
+import { professionSpecializationSpells } from '@/data/professions'
 import { Faction } from '@/enums'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
@@ -105,16 +106,26 @@ export class UserAuctionMissingRecipeDataStore {
             const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
 
             const [skillLineId,] = staticData.itemToSkillLine[item.id]
-            const [, skillLineExpansion] = staticData.professionBySkillLine[skillLineId]
+            const [profession, skillLineExpansion] = staticData.professionBySkillLine[skillLineId]
 
             const meetsExpansion = auctionState.missingRecipeExpansion === -1
-                || skillLineExpansion === auctionState.missingRecipeExpansion 
+                || skillLineExpansion === auctionState.missingRecipeExpansion
             
             let meetsFaction = true
-            if (auctionState.missingRecipeSearchType === 'character' && (item.allianceOnly || item.hordeOnly)) {
+            let meetsSpecialization = true
+            if (auctionState.missingRecipeSearchType === 'character') {
                 const character = userData.characterMap[auctionState.missingRecipeCharacterId]
-                meetsFaction = (item.allianceOnly && character.faction === Faction.Alliance) ||
-                    (item.hordeOnly && character.faction === Faction.Horde)
+
+                if (item.allianceOnly || item.hordeOnly) {
+                    meetsFaction = (item.allianceOnly && character.faction === Faction.Alliance) ||
+                        (item.hordeOnly && character.faction === Faction.Horde)
+                }
+
+                const requiredAbility = staticData.itemToRequiredAbility[item.id]
+                if (professionSpecializationSpells[requiredAbility]) {
+                    const charSpecialization = character.professionSpecializations[profession.id]
+                    meetsSpecialization = charSpecialization === undefined || charSpecialization === requiredAbility
+                }
             }
             
             const meetsName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0
@@ -126,7 +137,7 @@ export class UserAuctionMissingRecipeDataStore {
                     .length > 0
             )
 
-            return meetsHave && meetsExpansion && meetsFaction && meetsName && meetsRealm
+            return meetsHave && meetsExpansion && meetsFaction && meetsSpecialization && meetsName && meetsRealm
         })
 
         return [things, updated]

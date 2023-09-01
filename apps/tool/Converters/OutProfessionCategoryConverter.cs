@@ -33,7 +33,19 @@ public class OutProfessionCategoryConverter : JsonConverter<OutProfessionCategor
 
             writer.WriteNumberValue(ability.Id);
             writer.WriteNumberValue(ability.SpellId);
-            writer.WriteNumberValue(ability.ItemId);
+
+            if (ability.ItemId2 > 0)
+            {
+                writer.WriteStartArray();
+                writer.WriteNumberValue(ability.ItemId);
+                writer.WriteNumberValue(ability.ItemId2);
+                writer.WriteEndArray();
+            }
+            else
+            {
+                writer.WriteNumberValue(ability.ItemId);
+            }
+
             writer.WriteNumberValue(ability.FirstCraftQuestId);
             writer.WriteNumberValue(ability.Skillups);
             writer.WriteNumberValue(ability.Min);

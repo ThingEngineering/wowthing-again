@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Covenants;
@@ -14,8 +15,9 @@ namespace Wowthing.Tool.Tools;
 
 public class StaticTool
 {
-    private JankTimer _timer = new();
+    private readonly JankTimer _timer = new();
 
+    private Dictionary<int, WowItem> _itemMap;
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
     private static readonly StringType[] StringTypes = {
@@ -54,7 +56,7 @@ public class StaticTool
         ToolContext.Logger.Information("Loading data...");
 
         // Bulk data
-        var itemMap = await context.WowItem
+        _itemMap = await context.WowItem
             .AsNoTracking()
             .ToDictionaryAsync(item => item.Id);
 
@@ -90,7 +92,7 @@ public class StaticTool
         var imaMap = itemModifiedAppearances.ToDictionary(ima => ima.Id);
 
         // Bags
-        cacheData.RawBags = itemMap.Values
+        cacheData.RawBags = _itemMap.Values
             .Where(item => item.ContainerSlots > 0)
             .Select(item => new List<int> { item.Id, (int)item.Quality, item.ContainerSlots })
             .ToList();
@@ -233,14 +235,14 @@ public class StaticTool
         // Professions
         var professions = await LoadProfessions(traits);
 
-        cacheData.ItemToRequiredAbility = itemMap.Values
+        cacheData.ItemToRequiredAbility = _itemMap.Values
             .Where(item => item.RequiredAbility > 0)
             .ToDictionary(
                 item => item.Id,
                 item => item.RequiredAbility
             );
 
-        cacheData.ItemToSkillLine = itemMap.Values
+        cacheData.ItemToSkillLine = _itemMap.Values
             .Where(item => item.RequiredSkill > 0)
             .ToDictionary(
                 item => item.Id,
@@ -622,6 +624,17 @@ public class StaticTool
                         if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemid))
                         {
                             outAbility.ItemId = nameItemid;
+                        }
+
+                        if (outAbility.ItemId > 0)
+                        {
+                            outAbility.ItemId2 = _itemMap[outAbility.ItemId].OppositeFactionId;
+
+                            // If the spell name matches the item name we don't need to send it
+                            if (outAbility.Name == GetString(StringType.WowItemName, language, outAbility.ItemId))
+                            {
+                                outAbility.Name = "";
+                            }
                         }
 
                         if (spellMiscMap.TryGetValue(outAbility.SpellId, out var spellMisc))
@@ -1103,6 +1116,7 @@ public class StaticTool
         1, // Party Dungeon
         2, // Raid Dungeon
     };
+
     private async Task<List<OutInstance>> LoadInstances()
     {
         var journalInstances = await DataUtilities
