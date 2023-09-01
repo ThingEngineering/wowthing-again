@@ -50,7 +50,9 @@ public class ItemsTool
         var cacheData = new RedisItems
         {
             ItemBonusListGroups = listGroups,
-            RawItemBonuses = _itemBonusMap.Values.ToArray(),
+            RawItemBonuses = _itemBonusMap.Values
+                .Where(itemBonus => itemBonus.Bonuses.Count > 0)
+                .ToArray(),
         };
         string? cacheHash = null;
 
