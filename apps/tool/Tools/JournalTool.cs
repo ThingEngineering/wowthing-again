@@ -1,4 +1,6 @@
-﻿using Serilog.Context;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
+using Serilog.Context;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Items;
@@ -678,14 +680,17 @@ public class JournalTool
 
     private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item)
     {
-        string groupName = null;
+        string groupName = "Unknown";
         int groupOrder = 100;
 
         var cls = (WowItemClass)item.ClassId;
         if (cls == WowItemClass.Weapon)
         {
-            groupName = "Weapons";
-            groupOrder = 20;
+            var subClass = (WowWeaponSubclass)item.SubclassId;
+
+            var member = subClass.GetType().GetMember(subClass.ToString())[0];
+            groupName = member.GetCustomAttribute<DisplayAttribute>()?.Name ?? subClass.ToString();
+            groupOrder = Hardcoded.WeaponSubClassOrder.GetValueOrDefault(item.SubclassId, 99);
         }
         else if (cls == WowItemClass.Armor)
         {
@@ -712,7 +717,7 @@ public class JournalTool
             }
             else if (subClass == WowArmorSubclass.Cloak)
             {
-                groupName = "Cloaks";
+                groupName = "Cloak";
                 groupOrder = 14;
             }
             else
@@ -746,22 +751,22 @@ public class JournalTool
         switch (rewardType)
         {
             case RewardType.Illusion:
-                name = "Illusions";
+                name = "Illusion";
                 order = 0;
                 break;
 
             case RewardType.Mount:
-                name = "Mounts";
+                name = "Mount";
                 order = 1;
                 break;
 
             case RewardType.Pet:
-                name = "Pets";
+                name = "Pet";
                 order = 2;
                 break;
 
             case RewardType.Toy:
-                name = "Toys";
+                name = "Toy";
                 order = 3;
                 break;
         }

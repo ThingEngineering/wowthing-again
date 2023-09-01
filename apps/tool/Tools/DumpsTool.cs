@@ -684,11 +684,18 @@ public class DumpsTool
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             // Flags
+            if (itemSparse.Flags2.HasFlag(WowItemFlags2.AllianceOnly))
+            {
+                dbItem.Flags |= WowItemFlags.AllianceOnly;
+            }
+            if (itemSparse.Flags2.HasFlag(WowItemFlags2.HordeOnly))
+            {
+                dbItem.Flags |= WowItemFlags.HordeOnly;
+            }
             if (itemSparse.Flags2.HasFlag(WowItemFlags2.CannotTransmogToThisItem))
             {
                 dbItem.Flags |= WowItemFlags.CannotTransmogToThisItem;
             }
-
             if (itemSparse.ItemNameDescriptionID == 13805 || // Cosmetic
                 itemSparse.Flags4.HasFlag(WowItemFlags4.Cosmetic))
             {

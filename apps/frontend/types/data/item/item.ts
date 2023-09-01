@@ -1,4 +1,4 @@
-import type { BindType, InventoryType, ItemQuality, PrimaryStat } from '@/enums'
+import { ItemFlags, type BindType, type InventoryType, type ItemQuality, type PrimaryStat } from '@/enums'
 
 
 export class ItemDataItem {
@@ -38,6 +38,13 @@ export class ItemDataItem {
             this.appearanceArrays = null
         }
         return this._appearances
+    }
+
+    get allianceOnly(): boolean {
+        return (this.flags & ItemFlags.AllianceOnly) > 0
+    }
+    get hordeOnly(): boolean {
+        return (this.flags & ItemFlags.HordeOnly) > 0
     }
 }
 export type ItemDataItemArray = ConstructorParameters<typeof ItemDataItem>

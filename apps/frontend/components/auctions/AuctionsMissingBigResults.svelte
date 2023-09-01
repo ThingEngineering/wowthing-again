@@ -3,7 +3,7 @@
     import some from 'lodash/some'
 
     import { timeLeft } from '@/data/auctions'
-    import { Region } from '@/enums'
+    import { Faction, Region } from '@/enums'
     import { iconLibrary } from '@/icons'
     import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
@@ -18,6 +18,7 @@
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import FactionIcon from '../images/FactionIcon.svelte';
 
     export let page: number
     export let slug1: string
@@ -130,6 +131,11 @@
     code {
         color: $body-text;
     }
+    .item-name-wrapper {
+        :global(img + img) {
+            margin-left: -0.2rem;
+        }
+    }
 </style>
 
 <UnderConstruction />
@@ -163,12 +169,13 @@
             let:paginated
         >
             <div class="wrapper">
-                {#each paginated as item}
-                    {@const auctions = item.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
+                {#each paginated as result}
+                    {@const auctions = result.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
+                    {@const item = $itemStore.items[itemId]}
                     <table
                         class="table table-striped"
-                        class:faded={item.hasItems.length > 0}
+                        class:faded={result.hasItems.length > 0}
                     >
                         <thead>
                             <tr>
@@ -181,7 +188,13 @@
                                                 bonus: (auctions[0].bonusIds || []).join(':')
                                             }}
                                         >
-                                            <div class="flex-wrapper">
+                                            <div class="flex-wrapper item-name-wrapper">
+                                                {#if item.allianceOnly}
+                                                    <FactionIcon faction={Faction.Alliance} />
+                                                {:else if item.hordeOnly}
+                                                    <FactionIcon faction={Faction.Horde} />
+                                                {/if}
+
                                                 <WowthingImage
                                                     name="item/{itemId}"
                                                     size={20}
@@ -196,13 +209,13 @@
                                         </WowheadLink>
 
                                         <span class="icons">
-                                            {#if item.hasItems.length > 0}
+                                            {#if result.hasItems.length > 0}
                                                 <span
                                                     class="already-have"
                                                     use:tippyComponent={{
                                                         component: TooltipAlreadyHave,
                                                         props: {
-                                                            hasItems: item.hasItems,
+                                                            hasItems: result.hasItems,
                                                         },
                                                     }}
                                                 >
@@ -216,7 +229,7 @@
                                                 <span
                                                     class="clipboard"
                                                     use:tippy={"Copy to clipboard"}
-                                                    on:click={() => navigator.clipboard.writeText($itemStore.items[itemId].name)}
+                                                    on:click={() => navigator.clipboard.writeText(item.name)}
                                                 >
                                                     <IconifyIcon
                                                         icon={iconLibrary.mdiClipboardPlusOutline}

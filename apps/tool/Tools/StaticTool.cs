@@ -519,6 +519,15 @@ public class StaticTool
             ))
             .ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
 
+        var spellSourceMap = (await DataUtilities.LoadDumpCsvAsync<DumpSourceInfo>("sourceinfo"))
+            .GroupBy(dsi => dsi.SpellID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderByDescending(dsi => dsi.ID)
+                    .First()
+                    .SourceTypeEnum
+            );
+
         var skillLineParentMap = skillLines
             .Where(line => line.ParentSkillLineID > 0)
             .ToDictionary(line => line.ID, line => line.ParentSkillLineID);
@@ -625,6 +634,11 @@ public class StaticTool
                             {
                                 outAbility.Faction = (short)WowFaction.Horde;
                             }
+                        }
+
+                        if (spellSourceMap.TryGetValue(outAbility.SpellId, out var spellSource))
+                        {
+                            outAbility.Source = spellSource;
                         }
 
                         outCategory.Abilities.Add(outAbility);
