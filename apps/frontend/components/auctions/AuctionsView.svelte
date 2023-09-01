@@ -227,7 +227,7 @@
                         bind:selected={$auctionState.missingRecipeCharacterId}
                         options={$userStore.characters.map((char) => [
                             char.id,
-                            char.name
+                            char.name + '-' + char.realm.name
                         ])}
                     />
                 </div>
