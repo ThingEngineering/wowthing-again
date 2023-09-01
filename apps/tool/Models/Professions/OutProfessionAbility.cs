@@ -6,6 +6,7 @@ public class OutProfessionAbility
     public int FirstCraftQuestId { get; set; }
     public int Id { get; set; }
     public int ItemId { get; set; }
+    public int ItemId2 { get; set; }
     public int Min { get; set; }
     public int Skillups { get; set; }
     public int Source { get; set; }

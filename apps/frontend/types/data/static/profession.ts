@@ -61,10 +61,12 @@ export class StaticDataProfessionCategory {
 // export type StaticDataProfessionCategoryArray = ConstructorParameters<typeof StaticDataProfessionCategory>
 
 export class StaticDataProfessionAbility {
+    public itemIds: number[]
+
     constructor(
         public id: number,
         public spellId: number,
-        public itemId: number,
+        itemId: number|number[],
         public firstCraftQuestId: number,
         public skillups: number,
         public minSkill: number,
@@ -75,6 +77,8 @@ export class StaticDataProfessionAbility {
         public name: string,
         public extraRanks?: [number, number][]
     )
-    { }
+    {
+        this.itemIds = typeof itemId === 'number' ? [itemId] : itemId
+    }
 }
 export type StaticDataProfessionAbilityArray = ConstructorParameters<typeof StaticDataProfessionAbility>

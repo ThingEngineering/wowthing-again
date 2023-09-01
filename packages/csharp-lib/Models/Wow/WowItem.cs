@@ -10,6 +10,7 @@ public class WowItem
     public int Id { get; set; }
     public int ClassMask { get; set; }
     public long RaceMask { get; set; }
+    public int OppositeFactionId { get; set; }
     public int RequiredAbility { get; set; }
     public int Stackable { get; set; }
     public short ClassId { get; set; }
