@@ -1,4 +1,4 @@
-import type { Faction } from '@/enums'
+import type { Faction, SkillSourceType } from '@/enums'
 
 export interface StaticDataProfession {
     id: number
@@ -71,6 +71,7 @@ export class StaticDataProfessionAbility {
         public trivialLow: number,
         public trivialHigh: number,
         public faction: Faction,
+        public source: SkillSourceType,
         public name: string,
         public extraRanks?: [number, number][]
     )

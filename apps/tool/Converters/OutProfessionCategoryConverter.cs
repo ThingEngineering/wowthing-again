@@ -40,6 +40,7 @@ public class OutProfessionCategoryConverter : JsonConverter<OutProfessionCategor
             writer.WriteNumberValue(ability.TrivialLow);
             writer.WriteNumberValue(ability.TrivialHigh);
             writer.WriteNumberValue(ability.Faction);
+            writer.WriteNumberValue(ability.Source);
             writer.WriteStringValue(ability.Name);
 
             if (ability.Ranks != null)

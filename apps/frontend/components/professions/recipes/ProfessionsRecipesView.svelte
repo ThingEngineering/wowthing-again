@@ -22,7 +22,7 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
-    import { BindType } from '@/enums';
+    import { BindType, SkillSourceType } from '@/enums';
 
     export let expansion: Expansion
     export let profession: StaticDataProfession
@@ -50,7 +50,10 @@
         return sortBy(
             abilities.filter((ability) =>
                 includeTrainerRecipes ||
-                !!$staticStore.skillLineAbilityItems[ability.id]
+                (
+                    ability.source !== SkillSourceType.Trainer &&
+                    !!$staticStore.skillLineAbilityItems[ability.id]
+                )
             ),
             (ability) => {
                 const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
