@@ -57,8 +57,8 @@
             ),
             (ability) => {
                 const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
-                if (ability.itemId) {
-                    const item = $itemStore.items[ability.itemId]
+                if (ability.itemIds[0]) {
+                    const item = $itemStore.items[ability.itemIds[0]]
                     return `${hasItems ? 0 : 1}|${9 - item.quality}|${item.name}`
                 }
                 else {
@@ -175,7 +175,7 @@
                             {/if}
                         </td>
                         <td
-                            class="name {ability.itemId ? `quality${$itemStore.items[ability.itemId].quality}` : undefined}"
+                            class="name {ability.itemIds[0] ? `quality${$itemStore.items[ability.itemIds[0]].quality}` : undefined}"
                         >
                             <WowheadLink
                                 type="spell"

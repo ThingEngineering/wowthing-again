@@ -60,7 +60,7 @@
                 continue
             }
 
-            const requiredAbility = $staticStore.itemToRequiredAbility[ability.itemId]
+            const requiredAbility = $staticStore.itemToRequiredAbility[ability.itemIds[0]]
             if (professionSpecializationSpells[requiredAbility]) {
                 const charSpecialization = character.professionSpecializations[staticProfession.id]
                 if (charSpecialization !== undefined && charSpecialization !== requiredAbility) {
