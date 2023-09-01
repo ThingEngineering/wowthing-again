@@ -144,6 +144,9 @@ export function useCharacterFilter(
 }
 
 const professionSlugMap: Record<string, string> = {
+    alc: 'alchemy',
+    alch: 'alchemy',
+    alchemist: 'alchemist',
     blacksmith: 'blacksmithing',
     cook: 'cooking',
     ench: 'enchanting',
