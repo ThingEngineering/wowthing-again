@@ -358,6 +358,13 @@
                     }
                 />
             </div>
+
+            <div class="options-group">
+                <Checkbox
+                    name="transmog_show_crafted"
+                    bind:value={$auctionState.missingTransmogShowCrafted}
+                >Crafted items</Checkbox>
+            </div>
         </div>
     {/if}
 

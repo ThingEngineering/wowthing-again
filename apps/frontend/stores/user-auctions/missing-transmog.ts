@@ -167,6 +167,11 @@ export class UserAuctionMissingTransmogDataStore {
                 }
             }
 
+            let matchesSource = true
+            if (!auctionState.missingTransmogShowCrafted) {
+                matchesSource = staticData.itemToSkillLineAbility[item.id] === undefined
+            }
+
             return meetsHave
                 && meetsMinQuality
                 && matchesExpansion
@@ -174,6 +179,7 @@ export class UserAuctionMissingTransmogDataStore {
                 && matchesRealm
                 && matchesArmor
                 && matchesWeapon
+                && matchesSource
         })
 
         return [things, updated]
