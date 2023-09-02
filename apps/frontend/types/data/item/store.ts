@@ -17,4 +17,9 @@ export interface ItemData {
 
     itemBonuses: Record<number, DataItemBonus>
     rawItemBonuses: DataItemBonusArray[]
+
+    classIdSubclassIdInventoryTypes: [number, number, number][]
+    classMasks: number[]
+    raceMasks: number[]
+    names: string[]
 }
