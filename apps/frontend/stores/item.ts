@@ -15,18 +15,30 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         const appearanceIds = new Map<number, Set<number>>()
 
         data.items = {}
+        let itemId = 0;
         for (const itemArray of data.rawItems) {
-            const obj = new ItemDataItem(...itemArray)
+            itemId += itemArray[0];
+            const [classId, subclassId, inventoryType] = data.classIdSubclassIdInventoryTypes[itemArray[4]]
+            const obj = new ItemDataItem(
+                itemId,
+                data.names[itemArray[1]],
+                data.classMasks[itemArray[2]],
+                data.raceMasks[itemArray[3]],
+                classId,
+                subclassId,
+                inventoryType,
+                ...itemArray
+            )
             data.items[obj.id] = obj
 
-            for (const appearanceData of (itemArray[16] || [])) {
-                let appSet = appearanceIds.get(appearanceData[1])
+            for (const appearanceData of (itemArray[10] || [])) {
+                let appSet = appearanceIds.get(appearanceData[0])
                 if (!appSet)
                 {
                     appSet = new Set<number>()
-                    appearanceIds.set(appearanceData[1], appSet)
+                    appearanceIds.set(appearanceData[0], appSet)
                 }
-                appSet.add(itemArray[0])
+                appSet.add(itemId)
             }
         }
         data.rawItems = null

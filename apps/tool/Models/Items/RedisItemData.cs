@@ -6,13 +6,16 @@ namespace Wowthing.Tool.Models.Items;
 [JsonConverter(typeof(RedisItemDataConverter))]
 public class RedisItemData : WowItem
 {
+    public int ClassIdSubclassIdInventoryTypeIndex { get; set; }
+    public int ClassMaskIndex { get; set; }
+    public int IdDiff { get; set; }
+    public int NameIndex { get; set; }
+    public int RaceMaskIndex { get; set; }
     public string Name { get; set; } = string.Empty;
     public WowItemModifiedAppearance[]? Appearances { get; set; }
 
     public RedisItemData(WowItem item) : base(item.Id)
     {
-        ClassMask = item.GetCalculatedClassMask();
-        RaceMask = item.RaceMask;
         Stackable = item.Stackable;
         ClassId = item.ClassId;
         SubclassId = item.SubclassId;

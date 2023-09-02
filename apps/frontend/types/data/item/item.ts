@@ -1,4 +1,5 @@
 import { ItemFlags, type BindType, type InventoryType, type ItemQuality, type PrimaryStat } from '@/enums'
+import type { ItemData } from './store'
 
 
 export class ItemDataItem {
@@ -6,21 +7,25 @@ export class ItemDataItem {
 
     constructor(
         public id: number,
+        public name: string,
         public classMask: number,
         public raceMask: number,
-        public stackable: number,
         public classId: number,
         public subclassId: number,
         public inventoryType: InventoryType,
-        public containerSlots: number,
+        idDiff: number,
+        nameIndex: number,
+        classMaskIndex: number,
+        raceMaskIndex: number,
+        classIdSubclassIdInventoryType: number,
+        // public stackable: number,
         public quality: ItemQuality,
-        public primaryStat: PrimaryStat,
+        // public primaryStat: PrimaryStat,
         public flags: number,
         public expansion: number,
         public itemLevel: number,
-        public requiredLevel: number,
+        // public requiredLevel: number,
         public bindType: BindType,
-        public name: string,
         appearanceArrays?: ItemDataItemAppearanceArray[]
     )
     {
@@ -47,14 +52,34 @@ export class ItemDataItem {
         return (this.flags & ItemFlags.HordeOnly) > 0
     }
 }
-export type ItemDataItemArray = ConstructorParameters<typeof ItemDataItem>
+// Can't use the auto type as we use array indexes for name/classMask/raceMask
+// export type ItemDataItemArray = ConstructorParameters<typeof ItemDataItem>
+export type ItemDataItemArray = [
+    id: number,
+    name: number,
+    classMask: number,
+    raceMask: number,
+    classIdSubclassIdInventoryType: number,
+    // stackable: number,
+    quality: ItemQuality,
+    // primaryStat: PrimaryStat,
+    flags: number,
+    expansion: number,
+    itemLevel: number,
+    // requiredLevel: number,
+    bindType: BindType,
+    appearanceArrays?: ItemDataItemAppearanceArray[]
+]
 
 export class ItemDataItemAppearance {
+    public modifier: number
     constructor(
-        public modifier: number,
         public appearanceId: number,
-        public sourceType: number
+        public sourceType: number,
+        modifier?: number
     )
-    {}
+    {
+        this.modifier = modifier || 0
+    }
 }
 export type ItemDataItemAppearanceArray = ConstructorParameters<typeof ItemDataItemAppearance>
