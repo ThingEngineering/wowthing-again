@@ -1,11 +1,11 @@
 import { get } from 'svelte/store'
 import some from 'lodash/some'
 
-import { staticStore } from '@/stores'
-import type { Chore, Task } from '@/types/tasks'
-
+import { staticStore, userQuestStore } from '@/stores'
 import { Constants } from './constants'
 import { dragonflightProfessionTasks } from './professions'
+import type { Character } from '@/types'
+import type { Chore, Task } from '@/types/tasks'
 
 
 export const taskList: Task[] = [
@@ -89,6 +89,15 @@ export const taskList: Task[] = [
         key: 'pvpOverwhelmingOdds',
         name: '[PvP] Overwhelming Odds',
         shortName: 'WM',
+    },
+
+    // Warlords of Draenor
+    {
+        key: 'wodGarrison',
+        name: '[WoD] Garrison Invasions',
+        shortName: 'GInv',
+        type: 'multi',
+        minimumLevel: 10,
     },
 
     // Legion
@@ -197,7 +206,34 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 )
 
 
+function garrisonCouldGet(char: Character): boolean {
+    return userQuestStore.hasAny(char.id, 34586) || userQuestStore.hasAny(char.id, 34378)
+}
+
+
 export const multiTaskMap: Record<string, Chore[]> = {
+    'wodGarrison': [
+        {
+            taskKey: 'invasionBronze',
+            taskName: '{item:120320}', // Invader's Abandoned Sack
+            couldGetFunc: garrisonCouldGet,
+        },
+        {
+            taskKey: 'invasionSilver',
+            taskName: '{item:120319}', // Invader's Damaged Cache
+            couldGetFunc: garrisonCouldGet,
+        },
+        {
+            taskKey: 'invasionGold',
+            taskName: '{item:116980}', // Invader's Forgotten Treasure
+            couldGetFunc: garrisonCouldGet,
+        },
+        {
+            taskKey: 'invasionPlatinum',
+            taskName: '{item:122163}', // Routed Invader's Crate of Spoils
+            couldGetFunc: garrisonCouldGet,
+        },
+    ],
     'dfCatchRelease': [
         {
             taskKey: 'dfCatchAileron',
