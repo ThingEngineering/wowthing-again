@@ -8,6 +8,7 @@ public class RedisItems
     public int[] ClassMasks { get; set; }
     public long[] RaceMasks { get; set; }
     public string[] Names { get; set; }
+    public List<int> OppositeFactionIds { get; set; }
 
     public WowItemBonus[] RawItemBonuses { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }

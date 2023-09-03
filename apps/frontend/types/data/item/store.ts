@@ -20,6 +20,7 @@ export interface ItemData {
 
     classIdSubclassIdInventoryTypes: [number, number, number][]
     classMasks: number[]
+    oppositeFactionIds: number[]
     raceMasks: number[]
     names: string[]
 }
