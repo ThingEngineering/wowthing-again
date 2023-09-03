@@ -3,6 +3,8 @@ import type { ItemData } from './store'
 
 
 export class ItemDataItem {
+    public oppositeFactionId?: number
+
     private appearanceArrays?: ItemDataItemAppearanceArray[]
 
     constructor(

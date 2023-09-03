@@ -1,4 +1,5 @@
-﻿using MoreLinq;
+﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using MoreLinq;
 using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
@@ -12,10 +13,6 @@ public class ItemsTool
 
     private Dictionary<int, WowItemBonus> _itemBonusMap;
     private Dictionary<(Language Language, int Id), string> _strings;
-
-    private Dictionary<int, int> _indexClassMask = new();
-    private Dictionary<long, int> _indexRaceMask = new();
-    private Dictionary<(short, short, WowInventoryType), int> _indexClassIdSubclassIdInventoryType = new();
 
     public async Task Run(params string[] data)
     {
@@ -53,25 +50,25 @@ public class ItemsTool
 
         _timer.AddPoint("File");
 
-        _indexClassIdSubclassIdInventoryType = items
+        var indexClassIdSubclassIdInventoryType = items
             .CountBy(item => (item.ClassId, item.SubclassId, item.InventoryType))
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        _indexClassMask = items
+        var indexClassMask = items
             .CountBy(item => item.GetCalculatedClassMask())
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        _indexRaceMask = items
+        var indexRaceMask = items
             .CountBy(item => item.RaceMask)
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        _timer.AddPoint("Index");
+        _timer.AddPoint("Preprocess");
 
         var db = ToolContext.Redis.GetDatabase();
 
@@ -82,20 +79,41 @@ public class ItemsTool
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
                 .ToArray(),
 
-            ClassIdSubclassIdInventoryTypes = _indexClassIdSubclassIdInventoryType
+            ClassIdSubclassIdInventoryTypes = indexClassIdSubclassIdInventoryType
                 .OrderBy(kvp => kvp.Value)
                 .Select(kvp => new short[] { kvp.Key.Item1, kvp.Key.Item2, (short)kvp.Key.Item3 })
                 .ToArray(),
-            ClassMasks = _indexClassMask
+            ClassMasks = indexClassMask
                 .OrderBy(kvp => kvp.Value)
                 .Select(kvp => kvp.Key)
                 .ToArray(),
-            RaceMasks = _indexRaceMask
+            RaceMasks = indexRaceMask
                 .OrderBy(kvp => kvp.Value)
                 .Select(kvp => kvp.Key)
                 .ToArray(),
         };
         string? cacheHash = null;
+
+        var seen = new HashSet<(int, int)>();
+        var oppositeIds = items
+            .Where(item => item.OppositeFactionId > 0)
+            .ToDictionary(item => item.Id, item => item.OppositeFactionId);
+
+        cacheData.OppositeFactionIds = new(oppositeIds.Count);
+        foreach ((int id1, int id2) in oppositeIds.OrderBy(kvp => kvp.Key))
+        {
+            int[] sorted = new[] { id1, id2 }.Order().ToArray();
+            var key = (sorted[0], sorted[1]);
+            if (!seen.Contains(key))
+            {
+                cacheData.OppositeFactionIds.Add(id1);
+                cacheData.OppositeFactionIds.Add(id2);
+                seen.Add(key);
+                Console.WriteLine("{0} {1}", id1, id2);
+            }
+        }
+
+        Console.WriteLine(cacheData.OppositeFactionIds.Count);
 
         cacheData.RawItems = new RedisItemData[items.Length];
         int lastId = 0;
@@ -106,9 +124,9 @@ public class ItemsTool
             {
                 // Id is actually the difference between this id and the previous id, saving ~5 bytes per item
                 IdDiff = item.Id - lastId,
-                ClassIdSubclassIdInventoryTypeIndex = _indexClassIdSubclassIdInventoryType[(item.ClassId, item.SubclassId, item.InventoryType)],
-                ClassMaskIndex = _indexClassMask[item.GetCalculatedClassMask()],
-                RaceMaskIndex = _indexRaceMask[item.RaceMask],
+                ClassIdSubclassIdInventoryTypeIndex = indexClassIdSubclassIdInventoryType[(item.ClassId, item.SubclassId, item.InventoryType)],
+                ClassMaskIndex = indexClassMask[item.GetCalculatedClassMask()],
+                RaceMaskIndex = indexRaceMask[item.RaceMask],
                 Appearances = itemToModifiedAppearances.GetValueOrDefault(item.Id, Array.Empty<WowItemModifiedAppearance>()),
             };
             lastId = item.Id;

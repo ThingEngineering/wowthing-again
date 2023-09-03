@@ -43,6 +43,20 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItems = null
 
+        for (let i = 0; i < data.oppositeFactionIds.length; i += 2) {
+            const itemId1 = data.oppositeFactionIds[i]
+            const itemId2 = data.oppositeFactionIds[i + 1]
+            const item1 = data.items[itemId1]
+            const item2 = data.items[itemId2]
+            if (item1 && item2) {
+                item1.oppositeFactionId = itemId2
+                item2.oppositeFactionId = itemId1
+            }
+            // else {
+            //     console.log(itemId1, item1, itemId2, item2)
+            // }
+        }
+
         data.itemBonuses = {}
         for (const itemBonusArray of data.rawItemBonuses) {
             const obj = new DataItemBonus(...itemBonusArray)
