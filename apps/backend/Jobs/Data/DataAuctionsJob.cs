@@ -252,24 +252,36 @@ COPY wow_auction_cheapest_by_appearance_source (
 
             int? appearanceId = null;
             string appearanceSource = null;
-            if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id)
-                && _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier), out int actualAppearanceId)
-                && actualAppearanceId > 0)
+            if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
             {
-                appearanceId = actualAppearanceId;
-                appearanceSource = $"{auction.Item.Id}_{modifier}";
-
-                if (!appearanceIds.TryGetValue(actualAppearanceId, out var idAuctions))
+                _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                    out int actualAppearanceId);
+                if (modifier > 0 && actualAppearanceId == 0)
                 {
-                    idAuctions = appearanceIds[actualAppearanceId] = new();
+                    modifier = 0;
+                    _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, 0),
+                        out actualAppearanceId);
                 }
-                idAuctions.Add(auction);
 
-                if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
+                if (actualAppearanceId > 0)
                 {
-                    sourceAuctions = appearanceSources[appearanceSource] = new();
+                    appearanceId = actualAppearanceId;
+                    appearanceSource = $"{auction.Item.Id}_{modifier}";
+
+                    if (!appearanceIds.TryGetValue(actualAppearanceId, out var idAuctions))
+                    {
+                        idAuctions = appearanceIds[actualAppearanceId] = new();
+                    }
+
+                    idAuctions.Add(auction);
+
+                    if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
+                    {
+                        sourceAuctions = appearanceSources[appearanceSource] = new();
+                    }
+
+                    sourceAuctions.Add(auction);
                 }
-                sourceAuctions.Add(auction);
             }
 
             await writer.StartRowAsync();
