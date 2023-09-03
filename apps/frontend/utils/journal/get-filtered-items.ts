@@ -7,6 +7,26 @@ import type {
 } from '@/types/data'
 
 
+const weaponGroups = Object.fromEntries([
+    'Bow',
+    'Crossbow',
+    'Dagger',
+    'Fist',
+    'Gun',
+    'One-handed Axe',
+    'One-handed Mace',
+    'One-handed Sword',
+    'Polearm',
+    'Stave',
+    'Two-handed Axe',
+    'Two-handed Mace',
+    'Two-handed Sword',
+    'Wand',
+    'Warglaive',
+    'Shield',
+    'Off-hand',
+].map((name) => [name, true]))
+
 export default function getFilteredItems(
     journalState: JournalState,
     group: JournalDataEncounterItemGroup,
@@ -42,7 +62,7 @@ export default function getFilteredItems(
             keep = journalState.showCloaks
         }
 
-        if (keep && group.name === 'Weapons') {
+        if (keep && weaponGroups[group.name] === true) {
             keep = journalState.showWeapons
         }
 
