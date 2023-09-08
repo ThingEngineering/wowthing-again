@@ -1,6 +1,7 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
     import some from 'lodash/some'
+    import { replace } from 'svelte-spa-router'
 
     import { timeLeft } from '@/data/auctions'
     import { Faction, Region } from '@/enums'
@@ -11,6 +12,7 @@
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy, { tippyComponent } from '@/utils/tippy'
 
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
@@ -18,7 +20,6 @@
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import FactionIcon from '../images/FactionIcon.svelte';
 
     export let page: number
     export let slug1: string
@@ -30,6 +31,23 @@
         }
         else {
             $auctionState.missingTransmogRealmSearch = realmName
+        }
+    }
+
+    let recipeRealmSearch = ''
+    let transmogRealmSearch = ''
+    $: {
+        if (slug1.startsWith('missing-appearance-') && $auctionState.missingTransmogRealmSearch !== transmogRealmSearch) {
+            transmogRealmSearch = $auctionState.missingTransmogRealmSearch
+            if (page !== 1) {
+                replace(`/auctions/${slug1}/1`)
+            }
+        }
+        else if (slug1 === 'missing-recipes' && $auctionState.missingRecipeRealmSearch !== recipeRealmSearch) {
+            recipeRealmSearch = $auctionState.missingRecipeRealmSearch
+            if (page !== 1) {
+                replace(`/auctions/${slug1}/1`)
+            }
         }
     }
 </script>
