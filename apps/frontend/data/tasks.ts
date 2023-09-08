@@ -338,7 +338,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             minimumLevel: 70,
             taskKey: 'dfReachStormsChest',
-            taskName: '[FR] Chest of Storms', 
+            taskName: '[FR] Chest of Storms',
         },
     ],
     'dfChores10_1_0': [
@@ -429,8 +429,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
         // },
     ],
     'dfDreamsurges': [
-        minimumLevel: 70,
-        taskKey: 'dfDreamsurge',
-        taskName: 'Dreamsurges'
+        {
+            minimumLevel: 70,
+            taskKey: 'dfDreamsurge',
+            taskName: 'Dreamsurges'
+        }
     ]
 }
