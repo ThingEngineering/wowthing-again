@@ -109,11 +109,8 @@ public class ItemsTool
                 cacheData.OppositeFactionIds.Add(id1);
                 cacheData.OppositeFactionIds.Add(id2);
                 seen.Add(key);
-                Console.WriteLine("{0} {1}", id1, id2);
             }
         }
-
-        Console.WriteLine(cacheData.OppositeFactionIds.Count);
 
         cacheData.RawItems = new RedisItemData[items.Length];
         int lastId = 0;

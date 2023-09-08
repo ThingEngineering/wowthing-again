@@ -67,7 +67,7 @@ public class DumpsTool
         { "INVTYPE_NON_EQUIP", 0 },
         { "INVTYPE_HEAD", 1 },
         { "INVTYPE_NECK", 2 },
-        { "INVTYPE_SHOULDER", 3 },
+        { "SHOULDERSLOT", 3 }, // English at least has "Shoulder" for type vs "Shoulders" for slot, bizarre
         { "INVTYPE_BODY", 4 }, // Shirt
         { "INVTYPE_CHEST", 5 },
         { "INVTYPE_WAIST", 6 },

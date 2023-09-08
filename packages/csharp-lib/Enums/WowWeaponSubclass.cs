@@ -4,20 +4,20 @@ namespace Wowthing.Lib.Enums;
 
 public enum WowWeaponSubclass
 {
-    [Display(Name = "One-handed Axe")]
+    [Display(Name = "1h Axe")]
     OneHandedAxe = 0,
-    [Display(Name = "Two-handed Axe")]
+    [Display(Name = "2h Axe")]
     TwoHandedAxe = 1,
     Bow = 2,
     Gun = 3,
-    [Display(Name = "One-handed Mace")]
+    [Display(Name = "1h Mace")]
     OneHandedMace = 4,
-    [Display(Name = "Two-handed Mace")]
+    [Display(Name = "2h Mace")]
     TwoHandedMace = 5,
     Polearm = 6,
-    [Display(Name = "One-handed Sword")]
+    [Display(Name = "1h Sword")]
     OneHandedSword = 7,
-    [Display(Name = "Two-handed Sword")]
+    [Display(Name = "2h Sword")]
     TwoHandedSword = 8,
     Warglaive = 9,
     Stave = 10,

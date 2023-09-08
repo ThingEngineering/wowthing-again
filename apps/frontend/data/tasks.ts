@@ -175,6 +175,12 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'dfDreamsurge',
+        name: '[DF] Dreamsurge',
+        shortName: 'DS',
+        minimumLevel: 60,
+    },
+    {
         key: 'dfFighting',
         name: '[DF] Heroic Dungeons',
         shortName: 'HDun',
@@ -197,7 +203,6 @@ export const taskList: Task[] = [
         name: '[DF] Time Rifts',
         shortName: 'TR',
         minimumLevel: 60,
-        type: 'multi',
     },
 ]
 
@@ -409,16 +414,4 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
-    'dfTimeRifts': [
-        {
-            minimumLevel: 60,
-            taskKey: 'dfTimeRift',
-            taskName: 'Time Rift completed'
-        },
-        // {
-        //     minimumLevel: 60,
-        //     taskKey: 'dfWhenTimeNeedsMending',
-        //     taskName: 'When Time Needs Mending',
-        // },
-    ]
 }
