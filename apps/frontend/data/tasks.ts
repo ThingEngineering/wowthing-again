@@ -178,7 +178,6 @@ export const taskList: Task[] = [
         key: 'dfDreamsurge',
         name: '[DF] Dreamsurge',
         shortName: 'DS',
-        minimumLevel: 60,
     },
     {
         key: 'dfFighting',
