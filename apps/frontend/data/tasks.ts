@@ -198,7 +198,7 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'dfTimeRifts',
+        key: 'dfTimeRift',
         name: '[DF] Time Rifts',
         shortName: 'TR',
         minimumLevel: 60,
