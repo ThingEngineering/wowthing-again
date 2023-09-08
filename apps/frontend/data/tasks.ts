@@ -199,6 +199,13 @@ export const taskList: Task[] = [
         minimumLevel: 60,
         type: 'multi',
     },
+    {
+        key: 'dfDreamsurges',
+        name: '[DF] Dreamsurges',
+        shortName: 'DS',
+        minimumLevel: 70,
+        type: 'multi',
+    }
 ]
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
@@ -420,5 +427,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
         //     taskKey: 'dfWhenTimeNeedsMending',
         //     taskName: 'When Time Needs Mending',
         // },
+    ],
+    'dfDreamsurges': [
+        minimumLevel: 70,
+        taskKey: 'dfDreamsurge',
+        taskName: 'Dreamsurges'
     ]
 }
