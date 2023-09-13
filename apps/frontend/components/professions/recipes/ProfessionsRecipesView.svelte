@@ -181,7 +181,11 @@
                                 type="spell"
                                 id={ability.spellId}
                             >
-                                {ability.name}
+                                {#if ability.name}
+                                    {ability.name}
+                                {:else}
+                                    {$itemStore.items[ability.itemIds[0] || 0]?.name}
+                                {/if}
                             </WowheadLink>
                         </td>
                         <td class="auctions">
