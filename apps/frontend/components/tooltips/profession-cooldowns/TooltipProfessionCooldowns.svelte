@@ -62,8 +62,10 @@
                     <td class="full">
                         {#if cooldown.have === cooldown.max}
                             ----
-                        {:else}
+                        {:else if cooldown.full}
                             {@html toNiceDuration(cooldown.full.diff($timeStore).toMillis())}
+                        {:else}
+                            ????
                         {/if}
                     </td>
                     <td

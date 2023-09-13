@@ -52,6 +52,7 @@
                 includeTrainerRecipes ||
                 (
                     ability.source !== SkillSourceType.Trainer &&
+                    ability.source !== SkillSourceType.Discovery &&
                     !!$staticStore.skillLineAbilityItems[ability.id]
                 )
             ),
@@ -123,7 +124,7 @@
                 <Checkbox
                     name="include_trainer_recipes"
                     bind:value={$professionsRecipesState.includeTrainerRecipes}
-                >Include trainer recipes</Checkbox>
+                >Include discovered/trainer recipes</Checkbox>
             </th>
             {#each characters as character}
                 <th class="character-icon">
@@ -181,7 +182,11 @@
                                 type="spell"
                                 id={ability.spellId}
                             >
-                                {ability.name}
+                                {#if ability.name}
+                                    {ability.name}
+                                {:else}
+                                    {$itemStore.items[ability.itemIds[0] || 0]?.name}
+                                {/if}
                             </WowheadLink>
                         </td>
                         <td class="auctions">

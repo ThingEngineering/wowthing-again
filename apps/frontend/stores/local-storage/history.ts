@@ -5,7 +5,7 @@ export class HistoryState {
     public chartType = 'stacked-area'
     public interval = 'hour'
     public scaleType: 'category' | 'linear' | 'logarithmic' | 'time' | 'timeseries' = 'logarithmic'
-    public timeFrame: 'all' | '1week' | '1month' | '3month' | '6month' = 'all'
+    public timeFrame: 'all' | '1week' | '1month' | '3month' | '6month' | '1year' = 'all'
     public tooltipCombineSmall = false
 }
 
