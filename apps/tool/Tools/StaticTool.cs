@@ -514,13 +514,6 @@ public class StaticTool
                 group => group.First()
             );
 
-        var skillLineSpellIds = new HashSet<int>(skillLineAbilities.Select(ability => ability.Spell));
-        var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
-                "spellname",
-                validFunc: dsn => skillLineSpellIds.Contains(dsn.ID)
-            ))
-            .ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
-
         var spellSourceMap = (await DataUtilities.LoadDumpCsvAsync<DumpSourceInfo>("sourceinfo"))
             .GroupBy(dsi => dsi.SpellID)
             .ToDictionary(
@@ -559,6 +552,11 @@ public class StaticTool
                     ? tsc.SkillLineID
                     : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
                 .ToDictionary(group => group.Key, group => group.ToList());
+
+            var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
+                "spellname",
+                language
+            )).ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
 
             var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
             foreach (int professionId in allProfs)
