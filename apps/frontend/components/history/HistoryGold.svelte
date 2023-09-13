@@ -30,6 +30,7 @@
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
+    import Select from '@/components/forms/Select.svelte'
 
     Chart.register(
         LineElement,
@@ -105,16 +106,19 @@
 
         let minTime: DateTime = DateTime.now().minus({ years: 10 })
         if (historyState.timeFrame === '1week') {
-            minTime = DateTime.now().minus({ weeks: 1})
+            minTime = DateTime.now().minus({ weeks: 1 })
         }
         else if (historyState.timeFrame === '1month') {
-            minTime = DateTime.now().minus({ months: 1})
+            minTime = DateTime.now().minus({ months: 1 })
         }
         else if (historyState.timeFrame === '3month') {
-            minTime = DateTime.now().minus({ months: 3})
+            minTime = DateTime.now().minus({ months: 3 })
         }
         else if (historyState.timeFrame === '6month') {
-            minTime = DateTime.now().minus({ months: 6})
+            minTime = DateTime.now().minus({ months: 6 })
+        }
+        else if (historyState.timeFrame === '1year') {
+            minTime = DateTime.now().minus({ months: 12 })
         }
 
         let firstRealmId = -1
@@ -383,6 +387,11 @@
     canvas {
         width: 100%;
     }
+    .options-group {
+        align-items: center;
+        display: flex;
+        gap: 0.3rem;
+    }
 </style>
 
 <div class="view">
@@ -411,17 +420,22 @@
             />
         </div>
 
-        <div class="radio-container border">
-            <RadioGroup
-                bind:value={$historyState.timeFrame}
-                name="timeframe"
-                options={[
-                    ['all', 'All'],
-                    ['6month', '6 mo'],
-                    ['3month', '3 mo'],
-                    ['1month', '1 mo'],
-                    ['1week', '1 wk'],
-                ]}
+        <div class="options-group">
+            Timeframe:
+            <Select
+                name="time_frame"
+                width={'9.5rem'}
+                bind:selected={$historyState.timeFrame}
+                options={
+                    [
+                        ['all', '- All -'],
+                        ['1year', '1 year'],
+                        ['6month', '6 months'],
+                        ['3month', '3 months'],
+                        ['1month', '1 month'],
+                        ['1week', '1 week'],
+                    ]
+                }
             />
         </div>
 
