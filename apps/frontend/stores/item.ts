@@ -43,6 +43,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItems = null
 
+        data.oppositeFactionAppearance = {}
         for (let i = 0; i < data.oppositeFactionIds.length; i += 2) {
             const itemId1 = data.oppositeFactionIds[i]
             const itemId2 = data.oppositeFactionIds[i + 1]
@@ -51,10 +52,21 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             if (item1 && item2) {
                 item1.oppositeFactionId = itemId2
                 item2.oppositeFactionId = itemId1
+
+                if (item1.appearances && item2.appearances) {
+                    for (const [key, appearance] of Object.entries(item1.appearances)) {
+                        const otherAppearance = item2.appearances[parseInt(key)]
+                        if (otherAppearance) {
+                            for (const [a, b] of [[appearance, otherAppearance], [otherAppearance, appearance]]) {
+                                const ofa = data.oppositeFactionAppearance[a.appearanceId] ||= []
+                                if (ofa.indexOf(b.appearanceId) === -1) {
+                                    ofa.push(b.appearanceId)
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            // else {
-            //     console.log(itemId1, item1, itemId2, item2)
-            // }
         }
 
         data.itemBonuses = {}
