@@ -1,34 +1,51 @@
-﻿using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Constants;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data;
 
 public class DataAuctionsStartJob : JobBase, IScheduledJob
 {
+    private const int CheckInterval = 50 * 60; // 50 minutes
+
     public static readonly ScheduledJob Schedule = new ScheduledJob
     {
         Type = JobType.DataAuctionsStart,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromMinutes(5),
+        Interval = TimeSpan.FromMinutes(1),
+        Version = 2,
     };
 
     public override async Task Run(params string[] data)
     {
-        var realmIds = await Context.PlayerCharacter
+        long unixNow = DateTime.UtcNow.ToUnixTimeSeconds();
+
+        var db = Redis.GetDatabase();
+        var lastChecked = (await db.HashGetAllAsync(RedisKeys.CheckedAuctions))
+            .ToDictionary(
+                entry => (int)entry.Name,
+                entry => (long)entry.Value
+            );
+
+        int[] realmIds = await Context.PlayerCharacter
             .Select(pc => pc.RealmId)
             .Distinct()
             .ToArrayAsync();
 
-        var connectedRealmIds = await Context.WowRealm
+        int[] connectedRealmIds = await Context.WowRealm
             .Where(wr => realmIds.Contains(wr.Id))
-            .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
+            // .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
             .Select(wr => wr.ConnectedRealmId)
             .Distinct()
             .ToArrayAsync();
 
-        foreach (var connectedRealmId in connectedRealmIds)
+        foreach (int connectedRealmId in connectedRealmIds)
         {
-            await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions, connectedRealmId.ToString());
+            if (!lastChecked.TryGetValue(connectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
+            {
+                Logger.Debug("Checking auctions for {realm} after {interval}", connectedRealmId, unixNow - realmChecked);
+                await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions, connectedRealmId.ToString());
+            }
         }
     }
 }

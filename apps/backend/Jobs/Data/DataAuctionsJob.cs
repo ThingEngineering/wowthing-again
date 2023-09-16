@@ -1,11 +1,13 @@
 ﻿using System.Net.Http;
 using Npgsql;
 using NpgsqlTypes;
+using StackExchange.Redis;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Backend.Models.Cache;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
@@ -86,14 +88,14 @@ COPY wow_auction_cheapest_by_appearance_source (
     {
         var timer = new JankTimer();
 
-        var realmId = int.Parse(data[0]);
+        int connectedRealmId = int.Parse(data[0]);
         var realm = await Context.WowRealm
-            .Where(realm => realm.ConnectedRealmId == realmId)
+            .Where(realm => realm.ConnectedRealmId == connectedRealmId)
             .FirstOrDefaultAsync();
 
         using var shrug = AuctionLog(realm);
 
-        var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, realmId));
+        var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, connectedRealmId));
         JobHttpResult<ApiDataAuctions> result;
         try
         {
@@ -120,7 +122,7 @@ COPY wow_auction_cheapest_by_appearance_source (
         _itemAppearanceBonuses = itemBonuses.ByType[WowItemBonusType.SetItemAppearanceModifier];
         _itemModifiedAppearances = await MemoryCacheService.GetItemModifiedAppearances();
 
-        string tableName = $"wow_auction_{realmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
+        string tableName = $"wow_auction_{connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();
 
@@ -154,7 +156,7 @@ COPY wow_auction_cheapest_by_appearance_source (
         Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource;
         await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            (auctionsByAppearanceId, auctionsByAppearanceSource) = await WriteAuctionData(writer, realmId, result.Data.Auctions);
+            (auctionsByAppearanceId, auctionsByAppearanceSource) = await WriteAuctionData(writer, connectedRealmId, result.Data.Auctions);
         }
 
         timer.AddPoint("Copy");
@@ -166,7 +168,7 @@ COPY wow_auction_cheapest_by_appearance_source (
             while (reader.Read())
             {
                 string partition = reader.GetString(0);
-                if (partition.StartsWith($"wow_auction_{realmId}_"))
+                if (partition.StartsWith($"wow_auction_{connectedRealmId}_"))
                 {
                     existing = partition;
                 }
@@ -184,29 +186,29 @@ COPY wow_auction_cheapest_by_appearance_source (
         }
 
         // Attach new partition
-        command.CommandText = string.Format(AttachPartition, tableName, realmId);
+        command.CommandText = string.Format(AttachPartition, tableName, connectedRealmId);
         await command.ExecuteNonQueryAsync();
 
         timer.AddPoint("Partition");
 
         // Update WowAuctionCheapestByAppearanceId
         await Context.WowAuctionCheapestByAppearanceId
-            .Where(cheapest => cheapest.ConnectedRealmId == realmId)
+            .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
             .ExecuteDeleteAsync();
 
         await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
         {
-            await WriteCheapestByAppearanceIdData(writer, realmId, auctionsByAppearanceId);
+            await WriteCheapestByAppearanceIdData(writer, connectedRealmId, auctionsByAppearanceId);
         }
 
         // Update WowAuctionCheapestByAppearanceSource
         await Context.WowAuctionCheapestByAppearanceSource
-            .Where(cheapest => cheapest.ConnectedRealmId == realmId)
+            .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
             .ExecuteDeleteAsync();
 
         await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
         {
-            await WriteCheapestByAppearanceSourceData(writer, realmId, auctionsByAppearanceSource);
+            await WriteCheapestByAppearanceSourceData(writer, connectedRealmId, auctionsByAppearanceSource);
         }
 
         // Finalize the transaction
@@ -216,6 +218,15 @@ COPY wow_auction_cheapest_by_appearance_source (
 
         // Release the lock
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+
+        // Update the last checked time
+        var db = Redis.GetDatabase();
+        await db.HashSetAsync(
+            RedisKeys.CheckedAuctions,
+            connectedRealmId,
+            DateTime.UtcNow.ToUnixTimeSeconds(),
+            flags: CommandFlags.FireAndForget
+        );
 
         Logger.Information("{Timer}", timer.ToString());
     }
