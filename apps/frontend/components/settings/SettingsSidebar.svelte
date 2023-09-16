@@ -14,6 +14,10 @@
             slug: 'layout',
             children: [
                 {
+                    name: 'Grouping',
+                    slug: 'grouping',
+                },
+                {
                     name: 'Lockouts',
                     slug: 'lockouts',
                 },

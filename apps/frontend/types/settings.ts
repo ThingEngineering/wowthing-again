@@ -27,6 +27,8 @@ export interface Settings {
         hideUnavailable: boolean
     }
 
+    customGroups: SettingsCustomGroup[]
+
     general: {
         desiredAccountName: string
         language: Language
@@ -109,6 +111,8 @@ export interface Settings {
         showWarlock: boolean
         showWarrior: boolean
     }
+
+    views: SettingsView[]
 }
 
 export interface SettingsAuctionCategory {
@@ -119,4 +123,17 @@ export interface SettingsAuctionCategory {
 export interface SettingsChoice {
     key: string
     name: string
+}
+
+export interface SettingsCustomGroup {
+    filter: string
+    id: string
+    name: string
+}
+
+export interface SettingsView {
+    commonFields: string[]
+    homeFields: string[]
+    homeLockouts: number[]
+    homeTasks: string[]
 }

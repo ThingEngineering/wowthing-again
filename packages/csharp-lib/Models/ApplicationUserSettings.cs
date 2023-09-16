@@ -13,6 +13,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
     public ApplicationUserSettingsCollections? Collections { get; set; } = new();
+    public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
@@ -104,6 +105,7 @@ public class ApplicationUserSettings
         Auctions ??= new ApplicationUserSettingsAuctions();
         Characters ??= new ApplicationUserSettingsCharacters();
         Collections ??= new ApplicationUserSettingsCollections();
+        CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
         General ??= new ApplicationUserSettingsGeneral();
         History ??= new ApplicationUserSettingsHistory();
         Layout ??= new ApplicationUserSettingsLayout();
@@ -239,6 +241,13 @@ public class ApplicationUserSettingsCharacters
 public class ApplicationUserSettingsCollections
 {
     public bool HideUnavailable { get; set; } = false;
+}
+
+public class ApplicationUserSettingsCustomGroup
+{
+    public string Filter { get; set; }
+    public string Id { get; set; }
+    public string Name { get; set; }
 }
 
 public class ApplicationUserSettingsGeneral
