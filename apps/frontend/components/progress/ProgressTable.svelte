@@ -64,12 +64,6 @@
                 !some(requiredQuestIds, (id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
-            if (
-                (categories[0].name === 'Dungeons' || firstCategory.name === 'Dungeons') &&
-                char.level === Constants.characterMaxLevel
-            ) {
-                return false
-            }
             return true
         }
 
