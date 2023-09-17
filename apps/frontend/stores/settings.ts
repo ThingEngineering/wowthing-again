@@ -13,7 +13,7 @@ import { manualStore } from './manual'
 import { staticStore } from './static'
 
 
-export const settingsState = writable<number>(0)
+export const settingsSavingState = writable<number>(0)
 
 function createSettingsStore() {
     let hashValue = ''
@@ -44,7 +44,7 @@ function createSettingsStore() {
                             console.log('Saving settings...')
                             hashValue = newHashValue
 
-                            settingsState.set(1)
+                            settingsSavingState.set(1)
                             const xsrf = document.getElementById('app').getAttribute('data-xsrf')
                             const data = {
                                 accounts: get(userStore).accounts,
@@ -84,7 +84,7 @@ function createSettingsStore() {
                                     staticStore.fetch(fetchOptions),
                                 ])
 
-                                settingsState.set(2)
+                                settingsSavingState.set(2)
                             }
                         }
                     },
