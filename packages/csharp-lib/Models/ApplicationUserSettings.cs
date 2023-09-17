@@ -13,7 +13,6 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
     public ApplicationUserSettingsCollections? Collections { get; set; } = new();
-    public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
@@ -22,6 +21,9 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsProfessions? Professions { get; set; } = new();
     public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
+
+    public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
+    public List<ApplicationUserSettingsView>? Views { get; set; } = new();
 
     private readonly HashSet<string> _validGroupBy = new()
     {
@@ -105,7 +107,6 @@ public class ApplicationUserSettings
         Auctions ??= new ApplicationUserSettingsAuctions();
         Characters ??= new ApplicationUserSettingsCharacters();
         Collections ??= new ApplicationUserSettingsCollections();
-        CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
         General ??= new ApplicationUserSettingsGeneral();
         History ??= new ApplicationUserSettingsHistory();
         Layout ??= new ApplicationUserSettingsLayout();
@@ -113,6 +114,9 @@ public class ApplicationUserSettings
         Professions ??= new ApplicationUserSettingsProfessions();
         Tasks ??= new ApplicationUserSettingsTasks();
         Transmog ??= new ApplicationUserSettingsTransmog();
+
+        CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
+        Views ??= new List<ApplicationUserSettingsView>();
 
         Validate();
     }
@@ -339,5 +343,21 @@ public class ApplicationUserSettingsTransmog
     public bool ShowShaman { get; set; } = true;
     public bool ShowWarlock { get; set; } = true;
     public bool ShowWarrior { get; set; } = true;
+}
+
+public class ApplicationUserSettingsView
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+
+    public List<string> GroupBy { get; set; } = new();
+    public List<string> Groups { get; set; } = new();
+    public List<string> SortBy { get; set; } = new();
+
+    public List<string> CommonFields { get; set; } = new();
+    public List<string> HomeFields { get; set; } = new();
+
+    public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeTasks { get; set; } = new();
 }
 #nullable restore

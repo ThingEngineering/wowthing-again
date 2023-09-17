@@ -132,8 +132,16 @@ export interface SettingsCustomGroup {
 }
 
 export interface SettingsView {
+    id: string
+    name: string
+
+    groupBy: string[]
+    groups: string[]
+    sortBy: string[]
+
     commonFields: string[]
     homeFields: string[]
+
     homeLockouts: number[]
     homeTasks: string[]
 }
