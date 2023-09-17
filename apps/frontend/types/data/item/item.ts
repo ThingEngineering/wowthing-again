@@ -1,5 +1,4 @@
-import { ItemFlags, type BindType, type InventoryType, type ItemQuality, type PrimaryStat } from '@/enums'
-import type { ItemData } from './store'
+import { ItemFlags, type BindType, type InventoryType, type ItemQuality } from '@/enums'
 
 
 export class ItemDataItem {

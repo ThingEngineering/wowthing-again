@@ -19,7 +19,7 @@
             homeTasks: [],
         }
 
-        var newCustomViews = ($settingsStore.views || []).slice()
+        const newCustomViews = ($settingsStore.views || []).slice()
         newCustomViews.push(view)
 
         $settingsStore.views = newCustomViews

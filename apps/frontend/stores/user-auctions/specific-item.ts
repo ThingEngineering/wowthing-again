@@ -1,4 +1,4 @@
-import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction, type UserAuctionData, UserAuctionDataAuction } from '@/types/data'
+import { UserAuctionDataMissingRecipeAuction, type UserAuctionData, UserAuctionDataAuction } from '@/types/data'
 import type { UserData } from '@/types'
 import type { ItemData } from '@/types/data/item'
 import type { AuctionState } from '../local-storage'

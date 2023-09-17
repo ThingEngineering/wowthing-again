@@ -2,7 +2,6 @@
     import find from 'lodash/find'
     import some from 'lodash/some'
 
-    import { Constants } from '@/data/constants'
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
     import { manualStore, staticStore } from '@/stores'

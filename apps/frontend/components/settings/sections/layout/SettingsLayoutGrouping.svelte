@@ -13,7 +13,7 @@
             name: 'GROUP',
         }
 
-        var newCustomGroups = ($settingsStore.customGroups || []).slice()
+        const newCustomGroups = ($settingsStore.customGroups || []).slice()
         newCustomGroups.push(group)
 
         $settingsStore.customGroups = newCustomGroups
