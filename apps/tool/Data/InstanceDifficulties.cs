@@ -25,6 +25,9 @@ public static partial class Hardcoded
         { (68, 246), new[] { 1 } }, // Classic > Scholomance [N]
         { (74, 246), new[] { 2, 24 } }, // MoP > Scholomance [N,T]
 
+        { (73, 68), new[] { 1, 2 } }, // Cata > Vortex Pinnacle [N,H,T]
+        { (503, 68), new[] { 23, 24 } }, // DF > Vortex Pinnacle [M+]
+
         // Timewalking
         { (395, 740), new[] { 1, 2, 23, 24 } }, // Legion > Black Rook Hold
         { (395, 800), new[] { 1, 2, 23, 24 } }, // Legion > Court of Stars
