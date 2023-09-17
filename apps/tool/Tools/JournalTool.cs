@@ -98,6 +98,10 @@ public class JournalTool
                     .GroupBy(group2 => group2.MaybePlayerConditionID)
                     .OrderByDescending(group2 => group2.Key)
                     .First()
+                    .Where(jtxi =>
+                        instancesById.ContainsKey(jtxi.JournalInstanceID) &&
+                        mapsById.ContainsKey(instancesById[jtxi.JournalInstanceID].MapID)
+                    )
                     .OrderBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].InstanceType)
                     //.ThenBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].ExpansionID)
                     .ThenBy(jtxi => jtxi.OrderIndex)

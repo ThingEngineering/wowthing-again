@@ -2,7 +2,6 @@
     import find from 'lodash/find'
     import some from 'lodash/some'
 
-    import { Constants } from '@/data/constants'
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
     import { manualStore, staticStore } from '@/stores'
@@ -62,12 +61,6 @@
             }
             if (requiredQuestIds.length > 0 &&
                 !some(requiredQuestIds, (id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
-                return false
-            }
-            if (
-                (categories[0].name === 'Dungeons' || firstCategory.name === 'Dungeons') &&
-                char.level === Constants.characterMaxLevel
-            ) {
                 return false
             }
             return true

@@ -6,6 +6,7 @@ import type { DataItemBonus, DataItemBonusArray } from './item-bonus'
 export interface ItemData {
     appearanceToItems: Record<number, number[]>
     itemBonusToUpgrade: Record<number, [number, number, number]>
+    oppositeFactionAppearance: Record<number, number[]>
 
     currentTier: Record<number, InventoryType>
     previousTier: Record<number, InventoryType>

@@ -22,6 +22,9 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsTasks? Tasks { get; set; } = new();
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
 
+    public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
+    public List<ApplicationUserSettingsView>? Views { get; set; } = new();
+
     private readonly HashSet<string> _validGroupBy = new()
     {
         "account",
@@ -111,6 +114,9 @@ public class ApplicationUserSettings
         Professions ??= new ApplicationUserSettingsProfessions();
         Tasks ??= new ApplicationUserSettingsTasks();
         Transmog ??= new ApplicationUserSettingsTransmog();
+
+        CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
+        Views ??= new List<ApplicationUserSettingsView>();
 
         Validate();
     }
@@ -241,6 +247,13 @@ public class ApplicationUserSettingsCollections
     public bool HideUnavailable { get; set; } = false;
 }
 
+public class ApplicationUserSettingsCustomGroup
+{
+    public string Filter { get; set; }
+    public string Id { get; set; }
+    public string Name { get; set; }
+}
+
 public class ApplicationUserSettingsGeneral
 {
     public string? DesiredAccountName { get; set; }
@@ -330,5 +343,21 @@ public class ApplicationUserSettingsTransmog
     public bool ShowShaman { get; set; } = true;
     public bool ShowWarlock { get; set; } = true;
     public bool ShowWarrior { get; set; } = true;
+}
+
+public class ApplicationUserSettingsView
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+
+    public List<string> GroupBy { get; set; } = new();
+    public List<string> Groups { get; set; } = new();
+    public List<string> SortBy { get; set; } = new();
+
+    public List<string> CommonFields { get; set; } = new();
+    public List<string> HomeFields { get; set; } = new();
+
+    public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeTasks { get; set; } = new();
 }
 #nullable restore

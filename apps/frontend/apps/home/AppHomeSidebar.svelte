@@ -241,14 +241,6 @@
         </a>
     </li>
 
-    <li use:active={'/transmog-sets/*'}>
-        <a href="#/transmog-sets/">
-            <IconifyIcon icon={iconSets} dropShadow={true} />
-            Sets V2
-        </a>
-        <span class="drop-shadow percent {getPercentClass(transmogSetsPercent)}">{fancyPercent(transmogSetsPercent)} %</span>
-    </li>
-
     {#if $userStore.loaded && !$userStore.public}
         <li class="separator"></li>
 

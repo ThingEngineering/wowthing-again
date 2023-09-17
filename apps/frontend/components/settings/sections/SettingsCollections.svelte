@@ -20,7 +20,6 @@
                 <li>Mounts</li>
                 <li>Pets</li>
                 <li>Toys</li>
-                <li>Sets V2</li>
             </ul>
         </div>
     </div>

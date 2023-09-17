@@ -2,6 +2,8 @@
 
 public static class RedisKeys
 {
+    public const string CheckedAuctions = "checked_auctions";
+
     public const string UserAchievements = "user:{0}:achievements";
     //public const string UserMounts = "collections:{0}:mounts";
     public const string UserQuests = "user:{0}:quests";

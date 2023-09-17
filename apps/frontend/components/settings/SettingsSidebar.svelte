@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsState } from '@/stores'
+    import { settingsSavingState } from '@/stores'
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte';
@@ -20,6 +20,15 @@
                 {
                     name: 'Tasks',
                     slug: 'tasks',
+                },
+                null,
+                {
+                    name: 'Grouping',
+                    slug: 'grouping',
+                },
+                {
+                    name: 'Views',
+                    slug: 'views',
                 },
             ],
         },
@@ -96,9 +105,9 @@
 >
     <svelte:fragment slot="after">
         <div class="state">
-            {#if $settingsState === 1}
+            {#if $settingsSavingState === 1}
                 Saving...
-            {:else if $settingsState === 2}
+            {:else if $settingsSavingState === 2}
                 Saved!
             {/if}
         </div>

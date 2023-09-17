@@ -109,6 +109,9 @@ export interface Settings {
         showWarlock: boolean
         showWarrior: boolean
     }
+
+    customGroups: SettingsCustomGroup[]
+    views: SettingsView[]
 }
 
 export interface SettingsAuctionCategory {
@@ -119,4 +122,25 @@ export interface SettingsAuctionCategory {
 export interface SettingsChoice {
     key: string
     name: string
+}
+
+export interface SettingsCustomGroup {
+    filter: string
+    id: string
+    name: string
+}
+
+export interface SettingsView {
+    id: string
+    name: string
+
+    groups: string[]
+    groupBy: string[]
+    sortBy: string[]
+
+    commonFields: string[]
+    homeFields: string[]
+
+    homeLockouts: number[]
+    homeTasks: string[]
 }
