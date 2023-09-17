@@ -12,6 +12,7 @@
     import HomeTable from '@/components/home/HomeTable.svelte'
     import Layout from './sections/SettingsLayout.svelte'
     import LayoutGrouping from './sections/layout/SettingsLayoutGrouping.svelte'
+    import LayoutViews from './sections/layout/SettingsLayoutViews.svelte'
     import Leaderboard from './sections/SettingsLeaderboard.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
@@ -51,6 +52,7 @@
         'layout/grouping': LayoutGrouping,
         'layout/lockouts': Lockouts,
         'layout/tasks': Tasks,
+        'layout/views': LayoutViews,
     }
 
     let containerElement: HTMLElement

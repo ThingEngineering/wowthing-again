@@ -27,8 +27,6 @@ export interface Settings {
         hideUnavailable: boolean
     }
 
-    customGroups: SettingsCustomGroup[]
-
     general: {
         desiredAccountName: string
         language: Language
@@ -112,6 +110,7 @@ export interface Settings {
         showWarrior: boolean
     }
 
+    customGroups: SettingsCustomGroup[]
     views: SettingsView[]
 }
 
@@ -135,8 +134,8 @@ export interface SettingsView {
     id: string
     name: string
 
-    groupBy: string[]
     groups: string[]
+    groupBy: string[]
     sortBy: string[]
 
     commonFields: string[]

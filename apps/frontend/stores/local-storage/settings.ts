@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 
 export class SettingsState {
     public selectedGroup: string
+    public selectedView: string
 }
 
 const key = 'state-settings'

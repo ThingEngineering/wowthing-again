@@ -1,27 +1,33 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
     import { settingsState } from '@/stores/local-storage'
-    import type { SettingsCustomGroup } from '@/types'
+    import type { SettingsView } from '@/types/settings'
 
-    import Group from './SettingsLayoutGroupingGroup.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import View from './SettingsLayoutViewsView.svelte'
 
-    const newGroup = () => {
-        const group: SettingsCustomGroup = {
-            filter: '',
+    const newView = () => {
+        const view: SettingsView = {
             id: crypto.randomUUID(),
-            name: 'GROUP',
+            name: 'VIEW',
+            groups: ['groupBy'],
+            groupBy: [],
+            sortBy: [],
+            commonFields: [],
+            homeFields: [],
+            homeLockouts: [],
+            homeTasks: [],
         }
 
-        var newCustomGroups = ($settingsStore.customGroups || []).slice()
-        newCustomGroups.push(group)
+        var newCustomViews = ($settingsStore.views || []).slice()
+        newCustomViews.push(view)
 
-        $settingsStore.customGroups = newCustomGroups
-        $settingsState.selectedGroup = group.id
+        $settingsStore.views = newCustomViews
+        $settingsState.selectedView = view.id
     }
 
-    const setActive = (groupId: string) => {
-        $settingsState.selectedGroup = groupId
+    const setActive = (viewId: string) => {
+        $settingsState.selectedView = viewId
     }
 </script>
 
@@ -59,34 +65,34 @@
 <div class="settings-block">
     <UnderConstruction />
 
-    <h3>Custom Groups</h3>
+    <h3>Views</h3>
 
     <div class="groups-wrapper">
         <div class="group-list">
-            {#each $settingsStore.customGroups as customGroup}
+            {#each $settingsStore.views as view}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div
                     class="group-entry text-overflow"
-                    class:active={$settingsState.selectedGroup === customGroup.id}
-                    on:click={() => setActive(customGroup.id)}
+                    class:active={$settingsState.selectedView === view.id}
+                    on:click={() => setActive(view.id)}
                 >
-                    {customGroup.name}
+                    {view.name}
                 </div>
             {/each}
             
-            {#if $settingsStore.customGroups.length < 10}
+            {#if $settingsStore.views.length < 5}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div
                     class="group-entry"
-                    on:click={newGroup}
+                    on:click={newView}
                 >
-                    New group
+                    New View
                 </div>
             {/if}
         </div>
 
-        {#if $settingsState.selectedGroup}
-            <Group group={$settingsStore.customGroups.filter(group => group.id === $settingsState.selectedGroup)[0]} />
+        {#if $settingsState.selectedView}
+            <View view={$settingsStore.views.filter((view) => view.id === $settingsState.selectedView)[0]} />
         {/if}
     </div>
 </div>

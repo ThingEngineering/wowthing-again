@@ -14,16 +14,21 @@
             slug: 'layout',
             children: [
                 {
-                    name: 'Grouping',
-                    slug: 'grouping',
-                },
-                {
                     name: 'Lockouts',
                     slug: 'lockouts',
                 },
                 {
                     name: 'Tasks',
                     slug: 'tasks',
+                },
+                null,
+                {
+                    name: 'Grouping',
+                    slug: 'grouping',
+                },
+                {
+                    name: 'Views',
+                    slug: 'views',
                 },
             ],
         },
