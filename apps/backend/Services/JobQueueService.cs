@@ -31,11 +31,22 @@ public class JobQueueService : BackgroundService
             stateService.JobQueueReaders[priority] = _channels[priority].Reader;
         }
 
-        redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
-        {
-            var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);
-            await _channels[job.Priority].Writer.WriteAsync(job);
-        });
+        redis.GetSubscriber()
+            .Subscribe("jobs")
+            .OnMessage(async msg =>
+                {
+                    var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);
+                    if (!stateService.QueuedJobs.ContainsKey(job.Key))
+                    {
+                        stateService.QueuedJobs[job.Key] = true;
+                        await _channels[job.Priority].Writer.WriteAsync(job);
+                    }
+                    else
+                    {
+                        _logger.Warning("Refusing to queue duplicate job {key}", job.Key);
+                    }
+                }
+            );
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
