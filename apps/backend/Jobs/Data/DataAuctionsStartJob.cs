@@ -39,7 +39,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
             .Distinct()
             .ToArrayAsync();
 
-        foreach (int connectedRealmId in connectedRealmIds)
+        foreach (int connectedRealmId in connectedRealmIds.OrderBy(id => lastChecked.GetValueOrDefault(id, 0)))
         {
             if (!lastChecked.TryGetValue(connectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
             {
