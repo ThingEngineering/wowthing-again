@@ -6,7 +6,7 @@ namespace Wowthing.Backend.Jobs.Data;
 
 public class DataAuctionsStartJob : JobBase, IScheduledJob
 {
-    private const int CheckInterval = 50 * 60; // 50 minutes
+    private const int CheckInterval = 55 * 60; // 55 minutes
 
     public static readonly ScheduledJob Schedule = new ScheduledJob
     {
@@ -39,7 +39,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
             .Distinct()
             .ToArrayAsync();
 
-        foreach (int connectedRealmId in connectedRealmIds)
+        foreach (int connectedRealmId in connectedRealmIds.OrderBy(id => lastChecked.GetValueOrDefault(id, 0)))
         {
             if (!lastChecked.TryGetValue(connectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
             {

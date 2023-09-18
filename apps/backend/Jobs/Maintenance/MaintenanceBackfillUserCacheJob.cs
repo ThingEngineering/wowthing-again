@@ -24,8 +24,11 @@ public class MaintenanceBackfillUserCacheJob : JobBase, IScheduledJob
                          || uc.IllusionIds == null
                          || uc.MountIds == null
                          || uc.ToyIds == null)
+            .OrderBy(uc => uc.UserId)
             .Take(50)
             .ToArrayAsync();
+
+        timer.AddPoint("Query");
 
         foreach (var userCache in noToyCaches)
         {
@@ -52,8 +55,7 @@ public class MaintenanceBackfillUserCacheJob : JobBase, IScheduledJob
             }
         }
 
-        timer.Stop();
-
+        timer.AddPoint("Jobs", true);
         Logger.Information("{timer}", timer.ToString());
     }
 }
