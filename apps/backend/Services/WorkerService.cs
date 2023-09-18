@@ -84,7 +84,7 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
-        await foreach (var result in _stateService.JobQueueReaders[_priority].ReadAllAsync(cancellationToken))
+        await foreach (var workerJob in _stateService.JobQueueReaders[_priority].ReadAllAsync(cancellationToken))
         {
             while (_stateService.AccessToken?.Valid != true)
             {
@@ -99,7 +99,7 @@ public class WorkerService : BackgroundService
                 throw new NullReferenceException("contextFactory is null??");
             }
 
-            (Type classType, string jobName) = JobTypeMap[result.Type];
+            (Type classType, string jobName) = JobTypeMap[workerJob.Type];
             using (LogContext.PushProperty("Task", jobName))
             {
                 try
@@ -107,13 +107,15 @@ public class WorkerService : BackgroundService
                     //await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
                     using var job = _jobFactory.Create(classType, contextFactory, cancellationToken);
-                    await job.Run(result.Data);
+                    await job.Run(workerJob.Data);
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Job failed");
                 }
             }
+
+            _stateService.QueuedJobs.Remove(workerJob.Key, out bool _);
         }
     }
 }

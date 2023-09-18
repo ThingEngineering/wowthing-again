@@ -211,6 +211,8 @@ COPY wow_auction_cheapest_by_appearance_source (
             await WriteCheapestByAppearanceSourceData(writer, connectedRealmId, auctionsByAppearanceSource);
         }
 
+        timer.AddPoint("Cheapest");
+
         // Finalize the transaction
         await transaction.CommitAsync();
 
@@ -227,6 +229,8 @@ COPY wow_auction_cheapest_by_appearance_source (
             DateTime.UtcNow.ToUnixTimeSeconds(),
             flags: CommandFlags.FireAndForget
         );
+
+        timer.AddPoint("Redis", true);
 
         Logger.Information("{Timer}", timer.ToString());
     }
