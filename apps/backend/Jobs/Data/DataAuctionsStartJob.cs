@@ -34,7 +34,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
 
         int[] connectedRealmIds = await Context.WowRealm
             .Where(wr => realmIds.Contains(wr.Id))
-            // .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
+            .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
             .Select(wr => wr.ConnectedRealmId)
             .Distinct()
             .ToArrayAsync();
