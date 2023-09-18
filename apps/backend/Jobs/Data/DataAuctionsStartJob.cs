@@ -43,7 +43,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
         {
             if (!lastChecked.TryGetValue(connectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
             {
-                Logger.Debug("Checking auctions for {realm} after {interval}", connectedRealmId, unixNow - realmChecked);
+                // Logger.Debug("Checking auctions for {realm} after {interval}", connectedRealmId, unixNow - realmChecked);
                 await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions, connectedRealmId.ToString());
             }
         }
