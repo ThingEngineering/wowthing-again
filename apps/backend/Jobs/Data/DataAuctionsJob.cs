@@ -269,9 +269,15 @@ COPY wow_auction_cheapest_by_appearance_source (
                     out int actualAppearanceId);
                 if (modifier > 0 && actualAppearanceId == 0)
                 {
-                    modifier = 0;
-                    _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, 0),
-                        out actualAppearanceId);
+                    var possibleModifiers = _itemModifiedAppearances.ByItemIdAndModifier
+                        .Where(kvp => kvp.Key.Item1 == auction.Item.Id)
+                        .OrderBy(kvp => kvp.Key.Item2)
+                        .ToArray();
+                    if (possibleModifiers.Length > 0)
+                    {
+                        modifier = possibleModifiers[0].Key.Item2;
+                        actualAppearanceId = possibleModifiers[0].Value;
+                    }
                 }
 
                 if (actualAppearanceId > 0)
