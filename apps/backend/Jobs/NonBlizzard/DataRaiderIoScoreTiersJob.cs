@@ -36,7 +36,8 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
 
         foreach ((string seasonSlug, int seasonId) in ApiCharacterRaiderIoSeason.SeasonMap)
         {
-            if (seasonId < minimumSeason && seasons.ContainsKey(seasonId))
+            // bfa-season-1 through 4 have no score colors and just error
+            if (seasonId <= 4 || (seasonId < minimumSeason && seasons.ContainsKey(seasonId)))
             {
                 Logger.Debug("Skipping season {id}", seasonId);
                 continue;
