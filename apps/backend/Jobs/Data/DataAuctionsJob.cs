@@ -265,9 +265,8 @@ COPY wow_auction_cheapest_by_appearance_source (
             string appearanceSource = null;
             if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
             {
-                _itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
-                    out int actualAppearanceId);
-                if (modifier > 0 && actualAppearanceId == 0)
+                if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                    out int actualAppearanceId))
                 {
                     var possibleModifiers = _itemModifiedAppearances.ByItemIdAndModifier
                         .Where(kvp => kvp.Key.Item1 == auction.Item.Id)
