@@ -43,7 +43,7 @@ public class JobQueueService : BackgroundService
                     }
                     else
                     {
-                        _logger.Warning("Refusing to queue duplicate job {key}", job.Key);
+                        _logger.Debug("Refusing to queue duplicate job {key}", job.Key);
                     }
                 }
             );
