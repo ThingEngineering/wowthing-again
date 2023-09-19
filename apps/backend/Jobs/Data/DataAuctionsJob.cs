@@ -40,7 +40,7 @@ INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
 WHERE   pgi.inhparent = 'wow_auction'::regclass
 ";
 
-    private const string DetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0}";
+    private const string DetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} CONCURRENTLY";
 
     private const string AttachPartition = "ALTER TABLE wow_auction ATTACH PARTITION {0} FOR VALUES IN ({1})";
 
@@ -148,7 +148,7 @@ COPY wow_auction_cheapest_by_appearance_source (
         string existing = null;
         await using (var reader = await command.ExecuteReaderAsync())
         {
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 string partition = reader.GetString(0);
                 if (partition.StartsWith($"wow_auction_{connectedRealmId}_"))
