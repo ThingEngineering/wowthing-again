@@ -2,6 +2,7 @@
 
 public static class RedisKeys
 {
+    public const string AuctionsLock = "lock:auctions";
     public const string CheckedAuctions = "checked_auctions";
 
     public const string UserAchievements = "user:{0}:achievements";

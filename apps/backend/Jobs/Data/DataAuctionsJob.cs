@@ -122,30 +122,13 @@ COPY wow_auction_cheapest_by_appearance_source (
         _itemAppearanceBonuses = itemBonuses.ByType[WowItemBonusType.SetItemAppearanceModifier];
         _itemModifiedAppearances = await MemoryCacheService.GetItemModifiedAppearances();
 
-        string tableName = $"wow_auction_{connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();
 
-        // Acquire the lock
-        string lockKey = $"lock:auctions";
-        string lockValue = Guid.NewGuid().ToString("N");
-        bool locked = false;
-        while (!locked)
-        {
-            locked = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
-            if (!locked)
-            {
-                await Task.Delay(100);
-            }
-        }
-
-        timer.AddPoint("Lock");
-
-        await using var transaction = await connection.BeginTransactionAsync();
         await using var command = connection.CreateCommand();
-        command.Transaction = transaction;
 
         // Create new table
+        string tableName = $"wow_auction_{connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
         command.CommandText = string.Format(CreateTable, tableName);
         await command.ExecuteNonQueryAsync();
 
@@ -175,6 +158,20 @@ COPY wow_auction_cheapest_by_appearance_source (
             }
         }
 
+
+        // Acquire the lock
+        string lockValue = Guid.NewGuid().ToString("N");
+        bool locked = false;
+        while (!locked)
+        {
+            locked = await JobRepository.AcquireLockAsync(RedisKeys.AuctionsLock, lockValue, TimeSpan.FromMinutes(1));
+            if (!locked)
+            {
+                await Task.Delay(100);
+            }
+        }
+        timer.AddPoint("Lock");
+
         // Detach and drop old partition if it exists
         if (existing != null)
         {
@@ -190,6 +187,9 @@ COPY wow_auction_cheapest_by_appearance_source (
         await command.ExecuteNonQueryAsync();
 
         timer.AddPoint("Partition");
+
+        // Release the lock
+        await JobRepository.ReleaseLockAsync(RedisKeys.AuctionsLock, lockValue);
 
         // Update WowAuctionCheapestByAppearanceId
         await Context.WowAuctionCheapestByAppearanceId
@@ -212,14 +212,6 @@ COPY wow_auction_cheapest_by_appearance_source (
         }
 
         timer.AddPoint("Cheapest");
-
-        // Finalize the transaction
-        await transaction.CommitAsync();
-
-        timer.AddPoint("Commit", true);
-
-        // Release the lock
-        await JobRepository.ReleaseLockAsync(lockKey, lockValue);
 
         // Update the last checked time
         var db = Redis.GetDatabase();
@@ -272,14 +264,10 @@ COPY wow_auction_cheapest_by_appearance_source (
                 if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
                     out int actualAppearanceId))
                 {
-                    var possibleModifiers = _itemModifiedAppearances.ByItemIdAndModifier
-                        .Where(kvp => kvp.Key.Item1 == auction.Item.Id)
-                        .OrderBy(kvp => kvp.Key.Item2)
-                        .ToArray();
-                    if (possibleModifiers.Length > 0)
+                    if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id, out short[] possibleModifiers))
                     {
-                        modifier = possibleModifiers[0].Key.Item2;
-                        actualAppearanceId = possibleModifiers[0].Value;
+                        modifier = possibleModifiers[0];
+                        actualAppearanceId = _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
                     }
                 }
 
