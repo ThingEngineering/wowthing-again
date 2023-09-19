@@ -148,7 +148,7 @@ COPY wow_auction_cheapest_by_appearance_source (
         string existing = null;
         await using (var reader = await command.ExecuteReaderAsync())
         {
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 string partition = reader.GetString(0);
                 if (partition.StartsWith($"wow_auction_{connectedRealmId}_"))
