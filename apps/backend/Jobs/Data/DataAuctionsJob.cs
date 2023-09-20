@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.RegularExpressions;
 using Npgsql;
 using NpgsqlTypes;
 using StackExchange.Redis;
@@ -31,6 +32,8 @@ public class DataAuctionsJob : JobBase
         { "VERY_LONG", WowAuctionTimeLeft.VeryLong },
     };
 
+    private static readonly Regex PartitionPendingRegex = new("""partition "(.*?)\" already pending detach""");
+
     private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
     private const string GetPartitions = @"
@@ -40,7 +43,8 @@ INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
 WHERE   pgi.inhparent = 'wow_auction'::regclass
 ";
 
-    private const string DetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} CONCURRENTLY";
+    private const string ConcurrentlyDetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} CONCURRENTLY";
+    private const string FinalizeDetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} FINALIZE";
 
     private const string AttachPartition = "ALTER TABLE wow_auction ATTACH PARTITION {0} FOR VALUES IN ({1})";
 
@@ -175,8 +179,36 @@ COPY wow_auction_cheapest_by_appearance_source (
         // Detach and drop old partition if it exists
         if (existing != null)
         {
-            command.CommandText = string.Format(DetachPartition, existing);
-            await command.ExecuteNonQueryAsync();
+            string detachSql = string.Format(ConcurrentlyDetachPartition, existing);
+            command.CommandText = detachSql;
+
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (PostgresException ex)
+            {
+                // Partition already pending detach, fix that first
+                if (ex.SqlState == PostgresErrorCodes.ObjectNotInPrerequisiteState)
+                {
+                    var m = PartitionPendingRegex.Match(ex.MessageText);
+                    if (m.Success)
+                    {
+                        string pendingPartition = m.Groups[1].ToString();
+                        Logger.Warning("Partition {p} pending detach, trying to finalize", pendingPartition);
+
+                        command.CommandText = string.Format(FinalizeDetachPartition, pendingPartition);
+                        await command.ExecuteNonQueryAsync();
+
+                        command.CommandText = detachSql;
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             command.CommandText = string.Format(DropTable, existing);
             await command.ExecuteNonQueryAsync();
