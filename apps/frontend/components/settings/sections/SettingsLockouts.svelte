@@ -23,7 +23,7 @@
     ).map((instance) => ({
         key: instance.id.toString(),
         name: instance.expansion === 100
-            ? 'Event'
+            ? `[Event] ${instance.name}`
             : `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
     })
 )
