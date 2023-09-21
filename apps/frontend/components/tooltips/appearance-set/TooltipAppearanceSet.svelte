@@ -42,7 +42,9 @@
 <div class="wowthing-tooltip">
     <h4>{setName}</h4>
     {#if subType}
-        <h5>{subType}{setTitle ? ' - ' + setTitle : ''}</h5>
+        <h5>
+            <ParsedText text={subType}{setTitle ? ' - ' + setTitle : ''} />
+        </h5>
     {/if}
     <table class="table-tooltip-vault table-striped">
         <tbody>
