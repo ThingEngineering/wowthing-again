@@ -14,7 +14,7 @@
         .map((t) => ({ key: t.taskKey, name: t.taskName }))
 
     let taskActive: string[] = taskChoices
-        .filter((choice) => $settingsStore.tasks.disabledChores[multiTaskKey].indexOf(choice.key) === -1)
+        .filter((choice) => ($settingsStore.tasks.disabledChores[multiTaskKey] || []).indexOf(choice.key) === -1)
         .map((choice) => choice.key)
 
     $: {
