@@ -10,7 +10,7 @@
 
     export let groupIndex: number
 
-    $: activeHolidays = getActiveHolidays($timeStore, $userStore, ...$userStore.allRegions)
+    $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[groupIndex]

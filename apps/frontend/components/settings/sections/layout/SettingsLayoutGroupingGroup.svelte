@@ -9,10 +9,17 @@
 
 <style lang="scss">
     .group-edit {
-        width: 20rem;
+        width: 30rem;
 
         :global(label) {
             flex-basis: 5rem;
+        }
+    }
+    .description {
+        margin-left: 4.2rem;
+
+        p {
+            margin: 0.5rem 0;
         }
     }
 </style>
@@ -40,5 +47,9 @@
                 }}
             />
         </div>
-    </div>
+        <div class="description">
+            <p>Combine terms with AND/OR and parentheses, eg:</p>
+            <code>alliance AND level=70 AND (tank OR healer)</code>
+        </div>
+</div>
 {/if}

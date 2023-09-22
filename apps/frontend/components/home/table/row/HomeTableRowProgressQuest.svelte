@@ -38,6 +38,7 @@
     <td
         class="status-{charTask.status}"
         class:center={!charTask.text?.endsWith('%')}
+        data-quest="{quest}"
         use:tippyComponent={{
             component: Tooltip,
             props: {

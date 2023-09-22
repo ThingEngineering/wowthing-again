@@ -1,4 +1,5 @@
 import { get } from 'svelte/store'
+import flatten from 'lodash/flatten'
 import some from 'lodash/some'
 
 import { staticStore, userQuestStore } from '@/stores'
@@ -413,4 +414,74 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
+    'pvpBrawl': [
+        {
+            taskKey: 'arathiBlizzard',
+            taskName: 'Arathi Blizzard',
+        },
+        {
+            taskKey: 'classicAshran',
+            taskName: 'Classic Ashran',
+        },
+        {
+            taskKey: 'compStomp',
+            taskName: 'Comp Stomp',
+        },
+        {
+            taskKey: 'cookingImpossible',
+            taskName: 'Cooking Impossible',
+        },
+        {
+            taskKey: 'deepSix',
+            taskName: 'Deep Six',
+        },
+        {
+            taskKey: 'deepwindDunk',
+            taskName: 'Deepwind Dunk',
+        },
+        {
+            taskKey: 'gravityLapse',
+            taskName: 'Gravity Lapse',
+        },
+        {
+            taskKey: 'packedHouse',
+            taskName: 'Packed House',
+        },
+        {
+            taskKey: 'shadoPanShowdown',
+            taskName: 'Shado-Pan Showdown',
+        },
+        {
+            taskKey: 'southshoreVsTarrenMill',
+            taskName: 'Southshore vs. Tarren Mill',
+        },
+        {
+            taskKey: 'templeOfHotmogu',
+            taskName: 'Temple of Hotmogu',
+        },
+        {
+            taskKey: 'warsongScramble',
+            taskName: 'Warsong Scramble',
+        },
+    ],
 }
+
+export const pvpBrawlHolidays: Record<number, string> = Object.fromEntries(
+    flatten(
+        Object.entries({
+            arathiBlizzard: [ 666, 673, 680, 697, 737 ],
+            classicAshran: [ 1120, 1121, 1122, 1123, 1124 ],
+            compStomp: [ 1234, 1235, 1236, 1237, 1238 ],
+            cookingImpossible: [ 1047, 1048, 1049, 1050, 1051 ],
+            deepSix: [ 702, 704, 705, 706, 736 ],
+            deepwindDunk: [ 1239, 1240, 1241, 1242, 1243 ],
+            gravityLapse: [ 659, 663, 670, 677, 684 ],
+            packedHouse: [ 667, 674, 681, 688, 701 ],
+            shadoPanShowdown: [ 1232, 1233, 1244, 1245, 1246, 1312 ],
+            southshoreVsTarrenMill: [ 660, 662, 669, 676, 683 ],
+            templeOfHotmogu: [ 1166, 1167, 1168, 1169, 1170 ],
+            warsongScramble: [ 664, 671, 678, 685, 1221 ],
+        })
+        .map(([key, values]) => values.map((id) => [id, key]))
+    )
+)

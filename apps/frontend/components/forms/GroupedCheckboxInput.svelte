@@ -25,6 +25,9 @@
 </script>
 
 <style lang="scss">
+    fieldset {
+        white-space: nowrap;
+    }
     label {
         & :global(svg) {
             margin-top: -4px;
@@ -37,7 +40,10 @@
     class:disabled
     data-state="{checked}"
 >
-    <label for="input-{name}">
+    <label
+        class="text-overflow"
+        for="input-{name}"
+    >
         <input
             id="input-{name}"
             name={name}

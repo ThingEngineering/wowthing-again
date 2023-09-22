@@ -162,6 +162,7 @@ public class StaticTool
         {
             { "holidayArena", new() },
             { "holidayBattlegrounds", new() },
+            { "holidayBrewfest", new() },
             { "holidayDungeons", new() },
             { "holidayPetPvp", new() },
             { "holidayTimewalking", new() },
@@ -181,9 +182,21 @@ public class StaticTool
             {
                 cacheData.HolidayIds["holidayBattlegrounds"].Add(holiday.Id);
             }
+            else if (holidayName == "Brewfest")
+            {
+                cacheData.HolidayIds["holidayBrewfest"].Add(holiday.Id);
+            }
+            else if (holidayName.EndsWith("Dungeon Event"))
+            {
+                cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
+            }
             else if (holidayName == "Pet Battle Bonus Event")
             {
                 cacheData.HolidayIds["holidayPetPvp"].Add(holiday.Id);
+            }
+            else if (holidayName.StartsWith("PvP Brawl"))
+            {
+                cacheData.HolidayIds["pvpBrawl"].Add(holiday.Id);
             }
             else if (holidayName == "Timewalking Dungeon Event")
             {
@@ -193,14 +206,6 @@ public class StaticTool
             else if (holidayName == "World Quest Bonus Event")
             {
                 cacheData.HolidayIds["holidayWorldQuests"].Add(holiday.Id);
-            }
-            else if (holidayName.StartsWith("PvP Brawl"))
-            {
-                cacheData.HolidayIds["pvpBrawl"].Add(holiday.Id);
-            }
-            else if (holidayName.EndsWith("Dungeon Event"))
-            {
-                cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
             }
         }
 

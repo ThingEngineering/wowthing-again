@@ -5,28 +5,55 @@
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
-    import MagicLists from '../SettingsMagicLists.svelte'
+    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let multiTaskKey: string
 
-    const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey].map((t) => ({ key: t.taskKey, name: t.taskName }))
+    const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey]
+        .map((t) => ({ key: t.taskKey, name: t.taskName }))
 
-    const taskInactive = ($settingsStore.tasks.disabledChores?.[multiTaskKey] || [])
-        .map((f) => taskChoices.filter((c) => c.key === f)[0])
-        .filter(f => f !== undefined)
-    const taskActive = taskChoices.filter((c) => taskInactive.indexOf(c) === -1)
+    let taskActive: string[] = taskChoices
+        .filter((choice) => $settingsStore.tasks.disabledChores[multiTaskKey].indexOf(choice.key) === -1)
+        .map((choice) => choice.key)
 
-    const onTaskChange = debounce(() => {
+    $: {
+        const taskInactive: string[] = taskChoices
+            .filter((choice) => taskActive.indexOf(choice.key) === -1)
+            .map((choice) => choice.key)
+
+        onTaskChange(taskInactive)
+   }
+
+    const onTaskChange = debounce((keys: string[]) => {
         settingsStore.update(state => {
-            (state.tasks.disabledChores ||= {})[multiTaskKey] = taskInactive.map((c) => c.key)
+            (state.tasks.disabledChores ||= {})[multiTaskKey] = keys
             return state
         })
-    }, 100)
+    }, 250)
 </script>
 
-<MagicLists
-    key={multiTaskKey.toLowerCase()}
-    onFunc={onTaskChange}
-    active={taskActive}
-    inactive={taskInactive}
-/>
+<style lang="scss">
+    .multi-tasks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1rem;
+
+        :global(fieldset) {
+            min-width: 0;
+            width: 14rem;
+        }
+    }
+</style>
+
+<div class="multi-tasks">
+    {#each taskChoices as choice}
+        <GroupedCheckbox
+            name="choice_{choice.key}"
+            value={choice.key}
+            bind:bindGroup={taskActive}
+        >
+            <ParsedText text={choice.name} />
+        </GroupedCheckbox>
+    {/each}
+</div>

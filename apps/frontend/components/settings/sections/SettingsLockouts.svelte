@@ -25,8 +25,8 @@
         name: instance.expansion === 100
             ? `[Event] ${instance.name}`
             : `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
-    })
-)
+        })
+    )
 
     let inactiveInstances: SettingsChoice[]
     const activeInstance = sortBy(
