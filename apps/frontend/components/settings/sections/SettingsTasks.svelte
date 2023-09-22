@@ -87,3 +87,14 @@
         {/if}
     </div>
 </div>
+
+<div class="settings-block">
+    <div>
+        <h3>PvP Brawl</h3>
+        {#if $settingsStore.layout.homeTasks.indexOf('pvpBrawl') >= 0}
+            <Multi multiTaskKey="pvpBrawl" />
+        {:else}
+            <span>Add "<code>[PvP]</code> Brawl - Something Different" to your Tasks list</span>
+        {/if}
+    </div>
+</div>

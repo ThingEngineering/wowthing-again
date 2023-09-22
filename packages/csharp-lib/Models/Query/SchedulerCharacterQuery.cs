@@ -29,7 +29,7 @@ INNER JOIN wow_realm r ON c.realm_id = r.id
 WHERE (
     c.account_id IS NOT NULL
     AND a.user_id IS NOT NULL
-    AND (current_timestamp - c.last_api_check) > (
+    AND (CURRENT_TIMESTAMP - c.last_api_check) > (
         '8 hours'::interval +
         ('1 hour'::interval * c.delay_hours)
     )

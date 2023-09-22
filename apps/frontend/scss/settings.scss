@@ -34,6 +34,10 @@
     fieldset {
         margin: 0.25rem 0.25rem 0.25rem 0;
 
+        code {
+            background: inherit;
+        }
+        
         label {
             display: block;
             width: 100%;
@@ -57,13 +61,14 @@
             }
         }
 
-        &[data-state="false"] {
-            background: rgba(255, 0, 0, 0.2);
-
-            & :global(code) {
-                background: none;
-            }
+        &[data-state="true"] {
+            background: rgba(0, 255, 0, 0.1);
         }
+
+        &[data-state="false"] {
+            background: rgba(255, 0, 0, 0.15);
+        }
+
     }
 
     .setting {

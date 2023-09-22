@@ -3,8 +3,9 @@ import { get } from 'svelte/store'
 import type { DateTime } from 'luxon'
 
 import { staticStore } from '@/stores'
-import type { UserData } from '@/types'
+import type { Settings } from '@/types'
 import type { StaticDataHoliday } from '@/types/data/static'
+import { pvpBrawlHolidays } from '@/data/tasks'
 
 
 type ActiveHolidays = Record<string, StaticDataHoliday>
@@ -14,7 +15,7 @@ const cachedTime: Record<number, DateTime> = {}
 
 export function getActiveHolidays(
     currentTime: DateTime,
-    userData: UserData,
+    settings: Settings,
     ...regions: number[]
 ): ActiveHolidays {
     const regionMask = regions.reduce((a, b) => a + (1 << (b - 1)), 0)
@@ -25,7 +26,7 @@ export function getActiveHolidays(
     const staticData = get(staticStore)
 
     const filteredHolidays = Object.values(staticData.holidays)
-        .filter((holiday) => (holiday.regionMask & regionMask) > 0)
+        .filter((holiday) => holiday.regionMask === 0 || (holiday.regionMask & regionMask) > 0)
 
     const activeHolidays: ActiveHolidays = {}
     for (const holiday of filteredHolidays) {
@@ -33,7 +34,7 @@ export function getActiveHolidays(
         if (!taskKeys || every(taskKeys, (key) => activeHolidays[key])) {
             continue
         }
-        
+
         for (const startDate of holiday.startDates) {
             // Repeats, duration0 is duration and duration1 is time between
             if (holiday.looping === 1) {
@@ -42,6 +43,13 @@ export function getActiveHolidays(
                     const endDate = actualStartDate.plus({ hours: holiday.durations[0] })
                     if (endDate > currentTime) {
                         for (const taskKey of taskKeys) {
+                            if (taskKey === 'pvpBrawl') {
+                                const disabledBrawls = settings.tasks.disabledChores['pvpBrawl'] || []
+                                const brawlKey = pvpBrawlHolidays[holiday.id]
+                                if (disabledBrawls.indexOf(brawlKey) >= 0) {
+                                    continue
+                                }
+                            }
                             activeHolidays[taskKey] = holiday
                         }
                         break
@@ -51,7 +59,12 @@ export function getActiveHolidays(
                 }
             }
             else {
-                if (startDate < currentTime && startDate.plus({ hours: holiday.durations[0] }) > currentTime) {
+                const actualStartDate = holiday.durations.length > 1
+                    ? startDate.plus({ hours: holiday.durations[0] })
+                    : startDate
+                const endDate = actualStartDate.plus({ hours: holiday.durations[holiday.durations.length - 1] })
+
+                if (actualStartDate < currentTime && endDate > currentTime) {
                     for (const taskKey of taskKeys) {
                         activeHolidays[taskKey] = holiday
                     }
@@ -63,6 +76,6 @@ export function getActiveHolidays(
 
     cachedActive[regionMask] = activeHolidays
     cachedTime[regionMask] = currentTime
-    
+
     return activeHolidays
 }

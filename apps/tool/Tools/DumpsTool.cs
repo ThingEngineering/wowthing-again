@@ -1,5 +1,4 @@
 ﻿using Serilog.Context;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
@@ -577,11 +576,31 @@ public class DumpsTool
                 .Where(duration => duration > 0)
                 .ToList();
 
-            dbHoliday.StartDates = holiday.Dates
-                .Select(DateTimeUtilities.ParseBlizzardDateTime)
-                .Where(date => date > MiscConstants.DefaultDateTime)
-                .OrderBy(date => date)
-                .ToList();
+            int[] validDates = holiday.Dates.Where(date => date > 0).ToArray();
+            if (validDates.Length == 1)
+            {
+                dbHoliday.StartDates = new();
+                var startDate = DateTimeUtilities.ParseBlizzardDateTime(holiday.Dates[0]);
+                // A year mask of 11111 (31) is "every year on this date"
+                if (startDate.Year == 2031)
+                {
+                    for (int year = 2020; year < 2031; year++)
+                    {
+                        dbHoliday.StartDates.Add(startDate.AddYears(year - startDate.Year));
+                    }
+                }
+                else
+                {
+                    dbHoliday.StartDates.Add(startDate);
+                }
+            }
+            else
+            {
+                dbHoliday.StartDates = validDates
+                    .Select(DateTimeUtilities.ParseBlizzardDateTime)
+                    .Order()
+                    .ToList();
+            }
         }
 
         var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>("holidaynames"))

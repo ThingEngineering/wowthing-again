@@ -10,7 +10,7 @@
 
     export let character: Character
 
-    $: activeHolidays = getActiveHolidays($timeStore, $userStore, ...$userStore.allRegions)
+    $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
 </script>
 
 {#each $settingsStore.layout.homeTasks as taskName}
