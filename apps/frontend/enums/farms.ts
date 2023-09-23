@@ -91,6 +91,8 @@ export enum RewardType {
     Reputation = 12,
     XpQuest = 13,
     Transmog = 100,
+    AccountTrackingQuest = 101,
+    CharacterTrackingQuest = 102,
     InstanceSpecial = 1000,
     SetSpecial = 1001,
 }
