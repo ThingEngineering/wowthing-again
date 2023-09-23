@@ -339,6 +339,7 @@ export class LazyStore implements LazyUgh {
                 manualData,
                 staticData,
                 userData,
+                userQuestData,
                 userTransmogData,
             }))
         }

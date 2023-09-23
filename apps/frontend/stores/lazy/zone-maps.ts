@@ -301,6 +301,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.itemData,
                                 stores.userData,
+                                stores.userQuestData,
                                 stores.userTransmogData,
                                 masochist,
                                 drop
