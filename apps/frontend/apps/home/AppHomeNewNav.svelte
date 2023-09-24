@@ -1,53 +1,13 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { FarmType } from '@/enums'
-    import { farmTypeIcons, iconLibrary } from '@/icons'
+    import { navItems } from '@/data/nav'
+    import { iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
 
     import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-
-    type NavItem = [string, string, string, boolean?]
-    const navItems: NavItem[] = [
-        ['', 'Home', 'mdiHomeOutline'],
-        [null, null, null],
-        
-        ['characters/', 'Characters', 'mdiAccountGroupOutline'],
-        ['currencies/', 'Currencies', 'gameCash', true],
-        ['items/', 'Items', 'gameBackpack'],
-        ['lockouts', 'Lockouts', 'gameLockedFortress'],
-        ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
-        ['progress/', 'Progress', 'mdiProgressQuestion'],
-        ['reputations/', 'Reputations', 'mdiAccountStarOutline'],
-        [null, null, null],
-        
-        ['collections/', 'Collections', 'gameCompanionCube'],
-        ['journal/', 'Journal', 'gameSecretBook'],
-        ['sets/', 'Sets', 'gameHanger'],
-        ['vendors/', 'Vendors', 'mdiCartOutline'],
-        ['zone-maps/', 'Zone Maps', 'gameTreasureMap'],
-        // ['appearances/', 'Appearances [WIP]', 'emojiConstruction'],
-        // ['heirlooms/', 'Heirlooms [WIP]', 'emojiConstruction'],
-        // ['illusions/', 'Illusions [WIP]', rewardTypeIcons[RewardType.Illusion]],
-        // ['mounts/', 'Mounts', rewardTypeIcons[RewardType.Mount]],
-        // ['pets/', 'Pets', rewardTypeIcons[RewardType.Pet]],
-        // ['toys/', 'Toys', rewardTypeIcons[RewardType.Toy]],
-        [null, null, null],
-        
-        ['auctions/', 'Auctions', 'mdiBank', true],
-        ['history/', 'History', 'mdiChartLine', true],
-        ['matrix', 'Matrix', 'carbonScatterMatrix'],
-        [null, null, null],
-        
-        ['achievements/', 'Achievements [WIP]', 'gameTrophy'],
-        ['professions/', 'Professions [WIP]', farmTypeIcons[FarmType.Profession]],
-        [null, null, null],
-
-        ['settings/', 'Settings', 'mdiCogOutline', true],
-    ]
-
 </script>
 
 <style lang="scss">
