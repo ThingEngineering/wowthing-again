@@ -1,18 +1,4 @@
 <script lang="ts">
-    import iconBank from '@iconify/icons-mdi/bank'
-    import iconCharacters from '@iconify/icons-mdi/account-group-outline'
-    import iconConstruction from '@iconify/icons-emojione-monotone/construction'
-    import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
-    import iconGear from '@iconify/icons-noto/crossed-swords'
-    import iconHistory from '@iconify/icons-mdi/chart-line'
-    import iconHome from '@iconify/icons-mdi/home-outline'
-    import iconMythicPlus from '@iconify/icons-ic/sharp-more-time'
-    import iconProgress from '@iconify/icons-mdi/progress-question'
-    import iconReputations from '@iconify/icons-mdi/account-star-outline'
-    import iconSets from '@iconify/icons-mdi/wardrobe-outline'
-    import iconSettings from '@iconify/icons-mdi/cog-outline'
-    import iconVendors from '@iconify/icons-mdi/cart-outline'
-    import iconZoneMaps from '@iconify/icons-emojione-monotone/world-map'
     import active from 'svelte-spa-router/active'
 
     import { iconStrings, rewardTypeIcons } from '@/data/icons'
@@ -72,7 +58,7 @@
 <Sidebar>
     <li use:active={'/'}>
         <a href="#/">
-            <IconifyIcon icon={iconHome} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiHomeOutline} dropShadow={true} />
             Home
         </a>
     </li>
@@ -81,7 +67,7 @@
 
     <li use:active={'/characters/*'}>
         <a href="#/characters/">
-            <IconifyIcon icon={iconCharacters} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiAccountGroupOutline} dropShadow={true} />
             Characters
         </a>
     </li>
@@ -89,7 +75,7 @@
     {#if $userStore.loaded && (!$userStore.public || $settingsStore.privacy.publicCurrencies)}
         <li use:active={'/currencies/*'}>
             <a href="#/currencies/">
-                <IconifyIcon icon={iconCurrencies} dropShadow={true} />
+                <IconifyIcon icon={iconLibrary.mdiCashMultiple} dropShadow={true} />
                 Currencies
             </a>
         </li>
@@ -98,7 +84,7 @@
     {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/history/*'}>
             <a href="#/history/">
-                <IconifyIcon icon={iconHistory} dropShadow={true} />
+                <IconifyIcon icon={iconLibrary.mdiChartLine} dropShadow={true} />
                 History
             </a>
         </li>
@@ -107,7 +93,7 @@
     {#if $userStore.loaded && !$userStore.public}
         <li use:active={'/items/*'}>
             <a href="#/items/">
-                <IconifyIcon icon={iconGear} dropShadow={true} />
+                <IconifyIcon icon={iconLibrary.notoCrossedSwords} dropShadow={true} />
                 Items
             </a>
         </li>
@@ -122,21 +108,21 @@
 
     <li use:active={'/mythic-plus/*'}>
         <a href="#/mythic-plus/">
-            <IconifyIcon icon={iconMythicPlus} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.icSharpMoreTime} dropShadow={true} />
             Mythic+
         </a>
     </li>
 
     <li use:active={'/progress/*'}>
         <a href="#/progress/">
-            <IconifyIcon icon={iconProgress} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiProgressQuestion} dropShadow={true} />
             Progress
         </a>
     </li>
 
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/">
-            <IconifyIcon icon={iconReputations} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiAccountStarOutline} dropShadow={true} />
             Reputations
         </a>
     </li>
@@ -146,7 +132,7 @@
 
         <li use:active={'/auctions/*'}>
             <a href="#/auctions/">
-                <IconifyIcon icon={iconBank} dropShadow={true} />
+                <IconifyIcon icon={iconLibrary.mdiBank} dropShadow={true} />
                 Auctions
             </a>
         </li>
@@ -197,7 +183,7 @@
 
     <li use:active={'/sets/*'}>
         <a href="#/sets/">
-            <IconifyIcon icon={iconSets} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiWardrobeOutline} dropShadow={true} />
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
@@ -205,7 +191,7 @@
 
     <li use:active={'/vendors/*'}>
         <a href="#/vendors/">
-            <IconifyIcon icon={iconVendors} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.mdiCartOutlineiconVendors} dropShadow={true} />
             Vendors
         </a>
         <span class="drop-shadow percent {getPercentClass(vendorPercent)}">{fancyPercent(vendorPercent)} %</span>
@@ -213,7 +199,7 @@
 
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">
-            <IconifyIcon icon={iconZoneMaps} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.emojiWorldMap} dropShadow={true} />
             Zone Maps
         </a>
     </li>
@@ -222,21 +208,21 @@
 
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.emojiConstruction} dropShadow={true} />
             Achievements
         </a>
     </li>
 
     <li use:active={'/matrix'}>
         <a href="#/matrix">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.emojiConstruction} dropShadow={true} />
             Matrix
         </a>
     </li>
 
     <li use:active={'/professions/*'}>
         <a href="#/professions/">
-            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            <IconifyIcon icon={iconLibrary.emojiConstruction} dropShadow={true} />
             Professions
         </a>
     </li>
@@ -246,7 +232,7 @@
 
         <li use:active={'/settings/*'}>
             <a href="#/settings/">
-                <IconifyIcon icon={iconSettings} dropShadow={true} />
+                <IconifyIcon icon={iconLibrary.mdiCogOutline} dropShadow={true} />
                 Settings
             </a>
         </li>
