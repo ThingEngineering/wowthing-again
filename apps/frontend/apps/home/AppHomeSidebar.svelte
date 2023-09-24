@@ -23,14 +23,6 @@
         }
     }
 
-    .percent {
-        pointer-events: none;
-        position: absolute;
-        right: 0.5rem;
-        top: 50%;
-        transform: translateY(-50%);
-        word-spacing: -0.2ch;
-    }
     .character-filter-wrapper {
         margin: 1rem 0 0 0;
         width: 10.2rem;
