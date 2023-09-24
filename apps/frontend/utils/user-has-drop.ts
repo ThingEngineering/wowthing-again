@@ -27,7 +27,6 @@ export default function userHasDrop(
     }
     else if (type === RewardType.AccountTrackingQuest) {
         const questIds = itemData.completesQuest[id] || []
-        console.log(id, questIds)
         return some(
             questIds,
             (questId) => userQuestData.accountHas?.has(questId) || some(
