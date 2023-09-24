@@ -9,7 +9,7 @@ import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
 import type { Settings, UserData } from '@/types'
-import type { UserTransmogData } from '@/types/data'
+import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { VendorState } from '../local-storage'
 
 
@@ -29,6 +29,7 @@ interface LazyStores {
     manualData: ManualData
     staticData: StaticData
     userData: UserData,
+    userQuestData: UserQuestData
     userTransmogData: UserTransmogData,
 }
 
@@ -114,6 +115,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
                     else if (item.type === RewardType.Toy) {
                         [groupKey, groupName] = ['00toys', 'Toys']
+                    }
+                    else if (item.type === RewardType.AccountTrackingQuest || item.type === RewardType.CharacterTrackingQuest) {
+                        [groupKey, groupName] = ['10misc', 'Misc']
                     }
                     else if (item.type === RewardType.Armor) {
                         [groupKey, groupName] = ['80armor', 'Armor']
@@ -242,6 +246,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     const hasDrop = userHasDrop(
                         stores.itemData,
                         stores.userData,
+                        stores.userQuestData,
                         stores.userTransmogData,
                         item.type,
                         item.id,

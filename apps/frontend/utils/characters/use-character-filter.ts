@@ -51,6 +51,12 @@ export function useCharacterFilter(
                         return userData.accounts[char.accountId].tag.toLocaleLowerCase() == tag
                     }
 
+                    const match3 = part.match(/^realm=(.+)$/)
+                    if (match3) {
+                        const slug = match3[1].toString()
+                        return char.realm.slug === slug
+                    }
+
                     // Faction
                     if (part === 'alliance') {
                         return char.faction === Faction.Alliance

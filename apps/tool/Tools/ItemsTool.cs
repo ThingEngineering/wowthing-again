@@ -29,6 +29,28 @@ public class ItemsTool
         _itemBonusMap = await context.WowItemBonus
             .ToDictionaryAsync(wib => wib.Id);
 
+        var itemEffects = await context.WowItemEffectV2.ToArrayAsync();
+
+        var completesQuestMap = new Dictionary<int, List<int>>();
+        foreach (var itemEffect in itemEffects)
+        {
+            foreach (var effectSpell in itemEffect.SpellEffects.Values)
+            {
+                foreach (var spellEffect in effectSpell.Values)
+                {
+                    if (spellEffect.Effect == WowSpellEffectEffect.CompleteQuest)
+                    {
+                        if (!completesQuestMap.TryGetValue(itemEffect.ItemId, out var questIds))
+                        {
+                            questIds = completesQuestMap[itemEffect.ItemId] = new();
+                        }
+
+                        questIds.Add(spellEffect.Values[0]);
+                    }
+                }
+            }
+        }
+
         var modifiedAppearances = await context.WowItemModifiedAppearance
             .AsNoTracking()
             .ToArrayAsync();
@@ -74,6 +96,7 @@ public class ItemsTool
 
         var cacheData = new RedisItems
         {
+            CompletesQuest = completesQuestMap,
             ItemBonusListGroups = listGroups,
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
@@ -210,6 +233,7 @@ public class ItemsTool
 
     private Dictionary<string, int> _names = new();
     private int _nextName = 0;
+
     private int GetName(Language language, int id)
     {
         string name = _strings.GetValueOrDefault((language, id), $"Item #{id}");
