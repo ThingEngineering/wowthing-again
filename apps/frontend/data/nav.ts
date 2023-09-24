@@ -9,6 +9,7 @@ export const navItems: NavItem[] = [
     ['items/', 'Items', 'gameBackpack'],
     ['lockouts', 'Lockouts', 'gameLockedFortress'],
     ['mythic-plus/', 'Mythic+', 'icSharpMoreTime'],
+    ['professions/', 'Professions', 'mdiHammerWrench'],
     ['progress/', 'Progress', 'mdiProgressQuestion'],
     ['reputations/', 'Reputations', 'mdiAccountStarOutline'],
     [null, null, null],
@@ -32,7 +33,6 @@ export const navItems: NavItem[] = [
     [null, null, null],
     
     ['achievements/', 'Achievements', 'gameTrophy'],
-    ['professions/', 'Professions', 'mdiHammerWrench'],
     [null, null, null],
 
     ['settings/', 'Settings', 'mdiCogOutline', true],
