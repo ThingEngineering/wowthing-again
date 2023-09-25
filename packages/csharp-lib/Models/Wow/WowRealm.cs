@@ -12,6 +12,7 @@ public class WowRealm
     public int ConnectedRealmId { get; set; }
     public WowRegion Region { get; set; }
     public string Name { get; set; }
+    public string EnglishName { get; set; }
     public string Slug { get; set; }
     public string Locale { get; set; }
 }

@@ -18,6 +18,12 @@ public class WowRealmConverter : System.Text.Json.Serialization.JsonConverter<Wo
         writer.WriteNumberValue(value.ConnectedRealmId);
         writer.WriteStringValue(value.Name);
         writer.WriteStringValue(value.Slug);
+
+        if (value.EnglishName != null)
+        {
+            writer.WriteStringValue(value.EnglishName);
+        }
+
         writer.WriteEndArray();
     }
 }

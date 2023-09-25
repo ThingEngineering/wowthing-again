@@ -11,7 +11,8 @@ export class StaticDataRealm {
         public region: number,
         public connectedRealmId: number,
         public name: string,
-        public slug: string
+        public slug: string,
+        public englishName?: string
     )
     { }
 }
