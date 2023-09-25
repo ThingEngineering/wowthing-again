@@ -114,6 +114,15 @@
             work is ongoing.
         </p>
     </div>
+
+    <div class="setting setting-checkbox setting-layout">
+        <Checkbox
+            bind:value={$settingsStore.general.useEnglishRealmNames}
+            name="general_useEnglishRealmNames"
+        >
+            Prefer English realm names (eg "[EU] Greymane" instead of "[EU] Седогрив")
+        </Checkbox>
+    </div>
 </div>
 
 <div class="settings-block">

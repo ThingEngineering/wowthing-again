@@ -1,5 +1,6 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { WritableFancyStore } from '@/types'
+import { Language } from '@/enums'
+import { WritableFancyStore, type Settings } from '@/types'
 import {
     StaticDataBag,
     StaticDataCurrency,
@@ -124,33 +125,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.realms = {
                 0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
             }
-            const connected: Record<number, {region: number, names: string[]}> = {}
             for (const realmArray of data.rawRealms) {
                 const obj = new StaticDataRealm(...realmArray)
                 data.realms[obj.id] = obj
 
-                if (obj.connectedRealmId > 0) {
-                    if (connected[obj.connectedRealmId] === undefined) {
-                        connected[obj.connectedRealmId] = {
-                            region: obj.region,
-                            names: [],
-                        }
-                    }
-                    connected[obj.connectedRealmId].names.push(obj.name)
-                }
             }
             data.rawRealms = null
-
-            data.connectedRealms = {}
-            for (const [crId, {region, names}] of Object.entries(connected)) {
-                names.sort()
-                data.connectedRealms[parseInt(crId)] = {
-                    id: parseInt(crId),
-                    region: region,
-                    displayText: names.join(' / '),
-                    realmNames: names,
-                }
-            }
         }
 
         if (data.rawReputations !== null) {
@@ -206,6 +186,36 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         }
 
         console.timeEnd('StaticDataStore.initialize')
+    }
+
+    setup(settings: Settings) {
+        this.value.connectedRealms = {}
+
+        const connected: Record<number, { region: number, names: string[] }> = {}
+        for (const realm of Object.values(this.value.realms)) {
+            if (settings.general.useEnglishRealmNames && realm.englishName) {
+                console.log(realm.name, realm.englishName)
+                realm.name = realm.englishName
+            }
+
+            if (realm.connectedRealmId > 0) {
+                connected[realm.connectedRealmId] ||= {
+                    region: realm.region,
+                    names: [],
+                }
+                connected[realm.connectedRealmId].names.push(realm.name)
+            }
+        }
+
+        for (const [crId, {region, names}] of Object.entries(connected)) {
+            names.sort()
+            this.value.connectedRealms[parseInt(crId)] = {
+                id: parseInt(crId),
+                region: region,
+                displayText: names.join(' / '),
+                realmNames: names,
+            }
+        }
     }
 
     private static createObjects<TObject extends { id: number }>(

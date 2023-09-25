@@ -34,7 +34,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
             {
                 if (!realmMap.TryGetValue(apiRealm.Id, out WowRealm realm))
                 {
-                    realm = new WowRealm
+                    realm = realmMap[apiRealm.Id] = new WowRealm
                     {
                         Id = apiRealm.Id,
                     };
@@ -44,6 +44,22 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
                 realm.Region = region;
                 realm.Name = apiRealm.Name;
                 realm.Slug = apiRealm.Slug;
+            }
+
+            // In non-US regions, fetch data again for English names
+            if (region != WowRegion.US)
+            {
+                uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, "en_US");
+                result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
+
+                foreach (var apiRealm in result.Data.Realms)
+                {
+                    var realm = realmMap[apiRealm.Id];
+                    if (realm.Name != apiRealm.Name)
+                    {
+                        realm.EnglishName = apiRealm.Name;
+                    }
+                }
             }
         }
 

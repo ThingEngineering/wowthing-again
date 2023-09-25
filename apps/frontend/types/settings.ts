@@ -31,6 +31,7 @@ export interface Settings {
         desiredAccountName: string
         language: Language
         refreshInterval: number
+        useEnglishRealmNames: boolean
         useWowdb: boolean
         groupBy: string[]
         sortBy: string[]
