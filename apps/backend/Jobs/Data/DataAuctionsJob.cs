@@ -148,6 +148,20 @@ COPY wow_auction_cheapest_by_appearance_source (
 
         timer.AddPoint("Copy");
 
+        // Acquire the lock
+        string lockValue = Guid.NewGuid().ToString("N");
+        bool locked = false;
+        while (!locked)
+        {
+            locked = await JobRepository.AcquireLockAsync(RedisKeys.AuctionsLock, lockValue, TimeSpan.FromMinutes(1));
+            if (!locked)
+            {
+                await Task.Delay(100);
+            }
+        }
+        timer.AddPoint("Lock");
+
+        // Get current partitions
         command.CommandText = GetPartitions;
         string existing = null;
         await using (var reader = await command.ExecuteReaderAsync())
@@ -161,20 +175,6 @@ COPY wow_auction_cheapest_by_appearance_source (
                 }
             }
         }
-
-
-        // Acquire the lock
-        string lockValue = Guid.NewGuid().ToString("N");
-        bool locked = false;
-        while (!locked)
-        {
-            locked = await JobRepository.AcquireLockAsync(RedisKeys.AuctionsLock, lockValue, TimeSpan.FromMinutes(1));
-            if (!locked)
-            {
-                await Task.Delay(100);
-            }
-        }
-        timer.AddPoint("Lock");
 
         // Detach and drop old partition if it exists
         if (existing != null)
