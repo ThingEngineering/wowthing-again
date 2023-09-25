@@ -259,6 +259,7 @@ public class ApplicationUserSettingsGeneral
     public string? DesiredAccountName { get; set; }
     public Language Language { get; set; } = Language.enUS;
     public int RefreshInterval { get; set; }
+    public bool UseEnglishRealmNames { get; set; } = true;
     public bool UseWowdb { get; set; } = false;
 
     public List<string> GroupBy { get; set; } = new();
