@@ -20,9 +20,10 @@
     import { onMount } from 'svelte'
 
     import { colors } from '@/data/colors'
+    import { resetTimes } from '@/data/region'
+    import { Region } from '@/enums'
     import { staticStore, timeStore, userHistoryStore } from '@/stores'
     import { historyState } from '@/stores/local-storage'
-    import { Region } from '@/enums'
     import parseApiTime from '@/utils/parse-api-time'
     import type { HistoryState } from '@/stores/local-storage'
     import type { UserHistoryData } from '@/types/data'
@@ -128,6 +129,9 @@
                 firstRealmId = realmId
             }
 
+            const realm = $staticStore.realms[realmId]
+            const resetData = resetTimes[realm.region as Region]
+
             const color = colors[(realmIndex + 1) * 2]
 
             let points: DataPoint[]
@@ -152,8 +156,8 @@
                     }
                     else if (historyState.interval === 'week') {
                         fakeTime = parsedTime.set({
-                            weekday: 8,
-                            hour: 0,
+                            weekday: 7 + resetData.weeklyResetDay,
+                            hour: resetData.weeklyResetTime[0],
                             minute: 0,
                             second: 0,
                         })
