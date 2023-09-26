@@ -77,16 +77,26 @@
     }
     .options-container {
         padding: 0.2rem 0.3rem;
+
+        .options-group:not(:last-child) {
+            border-right: 1px solid $border-color;
+            margin-right: 0.5rem;
+        }
+    }
+    .options-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
     }
     .options-group {
         align-items: center;
         display: flex;
         gap: 0.5rem;
+        height: 2rem;
 
-        &:not(:last-child) {
-            border-right: 1px solid $border-color;
-            margin-right: 0.5rem;
-            padding-right: 0.5rem;
+        &.border {
+            padding: 0 0.3rem;
         }
     }
 </style>
@@ -151,9 +161,14 @@
             </div>
             <div class="options-group">
                 <Checkbox
-                    name="limit_to_have"
-                    bind:value={$auctionState.limitToHave}
-                >Only if have</Checkbox>
+                    name="show_dont_have"
+                    bind:value={$auctionState.showDontHave}
+                >Don't have</Checkbox>
+
+                <Checkbox
+                    name="show_have"
+                    bind:value={$auctionState.showHave}
+                >Have</Checkbox>
             </div>
         {:else}
             <div class="options-group">
@@ -182,8 +197,114 @@
         {/if}
     </div>
 
-    {#if params.slug1 === 'missing-recipes'}
-        <div class="options-container border">
+    {#if params.slug1.startsWith('missing-appearance-')}
+        <div class="options-wrapper">
+            <div class="options-group">
+                <TextInput
+                    name="transmog_name_search"
+                    maxlength={20}
+                    placeholder={"Name filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
+                    bind:value={$auctionState.missingTransmogNameSearch}
+                />
+            </div>
+
+            <div class="options-group">
+                <TextInput
+                    name="transmog_realm_search"
+                    maxlength={20}
+                    placeholder={"Realm filter"}
+                    clearButton={true}
+                    inputWidth={"10rem"}
+                    bind:value={$auctionState.missingTransmogRealmSearch}
+                />
+            </div>
+
+            <div class="options-group">
+                Min quality:
+                <Select
+                    name="transmog_min_quality"
+                    width={"8rem"}
+                    bind:selected={$auctionState.missingTransmogMinQuality}
+                    options={[
+                        [ItemQuality.Poor, 'Poor'],
+                        [ItemQuality.Common, 'Common'],
+                        [ItemQuality.Uncommon, 'Uncommon'],
+                        [ItemQuality.Rare, 'Rare'],
+                        [ItemQuality.Epic, 'Epic'],
+                        [ItemQuality.Legendary, 'Legendary'],
+                    ]}
+                />
+            </div>
+
+            <div class="options-group border">
+                Item type:
+                <RadioGroup
+                    bind:value={$auctionState.missingTransmogItemClass}
+                    name="transmog_item_class"
+                    options={[
+                        ['any', 'Any'],
+                        ['armor', 'Armor'],
+                        ['weapon', 'Weapon'],
+                    ]}
+                />
+
+                {#if $auctionState.missingTransmogItemClass === 'armor'}
+                    <Select
+                        name="transmog_item_subclass_armor"
+                        width={"8rem"}
+                        bind:selected={$auctionState.missingTransmogItemSubclassArmor}
+                        options={[
+                            [-1, 'Any'],
+                            [1, 'Cloth'],
+                            [2, 'Leather'],
+                            [3, 'Mail'],
+                            [4, 'Plate'],
+                            [5, 'Cosmetic'],
+                            [20, 'Cloak'],
+                            [21, 'Tabard'],
+                        ]}
+                    />
+                {:else if $auctionState.missingTransmogItemClass === 'weapon'}
+                    <Select
+                        name="transmog_item_subclass_weapon"
+                        width={"11rem"}
+                        bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
+                        options={weaponOptions}
+                    />
+                {/if}
+            </div>
+
+            <div class="options-group">
+                Expansion:
+                <Select
+                    name="transmog_expansion"
+                    width={"12.5rem"}
+                    bind:selected={$auctionState.missingTransmogExpansion}
+                    options={
+                        [
+                            [-1, '- All -'],
+                            ...expansionOptions,
+                        ]
+                    }
+                />
+            </div>
+
+            <div class="options-group border">
+                <Checkbox
+                    name="transmog_show_crafted"
+                    bind:value={$auctionState.missingTransmogShowCrafted}
+                >Crafted</Checkbox>
+                <Checkbox
+                    name="transmog_show_raid"
+                    bind:value={$auctionState.missingTransmogShowRaid}
+                >Raid</Checkbox>
+            </div>
+        </div>
+
+    {:else if params.slug1 === 'missing-recipes'}
+        <div class="options-wrapper">
             <div class="options-group">
                 <TextInput
                     name="recipe_name_search"
@@ -265,108 +386,6 @@
         </div>
     {/if}
 
-    {#if params.slug1.startsWith('missing-appearance-')}
-        <div class="options-container border">
-            <div class="options-group">
-                <TextInput
-                    name="transmog_name_search"
-                    maxlength={20}
-                    placeholder={"Name filter"}
-                    clearButton={true}
-                    inputWidth={"10rem"}
-                    bind:value={$auctionState.missingTransmogNameSearch}
-                />
-            </div>
-
-            <div class="options-group">
-                <TextInput
-                    name="transmog_realm_search"
-                    maxlength={20}
-                    placeholder={"Realm filter"}
-                    clearButton={true}
-                    inputWidth={"10rem"}
-                    bind:value={$auctionState.missingTransmogRealmSearch}
-                />
-            </div>
-
-            <div class="options-group">
-                Min quality:
-                <Select
-                    name="transmog_min_quality"
-                    width={"8rem"}
-                    bind:selected={$auctionState.missingTransmogMinQuality}
-                    options={[
-                        [ItemQuality.Poor, 'Poor'],
-                        [ItemQuality.Common, 'Common'],
-                        [ItemQuality.Uncommon, 'Uncommon'],
-                        [ItemQuality.Rare, 'Rare'],
-                        [ItemQuality.Epic, 'Epic'],
-                        [ItemQuality.Legendary, 'Legendary'],
-                    ]}
-                />
-            </div>
-
-            <div class="options-group">
-                Item type:
-                <RadioGroup
-                    bind:value={$auctionState.missingTransmogItemClass}
-                    name="transmog_item_class"
-                    options={[
-                        ['any', 'Any'],
-                        ['armor', 'Armor'],
-                        ['weapon', 'Weapon'],
-                    ]}
-                />
-
-                {#if $auctionState.missingTransmogItemClass === 'armor'}
-                    <Select
-                        name="transmog_item_subclass_armor"
-                        width={"8rem"}
-                        bind:selected={$auctionState.missingTransmogItemSubclassArmor}
-                        options={[
-                            [-1, 'Any'],
-                            [1, 'Cloth'],
-                            [2, 'Leather'],
-                            [3, 'Mail'],
-                            [4, 'Plate'],
-                            [5, 'Cosmetic'],
-                            [20, 'Cloak'],
-                            [21, 'Tabard'],
-                        ]}
-                    />
-                {:else if $auctionState.missingTransmogItemClass === 'weapon'}
-                    <Select
-                        name="transmog_item_subclass_weapon"
-                        width={"11rem"}
-                        bind:selected={$auctionState.missingTransmogItemSubclassWeapon}
-                        options={weaponOptions}
-                    />
-                {/if}
-            </div>
-
-            <div class="options-group">
-                Expansion:
-                <Select
-                    name="transmog_expansion"
-                    width={"12.5rem"}
-                    bind:selected={$auctionState.missingTransmogExpansion}
-                    options={
-                        [
-                            [-1, '- All -'],
-                            ...expansionOptions,
-                        ]
-                    }
-                />
-            </div>
-
-            <div class="options-group">
-                <Checkbox
-                    name="transmog_show_crafted"
-                    bind:value={$auctionState.missingTransmogShowCrafted}
-                >Crafted items</Checkbox>
-            </div>
-        </div>
-    {/if}
 
     <svelte:component
         this={componentMap[params.slug1]}

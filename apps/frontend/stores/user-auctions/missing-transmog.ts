@@ -125,7 +125,8 @@ export class UserAuctionMissingTransmogDataStore {
                 return false
             }
 
-            const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
+            const meetsDontHave = auctionState.showDontHave || thing.hasItems.length > 0
+            const meetsHave = auctionState.showHave || thing.hasItems.length === 0
 
             const meetsMinQuality = item.quality >= auctionState.missingTransmogMinQuality
 
@@ -172,7 +173,8 @@ export class UserAuctionMissingTransmogDataStore {
                 matchesSource = staticData.itemToSkillLineAbility[item.id] === undefined
             }
 
-            return meetsHave
+            return meetsDontHave
+                && meetsHave
                 && meetsMinQuality
                 && matchesExpansion
                 && matchesName
