@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { professionCooldowns } from '@/data/professions/cooldowns'
-    import { timeStore } from '@/stores'
+    import { settingsStore, timeStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, ProfessionCooldown } from '@/types'
 
@@ -23,6 +23,10 @@
         total = 0
 
         for (const cooldownData of professionCooldowns) {
+            if ($settingsStore.professions.cooldowns[cooldownData.key] === false) {
+                continue
+            }
+
             const charCooldown = character.professionCooldowns?.[cooldownData.key]
             if (!charCooldown) {
                 continue
