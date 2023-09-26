@@ -1,5 +1,4 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { Language } from '@/enums'
 import { WritableFancyStore, type Settings } from '@/types'
 import {
     StaticDataBag,

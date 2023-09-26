@@ -3,7 +3,6 @@
     import sortBy from 'lodash/sortBy'
 
     import { professionCooldowns } from '@/data/professions/cooldowns'
-    import { Profession } from '@/enums'
     import { settingsStore, staticStore } from '@/stores'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
