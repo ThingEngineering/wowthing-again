@@ -296,10 +296,11 @@
                     name="transmog_show_crafted"
                     bind:value={$auctionState.missingTransmogShowCrafted}
                 >Crafted</Checkbox>
-                <Checkbox
+
+                <!-- <Checkbox
                     name="transmog_show_raid"
                     bind:value={$auctionState.missingTransmogShowRaid}
-                >Raid</Checkbox>
+                >Raid</Checkbox> -->
             </div>
         </div>
 
