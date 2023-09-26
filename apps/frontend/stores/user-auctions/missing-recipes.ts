@@ -103,7 +103,8 @@ export class UserAuctionMissingRecipeDataStore {
         things = things.filter((thing) => {
             const item = itemData.items[thing.auctions[0].itemId]
 
-            const meetsHave = !auctionState.limitToHave || thing.hasItems.length > 0
+            const meetsDontHave = auctionState.showDontHave || thing.hasItems.length > 0
+            const meetsHave = auctionState.showHave || thing.hasItems.length === 0
 
             const [skillLineId,] = staticData.itemToSkillLine[item.id]
             const [profession, skillLineExpansion] = staticData.professionBySkillLine[skillLineId]
@@ -137,7 +138,13 @@ export class UserAuctionMissingRecipeDataStore {
                     .length > 0
             )
 
-            return meetsHave && meetsExpansion && meetsFaction && meetsSpecialization && meetsName && meetsRealm
+            return meetsDontHave
+                && meetsHave
+                && meetsExpansion
+                && meetsFaction
+                && meetsSpecialization
+                && meetsName
+                && meetsRealm
         })
 
         return [things, updated]

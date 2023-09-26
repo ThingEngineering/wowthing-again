@@ -1,11 +1,10 @@
-<script lang='ts'>
+<script lang="ts">
     import debounce from 'lodash/debounce'
 
     import { taskList } from '@/data/tasks'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Multi from './SettingsTasksMulti.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
  
@@ -39,31 +38,6 @@
         active={taskActive}
         inactive={taskInactive}
     />
-</div>
-
-<div class="settings-block">
-    <h3>Dragonflight Profession Weeklies</h3>
-
-    <CheckboxInput
-        bind:value={$settingsStore.tasks.dragonflightCountCraftingDrops}
-        name="tasks_dragonflightCountCraftingDrops"
-    >
-        Count incomplete crafting drops in Profession Weeklies.
-    </CheckboxInput>
-
-    <CheckboxInput
-        bind:value={$settingsStore.tasks.dragonflightCountGathering}
-        name="tasks_dragonflightCountGathering"
-    >
-        Count incomplete gathering tasks in Profession Weeklies.
-    </CheckboxInput>
-
-    <CheckboxInput
-        bind:value={$settingsStore.tasks.dragonflightTreatises}
-        name="tasks_dragonflightTreatises"
-    >
-        Show Treatises in Profession Weeklies.
-    </CheckboxInput>
 </div>
 
 <div class="settings-block">

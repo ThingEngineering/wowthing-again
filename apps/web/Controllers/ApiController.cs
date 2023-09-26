@@ -106,12 +106,15 @@ public class ApiController : Controller
             .Where(pa => pa.UserId == user.Id)
             .ToDictionaryAsync(pa => pa.Id);
 
-        foreach (var (accountId, accountData) in form.Accounts)
+        if (form.Accounts != null)
         {
-            if (accountMap.TryGetValue(accountId, out var account))
+            foreach (var (accountId, accountData) in form.Accounts)
             {
-                account.Enabled = accountData.Enabled;
-                account.Tag = accountData.Tag.Truncate(4);
+                if (accountMap.TryGetValue(accountId, out var account))
+                {
+                    account.Enabled = accountData.Enabled;
+                    account.Tag = accountData.Tag.Truncate(4);
+                }
             }
         }
 

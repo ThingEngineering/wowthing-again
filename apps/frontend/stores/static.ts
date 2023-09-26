@@ -1,5 +1,4 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { Language } from '@/enums'
 import { WritableFancyStore, type Settings } from '@/types'
 import {
     StaticDataBag,
@@ -194,7 +193,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         const connected: Record<number, { region: number, names: string[] }> = {}
         for (const realm of Object.values(this.value.realms)) {
             if (settings.general.useEnglishRealmNames && realm.englishName) {
-                console.log(realm.name, realm.englishName)
                 realm.name = realm.englishName
             }
 

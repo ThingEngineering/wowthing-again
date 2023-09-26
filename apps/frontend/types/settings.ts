@@ -76,14 +76,14 @@ export interface Settings {
     }
 
     professions: {
-        disabledCooldowns: string[]
-    }
-
-    tasks: {
         dragonflightCountCraftingDrops: boolean
         dragonflightCountGathering: boolean
         dragonflightTreatises: boolean
 
+        cooldowns: Record<string, boolean>
+    }
+
+    tasks: {
         disabledChores: Record<string, string[]>
     }
 

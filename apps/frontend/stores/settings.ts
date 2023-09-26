@@ -1,16 +1,18 @@
 import { get, writable } from 'svelte/store'
 
+import { professionCooldowns } from '@/data/professions/cooldowns'
+import { hashObject } from '@/utils/hash-object'
+import type { Account, FancyStoreFetchOptions, Settings } from '@/types'
+
+import { achievementStore } from './achievements'
+import { journalStore } from './journal'
+import { manualStore } from './manual'
+import { staticStore } from './static'
 import { userStore } from './user'
 import { userAchievementStore } from './user-achievements'
 import { userModifiedStore } from './user-modified'
 import { userQuestStore } from './user-quests'
 import { userTransmogStore } from './user-transmog'
-import type { Account, FancyStoreFetchOptions, Settings } from '@/types'
-import { hashObject } from '@/utils/hash-object'
-import { achievementStore } from './achievements'
-import { journalStore } from './journal'
-import { manualStore } from './manual'
-import { staticStore } from './static'
 
 
 export const settingsSavingState = writable<number>(0)
@@ -37,6 +39,13 @@ function createSettingsStore() {
                 if (hashValue === '') {
                     hashValue = hashObject(settings)
                 }
+
+                for (const professionCooldown of professionCooldowns) {
+                    if (settings.professions.cooldowns[professionCooldown.key] === undefined) {
+                        settings.professions.cooldowns[professionCooldown.key] = true
+                    }
+                }
+
                 hashTimer = setInterval(
                     async () => {
                         const newHashValue = hashObject(settings)

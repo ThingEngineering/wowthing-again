@@ -86,7 +86,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 
                     if (!charTask.quest &&
                         choreTask.taskKey.endsWith('Treatise') &&
-                        !stores.settings.tasks.dragonflightTreatises)
+                        !stores.settings.professions.dragonflightTreatises)
                     {
                         continue
                     }
@@ -101,14 +101,14 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
                     charTask.skipped = (
                         (
-                            !stores.settings.tasks.dragonflightCountCraftingDrops &&
+                            !stores.settings.professions.dragonflightCountCraftingDrops &&
                             !isGathering &&
                             nameParts[1] === 'Drops' &&
                             charTask.status !== QuestStatus.Completed
                         )
                         ||
                         (
-                            !stores.settings.tasks.dragonflightCountGathering &&
+                            !stores.settings.professions.dragonflightCountGathering &&
                             isGathering &&
                             ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
                             charTask.status !== QuestStatus.Completed

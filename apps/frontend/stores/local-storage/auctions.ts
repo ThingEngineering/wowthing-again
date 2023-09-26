@@ -13,8 +13,9 @@ export class AuctionState {
     public hideIgnored = false
     public limitToBestRealms = false
     public limitToCheapestRealm = false
-    public limitToHave = false
     public missingPetsMaxLevel = false
+    public showDontHave = true
+    public showHave = true
 
     public missingRecipeCharacterId = 0
     public missingRecipeExpansion = -1

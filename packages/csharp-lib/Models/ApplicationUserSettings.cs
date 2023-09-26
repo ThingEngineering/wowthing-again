@@ -311,15 +311,15 @@ public class ApplicationUserSettingsPrivacy
 
 public class ApplicationUserSettingsProfessions
 {
-    public List<string> DisabledProfessionCooldowns { get; set; } = new();
-}
-
-public class ApplicationUserSettingsTasks
-{
     public bool DragonflightCountCraftingDrops { get; set; } = true;
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
 
+    public Dictionary<string, bool> Cooldowns { get; set; } = new();
+}
+
+public class ApplicationUserSettingsTasks
+{
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
 }
 
