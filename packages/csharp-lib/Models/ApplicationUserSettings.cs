@@ -315,14 +315,7 @@ public class ApplicationUserSettingsProfessions
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
 
-    public bool OrdersShowAlchemy { get; set; } = true;
-    public bool OrdersShowBlacksmithing { get; set; } = true;
-    public bool OrdersShowEnchanting { get; set; } = true;
-    public bool OrdersShowEngineering { get; set; } = true;
-    public bool OrdersShowInscription { get; set; } = true;
-    public bool OrdersShowJewelcrafting { get; set; } = true;
-    public bool OrdersShowLeatherworking { get; set; } = true;
-    public bool OrdersShowTailoring { get; set; } = true;
+    public Dictionary<string, bool> Cooldowns { get; set; } = new();
 }
 
 public class ApplicationUserSettingsTasks

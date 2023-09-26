@@ -80,14 +80,7 @@ export interface Settings {
         dragonflightCountGathering: boolean
         dragonflightTreatises: boolean
 
-        ordersShowAlchemy: boolean
-        ordersShowBlacksmithing: boolean
-        ordersShowEnchanting: boolean
-        ordersShowEngineering: boolean
-        ordersShowInscription: boolean
-        ordersShowJewelcrafting: boolean
-        ordersShowLeatherworking: boolean
-        ordersShowTailoring: boolean
+        cooldowns: Record<string, boolean>
     }
 
     tasks: {
