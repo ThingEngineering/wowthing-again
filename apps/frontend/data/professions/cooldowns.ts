@@ -5,6 +5,14 @@ import type { ProfessionCooldownData } from '@/types'
 export const professionCooldowns: ProfessionCooldownData[] = [
     // Alchemy
     {
+        key: 'orders171',
+        name: '[DF] Work Orders',
+        profession: Profession.Alchemy,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+    {
         key: 'dfTransmute',
         name: '[DF] Transmute',
         profession: Profession.Alchemy,
