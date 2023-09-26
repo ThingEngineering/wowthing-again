@@ -1,9 +1,19 @@
 <script lang="ts">
-    import { settingsStore } from '@/stores'
+    import groupBy from 'lodash/groupBy'
+    import sortBy from 'lodash/sortBy'
+
+    import { professionCooldowns } from '@/data/professions/cooldowns'
+    import { Profession } from '@/enums'
+    import { settingsStore, staticStore } from '@/stores'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
-    import { Profession } from '@/enums';
+
+    const groupedCooldowns = groupBy(professionCooldowns, (cd) => cd.profession)
+    const sortedProfessions = sortBy(
+        Object.values($staticStore.professions),
+        (prof) => [prof.type, prof.name]
+    )
 </script>
 
 <style lang="scss">
@@ -18,6 +28,10 @@
         :global(fieldset) {
             min-width: 0;
             width: 14rem;
+        }
+
+        + .many-boxes {
+            border-top: 1px dotted $border-color;
         }
     }
 </style>
@@ -48,56 +62,21 @@
 </div>
 
 <div class="settings-block">
-    <h3>Show Work Orders</h3>
+    <h3>Cooldowns</h3>
 
-    <div class="many-boxes">
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowAlchemy}
-            name="professions_ordersShowAlchemy"
-        >
-            <ProfessionIcon id={Profession.Alchemy} border={1} /> Alchemy
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowBlacksmithing}
-            name="professions_ordersShowBlacksmithing"
-        >
-            <ProfessionIcon id={Profession.Blacksmithing} border={1} /> Blacksmithing
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowEnchanting}
-            name="professions_ordersShowEnchanting"
-        >
-            <ProfessionIcon id={Profession.Enchanting} border={1} /> Enchanting
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowEngineering}
-            name="professions_ordersShowEngineering"
-        >
-            <ProfessionIcon id={Profession.Engineering} border={1} /> Engineering
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowInscription}
-            name="professions_ordersShowInscription"
-        >
-            <ProfessionIcon id={Profession.Inscription} border={1} /> Inscription
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowJewelcrafting}
-            name="professions_ordersShowJewelcrafting"
-        >
-            <ProfessionIcon id={Profession.Jewelcrafting} border={1} /> Jewelcrafting
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowLeatherworking}
-            name="professions_ordersShowLeatherworking"
-        >
-            <ProfessionIcon id={Profession.Leatherworking} border={1} /> Leatherworking
-        </CheckboxInput>
-        <CheckboxInput
-            bind:value={$settingsStore.professions.ordersShowTailoring}
-            name="professions_ordersShowTailoring"
-        >
-            <ProfessionIcon id={Profession.Tailoring} border={1} /> Tailoring
-        </CheckboxInput>
-    </div>
+    {#each sortedProfessions as profession}
+        {#if groupedCooldowns[profession.id]}
+            <div class="many-boxes">
+                {#each groupedCooldowns[profession.id] as cooldown}
+                    <CheckboxInput
+                        name="professions_{cooldown.key}"
+                        bind:value={$settingsStore.professions.cooldowns[cooldown.key]}
+                    >
+                        <ProfessionIcon id={cooldown.profession} border={1} />
+                        {cooldown.name.replace('[DF] ', '')}
+                    </CheckboxInput>
+                {/each}
+            </div>
+        {/if}
+    {/each}
 </div>
