@@ -83,6 +83,10 @@
             slug: 'history',
         },
         {
+            name: 'Professions',
+            slug: 'professions',
+        },
+        {
             name: 'Transmog',
             slug: 'transmog',
         },

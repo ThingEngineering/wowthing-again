@@ -311,15 +311,22 @@ public class ApplicationUserSettingsPrivacy
 
 public class ApplicationUserSettingsProfessions
 {
-    public List<string> DisabledProfessionCooldowns { get; set; } = new();
-}
-
-public class ApplicationUserSettingsTasks
-{
     public bool DragonflightCountCraftingDrops { get; set; } = true;
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
 
+    public bool OrdersShowAlchemy { get; set; } = true;
+    public bool OrdersShowBlacksmithing { get; set; } = true;
+    public bool OrdersShowEnchanting { get; set; } = true;
+    public bool OrdersShowEngineering { get; set; } = true;
+    public bool OrdersShowInscription { get; set; } = true;
+    public bool OrdersShowJewelcrafting { get; set; } = true;
+    public bool OrdersShowLeatherworking { get; set; } = true;
+    public bool OrdersShowTailoring { get; set; } = true;
+}
+
+public class ApplicationUserSettingsTasks
+{
     public Dictionary<string, List<string>> DisabledChores { get; set; } = new();
 }
 

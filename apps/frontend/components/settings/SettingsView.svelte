@@ -16,6 +16,7 @@
     import Leaderboard from './sections/SettingsLeaderboard.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
+    import Professions from './sections/SettingsProfessions.svelte'
     import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
 
@@ -41,6 +42,7 @@
         'history': History,
         'leaderboard': Leaderboard,
         'privacy': Privacy,
+        'professions': Professions,
         'transmog': Transmog,
         
         'characters': Characters,
