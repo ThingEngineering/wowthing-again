@@ -186,7 +186,7 @@ public class StaticTool
             {
                 cacheData.HolidayIds["holidayBrewfest"].Add(holiday.Id);
             }
-            else if (holidayName.EndsWith("Dungeon Event"))
+            else if (!holidayName.StartsWith("Timewalking") && holidayName.EndsWith("Dungeon Event"))
             {
                 cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
             }
