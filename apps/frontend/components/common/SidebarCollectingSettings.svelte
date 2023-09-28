@@ -13,6 +13,15 @@
     const toggleExpanded = () => {
         $collectingSettingsState.expanded = !$collectingSettingsState.expanded
     }
+
+    const setAllClasses = (state: boolean) => {
+        for (const playableClasses of Object.values(classByArmorType)) {
+            for (const playableClass of playableClasses) {
+                const className = PlayableClass[playableClass]
+                $settingsStore.transmog[`show${className}`] = state
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -45,6 +54,22 @@
     }
     .flex-wrapper {
         justify-content: flex-start;
+    }
+    .button-wrapper {
+        gap: 0.5rem;
+        margin: 0.3rem 0;
+        justify-content: center;
+
+        button {
+            background: $thing-background;
+            border-radius: $border-radius;
+            cursor: pointer;
+            width: 4rem;
+
+            &:hover {
+                border-color: #aaa;
+            }
+        }
     }
 </style>
 
@@ -112,5 +137,20 @@
                 {/each}
             </div>
         {/each}
+
+        <div class="flex-wrapper button-wrapper">
+            <button
+                class="border"
+                on:click={() => setAllClasses(true)}
+            >
+                All
+            </button>
+            <button
+                class="border"
+                on:click={() => setAllClasses(false)}
+            >
+                None
+            </button>
+        </div>
     {/if}
 </div>
