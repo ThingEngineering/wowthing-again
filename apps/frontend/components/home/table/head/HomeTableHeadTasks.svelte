@@ -40,6 +40,7 @@
         <td
             class="sortable"
             class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+            data-task="{taskName}"
             on:click={() => setSorting(sortKey)}
             on:keypress={() => setSorting(sortKey)}
             use:tippyComponent={{
