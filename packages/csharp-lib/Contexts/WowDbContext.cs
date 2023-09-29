@@ -98,6 +98,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     // Garbage query types
     public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
     public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }
+    public DbSet<ActiveConnectedRealmQuery> ActiveConnectedRealmQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
     public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
@@ -239,6 +240,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<AchievementCriteriaQuery>()
             .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<ActiveConnectedRealmQuery>()
+            .ToTable("ActiveConnectedRealmQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());

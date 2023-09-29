@@ -1,6 +1,7 @@
 ﻿using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Data;
 
@@ -27,24 +28,33 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
                 entry => (long)entry.Value
             );
 
-        int[] realmIds = await Context.PlayerCharacter
-            .Select(pc => pc.RealmId)
-            .Distinct()
-            .ToArrayAsync();
+        var activeRealms = await Context.ActiveConnectedRealmQuery
+            .FromSqlRaw(ActiveConnectedRealmQuery.Sql)
+            .ToListAsync();
 
-        int[] connectedRealmIds = await Context.WowRealm
-            .Where(wr => realmIds.Contains(wr.Id))
-            .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
-            .Select(wr => wr.ConnectedRealmId)
-            .Distinct()
-            .ToArrayAsync();
-
-        foreach (int connectedRealmId in connectedRealmIds.OrderBy(id => lastChecked.GetValueOrDefault(id, 0)))
+        // Add
+        var regions = new HashSet<WowRegion>();
+        foreach (var activeRealm in activeRealms)
         {
-            if (!lastChecked.TryGetValue(connectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
+            regions.Add(activeRealm.Region);
+        }
+
+        var connectedRealms = activeRealms
+            .Union(regions.Select(region => new ActiveConnectedRealmQuery
+            {
+                ConnectedRealmId = 100000 + (int)region,
+                Region = region
+            }))
+            .OrderBy(ar => lastChecked.GetValueOrDefault(ar.ConnectedRealmId, 0))
+            .ToArray();
+
+        foreach (var connectedRealm in connectedRealms)
+        {
+            if (!lastChecked.TryGetValue(connectedRealm.ConnectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
             {
                 // Logger.Debug("Checking auctions for {realm} after {interval}", connectedRealmId, unixNow - realmChecked);
-                await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions, connectedRealmId.ToString());
+                await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions,
+                    ((int)connectedRealm.Region).ToString(), connectedRealm.ConnectedRealmId.ToString());
             }
         }
     }

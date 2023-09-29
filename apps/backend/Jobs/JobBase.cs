@@ -57,10 +57,10 @@ public abstract class JobBase : IJob, IDisposable
     public abstract Task Run(params string[] data);
     #endregion
 
-    protected IDisposable AuctionLog(WowRealm realm)
+    protected IDisposable AuctionLog(WowRegion region, int connectedRealmId)
     {
         var jobName = this.GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
+        return LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
     }
 
     protected IDisposable CharacterLog(SchedulerCharacterQuery query)
