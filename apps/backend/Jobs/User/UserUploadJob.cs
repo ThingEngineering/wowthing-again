@@ -327,6 +327,7 @@ public class UserUploadJob : JobBase
             if (lastSeen > character.LastApiCheck)
             {
                 character.LastApiCheck = MiscConstants.DefaultDateTime;
+                character.ShouldUpdate = true;
                 updatedCharacters++;
             }
 

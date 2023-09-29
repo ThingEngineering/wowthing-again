@@ -178,6 +178,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<WowProfessionRecipeItem>()
             .HasKey(wpri => new { wpri.SkillLineAbilityId, wpri.ItemId });
 
+        // Defaults
+        builder.Entity<PlayerCharacter>()
+            .Property(pc => pc.ShouldUpdate)
+            .HasDefaultValue(true);
+
         // Unique indexes
         builder.Entity<PlayerAccount>()
             .HasIndex(pa => new { pa.Region, pa.AccountId })
