@@ -209,6 +209,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasMethod("gin")
             .HasOperators("gin_trgm_ops");
 
+        builder.Entity<PlayerCharacter>()
+            .HasIndex(pc => pc.LastApiCheck)
+            .IncludeProperties(pc => new { pc.Id, pc.AccountId, pc.Name, pc.LastApiModified })
+            .HasFilter("should_update = true AND account_id IS NOT NULL");
+
         builder.Entity<WowAuction>()
             .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })
             .HasFilter("appearance_id IS NOT NULL");
