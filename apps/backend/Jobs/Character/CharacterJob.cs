@@ -23,7 +23,7 @@ public class CharacterJob : JobBase
             await Context.PlayerCharacter
                 .Where(c => c.Id == query.CharacterId)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.DelayHours, pc => 1000)
+                    .SetProperty(pc => pc.ShouldUpdate, pc => false)
                 );
             return;
         }
@@ -38,12 +38,6 @@ public class CharacterJob : JobBase
             if (result.NotModified)
             {
                 LogNotModified();
-
-                await Context.PlayerCharacter
-                    .Where(pc => pc.Id == query.CharacterId)
-                    .ExecuteUpdateAsync(s => s
-                        .SetProperty(pc => pc.DelayHours, pc => 0)
-                    );
                 return;
             }
 
@@ -54,24 +48,17 @@ public class CharacterJob : JobBase
         {
             Logger.Error("HTTP {0}", e.Message);
 
-            int delayHoursIncrement;
-            if (e.Message == "403")
+            // Forbidden and NotFound are both treated as "ignore this character until the user
+            // refreshes their character list"
+            if (e.Message is "403" or "404")
             {
-                // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
-                delayHoursIncrement = 24;
-            }
-            else
-            {
-                // Treat every other error as relatively minor, try again later
-                // 404s are weird, can just mean "character hasn't logged in for a while"
-                delayHoursIncrement = 4;
+                await Context.PlayerCharacter
+                    .Where(c => c.Id == query.CharacterId)
+                    .ExecuteUpdateAsync(s => s
+                        .SetProperty(pc => pc.ShouldUpdate, pc => false)
+                    );
             }
 
-            await Context.PlayerCharacter
-                .Where(c => c.Id == query.CharacterId)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.DelayHours, pc => pc.DelayHours + delayHoursIncrement)
-                );
             return;
         }
 
@@ -96,8 +83,8 @@ public class CharacterJob : JobBase
         character.RaceId = apiCharacter.Race.Id;
         character.RealmId = apiCharacter.Realm.Id;
 
-        character.DelayHours = 0;
         character.LastApiModified = lastModified;
+        character.ShouldUpdate = true;
 
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
