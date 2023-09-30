@@ -82,7 +82,9 @@ public class JournalTool
 
         _timer.AddPoint("Data");
 
-        var tiers = await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>("journaltier");
+        var tiers = (await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>("journaltier"))
+            .OrderByDescending(djt => djt.ID)
+            .ToList();
 
         var mapsById = (await DataUtilities.LoadDumpCsvAsync<DumpMap>("map"))
             .ToDictionary(map => map.ID);
@@ -196,7 +198,6 @@ public class JournalTool
         var itemExpansions = DataUtilities.LoadItemExpansions();
 
         _timer.AddPoint("Shared");
-
 
         foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
         {
