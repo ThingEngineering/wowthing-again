@@ -23,7 +23,7 @@ export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
 
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
-    (expansion) => expansion.id < 0 ? 100 + Math.abs(expansion.id) : expansion.id
+    (expansion) => -expansion.id
 )
 
 export const expansionOrderMap: Record<number, number> = Object.fromEntries(
