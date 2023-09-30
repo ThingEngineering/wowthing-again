@@ -675,7 +675,7 @@ public class StaticTool
                 }
 
                 professionRootCategories[professionId] = roots
-                    .OrderBy(opc => opc.Order)
+                    .OrderByDescending(opc => opc.Order)
                     .ToList();
 
                 foreach (var opc in categoryMap.Values)

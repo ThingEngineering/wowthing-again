@@ -21,7 +21,7 @@
 
         if (staticProfession) {
             for (let i = 0; i < sidebarItems.length; i++) {
-                if (staticProfession.subProfessions[i]?.traitTrees) {
+                if (staticProfession.subProfessions[Constants.expansion - i]?.traitTrees) {
                     sidebarItems[i].children = [{
                         name: 'Traits',
                         slug: 'traits',
