@@ -2,17 +2,17 @@ import type { StaticDataCurrencyCategory } from '@/types/data/static'
 
 
 export const categoryOrder: number[] = [
-    23, // Burning Crusade
-    21, // Wrath of the Lich King
-    81, // Cataclysm
-    133, // Mists of Pandaria
-    137, // Warlords of Draenor
-    141, // Legion
-    143, // Battle for Azeroth
-    245, // Shadowlands
     250, // Dragonflight
+    245, // Shadowlands
+    143, // Battle for Azeroth
+    141, // Legion
+    137, // Warlords of Draenor
+    133, // Mists of Pandaria
+    81, // Cataclysm
+    21, // Wrath of the Lich King
+    23, // Burning Crusade
     //4, // Classic
-    0,
+    0, // separator
     22, // Dungeon and Raid
     1, // Miscellaneous
     2, // Player vs. Player
