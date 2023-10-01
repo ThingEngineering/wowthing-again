@@ -220,35 +220,237 @@ public static partial class Hardcoded
                 new (186468, DungeonDifficultiesNormal), // Talon of the Tempest
             }
         },
-        {
-            100030, // Treasure Goblin
-            new List<ExtraItemDrop>
-            {
-                // Mount
-                new (76755, DungeonDifficultiesNormal), // Tyrael's Charger
-                // Pet
-                new (3580, DungeonDifficultiesNormal), // Baa'lial
-                // Toy
-                new (206008, DungeonDifficultiesNormal), // Nightmare Banner
-                new (142542, DungeonDifficultiesNormal), // Tome of Town Portal
-                new (143543, DungeonDifficultiesNormal), // Twelve-String Guitar
-                // Cosmetic
-                new (206020, DungeonDifficultiesNormal), // Enmity Hood
-                new (206004, DungeonDifficultiesNormal), // Enmity Cloak
-                new (206007, DungeonDifficultiesNormal), // Treasure Nabbin' Bag
-                // Weapon
-                new (206275, DungeonDifficultiesNormal), // Wirt's Fighting Leg
-                new (206276, DungeonDifficultiesNormal), // Wirt's Haunted Leg
-                new (206005, DungeonDifficultiesNormal), // Wirt's Last Leg
-                new (143327, DungeonDifficultiesNormal), // Livestock Lochaber Axe
-            }
-        },
+//        {
+//            100030, // Treasure Goblin - No longer active
+//            new List<ExtraItemDrop>
+//            {
+//                // Mount
+//                new (76755, DungeonDifficultiesNormal), // Tyrael's Charger
+//                // Pet
+//                new (3580, DungeonDifficultiesNormal), // Baa'lial
+//               // Toy
+//               new (206008, DungeonDifficultiesNormal), // Nightmare Banner
+//                new (142542, DungeonDifficultiesNormal), // Tome of Town Portal
+//                new (143543, DungeonDifficultiesNormal), // Twelve-String Guitar
+//                // Cosmetic
+//                new (206020, DungeonDifficultiesNormal), // Enmity Hood
+//                new (206004, DungeonDifficultiesNormal), // Enmity Cloak
+//                new (206007, DungeonDifficultiesNormal), // Treasure Nabbin' Bag
+//               // Weapon
+//                new (206275, DungeonDifficultiesNormal), // Wirt's Fighting Leg
+//                new (206276, DungeonDifficultiesNormal), // Wirt's Haunted Leg
+//                new (206005, DungeonDifficultiesNormal), // Wirt's Last Leg
+//                new (143327, DungeonDifficultiesNormal), // Livestock Lochaber Axe
+//            }
+//        },
         #endregion
 
         #region Classic
+        // Shadowfang Keep > Fel Steed
+        {
+            102001,
+            new List<ExtraItemDrop>
+            {
+                // Weapon
+                new (6341, DungeonDifficultiesNormal), // Eerie Stable Lantern
+            }
+        },
+        // Shadowfang Keep > Deathsworn Captain
+        {
+            102002,
+            new List<ExtraItemDrop>
+            {
+                // Plate
+                new (6642, DungeonDifficultiesNormal), // Phantom Armor
+                // Weapon
+                new (6641, DungeonDifficultiesNormal), // Haunting Blade
+            }
+        },
+//        // Blackrock Depths > Theldren - (Mostly) Unavailable
+//        {
+//            102010,
+//            new List<ExtraItemDrop>
+//            {
+//                // Cloak
+//                new (22330, DungeonDifficultiesNormal), // Shroud of Arcane Mastery
+//                // Weapon
+//                new (22317, DungeonDifficultiesNormal), // Lefty's Brass Knuckle
+//                new (22318, DungeonDifficultiesNormal), // Malgen's Long Bow
+//            }
+//        },
+        // Blackrock Depths > Verek
+        {
+            102011,
+            new List<ExtraItemDrop>
+            {
+                // Mail
+                new (22242, DungeonDifficultiesNormal), // Verek's Leash
+            }
+        },
+        // Blackrock Depths > Watchman Doomgrip
+        {
+            102012,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (22256, DungeonDifficultiesNormal), // Mana Shaping Handwraps
+                // Plate
+                new (22205, DungeonDifficultiesNormal), // Black Steel Bindings
+                // Weapon
+                new (22254, DungeonDifficultiesNormal), // Wand of Eternal Light
+            }
+        },
+        // Blackrock Depths > Panzor the Invincible
+        {
+            102013,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (22245, DungeonDifficultiesNormal), // Soot Encrusted Footwear
+                // Plate
+                new (11787, DungeonDifficultiesNormal), // Shalehusk Boots
+                // Weapon
+                new (11786, DungeonDifficultiesNormal), // Stone of the Earth
+                new (11785, DungeonDifficultiesNormal), // Rock Golem Bulwark
+            }
+        },
+        // Lower Blackrock Spire > Burning Felguard
+        {
+            102020,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (13181, DungeonDifficultiesNormal), // Demonskin Gloves
+                // Weapon
+                new (13182, DungeonDifficultiesNormal), // Phase Blade
+            }
+        },
+        // Lower Blackrock Spire > Spirestone Battle Lord
+        {
+            102021,
+            new List<ExtraItemDrop>
+            {
+                // Mail
+                new (13284, DungeonDifficultiesNormal), // Swiftdart Battleboots
+                // Weapon
+                new (13285, DungeonDifficultiesNormal), // The Blackrock Slicer
+            }
+        },
+        // Lower Blackrock Spire > Spirestone Butcher
+        {
+            102022,
+            new List<ExtraItemDrop>
+            {
+                // Cloak
+                new (12608, DungeonDifficultiesNormal), // Butcher's Apron
+                // Weapon
+                new (13286, DungeonDifficultiesNormal), // Rivenspike
+            }
+        },
+        // Lower Blackrock Spire > Spirestone Lord Magus
+        {
+            102023,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (13282, DungeonDifficultiesNormal), // Ogreseer Tower Boots
+                // Weapon
+                new (13261, DungeonDifficultiesNormal), // Globe of D'sak
+            }
+        },
+//        // Lower Blackrock Spire > Mor Grayhoof - (Mostly) Unavailable
+//        {
+//            102024,
+//            new List<ExtraItemDrop>
+//            {
+//                // Cloth
+//                new (22306, DungeonDifficultiesNormal), // Ironweave Belt
+//                // Leather
+//                new (22325, DungeonDifficultiesNormal), // Belt of the Trickster
+//                // Weapon
+//                new (22322, DungeonDifficultiesNormal), // The Jaw Breaker
+//                new (22319, DungeonDifficultiesNormal), // Tome of Divine Right
+//            }
+//        },
+        // Lower Blackrock Spire > Bannok Grimaxe
+        {
+            102025,
+            new List<ExtraItemDrop>
+            {
+                // Mail
+                new (12634, DungeonDifficultiesNormal), // Chiselbrand Girdle
+                // Plate
+                new (12637, DungeonDifficultiesNormal), // Backusarian Gauntlets
+                // Weapon
+                new (12621, DungeonDifficultiesNormal), // Demonfork
+            }
+        },
+        // Lower Blackrock Spire > Crystal Fang
+        {
+            102026,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (13185, DungeonDifficultiesNormal), // Sunderseer Mantle
+                // Leather
+                new (13184, DungeonDifficultiesNormal), // Fallbrush Handgrips
+                // Weapon
+                new (13218, DungeonDifficultiesNormal), // Fang of the Crystal Spider
+            }
+        },
+        // Lower Blackrock Spire > Ghok Bashguud
+        {
+            102027,
+            new List<ExtraItemDrop>
+            {
+                // Cloak
+                new (13203, DungeonDifficultiesNormal), // Armswake Cloak
+                // Weapon
+                new (13204, DungeonDifficultiesNormal), // Bashguuder
+                new (13198, DungeonDifficultiesNormal), // Hurd Smasher
+            }
+        },
+//        // Dire Maul > Isalien - (Mostly) unavailable
+//        {
+//            102030,
+//            new List<ExtraItemDrop>
+//            {
+//                // Cloth
+//                new (22304, DungeonDifficultiesNormal), // Ironweave Gloves
+//                // Leather
+//                new (22472, DungeonDifficultiesNormal), // Boots of Ferocity
+//                // Weapon
+//                new (22315, DungeonDifficultiesNormal), // Hammer of Revitalization
+//                new (22314, DungeonDifficultiesNormal), // Huntsman's Harpoon
+//            }
+//        },
+        // Dire Maul > Tsu'zee
+        {
+            102031,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (18387, DungeonDifficultiesNormal), // Brightspark Gloves
+                new (18346, DungeonDifficultiesNormal), // Threadbare Trousers
+            }
+        },
+//        // Dire Maul > Lord Hel'nurath - (Mostly) unavailable
+//        {
+//            102032,
+//            new List<ExtraItemDrop>
+//            {
+//                // Cloth
+//                new (18757, DungeonDifficultiesNormal), // Diabolic Mantle
+//                // Plate
+//                new (18754, DungeonDifficultiesNormal), // Fel Hardened Bracers
+//                // Weapon
+//                new (18755, DungeonDifficultiesNormal), // Xorothian Firestick
+//                new (18756, DungeonDifficultiesNormal), // Dreadguard's Protector
+//            }
+//        },
         // Dire Maul > Gordok Tribute
         {
-            102300,
+            102033,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -277,18 +479,110 @@ public static partial class Hardcoded
                 new (18499, DungeonDifficultiesNormal), // Barrier Shield
             }
         },
+        // Gnomeregan > Dark Iron Ambassador
+        {
+            102040,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (5108, DungeonDifficultiesNormal), // Dark Iron Leather
+                new (9455, DungeonDifficultiesNormal), // Emissary Cuffs
+                // Weapon
+                new (9456, DungeonDifficultiesNormal), // Glass Shooter
+                new (9457, DungeonDifficultiesNormal), // Royal Diplomatic Scepter
+            }
+        },
         // Gnomeregan > Endgineer Omegaplugg
         {
-            102310,
+            102041,
             new List<ExtraItemDrop>
             {
                 // Toy
                 new (141331, DungeonDifficultiesNormal), // Vial of Green Goo
             }
         },
+        // Maraudon > Meshlok the Harvester
+        {
+            102050,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (17741, DungeonDifficultiesNormal), // Nature's Embrace
+                // Leather
+                new (17742, DungeonDifficultiesNormal), // Fungus Shroud Armor
+                // Plate
+                new (17767, DungeonDifficultiesNormal), // Bloomsprout Headpiece
+            }
+        },
+        // Razorfen Downs > Sah'rhee
+        {
+            102060,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (10760, DungeonDifficultiesNormal), // Swine Fists
+                // Mail
+                new (10768, DungeonDifficultiesNormal), // Boar Champion's Belt
+                // Plate
+                new (151454, DungeonDifficultiesNormal), // Splinterbone Sabatons
+                // Weapon
+                new (10766, DungeonDifficultiesNormal), // Plaguerot Sprig
+                new (10758, DungeonDifficultiesNormal), // X'caliboar
+                new (10767, DungeonDifficultiesNormal), // Savage Boar's Guard
+            }
+        },
+        // Razorfen Kraul > Kraulshaper Tukaar
+        {
+            102070,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (6688, DungeonDifficultiesNormal), // Whisperwind Headdress
+                // Weapon
+                new (6689, DungeonDifficultiesNormal), // Wind Spirit Staff
+            }
+        },
+        // Razorfen Kraul > Enormous Bullfrog
+        {
+            102071,
+            new List<ExtraItemDrop>
+            {
+                // Pet
+                new (65, DungeonDifficultiesNormal), // Whisperwind Headdress
+                new (64, DungeonDifficultiesNormal), // Whisperwind Headdress
+                // Cloth
+                new (2277, DungeonDifficultiesNormal), // Necromancer Leggings
+                new (9395, DungeonDifficultiesNormal), // Gloves of Old
+                new (6658, DungeonDifficultiesNormal), // Holy Shroud
+                new (13106, DungeonDifficultiesNormal), // Glowing Magical Bracelets
+                // Leather
+                new (3020, DungeonDifficultiesNormal), // Enduring Cap
+                new (2278, DungeonDifficultiesNormal), // Forest Tracker Epaulets
+                // Mail
+                new (13127, DungeonDifficultiesNormal), // Frostreaver Crown
+                new (9405, DungeonDifficultiesNormal), // Girdle of Golem Strength
+                new (13124, DungeonDifficultiesNormal), // Ravasaur Scale Boots
+                // Cloak
+                new (13108, DungeonDifficultiesNormal), // Tigerstrike Mantle
+                // Weapon
+                new (13019, DungeonDifficultiesNormal), // Harpyclaw Short Bow
+                new (13045, DungeonDifficultiesNormal), // Viscous Hammer
+                new (13048, DungeonDifficultiesNormal), // Looming Gavel
+                new (12974, DungeonDifficultiesNormal), // The Black Knight
+                new (2912, DungeonDifficultiesNormal), // Claw of the Shadowmancer
+                new (2877, DungeonDifficultiesNormal), // Combatant Claymore
+                new (13037, DungeonDifficultiesNormal), // Crystalpine Stinger
+                new (791, DungeonDifficultiesNormal), // Gnarled Ash Staff
+                new (13063, DungeonDifficultiesNormal), // Starfaller
+                new (13033, DungeonDifficultiesNormal), // Zealot Blade
+                new (2565, DungeonDifficultiesNormal), // Rod of Molten Fire
+                new (13137, DungeonDifficultiesNormal), // Ironweaver
+                new (2299, DungeonDifficultiesNormal), // Burning War Axe
+            }
+        },
         // Stratholme > Postmaster Malown
         {
-            102360,
+            102080,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -302,7 +596,7 @@ public static partial class Hardcoded
         },
         // Stratholme > Skul
         {
-            102361,
+            102081,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -313,9 +607,22 @@ public static partial class Hardcoded
                 new (13396, DungeonDifficultiesNormal), // Skul's Ghastly Touch
             }
         },
+//        // Stratholme > Sothos and Jarien - (Mostly) unavailable
+//        {
+//            102082,
+//            new List<ExtraItemDrop>
+//            {
+//                // Cloth
+//                new (22301, DungeonDifficultiesNormal), // Ironweave Robe
+//                // Plate
+//                new (22328, DungeonDifficultiesNormal), // Legplates of Vigilance
+//                // Weapon
+//                new (22329, DungeonDifficultiesNormal), // Scepter of Interminable Focus
+//            }
+//        },
         // Stratholme > Stonespine
         {
-            102362,
+            102083,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -324,6 +631,212 @@ public static partial class Hardcoded
                 new (13397, DungeonDifficultiesNormal), // Stoneskin Gargoyle Cape
                 // Weapon
                 new (13399, DungeonDifficultiesNormal), // Gargoyle Shredder Talons
+            }
+        },
+        // Wailing Caverns > Druid of the Fang
+        {
+            102090,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (10413, DungeonDifficultiesNormal), // Gloves of the Fang
+                // Mail
+                new (132743, DungeonDifficultiesNormal), // Slither-Scale Gauntlets
+                new (208019, DungeonDifficultiesNormal), // Quagmire Trudgers
+                // Plate
+                new (208020, DungeonDifficultiesNormal), // Dagmire Gloves
+                // Weapon
+                new (208018, DungeonDifficultiesNormal), // Fangblade
+                new (208021, DungeonDifficultiesNormal), // Sizzling Stick
+            }
+        },
+        // Wailing Caverns > Deviate Faerie Dragon
+        {
+            102091,
+            new List<ExtraItemDrop>
+            {
+                // Cloak
+                new (6632, DungeonDifficultiesNormal), // Feyscale Cloak
+                // Weapon
+                new (5243, DungeonDifficultiesNormal), // Firebelcher
+            }
+        },
+        // Zul'Farrak > Sandarr Dunereaver
+        {
+            102100,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (9484, DungeonDifficultiesNormal), // Spellshock Leggings
+                // Cloak
+                new (9512, DungeonDifficultiesNormal), // Blackmetal Cape
+                // Weapon
+                new (9482, DungeonDifficultiesNormal), // Witch Doctor's Cane
+                new (9511, DungeonDifficultiesNormal), // Bloodletter Scalpel
+                new (9483, DungeonDifficultiesNormal), // Flaming Incinerator
+                new (5616, DungeonDifficultiesNormal), // Gutwrencher
+                new (9481, DungeonDifficultiesNormal), // The Minotaur
+                new (2040, DungeonDifficultiesNormal), // Troll Protector
+                new (9480, DungeonDifficultiesNormal), // Eyegouger
+            }
+        },
+        // Zul'Farrak > Zerillis
+        {
+            102101,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (12470, DungeonDifficultiesNormal), // Sandstalker Ankleguards
+            }
+        },
+        // Zul'Farrak > Dustwraith
+        {
+            102102,
+            new List<ExtraItemDrop>
+            {
+                // Weapon
+                new (12471, DungeonDifficultiesNormal), // Desertwalker Cane
+            }
+        },
+        // Ruins of Ahn'Qiraj > Captains
+        {
+            102103,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (21810, DungeonDifficultiesNormal), // Treads of the Wandering Nomad
+                // Weapon
+                new (21806, DungeonDifficultiesNormal), // Gavel of Qiraji Authority
+            }
+        },
+        // Blackrock Depths / Ring of Law
+        {
+            372,
+            new List<ExtraItemDrop>()
+            {
+                // Leather
+                new (22271, DungeonDifficultiesNormal), // Leggings of Frenzied Magic
+                // Plate
+                new (22270, DungeonDifficultiesNormal), // Entrenching Boots
+                // Weapon
+                new (11702, DungeonDifficultiesNormal), // Grizzle's Skinner
+            }
+        },
+        // Blackrock Depths / Lord Incendius
+        {
+            374,
+            new List<ExtraItemDrop>()
+            {
+                // Cloth
+                new (11768, DungeonDifficultiesNormal), // Incendic Bracers
+            }
+        },
+        // Blackrock Depths / Fineous Darkvire
+        {
+            376,
+            new List<ExtraItemDrop>()
+            {
+                // Shirt
+                new (11840, DungeonDifficultiesNormal), // Master Builder's Shirt
+            }
+        },
+        // Blackrock Depths / Hurley Blackbreath
+        {
+            380,
+            new List<ExtraItemDrop>()
+            {
+                // Leather
+                new (22275, DungeonDifficultiesNormal), // Firemoss Boots
+            }
+        },
+        // Blackrock Depths / Hurley Blackbreath
+        {
+            381,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (11743, DungeonDifficultiesNormal), // Rockfist
+            }
+        },
+        // Blackrock Depths / Emperor Dagran Thaurissan
+        {
+            387,
+            new List<ExtraItemDrop>()
+            {
+                // Leather
+                new (22204, DungeonDifficultiesNormal), // Wristguards of Renown
+            }
+        },
+        // Lower Blackrock Spire / Mother Smolderweb
+        {
+            391,
+            new List<ExtraItemDrop>()
+            {
+                // Pet
+                new (90, DungeonDifficultiesNormal), // Smolderweb Hatchling
+            }
+        },
+        // Stratholme / Willey Hopebreaker
+        {
+            446,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (22406, DungeonDifficultiesNormal), // Redemption
+            }
+        },
+        // The Temple of Atal'Hakker / Wardens of the Dream
+        {
+            459,
+            new List<ExtraItemDrop>()
+            {
+                // Cloak
+                new (12465, DungeonDifficultiesNormal), // Nightfall Drape
+            }
+        },
+        // Zul'Farrak / Chief Ukorz Sandscalp
+        {
+            489,
+            new List<ExtraItemDrop>()
+            {
+                // Cloak
+                new (9372, DungeonDifficultiesNormal), // Sul'thraze the Lasher
+            }
+        },
+        // Scholomance / Darkmaster Gandling
+        {
+            684,
+            new List<ExtraItemDrop>()
+            {
+                // Plate
+                new (88357, DungeonDifficultiesNormal), // Vigorsteel Spaulders
+            }
+        },
+        // Molten Core / Garr
+        {
+            1522,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (19019, RaidDifficultiesLegacy40), // Thunderfury, Blessed Blade of the Windseeker
+            }
+        },
+        // Molten Core / Baron Geddon
+        {
+            1524,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (19019, RaidDifficultiesLegacy40), // Thunderfury, Blessed Blade of the Windseeker
+            }
+        },
+        // Molten Core / Sulfuron Harbinger
+        {
+            1525,
+            new List<ExtraItemDrop>()
+            {
+                // Weapon
+                new (17223, RaidDifficultiesLegacy40), // Thunderstrike
             }
         },
         // Molten Core / Ragnaros
@@ -1077,7 +1590,7 @@ public static partial class Hardcoded
             869,
             new List<ExtraItemDrop>
             {
-                new(112935, new[]{ 16 }), // Tusks of Mannoroth - Mythic
+                new(112935, new[]{ 15, 16 }), // Tusks of Mannoroth - Heroic/Mythic
             }
         },
         // World Bosses > Salyis's Warband (Galleon)
