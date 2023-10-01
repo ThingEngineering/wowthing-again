@@ -21,6 +21,7 @@ public class CachedJsonController : Controller
     private readonly HashSet<string> _hasLanguages = new()
     {
         "achievement",
+        "auction",
         "db",
         "item",
         "journal",
@@ -28,7 +29,7 @@ public class CachedJsonController : Controller
         "static",
     };
 
-    [HttpGet("api/{type:regex(^(achievement|appearance|db|item|journal|manual|static)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
+    [HttpGet("api/{type:regex(^(achievement|appearance|auction|db|item|journal|manual|static)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
     [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
     public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
     {
