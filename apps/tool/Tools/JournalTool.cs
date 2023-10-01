@@ -514,13 +514,13 @@ public class JournalTool
                                 );
                                 if (!forThis)
                                 {
-                                    ToolContext.Logger.Warning("Difficulty skip? {instanceId} {instanceName} / {encounterId} {encounterName} / {mask} {diffs}",
-                                        instance.ID,
-                                        instance.Name,
-                                        encounter.ID,
-                                        encounter.Name,
-                                        encounterItem.DifficultyMask,
-                                        string.Join(',', difficulties));
+                                    // ToolContext.Logger.Warning("Difficulty skip? {instanceId} {instanceName} / {encounterId} {encounterName} / {mask} {diffs}",
+                                    //     instance.ID,
+                                    //     instance.Name,
+                                    //     encounter.ID,
+                                    //     encounter.Name,
+                                    //     encounterItem.DifficultyMask,
+                                    //     string.Join(',', difficulties));
                                     continue;
                                 }
                             }
