@@ -85,22 +85,10 @@ public static partial class Hardcoded
             229,
             new[]
             {
-                new ExtraEncounter("Burning Felguard")
-                {
-                    AfterEncounter = 390, // War Master Voone
-                },
-                new ExtraEncounter("Spirestone Battle Lord")
-                {
-                    AfterEncounter = 390, // War Master Voone
-                },
-                new ExtraEncounter("Spirestone Butcher")
-                {
-                    AfterEncounter = 390, // War Master Voone
-                },
-                new ExtraEncounter("Spirestone Magus")
-                {
-                    AfterEncounter = 390, // War Master Voone
-                },
+                new ExtraEncounter("Burning Felguard"),
+                new ExtraEncounter("Spirestone Battle Lord"),
+                new ExtraEncounter("Spirestone Butcher"),
+                new ExtraEncounter("Spirestone Magus"),
 //                new ExtraEncounter("Mor Grayhoof") - (Mostly) unavailable
 //                {
 //                    AfterEncounter = 390, // War Master Voone
@@ -184,10 +172,7 @@ public static partial class Hardcoded
             234,
             new[]
             {
-                new ExtraEncounter("Kraulshaper Tukaar")
-                {
-                    AfterEncounter = 900, // Groyat, the Blind Hunter
-                },
+                new ExtraEncounter("Kraulshaper Tukaar"),
                 new ExtraEncounter("Enormous Bullfrog")
                 {
                     AfterEncounter = 900, // Groyat, the Blind Hunter
@@ -222,10 +207,7 @@ public static partial class Hardcoded
             240,
             new[]
             {
-                new ExtraEncounter("Druid of the Fang")
-                {
-                    AfterEncounter = 478, // Skum
-                },
+                new ExtraEncounter("Druid of the Fang"),
                 new ExtraEncounter("Deviate Faerie Dragon")
                 {
                     AfterEncounter = 478, // Skum
@@ -237,14 +219,8 @@ public static partial class Hardcoded
             241,
             new[]
             {
-                new ExtraEncounter("Sandarr Dunereaver")
-                {
-                    AfterEncounter = 486, // Witch Doctor Zum'rah
-                },
-                new ExtraEncounter("Zerillis")
-                {
-                    AfterEncounter = 486, // Witch Doctor Zum'rah
-                },
+                new ExtraEncounter("Sandarr Dunereaver"),
+                new ExtraEncounter("Zerillis"),
                 new ExtraEncounter("Dustwraith")
                 {
                     AfterEncounter = 486, // Witch Doctor Zum'rah
