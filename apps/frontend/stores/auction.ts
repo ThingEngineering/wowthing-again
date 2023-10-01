@@ -1,4 +1,4 @@
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import { AuctionCategory, type AuctionData } from '@/types/data/auction'
 
 
