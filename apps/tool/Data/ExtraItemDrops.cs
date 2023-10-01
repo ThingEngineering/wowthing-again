@@ -40,6 +40,11 @@ public static partial class Hardcoded
         new (50052, DungeonDifficultiesHeroic), // Lightborn Spire
     };
 
+    /*
+     * The first number in each block is the JournalEncounter ID. If the encounter has been added
+     * via ExtraEncounters, the number should be 1_(4 digit instance ID)_(0-based encounter index).
+     * If you add an encounter to instance 123, that would be `1_0123_0`.
+     */
     public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
     {
         {
@@ -53,7 +58,7 @@ public static partial class Hardcoded
         #region Miscellaneous
         // Darkmaul Citadel
         {
-            100010, // Tunk
+            1_0001_0, // Tunk
             new List<ExtraItemDrop>
             {
                 new (178162, DungeonDifficultiesNormal), // Tunk's Whomper
@@ -67,7 +72,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100011, // Gor'groth
+            1_0001_1, // Gor'groth
             new List<ExtraItemDrop>
             {
                 new (178169, DungeonDifficultiesNormal), // Decrepit Dragonscale Drape
@@ -75,7 +80,7 @@ public static partial class Hardcoded
         },
         // Anniversary World Bosses
         {
-            100020, // Azuregos
+            1_0002_0, // Azuregos
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -97,7 +102,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100021, // Lord Kazzak
+            1_0002_1, // Lord Kazzak
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -116,7 +121,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100022, // Dragons of Nightmare
+            1_0002_2, // Dragons of Nightmare
             new List<ExtraItemDrop>
             {
                 // Cloak
@@ -130,7 +135,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100023, // Emeriss
+            1_0002_3, // Emeriss
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -145,7 +150,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100024, // Lethon
+            1_0002_4, // Lethon
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -160,7 +165,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100025, // Taerar
+            1_0002_5, // Taerar
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -175,7 +180,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100026, // Ysondre
+            1_0002_6, // Ysondre
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -192,7 +197,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100027, // Doomwalker
+            1_0002_7, // Doomwalker
             new List<ExtraItemDrop>
             {
                 // Mount
@@ -221,7 +226,7 @@ public static partial class Hardcoded
             }
         },
 //        {
-//            100030, // Treasure Goblin - No longer active
+//            1_0003_0, // Treasure Goblin - No longer active
 //            new List<ExtraItemDrop>
 //            {
 //                // Mount
@@ -248,7 +253,7 @@ public static partial class Hardcoded
         #region Classic
         // Shadowfang Keep > Fel Steed
         {
-            100640,
+            1_0064_0,
             new List<ExtraItemDrop>
             {
                 // Weapon
@@ -257,7 +262,7 @@ public static partial class Hardcoded
         },
         // Shadowfang Keep > Deathsworn Captain
         {
-            100641,
+            1_0064_1,
             new List<ExtraItemDrop>
             {
                 // Plate
@@ -280,7 +285,7 @@ public static partial class Hardcoded
 //        },
         // Blackrock Depths > Verek
         {
-            102280,
+            1_0228_0,
             new List<ExtraItemDrop>
             {
                 // Mail
@@ -289,7 +294,7 @@ public static partial class Hardcoded
         },
         // Blackrock Depths > Watchman Doomgrip
         {
-            102281,
+            1_0228_1,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -302,7 +307,7 @@ public static partial class Hardcoded
         },
         // Blackrock Depths > Panzor the Invincible
         {
-            102282,
+            1_0228_2,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -316,7 +321,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Burning Felguard
         {
-            102290,
+            1_0229_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -327,7 +332,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Spirestone Battle Lord
         {
-            102291,
+            1_0229_1,
             new List<ExtraItemDrop>
             {
                 // Mail
@@ -338,7 +343,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Spirestone Butcher
         {
-            102292,
+            1_0229_2,
             new List<ExtraItemDrop>
             {
                 // Cloak
@@ -349,7 +354,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Spirestone Lord Magus
         {
-            102293,
+            1_0229_3,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -374,7 +379,7 @@ public static partial class Hardcoded
 //        },
         // Lower Blackrock Spire > Bannok Grimaxe
         {
-            102294,
+            1_0229_4,
             new List<ExtraItemDrop>
             {
                 // Mail
@@ -387,7 +392,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Crystal Fang
         {
-            102295,
+            1_0229_5,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -400,7 +405,7 @@ public static partial class Hardcoded
         },
         // Lower Blackrock Spire > Ghok Bashguud
         {
-            102296,
+            1_0229_6,
             new List<ExtraItemDrop>
             {
                 // Cloak
@@ -426,7 +431,7 @@ public static partial class Hardcoded
 //        },
         // Dire Maul > Tsu'zee
         {
-            102300,
+            1_0230_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -450,7 +455,7 @@ public static partial class Hardcoded
 //        },
         // Dire Maul > Gordok Tribute
         {
-            102301,
+            1_0230_1,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -481,7 +486,7 @@ public static partial class Hardcoded
         },
         // Gnomeregan > Dark Iron Ambassador
         {
-            102310,
+            1_0231_0,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -494,7 +499,7 @@ public static partial class Hardcoded
         },
         // Gnomeregan > Endgineer Omegaplugg
         {
-            102311,
+            1_0231_1,
             new List<ExtraItemDrop>
             {
                 // Toy
@@ -503,7 +508,7 @@ public static partial class Hardcoded
         },
         // Maraudon > Meshlok the Harvester
         {
-            102320,
+            1_0232_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -516,7 +521,7 @@ public static partial class Hardcoded
         },
         // Razorfen Downs > Sah'rhee
         {
-            102330,
+            1_0233_0,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -533,7 +538,7 @@ public static partial class Hardcoded
         },
         // Razorfen Kraul > Kraulshaper Tukaar
         {
-            102340,
+            1_0234_0,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -544,7 +549,7 @@ public static partial class Hardcoded
         },
         // Razorfen Kraul > Enormous Bullfrog
         {
-            102341,
+            1_0234_1,
             new List<ExtraItemDrop>
             {
                 // Pet
@@ -582,7 +587,7 @@ public static partial class Hardcoded
         },
         // Stratholme > Postmaster Malown
         {
-            102360,
+            1_0236_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -596,7 +601,7 @@ public static partial class Hardcoded
         },
         // Stratholme > Skul
         {
-            102361,
+            1_0236_1,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -622,7 +627,7 @@ public static partial class Hardcoded
 //        },
         // Stratholme > Stonespine
         {
-            102362,
+            1_0236_2,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -635,7 +640,7 @@ public static partial class Hardcoded
         },
         // Wailing Caverns > Druid of the Fang
         {
-            102400,
+            1_0240_0,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -652,7 +657,7 @@ public static partial class Hardcoded
         },
         // Wailing Caverns > Deviate Faerie Dragon
         {
-            102401,
+            1_0240_1,
             new List<ExtraItemDrop>
             {
                 // Cloak
@@ -663,7 +668,7 @@ public static partial class Hardcoded
         },
         // Zul'Farrak > Sandarr Dunereaver
         {
-            102410,
+            1_0241_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -682,7 +687,7 @@ public static partial class Hardcoded
         },
         // Zul'Farrak > Zerillis
         {
-            102411,
+            1_0241_1,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -691,7 +696,7 @@ public static partial class Hardcoded
         },
         // Zul'Farrak > Dustwraith
         {
-            102412,
+            1_0241_2,
             new List<ExtraItemDrop>
             {
                 // Weapon
@@ -700,7 +705,7 @@ public static partial class Hardcoded
         },
         // Ruins of Ahn'Qiraj > Captains
         {
-            107430,
+            1_0743_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -933,7 +938,7 @@ public static partial class Hardcoded
         #region The Burning Crusade
         // Old Hillsbrad Foothills / Don Carlos
         {
-            102510,
+            1_0251_0,
             new List<ExtraItemDrop>
             {
                 // Toy
@@ -942,7 +947,7 @@ public static partial class Hardcoded
         },
         // Karazhan / Nightbane
         {
-            107450,
+            1_0745_0,
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -1063,7 +1068,7 @@ public static partial class Hardcoded
         #region Wrath of the Lich King
         // The Culling of Stratholme > Infinite Corruptor
         {
-            102790,
+            1_0279_0,
             new List<ExtraItemDrop>
             {
                 new(43951, DungeonDifficultiesHeroic), // Reins of the Bronze Drake
@@ -1071,7 +1076,7 @@ public static partial class Hardcoded
         },
         // Icecrown Citadel > Sanctified T10
         {
-            107580,
+            1_0758_0,
             new List<ExtraItemDrop>
             {
                 // Conqueror's Mark of Sanctification [10H]
@@ -1458,7 +1463,7 @@ public static partial class Hardcoded
         #region Mists of Pandaria
         // Scholomance > Doctor Theolen Krastinov
         {
-            102460,
+            1_0246_0,
             new List<ExtraItemDrop>
             {
                 new(88566, DungeonDifficultiesHeroic), // Krastinov's Bag of Horrors - Heroic
@@ -1466,7 +1471,7 @@ public static partial class Hardcoded
         },
         // Throne of Thunder > Shared Boss Drops
         {
-            103620,
+            1_0362_0,
             new()
             {
                 new (95870, RaidDifficultiesLegacyLfr), // Abandoned Spaulders of Arrowflight [L]
@@ -1798,7 +1803,7 @@ public static partial class Hardcoded
         #region Legion
         // Return to Karazhan > Nightbane
         {
-            108600,
+            1_0860_0,
             new List<ExtraItemDrop>
             {
                 // Mount
@@ -1815,7 +1820,7 @@ public static partial class Hardcoded
         },
         // Seat of the Triumvirate > Vixx the Collector
         {
-            109450,
+            1_0945_0,
             new List<ExtraItemDrop>
             {
                 new(153004, new[] { 2, 23 }), // Unstable Portal Emitter
