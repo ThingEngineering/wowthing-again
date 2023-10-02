@@ -22,7 +22,15 @@
     }
 }
 
-@section scripts
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"apps/home.ts"' />
+    }
+}
+
+@section js
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
@@ -30,19 +38,11 @@
     }
     else
     {
-        <script type="module" asp-src-include="~/dist/vendor-*js"></script>
-        <script type="module" asp-src-include="~/dist/home-*js"></script>
+        <partial name="_ManifestJs.cshtml" model='"apps/home.ts"' />
     }
 
-    @if (Model.Settings.General?.UseWowdb == true)
-    {
-        <script type="text/javascript" src="https://www.wowdb.com/current/js/syndication/tt.js" async></script>
-    }
-    else
-    {
-        <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>
-        <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js" async></script>
-    }
+    <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>
+    <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js" async></script>
 }
 
 <div id="app"

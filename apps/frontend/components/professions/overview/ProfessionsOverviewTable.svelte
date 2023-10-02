@@ -51,7 +51,7 @@
             {#if profession.slug === 'archaeology'}
                 <th class="profession-head">Ugh</th>
             {:else}
-                {#each expansionOrder.filter((exp) => exp.id < 100) as expansion}
+                {#each expansionOrder as expansion}
                     <th class="profession-head">{expansion.shortName}</th>
                 {/each}
             {/if}

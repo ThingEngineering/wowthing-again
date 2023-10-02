@@ -43,15 +43,16 @@ public static class ServiceCollectionExtensions
         return redis;
     }
 
-    public static IServiceCollection AddJsonOptions(this IServiceCollection services)
+    public static JsonSerializerOptions AddJsonOptions(this IServiceCollection services)
     {
-        services.AddSingleton(new JsonSerializerOptions
+        var options = new JsonSerializerOptions
         {
             AllowTrailingCommas = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
-        return services;
+        };
+        services.AddSingleton(options);
+        return options;
     }
 }

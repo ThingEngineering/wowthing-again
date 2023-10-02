@@ -140,8 +140,9 @@ public class Startup
             );
         });
 
-        // JSON options
-        services.AddJsonOptions();
+        // Options
+        var jsonOptions = services.AddJsonOptions();
+        services.AddManifest(jsonOptions);
 
         // Our services
         services.AddScoped<CacheService>();

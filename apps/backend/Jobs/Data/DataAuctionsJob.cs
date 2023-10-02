@@ -20,6 +20,7 @@ namespace Wowthing.Backend.Jobs.Data;
 public class DataAuctionsJob : JobBase
 {
     private const string ApiPath = "data/wow/connected-realm/{0}/auctions";
+    private const string CommoditiesPath = "data/wow/auctions/commodities";
 
     private Dictionary<int, WowItemBonus> _itemAppearanceBonuses;
     private ItemModifiedAppearanceCache _itemModifiedAppearances;
@@ -92,14 +93,15 @@ COPY wow_auction_cheapest_by_appearance_source (
     {
         var timer = new JankTimer();
 
-        int connectedRealmId = int.Parse(data[0]);
-        var realm = await Context.WowRealm
-            .Where(realm => realm.ConnectedRealmId == connectedRealmId)
-            .FirstOrDefaultAsync();
+        var region = (WowRegion)int.Parse(data[0]);
+        int connectedRealmId = int.Parse(data[1]);
 
-        using var shrug = AuctionLog(realm);
+        using var shrug = AuctionLog(region, connectedRealmId);
 
-        var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, connectedRealmId));
+        var uri = GenerateUri(region, ApiNamespace.Dynamic, connectedRealmId > 100000
+            ? CommoditiesPath
+            : string.Format(ApiPath, connectedRealmId));
+
         JobHttpResult<ApiDataAuctions> result;
         try
         {
@@ -223,27 +225,30 @@ COPY wow_auction_cheapest_by_appearance_source (
         // Release the lock
         await JobRepository.ReleaseLockAsync(RedisKeys.AuctionsLock, lockValue);
 
-        // Update WowAuctionCheapestByAppearanceId
-        await Context.WowAuctionCheapestByAppearanceId
-            .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
-            .ExecuteDeleteAsync();
-
-        await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
+        if (connectedRealmId < 100000)
         {
-            await WriteCheapestByAppearanceIdData(writer, connectedRealmId, auctionsByAppearanceId);
+            // Update WowAuctionCheapestByAppearanceId
+            await Context.WowAuctionCheapestByAppearanceId
+                .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
+                .ExecuteDeleteAsync();
+
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
+            {
+                await WriteCheapestByAppearanceIdData(writer, connectedRealmId, auctionsByAppearanceId);
+            }
+
+            // Update WowAuctionCheapestByAppearanceSource
+            await Context.WowAuctionCheapestByAppearanceSource
+                .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
+                .ExecuteDeleteAsync();
+
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
+            {
+                await WriteCheapestByAppearanceSourceData(writer, connectedRealmId, auctionsByAppearanceSource);
+            }
+
+            timer.AddPoint("Cheapest");
         }
-
-        // Update WowAuctionCheapestByAppearanceSource
-        await Context.WowAuctionCheapestByAppearanceSource
-            .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
-            .ExecuteDeleteAsync();
-
-        await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
-        {
-            await WriteCheapestByAppearanceSourceData(writer, connectedRealmId, auctionsByAppearanceSource);
-        }
-
-        timer.AddPoint("Cheapest");
 
         // Update the last checked time
         var db = Redis.GetDatabase();

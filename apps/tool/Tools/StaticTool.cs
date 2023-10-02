@@ -91,6 +91,8 @@ public class StaticTool
 
         var imaMap = itemModifiedAppearances.ToDictionary(ima => ima.Id);
 
+        _timer.AddPoint("Bulk");
+
         // Bags
         cacheData.RawBags = _itemMap.Values
             .Where(item => item.ContainerSlots > 0)
@@ -125,6 +127,8 @@ public class StaticTool
                 spec => spec.Id,
                 spec => new StaticCharacterSpecialization(spec)
             );
+
+        _timer.AddPoint("Character");
 
         // Currencies
         cacheData.RawCurrencies = await context.WowCurrency
@@ -675,7 +679,7 @@ public class StaticTool
                 }
 
                 professionRootCategories[professionId] = roots
-                    .OrderBy(opc => opc.Order)
+                    .OrderByDescending(opc => opc.Order)
                     .ToList();
 
                 foreach (var opc in categoryMap.Values)

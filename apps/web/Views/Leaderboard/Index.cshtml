@@ -5,7 +5,15 @@
     ViewData["Title"] = "Leaderboard";
 }
 
-@section scripts
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"apps/leaderboard.ts"' />
+    }
+}
+
+@section js
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
@@ -13,8 +21,7 @@
     }
     else
     {
-        <script type="module" asp-src-include="~/dist/vendor-*js"></script>
-        <script type="module" asp-src-include="~/dist/leaderboard-*js"></script>
+        <partial name="_ManifestJs.cshtml" model='"apps/leaderboard.ts"'/>
     }
 }
 

@@ -1,0 +1,8 @@
+﻿@using Wowthing.Web.Models
+@model string
+@inject FrontendManifest FrontendManifest
+
+@foreach (string jsFilename in FrontendManifest.Entrypoints[Model].Js)
+{
+    <script type="module" src="~/dist/@jsFilename"></script>
+}

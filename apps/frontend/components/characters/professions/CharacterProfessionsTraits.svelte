@@ -17,17 +17,9 @@
     let totalPoints: number
     $: {
         expansion = expansionSlugMap[params.slug5]
-        if (!expansion || expansion.id < 0 || expansion.id > 99) {
-            break $
-        }
-        
         const charProfession = character.professions[staticProfession.id]
-        if (!charProfession) {
-            break $
-        }
-
         subProfession = staticProfession.subProfessions[expansion.id]
-        if (!subProfession.traitTrees) {
+        if (!expansion || !charProfession || !subProfession.traitTrees) {
             break $
         }
 

@@ -98,6 +98,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     // Garbage query types
     public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
     public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }
+    public DbSet<ActiveConnectedRealmQuery> ActiveConnectedRealmQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
     public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
@@ -209,6 +210,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasMethod("gin")
             .HasOperators("gin_trgm_ops");
 
+        builder.Entity<PlayerCharacter>()
+            .HasIndex(pc => pc.LastApiCheck)
+            .IncludeProperties(pc => new { pc.Id, pc.AccountId, pc.Name, pc.LastApiModified })
+            .HasFilter("should_update = true AND account_id IS NOT NULL");
+
         builder.Entity<WowAuction>()
             .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })
             .HasFilter("appearance_id IS NOT NULL");
@@ -234,6 +240,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<AchievementCriteriaQuery>()
             .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<ActiveConnectedRealmQuery>()
+            .ToTable("ActiveConnectedRealmQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());

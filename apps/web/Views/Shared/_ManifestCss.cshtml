@@ -1,0 +1,8 @@
+﻿@using Wowthing.Web.Models
+@model string
+@inject FrontendManifest FrontendManifest
+
+@foreach (string cssFilename in FrontendManifest.Entrypoints[Model].Css)
+{
+    <link rel="stylesheet" href="~/dist/@cssFilename">
+}

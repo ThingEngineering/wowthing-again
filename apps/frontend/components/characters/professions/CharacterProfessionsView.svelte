@@ -123,7 +123,7 @@
     </div>
 
     {#if staticProfession}
-        {#if params.slug6}
+        {#if params.slug6 === 'traits'}
             <Traits
                 {character}
                 {params}

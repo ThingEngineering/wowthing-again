@@ -23,12 +23,8 @@
     let stats: UserCount
     $: {
         expansion = expansionSlugMap[params.slug5]
-        if (!expansion || expansion.id < 0 || expansion.id > 99) {
-            break $
-        }
-        
         const charProfession = character.professions[staticProfession.id]
-        if (!charProfession) {
+        if (!expansion || !charProfession) {
             break $
         }
         
@@ -40,7 +36,7 @@
             }
         }
 
-        rootCategory = staticProfession.categories?.[Constants.expansion - expansion.id]
+        rootCategory = staticProfession.categories?.[expansion.id]
         if (rootCategory) {
             while (rootCategory.children.length === 1) {
                 rootCategory = rootCategory.children[0]
