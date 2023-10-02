@@ -3,11 +3,11 @@
 
     import { auctionStore } from '@/stores/auction'
 
+    import AuctionsSidebar from './AppAuctionsSidebar.svelte'
+
     onMount(async () => await Promise.all([
         auctionStore.fetch(),
     ]))
-
-    console.log('moo')
 
     let error: boolean
     let loaded: boolean
@@ -16,3 +16,11 @@
         loaded = $auctionStore.loaded
     }
 </script>
+
+{#if error}
+    <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
+{:else if !loaded}
+    <p>L O A D I N G</p>
+{:else}
+    <AuctionsSidebar />
+{/if}

@@ -1,10 +1,10 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/types/sidebar'
 
     import SidebarEntry from './SubSidebarEntry.svelte'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/stores/settings'
     import { measureScrollbar } from '@/utils/measure-scrollbar'
 
     export let alwaysExpand = false
@@ -18,7 +18,7 @@
     export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
     $: anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
-    $: lessHeight = $settingsStore.layout.newNavigation ? '8rem' : '4.4rem'
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '8rem' : '4.4rem'
 
     const scrollbarWidth = measureScrollbar()
 </script>

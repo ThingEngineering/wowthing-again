@@ -21,7 +21,7 @@ public class AuctionTool
         {
             ToolContext.Logger.Information("Generating {lang}...", language);
 
-            cacheData.Categories = await LoadAuctionCategories(language);
+            cacheData.RawCategories = await LoadAuctionCategories(language);
 
             string cacheJson = ToolContext.SerializeJson(cacheData);
             // This ends up being the MD5 of enUS, close enough
