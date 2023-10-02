@@ -6,7 +6,15 @@
     ViewData["Title"] = "Auctions";
 }
 
-@section scripts
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"apps/auctions.ts"' />
+    }
+}
+
+@section js
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
@@ -14,8 +22,7 @@
     }
     else
     {
-        <script type="module" asp-src-include="~/dist/vendor-*js"></script>
-        <script type="module" asp-src-include="~/dist/auctions-*js"></script>
+        <partial name="_ManifestJs.cshtml" model='"apps/auctions.ts"'/>
     }
 }
 

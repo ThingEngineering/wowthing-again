@@ -8,16 +8,22 @@
     <title>@ViewData["Title"] - WoWthing</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
-    @if (HostEnv.EnvironmentName == "Development")
+    @if (false && HostEnv.EnvironmentName == "Development")
     {
         <script type="module" src="http://localhost:55505/scss/global.scss"></script>
     }
     else
     {
-        <link rel="stylesheet" asp-href-include="~/dist/Paginate-*css"><!-- wtf? -->
-        <link rel="stylesheet" asp-href-include="~/dist/vendor-*css">
-        <link rel="stylesheet" asp-href-include="~/dist/home-*css">
-        <link rel="stylesheet" asp-href-include="~/dist/leaderboard-*css">
+        @if (IsSectionDefined("css"))
+        {
+            @await RenderSectionAsync("css")
+        }
+        else
+        {
+    <link rel="stylesheet" asp-href-include="~/dist/assets/Paginate-*css">
+    <link rel="stylesheet" asp-href-include="~/dist/assets/vendor-*css">
+    <link rel="stylesheet" asp-href-include="~/dist/assets/home-*css">
+        }
     }
 
     @await RenderSectionAsync("head", required: false)
@@ -92,6 +98,6 @@
         </footer>
     </main>
 
-    @await RenderSectionAsync("scripts", required: false)
+@await RenderSectionAsync("js", required: false)
 </body>
 </html>

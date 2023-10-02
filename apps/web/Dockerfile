@@ -29,7 +29,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS runtime
 
 WORKDIR /app
 COPY --from=build-web /app/apps/web/out ./
-COPY --from=build-frontend /app/apps/frontend/dist/assets/ ./wwwroot/dist/
+COPY --from=build-frontend /app/apps/frontend/dist/ ./wwwroot/dist/
 
 ENV ASPNETCORE_URLS "http://0:5000"
 EXPOSE 5000
