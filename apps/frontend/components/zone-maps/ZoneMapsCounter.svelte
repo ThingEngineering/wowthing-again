@@ -1,8 +1,8 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
+    import type { RewardType } from '@/enums/reward-type'
     import type { UserCount } from '@/types'
-    import type { RewardType } from '@/enums'
 
     export let key: string
     export let type: RewardType

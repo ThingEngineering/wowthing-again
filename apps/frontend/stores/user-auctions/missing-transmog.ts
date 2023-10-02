@@ -1,6 +1,9 @@
 import some from 'lodash/some'
 
-import { ItemFlags, InventoryType, ItemClass, WeaponSubclass } from '@/enums'
+import { ItemFlags } from '@/enums/item-flags'
+import { InventoryType } from '@/enums/inventory-type'
+import { ItemClass } from '@/enums/item-class'
+import { WeaponSubclass } from '@/enums/weapon-subclass'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'

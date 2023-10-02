@@ -1,4 +1,5 @@
-import type { RewardType } from '@/enums'
+import type { RewardType } from '@/enums/reward-type'
+
 
 export class StaticDataReputation {
     constructor(

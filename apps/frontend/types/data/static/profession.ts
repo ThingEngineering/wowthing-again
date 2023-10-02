@@ -1,4 +1,6 @@
-import type { Faction, SkillSourceType } from '@/enums'
+import type { Faction } from '@/enums/faction'
+import type { SkillSourceType } from '@/enums/skill-source-type'
+
 
 export interface StaticDataProfession {
     id: number

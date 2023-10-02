@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { StatType } from '@/enums'
+    import { StatType } from '@/enums/stat-type'
     import type { Character } from '@/types/character'
 
     export let character: Character

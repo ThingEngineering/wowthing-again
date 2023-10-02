@@ -1,4 +1,4 @@
-import { WeaponSubclass } from '@/enums'
+import { WeaponSubclass } from '@/enums/weapon-subclass'
 
 
 export const weaponIcons: Record<WeaponSubclass, string> = {

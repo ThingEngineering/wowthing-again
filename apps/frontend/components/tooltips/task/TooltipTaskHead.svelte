@@ -5,7 +5,7 @@
     import { covenantMap } from '@/data/covenant'
     import { progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { QuestStatus } from '@/enums'
+    import { QuestStatus } from '@/enums/quest-status'
     import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
     
     export let taskName: string

@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
 import { achievementStore, itemStore, staticStore } from '@/stores'
-import { RewardType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 

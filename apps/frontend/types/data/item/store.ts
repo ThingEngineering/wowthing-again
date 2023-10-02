@@ -1,4 +1,4 @@
-import type { InventoryType } from '@/enums'
+import type { InventoryType } from '@/enums/inventory-type'
 import type { ItemDataItem, ItemDataItemArray } from './item'
 import type { DataItemBonus, DataItemBonusArray } from './item-bonus'
 

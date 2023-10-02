@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { StatType } from '@/enums'
+    import { StatType } from '@/enums/stat-type'
     import type { Character } from '@/types/character'
 
     import Basic from './stats/CharactersPaperdollStatsBasic.svelte'

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { classByArmorType } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { PlayableClass } from '@/enums'
+    import { PlayableClass } from '@/enums/playable-class'
     import { settingsStore } from '@/stores'
     import { collectingSettingsState } from '@/stores/local-storage'
 

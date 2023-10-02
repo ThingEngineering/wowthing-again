@@ -1,6 +1,6 @@
 <script lang="ts">
     import { itemSearchState, itemStore, userStore } from '@/stores'
-    import { ItemLocation } from '@/enums'
+    import { ItemLocation } from '@/enums/item-location'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
     import tippy from '@/utils/tippy'

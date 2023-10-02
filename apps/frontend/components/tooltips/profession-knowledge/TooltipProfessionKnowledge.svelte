@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { itemStore, staticStore } from '@/stores'
-    import type { Profession } from '@/enums'
+    import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

@@ -1,10 +1,11 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import getAccountCharacters from '@/utils/get-account-characters'
-    import { userStore } from '@/stores'
+    import { Language } from '@/enums/language'
+    import { Region } from '@/enums/region'
     import { settingsStore } from '@/stores'
-    import { Language, Region } from '@/enums'
+    import { userStore } from '@/stores'
+    import getAccountCharacters from '@/utils/get-account-characters'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'

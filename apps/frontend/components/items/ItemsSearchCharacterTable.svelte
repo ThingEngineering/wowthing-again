@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import { itemSearchState } from '@/stores'
     import type { Character } from '@/types'

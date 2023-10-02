@@ -1,7 +1,7 @@
 import some from 'lodash/some'
 
 import { professionSpecializationSpells } from '@/data/professions'
-import { Faction } from '@/enums'
+import { Faction } from '@/enums/faction'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
 import type { UserData } from '@/types'

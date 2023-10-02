@@ -4,7 +4,9 @@
 
     import { itemStore, lazyStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
-    import { Faction, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
+    import { Faction } from '@/enums/faction'
+    import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
+    import { RewardType } from '@/enums/reward-type'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'

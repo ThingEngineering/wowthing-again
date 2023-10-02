@@ -2,7 +2,10 @@
     import type { SvelteComponent } from 'svelte'
 
     import { expansionOrder } from '@/data/expansion'
-    import { ItemQuality, Profession, Region, WeaponSubclass } from '@/enums'
+    import { ItemQuality } from '@/enums/item-quality'
+    import { Profession } from '@/enums/profession'
+    import { Region } from '@/enums/region'
+    import { WeaponSubclass } from '@/enums/weapon-subclass'
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import type { MultiSlugParams } from '@/types'

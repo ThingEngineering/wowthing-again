@@ -1,10 +1,10 @@
 import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
-import { PlayableClass } from '@/enums'
+import { PlayableClass } from '@/enums/playable-class'
 import { userStore } from '@/stores'
 import { leftPad } from '@/utils/formatting'
-import { Region } from '@/enums'
+import { Region } from '@/enums/region'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'
 import { getCharacterLevel } from './get-character-level'

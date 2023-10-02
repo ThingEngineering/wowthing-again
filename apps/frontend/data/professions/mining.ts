@@ -1,4 +1,4 @@
-import { Profession } from '@/enums'
+import { Profession } from '@/enums/profession'
 import type { DragonflightProfession } from '@/types/data'
 
 export const dragonflightMining: DragonflightProfession = {

@@ -4,7 +4,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { settingsStore, staticStore, userStore } from '@/stores'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { splitOnce } from '@/utils/split-once'
     import type { Character, SidebarItem } from '@/types'

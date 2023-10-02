@@ -1,4 +1,4 @@
-import { Profession } from '@/enums'
+import { Profession } from '@/enums/profession'
 
 type DragonflightKnowledge = {
     name: string

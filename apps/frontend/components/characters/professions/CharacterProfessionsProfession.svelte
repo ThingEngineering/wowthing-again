@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { professionSpecializationSpells } from '@/data/professions'
-    import { Faction } from '@/enums'
+    import { Faction } from '@/enums/faction'
     import { staticStore } from '@/stores'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { UserCount, type Character, type CharacterProfession, type Expansion, type MultiSlugParams } from '@/types'

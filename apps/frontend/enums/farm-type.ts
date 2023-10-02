@@ -1,0 +1,20 @@
+export enum FarmType {
+    Kill = 1,
+    KillBig,
+    Puzzle,
+    Treasure,
+    Event,
+    EventBig,
+    Cloth,
+    Leather,
+    Mail,
+    Plate,
+    Weapon,
+    Vendor,
+    Group,
+    Quest,
+    Dungeon,
+    Raid,
+    Profession,
+    Achievement
+}

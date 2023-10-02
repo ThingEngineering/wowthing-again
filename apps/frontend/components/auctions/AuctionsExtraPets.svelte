@@ -3,7 +3,7 @@
     import { petBreedMap } from '@/data/pet-breed'
     import { userAuctionExtraPetsStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { ItemLocation } from '@/enums'
+    import { ItemLocation } from '@/enums/item-location'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import petLocationTooltip from '@/utils/pet-location-tooltip'

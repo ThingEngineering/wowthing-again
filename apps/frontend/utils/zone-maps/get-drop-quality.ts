@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { itemStore } from '@/stores'
-import { RewardType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 

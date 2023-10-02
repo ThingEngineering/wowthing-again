@@ -1,4 +1,4 @@
-import { ArmorType } from '@/enums'
+import { ArmorType } from '@/enums/armor-type'
 
 
 export const armorTypeIcons: Record<ArmorType, string> = {

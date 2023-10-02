@@ -1,6 +1,6 @@
 <script lang="ts">
     import { seasonMap } from '@/data/dungeon'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
     import { tippyComponent } from '@/utils/tippy'

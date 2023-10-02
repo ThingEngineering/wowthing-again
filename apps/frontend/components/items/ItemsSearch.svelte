@@ -3,7 +3,8 @@
     import { afterUpdate, onMount } from 'svelte'
     import { replace } from 'svelte-spa-router'
 
-    import { ItemLocation, ItemQuality } from '@/enums'
+    import { ItemLocation } from '@/enums/item-location'
+    import { ItemQuality } from '@/enums/item-quality'
     import { itemSearchState, userStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ItemSearchResponseItem } from '@/types/items'

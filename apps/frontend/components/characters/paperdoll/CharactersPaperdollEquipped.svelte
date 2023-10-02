@@ -1,8 +1,8 @@
 <script lang="ts">
     import { itemStore, staticStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
+    import { InventorySlot  } from '@/enums/inventory-slot'
     import type { Character } from '@/types'
-    import type { InventorySlot } from '@/enums'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

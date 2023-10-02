@@ -1,4 +1,4 @@
-import { Region } from '@/enums'
+import { Region } from '@/enums/region'
 import type { ResetTime } from '@/types'
 
 // Times are [hour, minute] in UTC

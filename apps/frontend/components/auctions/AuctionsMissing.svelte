@@ -1,6 +1,6 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { staticStore, userAuctionMissingStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'

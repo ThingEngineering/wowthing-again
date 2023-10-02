@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { FarmIdType } from '@/enums/farm-id-type'
+    import { FarmType } from '@/enums/farm-type'
     import { journalStore, lazyStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { FarmIdType, FarmType } from '@/enums'
     import { tippyComponent } from '@/utils/tippy'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
     import { getFarmIcon } from '@/utils/zone-maps'

@@ -1,4 +1,4 @@
-import type { StatType } from '@/enums'
+import type { StatType } from '@/enums/stat-type'
 
 
 export class CharacterStatistics {

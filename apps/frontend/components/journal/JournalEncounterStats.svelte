@@ -3,7 +3,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { PlayableClass, playableClasses } from '@/enums'
+    import { PlayableClass, playableClasses } from '@/enums/playable-class'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
     import { leftPad } from '@/utils/formatting'

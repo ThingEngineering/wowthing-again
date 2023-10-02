@@ -4,7 +4,11 @@
 
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
+    import { ArmorType } from '@/enums/armor-type'
+    import { FarmIdType } from '@/enums/farm-id-type'
+    import { FarmResetType } from '@/enums/farm-reset-type'
+    import { FarmType } from '@/enums/farm-type'
+    import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'

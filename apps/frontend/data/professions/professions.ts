@@ -1,7 +1,8 @@
+import flatten from 'lodash/flatten'
 import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
-import { Profession } from '@/enums'
+import { Profession } from '@/enums/profession'
 import { staticStore } from '@/stores'
 import type { Character } from '@/types'
 import type { DragonflightProfession } from '@/types/data'
@@ -125,66 +126,68 @@ export const dragonflightProfessionMap: Record<number, DragonflightProfession> =
         ])
 )
 
-export const dragonflightProfessionTasks: Chore[] = []
+export const dragonflightProfessionTasks: Chore[] = flatten(
+    dragonflightProfessions.map((profession) => {
+        const name = Profession[profession.id]
+        const lowerName = Profession[profession.id].toLowerCase()
+        const tasks: Chore[] = []
 
-for (const profession of dragonflightProfessions) {
-    const name = Profession[profession.id]
-    const lowerName = Profession[profession.id].toLowerCase()
+        if (profession.hasCraft === true) {
+            tasks.push(
+                {
+                    taskKey: `dfProfession${name}Craft`,
+                    taskName: `${name}: Craft`,
+                    minimumLevel: 60,
+                    couldGetFunc: (char) => couldGet(lowerName, char),
+                    canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+                },
+            )
+        }
 
-    if (profession.hasCraft === true) {
-        dragonflightProfessionTasks.push(
+        tasks.push(
             {
-                taskKey: `dfProfession${name}Craft`,
-                taskName: `${name}: Craft`,
+                taskKey: `dfProfession${name}Drop#`,
+                taskName: `${name}: Drops`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
-                canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+                //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
             },
         )
-    }
 
-    dragonflightProfessionTasks.push(
-        {
-            taskKey: `dfProfession${name}Drop#`,
-            taskName: `${name}: Drops`,
-            minimumLevel: 60,
-            couldGetFunc: (char) => couldGet(lowerName, char),
-            //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
-        },
-    )
-
-    dragonflightProfessionTasks.push(
-        {
-            taskKey: `dfProfession${name}Gather`,
-            taskName: `${name}: Gather`,
-            minimumLevel: 60,
-            couldGetFunc: (char) => couldGet(lowerName, char),
-            canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
-        },
-    )
-
-    if (profession.hasOrders === true) {
-        dragonflightProfessionTasks.push(
+        tasks.push(
             {
-                taskKey: `dfProfession${name}Orders`,
-                taskName: `${name}: Orders`,
+                taskKey: `dfProfession${name}Gather`,
+                taskName: `${name}: Gather`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
                 canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
             },
         )
-    }
 
-    dragonflightProfessionTasks.push(
-        {
-            taskKey: `dfProfession${name}Treatise`,
-            taskName: `${name}: Treatise`,
-            minimumLevel: 60,
-            couldGetFunc: (char) => couldGet(lowerName, char),
-        },
-    )
-}
+        if (profession.hasOrders === true) {
+            tasks.push(
+                {
+                    taskKey: `dfProfession${name}Orders`,
+                    taskName: `${name}: Orders`,
+                    minimumLevel: 60,
+                    couldGetFunc: (char) => couldGet(lowerName, char),
+                    canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
+                },
+            )
+        }
 
+        tasks.push(
+            {
+                taskKey: `dfProfession${name}Treatise`,
+                taskName: `${name}: Treatise`,
+                minimumLevel: 60,
+                couldGetFunc: (char) => couldGet(lowerName, char),
+            },
+        )
+
+        return tasks
+    })
+)
 
 function couldGet(slug: string, char: Character): boolean {
     const staticData = get(staticStore)

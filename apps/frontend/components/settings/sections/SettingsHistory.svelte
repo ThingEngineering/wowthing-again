@@ -6,7 +6,7 @@
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import type { StaticDataRealm } from '@/types/data/static'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
 
     let realms: StaticDataRealm[]
     $: {

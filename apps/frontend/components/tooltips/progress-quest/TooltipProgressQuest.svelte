@@ -3,7 +3,7 @@
 
     import { forcedReset } from '@/data/quests'
     import { timeStore } from '@/stores'
-    import { QuestStatus } from '@/enums'
+    import { QuestStatus } from '@/enums/quest-status'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress, UserQuestDataCharacterProgressObjective } from '@/types/data'

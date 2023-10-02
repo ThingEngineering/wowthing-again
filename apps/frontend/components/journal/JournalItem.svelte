@@ -3,10 +3,11 @@
     import xor from 'lodash/xor'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
+    import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
+    import { RewardType } from '@/enums/reward-type'
     import { staticStore, userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { settingsStore } from '@/stores'
-    import { PlayableClass, PlayableClassMask, RewardType } from '@/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'

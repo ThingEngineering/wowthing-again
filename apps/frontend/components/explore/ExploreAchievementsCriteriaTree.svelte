@@ -1,6 +1,7 @@
 <script lang="ts">
     import { achievementStore } from '@/stores'
-    import { CriteriaTreeOperator, CriteriaType } from '@/enums'
+    import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
+    import { CriteriaType } from '@/enums/criteria-type'
     import { leftPad } from '@/utils/formatting'
     import tippy from '@/utils/tippy'
     import type {

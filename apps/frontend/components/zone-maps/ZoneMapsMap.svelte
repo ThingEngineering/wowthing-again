@@ -6,7 +6,10 @@
     import { lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { FarmAnchorPoint, FarmType, PlayableClass, RewardType } from '@/enums'
+    import { FarmAnchorPoint } from '@/enums/farm-anchor-point'
+    import { FarmType } from '@/enums/farm-type'
+    import { PlayableClass } from '@/enums/playable-class'
+    import { RewardType } from '@/enums/reward-type'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 

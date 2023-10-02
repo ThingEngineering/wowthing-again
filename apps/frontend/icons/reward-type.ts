@@ -1,4 +1,4 @@
-import { RewardType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
 
 
 export const rewardTypeIcons: Record<number, string> = {

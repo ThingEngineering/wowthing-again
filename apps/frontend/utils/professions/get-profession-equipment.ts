@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { professionIdToString } from '@/data/professions'
-import { ProfessionSubclass } from '@/enums'
+import { ProfessionSubclass } from '@/enums/profession-subclass'
 import { itemStore } from '@/stores'
 import type { Character, CharacterEquippedItem } from '@/types'
 

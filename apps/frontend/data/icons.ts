@@ -69,8 +69,9 @@ import notoFamilyWomanWomanGirlBoy from '@iconify/icons-noto/family-woman-woman-
 
 
 import { Constants } from '@/data/constants'
-import { FarmType, ItemLocation } from '@/enums'
-import { RewardType } from '@/enums'
+import { FarmType } from '@/enums/farm-type'
+import { ItemLocation } from '@/enums/item-location'
+import { RewardType } from '@/enums/reward-type'
 
 
 export const imageStrings: Record<string, string> = {

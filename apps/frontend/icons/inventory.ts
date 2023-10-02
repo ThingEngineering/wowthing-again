@@ -1,4 +1,4 @@
-import { InventoryType } from '@/enums'
+import { InventoryType } from '@/enums/inventory-type'
 
 
 export const inventoryTypeIcons: Record<InventoryType, string> = {

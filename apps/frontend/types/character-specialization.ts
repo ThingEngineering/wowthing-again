@@ -1,4 +1,6 @@
-import type { PrimaryStat, Role } from '@/enums'
+import type { PrimaryStat } from '@/enums/primary-stat'
+import type { Role } from '@/enums/role'
+
 
 export interface CharacterSpecialization {
     classId: number

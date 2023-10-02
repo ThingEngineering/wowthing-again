@@ -1,4 +1,4 @@
-import type { Profession } from '@/enums'
+import type { Profession } from '@/enums/profession'
 
 
 interface DragonflightProfessionQuest {
