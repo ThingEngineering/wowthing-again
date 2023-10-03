@@ -8,7 +8,7 @@
     <title>@ViewData["Title"] - WoWthing</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
-    @if (false && HostEnv.EnvironmentName == "Development")
+    @if (HostEnv.EnvironmentName == "Development")
     {
         <script type="module" src="http://localhost:55505/scss/global.scss"></script>
     }
@@ -20,9 +20,7 @@
         }
         else
         {
-    <link rel="stylesheet" asp-href-include="~/dist/assets/Paginate-*css">
-    <link rel="stylesheet" asp-href-include="~/dist/assets/vendor-*css">
-    <link rel="stylesheet" asp-href-include="~/dist/assets/home-*css">
+            <partial name="_ManifestCss.cshtml" model='"apps/home.ts"' />
         }
     }
 
