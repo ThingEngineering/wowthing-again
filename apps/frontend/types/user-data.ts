@@ -6,10 +6,10 @@ import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
 import type { Character, CharacterArray } from './character'
 import type { InstanceDifficulty } from './dungeon'
-import type { ItemQuality } from '../enums'
 import type { Guild, GuildArray } from './guild'
 import type { HasNameAndRealm, UserItem } from './shared'
 import type { UserCount } from './user-count'
+import type { ItemQuality } from '@/enums/item-quality'
 
 
 export interface UserData {
