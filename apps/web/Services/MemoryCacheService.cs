@@ -115,6 +115,22 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
         );
     }
 
+    public async Task<Dictionary<int, int>> GetItemIdToPetId()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.PetIds,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                return await _context.WowPet
+                    .AsNoTracking()
+                    .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
+                    .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
+            }
+        );
+    }
+
     public async Task<Dictionary<string, string>> GetCachedHashes()
     {
         return await _memoryCache.GetOrCreateAsync(
