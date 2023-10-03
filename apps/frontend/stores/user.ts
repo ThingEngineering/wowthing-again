@@ -8,6 +8,9 @@ import { userModifiedStore } from './user-modified'
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
+import { InventorySlot } from '@/enums/inventory-slot'
+import { ItemBonusType } from '@/enums/item-bonus-type'
+import { TypedArray } from '@/enums/typed-array'
 import { itemStore, staticStore } from '@/stores'
 import {
     Character,
@@ -17,7 +20,6 @@ import {
     UserDataPet,
     WritableFancyStore,
 } from '@/types'
-import { InventorySlot, ItemBonusType, TypedArray } from '@/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import { getGenderedName } from '@/utils/get-gendered-name'
 import getItemLevelQuality from '@/utils/get-item-level-quality'

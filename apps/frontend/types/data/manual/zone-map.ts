@@ -1,4 +1,8 @@
-import type { FarmAnchorPoint, FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
+import type { FarmAnchorPoint } from '@/enums/farm-anchor-point'
+import type { FarmIdType } from '@/enums/farm-id-type'
+import type { FarmResetType } from '@/enums/farm-reset-type'
+import type { FarmType } from '@/enums/farm-type'
+import type { RewardType } from '@/enums/reward-type'
 import type { ManualDataVendorItem } from './vendor'
 
 

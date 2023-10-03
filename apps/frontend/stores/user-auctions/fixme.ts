@@ -1,3 +1,6 @@
+import { get } from 'svelte/store'
+
+import { staticStore } from '../static'
 import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
 import type { HasNameAndRealm, UserItem } from '@/types/shared'
@@ -60,12 +63,14 @@ export class UserAuctionExtraPetsStore {
                         .map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
                 }
 
-                for (const creatureId in responseData.auctions) {
+                const staticData = get(staticStore)
+                for (const petId in responseData.auctions) {
+                    const pet = staticData.pets[petId]
                     things.push({
-                        id: parseInt(creatureId),
-                        name: responseData.names[creatureId],
-                        auctions: responseData.auctions[creatureId],
-                        pets: responseData.pets[creatureId],
+                        id: pet.creatureId,
+                        name: pet.name,
+                        auctions: responseData.auctions[petId],
+                        pets: responseData.pets[petId],
                     })
                 }
             }

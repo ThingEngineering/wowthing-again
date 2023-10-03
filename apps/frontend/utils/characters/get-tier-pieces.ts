@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { InventoryType } from '@/enums'
+import { InventoryType } from '@/enums/inventory-type'
 import { staticStore } from '@/stores'
 import type { TierData } from '@/data/gear'
 import type { Character } from '@/types'

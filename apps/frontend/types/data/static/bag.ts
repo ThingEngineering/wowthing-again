@@ -1,4 +1,5 @@
-import type { ItemQuality } from '@/enums'
+import { ItemQuality } from '@/enums/item-quality'
+
 
 export class StaticDataBag {
     constructor(

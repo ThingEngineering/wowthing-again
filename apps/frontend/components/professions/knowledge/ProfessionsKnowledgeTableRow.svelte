@@ -6,7 +6,7 @@
         dragonflightProfessionMap,
         dragonflightProfessions
     } from '@/data/professions'
-    import { Profession } from '@/enums'
+    import { Profession } from '@/enums/profession'
     import { itemStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type {  Character } from '@/types'

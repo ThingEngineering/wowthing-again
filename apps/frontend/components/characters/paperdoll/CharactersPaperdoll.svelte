@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { InventorySlot } from '@/enums'
+    import { InventorySlot } from '@/enums/inventory-slot'
     import { settingsStore, userStore } from '@/stores'
     import type { BackgroundImage, Character } from '@/types'
 

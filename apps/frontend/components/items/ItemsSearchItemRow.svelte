@@ -1,6 +1,7 @@
 <script lang="ts">
+    import { ItemLocation } from '@/enums/item-location'
+    import { Region } from '@/enums/region'
     import { itemStore, userStore } from '@/stores'
-    import { ItemLocation, Region } from '@/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'

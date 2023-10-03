@@ -1,5 +1,5 @@
 import { currentTier, previousTier } from '@/data/gear'
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import { ItemDataItem, type ItemData, DataItemBonus } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 

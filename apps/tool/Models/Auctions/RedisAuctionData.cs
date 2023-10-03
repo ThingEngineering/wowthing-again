@@ -2,5 +2,5 @@
 
 public class RedisAuctionData
 {
-    public List<OutAuctionCategory> Categories { get; set; }
+    public List<OutAuctionCategory> RawCategories { get; set; }
 }

@@ -1,7 +1,8 @@
 import sortBy from 'lodash/sortBy'
 
 import { addonAchievements } from '@/data/achievements'
-import { CriteriaTreeOperator, CriteriaType } from '@/enums'
+import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
+import { CriteriaType } from '@/enums/criteria-type'
 import type {
     AchievementData,
     AchievementDataAchievement,

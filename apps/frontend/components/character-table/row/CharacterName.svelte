@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { settingsStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'

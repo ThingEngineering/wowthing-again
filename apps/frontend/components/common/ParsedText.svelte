@@ -2,8 +2,9 @@
     import { afterUpdate } from 'svelte'
 
     import { iconStrings, imageStrings } from '@/data/icons'
+    import { Faction } from '@/enums/faction'
+    import { RewardReputation } from '@/enums/reward-reputation'
     import { itemStore, parsedTextStore, staticStore } from '@/stores'
-    import { Faction, RewardReputation } from '@/enums'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'

@@ -4,6 +4,8 @@
 
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
+    import { BindType } from '@/enums/bind-type'
+    import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/icons'
     import { itemStore, staticStore, userStore } from '@/stores'
     import { professionsRecipesState } from '@/stores/local-storage'
@@ -22,8 +24,7 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
-    import { BindType, SkillSourceType } from '@/enums';
-
+    
     export let expansion: Expansion
     export let profession: StaticDataProfession
 

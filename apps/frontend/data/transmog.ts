@@ -1,4 +1,5 @@
-import { RewardType, TransmogSetType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
+import { TransmogSetType } from '@/enums/transmog-set-type'
 import { TransmogSet, TransmogSetData } from '@/types'
 
 

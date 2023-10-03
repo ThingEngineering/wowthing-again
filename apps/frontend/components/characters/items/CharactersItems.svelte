@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ItemLocation } from '@/enums'
+    import { ItemLocation } from '@/enums/item-location'
     import type { Character } from '@/types'
 
     import Location from './CharactersItemsLocation.svelte'

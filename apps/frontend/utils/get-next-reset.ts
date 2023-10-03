@@ -1,7 +1,7 @@
 import type { DateTime } from 'luxon'
 
 import { resetTimes } from '@/data/region'
-import type { Region } from '@/enums'
+import type { Region } from '@/enums/region'
 import parseApiTime from '@/utils/parse-api-time'
 
 

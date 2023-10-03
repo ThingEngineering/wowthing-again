@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { Faction } from '@/enums'
+    import { Faction } from '@/enums/faction'
     import { itemStore, staticStore, userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'

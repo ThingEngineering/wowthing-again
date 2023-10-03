@@ -1,4 +1,5 @@
-import type { InventoryType, ItemClass, ItemQuality } from '@/enums'
+import type { InventoryType } from '@/enums/inventory-type'
+import type { ItemClass } from '@/enums/item-class'
 
 
 export type AuctionCategoryArray = [
@@ -6,7 +7,8 @@ export type AuctionCategoryArray = [
     inventoryType: InventoryType,
     itemClass: ItemClass,
     itemSubClass: number,
-    description: string,
+    name: string,
+    slug: string,
     childArrays: AuctionCategoryArray[]
 ]
 
@@ -18,11 +20,12 @@ export class AuctionCategory {
         public inventoryType: InventoryType,
         public itemClass: ItemClass,
         public itemSubClass: number,
-        public description: string,
+        public name: string,
+        public slug: string,
         childArrays: AuctionCategoryArray[]
     )
     {
-        this.children = childArrays.map((childArray) => new AuctionCategory(...childArray))
+        this.children = (childArrays || []).map((childArray) => new AuctionCategory(...childArray))
     }
 }
 // Can't use this and have it reference itself, alas

@@ -1,4 +1,4 @@
-import { AchievementFlags, CriteriaTreeFlags } from '@/enums'
+import { AchievementFlags, CriteriaTreeFlags } from '@/enums/wow'
 import type { CriteriaType } from '@/enums/criteria-type'
 
 

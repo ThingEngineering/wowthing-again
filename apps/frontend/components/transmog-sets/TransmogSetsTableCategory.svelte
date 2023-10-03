@@ -2,7 +2,7 @@
     import some from 'lodash/some'
 
     import { transmogSets } from '@/data/transmog'
-    import { TransmogSetType } from '@/enums'
+    import { TransmogSetType } from '@/enums/transmog-set-type'
     import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'

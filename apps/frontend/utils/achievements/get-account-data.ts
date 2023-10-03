@@ -1,4 +1,5 @@
 import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements'
+import { CriteriaType } from '@/enums/criteria-type'
 import type {
     AchievementData,
     AchievementDataAchievement,
@@ -6,7 +7,6 @@ import type {
     UserAchievementData,
     UserData
 } from '@/types'
-import { CriteriaType } from '@/enums'
 
 
 const debugId = 12909

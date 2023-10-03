@@ -1,4 +1,5 @@
-import type { TransmogSetMatchType, TransmogSetType } from '@/enums'
+import type { TransmogSetMatchType } from '@/enums/transmog-set-match-type'
+import type { TransmogSetType } from '@/enums/transmog-set-type'
 
 
 export class ManualDataTransmogSetCategory {

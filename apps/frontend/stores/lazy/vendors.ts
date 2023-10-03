@@ -1,5 +1,7 @@
 import { transmogTypes } from '@/data/transmog'
-import { Faction, InventoryType, RewardType } from '@/enums'
+import { Faction } from '@/enums/faction'
+import { InventoryType } from '@/enums/inventory-type'
+import { RewardType } from '@/enums/reward-type'
 import { UserCount } from '@/types'
 import { ManualDataVendorGroup } from '@/types/data/manual'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'

@@ -4,7 +4,7 @@
 
     import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
-    import { QuestStatus } from '@/enums'
+    import { QuestStatus } from '@/enums/quest-status'
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 

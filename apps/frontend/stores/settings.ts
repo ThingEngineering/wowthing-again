@@ -2,7 +2,9 @@ import { get, writable } from 'svelte/store'
 
 import { professionCooldowns } from '@/data/professions/cooldowns'
 import { hashObject } from '@/utils/hash-object'
-import type { Account, FancyStoreFetchOptions, Settings } from '@/types'
+import type { Account } from '@/types/account'
+import type { FancyStoreFetchOptions } from '@/types/fancy-store'
+import type { Settings } from '@/types/settings'
 
 import { achievementStore } from './achievements'
 import { journalStore } from './journal'
@@ -26,6 +28,11 @@ function createSettingsStore() {
 
     return {
         set: (settings: Settings): void => {
+            if (!settings) {
+                console.warn('settings data is invalid!')
+                return
+            }
+
             if (hashTimer !== null) {
                 clearInterval(hashTimer)
                 hashTimer = null

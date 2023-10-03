@@ -1,6 +1,6 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
-    import { Gender } from '@/enums'
+    import { Gender } from '@/enums/gender'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
     import type { StaticDataCharacterRace } from '@/types/data/static/character'

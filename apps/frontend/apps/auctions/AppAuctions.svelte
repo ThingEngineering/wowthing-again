@@ -2,17 +2,27 @@
     import { onMount } from 'svelte'
 
     import { auctionStore } from '@/stores/auction'
+    import { itemStore } from '@/stores/item'
+
+    import AuctionsSidebar from './AppAuctionsSidebar.svelte'
 
     onMount(async () => await Promise.all([
         auctionStore.fetch(),
+        itemStore.fetch(),
     ]))
-
-    console.log('moo')
 
     let error: boolean
     let loaded: boolean
     $: {
-        error = $auctionStore.error
-        loaded = $auctionStore.loaded
+        error = $auctionStore.error || $itemStore.error
+        loaded = $auctionStore.loaded && $itemStore.loaded
     }
 </script>
+
+{#if error}
+    <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
+{:else if !loaded}
+    <p>L O A D I N G</p>
+{:else}
+    <AuctionsSidebar />
+{/if}

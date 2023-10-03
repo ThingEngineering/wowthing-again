@@ -1,4 +1,4 @@
-import { PlayableClassMask } from '@/enums'
+import { PlayableClassMask } from '@/enums/playable-class'
 import type { Settings } from '@/types'
 
 

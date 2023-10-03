@@ -145,6 +145,7 @@ public class Startup
         services.AddManifest(jsonOptions);
 
         // Our services
+        services.AddScoped<AuctionService>();
         services.AddScoped<CacheService>();
         services.AddScoped<UploadService>();
         services.AddScoped<UriService>();

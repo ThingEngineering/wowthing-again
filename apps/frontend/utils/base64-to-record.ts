@@ -1,6 +1,7 @@
 import { decode } from 'base64-arraybuffer'
 
-import { TypedArray } from '@/enums'
+import { TypedArray } from '@/enums/typed-array'
+
 
 export default function base64ToRecord(arrayType: TypedArray, data: string): Record<number, boolean>
 {
@@ -8,7 +9,7 @@ export default function base64ToRecord(arrayType: TypedArray, data: string): Rec
     if (data !== null) {
         const decoded = base64ToArray(arrayType, data)
         for (let i = 0; i < decoded.length; i++) {
-            ret[decoded[i]] = true
+        ret[decoded[i]] = true
         }
     }
     return ret

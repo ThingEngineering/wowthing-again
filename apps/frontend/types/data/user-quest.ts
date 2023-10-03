@@ -1,4 +1,4 @@
-import type { QuestStatus } from '@/enums'
+import type { QuestStatus } from '@/enums/quest-status'
 
 
 export interface UserQuestData {

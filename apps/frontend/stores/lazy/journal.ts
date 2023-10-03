@@ -1,7 +1,8 @@
 import sortBy from 'lodash/sortBy'
 
 import { journalDifficultyMap } from '@/data/difficulty'
-import { RewardType, playableClasses } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
+import { playableClasses } from '@/enums/playable-class'
 import { UserCount, type Settings, type UserData } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'

@@ -9,7 +9,9 @@ import {
     specialValidEnchants,
     validEnchants,
 } from '@/data/inventory-slot'
-import { InventorySlot, ItemClass, WeaponSubclass } from '@/enums'
+import { InventorySlot } from '@/enums/inventory-slot'
+import { ItemClass } from '@/enums/item-class'
+import { WeaponSubclass } from '@/enums/weapon-subclass'
 import { itemStore } from '@/stores'
 // import getFirstMatch from '@/utils/get-first-match'
 import type { GearState } from '@/stores/local-storage'

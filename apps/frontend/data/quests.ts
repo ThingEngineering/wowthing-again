@@ -1,5 +1,5 @@
+import { ItemQuality } from '@/enums/item-quality'
 import { GlobalDailyQuest } from '@/types/data'
-import { ItemQuality } from '@/enums'
 
 
 export const progressQuestMap: Record<string, string> = {

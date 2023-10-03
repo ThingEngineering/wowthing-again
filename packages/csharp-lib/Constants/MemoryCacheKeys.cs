@@ -8,6 +8,7 @@ public static class MemoryCacheKeys
     public const string ItemModifiedAppearances = "item-modified-appearances";
     public const string JournalInstanceMap = "journal-instance-map";
     public const string Periods = "periods";
+    public const string PetIds = "petIds";
     public const string TrustedRole = "trusted-role";
     public const string User = "user:{0}";
     public const string UserModified = "user-modified:{0}";

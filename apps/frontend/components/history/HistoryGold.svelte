@@ -21,7 +21,7 @@
 
     import { colors } from '@/data/colors'
     import { resetTimes } from '@/data/region'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { staticStore, timeStore, userHistoryStore } from '@/stores'
     import { historyState } from '@/stores/local-storage'
     import parseApiTime from '@/utils/parse-api-time'

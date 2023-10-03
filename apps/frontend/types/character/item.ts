@@ -1,4 +1,5 @@
-import type { ItemLocation, ItemQuality } from '@/enums'
+import type { ItemLocation } from '@/enums/item-location'
+import type { ItemQuality } from '@/enums/item-quality'
 import type { UserItem } from '../shared'
 
 

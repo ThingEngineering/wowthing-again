@@ -1,5 +1,6 @@
 import some from 'lodash/some'
 
+import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type'
 import { UserCount } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
 import type { Settings } from '@/types'
@@ -7,7 +8,6 @@ import type { UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
-import { InventoryType, weaponInventoryTypes } from '@/enums'
 
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>

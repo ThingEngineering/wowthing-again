@@ -1,4 +1,4 @@
-import { Profession } from '@/enums'
+import { Profession } from '@/enums/profession'
 import type { ProfessionCooldownData } from '@/types'
 
 

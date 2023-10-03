@@ -1,4 +1,5 @@
-import { ArmorType, PlayableClass } from '@/enums'
+import { ArmorType } from '@/enums/armor-type'
+import { PlayableClass } from '@/enums/playable-class'
 
 
 export const classOrder: number[] = [

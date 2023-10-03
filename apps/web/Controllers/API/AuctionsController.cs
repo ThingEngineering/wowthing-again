@@ -17,26 +17,29 @@ using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace Wowthing.Web.Controllers;
+namespace Wowthing.Web.Controllers.API;
 
 [Route("api/auctions")]
-public class ApiAuctionController : Controller
+public class AuctionsController : Controller
 {
+    private readonly AuctionService _auctionService;
     private readonly CacheService _cacheService;
-    private readonly ILogger<ApiAuctionController> _logger;
+    private readonly ILogger<AuctionsController> _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly MemoryCacheService _memoryCacheService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
-    public ApiAuctionController(
+    public AuctionsController(
+        AuctionService auctionService,
         CacheService cacheService,
-        ILogger<ApiAuctionController> logger,
+        ILogger<AuctionsController> logger,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
         UserManager<ApplicationUser> userManager,
         WowDbContext context)
     {
+        _auctionService = auctionService;
         _cacheService = cacheService;
         _logger = logger;
         _jsonSerializerOptions = jsonSerializerOptions;
@@ -58,194 +61,14 @@ public class ApiAuctionController : Controller
             return NotFound();
         }
 
-        var data = new UserAuctionData();
-        var allPets = new Dictionary<long, PlayerAccountPetsPet>();
+        timer.AddPoint("User");
 
-        var accounts = await _context.PlayerAccount
-            .AsNoTracking()
-            .Where(pa => pa.UserId == user.Id && pa.Enabled)
-            .Include(pa => pa.Pets)
-            .ToArrayAsync();
+        var data = await _auctionService.ExtraPetDataForUser(user, timer);
 
-        var accountIds = accounts.SelectArray(account => account.Id);
-
-        var accountPets = accounts
-            .Where(pa => pa.Pets != null)
-            .Select(pa => pa.Pets)
-            .OrderByDescending(pap => pap.UpdatedAt)
-            .ToArray();
-
-        foreach (var pets in accountPets)
-        {
-            foreach (var (petId, pet) in pets.Pets)
-            {
-                allPets.TryAdd(petId, pet);
-            }
-        }
-
-        // Pet itemId -> id map
-        var petItemIdMap = await GetPetItems();
-        var petItemIds = petItemIdMap.Keys.ToArray();
-
-        // Caged pets
-        var guildCages = await _context
-            .PlayerGuildItem
-            .Where(pgi =>
-                pgi.Guild.UserId == user.Id &&
-                pgi.ItemId == 82800 && // Pet Cage
-                pgi.Context > 0
-            )
-            .ToArrayAsync();
-
-        var playerCages = await _context
-            .PlayerCharacterItem
-            .Where(pci =>
-                    pci.Character.AccountId.HasValue &&
-                    accountIds.Contains(pci.Character.AccountId.Value) &&
-                    pci.ItemId == 82800 // Pet Cage
-            )
-            .ToArrayAsync();
-
-        // Learnable pets
-        var guildLearnable = await _context
-            .PlayerGuildItem
-            .Where(pgi =>
-                pgi.Guild.UserId == user.Id &&
-                petItemIds.Contains(pgi.ItemId)
-            )
-            .ToArrayAsync();
-
-        var playerLearnable = await _context
-            .PlayerCharacterItem
-            .Where(pci =>
-                pci.Character.AccountId.HasValue &&
-                accountIds.Contains(pci.Character.AccountId.Value) &&
-                petItemIds.Contains(pci.ItemId)
-            )
-            .ToArrayAsync();
-
-        var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-
-        timer.AddPoint("Accounts");
-
-        var groupedPets = allPets.Values
-            .GroupBy(pet => pet.SpeciesId)
-            .ToDictionary(
-                group => group.Key,
-                group => group
-                    .Select(pet => new UserAuctionDataPet(pet))
-                    .ToList()
-            );
-
-        foreach (var cagedPet in guildCages)
-        {
-            int speciesId = cagedPet.Context;
-            if (!groupedPets.TryGetValue(speciesId, out var pets))
-            {
-                pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
-            }
-
-            pets.Add(new UserAuctionDataPet(cagedPet, true));
-        }
-
-        foreach (var cagedPet in playerCages)
-        {
-            int speciesId = cagedPet.Context;
-            if (!groupedPets.TryGetValue(speciesId, out var pets))
-            {
-                pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
-            }
-
-            pets.Add(new UserAuctionDataPet(cagedPet, true));
-        }
-
-        foreach (var learnablePet in guildLearnable)
-        {
-            int speciesId = petItemIdMap[learnablePet.ItemId];
-            if (!groupedPets.TryGetValue(speciesId, out var pets))
-            {
-                pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
-            }
-
-            pets.Add(new UserAuctionDataPet(learnablePet));
-        }
-
-        foreach (var learnablePet in playerLearnable)
-        {
-            int speciesId = petItemIdMap[learnablePet.ItemId];
-            if (!groupedPets.TryGetValue(speciesId, out var pets))
-            {
-                pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
-            }
-
-            pets.Add(new UserAuctionDataPet(learnablePet));
-        }
-
-        var extraPets = groupedPets
-            .Where(kvp => form.IgnoreJournal
-                ? (
-                    kvp.Value.Any(pet => pet.Location == ItemLocation.PetCollection) &&
-                    kvp.Value.Any(pet => pet.Location != ItemLocation.PetCollection)
-                )
-                : kvp.Value.Count > 1
-            )
-            .ToDictionary(
-                kvp => kvp.Key,
-                kvp => kvp.Value
-                    .OrderBy(pet => pet.Quality)
-                    .ThenBy(pet => pet.Level)
-                    .ToArray()
-            );
-
-        var extraSpeciesIds = extraPets.Keys.ToArray();
-
-        var petSpeciesMap = await _context.WowPet
-            .Where(pet => extraSpeciesIds.Contains(pet.Id))
-            .ToDictionaryAsync(
-                pet => pet.Id,
-                pet => pet.CreatureId
-            );
-
-        long minimumValue = (user.Settings.Auctions?.MinimumExtraPetsValue ?? 0) * 10000;
-        var auctions = await _context.WowAuction
-            .AsNoTracking()
-            .Where(auction =>
-                accountConnectedRealmIds.Contains(auction.ConnectedRealmId) &&
-                extraSpeciesIds.Contains(auction.PetSpeciesId) &&
-                auction.BuyoutPrice >= minimumValue
-            )
-            .ToArrayAsync();
-
-        data.RawAuctions = DoAuctionStuff(auctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]), false);
-
-        timer.AddPoint("Auctions");
-
-        var creatureIds = extraSpeciesIds.Select(speciesId => petSpeciesMap[speciesId]);
-        data.Names = await _context.LanguageString
-            .AsNoTracking()
-            .Where(ls =>
-                ls.Language == user.Settings.General.Language &&
-                ls.Type == StringType.WowCreatureName &&
-                creatureIds.Contains(ls.Id)
-            )
-            .ToDictionaryAsync(
-                ls => ls.Id,
-                ls => ls.String
-            );
-
-        timer.AddPoint("Strings");
-
-        data.Pets = extraPets
-            .ToDictionary(
-                kvp => petSpeciesMap[kvp.Key],
-                kvp => kvp.Value
-            );
-
-        timer.AddPoint("Data", true);
-
+        timer.Stop();
         _logger.LogInformation($"{timer}");
 
-        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
         return Content(json, MediaTypeNames.Application.Json);
     }
 
@@ -1116,12 +939,5 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
             .ToArrayAsync();
 
         return regionRealmIds;
-    }
-
-    private async Task<Dictionary<int, int>> GetPetItems()
-    {
-        return await _context.WowPet
-            .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
-            .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
     }
 }

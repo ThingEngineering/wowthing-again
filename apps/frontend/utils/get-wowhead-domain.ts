@@ -1,4 +1,5 @@
-import { Language } from '@/enums'
+import { Language } from '@/enums/language'
+
 
 export function getWowheadDomain(language: Language): string {
     switch (language) {

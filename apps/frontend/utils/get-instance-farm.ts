@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 import type { DateTime } from 'luxon'
 
 import { journalDifficultyOrder } from '@/data/difficulty'
-import { RewardType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
 import { leftPad } from '@/utils/formatting'
 import parseApiTime from '@/utils/parse-api-time'
 import type { LazyStore } from '@/stores'

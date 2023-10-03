@@ -1,7 +1,7 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import { settingsStore, staticStore } from '@/stores'
     import { getProfessionSortKey } from '@/utils/professions'
     import { tippyComponent } from '@/utils/tippy'

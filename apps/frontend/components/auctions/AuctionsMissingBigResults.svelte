@@ -4,7 +4,8 @@
     import { replace } from 'svelte-spa-router'
 
     import { timeLeft } from '@/data/auctions'
-    import { Faction, Region } from '@/enums'
+    import { Faction } from '@/enums/faction'
+    import { Region } from '@/enums/region'
     import { iconLibrary } from '@/icons'
     import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'

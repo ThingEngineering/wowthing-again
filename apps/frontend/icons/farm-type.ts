@@ -1,4 +1,4 @@
-import { FarmType } from '@/enums'
+import { FarmType } from '@/enums/farm-type'
 
 
 export const farmTypeIcons: Record<number, string> = {

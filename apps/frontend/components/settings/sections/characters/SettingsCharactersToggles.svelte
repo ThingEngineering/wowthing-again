@@ -7,7 +7,7 @@
 
     import { staticStore, userStore } from '@/stores'
     import { settingsStore } from '@/stores'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 

@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon'
 
-import type { Profession } from '@/enums'
+import type { Profession } from '@/enums/profession'
 
 
 export interface ProfessionCooldown {

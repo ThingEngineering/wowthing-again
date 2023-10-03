@@ -2,7 +2,7 @@
     import some from 'lodash/some'
 
     import { covenantFeatureCost } from '@/data/covenant'
-    import { ProgressDataType } from '@/enums'
+    import { ProgressDataType } from '@/enums/progress-data-type'
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
