@@ -35,6 +35,8 @@ public class DataAuctionsJob : JobBase
 
     private static readonly Regex PartitionPendingRegex = new("""partition "(.*?)\" already pending detach""");
 
+    private static readonly int[] Buckets = { 10, 100, 1000, 10000 };
+
     private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
     private const string GetPartitions = @"
@@ -89,6 +91,19 @@ COPY wow_auction_cheapest_by_appearance_source (
 ) FROM STDIN (FORMAT BINARY)
 ";
 
+    private const string CopyCommodityHourly = @"
+COPY wow_auction_commodity_hourly (
+    timestamp,
+    item_id,
+    listed,
+    average10,
+    average100,
+    average1000,
+    average10000,
+    region
+) FROM STDIN (FORMAT BINARY)
+";
+
     public override async Task Run(params string[] data)
     {
         var timer = new JankTimer();
@@ -100,12 +115,13 @@ COPY wow_auction_cheapest_by_appearance_source (
 
         var uri = GenerateUri(region, ApiNamespace.Dynamic, connectedRealmId > 100000
             ? CommoditiesPath
-            : string.Format(ApiPath, connectedRealmId));
+            : string.Format(ApiPath, connectedRealmId)
+        );
 
         JobHttpResult<ApiDataAuctions> result;
         try
         {
-            result = await GetJson<ApiDataAuctions>(uri, timer: timer);
+            result = await GetJson<ApiDataAuctions>(uri, timer: timer, useLastModified: connectedRealmId < 100000);
         }
         catch (HttpRequestException e)
         {
@@ -143,9 +159,10 @@ COPY wow_auction_cheapest_by_appearance_source (
         // Copy auction data
         Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId;
         Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource;
+        Dictionary<int, List<ApiDataAuctionsAuction>> commodities;
         await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            (auctionsByAppearanceId, auctionsByAppearanceSource) = await WriteAuctionData(writer, connectedRealmId, result.Data.Auctions);
+            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) = await WriteAuctionData(writer, connectedRealmId, result.Data.Auctions);
         }
 
         timer.AddPoint("Copy");
@@ -249,6 +266,16 @@ COPY wow_auction_cheapest_by_appearance_source (
 
             timer.AddPoint("Cheapest");
         }
+        else
+        {
+            // Update WowAuctionCommodityHourly
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCommodityHourly))
+            {
+                await WriteCommodityHourly(writer, region, connectedRealmId - 100000, commodities);
+            }
+
+            timer.AddPoint("Commodity");
+        }
 
         // Update the last checked time
         var db = Redis.GetDatabase();
@@ -264,73 +291,90 @@ COPY wow_auction_cheapest_by_appearance_source (
         Logger.Information("{Timer}", timer.ToString());
     }
 
-    private async Task<(Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds, Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources)> WriteAuctionData(NpgsqlBinaryImporter writer, int realmId, List<ApiDataAuctionsAuction> dataAuctions)
+    private async Task<
+        (
+            Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds,
+            Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources,
+            Dictionary<int, List<ApiDataAuctionsAuction>> commodities
+        )
+    > WriteAuctionData(NpgsqlBinaryImporter writer, int connectedRealmId, List<ApiDataAuctionsAuction> dataAuctions)
     {
         var appearanceIds = new Dictionary<int, List<ApiDataAuctionsAuction>>();
         var appearanceSources = new Dictionary<string, List<ApiDataAuctionsAuction>>();
+        var commodities = new Dictionary<int, List<ApiDataAuctionsAuction>>();
 
         foreach (var auction in dataAuctions)
         {
-            short modifier = 0;
-            int priority = 999;
-            foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
-            {
-                if (!_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
-                {
-                    continue;
-                }
+            int? appearanceId = null;
+            string appearanceSource = null;
 
-                foreach (var bonus in itemBonus.Bonuses)
+            if (connectedRealmId < 100000)
+            {
+                short modifier = 0;
+                int priority = 999;
+                foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
                 {
-                    if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
+                    if (!_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
                     {
-                        int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
-                        if (bonusPriority < priority)
+                        continue;
+                    }
+
+                    foreach (var bonus in itemBonus.Bonuses)
+                    {
+                        if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
                         {
-                            modifier = (short)bonus[1];
-                            priority = bonusPriority;
+                            int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
+                            if (bonusPriority < priority)
+                            {
+                                modifier = (short)bonus[1];
+                                priority = bonusPriority;
+                            }
                         }
                     }
                 }
+
+                if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
+                {
+                    if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                            out int actualAppearanceId))
+                    {
+                        if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id,
+                                out short[] possibleModifiers))
+                        {
+                            modifier = possibleModifiers[0];
+                            actualAppearanceId =
+                                _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
+                        }
+                    }
+
+                    if (actualAppearanceId > 0)
+                    {
+                        appearanceId = actualAppearanceId;
+                        appearanceSource = $"{auction.Item.Id}_{modifier}";
+
+                        if (!appearanceIds.TryGetValue(actualAppearanceId, out var idAuctions))
+                        {
+                            idAuctions = appearanceIds[actualAppearanceId] = new();
+                        }
+
+                        idAuctions.Add(auction);
+
+                        if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
+                        {
+                            sourceAuctions = appearanceSources[appearanceSource] = new();
+                        }
+
+                        sourceAuctions.Add(auction);
+                    }
+                }
             }
-
-            int? appearanceId = null;
-            string appearanceSource = null;
-            if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
+            else
             {
-                if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
-                    out int actualAppearanceId))
-                {
-                    if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id, out short[] possibleModifiers))
-                    {
-                        modifier = possibleModifiers[0];
-                        actualAppearanceId = _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
-                    }
-                }
-
-                if (actualAppearanceId > 0)
-                {
-                    appearanceId = actualAppearanceId;
-                    appearanceSource = $"{auction.Item.Id}_{modifier}";
-
-                    if (!appearanceIds.TryGetValue(actualAppearanceId, out var idAuctions))
-                    {
-                        idAuctions = appearanceIds[actualAppearanceId] = new();
-                    }
-
-                    idAuctions.Add(auction);
-
-                    if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
-                    {
-                        sourceAuctions = appearanceSources[appearanceSource] = new();
-                    }
-
-                    sourceAuctions.Add(auction);
-                }
+                commodities.GetOrNew(auction.Item.Id).Add(auction);
             }
 
             await writer.StartRowAsync();
-            await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
             await writer.WriteAsync(auction.Bid, NpgsqlDbType.Bigint);
             await writer.WriteAsync(auction.UnitPrice > 0 ? auction.UnitPrice : auction.Buyout,
@@ -382,13 +426,14 @@ COPY wow_auction_cheapest_by_appearance_source (
 
         await writer.CompleteAsync();
 
-        return (appearanceIds, appearanceSources);
+        return (appearanceIds, appearanceSources, commodities);
     }
 
     private async Task WriteCheapestByAppearanceIdData(
         NpgsqlBinaryImporter writer,
-        int realmId,
-        Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId)
+        int connectedRealmId,
+        Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId
+    )
     {
         foreach (var (appearanceId, auctions) in auctionsByAppearanceId)
         {
@@ -401,7 +446,7 @@ COPY wow_auction_cheapest_by_appearance_source (
             }
 
             await writer.StartRowAsync();
-            await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
             await writer.WriteAsync(appearanceId, NpgsqlDbType.Integer);
             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
         }
@@ -411,7 +456,7 @@ COPY wow_auction_cheapest_by_appearance_source (
 
     private async Task WriteCheapestByAppearanceSourceData(
         NpgsqlBinaryImporter writer,
-        int realmId,
+        int connectedRealmId,
         Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource)
     {
         foreach (var (appearanceSource, auctions) in auctionsByAppearanceSource)
@@ -425,9 +470,63 @@ COPY wow_auction_cheapest_by_appearance_source (
             }
 
             await writer.StartRowAsync();
-            await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
             await writer.WriteAsync(appearanceSource, NpgsqlDbType.Varchar);
             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
+        }
+
+        await writer.CompleteAsync();
+    }
+
+    private async Task WriteCommodityHourly(NpgsqlBinaryImporter writer,
+        WowRegion wowRegion,
+        int connectedRealmId,
+        Dictionary<int, List<ApiDataAuctionsAuction>> commodities)
+    {
+        var now = DateTime.UtcNow;
+
+        foreach (var (itemId, auctions) in commodities)
+        {
+            int[] counts = new int[4];
+            long[] averages = new long[4];
+            long[] totals = new long[4];
+            long listed = 0;
+
+            var sortedAuctions = auctions.OrderBy(auction => auction.UnitPrice);
+            foreach (var auction in sortedAuctions)
+            {
+                listed += auction.Quantity;
+
+                for (int i = 0; i < Buckets.Length; i++)
+                {
+                    int target = Buckets[i];
+                    if (counts[i] < target)
+                    {
+                        int toAdd = Math.Min(auction.Quantity, target - counts[i]);
+                        counts[i] += toAdd;
+                        totals[i] += toAdd * (auction.UnitPrice / 100);
+                    }
+                }
+            }
+
+            for (int i = 0; i < Buckets.Length; i++)
+            {
+                if (counts[i] == Buckets[i])
+                {
+                    averages[i] = totals[i] / counts[i];
+                }
+            }
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(now, NpgsqlDbType.TimestampTz);
+            await writer.WriteAsync(itemId, NpgsqlDbType.Integer);
+            await writer.WriteAsync((int)Math.Min(int.MaxValue, listed), NpgsqlDbType.Integer);
+            for (int i = 0; i < Buckets.Length; i++)
+            {
+                await writer.WriteAsync((int)Math.Min(int.MaxValue, averages[i]), NpgsqlDbType.Integer);
+            }
+
+            await writer.WriteAsync((short)wowRegion, NpgsqlDbType.Smallint);
         }
 
         await writer.CompleteAsync();
