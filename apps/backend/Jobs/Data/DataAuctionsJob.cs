@@ -121,7 +121,7 @@ COPY wow_auction_commodity_hourly (
         JobHttpResult<ApiDataAuctions> result;
         try
         {
-            result = await GetJson<ApiDataAuctions>(uri, timer: timer, useLastModified: connectedRealmId < 100000);
+            result = await GetJson<ApiDataAuctions>(uri, timer: timer);
         }
         catch (HttpRequestException e)
         {

@@ -17,10 +17,12 @@
     export let item: SidebarItem
     export let noVisitRoot = false
     export let parentItems: SidebarItem[] = []
+    export let dataFunc: (entry: SidebarItem) => string = undefined
     export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
     export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
     let activeRegex: string
+    let data: string
     let decoration: string
     let expanded: boolean
     let minusWidth: string
@@ -54,12 +56,9 @@
 
             //expanded = $location.startsWith(url) && item.children?.length > 0
 
-            if (decorationFunc !== undefined) {
-                decoration = decorationFunc(item, parentItems)
-            }
-            if (percentFunc !== undefined) {
-                percent = percentFunc(item, parentItems)
-            }
+            data = dataFunc?.(item)
+            decoration = decorationFunc?.(item, parentItems)
+            percent = percentFunc?.(item, parentItems)
 
             if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
                 noCollapse = true
@@ -167,6 +166,7 @@
         style="--minusWidth: {minusWidth}"
         style:--subtree-depth="{parentItems.length}"
         class:noVisitRoot={actualNoVisitRoot}
+        data-info={data}
         use:link
         use:active={new RegExp(activeRegex)}
         use:tippy={item.name}
@@ -215,6 +215,7 @@
                     {alwaysExpand}
                     {anyChildren}
                     {noVisitRoot}
+                    {dataFunc}
                     {decorationFunc}
                     {percentFunc}
                 />

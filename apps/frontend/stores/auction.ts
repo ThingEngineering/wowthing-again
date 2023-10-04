@@ -12,9 +12,11 @@ export class AuctionDataStore extends WritableFancyStore<AuctionData> {
 
         if (data.rawCategories) {
             data.categories = []
+            data.categoryMap = {}
             for (const categoryArray of data.rawCategories) {
                 const obj = new AuctionCategory(...categoryArray)
                 data.categories.push(obj)
+                data.categoryMap[obj.id] = obj
             }
             data.rawCategories = null
         }

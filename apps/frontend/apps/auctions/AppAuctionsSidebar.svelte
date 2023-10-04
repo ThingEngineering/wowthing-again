@@ -5,6 +5,8 @@
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
+    import type { SidebarItem } from '@/types'
+    import type { AuctionCategory } from '@/types/data/auction'
 
     let searchValue: string
 
@@ -12,6 +14,11 @@
         if (searchValue?.trim()?.length > 0) {
             replace(`/search/${encodeURIComponent(searchValue)}`)
         }
+    }
+
+    function dataFunc(item: SidebarItem): string {
+        const category = item as AuctionCategory
+        return `${category.id}-${category.itemClass}-${category.itemSubClass}-${category.inventoryType}`
     }
 </script>
 
@@ -27,6 +34,7 @@
     items={$auctionStore.categories}
     scrollable={true}
     width={'16rem'}
+    dataFunc={dataFunc}
 >
     <div slot="before" class="before">
         <form

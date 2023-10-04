@@ -14,6 +14,7 @@
     export let noVisitRoot = false
     export let scrollable = false
     export let width = '10rem'
+    export let dataFunc: (entry: SidebarItem) => string = undefined
     export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
     export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
@@ -70,6 +71,7 @@
                 {baseUrl}
                 {item}
                 {noVisitRoot}
+                {dataFunc}
                 {decorationFunc}
                 {percentFunc}
             />
