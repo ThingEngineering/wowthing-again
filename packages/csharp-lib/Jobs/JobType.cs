@@ -47,6 +47,8 @@ public enum JobType
     DataQuestsStart = 1021,
     DataQuest = 1022,
 
+    MagicAggregateWorldQuests = 1100,
+
     MaintenanceUnlinkCharacters = 2000,
     MaintenanceDeleteAchievements = 2001,
     MaintenanceDeleteWorldQuestReports = 2002,
