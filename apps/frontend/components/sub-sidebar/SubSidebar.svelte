@@ -58,7 +58,8 @@
 <div
     class:scrollable={scrollable}
     class:sticky={!scrollable}
-    style="--less-height: {lessHeight}; --width: {width}; --scrollbar-width: {scrollbarWidth}px">
+    style="--less-height: {lessHeight}; --width: {width}; --scrollbar-width: {scrollbarWidth}px"
+>
     <slot name="before" />
 
     <nav id="{id}" class="thing-container">

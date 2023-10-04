@@ -2,7 +2,6 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
-    import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
@@ -33,7 +32,7 @@
     let colspan: number
     let subProfession: StaticDataSubProfession
     $: {
-        categoryChildren = profession.categories[Constants.expansion - expansion.id]
+        categoryChildren = profession.categories[expansion.id]
             .children[0]
             .children
             .filter((cat) => cat.abilities.length > 0)

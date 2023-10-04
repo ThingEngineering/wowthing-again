@@ -73,13 +73,14 @@
     const intervalSettings: Record<string, [string, TimeUnit]> = {
         hour: ['ff', 'day'],
         day: ['DD', 'day'],
-        week: ['DD', 'week'],
+        week: ['ff', 'week'],
         month: ['MMM yyyy', 'month'],
     }
 
     type DataPoint = {x: DateTime, y: number}
     const redrawChart = function(historyState: HistoryState, userHistoryData: UserHistoryData)
     {
+        console.time('redrawChart')
         if (chart) {
             chart.destroy()
         }
@@ -103,6 +104,7 @@
         }
         //realms.sort()
 
+        console.time('redrawChart.points')
         const pointMap: Record<number, DateTime> = {}
 
         let minTime: DateTime = DateTime.now().minus({ years: 10 })
@@ -123,6 +125,7 @@
         }
 
         let firstRealmId = -1
+        const timeCache: Record<string, DateTime> = {}
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex]
             if (firstRealmId === -1) {
@@ -145,41 +148,73 @@
             else {
                 const temp: Record<string, [DateTime, number]> = {}
                 for (const [time, value] of userHistoryData.gold[realmId]) {
-                    const parsedTime = parseApiTime(time).toLocal()
-                    let fakeTime: DateTime
-                    if (historyState.interval === 'day') {
-                         fakeTime = parsedTime.set({
-                             hour: 0,
-                             minute: 0,
-                             second: 0,
-                         })
-                    }
-                    else if (historyState.interval === 'week') {
-                        fakeTime = parsedTime.set({
-                            weekday: 7 + resetData.weeklyResetDay,
-                            hour: resetData.weeklyResetTime[0],
-                            minute: 0,
-                            second: 0,
-                        })
-                    }
-                    else if (historyState.interval === 'month') {
-                        fakeTime = parsedTime.set({
-                            day: 1,
-                            hour: 0,
-                            minute: 0,
-                            second: 0,
-                        })
+                    let fakeTime: DateTime = timeCache[time]
+                    if (fakeTime === undefined) {
+                        const parsedTime = parseApiTime(time)
+                        if (historyState.interval === 'day') {
+                            fakeTime = parsedTime.set({
+                                hour: 0,
+                                minute: 0,
+                                second: 0,
+                            })
+                        }
+                        else if (historyState.interval === 'week') {
+                            if (
+                                parsedTime.weekday > resetData.weeklyResetDay ||
+                                (
+                                    parsedTime.weekday === resetData.weeklyResetDay &&
+                                    parsedTime.hour >= resetData.weeklyResetTime[0]
+                                )
+                            ) {
+                                fakeTime = parsedTime.set({
+                                    weekday: 7 + resetData.weeklyResetDay,
+                                    hour: resetData.weeklyResetTime[0] - 1,
+                                    minute: 59,
+                                    second: 0,
+                                })
+                            }
+                            else if (parsedTime.weekday < resetData.weeklyResetDay) {
+                                fakeTime = parsedTime.set({
+                                    weekday: resetData.weeklyResetDay,
+                                    hour: resetData.weeklyResetTime[0] - 1,
+                                    minute: 59,
+                                    second: 0,
+                                })
+                            }
+                            else {
+                                fakeTime = parsedTime.set({
+                                    hour: resetData.weeklyResetTime[0] - 1,
+                                    minute: 59,
+                                    second: 0,
+                                })
+                            }
+                            // if (time > '2023-10-03') {
+                            //     console.log(time, parsedTime, fakeTime)
+                            //     console.log(parsedTime.ts, fakeTime.ts)
+                            // }
+                        }
+                        else if (historyState.interval === 'month') {
+                            fakeTime = parsedTime.set({
+                                day: 1,
+                                hour: 0,
+                                minute: 0,
+                                second: 0,
+                            })
+                        }
+
+                        if (fakeTime > $timeStore) {
+                            fakeTime = $timeStore.set({
+                                minute: 0,
+                                second: 0,
+                            })
+                        }
+                        timeCache[time] = fakeTime
                     }
 
-                    if (fakeTime > $timeStore) {
-                        fakeTime = $timeStore.set({
-                            hour: 0,
-                            minute: 0,
-                            second: 0,
-                        })
+                    if (fakeTime >= minTime) {
+                        // console.log(fakeTime.toISODate(), fakeTime.toISOTime())
+                        temp[`${fakeTime.toISODate()} ${fakeTime.toISOTime()}`] = [fakeTime, value]
                     }
-
-                    temp[fakeTime.toISODate()] = [fakeTime, value]
                 }
 
                 points = sortBy(
@@ -192,8 +227,6 @@
                     })
                 )
             }
-
-            points = points.filter(({ x }) => x >= minTime)
 
             for (const point of points) {
                 pointMap[point.x.toUnixInteger()] = point.x
@@ -209,8 +242,10 @@
                 data: points,
             })
         }
+        console.timeEnd('redrawChart.points')
 
         // Pad out each dataset with data for all time periods
+        console.time('redrawChart.datasets')
         const smalls: Record<number, DataPoint> = {}
         const totals: Record<number, DataPoint> = {}
 
@@ -253,9 +288,13 @@
 
             dataset.data = newData
         }
+        console.timeEnd('redrawChart.datasets')
 
+        console.time('redrawChart.sort')
         data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y)
+        console.timeEnd('redrawChart.sort')
 
+        console.time('redrawChart.line')
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
             if (historyState.tooltipCombineSmall) {
                 const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0
@@ -292,7 +331,9 @@
                 data: totalPoints,
             })
         }
+        console.timeEnd('redrawChart.line')
 
+        console.time('redrawChart.newChart')
         const ctx = document.getElementById('gold-chart') as HTMLCanvasElement
         chart = new Chart(ctx, {
             type: 'line',
@@ -371,6 +412,9 @@
                 },
             },
         })
+        console.timeEnd('redrawChart.newChart')
+
+        console.timeEnd('redrawChart')
     }
 </script>
 
