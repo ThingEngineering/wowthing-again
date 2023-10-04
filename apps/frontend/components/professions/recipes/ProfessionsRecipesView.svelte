@@ -33,7 +33,7 @@
     let colspan: number
     let subProfession: StaticDataSubProfession
     $: {
-        categoryChildren = profession.categories[Constants.expansion - expansion.id]
+        categoryChildren = profession.categories[expansion.id]
             .children[0]
             .children
             .filter((cat) => cat.abilities.length > 0)
