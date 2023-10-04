@@ -2,7 +2,6 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
-    import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
