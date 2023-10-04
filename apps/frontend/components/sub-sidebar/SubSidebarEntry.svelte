@@ -46,7 +46,7 @@
     $: {
         actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit
         if (item) {
-            url = `${baseUrl}/${item.slug}`
+            url = item.fullUrl || `${baseUrl}/${item.slug}`
 
             expanded = alwaysExpand ||
                 $subSidebarState.expanded[url] ||

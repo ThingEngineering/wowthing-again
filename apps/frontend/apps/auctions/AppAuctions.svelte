@@ -4,6 +4,7 @@
     import { auctionStore } from '@/stores/auction'
     import { itemStore } from '@/stores/item'
 
+    import AuctionsRoutes from './AppAuctionsRoutes.svelte'
     import AuctionsSidebar from './AppAuctionsSidebar.svelte'
 
     onMount(async () => await Promise.all([
@@ -25,4 +26,5 @@
     <p>L O A D I N G</p>
 {:else}
     <AuctionsSidebar />
+    <AuctionsRoutes />
 {/if}

@@ -1,21 +1,42 @@
 <script lang="ts">
-    import active from 'svelte-spa-router/active'
+    import { replace } from 'svelte-spa-router'
 
     import { auctionStore } from '@/stores/auction'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
-    import type { SidebarItem } from '@/types/sidebar'
+    import TextInput from '@/components/forms/TextInput.svelte'
 
-    let categories: SidebarItem[] = []
-    $: {
-        categories = $auctionStore.categories
-        console.log(categories)
+    let searchValue: string
+
+    const onSubmit = async function() {
+        if (searchValue?.trim()?.length > 0) {
+            replace(`/search/${encodeURIComponent(searchValue)}`)
+        }
     }
 </script>
 
+<style lang="scss">
+    .before {
+        margin-bottom: 1rem;
+        margin-top: 1px;
+    }
+</style>
+
 <Sidebar
     baseUrl={'/browse'}
-    items={categories}
+    items={$auctionStore.categories}
+    scrollable={true}
     width={'16rem'}
 >
+    <div slot="before" class="before">
+        <form
+            on:submit|preventDefault={onSubmit}
+        >
+            <TextInput
+                name="auctions_search"
+                placeholder="Search..."
+                bind:value={searchValue}
+            />
+        </form>
+    </div>
 </Sidebar>
