@@ -16,7 +16,7 @@
     $: {
         if (profession) {
             filterFunc = (char) => !!char.professions?.[profession.id]
-            subProfessions = profession.subProfessions.slice()
+            subProfessions = profession.subProfessions.slice().reverse()
         }
         else {
             filterFunc = () => false
