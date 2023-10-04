@@ -48,6 +48,20 @@ public class AuctionsController : Controller
         _context = context;
     }
 
+    [HttpPost("browse")]
+    [Authorize]
+    public async Task<IActionResult> Browse([FromBody] ApiAuctionsBrowseForm form)
+    {
+        if (form.InventoryType == 0 && form.ItemClass == 0 && form.ItemSubclass == 0)
+        {
+            return BadRequest();
+        }
+
+        var timer = new JankTimer();
+
+        return Content("", MediaTypeNames.Application.Json);
+    }
+
     [HttpPost("extra-pets")]
     [Authorize]
     public async Task<IActionResult> ExtraPets([FromBody] ApiExtraPetsForm form)
