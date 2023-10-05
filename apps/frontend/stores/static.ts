@@ -196,7 +196,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         const connected: Record<number, { region: number, names: string[] }> = {}
         for (const realm of Object.values(this.value.realms)) {
-            if (settings.general.useEnglishRealmNames && realm.englishName) {
+            if (settings?.general?.useEnglishRealmNames !== false && realm.englishName) {
                 realm.name = realm.englishName
             }
 
