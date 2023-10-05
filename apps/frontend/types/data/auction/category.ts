@@ -27,6 +27,10 @@ export class AuctionCategory {
     {
         this.children = (childArrays || []).map((childArray) => new AuctionCategory(...childArray))
     }
+
+    get browseable(): boolean {
+        return this.itemClass > 0 || this.inventoryType > 0
+    }
 }
 // Can't use this and have it reference itself, alas
 // export type AuctionCategoryArray = ConstructorParameters<typeof AuctionCategory>

@@ -5,6 +5,7 @@ public static class MemoryCacheKeys
     public const string AuctionHouseUpdatedTimes = "auction-house-updated-times";
     public const string BackgroundImages = "background-images";
     public const string ItemBonuses = "item-bonuses";
+    public const string ItemClasses = "item-classes";
     public const string ItemModifiedAppearances = "item-modified-appearances";
     public const string JournalInstanceMap = "journal-instance-map";
     public const string Periods = "periods";

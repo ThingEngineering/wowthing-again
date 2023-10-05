@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231004035243_Add_WowAuctionCommodity_Tables")]
+    partial class Add_WowAuctionCommodity_Tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1568,26 +1571,6 @@ namespace Wowthing.Lib.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.AuctionBrowseQuery", b =>
-                {
-                    b.Property<string>("GroupKey")
-                        .HasColumnType("text")
-                        .HasColumnName("group_key");
-
-                    b.Property<long>("LowestBuyoutPrice")
-                        .HasColumnType("bigint")
-                        .HasColumnName("lowest_buyout_price");
-
-                    b.Property<long>("TotalQuantity")
-                        .HasColumnType("bigint")
-                        .HasColumnName("total_quantity");
-
-                    b.ToTable("AuctionBrowseQuery", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Query.CompletedAchievementsQuery", b =>
                 {
                     b.Property<int>("AchievementId")
@@ -2571,25 +2554,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("wow_item_bonus", (string)null);
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemClass", b =>
-                {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<short>("ClassId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("class_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_item_class");
-
-                    b.ToTable("wow_item_class", (string)null);
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemEffect", b =>
                 {
                     b.Property<int>("ItemXItemEffectId")
@@ -2669,33 +2633,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_item_modified_appearance");
 
                     b.ToTable("wow_item_modified_appearance", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemSubclass", b =>
-                {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<short>("AuctionHouseSortOrder")
-                        .HasColumnType("smallint")
-                        .HasColumnName("auction_house_sort_order");
-
-                    b.Property<short>("ClassId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("class_id");
-
-                    b.Property<short>("SubclassId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("subclass_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_item_subclass");
-
-                    b.ToTable("wow_item_subclass", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowMount", b =>

@@ -688,8 +688,8 @@ public class JournalTool
         string groupName = "Unknown";
         int groupOrder = 100;
 
-        var cls = (WowItemClass)item.ClassId;
-        if (cls == WowItemClass.Weapon)
+        var cls = (GameItemClass)item.ClassId;
+        if (cls == GameItemClass.Weapon)
         {
             var subClass = (WowWeaponSubclass)item.SubclassId;
 
@@ -697,7 +697,7 @@ public class JournalTool
             groupName = member.GetCustomAttribute<DisplayAttribute>()?.Name ?? subClass.ToString();
             groupOrder = Hardcoded.WeaponSubClassOrder.GetValueOrDefault(item.SubclassId, 99);
         }
-        else if (cls == WowItemClass.Armor)
+        else if (cls == GameItemClass.Armor)
         {
             var subClass = (WowArmorSubclass)item.SubclassId;
             if (subClass == WowArmorSubclass.Cloth)

@@ -4,6 +4,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
@@ -29,6 +30,114 @@ public class AuctionService
         _context = context;
         _memoryCacheService = memoryCacheService;
         _redis = redis;
+    }
+
+    public async Task<List<AuctionBrowseQuery>> Browse(WowRegion region, int inventoryType, int itemClass, int itemSubclass)
+    {
+        var connectedRealmIds = await _context.WowRealm
+            .Where(realm => realm.Region == region)
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToListAsync();
+
+        // Commodities
+        connectedRealmIds.Add(100000 + (int)region);
+
+        short classId = (short)(itemClass & 0x7FFF);
+        short subClassId = (short)(itemSubclass & 0x7FFF);
+
+        var (itemClassMap, itemSubclassMap) = await _memoryCacheService.GetItemClasses();
+
+        var itemQuery = _context.WowItem.AsQueryable();
+        if (inventoryType > 0)
+        {
+            itemQuery = itemQuery.Where(item => item.InventoryType == (WowInventoryType)inventoryType);
+        }
+        if (itemClass > 0)
+        {
+            itemQuery = itemQuery.Where(item => item.ClassId == itemClassMap[classId].ClassId);
+        }
+        if (itemSubclass > 0)
+        {
+            itemQuery = itemQuery.Where(item => item.SubclassId == itemSubclassMap[subClassId].SubclassId);
+        }
+
+        int[] itemIds = await itemQuery
+            .Select(item => item.Id)
+            .Distinct()
+            .ToArrayAsync();
+
+        var auctions = await _context.AuctionBrowseQuery
+            .FromSqlRaw(AuctionBrowseQuery.Sql, connectedRealmIds, itemIds)
+            .ToListAsync();
+
+        return auctions;
+    }
+
+    public async Task<List<AuctionBrowseQuery>> Search(WowRegion region, string query)
+    {
+        var connectedRealmIds = await _context.WowRealm
+            .Where(realm => realm.Region == region)
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToListAsync();
+
+        // Commodities
+        connectedRealmIds.Add(100000 + (int)region);
+
+
+        var itemQuery = _context.LanguageString
+            .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowItemName);
+        foreach (string part in query.Split())
+        {
+            // Alias to avoid variable capture bullshit
+            string temp = part;
+            itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
+        }
+
+        int[] itemIds = await itemQuery
+            .Select(item => item.Id)
+            .ToArrayAsync();
+
+        var auctions = await _context.AuctionBrowseQuery
+            .FromSqlRaw(AuctionBrowseQuery.Sql, connectedRealmIds, itemIds)
+            .ToListAsync();
+
+        return auctions;
+    }
+
+    public async Task<WowAuction[]> Specific(WowRegion region, string appearanceSource, int itemId, int petSpeciesId)
+    {
+        var connectedRealmIds = await _context.WowRealm
+            .Where(realm => realm.Region == region)
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToListAsync();
+
+        // Commodities
+        connectedRealmIds.Add(100000 + (int)region);
+
+        var auctionQuery = _context.WowAuction
+            .Where(auction => connectedRealmIds.Contains(auction.ConnectedRealmId));
+
+        if (!string.IsNullOrEmpty(appearanceSource))
+        {
+            auctionQuery = auctionQuery.Where(auction => auction.AppearanceSource == appearanceSource);
+        }
+        else if (itemId > 0)
+        {
+            auctionQuery = auctionQuery.Where(auction => auction.ItemId == itemId);
+        }
+        else if (petSpeciesId > 0)
+        {
+            auctionQuery = auctionQuery.Where(auction => auction.PetSpeciesId == petSpeciesId);
+        }
+
+        var auctions = await auctionQuery
+            .OrderBy(auction => auction.BuyoutPrice)
+            .ToArrayAsync();
+
+        return auctions;
     }
 
     public async Task<UserAuctionData> ExtraPetDataForUser(ApplicationUser user, JankTimer timer = null)

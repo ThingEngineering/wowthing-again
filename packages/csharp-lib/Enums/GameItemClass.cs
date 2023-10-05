@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Enums;
 
-public enum WowItemClass
+public enum GameItemClass
 {
     Consumable = 0,
     Container = 1,

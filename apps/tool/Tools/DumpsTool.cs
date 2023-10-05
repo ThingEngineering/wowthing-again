@@ -117,6 +117,7 @@ public class DumpsTool
             ImportItems,
             ImportItemAppearances,
             ImportItemBonuses,
+            ImportItemClasses,
             ImportItemEffects,
             ImportMounts,
             ImportPets,
@@ -776,7 +777,7 @@ public class DumpsTool
                 dbItem.ClassId = (short)classTuple.Item1;
                 dbItem.SubclassId = (short)classTuple.Item2;
             }
-            else if (dbItem.ClassId == (int)WowItemClass.Armor)
+            else if (dbItem.ClassId == (int)GameItemClass.Armor)
             {
                 var subClass = (WowArmorSubclass)dbItem.SubclassId;
                 // Cosmetic
@@ -793,14 +794,14 @@ public class DumpsTool
                 // Shield
                 else if (subClass == WowArmorSubclass.Shield)
                 {
-                    dbItem.ClassId = (int)WowItemClass.Weapon;
+                    dbItem.ClassId = (int)GameItemClass.Weapon;
                     dbItem.SubclassId = (int)WowWeaponSubclass.Shield;
                 }
                 // Off-hand
                 else if (subClass == WowArmorSubclass.Miscellaneous &&
                          dbItem.InventoryType == WowInventoryType.HeldInOffHand)
                 {
-                    dbItem.ClassId = (int)WowItemClass.Weapon;
+                    dbItem.ClassId = (int)GameItemClass.Weapon;
                     dbItem.SubclassId = (int)WowWeaponSubclass.OffHand;
                 }
                 // Tabard
@@ -932,6 +933,47 @@ public class DumpsTool
                 }
             }
         }
+    }
+
+    private async Task ImportItemClasses(WowDbContext context)
+    {
+        var classes = await DataUtilities.LoadDumpCsvAsync<DumpItemClass>("itemclass");
+        var classMap = await context.WowItemClass.ToDictionaryAsync(wic => wic.Id);
+
+        foreach (var dumpItemClass in classes)
+        {
+            if (!classMap.TryGetValue(dumpItemClass.ID, out var dbItemClass))
+            {
+                dbItemClass = classMap[dumpItemClass.ID] = new WowItemClass()
+                {
+                    Id = dumpItemClass.ID,
+                };
+                context.WowItemClass.Add(dbItemClass);
+            }
+
+            dbItemClass.ClassId = dumpItemClass.ClassID;
+        }
+
+        var subClasses = await DataUtilities.LoadDumpCsvAsync<DumpItemSubclass>("itemsubclass");
+        var subClassMap = await context.WowItemSubclass.ToDictionaryAsync(wic => wic.Id);
+
+        foreach (var dumpItemSubclass in subClasses)
+        {
+            if (!subClassMap.TryGetValue(dumpItemSubclass.ID, out var dbItemSubclass))
+            {
+                dbItemSubclass = subClassMap[dumpItemSubclass.ID] = new WowItemSubclass()
+                {
+                    Id = dumpItemSubclass.ID,
+                };
+                context.WowItemSubclass.Add(dbItemSubclass);
+            }
+
+            dbItemSubclass.AuctionHouseSortOrder = dumpItemSubclass.AuctionHouseSortOrder;
+            dbItemSubclass.ClassId = dumpItemSubclass.ClassID;
+            dbItemSubclass.SubclassId = dumpItemSubclass.SubClassID;
+        }
+
+        _timer.AddPoint("ItemClasses");
     }
 
     private async Task ImportItemEffects(WowDbContext context)

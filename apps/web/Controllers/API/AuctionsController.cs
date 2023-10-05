@@ -48,6 +48,75 @@ public class AuctionsController : Controller
         _context = context;
     }
 
+    [HttpPost("browse")]
+    [Authorize]
+    public async Task<IActionResult> Browse([FromBody] ApiAuctionsBrowseForm form)
+    {
+        if (form.InventoryType <= 0 && form.ItemClass <= 0 && form.ItemSubclass <= 0)
+        {
+            return BadRequest();
+        }
+
+        var timer = new JankTimer();
+
+        var data = await _auctionService.Browse(WowRegion.US, form.InventoryType, form.ItemClass, form.ItemSubclass);
+
+        timer.AddPoint("Data");
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
+    [HttpPost("search")]
+    [Authorize]
+    public async Task<IActionResult> Search([FromBody] ApiAuctionsSearchForm form)
+    {
+        if (string.IsNullOrEmpty(form.Query) || form.Query.Trim().Length < 3)
+        {
+            return BadRequest();
+        }
+
+        var timer = new JankTimer();
+
+        var data = await _auctionService.Search(WowRegion.US, form.Query);
+
+        timer.AddPoint("Data");
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
+    [HttpPost("specific")]
+    [Authorize]
+    public async Task<IActionResult> Specific([FromBody] ApiAuctionsSpecificForm form)
+    {
+        if (string.IsNullOrEmpty(form.AppearanceSource) && form.ItemId <= 0 && form.PetSpeciesId <= 0)
+        {
+            return BadRequest();
+        }
+
+        var timer = new JankTimer();
+
+        var data = await _auctionService.Specific(WowRegion.US, form.AppearanceSource, form.ItemId, form.PetSpeciesId);
+
+        timer.AddPoint("Data");
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
     [HttpPost("extra-pets")]
     [Authorize]
     public async Task<IActionResult> ExtraPets([FromBody] ApiExtraPetsForm form)
@@ -65,10 +134,13 @@ public class AuctionsController : Controller
 
         var data = await _auctionService.ExtraPetDataForUser(user, timer);
 
-        timer.Stop();
-        _logger.LogInformation($"{timer}");
+        timer.AddPoint("Data");
 
         string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
         return Content(json, MediaTypeNames.Application.Json);
     }
 

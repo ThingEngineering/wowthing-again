@@ -24,6 +24,8 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowAuction> WowAuction { get; set; }
     public DbSet<WowAuctionCheapestByAppearanceId> WowAuctionCheapestByAppearanceId { get; set; }
     public DbSet<WowAuctionCheapestByAppearanceSource> WowAuctionCheapestByAppearanceSource { get; set; }
+    public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
+    public DbSet<WowAuctionCommodityHourly> WowAuctionCommodityHourly { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
@@ -32,9 +34,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowHoliday> WowHoliday { get; set; }
     public DbSet<WowItem> WowItem { get; set; }
     public DbSet<WowItemBonus> WowItemBonus { get; set; }
+    public DbSet<WowItemClass> WowItemClass { get; set; }
     public DbSet<WowItemEffect> WowItemEffect { get; set; }
     public DbSet<WowItemEffectV2> WowItemEffectV2 { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
+    public DbSet<WowItemSubclass> WowItemSubclass { get; set; }
     public DbSet<WowMount> WowMount { get; set; }
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
@@ -99,6 +103,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
     public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }
     public DbSet<ActiveConnectedRealmQuery> ActiveConnectedRealmQuery { get; set; }
+    public DbSet<AuctionBrowseQuery> AuctionBrowseQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
     public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
@@ -169,6 +174,12 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<WowAuctionCheapestByAppearanceSource>()
             .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceSource });
+
+        builder.Entity<WowAuctionCommodityDaily>()
+            .HasKey(daily => new { daily.Region, daily.ItemId, daily.Date });
+
+        builder.Entity<WowAuctionCommodityHourly>()
+            .HasKey(daily => new { daily.Region, daily.ItemId, daily.Timestamp });
 
         builder.Entity<WowMythicPlusSeason>()
             .HasKey(s => new { s.Region, s.Id });
@@ -243,6 +254,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<ActiveConnectedRealmQuery>()
             .ToTable("ActiveConnectedRealmQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<AuctionBrowseQuery>()
+            .ToTable("AuctionBrowseQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
