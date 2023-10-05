@@ -74,6 +74,38 @@ public class AuctionService
         return auctions;
     }
 
+    public async Task<List<AuctionBrowseQuery>> Search(WowRegion region, string query)
+    {
+        var connectedRealmIds = await _context.WowRealm
+            .Where(realm => realm.Region == region)
+            .Select(realm => realm.ConnectedRealmId)
+            .Distinct()
+            .ToListAsync();
+
+        // Commodities
+        connectedRealmIds.Add(100000 + (int)region);
+
+
+        var itemQuery = _context.LanguageString
+            .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowItemName);
+        foreach (string part in query.Split())
+        {
+            // Alias to avoid variable capture bullshit
+            string temp = part;
+            itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
+        }
+
+        int[] itemIds = await itemQuery
+            .Select(item => item.Id)
+            .ToArrayAsync();
+
+        var auctions = await _context.AuctionBrowseQuery
+            .FromSqlRaw(AuctionBrowseQuery.Sql, connectedRealmIds, itemIds)
+            .ToListAsync();
+
+        return auctions;
+    }
+
     public async Task<WowAuction[]> Specific(WowRegion region, string appearanceSource, int itemId, int petSpeciesId)
     {
         var connectedRealmIds = await _context.WowRealm

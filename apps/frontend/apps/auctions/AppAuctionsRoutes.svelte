@@ -6,7 +6,7 @@
 
     const routes = {
         '/browse/:slug1?/:slug2?/:slug3?/:slug4?': Browse,
-        '/search/:value': Search,
+        '/search/:slug1?/:slug2?': Search,
     }
 </script>
 

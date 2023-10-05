@@ -3,7 +3,7 @@ import { writable } from 'svelte/store'
 
 export class AuctionsBrowseState {
     public filter: string = null
-    public browseSelected: Record<number, string> = {}
+    public resultsSelected: Record<string, string> = {}
 }
 
 const key = 'state-auctions-browse'

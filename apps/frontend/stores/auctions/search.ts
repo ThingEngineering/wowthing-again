@@ -1,25 +1,18 @@
-import type { AuctionData } from '@/types/data/auction'
 import type { AuctionEntry } from './types'
 
 
-export class AuctionsBrowseDataStore {
-    private static url = '/api/auctions/browse'
+export class AuctionsSearchDataStore {
+    private static url = '/api/auctions/search'
     private cache: Record<string, AuctionEntry[]> = {}
 
     async search(
-        auctionData: AuctionData,
-        categoryId: number
+        query: string
     ): Promise<AuctionEntry[]> {
         let things: AuctionEntry[] = []
 
-        const auctionCategory = auctionData.categoryMap[categoryId]
-        if (!auctionCategory) {
-            return []
-        }
-
         const cacheKey = [
             1, // TODO region
-            categoryId,
+            query,
         ].join('--')
 
         if (this.cache[cacheKey]) {
@@ -28,15 +21,13 @@ export class AuctionsBrowseDataStore {
         else {
             const data = {
                 region: 1, // TODO region
-                inventoryType: auctionCategory.inventoryType,
-                itemClass: auctionCategory.itemClass,
-                itemSubclass: auctionCategory.itemSubClass,
+                query,
             }
 
             const xsrf = document.getElementById('app')
                 .getAttribute('data-xsrf')
 
-            const response = await fetch(AuctionsBrowseDataStore.url, {
+            const response = await fetch(AuctionsSearchDataStore.url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,7 +38,6 @@ export class AuctionsBrowseDataStore {
 
             if (response.ok) {
                 const responseData = await response.json() as AuctionEntry[]
-                console.log(responseData)
 
                 things = responseData
                 things.sort((a, b) => a.lowestBuyoutPrice - b.lowestBuyoutPrice)
@@ -59,4 +49,4 @@ export class AuctionsBrowseDataStore {
         return things
     }
 }
-export const auctionsBrowseDataStore = new AuctionsBrowseDataStore()
+export const auctionsSearchDataStore = new AuctionsSearchDataStore()

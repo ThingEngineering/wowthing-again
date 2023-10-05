@@ -1,17 +1,16 @@
 <script lang="ts">
-    import { auctionStore } from '@/stores/auction'
-    import { auctionsBrowseDataStore } from '@/stores/auctions/browse'
+    import { itemModifierMap } from '@/data/item-modifier'
+    import { staticStore } from '@/stores/static'
     import { auctionsBrowseState } from '@/stores/local-storage/auctions-browse'
     import { leftPad } from '@/utils/formatting'
-    import type { AuctionCategory } from '@/types/data/auction'
+    import type { AuctionEntry } from '@/stores/auctions/types'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import Selected from './AppAuctionsBrowseSelected.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { itemStore, staticStore } from '@/stores';
-    import { itemModifierMap } from '@/data/item-modifier';
 
-    export let category: AuctionCategory
+    export let auctions: AuctionEntry[]
+    export let selectedKey: string
 
     function formatPrice(price: number): string {
         price = price / 100
@@ -63,11 +62,11 @@
     }
 
     function toggleSelected(choreKey: string) {
-        if ($auctionsBrowseState.browseSelected[category.id] === choreKey) {
-            $auctionsBrowseState.browseSelected[category.id] = null
+        if ($auctionsBrowseState.resultsSelected[selectedKey] === choreKey) {
+            $auctionsBrowseState.resultsSelected[selectedKey] = null
         }
         else {
-            $auctionsBrowseState.browseSelected[category.id] = choreKey
+            $auctionsBrowseState.resultsSelected[selectedKey] = choreKey
         }
     }
 </script>
@@ -109,8 +108,8 @@
         width: 1.7rem;
     }
     .name {
-        max-width: 20rem;
-        width: 20rem;
+        max-width: 25rem;
+        width: 25rem;
     }
     .quantity {
         text-align: right;
@@ -127,54 +126,50 @@
 </style>
 
 <div>
-    {#await auctionsBrowseDataStore.search($auctionStore, category.id)}
-        L O A D I N G . . .
-    {:then auctions}
-        <div class="flex-wrapper">
-            <div class="results">
-                <table class="table table-striped">
-                    <thead>
+    <div class="flex-wrapper">
+        <div class="results">
+            <table class="table table-striped">
+                <thead>
+                    <tr
+                        class:next-selected={$auctionsBrowseState.resultsSelected[selectedKey] === auctions[0]?.groupKey}
+                    >
+                        <th colspan="2">Thing</th>
+                        <th>Listed</th>
+                        <th>Cheapest</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#each auctions as auction, auctionIndex}
                         <tr
-                            class:next-selected={$auctionsBrowseState.browseSelected[category.id] === auctions[0]?.groupKey}
+                            class="selectable"
+                            class:next-selected={$auctionsBrowseState.resultsSelected[selectedKey] === auctions[auctionIndex + 1]?.groupKey}
+                            class:selected={$auctionsBrowseState.resultsSelected[selectedKey] === auction.groupKey}
+                            on:click={() => toggleSelected(auction.groupKey)}
                         >
-                            <th colspan="2">Thing</th>
-                            <th>Listed</th>
-                            <th>Cheapest</th>
+                            <td class="icon">
+                                <WowthingImage
+                                    name={getIconFromGroupKey(auction.groupKey)}
+                                    size={20}
+                                    border={1}
+                                />
+                            </td>
+                            <td class="name text-overflow">
+                                <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
+                            </td>
+                            <td class="quantity">
+                                {auction.totalQuantity.toLocaleString()}
+                            </td>
+                            <td class="price">
+                                <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        {#each auctions as auction, auctionIndex}
-                            <tr
-                                class="selectable"
-                                class:next-selected={$auctionsBrowseState.browseSelected[category.id] === auctions[auctionIndex + 1]?.groupKey}
-                                class:selected={$auctionsBrowseState.browseSelected[category.id] === auction.groupKey}
-                                on:click={() => toggleSelected(auction.groupKey)}
-                            >
-                                <td class="icon">
-                                    <WowthingImage
-                                        name={getIconFromGroupKey(auction.groupKey)}
-                                        size={20}
-                                        border={1}
-                                    />
-                                </td>
-                                <td class="name text-overflow">
-                                    <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
-                                </td>
-                                <td class="quantity">
-                                    {auction.totalQuantity.toLocaleString()}
-                                </td>
-                                <td class="price">
-                                    <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
-            </div>
-
-            {#if $auctionsBrowseState.browseSelected[category.id]}
-                <Selected selected={$auctionsBrowseState.browseSelected[category.id]} />
-            {/if}
+                    {/each}
+                </tbody>
+            </table>
         </div>
-    {/await}
+
+        {#if $auctionsBrowseState.resultsSelected[selectedKey]}
+            <Selected selected={$auctionsBrowseState.resultsSelected[selectedKey]} />
+        {/if}
+    </div>
 </div>

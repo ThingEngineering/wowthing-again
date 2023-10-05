@@ -71,6 +71,29 @@ public class AuctionsController : Controller
         return Content(json, MediaTypeNames.Application.Json);
     }
 
+    [HttpPost("search")]
+    [Authorize]
+    public async Task<IActionResult> Search([FromBody] ApiAuctionsSearchForm form)
+    {
+        if (string.IsNullOrEmpty(form.Query) || form.Query.Trim().Length < 3)
+        {
+            return BadRequest();
+        }
+
+        var timer = new JankTimer();
+
+        var data = await _auctionService.Search(WowRegion.US, form.Query);
+
+        timer.AddPoint("Data");
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
     [HttpPost("specific")]
     [Authorize]
     public async Task<IActionResult> Specific([FromBody] ApiAuctionsSpecificForm form)

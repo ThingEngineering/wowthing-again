@@ -1,5 +1,6 @@
 <script lang="ts">
     import { auctionStore } from '@/stores/auction'
+    import { auctionsBrowseDataStore } from '@/stores/auctions/browse'
     import type { MultiSlugParams } from '@/types'
     import type { AuctionCategory } from '@/types/data/auction'
 
@@ -63,6 +64,13 @@
             {/each}
         </div>
         
-        <Results {category} />
+        {#await auctionsBrowseDataStore.search($auctionStore, category.id)}
+            L O A D I N G . . .
+        {:then auctions}
+            <Results
+                selectedKey={`category:${category.id}`}
+                {auctions}
+            />
+        {/await}
     {/if}
 </div>

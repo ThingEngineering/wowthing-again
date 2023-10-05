@@ -1,12 +1,5 @@
-import type { AuctionData } from '@/types/data/auction'
 import { UserAuctionDataAuction, type UserAuctionDataAuctionArray } from '@/types/data/user-auctions'
 
-
-export type AuctionBrowseEntry = {
-    groupKey: string,
-    lowestBuyoutPrice: number,
-    totalQuantity: number,
-}
 
 export class AuctionsSpecificDataStore {
     private static url = '/api/auctions/specific'
@@ -63,22 +56,17 @@ export class AuctionsSpecificDataStore {
                 things = responseData.map((auctionArray) => new UserAuctionDataAuction(...auctionArray))
                 things.sort((a, b) => a.buyoutPrice - b.buyoutPrice)
 
-                // if (things[0].connectedRealmId > 100000) {
-                    const temp: UserAuctionDataAuction[] = []
-                    
-                    for (const thing of things) {
-                        if (temp.length === 0 || temp[temp.length - 1].buyoutPrice !== thing.buyoutPrice) {
-                            temp.push(thing)
-                        }
-                        else {
-                            temp[temp.length - 1].quantity += thing.quantity
-                        }
+                const temp: UserAuctionDataAuction[] = []
+                for (const thing of things) {
+                    if (temp.length === 0 || temp[temp.length - 1].buyoutPrice !== thing.buyoutPrice) {
+                        temp.push(thing)
                     }
+                    else {
+                        temp[temp.length - 1].quantity += thing.quantity
+                    }
+                }
 
-                    things = temp
-                // }
-
-                console.log(things)
+                things = temp
 
                 this.cache[cacheKey] = things
             }
