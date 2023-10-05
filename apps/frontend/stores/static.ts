@@ -123,6 +123,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawRealms !== null) {
             data.realms = {
                 0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
+                100001: new StaticDataRealm(100001, 1, 100001, 'Commodities', 'commodities'),
+                100002: new StaticDataRealm(100002, 2, 100002, 'Commodities', 'commodities'),
+                100003: new StaticDataRealm(100003, 3, 100003, 'Commodities', 'commodities'),
+                100004: new StaticDataRealm(100004, 4, 100004, 'Commodities', 'commodities'),
             }
             for (const realmArray of data.rawRealms) {
                 const obj = new StaticDataRealm(...realmArray)

@@ -115,6 +115,24 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
         );
     }
 
+    public async Task<(Dictionary<short, WowItemClass>, Dictionary<short, WowItemSubclass>)> GetItemClasses()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemClasses,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var itemClassMap = await _context.WowItemClass
+                    .ToDictionaryAsync(wic => wic.Id);
+                var itemSubclassMap = await _context.WowItemSubclass
+                    .ToDictionaryAsync(wis => wis.Id);
+
+                return (itemClassMap, itemSubclassMap);
+            }
+        );
+    }
+
     public async Task<Dictionary<int, int>> GetItemIdToPetId()
     {
         return await _memoryCache.GetOrCreateAsync(

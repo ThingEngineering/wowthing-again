@@ -16,12 +16,20 @@ export class AuctionDataStore extends WritableFancyStore<AuctionData> {
             for (const categoryArray of data.rawCategories) {
                 const obj = new AuctionCategory(...categoryArray)
                 data.categories.push(obj)
-                data.categoryMap[obj.id] = obj
+
+                this.recurseChildren(data.categoryMap, obj)
             }
             data.rawCategories = null
         }
 
         console.timeEnd('AuctionDataStore.initialize')
+    }
+
+    private recurseChildren(categoryMap: Record<number, AuctionCategory>, category: AuctionCategory) {
+        categoryMap[category.id] = category
+        for (const childCategory of (category.children || [])) {
+            this.recurseChildren(categoryMap, childCategory)
+        }
     }
 }
 

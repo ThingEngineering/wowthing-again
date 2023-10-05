@@ -5,13 +5,16 @@
 
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
+    import Results from './AppAuctionsBrowseResults.svelte'
+
     export let params: MultiSlugParams
 
     let categories: AuctionCategory[]
+    let category: AuctionCategory
     $: {
         categories = []
 
-        let category = $auctionStore.categories.filter((cat) => cat.slug === params.slug1)[0]
+        category = $auctionStore.categories.filter((cat) => cat.slug === params.slug1)[0]
         if (!category) { break $ }
         categories.push(category)
 
@@ -26,6 +29,11 @@
                 categories.push(category)
             }
         }
+
+        // Weapons/Armor no browse
+        if (category.id === 1 || category.id === 24) {
+            category = null
+        }
     }
 </script>
 
@@ -39,11 +47,12 @@
     }
 </style>
 
-{#if categories}
-    <div class="wrapper-column">
-        <UnderConstruction />
-        BROWSE REGION=US
+<div class="wrapper-column">
+    <UnderConstruction />
+    
+    {#if category?.browseable}
         <div class="header">
+            BROWSE REGION=US
             {#each categories as category, categoryIndex}
                 {#if categoryIndex > 0}
                     <span>&gt;</span>
@@ -53,6 +62,7 @@
                 </a>
             {/each}
         </div>
-
-    </div>
-{/if}
+        
+        <Results {category} />
+    {/if}
+</div>
