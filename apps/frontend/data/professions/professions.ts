@@ -1,12 +1,6 @@
-import flatten from 'lodash/flatten'
 import sortBy from 'lodash/sortBy'
-import { get } from 'svelte/store'
 
-import { Profession } from '@/enums/profession'
-import { staticStore } from '@/stores'
-import type { Character } from '@/types'
 import type { DragonflightProfession } from '@/types/data'
-import type { Chore } from '@/types/tasks'
 
 import { dragonflightAlchemy } from './alchemy'
 import { dragonflightBlacksmithing } from './blacksmithing'
@@ -125,83 +119,3 @@ export const dragonflightProfessionMap: Record<number, DragonflightProfession> =
             profession,
         ])
 )
-
-export const dragonflightProfessionTasks: Chore[] = flatten(
-    dragonflightProfessions.map((profession) => {
-        const name = Profession[profession.id]
-        const lowerName = Profession[profession.id].toLowerCase()
-        const tasks: Chore[] = []
-
-        if (profession.hasCraft === true) {
-            tasks.push(
-                {
-                    taskKey: `dfProfession${name}Craft`,
-                    taskName: `${name}: Craft`,
-                    minimumLevel: 60,
-                    couldGetFunc: (char) => couldGet(lowerName, char),
-                    canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
-                },
-            )
-        }
-
-        tasks.push(
-            {
-                taskKey: `dfProfession${name}Drop#`,
-                taskName: `${name}: Drops`,
-                minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
-                //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
-            },
-        )
-
-        tasks.push(
-            {
-                taskKey: `dfProfession${name}Gather`,
-                taskName: `${name}: Gather`,
-                minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
-                canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
-            },
-        )
-
-        if (profession.hasOrders === true) {
-            tasks.push(
-                {
-                    taskKey: `dfProfession${name}Orders`,
-                    taskName: `${name}: Orders`,
-                    minimumLevel: 60,
-                    couldGetFunc: (char) => couldGet(lowerName, char),
-                    canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
-                },
-            )
-        }
-
-        tasks.push(
-            {
-                taskKey: `dfProfession${name}Treatise`,
-                taskName: `${name}: Treatise`,
-                minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
-            },
-        )
-
-        return tasks
-    })
-)
-
-function couldGet(slug: string, char: Character): boolean {
-    const staticData = get(staticStore)
-
-    const profession = staticData.professions[professionSlugToId[slug]]
-    return !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
-}
-
-function getLatestSkill(char: Character, slug: string, minSkill: number): string {
-    const staticData = get(staticStore)
-
-    const professionId = professionSlugToId[slug]
-    const subProfessions = staticData.professions[professionId].subProfessions
-    const skill = char.professions[professionId][subProfessions[subProfessions.length - 1].id] ?.currentSkill ?? 0
-
-    return skill < minSkill ? `Need ${minSkill} skill` : ''
-}
