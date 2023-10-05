@@ -34,9 +34,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowHoliday> WowHoliday { get; set; }
     public DbSet<WowItem> WowItem { get; set; }
     public DbSet<WowItemBonus> WowItemBonus { get; set; }
+    public DbSet<WowItemClass> WowItemClass { get; set; }
     public DbSet<WowItemEffect> WowItemEffect { get; set; }
     public DbSet<WowItemEffectV2> WowItemEffectV2 { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
+    public DbSet<WowItemSubclass> WowItemSubclass { get; set; }
     public DbSet<WowMount> WowMount { get; set; }
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
