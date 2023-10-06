@@ -1,3 +1,4 @@
+export * from './aura'
 export * from './character'
 export * from './configuration'
 export * from './currency'

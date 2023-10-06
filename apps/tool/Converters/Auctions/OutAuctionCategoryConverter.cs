@@ -17,6 +17,7 @@ public class OutAuctionCategoryConverter : JsonConverter<OutAuctionCategory>
         writer.WriteNumberValue(category.InventoryType);
         writer.WriteNumberValue(category.ItemClass);
         writer.WriteNumberValue(category.ItemSubClass);
+        writer.WriteNumberValue(category.DefaultAuctionHouseFilter);
         writer.WriteStringValue(category.Description);
         writer.WriteStringValue(category.Description.Slugify());
 

@@ -25,7 +25,7 @@ public class PlayerCharacterAddonData
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<int, int> Auras { get; set; } = new();
+    public Dictionary<int, PlayerCharacterAddonDataAura> Auras { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataCurrency> Currencies { get; set; } = new();
@@ -53,6 +53,13 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
+}
+
+public class PlayerCharacterAddonDataAura
+{
+    public int Duration { get; set; }
+    public int Expires { get; set; }
+    public int Stacks { get; set; }
 }
 
 [System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]

@@ -15,6 +15,7 @@ public class DumpItemSparse
     public short ExpansionID { get; set; }
     public short ItemLevel { get; set; }
     public int ItemNameDescriptionID { get; set; }
+    public short LimitCategory { get; set; }
     public int MaxCount { get; set; }
     public int OppositeFactionItemID { get; set; }
     public short OverallQualityID { get; set; }

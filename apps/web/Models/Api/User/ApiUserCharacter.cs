@@ -35,7 +35,7 @@ public class ApiUserCharacter
 
     public ApiUserCharacterConfiguration Configuration { get; set; }
 
-    public Dictionary<int, int> Auras { get; set; }
+    public Dictionary<int, PlayerCharacterAddonDataAura> Auras { get; set; }
     // public Dictionary<short, int> Bags { get; set; }
     // public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, ApiUserCharacterEquippedItem> EquippedItems { get; }

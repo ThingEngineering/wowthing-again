@@ -6,6 +6,7 @@ namespace Wowthing.Tool.Models.Auctions;
 public class OutAuctionCategory : IComparable<OutAuctionCategory>
 {
     public int Id { get; set; }
+    public int DefaultAuctionHouseFilter { get; set; }
     public int InventoryType { get; set; }
     public int ItemClass { get; set; }
     public int ItemSubClass { get; set; }
@@ -17,6 +18,7 @@ public class OutAuctionCategory : IComparable<OutAuctionCategory>
     public OutAuctionCategory(DumpAuctionHouseCategory category)
     {
         Id = category.ID;
+        DefaultAuctionHouseFilter = category.DefaultAuctionHouseFilter;
         InventoryType = category.InventoryType;
         ItemClass = category.ItemClass;
         ItemSubClass = category.ItemSubClass;

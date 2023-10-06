@@ -10,11 +10,7 @@ public class AuctionBrowseQuery
     public string GroupKey { get; set; }
 
     public const string Sql = @"
-SELECT  CASE
-            WHEN pet_species_id > 0 THEN 'pet:' || pet_species_id
-            WHEN appearance_source IS NOT NULL THEN 'source:' || appearance_source
-            ELSE 'item:' || item_id
-        END AS group_key,
+SELECT  group_key,
         MIN(buyout_price) AS lowest_buyout_price,
         SUM(quantity) AS total_quantity
 FROM    wow_auction wa

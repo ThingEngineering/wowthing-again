@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { professionSpecializationSpells } from '@/data/professions'
     import { Faction } from '@/enums/faction'

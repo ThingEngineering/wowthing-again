@@ -2,7 +2,8 @@
 
 public class ApiAuctionsBrowseForm
 {
-    public int InventoryType { get; set; }
-    public int ItemClass { get; set; }
-    public int ItemSubclass { get; set; }
+    public short DefaultFilter { get; set; }
+    public short InventoryType { get; set; }
+    public short ItemClass { get; set; }
+    public short ItemSubclass { get; set; }
 }

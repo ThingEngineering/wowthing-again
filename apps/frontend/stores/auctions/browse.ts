@@ -6,7 +6,7 @@ export class AuctionsBrowseDataStore {
     private static url = '/api/auctions/browse'
     private cache: Record<string, AuctionEntry[]> = {}
 
-    async search(
+    async fetch(
         auctionData: AuctionData,
         categoryId: number
     ): Promise<AuctionEntry[]> {
@@ -28,6 +28,7 @@ export class AuctionsBrowseDataStore {
         else {
             const data = {
                 region: 1, // TODO region
+                defaultFilter: auctionCategory.defaultFilter,
                 inventoryType: auctionCategory.inventoryType,
                 itemClass: auctionCategory.itemClass,
                 itemSubclass: auctionCategory.itemSubClass,

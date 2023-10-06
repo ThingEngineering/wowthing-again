@@ -47,7 +47,7 @@ public class PlayerCharacter
     public PlayerGuild Guild { get; set; }
 
     // Bookkeeping
-    public bool ShouldUpdate { get; set; } = true;
+    public bool? ShouldUpdate { get; set; } = true;
     public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime LastApiModified { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime LastSeenAddon { get; set; } = MiscConstants.DefaultDateTime;
