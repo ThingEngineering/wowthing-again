@@ -31,5 +31,7 @@ public class WowAuction
     public List<int> ModifierValues { get; set; }
     public List<short> ModifierTypes { get; set; }
 
+    public string GroupKey { get; set; }
+
     public long UsefulPrice => BidPrice > 0 ? BidPrice : BuyoutPrice;
 }

@@ -69,6 +69,7 @@ COPY {0} (
     pet_species_id,
     appearance_id,
     appearance_source,
+    group_key,
     bonus_ids,
     modifier_values,
     modifier_types
@@ -373,6 +374,20 @@ COPY wow_auction_commodity_hourly (
                 commodities.GetOrNew(auction.Item.Id).Add(auction);
             }
 
+            string groupKey;
+            if (auction.Item.PetSpeciesId > 0)
+            {
+                groupKey = $"pet:{auction.Item.PetSpeciesId}";
+            }
+            else if (!string.IsNullOrWhiteSpace(appearanceSource))
+            {
+                groupKey = $"source:{appearanceSource}";
+            }
+            else
+            {
+                groupKey = $"item:{auction.Item.Id}";
+            }
+
             await writer.StartRowAsync();
             await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
             await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
@@ -405,6 +420,8 @@ COPY wow_auction_commodity_hourly (
             {
                 await writer.WriteNullAsync();
             }
+
+            await writer.WriteAsync(groupKey, NpgsqlDbType.Varchar);
 
             await writer.WriteAsync(auction.Item.BonusLists.EmptyIfNull(),
                 NpgsqlDbType.Array | NpgsqlDbType.Integer);
