@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Region } from '@/enums/region';
     import { auctionsSpecificDataStore } from '@/stores/auctions/specific'
-    import { auctionsBrowseState } from '@/stores/local-storage/auctions-browse'
     import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
     import tippy from '@/utils/tippy'
@@ -20,7 +19,7 @@
 <style lang="scss">
     .selected {
         max-height: 80vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         scrollbar-gutter: stable;
     }
     td {

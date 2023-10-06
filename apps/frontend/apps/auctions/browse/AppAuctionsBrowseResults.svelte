@@ -79,14 +79,16 @@
     }
     .results {
         max-height: 80vh;
-        overflow-y: scroll;
+        overflow-y: auto;
         scrollbar-gutter: stable;
     }
     td {
         padding: 0.15rem 0.4rem;
     }
-    .selectable {
-        cursor: pointer;
+    tbody {
+        tr {
+            cursor: pointer;
+        }
     }
     .next-selected {
         td, th {
@@ -131,7 +133,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr
-                        class:next-selected={$auctionsBrowseState.resultsSelected[selectedKey] === auctions[0]?.groupKey}
+                        class:next-selected={($auctionsBrowseState.resultsSelected[selectedKey] || 'ZZZ') === auctions[0]?.groupKey}
                     >
                         <th colspan="2">Thing</th>
                         <th>Listed</th>
@@ -141,9 +143,9 @@
                 <tbody>
                     {#each auctions as auction, auctionIndex}
                         <tr
-                            class="selectable"
-                            class:next-selected={$auctionsBrowseState.resultsSelected[selectedKey] === auctions[auctionIndex + 1]?.groupKey}
+                            class:next-selected={($auctionsBrowseState.resultsSelected[selectedKey] || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
                             class:selected={$auctionsBrowseState.resultsSelected[selectedKey] === auction.groupKey}
+                            data-group-key={auction.groupKey}
                             on:click={() => toggleSelected(auction.groupKey)}
                         >
                             <td class="icon">
