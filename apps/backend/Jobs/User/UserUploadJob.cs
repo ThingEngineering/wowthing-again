@@ -510,17 +510,21 @@ public class UserUploadJob : JobBase
             character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(64);
         }
 
-        if (characterData.AurasV2 != null)
+        character.AddonData.Auras = new();
+        foreach (string auraString in characterData.AurasV2.EmptyIfNull())
         {
-            character.AddonData.Auras = characterData.AurasV2
-                .Select(aura => aura.Split(':'))
-                .ToDictionary(parts => int.Parse(parts[0]), parts => int.Parse(parts[1]));
-        }
-        else
-        {
-            character.AddonData.Auras = characterData.Auras
-                .EmptyIfNull()
-                .ToDictionary(auraId => auraId, _ => 0);
+            string[] auraParts = auraString.Split(':');
+            if (auraParts.Length >= 2)
+            {
+                var aura = character.AddonData.Auras[int.Parse(auraParts[0])] = new();
+                aura.Expires = int.Parse(auraParts[1]);
+
+                if (auraParts.Length >= 4)
+                {
+                    aura.Stacks = int.Parse(auraParts[2]);
+                    aura.Duration = int.Parse(auraParts[3]);
+                }
+            }
         }
 
         // Currencies
