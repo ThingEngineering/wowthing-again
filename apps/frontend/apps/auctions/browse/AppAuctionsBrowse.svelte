@@ -64,7 +64,7 @@
             {/each}
         </div>
         
-        {#await auctionsBrowseDataStore.search($auctionStore, category.id)}
+        {#await auctionsBrowseDataStore.fetch($auctionStore, category.id)}
             L O A D I N G . . .
         {:then auctions}
             <Results

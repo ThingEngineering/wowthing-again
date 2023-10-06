@@ -59,7 +59,8 @@ public class AuctionsController : Controller
 
         var timer = new JankTimer();
 
-        var data = await _auctionService.Browse(WowRegion.US, form.InventoryType, form.ItemClass, form.ItemSubclass);
+        var data = await _auctionService.Browse(WowRegion.US, form.DefaultFilter, form.InventoryType,
+            form.ItemClass, form.ItemSubclass);
 
         timer.AddPoint("Data");
 

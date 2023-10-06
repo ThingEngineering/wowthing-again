@@ -32,7 +32,8 @@ public class AuctionService
         _redis = redis;
     }
 
-    public async Task<AuctionBrowseQuery[]> Browse(WowRegion region, int inventoryType, int itemClass, int itemSubclass)
+    public async Task<AuctionBrowseQuery[]> Browse(WowRegion region, short defaultFilter, short inventoryType,
+        short itemClass, short itemSubclass)
     {
         var connectedRealmIds = await _context.WowRealm
             .Where(realm => realm.Region == region)
@@ -43,9 +44,6 @@ public class AuctionService
         // Commodities
         connectedRealmIds.Add(100000 + (int)region);
 
-        short classId = (short)(itemClass & 0x7FFF);
-        short subClassId = (short)(itemSubclass & 0x7FFF);
-
         var (itemClassMap, itemSubclassMap) = await _memoryCacheService.GetItemClasses();
 
         var itemQuery = _context.WowItem.AsQueryable();
@@ -55,11 +53,17 @@ public class AuctionService
         }
         if (itemClass > 0)
         {
-            itemQuery = itemQuery.Where(item => item.ClassId == itemClassMap[classId].ClassId);
+            itemQuery = itemQuery.Where(item => item.ClassId == itemClassMap[itemClass].ClassId);
         }
         if (itemSubclass > 0)
         {
-            itemQuery = itemQuery.Where(item => item.SubclassId == itemSubclassMap[subClassId].SubclassId);
+            itemQuery = itemQuery.Where(item => item.SubclassId == itemSubclassMap[itemSubclass].SubclassId);
+        }
+
+        // Runecarving are the only use of this as of 10.1.7
+        if (defaultFilter == 12)
+        {
+            itemQuery = itemQuery.Where(item => item.LimitCategory == 473);
         }
 
         var auctions = await _context.WowAuction

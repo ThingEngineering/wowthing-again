@@ -7,6 +7,7 @@ public class DumpAuctionHouseCategory
 {
     public int ID { get; set; }
 
+    public int DefaultAuctionHouseFilter { get; set; }
     public int InventoryType { get; set; }
     public int ItemClass { get; set; }
     public int ItemSubClass { get; set; }

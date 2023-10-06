@@ -7,6 +7,7 @@ export type AuctionCategoryArray = [
     inventoryType: InventoryType,
     itemClass: ItemClass,
     itemSubClass: number,
+    defaultFilter: number,
     name: string,
     slug: string,
     childArrays: AuctionCategoryArray[]
@@ -20,6 +21,7 @@ export class AuctionCategory {
         public inventoryType: InventoryType,
         public itemClass: ItemClass,
         public itemSubClass: number,
+        public defaultFilter: number,
         public name: string,
         public slug: string,
         childArrays: AuctionCategoryArray[]
