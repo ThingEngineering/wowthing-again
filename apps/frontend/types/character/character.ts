@@ -35,6 +35,7 @@ import type { CharacterWeekly } from './weekly'
 
 import type { ContainsItems, HasNameAndRealm } from '../shared'
 import type { Account } from '../account'
+import type { CharacterAura } from './aura'
 
 
 export class Character implements ContainsItems, HasNameAndRealm {
@@ -90,7 +91,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
         public configuration: CharacterConfiguration,
 
-        public auras: Record<number, number>,
+        public auras: Record<number, CharacterAura>,
         public equippedItems: Record<number, CharacterEquippedItem>,
         public garrisons: Record<number, CharacterGarrison>,
         public garrisonTrees: Record<number, Record<number, number[]>>,
