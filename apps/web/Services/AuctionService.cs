@@ -32,7 +32,7 @@ public class AuctionService
         _redis = redis;
     }
 
-    public async Task<List<AuctionBrowseQuery>> Browse(WowRegion region, int inventoryType, int itemClass, int itemSubclass)
+    public async Task<AuctionBrowseQuery[]> Browse(WowRegion region, int inventoryType, int itemClass, int itemSubclass)
     {
         var connectedRealmIds = await _context.WowRealm
             .Where(realm => realm.Region == region)
@@ -62,14 +62,18 @@ public class AuctionService
             itemQuery = itemQuery.Where(item => item.SubclassId == itemSubclassMap[subClassId].SubclassId);
         }
 
-        int[] itemIds = await itemQuery
-            .Select(item => item.Id)
-            .Distinct()
+        var auctions = await _context.WowAuction
+            .Where(auction => connectedRealmIds.Contains(auction.ConnectedRealmId))
+            .Where(auction => itemQuery.Select(item => item.Id).Contains(auction.ItemId))
+            .Where(auction => auction.BuyoutPrice > 0)
+            .GroupBy(auction => auction.GroupKey)
+            .Select(group => new AuctionBrowseQuery
+            {
+                GroupKey = group.Key,
+                LowestBuyoutPrice = group.Min(auction => auction.BuyoutPrice),
+                TotalQuantity = group.Sum(auction => auction.Quantity),
+            })
             .ToArrayAsync();
-
-        var auctions = await _context.AuctionBrowseQuery
-            .FromSqlRaw(AuctionBrowseQuery.Sql, connectedRealmIds, itemIds)
-            .ToListAsync();
 
         return auctions;
     }
