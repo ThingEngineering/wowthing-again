@@ -27,6 +27,7 @@ public class WowItem
     public short Unique { get; set; }
     public short RequiredSkill { get; set; }
     public short RequiredSkillRank { get; set; }
+    public short LimitCategory { get; set; }
 
     public WowItem(int id)
     {
