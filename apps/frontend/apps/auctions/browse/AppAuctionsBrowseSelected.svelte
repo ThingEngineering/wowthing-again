@@ -23,7 +23,7 @@
         scrollbar-gutter: stable;
     }
     td {
-        padding: 0.15rem 0.4rem;
+        padding: 0.1rem 0.4rem;
     }
     code {
         background: transparent;
@@ -44,27 +44,25 @@
 </style>
 
 <div class="selected">
-    {#await auctionsSpecificDataStore.search(selected)}
-        L O A D I N G . . .
-    {:then auctions}
-        <table class="table table-striped">
-            <thead>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Realm</th>
+                <th>Lvl/Qty</th>
+                <!-- {#if auctions[0]?.connectedRealmId < 100000}
+                    <th>Bid</th>
+                {/if} -->
+                <th>Buyout</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#await auctionsSpecificDataStore.search(selected)}
                 <tr>
-                    <th>Realm</th>
-                    <th>
-                        {#if auctions[0]?.petSpeciesId}
-                            Level
-                        {:else}
-                            Quantity
-                        {/if}
-                    </th>
-                    <!-- {#if auctions[0]?.connectedRealmId < 100000}
-                        <th>Bid</th>
-                    {/if} -->
-                    <th>Buyout</th>
+                    <td class="realm">L O A D I N G . . .</td>
+                    <td class="quantity"></td>
+                    <td class="price"></td>
                 </tr>
-            </thead>
-            <tbody>
+            {:then auctions}
                 {#each auctions as auction}
                     {@const realm = $staticStore.connectedRealms[auction.connectedRealmId]}
                     <tr>
@@ -72,7 +70,7 @@
                             class="realm text-overflow"
                             use:tippy={realm.displayText}
                         >
-                            <code>[{Region[realm.region]}]</code>
+                            <!-- <code>[{Region[realm.region]}]</code> -->
                             {realm.displayText}
                         </td>
                         <td class="quantity">
@@ -96,7 +94,7 @@
                         </td>
                     </tr>
                 {/each}
-            </tbody>
-        </table>
-    {/await}
+            {/await}
+        </tbody>
+    </table>
 </div>
