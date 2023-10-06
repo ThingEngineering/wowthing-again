@@ -168,6 +168,10 @@ public class Startup
 
         dbContext.Database.Migrate();
 
+        app.UseRouting();
+
+        app.UseCors("WowthingCorsPolicy");
+
         if (Env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
@@ -182,10 +186,6 @@ public class Startup
         }
 
         app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
-
-        app.UseRouting();
-
-        app.UseCors("WowthingCorsPolicy");
 
         app.UseResponseCaching();
         app.UseRequestDecompression();
