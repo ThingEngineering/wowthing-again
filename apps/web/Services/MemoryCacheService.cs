@@ -37,17 +37,17 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.AuctionHouseUpdatedTimes,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
-                string[] tableNames = _context.Database
+                string[] tableNames = await _context.Database
                     .SqlQuery<string>($@"
 SELECT  pgc.relname
 FROM    pg_catalog.pg_inherits pgi
 INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
 WHERE   pgi.inhparent = 'wow_auction'::regclass
-").ToArray();
+").ToArrayAsync();
 
                 var ret = new Dictionary<int, long>();
                 foreach (string tableName in tableNames)
@@ -62,7 +62,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                     ret[realmId] = timestamp;
                 }
 
-                return Task.FromResult(ret);
+                return ret;
             });
     }
 
@@ -85,16 +85,15 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.Periods,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-                var currentPeriods = _context.WowPeriod
-                    .AsEnumerable()
+                var currentPeriods = await _context.WowPeriod
                     .GroupBy(p => p.Region)
-                    .ToDictionary(
-                        grp => (int)grp.Key,
-                        grp => grp
+                    .ToDictionaryAsync(
+                        group => (int)group.Key,
+                        group => group
                             .OrderByDescending(p => p.Starts)
                             .First()
                     );
@@ -110,7 +109,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                     }
                 }
 
-                return Task.FromResult(currentPeriods);
+                return currentPeriods;
             }
         );
     }
@@ -153,7 +152,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.UserViewHashes,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
@@ -167,9 +166,11 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
                 var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
                 var staticHash = db.StringGetAsync("cache:static-enUS:hash");
-                Task.WaitAll(achievementHash, appearanceHash, auctionHash, dbHash, itemHash, journalHash, manualHash, staticHash);
 
-                return Task.FromResult(new Dictionary<string, string>
+                await Task.WhenAll(achievementHash, appearanceHash, auctionHash, dbHash, itemHash, journalHash,
+                    manualHash, staticHash);
+
+                return new Dictionary<string, string>
                 {
                     { "Achievement", achievementHash.Result },
                     { "Appearance", appearanceHash.Result },
@@ -179,7 +180,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                     { "Journal", journalHash.Result },
                     { "Manual", manualHash.Result },
                     { "Static", staticHash.Result },
-                });
+                };
             }
         );
     }
@@ -193,10 +194,10 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
     {
         return await _memoryCache.GetOrCreateAsync(
             string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()),
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
-                return _userManager.FindByNameAsync(username);
+                return await _userManager.FindByNameAsync(username);
             }
         );
     }
@@ -205,10 +206,10 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
     {
         return await _memoryCache.GetOrCreateAsync(
             string.Format(MemoryCacheKeys.UserModified, apiResult.User.NormalizedUserName),
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
-                return GetUserModifiedJsonTask(apiResult);
+                return await GetUserModifiedJsonTask(apiResult);
             }
         );
     }

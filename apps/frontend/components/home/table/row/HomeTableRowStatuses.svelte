@@ -20,6 +20,29 @@
             images.push([Constants.icons.anniversary, 'Anniversary Buff'])
         }
 
+        for (const [spellId, spellName] of durationAuras) {
+            const aura = character.auras?.[spellId]
+            if (aura) {
+                const minutes = aura.duration / 60
+                const hours = minutes / 60
+                const timeText = minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`
+
+                const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText
+
+                const lines = [spellName]
+                if (aura.stacks > 0) {
+                    lines.push(`${aura.stacks} stacks`)
+                }
+                lines.push(`${timeText} remaining`)
+
+                images.push([
+                    `spell/${spellId}`,
+                    `<div class="center">${lines.join('<br>')}</div>`,
+                    iconText
+                ])
+            }
+        }
+        
         if (character.level < Constants.characterMaxLevel) {
             if (character.chromieTime) {
                 images.push([Constants.icons.chromieTime, 'Chromie Time'])
@@ -52,29 +75,6 @@
             }
         }
 
-        for (const [spellId, spellName] of durationAuras) {
-            const aura = character.auras?.[spellId]
-            if (aura) {
-                const minutes = aura.duration / 60
-                const hours = minutes / 60
-                const timeText = minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`
-
-                const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText
-
-                const lines = [spellName]
-                if (aura.stacks > 0) {
-                    lines.push(`${aura.stacks} stacks`)
-                }
-                lines.push(`${timeText} remaining`)
-
-                images.push([
-                    `spell/${spellId}`,
-                    `<div class="center">${lines.join('<br>')}</div>`,
-                    iconText
-                ])
-            }
-        }
-        
         if (character.currencies?.[Constants.currencies.dragonridingPassengers]?.quantity > 0) {
             images.push([Constants.icons.dragonridingPassengers, 'Dragonriding Passengers'])
         }

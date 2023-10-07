@@ -36,7 +36,7 @@
                         <a href="@await UriService.GetUriForUser()">My Page</a>
                     </li>
                     <li>
-                        <a asp-controller="Upload" asp-action="Index">Upload Addon Data</a>
+                        <a href="@UriService.GetBaseAction("Upload", "Index")">Upload Addon Data</a>
                     </li>
                 }
                 <li class="header-title">

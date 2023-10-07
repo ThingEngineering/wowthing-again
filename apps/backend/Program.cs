@@ -78,8 +78,11 @@ public class Program
                 return !(string.IsNullOrWhiteSpace(config.ClientId) || string.IsNullOrWhiteSpace(config.ClientSecret));
             }, "BattleNet.ClientID and .ClientSecret must be set");
 
+        var backendConfig = Configuration.GetSection("WowthingBackend");
         var backendOptions = new WowthingBackendOptions();
-        Configuration.GetSection("WowthingBackend").Bind(backendOptions);
+        backendConfig.Bind(backendOptions);
+
+        services.Configure<WowthingBackendOptions>(backendConfig);
 
         // Memory cache
         services.AddMemoryCache();

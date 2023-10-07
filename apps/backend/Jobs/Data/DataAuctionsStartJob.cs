@@ -28,27 +28,9 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
                 entry => (long)entry.Value
             );
 
-        var activeRealms = await Context.ActiveConnectedRealmQuery
-            .FromSqlRaw(ActiveConnectedRealmQuery.Sql)
-            .ToListAsync();
+        var connectedRealms = await MemoryCacheService.GetAuctionConnectedRealms();
 
-        // Add
-        var regions = new HashSet<WowRegion>();
-        foreach (var activeRealm in activeRealms)
-        {
-            regions.Add(activeRealm.Region);
-        }
-
-        var connectedRealms = activeRealms
-            .Union(regions.Select(region => new ActiveConnectedRealmQuery
-            {
-                ConnectedRealmId = 100000 + (int)region,
-                Region = region
-            }))
-            .OrderBy(ar => lastChecked.GetValueOrDefault(ar.ConnectedRealmId, 0))
-            .ToArray();
-
-        foreach (var connectedRealm in connectedRealms)
+        foreach (var connectedRealm in connectedRealms.OrderBy(ar => lastChecked.GetValueOrDefault(ar.ConnectedRealmId, 0)))
         {
             if (!lastChecked.TryGetValue(connectedRealm.ConnectedRealmId, out long realmChecked) || (unixNow - realmChecked) > CheckInterval)
             {

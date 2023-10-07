@@ -82,7 +82,7 @@ public class AuctionService
         return auctions;
     }
 
-    public async Task<List<AuctionBrowseQuery>> Search(WowRegion region, string query)
+    public async Task<AuctionBrowseQuery[]> Search(WowRegion region, string query)
     {
         var connectedRealmIds = await _context.WowRealm
             .Where(realm => realm.Region == region)
@@ -93,7 +93,6 @@ public class AuctionService
         // Commodities
         connectedRealmIds.Add(100000 + (int)region);
 
-
         var itemQuery = _context.LanguageString
             .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowItemName);
         foreach (string part in query.Split())
@@ -103,13 +102,18 @@ public class AuctionService
             itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
         }
 
-        int[] itemIds = await itemQuery
-            .Select(item => item.Id)
+        var auctions = await _context.WowAuction
+            .Where(auction => connectedRealmIds.Contains(auction.ConnectedRealmId))
+            .Where(auction => itemQuery.Select(item => item.Id).Contains(auction.ItemId))
+            .Where(auction => auction.BuyoutPrice > 0)
+            .GroupBy(auction => auction.GroupKey)
+            .Select(group => new AuctionBrowseQuery
+            {
+                GroupKey = group.Key,
+                LowestBuyoutPrice = group.Min(auction => auction.BuyoutPrice),
+                TotalQuantity = group.Sum(auction => auction.Quantity),
+            })
             .ToArrayAsync();
-
-        var auctions = await _context.AuctionBrowseQuery
-            .FromSqlRaw(AuctionBrowseQuery.Sql, connectedRealmIds, itemIds)
-            .ToListAsync();
 
         return auctions;
     }

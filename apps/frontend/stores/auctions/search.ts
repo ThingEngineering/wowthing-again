@@ -1,4 +1,5 @@
-import type { AuctionEntry } from './types'
+import type { AuctionsAppState } from '@/apps/auctions/state'
+import { AuctionEntry, type AuctionEntryArray } from './types'
 
 
 export class AuctionsSearchDataStore {
@@ -6,12 +7,13 @@ export class AuctionsSearchDataStore {
     private cache: Record<string, AuctionEntry[]> = {}
 
     async search(
+        auctionAppState: AuctionsAppState,
         query: string
     ): Promise<AuctionEntry[]> {
         let things: AuctionEntry[] = []
 
         const cacheKey = [
-            1, // TODO region
+            auctionAppState.region,
             query,
         ].join('--')
 
@@ -20,7 +22,7 @@ export class AuctionsSearchDataStore {
         }
         else {
             const data = {
-                region: 1, // TODO region
+                region: auctionAppState.region,
                 query,
             }
 
@@ -37,9 +39,9 @@ export class AuctionsSearchDataStore {
             })
 
             if (response.ok) {
-                const responseData = await response.json() as AuctionEntry[]
-
-                things = responseData
+                const responseData = await response.json() as AuctionEntryArray[]
+                
+                things = responseData.map((entryArray) => new AuctionEntry(...entryArray))
                 things.sort((a, b) => a.lowestBuyoutPrice - b.lowestBuyoutPrice)
 
                 this.cache[cacheKey] = things
