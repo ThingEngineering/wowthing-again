@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { auctionsBrowseState } from '@/stores/local-storage/auctions-browse'
     import type { AuctionEntry } from '@/stores/auctions/types'
 
     import Row from './AppAuctionsBrowseResultsRow.svelte'
     import Selected from './AppAuctionsBrowseSelected.svelte'
 
     export let auctions: AuctionEntry[]
-    export let selectedKey: string
+    export let selected: string
+    export let url: string
 </script>
 
 <style lang="scss">
@@ -29,35 +29,33 @@
 
 <div class="flex-wrapper">
     <div class="results">
-        <table class="table table-striped">
+        <table class="table table-striped auctions-table">
             <thead>
                 <tr
-                    class:next-selected={($auctionsBrowseState.resultsSelected[selectedKey] || 'ZZZ') === auctions[0]?.groupKey}
+                    class:next-selected={false}
                 >
-                    <th colspan="2">Thing</th>
-                    <th>Listed</th>
-                    <th>Cheapest</th>
+                    <th class="icon"></th>
+                    <th class="name">Thing</th>
+                    <th class="quantity">Listed</th>
+                    <th class="price">Cheapest</th>
                 </tr>
             </thead>
             <tbody>
                 {#each auctions as auction, auctionIndex}
                     <Row
-                        nextSelected={($auctionsBrowseState.resultsSelected[selectedKey] || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
+                        baseUrl={url}
+                        nextSelected={(selected || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
+                        selected={(selected || 'ZZZ') === auction.groupKey}
                         {auction}
-                        {selectedKey}
                     />
                 {:else}
-                    <Row
-                        auction={null}
-                        nextSelected={false}
-                        selectedKey={null}
-                    />
+                    <Row />
                 {/each}
             </tbody>
         </table>
     </div>
 
-    {#if $auctionsBrowseState.resultsSelected[selectedKey]}
-        <Selected selected={$auctionsBrowseState.resultsSelected[selectedKey]} />
+    {#if selected}
+        <Selected {selected} />
     {/if}
 </div>

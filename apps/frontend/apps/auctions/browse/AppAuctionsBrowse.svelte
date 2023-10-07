@@ -17,28 +17,41 @@
 
     let categories: AuctionCategory[]
     let category: AuctionCategory
+    let selected: string
     $: {
-        categories = []
+        const usefulParams = [params.slug2, params.slug3, params.slug4, params.slug5]
+            .filter((slug) => !!slug)
 
-        category = $auctionStore.categories.filter((cat) => cat.slug === params.slug2)[0]
-        if (!category) { break $ }
-        categories.push(category)
-
-        if (params.slug3) {
-            category = (category.children || []).filter((cat) => cat.slug === params.slug3)[0]
-            if (!category) { break $ }
-            categories.push(category)
-
-            if (params.slug4) {
-                category = (category.children || []).filter((cat) => cat.slug === params.slug4)[0]
-                if (!category) { break $ }
-                categories.push(category)
+        let newCategories: AuctionCategory[] = []
+        let newCategory: AuctionCategory
+        let newSelected: string
+        for (const param of usefulParams) {
+            if (param.indexOf(':') > 0) {
+                newSelected = param
+                continue
             }
+
+            if (!newCategory) {
+                newCategory = $auctionStore.categories.filter((cat) => cat.slug === param)[0]
+            }
+            else {
+                newCategory = (newCategory.children || []).filter((cat) => cat.slug === param)[0]
+            }
+
+            if (!newCategory) {
+                break
+            }
+            newCategories.push(newCategory)
         }
 
-        // Weapons/Armor no browse
-        if (category.id === 1 || category.id === 24) {
-            category = null
+        if (!categories || categories.map((c) => c.slug).join('|') !== newCategories.map((c) => c.slub).join('|')) {
+            categories = newCategories
+        }
+        if (newCategory?.id !== category?.id) {
+            category = newCategory
+        }
+        if (newSelected !== selected) {
+            selected = newSelected
         }
     }
 
@@ -48,7 +61,10 @@
             const newRegion = Region[params.slug1.toUpperCase() as keyof typeof Region]
             if (oldRegion !== newRegion) {
                 $auctionsAppState.region = newRegion
-                replace($location.replace(`/${Region[oldRegion].toLowerCase()}/`, `/${Region[newRegion].toLowerCase()}/`))
+                replace($location.replace(
+                    `/${Region[oldRegion].toLowerCase()}/`,
+                    `/${Region[newRegion].toLowerCase()}/`
+                ))
             }
         }
     })
@@ -73,17 +89,22 @@
             {Region[$auctionsAppState.region]}
             {#each categories as category, categoryIndex}
                 <span>&gt;</span>
-                <a href="#/browse/{categories.slice(0, categoryIndex + 1).map((c) => c.slug).join('/')}">
+                <a href="#/browse/{params.slug1}/{categories.slice(0, categoryIndex + 1).map((c) => c.slug).join('/')}">
                     {category.name}
                 </a>
             {/each}
         </div>
         
         {#await auctionsBrowseDataStore.fetch($auctionsAppState, $auctionStore, category.id)}
-            L O A D I N G . . .
+            <tr>
+                <td colspan="4">
+                    L O A D I N G . . .
+                </td>
+            </tr>
         {:then auctions}
             <Results
-                selectedKey={`category:${category.id}`}
+                selected={params.slug5}
+                url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
                 {auctions}
             />
         {/await}

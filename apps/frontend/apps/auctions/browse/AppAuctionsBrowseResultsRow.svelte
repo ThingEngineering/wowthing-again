@@ -2,7 +2,6 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { itemModifierMap } from '@/data/item-modifier'
-    import { auctionsBrowseState } from '@/stores/local-storage/auctions-browse'
     import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
     import type { AuctionEntry } from '@/stores/auctions/types'
@@ -10,12 +9,15 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let auction: AuctionEntry
-    export let nextSelected: boolean
-    export let selectedKey: string
+    export let auction: AuctionEntry = null
+    export let baseUrl: string = null
+    export let nextSelected = false
+    export let selected = false
 
     let element: HTMLElement
     let intersected = false
+
+    $: auctionUrl = !auction || selected ? `${baseUrl}` : `${baseUrl}/${auction.groupKey}`
 
     function formatPrice(price: number): string {
         price = price / 100
@@ -65,80 +67,33 @@
             return groupKey
         }
     }
-
-    function toggleSelected(choreKey: string) {
-        if ($auctionsBrowseState.resultsSelected[selectedKey] === choreKey) {
-            $auctionsBrowseState.resultsSelected[selectedKey] = null
-        }
-        else {
-            $auctionsBrowseState.resultsSelected[selectedKey] = choreKey
-        }
-    }
 </script>
 
 <style lang="scss">
-    tr:not(.no-select) {
-        cursor: pointer;
-    }
-    td {
-        padding: 0.1rem 0.4rem;
-    }
-    .next-selected {
-        td {
-            border-bottom-width: 0;
-        }
-    }
-    .selected {
-        td {
-            background: $highlight-background;
-            border-color: #fff;
-            border-top: 1px solid #fff;
-        }
-    }
-    .icon {
-        --image-border-width: 1px;
-        --image-margin-top: -4px;
-
-        padding-right: 0;
-        width: 1.7rem;
-    }
-    .name {
-        max-width: 25rem;
-        width: 25rem;
-    }
-    .quantity {
-        text-align: right;
-        width: 5.5rem;
-    }
-    .price {
-        text-align: right;
-        width: 9.5rem;
-    }
-    code {
-        background: transparent;
-        color: $body-text;
-    }
 </style>
 
 {#if auction}
     <IntersectionObserver once {element} bind:intersecting={intersected}>
         <tr
             class:next-selected={nextSelected}
-            class:selected={$auctionsBrowseState.resultsSelected[selectedKey] === auction.groupKey}
+            class:selected
             data-group-key={auction.groupKey}
             bind:this={element}
-            on:click={() => toggleSelected(auction.groupKey)}
         >
             {#if intersected}
                 <td class="icon">
-                    <WowthingImage
-                        name={getIconFromGroupKey(auction.groupKey)}
-                        size={20}
-                        border={1}
-                    />
+                    <a href="{auctionUrl}">
+                        <WowthingImage
+                            name={getIconFromGroupKey(auction.groupKey)}
+                            size={20}
+                            border={1}
+                        />
+                    </a>
                 </td>
                 <td class="name text-overflow">
-                    <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
+                    <a href="{auctionUrl}">
+                        <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
+                    </a>
                 </td>
                 <td class="quantity">
                     {auction.totalQuantity.toLocaleString()}
