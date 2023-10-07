@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231007231058_Remove_WowAuctionCommodity_Tables")]
+    partial class Remove_WowAuctionCommodity_Tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2189,34 +2192,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_auction_cheapest_by_appearance_source");
 
                     b.ToTable("wow_auction_cheapest_by_appearance_source", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuctionCommodityHourly", b =>
-                {
-                    b.Property<short>("Region")
-                        .HasColumnType("smallint")
-                        .HasColumnName("region");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("timestamp");
-
-                    b.Property<List<int>>("Data")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("data");
-
-                    b.Property<int>("Listed")
-                        .HasColumnType("integer")
-                        .HasColumnName("listed");
-
-                    b.HasKey("Region", "ItemId", "Timestamp")
-                        .HasName("pk_wow_auction_commodity_hourly");
-
-                    b.ToTable("wow_auction_commodity_hourly", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowCharacterClass", b =>
