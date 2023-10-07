@@ -1,18 +1,26 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
+    import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
     import { itemStore } from '@/stores/item'
     import { staticStore } from '@/stores/static'
+    import { auctionsAppState } from './state'
 
     import AuctionsRoutes from './AppAuctionsRoutes.svelte'
     import AuctionsSidebar from './AppAuctionsSidebar.svelte'
 
-    onMount(async () => await Promise.all([
-        auctionStore.fetch(),
-        itemStore.fetch(),
-        staticStore.fetch(),
-    ]))
+    onMount(async () => {
+        if (!$auctionsAppState.region) {
+            $auctionsAppState.region = Region.US
+        }
+
+        await Promise.all([
+            auctionStore.fetch(),
+            itemStore.fetch(),
+            staticStore.fetch(),
+        ])
+    })
 
     let error: boolean
     let loaded: boolean

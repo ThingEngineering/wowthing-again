@@ -77,7 +77,7 @@
 </script>
 
 <style lang="scss">
-    tr {
+    tr:not(.no-select) {
         cursor: pointer;
     }
     td {
@@ -120,33 +120,48 @@
     }
 </style>
 
-<IntersectionObserver once {element} bind:intersecting={intersected}>
-    <tr
-        class:next-selected={nextSelected}
-        class:selected={$auctionsBrowseState.resultsSelected[selectedKey] === auction.groupKey}
-        data-group-key={auction.groupKey}
-        bind:this={element}
-        on:click={() => toggleSelected(auction.groupKey)}
-    >
-        {#if intersected}
-            <td class="icon">
-                <WowthingImage
-                    name={getIconFromGroupKey(auction.groupKey)}
-                    size={20}
-                    border={1}
-                />
-            </td>
-            <td class="name text-overflow">
-                <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
-            </td>
-            <td class="quantity">
-                {auction.totalQuantity.toLocaleString()}
-            </td>
-            <td class="price">
-                <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
-            </td>
-        {:else}
-            <td colspan="4" class="name"><code></code></td>
-        {/if}
+{#if auction}
+    <IntersectionObserver once {element} bind:intersecting={intersected}>
+        <tr
+            class:next-selected={nextSelected}
+            class:selected={$auctionsBrowseState.resultsSelected[selectedKey] === auction.groupKey}
+            data-group-key={auction.groupKey}
+            bind:this={element}
+            on:click={() => toggleSelected(auction.groupKey)}
+        >
+            {#if intersected}
+                <td class="icon">
+                    <WowthingImage
+                        name={getIconFromGroupKey(auction.groupKey)}
+                        size={20}
+                        border={1}
+                    />
+                </td>
+                <td class="name text-overflow">
+                    <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
+                </td>
+                <td class="quantity">
+                    {auction.totalQuantity.toLocaleString()}
+                </td>
+                <td class="price">
+                    <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
+                </td>
+            {:else}
+                <td colspan="4" class="name"><code></code></td>
+            {/if}
+        </tr>
+    </IntersectionObserver>
+{:else}
+    <tr class="no-select">
+        <td class="icon">
+            <WowthingImage
+                name={'unknown'}
+                size={20}
+                border={1}
+            />
+        </td>
+        <td class="name">No results!</td>
+        <td class="quantity"></td>
+        <td class="price"></td>
     </tr>
-</IntersectionObserver>
+{/if}

@@ -5,8 +5,8 @@
     import Search from './search/AppAuctionsSearch.svelte'
 
     const routes = {
-        '/browse/:slug1?/:slug2?/:slug3?/:slug4?': Browse,
-        '/search/:slug1?/:slug2?': Search,
+        '/browse/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?': Browse,
+        '/search/:slug1?/:slug2?/:slug3?': Search,
     }
 </script>
 

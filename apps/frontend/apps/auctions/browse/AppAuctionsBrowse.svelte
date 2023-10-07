@@ -1,4 +1,9 @@
 <script lang="ts">
+    import { onMount } from 'svelte'
+    import { location, replace } from 'svelte-spa-router'
+
+    import { auctionsAppState } from '../state'
+    import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
     import { auctionsBrowseDataStore } from '@/stores/auctions/browse'
     import type { MultiSlugParams } from '@/types'
@@ -15,17 +20,17 @@
     $: {
         categories = []
 
-        category = $auctionStore.categories.filter((cat) => cat.slug === params.slug1)[0]
+        category = $auctionStore.categories.filter((cat) => cat.slug === params.slug2)[0]
         if (!category) { break $ }
         categories.push(category)
 
-        if (params.slug2) {
-            category = (category.children || []).filter((cat) => cat.slug === params.slug2)[0]
+        if (params.slug3) {
+            category = (category.children || []).filter((cat) => cat.slug === params.slug3)[0]
             if (!category) { break $ }
             categories.push(category)
 
-            if (params.slug3) {
-                category = (category.children || []).filter((cat) => cat.slug === params.slug3)[0]
+            if (params.slug4) {
+                category = (category.children || []).filter((cat) => cat.slug === params.slug4)[0]
                 if (!category) { break $ }
                 categories.push(category)
             }
@@ -36,12 +41,24 @@
             category = null
         }
     }
+
+    onMount(() => {
+        if (params.slug1) {
+            const oldRegion = $auctionsAppState.region
+            const newRegion = Region[params.slug1.toUpperCase() as keyof typeof Region]
+            if (oldRegion !== newRegion) {
+                $auctionsAppState.region = newRegion
+                replace($location.replace(`/${Region[oldRegion].toLowerCase()}/`, `/${Region[newRegion].toLowerCase()}/`))
+            }
+        }
+    })
 </script>
 
 <style lang="scss">
     .header {
         display: flex;
         gap: 0.25rem;
+        margin-bottom: 0.5rem;
     }
     .wrapper-column {
         gap: 0;
@@ -53,18 +70,16 @@
     
     {#if category?.browseable}
         <div class="header">
-            BROWSE REGION=US
+            {Region[$auctionsAppState.region]}
             {#each categories as category, categoryIndex}
-                {#if categoryIndex > 0}
-                    <span>&gt;</span>
-                {/if}
+                <span>&gt;</span>
                 <a href="#/browse/{categories.slice(0, categoryIndex + 1).map((c) => c.slug).join('/')}">
                     {category.name}
                 </a>
             {/each}
         </div>
         
-        {#await auctionsBrowseDataStore.fetch($auctionStore, category.id)}
+        {#await auctionsBrowseDataStore.fetch($auctionsAppState, $auctionStore, category.id)}
             L O A D I N G . . .
         {:then auctions}
             <Results

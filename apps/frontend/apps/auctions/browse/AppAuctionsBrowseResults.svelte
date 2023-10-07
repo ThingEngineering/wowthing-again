@@ -46,6 +46,12 @@
                         {auction}
                         {selectedKey}
                     />
+                {:else}
+                    <Row
+                        auction={null}
+                        nextSelected={false}
+                        selectedKey={null}
+                    />
                 {/each}
             </tbody>
         </table>

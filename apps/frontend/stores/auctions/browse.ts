@@ -1,3 +1,4 @@
+import type { AuctionsAppState } from '@/apps/auctions/state'
 import { AuctionEntry, type AuctionEntryArray } from './types'
 import type { AuctionData } from '@/types/data/auction'
 
@@ -7,6 +8,7 @@ export class AuctionsBrowseDataStore {
     private cache: Record<string, AuctionEntry[]> = {}
 
     async fetch(
+        auctionAppState: AuctionsAppState,
         auctionData: AuctionData,
         categoryId: number
     ): Promise<AuctionEntry[]> {
@@ -18,7 +20,7 @@ export class AuctionsBrowseDataStore {
         }
 
         const cacheKey = [
-            1, // TODO region
+            auctionAppState.region,
             categoryId,
         ].join('--')
 
@@ -27,7 +29,7 @@ export class AuctionsBrowseDataStore {
         }
         else {
             const data = {
-                region: 1, // TODO region
+                region: auctionAppState.region,
                 defaultFilter: auctionCategory.defaultFilter,
                 inventoryType: auctionCategory.inventoryType,
                 itemClass: auctionCategory.itemClass,

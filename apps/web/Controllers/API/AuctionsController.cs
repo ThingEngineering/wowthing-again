@@ -59,7 +59,7 @@ public class AuctionsController : Controller
 
         var timer = new JankTimer();
 
-        var data = await _auctionService.Browse(WowRegion.US, form.DefaultFilter, form.InventoryType,
+        var data = await _auctionService.Browse(form.Region, form.DefaultFilter, form.InventoryType,
             form.ItemClass, form.ItemSubclass);
 
         timer.AddPoint("Data");
@@ -83,7 +83,7 @@ public class AuctionsController : Controller
 
         var timer = new JankTimer();
 
-        var data = await _auctionService.Search(WowRegion.US, form.Query);
+        var data = await _auctionService.Search(form.Region, form.Query);
 
         timer.AddPoint("Data");
 
@@ -106,7 +106,7 @@ public class AuctionsController : Controller
 
         var timer = new JankTimer();
 
-        var data = await _auctionService.Specific(WowRegion.US, form.AppearanceSource, form.ItemId, form.PetSpeciesId);
+        var data = await _auctionService.Specific(form.Region, form.AppearanceSource, form.ItemId, form.PetSpeciesId);
 
         timer.AddPoint("Data");
 
