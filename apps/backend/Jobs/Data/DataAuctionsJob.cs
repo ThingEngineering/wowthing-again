@@ -35,7 +35,8 @@ public class DataAuctionsJob : JobBase
 
     private static readonly Regex PartitionPendingRegex = new("""partition "(.*?)\" already pending detach""");
 
-    private static readonly int[] Buckets = { 10, 100, 1000, 10000 };
+    private static readonly double[] CommodityPercentBuckets = { 0.01, 0.02, 0.03, 0.04, 0.05, 0.10, 0.25, 0.25, 0.25 };
+    private static readonly double[] SmallPercentBuckets = { 0.10, 0.15, 0.25, 0.25 };
 
     private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
@@ -97,11 +98,8 @@ COPY wow_auction_commodity_hourly (
     timestamp,
     item_id,
     listed,
-    average10,
-    average100,
-    average1000,
-    average10000,
-    region
+    region,
+    data
 ) FROM STDIN (FORMAT BINARY)
 ";
 
@@ -504,48 +502,69 @@ COPY wow_auction_commodity_hourly (
 
         foreach (var (itemId, auctions) in commodities)
         {
-            int[] counts = new int[4];
-            long[] averages = new long[4];
-            long[] totals = new long[4];
-            long listed = 0;
+            long totalListed = auctions.Select(auction => (long)auction.Quantity).Sum();
+
+            var bucketList = totalListed >= 100 ? CommodityPercentBuckets : SmallPercentBuckets;
+            var buckets = new List<Bucket>(bucketList.Length);
+            foreach (double targetPercent in bucketList)
+            {
+                buckets.Add(new Bucket((int)Math.Ceiling(totalListed * targetPercent)));
+            }
 
             var sortedAuctions = auctions.OrderBy(auction => auction.UnitPrice);
             foreach (var auction in sortedAuctions)
             {
-                listed += auction.Quantity;
+                int auctionRemaining = auction.Quantity;
 
-                for (int i = 0; i < Buckets.Length; i++)
+                foreach (var bucket in buckets)
                 {
-                    int target = Buckets[i];
-                    if (counts[i] < target)
+                    int bucketRemaining = bucket.Remaining;
+                    if (bucketRemaining > 0)
                     {
-                        int toAdd = Math.Min(auction.Quantity, target - counts[i]);
-                        counts[i] += toAdd;
-                        totals[i] += toAdd * (auction.UnitPrice / 100);
+                        int toAdd = Math.Min(auctionRemaining, bucketRemaining);
+                        auctionRemaining -= toAdd;
+                        bucket.Count += toAdd;
+                        bucket.Total += toAdd * (auction.UnitPrice / 100);
+                    }
+
+                    if (auctionRemaining == 0)
+                    {
+                        break;
                     }
                 }
             }
 
-            for (int i = 0; i < Buckets.Length; i++)
+            var dataPoints = new List<int>();
+            foreach (var bucket in buckets)
             {
-                if (counts[i] == Buckets[i])
-                {
-                    averages[i] = totals[i] / counts[i];
-                }
+                Logger.Debug("bucket: count={c} target={t1} total={t2} average={a}",
+                    bucket.Count, bucket.Target, bucket. Total, bucket.Average);
+                dataPoints.Add(bucket.Average);
             }
 
             await writer.StartRowAsync();
             await writer.WriteAsync(now, NpgsqlDbType.TimestampTz);
             await writer.WriteAsync(itemId, NpgsqlDbType.Integer);
-            await writer.WriteAsync((int)Math.Min(int.MaxValue, listed), NpgsqlDbType.Integer);
-            for (int i = 0; i < Buckets.Length; i++)
-            {
-                await writer.WriteAsync((int)Math.Min(int.MaxValue, averages[i]), NpgsqlDbType.Integer);
-            }
-
+            await writer.WriteAsync((int)Math.Min(int.MaxValue, totalListed), NpgsqlDbType.Integer);
             await writer.WriteAsync((short)wowRegion, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(dataPoints, NpgsqlDbType.Array | NpgsqlDbType.Integer);
         }
 
         await writer.CompleteAsync();
+    }
+
+    private class Bucket
+    {
+        public int Count { get; set; }
+        public int Target { get; }
+        public long Total { get; set; }
+
+        public Bucket(int target)
+        {
+            Target = target;
+        }
+
+        public int Average => Count == 0 ? 0 : (int)Math.Round((decimal)Total / Count);
+        public int Remaining => Target - Count;
     }
 }

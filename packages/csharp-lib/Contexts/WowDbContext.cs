@@ -24,7 +24,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowAuction> WowAuction { get; set; }
     public DbSet<WowAuctionCheapestByAppearanceId> WowAuctionCheapestByAppearanceId { get; set; }
     public DbSet<WowAuctionCheapestByAppearanceSource> WowAuctionCheapestByAppearanceSource { get; set; }
-    public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
+    // public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
     public DbSet<WowAuctionCommodityHourly> WowAuctionCommodityHourly { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
@@ -175,11 +175,11 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<WowAuctionCheapestByAppearanceSource>()
             .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceSource });
 
-        builder.Entity<WowAuctionCommodityDaily>()
-            .HasKey(daily => new { daily.Region, daily.ItemId, daily.Date });
+        // builder.Entity<WowAuctionCommodityDaily>()
+        //     .HasKey(daily => new { daily.Region, daily.ItemId, daily.Date });
 
         builder.Entity<WowAuctionCommodityHourly>()
-            .HasKey(daily => new { daily.Region, daily.ItemId, daily.Timestamp });
+            .HasKey(hourly => new { hourly.Region, hourly.ItemId, hourly.Timestamp });
 
         builder.Entity<WowMythicPlusSeason>()
             .HasKey(s => new { s.Region, s.Id });
