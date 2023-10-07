@@ -1,10 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Serilog;
+using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.Cache;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Services;
@@ -14,16 +17,76 @@ public class MemoryCacheService
     private readonly ILogger _logger;
     private readonly IMemoryCache _memoryCache;
     private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly WowthingBackendOptions _backendOptions;
 
     public MemoryCacheService(
         IMemoryCache memoryCache,
+        IOptions<WowthingBackendOptions> backendOptions,
         IServiceScopeFactory serviceScopeFactory
     )
     {
         _memoryCache = memoryCache;
+        _backendOptions = backendOptions.Value;
         _serviceScopeFactory = serviceScopeFactory;
 
         _logger = Log.ForContext("Service", $"MemoryCache");
+    }
+
+    public async Task<ActiveConnectedRealmQuery[]> GetAuctionConnectedRealms()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.AuctionConnectedRealms,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var activeRealms = await contextWrapper.Context
+                    .ActiveConnectedRealmQuery
+                    .FromSqlRaw(ActiveConnectedRealmQuery.Sql)
+                    .ToListAsync();
+
+                var byRegion = activeRealms
+                    .GroupBy(realm => realm.Region)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group.ToList()
+                    );
+
+                foreach (string regionString in _backendOptions.AllAuctionRegions.EmptyIfNull())
+                {
+                    var region = Enum.Parse<WowRegion>(regionString);
+                    var regionRealms = await contextWrapper.Context
+                        .WowRealm
+                        .Where(realm => realm.Region == region)
+                        .ToArrayAsync();
+
+                    byRegion[region] = regionRealms
+                        .DistinctBy(realm => realm.ConnectedRealmId)
+                        .Select(realm => new ActiveConnectedRealmQuery
+                        {
+                            ConnectedRealmId = realm.ConnectedRealmId,
+                            Region = region,
+                        })
+                        .ToList();
+                }
+
+                // Add fake commodities realms
+                foreach (var (region, realms) in byRegion)
+                {
+                    realms.Add(new ActiveConnectedRealmQuery
+                    {
+                        ConnectedRealmId = 100_000 + (int)region,
+                        Region = region,
+                    });
+                }
+
+                return byRegion
+                    .SelectMany(kvp => kvp.Value)
+                    .ToArray();
+            }
+        );
     }
 
     public async Task<ItemBonusCache> GetItemBonuses()

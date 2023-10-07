@@ -15,7 +15,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Query;
-using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
