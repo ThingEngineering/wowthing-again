@@ -30,17 +30,17 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.ItemBonuses,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
-                var itemBonuses = contextWrapper.Context.WowItemBonus
+                var itemBonuses = await contextWrapper.Context.WowItemBonus
                     .AsNoTracking()
-                    .ToArray();
+                    .ToArrayAsync();
 
-                return Task.FromResult(new ItemBonusCache(itemBonuses));
+                return new ItemBonusCache(itemBonuses);
             }
         );
     }
@@ -49,17 +49,17 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.ItemModifiedAppearances,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
-                var itemModifiedAppearances = contextWrapper.Context.WowItemModifiedAppearance
+                var itemModifiedAppearances = await contextWrapper.Context.WowItemModifiedAppearance
                     .AsNoTracking()
-                    .ToArray();
+                    .ToArrayAsync();
 
-                return Task.FromResult(new ItemModifiedAppearanceCache(itemModifiedAppearances));
+                return new ItemModifiedAppearanceCache(itemModifiedAppearances);
             }
         );
     }
@@ -68,17 +68,17 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.JournalInstanceMap,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
                 // Fetch instance data for lockouts
-                var instances = contextWrapper.Context.LanguageString
+                var instances = await contextWrapper.Context.LanguageString
                     .AsNoTracking()
                     .Where(ls => ls.Type == StringType.WowJournalInstanceMapName)
-                    .ToArray();
+                    .ToArrayAsync();
 
                 var ret = new Dictionary<string, int>();
                 foreach (var instance in instances)
@@ -86,7 +86,7 @@ public class MemoryCacheService
                     ret[instance.String] = instance.Id;
                 }
 
-                return Task.FromResult(ret);
+                return ret;
             }
         );
     }
@@ -95,15 +95,15 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.WowRealmMap,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
-                var realmMap = contextWrapper.Context.WowRealm
+                var realmMap = await contextWrapper.Context.WowRealm
                     .AsNoTracking()
-                    .ToDictionary(wr => (wr.Region, wr.Name));
+                    .ToDictionaryAsync(wr => (wr.Region, wr.Name));
 
                 foreach (var ((region, realmName), realm) in realmMap.ToArray())
                 {
@@ -117,7 +117,7 @@ public class MemoryCacheService
                     }
                 }
 
-                return Task.FromResult(realmMap);
+                return realmMap;
             }
         );
     }
