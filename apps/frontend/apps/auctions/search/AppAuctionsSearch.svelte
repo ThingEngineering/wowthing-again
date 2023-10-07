@@ -4,29 +4,40 @@
 
     import Results from '../browse/AppAuctionsBrowseResults.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import { Region } from '@/enums/region';
+    import { auctionsAppState } from '../state';
 
     export let params: MultiSlugParams
 </script>
 
 <style lang="scss">
-
+    .wrapper-column {
+        gap: 0;
+    }
+    .header {
+        display: flex;
+        gap: 0.25rem;
+        margin-bottom: 0.5rem;
+    }
 </style>
 
 <div class="wrapper-column">
     <UnderConstruction />
 
-    {#if params.slug1}
+    {#if params.slug2}
         <div class="header">
-            SEARCH REGION=US &gt; "{params.slug1}"
+            <span>
+                <code>[{Region[$auctionsAppState.region]}]</code>
+                Search
+            </span>
+            <span>&gt;</span>
+            <span>"{params.slug2}"</span>
         </div>
 
-        {#await auctionsSearchDataStore.search(params.slug1)}
-            L O A D I N G . . .
-        {:then auctions}
-            <Results
-                selectedKey={`search:${params.slug1}`}
-                {auctions}
-            />
-        {/await}
+        <Results
+            loadFunc={async () => await auctionsSearchDataStore.search($auctionsAppState, params.slug2)}
+            selected={params.slug3}
+            url={`#/search/${params.slug1}/${params.slug2}`}
+        />
     {/if}
 </div>

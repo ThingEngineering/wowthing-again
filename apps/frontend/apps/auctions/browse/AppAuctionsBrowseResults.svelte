@@ -4,7 +4,7 @@
     import Row from './AppAuctionsBrowseResultsRow.svelte'
     import Selected from './AppAuctionsBrowseSelected.svelte'
 
-    export let auctions: AuctionEntry[]
+    export let loadFunc: () => Promise<AuctionEntry[]>
     export let selected: string
     export let url: string
 </script>
@@ -41,16 +41,20 @@
                 </tr>
             </thead>
             <tbody>
-                {#each auctions as auction, auctionIndex}
-                    <Row
-                        baseUrl={url}
-                        nextSelected={(selected || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
-                        selected={(selected || 'ZZZ') === auction.groupKey}
-                        {auction}
-                    />
-                {:else}
+                {#await loadFunc()}
                     <Row />
-                {/each}
+                {:then auctions}
+                    {#each auctions as auction, auctionIndex}
+                        <Row
+                            baseUrl={url}
+                            nextSelected={(selected || 'ZZZ') === auctions[auctionIndex + 1]?.groupKey}
+                            selected={(selected || 'ZZZ') === auction.groupKey}
+                            {auction}
+                        />
+                    {:else}
+                        <Row />
+                    {/each}
+                {/await}
             </tbody>
         </table>
     </div>

@@ -23,8 +23,8 @@
             .filter((slug) => !!slug)
 
         let newCategories: AuctionCategory[] = []
-        let newCategory: AuctionCategory
-        let newSelected: string
+        let newCategory: AuctionCategory = undefined
+        let newSelected: string = undefined
         for (const param of usefulParams) {
             if (param.indexOf(':') > 0) {
                 newSelected = param
@@ -44,7 +44,7 @@
             newCategories.push(newCategory)
         }
 
-        if (!categories || categories.map((c) => c.slug).join('|') !== newCategories.map((c) => c.slub).join('|')) {
+        if (!categories || categories.map((c) => c.slug).join('|') !== newCategories.map((c) => c.slug).join('|')) {
             categories = newCategories
         }
         if (newCategory?.id !== category?.id) {
@@ -71,13 +71,13 @@
 </script>
 
 <style lang="scss">
+    .wrapper-column {
+        gap: 0;
+    }
     .header {
         display: flex;
         gap: 0.25rem;
         margin-bottom: 0.5rem;
-    }
-    .wrapper-column {
-        gap: 0;
     }
 </style>
 
@@ -86,7 +86,10 @@
     
     {#if category?.browseable}
         <div class="header">
-            {Region[$auctionsAppState.region]}
+            <span>
+                <code>[{Region[$auctionsAppState.region]}]</code>
+                Search
+            </span>
             {#each categories as category, categoryIndex}
                 <span>&gt;</span>
                 <a href="#/browse/{params.slug1}/{categories.slice(0, categoryIndex + 1).map((c) => c.slug).join('/')}">
@@ -95,18 +98,10 @@
             {/each}
         </div>
         
-        {#await auctionsBrowseDataStore.fetch($auctionsAppState, $auctionStore, category.id)}
-            <tr>
-                <td colspan="4">
-                    L O A D I N G . . .
-                </td>
-            </tr>
-        {:then auctions}
-            <Results
-                url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
-                {auctions}
-                {selected}
-            />
-        {/await}
+        <Results
+            loadFunc={async () => await auctionsBrowseDataStore.fetch($auctionsAppState, $auctionStore, category.id)}
+            url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
+            {selected}
+        />
     {/if}
 </div>

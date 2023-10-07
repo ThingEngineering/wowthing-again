@@ -14,7 +14,7 @@
 
     const onSubmit = async function() {
         if (searchValue?.trim()?.length > 0) {
-            replace(`/search/${encodeURIComponent(searchValue)}`)
+            replace(`/search/${Region[$auctionsAppState.region].toLowerCase()}/${encodeURIComponent(searchValue)}`)
         }
     }
 

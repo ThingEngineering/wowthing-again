@@ -102,7 +102,9 @@
                     <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
                 </td>
             {:else}
-                <td colspan="4" class="name"><code></code></td>
+                <td colspan="4" class="name">
+                    <code></code>
+                </td>
             {/if}
         </tr>
     </IntersectionObserver>
@@ -117,6 +119,8 @@
         </td>
         <td class="name">No results!</td>
         <td class="quantity"></td>
-        <td class="price"></td>
+        <td class="price">
+            <code></code>
+        </td>
     </tr>
 {/if}
