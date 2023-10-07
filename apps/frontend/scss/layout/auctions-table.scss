@@ -10,7 +10,7 @@
     .selected {
         td {
             background: $highlight-background;
-            border-color: #fff;
+            border-color: #fff !important;
             border-top: 1px solid #fff;
         }
     }

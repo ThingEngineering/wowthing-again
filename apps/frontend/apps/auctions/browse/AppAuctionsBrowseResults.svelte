@@ -10,6 +10,14 @@
 </script>
 
 <style lang="scss">
+    table {
+        thead th {
+            border-bottom-width: 0;
+        }
+        :global(tbody tr:first-child td) {
+            border-top: 1px solid $border-color;
+        }
+    }
     .flex-wrapper {
         align-items: start;
         justify-content: flex-start;
