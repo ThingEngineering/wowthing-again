@@ -109,7 +109,7 @@
         </tr>
     </IntersectionObserver>
 {:else}
-    <tr class="no-select">
+    <tr>
         <td class="icon">
             <WowthingImage
                 name={'unknown'}

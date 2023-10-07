@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Region } from '@/enums/region';
+    import { auctionsAppState } from '../state'
     import { auctionsSpecificDataStore } from '@/stores/auctions/specific'
     import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
@@ -56,7 +56,7 @@
             </tr>
         </thead>
         <tbody>
-            {#await auctionsSpecificDataStore.search(selected)}
+            {#await auctionsSpecificDataStore.search($auctionsAppState, selected)}
                 <tr>
                     <td class="realm">L O A D I N G . . .</td>
                     <td class="quantity"></td>
@@ -91,6 +91,16 @@
                         {/if} -->
                         <td class="price">
                             <code>{@html formatPrice(auction.buyoutPrice)}</code>
+                        </td>
+                    </tr>
+                {:else}
+                    <tr>
+                        <td class="realm">
+                            No results!
+                        </td>
+                        <td class="quantity"></td>
+                        <td class="price">
+                            <code></code>
                         </td>
                     </tr>
                 {/each}

@@ -1,3 +1,4 @@
+import type { AuctionsAppState } from '@/apps/auctions/state'
 import { UserAuctionDataAuction, type UserAuctionDataAuctionArray } from '@/types/data/user-auctions'
 
 
@@ -6,12 +7,13 @@ export class AuctionsSpecificDataStore {
     private cache: Record<string, UserAuctionDataAuction[]> = {}
 
     async search(
+        auctionAppState: AuctionsAppState,
         groupKey: string
     ): Promise<UserAuctionDataAuction[]> {
         let things: UserAuctionDataAuction[] = []
 
         const cacheKey = [
-            1, // TODO region
+            auctionAppState.region,
             groupKey,
         ].join('--')
 
@@ -22,7 +24,7 @@ export class AuctionsSpecificDataStore {
             const groupKeyParts = groupKey.split(':')
 
             const data = {
-                region: 1, // TODO region
+                region: auctionAppState.region,
                 appearanceSource: '',
                 itemId: 0,
                 petSpeciesId: 0,
