@@ -103,9 +103,9 @@
             </tr>
         {:then auctions}
             <Results
-                selected={params.slug5}
                 url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
                 {auctions}
+                {selected}
             />
         {/await}
     {/if}
