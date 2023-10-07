@@ -22,7 +22,7 @@
         const usefulParams = [params.slug2, params.slug3, params.slug4, params.slug5]
             .filter((slug) => !!slug)
 
-        let newCategories: AuctionCategory[] = []
+        const newCategories: AuctionCategory[] = []
         let newCategory: AuctionCategory = undefined
         let newSelected: string = undefined
         for (const param of usefulParams) {
