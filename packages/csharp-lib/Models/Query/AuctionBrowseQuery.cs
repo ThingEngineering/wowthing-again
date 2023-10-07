@@ -1,8 +1,10 @@
-﻿using Wowthing.Lib.Models.Wow;
+﻿using System.Text.Json.Serialization;
+using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Query;
 
 [Keyless]
+[JsonConverter(typeof(AuctionBrowseQueryConverter))]
 public class AuctionBrowseQuery
 {
     public long LowestBuyoutPrice { get; set; }

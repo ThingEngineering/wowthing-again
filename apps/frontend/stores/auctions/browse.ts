@@ -1,5 +1,5 @@
+import { AuctionEntry, type AuctionEntryArray } from './types'
 import type { AuctionData } from '@/types/data/auction'
-import type { AuctionEntry } from './types'
 
 
 export class AuctionsBrowseDataStore {
@@ -47,10 +47,9 @@ export class AuctionsBrowseDataStore {
             })
 
             if (response.ok) {
-                const responseData = await response.json() as AuctionEntry[]
-                console.log(responseData)
-
-                things = responseData
+                const responseData = await response.json() as AuctionEntryArray[]
+                
+                things = responseData.map((entryArray) => new AuctionEntry(...entryArray))
                 things.sort((a, b) => a.lowestBuyoutPrice - b.lowestBuyoutPrice)
 
                 this.cache[cacheKey] = things
