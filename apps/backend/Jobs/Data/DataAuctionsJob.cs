@@ -534,13 +534,7 @@ COPY wow_auction_commodity_hourly (
                 }
             }
 
-            var dataPoints = new List<int>();
-            foreach (var bucket in buckets)
-            {
-                Logger.Debug("bucket: count={c} target={t1} total={t2} average={a}",
-                    bucket.Count, bucket.Target, bucket. Total, bucket.Average);
-                dataPoints.Add(bucket.Average);
-            }
+            int[] dataPoints = buckets.Select(bucket => bucket.Average).ToArray();
 
             await writer.StartRowAsync();
             await writer.WriteAsync(now, NpgsqlDbType.TimestampTz);
