@@ -50,7 +50,7 @@
             </thead>
             <tbody>
                 {#await loadFunc()}
-                    <Row />
+                    <Row loading={true} />
                 {:then auctions}
                     {#each auctions as auction, auctionIndex}
                         <Row

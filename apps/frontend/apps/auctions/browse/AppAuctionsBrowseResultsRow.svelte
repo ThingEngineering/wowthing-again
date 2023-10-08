@@ -11,6 +11,7 @@
 
     export let auction: AuctionEntry = null
     export let baseUrl: string = null
+    export let loading = false
     export let nextSelected = false
     export let selected = false
 
@@ -117,7 +118,13 @@
                 border={1}
             />
         </td>
-        <td class="name">No results!</td>
+        <td class="name">
+            {#if loading}
+                L O A D I N G . . .
+            {:else}
+                No results!
+            {/if}
+        </td>
         <td class="quantity"></td>
         <td class="price">
             <code></code>
