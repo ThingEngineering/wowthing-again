@@ -15,7 +15,7 @@
 
     import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Paginate from '@/components/common/Paginate.svelte'
+    import Paginate from '@/shared/paginate/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'

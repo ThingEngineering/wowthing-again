@@ -7,7 +7,7 @@
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
 
-    import Paginate from '@/components/common/Paginate.svelte'
+    import Paginate from '@/shared/paginate/Paginate.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
