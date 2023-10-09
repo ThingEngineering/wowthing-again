@@ -19,7 +19,7 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let page: number

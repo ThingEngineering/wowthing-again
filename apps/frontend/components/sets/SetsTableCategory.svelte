@@ -12,8 +12,8 @@
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import CovenantIcon from '@/shared/images/CovenantIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'

@@ -10,7 +10,7 @@
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ManualDataZoneMapFarm

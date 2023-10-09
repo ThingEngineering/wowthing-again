@@ -4,7 +4,7 @@
     import type { Character, ProfessionCooldown } from '@/types'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
 
     export let character: Character
     export let cooldowns: ProfessionCooldown[]

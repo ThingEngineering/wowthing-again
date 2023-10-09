@@ -12,7 +12,7 @@
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

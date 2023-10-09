@@ -3,7 +3,7 @@
     import type { StaticDataProfessionAbility } from '@/types/data/static'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
 
     export let ability: StaticDataProfessionAbility
     export let currentRank: number

@@ -14,7 +14,7 @@
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import Counter from './ZoneMapsCounter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Image from '@/components/images/Image.svelte'

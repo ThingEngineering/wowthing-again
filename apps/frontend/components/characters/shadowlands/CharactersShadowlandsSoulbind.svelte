@@ -7,7 +7,7 @@
     import type { StaticDataSoulbind } from '@/types/data/static'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import SpellLink from '@/components/links/SpellLink.svelte'
+    import SpellLink from '@/shared/links/SpellLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

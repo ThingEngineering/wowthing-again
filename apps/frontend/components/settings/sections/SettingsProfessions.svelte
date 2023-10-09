@@ -6,7 +6,7 @@
     import { settingsStore, staticStore } from '@/stores'
 
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
 
     const groupedCooldowns = groupBy(professionCooldowns, (cd) => cd.profession)
     const sortedProfessions = sortBy(

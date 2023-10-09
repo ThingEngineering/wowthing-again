@@ -7,7 +7,7 @@
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './TransmogSetsTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

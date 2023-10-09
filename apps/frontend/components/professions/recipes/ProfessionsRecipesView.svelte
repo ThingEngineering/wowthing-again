@@ -18,11 +18,11 @@
     } from '@/types/data/static'
 
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
+    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte';
     
     export let expansion: Expansion
     export let profession: StaticDataProfession

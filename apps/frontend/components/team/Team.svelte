@@ -7,7 +7,7 @@
     import CharacterNote from './CharacterNote.svelte'
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
     import GearItems from '@/components/items/ItemsTableRowItems.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
 </script>
 

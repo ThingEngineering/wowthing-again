@@ -10,7 +10,7 @@
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import CharacterTable from './ItemsSearchCharacterTable.svelte'
-    import Checkbox from '../../shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ItemTable from './ItemsSearchItemTable.svelte'
     import RadioGroup from '@/shared/forms/RadioGroup.svelte'
     import Select from '@/shared/forms/Select.svelte'

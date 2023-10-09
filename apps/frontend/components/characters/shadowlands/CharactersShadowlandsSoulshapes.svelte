@@ -5,7 +5,7 @@
     import { UserCount, type Character } from '@/types'
 
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

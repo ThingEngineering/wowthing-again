@@ -12,7 +12,7 @@
     import type { CollectibleContext } from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import NpcLink from '@/components/links/NpcLink.svelte'
+    import NpcLink from '@/shared/links/NpcLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []

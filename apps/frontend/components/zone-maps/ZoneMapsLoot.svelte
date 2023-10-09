@@ -7,7 +7,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import type { ManualDataZoneMapFarm } from '@/types/data/manual'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
 
     export let loots: [ManualDataZoneMapFarm, number[]][]
 </script>

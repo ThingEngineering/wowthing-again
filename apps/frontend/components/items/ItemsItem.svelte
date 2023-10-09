@@ -4,7 +4,7 @@
     import { getItemUrl } from '@/utils/get-item-url'
     import type { Character, CharacterGear } from '@/types'
 
-    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
+    import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '../images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

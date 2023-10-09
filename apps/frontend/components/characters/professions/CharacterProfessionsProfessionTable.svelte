@@ -10,7 +10,7 @@
     import FactionIcon from '@/components/images/FactionIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import { professionSpecializationSpells } from '@/data/professions';

@@ -11,7 +11,7 @@
     import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon } from '@/types'
     import type { StaticDataKeystoneAffix } from '@/types/data/static'
 
-    import AffixIcon from '@/components/images/AffixIcon.svelte'
+    import AffixIcon from '@/shared/images/AffixIcon.svelte'
 
     export let character: Character
     export let dungeon: Dungeon

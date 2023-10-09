@@ -4,7 +4,7 @@
     import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/types/data/static'
 
-    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
+    import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

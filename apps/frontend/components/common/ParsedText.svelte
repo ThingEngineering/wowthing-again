@@ -6,11 +6,11 @@
     import { RewardReputation } from '@/enums/reward-reputation'
     import { itemStore, parsedTextStore, staticStore } from '@/stores'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
     import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

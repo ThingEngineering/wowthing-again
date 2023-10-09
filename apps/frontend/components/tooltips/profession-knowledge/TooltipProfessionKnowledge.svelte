@@ -5,7 +5,7 @@
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
 
     export let character: Character
     export let reputationId: number

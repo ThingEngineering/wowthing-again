@@ -4,7 +4,7 @@
     import tippy from '@/utils/tippy'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
-    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import CovenantIcon from '@/shared/images/CovenantIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

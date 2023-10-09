@@ -2,7 +2,7 @@
     import { itemStore, staticStore } from '@/stores'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
 
-    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
+    import CurrencyLink from '@/shared/links/CurrencyLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let costs: Record<number, number>    

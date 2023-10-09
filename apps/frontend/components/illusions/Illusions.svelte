@@ -10,7 +10,7 @@
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
