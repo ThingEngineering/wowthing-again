@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { staticStore } from '@/stores/static/static'
+import { staticStore } from '@/stores/static'
 
 
 export default function getRealmName(realmId: number): string {

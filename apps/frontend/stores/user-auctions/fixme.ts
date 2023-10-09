@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { staticStore } from '../static/static'
+import { staticStore } from '../static'
 import { UserAuctionDataAuction, type UserAuctionData, type UserAuctionDataPet } from '@/types/data'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
 import type { HasNameAndRealm, UserItem } from '@/types/shared'
