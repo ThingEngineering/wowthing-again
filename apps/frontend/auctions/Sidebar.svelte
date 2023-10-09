@@ -4,11 +4,11 @@
     import { auctionsAppState } from '@/auctions/stores/state'
     import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
-    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { AuctionCategory } from '@/types/data/auction'
 
-    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
-    import TextInput from '@/shared/forms/TextInput.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     let searchValue: string
 

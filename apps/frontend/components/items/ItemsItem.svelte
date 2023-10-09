@@ -4,9 +4,9 @@
     import { getItemUrl } from '@/utils/get-item-url'
     import type { Character, CharacterGear } from '@/types'
 
-    import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character = undefined
     export let forceCrafted = false

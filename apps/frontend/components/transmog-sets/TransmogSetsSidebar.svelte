@@ -1,12 +1,12 @@
 <script lang="ts">
     import { manualStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
-    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let overall: UserCount

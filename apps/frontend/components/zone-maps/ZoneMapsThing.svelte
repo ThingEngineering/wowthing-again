@@ -9,8 +9,8 @@
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ManualDataZoneMapFarm

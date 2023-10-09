@@ -10,15 +10,15 @@
     import { auctionState } from '@/stores/local-storage/auctions'
     import type { MultiSlugParams } from '@/types'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
     import MissingBigResults from './AuctionsMissingBigResults.svelte'
-    import RadioGroup from '@/shared/forms/RadioGroup.svelte'
-    import Select from '@/shared/forms/Select.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import Select from '@/shared/components/forms/Select.svelte'
     import SpecificItem from './AuctionsSpecificItem.svelte'
-    import TextInput from '@/shared/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let params: MultiSlugParams
 

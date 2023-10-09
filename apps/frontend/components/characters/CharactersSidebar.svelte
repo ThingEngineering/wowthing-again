@@ -8,10 +8,10 @@
     import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { splitOnce } from '@/utils/split-once'
-    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { Character } from '@/types'
 
-    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string

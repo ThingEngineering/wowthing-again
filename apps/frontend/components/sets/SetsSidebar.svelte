@@ -1,10 +1,10 @@
 <script lang="ts">
     import { lazyStore, manualStore } from '@/stores'
-    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
 
     let categories: SidebarItem[]

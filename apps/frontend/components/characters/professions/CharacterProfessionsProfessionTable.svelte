@@ -8,12 +8,12 @@
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/stores/static/types'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
-    import FactionIcon from '@/shared/images/FactionIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import { professionSpecializationSpells } from '@/data/professions';
 
     export let category: StaticDataProfessionCategory

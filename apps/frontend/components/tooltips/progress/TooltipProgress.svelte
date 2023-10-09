@@ -8,7 +8,7 @@
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let datas: ManualDataProgressData[]

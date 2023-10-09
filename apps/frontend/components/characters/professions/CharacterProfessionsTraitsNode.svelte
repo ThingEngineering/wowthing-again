@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { StaticDataSubProfessionTraitNode } from '@/stores/static/types'
 
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let indent: number
     export let node: StaticDataSubProfessionTraitNode

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import { toNiceNumber } from '@/utils/formatting'
 
     export let cls: string = null

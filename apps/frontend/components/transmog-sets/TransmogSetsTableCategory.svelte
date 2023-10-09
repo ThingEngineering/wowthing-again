@@ -7,10 +7,10 @@
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'
 
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './TransmogSetsTableSet.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogSetCategory
     export let skipClasses: Record<string, boolean|number>

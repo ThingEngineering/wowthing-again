@@ -3,7 +3,7 @@
     import { exploreState } from '@/stores/local-storage'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import NumberInput from '@/shared/forms/NumberInput.svelte'
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
 </script>
 
 <style lang="scss">

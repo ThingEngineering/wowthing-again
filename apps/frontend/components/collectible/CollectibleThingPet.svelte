@@ -11,9 +11,9 @@
     import type { UserDataPet } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import NpcLink from '@/shared/links/NpcLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import NpcLink from '@/shared/components/links/NpcLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []
 

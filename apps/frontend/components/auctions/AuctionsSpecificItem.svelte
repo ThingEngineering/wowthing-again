@@ -8,8 +8,8 @@
     import tippy from '@/utils/tippy'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let slug2: string
 

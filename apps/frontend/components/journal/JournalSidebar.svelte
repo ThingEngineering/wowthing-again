@@ -1,12 +1,12 @@
 <script lang="ts">
     import { journalStore, lazyStore } from '@/stores'
-    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
-    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
     let overall: UserCount

@@ -5,8 +5,8 @@
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
 
     export let character: Character
     export let reputationId: number

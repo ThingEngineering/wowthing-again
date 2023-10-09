@@ -5,8 +5,8 @@
     import type { CharacterMythicPlusRunMember } from '@/types'
     import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/stores/static/types/character'
 
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import SpecializationIcon from '@/shared/images/SpecializationIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte'
 
     export let member: CharacterMythicPlusRunMember
 

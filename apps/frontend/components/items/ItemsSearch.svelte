@@ -10,11 +10,11 @@
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import CharacterTable from './ItemsSearchCharacterTable.svelte'
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ItemTable from './ItemsSearchItemTable.svelte'
-    import RadioGroup from '@/shared/forms/RadioGroup.svelte'
-    import Select from '@/shared/forms/Select.svelte'
-    import TextInput from '@/shared/forms/TextInput.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import Select from '@/shared/components/forms/Select.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     let response: ItemSearchResponseItem[]
 

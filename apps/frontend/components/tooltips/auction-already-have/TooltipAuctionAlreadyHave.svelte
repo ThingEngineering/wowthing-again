@@ -2,7 +2,7 @@
     import { locationIcons } from '@/data/icons'
     import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
     export let hasItems: [HasNameAndRealm, UserItem[]][]
 </script>

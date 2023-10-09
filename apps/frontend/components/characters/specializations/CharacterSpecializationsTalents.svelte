@@ -5,8 +5,8 @@
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
-    import SpellLink from '@/shared/links/SpellLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import SpellLink from '@/shared/components/links/SpellLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let specializationId: number

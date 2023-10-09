@@ -3,7 +3,7 @@
     import { staticStore } from '@/stores/static'
     import type { Character, CharacterCurrency } from '@/types'
 
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let score: number

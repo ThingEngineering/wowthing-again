@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 
     const accountLink = window.location.href.split('#')[0]
 </script>

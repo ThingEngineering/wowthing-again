@@ -13,11 +13,11 @@
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import Counter from './ZoneMapsCounter.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import Image from '@/shared/images/Image.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Image from '@/shared/components/images/Image.svelte'
     import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
 

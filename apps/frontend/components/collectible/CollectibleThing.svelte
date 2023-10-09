@@ -7,9 +7,9 @@
     import { collectibleState } from '@/stores/local-storage'
     import type { CollectibleContext } from '@/types/contexts'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []
 

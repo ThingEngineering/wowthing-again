@@ -2,7 +2,7 @@
     import { iconLibrary } from '@/icons'
     import { tippyComponent, type TippyComponentProps } from '@/utils/tippy'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
     export let clearButton = false
     export let inputWidth: string = null

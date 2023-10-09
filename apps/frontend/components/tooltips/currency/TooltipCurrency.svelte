@@ -9,7 +9,7 @@
     import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/stores/static/types'
 
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let currency: StaticDataCurrency
     export let item: ItemDataItem

@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { Character, GarrisonTree } from '@/types'
 
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let tree: GarrisonTree

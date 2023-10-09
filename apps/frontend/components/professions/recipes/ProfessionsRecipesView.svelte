@@ -18,12 +18,12 @@
         StaticDataSubProfession
     } from '@/stores/static/types'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte';
-    import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte';
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     
     export let expansion: Expansion
     export let profession: StaticDataProfession

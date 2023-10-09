@@ -30,9 +30,9 @@
     import type { UserHistoryData } from '@/types/data'
     import type { StaticDataRealm } from '@/stores/static/types'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import RadioGroup from '@/shared/forms/RadioGroup.svelte'
-    import Select from '@/shared/forms/Select.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import Select from '@/shared/components/forms/Select.svelte'
 
     Chart.register(
         LineElement,

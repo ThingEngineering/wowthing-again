@@ -3,9 +3,9 @@
     import { itemStore, userQuestStore } from '@/stores'
     import { collectibleState } from '@/stores/local-storage'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
     export let itemId: number
     export let questId: number

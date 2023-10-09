@@ -2,8 +2,8 @@
     import { iconStrings } from '@/data/icons'
     import { journalState, type JournalState } from '@/stores/local-storage'
 
-    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
 
     function getFilters(state: JournalState): string {

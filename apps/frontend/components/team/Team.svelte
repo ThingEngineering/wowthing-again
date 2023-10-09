@@ -7,8 +7,8 @@
     import CharacterNote from './CharacterNote.svelte'
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
     import GearItems from '@/components/items/ItemsTableRowItems.svelte'
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import RaceIcon from '@/shared/images/RaceIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import RaceIcon from '@/shared/components/images/RaceIcon.svelte'
 </script>
 
 <style lang="scss">

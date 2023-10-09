@@ -8,7 +8,7 @@
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let character: Character

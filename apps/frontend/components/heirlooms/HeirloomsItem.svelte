@@ -7,9 +7,9 @@
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomItem } from '@/types/data/manual'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let item: ManualDataHeirloomItem
 

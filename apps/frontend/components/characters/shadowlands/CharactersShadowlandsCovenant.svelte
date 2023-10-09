@@ -16,7 +16,7 @@
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
     import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let covenantId: number

@@ -7,7 +7,7 @@
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let reputation: StaticDataReputationSet
     export let slug: string

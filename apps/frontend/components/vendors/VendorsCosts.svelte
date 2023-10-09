@@ -3,8 +3,8 @@
     import { staticStore } from '@/stores/static'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
 
-    import CurrencyLink from '@/shared/links/CurrencyLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let costs: Record<number, number>    
 </script>

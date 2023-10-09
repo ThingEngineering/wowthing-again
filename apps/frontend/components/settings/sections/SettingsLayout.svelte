@@ -4,10 +4,10 @@
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
-    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
-    import RadioGroup from '@/shared/forms/RadioGroup.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
     
     const commonChoices: SettingsChoice[] = [
         {key: 'accountTag', name: 'Account tag'},

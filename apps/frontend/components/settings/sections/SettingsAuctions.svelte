@@ -6,8 +6,8 @@
     import { settingsStore } from '@/stores'
     import type { StaticDataConnectedRealm } from '@/stores/static/types'
 
-    import GroupedCheckbox from '@/shared/forms/GroupedCheckboxInput.svelte'
-    import NumberInput from '@/shared/forms/NumberInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}

@@ -6,8 +6,8 @@
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let currency: StaticDataCurrency = undefined
     export let itemId = 0

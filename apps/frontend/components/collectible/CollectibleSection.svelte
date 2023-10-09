@@ -8,7 +8,7 @@
     import type { CollectibleContext } from '@/types/contexts'
 
     import Category from './CollectibleCategory.svelte'
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 
     export let slug1: string
     export let slug2: string

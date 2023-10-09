@@ -10,12 +10,12 @@
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
-    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     let sections: [string, ManualDataIllusionGroup[]][]
     $: {

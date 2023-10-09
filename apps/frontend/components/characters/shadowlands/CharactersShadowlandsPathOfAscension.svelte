@@ -5,9 +5,9 @@
     import tippy from '@/utils/tippy'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let feature: CharacterShadowlandsCovenantFeature

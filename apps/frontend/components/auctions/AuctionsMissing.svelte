@@ -8,9 +8,9 @@
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
 
-    import Paginate from '@/shared/paginate/Paginate.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let auctionsContainer: HTMLElement
     export let page: number

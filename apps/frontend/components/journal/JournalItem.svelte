@@ -13,9 +13,9 @@
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem

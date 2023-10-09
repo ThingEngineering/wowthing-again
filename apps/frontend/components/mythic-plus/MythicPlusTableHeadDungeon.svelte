@@ -3,7 +3,7 @@
     import type { Dungeon } from '@/types'
     import tippy from '@/utils/tippy'
 
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let dungeonId = 0
 

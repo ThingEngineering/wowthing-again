@@ -6,7 +6,7 @@
     import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character = undefined
 

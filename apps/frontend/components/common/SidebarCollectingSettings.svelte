@@ -5,9 +5,9 @@
     import { settingsStore } from '@/stores'
     import { collectingSettingsState } from '@/stores/local-storage'
 
-    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from './ParsedText.svelte'
 
     const toggleExpanded = () => {

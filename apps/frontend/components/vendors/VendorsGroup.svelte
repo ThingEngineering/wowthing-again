@@ -13,13 +13,13 @@
     import type { UserCount } from '@/types'
     import type { ManualDataVendorGroup } from '@/types/data/manual'
 
-    import ClassIcon from '@/shared/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
-    import CurrencyLink from '@/shared/links/CurrencyLink.svelte'
-    import FactionIcon from '@/shared/images/FactionIcon.svelte'
-    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount

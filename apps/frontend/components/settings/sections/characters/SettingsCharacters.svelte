@@ -2,7 +2,7 @@
     import { settingsStore } from '@/stores'
 
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
-    import RangeInput from '@/shared/forms/RangeInput.svelte'
+    import RangeInput from '@/shared/components/forms/RangeInput.svelte'
     
     let filter: string
     $: {

@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { SettingsCustomGroup } from '@/types'
 
-    import TextInput from '@/shared/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
     import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
 
     export let group: SettingsCustomGroup
