@@ -7,7 +7,7 @@
     import tippy from '@/utils/tippy'
 
     import CharacterFilter from './AppHomeCharacterFilter.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
 </script>
 
 <style lang="scss">

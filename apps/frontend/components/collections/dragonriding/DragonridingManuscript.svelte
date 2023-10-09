@@ -3,8 +3,8 @@
     import { itemStore, userQuestStore } from '@/stores'
     import { collectibleState } from '@/stores/local-storage'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
 
     export let itemId: number

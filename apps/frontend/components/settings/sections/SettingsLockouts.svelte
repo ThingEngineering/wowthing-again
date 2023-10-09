@@ -10,7 +10,7 @@
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import TextInput from '@/shared/forms/TextInput.svelte'
 

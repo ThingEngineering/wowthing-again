@@ -20,9 +20,9 @@
 
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte';
     import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte';
     
     export let expansion: Expansion

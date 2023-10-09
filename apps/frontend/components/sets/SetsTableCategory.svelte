@@ -14,10 +14,10 @@
 
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import CovenantIcon from '@/shared/images/CovenantIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogCategory
     export let skipClasses: Record<string, boolean|number>

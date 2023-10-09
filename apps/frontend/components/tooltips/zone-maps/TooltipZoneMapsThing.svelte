@@ -16,9 +16,9 @@
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm

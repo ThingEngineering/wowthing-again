@@ -9,11 +9,11 @@
 
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import FactionIcon from '@/shared/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import RaceIcon from '@/shared/images/RaceIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let cls: string = undefined
     export let dropShadow = false

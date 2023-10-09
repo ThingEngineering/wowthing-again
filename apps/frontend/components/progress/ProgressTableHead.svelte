@@ -7,7 +7,7 @@
     import CovenantIcon from '@/shared/images/CovenantIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataProgressGroup
     export let slugKey: string

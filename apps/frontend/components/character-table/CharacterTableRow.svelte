@@ -8,8 +8,8 @@
     import CharacterLevel from './row/CharacterLevel.svelte'
     import CharacterName from './row/CharacterName.svelte'
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import RaceIcon from '@/shared/images/RaceIcon.svelte'
+    import SpecializationIcon from '@/shared/images/SpecializationIcon.svelte'
     import TableIcon from '@/components/common/TableIcon.svelte'
 
     export let character: Character

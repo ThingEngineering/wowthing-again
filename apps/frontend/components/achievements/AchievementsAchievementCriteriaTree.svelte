@@ -6,7 +6,7 @@
     import { CriteriaType } from '@/enums/criteria-type'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
 
     export let accountWide = false

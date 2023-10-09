@@ -2,7 +2,7 @@
     import type { Character } from '@/types'
 
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
+    import RaceIcon from '@/shared/images/RaceIcon.svelte'
 
     export let character: Character
 </script>

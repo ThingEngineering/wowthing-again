@@ -9,7 +9,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Row from './ProfessionsKnowledgeTableRow.svelte'
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     const filterFunc = (char: Character) => some(dragonflightProfessions, (p) => char.professions?.[p.id])
 </script>

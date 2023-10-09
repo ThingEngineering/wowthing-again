@@ -9,7 +9,7 @@
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let character: Character
 

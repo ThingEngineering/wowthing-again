@@ -4,7 +4,7 @@
     import { iconStrings } from '@/data/icons'
     import type { SettingsChoice } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let active: SettingsChoice[]

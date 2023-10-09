@@ -10,7 +10,7 @@
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './TransmogSetsTableSet.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogSetCategory
     export let skipClasses: Record<string, boolean|number>

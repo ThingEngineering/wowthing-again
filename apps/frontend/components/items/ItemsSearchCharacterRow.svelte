@@ -10,7 +10,7 @@
         ItemSearchResponseGuildBank
     } from '@/types/items'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let characterItem: ItemSearchResponseCharacter = null
     export let guildBankItem: ItemSearchResponseGuildBank = null

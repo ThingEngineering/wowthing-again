@@ -6,9 +6,9 @@
     import type { AchievementDataAchievement } from '@/types'
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
+    import FactionIcon from '@/shared/images/FactionIcon.svelte'
     import NumberInput from '@/shared/forms/NumberInput.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     let achievement: AchievementDataAchievement
 

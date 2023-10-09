@@ -5,7 +5,7 @@
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'
 
     export let character: Character

@@ -8,8 +8,8 @@
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/stores/static/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let faction: Faction = Faction.Neutral
     export let reputation: StaticDataReputationReputation

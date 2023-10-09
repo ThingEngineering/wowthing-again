@@ -6,7 +6,7 @@
     import type { Character } from '@/types'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
     import { getEnchantmentText } from '@/utils/get-enchantment-text';
 
     export let character: Character

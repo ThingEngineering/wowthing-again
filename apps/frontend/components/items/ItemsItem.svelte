@@ -6,7 +6,7 @@
 
     import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '../images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let character: Character = undefined
     export let forceCrafted = false

@@ -15,8 +15,8 @@
     import type { StaticDataProfession } from '@/stores/static/types'
 
     import Collectible from './CharacterProfessionsCollectible.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let expansionSlug: string

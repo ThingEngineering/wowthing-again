@@ -6,9 +6,9 @@
     import type { Character, CharacterShadowlandsSoulbind } from '@/types'
     import type { StaticDataSoulbind } from '@/stores/static/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import SpellLink from '@/shared/links/SpellLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let covenantId: number

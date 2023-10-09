@@ -7,7 +7,7 @@
     import type { AuctionEntry } from '@/stores/auctions/types'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let auction: AuctionEntry = null
     export let baseUrl: string = null

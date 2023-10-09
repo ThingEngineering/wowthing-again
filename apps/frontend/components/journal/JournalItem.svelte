@@ -14,8 +14,8 @@
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem

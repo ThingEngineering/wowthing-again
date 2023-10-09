@@ -16,8 +16,8 @@
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import Counter from './ZoneMapsCounter.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Image from '@/components/images/Image.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import Image from '@/shared/images/Image.svelte'
     import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
 

@@ -5,7 +5,7 @@
     import { RewardType } from '@/enums/reward-type'
     import { getDropData } from '@/utils/zone-maps'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import type { ManualDataZoneMapFarm } from '@/types/data/manual'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
 

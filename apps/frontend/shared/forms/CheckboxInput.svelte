@@ -2,7 +2,7 @@
     import mdiCheckboxBlankOutline from '@iconify/icons-mdi/checkbox-blank-outline'
     import mdiCheckboxOutline from '@iconify/icons-mdi/checkbox-outline'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
 
     export let disabled = false
     export let name: string

@@ -7,9 +7,9 @@
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
     import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/shared/links/AchievementLink.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import FactionIcon from '@/shared/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let achievementId: number
     export let alwaysShow = false

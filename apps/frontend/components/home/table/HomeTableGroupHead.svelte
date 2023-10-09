@@ -13,7 +13,7 @@
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadTasks from './head/HomeTableHeadTasks.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'

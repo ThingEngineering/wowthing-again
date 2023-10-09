@@ -5,9 +5,9 @@
     import { appearanceState } from '@/stores/local-storage'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let appearance: AppearanceDataAppearance
     export let has: boolean

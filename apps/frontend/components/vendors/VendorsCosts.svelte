@@ -4,7 +4,7 @@
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
 
     import CurrencyLink from '@/shared/links/CurrencyLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let costs: Record<number, number>    
 </script>

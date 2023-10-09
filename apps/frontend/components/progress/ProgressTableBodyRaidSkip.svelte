@@ -6,7 +6,7 @@
     import type { UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte'
 
     export let character: Character

@@ -5,7 +5,7 @@
     import type { StaticDataReputation, StaticDataReputationSet } from '@/stores/static/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let characterRep: number

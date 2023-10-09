@@ -9,7 +9,7 @@
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let slug2: string
 

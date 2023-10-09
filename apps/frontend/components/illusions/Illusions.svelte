@@ -13,9 +13,9 @@
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     let sections: [string, ManualDataIllusionGroup[]][]
     $: {

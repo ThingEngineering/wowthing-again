@@ -3,7 +3,7 @@
     import { VendorState, vendorState } from '@/stores/local-storage'
 
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
 
 
     function getFilters(state: VendorState): string {

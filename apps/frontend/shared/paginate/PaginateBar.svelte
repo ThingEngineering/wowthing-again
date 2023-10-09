@@ -2,7 +2,7 @@
     import { iconStrings } from '@/data/icons'
     import tippy from '@/utils/tippy'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
 
     export let page: number
     export let pages: number

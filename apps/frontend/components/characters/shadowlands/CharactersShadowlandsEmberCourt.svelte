@@ -17,7 +17,7 @@
 
     import ReputationText from '@/components/common/ReputationText.svelte'
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     let quests: Set<number>
     let tier: ReputationTier

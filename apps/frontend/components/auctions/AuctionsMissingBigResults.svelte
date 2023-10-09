@@ -14,14 +14,14 @@
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy, { tippyComponent } from '@/utils/tippy'
 
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import FactionIcon from '@/shared/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import Paginate from '@/shared/paginate/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let page: number
     export let slug1: string

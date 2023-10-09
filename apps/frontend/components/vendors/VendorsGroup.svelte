@@ -16,10 +16,10 @@
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import CurrencyLink from '@/shared/links/CurrencyLink.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import FactionIcon from '@/shared/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount

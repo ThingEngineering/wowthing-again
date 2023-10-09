@@ -8,7 +8,7 @@
     import tippy from '@/utils/tippy'
     import type { SidebarItem } from './types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let alwaysExpand: boolean
