@@ -42,7 +42,7 @@ const config = <UserConfig> defineConfig({
 		manifest: true,
 		rollupOptions: {
 			input: {
-				auctions: 'apps/auctions.ts',
+				auctions: 'auctions/entrypoint.ts',
 				home: 'apps/home.ts',
 				leaderboard: 'apps/leaderboard.ts',
 			},

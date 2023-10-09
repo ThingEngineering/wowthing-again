@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { auctionsAppState } from '../state'
-    import { auctionsSpecificDataStore } from '@/stores/auctions/specific'
+    import { auctionsAppState } from '@/auctions/stores/state'
+    import { specificStore } from '@/auctions/stores/specific'
     import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
     import tippy from '@/utils/tippy'
@@ -56,7 +56,7 @@
             </tr>
         </thead>
         <tbody>
-            {#await auctionsSpecificDataStore.search($auctionsAppState, selected)}
+            {#await specificStore.search($auctionsAppState, selected)}
                 <tr>
                     <td class="realm">L O A D I N G . . .</td>
                     <td class="quantity"></td>

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { AuctionEntry } from '@/stores/auctions/types'
+    import type { AuctionEntry } from '@/auctions/types/auction-entry'
 
-    import Row from './AppAuctionsBrowseResultsRow.svelte'
-    import Selected from './AppAuctionsBrowseSelected.svelte'
+    import Row from './ResultsRow.svelte'
+    import Selected from './Selected.svelte'
 
     export let loadFunc: () => Promise<AuctionEntry[]>
     export let selected: string

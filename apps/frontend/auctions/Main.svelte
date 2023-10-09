@@ -5,10 +5,10 @@
     import { auctionStore } from '@/stores/auction'
     import { itemStore } from '@/stores/item'
     import { staticStore } from '@/stores/static'
-    import { auctionsAppState } from './state'
+    import { auctionsAppState } from '@/auctions/stores/state'
 
-    import AuctionsRoutes from './AppAuctionsRoutes.svelte'
-    import AuctionsSidebar from './AppAuctionsSidebar.svelte'
+    import Routes from './Routes.svelte'
+    import Sidebar from './Sidebar.svelte'
 
     onMount(async () => {
         if (!$auctionsAppState.region) {
@@ -39,6 +39,6 @@
 {:else if !loaded}
     <p>L O A D I N G</p>
 {:else}
-    <AuctionsSidebar />
-    <AuctionsRoutes />
+    <Sidebar />
+    <Routes />
 {/if}

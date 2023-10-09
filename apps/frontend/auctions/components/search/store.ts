@@ -1,8 +1,8 @@
-import type { AuctionsAppState } from '@/apps/auctions/state'
-import { AuctionEntry, type AuctionEntryArray } from './types'
+import type { AuctionsAppState } from '@/auctions/stores/state'
+import { AuctionEntry, type AuctionEntryArray } from '@/auctions/types/auction-entry'
 
 
-export class AuctionsSearchDataStore {
+class SearchStore {
     private static url = '/api/auctions/search'
     private cache: Record<string, AuctionEntry[]> = {}
 
@@ -29,7 +29,7 @@ export class AuctionsSearchDataStore {
             const xsrf = document.getElementById('app')
                 .getAttribute('data-xsrf')
 
-            const response = await fetch(AuctionsSearchDataStore.url, {
+            const response = await fetch(SearchStore.url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,4 +51,4 @@ export class AuctionsSearchDataStore {
         return things
     }
 }
-export const auctionsSearchDataStore = new AuctionsSearchDataStore()
+export const searchStore = new SearchStore()

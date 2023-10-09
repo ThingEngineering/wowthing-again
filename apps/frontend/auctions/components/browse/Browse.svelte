@@ -2,16 +2,15 @@
     import { onMount } from 'svelte'
     import { location, replace } from 'svelte-spa-router'
 
-    import { auctionsAppState } from '../state'
+    import { browseStore } from './store'
+    import { auctionsAppState } from '@/auctions/stores/state'
     import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
-    import { auctionsBrowseDataStore } from '@/stores/auctions/browse'
     import type { MultiSlugParams } from '@/types'
     import type { AuctionCategory } from '@/types/data/auction'
 
+    import Results from '@/auctions/components/results/Results.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
-
-    import Results from './AppAuctionsBrowseResults.svelte'
 
     export let params: MultiSlugParams
 
@@ -99,7 +98,7 @@
         </div>
         
         <Results
-            loadFunc={async () => await auctionsBrowseDataStore.fetch($auctionsAppState, $auctionStore, category.id)}
+            loadFunc={async () => await browseStore.fetch($auctionsAppState, $auctionStore, category.id)}
             url={`#/browse/${params.slug1}/${categories.map((c) => c.slug).join('/')}`}
             {selected}
         />

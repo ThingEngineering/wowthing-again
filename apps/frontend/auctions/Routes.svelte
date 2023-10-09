@@ -1,8 +1,8 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
 
-    import Browse from './browse/AppAuctionsBrowse.svelte'
-    import Search from './search/AppAuctionsSearch.svelte'
+    import Browse from './components/browse/Browse.svelte'
+    import Search from './components/search/Search.svelte'
 
     const routes = {
         '/browse/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?': Browse,

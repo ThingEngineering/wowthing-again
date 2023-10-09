@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { auctionsSearchDataStore } from '@/stores/auctions/search'
+    import { searchStore } from './store'
+    import { auctionsAppState } from '@/auctions/stores/state'
+    import { Region } from '@/enums/region'
     import type { MultiSlugParams } from '@/types'
 
-    import Results from '../browse/AppAuctionsBrowseResults.svelte'
+    import Results from '@/auctions/components/results/Results.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
-    import { Region } from '@/enums/region';
-    import { auctionsAppState } from '../state';
 
     export let params: MultiSlugParams
 </script>
@@ -35,7 +35,7 @@
         </div>
 
         <Results
-            loadFunc={async () => await auctionsSearchDataStore.search($auctionsAppState, params.slug2)}
+            loadFunc={async () => await searchStore.search($auctionsAppState, params.slug2)}
             selected={params.slug3}
             url={`#/search/${params.slug1}/${params.slug2}`}
         />

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { location, replace } from 'svelte-spa-router'
 
-    import { auctionsAppState } from './state'
+    import { auctionsAppState } from '@/auctions/stores/state'
     import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
     import type { SidebarItem } from '@/shared/sub-sidebar/types'
