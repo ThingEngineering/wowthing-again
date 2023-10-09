@@ -22,10 +22,10 @@ $tooltip-title-color:      $tooltip-color;
 $tooltip-padding-x:        7px;
 $tooltip-padding-y:        5px;
 
-$alliance-border:           #0044ff;
+$alliance-border:           #006aff;
 $alliance-border-dark:      darken($alliance-border, 20%);
 $alliance-background:       mix($thing-background, $alliance-border, 90%);
-$alliance-link:             lighten($alliance-border, 25%);
+$alliance-link:             lighten($alliance-border, 20%);
 $horde-border:              #cc0000;
 $horde-border-dark:         darken($horde-border, 20%);
 $horde-background:          mix($thing-background, $horde-border, 90%);
