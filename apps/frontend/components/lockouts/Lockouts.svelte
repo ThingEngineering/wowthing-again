@@ -1,7 +1,8 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { lockoutState } from '@/stores/local-storage'
     import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'

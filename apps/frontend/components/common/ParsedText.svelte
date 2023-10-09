@@ -4,7 +4,8 @@
     import { iconStrings, imageStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardReputation } from '@/enums/reward-reputation'
-    import { itemStore, parsedTextStore, staticStore } from '@/stores'
+    import { itemStore, parsedTextStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
 
     import ClassIcon from '@/shared/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/shared/images/CraftedQualityIcon.svelte'

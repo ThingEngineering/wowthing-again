@@ -3,7 +3,7 @@
 
     import { reputationState } from '@/stores/local-storage'
     import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataReputationSet } from '@/types/data/static'
+    import type { StaticDataReputationSet } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'

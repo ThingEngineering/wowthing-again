@@ -6,7 +6,7 @@ import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctio
 import { type UserAuctionDataMissingRecipeAuctionArray, UserAuctionDataMissingRecipeAuction } from '@/types/data'
 import type { UserData } from '@/types'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 import type { AuctionState } from '../local-storage'
 import type { UserAuctionEntry } from '../user-auctions'
 

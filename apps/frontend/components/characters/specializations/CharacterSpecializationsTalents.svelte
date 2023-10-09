@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 

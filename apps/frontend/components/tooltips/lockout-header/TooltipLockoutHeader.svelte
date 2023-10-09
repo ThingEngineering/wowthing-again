@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/types/data/static'
+    import type { StaticDataInstance } from '@/stores/static/types'
 
     export let difficulty: Difficulty
     export let instanceId: number

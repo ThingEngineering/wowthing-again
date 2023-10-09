@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { expansionOrder } from '@/data/expansion'
     import type { MultiSlugParams, SidebarItem, UserCount } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 

@@ -2,7 +2,7 @@
     import { difficultyMap } from '@/data/difficulty'
     import { staticStore } from '@/stores/static'
     import type { Character, CharacterLockout, Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/types/data/static'
+    import type { StaticDataInstance } from '@/stores/static/types'
 
     export let character: Character
     export let lockout: CharacterLockout

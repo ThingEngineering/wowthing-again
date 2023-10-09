@@ -4,7 +4,7 @@
     import { soulbindSockets } from '@/data/icons'
     import tippy from '@/utils/tippy'
     import type { Character, CharacterShadowlandsSoulbind } from '@/types'
-    import type { StaticDataSoulbind } from '@/types/data/static'
+    import type { StaticDataSoulbind } from '@/stores/static/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SpellLink from '@/shared/links/SpellLink.svelte'

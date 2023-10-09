@@ -7,7 +7,7 @@
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataReputationCategory } from '@/types/data/static'
+    import type { StaticDataReputationCategory } from '@/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

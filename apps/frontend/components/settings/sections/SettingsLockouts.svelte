@@ -5,7 +5,7 @@
     import { ignoredLockoutInstances } from '@/data/dungeon'
     import { expansionMap } from '@/data/expansion'
     import { iconStrings } from '@/data/icons'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 

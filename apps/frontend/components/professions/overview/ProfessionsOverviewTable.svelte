@@ -2,7 +2,7 @@
     import { expansionOrder } from '@/data/expansion'
     import { imageStrings } from '@/data/icons'
     import type { Character } from '@/types'
-    import type { StaticDataProfession, StaticDataSubProfession } from '@/types/data/static'
+    import type { StaticDataProfession, StaticDataSubProfession } from '@/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

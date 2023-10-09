@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { StaticDataKeystoneAffix } from '@/types/data/static'
+    import type { StaticDataKeystoneAffix } from '@/stores/static/types'
 
     import AffixIcon from '@/shared/images/AffixIcon.svelte'
 

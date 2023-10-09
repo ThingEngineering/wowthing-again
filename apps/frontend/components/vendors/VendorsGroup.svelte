@@ -2,7 +2,8 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { itemStore, lazyStore, staticStore } from '@/stores'
+    import { itemStore, lazyStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { vendorState } from '@/stores/local-storage'
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import type { StaticDataProfessionAbility } from '@/types/data/static'
+    import type { StaticDataProfessionAbility } from '@/stores/static/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'

@@ -14,8 +14,8 @@ import {
     StaticDataReputationCategory,
     StaticDataToy,
     StaticDataTransmogSet,
-} from '@/types/data/static'
-import type { StaticData } from '@/types/data/static/store'
+} from './types'
+import type { StaticData } from './types'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {

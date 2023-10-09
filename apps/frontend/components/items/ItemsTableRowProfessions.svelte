@@ -7,7 +7,7 @@
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
     import type { Character, CharacterGear } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     import Empty from './ItemsEmpty.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

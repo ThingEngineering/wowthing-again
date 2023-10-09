@@ -3,10 +3,10 @@
     import { tick } from 'svelte'
     import { replace } from 'svelte-spa-router'
 
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { UserCount } from '@/types'
     import type { Character, MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataProfessionCategory } from '@/types/data/static'
+    import type { StaticDataProfession, StaticDataProfessionCategory } from '@/stores/static/types'
 
     import Collectibles from './CharacterProfessionsCollectibles.svelte'
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'

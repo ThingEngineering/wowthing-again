@@ -3,7 +3,8 @@
 
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
-    import { staticStore, timeStore } from '@/stores'
+    import { timeStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting'

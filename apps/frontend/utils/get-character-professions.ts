@@ -1,8 +1,8 @@
 import { get } from 'svelte/store'
 
-import { staticStore } from '@/stores'
+import { staticStore } from '@/stores/static'
 import type { Character, CharacterProfession } from '@/types'
-import type { StaticDataProfession } from '@/types/data/static'
+import type { StaticDataProfession } from '@/stores/static/types'
 
 
 export type ProfessionData = [StaticDataProfession, CharacterProfession, boolean]

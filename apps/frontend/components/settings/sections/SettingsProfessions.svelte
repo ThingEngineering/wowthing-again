@@ -3,7 +3,8 @@
     import sortBy from 'lodash/sortBy'
 
     import { professionCooldowns } from '@/data/professions/cooldowns'
-    import { settingsStore, staticStore } from '@/stores'
+    import { settingsStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
 
     import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import ProfessionIcon from '@/shared/images/ProfessionIcon.svelte'

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { Gender } from '@/enums/gender'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
-    import type { StaticDataCharacterRace } from '@/types/data/static/character'
+    import type { StaticDataCharacterRace } from '@/stores/static/types/character'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

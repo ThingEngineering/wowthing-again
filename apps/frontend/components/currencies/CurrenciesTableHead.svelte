@@ -2,7 +2,7 @@
     import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
     import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { StaticDataCurrency } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'

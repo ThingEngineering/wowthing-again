@@ -2,7 +2,8 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
-    import { manualStore, staticStore, lazyStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, userTransmogStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { illusionState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'

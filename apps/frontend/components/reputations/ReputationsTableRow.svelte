@@ -3,7 +3,7 @@
     import findReputationTier from '@/utils/find-reputation-tier'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/types/data/static'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/stores/static/types'
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 

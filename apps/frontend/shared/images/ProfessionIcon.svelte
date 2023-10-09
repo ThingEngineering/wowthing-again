@@ -1,7 +1,7 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

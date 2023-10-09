@@ -1,10 +1,11 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
-    import { itemStore, staticStore, userQuestStore } from '@/stores'
+    import { itemStore, userQuestStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
-    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
+    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/stores/static/types'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
     import FactionIcon from '@/components/images/FactionIcon.svelte'

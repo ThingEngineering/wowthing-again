@@ -6,7 +6,8 @@
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore, userStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { professionsRecipesState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
     import type { Character, Expansion } from '@/types'
@@ -15,7 +16,7 @@
         StaticDataProfessionAbility,
         StaticDataProfessionCategory,
         StaticDataSubProfession
-    } from '@/types/data/static'
+    } from '@/stores/static/types'
 
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/images/ClassIcon.svelte'

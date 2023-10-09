@@ -5,7 +5,7 @@
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataRealm } from '@/types/data/static'
+    import type { StaticDataRealm } from '@/stores/static/types'
     import type {
         ItemSearchResponseCharacter,
         ItemSearchResponseCommon,

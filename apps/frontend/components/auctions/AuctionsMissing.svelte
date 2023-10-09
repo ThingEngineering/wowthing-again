@@ -1,7 +1,8 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
-    import { staticStore, userAuctionMissingStore } from '@/stores'
+    import { userAuctionMissingStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
@@ -9,7 +10,7 @@
 
     import Paginate from '@/shared/paginate/Paginate.svelte'
     import WowheadLink from '@/shared/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/images/sources/WowthingImage.svelte'
 
     export let auctionsContainer: HTMLElement
     export let page: number

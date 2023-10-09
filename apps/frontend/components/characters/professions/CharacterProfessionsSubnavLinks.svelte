@@ -3,7 +3,7 @@
 
     import type { Character, MultiSlugParams } from '@/types'
     import type { ProfessionData } from '@/utils/get-character-professions'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     export let character: Character
     export let params: MultiSlugParams

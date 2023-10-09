@@ -3,9 +3,10 @@
     import { rewardTypeIcons } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardType } from '@/enums/reward-type'
-    import { itemStore, staticStore, userStore, userTransmogStore } from '@/stores'
+    import { itemStore, userStore, userTransmogStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { Character } from '@/types'
-    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
+    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/stores/static/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

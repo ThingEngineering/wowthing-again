@@ -1,6 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 

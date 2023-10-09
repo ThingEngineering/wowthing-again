@@ -4,7 +4,7 @@
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { StaticDataCurrency } from '@/stores/static/types'
 
     export let character: Character
     export let currency: StaticDataCurrency = undefined

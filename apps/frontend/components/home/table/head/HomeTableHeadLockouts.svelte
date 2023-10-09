@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { homeState } from '@/stores/local-storage'
     import { tippyComponent } from '@/utils/tippy'
 

@@ -10,7 +10,7 @@ import { QuestStatus } from '@/enums/quest-status'
 import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
 import type { ManualDataProgressCategory, ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 
 export default function getProgress(
     staticData: StaticData,

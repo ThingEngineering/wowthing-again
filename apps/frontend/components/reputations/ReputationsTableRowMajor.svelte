@@ -1,9 +1,9 @@
 <script lang="ts">
     import { factionMaxRenown } from '@/data/reputation'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterReputationReputation } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet } from '@/types/data/static'
+    import type { StaticDataReputation, StaticDataReputationSet } from '@/stores/static/types'
 
     import Tooltip from '@/components/tooltips/reputation/TooltipReputationMajor.svelte'
 

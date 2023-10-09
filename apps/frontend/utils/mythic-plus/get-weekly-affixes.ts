@@ -2,9 +2,10 @@ import find from 'lodash/find'
 import { get } from 'svelte/store'
 
 import { seasonMap, weeklyAffixes } from '@/data/dungeon'
-import { staticStore, userStore } from '@/stores'
+import { userStore } from '@/stores'
+import { staticStore } from '@/stores/static'
 import type { Character } from '@/types'
-import type { StaticDataKeystoneAffix } from '@/types/data/static'
+import type { StaticDataKeystoneAffix } from '@/stores/static/types'
 import { Constants } from '@/data/constants'
 
 

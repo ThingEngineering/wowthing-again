@@ -1,6 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, staticStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
