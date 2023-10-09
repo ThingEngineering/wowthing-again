@@ -1,7 +1,8 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type { SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { UserCount } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 

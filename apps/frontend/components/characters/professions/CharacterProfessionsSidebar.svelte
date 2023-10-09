@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { expansionOrder } from '@/data/expansion'
-    import type { MultiSlugParams, SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { MultiSlugParams, UserCount } from '@/types'
     import type { StaticDataProfession } from '@/stores/static/types'
 
     import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'

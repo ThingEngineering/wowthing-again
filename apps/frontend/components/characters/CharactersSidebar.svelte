@@ -8,7 +8,8 @@
     import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { splitOnce } from '@/utils/split-once'
-    import type { Character, SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { Character } from '@/types'
 
     import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 

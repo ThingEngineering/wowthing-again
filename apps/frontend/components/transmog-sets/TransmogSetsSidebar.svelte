@@ -1,7 +1,8 @@
 <script lang="ts">
     import { manualStore, userTransmogStore } from '@/stores'
     import { settingsStore } from '@/stores'
-    import type { SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { UserCount } from '@/types'
 
     import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'

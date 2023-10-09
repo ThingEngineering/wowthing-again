@@ -1,6 +1,7 @@
 <script lang="ts">
     import { journalStore, lazyStore } from '@/stores'
-    import type { SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'

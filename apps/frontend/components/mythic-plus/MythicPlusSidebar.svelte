@@ -2,7 +2,8 @@
     import sortBy from 'lodash/sortBy'
 
     import { seasonMap } from '@/data/dungeon'
-    import type { MythicPlusSeason, SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
+    import type { MythicPlusSeason } from '@/types'
 
     import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
