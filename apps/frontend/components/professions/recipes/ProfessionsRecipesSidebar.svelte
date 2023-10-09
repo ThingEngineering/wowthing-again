@@ -1,8 +1,8 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
     import { expansionOrder } from '@/data/expansion'
     import { isCraftingProfession } from '@/data/professions'
 

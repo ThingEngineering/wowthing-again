@@ -6,7 +6,7 @@
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     export let sets: ManualDataSetCategory[][]
 

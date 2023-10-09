@@ -9,7 +9,7 @@
     import { splitOnce } from '@/utils/split-once'
     import type { Character, SidebarItem } from '@/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string

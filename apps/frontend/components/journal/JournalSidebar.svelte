@@ -5,7 +5,7 @@
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
     let overall: UserCount

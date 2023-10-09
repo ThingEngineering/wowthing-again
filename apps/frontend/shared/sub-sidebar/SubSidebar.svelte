@@ -1,11 +1,11 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import type { SidebarItem } from '@/types/sidebar'
-
-    import SidebarEntry from './SubSidebarEntry.svelte'
     import { settingsStore } from '@/stores/settings'
     import { measureScrollbar } from '@/utils/measure-scrollbar'
+    import type { SidebarItem } from './types'
+
+    import SidebarEntry from './SubSidebarEntry.svelte'
 
     export let alwaysExpand = false
     export let baseUrl: string

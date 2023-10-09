@@ -4,7 +4,7 @@
     import { seasonMap } from '@/data/dungeon'
     import type { MythicPlusSeason, SidebarItem } from '@/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     const seasons: MythicPlusSeason[] = sortBy(seasonMap, (s) => -s.id)
     let categories: SidebarItem[]

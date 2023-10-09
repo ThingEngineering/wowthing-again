@@ -4,7 +4,7 @@
 
     import { settingsStore, staticStore, userStore } from '@/stores'
 
-    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
+    import GroupedCheckbox from '@/shared/forms/GroupedCheckboxInput.svelte'
     import type { StaticDataRealm } from '@/types/data/static'
     import { Region } from '@/enums/region'
 

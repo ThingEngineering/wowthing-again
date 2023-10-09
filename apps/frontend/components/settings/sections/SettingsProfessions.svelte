@@ -5,7 +5,7 @@
     import { professionCooldowns } from '@/data/professions/cooldowns'
     import { settingsStore, staticStore } from '@/stores'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
 
     const groupedCooldowns = groupBy(professionCooldowns, (cd) => cd.profession)

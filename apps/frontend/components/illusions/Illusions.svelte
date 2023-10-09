@@ -9,7 +9,7 @@
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

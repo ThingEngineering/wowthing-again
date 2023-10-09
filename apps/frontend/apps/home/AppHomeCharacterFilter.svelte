@@ -3,7 +3,7 @@
     import { newNavState } from '@/stores/local-storage'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/forms/TextInput.svelte'
     import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
 
     const clearFilter = () => $newNavState.characterFilter = ''

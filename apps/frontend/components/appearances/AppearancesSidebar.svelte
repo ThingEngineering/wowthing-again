@@ -6,7 +6,7 @@
     import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
 
     export let basePath = ''

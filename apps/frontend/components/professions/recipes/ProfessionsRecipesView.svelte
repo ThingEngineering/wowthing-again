@@ -17,7 +17,7 @@
         StaticDataSubProfession
     } from '@/types/data/static'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'

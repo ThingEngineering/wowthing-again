@@ -1,7 +1,7 @@
 <script lang="ts">
     import { collectibleState } from '@/stores/local-storage'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
 </script>
 
 <div class="options-container">

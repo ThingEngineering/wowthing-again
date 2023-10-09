@@ -5,7 +5,7 @@
     import { settingsStore } from '@/stores'
     import { collectingSettingsState } from '@/stores/local-storage'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from './ParsedText.svelte'

@@ -4,7 +4,7 @@
     import type { Character } from '@/types'
 
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
-    import RangeInput from '@/components/forms/RangeInput.svelte'
+    import RangeInput from '@/shared/forms/RangeInput.svelte'
 
     export let backgroundBrightness: number
     export let backgroundSaturation: number

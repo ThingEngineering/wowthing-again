@@ -3,9 +3,9 @@
     import { settingsStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let overall: UserCount

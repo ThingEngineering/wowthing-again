@@ -1,7 +1,7 @@
 <script lang="ts">
     import { heirloomState } from '@/stores/local-storage'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
 </script>
 
 <div class="options-container">

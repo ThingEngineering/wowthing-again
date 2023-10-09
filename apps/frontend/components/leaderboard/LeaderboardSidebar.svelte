@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/sub-sidebar/types'
 
-    import SubSidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import SubSidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     const categories: SidebarItem[] = [
         {

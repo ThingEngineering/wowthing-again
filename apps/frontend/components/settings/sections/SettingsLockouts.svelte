@@ -9,10 +9,10 @@
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/forms/TextInput.svelte'
 
     let instanceFilter: string
 

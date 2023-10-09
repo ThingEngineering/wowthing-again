@@ -6,7 +6,7 @@
     import { subSidebarState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from './types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'

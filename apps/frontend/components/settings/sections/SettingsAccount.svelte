@@ -7,10 +7,10 @@
     import { userStore } from '@/stores'
     import getAccountCharacters from '@/utils/get-account-characters'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
-    import Select from '@/components/forms/Select.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
+    import NumberInput from '@/shared/forms/NumberInput.svelte'
+    import Select from '@/shared/forms/Select.svelte'
+    import TextInput from '@/shared/forms/TextInput.svelte'
 
     let apiKey = ''
 

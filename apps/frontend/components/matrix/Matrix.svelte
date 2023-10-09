@@ -16,12 +16,12 @@
     import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/types/data/static'
 
-    import CheckboxInput from '../forms/CheckboxInput.svelte'
+    import CheckboxInput from '../../shared/forms/CheckboxInput.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
+    import GroupedCheckbox from '@/shared/forms/GroupedCheckboxInput.svelte'
+    import NumberInput from '@/shared/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import RadioGroup from '@/components/forms/RadioGroup.svelte'
+    import RadioGroup from '@/shared/forms/RadioGroup.svelte'
     import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 

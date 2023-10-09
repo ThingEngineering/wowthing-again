@@ -7,7 +7,7 @@
     import tippy from '@/utils/tippy'
     import type { Character } from '@/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'

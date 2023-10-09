@@ -4,7 +4,7 @@
     import type { MultiSlugParams, SidebarItem, UserCount } from '@/types'
     import type { StaticDataProfession } from '@/types/data/static'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/sub-sidebar/SubSidebar.svelte'
 
     export let params: MultiSlugParams
     export let staticProfession: StaticDataProfession

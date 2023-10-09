@@ -2,7 +2,7 @@
     import { iconStrings } from '@/data/icons'
     import { VendorState, vendorState } from '@/stores/local-storage'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
 

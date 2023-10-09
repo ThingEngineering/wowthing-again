@@ -1,8 +1,8 @@
 <script lang="ts">
     import { gearState } from '@/stores/local-storage'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
+    import CheckboxInput from '@/shared/forms/CheckboxInput.svelte'
+    import NumberInput from '@/shared/forms/NumberInput.svelte'
 
     export let slug: string
 </script>
