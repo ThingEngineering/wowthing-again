@@ -4,7 +4,7 @@
     import { itemModifierMap } from '@/data/item-modifier'
     import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
-    import type { AuctionEntry } from '@/stores/auctions/types'
+    import type { AuctionEntry } from '@/auctions/types/auction-entry'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

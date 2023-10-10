@@ -38,29 +38,29 @@
         padding: 0.2rem $width-padding;
         text-align: left;
     }
-    .ignore {
-        font-weight: normal;
-        padding-right: 0.6rem;
-        text-align: right;
-        white-space: nowrap;
+    // .ignore {
+    //     font-weight: normal;
+    //     padding-right: 0.6rem;
+    //     text-align: right;
+    //     white-space: nowrap;
 
-        span {
-            cursor: pointer;
+    //     span {
+    //         cursor: pointer;
 
-            &:hover {
-                color: $link-color;
-            }
-        }
-    }
+    //         &:hover {
+    //             color: $link-color;
+    //         }
+    //     }
+    // }
     .realm {
         @include cell-width(11.0rem, $paddingLeft: 0px);
     }
-    .level {
-        @include cell-width(1.8rem);
+    // .level {
+    //     @include cell-width(1.8rem);
 
-        text-align: right;
-        white-space: nowrap;
-    }
+    //     text-align: right;
+    //     white-space: nowrap;
+    // }
     .price {
         @include cell-width(4.5rem);
 
