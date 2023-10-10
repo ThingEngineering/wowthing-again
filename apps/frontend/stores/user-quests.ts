@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import type { UserQuestData } from '@/types/data'
 
 

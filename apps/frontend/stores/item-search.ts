@@ -3,7 +3,7 @@ import { get, writable } from 'svelte/store'
 
 import { ItemLocation } from '@/enums/item-location'
 import { ItemQuality } from '@/enums/item-quality'
-import { userStore } from '@/stores'
+import { userStore } from '@/stores/user'
 import type {
     ItemSearchResponseCharacter,
     ItemSearchResponseGuildBank,

@@ -1,9 +1,10 @@
 import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
-import { UserAchievementDataCategory, WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
+import { UserAchievementDataCategory, type UserAchievementData } from '@/types/user-achievement-data'
 import type { AchievementsState } from '@/stores/local-storage'
-import type { AchievementData, UserAchievementData } from '@/types'
+import type { AchievementData } from '@/types/achievement-data'
 
 
 export class UserAchievementDataStore extends WritableFancyStore<UserAchievementData> {

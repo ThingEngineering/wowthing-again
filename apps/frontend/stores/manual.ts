@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import {
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,

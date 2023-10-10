@@ -1,7 +1,8 @@
 import tippy from 'tippy.js'
 import type { Instance, Props, SingleTarget } from 'tippy.js'
 
-import type { TippyProps } from '@/types'
+import type { TippyProps } from '@/types/tippy'
+
 
 const defaultProps: TippyProps = {
     duration: [0, 0],

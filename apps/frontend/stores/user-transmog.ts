@@ -10,11 +10,14 @@ import { manualStore } from './manual'
 import { userModifiedStore } from './user-modified'
 import { TransmogSetMatchType } from '@/enums/transmog-set-match-type'
 import { TransmogSetType } from '@/enums/transmog-set-type'
-import { UserCount, WritableFancyStore } from '@/types'
-import type { FancyStoreType, Settings, UserAchievementData } from '@/types'
+import { UserCount } from '@/types/user-count'
+import { WritableFancyStore, type FancyStoreType } from '@/types/fancy-store'
+//import type { FancyStoreType, Settings, UserAchievementData } from '@/types'
 import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData, ManualDataSharedItemSet, ManualDataTransmogSetFiltered } from '@/types/data/manual'
+import type { Settings } from '@/types/settings'
+import type { UserAchievementData } from '@/types/user-achievement-data'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {

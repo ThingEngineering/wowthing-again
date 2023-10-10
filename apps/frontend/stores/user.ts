@@ -11,7 +11,7 @@ import { slotOrder } from '@/data/inventory-slot'
 import { InventorySlot } from '@/enums/inventory-slot'
 import { ItemBonusType } from '@/enums/item-bonus-type'
 import { TypedArray } from '@/enums/typed-array'
-import { itemStore } from '@/stores'
+import { itemStore } from '@/stores/item'
 import { staticStore } from '@/stores/static'
 import {
     Character,
