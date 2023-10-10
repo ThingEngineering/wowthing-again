@@ -399,6 +399,7 @@
                         },
                     },
                     y: {
+                        position: 'right',
                         stacked: stacked,
                         type: historyState.scaleType,
                         grid: {
