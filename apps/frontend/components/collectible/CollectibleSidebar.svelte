@@ -1,12 +1,13 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type { SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { UserCount } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     export let sets: ManualDataSetCategory[][]
 

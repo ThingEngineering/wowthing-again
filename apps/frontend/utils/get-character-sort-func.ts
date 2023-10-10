@@ -6,7 +6,7 @@ import { userStore } from '@/stores'
 import { leftPad } from '@/utils/formatting'
 import { Region } from '@/enums/region'
 import type { Character, Settings, UserData } from '@/types'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 import { getCharacterLevel } from './get-character-level'
 
 export default function getCharacterSortFunc(

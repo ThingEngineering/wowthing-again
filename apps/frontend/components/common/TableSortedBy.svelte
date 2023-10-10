@@ -1,7 +1,7 @@
 <script lang="ts">
     import mdiDown from '@iconify/icons-mdi/arrow-down-bold-circle-outline'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 </script>
 
 <style lang="scss">

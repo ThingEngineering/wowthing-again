@@ -4,15 +4,16 @@
     import { iconStrings, imageStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardReputation } from '@/enums/reward-reputation'
-    import { itemStore, parsedTextStore, staticStore } from '@/stores'
+    import { itemStore, parsedTextStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CraftedQualityIcon from '@/components/images/CraftedQualityIcon.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
+    import RaceIcon from '@/shared/components/images/RaceIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let cls: string = undefined
     export let dropShadow = false

@@ -1,11 +1,12 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
 
     export let character: Character
     export let reputationId: number

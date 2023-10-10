@@ -4,7 +4,8 @@
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
-    import { manualStore, staticStore } from '@/stores'
+    import { manualStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'

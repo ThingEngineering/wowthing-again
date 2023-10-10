@@ -3,7 +3,7 @@
     import { staticStore } from '@/stores/static'
     import { tippyComponent } from '@/utils/tippy'
     import type { Difficulty, InstanceDifficulty } from '@/types'
-    import type { StaticDataInstance } from '@/types/data/static'
+    import type { StaticDataInstance } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'

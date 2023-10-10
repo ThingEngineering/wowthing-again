@@ -3,9 +3,9 @@
     import { staticStore } from '@/stores/static'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterReputationParagon } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/types/data/static'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/stores/static/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bottom: string = undefined
     export let character: Character

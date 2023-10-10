@@ -1,4 +1,4 @@
-import type { StaticDataRealm } from '@/types/data/static'
+import type { StaticDataRealm } from '@/stores/static/types'
 
 import { GuildItem, type GuildItemArray } from './item'
 

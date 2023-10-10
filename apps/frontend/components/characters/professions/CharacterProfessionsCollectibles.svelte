@@ -7,15 +7,16 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { dragonflightProfessionMap } from '@/data/professions'
-    import { itemStore, staticStore, userQuestStore, userStore } from '@/stores'
+    import { itemStore, userQuestStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
     import type { Character } from '@/types'
     import type { DragonflightProfession } from '@/types/data'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     import Collectible from './CharacterProfessionsCollectible.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let expansionSlug: string

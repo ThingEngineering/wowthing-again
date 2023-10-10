@@ -1,15 +1,16 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
-    import { staticStore, userAuctionMissingStore } from '@/stores'
+    import { userAuctionMissingStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import tippy from '@/utils/tippy'
 
-    import Paginate from '@/components/common/Paginate.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let auctionsContainer: HTMLElement
     export let page: number

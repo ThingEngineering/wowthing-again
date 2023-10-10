@@ -6,7 +6,8 @@
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/icons'
-    import { itemStore, staticStore, userStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { professionsRecipesState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
     import type { Character, Expansion } from '@/types'
@@ -15,14 +16,14 @@
         StaticDataProfessionAbility,
         StaticDataProfessionCategory,
         StaticDataSubProfession
-    } from '@/types/data/static'
+    } from '@/stores/static/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte';
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     
     export let expansion: Expansion
     export let profession: StaticDataProfession

@@ -6,7 +6,7 @@
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 

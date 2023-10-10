@@ -1,12 +1,12 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
-    import SpellLink from '@/components/links/SpellLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import SpellLink from '@/shared/components/links/SpellLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let specializationId: number

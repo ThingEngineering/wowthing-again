@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 </script>
 
 <div class="settings-block">

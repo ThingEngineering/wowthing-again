@@ -12,12 +12,12 @@
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogCategory
     export let skipClasses: Record<string, boolean|number>

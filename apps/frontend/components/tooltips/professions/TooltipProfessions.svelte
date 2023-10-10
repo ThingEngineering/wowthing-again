@@ -3,10 +3,10 @@
     import { professionIdToString } from '@/data/professions'
     import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
-    import type { StaticDataProfession} from '@/types/data/static'
+    import type { StaticDataProfession} from '@/stores/static/types'
     
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let profession: StaticDataProfession

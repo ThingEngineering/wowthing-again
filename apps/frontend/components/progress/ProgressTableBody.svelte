@@ -6,7 +6,7 @@
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let group: ManualDataProgressGroup

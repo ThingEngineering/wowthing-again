@@ -1,7 +1,7 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion'
     import type { Character, Expansion, MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataSubProfession, StaticDataSubProfessionTraitNode } from '@/types/data/static'
+    import type { StaticDataProfession, StaticDataSubProfession, StaticDataSubProfessionTraitNode } from '@/stores/static/types'
 
     import Node from './CharacterProfessionsTraitsNode.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'

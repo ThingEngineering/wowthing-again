@@ -1,9 +1,10 @@
 <script lang="ts">
     import { lazyStore, manualStore } from '@/stores'
-    import type { SidebarItem, UserCount } from '@/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let overall: UserCount

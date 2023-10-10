@@ -2,7 +2,8 @@
     import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
 
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { SettingsChoice } from '@/types'

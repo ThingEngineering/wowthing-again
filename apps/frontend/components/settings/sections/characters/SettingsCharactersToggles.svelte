@@ -5,13 +5,14 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
     import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
-    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
 
     const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString())
     

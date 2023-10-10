@@ -3,7 +3,8 @@
 
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
-    import { staticStore, timeStore } from '@/stores'
+    import { timeStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
@@ -15,7 +16,7 @@
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
     import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let covenantId: number

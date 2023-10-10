@@ -1,6 +1,7 @@
 <script lang="ts">
 
-    import { lazyStore, staticStore, userStore}  from '@/stores'
+    import { lazyStore, userStore}  from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { MultiSlugParams } from '@/types'
 
     import Collectible from './Collectible.svelte'

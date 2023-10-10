@@ -1,18 +1,19 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
-    import { itemStore, staticStore, userQuestStore } from '@/stores'
+    import { itemStore, userQuestStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
-    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/types/data/static'
+    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/stores/static/types'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import { professionSpecializationSpells } from '@/data/professions';
 
     export let category: StaticDataProfessionCategory

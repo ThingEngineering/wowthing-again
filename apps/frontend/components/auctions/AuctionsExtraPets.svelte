@@ -9,10 +9,10 @@
     import petLocationTooltip from '@/utils/pet-location-tooltip'
     import tippy from '@/utils/tippy'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Paginate from '@/components/common/Paginate.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let auctionsContainer: HTMLElement
     export let page: number

@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { itemStore, staticStore } from '@/stores'
+    import { itemStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
 
-    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let costs: Record<number, number>    
 </script>

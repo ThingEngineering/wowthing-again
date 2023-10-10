@@ -3,7 +3,7 @@
     import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 

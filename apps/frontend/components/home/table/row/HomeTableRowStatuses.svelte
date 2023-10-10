@@ -4,11 +4,12 @@
     import { Constants } from '@/data/constants'
     import { contractAuras } from '@/data/reputation'
     import { durationAuras } from '@/data/spells'
-    import { staticStore, timeStore } from '@/stores'
+    import { timeStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 

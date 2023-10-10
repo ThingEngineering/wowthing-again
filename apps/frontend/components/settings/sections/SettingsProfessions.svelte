@@ -3,10 +3,11 @@
     import sortBy from 'lodash/sortBy'
 
     import { professionCooldowns } from '@/data/professions/cooldowns'
-    import { settingsStore, staticStore } from '@/stores'
+    import { settingsStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import ProfessionIcon from '@/components/images/ProfessionIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
 
     const groupedCooldowns = groupBy(professionCooldowns, (cd) => cd.profession)
     const sortedProfessions = sortBy(

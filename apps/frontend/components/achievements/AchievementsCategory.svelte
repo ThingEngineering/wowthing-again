@@ -9,7 +9,7 @@
     import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 
     export let slug1: string
     export let slug2: string

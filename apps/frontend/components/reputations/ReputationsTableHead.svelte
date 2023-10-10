@@ -3,11 +3,11 @@
 
     import { reputationState } from '@/stores/local-storage'
     import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataReputationSet } from '@/types/data/static'
+    import type { StaticDataReputationSet } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let reputation: StaticDataReputationSet
     export let slug: string

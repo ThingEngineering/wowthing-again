@@ -5,7 +5,7 @@
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchItemRow.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let response: ItemSearchResponseItem[]
 </script>

@@ -1,12 +1,13 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
 
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
-    import type { StaticDataConnectedRealm } from '@/types/data/static'
+    import type { StaticDataConnectedRealm } from '@/stores/static/types'
 
-    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}

@@ -1,7 +1,8 @@
 import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
-import { staticStore, userStore } from '@/stores'
+import { userStore } from '@/stores'
+import { staticStore } from '@/stores/static'
 import type { Character, Settings } from '@/types'
 
 export default function getCharacterGroupFunc(settingsData: Settings): (char: Character) => string {

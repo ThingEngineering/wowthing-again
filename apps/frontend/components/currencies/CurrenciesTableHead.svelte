@@ -2,12 +2,12 @@
     import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
     import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { StaticDataCurrency } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let currency: StaticDataCurrency = undefined
     export let itemId = 0

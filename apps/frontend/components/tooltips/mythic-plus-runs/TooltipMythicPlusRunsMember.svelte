@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
     import getRealmName from '@/utils/get-realm-name'
     import type { CharacterMythicPlusRunMember } from '@/types'
-    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/types/data/static/character'
+    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/stores/static/types/character'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte'
 
     export let member: CharacterMythicPlusRunMember
 

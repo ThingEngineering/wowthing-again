@@ -1,14 +1,15 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
-    import { itemStore, staticStore, userStore, userAuctionSpecificItemStore } from '@/stores'
+    import { itemStore, userStore, userAuctionSpecificItemStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy from '@/utils/tippy'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let slug2: string
 
@@ -37,29 +38,29 @@
         padding: 0.2rem $width-padding;
         text-align: left;
     }
-    .ignore {
-        font-weight: normal;
-        padding-right: 0.6rem;
-        text-align: right;
-        white-space: nowrap;
+    // .ignore {
+    //     font-weight: normal;
+    //     padding-right: 0.6rem;
+    //     text-align: right;
+    //     white-space: nowrap;
 
-        span {
-            cursor: pointer;
+    //     span {
+    //         cursor: pointer;
 
-            &:hover {
-                color: $link-color;
-            }
-        }
-    }
+    //         &:hover {
+    //             color: $link-color;
+    //         }
+    //     }
+    // }
     .realm {
         @include cell-width(11.0rem, $paddingLeft: 0px);
     }
-    .level {
-        @include cell-width(1.8rem);
+    // .level {
+    //     @include cell-width(1.8rem);
 
-        text-align: right;
-        white-space: nowrap;
-    }
+    //     text-align: right;
+    //     white-space: nowrap;
+    // }
     .price {
         @include cell-width(4.5rem);
 

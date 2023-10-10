@@ -1,4 +1,4 @@
-import type { StaticDataCurrencyCategory } from '@/types/data/static'
+import type { StaticDataCurrencyCategory } from '@/stores/static/types'
 
 
 export const categoryOrder: number[] = [

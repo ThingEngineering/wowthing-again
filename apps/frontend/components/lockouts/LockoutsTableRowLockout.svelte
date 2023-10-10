@@ -5,7 +5,7 @@
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte'
 
     export let character: Character

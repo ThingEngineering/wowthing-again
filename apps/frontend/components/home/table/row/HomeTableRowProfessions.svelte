@@ -2,14 +2,15 @@
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
     import { Region } from '@/enums/region'
-    import { settingsStore, staticStore } from '@/stores'
+    import { settingsStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { getProfessionSortKey } from '@/utils/professions'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterProfession } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let professionType = 0

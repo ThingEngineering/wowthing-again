@@ -1,8 +1,8 @@
 <script lang="ts">
     import { userTeamStore } from '@/stores'
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     $: {

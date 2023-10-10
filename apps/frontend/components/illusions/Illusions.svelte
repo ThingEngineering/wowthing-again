@@ -2,19 +2,20 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
-    import { manualStore, staticStore, lazyStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, userTransmogStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { illusionState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     let sections: [string, ManualDataIllusionGroup[]][]
     $: {

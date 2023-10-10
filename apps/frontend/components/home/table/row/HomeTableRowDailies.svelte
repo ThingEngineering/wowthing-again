@@ -9,7 +9,7 @@
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/dailies/TooltipDailies.svelte'
 
     export let character: Character

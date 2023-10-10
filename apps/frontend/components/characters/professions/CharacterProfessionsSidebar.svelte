@@ -1,10 +1,11 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { expansionOrder } from '@/data/expansion'
-    import type { MultiSlugParams, SidebarItem, UserCount } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { MultiSlugParams, UserCount } from '@/types'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     export let params: MultiSlugParams
     export let staticProfession: StaticDataProfession

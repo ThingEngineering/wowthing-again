@@ -7,9 +7,9 @@
     import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { ItemDataItem } from '@/types/data/item'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { StaticDataCurrency } from '@/stores/static/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let currency: StaticDataCurrency
     export let item: ItemDataItem

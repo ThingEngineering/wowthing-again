@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { Character } from '@/types'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import RaceIcon from '@/shared/components/images/RaceIcon.svelte'
 
     export let character: Character
 </script>

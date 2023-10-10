@@ -10,7 +10,7 @@
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
 
     export let encounter: JournalDataEncounter = undefined

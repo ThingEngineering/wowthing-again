@@ -2,7 +2,8 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { itemStore, lazyStore, staticStore } from '@/stores'
+    import { itemStore, lazyStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { vendorState } from '@/stores/local-storage'
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
@@ -12,13 +13,13 @@
     import type { UserCount } from '@/types'
     import type { ManualDataVendorGroup } from '@/types/data/manual'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
-    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount

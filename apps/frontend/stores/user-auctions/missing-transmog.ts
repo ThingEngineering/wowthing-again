@@ -8,7 +8,7 @@ import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctio
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { type UserAuctionDataMissingTransmogAuctionArray, UserAuctionDataMissingTransmogAuction } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 import type { Settings, UserData } from '@/types'
 
 import type { AuctionState } from '../local-storage'

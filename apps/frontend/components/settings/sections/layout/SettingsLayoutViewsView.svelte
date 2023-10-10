@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { SettingsView } from '@/types'
 
-    import TextInput from '@/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let view: SettingsView
 </script>

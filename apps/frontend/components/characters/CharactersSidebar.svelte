@@ -3,13 +3,15 @@
     import groupBy from 'lodash/groupBy'
     import sortBy from 'lodash/sortBy'
 
-    import { settingsStore, staticStore, userStore } from '@/stores'
+    import { settingsStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { Region } from '@/enums/region'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { splitOnce } from '@/utils/split-once'
-    import type { Character, SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { Character } from '@/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string

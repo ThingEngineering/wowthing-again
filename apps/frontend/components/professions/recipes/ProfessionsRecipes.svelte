@@ -3,7 +3,7 @@
 
     import { expansionSlugMap } from '@/data/expansion'
     import { professionSlugToId } from '@/data/professions'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import Sidebar from './ProfessionsRecipesSidebar.svelte'

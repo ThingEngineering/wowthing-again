@@ -1,9 +1,9 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import type { StaticDataProfessionAbility } from '@/types/data/static'
+    import type { StaticDataProfessionAbility } from '@/stores/static/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
     export let ability: StaticDataProfessionAbility
     export let currentRank: number

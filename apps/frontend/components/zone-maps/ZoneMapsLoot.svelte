@@ -5,9 +5,9 @@
     import { RewardType } from '@/enums/reward-type'
     import { getDropData } from '@/utils/zone-maps'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import type { ManualDataZoneMapFarm } from '@/types/data/manual'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
     export let loots: [ManualDataZoneMapFarm, number[]][]
 </script>

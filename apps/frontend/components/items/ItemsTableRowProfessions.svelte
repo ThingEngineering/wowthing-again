@@ -7,12 +7,12 @@
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
     import type { Character, CharacterGear } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/stores/static/types'
 
     import Empty from './ItemsEmpty.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Item from './ItemsItem.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     
     export let character: Character
     

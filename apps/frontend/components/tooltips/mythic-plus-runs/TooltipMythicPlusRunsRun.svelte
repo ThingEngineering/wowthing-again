@@ -2,9 +2,9 @@
     import repeat from 'lodash/repeat'
     import sortBy from 'lodash/sortBy'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     import { dungeonMap } from '@/data/dungeon'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type {
         CharacterMythicPlusRun,
         CharacterMythicPlusRunMember,

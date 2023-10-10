@@ -25,7 +25,7 @@ import type { Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 import type { DropStatus, FarmStatus } from '@/types/zone-maps'
 
 

@@ -49,7 +49,7 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/types/data/static'
+import type { StaticData } from '@/stores/static/types'
 
 
 type LazyKey =

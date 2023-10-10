@@ -1,10 +1,10 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { staticStore } from '@/stores'
-    import type { SidebarItem } from '@/types'
+    import { staticStore } from '@/stores/static'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     $: {

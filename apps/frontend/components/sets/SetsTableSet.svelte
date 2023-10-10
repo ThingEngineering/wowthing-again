@@ -6,7 +6,7 @@
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
-    import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
+    import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: ManualDataTransmogGroupData
     export let setKey: string

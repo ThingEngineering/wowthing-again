@@ -1,12 +1,13 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, staticStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement

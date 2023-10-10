@@ -1,7 +1,7 @@
 <script lang="ts">
     import { appearanceState } from '@/stores/local-storage'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 </script>
 
 <div class="options-container">

@@ -9,15 +9,16 @@
     import { FarmResetType } from '@/enums/farm-reset-type'
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
-    import { achievementStore, itemStore, lazyStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm

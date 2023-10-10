@@ -3,12 +3,13 @@
     import sortBy from 'lodash/sortBy'
 
     import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
-    import { settingsStore, staticStore } from '@/stores'
+    import { settingsStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { currencyState } from '@/stores/local-storage'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character, MultiSlugParams } from '@/types'
-    import type { StaticDataCurrency, StaticDataCurrencyCategory } from '@/types/data/static'
+    import type { StaticDataCurrency, StaticDataCurrencyCategory } from '@/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

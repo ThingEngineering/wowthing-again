@@ -7,20 +7,21 @@
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/icons'
-    import { itemStore, settingsStore, staticStore, timeStore, userStore } from '@/stores'
+    import { itemStore, settingsStore, timeStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import tippy, { tippyComponent } from '@/utils/tippy'
 
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Paginate from '@/components/common/Paginate.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let page: number
     export let slug1: string

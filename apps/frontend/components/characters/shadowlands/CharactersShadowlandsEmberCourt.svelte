@@ -7,7 +7,8 @@
         type EmberCourtFeature,
         type EmberCourtFeatureType
     } from '@/data/covenant'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { userQuestStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
     import tippy, { tippyComponent } from '@/utils/tippy'
     import type { Character, ReputationTier } from '@/types'
@@ -16,7 +17,7 @@
 
     import ReputationText from '@/components/common/ReputationText.svelte'
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     let quests: Set<number>
     let tier: ReputationTier

@@ -1,4 +1,4 @@
-import type { StaticDataRealm } from '../data/static'
+import type { StaticDataRealm } from '@/stores/static/types'
 
 
 export interface HasNameAndRealm {

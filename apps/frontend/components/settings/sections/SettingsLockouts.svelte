@@ -5,14 +5,14 @@
     import { ignoredLockoutInstances } from '@/data/dungeon'
     import { expansionMap } from '@/data/expansion'
     import { iconStrings } from '@/data/icons'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     let instanceFilter: string
 

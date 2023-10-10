@@ -5,7 +5,7 @@
     import tippy from '@/utils/tippy'
     import type { LeaderboardEntry } from '@/types'
 
-    import Paginate from '@/components/common/Paginate.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
 
     export let page: number
     export let slug: string

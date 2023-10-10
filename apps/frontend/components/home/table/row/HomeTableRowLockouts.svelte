@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import type { Character } from '@/types'
 
     import RowLockout from '@/components/lockouts/LockoutsTableRowLockout.svelte'

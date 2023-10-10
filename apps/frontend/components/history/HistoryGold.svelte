@@ -22,16 +22,17 @@
     import { colors } from '@/data/colors'
     import { resetTimes } from '@/data/region'
     import { Region } from '@/enums/region'
-    import { staticStore, timeStore, userHistoryStore } from '@/stores'
+    import { timeStore, userHistoryStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { historyState } from '@/stores/local-storage'
     import parseApiTime from '@/utils/parse-api-time'
     import type { HistoryState } from '@/stores/local-storage'
     import type { UserHistoryData } from '@/types/data'
-    import type { StaticDataRealm } from '@/types/data/static'
+    import type { StaticDataRealm } from '@/stores/static/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import RadioGroup from '@/components/forms/RadioGroup.svelte'
-    import Select from '@/components/forms/Select.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import Select from '@/shared/components/forms/Select.svelte'
 
     Chart.register(
         LineElement,
@@ -144,6 +145,7 @@
                         x: parseApiTime(point[0]),
                         y: point[1],
                     }))
+                    .filter(({ x }) => x >= minTime)
             }
             else {
                 const temp: Record<string, [DateTime, number]> = {}
@@ -397,6 +399,7 @@
                         },
                     },
                     y: {
+                        position: 'right',
                         stacked: stacked,
                         type: historyState.scaleType,
                         grid: {

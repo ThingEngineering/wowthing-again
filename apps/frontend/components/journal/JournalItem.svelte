@@ -5,16 +5,17 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
-    import { staticStore, userStore, userTransmogStore } from '@/stores'
+    import { userStore, userTransmogStore } from '@/stores'
+    import { staticStore } from '@/stores/static'
     import { journalState } from '@/stores/local-storage'
     import { settingsStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem
