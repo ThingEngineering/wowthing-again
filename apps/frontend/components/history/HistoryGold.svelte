@@ -145,6 +145,7 @@
                         x: parseApiTime(point[0]),
                         y: point[1],
                     }))
+                    .filter(({ x }) => x >= minTime)
             }
             else {
                 const temp: Record<string, [DateTime, number]> = {}
