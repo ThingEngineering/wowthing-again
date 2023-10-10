@@ -4,8 +4,8 @@
     import { Constants } from '@/data/constants'
     import { contractAuras } from '@/data/reputation'
     import { durationAuras } from '@/data/spells'
-    import { timeStore } from '@/stores'
     import { staticStore } from '@/stores/static'
+    import { timeStore } from '@/stores/time'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
 
@@ -24,23 +24,38 @@
         for (const [spellId, spellName] of durationAuras) {
             const aura = character.auras?.[spellId]
             if (aura) {
-                const minutes = aura.duration / 60
-                const hours = minutes / 60
-                const timeText = minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`
-
-                const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText
-
                 const lines = [spellName]
-                if (aura.stacks > 0) {
-                    lines.push(`${aura.stacks} stacks`)
-                }
-                lines.push(`${timeText} remaining`)
+                let hours = 0
+                let minutes = 0
 
-                images.push([
-                    `spell/${spellId}`,
-                    `<div class="center">${lines.join('<br>')}</div>`,
-                    iconText
-                ])
+                if (aura.duration) {
+                    minutes = aura.duration / 60
+                    hours = minutes / 60
+                }
+                else if (aura.expires) {
+                    const expires = DateTime.fromSeconds(aura.expires)
+                    if (expires > $timeStore) {
+                        const milliseconds = expires.diff($timeStore).toMillis()
+                        minutes = milliseconds / 1000 / 60
+                        hours = minutes / 60
+                    }
+                }
+
+                if (hours > 0 || minutes > 0) {
+                    const timeText = minutes < 100 ? `${Math.floor(minutes)}m` : `${Math.round(hours)}h`
+                    const iconText = aura.stacks > 0 ? aura.stacks.toString() : timeText
+
+                    if (aura.stacks > 0) {
+                        lines.push(`${aura.stacks} stacks`)
+                    }
+                    lines.push(`${timeText} remaining`)
+
+                    images.push([
+                        `spell/${spellId}`,
+                        `<div class="center">${lines.join('<br>')}</div>`,
+                        iconText
+                    ])
+                }
             }
         }
         
