@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     
     import Tooltip from '@/components/tooltips/parsed-text/TooltipParsedText.svelte'
@@ -76,7 +76,7 @@
                 {@const crests = Math.floor(fragments / 15) + character.getItemCount(crestId)}
                 <div
                     class="crest"
-                    use:tippyComponent={{
+                    use:componentTooltip={{
                         component: Tooltip,
                         props: {
                             content: `{item:${crestId}}`,

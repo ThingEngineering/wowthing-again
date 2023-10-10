@@ -7,7 +7,7 @@
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
     import { leftPad } from '@/utils/formatting'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { JournalDataEncounter } from '@/types/data'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
@@ -156,7 +156,7 @@
             <div
                 class="stats"
                 data-id="{difficulty}"
-                use:tippy={`${difficultyMap[difficulty].name}${kills >= 0 ? ` - ${kills} kill(s)` : ''}`}
+                use:basicTooltip={`${difficultyMap[difficulty].name}${kills >= 0 ? ` - ${kills} kill(s)` : ''}`}
             >
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}

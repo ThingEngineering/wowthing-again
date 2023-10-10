@@ -3,7 +3,7 @@
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
     import { leftPad } from '@/utils/formatting'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
@@ -62,7 +62,7 @@
             <code>[{criteriaTreeId}]</code>
             <span
                 class="text-overflow"
-                use:tippy={criteriaTree.description}
+                use:basicTooltip={criteriaTree.description}
             >{criteriaTree.description || 'BLANK'}</span>
         </div>
 

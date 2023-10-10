@@ -13,7 +13,7 @@
     import { staticStore } from '@/stores/static'
     import { matrixState } from '@/stores/local-storage'
     import { cartesianProduct } from '@/utils/cartesian-product'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/stores/static/types'
 
@@ -459,7 +459,7 @@
                             {#each keyCharacters as character}
                                 <div
                                     class="character"
-                                    use:tippyComponent={{
+                                    use:componentTooltip={{
                                         component: TooltipCharacter,
                                         props: {
                                             character,

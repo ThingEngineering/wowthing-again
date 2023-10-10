@@ -2,7 +2,7 @@
     import { ascensionFightOrder, ascensionFights, ascensionItems } from '@/data/covenant'
     import { iconStrings } from '@/data/icons'
     import { userQuestStore } from '@/stores'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -82,13 +82,13 @@
     <thead>
         <tr>
             <th></th>
-            <th class="border-left" use:tippy={ascensionFightOrder[0]}>C</th>
-            <th use:tippy={ascensionFightOrder[1]}>L</th>
-            <th use:tippy={ascensionFightOrder[2]}>W</th>
-            <th class="border-left" use:tippy={ascensionFightOrder[3]}>P</th>
-            <th use:tippy={ascensionFightOrder[4]}>K</th>
-            <th use:tippy={ascensionFightOrder[5]}>M</th>
-            <th use:tippy={ascensionFightOrder[6]}>H</th>
+            <th class="border-left" use:basicTooltip={ascensionFightOrder[0]}>C</th>
+            <th use:basicTooltip={ascensionFightOrder[1]}>L</th>
+            <th use:basicTooltip={ascensionFightOrder[2]}>W</th>
+            <th class="border-left" use:basicTooltip={ascensionFightOrder[3]}>P</th>
+            <th use:basicTooltip={ascensionFightOrder[4]}>K</th>
+            <th use:basicTooltip={ascensionFightOrder[5]}>M</th>
+            <th use:basicTooltip={ascensionFightOrder[6]}>H</th>
         </tr>
     </thead>
     <tbody>
@@ -96,7 +96,7 @@
             <tr>
                 <td
                     class="name text-overflow"
-                    use:tippy={fight.name}
+                    use:basicTooltip={fight.name}
                 >
                     {fight.name}
                 </td>
@@ -107,7 +107,7 @@
                         class:border-left={questIndex === 0 || questIndex === 3}
                         class:status-success={characterHas}
                         class:status-fail={!characterHas}
-                        use:tippy={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
+                        use:basicTooltip={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
                     >
                         {#if characterHas}
                             <IconifyIcon

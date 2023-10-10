@@ -9,7 +9,7 @@
     import { itemStore, userStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import { professionsRecipesState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -195,7 +195,7 @@
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"
-                                    use:tippy={'Find auctions'}
+                                    use:basicTooltip={'Find auctions'}
                                 >
                                     <IconifyIcon icon={iconLibrary.mdiBank} />
                                 </a>

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { covenantNameMap } from '@/data/covenant'
     import { progressState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
@@ -64,7 +64,7 @@
 
 <th
     on:click={onClick}
-    use:tippy={group.name}
+    use:basicTooltip={group.name}
 >
     <div class="split-icon-{icons.length === 2 ? 'yes' : 'no'}">
         {#if icons.length === 2}

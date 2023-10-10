@@ -1,7 +1,7 @@
 <script lang="ts">
     import { itemStore, userStore } from '@/stores'
     import { toNiceNumber } from '@/utils/formatting'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchItemRow.svelte'
@@ -25,7 +25,7 @@
                 </th>
                 <th
                     class="count"
-                    use:tippy={itemCount.toLocaleString()}
+                    use:basicTooltip={itemCount.toLocaleString()}
                 >
                     {toNiceNumber(itemCount)}
                 </th>

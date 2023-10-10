@@ -2,7 +2,7 @@
     import { getContext } from 'svelte'
 
     import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type {
         Character,
         CharacterMythicPlusAddonMap,
@@ -90,7 +90,7 @@
 <td
     class:fortified={!isTyrannical}
     class:tyrannical={isTyrannical}
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: TooltipMythicPlusRuns,
         props: {
             addonMap,

@@ -3,7 +3,7 @@
 
     import { professionCooldowns } from '@/data/professions/cooldowns'
     import { settingsStore, timeStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, ProfessionCooldown } from '@/types'
 
     import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte'
@@ -95,7 +95,7 @@
     <td
         class:status-shrug={anyHalf && !anyFull}
         class:status-fail={anyFull}
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

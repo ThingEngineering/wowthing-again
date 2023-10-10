@@ -1,6 +1,7 @@
 <script lang="ts">
     import { iconLibrary } from '@/icons'
-    import { tippyComponent, type TippyComponentProps } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
@@ -10,7 +11,7 @@
     export let maxlength: number = null
     export let name: string
     export let placeholder = ''
-    export let tooltipComponent: TippyComponentProps = undefined
+    export let tooltipComponent: ComponentTooltipProps = undefined
     export let value: string
 </script>
 
@@ -48,7 +49,7 @@
         placeholder={placeholder}
         {maxlength}
         bind:value={value}
-        use:tippyComponent={tooltipComponent}
+        use:componentTooltip={tooltipComponent}
         style:width={inputWidth}
     >
 

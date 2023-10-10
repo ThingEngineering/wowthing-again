@@ -10,7 +10,7 @@
     import { userQuestStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import tippy, { tippyComponent } from '@/utils/tippy'
+    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, ReputationTier } from '@/types'
 
     export let character: Character
@@ -135,7 +135,7 @@
                 {@const rsvp = quests?.has(friend.rsvpQuestId)}
                 <div
                     class="friend"
-                    use:tippyComponent={{
+                    use:componentTooltip={{
                         component: Tooltip,
                         props: {
                             bottom: bff ? `<span class="status-success">Friend of a Friend!</span>` : undefined,
@@ -181,7 +181,7 @@
                         class:locked={!typeUnlocked && tier?.tier > typeReputation}
                         class:available={!typeUnlocked && tier?.tier <= typeReputation}
                         class:unlocked={typeUnlocked}
-                        use:tippy={{
+                        use:basicTooltip={{
                             allowHTML: true,
                             content: getTooltip(type),
                         }}

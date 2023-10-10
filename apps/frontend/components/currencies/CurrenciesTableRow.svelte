@@ -1,7 +1,7 @@
 <script lang="ts">
     import { currencyItemCurrencies } from '@/data/currencies'
     import { itemStore, timeStore, userStore } from '@/stores'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { StaticDataCurrency } from '@/stores/static/types'
@@ -85,7 +85,7 @@
         class:alt={sortingBy}
         class:status-shrug={per > 50}
         class:status-fail={per > 90}
-        use:tippy={{
+        use:basicTooltip={{
             allowHTML: true,
             content: tooltip
         }}

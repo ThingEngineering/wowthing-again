@@ -1,6 +1,6 @@
 <script lang="ts">
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import TooltipVaultRaid from '@/components/tooltips/vault-raid/TooltipVaultRaid.svelte'
@@ -20,7 +20,7 @@
 </style>
 
 {#if raidVault?.length > 0}
-    <td use:tippyComponent={{component: TooltipVaultRaid, props: {character}}}>
+    <td use:componentTooltip={{component: TooltipVaultRaid, props: {character}}}>
         <VaultShared
             progresses={raidVault}
             qualityFunc={(prog) => getRaidVaultItemLevel(prog)[1]}

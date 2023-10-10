@@ -7,7 +7,7 @@
     import { illusionState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
@@ -128,7 +128,7 @@
                                         ($illusionState.highlightMissing && have) ||
                                         (!$illusionState.highlightMissing && !have)
                                     }
-                                    use:tippy={illusion.name}
+                                    use:basicTooltip={illusion.name}
                                 >
                                     <WowthingImage
                                         name="enchantment/{item.enchantmentId}"

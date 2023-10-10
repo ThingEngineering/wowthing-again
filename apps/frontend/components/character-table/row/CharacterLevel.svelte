@@ -3,7 +3,7 @@
     import { settingsStore } from '@/stores'
     import { getCharacterLevel } from '@/utils/get-character-level'
     import { leftPad } from '@/utils/formatting'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/character-level/TooltipCharacterLevel.svelte'
@@ -25,7 +25,7 @@
 {#if $settingsStore.layout.showPartialLevel}
     <td
         class="level-partial"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

@@ -8,7 +8,7 @@
     } from '@/data/professions'
     import { Profession } from '@/enums/profession'
     import { itemStore, userQuestStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type {  Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte'
@@ -110,7 +110,7 @@
                 class:status-fail={zoneHave === 0}
                 class:status-shrug={zoneHave > 0 && zoneHave < zoneTotal}
                 class:status-success={zoneHave === zoneTotal}
-                use:tippyComponent={{
+                use:componentTooltip={{
                     component: Tooltip,
                     props: {
                         character,

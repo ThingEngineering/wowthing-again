@@ -1,7 +1,7 @@
 <script lang="ts">
     import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { StaticDataCurrency } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
@@ -46,7 +46,7 @@
 
 <th
     class={cls}
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {
             currency,

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     export let character: Character
@@ -29,7 +29,7 @@
 <td
     class="text-overflow"
     class:status-fail={!character.currentLocation}
-    use:tippy={{ allowHTML: true, content: location }}
+    use:basicTooltip={{ allowHTML: true, content: location }}
 >
     {@html location}
 </td>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
     import type { ProgressInfo } from '@/utils/get-progress'
@@ -39,7 +39,7 @@
 {#if progressData?.total > 0}
     <td
         class:has-icon={!!progressData.icon}
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: TooltipProgress,
             props: {
                 datas: progressData.datas,

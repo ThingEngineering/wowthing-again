@@ -12,7 +12,7 @@
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import tippy, { tippyComponent } from '@/utils/tippy'
+    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -232,7 +232,7 @@
                                             {#if result.hasItems.length > 0}
                                                 <span
                                                     class="already-have"
-                                                    use:tippyComponent={{
+                                                    use:componentTooltip={{
                                                         component: TooltipAlreadyHave,
                                                         props: {
                                                             hasItems: result.hasItems,
@@ -248,7 +248,7 @@
                                                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                                                 <span
                                                     class="clipboard"
-                                                    use:tippy={"Copy to clipboard"}
+                                                    use:basicTooltip={"Copy to clipboard"}
                                                     on:click={() => navigator.clipboard.writeText(item.name)}
                                                 >
                                                     <IconifyIcon
@@ -283,7 +283,7 @@
                                     <td
                                         class="realm text-overflow"
                                         on:click={() => setRealmSearch(auction.connectedRealmId)}
-                                        use:tippy={{
+                                        use:basicTooltip={{
                                             allowHTML: true,
                                             content: `
     ${connectedRealm.realmNames.join(' / ')}
@@ -328,7 +328,7 @@
             <div
                 slot="bar-end"
                 class="total-gold"
-                use:tippy={"Total gold required to buy the cheapest of each item"}
+                use:basicTooltip={"Total gold required to buy the cheapest of each item"}
             >
                 {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
             </div>

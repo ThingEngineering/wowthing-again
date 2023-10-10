@@ -10,7 +10,7 @@
     import { journalState } from '@/stores/local-storage'
     import { settingsStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
@@ -227,7 +227,7 @@
                 </div>
             {/if}
 
-            <div class="difficulties" use:tippy={diffLong.join(' / ')}>
+            <div class="difficulties" use:basicTooltip={diffLong.join(' / ')}>
                 {#each diffShort as difficulty}
                     <span>{difficulty}</span>
                 {/each}

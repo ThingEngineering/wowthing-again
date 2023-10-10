@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { soulbindSockets } from '@/data/icons'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsSoulbind } from '@/types'
     import type { StaticDataSoulbind } from '@/stores/static/types'
 
@@ -118,7 +118,7 @@
 >
     <h3
         class="text-overflow"
-        use:tippy={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
+        use:basicTooltip={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
     >{soulbind.name}</h3>
 
     {#each soulbind.rows as row, rowIndex}
@@ -163,7 +163,7 @@
                         {:else}
                             <div
                                 class="empty-socket"
-                                use:tippy={"Empty socket"}
+                                use:basicTooltip={"Empty socket"}
                             >
                                 <IconifyIcon
                                     dropShadow={true}

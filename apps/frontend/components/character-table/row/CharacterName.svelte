@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Region } from '@/enums/region'
     import { settingsStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/character-name/TooltipCharacterName.svelte'
@@ -21,7 +21,7 @@
 </style>
 
 <td
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {
             character,

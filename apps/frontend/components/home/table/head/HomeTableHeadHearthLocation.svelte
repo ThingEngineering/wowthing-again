@@ -1,7 +1,7 @@
 <script lang="ts">
     import { homeState } from '@/stores/local-storage'
     import { imageStrings } from '@/data/icons'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -28,7 +28,7 @@
     class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
     on:click={() => setSorting(sortKey)}
     on:keypress={() => setSorting(sortKey)}
-    use:tippy={'Hearth Location'}
+    use:basicTooltip={'Hearth Location'}
 >
     <WowthingImage
         name={imageStrings.hearthstone}

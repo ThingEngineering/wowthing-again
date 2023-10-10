@@ -1,6 +1,6 @@
 <script lang="ts">
     import { userStore } from '@/stores'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     export let character: Character
@@ -18,7 +18,7 @@
 
 <td
     class="text-overflow"
-    use:tippy={guild ? `${guild.name} - ${guild.realm.name}` : null}
+    use:basicTooltip={guild ? `${guild.name} - ${guild.realm.name}` : null}
 >
     {#if character.guildId}
         {#if guild}

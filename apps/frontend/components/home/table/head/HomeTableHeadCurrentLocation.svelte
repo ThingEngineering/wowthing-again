@@ -1,6 +1,6 @@
 <script lang="ts">
     import { homeState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let groupIndex: number
 
@@ -25,7 +25,7 @@
     class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
     on:click={() => setSorting(sortKey)}
     on:keypress={() => setSorting(sortKey)}
-    use:tippy={'Current Location'}
+    use:basicTooltip={'Current Location'}
 >
     Location
 </td>

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { lockoutState } from '@/stores/local-storage'
     import { staticStore } from '@/stores/static'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Difficulty, InstanceDifficulty } from '@/types'
     import type { StaticDataInstance } from '@/stores/static/types'
 
@@ -41,7 +41,7 @@
 
 <th
     on:click|preventDefault={onClick}
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {
             difficulty,

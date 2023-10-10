@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getVaultItemLevel } from '@/utils/mythic-plus'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
@@ -20,7 +20,7 @@
 </style>
 
 {#if mythicPlus?.length > 0}
-    <td use:tippyComponent={{component: TooltipMythicPlusVault, props: { character }}}>
+    <td use:componentTooltip={{component: TooltipMythicPlusVault, props: { character }}}>
         <VaultShared
             progresses={mythicPlus}
             qualityFunc={(prog) => getVaultItemLevel(prog.level)[1]}

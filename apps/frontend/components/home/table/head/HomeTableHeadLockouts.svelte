@@ -2,7 +2,7 @@
     import { userStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import { homeState } from '@/stores/local-storage'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'
 
@@ -29,7 +29,7 @@
             class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
             on:click={() => setSorting(sortKey)}
             on:keypress={() => setSorting(sortKey)}
-            use:tippyComponent={{
+            use:componentTooltip={{
                 component: Tooltip,
                 props: {
                     difficulty,

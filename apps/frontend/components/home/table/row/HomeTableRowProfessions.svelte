@@ -5,7 +5,7 @@
     import { settingsStore } from '@/stores'
     import { staticStore } from '@/stores/static'
     import { getProfessionSortKey } from '@/utils/professions'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterProfession } from '@/types'
     import type { StaticDataProfession } from '@/stores/static/types'
 
@@ -102,7 +102,7 @@
                 <div
                     class="profession"
                     data-id="{profession.id}"
-                    use:tippyComponent={{
+                    use:componentTooltip={{
                         component: Tooltip,
                         props: {
                             character,

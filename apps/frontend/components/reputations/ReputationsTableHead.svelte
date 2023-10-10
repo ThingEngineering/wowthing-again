@@ -2,7 +2,7 @@
     import some from 'lodash/some'
 
     import { reputationState } from '@/stores/local-storage'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { StaticDataReputationSet } from '@/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
@@ -50,7 +50,7 @@
 <th
     data-reputation-ids={repIds.filter((id) => id > 0).join(',')}
     on:click|preventDefault={onClick}
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {reputation},
     }}

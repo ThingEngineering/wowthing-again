@@ -1,5 +1,6 @@
 import type { Difficulty } from '@/types/difficulty'
-import type { TippyProps } from '@/types/tippy'
+import type { TippyProps } from '@/shared/utils/tooltips/types'
+
 
 export class Dungeon {
     timer1: number

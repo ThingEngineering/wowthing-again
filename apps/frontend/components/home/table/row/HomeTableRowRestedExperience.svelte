@@ -1,7 +1,7 @@
 <script lang="ts">
     import { timeStore } from '@/stores'
     import { getCharacterRested } from '@/utils/get-character-rested'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     export let character: Character
@@ -24,7 +24,7 @@
 
 <td
     class:center={rested === '???'}
-    use:tippy={"Rested XP"}
+    use:basicTooltip={"Rested XP"}
 >
     {rested || ''}
 </td>

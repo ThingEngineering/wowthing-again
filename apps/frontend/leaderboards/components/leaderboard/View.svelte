@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy'
     import { replace } from 'svelte-spa-router'
 
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { LeaderboardEntry } from './types'
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
@@ -143,7 +143,7 @@
                     <div class="info">
                         <div
                             class="name text-overflow"
-                            use:tippy={username}
+                            use:basicTooltip={username}
                         >
                             {#if linkTo}
                                 <a href="/user/{username}#/" target="_blank">{username}</a>

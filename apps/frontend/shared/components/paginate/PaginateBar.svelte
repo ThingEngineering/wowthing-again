@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
@@ -47,7 +47,7 @@
 
 <div class="paginate border">
     {#if page > 1}
-        <a href="{url}/1" use:tippy={'First page'}>
+        <a href="{url}/1" use:basicTooltip={'First page'}>
             <IconifyIcon icon={iconStrings['page-first']} />
         </a>
     {:else}
@@ -57,13 +57,13 @@
     {/if}
 
     {#if (page - 2) > 0}
-        <a href="{url}/{page - 2}" use:tippy={`Page ${page - 2}`}>{page - 2}</a>
+        <a href="{url}/{page - 2}" use:basicTooltip={`Page ${page - 2}`}>{page - 2}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
 
     {#if (page - 1) > 0}
-        <a href="{url}/{page - 1}" use:tippy={`Page ${page - 1}`}>{page - 1}</a>
+        <a href="{url}/{page - 1}" use:basicTooltip={`Page ${page - 1}`}>{page - 1}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
@@ -71,19 +71,19 @@
     <span class="current">{page}</span>
 
     {#if (page + 1) <= pages}
-        <a href="{url}/{page + 1}" use:tippy={`Page ${page + 1}`}>{page + 1}</a>
+        <a href="{url}/{page + 1}" use:basicTooltip={`Page ${page + 1}`}>{page + 1}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
 
     {#if (page + 2) <= pages}
-        <a href="{url}/{page + 2}" use:tippy={`Page ${page + 2}`}>{page + 2}</a>
+        <a href="{url}/{page + 2}" use:basicTooltip={`Page ${page + 2}`}>{page + 2}</a>
     {:else}
         <span>&nbsp;</span>
     {/if}
 
     {#if page < pages}
-        <a href="{url}/{pages}" use:tippy={'Last page'}>
+        <a href="{url}/{pages}" use:basicTooltip={'Last page'}>
             <IconifyIcon icon={iconStrings['page-last']} />
         </a>
     {:else}

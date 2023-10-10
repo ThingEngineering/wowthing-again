@@ -8,7 +8,7 @@
     import { settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
@@ -344,7 +344,7 @@
                         />
                     
                         {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
-                            <span class="has-transmog-set-id" use:tippy={'Updated for completionist!'}>
+                            <span class="has-transmog-set-id" use:basicTooltip={'Updated for completionist!'}>
                                 <IconifyIcon
                                     icon={iconLibrary.gameStaryu}
                                     scale={'0.8'}

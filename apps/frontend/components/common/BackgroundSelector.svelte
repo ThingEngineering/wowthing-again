@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsStore, userStore } from '@/stores'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let selected: number
     export let showDefault = false
@@ -60,7 +60,7 @@
                 data-id={background.id}
                 on:click={onClick}
                 on:keypress={onClick}
-                use:tippy={background.description}
+                use:basicTooltip={background.description}
             >
 
             {#if showDefault && background.id === $settingsStore.characters.defaultBackgroundId}
