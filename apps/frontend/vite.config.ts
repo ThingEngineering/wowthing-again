@@ -44,7 +44,7 @@ const config = <UserConfig> defineConfig({
 			input: {
 				auctions: 'auctions/entrypoint.ts',
 				home: 'apps/home.ts',
-				leaderboard: 'apps/leaderboard.ts',
+				leaderboards: 'leaderboards/entrypoint.ts',
 			},
 		},
 		sourcemap: sourceMapsInProduction,

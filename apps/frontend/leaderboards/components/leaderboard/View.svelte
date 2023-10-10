@@ -3,14 +3,17 @@
     import { replace } from 'svelte-spa-router'
 
     import tippy from '@/utils/tippy'
-    import type { LeaderboardEntry } from '@/types'
+    import type { LeaderboardEntry } from './types'
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
 
     export let page: number
     export let slug: string
 
-    const data = JSON.parse(document.getElementById('app').getAttribute('data-leaderboard')) as LeaderboardEntry[]
+    const data = JSON.parse(
+        document.getElementById('app')
+        .getAttribute('data-leaderboard')
+    ) as LeaderboardEntry[]
 
     const currentUser = document.getElementById('user-name')?.innerText || null
 

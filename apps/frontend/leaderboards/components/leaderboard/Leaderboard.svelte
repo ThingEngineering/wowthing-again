@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { MultiSlugParams } from '@/types'
+    import type { MultiSlugParams } from '@/types/params'
 
-    import Sidebar from './LeaderboardSidebar.svelte'
-    import View from './LeaderboardView.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import View from './View.svelte'
 
     export let params: MultiSlugParams
 </script>
