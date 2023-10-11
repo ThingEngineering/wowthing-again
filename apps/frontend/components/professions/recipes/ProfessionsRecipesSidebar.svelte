@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'

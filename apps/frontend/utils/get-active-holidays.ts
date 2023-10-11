@@ -2,9 +2,9 @@ import every from 'lodash/every'
 import { get } from 'svelte/store'
 import type { DateTime } from 'luxon'
 
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 import type { Settings } from '@/types'
-import type { StaticDataHoliday } from '@/stores/static/types'
+import type { StaticDataHoliday } from '@/shared/stores/static/types'
 import { pvpBrawlHolidays } from '@/data/tasks'
 
 

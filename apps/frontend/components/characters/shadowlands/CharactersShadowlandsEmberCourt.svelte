@@ -8,7 +8,7 @@
         type EmberCourtFeatureType
     } from '@/data/covenant'
     import { userQuestStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, ReputationTier } from '@/types'

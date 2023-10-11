@@ -1,8 +1,8 @@
 <script lang="ts">
     import { difficultyMap } from '@/data/difficulty'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character, CharacterLockout, Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/stores/static/types'
+    import type { StaticDataInstance } from '@/shared/stores/static/types'
 
     export let character: Character
     export let lockout: CharacterLockout

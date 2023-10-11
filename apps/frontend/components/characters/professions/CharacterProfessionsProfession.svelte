@@ -2,10 +2,10 @@
     import { expansionSlugMap } from '@/data/expansion'
     import { professionSpecializationSpells } from '@/data/professions'
     import { Faction } from '@/enums/faction'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { UserCount, type Character, type CharacterProfession, type Expansion, type MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/stores/static/types'
+    import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Table from './CharacterProfessionsProfessionTable.svelte'

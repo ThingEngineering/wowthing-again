@@ -1,7 +1,7 @@
 <script lang="ts">
     import { auctionsAppState } from '@/auctions/stores/state'
     import { specificStore } from '@/auctions/stores/specific'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { basicTooltip } from '@/shared/utils/tooltips'
 

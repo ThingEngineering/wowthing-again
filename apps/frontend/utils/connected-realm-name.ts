@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import { userStore } from '@/stores'
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 
 
 export default function connectedRealmName(realmId: number): string {

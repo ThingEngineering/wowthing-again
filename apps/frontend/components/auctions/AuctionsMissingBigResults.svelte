@@ -8,7 +8,7 @@
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/icons'
     import { itemStore, settingsStore, timeStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
     import connectedRealmName from '@/utils/connected-realm-name'

@@ -14,7 +14,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import parseApiTime from '@/utils/parse-api-time'
 
     import NewNav from './AppHomeNewNav.svelte'

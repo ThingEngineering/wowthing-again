@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { StaticDataKeystoneAffix } from '@/stores/static/types'
+    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { homeState } from '@/stores/local-storage'
     import { componentTooltip } from '@/shared/utils/tooltips'
 

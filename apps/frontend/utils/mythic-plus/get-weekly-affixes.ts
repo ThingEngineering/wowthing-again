@@ -3,9 +3,9 @@ import { get } from 'svelte/store'
 
 import { seasonMap, weeklyAffixes } from '@/data/dungeon'
 import { userStore } from '@/stores'
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 import type { Character } from '@/types'
-import type { StaticDataKeystoneAffix } from '@/stores/static/types'
+import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
 import { Constants } from '@/data/constants'
 
 

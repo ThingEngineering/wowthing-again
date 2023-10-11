@@ -2,7 +2,7 @@
     import find from 'lodash/find'
     import { afterUpdate } from 'svelte'
 
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import Sidebar from './ProfessionsOverviewSidebar.svelte'

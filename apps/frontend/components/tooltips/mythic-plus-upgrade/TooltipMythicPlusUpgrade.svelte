@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character, CharacterCurrency } from '@/types'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

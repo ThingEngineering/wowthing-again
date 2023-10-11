@@ -1,11 +1,11 @@
 <script lang="ts">
     import { itemStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/stores'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ItemDataItem } from '@/types/data/item'
-    import type { StaticDataCurrency } from '@/stores/static/types'
+    import type { StaticDataCurrency } from '@/shared/stores/static/types'
 
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
 

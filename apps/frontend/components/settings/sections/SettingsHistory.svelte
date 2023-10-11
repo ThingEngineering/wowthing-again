@@ -3,10 +3,10 @@
     import sortBy from 'lodash/sortBy'
 
     import { settingsStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import type { StaticDataRealm } from '@/stores/static/types'
+    import type { StaticDataRealm } from '@/shared/stores/static/types'
     import { Region } from '@/enums/region'
 
     let realms: StaticDataRealm[]

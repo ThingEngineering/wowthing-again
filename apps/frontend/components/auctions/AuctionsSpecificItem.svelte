@@ -2,7 +2,7 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { itemStore, userStore, userAuctionSpecificItemStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip } from '@/shared/utils/tooltips'

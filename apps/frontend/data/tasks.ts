@@ -4,7 +4,7 @@ import { get } from 'svelte/store'
 
 import { Constants } from './constants'
 import { userQuestStore } from '@/stores'
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 import { Profession } from '@/enums/profession'
 import type { Character } from '@/types'
 import type { Chore, Task } from '@/types/tasks'

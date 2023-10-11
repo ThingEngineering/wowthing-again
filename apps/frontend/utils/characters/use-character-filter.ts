@@ -8,7 +8,7 @@ import { isGatheringProfession, isCraftingProfession, professionSlugToId } from 
 import { ArmorType } from '@/enums/armor-type'
 import { Faction } from '@/enums/faction'
 import { Role } from '@/enums/role'
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 import { userStore } from '@/stores'
 import type { Character } from '@/types'
 

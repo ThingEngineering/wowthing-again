@@ -8,7 +8,7 @@ import { ItemClass } from '@/enums/item-class'
 import { WritableFancyStore } from '@/types/fancy-store'
 import { AppearanceDataAppearance, AppearanceDataSet, type AppearanceData } from '@/types/data/appearance'
 import { leftPad } from '@/utils/formatting'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {

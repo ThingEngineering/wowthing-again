@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import {
         getRunQuality,
@@ -9,7 +9,7 @@
         isKeystoneUpgrade
     } from '@/utils/mythic-plus'
     import type { Character, CharacterMythicPlusAddonMapAffix, Dungeon } from '@/types'
-    import type { StaticDataKeystoneAffix } from '@/stores/static/types'
+    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
 
     import AffixIcon from '@/shared/components/images/AffixIcon.svelte'
 

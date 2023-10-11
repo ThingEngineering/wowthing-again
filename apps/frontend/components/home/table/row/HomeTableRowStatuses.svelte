@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants'
     import { contractAuras } from '@/data/reputation'
     import { durationAuras } from '@/data/spells'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/stores/time'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'

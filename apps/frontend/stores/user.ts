@@ -12,7 +12,7 @@ import { InventorySlot } from '@/enums/inventory-slot'
 import { ItemBonusType } from '@/enums/item-bonus-type'
 import { TypedArray } from '@/enums/typed-array'
 import { itemStore } from '@/stores/item'
-import { staticStore } from '@/stores/static'
+import { staticStore } from '@/shared/stores/static'
 import {
     Character,
     CharacterMythicPlusRunMember,
@@ -35,7 +35,7 @@ import type {
     UserData,
 } from '@/types'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 import type { ContainsItems, UserItem } from '@/types/shared'
 
 

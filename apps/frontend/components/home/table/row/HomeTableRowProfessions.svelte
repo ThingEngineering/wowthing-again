@@ -3,11 +3,11 @@
     import { professionIdToString } from '@/data/professions'
     import { Region } from '@/enums/region'
     import { settingsStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { getProfessionSortKey } from '@/utils/professions'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterProfession } from '@/types'
-    import type { StaticDataProfession } from '@/stores/static/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

@@ -1,8 +1,8 @@
 <script lang="ts">
     import { userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/stores/static/types'
+    import type { StaticDataInstance } from '@/shared/stores/static/types'
 
     export let difficulty: Difficulty
     export let instanceId: number

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
     import { settingsStore, timeStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { homeState } from '@/stores/local-storage'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'

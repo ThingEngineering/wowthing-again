@@ -3,7 +3,7 @@
     import { expansionOrder } from '@/data/expansion'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { MultiSlugParams, UserCount } from '@/types'
-    import type { StaticDataProfession } from '@/stores/static/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 

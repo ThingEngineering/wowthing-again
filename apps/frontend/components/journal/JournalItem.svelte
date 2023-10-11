@@ -6,7 +6,7 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { userStore, userTransmogStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { journalState } from '@/stores/local-storage'
     import { settingsStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'

@@ -5,7 +5,7 @@
     import { Faction } from '@/enums/faction'
     import { RewardReputation } from '@/enums/reward-reputation'
     import { itemStore, parsedTextStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'

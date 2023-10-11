@@ -1,7 +1,7 @@
 import { Constants } from '@/data/constants'
 import { professionSpecializationToSpell } from '@/data/professions'
 import type { Faction } from '@/enums/faction'
-import type { StaticDataRealm } from '@/stores/static/types'
+import type { StaticDataRealm } from '@/shared/stores/static/types'
 import type { Guild } from '@/types/guild'
 
 import type { CharacterConfiguration } from './configuration'

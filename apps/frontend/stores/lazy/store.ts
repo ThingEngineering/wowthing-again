@@ -30,7 +30,7 @@ import { itemStore } from '../item'
 import { journalStore } from '../journal'
 import { manualStore } from '../manual'
 import { settingsStore } from '../settings'
-import { staticStore } from '../static'
+import { staticStore } from '@/shared/stores/static'
 import { timeStore } from '../time'
 import { userStore } from '../user'
 import { userAchievementStore } from '../user-achievements'
@@ -49,7 +49,7 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 type LazyKey =

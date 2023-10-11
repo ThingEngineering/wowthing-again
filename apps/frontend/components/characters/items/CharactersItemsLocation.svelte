@@ -1,7 +1,7 @@
 <script lang="ts">
     import { bagSlots } from '@/data/bag-slots'
     import { ItemLocation } from '@/enums/item-location'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
     import type { UserItem } from '@/types/shared'
 

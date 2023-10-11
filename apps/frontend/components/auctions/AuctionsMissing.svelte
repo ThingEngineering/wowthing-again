@@ -2,7 +2,7 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { userAuctionMissingStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'

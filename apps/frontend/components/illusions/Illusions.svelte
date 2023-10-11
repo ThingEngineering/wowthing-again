@@ -3,7 +3,7 @@
     import find from 'lodash/find'
 
     import { manualStore, lazyStore, userTransmogStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { illusionState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { StaticDataSubProfessionTraitNode } from '@/stores/static/types'
+    import type { StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 

@@ -9,7 +9,7 @@ import getFilteredItems from '@/utils/journal/get-filtered-items'
 import { leftPad } from '@/utils/formatting'
 
 import { JournalDataEncounterItem, type JournalData, type UserTransmogData } from '@/types/data'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 import type { JournalState } from '../local-storage'
 
 

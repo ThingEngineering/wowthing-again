@@ -3,7 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { itemStore, lazyStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { vendorState } from '@/stores/local-storage'
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
