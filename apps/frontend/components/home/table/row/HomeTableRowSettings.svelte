@@ -10,8 +10,10 @@
 
     export let character: Character
 
-    let initialFlags = ($settingsStore.characters.flags[character.id] || 0)
-    let ignoreWorkOrders: boolean = (initialFlags & CharacterFlag.IgnoreWorkOrders) > 0
+    let ignoreWorkOrders: boolean = (
+        ($settingsStore.characters.flags[character.id] || 0)
+        & CharacterFlag.IgnoreWorkOrders
+    ) > 0
 
     $: onClick = () => {
         if ($characterSettingsStore === character.id) {
