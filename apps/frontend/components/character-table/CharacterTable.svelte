@@ -50,7 +50,8 @@
                 )
         )
 
-        characters = characters.filter((char) => useCharacterFilter(filterFunc, char, $newNavState.characterFilter))
+        characters = characters.filter((char) => useCharacterFilter(
+            $lazyStore, filterFunc, char, $newNavState.characterFilter))
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)
