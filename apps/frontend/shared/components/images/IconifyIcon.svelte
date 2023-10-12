@@ -35,6 +35,7 @@
     role="img"
     class="{extraClass}"
     class:drop-shadow={dropShadow}
+    on:click
     use:basicTooltip={tooltip}
 >
     {@html icon.body}

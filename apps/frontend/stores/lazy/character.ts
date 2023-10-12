@@ -6,13 +6,17 @@ import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
-import type { Settings, UserData } from '@/types'
+import type { Character, ProfessionCooldown, ProfessionCooldownData, Settings, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
+import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
+import { CharacterFlag } from '@/enums/character-flag'
 
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>
     tasks: Record<string, LazyCharacterTask>
+    professionCooldowns: LazyCharacterCooldowns
+    professionWorkOrders: LazyCharacterCooldowns
 }
 export class LazyCharacterChore {
     countCompleted = 0
@@ -38,6 +42,13 @@ export interface LazyCharacterTask {
     status: string
     text: string
 }
+export class LazyCharacterCooldowns {
+    anyFull = false
+    anyHalf = false
+    have = 0
+    total = 0
+    cooldowns: ProfessionCooldown[] = []
+}
 
 interface LazyStores {
     currentTime: DateTime
@@ -55,6 +66,8 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         ret[character.id] = {
             chores: {},
             tasks: {},
+            professionCooldowns: checkCooldowns(stores, character, professionCooldowns),
+            professionWorkOrders: checkCooldowns(stores, character, professionWorkOrders, CharacterFlag.IgnoreWorkOrders),
         }
 
         for (const taskName of stores.settings.layout.homeTasks) {
@@ -103,7 +116,6 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     charTask.skipped = (
                         (
                             !stores.settings.professions.dragonflightCountCraftingDrops &&
-                            !isGathering &&
                             nameParts[1] === 'Drops' &&
                             charTask.status !== QuestStatus.Completed
                         )
@@ -111,7 +123,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         (
                             !stores.settings.professions.dragonflightCountGathering &&
                             isGathering &&
-                            ['Drops', 'Gather'].indexOf(nameParts[1]) >= 0 &&
+                            ['Gather'].indexOf(nameParts[1]) >= 0 &&
                             charTask.status !== QuestStatus.Completed
                         )
                         ||
@@ -280,9 +292,82 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                 ret[character.id].tasks[taskName] = charTask
             }
         }
+
+
     }
 
     console.timeEnd('doCharacters')
+
+    return ret
+}
+
+function checkCooldowns(
+    stores: LazyStores,
+    character: Character,
+    cooldownDatas: ProfessionCooldownData[],
+    useFlag: CharacterFlag = CharacterFlag.None
+): LazyCharacterCooldowns {
+    const ret = new LazyCharacterCooldowns()
+
+    const flags = stores.settings.characters.flags[character.id] || 0
+    if ((flags & useFlag) === 0) {
+        for (const cooldownData of cooldownDatas) {
+            if (stores.settings.professions.cooldowns[cooldownData.key] === false) {
+                continue
+            }
+
+            const charCooldown = character.professionCooldowns?.[cooldownData.key]
+            if (!charCooldown) {
+                continue
+            }
+
+            let seconds = 0
+            for (const [tierSeconds, tierSubProfessionId, tierTraitId, tierMinimum] of cooldownData.cooldown) {
+                if (seconds === 0) {
+                    seconds = tierSeconds
+                }
+                else {
+                    const charTrait = character.professionTraits?.[tierSubProfessionId]?.[tierTraitId]
+                    if (charTrait && charTrait >= tierMinimum) {
+                        seconds = tierSeconds
+                    }
+                }
+            }
+
+            const [charNext, , charMax] = charCooldown
+            let [, charHave] = charCooldown
+            let charFull: DateTime = undefined
+
+            // if the next charge timestamp is in the past, add up to max charges and work
+            // out when this character will be full
+            if (charNext > 0) {
+                charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
+                const diff = Math.floor(stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000)
+                if (diff > 0) {
+                    charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds))
+                }
+            }
+
+            ret.have += charHave
+            ret.total += charMax
+
+            const per = charHave / charMax * 100
+            if (per === 100) {
+                ret.anyFull = true
+            }
+            else if (per >= 50) {
+                ret.anyHalf = true
+            }
+
+            ret.cooldowns.push({
+                data: cooldownData,
+                have: charHave,
+                max: charMax,
+                full: charFull,
+                seconds,
+            })
+        }
+    }
 
     return ret
 }

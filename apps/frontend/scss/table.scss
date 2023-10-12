@@ -45,6 +45,16 @@
         min-width: 1rem;
         width: 1rem;
     }
+
+    .settings {
+        background: $body-background;
+        border-bottom-width: 0 !important;
+        border-left: 1px solid $border-color;
+        border-right-width: 0 !important;
+        border-top-width: 0 !important;
+        min-width: 3rem;
+        width: 3rem;
+    }
 }
 
 .table-striped {

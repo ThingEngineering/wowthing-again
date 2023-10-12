@@ -184,7 +184,24 @@
 
         {:else if field === 'professionCooldowns'}
             {#if !$homeState.onlyWeekly}
-                <td>CDs</td>
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                    use:basicTooltip={'Profession Cooldowns'}
+                >CDs</td>
+            {/if}
+
+        {:else if field === 'professionWorkOrders'}
+            {#if !$homeState.onlyWeekly}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                    use:basicTooltip={'Profession Work Orders'}
+                >WOs</td>
             {/if}
 
         {:else if field === 'professions'}
@@ -234,4 +251,6 @@
 
         {/if}
     {/each}
+
+    <td class="settings"></td>
 </tr>

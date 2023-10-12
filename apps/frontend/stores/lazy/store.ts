@@ -193,6 +193,7 @@ export class LazyStore implements LazyUgh {
             zoneMapState: hashObject(zoneMapState),
             
             hideUnavailable: `${settings.collections.hideUnavailable}`,
+            settingsCharacterFlags: hashObject(settings.characters.flags),
             settingsTasks: hashObject(settings.tasks),
             settingsTransmog: hashObject(settings.transmog),
         }
@@ -242,6 +243,7 @@ export class LazyStore implements LazyUgh {
         if (changedData.userData ||
             changedData.userQuestData ||
             changedHashes.currentTime ||
+            changedHashes.settingsCharacterFlags ||
             changedHashes.settingsTasks)
         {
             this.charactersFunc = once(() => doCharacters({

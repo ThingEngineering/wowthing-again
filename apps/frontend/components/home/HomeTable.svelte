@@ -19,7 +19,9 @@
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
     import RowProfessionCooldowns from './table/row/HomeTableRowProfessionCooldowns.svelte'
+    import RowProfessionWorkOrders from './table/row/HomeTableRowProfessionWorkOrders.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
+    import RowSettings from './table/row/HomeTableRowSettings.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTasks from './table/row/HomeTableRowTasks.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
@@ -135,6 +137,11 @@
                 {#if !$homeState.onlyWeekly}
                     <RowProfessionCooldowns {character} />
                 {/if}
+            
+            {:else if field === 'professionWorkOrders'}
+                {#if !$homeState.onlyWeekly}
+                    <RowProfessionWorkOrders {character} />
+                {/if}
 
             {:else if field === 'professions'}
                 {#if !$homeState.onlyWeekly}
@@ -173,5 +180,7 @@
 
             {/if}
         {/each}
+
+        <RowSettings {character} />
     </svelte:fragment>
 </CharacterTable>

@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { lazyStore } from '@/stores'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/profession-cooldowns/TooltipProfessionCooldowns.svelte'
 
     export let character: Character
-    
-    $: data = $lazyStore.characters[character.id].professionCooldowns
+
+    $: data = $lazyStore.characters[character.id].professionWorkOrders
 </script>
 
 <style lang="scss">
@@ -18,12 +18,16 @@
         text-align: right;
         word-spacing: -0.2ch;
     }
+    .faded {
+        color: #aaa;
+    }
 </style>
 
 {#if data?.total > 0}
     <td
         class:status-shrug={data.anyHalf && !data.anyFull}
         class:status-fail={data.anyFull}
+        class:faded={data.have === 0}
         use:componentTooltip={{
             component: Tooltip,
             props: {

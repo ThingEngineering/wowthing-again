@@ -55,6 +55,23 @@ export function homeSort(
             '0'
         )
     }
+    else if (sortBy === 'professionCooldowns') {
+        const cooldownData = lazyStore.characters[char.id].professionCooldowns
+        return leftPad(
+            100 - (cooldownData.total > 0 ? (cooldownData.have / cooldownData.total * 100) : -1),
+            3,
+            '0'
+        )
+    }
+    else if (sortBy === 'professionWorkOrders') {
+        const orderData = lazyStore.characters[char.id].professionWorkOrders
+        console.log(orderData, (orderData.total > 0 ? (orderData.have / orderData.total * 100) : -1))
+        return leftPad(
+            10 - (orderData.total > 0 ? orderData.have : -1),
+            3,
+            '0'
+        )
+    }
     else if (sortBy === 'restedExperience') {
         if (char.level === Constants.characterMaxLevel) {
             return '999'
