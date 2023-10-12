@@ -57,7 +57,6 @@ function createSettingsStore() {
                     async () => {
                         const newHashValue = hashObject(settings)
                         if (newHashValue !== hashValue) {
-                            console.log('Saving settings...')
                             hashValue = newHashValue
 
                             settingsSavingState.set(1)

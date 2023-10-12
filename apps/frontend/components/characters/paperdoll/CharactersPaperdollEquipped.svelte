@@ -20,7 +20,6 @@
         for (const bonusId of equippedItem.bonusIds) {
             const upgrades = $itemStore.itemBonusToUpgrade[bonusId]
             if (upgrades) {
-                console.log(bonusId, upgrades)
                 return upgrades
             }
         }

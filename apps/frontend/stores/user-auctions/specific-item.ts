@@ -50,7 +50,6 @@ export class UserAuctionSpecificItemDataStore {
 
             if (response.ok) {
                 const responseData = await response.json() as UserAuctionData
-                console.log(responseData)
                 // updated = responseData.updated
 
                 const parsedData: Record<number, UserAuctionDataMissingRecipeAuction[]> = {}
