@@ -65,7 +65,6 @@ export function homeSort(
     }
     else if (sortBy === 'professionWorkOrders') {
         const orderData = lazyStore.characters[char.id].professionWorkOrders
-        console.log(orderData, (orderData.total > 0 ? (orderData.have / orderData.total * 100) : -1))
         return leftPad(
             10 - (orderData.total > 0 ? orderData.have : -1),
             3,
