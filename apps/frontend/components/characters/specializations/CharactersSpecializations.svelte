@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
 
     //import Talents from './CharacterSpecializationsTalents.svelte'

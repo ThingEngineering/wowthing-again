@@ -30,7 +30,7 @@ import { itemStore } from '../item'
 import { journalStore } from '../journal'
 import { manualStore } from '../manual'
 import { settingsStore } from '../settings'
-import { staticStore } from '../static'
+import { staticStore } from '@/shared/stores/static'
 import { timeStore } from '../time'
 import { userStore } from '../user'
 import { userAchievementStore } from '../user-achievements'
@@ -49,7 +49,7 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 type LazyKey =
@@ -193,6 +193,7 @@ export class LazyStore implements LazyUgh {
             zoneMapState: hashObject(zoneMapState),
             
             hideUnavailable: `${settings.collections.hideUnavailable}`,
+            settingsCharacterFlags: hashObject(settings.characters.flags),
             settingsTasks: hashObject(settings.tasks),
             settingsTransmog: hashObject(settings.transmog),
         }
@@ -242,6 +243,7 @@ export class LazyStore implements LazyUgh {
         if (changedData.userData ||
             changedData.userQuestData ||
             changedHashes.currentTime ||
+            changedHashes.settingsCharacterFlags ||
             changedHashes.settingsTasks)
         {
             this.charactersFunc = once(() => doCharacters({

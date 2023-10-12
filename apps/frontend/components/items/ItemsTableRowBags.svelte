@@ -1,6 +1,6 @@
 <script lang="ts">
     import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { gearState } from '@/stores/local-storage'
     import type { Character, CharacterGear } from '@/types'
 

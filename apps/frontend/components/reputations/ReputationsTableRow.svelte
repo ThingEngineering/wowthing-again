@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/stores/static/types'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/shared/stores/static/types'
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
@@ -51,7 +51,7 @@
 {#if characterRep.value !== -1}
     <td
         class="reputation{repTier.tier}"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: TooltipReputation,
             props: {
                 characterRep: characterRep.value,

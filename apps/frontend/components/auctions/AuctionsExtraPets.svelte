@@ -7,7 +7,7 @@
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import petLocationTooltip from '@/utils/pet-location-tooltip'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
@@ -147,7 +147,7 @@
                                             <td
                                                 class="pet-location drop-shadow"
                                                 data-location={pet.location}
-                                                use:tippy={petLocationTooltip(pet)}
+                                                use:basicTooltip={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
                                                     icon={locationIcons[pet.location]}

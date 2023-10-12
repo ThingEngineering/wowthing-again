@@ -2,11 +2,11 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { userAuctionMissingStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -188,7 +188,7 @@
                                 <tr>
                                     <td
                                         class="realm text-overflow"
-                                        use:tippy={connectedRealm.realmNames.join(' / ')}
+                                        use:basicTooltip={connectedRealm.realmNames.join(' / ')}
                                     >
                                         <code>[{Region[connectedRealm.region]}]</code>
                                         {connectedRealmName(auction.connectedRealmId)}

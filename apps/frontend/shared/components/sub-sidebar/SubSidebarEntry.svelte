@@ -5,7 +5,7 @@
     import { iconStrings } from '@/data/icons'
     import { subSidebarState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { SidebarItem } from './types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -169,7 +169,7 @@
         data-info={data}
         use:link
         use:active={new RegExp(activeRegex)}
-        use:tippy={item.name}
+        use:basicTooltip={item.name}
     >
         <ParsedText
             cls="text-overflow"

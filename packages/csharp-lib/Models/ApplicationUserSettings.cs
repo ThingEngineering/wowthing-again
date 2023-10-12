@@ -91,6 +91,7 @@ public class ApplicationUserSettings
         "mythicPlusScore",
         "playedTime",
         "professionCooldowns",
+        "professionWorkOrders",
         "professions",
         "professionsSecondary",
         "restedExperience",
@@ -236,6 +237,7 @@ public class ApplicationUserSettingsCharacters
     public short DefaultBackgroundBrightness { get; set; } = 10;
     public short DefaultBackgroundSaturation { get; set; } = 10;
     public bool HideDisabledAccounts { get; set; } = false;
+    public Dictionary<int, int> Flags { get; set; } = new();
     public List<int> HiddenCharacters { get; set; } = new();
     public List<int> IgnoredCharacters { get; set; } = new();
     public List<int> PinnedCharacters { get; set; } = new();

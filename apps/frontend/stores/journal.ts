@@ -4,8 +4,8 @@ import without from 'lodash/without'
 
 import { raidDifficulties } from '@/data/difficulty'
 import { worldBossInstanceIds } from '@/data/dungeon'
-import { WritableFancyStore } from '@/types'
 import { JournalDataEncounter } from '@/types/data'
+import { WritableFancyStore } from '@/types/fancy-store'
 import type { JournalData, JournalDataTier } from '@/types/data'
 
 

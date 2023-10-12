@@ -3,11 +3,11 @@
 
     import { iconStrings, imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
     import type { Character, CharacterGear } from '@/types'
-    import type { StaticDataProfession } from '@/stores/static/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Empty from './ItemsEmpty.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

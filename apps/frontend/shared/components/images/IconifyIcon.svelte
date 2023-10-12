@@ -2,7 +2,7 @@
     import mdiImageBrokenVariant from '@iconify/icons-mdi/image-broken-variant'
     import type { IconifyIcon } from '@iconify/types'
 
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let dropShadow = false
     export let extraClass: string = undefined
@@ -35,7 +35,8 @@
     role="img"
     class="{extraClass}"
     class:drop-shadow={dropShadow}
-    use:tippy={tooltip}
+    on:click
+    use:basicTooltip={tooltip}
 >
     {@html icon.body}
 </svg>

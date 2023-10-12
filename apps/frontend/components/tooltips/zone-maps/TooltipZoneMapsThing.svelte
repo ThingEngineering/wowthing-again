@@ -10,7 +10,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'

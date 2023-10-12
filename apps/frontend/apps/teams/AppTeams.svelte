@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import {
         error as teamError,
         loading as teamLoading,

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { TippyProps } from '@/types'
-    import { tippyComponent } from '@/utils/tippy'
+    import type { TippyProps } from '@/shared/utils/tooltips/types'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
     import Tooltip from '@/components/tooltips/parsed-text/TooltipParsedText.svelte'
 
@@ -39,7 +39,7 @@
     height={actualHeight}
     alt={alt}
     loading="{lazy ? 'lazy' : null}"
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {
             content: tooltip,

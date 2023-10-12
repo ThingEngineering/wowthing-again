@@ -1,9 +1,9 @@
 <script lang="ts">
     import { auctionsAppState } from '@/auctions/stores/state'
     import { specificStore } from '@/auctions/stores/specific'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let selected: string
 
@@ -68,7 +68,7 @@
                     <tr>
                         <td
                             class="realm text-overflow"
-                            use:tippy={realm.displayText}
+                            use:basicTooltip={realm.displayText}
                         >
                             <!-- <code>[{Region[realm.region]}]</code> -->
                             {realm.displayText}

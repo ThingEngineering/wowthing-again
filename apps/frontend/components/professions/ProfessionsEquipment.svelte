@@ -2,7 +2,7 @@
     import { getItemUrl } from '@/utils/get-item-url'
     import { getProfessionEquipment } from '@/utils/professions'
     import type { Character } from '@/types'
-    import type { StaticDataProfession} from '@/stores/static/types'
+    import type { StaticDataProfession} from '@/shared/stores/static/types'
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

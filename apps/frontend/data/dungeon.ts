@@ -1,5 +1,5 @@
 import { Dungeon, MythicPlusSeason } from '@/types'
-import type { StaticDataInstance } from '@/stores/static/types'
+import type { StaticDataInstance } from '@/shared/stores/static/types'
 
 
 export const weeklyAffixes: string[][] = [

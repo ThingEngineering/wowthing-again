@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { covenantMap, covenantOrder } from '@/data/covenant'
     import { settingsStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
@@ -57,7 +57,7 @@
 
 <td
     class="{$settingsStore.layout.covenantColumn}"
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: { character },
     }}

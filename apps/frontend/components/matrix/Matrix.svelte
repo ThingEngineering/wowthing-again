@@ -10,12 +10,12 @@
     import { Gender, genderValues } from '@/enums/gender'
     import { Region } from '@/enums/region'
     import { settingsStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { matrixState } from '@/stores/local-storage'
     import { cartesianProduct } from '@/utils/cartesian-product'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
-    import type { StaticDataRealm } from '@/stores/static/types'
+    import type { StaticDataRealm } from '@/shared/stores/static/types'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
@@ -459,7 +459,7 @@
                             {#each keyCharacters as character}
                                 <div
                                     class="character"
-                                    use:tippyComponent={{
+                                    use:componentTooltip={{
                                         component: TooltipCharacter,
                                         props: {
                                             character,

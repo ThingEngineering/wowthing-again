@@ -4,7 +4,7 @@ import { costOrderMap } from '@/data/vendors'
 import { leftPad } from '@/utils/formatting'
 import { toNiceNumber } from '@/utils/formatting'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 type CurrencyArray = [string, number, string, number, number]

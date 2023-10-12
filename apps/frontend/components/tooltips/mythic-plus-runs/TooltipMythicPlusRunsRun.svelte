@@ -4,7 +4,7 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     import { dungeonMap } from '@/data/dungeon'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type {
         CharacterMythicPlusRun,
         CharacterMythicPlusRunMember,

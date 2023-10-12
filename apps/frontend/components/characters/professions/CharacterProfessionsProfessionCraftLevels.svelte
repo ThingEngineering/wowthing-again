@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { StaticDataProfessionAbility } from '@/stores/static/types'
+    import type { StaticDataProfessionAbility } from '@/shared/stores/static/types'
 
     export let ability: StaticDataProfessionAbility
     export let currentSkill: number

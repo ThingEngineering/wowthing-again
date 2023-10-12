@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { userQuestStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
@@ -67,7 +67,7 @@
 <td>
     <div
         class="flex-wrapper"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

@@ -3,7 +3,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { journalStore, lazyStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
     import { getFarmIcon } from '@/utils/zone-maps'
     import type { FarmStatus } from '@/types'
@@ -141,7 +141,7 @@
             class="wrapper"
             class:active={status.need}
             style="--left: {xPos}%; --top: {yPos}%; --top-offset: {topOffset};"
-            use:tippyComponent={{
+            use:componentTooltip={{
                 component: Tooltip,
                 props: {
                     drops,

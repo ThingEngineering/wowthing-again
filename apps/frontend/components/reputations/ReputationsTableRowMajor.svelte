@@ -1,9 +1,9 @@
 <script lang="ts">
     import { factionMaxRenown } from '@/data/reputation'
-    import { staticStore } from '@/stores/static'
-    import { tippyComponent } from '@/utils/tippy'
+    import { staticStore } from '@/shared/stores/static'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterReputationReputation } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet } from '@/stores/static/types'
+    import type { StaticDataReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
 
     import Tooltip from '@/components/tooltips/reputation/TooltipReputationMajor.svelte'
 
@@ -39,7 +39,7 @@
 {#if renownLevel}
     <td
         class="quality{quality}"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 characterRep: characterRep.value,

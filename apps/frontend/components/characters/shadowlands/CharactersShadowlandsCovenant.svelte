@@ -4,9 +4,9 @@
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
     import { timeStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 
@@ -144,7 +144,7 @@
     <div class="left">
         <div class="info">
             <div class="info-row large info-icons">
-                <div class="info-icon" use:tippy={`${renown} Renown`}>
+                <div class="info-icon" use:basicTooltip={`${renown} Renown`}>
                     <WowthingImage
                         name="spell/370359"
                         size={40}
@@ -157,7 +157,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${progress.toLocaleString()} Adventure Campaign Progress`}
+                    use:basicTooltip={`${progress.toLocaleString()} Adventure Campaign Progress`}
                 >
                     <WowthingImage
                         name="currency/1889"
@@ -171,7 +171,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${souls.toLocaleString()} Redeemed Souls`}
+                    use:basicTooltip={`${souls.toLocaleString()} Redeemed Souls`}
                 >
                     <WowthingImage
                         name="currency/1810"
@@ -185,7 +185,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${anima.toLocaleString()} Reservoir Anima`}
+                    use:basicTooltip={`${anima.toLocaleString()} Reservoir Anima`}
                 >
                     <WowthingImage
                         name="currency/1813"

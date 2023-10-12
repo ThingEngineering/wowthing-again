@@ -2,7 +2,7 @@
     import { lockoutOverride } from '@/data/dungeon'
     import { iconStrings } from '@/data/icons'
     import { settingsStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -39,7 +39,7 @@
 
 {#if lockout}
     <td
-        use:tippyComponent={{component: TooltipLockout, props: {character, lockout}}}
+        use:componentTooltip={{component: TooltipLockout, props: {character, lockout}}}
         class:status-success={lockout.defeatedBosses >= maxBosses}
         class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}
         class:status-fail={lockout.defeatedBosses === 0}

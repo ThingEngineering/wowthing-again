@@ -7,16 +7,16 @@
     import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/icons'
     import { itemStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { professionsRecipesState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
         StaticDataProfessionAbility,
         StaticDataProfessionCategory,
         StaticDataSubProfession
-    } from '@/stores/static/types'
+    } from '@/shared/stores/static/types'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
@@ -195,7 +195,7 @@
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"
-                                    use:tippy={'Find auctions'}
+                                    use:basicTooltip={'Find auctions'}
                                 >
                                     <IconifyIcon icon={iconLibrary.mdiBank} />
                                 </a>

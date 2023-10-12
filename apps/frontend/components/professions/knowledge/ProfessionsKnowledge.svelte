@@ -2,7 +2,7 @@
     import some from 'lodash/some'
 
     import { dragonflightKnowledge, dragonflightProfessions } from '@/data/professions'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -43,7 +43,7 @@
             {:else}
                 <th
                     class="zone"
-                    use:tippy={dk.name}
+                    use:basicTooltip={dk.name}
                 >
                     <WowthingImage name={dk.icon} size={48} />
                     <span class="pill abs-center">{dk.shortName}</span>

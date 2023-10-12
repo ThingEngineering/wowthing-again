@@ -7,7 +7,7 @@ import type { Settings } from '@/types'
 import type { UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>

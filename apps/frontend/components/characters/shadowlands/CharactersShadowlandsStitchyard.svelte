@@ -3,7 +3,7 @@
 
     import { abominations, CovenantAbomination } from '@/data/covenant'
     import { itemStore, userAchievementStore } from '@/stores'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -97,7 +97,7 @@
                             <div
                                 class="cost"
                                 class:status-success={character.getItemCount(178061) >= abomination.flesh}
-                                use:tippy={`${abomination.flesh}x ${$itemStore.items[178061].name}`}
+                                use:basicTooltip={`${abomination.flesh}x ${$itemStore.items[178061].name}`}
                             >
                                 {abomination.flesh}
                                 <WowthingImage
@@ -111,7 +111,7 @@
                                 <div
                                     class="cost"
                                     class:status-success={character.getItemCount(183744) >= abomination.parts}
-                                    use:tippy={`${abomination.parts}x ${$itemStore.items[183744].name}`}
+                                    use:basicTooltip={`${abomination.parts}x ${$itemStore.items[183744].name}`}
                                 >
                                     {abomination.parts}
                                     <WowthingImage
@@ -132,7 +132,7 @@
                 <div class="currencies">
                     <div
                         class="currency"
-                        use:tippy={`${character.getItemCount(178061)}x ${$itemStore.items[178061].name}`}
+                        use:basicTooltip={`${character.getItemCount(178061)}x ${$itemStore.items[178061].name}`}
                     >
                         {character.getItemCount(178061)}
                         <WowthingImage
@@ -143,7 +143,7 @@
                     </div>
                     <div
                         class="currency"
-                        use:tippy={`${character.getItemCount(183744)}x ${$itemStore.items[183744].name}`}
+                        use:basicTooltip={`${character.getItemCount(183744)}x ${$itemStore.items[183744].name}`}
                     >
                         {character.getItemCount(183744)}
                         <WowthingImage

@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterReputationParagon } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/stores/static/types'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/shared/stores/static/types'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 

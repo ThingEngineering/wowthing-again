@@ -8,14 +8,15 @@ import { isGatheringProfession, isCraftingProfession, professionSlugToId } from 
 import { ArmorType } from '@/enums/armor-type'
 import { Faction } from '@/enums/faction'
 import { Role } from '@/enums/role'
-import { staticStore } from '@/stores/static'
-import { userStore } from '@/stores'
+import { staticStore } from '@/shared/stores/static'
+import { LazyStore, userStore } from '@/stores'
 import type { Character } from '@/types'
 
 
 type FilterFunc = (char: Character) => boolean
 
 export function useCharacterFilter(
+    lazyStore: LazyStore,
     filterFunc: FilterFunc,
     char: Character,
     filterString: string
@@ -139,6 +140,10 @@ export function useCharacterFilter(
                             Object.keys(char.professions || {}),
                             (professionId) => isGatheringProfession[parseInt(professionId)]
                         )
+                    }
+
+                    if (part === 'orders') {
+                        return lazyStore.characters[char.id].professionWorkOrders.have > 0
                     }
 
                     // console.log('unmatched filter:', part)

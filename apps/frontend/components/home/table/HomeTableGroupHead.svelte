@@ -4,7 +4,7 @@
     import { iconStrings } from '@/data/icons'
     import { settingsStore, userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
@@ -82,7 +82,7 @@
     {#each $settingsStore.layout.homeFields as field}
         {#if field === 'callings'}
             {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Shadowlands Callings"}>
+                <td use:basicTooltip={"Shadowlands Callings"}>
                     <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
                 </td>
             {/if}
@@ -99,14 +99,14 @@
 
         {:else if field === 'emissariesBfa'}
             {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Battle for Azeroth Emissaries"}>
+                <td use:basicTooltip={"Battle for Azeroth Emissaries"}>
                     <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
                 </td>
             {/if}
 
         {:else if field === 'emissariesLegion'}
             {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Legion Emissaries"}>
+                <td use:basicTooltip={"Legion Emissaries"}>
                     <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
                 </td>
             {/if}
@@ -140,7 +140,7 @@
                     class:sorted-by={$homeState.groupSort[groupIndex] === field}
                     on:click={() => setSorting(field)}
                     on:keypress={() => setSorting(field)}
-                    use:tippy={'Item Level'}
+                    use:basicTooltip={'Item Level'}
                 >ilvl</td>
             {/if}
 
@@ -184,7 +184,24 @@
 
         {:else if field === 'professionCooldowns'}
             {#if !$homeState.onlyWeekly}
-                <td>CDs</td>
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                    use:basicTooltip={'Profession Cooldowns'}
+                >CDs</td>
+            {/if}
+
+        {:else if field === 'professionWorkOrders'}
+            {#if !$homeState.onlyWeekly}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                    on:click={() => setSorting(field)}
+                    on:keypress={() => setSorting(field)}
+                    use:basicTooltip={'Profession Work Orders'}
+                >WOs</td>
             {/if}
 
         {:else if field === 'professions'}
@@ -234,4 +251,6 @@
 
         {/if}
     {/each}
+
+    <td class="settings"></td>
 </tr>

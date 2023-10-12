@@ -1,4 +1,4 @@
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import type { DbData, DbDataQuery, DbDataThing } from '@/types/data/db'
 
 

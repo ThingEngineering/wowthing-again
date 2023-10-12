@@ -75,6 +75,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 return _context.BackgroundImage
+                    .AsNoTracking()
                     .Where(bi => bi.Role == null)
                     .ToDictionaryAsync(bi => bi.Id);
             }
@@ -90,6 +91,7 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 var currentPeriods = await _context.WowPeriod
+                    .AsNoTracking()
                     .GroupBy(p => p.Region)
                     .ToDictionaryAsync(
                         group => (int)group.Key,
@@ -123,8 +125,10 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 var itemClassMap = await _context.WowItemClass
+                    .AsNoTracking()
                     .ToDictionaryAsync(wic => wic.Id);
                 var itemSubclassMap = await _context.WowItemSubclass
+                    .AsNoTracking()
                     .ToDictionaryAsync(wis => wis.Id);
 
                 return (itemClassMap, itemSubclassMap);

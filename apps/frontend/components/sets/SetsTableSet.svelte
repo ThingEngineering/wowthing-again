@@ -1,7 +1,7 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
@@ -56,7 +56,7 @@
     <td
         class="{getPercentClass(percent)}"
         colspan="{span}"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 set,

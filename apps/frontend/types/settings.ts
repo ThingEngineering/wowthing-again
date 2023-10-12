@@ -1,3 +1,4 @@
+import type { CharacterFlag } from '@/enums/character-flag'
 import type { Language } from '@/enums/language'
 
 
@@ -17,6 +18,7 @@ export interface Settings {
         defaultBackgroundBrightness: number
         defaultBackgroundSaturation: number
         hideDisabledAccounts: boolean
+        flags: Record<number, CharacterFlag>
         hiddenCharacters: number[]
         ignoredCharacters: number[]
         pinnedCharacters: number[]

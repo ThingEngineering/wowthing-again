@@ -4,7 +4,7 @@
     import { Region } from '@/enums/region'
     import { auctionStore } from '@/stores/auction'
     import { itemStore } from '@/stores/item'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionsAppState } from '@/auctions/stores/state'
 
     import Routes from './Routes.svelte'

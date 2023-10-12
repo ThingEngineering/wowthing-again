@@ -5,10 +5,10 @@ import {
     AchievementDataAchievement,
     AchievementDataCriteria,
     AchievementDataCriteriaTree,
-    WritableFancyStore,
     type AchievementDataCategory
-} from '@/types'
-import type { AchievementData } from '@/types'
+} from '@/types/achievement-data'
+import type { AchievementData } from '@/types/achievement-data'
+import { WritableFancyStore } from '@/types/fancy-store'
 
 
 export class AchievementDataStore extends WritableFancyStore<AchievementData> {

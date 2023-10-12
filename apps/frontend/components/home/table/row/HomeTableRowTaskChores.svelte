@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { LazyCharacterChore } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
@@ -29,7 +29,7 @@
 {#if chore?.countTotal === 0}
     <td
         class="status-fail"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,
@@ -45,7 +45,7 @@
         class:status-fail={chore.countCompleted === 0}
         class:status-shrug={chore.countCompleted < chore.countTotal}
         class:status-success={chore.countCompleted === chore.countTotal}
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

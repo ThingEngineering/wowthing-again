@@ -4,7 +4,7 @@
     import { navItems } from '@/data/nav'
     import { iconLibrary } from '@/icons'
     import { settingsStore, userStore } from '@/stores'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import CharacterFilter from './AppHomeCharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -38,7 +38,7 @@
             }
                 <li
                     use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
-                    use:tippy={linkText}
+                    use:basicTooltip={linkText}
                 >
                     <a
                         class:wip={linkText.indexOf('WIP') >= 0}

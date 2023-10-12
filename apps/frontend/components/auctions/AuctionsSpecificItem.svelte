@@ -2,10 +2,10 @@
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { itemStore, userStore, userAuctionSpecificItemStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -109,7 +109,7 @@
                     <tr>
                         <td
                             class="realm text-overflow"
-                            use:tippy={connectedRealm.realmNames.join(' / ')}
+                            use:basicTooltip={connectedRealm.realmNames.join(' / ')}
                         >
                             <code>[{Region[connectedRealm.region]}]</code>
                             {connectedRealmName(auction.connectedRealmId)}

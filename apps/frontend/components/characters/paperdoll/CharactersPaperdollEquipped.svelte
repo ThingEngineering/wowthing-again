@@ -1,6 +1,6 @@
 <script lang="ts">
     import { itemStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { getItemUrl } from '@/utils/get-item-url'
     import { InventorySlot  } from '@/enums/inventory-slot'
     import type { Character } from '@/types'

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let extraParams: Record<string, string> = {}
     export let id: number
@@ -45,7 +45,7 @@
         href="{url}"
         data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}"
         data-wh-rename-link="{rename ? 'true' : undefined}"
-        use:tippy={tooltip}
+        use:basicTooltip={tooltip}
    >
         <slot />
     </a>

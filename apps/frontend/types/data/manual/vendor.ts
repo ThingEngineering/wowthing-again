@@ -4,7 +4,7 @@ import type { ItemQuality } from '@/enums/item-quality'
 import type { RewardType } from '@/enums/reward-type'
 import type { UserCount } from '@/types'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/stores/static/types/store'
+import type { StaticData } from '@/shared/stores/static/types/store'
 
 
 export class ManualDataVendorCategory {

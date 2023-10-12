@@ -4,7 +4,7 @@
     import { timeStore } from '@/stores'
     import { getNextWeeklyReset } from '@/utils/get-next-reset'
     import { getRunQuality, isKeystoneUpgrade } from '@/utils/mythic-plus'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, Dungeon } from '@/types'
 
     import Tooltip from '@/components/tooltips/mythic-plus-keystone/TooltipMythicPlusKeystone.svelte'
@@ -49,7 +49,7 @@
 
 {#if character.level === Constants.characterMaxLevel}
     <td
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {character, dungeon}
         }}

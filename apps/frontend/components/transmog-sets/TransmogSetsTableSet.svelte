@@ -1,6 +1,6 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { UserCount } from '@/types'
     import type { ManualDataTransmogSetSet } from '@/types/data/manual'
 
@@ -37,7 +37,7 @@
     <td
         class="{getPercentClass(percent)}"
         colspan="{span}"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {set, slotHave, subType},
             tippyProps: {placement: 'left-end'},

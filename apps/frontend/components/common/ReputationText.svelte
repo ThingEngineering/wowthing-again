@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character, ReputationTier } from '@/types'
-    import type { StaticDataReputationTier } from '@/stores/static/types'
+    import type { StaticDataReputationTier } from '@/shared/stores/static/types'
 
     export let character: Character
     export let reputationId: number

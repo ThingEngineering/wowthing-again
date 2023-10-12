@@ -4,7 +4,7 @@
     import { onDestroy, onMount } from 'svelte'
 
     import { lazyStore, settingsStore, timeStore, userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { homeState, newNavState } from '@/stores/local-storage'
     import { useCharacterFilter } from '@/utils/characters'
     import { setElementStyleById } from '@/utils/dom'
@@ -50,7 +50,8 @@
                 )
         )
 
-        characters = characters.filter((char) => useCharacterFilter(filterFunc, char, $newNavState.characterFilter))
+        characters = characters.filter((char) => useCharacterFilter(
+            $lazyStore, filterFunc, char, $newNavState.characterFilter))
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)

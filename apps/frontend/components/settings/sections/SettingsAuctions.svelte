@@ -2,9 +2,9 @@
     import debounce from 'lodash/debounce'
 
     import { userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/stores'
-    import type { StaticDataConnectedRealm } from '@/stores/static/types'
+    import type { StaticDataConnectedRealm } from '@/shared/stores/static/types'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 

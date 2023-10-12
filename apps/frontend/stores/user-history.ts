@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 
-import { WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types/fancy-store'
 import type { UserHistoryData } from '@/types/data'
 
 

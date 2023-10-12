@@ -2,15 +2,18 @@
     import sortBy from 'lodash/sortBy'
     import { replace } from 'svelte-spa-router'
 
-    import tippy from '@/utils/tippy'
-    import type { LeaderboardEntry } from '@/types'
+    import { basicTooltip } from '@/shared/utils/tooltips'
+    import type { LeaderboardEntry } from './types'
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
 
     export let page: number
     export let slug: string
 
-    const data = JSON.parse(document.getElementById('app').getAttribute('data-leaderboard')) as LeaderboardEntry[]
+    const data = JSON.parse(
+        document.getElementById('app')
+        .getAttribute('data-leaderboard')
+    ) as LeaderboardEntry[]
 
     const currentUser = document.getElementById('user-name')?.innerText || null
 
@@ -140,7 +143,7 @@
                     <div class="info">
                         <div
                             class="name text-overflow"
-                            use:tippy={username}
+                            use:basicTooltip={username}
                         >
                             {#if linkTo}
                                 <a href="/user/{username}#/" target="_blank">{username}</a>

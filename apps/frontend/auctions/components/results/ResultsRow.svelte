@@ -2,7 +2,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { itemModifierMap } from '@/data/item-modifier'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import type { AuctionEntry } from '@/auctions/types/auction-entry'
 

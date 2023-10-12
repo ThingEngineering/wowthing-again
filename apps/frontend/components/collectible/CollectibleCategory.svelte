@@ -2,7 +2,7 @@
     import { getContext } from 'svelte'
 
     import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { CollectibleContext } from '@/types/contexts'
     import type { ManualDataSetCategory } from '@/types/data/manual'
 
@@ -49,7 +49,7 @@
             >
                 <h4
                     class="drop-shadow text-overflow {getPercentClass(stats[`${slug1}--${category.slug}--${group.name}`])}"
-                    use:tippy={group.name}
+                    use:basicTooltip={group.name}
                 >
                     <ParsedText text={group.name} />
                 </h4>

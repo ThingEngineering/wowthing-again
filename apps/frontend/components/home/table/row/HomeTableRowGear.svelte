@@ -3,7 +3,7 @@
     import { currentTier, previousTier } from '@/data/gear'
     import { itemStore } from '@/stores'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
@@ -51,7 +51,7 @@
 {#if character.level === Constants.characterMaxLevel}
     {#if previousCount > 0}
         <td
-            use:tippyComponent={{
+            use:componentTooltip={{
                 component: Tooltip,
                 props: {
                     character,
@@ -77,7 +77,7 @@
         <td
             class:status-shrug={currentCount >= 2 && currentCount < 4}
             class:status-success={currentCount >= 4}
-            use:tippyComponent={{
+            use:componentTooltip={{
                 component: Tooltip,
                 props: {
                     character,

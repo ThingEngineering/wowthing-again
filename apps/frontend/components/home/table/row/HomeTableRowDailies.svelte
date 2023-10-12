@@ -5,7 +5,7 @@
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
@@ -75,7 +75,7 @@
 
 {#if character.level >= dailyQuestLevel[expansion]}
     <td
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 callings,

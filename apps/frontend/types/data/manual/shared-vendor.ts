@@ -8,7 +8,7 @@ import { FarmType } from '@/enums/farm-type'
 import { RewardType } from '@/enums/reward-type'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import type { ManualData } from './store'
-import type { StaticData } from '@/stores/static/types'
+import type { StaticData } from '@/shared/stores/static/types'
 import type { ItemData } from '../item'
 
 

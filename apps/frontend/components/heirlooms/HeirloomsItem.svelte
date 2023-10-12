@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
     import { userStore } from '@/stores'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import { heirloomState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomItem } from '@/types/data/manual'

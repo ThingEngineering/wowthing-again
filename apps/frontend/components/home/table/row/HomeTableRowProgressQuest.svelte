@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte'
@@ -39,7 +39,7 @@
         class="status-{charTask.status}"
         class:center={!charTask.text?.endsWith('%')}
         data-quest="{quest}"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

@@ -3,7 +3,7 @@
     import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterRaiderIoSeason, MythicPlusSeason } from '@/types'
     import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
 
@@ -44,7 +44,7 @@
     <td
         class="score"
         style:--link-color={getRaiderIoColor(tiers, overallScore)}
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 seasonId: season.id,
