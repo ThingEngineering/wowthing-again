@@ -25,7 +25,6 @@
     import Reputations from '@/components/reputations/Reputations.svelte'
     import Sets from '@/components/sets/Sets.svelte'
     import Settings from '@/components/settings/Settings.svelte'
-    import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
     import TransmogSets from '@/components/transmog-sets/TransmogSets.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
@@ -63,8 +62,6 @@
         '/mounts/:slug1?/:slug2?': Mounts,
         '/pets/:slug1?/:slug2?': Pets,
         '/toys/:slug1?/:slug2?': Toys,
-
-        '/teams/:slug?': Teams,
 
         '/settings/:slug1?/:slug2?': Settings,
 
