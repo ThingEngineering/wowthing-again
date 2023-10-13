@@ -46,6 +46,11 @@ const config = <UserConfig> defineConfig({
 				home: 'apps/home.ts',
 				leaderboards: 'leaderboards/entrypoint.ts',
 			},
+			output: {
+				assetFileNames: 'dist/assets/[name]-[hash][extname]',
+				chunkFileNames: 'dist/assets/[name]-[hash].js',
+				entryFileNames: 'dist/assets/[name]-[hash].js',
+			},
 		},
 		sourcemap: sourceMapsInProduction,
 	},
