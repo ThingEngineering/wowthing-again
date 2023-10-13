@@ -6,7 +6,6 @@ import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set'
 import type { ManualDataSharedItemSet, ManualDataSharedItemSetArray } from './shared-item-set'
 import type { ManualDataSharedVendor, ManualDataSharedVendorArray } from './shared-vendor'
 import type { ManualDataTransmogCategory, ManualDataTransmogCategoryArray } from './transmog'
-import type { ManualDataTransmogSetCategory, ManualDataTransmogSetCategoryArray } from './transmog-v2'
 import type { ManualDataVendorCategory, ManualDataVendorCategoryArray } from './vendor'
 import type { ManualDataZoneMapCategory, ManualDataZoneMapCategoryArray } from './zone-map'
 
@@ -27,7 +26,6 @@ export interface ManualData {
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawIllusionGroups: ManualDataIllusionGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
-    rawTransmogSetsV2: ManualDataTransmogSetCategoryArray[][]
     rawVendorSets: ManualDataVendorCategoryArray[][]
     rawZoneMapSets: ManualDataZoneMapCategoryArray[][]
 
@@ -60,7 +58,6 @@ export interface ManualDataShared {
 
 export interface ManualDataTransmog {
     sets: ManualDataTransmogCategory[][]
-    setsV2: ManualDataTransmogSetCategory[][]
 }
 
 export interface ManualDataVendors {

@@ -8,7 +8,6 @@ import {
     ManualDataSharedItemSet,
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
-    ManualDataTransmogSetCategory,
     ManualDataVendorCategory,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
@@ -35,7 +34,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.tagsByName = {}
         data.transmog = {
             sets: [],
-            setsV2: [],
         }
         data.vendors = {
             sets: [],
@@ -94,13 +92,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         )
         data.rawTransmogSets = null
 
-        data.transmog.setsV2 = data.rawTransmogSetsV2.map(
-            (categories) => categories === null ? null : categories.map(
-                (catArray) => catArray === null ? null : new ManualDataTransmogSetCategory(...catArray)
-            )
-        )
-        data.rawTransmogSetsV2 = null
-
         data.vendors.sets = data.rawVendorSets.map(
             (categories) => categories === null ? null : categories.map(
                 (catArray) => catArray === null ? null : new ManualDataVendorCategory(...catArray)
@@ -120,7 +111,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.toySets = this.fixCollectionSets(data.rawToySets)
         
         data.transmog.sets = this.fixTransmogSets(data.transmog.sets)
-        data.transmog.setsV2 = this.fixTransmogSetsV2(data.transmog.setsV2)
 
         data.rawMountSets = null
         data.rawPetSets = null
@@ -168,37 +158,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         allSets: ManualDataTransmogCategory[][]
     ): ManualDataTransmogCategory[][] {
         const newSets: ManualDataTransmogCategory[][] = []
-
-        for (const sets of allSets) {
-            if (sets === null) {
-                newSets.push(null)
-            }
-            else {
-                newSets.push(
-                    sortBy(
-                        sets,
-                        (set) => [
-                            set.name.startsWith('<') ? 0 : 1,
-                            set.name.startsWith('>') ? 1 : 0,
-                        ]
-                    )
-                )
-
-                for (const set of newSets[newSets.length - 1]) {
-                    if (set.name.startsWith('<') || set.name.startsWith('>')) {
-                        set.name = set.name.substring(1)
-                    }
-                }
-            }
-        }
-
-        return newSets
-    }
-
-    private fixTransmogSetsV2(
-        allSets: ManualDataTransmogSetCategory[][]
-    ): ManualDataTransmogSetCategory[][] {
-        const newSets: ManualDataTransmogSetCategory[][] = []
 
         for (const sets of allSets) {
             if (sets === null) {
