@@ -1,8 +1,9 @@
 import some from 'lodash/some'
 
-import { ItemFlags } from '@/enums/item-flags'
+import { extraCraftedItemIds } from '@/data/auctions'
 import { InventoryType } from '@/enums/inventory-type'
 import { ItemClass } from '@/enums/item-class'
+import { ItemFlags } from '@/enums/item-flags'
 import { WeaponSubclass } from '@/enums/weapon-subclass'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
@@ -173,7 +174,8 @@ export class UserAuctionMissingTransmogDataStore {
 
             let matchesSource = true
             if (!auctionState.missingTransmogShowCrafted) {
-                matchesSource = staticData.itemToSkillLineAbility[item.id] === undefined
+                matchesSource = (staticData.itemToSkillLineAbility[item.id] === undefined) &&
+                    !extraCraftedItemIds.has(item.id)
             }
 
             return meetsDontHave
