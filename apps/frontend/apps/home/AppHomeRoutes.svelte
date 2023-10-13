@@ -1,10 +1,11 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
+    import { wrap } from 'svelte-spa-router/wrap'
 
     import Achievements from '@/components/achievements/Achievements.svelte'
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Auctions from '@/components/auctions/Auctions.svelte'
-    import Characters from '@/components/characters/Characters.svelte'
+    // import Characters from '@/components/characters/Characters.svelte'
     import Collections from '@/components/collections/Collections.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Explore from '@/components/explore/Explore.svelte'
@@ -34,7 +35,9 @@
         '/': HomeTable,
         '/table': HomeTable,
 
-        '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?': Characters,
+        '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?': wrap({
+            asyncComponent: () => import('@/components/characters/Characters.svelte')
+        }),
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/appearances/:slug1?/:slug2?': Appearances,
