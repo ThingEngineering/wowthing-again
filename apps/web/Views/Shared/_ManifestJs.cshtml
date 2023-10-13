@@ -6,5 +6,5 @@
 
 @foreach (string jsFilename in FrontendManifest.Entrypoints[Model].Js)
 {
-    <script type="module" src="https://@WebOptions.Value.Hostname/dist/@jsFilename"></script>
+    <script type="module" src="https://@WebOptions.Value.Hostname/@jsFilename"></script>
 }
