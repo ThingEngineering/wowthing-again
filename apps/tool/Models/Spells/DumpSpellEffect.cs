@@ -7,6 +7,7 @@ public class DumpSpellEffect
 {
     public int Effect { get; set; }
     public int EffectIndex { get; set; }
+    public int EffectItemType { get; set; }
     public int EffectTriggerSpell { get; set; }
     public int ID { get; set; }
     public int SpellID { get; set; }

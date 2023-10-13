@@ -618,11 +618,18 @@ public class StaticTool
                         {
                             foreach (var abilityEffect in abilityEffects)
                             {
+                                // CraftingData
                                 if (abilityEffect.Effect == 288 &&
                                     craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData))
                                 {
                                     outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
                                     outAbility.ItemId = craftingData.CraftedItemID;
+                                    break;
+                                }
+                                // 24=create item, 157=create loot
+                                else if (abilityEffect.Effect is 24 or 157 && abilityEffect.EffectItemType > 0)
+                                {
+                                    outAbility.ItemId = abilityEffect.EffectItemType;
                                     break;
                                 }
                             }
