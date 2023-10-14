@@ -4,8 +4,8 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
-    import Sidebar from './CurrenciesSidebar.svelte'
-    import Table from './CurrenciesTable.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import Table from './Table.svelte'
 
     export let params: MultiSlugParams
 
