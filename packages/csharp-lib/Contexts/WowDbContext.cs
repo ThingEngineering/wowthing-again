@@ -97,6 +97,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<UserCache> UserCache { get; set; }
     public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
 
+    public DbSet<WorldQuestAggregate> WorldQuestAggregate { get; set; }
     public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
 
     // Garbage query types
@@ -165,6 +166,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<UserLeaderboardSnapshot>()
             .HasKey(uls => new { uls.UserId, uls.Date });
+
+        builder.Entity<WorldQuestAggregate>()
+            .HasKey(wqa => new { wqa.Region, wqa.ZoneId, wqa.QuestId });
 
         builder.Entity<WowAuction>()
             .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
