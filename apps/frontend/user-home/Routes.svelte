@@ -14,7 +14,7 @@
     import Items from '@/components/items/Items.svelte'
     import Journal from '@/components/journal/Journal.svelte'
     import Lockouts from '@/components/lockouts/Lockouts.svelte'
-    import Matrix from '@/components/matrix/Matrix.svelte'
+    import Matrix from '@/user-home/components/matrix/Matrix.svelte'
     import Mounts from '@/components/collectible/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collectible/Pets.svelte'

@@ -4,7 +4,7 @@
     import type { SettingsCustomGroup } from '@/types'
 
     import Group from './SettingsLayoutGroupingGroup.svelte'
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     const newGroup = () => {
         const group: SettingsCustomGroup = {

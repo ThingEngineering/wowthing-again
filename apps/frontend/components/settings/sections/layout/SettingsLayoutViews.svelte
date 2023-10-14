@@ -3,7 +3,7 @@
     import { settingsState } from '@/stores/local-storage'
     import type { SettingsView } from '@/types/settings'
 
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import View from './SettingsLayoutViewsView.svelte'
 
     const newView = () => {
