@@ -253,10 +253,7 @@ public class ManualTool
         int[] newQuestIds = _questIds.Except(existingQuestIds).ToArray();
         foreach (int questId in newQuestIds)
         {
-             context.WowQuest.Add(new WowQuest
-            {
-                Id = questId,
-            });
+            context.WowQuest.Add(new WowQuest(questId));
         }
 
         await context.SaveChangesAsync();

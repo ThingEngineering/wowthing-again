@@ -9,4 +9,9 @@ public class WowQuest
     public int Id { get; set; }
 
     public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
+
+    public WowQuest(int id)
+    {
+        Id = id;
+    }
 }

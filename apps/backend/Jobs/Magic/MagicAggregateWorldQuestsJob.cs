@@ -2,6 +2,7 @@
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Magic;
@@ -66,6 +67,8 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
 
         var aggregateMap = await Context.WorldQuestAggregate
             .ToDictionaryAsync(wqa => (wqa.Region, wqa.ZoneId, wqa.QuestId));
+
+        var questIds = new HashSet<int>();
         var seen = new HashSet<(short, int, int)>();
 
         foreach (var (questKey, questData) in aggregatedReports)
@@ -81,6 +84,7 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
                 Context.WorldQuestAggregate.Add(aggregate);
             }
 
+            questIds.Add(aggregate.QuestId);
             seen.Add(questKey);
 
             aggregate.JsonData = System.Text.Json.JsonSerializer.Serialize(questData, JsonSerializerOptions);
@@ -94,9 +98,25 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
             }
         }
 
+        timer.AddPoint("Aggregates");
+
+        // Blizzard API claims that none of the quests exist, cool
+        // var existingQuestIds = (
+        //     await Context.WowQuest
+        //         .Select(q => q.Id)
+        //         .ToArrayAsync()
+        // ).ToHashSet();
+        //
+        // int[] newQuestIds = questIds.Except(existingQuestIds).ToArray();
+        // foreach (int questId in newQuestIds)
+        // {
+        //     Context.WowQuest.Add(new WowQuest(questId));
+        // }
+
         await Context.SaveChangesAsync();
 
-        timer.AddPoint("Aggregates", true);
+        timer.AddPoint("Save");
+        timer.Stop();
 
         Logger.Information("{timer}", timer.ToString());
 
