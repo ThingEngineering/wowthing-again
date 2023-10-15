@@ -33,6 +33,7 @@ export const navItems: NavItem[] = [
     [null, null, null],
     
     ['achievements/', 'Achievements', 'gameTrophy'],
+    ['world-quests/', 'World Quests', 'emojiConstruction'],
     [null, null, null],
 
     ['settings/', 'Settings', 'mdiCogOutline', true],
