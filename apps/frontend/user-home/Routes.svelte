@@ -24,6 +24,7 @@
     import Sets from '@/components/sets/Sets.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
+    import WorldQuests from '@/user-home/components/world-quests/WorldQuests.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
@@ -58,6 +59,7 @@
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
         '/vendors/:slug1?/:slug2?': Vendors,
+        '/world-quests/:slug1?': WorldQuests,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
         '/mounts/:slug1?/:slug2?': Mounts,
