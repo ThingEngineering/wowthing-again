@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 import sum from 'lodash/sum'
 import { DateTime } from 'luxon'
 
-import type { ApiWorldQuestRaw, ApiWorldQuestJson, ApiWorldQuest, ApiWorldQuestReward } from './api-world-quest'
+import type { ApiWorldQuestRaw, ApiWorldQuestJson, ApiWorldQuest, ApiWorldQuestReward } from './types'
 import type { RewardType } from '@/enums/reward-type'
 
 
