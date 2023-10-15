@@ -1,10 +1,12 @@
 <script lang="ts">
     import { RewardType } from '@/enums/reward-type'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/stores/time'
-    import type { ApiWorldQuest } from './types/api-world-quest'
+    import { toNiceNumber } from '@/utils/formatting/to-nice-number'
+    import type { ApiWorldQuest } from './types'
 
+    import Tooltip from './Tooltip.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { toNiceNumber } from '@/utils/formatting/to-nice-number';
 
     export let worldQuest: ApiWorldQuest
 
@@ -33,32 +35,38 @@
 </script>
 
 <style lang="scss">
-    .world-quest, .reward-amount {
-        background: $highlight-background;
-        border: 2px solid #aaa;
-        position: absolute;
-        transform: translateX(-50%) translateY(-50%);
-    }
     .world-quest {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        left: var(--left);
+        position: absolute;
+        top: var(--top);
+        transform: translateX(-50%) translateY(-18px);
+
+        &:hover {
+            z-index: 100;
+        }
+    }
+    .world-quest-icon, .world-quest-amount {
+        background: $highlight-background;
+        border: 2px solid var(--image-border-color, $border-color);
+    }
+    .world-quest-icon {
         --image-border-width: 0;
 
         border-radius: 50%;
         height: 36px;
-        left: var(--left);
         overflow: hidden;
-        top: var(--top);
-        transform: translateX(-50%) translateY(-50%);
         width: 36px;
     }
-    .reward-amount {
-        border: 2px solid #aaa;
+    .world-quest-amount {
         border-radius: $border-radius-small;
         font-size: 95%;
-        left: var(--left);
         line-height: 1;
+        margin-top: -3px;
         padding: 0 2px 2px 2px;
-        top: calc(var(--top) + 25px);
-        z-index: 1;
+        text-align: center;
     }
 </style>
 
@@ -68,25 +76,35 @@
         class:border-success={hoursRemaining >= 24}
         class:border-shrug={hoursRemaining < 24 && hoursRemaining >= 12}
         class:border-fail={hoursRemaining < 12}
+        data-id={worldQuest.questId}
         style="--left: {worldQuest.locationX}%; --top: {worldQuest.locationY}%;"
+        use:componentTooltip={{
+            component: Tooltip,
+            props: {
+                worldQuest,
+            }
+        }}
     >
-        {#if iconName}
-            <WowthingImage
-                name={iconName}
-                size={32}
-                border={0}
-            />
-        {:else}
-            WQ
+        <div
+            class="world-quest-icon"
+        >
+            {#if iconName}
+                <WowthingImage
+                    name={iconName}
+                    size={32}
+                    border={0}
+                />
+            {:else}
+                WQ
+            {/if}
+        </div>
+
+        {#if rewardString}
+            <div
+                class="world-quest-amount"
+            >
+                {rewardString}
+            </div>
         {/if}
     </div>
-
-    {#if rewardString}
-        <div
-            class="reward-amount"
-            style="--left: {worldQuest.locationX}%; --top: {worldQuest.locationY}%;"
-        >
-            {rewardString}
-        </div>
-    {/if}
 {/if}
