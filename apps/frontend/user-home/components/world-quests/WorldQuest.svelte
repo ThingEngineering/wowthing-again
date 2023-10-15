@@ -19,6 +19,9 @@
         const firstReward = worldQuest.rewards[0][1][0]
         if (firstReward.type === RewardType.Item) {
             iconName = `item/${firstReward.id}`
+            if (firstReward.amount > 1) {
+                rewardString = toNiceNumber(firstReward.amount)
+            }
         }
         else if (firstReward.type === RewardType.Currency) {
             iconName = `currency/${firstReward.id}`
@@ -43,6 +46,7 @@
         position: absolute;
         top: var(--top);
         transform: translateX(-50%) translateY(-18px);
+        width: 36px;
 
         &:hover {
             z-index: 100;
@@ -72,7 +76,7 @@
 
 {#if worldQuest.expires > $timeStore}
     <div
-        class="world-quest"
+        class="world-quest drop-shadow"
         class:border-success={hoursRemaining >= 24}
         class:border-shrug={hoursRemaining < 24 && hoursRemaining >= 12}
         class:border-fail={hoursRemaining < 12}
