@@ -50,6 +50,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowReputationTier> WowReputationTier { get; set; }
     public DbSet<WowToy> WowToy { get; set; }
     public DbSet<WowTransmogSet> WowTransmogSet { get; set; }
+    public DbSet<WowWorldQuest> WowWorldQuest { get; set; }
 
     public DbSet<GlobalDailies> GlobalDailies { get; set; }
 
