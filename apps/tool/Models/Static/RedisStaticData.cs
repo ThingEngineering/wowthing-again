@@ -41,6 +41,7 @@ public class RedisStaticData
     public StaticReputation[] RawReputations { get; set; }
     public StaticToy[] RawToys { get; set; }
     public StaticTransmogSet[] RawTransmogSets { get; set; }
+    public StaticWorldQuest[] RawWorldQuests { get; set; }
 
     public List<StaticReputationCategory> RawReputationSets { get; set; }
 }

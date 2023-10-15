@@ -1471,6 +1471,9 @@ public class DumpsTool
             dbQuest.MinLevel = contentTuning.MinLevel;
             dbQuest.QuestInfoId = questV2.QuestInfoID;
 
+            dbQuest.NeedQuestIds = new();
+            dbQuest.SkipQuestIds = new();
+
             if (playerConditionMap.TryGetValue(questV2.ConditionID, out var playerCondition) &&
                 modifierTreeByParent.TryGetValue(playerCondition.ModifierTreeID, out var modifierTrees))
             {

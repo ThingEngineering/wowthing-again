@@ -328,6 +328,12 @@ public class StaticTool
             .Select(transmogSet => new StaticTransmogSet(transmogSet, imaMap))
             .ToArray();
 
+        cacheData.RawWorldQuests = await context.WowWorldQuest
+            .Where(wq => wq.Expansion == 9)
+            .OrderBy(wq => wq.Id)
+            .Select(wq => new StaticWorldQuest(wq))
+            .ToArrayAsync();
+
         _timer.AddPoint("Objects");
 
         // Add anything that uses strings
@@ -427,6 +433,11 @@ public class StaticTool
             foreach (var transmogSet in cacheData.RawTransmogSets)
             {
                 transmogSet.Name = GetString(StringType.WowTransmogSetName, language, transmogSet.Id);
+            }
+
+            foreach (var worldQuest in cacheData.RawWorldQuests)
+            {
+                worldQuest.Name = GetString(StringType.WowQuestName, language, worldQuest.Id);
             }
 
             foreach (var reputationTier in cacheData.ReputationTiers.Values)

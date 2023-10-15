@@ -14,6 +14,7 @@ import {
     StaticDataReputationCategory,
     StaticDataToy,
     StaticDataTransmogSet,
+    StaticDataWorldQuest,
 } from './types'
 import type { StaticData } from './types'
 
@@ -186,6 +187,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawTransmogSets !== null) {
             data.transmogSets = StaticDataStore.createObjects(data.rawTransmogSets, StaticDataTransmogSet, (set) => set.id)
             data.rawTransmogSets = null
+        }
+
+        if (data.rawWorldQuests != null) {
+            data.worldQuests = StaticDataStore.createObjects(data.rawWorldQuests, StaticDataWorldQuest, (wq) => wq.id)
+            data.rawWorldQuests = null
+            console.log(data.worldQuests)
         }
 
         console.timeEnd('StaticDataStore.initialize')

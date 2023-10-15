@@ -14,6 +14,7 @@ import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputat
 import type { StaticDataSoulbind } from './soulbind'
 import type { StaticDataToy, StaticDataToyArray } from './toy'
 import type { StaticDataTransmogSet, StaticDataTransmogSetArray } from './transmog-set'
+import type { StaticDataWorldQuest, StaticDataWorldQuestArray } from './world-quest'
 
 
 export interface StaticData {
@@ -88,4 +89,7 @@ export interface StaticData {
 
     transmogSets: Record<number, StaticDataTransmogSet>
     rawTransmogSets: StaticDataTransmogSetArray[]
+
+    worldQuests: Record<number, StaticDataWorldQuest>
+    rawWorldQuests: StaticDataWorldQuestArray[]
 }

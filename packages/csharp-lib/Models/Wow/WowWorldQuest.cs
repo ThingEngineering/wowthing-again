@@ -12,8 +12,8 @@ public class WowWorldQuest
     public short MinLevel { get; set; }
     public short QuestInfoId { get; set; }
 
-    public List<int> NeedQuestIds { get; set; } = new();
-    public List<int> SkipQuestIds { get; set; } = new();
+    public List<int> NeedQuestIds { get; set; }
+    public List<int> SkipQuestIds { get; set; }
 
     public WowWorldQuest(int id)
     {
