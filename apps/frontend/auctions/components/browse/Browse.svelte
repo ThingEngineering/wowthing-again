@@ -10,7 +10,7 @@
     import type { AuctionCategory } from '@/types/data/auction'
 
     import Results from '@/auctions/components/results/Results.svelte'
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     export let params: MultiSlugParams
 

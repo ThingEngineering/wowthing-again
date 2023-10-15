@@ -59,6 +59,17 @@ public static class DataUtilities
         return ret;
     }
 
+    public static async Task<Dictionary<TKey, TValue>> LoadDumpToDictionaryAsync<TKey, TValue>(
+        string fileName,
+        Func<TValue, TKey> keyFunc,
+        Language language = Language.enUS,
+        Func<TValue, bool>? validFunc = null
+    ) where TKey : notnull
+    {
+        var records = await LoadDumpCsvAsync<TValue>(fileName, language, validFunc);
+        return records.ToDictionary(keyFunc);
+    }
+
     public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger? logger = null)
         where TCategory : class, ICloneable, IDataCategory
     {

@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using Wowthing.Tool.Models.Collections;
+﻿using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.ItemSets;
 using Wowthing.Tool.Models.Progress;
 using Wowthing.Tool.Models.Transmog;
-using Wowthing.Tool.Models.TransmogSets;
 using Wowthing.Tool.Models.Vendors;
 using Wowthing.Tool.Models.ZoneMaps;
 
@@ -25,7 +23,6 @@ public class ManualCache
 
     public List<List<OutCollectionCategory>> RawToySets { get; set; }
     public List<List<ManualTransmogCategory>> RawTransmogSets { get; set; }
-    public List<List<ManualTransmogSetCategory>> RawTransmogSetsV2 { get; set; }
     public List<List<ManualVendorCategory>> RawVendorSets { get; set; }
     public List<List<ManualZoneMapCategory>> RawZoneMapSets { get; set; }
 

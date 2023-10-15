@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231014232042_Add_WorldQuestAggregate")]
+    partial class Add_WorldQuestAggregate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2950,42 +2953,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_transmog_set");
 
                     b.ToTable("wow_transmog_set", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowWorldQuest", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    b.Property<short>("Expansion")
-                        .HasColumnType("smallint")
-                        .HasColumnName("expansion");
-
-                    b.Property<short>("MaxLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("max_level");
-
-                    b.Property<short>("MinLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("min_level");
-
-                    b.Property<List<int>>("NeedQuestIds")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("need_quest_ids");
-
-                    b.Property<short>("QuestInfoId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("quest_info_id");
-
-                    b.Property<List<int>>("SkipQuestIds")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("skip_quest_ids");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_world_quest");
-
-                    b.ToTable("wow_world_quest", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

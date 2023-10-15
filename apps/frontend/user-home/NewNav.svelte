@@ -6,7 +6,7 @@
     import { settingsStore, userStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
 
-    import CharacterFilter from './AppHomeCharacterFilter.svelte'
+    import CharacterFilter from './CharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 </script>
 

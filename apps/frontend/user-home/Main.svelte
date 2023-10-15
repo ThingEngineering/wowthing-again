@@ -17,10 +17,10 @@
     import { staticStore } from '@/shared/stores/static'
     import parseApiTime from '@/utils/parse-api-time'
 
-    import NewNav from './AppHomeNewNav.svelte'
-    import Refresh from './AppHomeRefresh.svelte'
-    import Routes from './AppHomeRoutes.svelte'
-    import Sidebar from './AppHomeSidebar.svelte'
+    import NewNav from './NewNav.svelte'
+    import Refresh from './Refresh.svelte'
+    import Routes from './Routes.svelte'
+    import Sidebar from './Sidebar.svelte'
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),

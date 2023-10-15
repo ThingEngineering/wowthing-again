@@ -4,11 +4,13 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
+using Wowthing.Tool.Models.Achievements;
 using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Holidays;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
+using Wowthing.Tool.Models.Quests;
 using Wowthing.Tool.Models.Reputations;
 using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Transmog;
@@ -125,6 +127,7 @@ public class DumpsTool
             ImportReputationTiers,
             ImportToys,
             ImportTransmogSets,
+            ImportWorldQuests,
 
             ImportInventoryStrings,
 
@@ -134,6 +137,7 @@ public class DumpsTool
             ImportJournalInstanceStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
+            ImportQuestV2CliTaskStrings,
             ImportSharedStrings,
             ImportSkillLineStrings,
             ImportSoulbindStrings,
@@ -276,6 +280,15 @@ public class DumpsTool
             "keystoneaffix",
             affix => affix.ID,
             affix => affix.Name
+        );
+
+    private async Task ImportQuestV2CliTaskStrings(WowDbContext context) =>
+        await ImportStrings<DumpQuestV2CliTask>(
+            context,
+            StringType.WowQuestName,
+            "questv2clitask",
+            qv2 => qv2.ID,
+            qv2 => qv2.Title
         );
 
     private async Task ImportSharedStrings(WowDbContext context) =>
@@ -1416,6 +1429,75 @@ public class DumpsTool
         }
 
         _timer.AddPoint("TransmogSets");
+    }
+
+    private async Task ImportWorldQuests(WowDbContext context)
+    {
+        var contentTuningMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpContentTuning>(
+            "contenttuning", ct => ct.ID);
+        var modifierTreeMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpModifierTree>(
+            "modifiertree", mt => mt.ID);
+        var playerConditionMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpPlayerCondition>(
+            "playercondition", pc => pc.ID);
+        var questInfoMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpQuestInfo>(
+            "questinfo", qi => qi.ID, validFunc: (qi) => qi.Name.Contains("World Quest"));
+
+        var modifierTreeByParent = modifierTreeMap.Values
+            .Where(mt => mt.Parent > 0)
+            .ToGroupedDictionary(mt => mt.Parent);
+
+        var dbQuestMap = await context.WowWorldQuest
+            .ToDictionaryAsync(wq => wq.Id);
+
+        var questV2s = await DataUtilities.LoadDumpCsvAsync<DumpQuestV2CliTask>("questv2clitask");
+        foreach (var questV2 in questV2s)
+        {
+            if (!contentTuningMap.TryGetValue(questV2.ContentTuningID, out var contentTuning) ||
+                contentTuning.ExpansionID <= 0 ||
+                !questInfoMap.ContainsKey(questV2.QuestInfoID)
+            )
+            {
+                continue;
+            }
+
+            if (!dbQuestMap.TryGetValue(questV2.ID, out var dbQuest))
+            {
+                dbQuest = dbQuestMap[questV2.ID] = new WowWorldQuest(questV2.ID);
+                context.WowWorldQuest.Add(dbQuest);
+            }
+
+            dbQuest.Expansion = contentTuning.ExpansionID;
+            dbQuest.MaxLevel = contentTuning.MaxLevel;
+            dbQuest.MinLevel = contentTuning.MinLevel;
+            dbQuest.QuestInfoId = questV2.QuestInfoID;
+
+            dbQuest.NeedQuestIds = new();
+            dbQuest.SkipQuestIds = new();
+
+            if (playerConditionMap.TryGetValue(questV2.ConditionID, out var playerCondition) &&
+                modifierTreeByParent.TryGetValue(playerCondition.ModifierTreeID, out var modifierTrees))
+            {
+                foreach (var modifierTree in modifierTrees)
+                {
+                    // Operator=SingleTrue and Type=REWARDED_QUEST
+                    if (modifierTree.Operator == 2 && modifierTree.Type == 110)
+                    {
+                        dbQuest.NeedQuestIds.Add(modifierTree.Asset);
+                    }
+                }
+            }
+
+            if (questV2.FiltCompletedQuestLogic > 0)
+            {
+                ToolContext.Logger.Information("quest={quest} logic={cond} cond0={c0} cond1={c2} cond2={c2}",
+                    questV2.ID, questV2.FiltCompletedQuestLogic, questV2.FiltCompletedQuest0,
+                    questV2.FiltCompletedQuest1, questV2.FiltCompletedQuest2);
+            }
+
+            // contentTuning.ExpansionID, MinLevel?, MaxLevel?
+        }
+
+        _timer.AddPoint("WorldQuests");
     }
 
     private async Task ImportInventoryStrings(WowDbContext context)

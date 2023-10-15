@@ -24,7 +24,7 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
     import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     let matrix: Record<string, Character[]>
     let xCounts: Record<string, number>

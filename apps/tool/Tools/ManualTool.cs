@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using Serilog.Context;
+﻿using Serilog.Context;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
-using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.Heirlooms;
@@ -13,7 +11,6 @@ using Wowthing.Tool.Models.ItemSets;
 using Wowthing.Tool.Models.Manual;
 using Wowthing.Tool.Models.Progress;
 using Wowthing.Tool.Models.Transmog;
-using Wowthing.Tool.Models.TransmogSets;
 using Wowthing.Tool.Models.Vendors;
 using Wowthing.Tool.Models.ZoneMaps;
 
@@ -213,7 +210,6 @@ public class ManualTool
         _timer.AddPoint("Progress");
 
         cacheData.RawTransmogSets = LoadTransmog();
-        cacheData.RawTransmogSetsV2 = LoadTransmogSets();
         _timer.AddPoint("Transmog");
 
         cacheData.RawSharedVendors = LoadSharedVendors();
@@ -257,10 +253,7 @@ public class ManualTool
         int[] newQuestIds = _questIds.Except(existingQuestIds).ToArray();
         foreach (int questId in newQuestIds)
         {
-             context.WowQuest.Add(new WowQuest
-            {
-                Id = questId,
-            });
+            context.WowQuest.Add(new WowQuest(questId));
         }
 
         await context.SaveChangesAsync();
@@ -439,46 +432,6 @@ public class ManualTool
                     .ToList()
                 );
             }
-        }
-
-        return ret;
-    }
-
-    private List<List<ManualTransmogSetCategory>> LoadTransmogSets()
-    {
-        var transmogSets = DataUtilities.LoadData<DataTransmogSetCategory>("transmog-sets", ToolContext.Logger);
-
-        var ret = new List<List<ManualTransmogSetCategory>>(transmogSets.Count);
-        foreach (var catList in transmogSets)
-        {
-            if (catList == null)
-            {
-                ret.Add(null);
-                continue;
-            }
-
-            var newCatList = new List<ManualTransmogSetCategory>(catList.Count);
-            foreach (var cat in catList)
-            {
-                if (cat == null)
-                {
-                    newCatList.Add(null);
-                    continue;
-                }
-
-                foreach (var group in cat.Groups.EmptyIfNull())
-                {
-                    AddTags(group.MatchTags);
-
-                    foreach (var set in group.Sets.EmptyIfNull())
-                    {
-                        AddTags(set.MatchTags);
-                    }
-                }
-
-                newCatList.Add(new ManualTransmogSetCategory(cat, _tagMap));
-            }
-            ret.Add(newCatList);
         }
 
         return ret;

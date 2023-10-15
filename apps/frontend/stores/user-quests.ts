@@ -45,7 +45,9 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
 
     hasAny(characterId: number, questId: number): boolean {
         const charData = this.value.characters[characterId]
-        return charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId)
+        return charData?.dailyQuests?.has(questId)
+            || charData?.quests?.has(questId)
+            || this.value.accountHas.has(questId)
     }
 }
 

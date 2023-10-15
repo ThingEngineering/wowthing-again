@@ -3,7 +3,7 @@
     import type { Character } from '@/types'
 
     //import Talents from './CharacterSpecializationsTalents.svelte'
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     export let character: Character
 

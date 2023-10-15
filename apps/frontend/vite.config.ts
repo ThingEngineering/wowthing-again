@@ -43,8 +43,8 @@ const config = <UserConfig> defineConfig({
 		rollupOptions: {
 			input: {
 				auctions: 'auctions/entrypoint.ts',
-				home: 'apps/home.ts',
 				leaderboards: 'leaderboards/entrypoint.ts',
+				'user-home': 'user-home/entrypoint.ts',
 			},
 			output: {
 				assetFileNames: 'dist/assets/[name]-[hash][extname]',
