@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { worldQuestPrereqs } from './data'
     import { RewardType } from '@/enums/reward-type'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/stores/time'
@@ -9,16 +10,32 @@
     import { toNiceDuration } from '@/utils/formatting'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import { worldQuestPrereqs } from './data';
 
     export let worldQuest: ApiWorldQuest
 
     $: bestRewards = worldQuest.rewards[0][1]
     $: millis = worldQuest.expires.diff($timeStore).toMillis()
+    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId]
 
     let characters: string
     $: {
+        console.log(staticWorldQuest, worldQuest)
+
         let validCharacters = $userStore.characters.filter((char) => char.level >= 60)
+        
+        if (staticWorldQuest) {
+            if (staticWorldQuest.minLevel) {
+                validCharacters = validCharacters.filter((char) => char.level >= staticWorldQuest.minLevel)
+            }
+
+            // TODO check all? one?
+            if (staticWorldQuest.needQuestIds) {
+                validCharacters = validCharacters.filter(
+                    (char) => userQuestStore.hasAny(char.id, staticWorldQuest.needQuestIds[0])
+                )
+            }
+        }
+
         if (worldQuestPrereqs[worldQuest.questId]) {
             validCharacters = validCharacters.filter(
                 (char) => userQuestStore.hasAny(char.id, worldQuestPrereqs[worldQuest.questId]))
@@ -76,8 +93,8 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>Quest #{worldQuest.questId}</h4>
-    <h5>Expires in {toNiceDuration(millis)}</h5>
+    <h4>{staticWorldQuest?.name || `Quest #${worldQuest.questId}`}</h4>
+    <h5>Expires in {toNiceDuration(millis).replace('&nbsp;', '')}</h5>
     <table class="table table-striped">
         <tbody>
             {#each bestRewards as reward}
