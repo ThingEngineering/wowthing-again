@@ -3,6 +3,7 @@
 
     import { zoneData } from './data'
     import { worldQuestStore } from './store'
+    import { settingsStore } from '@/stores/settings'
 
     import Image from '@/shared/components/images/Image.svelte'
     import WorldQuest from './WorldQuest.svelte'
@@ -18,6 +19,8 @@
         mapName = mapInfo?.[1]
         mapFile = mapInfo?.[3]
     }
+
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '8rem' : '4.4rem'
 </script>
 
 <style lang="scss">
@@ -26,6 +29,11 @@
         --image-border-width: 2px;
 
         position: relative;
+
+        :global(> img) {
+            max-height: calc(100vh - var(--less-height, 8rem));
+            width: auto;
+        }
     }
     .active-text {
         background: $highlight-background;
@@ -40,7 +48,10 @@
 </style>
 
 {#if mapFile}
-    <div class="zone-map">
+    <div
+        class="zone-map"
+        style:--less-height={lessHeight}
+    >
         <Image
             src="https://img.wowthing.org/maps/{mapFile}_1500_1000.webp"
             alt="Map of {mapName}"
