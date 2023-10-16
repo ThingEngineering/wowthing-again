@@ -54,6 +54,8 @@
 
 <style lang="scss">
     .collection-objects {
+        --item-empty-border: #{$border-color};
+
         gap: 0.04rem;
     }
     .slot-count {
