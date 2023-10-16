@@ -7,12 +7,14 @@
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { itemStore } from '@/stores';
 
     export let character: Character = undefined
     export let forceCrafted = false
     export let gear: Partial<CharacterGear>
     export let tierPieces: number[] = undefined
     export let useHighlighting = false
+    export let useItemCount = false
 
     function getIconName(): [string, number] {
         if (gear.equipped.itemLevel >= 437) {
@@ -59,7 +61,7 @@
         background-color: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius-small;
-        bottom: 3px;
+        bottom: 1px;
         //color: #ffffff;
         font-size: 0.9rem;
         line-height: 1;
@@ -69,6 +71,18 @@
         left: 50%;
         transform: translateX(-50%);
         white-space: nowrap;
+
+        &.left {
+            color: $body-text;
+            font-size: 0.85rem;
+            left: 3px;
+            transform: none;
+        }
+        &.right {
+            left: auto;
+            right: 3px;
+            transform: none;
+        }
     }
     .no-problem {
         > * {
@@ -115,15 +129,26 @@
     class:no-problem={useHighlighting && !gear.highlight}
 >
     {#if gear.equipped !== undefined}
+        {@const item = $itemStore.items[gear.equipped.itemId]}
         <a
             class="quality{gear.equipped.quality}"
-            href={getItemUrl(gear.equipped, character, tierPieces)}>
+            href={getItemUrl(gear.equipped, character, tierPieces)}
+        >
             <WowthingImage
                 name="item/{gear.equipped.itemId}"
                 size={40}
                 border={2}
             />
-            <span class="item-level">{gear.equipped.itemLevel}</span>
+            
+            {#if useItemCount}
+                {#if item?.equippable}
+                    <span class="item-level right">{gear.equipped.itemLevel}</span>
+                {:else if (gear.equipped.count || 0) > 0}
+                    <span class="item-level left">x{gear.equipped.count}</span>
+                {/if}
+            {:else}
+                <span class="item-level">{gear.equipped.itemLevel}</span>
+            {/if}
         </a>
  
         {#if gear.highlight}

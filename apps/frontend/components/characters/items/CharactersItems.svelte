@@ -8,7 +8,10 @@
 </script>
 
 <style lang="scss">
-
+    .collection {
+        display: flex;
+        gap: 1rem;
+    }
 </style>
 
 <div class="collection">
