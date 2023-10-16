@@ -6,6 +6,7 @@ import type { DataItemBonus, DataItemBonusArray } from './item-bonus'
 export interface ItemData {
     appearanceToItems: Record<number, number[]>
     completesQuest: Record<number, number[]>
+    craftingQualities: Record<number, number[]>
     itemBonusToUpgrade: Record<number, [number, number, number]>
     oppositeFactionAppearance: Record<number, number[]>
 

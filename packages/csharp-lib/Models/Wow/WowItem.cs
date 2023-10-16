@@ -28,6 +28,7 @@ public class WowItem
     public short RequiredSkill { get; set; }
     public short RequiredSkillRank { get; set; }
     public short LimitCategory { get; set; }
+    public short CraftingQuality { get; set; }
 
     public WowItem(int id)
     {

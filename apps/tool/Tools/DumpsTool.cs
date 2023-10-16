@@ -784,6 +784,8 @@ public class DumpsTool
             // Class/Subclass might need to be mangled
             dbItem.ClassId = item.ClassID;
             dbItem.SubclassId = item.SubclassID;
+
+            dbItem.CraftingQuality = item.CraftingQualityID;
             dbItem.InventoryType = item.InventoryType;
 
             if (Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))

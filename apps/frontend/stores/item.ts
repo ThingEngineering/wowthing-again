@@ -43,6 +43,13 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItems = null
 
+        for (const [craftingQuality, itemIds] of Object.entries(data.craftingQualities)) {
+            const quality = parseInt(craftingQuality)
+            for (const itemId of itemIds) {
+                data.items[itemId].craftingQuality = quality
+            }
+        }
+
         data.oppositeFactionAppearance = {}
         for (let i = 0; i < data.oppositeFactionIds.length; i += 2) {
             const itemId1 = data.oppositeFactionIds[i]
