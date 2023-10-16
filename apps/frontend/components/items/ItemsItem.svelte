@@ -199,10 +199,10 @@
                     </div>
                 {/if}
             </div>
-        {:else if gear.equipped.craftedQuality > 0 || forceCrafted}
+        {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
             <div class="crafted-quality">
                 <CraftedQualityIcon
-                    quality={Math.max(1, gear.equipped.craftedQuality)}
+                    quality={Math.max(1, gear.equipped.craftedQuality || item?.craftingQuality || 0)}
                 />
             </div>
         {/if}
