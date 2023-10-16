@@ -85,6 +85,8 @@
     .professions {
         align-items: flex-start;
         display: flex;
+        padding-bottom: 1rem;
+        padding-right: 1rem;
     }
     .sidebar-after {
         display: flex;

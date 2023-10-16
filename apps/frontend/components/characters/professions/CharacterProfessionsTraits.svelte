@@ -48,10 +48,11 @@
         gap: 1rem;
     }
     table {
+        border-bottom-width: 0;
         break-inside: avoid;
         margin-bottom: 1rem;
         overflow: hidden; /* Firefox fix */
-        width: 25rem;
+        width: 100%;
     }
 </style>
 
@@ -65,15 +66,15 @@
 
         <div class="tree-wrapper">
             {#each subProfession.traitTrees as traitTree}
-                    <table class="table-striped border">
-                        <tbody>
-                            <Node
-                                indent={0}
-                                node={traitTree.firstNode}
-                                traits={charTraits}
-                            />
-                        </tbody>
-                    </table>
+                <table class="table-striped border">
+                    <tbody>
+                        <Node
+                            indent={0}
+                            node={traitTree.firstNode}
+                            traits={charTraits}
+                        />
+                    </tbody>
+                </table>
             {/each}
         </div>
     </div>
