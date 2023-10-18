@@ -66,17 +66,17 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Dragonflight - Crafting Knowledge
     125001: [
-        2023, // Blacksmithing Knowledge
         2024, // Alchemy Knowledge
-        2025, // Leatherworking Knowledge
-        2026, // Tailoring Knowledge
+        2023, // Blacksmithing Knowledge
+        2030, // Enchanting Knowledge
         2027, // Engineering Knowledge
         2028, // Inscription Knowledge
         2029, // Jewelcrafting Knowledge
-        2030, // Enchanting Knowledge
-        2033, // Skinning Knowledge
+        2025, // Leatherworking Knowledge
+        2026, // Tailoring Knowledge
         2034, // Herbalism Knowledge
         2035, // Mining Knowledge
+        2033, // Skinning Knowledge
     ],
     // Dragonflight - Season 2
     125012: [
