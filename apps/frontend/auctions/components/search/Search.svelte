@@ -8,6 +8,8 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     export let params: MultiSlugParams
+
+    $: searchString = params.slug2
 </script>
 
 <style lang="scss">
@@ -24,7 +26,7 @@
 <div class="wrapper-column">
     <UnderConstruction />
 
-    {#if params.slug2}
+    {#if searchString}
         <div class="header">
             <span>
                 <code>[{Region[$auctionsAppState.region]}]</code>
@@ -35,9 +37,9 @@
         </div>
 
         <Results
-            loadFunc={async () => await searchStore.search($auctionsAppState, params.slug2)}
+            loadFunc={async () => await searchStore.search($auctionsAppState, searchString)}
             selected={params.slug3}
-            url={`#/search/${params.slug1}/${params.slug2}`}
+            url={`#/search/${params.slug1}/${searchString}`}
         />
     {/if}
 </div>
