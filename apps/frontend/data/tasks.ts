@@ -8,7 +8,7 @@ import { staticStore } from '@/shared/stores/static'
 import { Profession } from '@/enums/profession'
 import type { Character } from '@/types'
 import type { Chore, Task } from '@/types/tasks'
-import { dragonflightProfessions, professionSlugToId } from './professions'
+import { dragonflightProfessions, isGatheringProfession, professionSlugToId } from './professions'
 
 
 export const dragonflightProfessionTasks: Chore[] = flatten(
@@ -45,7 +45,8 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskName: `${name}: Gather`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
-                canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
+                canGetFunc: (char) => getLatestSkill(char, lowerName,
+                    isGatheringProfession[profession.id] ? 45 : 25),
             },
         )
 
