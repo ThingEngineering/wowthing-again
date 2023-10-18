@@ -20,7 +20,7 @@
         mapFile = mapInfo?.[3]
     }
 
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '7rem' : '4.4rem'
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem'
 </script>
 
 <style lang="scss">
@@ -31,7 +31,7 @@
         position: relative;
 
         :global(> img) {
-            max-height: calc(100vh - var(--less-height, 8rem));
+            max-height: calc(100vh - var(--less-height, 6.4rem));
             width: auto;
         }
     }
