@@ -50,6 +50,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Season 2',
             slug: 'season-2',
         },
+        {
+            id: 125013,
+            name: 'Season 3',
+            slug: 'season-3',
+        },
     ],
 }
 
@@ -77,6 +82,15 @@ export const currencyExtra: Record<number, number[]> = {
     125012: [
         2245, // Flightstones
         2533, // Renascent Shadowflame
+    ],
+    // Dragonflight - Season 3
+    125013: [
+        2796, // Renascent Dream
+        2797, // Trophy of Strife
+        2706, // Whelpling's Dreaming Crests
+        2707, // Drake's Dreaming Crests
+        2708, // Wyrm's Dreaming Crests
+        2709, // Aspect's Dreaming Crests
     ],
 }
 
@@ -171,6 +185,9 @@ export const currencyItems: Record<number, number[]> = {
         204682, // Enchanted Wyrm's Shadowflame Crest
         204697, // Enchanted Aspect's Shadowflame Crest
     ],
+    125013: [
+        208821, // Aspects' Token of Merit
+    ],
 
     // Player vs Player
     2: [
@@ -202,6 +219,12 @@ export const currencyItemCurrencies: Record<number, number> = {
 }
 
 const skipCurrencies: number[] = [
+    // Dragonflight
+    2706, // Whelpling's Dreaming Crests
+    2707, // Drake's Dreaming Crests
+    2708, // Wyrm's Dreaming Crests
+    2709, // Aspect's Dreaming Crests
+
     // Warlords of Draenor
     897, // UNUSED
 
