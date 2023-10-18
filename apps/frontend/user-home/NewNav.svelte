@@ -15,14 +15,16 @@
         --image-margin-top: -0.2rem;
 
         align-items: center;
+        background: transparent;
         border-width: 0;
         //display: flex;
         flex-wrap: wrap;
         //font-size: 1.1rem;
-        margin: 1rem 1rem 0 1rem;
+        margin: -1px 0 0 0;
+        padding: 0 1rem;
         position: sticky;
         top: 0;
-        width: calc(100% - 2rem);
+        width: 100%;
         z-index: 100;
     }
     .subnav-big {

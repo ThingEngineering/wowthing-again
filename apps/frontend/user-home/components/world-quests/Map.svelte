@@ -20,7 +20,7 @@
         mapFile = mapInfo?.[3]
     }
 
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '8rem' : '4.4rem'
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '7rem' : '4.4rem'
 </script>
 
 <style lang="scss">
