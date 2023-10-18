@@ -11,6 +11,6 @@ public class DumpJournalTierXInstance
     public int JournalTierID { get; set; }
     public int OrderIndex { get; set; }
 
-    [Name("Field_10_1_0_49092_003")]
+    [Name("AvailabilityCondition")]
     public int MaybePlayerConditionID { get; set; }
 }
