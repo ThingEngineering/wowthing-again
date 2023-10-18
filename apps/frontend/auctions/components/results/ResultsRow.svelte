@@ -2,6 +2,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { itemModifierMap } from '@/data/item-modifier'
+    import { itemStore } from '@/stores/item'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import type { AuctionEntry } from '@/auctions/types/auction-entry'
@@ -28,45 +29,49 @@
         return gold ? `${gold.toLocaleString()}g ${silver}s` : `${silver}s`
     }
 
-    function getIconFromGroupKey(groupKey: string): string {
-        if (groupKey.startsWith('item:')) {
-            return `item/${groupKey.split(':')[1]}`
-        }
-        else if (groupKey.startsWith('pet:')) {
-            const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])]
-            return `npc/${pet.creatureId}`
-        }
-        else if (groupKey.startsWith('source:')) {
-            const source = groupKey.split(':')[1].replace('_0', '')
-            return `item/${source}`
-        }
-        else {
-            return 'unknown'
-        }
+    class AuctionInfo {
+        public icon: string
+        public itemLevel: number
+        public name: string
     }
-
-    function getNameFromGroupKey(groupKey: string): string {
+    function getInfoFromGroupKey(groupKey: string): AuctionInfo {
+        const ret = new AuctionInfo()
+        
         if (groupKey.startsWith('item:')) {
-            return `{${groupKey}}`
+            const itemId = parseInt(groupKey.split(':')[1])
+            const item = $itemStore.items[itemId]
+
+            ret.icon = `item/${itemId}`
+            ret.itemLevel = item?.itemLevel || 1
+            ret.name = `{${groupKey}}`
         }
         else if (groupKey.startsWith('pet:')) {
             const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])]
-            return pet.name
+            ret.icon = `npc/${pet.creatureId}`
+            ret.itemLevel = 1
+            ret.name = pet.name
         }
         else if (groupKey.startsWith('source:')) {
             const sourceParts = groupKey.split(':')[1].split('_')
-            let text = `{item:${sourceParts[0]}}`
+            const itemId = parseInt(sourceParts[0])
+            const item = $itemStore.items[itemId]
+
+            ret.icon = `item/${itemId}${sourceParts[1] === '0' ? '' : sourceParts[1]}`
+            ret.itemLevel = item?.itemLevel || 1
+            ret.name = `{item:${itemId}}`
             if (sourceParts[1] !== '0') {
                 const modifier = itemModifierMap[parseInt(sourceParts[1])]
                 if (modifier) {
-                    text = `[${modifier[1]}] ${text}`
+                    ret.name = `[${modifier[1]}] ${ret.name}`
                 }
             }
-            return text
         }
         else {
-            return groupKey
+            ret.icon = 'unknown'
+            ret.name = groupKey
         }
+
+        return ret
     }
 </script>
 
@@ -82,10 +87,11 @@
             bind:this={element}
         >
             {#if intersected}
+                {@const { icon, itemLevel, name } = getInfoFromGroupKey(auction.groupKey)}
                 <td class="icon">
                     <a href="{auctionUrl}">
                         <WowthingImage
-                            name={getIconFromGroupKey(auction.groupKey)}
+                            name={icon}
                             size={20}
                             border={1}
                         />
@@ -93,8 +99,11 @@
                 </td>
                 <td class="name text-overflow">
                     <a href="{auctionUrl}">
-                        <ParsedText text={getNameFromGroupKey(auction.groupKey)} />
+                        <ParsedText text={name} />
                     </a>
+                </td>
+                <td class="item-level">
+                    {itemLevel}
                 </td>
                 <td class="quantity">
                     {auction.totalQuantity.toLocaleString()}
@@ -103,7 +112,7 @@
                     <code>{@html formatPrice(auction.lowestBuyoutPrice)}</code>
                 </td>
             {:else}
-                <td colspan="4" class="name">
+                <td colspan="5" class="name">
                     <code></code>
                 </td>
             {/if}
@@ -125,6 +134,7 @@
                 No results!
             {/if}
         </td>
+        <td class="item-level"></td>
         <td class="quantity"></td>
         <td class="price">
             <code></code>
