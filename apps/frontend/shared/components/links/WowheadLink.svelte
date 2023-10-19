@@ -6,10 +6,12 @@
     export let extraParams: Record<string, string> = {}
     export let id: number
     export let noTooltip = false
-    export let toComments = false
     export let rename = false
+    export let toComments = false
     export let tooltip: string = undefined
     export let type: string
+
+    // TODO: hook up a setting to control links in new tabs
 
     let url = ''
     $: {
@@ -41,10 +43,12 @@
 
 {#if id > 0}
     <a
-        on:click
         href="{url}"
+        rel="noopener"
+        target="_blank"
         data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}"
         data-wh-rename-link="{rename ? 'true' : undefined}"
+        on:click
         use:basicTooltip={tooltip}
    >
         <slot />
