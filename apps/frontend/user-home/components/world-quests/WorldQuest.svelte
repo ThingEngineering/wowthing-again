@@ -40,6 +40,8 @@
 
 <style lang="scss">
     .world-quest {
+        --link-color: #{$body-text};
+
         display: flex;
         flex-direction: column;
         gap: 0;
