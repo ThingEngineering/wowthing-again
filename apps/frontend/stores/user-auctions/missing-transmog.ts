@@ -151,11 +151,13 @@ export class UserAuctionMissingTransmogDataStore {
                 if (item.classId !== ItemClass.Armor) {
                     matchesArmor = false
                 }
-                if (
-                    auctionState.missingTransmogItemSubclassArmor >= 0 &&
-                    item.subclassId !== auctionState.missingTransmogItemSubclassArmor
-                ) {
-                    matchesArmor = false
+                if (auctionState.missingTransmogItemSubclassArmor >= 0) {
+                    if (auctionState.missingTransmogItemSubclassArmor === 100) {
+                        matchesArmor = item.subclassId === 0 && item.inventoryType == InventoryType.Shirt
+                    }
+                    else {
+                        matchesArmor = item.subclassId === auctionState.missingTransmogItemSubclassArmor
+                    }
                 }
             }
 

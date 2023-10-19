@@ -266,6 +266,7 @@
                             [4, 'Plate'],
                             [5, 'Cosmetic'],
                             [20, 'Cloak'],
+                            [100, 'Shirt'],
                             [21, 'Tabard'],
                         ]}
                     />
