@@ -1,15 +1,16 @@
 <script lang="ts">
+    import { afterUpdate } from 'svelte'
+
+    import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types/params'
 
     import Map from './Map.svelte'
     import Sidebar from './Sidebar.svelte'
 
     export let params: MultiSlugParams
+
+    afterUpdate(() => getSavedRoute('world-quests', params.slug1))
 </script>
-
-<style lang="scss">
-
-</style>
 
 <div class="view">
     <Sidebar />
