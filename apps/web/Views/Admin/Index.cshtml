@@ -1,0 +1,41 @@
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+@inject UriService UriService
+
+@functions {
+    private string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+@{
+    ViewData["Title"] = "Auctions";
+}
+
+@if (HostEnv.EnvironmentName != "Development")
+{
+@section css
+{
+    <partial name="_ManifestCss.cshtml" model='"admin/entrypoint.ts"' />
+}
+}
+
+@section js
+{
+    @if (HostEnv.EnvironmentName == "Development")
+    {
+        <script type="module" src="http://localhost:55505/admin/entrypoint.ts"></script>
+    }
+    else
+    {
+        <partial name="_ManifestJs.cshtml" model='"admin/entrypoint.ts"'/>
+    }
+}
+
+<div
+    id="app"
+    data-base-uri="@UriService.BaseUri"
+    data-xsrf="@GetAntiXsrfRequestToken()"
+>
+</div>

@@ -90,6 +90,14 @@ public class ItemsTool
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
+        var idsByCraftingQuality = items
+            .Where(item => item.CraftingQuality > 0)
+            .GroupBy(item => item.CraftingQuality)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(item => item.Id).Order().ToArray()
+            );
+
         _timer.AddPoint("Preprocess");
 
         var db = ToolContext.Redis.GetDatabase();
@@ -97,6 +105,7 @@ public class ItemsTool
         var cacheData = new RedisItems
         {
             CompletesQuest = completesQuestMap,
+            CraftingQualities = idsByCraftingQuality,
             ItemBonusListGroups = listGroups,
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)

@@ -59,7 +59,7 @@
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
         '/vendors/:slug1?/:slug2?': Vendors,
-        '/world-quests/:slug1?': WorldQuests,
+        '/world-quests/:slug1?/:slug2?': WorldQuests,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
         '/mounts/:slug1?/:slug2?': Mounts,

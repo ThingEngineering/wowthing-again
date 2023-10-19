@@ -10,6 +10,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { PlayableClass } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
+    import { settingsStore } from '@/stores'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -119,6 +120,8 @@
         [width, height] = $zoneMapMedia
     }
 
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem'
+
     const getGroupWidth = function(len: number): string {
         if (len < 3) {
             return null
@@ -186,6 +189,11 @@
         --image-border-width: 2px;
 
         position: relative;
+
+        :global(> img) {
+            max-height: calc(100vh - var(--less-height, 6.4rem));
+            width: auto;
+        }
     }
     .toggles {
         display: flex;
@@ -289,7 +297,10 @@
 </style>
 
 {#if categories?.length > 0}
-    <div class="zone-map">
+    <div
+        class="zone-map"
+        style:--less-height={lessHeight}
+    >
         <div class="toggles setting-toggles overlay-box">
             <div class="toggle-group">
                 <Checkbox

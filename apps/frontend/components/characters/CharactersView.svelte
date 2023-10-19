@@ -77,7 +77,8 @@
     }
     nav {
         background: $highlight-background;
-        border-right-width: 0;
+        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
         display: flex;
         padding: 0;
 
@@ -124,7 +125,7 @@
         </div>
 
         {#key `${params.slug1}--${params.slug2}`}
-            <nav class="border">
+            <nav>
                 <a
                     href="#{baseUrl}/paperdoll"
                     use:active

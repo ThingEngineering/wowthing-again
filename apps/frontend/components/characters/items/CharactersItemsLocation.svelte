@@ -7,11 +7,15 @@
 
     import Empty from '@/components/items/ItemsEmpty.svelte'
     import Item from '@/components/items/ItemsItem.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let character: Character
     export let location: ItemLocation
 
     let containers: {
+        bagId: number,
         id: number,
         name: string,
         slots: number,
@@ -39,35 +43,73 @@
             containers.push({
                 id: containerId,
                 name: containerName,
+                bagId: character.bags[containerId] || 0,
                 slots: actualSlots,
                 items: newItems,
             })
         }
+        console.log(containers)
     }
 </script>
 
 <style lang="scss">
     .collection-objects {
-        gap: 0.1rem;
+        --item-empty-border: #{$border-color};
+
+        gap: 0.04rem;
+    }
+    .slot-count {
+        color: darken($body-text, 15%);
+        font-size: 90%;
+        margin-left: 0.2rem;
+        word-spacing: -0.2ch;
+    }
+    .bag-name {
+        --image-border-color: #{$border-color};
+        --image-margin-top: -4px;
+
+        font-size: 90%;
+        margin-left: 0.2rem;
     }
     h4 {
-        margin-top: 0.5rem;
+        &:not(:first-child) {
+            margin-top: 1rem;
+        }
     }
 </style>
 
 <div class="collection-v2-section">
-    <div>
-        <h4>{ItemLocation[location]}</h4>
-    </div>
-    
     <div class="collection-v2-group">
         {#each containers as container}
-            <h4>{container.name}</h4>
+            <h4>
+                {container.name}
+                <span class="slot-count">
+                    ( {container.items.filter((i) => !!i).length} / {container.slots} )
+                </span>
+                {#if container.bagId}
+                    <span class="bag-name">
+                        <WowheadLink
+                            id={container.bagId}
+                            type="item"
+                        >
+                            <WowthingImage
+                                name={`item/${container.bagId}`}
+                                size={16}
+                                border={1}
+                            />
+                            <ParsedText text={`{item:${container.bagId}}`} />
+                        </WowheadLink>
+                    </span>
+                {/if}
+            </h4>
             <div class="collection-objects">
                 {#if container.slots > 0}
                     {#each container.items as item}
                         {#if item}
-                            <Item gear={{equipped: item}} />
+                            <Item
+                                gear={{equipped: item}}
+                                useItemCount={true}
+                            />
                         {:else}
                             <Empty />
                         {/if}

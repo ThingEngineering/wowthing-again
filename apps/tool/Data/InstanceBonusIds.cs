@@ -208,5 +208,6 @@ public static partial class Hardcoded
         // Dragonflight
         { 1200, DfRaid }, // Vault of the Incarnates
         { 1208, DfRaid }, // Aberrus, the Shadow Crucible
+        { 1207, DfRaid }, // Amirdrassil, the Dream's Hope
     };
 }

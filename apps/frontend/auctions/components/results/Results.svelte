@@ -44,6 +44,7 @@
                 >
                     <th class="icon"></th>
                     <th class="name">Thing</th>
+                    <th class="item-level">ILvl</th>
                     <th class="quantity">Listed</th>
                     <th class="price">Cheapest</th>
                 </tr>

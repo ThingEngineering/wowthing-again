@@ -37,12 +37,11 @@
 
         currencies = sortBy(
             Object.values($staticStore.currencies)
-                .filter((c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id)
-                .concat(
-                    (currencyExtra[category.id] || [])
-                        .map((id) => $staticStore.currencies[id])
-                ),
+                .filter((c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id),
             (c) => c.name
+        ).concat(
+            (currencyExtra[category.id] || [])
+                .map((id) => $staticStore.currencies[id])
         )
 
         const order = $currencyState.sortOrder[slugKey]

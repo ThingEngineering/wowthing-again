@@ -784,6 +784,8 @@ public class DumpsTool
             // Class/Subclass might need to be mangled
             dbItem.ClassId = item.ClassID;
             dbItem.SubclassId = item.SubclassID;
+
+            dbItem.CraftingQuality = item.CraftingQualityID;
             dbItem.InventoryType = item.InventoryType;
 
             if (Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
@@ -1440,7 +1442,8 @@ public class DumpsTool
         var playerConditionMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpPlayerCondition>(
             "playercondition", pc => pc.ID);
         var questInfoMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpQuestInfo>(
-            "questinfo", qi => qi.ID, validFunc: (qi) => qi.Name.Contains("World Quest"));
+            "questinfo", qi => qi.ID,
+            validFunc: qi => qi.Name.Contains("World Quest") || qi.ID == 281);
 
         var modifierTreeByParent = modifierTreeMap.Values
             .Where(mt => mt.Parent > 0)

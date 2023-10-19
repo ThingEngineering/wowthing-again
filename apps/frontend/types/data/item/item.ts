@@ -5,6 +5,7 @@ import type { ItemQuality } from '@/enums/item-quality'
 
 
 export class ItemDataItem {
+    public craftingQuality?: number
     public oppositeFactionId?: number
 
     private appearanceArrays?: ItemDataItemAppearanceArray[]
@@ -54,6 +55,9 @@ export class ItemDataItem {
     }
     get hordeOnly(): boolean {
         return (this.flags & ItemFlags.HordeOnly) > 0
+    }
+    get equippable(): boolean {
+        return this.classId === 2 || this.classId === 4
     }
 }
 // Can't use the auto type as we use array indexes for name/classMask/raceMask

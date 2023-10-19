@@ -114,7 +114,17 @@
             /\{item:(\d+)\}/g,
             (_, itemId) => {
                 const item = $itemStore.items[parseInt(itemId)]
-                return `<span class="quality${item?.quality || 0}">${item?.name || `Item #${itemId}`}</span>`
+                if (item) {
+                    if (item.craftingQuality) {
+                        return `<span class="quality${item.quality}">${item.name} <span data-crafted-quality="${item.craftingQuality}"></span></span>`
+                    }
+                    else {
+                        return `<span class="quality${item.quality}">${item.name}</span>`
+                    }
+                }
+                else {
+                    return `<span class="quality1">Item #${itemId}`
+                }
             }
         )
 

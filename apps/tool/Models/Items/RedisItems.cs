@@ -11,6 +11,7 @@ public class RedisItems
     public List<int> OppositeFactionIds { get; set; }
 
     public Dictionary<int, List<int>> CompletesQuest { get; set; }
+    public Dictionary<short, int[]> CraftingQualities { get; set; }
     public WowItemBonus[] RawItemBonuses { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }
     public RedisItemData[]? RawItems { get; set; }
