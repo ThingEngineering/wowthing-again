@@ -2,6 +2,7 @@
     import find from 'lodash/find'
 
     import { zoneData } from './data'
+    import { worldQuestState } from './state'
     import { worldQuestStore } from './store'
     import { settingsStore } from '@/stores/settings'
 
@@ -64,7 +65,7 @@
             Active World Quests
         </div>
 
-        {#await worldQuestStore.fetch(mapId)}
+        {#await worldQuestStore.fetch($worldQuestState.region, mapId)}
             L O A D I N G . . .
         {:then worldQuests}
             {#each worldQuests as worldQuest}
