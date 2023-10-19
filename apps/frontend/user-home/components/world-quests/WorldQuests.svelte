@@ -16,6 +16,6 @@
     <Sidebar />
 
     {#if params.slug1}
-        <Map slug={params.slug1} />
+        <Map expansionSlug={params.slug1} mapSlug={params.slug2} />
     {/if}
 </div>

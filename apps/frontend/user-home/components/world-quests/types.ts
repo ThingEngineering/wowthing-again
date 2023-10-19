@@ -29,3 +29,11 @@ export interface ApiWorldQuestReward {
     id: number
     type: RewardType
 }
+
+export type WorldQuestZone = {
+    id: number
+    mapName: string
+    name: string
+    slug: string
+    children?: WorldQuestZone[]
+}

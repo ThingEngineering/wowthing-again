@@ -6,14 +6,6 @@
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
-    const categories: SidebarItem[] = zoneData.map((key) => {
-        return key === null ? null : {
-            id: key[0],
-            name: key[1],
-            slug: key[2],
-        }
-    })
-
     const setRegion = function(region: string) {
         $worldQuestState.region = Region[region.toUpperCase() as keyof typeof Region]
     }
@@ -45,7 +37,7 @@
 <Sidebar
     alwaysExpand={true}
     baseUrl="/world-quests"
-    items={categories}
+    items={zoneData}
     width="12rem"
 >
     <div slot="before" class="before">

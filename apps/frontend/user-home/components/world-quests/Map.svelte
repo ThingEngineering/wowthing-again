@@ -5,20 +5,18 @@
     import { worldQuestState } from './state'
     import { worldQuestStore } from './store'
     import { settingsStore } from '@/stores/settings'
+    import type { WorldQuestExpansion, WorldQuestZone } from './types'
 
     import Image from '@/shared/components/images/Image.svelte'
     import WorldQuest from './WorldQuest.svelte'
 
-    export let slug: string
+    export let expansionSlug: string
+    export let mapSlug: string
 
-    let mapFile: string
-    let mapId: number
-    let mapName: string
+    let zone: WorldQuestZone
     $: {
-        const mapInfo = find(zoneData, (zd) => zd !== null && zd[2] === slug)
-        mapId = mapInfo?.[0]
-        mapName = mapInfo?.[1]
-        mapFile = mapInfo?.[3]
+        const expansion = find(zoneData, (zone) => zone?.slug === expansionSlug)
+        zone = mapSlug ? find(expansion.children, (zone) => zone?.slug === mapSlug) : expansion
     }
 
     $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem'
@@ -48,24 +46,20 @@
     }
 </style>
 
-{#if mapFile}
+{#if zone}
     <div
         class="zone-map"
         style:--less-height={lessHeight}
     >
         <Image
-            src="https://img.wowthing.org/maps/{mapFile}_1500_1000.webp"
-            alt="Map of {mapName}"
+            src="https://img.wowthing.org/maps/{zone.mapName}_1500_1000.webp"
+            alt="Map of {zone.name}"
             border={2}
             width={1500}
             height={1000}
         />
 
-        <div class="active-text abs-center border">
-            Active World Quests
-        </div>
-
-        {#await worldQuestStore.fetch($worldQuestState.region, mapId)}
+        {#await worldQuestStore.fetch($worldQuestState.region, zone.id)}
             L O A D I N G . . .
         {:then worldQuests}
             {#each worldQuests as worldQuest}
