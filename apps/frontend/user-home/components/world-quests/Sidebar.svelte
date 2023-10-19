@@ -2,7 +2,6 @@
     import { zoneData } from './data'
     import { worldQuestState } from './state'
     import { Region } from '@/enums/region'
-    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
