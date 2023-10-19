@@ -6,6 +6,7 @@
     import type { ApiWorldQuest } from './types'
 
     import Tooltip from './Tooltip.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let worldQuest: ApiWorldQuest
@@ -86,29 +87,37 @@
             component: Tooltip,
             props: {
                 worldQuest,
-            }
+            },
+            tippyProps: {
+                allowHTML: true,
+                placement: 'left',
+            },
         }}
     >
-        <div
-            class="world-quest-icon"
+        <WowheadLink
+            id={worldQuest.questId}
+            type="quest"
+            toComments={true}
         >
-            {#if iconName}
-                <WowthingImage
-                    name={iconName}
-                    size={32}
-                    border={0}
-                />
-            {:else}
-                WQ
-            {/if}
-        </div>
-
-        {#if rewardString}
-            <div
-                class="world-quest-amount"
-            >
-                {rewardString}
+            <div class="world-quest-icon">
+                {#if iconName}
+                    <WowthingImage
+                        name={iconName}
+                        size={32}
+                        border={0}
+                    />
+                {:else}
+                    WQ
+                {/if}
             </div>
-        {/if}
+
+            {#if rewardString}
+                <div
+                    class="world-quest-amount"
+                >
+                    {rewardString}
+                </div>
+            {/if}
+        </WowheadLink>
     </div>
 {/if}
