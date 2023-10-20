@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
-    import { manualStore, lazyStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, settingsStore, userTransmogStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { illusionState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
@@ -21,8 +21,14 @@
     $: {
         sections = [
             ['Available', $manualStore.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
-            ['Unavailable', $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))],
         ]
+
+        if (!$settingsStore.collections.hideUnavailable || $lazyStore.illusions['UNAVAILABLE'].have > 0) {
+            sections.push([
+                'Unavailable',
+                $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))
+            ])
+        }
     }
 
     let containerElement: HTMLElement
@@ -105,10 +111,10 @@
     </div>
 
     <div class="collection thing-container" bind:this={resizeableElement}>
-        {#each sections as [name, groups]}
+        {#each sections as [sectionName, groups]}
             <SectionTitle
-                count={$lazyStore.illusions[name.toUpperCase()]}
-                title={name}
+                count={$lazyStore.illusions[sectionName.toUpperCase()]}
+                title={sectionName}
             />
             <div class="collection-v2-section">
                 {#each groups as group}

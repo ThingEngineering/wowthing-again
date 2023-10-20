@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
+    import { lazyStore, settingsStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -9,6 +9,8 @@
     export let group: ManualDataHeirloomGroup
 
     $: groupCount = $lazyStore.heirlooms[group.name]
+    $: isUnavailable = group.name.startsWith('Unavailable - ')
+    $: show = !($settingsStore.collections.hideUnavailable && isUnavailable && groupCount.have === 0)
 </script>
 
 <style lang="scss">
@@ -17,15 +19,17 @@
     }
 </style>
 
-<div class="collection-v2-group">
-    <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
-        {group.name.replace('Unavailable - ', '')}
-        <Count counts={groupCount} />
-    </h4>
+{#if show}
+    <div class="collection-v2-group">
+        <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
+            {group.name.replace('Unavailable - ', '')}
+            <Count counts={groupCount} />
+        </h4>
 
-    <div class="collection-objects">
-        {#each group.items as item}
-            <Item {item} />
-        {/each}
+        <div class="collection-objects">
+            {#each group.items as item}
+                <Item {isUnavailable} {item} />
+            {/each}
+        </div>
     </div>
-</div>
+{/if}
