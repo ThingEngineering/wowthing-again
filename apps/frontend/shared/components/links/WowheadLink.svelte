@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
-    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
     import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let extraParams: Record<string, string> = {}
@@ -15,7 +14,7 @@
 
     let url = ''
     $: {
-        url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/${type}=${id}`
+        url = `https://${settingsStore.wowheadBaseUrl}/${type}=${id}`
 
         if (Object.keys(extraParams).length > 0) {
             url += '?'

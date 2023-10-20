@@ -32,6 +32,7 @@ export interface ManualData {
     rawTags: [number, string][]
 
     // Computed data
+    dragonridingItemToQuest: Record<number, number>
     heirlooms: ManualDataHeirloomGroup[]
     illusions: ManualDataIllusionGroup[]
     shared: ManualDataShared

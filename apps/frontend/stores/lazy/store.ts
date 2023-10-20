@@ -69,6 +69,14 @@ type GenericCategory<T> = {
     items: T[]
 }
 
+type DoGenericParameters<T, U> = {
+    categories: T[]
+    haveFunc: (item: U) => boolean
+    includeUnavailable: boolean
+    haveCountFunc?: (item: U) => number
+    totalCountFunc?: (item: U) => number
+}
+
 type UserCounts = Record<string, UserCount>
 
 export const lazyStore = derived(
@@ -194,6 +202,7 @@ export class LazyStore implements LazyUgh {
             
             hideUnavailable: `${settings.collections.hideUnavailable}`,
             settingsCharacterFlags: hashObject(settings.characters.flags),
+            settingsCollections: hashObject(settings.collections),
             settingsTasks: hashObject(settings.tasks),
             settingsTransmog: hashObject(settings.transmog),
         }
@@ -294,11 +303,13 @@ export class LazyStore implements LazyUgh {
             this.dragonridingFunc = once(() => this.doDragonriding())
         }
 
-        if (changedData.userData) {
+        if (changedData.userData ||
+            changedHashes.settingsCollections) {
             this.heirloomsFunc = once(() => this.doHeirlooms())
         }
 
-        if (changedData.userTransmogData) {
+        if (changedData.userTransmogData ||
+            changedHashes.settingsCollections) {
             this.illusionsFunc = once(() => this.doIllusions())
         }
 
@@ -385,28 +396,29 @@ export class LazyStore implements LazyUgh {
     get vendors(): LazyVendors { return this.vendorsFunc() }
     get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
 
-    private doGeneric<T extends GenericCategory<U>, U>(
-        categories: T[],
-        haveFunc: (item: U) => boolean,
-        totalCountFunc?: (item: U) => number,
-        haveCountFunc?: (item: U) => number
-    ): UserCounts {
+    private doGeneric<T extends GenericCategory<U>, U>(params: DoGenericParameters<T, U>): UserCounts {
         const counts: UserCounts = {}
         const overallData = counts['OVERALL'] = new UserCount()
 
-        for (const category of categories) {
+        for (const category of params.categories) {
             const categoryUnavailable = category.name.startsWith('Unavailable')
             const availabilityData = counts[categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'] ||= new UserCount()
             const categoryData = counts[category.name] = new UserCount()
 
             for (const item of category.items) {
-                const totalCount = totalCountFunc?.(item) || 1
+                const userHas = params.haveFunc(item)
+
+                if (categoryUnavailable && params.includeUnavailable !== true && !userHas) {
+                    continue
+                }
+                
+                const totalCount = params.totalCountFunc?.(item) || 1
                 overallData.total += totalCount
                 availabilityData.total += totalCount
                 categoryData.total += totalCount
 
-                if (haveFunc(item)) {
-                    const haveCount = haveCountFunc?.(item) || 1
+                if (userHas) {
+                    const haveCount = params.haveCountFunc?.(item) || 1
                     overallData.have += haveCount
                     availabilityData.have += haveCount
                     categoryData.have += haveCount
@@ -489,26 +501,32 @@ export class LazyStore implements LazyUgh {
     }
 
     private doHeirlooms(): UserCounts {
-        return this.doGeneric(
-            this.manualData.heirlooms,
-            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
-                this.staticData.heirloomsByItemId[heirloom.itemId].id] > 0,
-            (heirloom: ManualDataHeirloomItem) => this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length,
-            (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
-                this.staticData.heirloomsByItemId[heirloom.itemId].id] || 0,
-        )
+        return this.doGeneric({
+            categories: this.manualData.heirlooms,
+            includeUnavailable: !this.settings.collections.hideUnavailable,
+            haveFunc: (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
+                this.staticData.heirloomsByItemId[heirloom.itemId].id] !== undefined,
+            totalCountFunc: (heirloom: ManualDataHeirloomItem) => this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length + 1,
+            haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
+                const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId]
+                const userCount = this.userData.heirlooms?.[staticHeirloom.id]
+                console.log(staticHeirloom, userCount)
+                return userCount !== undefined ? userCount + 1 : 0
+            },
+        })
     }
 
     private doIllusions(): UserCounts {
-        return this.doGeneric(
-            this.manualData.illusions,
-            (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion.has(
+        return this.doGeneric({
+            categories: this.manualData.illusions,
+            includeUnavailable: !this.settings.collections.hideUnavailable,
+            haveFunc: (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion.has(
                 find(
                     this.staticData.illusions,
                     (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId
                 )?.enchantmentId
-            )
-        )
+            ),
+        })
     }
 }
 

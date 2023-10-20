@@ -116,6 +116,16 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawPetSets = null
         data.rawToySets = null
         
+        data.dragonridingItemToQuest = {}
+        for (const dragonCategory of data.dragonriding) {
+            for (const dragonGroup of dragonCategory.groups) {
+                for (const dragonItem of dragonGroup.things) {
+                    data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
+                }
+            }
+        }
+        console.log(data.dragonridingItemToQuest)
+
         console.timeEnd('ManualDataStore.initialize')
     }
     

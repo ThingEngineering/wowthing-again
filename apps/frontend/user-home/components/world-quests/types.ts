@@ -36,4 +36,6 @@ export type WorldQuestZone = {
     name: string
     slug: string
     children?: WorldQuestZone[]
+    continentPoint?: [number, number]
+    anchor?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 }

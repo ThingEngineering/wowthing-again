@@ -1,5 +1,6 @@
 <script lang="ts">
     import { lazyStore, manualStore } from '@/stores'
+    import { settingsStore } from '@/stores/settings'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -11,8 +12,14 @@
     $: {
         sections = [
             ['Available', $manualStore.heirlooms.filter((group) => !group.name.startsWith('Unavailable'))],
-            ['Unavailable', $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable'))],
         ]
+
+        if (!$settingsStore.collections.hideUnavailable || $lazyStore.heirlooms['UNAVAILABLE'].have > 0) {
+            sections.push([
+                'Unavailable',
+                $manualStore.heirlooms.filter((group) => group.name.startsWith('Unavailable'))
+            ])
+        }
     }
 
     let containerElement: HTMLElement
@@ -44,10 +51,10 @@
     <Options />
 
     <div class="collection thing-container" bind:this={resizeableElement}>
-        {#each sections as [name, groups]}
+        {#each sections as [sectionName, groups]}
             <SectionTitle
-                count={$lazyStore.heirlooms[name.toUpperCase()]}
-                title={name}
+                count={$lazyStore.heirlooms[sectionName.toUpperCase()]}
+                title={sectionName}
             />
             <div class="collection-v2-section">
                 {#each groups as group}

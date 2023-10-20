@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
-    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
     export let noTooltip = false
@@ -12,7 +11,7 @@
             url = `https://www.wowdb.com/npcs/${id}`
         }
         else {
-            url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/npc=${id}`
+            url = `https://${settingsStore.wowheadBaseUrl}/npc=${id}`
             if (toComments) {
                 url += '#comments'
             }

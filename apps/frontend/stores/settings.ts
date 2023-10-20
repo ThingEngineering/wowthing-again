@@ -1,6 +1,7 @@
 import { get, writable } from 'svelte/store'
 
 import { professionCooldowns } from '@/data/professions/cooldowns'
+import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 import { hashObject } from '@/utils/hash-object'
 import type { Account } from '@/types/account'
 import type { FancyStoreFetchOptions } from '@/types/fancy-store'
@@ -24,9 +25,13 @@ function createSettingsStore() {
     let hashTimer: NodeJS.Timer | null = null
     let refreshTimer: NodeJS.Timer | null = null
 
-    const { set, subscribe, update } = writable<Settings>()
+    const store = writable<Settings>()
 
     return {
+        get wowheadBaseUrl(): string {
+            const subDomain = getWowheadDomain(get(store).general.language)
+            return `${subDomain}.wowhead.com/ptr-2`
+        },
         set: (settings: Settings): void => {
             if (!settings) {
                 console.warn('settings data is invalid!')
@@ -136,10 +141,10 @@ function createSettingsStore() {
                 }
             }
 
-            set(settings)
+            store.set(settings)
         },
-        subscribe,
-        update,
+        subscribe: store.subscribe,
+        update: store.update,
     }
 }
 

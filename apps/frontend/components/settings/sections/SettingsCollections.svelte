@@ -17,6 +17,8 @@
                 Hide unavailable collectibles that you have not already collected. Work in progress, only works in:
             </p>
             <ul>
+                <li>Heirlooms</li>
+                <li>Illusions</li>
                 <li>Mounts</li>
                 <li>Pets</li>
                 <li>Toys</li>

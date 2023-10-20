@@ -7,6 +7,7 @@
     import { settingsStore } from '@/stores/settings'
     import type { WorldQuestZone } from './types'
 
+    import ContinentBox from './ContinentBox.svelte'
     import Image from '@/shared/components/images/Image.svelte'
     import WorldQuest from './WorldQuest.svelte'
 
@@ -49,11 +50,15 @@
             height={1000}
         />
 
-        {#await worldQuestStore.fetch($worldQuestState.region, zone.id)}
+        {#await worldQuestStore.fetch($worldQuestState.region)}
             L O A D I N G . . .
         {:then worldQuests}
-            {#each worldQuests as worldQuest}
-                <WorldQuest {worldQuest} />
+            {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone}
+                <ContinentBox zone={childZone} worldQuests={worldQuests[childZone.id]} />
+            {:else}
+                {#each worldQuests[zone.id] as worldQuest}
+                    <WorldQuest {worldQuest} />
+                {/each}
             {/each}
         {/await}
     </div>

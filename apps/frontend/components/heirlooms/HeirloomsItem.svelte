@@ -1,7 +1,7 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
-    import { userStore } from '@/stores'
+    import { settingsStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { heirloomState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
@@ -11,12 +11,16 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
+    export let isUnavailable: boolean
     export let item: ManualDataHeirloomItem
 
     $: heirloom = $staticStore.heirloomsByItemId[item.itemId]
     $: level = $userStore.heirlooms?.[heirloom.id]
     $: userHas = level !== undefined
-    $: show = (userHas && $heirloomState.showCollected) || (!userHas && $heirloomState.showUncollected)
+    $: show = (
+        ((userHas && $heirloomState.showCollected) || (!userHas && $heirloomState.showUncollected)) &&
+        !($settingsStore.collections.hideUnavailable && isUnavailable && !userHas)
+    )
 </script>
 
 <style lang="scss">
