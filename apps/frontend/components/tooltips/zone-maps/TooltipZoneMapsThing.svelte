@@ -9,7 +9,7 @@
     import { FarmResetType } from '@/enums/farm-reset-type'
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
-    import { achievementStore, itemStore, lazyStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
@@ -206,7 +206,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={getDropIcon(drop, isCriteria)} />
+                        <IconifyIcon icon={getDropIcon($manualStore, drop, isCriteria)} />
                     </td>
                     <td
                         class="name"

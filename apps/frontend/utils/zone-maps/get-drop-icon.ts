@@ -7,10 +7,11 @@ import { RewardType } from '@/enums/reward-type'
 import { WeaponSubclass } from '@/enums/weapon-subclass'
 import { armorTypeIcons, iconLibrary, inventoryTypeIcons, weaponIcons } from '@/icons'
 import { itemStore } from '@/stores'
-import type { ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
 export function getDropIcon(
+    manualData: ManualData,
     drop: ManualDataZoneMapDrop,
     isCriteria: boolean
 ): IconifyIcon {
@@ -30,8 +31,13 @@ export function getDropIcon(
         }
     }
     else if (drop.type === RewardType.Item) {
-        const item = get(itemStore).items[drop.id]
-        icon = iconLibrary[inventoryTypeIcons[item?.inventoryType]]
+        if (manualData.dragonridingItemToQuest[drop.id]) {
+            icon = iconLibrary['gameSpikedDragonHead']
+        }
+        else {
+            const item = get(itemStore).items[drop.id]
+            icon = iconLibrary[inventoryTypeIcons[item?.inventoryType]]
+        }
     }
     else if (drop.type === RewardType.Reputation) {
         icon = iconLibrary['gameThumbUp']

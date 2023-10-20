@@ -213,6 +213,17 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                     let fixedType = drop.type
                     switch (drop.type) {
+                        case RewardType.Item:
+                            if (stores.manualData.dragonridingItemToQuest[drop.id]) {
+                                dropStatus.need = stores.userQuestData.accountHas.has(
+                                    stores.manualData.dragonridingItemToQuest[drop.id]
+                                )
+                            }
+                            else {
+                                dropStatus.need = true
+                            }
+                            break
+
                         case RewardType.Achievement:
                             if (drop.subType > 0) {
                                 if (!stores.userAchievementData.criteria[drop.subType]) {
@@ -225,7 +236,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break
 
                         case RewardType.Currency:
-                        case RewardType.Item:
                         case RewardType.Reputation:
                             dropStatus.need = true
                             break
