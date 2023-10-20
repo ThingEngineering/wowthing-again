@@ -46,7 +46,7 @@ export function getItemUrl(
             params.push(`pcs=${tierPieces.filter((itemId) => itemId > 0).join(':')}`)
         }
 
-        url = `https://${getWowheadDomain(settings.general.language)}.wowhead.com/item=${item.itemId}`
+        url = `https://${settingsStore.wowheadBaseUrl}/item=${item.itemId}`
     }
 
     if (params.length > 0) {

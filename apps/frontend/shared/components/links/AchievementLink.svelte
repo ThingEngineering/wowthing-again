@@ -1,6 +1,5 @@
 <script lang="ts">
     import { settingsStore } from '@/stores'
-    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
 
@@ -10,7 +9,7 @@
             url = `https://www.wowdb.com/achievements/${id}`
         }
         else {
-            url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/achievement=${id}`
+            url = `https://${settingsStore.wowheadBaseUrl}/achievement=${id}`
         }
     }
 </script>

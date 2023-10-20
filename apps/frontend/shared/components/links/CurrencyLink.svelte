@@ -2,7 +2,6 @@
     import { itemStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/stores'
-    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/shared/stores/static/types'
@@ -16,7 +15,7 @@
     let item: ItemDataItem
     let url: string
     $: {
-        url = `https://${getWowheadDomain($settingsStore.general.language)}.wowhead.com/`
+        url = `https://${settingsStore.wowheadBaseUrl}/`
 
         if (currencyId !== undefined) {
             currency = $staticStore.currencies[currencyId]

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores'
+    import { settingsStore, userQuestStore } from '@/stores'
 
     import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
     import { UserCount, type Character } from '@/types'
@@ -76,7 +76,7 @@
     <h3>
         Soulshapes
         <Count counts={stats} />
-        <a href="https://www.wowhead.com/guides/soulshapes-night-fae-covenant">Guide</a>
+        <a href="https://${settingsStore.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant">Guide</a>
     </h3>
     <div class="collection-section">
         {#each allShapes as shapes}
