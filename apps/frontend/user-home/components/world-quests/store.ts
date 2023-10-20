@@ -11,10 +11,7 @@ class WorldQuestStore {
     // private cache: Record<number, ]> = {}
     private cache: Record<string, Record<number, ApiWorldQuest[]>> = {}
 
-    async fetch(
-        region: number,
-        zoneId: number
-    ) {
+    async fetch(region: number) {
         const cacheKey = [
             region
         ].join('--')
@@ -79,7 +76,7 @@ class WorldQuestStore {
             }
         }
 
-        return this.cache[cacheKey][zoneId] || []
+        return this.cache[cacheKey] || []
     }
 }
 export const worldQuestStore = new WorldQuestStore()
