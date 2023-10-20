@@ -9,7 +9,7 @@
 
     export let params: MultiSlugParams
 
-    afterUpdate(() => getSavedRoute('world-quests', params.slug1))
+    afterUpdate(() => getSavedRoute('world-quests', params.slug1, params.slug2))
 </script>
 
 <div class="view">
