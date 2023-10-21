@@ -32,20 +32,29 @@ public class AdminController : Controller
     [HttpGet("rename-requests")]
     public async Task<IActionResult> GetRenameRequests()
     {
-        var users = await _context.ApplicationUser
+        var existingUsers = await _context.ApplicationUser
+            .Select(user => user.UserName)
+            .ToArrayAsync();
+
+        var usernameInUse = new HashSet<string>(existingUsers, StringComparer.OrdinalIgnoreCase);
+
+        var renameUsers = await _context.ApplicationUser
             .Where(user => user.Settings.General.DesiredAccountName != null)
             .Where(user => user.Settings.General.DesiredAccountName != "")
             .Where(user => user.Settings.General.DesiredAccountName != user.UserName)
             .Where(user => user.Settings.General.DesiredAccountName != "DENIED")
-            .Select(user => new
+            .ToArrayAsync();
+
+        var userData = renameUsers.Select(user => new
             {
                 user.Id,
                 user.UserName,
                 DesiredAccountName = SafeUserName(user.Settings.General.DesiredAccountName),
+                InUse = usernameInUse.Contains(SafeUserName(user.Settings.General.DesiredAccountName))
             })
-            .ToArrayAsync();
+            .ToArray();
 
-        return Json(users);
+        return Json(userData);
     }
 
     [HttpPost("rename-requests/approve/{userId:long}")]

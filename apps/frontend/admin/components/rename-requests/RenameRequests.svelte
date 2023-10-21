@@ -69,13 +69,18 @@
                 <tr>
                     <td class="id">{renameRequest.id}</td>
                     <td class="name">{renameRequest.userName}</td>
-                    <td class="name">{renameRequest.desiredAccountName}</td>
+                    <td
+                        class="name"
+                        class:status-fail={renameRequest.inUse}
+                    >{renameRequest.desiredAccountName}</td>
                     <td class="action status-success">
-                        <IconifyIcon
-                            icon={iconLibrary.mdiCheck}
-                            tooltip={'Approve request'}
-                            on:click={async () => await approveRequest(renameRequest.id)}
-                        />
+                        {#if !renameRequest.inUse}
+                            <IconifyIcon
+                                icon={iconLibrary.mdiCheck}
+                                tooltip={'Approve request'}
+                                on:click={async () => await approveRequest(renameRequest.id)}
+                            />
+                        {/if}
                     </td>
                     <td class="action status-fail">
                         <IconifyIcon
