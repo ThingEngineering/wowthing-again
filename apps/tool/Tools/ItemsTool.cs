@@ -136,6 +136,13 @@ public class ItemsTool
                 .OrderBy(kvp => kvp.Value)
                 .Select(kvp => kvp.Key)
                 .ToArray(),
+
+            LimitCategories = items.Where(item => item.LimitCategory > 0)
+                .GroupBy(item => item.LimitCategory)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(item => item.Id).ToArray()
+                ),
         };
         string? cacheHash = null;
 

@@ -50,6 +50,13 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             }
         }
 
+        for (const [limitCategory, itemIds] of Object.entries(data.limitCategories)) {
+            const category = parseInt(limitCategory)
+            for (const itemId of itemIds) {
+                data.items[itemId].limitCategory = category
+            }
+        }
+
         data.oppositeFactionAppearance = {}
         for (let i = 0; i < data.oppositeFactionIds.length; i += 2) {
             const itemId1 = data.oppositeFactionIds[i]
