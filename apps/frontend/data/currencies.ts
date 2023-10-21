@@ -140,6 +140,8 @@ export const currencyItems: Record<number, number[]> = {
         null,
         207030, // Dilated Time Capsule
         207002, // Encapsulated Destiny
+        null,
+        207026, // Dreamsurge Coalescence
     ],
     // Dragonflight > Crafting Knowledge
     125001: [

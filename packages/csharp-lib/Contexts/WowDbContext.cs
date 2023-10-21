@@ -16,6 +16,7 @@ namespace Wowthing.Lib.Contexts;
 public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
+    public DbSet<AuditLog> AuditLog { get; set; }
 
     public DbSet<BackgroundImage> BackgroundImage { get; set; }
     public DbSet<Image> Image { get; set; }
