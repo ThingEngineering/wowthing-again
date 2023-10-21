@@ -162,10 +162,19 @@ def main():
                         name=name,
                     ))
                     continue
+                    
+                m = re.match(r'^Recipe\(\{\s*item\s*=\s*(\d+),\s*profession\s*=\s*(\d+)\}\),?\s*--\s*(.*?)$', line)
+                if m:
+                    thing['rewards'].append(dict(
+                        type='item',
+                        id=m.group(1),
+                        limit=f"profession {m.group(2)}",
+                        name=m.group(3),
+                    ))
+                    continue
 
                 m = re.match(r'^Toy\(\{item\s*=\s*(\d+)\}\),?( -- (.*?))?$', line)
                 if m:
-                    print(m.groups())
                     thing['rewards'].append(dict(
                         type='toy',
                         id=m.group(1),
