@@ -9,6 +9,7 @@ export interface ItemData {
     craftingQualities: Record<number, number[]>
     itemBonusToUpgrade: Record<number, [number, number, number]>
     oppositeFactionAppearance: Record<number, number[]>
+    teachesSpell: Record<number, number>
 
     currentTier: Record<number, InventoryType>
     previousTier: Record<number, InventoryType>

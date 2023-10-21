@@ -50,6 +50,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         data.itemToSkillLineAbility = {}
         data.professionBySkillLine = {}
+        data.spellToProfessionAbility = {}
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
                 profession.categories = profession.rawCategories.map(
@@ -68,6 +69,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 for (const subCategory of category.children) {
                     for (const subSubCategory of subCategory.children) {
                         for (const ability of subSubCategory.abilities) {
+                            data.spellToProfessionAbility[ability.spellId] = ability
+
                             for (const itemId of ability.itemIds) {
                                 if (itemId > 0) {
                                     data.itemToSkillLineAbility[itemId] = ability.id
