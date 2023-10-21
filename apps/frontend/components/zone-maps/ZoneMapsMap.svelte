@@ -11,6 +11,7 @@
     import { PlayableClass } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { settingsStore } from '@/stores'
+    import { leftPad } from '@/utils/formatting'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -77,12 +78,16 @@
         groups = Object.values(groupMap)
         for (const group of groups) {
             group.children.sort((a, b) => {
+                const aIndex = typeOrder.indexOf(a[0].type)
+                const bIndex = typeOrder.indexOf(b[0].type)
                 const aData = [
                     a[0].faction || 'zzz',
+                    leftPad(aIndex === -1 ? 999 : aIndex, 3, '0'),
                     a[0].name
                 ].join('|')
                 const bData = [
                     b[0].faction || 'zzz',
+                    leftPad(bIndex === -1 ? 999 : bIndex, 3, '0'),
                     b[0].name
                 ].join('|')
                 return aData.localeCompare(bData)
@@ -174,6 +179,13 @@
         RewardType.Pet,
         RewardType.Toy,
         RewardType.Weapon,
+    ]
+    const typeOrder: FarmType[] = [
+        FarmType.Vendor,
+        FarmType.Profession,
+        FarmType.Quest,
+        FarmType.Achievement,
+        FarmType.Kill,
     ]
 </script>
 
