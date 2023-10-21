@@ -38,7 +38,7 @@
         text-align: right;
     }
     .name {
-        @include cell-width(5rem, $maxWidth: 10rem);
+        @include cell-width(5rem, $maxWidth: 20rem);
     }
     .action {
         @include cell-width(1.5rem);
