@@ -88,5 +88,8 @@ public static partial class Hardcoded
         // Dragonflight - 10.1.5
         207002, // Encapsulated Destiny
         207030, // Dilated Time Capsule
+
+        // Dragonflight - 10.1.7
+        207026, // Dreamsurge Coalescence
     };
 }
