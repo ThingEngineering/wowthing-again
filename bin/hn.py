@@ -14,6 +14,17 @@ import sys
 #    }
 #}) -- Ragebeak
 
+
+TYPE_ORDER = dict(
+    item=0,
+    mount=1,
+    pet=2,
+    toy=3,
+    transmog=4,
+    quest=5,
+)
+
+
 class CsvReader:
     base_path = os.path.join(os.path.abspath(os.path.expanduser(os.environ['WOWTHING_DUMP_PATH'])), 'enUS')
 
@@ -154,10 +165,11 @@ def main():
 
                 m = re.match(r'^Toy\(\{item\s*=\s*(\d+)\}\),?( -- (.*?))?$', line)
                 if m:
+                    print(m.groups())
                     thing['rewards'].append(dict(
                         type='toy',
                         id=m.group(1),
-                        name=m.group(2),
+                        name=m.group(3),
                     ))
                     continue
 
@@ -191,15 +203,22 @@ def main():
                     thing['rewards'].append(thing_data)
                     continue
 
-                m = re.match(r'^DC\.(.*?)\.(.*?),\s*--.*?$', line)
-                if m:
-                    if m.group(1) in dragonriding and m.group(2) in dragonriding[m.group(1)]:
-                        item_id, quest_id = dragonriding[m.group(1)][m.group(2)]
-                        thing['rewards'].append(dict(
-                            type='dragonriding',
-                            id=item_id,
-                            name=f'{m.group(1)} > {m.group(2)}',
-                        ))
+                matches = re.findall(r'DC\.(\w+)\.(\w+)\b', line)
+                if matches:
+                    print(matches)
+                    found_any = False
+
+                    for dragon_parts in matches:
+                        if dragon_parts[0] in dragonriding and dragon_parts[1] in dragonriding[dragon_parts[0]]:
+                            found_any = True
+                            item_id, quest_id = dragonriding[dragon_parts[0]][dragon_parts[1]]
+                            thing['rewards'].append(dict(
+                                type='item',
+                                id=item_id,
+                                name=f'{dragon_parts[0]} > {dragon_parts[1]}',
+                            ))
+
+                    if found_any:
                         continue
 
                 print(line_number, 'reward??', line)
@@ -239,59 +258,82 @@ def main():
                 continue
 
             print(line_number, '??', line)
+    
+    # Done with the file
+    counts = {}
+    for farm in kills + treasures:
+        for reward in farm['rewards']:
+            counts[f'{reward["type"]}|{reward["id"]}'] = counts.get(f'{reward["type"]}|{reward["id"]}', 0) + 1
+
+    added = {}
 
     if len(kills) > 0:
         print()
         print('# Kills')
 
         for thing in sorted(kills, key=lambda t: t['name']):
-            print_thing(thing, 'kill')
+            print_thing(counts, added, thing, 'kill')
 
     if len(treasures) > 0:
         print()
         print('# Treasures')
 
         for thing in sorted(treasures, key=lambda t: t['name']):
-            print_thing(thing, 'treasure')
+            print_thing(counts, added, thing, 'treasure')
 
 
-def print_thing(thing, thing_type):
-        #if len(thing['rewards']) == 0:
-        #    return
+def print_thing(counts, added, thing, thing_type):
+    #if len(thing['rewards']) == 0:
+    #    return
 
-        print()
-        print(f'- name: "{thing["name"]}"')
+    print()
+    print(f'- name: "{thing["name"]}"')
 
-        if 'faction' in thing:
-            print(f'  faction: {thing["faction"].lower()}')
+    if 'faction' in thing:
+        print(f'  faction: {thing["faction"].lower()}')
 
-        print(f'  location: {thing["location"]}')
+    print(f'  location: {thing["location"]}')
 
-        if 'id' in thing:
-            print(f'  npcId: {thing["id"]}')
+    if 'id' in thing:
+        print(f'  npcId: {thing["id"]}')
 
-        if 'quests' in thing:
-            print(f'  questId: {" ".join(thing["quests"])}')
+    if 'quests' in thing:
+        print(f'  questId: {" ".join(thing["quests"])}')
 
-        if 'reset' in thing:
-            print(f'  reset: {thing["reset"]}')
+    if 'reset' in thing:
+        print(f'  reset: {thing["reset"]}')
 
-        print(f'  type: {thing_type}')
-        
-        print(f'  drops:')
-        first = True
-        for drop in thing['rewards']:
-            if first:
-                first = False
-            else:
-                print()
+    print(f'  type: {thing_type}')
+    
+    print(f'  drops:')
 
-            print(f'  - type: {drop["type"]}')
-            print(f'    id: {drop["id"]} # {drop["name"]}')
-            #print(f'    name: "{drop["name"]}"')
+    first = True
+    sorted_drops = sorted(thing['rewards'], key=lambda r: [TYPE_ORDER.get(r['type'], 99), r['name']])
+    for drop in sorted_drops:
+        if first:
+            first = False
+        else:
+            print()
 
+        drop_key = f'{drop["type"]}|{drop["id"]}'
+        if counts[drop_key] == 1:
+            print(f'    - type: {drop["type"]}')
+            print(f'      id: {drop["id"]} # {drop["name"]}')
             if 'limit' in drop:
-                print(f'    limit: {drop["limit"]}')
+                print(f'      limit: {drop["limit"]}')
+        else:
+            if drop_key in added:
+                print(f'    - *{slugify(drop["name"])} # {drop["name"]}')
+            else:
+                print(f'    - &{slugify(drop["name"])}')
+                print(f'      type: {drop["type"]}')
+                print(f'      id: {drop["id"]} # {drop["name"]}')
+                if 'limit' in drop:
+                    print(f'      limit: {drop["limit"]}')
+                added[drop_key] = True
+
+def slugify(s):
+    return s.split(' [')[0].lower().replace("'", '').replace(' > ', ' ').replace(' ', '-')
 
 
 dragonriding = dict(
