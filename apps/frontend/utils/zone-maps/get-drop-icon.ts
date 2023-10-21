@@ -1,17 +1,19 @@
 import type { IconifyIcon } from '@iconify/types'
-import { get } from 'svelte/store'
 
 import { iconStrings, rewardTypeIcons } from '@/data/icons'
 import { ArmorType } from '@/enums/armor-type'
 import { RewardType } from '@/enums/reward-type'
 import { WeaponSubclass } from '@/enums/weapon-subclass'
-import { armorTypeIcons, iconLibrary, inventoryTypeIcons, weaponIcons } from '@/icons'
-import { itemStore } from '@/stores'
+import { armorTypeIcons, iconLibrary, inventoryTypeIcons, professionIcons, weaponIcons } from '@/icons'
 import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { StaticData } from '@/shared/stores/static/types'
+import type { ItemData } from '@/types/data/item'
 
 
 export function getDropIcon(
+    itemData: ItemData,
     manualData: ManualData,
+    staticData: StaticData,
     drop: ManualDataZoneMapDrop,
     isCriteria: boolean
 ): IconifyIcon {
@@ -22,7 +24,7 @@ export function getDropIcon(
     else if (drop.type === RewardType.Armor) {
         // Cloth, Leather, Mail, Plate
         if (drop.subType >= 1 && drop.subType <= 4) {
-            const item = get(itemStore).items[drop.id]
+            const item = itemData.items[drop.id]
             icon = iconLibrary[inventoryTypeIcons[item?.inventoryType]]
         }
         // Misc
@@ -31,11 +33,17 @@ export function getDropIcon(
         }
     }
     else if (drop.type === RewardType.Item) {
+        console.log(drop.id, itemData.teachesSpell[drop.id])
         if (manualData.dragonridingItemToQuest[drop.id]) {
             icon = iconLibrary['gameSpikedDragonHead']
         }
+        else if (itemData.teachesSpell[drop.id]) {
+            const [skillLineId,] = staticData.itemToSkillLine[drop.id]
+            const [profession,] = staticData.professionBySkillLine[skillLineId]
+            icon = iconLibrary[professionIcons[profession.slug]]
+        }
         else {
-            const item = get(itemStore).items[drop.id]
+            const item = itemData.items[drop.id]
             icon = iconLibrary[inventoryTypeIcons[item?.inventoryType]]
         }
     }
