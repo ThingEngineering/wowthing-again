@@ -57,5 +57,5 @@
      data-manual="@Url.Action("CachedJson", "CachedJson", new { type = "manual", languageCode = "zzZZ", hash = Model.ManualHash })"
      data-static="@Url.Action("CachedJson", "CachedJson", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName, access = Model.IsPrivate ? "private" : "public", modified="0" })"
-     data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
+     data-xsrf="@GetAntiXsrfRequestToken()"
 ></div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
@@ -10,6 +11,7 @@ using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
 
+[AutoValidateAntiforgeryToken]
 public class PlayerCharacterController : Controller
 {
     private readonly CacheService _cacheService;
@@ -34,6 +36,7 @@ public class PlayerCharacterController : Controller
     }
 
     [HttpPost("api/character/{characterId:int}/configuration")]
+    [Authorize]
     public async Task<IActionResult> CharacterConfig(
         [FromRoute] int characterId,
         [FromBody] ApiCharacterConfigurationForm form

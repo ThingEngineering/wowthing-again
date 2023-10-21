@@ -20,7 +20,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 namespace Wowthing.Web.Controllers.API;
 
 [Route("api/auctions")]
-[ValidateAntiForgeryToken]
+[AutoValidateAntiforgeryToken]
 public class AuctionsController : Controller
 {
     private readonly AuctionService _auctionService;
