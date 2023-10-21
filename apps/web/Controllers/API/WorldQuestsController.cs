@@ -6,7 +6,6 @@ using Wowthing.Lib.Enums;
 namespace Wowthing.Web.Controllers.API;
 
 [Route("api/world-quests")]
-[ValidateAntiForgeryToken]
 public class WorldQuestsController : Controller
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions;

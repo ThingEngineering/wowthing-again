@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Models;
@@ -6,6 +7,7 @@ using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
 
+[AutoValidateAntiforgeryToken]
 public class UploadController : Controller
 {
     private readonly ILogger<UploadController> _logger;
@@ -24,6 +26,7 @@ public class UploadController : Controller
     }
 
     [HttpPost("api/upload")]
+    [Authorize]
     public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
     {
         // TODO rate limit
