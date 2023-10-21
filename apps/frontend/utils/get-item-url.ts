@@ -1,7 +1,6 @@
 import { get } from 'svelte/store'
 
 import { settingsStore } from '@/stores'
-import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 import type { Character, CharacterEquippedItem } from '@/types'
 import type { ItemSearchResponseCommon } from '@/types/items'
 
