@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Security.Claims;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Wowthing.Lib.Contexts;
@@ -56,6 +57,15 @@ public class AdminController : Controller
             return NotFound();
         }
 
+        string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        _context.AuditLog.Add(new AuditLog
+        {
+            Timestamp = DateTime.UtcNow,
+            UserId = long.Parse(currentUserId),
+            Action = $"Approved {userId} rename from '{user.UserName}' to '{user.Settings.General.DesiredAccountName}'",
+        });
+        await _context.SaveChangesAsync();
+
         await _userManager.SetUserNameAsync(user, SafeUserName(user.Settings.General.DesiredAccountName));
 
         user.Settings.General.DesiredAccountName = "";
@@ -72,6 +82,15 @@ public class AdminController : Controller
         {
             return NotFound();
         }
+
+        string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        _context.AuditLog.Add(new AuditLog
+        {
+            Timestamp = DateTime.UtcNow,
+            UserId = long.Parse(currentUserId),
+            Action = $"Declined {userId} rename from '{user.UserName}' to '{user.Settings.General.DesiredAccountName}'",
+        });
+        await _context.SaveChangesAsync();
 
         user.Settings.General.DesiredAccountName = "DENIED";
         await _userManager.UpdateAsync(user);
