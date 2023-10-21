@@ -11,11 +11,15 @@
     export let character: Character
     export let reputationId: number
     export let zoneData: {
-        have: boolean
-        itemId: number
-        profession: Profession
-        source?: string
-    }[]
+        have: number,
+        total: number,
+        items: {
+            have: boolean
+            itemId: number
+            profession: Profession
+            source?: string
+        }[]
+    }
     export let zoneName: string
 
     $: characterRenown = reputationId ? Math.floor((character.reputations?.[reputationId] ?? 0) / 2500) : 0
@@ -44,7 +48,7 @@
     <h5>{zoneName}</h5>
     <table class="table-striped">
         <tbody>
-            {#each zoneData as { have, itemId, profession, source }}
+            {#each zoneData.items as { have, itemId, profession, source }}
                 <tr>
                     <td class="profession">
                         <ProfessionIcon id={profession} />
