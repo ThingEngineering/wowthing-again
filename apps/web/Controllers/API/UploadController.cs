@@ -7,7 +7,6 @@ using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
 
-[AutoValidateAntiforgeryToken]
 public class UploadController : Controller
 {
     private readonly ILogger<UploadController> _logger;
@@ -26,7 +25,6 @@ public class UploadController : Controller
     }
 
     [HttpPost("api/upload")]
-    [Authorize]
     public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
     {
         // TODO rate limit
