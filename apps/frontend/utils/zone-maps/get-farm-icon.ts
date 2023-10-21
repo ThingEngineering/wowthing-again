@@ -19,9 +19,7 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
     iconName = keys.length === 1 ? professionIcons[keys[0]] : farmTypeIcons[farm.type]
 
     return [
-        iconLibrary[iconName] ||
-        oldFarmTypeIcons[farm.type],
-        iconScaling[iconName] ||
-        '1',
+        iconLibrary[iconName] || oldFarmTypeIcons[farm.type],
+        iconScaling[iconName] || '0.9',
     ]
 }
