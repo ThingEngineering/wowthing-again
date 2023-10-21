@@ -80,8 +80,13 @@
                         }
 
                         const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
-                        if (!bookData.have && !isNaN(requiredRenown) && requiredRenown <= characterRenown) {
-                            zoneData.status = 'fail'
+                        if (!bookData.have) {
+                            if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
+                                zoneData.status = 'fail'
+                            }
+                            else if (bookData.source === 'LN') {
+                                zoneData.status = 'fail'
+                            }
                         }
 
                         zoneData.items.push(bookData)
