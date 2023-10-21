@@ -3,6 +3,7 @@ import type { IconifyIcon } from '@iconify/types'
 import { farmTypeIcons as oldFarmTypeIcons } from '@/data/icons'
 import { farmTypeIcons, iconLibrary, iconScaling, professionIcons } from '@/icons'
 import type { ManualDataZoneMapFarm } from '@/types/data/manual'
+import { FarmType } from '@/enums/farm-type'
 
 
 export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] {
@@ -16,7 +17,9 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
     }
     
     const keys = Object.keys(professionLimits)
-    iconName = keys.length === 1 ? professionIcons[keys[0]] : farmTypeIcons[farm.type]
+    iconName = (keys.length === 1 && farm.type !== FarmType.Kill)
+        ? professionIcons[keys[0]]
+        : farmTypeIcons[farm.type]
 
     return [
         iconLibrary[iconName] || oldFarmTypeIcons[farm.type],
