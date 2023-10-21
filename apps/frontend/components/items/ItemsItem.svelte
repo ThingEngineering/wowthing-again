@@ -118,6 +118,7 @@
         }
     }
     .crafted-quality {
+        pointer-events: none;
         position: absolute;
         right: -2px;
         top: -2px;
