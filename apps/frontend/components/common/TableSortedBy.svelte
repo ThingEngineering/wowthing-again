@@ -11,7 +11,7 @@
         top: 50%;
         transform: translate(-50%, -50%);
 
-        color: $colour-success;
+        color: $color-success;
         pointer-events: none;
 
         & :global(svg) {

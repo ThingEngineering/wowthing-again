@@ -77,7 +77,7 @@
     .no-profession {
         --scale: 1.3;
 
-        color: $colour-fail;
+        color: $color-fail;
     }
 </style>
 

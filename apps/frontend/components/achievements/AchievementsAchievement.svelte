@@ -116,8 +116,8 @@
         width: 100%;
 
         &.completed {
-            background: mix($thing-background, $colour-success, 91%);
-            border-color: mix($border-color, $colour-success, 80%);
+            background: mix($thing-background, $color-success, 91%);
+            border-color: mix($border-color, $color-success, 80%);
 
             :global(.status-fail) {
                 --shadow-color: rgba(30, 30, 30, 0.5);

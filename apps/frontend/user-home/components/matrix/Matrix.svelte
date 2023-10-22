@@ -347,10 +347,10 @@
             @include cell-width(6rem);
         }
         &.max-level {
-            background: mix($thing-background, $colour-success, 90%);
+            background: mix($thing-background, $color-success, 90%);
         }
         &.no-characters {
-            background: mix($thing-background, $colour-fail, 90%);
+            background: mix($thing-background, $color-fail, 90%);
         }
     }
     .character {

@@ -109,7 +109,7 @@
         margin-left: auto;
     }
     .already-have {
-        color: $colour-fail;
+        color: $color-fail;
     }
     .clipboard {
         cursor: pointer;

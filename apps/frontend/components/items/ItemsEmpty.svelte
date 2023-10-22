@@ -6,7 +6,7 @@
 <style lang="scss">
     div {
         background: $highlight-background;
-        border: 2px solid var(--item-empty-border, lighten($colour-fail, 15%));
+        border: 2px solid var(--item-empty-border, lighten($color-fail, 15%));
         border-radius: $border-radius;
         display: flex;
         flex-direction: column;

@@ -30,11 +30,11 @@
         text-align: left;
 
         :global(span[data-string="yes"]) {
-            color: $colour-success;
+            color: $color-success;
         }
 
         :global(span[data-string="no"]) {
-            color: $colour-fail;
+            color: $color-fail;
         }
     }
 </style>

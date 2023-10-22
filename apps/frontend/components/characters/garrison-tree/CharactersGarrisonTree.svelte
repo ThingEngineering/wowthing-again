@@ -36,17 +36,17 @@
             padding: 0;
         }
         &.done {
-            --image-border-color: #{$colour-shrug};
+            --image-border-color: #{$color-shrug};
 
-            color: $colour-shrug;
+            color: $color-shrug;
         }
         &.partial {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
 
-            color: $colour-success;
+            color: $color-success;
         }
         &.prereq {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
 
             filter: opacity(70%);
         }

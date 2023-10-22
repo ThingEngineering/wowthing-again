@@ -130,7 +130,7 @@
         padding-left: 1.5rem;
     }
     .status-fail {
-        color: adjust-color($colour-fail, $lightness: +15%);
+        color: adjust-color($color-fail, $lightness: +15%);
     }
 </style>
 

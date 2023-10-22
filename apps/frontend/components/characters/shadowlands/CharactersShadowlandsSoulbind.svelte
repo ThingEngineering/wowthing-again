@@ -51,11 +51,11 @@
         width: calc(2px + 3rem + (0.3rem * 2) + (52px * 3));
 
         &.inactive {
-            border-color: $colour-fail;
+            border-color: $color-fail;
             opacity: 0.5;
         }
         &.selected {
-            border-color: $colour-success;
+            border-color: $color-success;
         }
     }
     .soulbind-row {
@@ -64,10 +64,10 @@
         justify-content: space-between;
 
         &.none-chosen.unlocked {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
 
             .empty-socket {
-                border-color: $colour-fail;
+                border-color: $color-fail;
             }
         }
 
@@ -86,10 +86,10 @@
         width: 52px;
 
         &.selected {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
 
             .empty-socket {
-                border-color: $colour-fail;
+                border-color: $color-fail;
             }
         }
 

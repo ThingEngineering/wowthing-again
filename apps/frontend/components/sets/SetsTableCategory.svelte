@@ -101,7 +101,7 @@
                 min-width: 0;
             }
             .has-transmog-set-id {
-                color: $colour-shrug;
+                color: $color-shrug;
             }
         }
         
@@ -116,7 +116,7 @@
         padding-top: 0.2rem;
     }
     .tag {
-        color: $colour-success;
+        color: $color-success;
     }
     .percent {
         position: absolute;
