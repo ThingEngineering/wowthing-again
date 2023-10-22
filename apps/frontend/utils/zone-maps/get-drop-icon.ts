@@ -33,7 +33,6 @@ export function getDropIcon(
         }
     }
     else if (drop.type === RewardType.Item) {
-        console.log(drop.id, itemData.teachesSpell[drop.id])
         if (manualData.dragonridingItemToQuest[drop.id]) {
             icon = iconLibrary['gameSpikedDragonHead']
         }
