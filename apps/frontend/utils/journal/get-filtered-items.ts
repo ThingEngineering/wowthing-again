@@ -58,7 +58,7 @@ export default function getFilteredItems(
             keep = journalState.showPlate
         }
 
-        if (keep && group.name === 'Cloaks') {
+        if (keep && group.name.startsWith('Cloak')) {
             keep = journalState.showCloaks
         }
 
