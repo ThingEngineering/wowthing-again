@@ -9,6 +9,7 @@ import type { StaticDataKeystoneAffix } from './keystone-affix'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession, StaticDataProfessionAbility } from './profession'
+import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
 import type { StaticDataSoulbind } from './soulbind'
@@ -71,6 +72,9 @@ export interface StaticData {
     pets: Record<number, StaticDataPet>
     petsByName: Record<string, StaticDataPet>
     rawPets: StaticDataPetArray[]
+
+    questInfo: Record<number, StaticDataQuestInfo>
+    rawQuestInfo: StaticDataQuestInfoArray[]
 
     realms: Record<number, StaticDataRealm>
     rawRealms: StaticDataRealmArray[]

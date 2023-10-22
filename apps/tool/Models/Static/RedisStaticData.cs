@@ -38,6 +38,7 @@ public class RedisStaticData
     public StaticHoliday[] RawHolidays { get; set; }
     public StaticMount[] RawMounts { get; set; }
     public StaticPet[] RawPets { get; set; }
+    public StaticQuestInfo[] RawQuestInfo { get; set; }
     public StaticReputation[] RawReputations { get; set; }
     public StaticToy[] RawToys { get; set; }
     public StaticTransmogSet[] RawTransmogSets { get; set; }
