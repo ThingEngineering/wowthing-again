@@ -25,6 +25,7 @@ export { default as gameChestArmor } from '@iconify/icons-game-icons/chest-armor
 export { default as gameClosedDoors } from '@iconify/icons-game-icons/closed-doors'
 export { default as gameCompanionCube } from '@iconify/icons-game-icons/companion-cube'
 export { default as gameCrossbow } from '@iconify/icons-game-icons/crossbow'
+export { default as gameCrossedSwords } from '@iconify/icons-game-icons/crossed-swords'
 export { default as gameCrownedSkull } from '@iconify/icons-game-icons/crowned-skull'
 export { default as gameCurvyKnife } from '@iconify/icons-game-icons/curvy-knife'
 export { default as gameDeathSkull } from '@iconify/icons-game-icons/death-skull'
