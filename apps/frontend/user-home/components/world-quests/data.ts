@@ -1,3 +1,4 @@
+import { QuestInfoType } from '@/shared/stores/static/enums'
 import type { WorldQuestZone } from './types'
 
 
@@ -65,4 +66,10 @@ export const zoneData: WorldQuestZone[] = [
 export const worldQuestPrereqs: Record<number, number> = {
     74501: 75888, // Suffusion Camp: Cinderwind
     75280: 75888, // Suffusion Camp: Frostburn
+}
+
+export const questInfoIcon: Record<number, string> = {
+    [QuestInfoType.DragonRacing]: 'gameSpikedDragonHead',
+    [QuestInfoType.PetBattle]: 'mdiDuck',
+    [QuestInfoType.Pvp]: 'gameCrossedSwords',
 }

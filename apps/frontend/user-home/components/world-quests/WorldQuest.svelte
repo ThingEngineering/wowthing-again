@@ -1,5 +1,8 @@
 <script lang="ts">
+    import { questInfoIcon } from './data'
     import { RewardType } from '@/enums/reward-type'
+    import { iconLibrary } from '@/icons'
+    import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/stores/time'
     import { toNiceNumber } from '@/utils/formatting/to-nice-number'
@@ -8,8 +11,15 @@
     import Tooltip from './Tooltip.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
 
     export let worldQuest: ApiWorldQuest
+
+    $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60
+    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId]
+    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId]
+    $: console.log(questInfo)
 
     let iconName: string
     let rewardString: string
@@ -35,7 +45,6 @@
         }
     }
 
-    $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60
 </script>
 
 <style lang="scss">
@@ -54,6 +63,9 @@
         &:hover {
             z-index: 100;
         }
+        :global(> a) {
+            position: relative;
+        }
     }
     .world-quest-icon, .world-quest-amount {
         background: $highlight-background;
@@ -65,7 +77,15 @@
         border-radius: 50%;
         height: 36px;
         overflow: hidden;
+        position: relative;
         width: 36px;
+    }
+    .world-quest-type {
+        --scale: 0.8;
+
+        top: 5px;
+        position: absolute;
+        right: -8px;
     }
     .world-quest-amount {
         border-radius: $border-radius-small;
@@ -92,7 +112,7 @@
             },
             tippyProps: {
                 allowHTML: true,
-                placement: 'left',
+                placement: 'right-start',
             },
         }}
     >
@@ -112,6 +132,18 @@
                     WQ
                 {/if}
             </div>
+
+            {#if questInfoIcon[questInfo?.type]}
+                <div class="world-quest-type drop-shadow">
+                    <IconifyIcon icon={iconLibrary[questInfoIcon[questInfo.type]]} />
+                </div>
+            {:else if questInfo?.type === QuestInfoType.Normal}
+                {#if (questInfo.flags & QuestInfoFlags.Elite) > 0}
+                    <div class="world-quest-type drop-shadow">
+                        <IconifyIcon icon={iconLibrary['gameCrownedSkull']} />
+                    </div>
+                {/if}
+            {/if}
 
             {#if rewardString}
                 <div

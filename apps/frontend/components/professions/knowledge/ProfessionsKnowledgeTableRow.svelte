@@ -84,7 +84,7 @@
                             if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
                                 zoneData.status = 'fail'
                             }
-                            else if (bookData.source === 'LN') {
+                            else if (bookData.source.startsWith('AC ') || bookData.source === 'LN') {
                                 zoneData.status = 'fail'
                             }
                         }

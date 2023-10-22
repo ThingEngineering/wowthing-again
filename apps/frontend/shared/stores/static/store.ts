@@ -17,6 +17,7 @@ import {
     StaticDataWorldQuest,
 } from './types'
 import type { StaticData } from './types'
+import { StaticDataQuestInfo } from './types/quest-info'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -122,6 +123,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (const instanceId in extraInstanceMap) {
                 data.instances[instanceId] = extraInstanceMap[instanceId]
             }
+        }
+
+        if (data.rawQuestInfo) {
+            data.questInfo = StaticDataStore.createObjects(data.rawQuestInfo, StaticDataQuestInfo)
+            data.rawQuestInfo = null
         }
 
         if (data.rawRealms !== null) {

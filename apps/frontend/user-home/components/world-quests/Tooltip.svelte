@@ -16,6 +16,7 @@
     $: bestRewards = worldQuest.rewards[0][1]
     $: millis = worldQuest.expires.diff($timeStore).toMillis()
     $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId]
+    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId]
 
     let characters: string
     $: {
@@ -94,7 +95,12 @@
 
 <div class="wowthing-tooltip">
     <h4>{staticWorldQuest?.name || `Quest #${worldQuest.questId}`}</h4>
-    <h5>Expires in {toNiceDuration(millis).replace('&nbsp;', '')}</h5>
+    <h5>
+        {#if questInfo}
+            {questInfo.name} -
+        {/if}
+        {toNiceDuration(millis).replace('&nbsp;', '')} remaining
+    </h5>
     <table class="table table-striped">
         <tbody>
             {#each bestRewards as reward}

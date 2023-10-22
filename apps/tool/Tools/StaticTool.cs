@@ -6,6 +6,7 @@ using Wowthing.Tool.Models.Covenants;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Journal;
 using Wowthing.Tool.Models.Professions;
+using Wowthing.Tool.Models.Quests;
 using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Static;
 using Wowthing.Tool.Models.Traits;
@@ -341,6 +342,8 @@ public class StaticTool
         foreach (var language in Enum.GetValues<Language>())
         {
             ToolContext.Logger.Information("Generating {lang}...", language);
+
+            cacheData.RawQuestInfo = await LoadQuestInfo(language);
 
             cacheData.Professions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
@@ -761,6 +764,12 @@ public class StaticTool
         }
 
         outFile.WriteLine("}");
+    }
+
+    private async Task<StaticQuestInfo[]> LoadQuestInfo(Language language)
+    {
+        var questInfos = await DataUtilities.LoadDumpCsvAsync<DumpQuestInfo>("questinfo", language);
+        return questInfos.Select(qi => new StaticQuestInfo(qi)).ToArray();
     }
 
     private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()
