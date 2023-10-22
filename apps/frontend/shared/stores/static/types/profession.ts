@@ -84,3 +84,13 @@ export class StaticDataProfessionAbility {
     }
 }
 export type StaticDataProfessionAbilityArray = ConstructorParameters<typeof StaticDataProfessionAbility>
+
+export class StaticDataProfessionAbilityInfo {
+    constructor(
+        public professionId: number,
+        public subProfessionId: number,
+        public abilityId: number,
+        public itemId: number,
+        public spellId: number,
+    ) { }
+}

@@ -71,7 +71,8 @@
 
         if (!error && loaded) {
             staticStore.setup(
-                $settingsStore
+                $settingsStore,
+                $itemStore
             )
 
             appearanceStore.setup(
