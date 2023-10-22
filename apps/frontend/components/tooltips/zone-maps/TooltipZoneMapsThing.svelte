@@ -2,7 +2,9 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
+    import { expansionMap } from '@/data/expansion'
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
+    import { professionSlugToId } from '@/data/professions'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
     import { FarmIdType } from '@/enums/farm-id-type'
@@ -238,7 +240,15 @@
                         {:else if drop.limit?.length > 0}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
-                                [ {drop.limit.slice(2).join(', ')} ]
+                                {#if drop.limit[0] === 'profession'}
+                                    {@const expansion = expansionMap[
+                                        $staticStore.professions[professionSlugToId[drop.limit[1]]]
+                                            .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
+                                    ]}
+                                    [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                {:else}
+                                    [{drop.limit.slice(2).join(', ')}]
+                                {/if}
                             {/if}
                         {:else}
                             {RewardType[drop.type].toLowerCase()}
