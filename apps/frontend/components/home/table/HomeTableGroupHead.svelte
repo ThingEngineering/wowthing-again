@@ -252,5 +252,7 @@
         {/if}
     {/each}
 
-    <td class="settings"></td>
+    {#if !isPublic}
+        <td class="settings"></td>
+    {/if}
 </tr>

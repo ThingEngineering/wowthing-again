@@ -181,6 +181,8 @@
             {/if}
         {/each}
 
-        <RowSettings {character} />
+        {#if !isPublic}
+            <RowSettings {character} />
+        {/if}
     </svelte:fragment>
 </CharacterTable>
