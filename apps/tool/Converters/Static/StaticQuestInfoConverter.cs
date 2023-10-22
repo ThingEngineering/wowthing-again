@@ -14,6 +14,7 @@ public class StaticQuestInfoConverter : JsonConverter<StaticQuestInfo>
         writer.WriteStartArray();
         writer.WriteNumberValue(questInfo.Id);
         writer.WriteNumberValue(questInfo.Type);
+        writer.WriteNumberValue(questInfo.Flags);
         writer.WriteNumberValue(questInfo.ProfessionId);
         writer.WriteStringValue(questInfo.Name);
         writer.WriteEndArray();

@@ -6,6 +6,7 @@ namespace Wowthing.Tool.Models.Quests;
 public class DumpQuestInfo
 {
     public short ID { get; set; }
+    public short Modifiers { get; set; }
     public short Profession { get; set; }
     public short Type { get; set; }
 

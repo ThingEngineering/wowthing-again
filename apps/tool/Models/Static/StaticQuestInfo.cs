@@ -7,15 +7,17 @@ namespace Wowthing.Tool.Models.Static;
 public class StaticQuestInfo
 {
     public short Id { get; set; }
-    public short Type { get; set; }
+    public short Flags { get; set; }
     public short ProfessionId { get; set; }
+    public short Type { get; set; }
     public string Name { get; set; }
 
     public StaticQuestInfo(DumpQuestInfo qi)
     {
         Id = qi.ID;
-        Type = qi.Type;
+        Flags = qi.Modifiers;
         ProfessionId = qi.Profession;
+        Type = qi.Type;
         Name = qi.Name;
     }
 }
