@@ -35,7 +35,7 @@
         position: relative;
 
         &.has-not {
-            --image-border-color: #{darken($colour-fail, 10%)};
+            --image-border-color: #{darken($color-fail, 10%)};
         }
 
         &.missing {
@@ -48,7 +48,7 @@
         }
 
         .collected-icon {
-            color: $colour-success;
+            color: $color-success;
             pointer-events: none;
             position: absolute;
             top: -4px;

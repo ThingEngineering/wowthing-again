@@ -15,7 +15,7 @@
         display: none;
 
         :global(svg) {
-            color: $colour-fail;
+            color: $color-fail;
         }
     }
     .clear-filter {

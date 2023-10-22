@@ -30,7 +30,7 @@
         width: 162px;
 
         &.selected {
-            border-color: $colour-success;
+            border-color: $color-success;
         }
         code {
             border-bottom-width: 0;

@@ -32,6 +32,7 @@ public class ItemsTool
         var itemEffects = await context.WowItemEffectV2.ToArrayAsync();
 
         var completesQuestMap = new Dictionary<int, List<int>>();
+        var teachesSpellMap = new Dictionary<int, int>();
         foreach (var itemEffect in itemEffects)
         {
             foreach (var effectSpell in itemEffect.SpellEffects.Values)
@@ -46,6 +47,16 @@ public class ItemsTool
                         }
 
                         questIds.Add(spellEffect.Values[0]);
+                    }
+                    else if (spellEffect.Effect == WowSpellEffectEffect.LearnSpell && spellEffect.Values[0] > 0)
+                    {
+                        if (teachesSpellMap.ContainsKey(itemEffect.ItemId))
+                        {
+                            ToolContext.Logger.Warning("Item teaches multiple spells?? {itemId}", itemEffect.ItemId);
+                            continue;
+                        }
+
+                        teachesSpellMap[itemEffect.ItemId] = spellEffect.Values[0];
                     }
                 }
             }
@@ -106,6 +117,8 @@ public class ItemsTool
         {
             CompletesQuest = completesQuestMap,
             CraftingQualities = idsByCraftingQuality,
+            TeachesSpell = teachesSpellMap,
+
             ItemBonusListGroups = listGroups,
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
@@ -123,6 +136,13 @@ public class ItemsTool
                 .OrderBy(kvp => kvp.Value)
                 .Select(kvp => kvp.Key)
                 .ToArray(),
+
+            LimitCategories = items.Where(item => item.LimitCategory > 0)
+                .GroupBy(item => item.LimitCategory)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(item => item.Id).ToArray()
+                ),
         };
         string? cacheHash = null;
 

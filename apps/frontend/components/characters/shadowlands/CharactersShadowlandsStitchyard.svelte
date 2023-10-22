@@ -58,7 +58,7 @@
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        border: 2px solid $colour-shrug;
+        border: 2px solid $color-shrug;
         border-radius: $border-radius;
         height: 52px;
         padding: 0 0.2rem;
@@ -66,7 +66,7 @@
         width: 52px;
     }
     .status-success {
-        --image-border-color: #{darken($colour-success, 10%)};
+        --image-border-color: #{darken($color-success, 10%)};
     }
 </style>
 

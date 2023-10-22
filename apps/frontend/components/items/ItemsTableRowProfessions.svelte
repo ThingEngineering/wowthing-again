@@ -32,9 +32,7 @@
 
             const equipment = getProfessionEquipment(character, profession.id)
             for (let i = 0; i < 3; i++) {
-                if (!equipment[i]) {
-                    equipment[i] = undefined
-                }
+                equipment[i] ||= undefined
             }
 
             professions.push([
@@ -79,7 +77,7 @@
     .no-profession {
         --scale: 1.3;
 
-        color: $colour-fail;
+        color: $color-fail;
     }
 </style>
 

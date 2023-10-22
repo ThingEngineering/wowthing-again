@@ -12,7 +12,10 @@ public class RedisItems
 
     public Dictionary<int, List<int>> CompletesQuest { get; set; }
     public Dictionary<short, int[]> CraftingQualities { get; set; }
-    public WowItemBonus[] RawItemBonuses { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }
+    public Dictionary<short, int[]> LimitCategories { get; set; }
+    public Dictionary<int, int> TeachesSpell { get; set; }
+
     public RedisItemData[]? RawItems { get; set; }
+    public WowItemBonus[] RawItemBonuses { get; set; }
 }

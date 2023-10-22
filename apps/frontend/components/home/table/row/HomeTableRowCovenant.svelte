@@ -45,7 +45,7 @@
                     }
 
                     &.active {
-                        border: 1px solid $colour-shrug;
+                        border: 1px solid $color-shrug;
                         border-radius: $border-radius;
                         line-height: 1.3;
                     }

@@ -38,7 +38,7 @@
         }
     }
     .current {
-        border: 1px solid $colour-success !important;
+        border: 1px solid $color-success !important;
     }
     .showing {
         margin-left: 1rem;

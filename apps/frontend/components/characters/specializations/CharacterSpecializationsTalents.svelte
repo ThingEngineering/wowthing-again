@@ -33,7 +33,7 @@
         padding: 0.5rem 1rem;
 
         &.selected {
-            border-color: #{$colour-success};
+            border-color: #{$color-success};
         }
     }
     .tier {
@@ -41,7 +41,7 @@
         gap: 0.3rem;
 
         &.none-chosen {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
         }
         &:not(.none-chosen) {
             .talent:not(.selected) {
@@ -53,7 +53,7 @@
         --image-border-width: 2px;
 
         &.selected {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
         }
     }
 </style>

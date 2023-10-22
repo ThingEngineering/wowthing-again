@@ -24,10 +24,10 @@
         margin-bottom: 0.5rem;
 
         & :global(.column:first-child svg) {
-            color: $colour-success;
+            color: $color-success;
         }
         & :global(.column:last-child svg) {
-            color: $colour-fail;
+            color: $color-fail;
         }
     }
 

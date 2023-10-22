@@ -5,7 +5,7 @@
 
 <style lang="scss">
     div {
-        background: fade-out($colour-fail, 0.75);
+        background: fade-out($color-fail, 0.75);
         padding: 1rem;
     }
     p {

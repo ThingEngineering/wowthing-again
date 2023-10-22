@@ -206,7 +206,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={getDropIcon($manualStore, drop, isCriteria)} />
+                        <IconifyIcon icon={getDropIcon($itemStore, $manualStore, $staticStore, drop, isCriteria)} />
                     </td>
                     <td
                         class="name"

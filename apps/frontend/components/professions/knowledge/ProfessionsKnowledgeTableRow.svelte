@@ -15,13 +15,19 @@
 
     export let character: Character
 
-    type ZoneData  = {
+    type ZoneData = {
+        have: number
+        status?: string
+        total: number
+        items: ZoneItem[]
+    }
+    type ZoneItem  = {
         have: boolean
         itemId: number
         profession: Profession
         source?: string
     }
-    let data: ZoneData[][]
+    let data: ZoneData[]
     $: {
         data = []
 
@@ -32,13 +38,17 @@
                 return
             }
 
-            const zoneData: ZoneData[] = []
+            const zoneData: ZoneData = {
+                have: 0,
+                total: 0,
+                items: [],
+            }
 
             for (const professionId of dkZone.masters) {
                 if (character.professions?.[professionId]) {
                     const profData = dragonflightProfessionMap[professionId]
 
-                    zoneData.push({
+                    zoneData.items.push({
                         have: userQuestStore.hasAny(character.id, profData.masterQuestId),
                         itemId: -1,
                         profession: professionId,
@@ -56,19 +66,36 @@
                         (['LN', 'ZCB'].indexOf(bq.source) >= 0 && dkZone.shortName === 'ZC') ||
                         (bq.source.startsWith(`${dkZone.shortName} `))
                     )
+
+                    const characterRenown = dkZone.reputationId
+                        ? Math.floor((character.reputations?.[dkZone.reputationId] ?? 0) / 2500)
+                        : 0
+
                     for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
-                        zoneData.push({
+                        const bookData = {
                             have: userQuestStore.hasAny(character.id, bookQuest.questId),
                             itemId: bookQuest.itemId,
                             profession: profData.id,
                             source: bookQuest.source,
-                        })
+                        }
+
+                        const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
+                        if (!bookData.have) {
+                            if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
+                                zoneData.status = 'fail'
+                            }
+                            else if (bookData.source === 'LN') {
+                                zoneData.status = 'fail'
+                            }
+                        }
+
+                        zoneData.items.push(bookData)
                     }
                 }
                 else { // not books
                     const treasureQuests = (profData.treasureQuests || []).filter((tq) => tq.source === dkZone.shortName)
                     for (const treasureQuest of treasureQuests) {
-                        zoneData.push({
+                        zoneData.items.push({
                             have: userQuestStore.hasAny(character.id, treasureQuest.questId),
                             itemId: treasureQuest.itemId,
                             profession: profData.id,
@@ -77,7 +104,20 @@
                 }
             }
 
-            zoneData.sort((a, b) => Profession[a.profession].localeCompare(Profession[b.profession]))
+            zoneData.have = zoneData.items.filter((item) => item.have).length
+            zoneData.total = zoneData.items.length
+            zoneData.items.sort((a, b) => Profession[a.profession].localeCompare(Profession[b.profession]))
+
+            if (dkZone.name.endsWith('Books')) {
+                if (!zoneData.status) {
+                    zoneData.status = zoneData.have < zoneData.total ? 'shrug' : 'success'
+                }
+            }
+            else {
+                zoneData.status = zoneData.have === 0
+                    ? 'fail'
+                    : (zoneData.have < zoneData.total ? 'shrug' : 'success')
+            }
 
             data.push(zoneData)
         })
@@ -102,14 +142,9 @@
         <td class="spacer"></td>
     {:else}
         {@const zoneData = data[dkIndex]}
-        {@const zoneHave = zoneData.filter((zd) => zd.have).length}
-        {@const zoneTotal = zoneData.length}
-        {#if zoneData.length > 0}
+        {#if zoneData.items.length > 0}
             <td
-                class="profession-knowledge"
-                class:status-fail={zoneHave === 0}
-                class:status-shrug={zoneHave > 0 && zoneHave < zoneTotal}
-                class:status-success={zoneHave === zoneTotal}
+                class="profession-knowledge status-{zoneData.status}"
                 use:componentTooltip={{
                     component: Tooltip,
                     props: {
@@ -120,7 +155,7 @@
                     }
                 }}
             >
-                {zoneHave} / {zoneTotal}
+                {zoneData.have} / {zoneData.total}
             </td>
         {:else}
             <td class="profession-knowledge faded">---</td>

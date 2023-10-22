@@ -92,8 +92,8 @@
         }
     }
     .bff {
-        //background: mix($thing-background, $colour-success, 90%);
-        color: lighten($colour-success, 20%);
+        //background: mix($thing-background, $color-success, 90%);
+        color: lighten($color-success, 20%);
     }
     .feature {
         --image-border-width: 2px;
@@ -119,10 +119,10 @@
             filter: grayscale(100%);
         }
         &.available {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
         }
         &.unlocked {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
         }
     }
 </style>

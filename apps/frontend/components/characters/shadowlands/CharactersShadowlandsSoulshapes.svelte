@@ -63,7 +63,7 @@
         margin-top: 0.5rem;
     }
     .collection-object {
-        --image-border-color: #{$colour-success};
+        --image-border-color: #{$color-success};
         --image-border-width: 1px;
 
         &.missing {

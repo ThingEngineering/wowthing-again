@@ -6,6 +6,7 @@ import type { ItemQuality } from '@/enums/item-quality'
 
 export class ItemDataItem {
     public craftingQuality?: number
+    public limitCategory?: number
     public oppositeFactionId?: number
 
     private appearanceArrays?: ItemDataItemAppearanceArray[]

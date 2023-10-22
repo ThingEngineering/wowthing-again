@@ -22,10 +22,10 @@
         }
     }
     .trivial-low {
-        color: $colour-shrug;
+        color: $color-shrug;
     }
     .trivial-mid {
-        color: $colour-success;
+        color: $color-success;
     }
     .trivial-high {
         color: #bbb;

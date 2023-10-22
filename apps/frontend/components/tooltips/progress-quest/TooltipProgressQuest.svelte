@@ -38,13 +38,13 @@
         }
     }
     .status-0 {
-        color: $colour-fail;
+        color: $color-fail;
     }
     .status-1 {
-        color: $colour-shrug;
+        color: $color-shrug;
     }
     .status-2 {
-        color: $colour-success;
+        color: $color-success;
     }
 </style>
 

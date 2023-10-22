@@ -108,7 +108,7 @@
         background: $thing-background;
         border: 2px solid var(--image-border-color);
         border-radius: $border-radius;
-        color: $colour-success;
+        color: $color-success;
         display: flex;
         height: 24px;
         width: 24px;
@@ -118,6 +118,7 @@
         }
     }
     .crafted-quality {
+        pointer-events: none;
         position: absolute;
         right: -2px;
         top: -2px;
