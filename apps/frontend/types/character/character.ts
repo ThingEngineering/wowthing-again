@@ -190,5 +190,21 @@ export class Character implements ContainsItems, HasNameAndRealm {
     getItemCount(itemId: number): number {
         return (this.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0)
     }
+
+    private _professionKnownAbilities: Set<number> = undefined
+    knowsProfessionAbility(abilityId: number): boolean {
+        if (this._professionKnownAbilities === undefined) {
+            this._professionKnownAbilities = new Set<number>()
+            for (const profession of Object.values(this.professions || {})) {
+                for (const subProfession of Object.values(profession)) {
+                    for (const abilityId of subProfession.knownRecipes) {
+                        this._professionKnownAbilities.add(abilityId)
+                    }
+                }
+            }
+        }
+        return this._professionKnownAbilities.has(abilityId)
+    }
 }
 export type CharacterArray = ConstructorParameters<typeof Character>
+ 
