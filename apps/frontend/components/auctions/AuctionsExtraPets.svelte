@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { iconLibrary, itemLocationIcons } from '@/shared/icons'
     import { petBreedMap } from '@/data/pet-breed'
+    import { ItemLocation } from '@/enums/item-location'
+    import { itemLocationIcons } from '@/shared/icons/mappings'
     import { userAuctionExtraPetsStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { ItemLocation } from '@/enums/item-location'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import petLocationTooltip from '@/utils/pet-location-tooltip'
@@ -150,7 +150,7 @@
                                                 use:basicTooltip={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
-                                                    icon={iconLibrary[itemLocationIcons[pet.location]]}
+                                                    icon={itemLocationIcons[pet.location]}
                                                     scale="0.9"
                                                 />
                                             </td>

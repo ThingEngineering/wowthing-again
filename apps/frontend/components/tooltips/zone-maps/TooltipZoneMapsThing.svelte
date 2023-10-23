@@ -12,7 +12,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
-    import { iconLibrary, rewardTypeIcons } from '@/shared/icons'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
@@ -266,7 +266,7 @@
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon icon={iconLibrary[rewardTypeIcons[RewardType.Achievement]]} />
+                                        <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
                                         {$achievementStore.achievement[drop.id].name}
                                     {:else}
                                         {$achievementStore.achievement[drop.id].description}

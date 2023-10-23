@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { farmTypeIcons, iconLibrary, rewardTypeIcons } from '@/shared/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
     import { RewardType } from '@/enums/reward-type'
+    import { farmTypeIcons, rewardTypeIcons } from '@/shared/icons/mappings'
     import { getDropData } from '@/utils/zone-maps'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -29,7 +29,7 @@
             {@const dropCount = dropIndexes.length > 4 ? 3 : 4}
             <tr>
                 <td class="name">
-                    <IconifyIcon icon={iconLibrary[farmTypeIcons[farm.type]]} />
+                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
                     {farm.name}
                 </td>
                 <td class="drops">
@@ -37,7 +37,7 @@
                         {@const drop = farm.drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
                         <div>
-                            <IconifyIcon icon={iconLibrary[rewardTypeIcons[drop.type]]} />
+                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
                             <span class="quality{dropData.quality}">
                                 <WowheadLink
                                     id={dropData.linkId}

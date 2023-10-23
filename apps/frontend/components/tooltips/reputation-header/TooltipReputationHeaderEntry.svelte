@@ -3,7 +3,7 @@
     import { Faction } from '@/enums/faction'
     import { RewardType } from '@/enums/reward-type'
     import { itemStore, userStore, userTransmogStore } from '@/stores'
-    import { iconLibrary, rewardTypeIcons } from '@/shared/icons'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
@@ -112,7 +112,7 @@
                 <td
                     class="type status-{reward.have ? 'success' : 'fail'}"
                 >
-                    <IconifyIcon icon={iconLibrary[rewardTypeIcons[reward.type]]} />
+                    <IconifyIcon icon={rewardTypeIcons[reward.type]} />
                 </td>
                 <td class="name">
                     {reward.name}

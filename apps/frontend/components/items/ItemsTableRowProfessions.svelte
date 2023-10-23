@@ -2,7 +2,7 @@
     import orderBy from 'lodash/orderBy'
 
     import { iconStrings, imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { professionIdToSlug } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
@@ -90,7 +90,7 @@
     >
         {#if userHas}
             <WowthingImage
-                name="{imageStrings[professionIdToString[profession.id]]}"
+                name="{imageStrings[professionIdToSlug[profession.id]]}"
                 size={24}
                 border={2}
                 tooltip={getNameForFaction(profession.name, character.faction)}

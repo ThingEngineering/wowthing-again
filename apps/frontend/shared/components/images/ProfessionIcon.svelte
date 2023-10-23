@@ -1,6 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { professionIdToSlug } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
 
     import WowthingImage from './sources/WowthingImage.svelte'
@@ -11,7 +11,7 @@
 </script>
 
 <WowthingImage
-    name={imageStrings[professionIdToString[id]]}
+    name={imageStrings[professionIdToSlug[id]]}
     tooltip={$staticStore.professions[id].name}
     {size}
     {border}
