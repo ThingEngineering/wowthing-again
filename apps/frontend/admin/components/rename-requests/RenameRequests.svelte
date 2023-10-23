@@ -2,7 +2,7 @@
     import { onMount } from 'svelte'
 
     import { renameRequestsStore } from './store'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import type { RenameRequest } from './types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

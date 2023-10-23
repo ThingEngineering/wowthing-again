@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { characterSettingsStore } from '@/stores/character-settings'
     import { settingsStore } from '@/stores/settings'
     import type { Character } from '@/types/character'

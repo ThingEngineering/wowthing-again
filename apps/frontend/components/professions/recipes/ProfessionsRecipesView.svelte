@@ -5,7 +5,7 @@
     import { iconStrings } from '@/data/icons'
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { itemStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { professionsRecipesState } from '@/stores/local-storage'

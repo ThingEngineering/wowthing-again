@@ -6,7 +6,7 @@
     import { timeLeft } from '@/data/auctions'
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { itemStore, settingsStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'

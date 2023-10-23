@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { itemStore } from '@/stores'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

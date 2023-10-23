@@ -1,7 +1,7 @@
 import type { IconifyIcon } from '@iconify/types'
 
 import { farmTypeIcons as oldFarmTypeIcons } from '@/data/icons'
-import { farmTypeIcons, iconLibrary, iconScaling, professionIcons } from '@/icons'
+import { farmTypeIcons, iconLibrary, iconScaling, professionIcons } from '@/shared/icons'
 import type { ManualDataZoneMapFarm } from '@/types/data/manual'
 import { FarmType } from '@/enums/farm-type'
 

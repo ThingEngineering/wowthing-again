@@ -2,7 +2,7 @@
     import active from 'svelte-spa-router/active'
 
     import { navItems } from '@/data/nav'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { settingsStore, userStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
 

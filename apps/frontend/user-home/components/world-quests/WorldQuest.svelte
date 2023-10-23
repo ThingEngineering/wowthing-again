@@ -1,7 +1,7 @@
 <script lang="ts">
     import { questInfoIcon } from './data'
     import { RewardType } from '@/enums/reward-type'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/stores/time'
