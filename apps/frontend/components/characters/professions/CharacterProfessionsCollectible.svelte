@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { iconLibrary } from '@/shared/icons'
     import { itemStore } from '@/stores'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -41,9 +40,7 @@
     </WowheadLink>
 
     {#if userHas}
-        <div class="collected-icon drop-shadow">
-            <IconifyIcon icon={iconLibrary.mdiCheckboxOutline} />
-        </div>
+        <CollectedIcon />
     {/if}
 
     {#if text}

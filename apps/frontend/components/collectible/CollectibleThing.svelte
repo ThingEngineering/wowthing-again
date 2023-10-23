@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import { getContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
@@ -7,7 +6,7 @@
     import { collectibleState } from '@/stores/local-storage'
     import type { CollectibleContext } from '@/types/contexts'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -65,9 +64,7 @@
             </WowheadLink>
 
             {#if userHasThing}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
+                <CollectedIcon />
             {/if}
         {/if}
     </div>

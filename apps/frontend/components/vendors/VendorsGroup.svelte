@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { itemStore, lazyStore } from '@/stores'
@@ -14,10 +13,10 @@
     import type { ManualDataVendorGroup } from '@/types/data/manual'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -217,9 +216,7 @@
                             {/if}
             
                             {#if thing.userHas}
-                                <div class="collected-icon drop-shadow">
-                                    <IconifyIcon icon={mdiCheckboxOutline} />
-                                </div>
+                                <CollectedIcon />
                             {:else}
                                 <div class="costs quality1">
                                     {#each thing.item.sortedCosts as [costType, costId, costValue]}
