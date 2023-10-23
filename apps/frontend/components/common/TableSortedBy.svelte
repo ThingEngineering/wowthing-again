@@ -1,5 +1,5 @@
 <script lang="ts">
-    import mdiDown from '@iconify/icons-mdi/arrow-down-bold-circle-outline'
+    import { iconLibrary } from '@/shared/icons'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 </script>
@@ -21,5 +21,5 @@
 </style>
 
 <div class="sorted-by drop-shadow">
-    <IconifyIcon icon={mdiDown} />
+    <IconifyIcon icon={iconLibrary.mdiArrowDownBoldCircleOutline} />
 </div>
