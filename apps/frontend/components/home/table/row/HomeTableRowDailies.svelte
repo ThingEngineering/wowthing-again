@@ -1,16 +1,15 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
 
-    import { iconStrings } from '@/data/icons'
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
-    import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/dailies/TooltipDailies.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let character: Character
     export let expansion: number
@@ -87,9 +86,9 @@
     >
         <div class="flex-wrapper">
             {#each callings as [, , status]}
-                <IconifyIcon
+                <YesNoIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
-                    icon={status ? iconStrings.yes : iconStrings.no}
+                    state={status}
                 />
             {/each}
         </div>

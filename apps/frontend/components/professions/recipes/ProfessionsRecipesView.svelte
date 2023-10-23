@@ -2,7 +2,6 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
-    import { iconStrings } from '@/data/icons'
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/shared/icons'
@@ -21,9 +20,10 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
     
     export let expansion: Expansion
     export let profession: StaticDataProfession
@@ -210,9 +210,7 @@
                                 class:status-success={charHas}
                                 class:status-fail={!charHas}
                             >
-                                <IconifyIcon
-                                    icon={charHas ? iconStrings.yes : iconStrings.no}
-                                />
+                                <YesNoIcon state={charHas} />
                             </td>
                         {/each}
                     </tr>
