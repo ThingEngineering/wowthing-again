@@ -1,10 +1,17 @@
 import type { IconifyIcon } from '@iconify/types'
 
-import { iconStrings, rewardTypeIcons } from '@/data/icons'
+import { iconStrings } from '@/data/icons'
 import { ArmorType } from '@/enums/armor-type'
 import { RewardType } from '@/enums/reward-type'
 import { WeaponSubclass } from '@/enums/weapon-subclass'
-import { armorTypeIcons, iconLibrary, inventoryTypeIcons, professionIcons, weaponIcons } from '@/shared/icons'
+import {
+    armorTypeIcons,
+    iconLibrary,
+    inventoryTypeIcons,
+    professionIcons,
+    rewardTypeIcons,
+    weaponIcons,
+} from '@/shared/icons'
 import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ItemData } from '@/types/data/item'
@@ -53,5 +60,5 @@ export function getDropIcon(
         icon = iconLibrary[weaponIcons[<WeaponSubclass>drop.subType]]
     }
 
-    return icon || rewardTypeIcons[drop.type]
+    return icon || iconLibrary[rewardTypeIcons[drop.type]]
 }

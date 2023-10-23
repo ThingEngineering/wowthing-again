@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { rewardTypeIcons } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardType } from '@/enums/reward-type'
     import { itemStore, userStore, userTransmogStore } from '@/stores'
+    import { iconLibrary, rewardTypeIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
@@ -112,7 +112,7 @@
                 <td
                     class="type status-{reward.have ? 'success' : 'fail'}"
                 >
-                    <IconifyIcon icon={rewardTypeIcons[reward.type]} />
+                    <IconifyIcon icon={iconLibrary[rewardTypeIcons[reward.type]]} />
                 </td>
                 <td class="name">
                     {reward.name}

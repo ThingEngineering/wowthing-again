@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { farmTypeIcons, rewardTypeIcons } from '@/data/icons'
+    import { farmTypeIcons, iconLibrary, rewardTypeIcons } from '@/shared/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
     import { RewardType } from '@/enums/reward-type'
@@ -29,7 +29,7 @@
             {@const dropCount = dropIndexes.length > 4 ? 3 : 4}
             <tr>
                 <td class="name">
-                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
+                    <IconifyIcon icon={iconLibrary[farmTypeIcons[farm.type]]} />
                     {farm.name}
                 </td>
                 <td class="drops">
@@ -37,7 +37,7 @@
                         {@const drop = farm.drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
                         <div>
-                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
+                            <IconifyIcon icon={iconLibrary[rewardTypeIcons[drop.type]]} />
                             <span class="quality{dropData.quality}">
                                 <WowheadLink
                                     id={dropData.linkId}

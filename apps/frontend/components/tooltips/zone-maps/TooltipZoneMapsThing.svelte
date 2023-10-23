@@ -3,7 +3,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { expansionMap } from '@/data/expansion'
-    import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
+    import { iconStrings, imageStrings } from '@/data/icons'
     import { professionSlugToId } from '@/data/professions'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
@@ -12,6 +12,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
+    import { iconLibrary, rewardTypeIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
@@ -265,7 +266,7 @@
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
+                                        <IconifyIcon icon={iconLibrary[rewardTypeIcons[RewardType.Achievement]]} />
                                         {$achievementStore.achievement[drop.id].name}
                                     {:else}
                                         {$achievementStore.achievement[drop.id].description}
