@@ -8,7 +8,7 @@
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from './ParsedText.svelte'
+    import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte'
 
     const toggleExpanded = () => {
         $collectingSettingsState.expanded = !$collectingSettingsState.expanded

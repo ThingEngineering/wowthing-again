@@ -7,7 +7,7 @@
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

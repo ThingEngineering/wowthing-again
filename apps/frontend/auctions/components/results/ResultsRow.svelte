@@ -7,7 +7,7 @@
     import { leftPad } from '@/utils/formatting'
     import type { AuctionEntry } from '@/auctions/types/auction-entry'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let auction: AuctionEntry = null

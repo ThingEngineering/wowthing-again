@@ -17,7 +17,7 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'

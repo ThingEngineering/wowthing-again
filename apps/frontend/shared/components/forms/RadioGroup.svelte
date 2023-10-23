@@ -3,7 +3,7 @@
     import iconSelected from '@iconify/icons-mdi/radiobox-marked'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let disabled = false
     export let name: string

@@ -4,7 +4,7 @@
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let set: ManualDataTransmogGroupData
     export let setTitle: string

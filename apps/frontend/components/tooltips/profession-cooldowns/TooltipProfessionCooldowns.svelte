@@ -3,7 +3,7 @@
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character, ProfessionCooldown } from '@/types'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
 
     export let character: Character

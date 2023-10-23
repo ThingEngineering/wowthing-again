@@ -21,7 +21,7 @@
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
     import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'

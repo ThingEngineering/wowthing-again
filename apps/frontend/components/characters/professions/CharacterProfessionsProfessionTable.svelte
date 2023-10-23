@@ -9,7 +9,7 @@
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

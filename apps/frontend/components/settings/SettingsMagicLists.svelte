@@ -5,7 +5,7 @@
     import type { SettingsChoice } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let active: SettingsChoice[]
     export let inactive: SettingsChoice[]

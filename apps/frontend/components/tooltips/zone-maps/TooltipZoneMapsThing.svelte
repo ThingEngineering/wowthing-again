@@ -19,7 +19,7 @@
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let drops: ManualDataZoneMapDrop[]

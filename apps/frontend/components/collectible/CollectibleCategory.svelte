@@ -8,7 +8,7 @@
 
     import CollectibleThing from './CollectibleThing.svelte'
     import CollectibleThingPet from './CollectibleThingPet.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import SectionTitle from './CollectibleSectionTitle.svelte'
 
     export let category: ManualDataSetCategory

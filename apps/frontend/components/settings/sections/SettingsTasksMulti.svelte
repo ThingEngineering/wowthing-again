@@ -6,7 +6,7 @@
     import type { SettingsChoice } from '@/types'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let multiTaskKey: string
 

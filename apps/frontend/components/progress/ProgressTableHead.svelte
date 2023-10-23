@@ -5,7 +5,7 @@
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 

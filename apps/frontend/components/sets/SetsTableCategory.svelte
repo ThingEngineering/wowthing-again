@@ -15,7 +15,7 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TableSet from './SetsTableSet.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
