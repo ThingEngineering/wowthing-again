@@ -96,4 +96,8 @@ export { default as mdiUnicorn } from '@iconify/icons-mdi/unicorn'
 export { default as mdiWardrobeOutline } from '@iconify/icons-mdi/wardrobe-outline'
 export { default as mdiWizardHat } from '@iconify/icons-mdi/wizard-hat'
 
+export { default as notoBackpack } from '@iconify/icons-noto/backpack'
+export { default as notoBank } from '@iconify/icons-noto/bank'
 export { default as notoCrossedSwords } from '@iconify/icons-noto/crossed-swords'
+export { default as notoDogFace } from '@iconify/icons-noto/dog-face'
+export { default as notoFamilyWomanWomanGirlBoy } from '@iconify/icons-noto/family-woman-woman-girl-boy'

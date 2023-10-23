@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { locationIcons } from '@/data/icons'
+    import { iconLibrary, itemLocationIcons } from '@/shared/icons'
     import { petBreedMap } from '@/data/pet-breed'
     import { userAuctionExtraPetsStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
@@ -150,7 +150,7 @@
                                                 use:basicTooltip={petLocationTooltip(pet)}
                                             >
                                                 <IconifyIcon
-                                                    icon={locationIcons[pet.location]}
+                                                    icon={iconLibrary[itemLocationIcons[pet.location]]}
                                                     scale="0.9"
                                                 />
                                             </td>

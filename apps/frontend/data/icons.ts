@@ -147,12 +147,6 @@ export const iconStrings: Record<string, IconifyIcon> = {
     starFull: mdiStarFace,
 }
 
-export const locationIcons: Record<number, IconifyIcon> = {
-    [ItemLocation.Bags]: notoBackpack,
-    [ItemLocation.Bank]: notoBank,
-    [ItemLocation.GuildBank]: notoFamilyWomanWomanGirlBoy,
-    [ItemLocation.PetCollection]: notoDogFace,
-}
 
 export const farmTypeIcons: Record<number, IconifyIcon> = {
     [FarmType.Dungeon]: faDungeon,
