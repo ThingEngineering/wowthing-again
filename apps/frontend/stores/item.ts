@@ -90,9 +90,15 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
 
         data.itemBonuses = {}
+        data.itemConversionBonus = {}
         for (const itemBonusArray of data.rawItemBonuses) {
             const obj = new DataItemBonus(...itemBonusArray)
             data.itemBonuses[obj.id] = obj
+
+            // Set ItemConversionID
+            if (obj.bonuses[0][0] === 37) {
+                data.itemConversionBonus[obj.id] = obj.bonuses[0][1]
+            }
         }
         data.rawItemBonuses = null
 
@@ -117,7 +123,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             data.itemSets[obj.id] = obj
         }
         data.rawItemSets = null
-        console.log(data.itemSets)
 
         console.timeEnd('ItemDataStore.initialize')
     }

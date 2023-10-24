@@ -117,11 +117,13 @@ public class ItemsTool
         {
             CompletesQuest = completesQuestMap,
             CraftingQualities = idsByCraftingQuality,
+            ItemBonusListGroups = listGroups,
+            ItemConversionEntries = await LoadItemConversionEntries(),
             TeachesSpell = teachesSpellMap,
 
-            ItemBonusListGroups = listGroups,
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
+                .OrderBy(itemBonus => itemBonus.Id)
                 .ToArray(),
 
             ClassIdSubclassIdInventoryTypes = indexClassIdSubclassIdInventoryType
@@ -275,6 +277,19 @@ public class ItemsTool
         }
 
         return groupedBySharedString;
+    }
+
+    private async Task<Dictionary<short, int[]>> LoadItemConversionEntries()
+    {
+        return (await DataUtilities.LoadDumpCsvAsync<DumpItemConversionEntry>("itemconversionentry"))
+            .GroupBy(ice => ice.ItemConversionID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .Select(ice => ice.ItemID)
+                    .Order()
+                    .ToArray()
+            );
     }
 
     private async Task<RedisItemSet[]> LoadItemSets(Language language)
