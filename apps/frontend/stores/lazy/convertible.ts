@@ -23,7 +23,6 @@ export function doConvertible(
             PlayableClass[name as keyof typeof PlayableClass]
         ])
     )
-    console.log(maskToClass)
     
     const ret: LazyConvertible = {}
     for (const [seasonId, itemIds] of Object.entries(stores.itemData.itemConversionEntries)) {

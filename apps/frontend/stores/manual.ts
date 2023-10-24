@@ -124,7 +124,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 }
             }
         }
-        console.log(data.dragonridingItemToQuest)
 
         console.timeEnd('ManualDataStore.initialize')
     }

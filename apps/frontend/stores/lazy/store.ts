@@ -523,7 +523,6 @@ export class LazyStore implements LazyUgh {
             haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
                 const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId]
                 const userCount = this.userData.heirlooms?.[staticHeirloom.id]
-                console.log(staticHeirloom, userCount)
                 return userCount !== undefined ? userCount + 1 : 0
             },
         })

@@ -48,7 +48,6 @@
                 items: newItems,
             })
         }
-        console.log(containers)
     }
 </script>
 

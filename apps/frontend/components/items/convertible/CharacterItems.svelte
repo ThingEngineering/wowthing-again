@@ -115,8 +115,6 @@
                 usableItems.push([charItem as CharacterItem, isConvertible, isUpgradeable])
             }
         }
-
-        console.log(usableItems)
     }
 </script>
 
