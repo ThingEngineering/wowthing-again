@@ -21,7 +21,7 @@ export const inventoryTypeIcons: Record<InventoryType, IconifyIcon> = {
     [InventoryType.OneHand]: null,
     [InventoryType.OffHand]: null,
     [InventoryType.Ranged]: null,
-    [InventoryType.Back]: null,
+    [InventoryType.Back]: iconLibrary.gameCape,
     [InventoryType.TwoHand]: null,
     [InventoryType.Bag]: iconLibrary.gameBackpack,
     [InventoryType.Tabard]: null,
