@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -37,7 +37,7 @@
                 type={"spell"}
             >
                 <IconifyIcon
-                    icon={iconStrings[index < currentRank && userHas ? 'starFull' : 'starEmpty']}
+                    icon={(index < currentRank && userHas) ? uiIcons.starFull : uiIcons.starEmpty}
                 />
             </WowheadLink>
         {/each}

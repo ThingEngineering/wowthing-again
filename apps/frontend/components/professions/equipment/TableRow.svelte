@@ -1,7 +1,8 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy'
 
-    import { iconStrings, imageStrings } from '@/data/icons'
+    import { imageStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
     import { professionIdToSlug } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
@@ -97,7 +98,7 @@
             />
         {:else}
             <IconifyIcon
-                icon={iconStrings.no}
+                icon={uiIcons.no}
                 tooltip="No profession!"
             />
         {/if}

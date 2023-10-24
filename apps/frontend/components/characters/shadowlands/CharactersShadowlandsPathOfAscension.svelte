@@ -1,8 +1,8 @@
 <script lang="ts">
     import { ascensionFightOrder, ascensionFights, ascensionItems } from '@/data/covenant'
-    import { iconStrings } from '@/data/icons'
-    import { userQuestStore } from '@/stores'
+    import { uiIcons } from '@/shared/icons'
     import { basicTooltip } from '@/shared/utils/tooltips'
+    import { userQuestStore } from '@/stores'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -111,11 +111,11 @@
                     >
                         {#if characterHas}
                             <IconifyIcon
-                                icon={iconStrings.starFull}
+                                icon={uiIcons.starFull}
                             />
                         {:else if feature?.rank < fight.unlockRanks[questIndex]}
                             <IconifyIcon
-                                icon={iconStrings.lock}
+                                icon={uiIcons.lock}
                                 extraClass="unavailable"
                             />
                         {:else if (
@@ -123,12 +123,12 @@
                             (!quests?.has(fight.unlockQuestId))
                         )}
                             <IconifyIcon
-                                icon={iconStrings.lock}
+                                icon={uiIcons.lock}
                             />
                         {:else}
                             <IconifyIcon
                                 extraClass="status-shrug"
-                                icon={iconStrings.starEmpty}
+                                icon={uiIcons.starEmpty}
                             />
                         {/if}
                     </td>

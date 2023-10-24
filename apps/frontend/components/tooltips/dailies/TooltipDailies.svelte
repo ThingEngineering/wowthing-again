@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { DateTime } from 'luxon'
 
-    import { iconStrings } from '@/data/icons'
-    import { itemStore, timeStore } from '@/stores'
+    import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
+    import { itemStore, timeStore } from '@/stores'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
@@ -65,7 +65,7 @@
                     <td class="status">
                         <IconifyIcon
                             extraClass="{status ? 'status-success' : 'status-fail'}"
-                            icon={status ? iconStrings.yes : iconStrings.no}
+                            icon={status ? uiIcons.yes : uiIcons.no}
                             scale="0.91"
                         />
                     </td>

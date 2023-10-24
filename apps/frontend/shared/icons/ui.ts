@@ -2,6 +2,7 @@ import * as iconLibrary from './library'
 
 
 export const uiIcons = {
+    lock: iconLibrary.mdiLockOutline,
     no: iconLibrary.mdiClose,
     yes: iconLibrary.mdiCheck,
 
