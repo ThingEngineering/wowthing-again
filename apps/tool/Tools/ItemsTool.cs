@@ -239,20 +239,35 @@ public class ItemsTool
 
             foreach (int itemBonusId in group)
             {
+                bool foundGroup = false;
+                bool foundItemNameDescription = false;
+
                 foreach (var bonusData in _itemBonusMap[itemBonusId].Bonuses)
                 {
                     // Bonus type 34, ItemBonusListGroupID, SharedStringID?
-                    if (bonusData[0] == 34 && bonusData.Count >= 3)
+                    if (bonusData[0] == 34)
                     {
-                        int sharedStringId = bonusData[2];
+                        int sharedStringId = bonusData.Count >= 3 ? bonusData[2] : 0;
                         if (!groupedBySharedString[bonusGroupId].TryGetValue(sharedStringId, out var oof))
                         {
                             oof = groupedBySharedString[bonusGroupId][sharedStringId] = new();
                         }
 
                         oof.Add(itemBonusId);
+                        foundGroup = true;
                         break;
                     }
+                    // ItemNameDescription => Dragonflight Season 2
+                    else if (bonusData[0] == 4 && bonusData[1] == 14043)
+                    {
+                        foundItemNameDescription = true;
+                    }
+                }
+
+                if (!foundGroup && foundItemNameDescription)
+                {
+                    groupedBySharedString[bonusGroupId].TryAdd(0, new());
+                    groupedBySharedString[bonusGroupId][0].Add(itemBonusId);
                 }
             }
         }
