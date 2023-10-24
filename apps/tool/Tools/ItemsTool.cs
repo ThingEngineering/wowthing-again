@@ -185,6 +185,8 @@ public class ItemsTool
         {
             ToolContext.Logger.Information("Generating {Lang}...", language);
 
+            cacheData.RawItemSets = await LoadItemSets(language);
+
             foreach (var redisItem in cacheData.RawItems)
             {
                 redisItem.Name = _strings.GetValueOrDefault((language, redisItem.Id), $"Item #{redisItem.Id}");
@@ -273,6 +275,14 @@ public class ItemsTool
         }
 
         return groupedBySharedString;
+    }
+
+    private async Task<RedisItemSet[]> LoadItemSets(Language language)
+    {
+        return (await DataUtilities.LoadDumpCsvAsync<DumpItemSet>("itemset", language))
+            .Where(set => set.ItemIDs.Length > 0)
+            .Select(set => new RedisItemSet(set))
+            .ToArray();
     }
 
     private Dictionary<string, int> _names = new();

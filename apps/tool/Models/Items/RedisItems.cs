@@ -18,4 +18,5 @@ public class RedisItems
 
     public RedisItemData[]? RawItems { get; set; }
     public WowItemBonus[] RawItemBonuses { get; set; }
+    public RedisItemSet[] RawItemSets { get; set; }
 }

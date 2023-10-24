@@ -1,6 +1,6 @@
 import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types/fancy-store'
-import { ItemDataItem, type ItemData, DataItemBonus } from '@/types/data/item'
+import { ItemDataItem, type ItemData, DataItemBonus, DataItemSet } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 
 
@@ -57,6 +57,12 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             }
         }
 
+        data.appearanceToItems = {}
+        for (const [appearanceId, itemIds] of appearanceIds.entries())
+        {
+            data.appearanceToItems[appearanceId] = Array.from(itemIds)
+        }
+
         data.oppositeFactionAppearance = {}
         for (let i = 0; i < data.oppositeFactionIds.length; i += 2) {
             const itemId1 = data.oppositeFactionIds[i]
@@ -90,12 +96,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItemBonuses = null
 
-        data.appearanceToItems = {}
-        for (const [appearanceId, itemIds] of appearanceIds.entries())
-        {
-            data.appearanceToItems[appearanceId] = Array.from(itemIds)
-        }
-
         data.itemBonusToUpgrade = {}
         for (const bonusGroups of Object.values(data.itemBonusListGroups)) {
             for (const [sharedStringId, itemBonuses] of Object.entries(bonusGroups)) {
@@ -110,6 +110,14 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
                 }
             }
         }
+
+        data.itemSets = {}
+        for (const itemSetArray of data.rawItemSets) {
+            const obj = new DataItemSet(...itemSetArray)
+            data.itemSets[obj.id] = obj
+        }
+        data.rawItemSets = null
+        console.log(data.itemSets)
 
         console.timeEnd('ItemDataStore.initialize')
     }
