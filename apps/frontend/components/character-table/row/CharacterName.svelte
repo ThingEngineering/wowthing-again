@@ -29,7 +29,7 @@
     }}
 >
     <a
-        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : undefined}"
+        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : undefined} drop-shadow"
         href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}"
     >
         {character.name}
