@@ -117,11 +117,13 @@ public class ItemsTool
         {
             CompletesQuest = completesQuestMap,
             CraftingQualities = idsByCraftingQuality,
+            ItemBonusListGroups = listGroups,
+            ItemConversionEntries = await LoadItemConversionEntries(),
             TeachesSpell = teachesSpellMap,
 
-            ItemBonusListGroups = listGroups,
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)
+                .OrderBy(itemBonus => itemBonus.Id)
                 .ToArray(),
 
             ClassIdSubclassIdInventoryTypes = indexClassIdSubclassIdInventoryType
@@ -185,6 +187,8 @@ public class ItemsTool
         {
             ToolContext.Logger.Information("Generating {Lang}...", language);
 
+            cacheData.RawItemSets = await LoadItemSets(language);
+
             foreach (var redisItem in cacheData.RawItems)
             {
                 redisItem.Name = _strings.GetValueOrDefault((language, redisItem.Id), $"Item #{redisItem.Id}");
@@ -239,25 +243,61 @@ public class ItemsTool
 
             foreach (int itemBonusId in group)
             {
+                bool foundGroup = false;
+                bool foundItemNameDescription = false;
+
                 foreach (var bonusData in _itemBonusMap[itemBonusId].Bonuses)
                 {
                     // Bonus type 34, ItemBonusListGroupID, SharedStringID?
-                    if (bonusData[0] == 34 && bonusData.Count >= 3)
+                    if (bonusData[0] == 34)
                     {
-                        int sharedStringId = bonusData[2];
+                        int sharedStringId = bonusData.Count >= 3 ? bonusData[2] : 0;
                         if (!groupedBySharedString[bonusGroupId].TryGetValue(sharedStringId, out var oof))
                         {
                             oof = groupedBySharedString[bonusGroupId][sharedStringId] = new();
                         }
 
                         oof.Add(itemBonusId);
+                        foundGroup = true;
                         break;
                     }
+                    // ItemNameDescription => Dragonflight Season 2
+                    else if (bonusData[0] == 4 && bonusData[1] == 14043)
+                    {
+                        foundItemNameDescription = true;
+                    }
+                }
+
+                if (!foundGroup && foundItemNameDescription)
+                {
+                    groupedBySharedString[bonusGroupId].TryAdd(0, new());
+                    groupedBySharedString[bonusGroupId][0].Add(itemBonusId);
                 }
             }
         }
 
         return groupedBySharedString;
+    }
+
+    private async Task<Dictionary<short, int[]>> LoadItemConversionEntries()
+    {
+        return (await DataUtilities.LoadDumpCsvAsync<DumpItemConversionEntry>("itemconversionentry"))
+            .GroupBy(ice => ice.ItemConversionID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .Select(ice => ice.ItemID)
+                    .Order()
+                    .ToArray()
+            );
+    }
+
+    private async Task<RedisItemSet[]> LoadItemSets(Language language)
+    {
+        return (await DataUtilities.LoadDumpCsvAsync<DumpItemSet>("itemset", language))
+            .Where(set => set.ItemIDs.Length > 0)
+            .Select(set => new RedisItemSet(set))
+            .ToArray();
     }
 
     private Dictionary<string, int> _names = new();

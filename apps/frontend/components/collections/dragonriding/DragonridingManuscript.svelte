@@ -1,9 +1,8 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import { itemStore, userQuestStore } from '@/stores'
     import { collectibleState } from '@/stores/local-storage'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
@@ -38,9 +37,7 @@
         </WowheadLink>
 
         {#if userHas}
-            <div class="collected-icon drop-shadow">
-                <IconifyIcon icon={mdiCheckboxOutline} />
-            </div>
+            <CollectedIcon />
         {/if}
     </div>
 {/if}

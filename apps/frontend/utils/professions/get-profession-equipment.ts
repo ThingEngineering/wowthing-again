@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { professionIdToString } from '@/data/professions'
+import { professionIdToSlug } from '@/data/professions'
 import { ProfessionSubclass } from '@/enums/profession-subclass'
 import { itemStore } from '@/stores'
 import type { Character, CharacterEquippedItem } from '@/types'
@@ -36,7 +36,7 @@ export function getProfessionEquipment(
     professionId: number
 ): Record<number, CharacterEquippedItem> {
     const itemData = get(itemStore)
-    const professionSlug = professionIdToString[professionId]
+    const professionSlug = professionIdToSlug[professionId]
 
     const equippedItems: Record<number, CharacterEquippedItem> = {}
     if (professionId === 185) { // Cooking

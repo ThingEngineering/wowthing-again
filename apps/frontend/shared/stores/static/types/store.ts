@@ -8,7 +8,7 @@ import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
 import type { StaticDataKeystoneAffix } from './keystone-affix'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
-import type { StaticDataProfession, StaticDataProfessionAbility } from './profession'
+import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionAbilityInfo } from './profession'
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
@@ -43,6 +43,10 @@ export interface StaticData {
     professionBySkillLine: Record<number, [StaticDataProfession, number]>
     skillLineAbilityItems: Record<number, number[]>
     spellToProfessionAbility: Record<number, StaticDataProfessionAbility>
+
+    professionAbilityByAbilityId: Record<number, StaticDataProfessionAbilityInfo>
+    professionAbilityByItemId: Record<number, StaticDataProfessionAbilityInfo>
+    professionAbilityBySpellId: Record<number, StaticDataProfessionAbilityInfo>
 
     bags: Record<number, StaticDataBag>
     rawBags: StaticDataBagArray[]

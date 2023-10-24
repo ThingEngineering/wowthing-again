@@ -219,6 +219,14 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     stores.manualData.dragonridingItemToQuest[drop.id]
                                 )
                             }
+                            else if (stores.staticData.professionAbilityByItemId[drop.id]) {
+                                const professionInfo = stores.staticData.professionAbilityByItemId[drop.id]
+                                dropStatus.need = !every(
+                                    stores.userData.characters,
+                                    (char) => char.professions?.[professionInfo.professionId] === undefined
+                                        || char.knowsProfessionAbility(professionInfo.abilityId)
+                                )
+                            }
                             else {
                                 dropStatus.need = true
                             }
@@ -486,6 +494,16 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 else {
                                     dropStatus.completedCharacterIds.push(character.id)
                                 }
+                            }
+                            else if (drop.type === RewardType.Item && stores.staticData.professionAbilityByItemId[drop.id]) {
+                                const professionInfo = stores.staticData.professionAbilityByItemId[drop.id]
+                                if (!character.knowsProfessionAbility(professionInfo.abilityId)) {
+                                    dropStatus.characterIds.push(character.id)
+                                }
+                                else {
+                                    // dropStatus.completedCharacterIds.push(character.id)
+                                }
+                                dropStatus.need = dropStatus.characterIds.length > 0
                             }
                             else if (drop.type === RewardType.XpQuest) {
                                 if (!stores.userQuestData.characters[character.id]?.dailyQuests?.has(drop.id)

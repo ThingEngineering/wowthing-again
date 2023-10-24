@@ -2,7 +2,9 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
-    import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
+    import { expansionMap } from '@/data/expansion'
+    import { iconStrings, imageStrings } from '@/data/icons'
+    import { professionSlugToId } from '@/data/professions'
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
     import { FarmIdType } from '@/enums/farm-id-type'
@@ -10,6 +12,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
@@ -17,7 +20,7 @@
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let drops: ManualDataZoneMapDrop[]
@@ -238,7 +241,15 @@
                         {:else if drop.limit?.length > 0}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
-                                [ {drop.limit.slice(2).join(', ')} ]
+                                {#if drop.limit[0] === 'profession'}
+                                    {@const expansion = expansionMap[
+                                        $staticStore.professions[professionSlugToId[drop.limit[1]]]
+                                            .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
+                                    ]}
+                                    [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                {:else}
+                                    [{drop.limit.slice(2).join(', ')}]
+                                {/if}
                             {/if}
                         {:else}
                             {RewardType[drop.type].toLowerCase()}

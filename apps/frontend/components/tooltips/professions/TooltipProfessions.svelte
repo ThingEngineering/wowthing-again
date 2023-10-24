@@ -1,6 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { professionIdToSlug } from '@/data/professions'
     import getPercentClass from '@/utils/get-percent-class'
     import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/shared/stores/static/types'
@@ -54,7 +54,7 @@
     <h4>{character.name}</h4>
     <h5>
         <WowthingImage
-            name="{imageStrings[professionIdToString[profession.id]]}"
+            name="{imageStrings[professionIdToSlug[profession.id]]}"
             size={20}
             border={1}
         />

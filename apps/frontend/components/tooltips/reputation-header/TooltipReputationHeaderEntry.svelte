@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { rewardTypeIcons } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardType } from '@/enums/reward-type'
     import { itemStore, userStore, userTransmogStore } from '@/stores'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/shared/stores/static/types'

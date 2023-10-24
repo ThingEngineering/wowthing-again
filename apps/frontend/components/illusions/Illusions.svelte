@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
 
     import { manualStore, lazyStore, settingsStore, userTransmogStore } from '@/stores'
@@ -12,8 +11,8 @@
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -143,9 +142,7 @@
                                     />
 
                                     {#if have}
-                                        <div class="collected-icon drop-shadow">
-                                            <IconifyIcon icon={mdiCheckboxOutline} />
-                                        </div>
+                                        <CollectedIcon />
                                     {/if}
 
                                     {#each (item.classes || []) as classId}

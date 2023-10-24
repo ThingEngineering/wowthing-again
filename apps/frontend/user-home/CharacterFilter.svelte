@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { newNavState } from '@/stores/local-storage'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

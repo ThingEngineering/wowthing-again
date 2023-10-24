@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
-    import { itemStore, userQuestStore } from '@/stores'
+    import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
+    import { itemStore, userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
@@ -217,7 +217,7 @@
                                                 {@const hasCrafted = userQuestStore.hasAny(character.id, ability.firstCraftQuestId)}
                                                 <IconifyIcon
                                                     extraClass={hasCrafted ? 'status-success': 'status-fail' }
-                                                    icon={hasCrafted ? iconStrings.yes : iconStrings.no}
+                                                    icon={hasCrafted ? uiIcons.yes : uiIcons.no}
                                                     tooltip={hasCrafted
                                                         ? 'Learned and crafted'
                                                         : (userHas ? 'Learned and not crafted' : 'Unlearned')

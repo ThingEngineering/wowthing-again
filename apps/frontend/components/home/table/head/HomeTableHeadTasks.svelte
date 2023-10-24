@@ -6,7 +6,7 @@
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
     export let groupIndex: number

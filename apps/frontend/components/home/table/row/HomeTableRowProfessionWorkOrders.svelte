@@ -1,6 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { professionIdToSlug } from '@/data/professions'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { lazyStore } from '@/stores'
     import type { Character } from '@/types'
@@ -59,7 +59,7 @@
                     class:status-fail={cooldown.have === cooldown.max}
                 >
                     <WowthingImage
-                        name="{imageStrings[professionIdToString[cooldown.data.profession]]}"
+                        name="{imageStrings[professionIdToSlug[cooldown.data.profession]]}"
                         size={20}
                         border={1}
                     />

@@ -2,14 +2,14 @@
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
 
-    import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
+    import { uiIcons } from '@/shared/icons'
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let character: Character
     export let chore: LazyCharacterChore
@@ -136,7 +136,7 @@
                         <td class="status">
                             <IconifyIcon
                                 extraClass="status-{['fail', 'shrug', 'success', 'fail'][charTask.status]}"
-                                icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][charTask.status]]}
+                                icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull, uiIcons.lock][charTask.status]}
                             />
                         </td>
                         {#if anyErrors}

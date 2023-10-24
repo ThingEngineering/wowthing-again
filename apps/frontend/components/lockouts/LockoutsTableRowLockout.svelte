@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lockoutOverride } from '@/data/dungeon'
-    import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
     import { settingsStore } from '@/stores'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
@@ -51,18 +51,18 @@
             <span>{maxBosses}</span>
         {:else}
             {#if lockout?.defeatedBosses >= maxBosses}
-                <IconifyIcon icon={iconStrings.starFull} />
+                <IconifyIcon icon={uiIcons.starFull} />
             {:else if lockout?.defeatedBosses > 0}
-                <IconifyIcon icon={iconStrings.starHalf} />
+                <IconifyIcon icon={uiIcons.starHalf} />
             {:else if $settingsStore.layout.showEmptyLockouts}
-                <IconifyIcon icon={iconStrings.starEmpty} />
+                <IconifyIcon icon={uiIcons.starEmpty} />
             {/if}
         {/if}
     </td>
 {:else}
     <td class="status-fail">
         {#if $settingsStore.layout.showEmptyLockouts}
-            <IconifyIcon icon={iconStrings.starEmpty} />
+            <IconifyIcon icon={uiIcons.starEmpty} />
         {/if}
     </td>
 {/if}

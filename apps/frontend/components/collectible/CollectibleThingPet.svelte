@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import maxBy from 'lodash/maxBy'
     import { getContext } from 'svelte'
@@ -11,7 +10,7 @@
     import type { UserDataPet } from '@/types'
     import type { CollectibleContext } from '@/types/contexts'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import NpcLink from '@/shared/components/links/NpcLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -82,9 +81,7 @@
                 </div>
 
                 {#if userHasThing}
-                    <div class="collected-icon drop-shadow">
-                        <IconifyIcon icon={mdiCheckboxOutline} />
-                    </div>
+                    <CollectedIcon />
                 {/if}
             {/each}
         {/if}

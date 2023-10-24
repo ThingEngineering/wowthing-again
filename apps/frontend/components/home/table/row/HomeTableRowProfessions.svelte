@@ -1,6 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { professionIdToSlug } from '@/data/professions'
     import { Region } from '@/enums/region'
     import { settingsStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
@@ -112,7 +112,7 @@
                 >
                     <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/professions/{profession.slug}">
                         <WowthingImage
-                            name="{imageStrings[professionIdToString[profession.id]]}"
+                            name="{imageStrings[professionIdToSlug[profession.id]]}"
                             size={20}
                             border={1}
                         />

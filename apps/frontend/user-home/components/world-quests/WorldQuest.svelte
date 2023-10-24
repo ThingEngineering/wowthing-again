@@ -1,7 +1,7 @@
 <script lang="ts">
     import { questInfoIcon } from './data'
     import { RewardType } from '@/enums/reward-type'
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/stores/time'
@@ -19,7 +19,6 @@
     $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60
     $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId]
     $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId]
-    $: console.log(questInfo)
 
     let iconName: string
     let rewardString: string

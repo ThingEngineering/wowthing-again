@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { userQuestStore } from '@/stores'
+    import { uiIcons } from '@/shared/icons'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { userQuestStore } from '@/stores'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
@@ -80,11 +80,11 @@
             <div class="{progress.cls}">
                 {#if progress.completed}
                     <IconifyIcon
-                        icon={iconStrings.yes}
+                        icon={uiIcons.yes}
                     />
                 {:else if progress.progressQuest === undefined}
                     <IconifyIcon
-                        icon={iconStrings.no}
+                        icon={uiIcons.no}
                     />
                 {:else}
                     {progress.progressQuest.objectives?.[0]?.have ?? 0}

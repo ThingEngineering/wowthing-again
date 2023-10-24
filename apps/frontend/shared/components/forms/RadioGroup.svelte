@@ -1,9 +1,8 @@
 <script lang="ts">
-    import iconBlank from '@iconify/icons-mdi/radiobox-blank'
-    import iconSelected from '@iconify/icons-mdi/radiobox-marked'
+    import { iconLibrary } from '@/shared/icons'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let disabled = false
     export let name: string
@@ -44,7 +43,7 @@
                 {disabled}
             >
             <IconifyIcon
-                icon={optionValue === value ? iconSelected : iconBlank}
+                icon={optionValue === value ? iconLibrary.mdiRadioboxMarked : iconLibrary.mdiRadioboxBlank}
             />
             <ParsedText text={optionLabel} />
         </label>

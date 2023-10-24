@@ -1,11 +1,11 @@
 <script lang="ts">
     import ListView from 'svelte-sortable-flat-list-view'
 
-    import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
     import type { SettingsChoice } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let active: SettingsChoice[]
     export let inactive: SettingsChoice[]
@@ -98,7 +98,7 @@
                 <span class="name">
                     <ParsedText text={Item.name} />
                 </span>
-                <IconifyIcon icon={iconStrings.yes} />
+                <IconifyIcon icon={uiIcons.yes} />
             </ListView>
         </div>
 
@@ -118,7 +118,7 @@
                 <span class="name">
                     <ParsedText text={Item.name} />
                 </span>
-                <IconifyIcon icon={iconStrings.no} />
+                <IconifyIcon icon={uiIcons.no} />
             </ListView>
         </div>
     </div>

@@ -121,7 +121,7 @@ export default function getCharacterGear(
             if (state.highlightUpgrades) {
                 for (const bonusId of gear.equipped.bonusIds) {
                     const upgradeData = itemData.itemBonusToUpgrade[bonusId]
-                    if (upgradeData?.[0] > 0) {
+                    if (upgradeData) {
                         gear.upgradeHas = upgradeData[1]
                         gear.upgradeMax = upgradeData[2]
                         gear.missingUpgrade = upgradeData[1] < upgradeData[2]

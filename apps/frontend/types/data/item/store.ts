@@ -1,6 +1,7 @@
 import type { InventoryType } from '@/enums/inventory-type'
 import type { ItemDataItem, ItemDataItemArray } from './item'
 import type { DataItemBonus, DataItemBonusArray } from './item-bonus'
+import type { DataItemSet, DataItemSetArray } from './item-set'
 
 
 export interface ItemData {
@@ -8,6 +9,8 @@ export interface ItemData {
     completesQuest: Record<number, number[]>
     craftingQualities: Record<number, number[]>
     itemBonusToUpgrade: Record<number, [number, number, number]>
+    itemConversionBonus: Record<number, number>
+    itemConversionEntries: Record<number, number[]>
     limitCategories: Record<number, number[]>
     oppositeFactionAppearance: Record<number, number[]>
     teachesSpell: Record<number, number>
@@ -22,6 +25,9 @@ export interface ItemData {
 
     itemBonuses: Record<number, DataItemBonus>
     rawItemBonuses: DataItemBonusArray[]
+
+    itemSets: Record<number, DataItemSet>
+    rawItemSets: DataItemSetArray[]
 
     classIdSubclassIdInventoryTypes: [number, number, number][]
     classMasks: number[]

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import mdiImageBrokenVariant from '@iconify/icons-mdi/image-broken-variant'
+    import { iconLibrary } from '@/shared/icons'
+
     import type { IconifyIcon } from '@iconify/types'
 
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -10,11 +11,7 @@
     export let scale: string = null
     export let tooltip: string = undefined
 
-    $: {
-        if (icon === undefined) {
-            icon = mdiImageBrokenVariant
-        }
-    }
+    $: icon ||= iconLibrary.mdiImageBrokenVariant
 </script>
 
 <style lang="scss">

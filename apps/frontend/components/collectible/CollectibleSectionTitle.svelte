@@ -3,7 +3,7 @@
     import type { UserCount } from '@/types'
 
     import Count from '@/components/collectible/CollectibleCount.svelte'
-    import ParsedText from '../common/ParsedText.svelte'
+    import ParsedText from '../../shared/components/parsed-text/ParsedText.svelte'
 
     export let count: UserCount = undefined
     export let title: string

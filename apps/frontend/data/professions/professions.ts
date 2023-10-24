@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy'
 
+import { Profession } from '@/enums/profession'
 import type { DragonflightProfession } from '@/types/data'
 
 import { dragonflightAlchemy } from './alchemy'
@@ -17,26 +18,26 @@ import { dragonflightSkinning } from './skinning'
 import { dragonflightTailoring } from './tailoring'
 
 
-export const professionIdToString: Record<number, string> = {
-    171: 'alchemy',
-    164: 'blacksmithing',
-    333: 'enchanting',
-    202: 'engineering',
-    182: 'herbalism',
-    773: 'inscription',
-    755: 'jewelcrafting',
-    165: 'leatherworking',
-    186: 'mining',
-    393: 'skinning',
-    197: 'tailoring',
+export const professionIdToSlug: Record<number, string> = {
+    [Profession.Alchemy]: 'alchemy',
+    [Profession.Blacksmithing]: 'blacksmithing',
+    [Profession.Enchanting]: 'enchanting',
+    [Profession.Engineering]: 'engineering',
+    [Profession.Herbalism]: 'herbalism',
+    [Profession.Inscription]: 'inscription',
+    [Profession.Jewelcrafting]: 'jewelcrafting',
+    [Profession.Leatherworking]: 'leatherworking',
+    [Profession.Mining]: 'mining',
+    [Profession.Skinning]: 'skinning',
+    [Profession.Tailoring]: 'tailoring',
 
-    794: 'archaeology',
-    185: 'cooking',
-    356: 'fishing',
+    [Profession.Archaeology]: 'archaeology',
+    [Profession.Cooking]: 'cooking',
+    [Profession.Fishing]: 'fishing',
 }
 
 export const professionSlugToId: Record<string, number> = Object.fromEntries(
-    Object.entries(professionIdToString)
+    Object.entries(professionIdToSlug)
         .map(([id, slug]) => [slug, parseInt(id)])
 )
 
@@ -51,14 +52,14 @@ export const isSecondaryProfession: Record<number, boolean> = {
     356: true, // Fishing
 }
 export const isCraftingProfession: Record<number, boolean> = Object.fromEntries(
-    Object.keys(professionIdToString)
+    Object.keys(professionIdToSlug)
         .map((id) => parseInt(id))
         .filter((id) => !isGatheringProfession[id] && !isSecondaryProfession[id])
         .map((id) => [id, true])
 )
 // I hate that object keys are always strings, ugh
 export const professionOrder: number[] = sortBy(
-    Object.entries(professionIdToString),
+    Object.entries(professionIdToSlug),
     ([id, slug]) => [
         isSecondaryProfession[parseInt(id)] ? 2 : (isGatheringProfession[parseInt(id)] ? 1 : 0),
         slug

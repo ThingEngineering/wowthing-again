@@ -1,6 +1,5 @@
 <script lang="ts">
-    import mdiCheckboxBlankOutline from '@iconify/icons-mdi/checkbox-blank-outline'
-    import mdiCheckboxOutline from '@iconify/icons-mdi/checkbox-outline'
+    import { iconLibrary } from '@/shared/icons'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
@@ -32,7 +31,7 @@
             {disabled}
         >
         <IconifyIcon
-            icon={value ? mdiCheckboxOutline : mdiCheckboxBlankOutline}
+            icon={value ? iconLibrary.mdiCheckboxOutline : iconLibrary.mdiCheckboxBlankOutline}
         />
         <span class="text {textClass || ''}"><slot /></span>
     </label>

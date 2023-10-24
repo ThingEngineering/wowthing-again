@@ -2,8 +2,6 @@
     import maxBy from 'lodash/maxBy'
     import sortBy from 'lodash/sortBy'
 
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { dragonflightProfessionMap } from '@/data/professions'
@@ -14,8 +12,8 @@
     import type { DragonflightProfession } from '@/types/data'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import Collectible from './CharacterProfessionsCollectible.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
@@ -86,9 +84,7 @@
                         />
 
                         {#if userHas}
-                            <div class="collected-icon drop-shadow">
-                                <IconifyIcon icon={mdiCheckboxOutline} />
-                            </div>
+                            <CollectedIcon />
                         {/if}
                     </div>
                 {/if}

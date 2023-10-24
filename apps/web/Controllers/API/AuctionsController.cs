@@ -50,7 +50,6 @@ public class AuctionsController : Controller
     }
 
     [HttpPost("browse")]
-    [Authorize]
     public async Task<IActionResult> Browse([FromBody] ApiAuctionsBrowseForm form)
     {
         if (form.InventoryType <= 0 && form.ItemClass <= 0 && form.ItemSubclass <= 0)
@@ -74,7 +73,6 @@ public class AuctionsController : Controller
     }
 
     [HttpPost("search")]
-    [Authorize]
     public async Task<IActionResult> Search([FromBody] ApiAuctionsSearchForm form)
     {
         if (string.IsNullOrEmpty(form.Query) || form.Query.Trim().Length < 3)
@@ -97,7 +95,6 @@ public class AuctionsController : Controller
     }
 
     [HttpPost("specific")]
-    [Authorize]
     public async Task<IActionResult> Specific([FromBody] ApiAuctionsSpecificForm form)
     {
         if (string.IsNullOrEmpty(form.AppearanceSource) && form.ItemId <= 0 && form.PetSpeciesId <= 0)

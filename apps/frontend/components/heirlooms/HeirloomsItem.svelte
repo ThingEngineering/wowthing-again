@@ -1,13 +1,11 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
     import { settingsStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { heirloomState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomItem } from '@/types/data/manual'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -65,9 +63,7 @@
             </div>
 
             {#if level === heirloom.upgradeBonusIds.length}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
+                <CollectedIcon />
             {/if}
         {/if}
     </div>

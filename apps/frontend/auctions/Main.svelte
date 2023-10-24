@@ -29,7 +29,7 @@
         loaded = $auctionStore.loaded && $itemStore.loaded && $staticStore.loaded
 
         if (loaded) {
-            staticStore.setup(undefined)
+            staticStore.setup(undefined, $itemStore)
         }
     }
 </script>

@@ -16,8 +16,9 @@ import {
     StaticDataTransmogSet,
     StaticDataWorldQuest,
 } from './types'
-import type { StaticData } from './types'
+import { StaticDataProfessionAbilityInfo, type StaticData } from './types'
 import { StaticDataQuestInfo } from './types/quest-info'
+import type { ItemData } from '@/types/data/item'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -201,13 +202,15 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawWorldQuests != null) {
             data.worldQuests = StaticDataStore.createObjects(data.rawWorldQuests, StaticDataWorldQuest, (wq) => wq.id)
             data.rawWorldQuests = null
-            console.log(data.worldQuests)
         }
 
         console.timeEnd('StaticDataStore.initialize')
     }
 
-    setup(settings: Settings) {
+    setup(
+        settings: Settings,
+        itemData: ItemData,
+    ) {
         this.value.connectedRealms = {}
 
         const connected: Record<number, { region: number, names: string[] }> = {}
@@ -234,6 +237,55 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 realmNames: names,
             }
         }
+
+        this.value.professionAbilityByAbilityId = {}
+        this.value.professionAbilityByItemId = {}
+        this.value.professionAbilityBySpellId = {}
+
+        const spellToItem: Record<number, number> = Object.fromEntries(
+            Object.entries(itemData.teachesSpell)
+                .map(([key, value]) => [value, parseInt(key)])
+        )
+        for (const profession of Object.values(this.value.professions)) {
+            for (let i = 0; i < profession.subProfessions.length; i++) {
+                const subProfession = profession.subProfessions[i]
+                const category = profession.categories[i]
+                const results = this.recurseProfession(category, profession.id, subProfession.id, spellToItem)
+                for (const result of results) {
+                    this.value.professionAbilityByAbilityId[result.abilityId] = result
+                    this.value.professionAbilityBySpellId[result.spellId] = result
+
+                    if (result.itemId) {
+                        this.value.professionAbilityByItemId[result.itemId] = result
+                    }
+                }
+            }
+        }
+    }
+    
+    recurseProfession(
+        category: StaticDataProfessionCategory,
+        professionId: number,
+        subProfessionId: number,
+        spellToItem: Record<number, number>
+    ): StaticDataProfessionAbilityInfo[] {
+        const ret: StaticDataProfessionAbilityInfo[] = []
+
+        for (const ability of category.abilities) {
+            ret.push(new StaticDataProfessionAbilityInfo(
+                professionId,
+                subProfessionId,
+                ability.id,
+                spellToItem[ability.spellId],
+                ability.spellId,
+            ))
+        }
+
+        for (const childCategory of category.children) {
+            ret.push(...this.recurseProfession(childCategory, professionId, subProfessionId, spellToItem))
+        }
+
+        return ret
     }
 
     private static createObjects<TObject extends { id: number }>(

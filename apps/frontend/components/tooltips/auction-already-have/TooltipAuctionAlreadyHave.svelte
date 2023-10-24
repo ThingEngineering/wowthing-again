@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { locationIcons } from '@/data/icons'
+    import { itemLocationIcons } from '@/shared/icons/mappings'
     import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -47,7 +47,7 @@
                     <tr>
                         <td class="location drop-shadow">
                             <IconifyIcon
-                                icon={locationIcons[item.location]}
+                                icon={itemLocationIcons[item.location]}
                                 scale="0.9"
                             />
                         </td>

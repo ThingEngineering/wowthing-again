@@ -1,12 +1,11 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
     import { itemStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let character: Character
     export let reputationId: number
@@ -58,7 +57,7 @@
                         class:status-success={have}
                         class:status-fail={!have}
                     >
-                        <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
+                        <YesNoIcon state={have} />
                     </td>
                     
                     {#if itemId > 0}

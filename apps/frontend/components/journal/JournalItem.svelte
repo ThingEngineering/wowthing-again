@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import xor from 'lodash/xor'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
@@ -14,7 +13,7 @@
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
@@ -222,9 +221,7 @@
             {/if}
 
             {#if userHas}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
+                <CollectedIcon />
             {/if}
 
             <div class="difficulties" use:basicTooltip={diffLong.join(' / ')}>

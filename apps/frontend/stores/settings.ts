@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store'
 
 import { professionCooldowns } from '@/data/professions/cooldowns'
-import { getWowheadDomain } from '@/utils/get-wowhead-domain'
+import { Language } from '@/enums/language'
 import { hashObject } from '@/utils/hash-object'
 import type { Account } from '@/types/account'
 import type { FancyStoreFetchOptions } from '@/types/fancy-store'
@@ -18,6 +18,18 @@ import { userQuestStore } from './user-quests'
 import { userTransmogStore } from './user-transmog'
 
 
+const languageToSubdomain: Record<Language, string> = {
+    [Language.deDE]: 'de',
+    [Language.enUS]: 'www',
+    [Language.esES]: 'es',
+    [Language.esMX]: 'es',
+    [Language.frFR]: 'fr',
+    [Language.itIT]: 'it',
+    [Language.ruRU]: 'ru',
+    [Language.ptBR]: 'pt',
+}
+
+
 export const settingsSavingState = writable<number>(0)
 
 function createSettingsStore() {
@@ -29,8 +41,7 @@ function createSettingsStore() {
 
     return {
         get wowheadBaseUrl(): string {
-            const subDomain = getWowheadDomain(get(store).general.language)
-            return `${subDomain}.wowhead.com/ptr-2`
+            return `${languageToSubdomain[get(store).general.language]}.wowhead.com/ptr-2`
         },
         set: (settings: Settings): void => {
             if (!settings) {

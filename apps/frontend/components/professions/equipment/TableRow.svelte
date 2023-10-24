@@ -1,17 +1,18 @@
 <script lang="ts">
     import orderBy from 'lodash/orderBy'
 
-    import { iconStrings, imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
+    import { imageStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
+    import { professionIdToSlug } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
     import { getProfessionEquipment, getProfessionSortKey } from '@/utils/professions'
     import type { Character, CharacterGear } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
-    import Empty from './ItemsEmpty.svelte'
+    import Empty from '../../items/ItemsEmpty.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Item from './ItemsItem.svelte'
+    import Item from '../../items/ItemsItem.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     
     export let character: Character
@@ -90,14 +91,14 @@
     >
         {#if userHas}
             <WowthingImage
-                name="{imageStrings[professionIdToString[profession.id]]}"
+                name="{imageStrings[professionIdToSlug[profession.id]]}"
                 size={24}
                 border={2}
                 tooltip={getNameForFaction(profession.name, character.faction)}
             />
         {:else}
             <IconifyIcon
-                icon={iconStrings.no}
+                icon={uiIcons.no}
                 tooltip="No profession!"
             />
         {/if}

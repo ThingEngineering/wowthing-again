@@ -7,7 +7,7 @@
 
     import Empty from '@/components/items/ItemsEmpty.svelte'
     import Item from '@/components/items/ItemsItem.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
@@ -48,7 +48,6 @@
                 items: newItems,
             })
         }
-        console.log(containers)
     }
 </script>
 

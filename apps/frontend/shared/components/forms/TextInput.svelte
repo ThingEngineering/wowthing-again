@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { iconLibrary } from '@/icons'
+    import { iconLibrary } from '@/shared/icons'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types'
 
