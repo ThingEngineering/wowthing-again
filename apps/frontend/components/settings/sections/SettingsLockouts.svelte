@@ -5,6 +5,7 @@
     import { ignoredLockoutInstances } from '@/data/dungeon'
     import { expansionMap } from '@/data/expansion'
     import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/stores'
     import type { SettingsChoice } from '@/types'
@@ -78,7 +79,7 @@
         <CheckboxInput
             bind:value={$settingsStore.layout.showEmptyLockouts}
             name="layout_showEmptyLockouts"
-        >Show a <span class="status-fail"><IconifyIcon icon={iconStrings.starHalf} /></span> for empty lockouts.</CheckboxInput>
+        >Show a <span class="status-fail"><IconifyIcon icon={uiIcons.starHalf} /></span> for empty lockouts.</CheckboxInput>
     </div>
 
     <h3>Lockouts</h3>

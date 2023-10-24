@@ -2,9 +2,9 @@
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
 
-    import { iconStrings } from '@/data/icons'
     import { taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
+    import { uiIcons } from '@/shared/icons'
     import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
@@ -136,7 +136,7 @@
                         <td class="status">
                             <IconifyIcon
                                 extraClass="status-{['fail', 'shrug', 'success', 'fail'][charTask.status]}"
-                                icon={iconStrings[['starEmpty', 'starHalf', 'starFull', 'lock'][charTask.status]]}
+                                icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull, uiIcons.lock][charTask.status]}
                             />
                         </td>
                         {#if anyErrors}

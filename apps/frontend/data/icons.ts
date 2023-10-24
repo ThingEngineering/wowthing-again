@@ -1,46 +1,7 @@
 import type { IconifyIcon } from '@iconify/types'
 
-import mdiArrowDownBoldOutline from '@iconify/icons-mdi/arrow-down-bold-outline'
-import mdiArrowLeftBoldOutline from '@iconify/icons-mdi/arrow-left-bold-outline'
-import mdiArrowRightBoldOutline from '@iconify/icons-mdi/arrow-right-bold-outline'
-import mdiArrowUpBoldOutline from '@iconify/icons-mdi/arrow-up-bold-outline'
-import mdiCalendar from '@iconify/icons-mdi/calendar-alert'
-import mdiCheck from '@iconify/icons-mdi/check'
-import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
-import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
-import mdiChevronUp from '@iconify/icons-mdi/chevron-up'
-import mdiClose from '@iconify/icons-mdi/close'
-import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
-import mdiFormatListCheckbox from '@iconify/icons-mdi/format-list-checkbox'
-import mdiGiftOutline from '@iconify/icons-mdi/gift-outline'
-import mdiLetterC from '@iconify/icons-mdi/alpha-c-box-outline'
-import mdiLetterL from '@iconify/icons-mdi/alpha-l-box-outline'
-import mdiLetterM from '@iconify/icons-mdi/alpha-m-box-outline'
-import mdiLetterP from '@iconify/icons-mdi/alpha-p-box-outline'
-import mdiLightningBoltOutline from '@iconify/icons-mdi/lightning-bolt-outline'
-import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
-import mdiNumeric1CircleOutline from '@iconify/icons-mdi/numeric-1-circle-outline'
-import mdiNumeric2CircleOutline from '@iconify/icons-mdi/numeric-2-circle-outline'
-import mdiNumeric3CircleOutline from '@iconify/icons-mdi/numeric-3-circle-outline'
-import mdiNumeric4CircleOutline from '@iconify/icons-mdi/numeric-4-circle-outline'
-import mdiNumeric5CircleOutline from '@iconify/icons-mdi/numeric-5-circle-outline'
-import mdiPageFirst from '@iconify/icons-mdi/page-first'
-import mdiPageLast from '@iconify/icons-mdi/page-last'
-import mdiPlus from '@iconify/icons-mdi/plus'
-import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
-import mdiRocketLaunchOutline from '@iconify/icons-mdi/rocket-launch-outline'
-import mdiShieldHalfFull from '@iconify/icons-mdi/shield-half-full'
-import mdiSortAlphabeticalAscending from '@iconify/icons-mdi/sort-alphabetical-ascending'
-import mdiSortAlphabeticalDescending from '@iconify/icons-mdi/sort-alphabetical-descending'
-import mdiSortNumericAscending from '@iconify/icons-mdi/sort-numeric-ascending'
-import mdiSortNumericDescending from '@iconify/icons-mdi/sort-numeric-descending'
-import mdiStarFace from '@iconify/icons-mdi/star-face'
-import mdiStarHalfFull from '@iconify/icons-mdi/star-half-full'
-import mdiStarOutline from '@iconify/icons-mdi/star-outline'
-import mdiSwordCross from '@iconify/icons-mdi/sword-cross'
-
-
 import { Constants } from '@/data/constants'
+import { iconLibrary } from '@/shared/icons'
 
 
 export const imageStrings: Record<string, string> = {
@@ -70,52 +31,48 @@ export const imageStrings: Record<string, string> = {
 }
 
 export const iconStrings: Record<string, IconifyIcon> = {
-    exclamation: mdiExclamationThick,
-    item: mdiGiftOutline,
-    plus: mdiPlus,
-    question: mdiQuestion,
-    rocket: mdiRocketLaunchOutline,
+    exclamation: iconLibrary.mdiExclamationThick,
+    item: iconLibrary.mdiGiftOutline,
+    plus: iconLibrary.mdiPlus,
+    question: iconLibrary.mdiQuestion,
+    rocket: iconLibrary.mdiRocketLaunchOutline,
 
-    'arrow-down': mdiArrowDownBoldOutline,
-    'arrow-left': mdiArrowLeftBoldOutline,
-    'arrow-right': mdiArrowRightBoldOutline,
-    'arrow-up': mdiArrowUpBoldOutline,
+    'arrow-down': iconLibrary.mdiArrowDownBoldOutline,
+    'arrow-left': iconLibrary.mdiArrowLeftBoldOutline,
+    'arrow-right': iconLibrary.mdiArrowRightBoldOutline,
+    'arrow-up': iconLibrary.mdiArrowUpBoldOutline,
 
-    'calendar-quest': mdiCalendar,
+    'calendar-quest': iconLibrary.mdiCalendar,
 
-    'chevron-down': mdiChevronDown,
-    'chevron-right': mdiChevronRight,
-    'chevron-up': mdiChevronUp,
+    'chevron-down': iconLibrary.mdiChevronDown,
+    'chevron-right': iconLibrary.mdiChevronRight,
+    'chevron-up': iconLibrary.mdiChevronUp,
 
-    circle1: mdiNumeric1CircleOutline,
-    circle2: mdiNumeric2CircleOutline,
-    circle3: mdiNumeric3CircleOutline,
-    circle4: mdiNumeric4CircleOutline,
-    circle5: mdiNumeric5CircleOutline,
+    circle1: iconLibrary.mdiNumeric1CircleOutline,
+    circle2: iconLibrary.mdiNumeric2CircleOutline,
+    circle3: iconLibrary.mdiNumeric3CircleOutline,
+    circle4: iconLibrary.mdiNumeric4CircleOutline,
+    circle5: iconLibrary.mdiNumeric5CircleOutline,
 
-    'list': mdiFormatListCheckbox,
+    'list': iconLibrary.mdiFormatListCheckbox,
 
-    'page-first': mdiPageFirst,
-    'page-last': mdiPageLast,
+    'page-first': iconLibrary.mdiPageFirst,
+    'page-last': iconLibrary.mdiPageLast,
 
-    'sort-alpha-down': mdiSortAlphabeticalDescending,
-    'sort-alpha-up': mdiSortAlphabeticalAscending,
-    'sort-numeric-down': mdiSortNumericDescending,
-    'sort-numeric-up': mdiSortNumericAscending,
+    'sort-alpha-down': iconLibrary.mdiSortAlphabeticalDescending,
+    'sort-alpha-up': iconLibrary.mdiSortAlphabeticalAscending,
+    'sort-numeric-down': iconLibrary.mdiSortNumericDescending,
+    'sort-numeric-up': iconLibrary.mdiSortNumericAscending,
 
-    armorCloth: mdiLetterC,
-    armorLeather: mdiLetterL,
-    armorMail: mdiLetterM,
-    armorPlate: mdiLetterP,
-
-    starEmpty: mdiStarOutline,
-    starHalf: mdiStarHalfFull,
-    starFull: mdiStarFace,
+    armorCloth: iconLibrary.mdiLetterC,
+    armorLeather: iconLibrary.mdiLetterL,
+    armorMail: iconLibrary.mdiLetterM,
+    armorPlate: iconLibrary.mdiLetterP,
 }
 
 
 export const soulbindSockets: Record<number, IconifyIcon> = {
-    1: mdiLightningBoltOutline, // Finesse
-    2: mdiSwordCross, // Potency
-    3: mdiShieldHalfFull, // Endurance
+    1: iconLibrary.mdiLightningBoltOutline, // Finesse
+    2: iconLibrary.mdiSwordCross, // Potency
+    3: iconLibrary.mdiShieldHalfFull, // Endurance
 }
