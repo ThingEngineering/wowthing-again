@@ -18,5 +18,6 @@
 <SubSidebar
     baseUrl={'/items/convertible'}
     items={categories}
+    noVisitRoot={true}
     width={'11rem'}
 />
