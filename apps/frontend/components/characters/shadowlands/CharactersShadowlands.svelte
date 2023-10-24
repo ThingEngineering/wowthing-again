@@ -24,7 +24,7 @@
             covenantSlugMap[params.slug4] === undefined &&
             params.slug4 !== 'cypher-research'
         ) {
-            replace(`${baseUrl}/${covenantMap[character.shadowlands?.covenantId ?? covenantOrder[0]].slug}`)
+            replace(`${baseUrl}/${covenantMap[character.shadowlands?.covenantId || covenantOrder[0]].slug}`)
         }
     }
 </script>
