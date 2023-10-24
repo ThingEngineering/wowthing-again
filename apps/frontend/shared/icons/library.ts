@@ -54,6 +54,7 @@ export { default as gameScrollQuill } from '@iconify/icons-game-icons/scroll-qui
 export { default as gameSecretBook } from '@iconify/icons-game-icons/secret-book'
 export { default as gameShield } from '@iconify/icons-game-icons/shield'
 export { default as gameShirt } from '@iconify/icons-game-icons/shirt'
+export { default as gameShurikenAperture } from '@iconify/icons-game-icons/shuriken-aperture'
 export { default as gameSpellBook } from '@iconify/icons-game-icons/spell-book'
 export { default as gameSpikedDragonHead } from '@iconify/icons-game-icons/spiked-dragon-head'
 export { default as gameStaryu } from '@iconify/icons-game-icons/staryu'

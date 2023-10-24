@@ -7,6 +7,7 @@ import type { DateTime } from 'luxon'
 
 import { doCharacters, type LazyCharacter } from './character'
 import { doCollectible, type LazyCollectible } from './collectible'
+import { doConvertible, type LazyConvertible } from './convertible'
 import { doJournal, type LazyJournal } from './journal'
 import { doTransmog, type LazyTransmog } from './transmog'
 import { doVendors, type LazyVendors } from './vendors'
@@ -167,6 +168,7 @@ export class LazyStore implements LazyUgh {
     private illusionsFunc: () => UserCounts
 
     private charactersFunc: () => Record<string, LazyCharacter>
+    private convertibleFunc: () => LazyConvertible
     private journalFunc: () => LazyJournal
     private mountsFunc: () => LazyCollectible
     private petsFunc: () => LazyCollectible
@@ -260,6 +262,16 @@ export class LazyStore implements LazyUgh {
                 settings: this.settings,
                 userData: this.userData,
                 userQuestData: this.userQuestData
+            }))
+        }
+
+        if (changedData.userData ||
+            changedData.userTransmogData)
+        {
+            this.convertibleFunc = once(() => doConvertible({
+                itemData: this.itemData,
+                userData: this.userData,
+                userTransmogData: this.userTransmogData,
             }))
         }
 
@@ -385,6 +397,7 @@ export class LazyStore implements LazyUgh {
 
     get appearances(): UserCounts { return this.appearancesFunc() }
     get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
+    get convertible(): LazyConvertible { return this.convertibleFunc() }
     get dragonriding(): UserCounts { return this.dragonridingFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
