@@ -1,12 +1,10 @@
 <script lang="ts">
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
-    import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
