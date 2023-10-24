@@ -9,7 +9,7 @@
 <div class="view">
     <Sidebar />
 
-    {#if seasonSlug}
+    {#if seasonSlug && classSlug}
         <Items {seasonSlug} {classSlug} />
     {/if}
 </div>
