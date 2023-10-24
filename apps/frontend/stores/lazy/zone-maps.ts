@@ -501,7 +501,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     dropStatus.characterIds.push(character.id)
                                 }
                                 else {
-                                    dropStatus.completedCharacterIds.push(character.id)
+                                    // dropStatus.completedCharacterIds.push(character.id)
                                 }
                                 dropStatus.need = dropStatus.characterIds.length > 0
                             }
