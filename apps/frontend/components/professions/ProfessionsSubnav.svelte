@@ -21,6 +21,10 @@
             Overview
         </a>
 
+        <a href={"#/professions/equipment"} use:active>
+            Equipment
+        </a>
+
         <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
             Recipes
         </a>

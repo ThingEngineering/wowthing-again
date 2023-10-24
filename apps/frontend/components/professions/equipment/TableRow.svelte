@@ -9,9 +9,9 @@
     import type { Character, CharacterGear } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
-    import Empty from './ItemsEmpty.svelte'
+    import Empty from '../../items/ItemsEmpty.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Item from './ItemsItem.svelte'
+    import Item from '../../items/ItemsItem.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     
     export let character: Character

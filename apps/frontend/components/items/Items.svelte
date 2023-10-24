@@ -12,7 +12,6 @@
     import RowGear from '@/components/home/table/row/HomeTableRowGear.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './ItemsTableRowItems.svelte'
-    import RowProfessions from './ItemsTableRowProfessions.svelte'
     import RowUpgrades from './ItemsTableRowUpgrades.svelte'
     import Search from './ItemsSearch.svelte'
 
@@ -34,7 +33,6 @@
     <nav class="subnav" id="items-subnav">
         <a href="#/items/bags" use:active>Bags</a>
         <a href="#/items/equipped" use:active>Equipped</a>
-        <a href="#/items/professions" use:active>Professions</a>
 
         {#if !$userStore.public}
             <a href="#/items/search" use:active={{path: /^\/items\/search/}}>Search</a>
@@ -59,8 +57,6 @@
                     <RowGear {character} />
                     <RowItems {character} />
                     <RowUpgrades {character} />
-                {:else if params.slug1 === 'professions'}
-                    <RowProfessions {character} />
                 {/if}
             </svelte:fragment>
         </CharacterTable>
