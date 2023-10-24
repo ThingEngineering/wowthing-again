@@ -40,6 +40,12 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    .head-text {
+        width: 10rem;
+    }
+    .no-characters {
+        padding-left: 0.5rem;
+    }
 </style>
 
 <CharacterTable
@@ -48,7 +54,7 @@
 >
     <CharacterTableHead slot="head">
         <svelte:fragment slot="headText">
-            {AppearanceModifier[modifier]}
+            <div class="head-text">{AppearanceModifier[modifier]}</div>
         </svelte:fragment>
 
         {#each convertibleTypes as inventoryType}
@@ -79,4 +85,8 @@
             </td>
         {/each}
     </svelte:fragment>
+
+    <tr slot="emptyRow">
+        <td class="no-characters" colspan="100">There are no characters to display!</td>
+    </tr>
 </CharacterTable>
