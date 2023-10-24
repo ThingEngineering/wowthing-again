@@ -5,6 +5,7 @@
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
     export let set: ManualDataTransmogGroupData
     export let setTitle: string
@@ -20,6 +21,9 @@
 </script>
 
 <style lang="scss">
+    table {
+        --scale: 0.9;
+    }
     .have {
         width: 2.3rem;
     }
@@ -54,15 +58,16 @@
                 {#each typeOrder as type}
                     {#if slotHave[type] !== undefined}
                         <tr>
-                            <td class="have">{slotHave[type][0] ? '✔' : '❌'}</td>
+                            <td class="have">
+                                <YesNoIcon state={slotHave[type][0]} useStatusColors={true} />
+                            </td>
                             <td class="type">{$staticStore.inventoryTypes[type]}</td>
                             {#if slotHave[type][1]?.length > 0}
                                 <td class="items">
                                     {#each slotHave[type][1] as [itemHave, itemId]}
                                         <div class="item">
-                                            <ParsedText
-                                                text={`:${itemHave ? 'yes' : 'no'}: {item:${itemId}}`}
-                                            />
+                                            <YesNoIcon state={itemHave} useStatusColors={true} />
+                                            <ParsedText text={`{item:${itemId}}`} />
                                         </div>
                                     {/each}
                                 </td>
