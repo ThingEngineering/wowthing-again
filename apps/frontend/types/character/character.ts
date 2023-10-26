@@ -53,6 +53,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public bags: Record<number, number> = {}
     public currencies: Record<number, CharacterCurrency> = {}
+    public itemCounts: Record<number, number>
     public itemsByAppearanceId: Record<number, CharacterItem[]>
     public itemsByAppearanceSource: Record<string, CharacterItem[]>
     public itemsById: Record<number, CharacterItem[]>
@@ -131,6 +132,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
         }
 
+        this.itemCounts = {}
         this.itemsByAppearanceId = {}
         this.itemsByAppearanceSource = {}
         this.itemsById = {}
@@ -188,7 +190,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     getItemCount(itemId: number): number {
-        return (this.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0)
+        return this.itemCounts[itemId] ||= (this.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0)
     }
 
     private _professionKnownAbilities: Set<number> = undefined
