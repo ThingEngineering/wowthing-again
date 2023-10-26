@@ -119,6 +119,7 @@
     baseUrl={basePath ? `/${basePath}/appearances` : '/appearances'}
     items={categories}
     noVisitRoot={true}
+    scrollable={true}
     width="16rem"
     {percentFunc}
 >

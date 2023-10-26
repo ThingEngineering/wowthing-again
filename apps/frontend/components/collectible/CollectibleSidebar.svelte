@@ -42,6 +42,7 @@
 <Sidebar
     baseUrl={`/${route}`}
     items={categories}
+    scrollable={true}
     width="16rem"
     {percentFunc}
 >

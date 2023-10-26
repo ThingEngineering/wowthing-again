@@ -41,6 +41,7 @@
 <Sidebar
     baseUrl="/vendors"
     items={categories}
+    scrollable={true}
     width="16rem"
     {percentFunc}
 >
