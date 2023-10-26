@@ -266,11 +266,15 @@ export class LazyStore implements LazyUgh {
         }
 
         if (changedData.userData ||
-            changedData.userTransmogData)
+            changedData.userQuestData ||
+            changedData.userTransmogData ||
+            changedHashes.settings)
         {
             this.convertibleFunc = once(() => doConvertible({
                 itemData: this.itemData,
+                settings: this.settings,
                 userData: this.userData,
+                userQuestData: this.userQuestData,
                 userTransmogData: this.userTransmogData,
             }))
         }
