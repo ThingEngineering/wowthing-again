@@ -335,6 +335,19 @@ export function doConvertible(
                             }
                         }
 
+                        characterData.sort((a, b) => {
+                            if (a.equippedItem.itemLevel !== b.equippedItem.itemLevel) {
+                                return b.equippedItem.itemLevel - a.equippedItem.itemLevel
+                            }
+                            if (a.isUpgradeable !== b.isUpgradeable) {
+                                return (a.isUpgradeable ? 1 : 0) - (b.isUpgradeable ? 1 : 0)
+                            }
+                            if (a.isConvertible !== b.isConvertible) {
+                                return (a.isConvertible ? 1 : 0) - (b.isConvertible ? 1 : 0)
+                            }
+                            return 0
+                        })
+
                         modifierData.characters[character.id] = characterData
                     }
                 } // for character
