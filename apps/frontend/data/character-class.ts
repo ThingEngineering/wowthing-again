@@ -1,3 +1,5 @@
+import flatten from 'lodash/flatten'
+
 import { ArmorType } from '@/enums/armor-type'
 import { PlayableClass } from '@/enums/playable-class'
 
@@ -53,4 +55,11 @@ export const classByArmorTypeString: Record<string, PlayableClass[]> = Object.fr
                 classes,
             ]
         )
+)
+
+export const classIdToArmorType: Record<number, ArmorType> = Object.fromEntries(
+    flatten(
+        Object.entries(classByArmorType)
+            .map(([armorType, classIds]) => classIds.map((classId) => [classId, parseInt(armorType)]))
+    )
 )
