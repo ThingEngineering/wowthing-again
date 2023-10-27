@@ -141,7 +141,7 @@ export function doConvertible(
                                 // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
                                 // 395 gear (3/3) is 6/6?
                                 if (awfulSeason) {
-                                    if (upgrade[1] === 5) {
+                                    if (upgrade[1] === 4 || upgrade[1] === 5) {
                                         currentTierLevel = 2
                                     }
                                     else if (upgrade[1] === 6) {
@@ -298,15 +298,16 @@ export function doConvertible(
                             }
 
                             if (sigh.isUpgradeable) {
-                                const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - sigh.currentTier]
+
+                                const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - desiredTier]
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (convertibleCategory.id === 3 && (
-                                    (sigh.equippedItem.itemLevel === 385 && sigh.currentUpgrade === 5) ||
-                                    sigh.equippedItem.itemLevel === 1
+                                    (sigh.equippedItem.itemLevel === 385 && (sigh.currentUpgrade === 4 || sigh.currentUpgrade === 5)) ||
+                                    sigh.equippedItem.itemLevel < 100
                                 )) {
                                     sigh.canUpgrade = character.getItemCount(204276) > 0
                                 }
-                                else if (tier.lowUpgrade && tier.highUpgrade) {
+                                else if (tier.lowUpgrade) {
                                     if (sigh.currentUpgrade < 4) {
                                         let charHas = 0
                                         for (const [upgradeId, upgradeCount] of tier.lowUpgrade) {
@@ -319,7 +320,7 @@ export function doConvertible(
                                         sigh.canUpgrade = charHas >= (4 - sigh.currentUpgrade)
                                     }
 
-                                    if (sigh.canUpgrade) {
+                                    if (sigh.canUpgrade && tier.highUpgrade) {
                                         let charHas = 0
                                         for (const [upgradeId, upgradeCount] of tier.highUpgrade) {
                                             const charCount = upgradeId > 10_000
@@ -333,6 +334,19 @@ export function doConvertible(
                                 }
                             }
                         }
+
+                        characterData.sort((a, b) => {
+                            if (a.equippedItem.itemLevel !== b.equippedItem.itemLevel) {
+                                return b.equippedItem.itemLevel - a.equippedItem.itemLevel
+                            }
+                            if (a.isUpgradeable !== b.isUpgradeable) {
+                                return (a.isUpgradeable ? 1 : 0) - (b.isUpgradeable ? 1 : 0)
+                            }
+                            if (a.isConvertible !== b.isConvertible) {
+                                return (a.isConvertible ? 1 : 0) - (b.isConvertible ? 1 : 0)
+                            }
+                            return 0
+                        })
 
                         modifierData.characters[character.id] = characterData
                     }

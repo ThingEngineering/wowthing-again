@@ -36,31 +36,33 @@
 </style>
 
 {#each currencies as currencySets}
-    <td>
-        <div class="flex-wrapper">
-            {#each currencySets as [currencyId,]}
-                {@const charHas = currencyId > 10_000
-                    ? character.getItemCount(currencyId)
-                    : (character.currencies?.[currencyId]?.quantity || 0)}
-                <div class="character-currency">
-                    <WowheadLink
-                        id={currencyId}
-                        type={currencyId > 10_000 ? 'item' : 'currency'}
-                    >
-                        <WowthingImage
-                            name={currencyId > 10_000 ? `item/${currencyId}` : `currency/${currencyId}`}
-                            size={16}
-                            border={1}
-                        />
-                    </WowheadLink>
-                    <span
-                        class="drop-shadow"
-                        class:status-success={charHas > 0}
-                    >
-                        {charHas}
-                    </span>
-                </div>
-            {/each}
-        </div>
-    </td>
+    {#if currencySets.length > 0}
+        <td>
+            <div class="flex-wrapper">
+                {#each currencySets as [currencyId,]}
+                    {@const charHas = currencyId > 10_000
+                        ? character.getItemCount(currencyId)
+                        : (character.currencies?.[currencyId]?.quantity || 0)}
+                    <div class="character-currency">
+                        <WowheadLink
+                            id={currencyId}
+                            type={currencyId > 10_000 ? 'item' : 'currency'}
+                        >
+                            <WowthingImage
+                                name={currencyId > 10_000 ? `item/${currencyId}` : `currency/${currencyId}`}
+                                size={16}
+                                border={1}
+                            />
+                        </WowheadLink>
+                        <span
+                            class="drop-shadow"
+                            class:status-success={charHas > 0}
+                        >
+                            {charHas}
+                        </span>
+                    </div>
+                {/each}
+            </div>
+        </td>
+    {/if}
 {/each}

@@ -77,7 +77,7 @@
             </th>
         {/each}
 
-        {#if season.id === 3 || season.tiers[season.tiers.length - 1].highUpgrade}
+        {#if season.id === 3 || season.tiers[0].lowUpgrade}
             <th class="currency-head" colspan="10"></th>
         {/if}
     </CharacterTableHead>
@@ -99,7 +99,7 @@
             </td>
         {/each}
         
-        {#if season.id === 3 || season.tiers[season.tiers.length - 1].highUpgrade}
+        {#if season.id === 3 || season.tiers[0].lowUpgrade}
             <CharacterCurrencies
                 {character}
                 {season}
