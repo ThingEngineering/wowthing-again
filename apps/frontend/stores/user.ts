@@ -526,6 +526,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         return period
     }
+
+    private _itemCounts: Record<number, number> = {}
+    public getItemCount(itemId: number): number {
+        return this._itemCounts[itemId] ||= this.value.characters
+            .map((char) => (char.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0))
+            .reduce((a, b) => a + b, 0)
+    }
 }
 
 export const userStore = new UserDataStore()
