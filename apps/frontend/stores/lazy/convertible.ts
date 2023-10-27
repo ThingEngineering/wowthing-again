@@ -141,7 +141,7 @@ export function doConvertible(
                                 // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
                                 // 395 gear (3/3) is 6/6?
                                 if (awfulSeason) {
-                                    if (upgrade[1] === 5) {
+                                    if (upgrade[1] === 4 || upgrade[1] === 5) {
                                         currentTierLevel = 2
                                     }
                                     else if (upgrade[1] === 6) {
@@ -298,10 +298,11 @@ export function doConvertible(
                             }
 
                             if (sigh.isUpgradeable) {
+
                                 const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - sigh.currentTier]
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (convertibleCategory.id === 3 && (
-                                    (sigh.equippedItem.itemLevel === 385 && sigh.currentUpgrade === 5) ||
+                                    (sigh.equippedItem.itemLevel === 385 && (sigh.currentUpgrade === 4 || sigh.currentUpgrade === 5)) ||
                                     sigh.equippedItem.itemLevel < 100
                                 )) {
                                     sigh.canUpgrade = character.getItemCount(204276) > 0
