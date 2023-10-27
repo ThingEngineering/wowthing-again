@@ -302,7 +302,7 @@ export function doConvertible(
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (convertibleCategory.id === 3 && (
                                     (sigh.equippedItem.itemLevel === 385 && sigh.currentUpgrade === 5) ||
-                                    sigh.equippedItem.itemLevel === 1
+                                    sigh.equippedItem.itemLevel < 100
                                 )) {
                                     sigh.canUpgrade = character.getItemCount(204276) > 0
                                 }
