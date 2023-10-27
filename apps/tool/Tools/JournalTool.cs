@@ -240,7 +240,7 @@ public class JournalTool
                     Slug = GetString(StringType.WowJournalTierName, Language.enUS, tier.ID).Slugify(),
                 };
 
-                var legacyLoot = tier.ID <= 396; // Battle for Azeroth
+                var legacyLoot = tier.ID <= 499; // Shadowlands
 
                 int lastInstanceType = -1;
                 foreach (var instanceId in tierToInstances[tier.ID])
