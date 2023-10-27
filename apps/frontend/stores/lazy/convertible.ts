@@ -135,78 +135,80 @@ export function doConvertible(
                         for (const bonusId of charItem.bonusIds) {
                             // sharedStringId, current, max
                             upgrade = stores.itemData.itemBonusToUpgrade[bonusId]
-                            if (upgrade) {
-                                const awfulSeason = convertibleCategory.id === 3 && upgrade[2] === 6
+                            if (!upgrade) {
+                                continue
+                            }
 
-                                // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
-                                // 395 gear (3/3) is 6/6?
+                            const awfulSeason = convertibleCategory.id === 3 && upgrade[2] === 6
+
+                            // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
+                            // 395 gear (3/3) is 6/6?
+                            if (awfulSeason) {
+                                if (upgrade[1] === 4 || upgrade[1] === 5) {
+                                    currentTierLevel = 2
+                                }
+                                else if (upgrade[1] === 6) {
+                                    currentTierLevel = 3
+                                }
+                                else {
+                                    currentTierLevel = 1
+                                }
+                            }
+                            else {
+                                for (let i = 0; i < convertibleCategory.tiers.length; i++) {
+                                    const tier = convertibleCategory.tiers[i]
+                                    if (charItem.itemLevel >= tier.itemLevel) {
+                                        currentTierLevel = convertibleCategory.tiers.length - i
+                                        break
+                                    }
+                                }
+                            }
+
+                            // too low or high for this conversion
+                            if (currentTierLevel < (desiredTier - 1) || currentTierLevel > desiredTier) {
+                                continue
+                            }
+
+                            if (charItem.itemId === setItem.id) {
+                                // can be upgraded to the next tier
                                 if (awfulSeason) {
-                                    if (upgrade[1] === 4 || upgrade[1] === 5) {
-                                        currentTierLevel = 2
+                                    if (upgrade[1] < 4 && (desiredTier === 2 || desiredTier === 3)) {
+                                        isUpgradeable = true
                                     }
-                                    else if (upgrade[1] === 6) {
-                                        currentTierLevel = 3
-                                    }
-                                    else {
-                                        currentTierLevel = 1
-                                    }
-                                }
-                                else {
-                                    for (let i = 0; i < convertibleCategory.tiers.length; i++) {
-                                        const tier = convertibleCategory.tiers[i]
-                                        if (charItem.itemLevel >= tier.itemLevel) {
-                                            currentTierLevel = convertibleCategory.tiers.length - i
-                                            break
-                                        }
-                                    }
-                                }
-    
-                                // too low or high for this conversion
-                                if (currentTierLevel < (desiredTier - 1) || currentTierLevel > desiredTier) {
-                                    continue
-                                }
-    
-                                if (charItem.itemId === setItem.id) {
-                                    // can be upgraded to the next tier
-                                    if (awfulSeason) {
-                                        if (upgrade[1] === 1 && (desiredTier === 2 || desiredTier === 3)) {
-                                            isUpgradeable = true
-                                        }
-                                        else if (upgrade[1] === 2 && desiredTier === 3) {
-                                            isUpgradeable = true
-                                        }
-                                    }
-                                    else {
-                                        if (upgrade[2] >= 5 && upgrade[1] <= 4) {
-                                            isUpgradeable = true
-                                        }
-                                    }
-                                }
-                                else {
-                                    if (currentTierLevel === desiredTier) {
-                                        isConvertible = true
-                                    }
-                                    else if (awfulSeason) {
-                                        if (currentTierLevel === 1 && (desiredTier === 2 || desiredTier === 3)) {
-                                            isConvertible = true
-                                            isUpgradeable = true
-                                        }
-                                        else if (currentTierLevel === 2 && desiredTier === 3) {
-                                            isConvertible = true
-                                            isUpgradeable = true
-                                        }
-                                        else if (currentTierLevel > 1 && currentTierLevel === desiredTier) {
-                                            isConvertible = true
-                                        }
-                                    }
-                                    else if (upgrade[2] >= 5 && upgrade[1] <= 4) {
-                                        isConvertible = true
+                                    else if (upgrade[1] >= 4 && upgrade[1] <= 5 && desiredTier === 3) {
                                         isUpgradeable = true
                                     }
                                 }
-    
-                                break
+                                else {
+                                    if (upgrade[2] >= 5 && upgrade[1] <= 4) {
+                                        isUpgradeable = true
+                                    }
+                                }
                             }
+                            else {
+                                if (currentTierLevel === desiredTier) {
+                                    isConvertible = true
+                                }
+                                else if (awfulSeason) {
+                                    if (currentTierLevel === 1 && (desiredTier === 2 || desiredTier === 3)) {
+                                        isConvertible = true
+                                        isUpgradeable = true
+                                    }
+                                    else if (currentTierLevel === 2 && desiredTier === 3) {
+                                        isConvertible = true
+                                        isUpgradeable = true
+                                    }
+                                    else if (currentTierLevel > 1 && currentTierLevel === desiredTier) {
+                                        isConvertible = true
+                                    }
+                                }
+                                else if (upgrade[2] >= 5 && upgrade[1] <= 4) {
+                                    isConvertible = true
+                                    isUpgradeable = true
+                                }
+                            }
+
+                            break
                         }
     
                         if (isConvertible || isUpgradeable) {
