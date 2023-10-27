@@ -1,6 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { iconLibrary } from '@/shared/icons'
+    import { settingsStore } from '@/stores/settings'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible'
 
@@ -44,24 +45,36 @@
         transform: translateX(-50%);
         white-space: nowrap;
     }
-    .convertible, .upgradeable {
+    .icons-left, .icons-right {
+        display: flex;
+        flex-direction: column;
         line-height: 1;
         width: 24px;
     }
-    .convertible {
+    .icons-left {
         left: -25px;
     }
-    .upgradeable {
+    .icons-right {
         right: -25px;
     }
 </style>
 
 <div class="wrapper-column">
-    {#each data as { equippedItem, isConvertible, isUpgradeable }}
+    {#each data as slotData}
         <div class="upgradeable-item">
-            <span class="upgradeable status-shrug drop-shadow">
-                {#if isUpgradeable}
+            <span class="icons-left status-shrug drop-shadow">
+                {#if slotData.isPurchased}
                     <IconifyIcon
+                        extraClass={slotData.canAfford ? 'status-success' : 'status-fail'}
+                        icon={iconLibrary.mdiCurrencyUsd}
+                        scale={'0.85'}
+                        tooltip={'Purchase this item!'}
+                    />
+                {/if}
+
+                {#if slotData.isUpgradeable}
+                    <IconifyIcon
+                        extraClass={slotData.canUpgrade ? 'status-success' : 'status-fail'}
                         icon={iconStrings.plus}
                         tooltip={'Upgrade this item!'}
                     />
@@ -69,23 +82,28 @@
             </span>
 
             <a
-                class="quality{equippedItem.quality}"
-                href={getItemUrl(equippedItem)}
+                class="quality{slotData.equippedItem.quality}"
+                href={slotData.equippedItem.itemId > 10_000
+                    ? getItemUrl(slotData.equippedItem)
+                    : `https://${settingsStore.wowheadBaseUrl}/currency=${slotData.equippedItem.itemId}`}
             >
                 <WowthingImage
-                    name="item/{equippedItem.itemId}"
+                    name={slotData.equippedItem.itemId > 10_000
+                        ? `item/${slotData.equippedItem.itemId}`
+                        : `currency/${slotData.equippedItem.itemId}`}
                     size={40}
                     border={2}
                 />
                 
-                <span class="item-level">{equippedItem.itemLevel}</span>
+                <span class="item-level">{slotData.equippedItem.itemLevel}</span>
             </a>
 
-            <span class="convertible status-shrug drop-shadow">
-                {#if isConvertible}
+            <span class="icons-right status-shrug drop-shadow">
+                {#if slotData.isConvertible}
                     <IconifyIcon
+                        extraClass={slotData.canConvert ? 'status-success' : 'status-fail'}
                         icon={iconLibrary.gameShurikenAperture}
-                        scale={'0.9'}
+                        scale={'0.85'}
                         tooltip={'Convert this item at the Catalyst!'}
                     />
                 {/if}

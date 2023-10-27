@@ -1,7 +1,7 @@
 <script lang="ts">
     // import some from 'lodash/some'
 
-    import { convertibleTypes } from './data'
+    import { convertibleTypes, modifierToTier } from './data'
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
     import { uiIcons } from '@/shared/icons'
@@ -14,6 +14,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import CharacterItems from './CharacterItems.svelte';
+    import CharacterCurrencies from './CharacterCurrencies.svelte';
 
     export let modifier: AppearanceModifier
     export let playerClass: StaticDataCharacterClass
@@ -49,6 +50,13 @@
     .head-text {
         width: 10rem;
     }
+    .currency-head {
+        // background: transparent;
+        border-bottom: 1px solid $border-color;
+        border-left: 1px solid $border-color;
+        border-right-width: 0 !important;
+        border-top-width: 0 !important;
+    }
     .no-characters {
         padding-left: 0.5rem;
     }
@@ -68,6 +76,10 @@
                 {InventoryType[inventoryType]}
             </th>
         {/each}
+
+        {#if season.id === 3 || season.tiers[season.tiers.length - 1].highUpgrade}
+            <th class="currency-head" colspan="10"></th>
+        {/if}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
@@ -86,6 +98,14 @@
                 {/if}
             </td>
         {/each}
+        
+        {#if season.id === 3 || season.tiers[season.tiers.length - 1].highUpgrade}
+            <CharacterCurrencies
+                {character}
+                {season}
+                tier={modifierToTier[modifier]}
+            />
+        {/if}
     </svelte:fragment>
 
     <tr slot="emptyRow">

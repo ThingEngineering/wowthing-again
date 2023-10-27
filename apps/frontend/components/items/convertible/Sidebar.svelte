@@ -19,5 +19,6 @@
     baseUrl={'/items/convertible'}
     items={categories}
     noVisitRoot={true}
+    scrollable={true}
     width={'11rem'}
 />

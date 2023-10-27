@@ -1,15 +1,14 @@
 import some from 'lodash/some'
 
-import { convertibleCategories } from '@/components/items/convertible/data'
-import { AppearanceModifier } from '@/enums/appearance-modifier'
+import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data'
+import { classIdToArmorType } from '@/data/character-class'
 import { InventoryType } from '@/enums/inventory-type'
 import { ItemLocation } from '@/enums/item-location'
 import { PlayableClass, playableClasses } from '@/enums/playable-class'
+import { QuestStatus } from '@/enums/quest-status'
 import type { CharacterEquippedItem, CharacterItem, Settings, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
-import { RewardType } from '@/enums/reward-type'
-import { QuestStatus } from '@/enums/quest-status'
 
 
 interface LazyStores {
@@ -21,10 +20,15 @@ interface LazyStores {
 }
 
 export class LazyConvertibleCharacterItem {
-    public isPurchaseable: boolean
+    public canAfford = true
+    public canConvert = true
+    public canUpgrade = true
+    public isPurchased = false
 
     constructor(
         public equippedItem: CharacterEquippedItem | CharacterItem,
+        public currentTier: number,
+        public currentUpgrade: number,
         public isConvertible: boolean,
         public isUpgradeable: boolean
     ) { }
@@ -50,13 +54,6 @@ export interface LazyConvertible {
 }
 
 
-const modifierToTier: Record<number, number> = {
-    [AppearanceModifier.Mythic]: 4,
-    [AppearanceModifier.Heroic]: 3,
-    [AppearanceModifier.Normal]: 2,
-    [AppearanceModifier.LookingForRaid]: 1
-}
-
 type WhateverItem = CharacterEquippedItem | CharacterItem
 
 export function doConvertible(
@@ -71,6 +68,7 @@ export function doConvertible(
         ])
     )
     
+    const itemCounts: Record<number, number> = {}
     const ret: LazyConvertible = { seasons: {} }
     for (const convertibleCategory of convertibleCategories) {
         const seasonData: Record<number, Record<number, LazyConvertibleSlot>> = ret.seasons[convertibleCategory.id] = {}
@@ -130,38 +128,41 @@ export function doConvertible(
                             continue
                         }
                 
+                        let currentTierLevel = 0
                         let isConvertible = false
                         let isUpgradeable = false
+                        let upgrade: [number, number, number]
                         for (const bonusId of charItem.bonusIds) {
                             // sharedStringId, current, max
-                            const upgrade = stores.itemData.itemBonusToUpgrade[bonusId]
+                            upgrade = stores.itemData.itemBonusToUpgrade[bonusId]
                             if (upgrade) {
                                 const awfulSeason = convertibleCategory.id === 3 && upgrade[2] === 6
-                                let currentTier = 0
 
+                                // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
+                                // 395 gear (3/3) is 6/6?
                                 if (awfulSeason) {
                                     if (upgrade[1] === 5) {
-                                        currentTier = 2
+                                        currentTierLevel = 2
                                     }
                                     else if (upgrade[1] === 6) {
-                                        currentTier = 3
+                                        currentTierLevel = 3
                                     }
                                     else {
-                                        currentTier = 1
+                                        currentTierLevel = 1
                                     }
                                 }
                                 else {
                                     for (let i = 0; i < convertibleCategory.tiers.length; i++) {
-                                        const tierItemLevel = convertibleCategory.tiers[i]
-                                        if (charItem.itemLevel >= tierItemLevel) {
-                                            currentTier = convertibleCategory.tiers.length - i
+                                        const tier = convertibleCategory.tiers[i]
+                                        if (charItem.itemLevel >= tier.itemLevel) {
+                                            currentTierLevel = convertibleCategory.tiers.length - i
                                             break
                                         }
                                     }
                                 }
     
                                 // too low or high for this conversion
-                                if (currentTier < (desiredTier - 1) || currentTier > desiredTier) {
+                                if (currentTierLevel < (desiredTier - 1) || currentTierLevel > desiredTier) {
                                     continue
                                 }
     
@@ -176,31 +177,29 @@ export function doConvertible(
                                         }
                                     }
                                     else {
-                                        if ((upgrade[2] === 8 && upgrade[1] < 5) ||
-                                            (upgrade[2] === 5 && upgrade[1] === 1)) {
+                                        if (upgrade[2] >= 5 && upgrade[1] <= 4) {
                                             isUpgradeable = true
                                         }
                                     }
                                 }
                                 else {
-                                    if (currentTier === desiredTier) {
+                                    if (currentTierLevel === desiredTier) {
                                         isConvertible = true
                                     }
                                     else if (awfulSeason) {
-                                        if (currentTier === 1 && (desiredTier === 2 || desiredTier === 3)) {
+                                        if (currentTierLevel === 1 && (desiredTier === 2 || desiredTier === 3)) {
                                             isConvertible = true
                                             isUpgradeable = true
                                         }
-                                        else if (currentTier === 2 && desiredTier === 3) {
+                                        else if (currentTierLevel === 2 && desiredTier === 3) {
                                             isConvertible = true
                                             isUpgradeable = true
                                         }
-                                        else if (currentTier > 1 && currentTier === desiredTier) {
+                                        else if (currentTierLevel > 1 && currentTierLevel === desiredTier) {
                                             isConvertible = true
                                         }
                                     }
-                                    else if ((upgrade[2] === 8 && upgrade[1] < 5) ||
-                                        (upgrade[2] === 5 && upgrade[1] < 5)) {
+                                    else if (upgrade[2] >= 5 && upgrade[1] <= 4) {
                                         isConvertible = true
                                         isUpgradeable = true
                                     }
@@ -213,42 +212,128 @@ export function doConvertible(
                         if (isConvertible || isUpgradeable) {
                             characterData.push(new LazyConvertibleCharacterItem(
                                 charItem as CharacterItem,
+                                currentTierLevel,
+                                upgrade[1],
                                 isConvertible,
                                 isUpgradeable
                             ))
                         }
                     } // for charItem
 
-                    if (characterData.length === 0 && convertibleCategory.purchases) {
-                        const usefulPurchases = convertibleCategory.purchases
-                            .filter((p) => p[3] >= (desiredTier - 1) && p[3] <= desiredTier)
-
-                        for (const [currencyType, currencyId, currencyCost, upgradeTier, progressKey] of usefulPurchases) {
-                            if ((
-                                currencyType === RewardType.Item && (
-                                    character.getItemCount(currencyId) < currencyCost &&
-                                    (
-                                        !progressKey ||
-                                        stores.userQuestData.characters[character.id]?.progressQuests?.[progressKey]?.status === QuestStatus.Completed
-                                    )
-                                )
-                            )) {
-                                continue
-                            }
-
+                    // Creatable from items?
+                    if (characterData.length === 0 &&
+                        convertibleCategory.sources &&
+                        convertibleCategory.sourceTier >= (desiredTier - 1) &&
+                        convertibleCategory.sourceTier <= desiredTier
+                    ) {
+                        const charArmorType = classIdToArmorType[character.classId]
+                        const sourceItemId = convertibleCategory.sources[charArmorType][inventoryType]
+                        const userCount = itemCounts[sourceItemId] ||= stores.userData.characters
+                            .map((char) => (char.itemsById[sourceItemId] || []).reduce((a, b) => a + b.count, 0))
+                            .reduce((a, b) => a + b, 0)
+                        if (userCount > 0) {
                             characterData.push(new LazyConvertibleCharacterItem(
                                 {
-                                    itemId: currencyId,
-                                    itemLevel: currencyCost,
+                                    itemId: sourceItemId,
+                                    itemLevel: userCount,
                                     quality: 1,
                                 } as CharacterItem,
+                                convertibleCategory.sourceTier,
+                                0,
                                 true,
-                                upgradeTier < desiredTier
+                                convertibleCategory.sourceTier < desiredTier,
                             ))
                         }
                     }
 
+                    // Purchaseable?
+                    if (characterData.length === 0 && convertibleCategory.purchases) {
+                        const usefulPurchases = convertibleCategory.purchases
+                            .filter((purchase) => (purchase.upgradeable === false
+                                ? purchase.upgradeTier === desiredTier
+                                : (
+                                    purchase.upgradeTier >= (desiredTier - 1) &&
+                                    purchase.upgradeTier <= desiredTier)
+                                )
+                            )
+
+                        for (const purchase of usefulPurchases) {
+                            if (
+                                purchase.progressKey &&
+                                stores.userQuestData.characters[character.id]?.progressQuests?.[purchase.progressKey]?.status === QuestStatus.Completed
+                            ) {
+                                continue
+                            }
+
+                            const costAmount = typeof purchase.costAmount === 'object'
+                                ? purchase.costAmount[inventoryType]
+                                : purchase.costAmount
+                            
+                            const purchaseable = new LazyConvertibleCharacterItem(
+                                {
+                                    itemId: purchase.costId,
+                                    itemLevel: costAmount,
+                                    quality: 1,
+                                } as CharacterItem,
+                                purchase.upgradeTier,
+                                0,
+                                true,
+                                purchase.upgradeable !== false && purchase.upgradeTier < desiredTier
+                            )
+
+                            purchaseable.isPurchased = true
+                            purchaseable.canAfford = (purchase.costId > 10_000
+                                ? character.getItemCount(purchase.costId)
+                                : (character.currencies?.[purchase.costId]?.quantity || 0)
+                            ) >= costAmount
+
+                            characterData.push(purchaseable)
+                        }
+                    } // if purchases
+
                     if (characterData.length > 0) {
+                        for (const sigh of characterData) {
+                            if (convertibleCategory.conversionCurrencyId) {
+                                sigh.canConvert = (character.currencies?.[convertibleCategory.conversionCurrencyId]?.quantity || 0) > 0
+                            }
+
+                            if (sigh.isUpgradeable) {
+                                const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - sigh.currentTier]
+                                // DF Season 1 + Forbidden Reach = ARGH
+                                if (convertibleCategory.id === 3 && (
+                                    (sigh.equippedItem.itemLevel === 385 && sigh.currentUpgrade === 5) ||
+                                    sigh.equippedItem.itemLevel === 1
+                                )) {
+                                    sigh.canUpgrade = character.getItemCount(204276) > 0
+                                }
+                                else if (tier.lowUpgrade && tier.highUpgrade) {
+                                    if (sigh.currentUpgrade < 4) {
+                                        let charHas = 0
+                                        for (const [upgradeId, upgradeCount] of tier.lowUpgrade) {
+                                            const charCount = upgradeId > 10_000
+                                                ? character.getItemCount(upgradeId)
+                                                : (character.currencies?.[upgradeId]?.quantity || 0)
+                                            charHas += Math.floor(charCount / upgradeCount)
+                                        }
+
+                                        sigh.canUpgrade = charHas >= (4 - sigh.currentUpgrade)
+                                    }
+
+                                    if (sigh.canUpgrade) {
+                                        let charHas = 0
+                                        for (const [upgradeId, upgradeCount] of tier.highUpgrade) {
+                                            const charCount = upgradeId > 10_000
+                                                ? character.getItemCount(upgradeId)
+                                                : (character.currencies?.[upgradeId]?.quantity || 0)
+                                            charHas += Math.floor(charCount / upgradeCount)
+                                        }
+
+                                        sigh.canUpgrade = charHas >= 1
+                                    }
+                                }
+                            }
+                        }
+
                         modifierData.characters[character.id] = characterData
                     }
                 } // for character
