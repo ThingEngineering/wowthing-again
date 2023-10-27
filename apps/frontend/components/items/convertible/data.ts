@@ -50,21 +50,21 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 480,
-            },
-            {
-                itemLevel: 467,
                 lowUpgrade: dfS3Wyrm,
                 highUpgrade: dfS3Aspect,
             },
             {
-                itemLevel: 454,
+                itemLevel: 467,
                 lowUpgrade: dfS3Drake,
                 highUpgrade: dfS3Wyrm,
             },
             {
-                itemLevel: 441,
+                itemLevel: 454,
                 lowUpgrade: dfS3Whelpling,
                 highUpgrade: dfS3Drake,
+            },
+            {
+                itemLevel: 441,
             },
         ]
     },
@@ -77,22 +77,21 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 441,
-                lowUpgrade: dfS2Aspect,
-            },
-            {
-                itemLevel: 428,
                 lowUpgrade: dfS2Wyrm,
                 highUpgrade: dfS2Aspect,
             },
             {
-                itemLevel: 415,
+                itemLevel: 428,
                 lowUpgrade: dfS2Drake,
                 highUpgrade: dfS2Wyrm,
             },
             {
-                itemLevel: 402,
+                itemLevel: 415,
                 lowUpgrade: dfS2Whelpling,
                 highUpgrade: dfS2Drake,
+            },
+            {
+                itemLevel: 402,
             },
         ],
         purchases: [

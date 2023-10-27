@@ -299,7 +299,7 @@ export function doConvertible(
 
                             if (sigh.isUpgradeable) {
 
-                                const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - sigh.currentTier]
+                                const tier = convertibleCategory.tiers[convertibleCategory.tiers.length - desiredTier]
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (convertibleCategory.id === 3 && (
                                     (sigh.equippedItem.itemLevel === 385 && (sigh.currentUpgrade === 4 || sigh.currentUpgrade === 5)) ||
@@ -307,7 +307,7 @@ export function doConvertible(
                                 )) {
                                     sigh.canUpgrade = character.getItemCount(204276) > 0
                                 }
-                                else if (tier.lowUpgrade && tier.highUpgrade) {
+                                else if (tier.lowUpgrade) {
                                     if (sigh.currentUpgrade < 4) {
                                         let charHas = 0
                                         for (const [upgradeId, upgradeCount] of tier.lowUpgrade) {
@@ -320,7 +320,7 @@ export function doConvertible(
                                         sigh.canUpgrade = charHas >= (4 - sigh.currentUpgrade)
                                     }
 
-                                    if (sigh.canUpgrade) {
+                                    if (sigh.canUpgrade && tier.highUpgrade) {
                                         let charHas = 0
                                         for (const [upgradeId, upgradeCount] of tier.highUpgrade) {
                                             const charCount = upgradeId > 10_000
