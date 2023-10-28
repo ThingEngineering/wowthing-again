@@ -64,12 +64,6 @@ export const dragonflightKnowledge: DragonflightKnowledge[] = [
     },
     null,
     {
-        name: "Artisan's Consortium Books",
-        shortName: 'AC',
-        icon: 'spell/339979', // Booksmart
-        masters: [],
-    },
-    {
         name: 'Dragonscale Expedition Books',
         shortName: 'DE',
         icon: 'achievement/16522', // A True Explorer
@@ -96,6 +90,12 @@ export const dragonflightKnowledge: DragonflightKnowledge[] = [
         icon: 'achievement/16530', // Ally of the Flights
         masters: [],
         reputationId: 2510,
+    },
+    {
+        name: "Artisan's Consortium Books",
+        shortName: 'AC',
+        icon: 'spell/339979', // Booksmart
+        masters: [],
     },
     null,
     {

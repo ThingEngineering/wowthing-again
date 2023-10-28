@@ -21,7 +21,7 @@
             Overview
         </a>
 
-        <a href={"#/professions/equipment"} use:active>
+        <a href={"#/professions/equipment"} use:active={"/professions/equipment/*"}>
             Equipment
         </a>
 

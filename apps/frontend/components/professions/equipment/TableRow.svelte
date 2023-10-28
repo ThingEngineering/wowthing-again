@@ -16,12 +16,16 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     
     export let character: Character
+    export let professionId: number
     
     let professions: [Partial<StaticDataProfession>, boolean, Partial<CharacterGear>[]][]
     $: {
         professions = []
         let type0s = 0
         for (const profession of Object.values($staticStore.professions)) {
+            if (professionId > 0 && profession.id !== professionId) {
+                continue
+            }
             if (profession.slug === 'archaeology') {
                 continue
             }
@@ -53,15 +57,17 @@
             }
         }
 
-        for (let i = type0s; i < 2; i++) {
-            professions.push([
-                {
-                    type: 0,
-                    name: 'ZZZ',
-                },
-                false,
-                [null, null, null],
-            ])
+        if (professionId === 0) {
+            for (let i = type0s; i < 2; i++) {
+                professions.push([
+                    {
+                        type: 0,
+                        name: 'ZZZ',
+                    },
+                    false,
+                    [null, null, null],
+                ])
+            }
         }
 
         professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
