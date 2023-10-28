@@ -13,7 +13,7 @@
     {#if params.slug1 === 'dragonflight-knowledge'}
         <Knowledge />
     {:else if params.slug1 === 'equipment'}
-        <Equipment />
+        <Equipment slug={params.slug2} />
     {:else if params.slug1 === 'overview'}
         <Overview slug={params.slug2} />
     {:else if params.slug1 === 'recipes'}
