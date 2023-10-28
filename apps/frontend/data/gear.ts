@@ -10,6 +10,84 @@ export type TierData = {
 
 export const currentTier: TierData = {
     sets: Object.fromEntries([
+        // Death Knight - Risen Nightmare's Gravemantle
+        'transmog:3161',
+        'transmog:3162',
+        'transmog:3163',
+        'transmog:3164',
+        // Demon Hunter - Screaming Torchfiend's Brutality
+        'transmog:3153',
+        'transmog:3154',
+        'transmog:3155',
+        'transmog:3156',
+        // Druid - Benevolent Embersage's Guidance
+        'transmog:3177',
+        'transmog:3178',
+        'transmog:3179',
+        'transmog:3180',
+        // Evoker - Werynkeeper's Timeless Vigil
+        'transmog:3157',
+        'transmog:3158',
+        'transmog:3159',
+        'transmog:3160',
+        // Hunter - Blazing Dreamstalker's Trophies
+        'transmog:3137',
+        'transmog:3138',
+        'transmog:3139',
+        'transmog:3140',
+        // Mage - Wayward Chronomancer's Clockwork
+        'transmog:3185',
+        'transmog:3186',
+        'transmog:3187',
+        'transmog:3188',
+        // Monk - Mystic Heron's Discipline
+        'transmog:3141',
+        'transmog:3142',
+        'transmog:3143',
+        'transmog:3144',
+        // Paladin - Zealous Pyreknight's Ardor
+        'transmog:3145',
+        'transmog:3146',
+        'transmog:3147',
+        'transmog:3148',
+        // Priest - Blessings of Lunar Communion
+        'transmog:3181',
+        'transmog:3182',
+        'transmog:3183',
+        'transmog:3184',
+        // Rogue - Lucid Shadewalker's Silence
+        'transmog:3165',
+        'transmog:3166',
+        'transmog:3167',
+        'transmog:3168',
+        // Shaman - Vision of the Greatwolf Outcast
+        'transmog:3169',
+        'transmog:3170',
+        'transmog:3171',
+        'transmog:3172',
+        // Warlock - Devout Ashdevil's Pactweave
+        'transmog:3173',
+        'transmog:3174',
+        'transmog:3175',
+        'transmog:3176',
+        // Warrior - Molten Vanguard's Mortarplate
+        'transmog:3149',
+        'transmog:3150',
+        'transmog:3151',
+        'transmog:3152',
+    ].map((name) => [name, true])),
+    slots: [
+        InventoryType.Head,
+        InventoryType.Shoulders,
+        InventoryType.Chest,
+        InventoryType.Chest2,
+        InventoryType.Hands,
+        InventoryType.Legs,
+    ],
+}
+
+export const previousTier: TierData = {
+    sets: Object.fromEntries([
         // Death Knight - Lingering Phantom's Encasement
         'transmog:2870',
         'transmog:2895',
@@ -75,32 +153,6 @@ export const currentTier: TierData = {
         'transmog:2898',
         'transmog:2899',
         'transmog:2900',
-    ].map((name) => [name, true])),
-    slots: [
-        InventoryType.Head,
-        InventoryType.Shoulders,
-        InventoryType.Chest,
-        InventoryType.Chest2,
-        InventoryType.Hands,
-        InventoryType.Legs,
-    ],
-}
-
-export const previousTier: TierData = {
-    sets: Object.fromEntries([
-        'transmog:2616', // Death Knight
-        'transmog:2619', // Demon Hunter
-        'transmog:2622', // Druid
-        'transmog:2625', // Evoker
-        'transmog:2628', // Hunter
-        'transmog:2631', // Mage
-        'transmog:2634', // Monk
-        'transmog:2637', // Paladin
-        'transmog:2640', // Priest
-        'transmog:2643', // Rogue
-        'transmog:2646', // Shaman
-        'transmog:2649', // Warlock
-        'transmog:2652', // Warrior
     ].map((name) => [name, true])),
     slots: [
         InventoryType.Head,
