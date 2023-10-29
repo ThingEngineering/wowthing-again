@@ -6,7 +6,7 @@ import { InventoryType } from '@/enums/inventory-type'
 import { ItemLocation } from '@/enums/item-location'
 import { PlayableClass, playableClasses } from '@/enums/playable-class'
 import { QuestStatus } from '@/enums/quest-status'
-import type { CharacterEquippedItem, CharacterItem, Settings, UserData } from '@/types'
+import type { Character, CharacterEquippedItem, CharacterItem, Settings, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
 
@@ -73,22 +73,31 @@ export function doConvertible(
     for (const convertibleCategory of convertibleCategories) {
         const seasonData: Record<number, Record<number, LazyConvertibleSlot>> = ret.seasons[convertibleCategory.id] = {}
         
+        const bonusIds = new Set<number>(
+            Object.entries(stores.itemData.itemConversionBonus)
+                .filter(([, convertSeason]) => convertSeason === convertibleCategory.id)
+                .map(([bonusId,]) => parseInt(bonusId))
+        )
+
         for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id]) {
             const setItem = stores.itemData.items[setItemId]
             const classId = maskToClass[setItem.classMask]
-            const inventoryType = setItem.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : setItem.inventoryType
+            const setItemInventoryType = setItem.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : setItem.inventoryType
             
             seasonData[classId] ||= {}
-            const slotData = seasonData[classId][inventoryType] = new LazyConvertibleSlot(setItem)
+            const slotData = seasonData[classId][setItemInventoryType] = new LazyConvertibleSlot(setItem)
     
             const validCharacters = stores.userData.characters
                 .filter((char) => char.classId === classId && char.level)
 
-            const bonusIds = new Set<number>(
-                Object.entries(stores.itemData.itemConversionBonus)
-                    .filter(([, convertSeason]) => convertSeason === convertibleCategory.id)
-                    .map(([bonusId,]) => parseInt(bonusId))
-            )
+            const charactersWithItems: [Character, WhateverItem[]][] = validCharacters
+                .map((char) => [
+                    char,
+                    [
+                        ...char.itemsByLocation?.[ItemLocation.Bags] || [],
+                        ...Object.values(char.equippedItems)
+                    ]
+                ])
 
             for (const modifier of [0, 1, 3, 4]) {
                 const modifierData = slotData.modifiers[modifier] = new LazyConvertibleModifier()
@@ -106,14 +115,9 @@ export function doConvertible(
     
                 const desiredTier = modifierToTier[modifier]
         
-                for (const character of validCharacters) {
+                for (const [character, charItems] of charactersWithItems) {
                     const characterData: LazyConvertibleCharacterItem[] = []
-
-                    const charItems: WhateverItem[] = [
-                        ...character.itemsByLocation?.[ItemLocation.Bags] || [],
-                        ...Object.values(character.equippedItems)
-                    ]
-
+                   
                     for (const charItem of charItems) {
                         if (!(
                             charItem.itemId === setItem.id ||
@@ -123,8 +127,8 @@ export function doConvertible(
                         }
     
                         const item = stores.itemData.items[charItem.itemId]
-                        const sighType = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
-                        if (sighType !== setItem.inventoryType) {
+                        const charItemInventoryType = item.inventoryType === InventoryType.Chest2 ? InventoryType.Chest : item.inventoryType
+                        if (charItemInventoryType !== setItemInventoryType) {
                             continue
                         }
                 
@@ -229,7 +233,7 @@ export function doConvertible(
                         convertibleCategory.sourceTier <= desiredTier
                     ) {
                         const charArmorType = classIdToArmorType[character.classId]
-                        const sourceItemId = convertibleCategory.sources[charArmorType][inventoryType]
+                        const sourceItemId = convertibleCategory.sources[charArmorType][setItemInventoryType]
                         const userCount = itemCounts[sourceItemId] ||= stores.userData.characters
                             .map((char) => (char.itemsById[sourceItemId] || []).reduce((a, b) => a + b.count, 0))
                             .reduce((a, b) => a + b, 0)
@@ -268,7 +272,7 @@ export function doConvertible(
                             }
 
                             const costAmount = typeof purchase.costAmount === 'object'
-                                ? purchase.costAmount[inventoryType]
+                                ? purchase.costAmount[setItemInventoryType]
                                 : purchase.costAmount
                             
                             const purchaseable = new LazyConvertibleCharacterItem(
