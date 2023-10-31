@@ -100,7 +100,7 @@
             </td>
         {/each}
         
-        {#if season.id === 3 || season.tiers[0].lowUpgrade}
+        {#if !hasEverySlot && (season.id === 3 || season.tiers[0].lowUpgrade)}
             <CharacterCurrencies
                 {character}
                 {season}
