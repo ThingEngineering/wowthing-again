@@ -1,5 +1,5 @@
 <script lang="ts">
-    // import some from 'lodash/some'
+    import every from 'lodash/every'
 
     import { convertibleTypes, modifierToTier } from './data'
     import { AppearanceModifier } from '@/enums/appearance-modifier'
@@ -21,6 +21,7 @@
     export let season: ConvertibleCategory
 
     $: data = $lazyStore.convertible.seasons[season.id][playerClass.id]
+    $: hasEverySlot = every(convertibleTypes, (type) => data[type].modifiers[modifier].userHas)
 
     $: colspan = $settingsStore.layout.commonFields.length +
         ($settingsStore.layout.commonFields.indexOf('accountTag') >= 0
@@ -63,6 +64,7 @@
 </style>
 
 <CharacterTable
+    characterLimit={hasEverySlot ? 1 : 0}
     skipGrouping={true}
     {filterFunc}
 >
@@ -84,7 +86,6 @@
 
     <svelte:fragment slot="rowExtra" let:character>
         {#each convertibleTypes as inventoryType}
-            {@const item = data[inventoryType].setItem}
             <td class="item-slot">
                 {#if data[inventoryType].modifiers[modifier].userHas}
                     <IconifyIcon
