@@ -1,8 +1,8 @@
 import { WritableFancyStore } from '@/types/fancy-store'
-import type { DbData, DbDataQuery, DbDataThing } from '@/types/data/db'
+import type { DbData, DbDataQuery, DbDataThing } from './types'
 
 
-export class DbDataStore extends WritableFancyStore<DbData> {
+class DbDataStore extends WritableFancyStore<DbData> {
     get dataUrl(): string {
     return document
         .getElementById('app')
@@ -11,6 +11,11 @@ export class DbDataStore extends WritableFancyStore<DbData> {
 
     initialize(data: DbData): void {
         console.time('DbDataStore.initialize')
+
+        data.tagsByString = Object.fromEntries(
+            Object.entries(data.tagsById)
+                .map(([id, tag]) => [tag, parseInt(id)])
+        )
 
         data.thingsByMapId = {}
         data.thingsByRequirementId = {}

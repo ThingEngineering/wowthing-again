@@ -3,7 +3,6 @@
 
     import {
         appearanceStore,
-        dbStore,
         itemStore,
         journalStore,
         manualStore,
@@ -14,6 +13,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { dbStore } from '@/shared/stores/db'
     import { staticStore } from '@/shared/stores/static'
     import parseApiTime from '@/utils/parse-api-time'
 

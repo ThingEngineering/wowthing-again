@@ -4,6 +4,7 @@ export interface DbData {
     tagsById: Record<number, string>
     things: DbDataThing[]
 
+    tagsByString: Record<string, number>
     thingsByMapId: Record<number, DbDataThing[]>
     thingsByRequirementId: Record<number, DbDataThing[]>
     thingsByTagId: Record<number, DbDataThing[]>
