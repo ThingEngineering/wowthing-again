@@ -52,7 +52,7 @@
         width: 10rem;
     }
     .currency-head {
-        // background: transparent;
+        background: $body-background;
         border-bottom: 1px solid $border-color;
         border-left: 1px solid $border-color;
         border-right-width: 0 !important;
