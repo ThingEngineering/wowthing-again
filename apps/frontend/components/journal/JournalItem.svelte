@@ -104,6 +104,14 @@
             xor(appearance.difficulties, [3, 4, 14]).length === 0) {
             return [['N'], ['Normal']]
         }
+        // 10 Normal + 25 Normal + Normal + Timewalking = Normal/Timewalking (Firelands)
+        if (xor(appearance.difficulties, [3, 4, 14, 33]).length === 0) {
+            return [['N', 'T'], ['Normal', 'Timewalking']]
+        }
+        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + Normal + Heroic + Timewalking = Normal/Heroic/Timewalking (Firelands)
+        if (xor(appearance.difficulties, [3, 4, 5, 6, 14, 15, 33]).length === 0) {
+            return [['N', 'H', 'T'], ['Normal', 'Heroic', 'Timewalking']]
+        }
         // 10 Heroic + 25 Heroic + Heroic? = Heroic
         if (xor(appearance.difficulties, [5, 6]).length === 0 ||
             xor(appearance.difficulties, [5, 6, 15]).length === 0) {
