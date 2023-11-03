@@ -28,13 +28,16 @@ public class DbTool
 
         _timer.AddPoint("Load");
 
-
         var outData = new RedisDbData()
         {
             MapsById = _mapToId.ToReverseDictionary(),
             RequirementsById = _requirementToId.ToReverseDictionary(),
             TagsById = _tagToId.ToReverseDictionary(),
-            Things = _things,
+
+            RawThings = _things
+                .OrderBy(thing => thing.Type)
+                .ThenBy(thing => thing.Id)
+                .ToArray(),
         };
 
         // Save the data to Redis
@@ -134,6 +137,26 @@ public class DbTool
                 }
             }
 
+            // Contents
+            foreach (var dataContent in dataThing.Contents.EmptyIfNull())
+            {
+                var contentRequirementIds = new HashSet<int>();
+                AddRequirements(contentRequirementIds, dataContent.Requirements);
+
+                var contentTagIds = new HashSet<int>();
+                foreach (string requirementString in dataContent.Requirements.EmptyIfNull())
+                {
+                    string[] requirementParts = requirementString.Split(' ');
+                    if (requirementParts is ["profession", _, ..])
+                    {
+                        AddTags(contentTagIds, new [] { $"{requirementParts[0]}:{requirementParts[1]}" });
+                    }
+                }
+
+                var outContent = new OutDbThingContent(dataContent, contentRequirementIds, contentTagIds);
+                outThing.Contents.Add(outContent);
+            }
+
             _things.Add(outThing);
         }
     }
@@ -148,7 +171,7 @@ public class DbTool
         return _mapToId[mapName];
     }
 
-    private void AddRequirements(HashSet<int> requirementIds, List<string>? requirementStrings)
+    private void AddRequirements(HashSet<int> requirementIds, IEnumerable<string>? requirementStrings)
     {
         if (requirementStrings == null)
         {
@@ -166,7 +189,7 @@ public class DbTool
         }
     }
 
-    private void AddTags(HashSet<int> tagIds, List<string>? tagStrings)
+    private void AddTags(HashSet<int> tagIds, IEnumerable<string>? tagStrings)
     {
         if (tagStrings == null)
         {

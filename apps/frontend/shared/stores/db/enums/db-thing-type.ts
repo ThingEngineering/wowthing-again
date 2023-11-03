@@ -1,6 +1,4 @@
-﻿namespace Wowthing.Tool.Enums;
-
-public enum DbThingType
+export enum DbThingType
 {
     Group = 1,
     Instance = 2,
