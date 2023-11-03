@@ -1,6 +1,4 @@
-﻿namespace Wowthing.Tool.Enums;
-
-public enum DbResetType
+export enum DbResetType
 {
     None = 0,
     Daily = 1,

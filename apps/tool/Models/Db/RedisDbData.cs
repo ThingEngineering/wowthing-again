@@ -5,5 +5,5 @@ public class RedisDbData
     public Dictionary<int, string> MapsById { get; set; }
     public Dictionary<int, string> RequirementsById { get; set; }
     public Dictionary<int, string> TagsById { get; set; }
-    public List<OutDbThing> Things { get; set; }
+    public OutDbThing[] RawThings { get; set; }
 }

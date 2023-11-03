@@ -112,7 +112,7 @@
     }
 </style>
 
-<div class="thing-container">
+<div>
     <slot name="preTable" />
 
     <table

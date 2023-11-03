@@ -1,7 +1,7 @@
 <script lang="ts">
-    import xor from 'lodash/xor'
+    import { some } from 'lodash'
 
-    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
+    import { difficultyMap } from '@/data/difficulty'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { userStore, userTransmogStore } from '@/stores'
@@ -91,43 +91,31 @@
             return [[], []]
         }
 
-        // 10 Normal + 10 Heroic = 10
-        if (xor(appearance.difficulties, [3, 5]).length === 0) {
-            return [['10NH'], ['10 Normal / 10 Heroic']]
-        }
-        // 25 Normal + 25 Heroic = 25
-        if (xor(appearance.difficulties, [4, 6]).length === 0) {
-            return [['25NH'], ['25 Normal / 25 Heroic']]
-        }
-        // 10 Normal + 25 Normal + Normal? = Normal
-        if (xor(appearance.difficulties, [3, 4]).length === 0 ||
-            xor(appearance.difficulties, [3, 4, 14]).length === 0) {
-            return [['N'], ['Normal']]
-        }
-        // 10 Heroic + 25 Heroic + Heroic? = Heroic
-        if (xor(appearance.difficulties, [5, 6]).length === 0 ||
-            xor(appearance.difficulties, [5, 6, 15]).length === 0) {
-            return [['H'], ['Heroic']]
-        }
-        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic = Normal/Heroic (ZA/ZG)
-        if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
-            return [['N', 'H'], ['Normal', 'Heroic']]
-        }
-        // 10 Normal + 25 Normal + LFR = LFR/Normal/Heroic
-        if (xor(appearance.difficulties, [3, 4, 7]).length === 0) {
-            return [['L', 'N', 'H'], ['LFR', 'Normal', 'Heroic']]
-        }
-        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = LFR/Normal/Heroic
-        if (xor(appearance.difficulties, [3, 4, 5, 6, 7]).length === 0) {
-            return [['L', 'N', 'H'], ['LFR', 'Normal', 'Heroic']]
-        }
-
         const ret: [string[], string[]] = [[], []]
-        for (const difficulty of journalDifficultyOrder) {
-            if (appearance.difficulties.indexOf(difficulty) >= 0) {
-                ret[0].push(difficultyMap[difficulty].shortName)
-                ret[1].push(difficultyMap[difficulty].name)
-            }
+        // LFR Legacy, LFR Raid
+        if (some([7, 17], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+            ret[0].push(difficultyMap[17].shortName)
+            ret[1].push(difficultyMap[17].name)
+        }
+        // Normal Dungeon, 10 Normal, 25 Normal, 40 Normal, Normal Raid
+        if (some([1, 3, 4, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+            ret[0].push(difficultyMap[14].shortName)
+            ret[1].push(difficultyMap[14].name)
+        }
+        // Heroic Dungeon, 10 Heroic, 25 Heroic, Heroic Raid
+        if (some([2, 5, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+            ret[0].push(difficultyMap[15].shortName)
+            ret[1].push(difficultyMap[15].name)
+        }
+        // Mythic Dungeon, Mythic Keystone, Mythic Raid
+        if (some([23, 8, 16], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+            ret[0].push(difficultyMap[16].shortName)
+            ret[1].push(difficultyMap[16].name)
+        }
+        // Timewalking Dungeon, Timewalking Raid
+        if (some([24, 33], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+            ret[0].push(difficultyMap[33].shortName)
+            ret[1].push(difficultyMap[33].name)
         }
         return ret
     }

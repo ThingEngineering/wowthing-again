@@ -40,7 +40,7 @@ export const zoneData: WorldQuestZone[] = [
                 name: "Ohn'ahran Plains",
                 slug: 'ohnahran-plains',
                 mapName: '09-dragonflight/ohnahran_plains',
-                continentPoint: [34, 62],
+                continentPoint: [33, 62],
                 anchor: 'bottom-left',
             },
             {
@@ -48,7 +48,7 @@ export const zoneData: WorldQuestZone[] = [
                 name: 'Thaldraszus',
                 slug: 'thaldraszus',
                 mapName: '09-dragonflight/thaldraszus',
-                continentPoint: [73, 52],
+                continentPoint: [77, 54],
                 anchor: 'bottom-right',
             },
             {

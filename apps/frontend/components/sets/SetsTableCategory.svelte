@@ -3,9 +3,10 @@
 
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog'
-    import { iconLibrary } from '@/shared/icons'
+    import { iconLibrary, uiIcons } from '@/shared/icons'
     import { lazyStore, userTransmogStore } from '@/stores'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/stores/settings'
+    import { transmogSetsState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -144,6 +145,8 @@
 {#each category.groups as group, groupIndex}
     {@const currentType = transmogSets[group.type].type}
     {@const showPercent = !isNaN(categoryPercent)}
+    {@const groupKey = `${setKey}--${groupIndex}`}
+    {@const isExpanded = $transmogSetsState.collapsedCategories[groupKey] !== true}
     {#if groupIndex === 0 || (
         transmogSets[category.groups[groupIndex-1].type].type !== currentType &&
         [transmogSets[category.groups[groupIndex-1].type].type, currentType].indexOf('covenant') >= 0
@@ -313,6 +316,12 @@
                 {/if}
             </td>
             <td class="name highlight" colspan="100">
+                <IconifyIcon
+                    icon={isExpanded ? uiIcons.minus : uiIcons.plus}
+                    on:click={() => $transmogSetsState.collapsedCategories[groupKey] = isExpanded}
+                    tooltip={isExpanded ? 'Collapse this group' : 'Expand this group'}
+                />
+
                 {#if group.tag}
                     <span class="tag">
                         [{group.tag}]
@@ -324,52 +333,54 @@
         </tr>
     {/if}
 
-    {#each getFilteredSets($settingsStore, $userTransmogStore, group) as [setShow, setName], setIndex}
-        {#if setShow}
-            {@const setPercent = getPercent(groupIndex, setIndex)}
-            <tr class:faded={setName.endsWith('*')}>
-                <td class="percent-cell">
-                    {#if showPercent && !isNaN(setPercent)}
-                        <span class="drop-shadow {getPercentClass(setPercent)}">
-                            {Math.floor(setPercent).toFixed(0)} %
-                        </span>
-                    {/if}
-                </td>
-
-                <td class="name">
-                    <div class="flex-wrapper">
-                        <ParsedText
-                            cls="text-overflow"
-                            text={setName.replace('*', '')}
-                        />
-                    
-                        {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
-                            <span class="has-transmog-set-id" use:basicTooltip={'Updated for completionist!'}>
-                                <IconifyIcon
-                                    icon={iconLibrary.gameStaryu}
-                                    scale={'0.8'}
-                                />
+    {#if isExpanded}
+        {#each getFilteredSets($settingsStore, $userTransmogStore, group) as [setShow, setName], setIndex}
+            {#if setShow}
+                {@const setPercent = getPercent(groupIndex, setIndex)}
+                <tr class:faded={setName.endsWith('*')}>
+                    <td class="percent-cell">
+                        {#if showPercent && !isNaN(setPercent)}
+                            <span class="drop-shadow {getPercentClass(setPercent)}">
+                                {Math.floor(setPercent).toFixed(0)} %
                             </span>
                         {/if}
-                    </div>
-                </td>
+                    </td>
 
-                {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
-                    {#if !skipClasses[transmogSet.type]}
-                        <TableSet
-                            set={group.data?.[transmogSet.type]?.[setIndex]}
-                            setKey={`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`}
-                            setTitle={setName}
-                            span={anyClass ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
-                            subType={transmogSet.subType}
-                        />
+                    <td class="name">
+                        <div class="flex-wrapper">
+                            <ParsedText
+                                cls="text-overflow"
+                                text={setName.replace('*', '')}
+                            />
+                        
+                            {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
+                                <span class="has-transmog-set-id" use:basicTooltip={'Updated for completionist!'}>
+                                    <IconifyIcon
+                                        icon={iconLibrary.gameStaryu}
+                                        scale={'0.8'}
+                                    />
+                                </span>
+                            {/if}
+                        </div>
+                    </td>
+
+                    {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+                        {#if !skipClasses[transmogSet.type]}
+                            <TableSet
+                                set={group.data?.[transmogSet.type]?.[setIndex]}
+                                setKey={`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`}
+                                setTitle={setName}
+                                span={anyClass ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
+                                subType={transmogSet.subType}
+                            />
+                        {/if}
+                    {/each}
+
+                    {#if !anyClass}
+                        <td class="border-left" colspan="100"></td>
                     {/if}
-                {/each}
-
-                {#if !anyClass}
-                    <td class="border-left" colspan="100"></td>
-                {/if}
-            </tr>
-        {/if}
-    {/each}
+                </tr>
+            {/if}
+        {/each}
+    {/if}
 {/each}
