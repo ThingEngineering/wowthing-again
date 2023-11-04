@@ -465,24 +465,23 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [20, 447, 5],
-    [18, 444, 5],
-    [16, 441, 5],
-    [14, 437, 4],
-    [12, 434, 4],
-    [10, 431, 4],
-    [8, 428, 4],
-    [6, 424 , 3],
-    [4, 421 , 3],
-    [3, 418, 3],
-    [2, 415, 3],
+    [20, 483, 5],
+    [18, 480, 5],
+    [15, 476, 4],
+    [12, 473, 4],
+    [10, 470, 4],
+    [8, 467, 4],
+    [6, 463 , 3],
+    [4, 460 , 3],
+    [3, 457, 3],
+    [2, 454, 3],
 ]
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    17: [402, 2], // LFR
-    14: [415, 3], // Normal
-    15: [428, 4], // Heroic
-    16: [441, 5], // Mythic
+    17: [441, 2], // LFR
+    14: [454, 3], // Normal
+    15: [467, 4], // Heroic
+    16: [480, 5], // Mythic
 }
 
 export const keyTiers = [
