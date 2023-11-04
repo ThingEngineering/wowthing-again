@@ -215,7 +215,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     switch (drop.type) {
                         case RewardType.Item:
                             if (stores.manualData.dragonridingItemToQuest[drop.id]) {
-                                dropStatus.need = stores.userQuestData.accountHas.has(
+                                dropStatus.need = !stores.userQuestData.accountHas.has(
                                     stores.manualData.dragonridingItemToQuest[drop.id]
                                 )
                             }
