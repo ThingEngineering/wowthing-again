@@ -6,11 +6,14 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
     export let appearance: AppearanceDataAppearance
     export let has: boolean
 
+    let bonusId: number
     let difficulty: string
+    let difficultyShort: string
     let imageName: string
     $: {
         const mod = appearance.modifiedAppearances[0]
@@ -20,7 +23,13 @@
             imageName += `_${mod.modifier}`
         }
 
-        difficulty = itemModifierMap[mod.modifier]?.[1] || mod.modifier.toString()
+        if (itemModifierMap[mod.modifier]) {
+            [difficulty, difficultyShort, bonusId] = itemModifierMap[mod.modifier]
+        }
+        else {
+            const modifierString = mod.modifier.toString();
+            [difficulty, difficultyShort, bonusId] = [modifierString, modifierString, 0]
+        }
     }
 </script>
 
@@ -53,6 +62,7 @@
     <WowheadLink
         id={appearance.modifiedAppearances[0].itemId}
         type="item"
+        extraParams={bonusId ? { 'bonus': bonusId.toString() } : null}
     >
         <WowthingImage
             name={imageName}
@@ -66,8 +76,11 @@
     </WowheadLink>
 
     {#if difficulty}
-        <div class="pill difficulty">
-            {difficulty}
+        <div
+            class="pill difficulty"
+            use:basicTooltip={difficulty}
+        >
+            {difficultyShort}
         </div>
     {/if}
 </div>
