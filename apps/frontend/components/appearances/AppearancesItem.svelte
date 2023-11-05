@@ -1,12 +1,12 @@
 <script lang="ts">
     import { itemModifierMap } from '@/data/item-modifier'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { appearanceState } from '@/stores/local-storage'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { basicTooltip } from '@/shared/utils/tooltips';
 
     export let appearance: AppearanceDataAppearance
     export let has: boolean
