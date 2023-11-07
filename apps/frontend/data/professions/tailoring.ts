@@ -142,5 +142,20 @@ export const dragonflightTailoring: DragonflightProfession = {
             questId: 76110,
             source: 'ZC',
         },
+        {
+            itemId: 210461, // Exceedingly Soft Wildercloth
+            questId: 78414,
+            source: 'ED',
+        },
+        {
+            itemId: 210462, // Plush Pillow
+            questId: 78415,
+            source: 'ED',
+        },
+        {
+            itemId: 210463, // Snuggle Buddy
+            questId: 78416,
+            source: 'ED',
+        },
     ]
 }

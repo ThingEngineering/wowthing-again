@@ -142,5 +142,20 @@ export const dragonflightInscription: DragonflightProfession = {
             questId: 70307,
             source: 'OP',
         },
+        {
+            itemId: 210459, // Grove Keeper's Pillar
+            questId: 78412,
+            source: 'ED',
+        },
+        {
+            itemId: 210460, // Primalist Shadowbinding Rune
+            questId: 78413,
+            source: 'ED',
+        },
+        {
+            itemId: 210458, // Winnie's Notes on Flora and Fauna
+            questId: 78411,
+            source: 'ED',
+        },
     ]
 }

@@ -98,11 +98,6 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             source: 'OP',
         },
         {
-            itemId: 205987, // Brimstone Rescue Ring
-            questId: 76079,
-            source: 'ZC',
-        },
-        {
             itemId: 201005, // Curious Ingots
             questId: 70312,
             source: 'WS',
@@ -138,6 +133,11 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             source: 'AS',
         },
         {
+            itemId: 205987, // Brimstone Rescue Ring
+            questId: 76079,
+            source: 'ZC',
+        },
+        {
             itemId: 205986, // Well-Worn Kiln
             questId: 76078,
             source: 'ZC',
@@ -146,6 +146,21 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             itemId: 205988, // Zaqali Elder Spear
             questId: 76080,
             source: 'ZC',
+        },
+        {
+            itemId: 210464, // Amirdrassil Defender's Shield
+            questId: 78417,
+            source: 'ED',
+        },
+        {
+            itemId: 210465, // Deathstalker Chassis
+            questId: 78418,
+            source: 'ED',
+        },
+        {
+            itemId: 210466, // Flamesworn Render
+            questId: 78419,
+            source: 'ED',
         },
     ],
 }

@@ -141,5 +141,20 @@ export const dragonflightEnchanting: DragonflightProfession = {
             questId: 70291,
             source: 'OP',
         },
+        {
+            itemId: 210234, // Essence of Dreams
+            questId: 78310,
+            source: 'ED',
+        },
+        {
+            itemId: 210231, // Everburning Core
+            questId: 78309,
+            source: 'ED',
+        },
+        {
+            itemId: 210228, // Pure Dream Water
+            questId: 78308,
+            source: 'ED',
+        },
     ],
 }

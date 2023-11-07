@@ -142,5 +142,20 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             questId: 75652,
             source: 'ZC',
         },
+        {
+            itemId: 210202, // Coalesced Dreamstone
+            questId: 78285,
+            source: 'ED',
+        },
+        {
+            itemId: 210201, // Handful of Pebbles
+            questId: 78283,
+            source: 'ED',
+        },
+        {
+            itemId: 210200, // Petrified Hope
+            questId: 78282,
+            source: 'ED',
+        },
     ],
 }

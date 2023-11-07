@@ -59,7 +59,13 @@ export const dragonflightKnowledge: DragonflightKnowledge[] = [
     {
         name: 'Zaralek Cavern',
         shortName: 'ZC',
-        icon: 'achievement/16401',
+        icon: 'achievement/17766',
+        masters: [],
+    },
+    {
+        name: 'Emerald Dream',
+        shortName: 'ED',
+        icon: 'achievement/19309',
         masters: [],
     },
     null,
