@@ -129,19 +129,18 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight
     250: [
-        204276, // Untapped Forbidden Knowledge
+        207026, // Dreamsurge Coalescence
         null,
-        202196, // Zskera Vault Key
+        207030, // Dilated Time Capsule
+        207002, // Encapsulated Destiny
         null,
         204715, // Unearthed Fragrant Coin
         204727, // Coveted Bauble
         204985, // Barter Brick
         205188, // Barter Boulder
         null,
-        207030, // Dilated Time Capsule
-        207002, // Encapsulated Destiny
-        null,
-        207026, // Dreamsurge Coalescence
+        204276, // Untapped Forbidden Knowledge
+        202196, // Zskera Vault Key
     ],
     // Dragonflight > Crafting Knowledge
     125001: [
