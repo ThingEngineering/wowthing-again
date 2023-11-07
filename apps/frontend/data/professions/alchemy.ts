@@ -136,5 +136,20 @@ export const dragonflightAlchemy: DragonflightProfession = {
             questId: 70289,
             source: 'WS',
         },
+        {
+            itemId: 210190, // Blazeroot
+            questId: 78275,
+            source: 'ED',
+        },
+        {
+            itemId: 210184, // Half-Filled Dreamless Sleep Potion
+            questId: 78264,
+            source: 'ED',
+        },
+        {
+            itemId: 210185, // Splash Potion of Narcolepsy
+            questId: 78269,
+            source: 'ED',
+        },
     ],
 }

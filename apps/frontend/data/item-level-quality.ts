@@ -1,7 +1,7 @@
 export const itemLevelQuality: number[][] = [
-    [441, 5], // Mythic raid = 441-450, +16 vault = 441
-    [428, 4], // Heroic raid = 428-437, + 8 vault = 428
-    [415, 3], // Normal raid = 415-424, + 2 vault = 415
-    [402, 2], // LFR raid    = 402-411
-    [389, 1], //
+    [480, 5], // Mythic raid = 480-489, +18 vault = 480
+    [467, 4], // Heroic raid = 467-476, + 8 vault = 467
+    [454, 3], // Normal raid = 454-463, + 2 vault = 454
+    [441, 2], // LFR raid    = 441-450
+    [428, 1], //
 ]

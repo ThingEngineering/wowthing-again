@@ -21,16 +21,16 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
 
     return [
         icon,
-        getIconScaling(icon) || '0.9',
+        getIconScaling(icon) || '0.8',
     ]
 }
 
 function getIconScaling(icon: IconifyIcon) {
     switch (icon) {
         case iconLibrary.gamePresent:
-            return '1'
+            return '0.9'
         case iconLibrary.gameTrophy:
-            return '0.85'
+            return '0.75'
     }
-    return '0.9'
+    return '0.8'
 }

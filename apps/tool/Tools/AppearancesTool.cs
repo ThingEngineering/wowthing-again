@@ -39,6 +39,7 @@ public class AppearancesTool
 
             //itemsByIconId.TryGetValue(appearance.DefaultIconFileDataID, out var iconItems);
 
+            var byItemId = new Dictionary<int, int[]>();
             foreach (var modifiedAppearance in modifiedAppearances)
             {
                 if (!dbItemMap.TryGetValue(modifiedAppearance.ItemId, out var dbItem))
@@ -47,33 +48,30 @@ public class AppearancesTool
                     continue;
                 }
 
-                // if (dbItem.Quality < WowQuality.Uncommon)
-                // {
-                //     continue;
-                // }
-
                 string key = $"{dbItem.Expansion}|{dbItem.ClassId}|{dbItem.SubclassId}|{(short)dbItem.InventoryType}";
-                if (!temp.ContainsKey(key))
+                if (!temp.TryGetValue(key, out var keyData))
                 {
-                    temp[key] = new();
+                    keyData = temp[key] = new();
                 }
 
-                if (!temp[key].ContainsKey(appearance.ID))
+                if (!keyData.TryGetValue(appearance.ID, out var appearanceData))
                 {
-                    temp[key][appearance.ID] = new()
+                    appearanceData = temp[key][appearance.ID] = new()
                     {
                         Appearance = appearance,
                     };
                 }
 
-                temp[key][appearance.ID].ModifiedAppearances.Add((modifiedAppearance, dbItem.Quality));
+                appearanceData.ModifiedAppearances.Add((modifiedAppearance, dbItem.Quality));
             }
         }
 
         cacheData.RawAppearances = temp.ToDictionary(
             kvp => kvp.Key,
             kvp => kvp.Value.Values
-                .OrderByDescending(rsad => rsad.Appearance.UiOrder)
+                .OrderByDescending(rad => rad.ModifiedAppearances.Min(ma => ma.Item1.ItemId))
+                .ThenBy(rad => Hardcoded.ItemModifierSortOrder.GetValueOrDefault(rad.ModifiedAppearances.First().Item1.Modifier))
+                // .OrderByDescending(rsad => rsad.ModifiedAppearances.First().Item1.AppearanceId)
                 .ToList()
         );
 

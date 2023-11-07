@@ -137,5 +137,20 @@ export const dragonflightLeatherworking: DragonflightProfession = {
             questId: 70300,
             source: 'OP',
         },
+        {
+            itemId: 210215, // Dreamtalon Claw
+            questId: 78305,
+            source: 'ED',
+        },
+        {
+            itemId: 210211, // Molted Faerie Dragon Scales
+            questId: 78299,
+            source: 'ED',
+        },
+        {
+            itemId: 210208, // Tuft of Dreamsaber Fur
+            questId: 78298,
+            source: 'ED',
+        },
     ]
 }

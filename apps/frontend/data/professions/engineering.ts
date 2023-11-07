@@ -137,5 +137,20 @@ export const dragonflightEngineering: DragonflightProfession = {
             questId: 75433,
             source: 'ZC',
         },        
+        {
+            itemId: 210193, // Experimental Dreamcatcher
+            questId: 78278,
+            source: 'ED',
+        },
+        {
+            itemId: 210194, // Insomniotron
+            questId: 78279,
+            source: 'ED',
+        },
+        {
+            itemId: 210197, // Unhatched Battery
+            questId: 78281,
+            source: 'ED',
+        },
     ]
 }

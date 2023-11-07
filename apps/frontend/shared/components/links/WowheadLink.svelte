@@ -16,7 +16,7 @@
     $: {
         url = `https://${settingsStore.wowheadBaseUrl}/${type}=${id}`
 
-        if (Object.keys(extraParams).length > 0) {
+        if (Object.keys(extraParams || {}).length > 0) {
             url += '?'
             let first = true
             for (const param in extraParams) {

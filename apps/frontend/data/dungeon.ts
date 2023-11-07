@@ -17,6 +17,22 @@ export const weeklyAffixes: string[][] = [
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
+    // Cataclysm
+    new Dungeon(
+        438,
+        'The Vortex Pinnacle',
+        'VP',
+        'achievement/4847',
+        1800 / 60
+    ),
+    new Dungeon(
+        456,
+        'Throne of the Tides',
+        'ToT',
+        'achievement/4839',
+        2040 / 60
+    ),
+
     // Mists of Pandaria
     new Dungeon(
         2,
@@ -42,6 +58,13 @@ export const dungeons: Dungeon[] = [
         30
     ),
     new Dungeon(
+        168,
+        'The Everbloom',
+        'EB',
+        'achievement/9044',
+        1980 / 60
+    ),
+    new Dungeon(
         169,
         'Iron Docks',
         'ID',
@@ -50,6 +73,20 @@ export const dungeons: Dungeon[] = [
     ),
 
     // Legion
+    new Dungeon(
+        198,
+        'Darkheart Thicket',
+        'DHT',
+        'achievement/10783',
+        1800 / 60
+    ),
+    new Dungeon(
+        199,
+        'Black Rook Hold',
+        'BRH',
+        'achievement/10804',
+        2160 / 60
+    ),
     new Dungeon(
         200,
         'Halls of Valor',
@@ -120,7 +157,7 @@ export const dungeons: Dungeon[] = [
         'Waycrest Manor',
         'WM',
         'achievement/12483',
-        2340 / 60
+        2220 / 60
     ),
     new Dungeon(
         249,
@@ -300,15 +337,20 @@ export const dungeons: Dungeon[] = [
         'achievement/16260',
         2100 / 60
     ),
-
-    // Random
     new Dungeon(
-        438,
-        'The Vortex Pinnacle',
-        'VP',
-        'achievement/4847',
-        1800 / 60
-    )
+        463,
+        "Dawn of the Infinite: Galakrond's Fall",
+        'DGF',
+        'achievement/18703',
+        2100 / 60
+    ),
+    new Dungeon(
+        464,
+        "Dawn of the Infinite: Murozond's Rise",
+        'DMR',
+        'achievement/6150',
+        2220 / 60
+    ),
 ]
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
@@ -384,8 +426,27 @@ const orderDragonflightS2: number[] = [
     438, // The Vortex Pinnacle
 ]
 
+const orderDragonflightS3: number[] = [
+    463, // Dawn of the Infinite: Galakrond's Fall
+    464, // Dawn of the Infinite: Murozond's Rise
+    199, // Black Rook Hold
+    198, // Darkheart Thicket
+    244, // Atal'Dazar
+    248, // Waycrest Manor
+    168, // Everbloom
+    456, // Throne of the Tides
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason(
+            11,
+            '[DF] Season 3',
+            'dragonflight-3',
+            70,
+            [orderDragonflightS3],
+            933, // 2023-11-14
+        ),
         new MythicPlusSeason(
             10,
             '[DF] Season 2',
@@ -465,24 +526,23 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [20, 447, 5],
-    [18, 444, 5],
-    [16, 441, 5],
-    [14, 437, 4],
-    [12, 434, 4],
-    [10, 431, 4],
-    [8, 428, 4],
-    [6, 424 , 3],
-    [4, 421 , 3],
-    [3, 418, 3],
-    [2, 415, 3],
+    [20, 483, 5],
+    [18, 480, 5],
+    [15, 476, 4],
+    [12, 473, 4],
+    [10, 470, 4],
+    [8, 467, 4],
+    [6, 463 , 3],
+    [4, 460 , 3],
+    [3, 457, 3],
+    [2, 454, 3],
 ]
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    17: [402, 2], // LFR
-    14: [415, 3], // Normal
-    15: [428, 4], // Heroic
-    16: [441, 5], // Mythic
+    17: [441, 2], // LFR
+    14: [454, 3], // Normal
+    15: [467, 4], // Heroic
+    16: [480, 5], // Mythic
 }
 
 export const keyTiers = [
