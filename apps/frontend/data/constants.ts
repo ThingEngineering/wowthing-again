@@ -7,7 +7,7 @@ export abstract class Constants {
     static readonly mythicPlusSeason: number = 10
 
     static readonly currencies = {
-        catalyst: 2533, // Renascent Shadowflame
+        catalyst: 2796, // Renascent Dream
         dragonridingPassengers: 2133,
         valor: 1191,
     }

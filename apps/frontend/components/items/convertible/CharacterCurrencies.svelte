@@ -11,9 +11,23 @@
 
     $: seasonTier = season.tiers[season.tiers.length - tier]
 
-    $: currencies = season.id === 3
-        ? (tier === 2 || tier === 3 ? [[[2122, 1]], [[204276, 1]]] : [])
-        : [seasonTier.lowUpgrade || [], seasonTier.highUpgrade || []]
+    let currencies: [number, number][][]
+    $: {
+        currencies = []
+        
+        if (season.conversionCurrencyId) {
+            currencies.push([[season.conversionCurrencyId, 1]])
+        }
+
+        if (season.id === 3) {
+            if (tier === 2 || tier === 3) {
+                currencies.push([[2122, 1]], [[204276, 1]])
+            }
+        }
+        else {
+            currencies.push(seasonTier.lowUpgrade || [], seasonTier.highUpgrade || [])
+        }
+    }
 </script>
 
 <style lang="scss">

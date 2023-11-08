@@ -100,7 +100,7 @@
             </td>
         {/each}
         
-        {#if !hasEverySlot && (season.id === 3 || season.tiers[0].lowUpgrade)}
+        {#if season.conversionCurrencyId || !hasEverySlot && (season.id === 3 || season.tiers[0].lowUpgrade)}
             <CharacterCurrencies
                 {character}
                 {season}

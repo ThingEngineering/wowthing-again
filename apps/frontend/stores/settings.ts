@@ -41,7 +41,7 @@ function createSettingsStore() {
 
     return {
         get wowheadBaseUrl(): string {
-            return `${languageToSubdomain[get(store).general.language]}.wowhead.com/ptr-2`
+            return `${languageToSubdomain[get(store).general.language]}.wowhead.com`
         },
         set: (settings: Settings): void => {
             if (!settings) {

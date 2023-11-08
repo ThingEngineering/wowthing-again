@@ -4,6 +4,7 @@
     import { iconStrings, imageStrings } from '@/data/icons'
     import { Faction } from '@/enums/faction'
     import { RewardReputation } from '@/enums/reward-reputation'
+    import { uiIcons } from '@/shared/icons'
     import { itemStore, parsedTextStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
 
@@ -154,11 +155,12 @@
                 span.replaceChildren()
                 const dataString = span.getAttribute('data-string')
 
-                if (iconStrings[dataString] || !imageStrings[dataString]) {
+                const uiIconMaybe = uiIcons[dataString as keyof typeof uiIcons]
+                if (uiIconMaybe || iconStrings[dataString] || !imageStrings[dataString]) {
                     new IconifyIcon({
                         target: span,
                         props: {
-                            icon: iconStrings[dataString] || iconStrings.question,
+                            icon: uiIconMaybe || iconStrings[dataString] || iconStrings.question,
                             scale: '0.75',
                             dropShadow,
                         }
