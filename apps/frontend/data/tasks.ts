@@ -216,9 +216,15 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'dfWorthyAlly',
-        name: '[DF] A Worthy Ally',
-        shortName: 'AWA',
+        key: 'dfWorthyAllyDreamWardens',
+        name: '[DF] A Worthy Ally: Dream Wardens',
+        shortName: 'WA:DW',
+        minimumLevel: 70,
+    },
+    {
+        key: 'dfWorthyAllyLoammNiffen',
+        name: '[DF] A Worthy Ally: Loamm Niffen',
+        shortName: 'WA:LN',
         minimumLevel: 70,
     },
     {
