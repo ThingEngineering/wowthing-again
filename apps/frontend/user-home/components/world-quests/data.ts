@@ -10,6 +10,15 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '09-dragonflight/dragon_isles',
         children: [
             {
+                id: 2200,
+                name: 'Emerald Dream',
+                slug: 'emerald-dream',
+                mapName: '09-dragonflight/emerald_dream',
+                continentPoint: [32, 62],
+                anchor: 'bottom-right',
+            },
+            null,
+            {
                 id: 2133,
                 name: 'Zaralek Cavern',
                 slug: 'zaralek-cavern',
@@ -40,7 +49,7 @@ export const zoneData: WorldQuestZone[] = [
                 name: "Ohn'ahran Plains",
                 slug: 'ohnahran-plains',
                 mapName: '09-dragonflight/ohnahran_plains',
-                continentPoint: [33, 62],
+                continentPoint: [35, 62],
                 anchor: 'bottom-left',
             },
             {
