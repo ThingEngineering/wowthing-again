@@ -47,6 +47,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
         minimumLevel: 70,
         name: '[DF] Season 3',
         slug: 'df-season-3',
+        conversionCurrencyId: 2796, // Renascent Dream
         tiers: [
             {
                 itemLevel: 480,
@@ -66,14 +67,27 @@ export const convertibleCategories: ConvertibleCategory[] = [
             {
                 itemLevel: 441,
             },
-        ]
+        ],
+        purchases: [
+            {
+                costId: 210254, // Dreamsurge Cocoon
+                costAmount: 1,
+                upgradeTier: 2,
+                progressKey: 'dfDreamsurge',
+            },
+            {
+                costId: 209856, // Dilated Time Pod
+                costAmount: 1,
+                upgradeTier: 1,
+                progressKey: 'dfTimeRift',
+            },
+        ],
     },
     {
         id: 6,
         minimumLevel: 70,
         name: '[DF] Season 2',
         slug: 'df-season-2',
-        conversionCurrencyId: 2533, // Renascent Shadowflame
         tiers: [
             {
                 itemLevel: 441,
@@ -96,21 +110,9 @@ export const convertibleCategories: ConvertibleCategory[] = [
         ],
         purchases: [
             {
-                costId: 207030, // Dilated Time Capsule
-                costAmount: 1,
-                upgradeTier: 1,
-                progressKey: 'dfTimeRift',
-            },
-            {
                 costId: 207026, // Dreamsurge Coalescence
                 costAmount: 100,
                 upgradeTier: 1,
-            },
-            {
-                costId: 208153, // Dreamsurge Chrysalis
-                costAmount: 1,
-                upgradeTier: 2,
-                progressKey: 'dfDreamsurge',
             },
         ],
         sourceTier: 1,
