@@ -79,13 +79,18 @@
         for (const group of groups) {
             group.children.sort((a, b) => {
                 const aIndex = typeOrder.indexOf(a[0].type)
+                const aStatus = farmStatuses[a[1]]
                 const bIndex = typeOrder.indexOf(b[0].type)
+                const bStatus = farmStatuses[b[1]]
+
                 const aData = [
+                    aStatus.need ? '0' : '1',
                     a[0].faction || 'zzz',
                     leftPad(aIndex === -1 ? 999 : aIndex, 3, '0'),
                     a[0].name
                 ].join('|')
                 const bData = [
+                    bStatus.need ? '0' : '1',
                     b[0].faction || 'zzz',
                     leftPad(bIndex === -1 ? 999 : bIndex, 3, '0'),
                     b[0].name
