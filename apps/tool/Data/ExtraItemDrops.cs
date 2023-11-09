@@ -68,7 +68,7 @@ public static partial class Hardcoded
                 new (178166, DungeonDifficultiesNormal), // Tunk's Toothpick
                 new (178167, DungeonDifficultiesNormal), // Tunk's Lil' Whomper
                 new (179360, DungeonDifficultiesNormal), // Tunk's Tiny Bow
-                new (179362, DungeonDifficultiesNormal), // Tunk's Backscratcher -- doesn't actually exist
+                // new (179362, DungeonDifficultiesNormawl), // Tunk's Backscratcher -- doesn't actually exist
             }
         },
         {
