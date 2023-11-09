@@ -17,14 +17,25 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
         const lowerName = Profession[profession.id].toLowerCase()
         const tasks: Chore[] = []
 
-        if (profession.hasCraft === true) {
+        tasks.push(
+            {
+                taskKey: `dfProfession${name}Provide`,
+                taskName: `${name}: Provide`,
+                minimumLevel: 60,
+                couldGetFunc: (char) => couldGet(lowerName, char),
+                canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+            },
+        )
+
+        if (profession.hasTask === true) {
             tasks.push(
                 {
-                    taskKey: `dfProfession${name}Craft`,
-                    taskName: `${name}: Craft`,
+                    taskKey: `dfProfession${name}Task`,
+                    taskName: `${name}: Task`,
                     minimumLevel: 60,
                     couldGetFunc: (char) => couldGet(lowerName, char),
-                    canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+                    canGetFunc: (char) => getLatestSkill(char, lowerName,
+                        isGatheringProfession[profession.id] ? 45 : 25),
                 },
             )
         }
@@ -36,17 +47,6 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(lowerName, char),
                 //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
-            },
-        )
-
-        tasks.push(
-            {
-                taskKey: `dfProfession${name}Gather`,
-                taskName: `${name}: Gather`,
-                minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
-                canGetFunc: (char) => getLatestSkill(char, lowerName,
-                    isGatheringProfession[profession.id] ? 45 : 25),
             },
         )
 

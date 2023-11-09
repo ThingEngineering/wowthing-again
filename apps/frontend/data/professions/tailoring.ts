@@ -4,7 +4,7 @@ import type { DragonflightProfession } from '@/types/data'
 
 export const dragonflightTailoring: DragonflightProfession = {
     id: Profession.Tailoring,
-    hasCraft: true,
+    hasTask: true,
     hasOrders: true,
     masterQuestId: 70260,
     bookQuests: [

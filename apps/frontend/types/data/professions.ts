@@ -10,8 +10,8 @@ interface DragonflightProfessionQuest {
 
 export type DragonflightProfession = {
     id: Profession
-    hasCraft?: boolean
     hasOrders?: boolean
+    hasTask?: boolean
     masterQuestId?: number
 
     bookQuests?: DragonflightProfessionQuest[]

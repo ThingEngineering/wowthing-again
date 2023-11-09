@@ -53,7 +53,7 @@
     {#if currencySets.length > 0}
         <td>
             <div class="flex-wrapper">
-                {#each currencySets as [currencyId,]}
+                {#each currencySets as [currencyId, currencyAmount]}
                     {@const charHas = currencyId > 10_000
                         ? character.getItemCount(currencyId)
                         : (character.currencies?.[currencyId]?.quantity || 0)}
@@ -70,7 +70,7 @@
                         </WowheadLink>
                         <span
                             class="drop-shadow"
-                            class:status-success={charHas > 0}
+                            class:status-success={charHas >= currencyAmount}
                         >
                             {charHas}
                         </span>
