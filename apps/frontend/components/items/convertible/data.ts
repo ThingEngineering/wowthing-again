@@ -29,16 +29,16 @@ const dfS2Aspect: [number, number][] = [
 ]
 
 const dfS3Whelpling: [number, number][] = [
-    [2706, 1],
+    [2706, 15],
 ]
 const dfS3Drake: [number, number][] = [
-    [2707, 1],
+    [2707, 15],
 ]
 const dfS3Wyrm: [number, number][] = [
-    [2708, 1],
+    [2708, 15],
 ]
 const dfS3Aspect: [number, number][] = [
-    [2709, 1],
+    [2709, 15],
 ]
 
 export const convertibleCategories: ConvertibleCategory[] = [
