@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { factionMaxRenown } from '@/data/reputation'
     import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterReputationReputation } from '@/types'
@@ -20,8 +19,9 @@
         renownLevel = null
         if (reputation !== undefined && characterRep.value !== -1) {
             dataRep = $staticStore.reputations[characterRep.reputationId]
+            const currency = $staticStore.currencies[dataRep.renownCurrencyId]
+            const maxRenown = currency.maxTotal
 
-            const maxRenown = factionMaxRenown[characterRep.reputationId]
             const tier = characterRep.value / 2500
             quality = 1 + Math.floor(tier / (maxRenown / 5))
             renownLevel = (Math.floor(tier * 100) / 100).toFixed(2)

@@ -19,7 +19,6 @@ public class StaticReputationCategorySet
     public StaticReputationCategoryReputation Alliance { get; set; }
     public StaticReputationCategoryReputation Horde { get; set; }
 
-    public bool Major { get; set; } = false;
     public bool Paragon { get; set; } = false;
 }
 

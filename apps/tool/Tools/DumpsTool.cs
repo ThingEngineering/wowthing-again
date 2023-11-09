@@ -542,6 +542,7 @@ public class DumpsTool
             dbReputation.Expansion = faction.Expansion;
             dbReputation.ParagonId = faction.ParagonFactionID;
             dbReputation.ParentId = faction.ParentFactionID;
+            dbReputation.RenownCurrencyId = faction.RenownCurrencyID;
             dbReputation.TierId = faction.FriendshipRepID;
         }
 

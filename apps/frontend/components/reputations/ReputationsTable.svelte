@@ -7,14 +7,14 @@
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataReputationCategory } from '@/shared/stores/static/types'
+    import type { StaticDataReputationCategory, StaticDataReputationSet } from '@/shared/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Error from '@/components/common/Error.svelte'
     import TableHead from './ReputationsTableHead.svelte'
     import TableRow from './ReputationsTableRow.svelte'
-    import TableRowMajor from './ReputationsTableRowMajor.svelte'
+    import TableRowRenown from './ReputationsTableRowRenown.svelte'
 
     export let slug: string
 
@@ -60,6 +60,13 @@
             sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
+
+
+    function isRenown(reputationSet: StaticDataReputationSet) {
+        return reputationSet.both
+            ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
+            : $staticStore.reputations[reputationSet.alliance.id || reputationSet.horde.id].renownCurrencyId > 0
+    }
 </script>
 
 {#if category?.reputations}
@@ -84,21 +91,21 @@
 
         <svelte:fragment slot="rowExtra" let:character>
             {#key `reputations|${slug}`}
-                {#each category.reputations as reputationSet, reputationSetIndex}
+                {#each category.reputations as reputationSets, reputationsIndex}
                     <td class="spacer"></td>
 
-                    {#each reputationSet as reputation, reputationIndex}
-                        {#if reputation.major}
-                            <TableRowMajor
-                                characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                    {#each reputationSets as reputationSet, reputationSetsIndex}
+                        {#if isRenown(reputationSet)}
+                            <TableRowRenown
+                                characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
                                 {character}
-                                {reputation}
+                                reputation={reputationSet}
                             />
                         {:else}
                             <TableRow
-                                characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                                characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
                                 {character}
-                                {reputation}
+                                reputation={reputationSet}
                             />
                         {/if}
                     {/each}

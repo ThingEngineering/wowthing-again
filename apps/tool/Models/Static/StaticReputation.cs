@@ -14,6 +14,7 @@ public class StaticReputation : WowReputation
         Expansion = reputation.Expansion;
         ParagonId = reputation.ParagonId;
         ParentId = reputation.ParagonId;
+        RenownCurrencyId = reputation.RenownCurrencyId;
         TierId = reputation.TierId;
     }
 }

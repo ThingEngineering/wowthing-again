@@ -8,6 +8,7 @@ export class StaticDataReputation {
         public tierId: number,
         public parentId: number,
         public paragonId: number,
+        public renownCurrencyId: number,
         public name: string,
         public description?: string
     )
@@ -45,7 +46,6 @@ export class StaticDataReputationSet {
     public horde: StaticDataReputationReputation
     
     constructor(
-        public major: boolean,
         public paragon: boolean,
         reputationArrays: StaticDataReputationReputationArray[]
     )

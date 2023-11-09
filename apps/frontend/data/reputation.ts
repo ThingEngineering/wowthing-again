@@ -1,12 +1,3 @@
-export const factionMaxRenown: Record<number, number> = {
-    2507: 25, // Dragonscale Expedition
-    2511: 30, // Iskaara Tuskarr
-    2503: 25, // Maruuk Centaur
-    2510: 30, // Valdrakken Accord
-    2564: 20, // Loamm Niffen
-    2574: 20, // Dream Wardens
-}
-
 export const contractAuras: Record<number, [number, number]> = {
     384317: [2544, 1], // Contract: Artisan's Consortium 1
     384320: [2544, 2], // Contract: Artisan's Consortium 2
