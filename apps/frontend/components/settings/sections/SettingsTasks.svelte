@@ -64,6 +64,17 @@
 
 <div class="settings-block">
     <div>
+        <h3>Dragonflight Chores - 10.2.0</h3>
+        {#if $settingsStore.layout.homeTasks.indexOf('dfChores10_2_0') >= 0}
+            <Multi multiTaskKey="dfChores10_2_0" />
+        {:else}
+            <span>Add "<code>[DF]</code> Chores - 10.2.0" to your Tasks list</span>
+        {/if}
+    </div>
+</div>
+
+<div class="settings-block">
+    <div>
         <h3>PvP Brawl</h3>
         {#if $settingsStore.layout.homeTasks.indexOf('pvpBrawl') >= 0}
             <Multi multiTaskKey="pvpBrawl" />
