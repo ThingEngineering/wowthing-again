@@ -130,6 +130,7 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight
     250: [
+        211376, // Seedbloom
         208066, // Small Dreamseed
         208067, // Plump Dreamseed
         208047, // Gigantic Dreamseed
@@ -229,6 +230,7 @@ export const currencyItemCurrencies: Record<number, number> = {
 
 const skipCurrencies: number[] = [
     // Dragonflight
+    2651, // Seedbloom
     2706, // Whelpling's Dreaming Crests
     2707, // Drake's Dreaming Crests
     2708, // Wyrm's Dreaming Crests

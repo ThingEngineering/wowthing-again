@@ -94,8 +94,12 @@ public static partial class Hardcoded
 
         // Dragonflight - 10.2.0
         206959, // Spark of Dreams
+        208047, // Gigantic Dreamseed
+        208066, // Small Dreamseed
+        208067, // Plump Dreamseed
         208396, // Splintered Spark of Dreams
         209856, // Dilated Time Pod
         210254, // Dreamsurge Cocoon
+        211376, // Seedbloom
     };
 }
