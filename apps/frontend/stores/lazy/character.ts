@@ -2,14 +2,14 @@ import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
 import { dragonflightProfessionMap } from '@/data/professions'
+import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
+import { CharacterFlag } from '@/enums/character-flag'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
 import type { Character, ProfessionCooldown, ProfessionCooldownData, Settings, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
-import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
-import { CharacterFlag } from '@/enums/character-flag'
 
 
 export interface LazyCharacter {
