@@ -41,9 +41,10 @@
         ---
     </td>
 {:else if chore?.tasks?.length > 0}
+    {@const notStarted = chore.countTotal - chore.countCompleted - chore.countStarted}
     <td
-        class:status-fail={chore.countCompleted === 0}
-        class:status-shrug={chore.countCompleted < chore.countTotal}
+        class:status-fail={notStarted > 0}
+        class:status-shrug={notStarted === 0 && chore.countCompleted < chore.countTotal}
         class:status-success={chore.countCompleted === chore.countTotal}
         use:componentTooltip={{
             component: Tooltip,
