@@ -81,6 +81,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 
             if (task.type === 'multi') {
                 const charChore = new LazyCharacterChore()
+                const disabledChores = (stores.settings.tasks.disabledChores?.[taskName] || [])
 
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
@@ -95,7 +96,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                     )
 
-                    if ((stores.settings.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0 &&
+                    if (disabledChores.indexOf(choreTask.taskKey) >= 0 &&
                         charTask.quest?.status !== QuestStatus.Completed) {
                         continue
                     }
