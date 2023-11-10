@@ -87,9 +87,15 @@ public static partial class Hardcoded
 
         // Dragonflight - 10.1.5
         207002, // Encapsulated Destiny
-        207030, // Dilated Time Capsule
+        // 207030, // Dilated Time Capsule
 
         // Dragonflight - 10.1.7
         207026, // Dreamsurge Coalescence
+
+        // Dragonflight - 10.2.0
+        206959, // Spark of Dreams
+        208396, // Splintered Spark of Dreams
+        209856, // Dilated Time Pod
+        210254, // Dreamsurge Cocoon
     };
 }

@@ -80,13 +80,14 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Dragonflight - Season 2
     125012: [
-        2245, // Flightstones
         2533, // Renascent Shadowflame
     ],
     // Dragonflight - Season 3
     125013: [
+        2245, // Flightstones
         2796, // Renascent Dream
         2797, // Trophy of Strife
+        null,
         2706, // Whelpling's Dreaming Crests
         2707, // Drake's Dreaming Crests
         2708, // Wyrm's Dreaming Crests
@@ -129,9 +130,14 @@ export const currencyItems: Record<number, number[]> = {
 
     // Dragonflight
     250: [
-        207026, // Dreamsurge Coalescence
+        208066, // Small Dreamseed
+        208067, // Plump Dreamseed
+        208047, // Gigantic Dreamseed
         null,
-        207030, // Dilated Time Capsule
+        207026, // Dreamsurge Coalescence
+        210254, // Dreamsurge Cocoon
+        null,
+        209856, // Dilated Time Pod
         207002, // Encapsulated Destiny
         null,
         204715, // Unearthed Fragrant Coin
@@ -148,13 +154,12 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Dragonflight > Crafting Materials
     125002: [
+        190456, // Artisan's Mettle
         198048, // Titan Training Matrix I
         198056, // Titan Training Matrix II
         198058, // Titan Training Matrix III
         198059, // Titan Training Matrix IV
         204673, // Titan Training Matrix V
-        null,
-        190456, // Artisan's Mettle
     ],
     // Dragonflight > Season 1
     125011: [
@@ -169,9 +174,9 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Dragonflight > Season 2
     125012: [
-        205225, // Aspects' Token of Merit
         204717, // Splintered Spark of Shadowflame
         204440, // Spark of Shadowflame
+        205225, // Aspects' Token of Merit
         null,
         204075, // Whelpling's Shadowflame Crest Fragment
         204193, // Whelpling's Shadowflame Crest
@@ -186,7 +191,10 @@ export const currencyItems: Record<number, number[]> = {
         204682, // Enchanted Wyrm's Shadowflame Crest
         204697, // Enchanted Aspect's Shadowflame Crest
     ],
+    // Dragonflight > Season 3
     125013: [
+        208396, // Splintered Spark of Dreams
+        206959, // Spark of Dreams
         208821, // Aspects' Token of Merit
     ],
 

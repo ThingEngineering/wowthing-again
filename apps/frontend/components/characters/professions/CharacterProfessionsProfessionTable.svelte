@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { professionSpecializationSpells } from '@/data/professions'
     import { Faction } from '@/enums/faction'
     import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
@@ -14,7 +15,6 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import { professionSpecializationSpells } from '@/data/professions';
 
     export let category: StaticDataProfessionCategory
     export let character: Character

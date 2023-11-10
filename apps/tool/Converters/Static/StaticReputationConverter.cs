@@ -17,6 +17,7 @@ public class StaticReputationConverter : JsonConverter<StaticReputation>
         writer.WriteNumberValue(value.TierId);
         writer.WriteNumberValue(value.ParentId);
         writer.WriteNumberValue(value.ParagonId);
+        writer.WriteNumberValue(value.RenownCurrencyId);
         writer.WriteStringValue(value.Name);
 
         if (!string.IsNullOrWhiteSpace(value.Description))

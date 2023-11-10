@@ -1,12 +1,12 @@
 <script lang="ts">
+    import { CharacterFlag } from '@/enums/character-flag'
     import { iconLibrary } from '@/shared/icons'
     import { characterSettingsStore } from '@/stores/character-settings'
     import { settingsStore } from '@/stores/settings'
     import type { Character } from '@/types/character'
 
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
-    import { CharacterFlag } from '@/enums/character-flag';
 
     export let character: Character
 

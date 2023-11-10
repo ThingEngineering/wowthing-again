@@ -1,13 +1,13 @@
 <script lang="ts">
     import { itemStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
+    import { getEnchantmentText } from '@/utils/get-enchantment-text'
     import { getItemUrl } from '@/utils/get-item-url'
     import { InventorySlot  } from '@/enums/inventory-slot'
     import type { Character } from '@/types'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { getEnchantmentText } from '@/utils/get-enchantment-text';
 
     export let character: Character
     export let inventorySlot: InventorySlot

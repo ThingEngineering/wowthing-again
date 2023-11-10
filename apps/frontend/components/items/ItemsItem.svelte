@@ -1,13 +1,13 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
+    import { itemStore } from '@/stores'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { Character, CharacterGear } from '@/types'
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { itemStore } from '@/stores';
 
     export let character: Character = undefined
     export let forceCrafted = false

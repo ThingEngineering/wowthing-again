@@ -51,6 +51,7 @@
         props: {
             currency,
             item: $itemStore.items[itemId],
+            itemId,
         }
     }}
 >

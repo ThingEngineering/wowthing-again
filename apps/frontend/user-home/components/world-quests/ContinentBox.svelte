@@ -1,10 +1,10 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
+    import { leftPad } from '@/utils/formatting'
     import type { ApiWorldQuest, WorldQuestZone } from './types'
 
     import WorldQuest from './WorldQuest.svelte'
-    import { leftPad } from '@/utils/formatting';
 
     export let worldQuests: ApiWorldQuest[]
     export let zone: WorldQuestZone

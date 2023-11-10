@@ -7,8 +7,8 @@
     import type { Character } from '@/types'
     import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import Row from './ItemsSearchCharacterRow.svelte'
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
 
     export let response: ItemSearchResponseItem[]
 

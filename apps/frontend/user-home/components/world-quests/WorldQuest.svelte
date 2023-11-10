@@ -3,16 +3,16 @@
     import { RewardType } from '@/enums/reward-type'
     import { iconLibrary } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
+    import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/stores/time'
     import { toNiceNumber } from '@/utils/formatting/to-nice-number'
     import type { ApiWorldQuest } from './types'
 
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Tooltip from './Tooltip.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
 
     export let worldQuest: ApiWorldQuest
 

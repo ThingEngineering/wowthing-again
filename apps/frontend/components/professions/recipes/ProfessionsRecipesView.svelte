@@ -47,25 +47,33 @@
         colspan = 3 + characters.length
     }
 
-    const getAbilities = (abilities: StaticDataProfessionAbility[], includeTrainerRecipes: boolean) => {
+    const getAbilities = (category: StaticDataProfessionCategory, includeTrainerRecipes: boolean) => {
+        const filteredAbilities = category.abilities.filter((ability) =>
+            includeTrainerRecipes ||
+            (
+                ability.source !== SkillSourceType.Trainer &&
+                ability.source !== SkillSourceType.Discovery &&
+                !!$staticStore.skillLineAbilityItems[ability.id]
+            )
+        )
+        console.log(category, filteredAbilities)
         return sortBy(
-            abilities.filter((ability) =>
-                includeTrainerRecipes ||
-                (
-                    ability.source !== SkillSourceType.Trainer &&
-                    ability.source !== SkillSourceType.Discovery &&
-                    !!$staticStore.skillLineAbilityItems[ability.id]
-                )
-            ),
+            filteredAbilities,
             (ability) => {
                 const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
-                if (ability.itemIds[0]) {
-                    const item = $itemStore.items[ability.itemIds[0]]
-                    return `${hasItems ? 0 : 1}|${9 - item.quality}|${item.name}`
-                }
-                else {
-                    return `${hasItems ? 0 : 1}|9|${ability.name}`
-                }
+                const item = $itemStore.items[ability.itemIds[0] || 0]
+                return [
+                    hasItems ? 0 : 1,
+                    ability.itemIds[0] ? 9 - item.quality : 9,
+                    // Hack to sort enchanting crest recipes by season
+                    category.id === 1871
+                        ? (ability.spellId >= 414985
+                            ? 0
+                            : 1
+                        )
+                        : 0,
+                    item?.name || ability.name
+                ].join('|')
             }
         )
     }
@@ -143,7 +151,7 @@
     </thead>
     <tbody>
         {#each categoryChildren as category, categoryIndex}
-            {@const abilities = getAbilities(category.abilities, $professionsRecipesState.includeTrainerRecipes)}
+            {@const abilities = getAbilities(category, $professionsRecipesState.includeTrainerRecipes)}
             {#if abilities.length > 0}
                 <tr class="spacer">
                     <td colspan="{colspan}">&nbsp;</td>

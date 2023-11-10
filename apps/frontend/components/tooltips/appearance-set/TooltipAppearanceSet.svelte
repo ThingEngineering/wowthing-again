@@ -5,7 +5,7 @@
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let set: ManualDataTransmogGroupData
     export let setTitle: string

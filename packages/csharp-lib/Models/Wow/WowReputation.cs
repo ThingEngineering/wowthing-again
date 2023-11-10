@@ -10,6 +10,7 @@ public class WowReputation
     public short Expansion { get; set; }
     public short ParagonId { get; set; }
     public short ParentId { get; set; }
+    public short RenownCurrencyId { get; set; }
     public short TierId { get; set; }
 
     public WowReputation(short id)

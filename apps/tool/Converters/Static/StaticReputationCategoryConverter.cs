@@ -26,7 +26,6 @@ public class StaticReputationCategoryConverter : JsonConverter<StaticReputationC
             {
                 // Reputation
                 writer.WriteStartArray();
-                writer.WriteBooleanValue(reputation.Major);
                 writer.WriteBooleanValue(reputation.Paragon);
 
                 // Reps

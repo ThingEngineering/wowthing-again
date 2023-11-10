@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { factionMaxRenown } from '@/data/reputation'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
     import type { StaticDataReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
 
@@ -15,6 +15,7 @@
     let progress: number
     let tier: number
 
+    $: maxRenown = $staticStore.currencies[dataRep.renownCurrencyId]?.maxTotal || 1
     $: {
         progress = characterRep % 2500
         tier = Math.floor(characterRep / 2500)
@@ -33,7 +34,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>
-        {#if reputation !== undefined && reputation.both === undefined}
+        {#if reputation?.both === undefined}
             <WowthingImage
                 name={character.faction === 0 ? Constants.icons.alliance : Constants.icons.horde}
                 size={20}
@@ -44,7 +45,7 @@
     </h5>
 
     <div class="tooltip-body">
-        <p>Renown {tier} / {factionMaxRenown[dataRep.id]}</p>
+        <p>Renown {tier} / {maxRenown}</p>
 
         <ProgressBar
             have={progress}

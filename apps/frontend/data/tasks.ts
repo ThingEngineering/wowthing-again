@@ -216,12 +216,6 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
     {
-        key: 'dfWorthyAllyDreamWardens',
-        name: '[DF] A Worthy Ally: Dream Wardens',
-        shortName: 'WA:DW',
-        minimumLevel: 70,
-    },
-    {
         key: 'dfWorthyAllyLoammNiffen',
         name: '[DF] A Worthy Ally: Loamm Niffen',
         shortName: 'WA:LN',
@@ -248,6 +242,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'dfChores10_2_0',
+        name: '[DF] Chores - 10.2.0',
+        shortName: '10.2',
+        minimumLevel: 70,
+        type: 'multi',
+    },
+    {
         key: 'dfDreamsurge',
         name: '[DF] Dreamsurge',
         shortName: 'DS',
@@ -269,11 +270,6 @@ export const taskList: Task[] = [
         name: '[DF] Sparks of Life (PvP)',
         shortName: 'SoL',
         minimumLevel: 60,
-    },
-    {
-        key: 'dfSuperbloom',
-        name: '[DF] Superbloom',
-        shortName: 'SB',
     },
     {
         key: 'dfTimeRift',
@@ -466,6 +462,20 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 70,
             taskKey: 'dfSniffenDig3',
             taskName: 'Sniffenseeking - Dig 3',
+        },
+    ],
+    'dfChores10_2_0': [
+        {
+            taskKey: 'dfWorthyAllyDreamWardens',
+            taskName: 'A Worthy Ally: Dream Wardens',
+        },
+        {
+            taskKey: 'dfBloomingDreamseeds',
+            taskName: 'Blooming Dreamseeds',
+        },
+        {
+            taskKey: 'dfSuperbloom',
+            taskName: 'Superbloom',
         },
     ],
     'dfDungeonWeeklies': [
