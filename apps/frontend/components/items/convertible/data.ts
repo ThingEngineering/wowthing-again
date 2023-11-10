@@ -69,18 +69,18 @@ export const convertibleCategories: ConvertibleCategory[] = [
             },
         ],
         purchases: [
-            {
-                costId: 210254, // Dreamsurge Cocoon
-                costAmount: 1,
-                upgradeTier: 2,
-                progressKey: 'dfDreamsurge',
-            },
-            {
-                costId: 209856, // Dilated Time Pod
-                costAmount: 1,
-                upgradeTier: 1,
-                progressKey: 'dfTimeRift',
-            },
+            // {
+            //     costId: 210254, // Dreamsurge Cocoon
+            //     costAmount: 1,
+            //     upgradeTier: 2,
+            //     progressKey: 'dfDreamsurge',
+            // },
+            // {
+            //     costId: 209856, // Dilated Time Pod
+            //     costAmount: 1,
+            //     upgradeTier: 1,
+            //     progressKey: 'dfTimeRift',
+            // },
         ],
     },
     {
@@ -109,11 +109,11 @@ export const convertibleCategories: ConvertibleCategory[] = [
             },
         ],
         purchases: [
-            {
-                costId: 207026, // Dreamsurge Coalescence
-                costAmount: 100,
-                upgradeTier: 1,
-            },
+            // {
+            //     costId: 207026, // Dreamsurge Coalescence
+            //     costAmount: 100,
+            //     upgradeTier: 1,
+            // },
         ],
         sourceTier: 1,
         sources: {
