@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { dfS3Aspect, dfS3Drake, dfS3Whelpling, dfS3Wyrm } from './convertible/data'
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { itemStore } from '@/stores'
@@ -17,21 +18,54 @@
     export let useItemCount = false
 
     function getIconName(): [string, number] {
-        if (gear.equipped.itemLevel >= 437) {
-            return ['item/204194', countCrests(204078, 204194)] // Aspect
+        let tiers: [number, number][][]
+        for (const bonusId of gear.equipped.bonusIds) {
+            if (!$itemStore.itemBonusCurrentSeason.has(bonusId)) {
+                continue
+            }
+
+            const upgrade = $itemStore.itemBonusToUpgrade[bonusId]
+            if (upgrade?.[0] > 0 && upgrade[1] < upgrade[2]) {
+                if (upgrade[0] === Constants.upgradeTiers.explorer) {
+                    tiers = [null, null]
+                }
+                else if (upgrade[0] === Constants.upgradeTiers.adventurer) {
+                    tiers = [null, dfS3Whelpling]
+                }
+                else if (upgrade[0] === Constants.upgradeTiers.veteran) {
+                    tiers = [dfS3Whelpling, dfS3Drake]
+                }
+                else if (upgrade[0] === Constants.upgradeTiers.champion) {
+                    tiers = [dfS3Drake, dfS3Wyrm]
+                }
+                else if (upgrade[0] === Constants.upgradeTiers.hero) {
+                    tiers = [dfS3Wyrm, dfS3Aspect]
+                }
+                else if (upgrade[0] === Constants.upgradeTiers.myth) {
+                    tiers = [dfS3Aspect, null]
+                }
+                else {
+                    console.log(upgrade)
+                }
+
+                if (upgrade[1] <= 4 && tiers[0]) {
+                    return [
+                        `currency/${tiers[0][0][0]}`,
+                        Math.floor((character.currencies?.[tiers[0][0][0]]?.quantity || 0) / tiers[0][0][1])
+                    ]
+                }
+                else if (upgrade[1] >= 5 && tiers[1]) {
+                    return [
+                        `currency/${tiers[1][0][0]}`,
+                        Math.floor((character.currencies?.[tiers[1][0][0]]?.quantity || 0) / tiers[1][0][1])
+                    ]
+                }
+        
+                return ['currency/2245', 0]
+            }
         }
-        else if (gear.equipped.itemLevel >= 424) {
-            return ['item/204196', countCrests(204077, 204196)] // Wyrm
-        }
-        else if (gear.equipped.itemLevel >= 411) {
-            return ['item/204195', countCrests(204076, 204195)] // Drake
-        }
-        else if (gear.equipped.itemLevel >= 398) {
-            return ['item/204193', countCrests(204075, 204193)] // Whelp
-        }
-        else {
-            return ['', 0]
-        }
+
+        return [null, 0]
     }
     function countCrests(fragmentId: number, crestId: number): number {
         const fragments = character.getItemCount(fragmentId)
@@ -192,7 +226,7 @@
                                 name={iconName}
                                 size={20}
                             />
-                        {:else}
+                        {:else if iconName}
                             <IconifyIcon
                                 icon={iconStrings['plus']}
                             />

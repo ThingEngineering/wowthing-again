@@ -8,6 +8,7 @@ export interface ItemData {
     appearanceToItems: Record<number, number[]>
     completesQuest: Record<number, number[]>
     craftingQualities: Record<number, number[]>
+    itemBonusCurrentSeason: Set<number>
     itemBonusToUpgrade: Record<number, [number, number, number]>
     itemConversionBonus: Record<number, number>
     itemConversionEntries: Record<number, number[]>

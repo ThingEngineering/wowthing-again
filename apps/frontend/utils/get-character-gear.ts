@@ -25,6 +25,8 @@ export default function getCharacterGear(
     const itemData = get(itemStore)
     const ret: CharacterGear[] = []
 
+    const highlightAny = state.highlightEnchants || state.highlightGems || state.highlightHeirlooms || state.highlightUpgrades
+
     for (const inventorySlot of slotOrder) {
         const gear: CharacterGear = {
             equipped: character.equippedItems[inventorySlot],
@@ -120,6 +122,10 @@ export default function getCharacterGear(
 
             if (state.highlightUpgrades) {
                 for (const bonusId of gear.equipped.bonusIds) {
+                    if (!itemData.itemBonusCurrentSeason.has(bonusId)) {
+                        continue
+                    }
+
                     const upgradeData = itemData.itemBonusToUpgrade[bonusId]
                     if (upgradeData) {
                         gear.upgradeHas = upgradeData[1]
@@ -130,11 +136,15 @@ export default function getCharacterGear(
             }
         }
 
-        gear.highlight = gear.lowItemLevel
-            || gear.missingEnchant
-            || gear.missingGem
-            || gear.missingHeirloom
-            || gear.missingUpgrade
+        gear.highlight = gear.missingEnchant || gear.missingGem || gear.missingHeirloom || gear.missingUpgrade
+        if (state.highlightItemLevel) {
+            if (highlightAny) {
+                gear.highlight = gear.highlight && gear.lowItemLevel
+            }
+            else {
+                gear.highlight = gear.lowItemLevel
+            }
+        }
     }
 
     return ret
