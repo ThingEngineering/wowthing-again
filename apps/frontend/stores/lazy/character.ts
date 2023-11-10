@@ -266,7 +266,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                 charTask.text = `${objective.have} / ${objective.need}`
                             }
                             else {
-                                charTask.text = `${Math.floor(objective.have / objective.need * 100)} %`
+                                charTask.text = `${Math.floor(Math.min(objective.have, objective.need) / objective.need * 100)} %`
                             }
     
                             if (objective.have === objective.need) {
@@ -275,7 +275,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         }
                         else {
                             const averagePercent = objectives
-                                .reduce((a, b) => (a + (b.have / b.need)), 0) / objectives.length
+                                .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
     
                                 charTask.text = `${Math.floor(averagePercent * 100)} %`
     
