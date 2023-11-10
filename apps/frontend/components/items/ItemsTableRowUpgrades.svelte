@@ -7,14 +7,14 @@
 
     export let character: Character
 
-    const pairs: number[][][] = [
+    const currencies: number[][] = [
         [
-            [ 204075, 204193 ], // Whelpling
-            [ 204076, 204195 ], // Drake
+            2706, // Whelpling's Dreaming Crests
+            2707, // Drake's Dreaming Crests
         ],
         [
-            [ 204077, 204196 ], // Wyrm
-            [ 204078, 204194 ], // Aspect
+            2708, // Wyrm's Dreaming Crests
+            2709, // Aspect's Dreaming Crests
         ],
     ]
 </script>
@@ -68,38 +68,31 @@
     </div>
 </td>
 
-{#each pairs as pair}
+{#each currencies as currencyIds}
     <td class="crests">
         <div class="crests-wrapper">
-            {#each pair as [fragmentId, crestId]}
-                {@const fragments = character.getItemCount(fragmentId)}
-                {@const crests = Math.floor(fragments / 15) + character.getItemCount(crestId)}
+            {#each currencyIds as currencyId}
+                {@const crests = character.currencies?.[currencyId]?.quantity || 0}
                 <div
                     class="crest"
                     use:componentTooltip={{
                         component: Tooltip,
                         props: {
-                            content: `{item:${crestId}}`,
+                            content: `{currency:${currencyId}}`,
                         },
                     }}
                 >
                     <WowthingImage
                         border={1}
-                        name={`item/${crestId}`}
+                        name={`currency/${currencyId}`}
                         size={16}
                     />
                     <span
                         class="amount"
                         class:faded={crests === 0}
+                        class:status-success={crests >= 15}
                     >
                         {crests}
-                    </span>
-                    <span class="faded">/</span>
-                    <span
-                        class="amount"
-                        class:faded={fragments % 15 === 0}
-                    >
-                        {fragments % 15}
                     </span>
                 </div>
             {/each}

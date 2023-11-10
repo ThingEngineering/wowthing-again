@@ -718,6 +718,12 @@ export const extraInstances: StaticDataInstance[] = [
         name: 'The Zaqali Elders',
         shortName: 'TZE',
     },
+    {
+        expansion: 9,
+        id: 109003,
+        name: 'Aurostor, The Hibernator',
+        shortName: 'AtH',
+    },
 
     // Holidays
     {

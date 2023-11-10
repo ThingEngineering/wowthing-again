@@ -2,14 +2,14 @@ import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
 import { dragonflightProfessionMap } from '@/data/professions'
+import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
+import { CharacterFlag } from '@/enums/character-flag'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
 import type { Character, ProfessionCooldown, ProfessionCooldownData, Settings, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
-import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
-import { CharacterFlag } from '@/enums/character-flag'
 
 
 export interface LazyCharacter {
@@ -81,13 +81,11 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 
             if (task.type === 'multi') {
                 const charChore = new LazyCharacterChore()
+                const disabledChores = (stores.settings.tasks.disabledChores?.[taskName] || [])
 
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
                     if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
-                        continue
-                    }
-                    if ((stores.settings.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
                         continue
                     }
                     if (choreTask.couldGetFunc?.(character) === false) {
@@ -97,6 +95,11 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     const charTask = new LazyCharacterChoreTask(
                         stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                     )
+
+                    if (disabledChores.indexOf(choreTask.taskKey) >= 0 &&
+                        charTask.quest?.status !== QuestStatus.Completed) {
+                        continue
+                    }
 
                     if (!charTask.quest &&
                         choreTask.taskKey.endsWith('Treatise') &&
@@ -264,7 +267,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                 charTask.text = `${objective.have} / ${objective.need}`
                             }
                             else {
-                                charTask.text = `${Math.floor(objective.have / objective.need * 100)} %`
+                                charTask.text = `${Math.floor(Math.min(objective.have, objective.need) / objective.need * 100)} %`
                             }
     
                             if (objective.have === objective.need) {
@@ -273,7 +276,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         }
                         else {
                             const averagePercent = objectives
-                                .reduce((a, b) => (a + (b.have / b.need)), 0) / objectives.length
+                                .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
     
                                 charTask.text = `${Math.floor(averagePercent * 100)} %`
     

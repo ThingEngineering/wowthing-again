@@ -1,17 +1,19 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { progressQuestMap } from '@/data/quests'
-    import { taskMap } from '@/data/tasks'
+    import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
-    import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { lazyStore, settingsStore, timeStore, userQuestStore, userStore } from '@/stores'
     
     export let taskName: string
 
     let completed: number
     let inProgress: number
+    let multiStats: [string, string, Record<QuestStatus, number>][]
     let needToGet: number
     let total: number
     let title: string
@@ -22,6 +24,19 @@
 
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
+
+        const multiMap: Record<string, number> = {}
+        multiStats = []
+        if (task.type === 'multi') {
+            multiStats = sortBy(
+                multiTaskMap[taskName],
+                (multiTask) => $settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTask.taskKey) >= 0
+            ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
+            
+            for (let i = 0; i < multiStats.length; i++) {
+                multiMap[multiStats[i][1]] = i
+            }
+        }
 
         // Check other characters for a quest title
         for (const characterId in $userQuestStore.characters) {
@@ -48,18 +63,13 @@
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
+                    for (const choreTask of (taskChores?.tasks || [])) {
+                        multiStats[multiMap[choreTask.name]][2][choreTask.status]++
+                    }
 
                     total += taskChores.countTotal
                     completed += taskChores.countCompleted
                     inProgress += taskChores.countStarted
-                    
-                    //console.log({charChores, charTasks})
-                    // for (const multiTask of multiTaskMap[taskName]) {
-                    //     if (multiTask?.couldGetFunc(character) === false) {
-                    //         continue
-                    //     }
-                    //     console.log(multiTask)
-                    // }
                 }
                 else {
                     total++
@@ -99,28 +109,42 @@
     .value {
         text-align: left;
     }
+    .faded {
+        opacity: 0.7;
+    }
 </style>
 
 <div class="wowthing-tooltip">
     <h4>{title}</h4>
     <table class="table-striped">
         <tbody>
-            <tr>
-                <td class="label status-success">Completed:</td>
-                <td class="value">{completed}</td>
-            </tr>
-            {#if inProgress > 0}
-                <tr>
-                    <td class="label status-shrug">In progress:</td>
-                    <td class="value">{inProgress}</td>
+            {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
+                <tr
+                    class:faded={$settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTaskKey) >= 0}
+                >
+                    <td class="value">{multiTaskName}</td>
+                    <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
+                    <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
+                    <td class="label drop-shadow status-success">{questStatuses[2]}</td>
                 </tr>
-            {/if}
-            {#if needToGet > 0}
+            {:else}
                 <tr>
-                    <td class="label status-fail">Not started:</td>
-                    <td class="value">{needToGet}</td>
+                    <td class="label status-success">Completed:</td>
+                    <td class="value drop-shadow">{completed}</td>
                 </tr>
-            {/if}
+                {#if inProgress > 0}
+                    <tr>
+                        <td class="label status-shrug">In progress:</td>
+                        <td class="value drop-shadow">{inProgress}</td>
+                    </tr>
+                {/if}
+                {#if needToGet > 0}
+                    <tr>
+                        <td class="label status-fail">Not started:</td>
+                        <td class="value drop-shadow">{needToGet}</td>
+                    </tr>
+                {/if}
+            {/each}
         </tbody>
     </table>
 </div>
