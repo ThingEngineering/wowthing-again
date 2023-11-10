@@ -1,4 +1,5 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
@@ -6,13 +7,13 @@
     import { progressQuestMap } from '@/data/quests'
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
-    import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { lazyStore, settingsStore, timeStore, userQuestStore, userStore } from '@/stores'
     
     export let taskName: string
 
     let completed: number
     let inProgress: number
-    let multiStats: [string, Record<QuestStatus, number>][]
+    let multiStats: [string, string, Record<QuestStatus, number>][]
     let needToGet: number
     let total: number
     let title: string
@@ -27,9 +28,13 @@
         const multiMap: Record<string, number> = {}
         multiStats = []
         if (task.type === 'multi') {
-            multiStats = multiTaskMap[taskName].map((multi) => [multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
+            multiStats = sortBy(
+                multiTaskMap[taskName],
+                (multiTask) => $settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTask.taskKey) >= 0
+            ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
+            
             for (let i = 0; i < multiStats.length; i++) {
-                multiMap[multiStats[i][0]] = i
+                multiMap[multiStats[i][1]] = i
             }
         }
 
@@ -59,7 +64,7 @@
                     const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
                     for (const choreTask of (taskChores?.tasks || [])) {
-                        multiStats[multiMap[choreTask.name]][1][choreTask.status]++
+                        multiStats[multiMap[choreTask.name]][2][choreTask.status]++
                     }
 
                     total += taskChores.countTotal
@@ -104,15 +109,20 @@
     .value {
         text-align: left;
     }
+    .faded {
+        opacity: 0.7;
+    }
 </style>
 
 <div class="wowthing-tooltip">
     <h4>{title}</h4>
     <table class="table-striped">
         <tbody>
-            {#each multiStats as [taskName, questStatuses]}
-                <tr>
-                    <td class="value">{taskName}</td>
+            {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
+                <tr
+                    class:faded={$settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTaskKey) >= 0}
+                >
+                    <td class="value">{multiTaskName}</td>
                     <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
                     <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
                     <td class="label drop-shadow status-success">{questStatuses[2]}</td>
