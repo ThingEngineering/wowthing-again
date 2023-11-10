@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { progressQuestMap } from '@/data/quests'
-    import { taskMap } from '@/data/tasks'
+    import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
     import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
     
@@ -12,6 +12,7 @@
 
     let completed: number
     let inProgress: number
+    let multiStats: [string, Record<QuestStatus, number>][]
     let needToGet: number
     let total: number
     let title: string
@@ -22,6 +23,15 @@
 
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
+
+        const multiMap: Record<string, number> = {}
+        multiStats = []
+        if (task.type === 'multi') {
+            multiStats = multiTaskMap[taskName].map((multi) => [multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
+            for (let i = 0; i < multiStats.length; i++) {
+                multiMap[multiStats[i][0]] = i
+            }
+        }
 
         // Check other characters for a quest title
         for (const characterId in $userQuestStore.characters) {
@@ -48,18 +58,13 @@
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
+                    for (const choreTask of (taskChores?.tasks || [])) {
+                        multiStats[multiMap[choreTask.name]][1][choreTask.status]++
+                    }
 
                     total += taskChores.countTotal
                     completed += taskChores.countCompleted
                     inProgress += taskChores.countStarted
-                    
-                    //console.log({charChores, charTasks})
-                    // for (const multiTask of multiTaskMap[taskName]) {
-                    //     if (multiTask?.couldGetFunc(character) === false) {
-                    //         continue
-                    //     }
-                    //     console.log(multiTask)
-                    // }
                 }
                 else {
                     total++
@@ -105,22 +110,31 @@
     <h4>{title}</h4>
     <table class="table-striped">
         <tbody>
-            <tr>
-                <td class="label status-success">Completed:</td>
-                <td class="value">{completed}</td>
-            </tr>
-            {#if inProgress > 0}
+            {#each multiStats as [taskName, questStatuses]}
                 <tr>
-                    <td class="label status-shrug">In progress:</td>
-                    <td class="value">{inProgress}</td>
+                    <td class="value">{taskName}</td>
+                    <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
+                    <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
+                    <td class="label drop-shadow status-success">{questStatuses[2]}</td>
                 </tr>
-            {/if}
-            {#if needToGet > 0}
+            {:else}
                 <tr>
-                    <td class="label status-fail">Not started:</td>
-                    <td class="value">{needToGet}</td>
+                    <td class="label status-success">Completed:</td>
+                    <td class="value drop-shadow">{completed}</td>
                 </tr>
-            {/if}
+                {#if inProgress > 0}
+                    <tr>
+                        <td class="label status-shrug">In progress:</td>
+                        <td class="value drop-shadow">{inProgress}</td>
+                    </tr>
+                {/if}
+                {#if needToGet > 0}
+                    <tr>
+                        <td class="label status-fail">Not started:</td>
+                        <td class="value drop-shadow">{needToGet}</td>
+                    </tr>
+                {/if}
+            {/each}
         </tbody>
     </table>
 </div>
