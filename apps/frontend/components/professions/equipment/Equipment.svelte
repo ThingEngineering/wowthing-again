@@ -1,14 +1,13 @@
 <script lang="ts">
-    import find from 'lodash/find'
     import { afterUpdate } from 'svelte'
 
     import { professionSlugToId } from '@/data/professions'
     import getSavedRoute from '@/utils/get-saved-route'
+    import type { Character } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import Row from './TableRow.svelte'
     import Sidebar from './Sidebar.svelte'
-    import type { Character } from '@/types';
 
     export let slug: string
 

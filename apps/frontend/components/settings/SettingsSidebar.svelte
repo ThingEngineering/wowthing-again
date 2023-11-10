@@ -2,7 +2,7 @@
     import { settingsSavingState } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
-    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     export const categories: SidebarItem[] = [
         {

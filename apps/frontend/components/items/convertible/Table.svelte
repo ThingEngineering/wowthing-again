@@ -10,11 +10,11 @@
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
 
+    import CharacterCurrencies from './CharacterCurrencies.svelte'
+    import CharacterItems from './CharacterItems.svelte'
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import CharacterItems from './CharacterItems.svelte';
-    import CharacterCurrencies from './CharacterCurrencies.svelte';
 
     export let modifier: AppearanceModifier
     export let playerClass: StaticDataCharacterClass

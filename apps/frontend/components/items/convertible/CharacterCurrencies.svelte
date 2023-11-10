@@ -2,8 +2,8 @@
     import type { ConvertibleCategory } from './types'
     import type { Character } from '@/types'
 
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let character: Character
     export let season: ConvertibleCategory
