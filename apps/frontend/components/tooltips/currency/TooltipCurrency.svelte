@@ -13,6 +13,7 @@
 
     export let currency: StaticDataCurrency
     export let item: ItemDataItem
+    export let itemId: number
 
     let currencies: [Character, number][]
     let currencyName: string
@@ -30,6 +31,11 @@
                 currencyName = item.name
                 iconName = `item/${item.id}`
                 quantity = character.getItemCount(item.id)
+            }
+            else if (itemId) {
+                currencyName = `Item #${itemId}`
+                iconName = `item/${itemId}`
+                quantity = character.getItemCount(itemId)
             }
             else {
                 currencyName = 'Gold'
