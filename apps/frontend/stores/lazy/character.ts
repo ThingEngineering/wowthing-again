@@ -87,9 +87,6 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
                         continue
                     }
-                    if ((stores.settings.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0) {
-                        continue
-                    }
                     if (choreTask.couldGetFunc?.(character) === false) {
                         continue
                     }
@@ -97,6 +94,11 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     const charTask = new LazyCharacterChoreTask(
                         stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                     )
+
+                    if ((stores.settings.tasks.disabledChores?.[taskName] || []).indexOf(choreTask.taskKey) >= 0 &&
+                        charTask.quest?.status !== QuestStatus.Completed) {
+                        continue
+                    }
 
                     if (!charTask.quest &&
                         choreTask.taskKey.endsWith('Treatise') &&
