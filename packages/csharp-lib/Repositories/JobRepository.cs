@@ -28,7 +28,7 @@ public class JobRepository
             Type = type,
             Data = data,
         };
-        await sub.PublishAsync("jobs", JsonSerializer.Serialize(job, _jsonSerializerOptions));
+        await sub.PublishAsync(RedisChannel.Literal("jobs"), JsonSerializer.Serialize(job, _jsonSerializerOptions));
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
@@ -42,7 +42,7 @@ public class JobRepository
                 Type = type,
                 Data = data,
             };
-            await sub.PublishAsync("jobs", JsonSerializer.Serialize(job, _jsonSerializerOptions));
+            await sub.PublishAsync(RedisChannel.Literal("jobs"), JsonSerializer.Serialize(job, _jsonSerializerOptions));
         }
     }
 
