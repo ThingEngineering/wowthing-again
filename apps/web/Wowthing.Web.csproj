@@ -10,17 +10,17 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="7.0.2" />
+    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="7.0.4" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="7.1.4" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.13" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.13" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="prometheus-net" Version="8.0.1" />
-    <PackageReference Include="prometheus-net.AspNetCore" Version="8.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.6.122" />
+    <PackageReference Include="prometheus-net" Version="8.1.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.1.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.4" />
   </ItemGroup>
 
   <ItemGroup>
