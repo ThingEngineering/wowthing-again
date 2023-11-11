@@ -1,3 +1,4 @@
+import { Constants } from '@/data/constants'
 import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types/fancy-store'
 import { ItemDataItem, type ItemData, DataItemBonus, DataItemSet } from '@/types/data/item'
@@ -90,17 +91,25 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
 
         data.itemBonuses = {}
+        data.itemBonusCurrentSeason = new Set<number>()
         data.itemConversionBonus = {}
         for (const itemBonusArray of data.rawItemBonuses) {
             const obj = new DataItemBonus(...itemBonusArray)
             data.itemBonuses[obj.id] = obj
 
+            if (obj.bonuses[0][0] === 34 &&
+                Constants.seasonItemBonusListGroups.indexOf(obj.bonuses[0][1]) >= 0)
+            {
+                data.itemBonusCurrentSeason.add(obj.id)
+            }
             // Set ItemConversionID
-            if (obj.bonuses[0][0] === 37) {
+            else if (obj.bonuses[0][0] === 37) {
                 data.itemConversionBonus[obj.id] = obj.bonuses[0][1]
             }
         }
         data.rawItemBonuses = null
+
+        console.log(data.itemBonusCurrentSeason.keys)
 
         data.itemBonusToUpgrade = {}
         for (const bonusGroups of Object.values(data.itemBonusListGroups)) {

@@ -17,6 +17,17 @@ export abstract class Constants {
         loammNiffen: 2564,
     }
 
+    static readonly seasonItemBonusListGroups = [305, 306, 307, 308, 309, 310]
+
+    static readonly upgradeTiers = {
+        explorer: 970,
+        adventurer: 971,
+        veteran: 972,
+        champion: 973,
+        hero: 974,
+        myth: 978,
+    }
+
     static readonly icons = {
         alliance: 'achievement/13467', // Tides of Vengeance
         horde: 'achievement/13466', // Tides of Vengeance

@@ -99,7 +99,7 @@
         {#if questInfo}
             {questInfo.name} -
         {/if}
-        {toNiceDuration(millis).replace('&nbsp;', '')} remaining
+        {toNiceDuration(millis).replace(/&nbsp;/g, '')} remaining
     </h5>
     <table class="table table-striped">
         <tbody>

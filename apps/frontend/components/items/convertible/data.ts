@@ -28,16 +28,16 @@ const dfS2Aspect: [number, number][] = [
     [204078, 15],
 ]
 
-const dfS3Whelpling: [number, number][] = [
+export const dfS3Whelpling: [number, number][] = [
     [2706, 15],
 ]
-const dfS3Drake: [number, number][] = [
+export const dfS3Drake: [number, number][] = [
     [2707, 15],
 ]
-const dfS3Wyrm: [number, number][] = [
+export const dfS3Wyrm: [number, number][] = [
     [2708, 15],
 ]
-const dfS3Aspect: [number, number][] = [
+export const dfS3Aspect: [number, number][] = [
     [2709, 15],
 ]
 
