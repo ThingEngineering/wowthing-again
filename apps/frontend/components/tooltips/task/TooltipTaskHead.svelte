@@ -7,7 +7,8 @@
     import { progressQuestMap } from '@/data/quests'
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
-    import { lazyStore, settingsStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     
     export let taskName: string
 

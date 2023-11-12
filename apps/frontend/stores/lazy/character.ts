@@ -8,8 +8,9 @@ import { multiTaskMap, taskMap } from '@/data/tasks'
 import { CharacterFlag } from '@/enums/character-flag'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
-import type { Character, ProfessionCooldown, ProfessionCooldownData, Settings, UserData } from '@/types'
+import type { Character, ProfessionCooldown, ProfessionCooldownData, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
+import type { Settings } from '@/user-home/stores/settings/types'
 
 
 export interface LazyCharacter {

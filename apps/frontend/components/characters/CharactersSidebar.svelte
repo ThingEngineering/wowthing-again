@@ -3,9 +3,10 @@
     import groupBy from 'lodash/groupBy'
     import sortBy from 'lodash/sortBy'
 
-    import { settingsStore, userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
     import { Region } from '@/enums/region'
+    import { staticStore } from '@/shared/stores/static'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { splitOnce } from '@/utils/split-once'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'

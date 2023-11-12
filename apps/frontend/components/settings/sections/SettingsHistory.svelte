@@ -2,12 +2,13 @@
     import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
 
-    import { settingsStore, userStore } from '@/stores'
+    import { Region } from '@/enums/region'
     import { staticStore } from '@/shared/stores/static'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
+    import type { StaticDataRealm } from '@/shared/stores/static/types'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import type { StaticDataRealm } from '@/shared/stores/static/types'
-    import { Region } from '@/enums/region'
 
     let realms: StaticDataRealm[]
     $: {

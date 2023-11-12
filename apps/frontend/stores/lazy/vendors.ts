@@ -10,8 +10,9 @@ import userHasDrop from '@/utils/user-has-drop'
 import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import type { Settings, UserData } from '@/types'
+import type { UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
+import type { Settings } from '@/user-home/stores/settings/types'
 import type { VendorState } from '../local-storage'
 
 

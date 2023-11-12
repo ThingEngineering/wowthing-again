@@ -3,9 +3,9 @@
     import sortBy from 'lodash/sortBy'
 
     import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
-    import { settingsStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { currencyState } from '@/stores/local-storage'
+    import { settingsStore } from '@/user-home/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character, MultiSlugParams } from '@/types'

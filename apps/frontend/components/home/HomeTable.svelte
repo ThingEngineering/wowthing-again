@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
+    import { settingsStore } from '@/user-home/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'

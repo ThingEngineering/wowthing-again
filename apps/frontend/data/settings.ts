@@ -1,4 +1,4 @@
-import type { SettingsChoice } from '@/types'
+import type { SettingsChoice } from '@/user-home/stores/settings/types'
 
 
 export const characterNameTooltipChoices: SettingsChoice[] = [

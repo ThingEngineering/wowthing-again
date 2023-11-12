@@ -5,10 +5,10 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
+    import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/stores'
-    import { Region } from '@/enums/region'
+    import { settingsStore } from '@/user-home/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 

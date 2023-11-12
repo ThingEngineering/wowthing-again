@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { SettingsCustomGroup } from '@/types'
+    import type { SettingsCustomGroup } from '@/user-home/stores/settings/types'
 
     import TextInput from '@/shared/components/forms/TextInput.svelte'
     import Tooltip from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'

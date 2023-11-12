@@ -1,7 +1,7 @@
 <script lang="ts">
     import { itemStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/shared/stores/static/types'

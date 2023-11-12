@@ -1,6 +1,6 @@
 import { get } from 'svelte/store'
 
-import { settingsStore } from '@/stores'
+import { settingsStore } from '@/user-home/stores/settings'
 import type { Character, CharacterEquippedItem } from '@/types'
 import type { ItemSearchResponseCommon } from '@/types/items'
 

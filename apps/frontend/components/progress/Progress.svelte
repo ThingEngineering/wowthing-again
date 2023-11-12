@@ -1,7 +1,8 @@
 <script lang="ts">
     import { afterUpdate, onMount } from 'svelte'
 
-    import { achievementStore, settingsStore } from '@/stores'
+    import { achievementStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 

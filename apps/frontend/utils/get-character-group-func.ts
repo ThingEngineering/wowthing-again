@@ -3,7 +3,8 @@ import { get } from 'svelte/store'
 import { Constants } from '@/data/constants'
 import { userStore } from '@/stores'
 import { staticStore } from '@/shared/stores/static'
-import type { Character, Settings } from '@/types'
+import type { Character } from '@/types'
+import type { Settings } from '@/user-home/stores/settings/types'
 
 export default function getCharacterGroupFunc(settingsData: Settings): (char: Character) => string {
     const groupBy = settingsData.general.groupBy

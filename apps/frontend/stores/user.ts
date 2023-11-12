@@ -31,13 +31,12 @@ import type {
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
-    Settings,
     UserData,
 } from '@/types'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ContainsItems, UserItem } from '@/types/shared'
-
+import type { Settings } from '@/user-home/stores/settings/types'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {

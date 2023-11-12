@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     import { getCharacterLevel } from '@/utils/get-character-level'
     import { leftPad } from '@/utils/formatting'
     import { componentTooltip } from '@/shared/utils/tooltips'

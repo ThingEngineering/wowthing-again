@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { SettingsView } from '@/types'
+    import type { SettingsView } from '@/user-home/stores/settings/types'
 
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 

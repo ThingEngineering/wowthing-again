@@ -5,7 +5,7 @@
     import { transmogSets } from '@/data/transmog'
     import { iconLibrary, uiIcons } from '@/shared/icons'
     import { lazyStore, userTransmogStore } from '@/stores'
-    import { settingsStore } from '@/stores/settings'
+    import { settingsStore } from '@/user-home/stores/settings/store'
     import { transmogSetsState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'

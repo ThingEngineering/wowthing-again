@@ -1,4 +1,6 @@
-import type { Character, Settings, UserData } from '@/types'
+import type { Character, UserData } from '@/types'
+import type { Settings } from '@/user-home/stores/settings/types'
+
 
 export function getFilteredCharacters(
     settings: Settings,

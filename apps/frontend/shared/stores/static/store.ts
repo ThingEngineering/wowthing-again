@@ -1,5 +1,5 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { WritableFancyStore, type Settings } from '@/types'
+import { WritableFancyStore } from '@/types'
 import {
     StaticDataBag,
     StaticDataCurrency,
@@ -19,6 +19,7 @@ import {
 import { StaticDataProfessionAbilityInfo, type StaticData } from './types'
 import { StaticDataQuestInfo } from './types/quest-info'
 import type { ItemData } from '@/types/data/item'
+import type { Settings } from '@/user-home/stores/settings/types'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {

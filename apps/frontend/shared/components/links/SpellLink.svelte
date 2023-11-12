@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
 
     export let id: number
     export let itemLevel = 0

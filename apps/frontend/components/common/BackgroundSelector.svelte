@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
 

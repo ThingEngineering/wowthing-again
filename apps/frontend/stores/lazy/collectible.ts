@@ -3,8 +3,8 @@ import some from 'lodash/some'
 import { UserCount } from '@/types'
 import { ManualDataSetCategory, ManualDataSetGroup } from '@/types/data/manual'
 import type { CollectibleState } from '../local-storage'
-import type { Settings } from '@/types'
 import type { ManualDataSetGroupArray } from '@/types/data/manual'
+import type { Settings } from '@/user-home/stores/settings/types'
 
 
 interface LazyStores {

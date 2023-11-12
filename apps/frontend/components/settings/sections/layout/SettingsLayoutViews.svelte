@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { settingsStore } from '@/stores'
     import { settingsState } from '@/stores/local-storage'
-    import type { SettingsView } from '@/types/settings'
+    import { settingsStore } from '@/user-home/stores/settings'
+    import type { SettingsView } from '@/user-home/stores/settings/types'
 
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import View from './SettingsLayoutViewsView.svelte'

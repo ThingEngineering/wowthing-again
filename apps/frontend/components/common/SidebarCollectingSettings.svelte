@@ -2,8 +2,8 @@
     import { classByArmorType } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
     import { PlayableClass } from '@/enums/playable-class'
-    import { settingsStore } from '@/stores'
     import { collectingSettingsState } from '@/stores/local-storage'
+    import { settingsStore } from '@/user-home/stores/settings'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'

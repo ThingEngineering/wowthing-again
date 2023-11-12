@@ -1,8 +1,8 @@
 <script lang="ts">
     import { lockoutOverride } from '@/data/dungeon'
     import { uiIcons } from '@/shared/icons'
-    import { settingsStore } from '@/stores'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { settingsStore } from '@/user-home/stores/settings'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/user-home/stores/settings'
 
     let colspan: number
     $: {

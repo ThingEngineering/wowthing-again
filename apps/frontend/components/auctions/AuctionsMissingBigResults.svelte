@@ -7,10 +7,11 @@
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
-    import { itemStore, settingsStore, timeStore, userStore } from '@/stores'
+    import { itemStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { settingsStore } from '@/user-home/stores/settings'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
 
