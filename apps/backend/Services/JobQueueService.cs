@@ -32,7 +32,7 @@ public class JobQueueService : BackgroundService
         }
 
         redis.GetSubscriber()
-            .Subscribe("jobs")
+            .Subscribe(RedisChannel.Literal("jobs"))
             .OnMessage(async msg =>
                 {
                     var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);

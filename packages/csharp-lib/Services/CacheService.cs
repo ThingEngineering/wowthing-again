@@ -13,7 +13,7 @@ namespace Wowthing.Lib.Services;
 
 public class CacheService
 {
-    private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(4);
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(15);
 
     private readonly IConnectionMultiplexer _redis;
     private readonly JsonSerializerOptions _jsonSerializerOptions;

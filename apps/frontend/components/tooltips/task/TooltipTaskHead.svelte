@@ -12,6 +12,7 @@
     export let taskName: string
 
     let completed: number
+    let disabledChores: string[]
     let inProgress: number
     let multiStats: [string, string, Record<QuestStatus, number>][]
     let needToGet: number
@@ -24,13 +25,14 @@
 
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
+        disabledChores = $settingsStore.tasks.disabledChores?.[taskName] || []
 
         const multiMap: Record<string, number> = {}
         multiStats = []
-        if (task.type === 'multi') {
+        if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
                 multiTaskMap[taskName],
-                (multiTask) => $settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTask.taskKey) >= 0
+                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0
             ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
             
             for (let i = 0; i < multiStats.length; i++) {
@@ -63,8 +65,11 @@
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
-                    for (const choreTask of (taskChores?.tasks || [])) {
-                        multiStats[multiMap[choreTask.name]][2][choreTask.status]++
+                    
+                    if (taskName !== 'dfProfessionWeeklies') {
+                        for (const choreTask of (taskChores?.tasks || [])) {
+                            multiStats[multiMap[choreTask.name]][2][choreTask.status]++
+                        }
                     }
 
                     total += taskChores.countTotal
@@ -120,7 +125,7 @@
         <tbody>
             {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
                 <tr
-                    class:faded={$settingsStore.tasks.disabledChores?.[taskName].indexOf(multiTaskKey) >= 0}
+                    class:faded={disabledChores.indexOf(multiTaskKey) >= 0}
                 >
                     <td class="value">{multiTaskName}</td>
                     <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
