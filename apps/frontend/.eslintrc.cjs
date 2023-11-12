@@ -19,6 +19,9 @@ module.exports = {
         '@typescript-eslint',
         'svelte3',
     ],
+    rules: {
+        '@typescript-eslint/no-explicit-any': 'warn',
+    },
     settings: {
         'svelte3/ignore-styles': () => true, // ignore styles, SASS breaks things
         'svelte3/named-blocks': true, // use named blocks
