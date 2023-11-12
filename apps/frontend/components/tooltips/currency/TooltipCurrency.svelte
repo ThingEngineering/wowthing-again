@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getFilteredCharacters } from '@/utils/get-filtered-characters'
     import { leftPad } from '@/utils/formatting'

@@ -14,7 +14,7 @@
     } from '@/stores'
     import { dbStore } from '@/shared/stores/db'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import parseApiTime from '@/utils/parse-api-time'
 
     import NewNav from './NewNav.svelte'

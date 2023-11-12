@@ -3,7 +3,7 @@
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState, exploreState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'

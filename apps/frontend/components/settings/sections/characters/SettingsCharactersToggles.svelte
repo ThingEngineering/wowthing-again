@@ -8,7 +8,7 @@
     import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 

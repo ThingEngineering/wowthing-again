@@ -3,7 +3,7 @@
     import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'
 

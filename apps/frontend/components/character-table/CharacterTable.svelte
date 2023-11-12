@@ -6,7 +6,7 @@
     import { lazyStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState, newNavState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
     import { setElementStyleById } from '@/utils/dom'
     import { homeSort } from '@/utils/home'

@@ -3,7 +3,7 @@
 
     import { reputationState } from '@/stores/local-storage'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'

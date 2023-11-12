@@ -1,6 +1,6 @@
 <script lang="ts">
     import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 </script>

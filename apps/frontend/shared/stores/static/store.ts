@@ -19,7 +19,7 @@ import {
 import { StaticDataProfessionAbilityInfo, type StaticData } from './types'
 import { StaticDataQuestInfo } from './types/quest-info'
 import type { ItemData } from '@/types/data/item'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {

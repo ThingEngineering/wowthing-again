@@ -1,7 +1,7 @@
 <script lang="ts">
     import { settingsState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
-    import type { SettingsCustomGroup } from '@/user-home/stores/settings/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsCustomGroup } from '@/shared/stores/settings/types'
 
     import Group from './SettingsLayoutGroupingGroup.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'

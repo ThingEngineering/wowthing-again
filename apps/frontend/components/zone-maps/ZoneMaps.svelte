@@ -2,7 +2,7 @@
     import { afterUpdate, onMount } from 'svelte'
 
     import { achievementStore, userAchievementStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 

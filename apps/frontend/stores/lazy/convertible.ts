@@ -9,7 +9,7 @@ import { QuestStatus } from '@/enums/quest-status'
 import type { Character, CharacterEquippedItem, CharacterItem, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 interface LazyStores {

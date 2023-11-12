@@ -2,7 +2,7 @@
     import { lockoutOverride } from '@/data/dungeon'
     import { uiIcons } from '@/shared/icons'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

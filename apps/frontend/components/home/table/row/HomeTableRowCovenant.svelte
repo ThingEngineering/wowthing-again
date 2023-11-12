@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { covenantMap, covenantOrder } from '@/data/covenant'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'

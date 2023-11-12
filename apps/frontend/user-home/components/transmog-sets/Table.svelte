@@ -3,7 +3,7 @@
     import some from 'lodash/some'
 
     import { manualStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getSkipClasses from '@/utils/get-skip-classes'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 

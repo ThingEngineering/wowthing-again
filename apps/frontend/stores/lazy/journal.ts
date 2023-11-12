@@ -10,7 +10,7 @@ import { leftPad } from '@/utils/formatting'
 import { JournalDataEncounterItem, type JournalData, type UserTransmogData } from '@/types/data'
 import type { JournalState } from '../local-storage'
 import type { StaticData } from '@/shared/stores/static/types'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export interface LazyJournal {

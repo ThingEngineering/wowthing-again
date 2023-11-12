@@ -12,7 +12,7 @@
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { matrixState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'

@@ -5,7 +5,7 @@ import type { DateTime } from 'luxon'
 import { pvpBrawlHolidays } from '@/data/tasks'
 import { staticStore } from '@/shared/stores/static'
 import type { StaticDataHoliday } from '@/shared/stores/static/types'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 type ActiveHolidays = Record<string, StaticDataHoliday>

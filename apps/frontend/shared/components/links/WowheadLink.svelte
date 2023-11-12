@@ -1,6 +1,6 @@
 <script lang="ts">
     import { basicTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     export let extraParams: Record<string, string> = {}
     export let id: number

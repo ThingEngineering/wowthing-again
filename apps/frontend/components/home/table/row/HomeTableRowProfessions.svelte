@@ -5,7 +5,7 @@
     import { staticStore } from '@/shared/stores/static'
     import { getProfessionSortKey } from '@/utils/professions'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character, CharacterProfession } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 

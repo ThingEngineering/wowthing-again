@@ -4,7 +4,7 @@
 
     import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'

@@ -2,7 +2,7 @@
     import { iconStrings } from '@/data/icons'
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'

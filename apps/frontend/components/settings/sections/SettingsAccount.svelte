@@ -4,7 +4,7 @@
     import { Language } from '@/enums/language'
     import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getAccountCharacters from '@/utils/get-account-characters'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lazyStore, manualStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings/store'
+    import { settingsStore } from '@/shared/stores/settings/store'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 

@@ -27,7 +27,7 @@ import type { ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { DropStatus, FarmStatus } from '@/types/zone-maps'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask

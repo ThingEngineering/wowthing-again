@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'

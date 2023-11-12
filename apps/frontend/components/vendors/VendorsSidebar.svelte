@@ -1,7 +1,7 @@
 <script lang="ts">
     import { manualStore } from '@/stores'
     import { lazyStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
 

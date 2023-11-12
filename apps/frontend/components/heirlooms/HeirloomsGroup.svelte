@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 

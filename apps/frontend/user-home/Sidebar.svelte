@@ -5,7 +5,7 @@
     import { iconLibrary } from '@/shared/icons'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import CharacterFilter from './CharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

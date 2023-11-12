@@ -36,7 +36,7 @@ import type {
 import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ContainsItems, UserItem } from '@/types/shared'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {

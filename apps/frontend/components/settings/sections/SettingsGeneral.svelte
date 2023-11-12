@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
 </script>

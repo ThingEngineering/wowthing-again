@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'

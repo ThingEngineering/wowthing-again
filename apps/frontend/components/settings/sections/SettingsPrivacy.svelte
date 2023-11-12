@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
 

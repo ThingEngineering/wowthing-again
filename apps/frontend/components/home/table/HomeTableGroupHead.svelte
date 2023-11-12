@@ -5,7 +5,7 @@
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'

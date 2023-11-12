@@ -11,7 +11,7 @@
     import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
 

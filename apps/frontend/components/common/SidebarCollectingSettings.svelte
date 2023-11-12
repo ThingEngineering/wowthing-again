@@ -3,7 +3,7 @@
     import { iconStrings } from '@/data/icons'
     import { PlayableClass } from '@/enums/playable-class'
     import { collectingSettingsState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'

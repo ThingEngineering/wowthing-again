@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { timeStore, userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { toNiceDuration } from '@/utils/formatting'
     import { getCharacterRested } from '@/utils/get-character-rested'
     import getRaiderIoColor from '@/utils/get-raider-io-color'

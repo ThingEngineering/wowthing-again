@@ -6,7 +6,7 @@
     import { InventoryType } from '@/enums/inventory-type'
     import { uiIcons } from '@/shared/icons'
     import { lazyStore, userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { ConvertibleCategory } from './types'
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types'
     import type { Character } from '@/types'

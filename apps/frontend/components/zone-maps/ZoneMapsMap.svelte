@@ -10,7 +10,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { PlayableClass } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { leftPad } from '@/utils/formatting'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'

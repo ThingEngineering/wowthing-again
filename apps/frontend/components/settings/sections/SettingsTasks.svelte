@@ -2,8 +2,8 @@
     import debounce from 'lodash/debounce'
 
     import { taskList } from '@/data/tasks'
-    import { settingsStore } from '@/user-home/stores/settings'
-    import type { SettingsChoice } from '@/user-home/stores/settings/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import Multi from './SettingsTasksMulti.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'

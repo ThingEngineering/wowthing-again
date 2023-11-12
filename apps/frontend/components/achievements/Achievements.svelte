@@ -3,7 +3,7 @@
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     
     import AchievementsCategory from './AchievementsCategory.svelte'

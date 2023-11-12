@@ -1,8 +1,8 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
 
-    import { settingsStore } from '@/user-home/stores/settings'
-    import type { SettingsChoice } from '@/user-home/stores/settings/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import MagicLists from '../../SettingsMagicLists.svelte'

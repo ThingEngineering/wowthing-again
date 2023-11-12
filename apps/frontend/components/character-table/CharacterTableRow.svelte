@@ -3,7 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'

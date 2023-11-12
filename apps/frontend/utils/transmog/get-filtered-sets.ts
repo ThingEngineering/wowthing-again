@@ -2,7 +2,7 @@ import some from 'lodash/some'
 
 import type { UserTransmogData } from '@/types/data'
 import type { ManualDataTransmogGroup, ManualDataTransmogGroupData } from '@/types/data/manual'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export default function getFilteredSets(

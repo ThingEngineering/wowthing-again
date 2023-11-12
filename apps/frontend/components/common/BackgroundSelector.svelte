@@ -1,6 +1,6 @@
 <script lang="ts">
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
 

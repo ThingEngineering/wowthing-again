@@ -4,9 +4,9 @@
 
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import type { SettingsChoice } from '@/user-home/stores/settings/types'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../SettingsMagicLists.svelte'
 

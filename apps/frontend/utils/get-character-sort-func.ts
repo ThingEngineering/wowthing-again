@@ -8,7 +8,7 @@ import { leftPad } from '@/utils/formatting'
 import { Region } from '@/enums/region'
 import type { Character, UserData } from '@/types'
 import type { StaticData } from '@/shared/stores/static/types'
-import type { Settings } from '@/user-home/stores/settings/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,

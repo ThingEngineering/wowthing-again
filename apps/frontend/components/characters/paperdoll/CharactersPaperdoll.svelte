@@ -1,7 +1,7 @@
 <script lang="ts">
     import { InventorySlot } from '@/enums/inventory-slot'
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/user-home/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { BackgroundImage, Character } from '@/types'
 
     import Configure from './CharactersPaperdollConfigure.svelte'
