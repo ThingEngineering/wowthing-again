@@ -33,9 +33,10 @@ const languageToSubdomain: Record<Language, string> = {
 export const settingsSavingState = writable<number>(0)
 
 function createSettingsStore() {
-    let hashValue = ''
     let hashTimer: NodeJS.Timer | null = null
     let refreshTimer: NodeJS.Timer | null = null
+    let accountsHash = ''
+    let settingsHash = ''
 
     const store = writable<Settings>()
 
@@ -58,9 +59,13 @@ function createSettingsStore() {
                 refreshTimer = null
             }
 
-            if (!get(userStore).public) {
-                if (hashValue === '') {
-                    hashValue = hashObject(settings)
+            const userData = get(userStore)
+            if (!userData.public) {
+                if (accountsHash === '' && userData.accounts) {
+                    accountsHash = hashObject(userData.accounts)
+                }
+                if (settingsHash === '') {
+                    settingsHash = hashObject(settings)
                 }
 
                 for (const professionCooldown of professionCooldowns) {
@@ -71,17 +76,24 @@ function createSettingsStore() {
 
                 hashTimer = setInterval(
                     async () => {
-                        const newHashValue = hashObject(settings)
-                        if (newHashValue !== hashValue) {
-                            hashValue = newHashValue
+                        const userData = get(userStore)
+                        const newAccountsHash = hashObject(userData.accounts)
+                        if (accountsHash === '') {
+                            accountsHash = newAccountsHash
+                        }
+
+                        const newSettingsHash = hashObject(settings)
+                        if (newAccountsHash !== accountsHash || newSettingsHash !== settingsHash) {
+                            accountsHash = newAccountsHash
+                            settingsHash = newSettingsHash
 
                             settingsSavingState.set(1)
                             const xsrf = document.getElementById('app').getAttribute('data-xsrf')
                             const data = {
-                                accounts: get(userStore).accounts,
+                                accounts: userData.accounts,
                                 settings,
                             }
-                    
+
                             const response = await fetch('/api/settings', {
                                 method: 'POST',
                                 headers: {
@@ -90,19 +102,19 @@ function createSettingsStore() {
                                 },
                                 body: JSON.stringify(data),
                             })
-                    
+
                             if (response.ok) {
                                 const json = await response.json()
                                 const settings = json.settings as Settings
                                 settingsStore.set(settings)
-                    
+
                                 userStore.update(state => {
                                     for (const account of json.accounts as Account[]) {
                                         state.accounts[account.id] = account
                                     }
                                     return state
                                 })
-                    
+
                                 const fetchOptions: Partial<FancyStoreFetchOptions> = {
                                     language: settings.general.language,
                                     evenIfLoaded: true,
