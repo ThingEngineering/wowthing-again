@@ -1,4 +1,8 @@
 export function hashObject(obj: object, skipKeys?: string[]): string {
+    if (!obj) {
+        return ''
+    }
+    
     const entries = Object.entries(obj)
     entries.sort()
     return entries.map(([key, value]) => {
