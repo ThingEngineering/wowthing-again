@@ -1,13 +1,14 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/shared/stores/static'
-    import type { Character } from '@/types'
+    import type { Character, CharacterReputationParagon } from '@/types'
     import type { StaticDataReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
+    export let characterParagon: CharacterReputationParagon
     export let characterRep: number
     export let dataRep: StaticDataReputation
     export let reputation: StaticDataReputationSet = undefined
@@ -17,8 +18,8 @@
 
     $: maxRenown = $staticStore.currencies[dataRep.renownCurrencyId]?.maxTotal || 1
     $: {
-        progress = characterRep % 2500
         tier = Math.floor(characterRep / 2500)
+        progress = tier < maxRenown ? characterRep % 2500 : (characterParagon?.current || 0)
     }
 </script>
 
@@ -49,7 +50,7 @@
 
         <ProgressBar
             have={progress}
-            total={2500}
+            total={tier < maxRenown ? 2500 : characterParagon?.max}
             shortText={true}
         />
     </div>
