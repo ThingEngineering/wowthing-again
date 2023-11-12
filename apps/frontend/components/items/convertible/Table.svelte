@@ -59,9 +59,6 @@
         border-right-width: 0 !important;
         border-top-width: 0 !important;
     }
-    .no-characters {
-        padding-left: 0.5rem;
-    }
 </style>
 
 <CharacterTable

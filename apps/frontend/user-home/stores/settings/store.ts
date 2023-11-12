@@ -5,7 +5,7 @@ import { Language } from '@/enums/language'
 import { hashObject } from '@/utils/hash-object'
 import type { Account } from '@/types/account'
 import type { FancyStoreFetchOptions } from '@/types/fancy-store'
-import type { Settings } from '@/user-home/stores/settings/types/settings'
+import type { Settings } from './types'
 
 import { achievementStore } from '@/stores/achievements'
 import { journalStore } from '@/stores/journal'
