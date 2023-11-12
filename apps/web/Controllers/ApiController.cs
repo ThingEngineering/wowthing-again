@@ -129,7 +129,9 @@ public class ApiController : Controller
 
         return Json(new
         {
-            Accounts = accountMap.Values.ToList(),
+            Accounts = accountMap.Values
+                .Select(account => new ApiUserAccount(account))
+                .ToArray(),
             Settings = form.Settings,
         });
     }
