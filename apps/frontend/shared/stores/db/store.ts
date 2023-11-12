@@ -1,5 +1,5 @@
 import { WritableFancyStore } from '@/types/fancy-store'
-import { DbDataThing, type DbData, type DbDataQuery } from './types'
+import { DbDataThing, type DbData } from './types'
 
 
 class DbDataStore extends WritableFancyStore<DbData> {
@@ -66,12 +66,12 @@ class DbDataStore extends WritableFancyStore<DbData> {
         console.timeEnd('DbDataStore.initialize')
     }
 
-    search(query: DbDataQuery): DbDataThing[] {
-        const subsets = []
+    // search(query: DbDataQuery): DbDataThing[] {
+    //     const subsets = []
 
 
-        return []
-    }
+    //     return []
+    // }
 }
 
 export const dbStore = new DbDataStore()

@@ -12,7 +12,6 @@
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
-        StaticDataProfessionAbility,
         StaticDataProfessionCategory,
         StaticDataSubProfession
     } from '@/shared/stores/static/types'

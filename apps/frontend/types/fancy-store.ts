@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store'
-import type { Writable } from 'svelte/store'
+import type { Invalidator, Subscriber, Unsubscriber, Updater, Writable } from 'svelte/store'
 
 import { Language } from '@/enums/language'
 import fetchJson from '@/utils/fetch-json'
@@ -16,15 +16,19 @@ export type FancyStoreType<T> = T & {
     loaded: boolean
 }
 
-export interface WritableFancyStore<T> extends Writable<FancyStoreType<T>> {
-    fetch(options: Partial<FancyStoreFetchOptions>): Promise<boolean>
-    get(): FancyStoreType<T>
-    initialize?(data: T): void
-    readonly dataUrl: string
-}
+// export interface IWritableFancyStore<T> extends Writable<FancyStoreType<T>> {
+//     get(): FancyStoreType<T>
+//     initialize?(data: T): void
+//     readonly dataUrl: string
+// }
 
-export class WritableFancyStore<T> {
+export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T>> {
     protected value: FancyStoreType<T>
+    
+    abstract initialize(data: T): void
+    public set: (this: void, value: FancyStoreType<T>) => void
+    public subscribe: (this: void, run: Subscriber<FancyStoreType<T>>, invalidate?: Invalidator<FancyStoreType<T>>) => Unsubscriber
+    public update: (this: void, updater: Updater<FancyStoreType<T>>) => void
 
     constructor(data: T = null) {
         this.value = {
@@ -42,6 +46,8 @@ export class WritableFancyStore<T> {
             original.update((oldValue: FancyStoreType<T>) => (this.value = stateFunc(oldValue)))
         }
     }
+
+    abstract get dataUrl(): string
 
     get(): FancyStoreType<T> {
         return this.value
