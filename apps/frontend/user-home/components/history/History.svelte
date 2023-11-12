@@ -4,8 +4,8 @@
     import { userHistoryStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import Gold from './HistoryGold.svelte'
-    import Sidebar from './HistorySidebar.svelte'
+    import Gold from './Gold.svelte'
+    import Sidebar from './Sidebar.svelte'
 
     export let params: { slug: string }
 
