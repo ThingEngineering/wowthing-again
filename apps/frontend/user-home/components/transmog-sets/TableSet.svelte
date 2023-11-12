@@ -5,7 +5,7 @@
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
-    import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
+    import Tooltip from '@/user-home/components/transmog-sets/Tooltip.svelte'
     import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: ManualDataTransmogGroupData

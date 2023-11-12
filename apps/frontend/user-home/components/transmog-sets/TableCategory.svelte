@@ -17,7 +17,7 @@
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import TableSet from './SetsTableSet.svelte'
+    import TableSet from './TableSet.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogCategory

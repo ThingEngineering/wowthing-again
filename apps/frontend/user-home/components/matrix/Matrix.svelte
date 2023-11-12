@@ -23,7 +23,7 @@
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
-    import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
+    import TooltipCharacter from '@/user-home/components/matrix/TooltipCharacter.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     let matrix: Record<string, Character[]>

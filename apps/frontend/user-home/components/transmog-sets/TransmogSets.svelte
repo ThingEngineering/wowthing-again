@@ -3,8 +3,8 @@
 
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import Sidebar from './SetsSidebar.svelte'
-    import Table from './SetsTable.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import Table from './Table.svelte'
 
     export let params: {
         slug1: string

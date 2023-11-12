@@ -21,7 +21,7 @@
     import Professions from '@/components/professions/Professions.svelte'
     import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
-    import Sets from '@/components/sets/Sets.svelte'
+    import Sets from '@/user-home/components/transmog-sets/TransmogSets.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
     import WorldQuests from '@/user-home/components/world-quests/WorldQuests.svelte'

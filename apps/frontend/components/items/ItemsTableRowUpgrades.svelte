@@ -2,7 +2,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     
-    import Tooltip from '@/components/tooltips/parsed-text/TooltipParsedText.svelte'
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

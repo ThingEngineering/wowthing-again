@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/shared/stores/static'
-    import type { Character, CharacterReputationParagon } from '@/types'
     import type { StaticDataReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { Character, CharacterReputationParagon } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'

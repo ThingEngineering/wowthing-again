@@ -2,7 +2,7 @@
     import type { TippyProps } from '@/shared/utils/tooltips/types'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
-    import Tooltip from '@/components/tooltips/parsed-text/TooltipParsedText.svelte'
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
 
     export let src: string
     export let alt: string
