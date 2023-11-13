@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { afterUpdate } from 'svelte'
+
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { userAuctionMissingStore } from '@/stores'
@@ -49,6 +51,8 @@
             debouncedResize()
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
@@ -171,12 +175,11 @@
                                 </WowheadLink>
                             </th>
                             <th class="ignore">
-                                <span
+                                <button
                                     on:click|preventDefault={() => ignoreClick(item.id)}
-                                    on:keypress|preventDefault={() => ignoreClick(item.id)}
                                 >
                                     {ignored ? 'Unignore' : 'Ignore'}
-                                </span>
+                                </button>
                             </th>
                         </tr>
                     </thead>

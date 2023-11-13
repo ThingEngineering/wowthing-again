@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import { currentTier } from '@/data/gear'
     import { itemStore } from '@/stores'
     import { gearState } from '@/stores/local-storage'
@@ -12,15 +11,9 @@
     export let character: Character
 
     let characterGear: CharacterGear[]
-    let score: number
     let tierPieces: number[]
     $: {
         characterGear = getCharacterGear($gearState, character)
-        
-        score = character.mythicPlusSeasonScores[Constants.mythicPlusSeason]
-            || character.raiderIo?.[Constants.mythicPlusSeason]?.all
-            || 0
-
         tierPieces = getTierPieces(currentTier, $itemStore.currentTier, character).map(([, itemId,]) => itemId)
     }
 </script>

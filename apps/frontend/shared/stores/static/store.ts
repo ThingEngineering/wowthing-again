@@ -1,5 +1,5 @@
 import { extraInstanceMap } from '@/data/dungeon'
-import { WritableFancyStore, type Settings } from '@/types'
+import { WritableFancyStore } from '@/types'
 import {
     StaticDataBag,
     StaticDataCurrency,
@@ -19,6 +19,7 @@ import {
 import { StaticDataProfessionAbilityInfo, type StaticData } from './types'
 import { StaticDataQuestInfo } from './types/quest-info'
 import type { ItemData } from '@/types/data/item'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -288,9 +289,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         return ret
     }
 
-    private static createObjects<TObject extends { id: number }>(
-        arrays: any[][],
-        objectConstructor: { new (...args: any[]): TObject },
+    private static createObjects<
+        TObject extends { id: number },
+        TArgs extends unknown[]
+    >(
+        arrays: TArgs[],
+        objectConstructor: { new (...args: TArgs): TObject },
         idFunc: (obj: TObject) => number = null
     ): Record<number, TObject>
     {

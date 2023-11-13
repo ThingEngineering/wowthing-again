@@ -68,6 +68,15 @@
             }
         )
 
+        // {currency:currencyId}
+        html = html.replaceAll(
+            /\{currency:(\d+)\}/g,
+            (_, currencyIdString: string) => {
+                const currency = $staticStore.currencies[parseInt(currencyIdString)]
+                return `<span data-icon="currency/${currencyIdString}"></span> ${currency?.name || `Currency #${currencyIdString}`}`
+            }
+        )
+
         // {price:amount} or {price:amount|currencyId}
         html = html.replaceAll(
             /\{price(Short)?:(\d+)(?:\|(\d+))?\}/g,

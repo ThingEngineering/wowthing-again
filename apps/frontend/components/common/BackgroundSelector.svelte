@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
 
@@ -50,34 +51,32 @@
 
 <div class="backgrounds">
     {#each $userStore.backgroundList as background}
-        <div
+        <button
             class="background border"
             class:selected={selected === background.id}
-        >
+            data-id={background.id}
+            on:click={onClick}
+            use:basicTooltip={background.description}
+            >
             <img
                 src="{backgroundThumbUrl(background)}"
                 alt="{background.description}"
-                data-id={background.id}
-                on:click={onClick}
-                on:keypress={onClick}
-                use:basicTooltip={background.description}
             >
 
             {#if showDefault && background.id === $settingsStore.characters.defaultBackgroundId}
                 <code class="pill abs-center">DEFAULT</code>
             {/if}
-        </div>
+        </button>
     {/each}
 
     {#if showDefault}
-        <div
+        <button
             class="background border"
             class:selected={selected === -1}
             data-id={-1}
             on:click={onClick}
-            on:keypress={onClick}
         >
             <code>DEFAULT</code>
-        </div>
+        </button>
     {/if}
 </div>

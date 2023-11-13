@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsSavingState } from '@/stores'
+    import { settingsSavingState } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'

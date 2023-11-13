@@ -4,7 +4,7 @@
     import { zoneData } from './data'
     import { worldQuestState } from './state'
     import { worldQuestStore } from './store'
-    import { settingsStore } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings/store'
     import type { WorldQuestZone } from './types'
 
     import ContinentBox from './ContinentBox.svelte'

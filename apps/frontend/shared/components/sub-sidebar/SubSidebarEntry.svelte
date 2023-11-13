@@ -5,11 +5,12 @@
     import { iconStrings } from '@/data/icons'
     import { subSidebarState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { SidebarItem } from './types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
 
     export let alwaysExpand: boolean
     export let anyChildren: boolean
@@ -169,7 +170,12 @@
         data-info={data}
         use:link
         use:active={new RegExp(activeRegex)}
-        use:basicTooltip={item.name}
+        use:componentTooltip={{
+            component: Tooltip,
+            props: {
+                content: item.name,
+            },
+        }}
     >
         <ParsedText
             cls="text-overflow"
@@ -191,17 +197,16 @@
         {/if}
 
         {#if item.children?.length > 0}
-            <span
+            <button
                 class="expand"
                 class:expand-clickable={!noCollapse}
                 class:expand-no={noCollapse}
                 on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
-                on:keypress|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
             >
                 <IconifyIcon
                     icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}
                 />
-            </span>
+            </button>
         {/if}
     </a>
 

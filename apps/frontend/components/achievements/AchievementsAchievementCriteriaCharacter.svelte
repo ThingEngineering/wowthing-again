@@ -62,7 +62,7 @@
 {#if rootCriteriaTree}
     <div class="criteria">
         {#if achievement.isAccountWide && rootCriteriaTree.children.length === 1 && achievement?.isProgressBar === true}
-            <AchievementCriteriaBar {achievement} />
+            <AchievementCriteriaBar />
         {:else}
             {#each rootCriteriaTree.children as child}
                 <AchievementCriteriaTree

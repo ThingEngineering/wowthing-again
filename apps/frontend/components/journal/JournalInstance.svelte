@@ -1,5 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { afterUpdate } from 'svelte'
 
     import { journalStore, lazyStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
@@ -56,6 +57,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">

@@ -5,7 +5,8 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
     import { uiIcons } from '@/shared/icons'
-    import { lazyStore, settingsStore, userStore } from '@/stores'
+    import { lazyStore, userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { ConvertibleCategory } from './types'
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
@@ -57,9 +58,6 @@
         border-left: 1px solid $border-color;
         border-right-width: 0 !important;
         border-top-width: 0 !important;
-    }
-    .no-characters {
-        padding-left: 0.5rem;
     }
 </style>
 

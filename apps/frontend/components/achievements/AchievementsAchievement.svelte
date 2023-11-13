@@ -1,7 +1,8 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, settingsStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'

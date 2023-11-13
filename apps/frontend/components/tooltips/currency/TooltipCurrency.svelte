@@ -1,7 +1,8 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getFilteredCharacters } from '@/utils/get-filtered-characters'
     import { leftPad } from '@/utils/formatting'
@@ -11,9 +12,9 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let currency: StaticDataCurrency
-    export let item: ItemDataItem
-    export let itemId: number
+    export let currency: StaticDataCurrency = undefined
+    export let item: ItemDataItem = undefined
+    export let itemId: number = undefined
 
     let currencies: [Character, number][]
     let currencyName: string

@@ -1,6 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import type { SvelteComponent } from 'svelte'
+    import type { ComponentType } from 'svelte'
     import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
@@ -47,7 +47,7 @@
         }
     }
 
-    const componentMap: Record<string, typeof SvelteComponent> = {
+    const componentMap: Record<string, ComponentType> = {
         items: Items,
         paperdoll: Paperdoll,
         professions: Professions,

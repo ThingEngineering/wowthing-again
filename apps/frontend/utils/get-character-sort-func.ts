@@ -1,13 +1,14 @@
 import { get } from 'svelte/store'
 
+import { getCharacterLevel } from './get-character-level'
 import { Constants } from '@/data/constants'
 import { PlayableClass } from '@/enums/playable-class'
 import { userStore } from '@/stores'
 import { leftPad } from '@/utils/formatting'
 import { Region } from '@/enums/region'
-import type { Character, Settings, UserData } from '@/types'
+import type { Character, UserData } from '@/types'
 import type { StaticData } from '@/shared/stores/static/types'
-import { getCharacterLevel } from './get-character-level'
+import type { Settings } from '@/shared/stores/settings/types'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,

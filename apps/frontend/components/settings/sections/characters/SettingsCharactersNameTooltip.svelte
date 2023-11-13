@@ -2,7 +2,7 @@
     import debounce from 'lodash/debounce'
 
     import { characterNameTooltipChoices } from '@/data/settings'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import MagicLists from '@/components/settings/SettingsMagicLists.svelte'
 

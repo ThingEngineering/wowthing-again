@@ -2,8 +2,8 @@
     import { classByArmorType } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
     import { PlayableClass } from '@/enums/playable-class'
-    import { settingsStore } from '@/stores'
     import { collectingSettingsState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
@@ -74,16 +74,15 @@
 </style>
 
 <div class="border collecting-settings">
-    <div
+    <button
         class="expand"
         on:click|preventDefault|stopPropagation={toggleExpanded}
-        on:keypress|preventDefault|stopPropagation={toggleExpanded}
     >
         Collecting Settings
         <IconifyIcon
             icon={iconStrings['chevron-' + ($collectingSettingsState.expanded ? 'down' : 'right')]}
         />
-    </div>
+    </button>
     
     {#if $collectingSettingsState.expanded}
         <div class="spacer"></div>

@@ -70,7 +70,7 @@
     }
 </style>
 
-<div
+<button
     class="progress-container {cls}"
     on:click
     on:keypress
@@ -98,4 +98,4 @@
             {/if}
         </span>
     {/if}
-</div>
+</button>

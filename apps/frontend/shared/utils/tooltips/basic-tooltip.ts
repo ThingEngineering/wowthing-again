@@ -30,7 +30,7 @@ export function basicTooltip(node: SingleTarget, props: TippyProps | string): Sv
         destroy() {
             tp.destroy()
         },
-        update(params: any) {
+        update(params: string | TippyProps) {
             if (typeof params === 'string') {
                 tippyProps.content = params
             }

@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { heirloomState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomItem } from '@/types/data/manual'
 

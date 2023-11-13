@@ -21,12 +21,13 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats'
 
 import type { ZoneMapState } from '../local-storage'
-import type { Settings, UserAchievementData, UserData } from '@/types'
+import type { UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { DropStatus, FarmStatus } from '@/types/zone-maps'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask

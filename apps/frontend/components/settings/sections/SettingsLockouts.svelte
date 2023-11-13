@@ -6,8 +6,8 @@
     import { expansionMap } from '@/data/expansion'
     import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/stores'
-    import type { SettingsChoice } from '@/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

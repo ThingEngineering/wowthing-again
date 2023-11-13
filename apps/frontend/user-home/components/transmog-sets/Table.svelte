@@ -3,11 +3,11 @@
     import some from 'lodash/some'
 
     import { manualStore } from '@/stores'
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import getSkipClasses from '@/utils/get-skip-classes'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
-    import Category from './SetsTableCategory.svelte'
+    import Category from './TableCategory.svelte'
 
     export let slug1: string
     export let slug2: string

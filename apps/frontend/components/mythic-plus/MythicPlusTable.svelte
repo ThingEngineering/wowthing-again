@@ -5,8 +5,9 @@
 
     import { Constants } from '@/data/constants'
     import { seasonMap } from '@/data/dungeon'
-    import { settingsStore, timeStore, userStore } from '@/stores'
+    import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import { getWeeklyAffixes } from '@/utils/mythic-plus'

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import BackgroundSelector from '@/components/common/BackgroundSelector.svelte'
     import RangeInput from '@/shared/components/forms/RangeInput.svelte'

@@ -67,10 +67,6 @@
 
         return [null, 0]
     }
-    function countCrests(fragmentId: number, crestId: number): number {
-        const fragments = character.getItemCount(fragmentId)
-        return Math.floor(fragments / 15) + character.getItemCount(crestId)
-    }
 </script>
 
 <style lang="scss">
@@ -226,7 +222,7 @@
                                 name={iconName}
                                 size={20}
                             />
-                        {:else if iconName}
+                        {:else}
                             <IconifyIcon
                                 icon={iconStrings['plus']}
                             />

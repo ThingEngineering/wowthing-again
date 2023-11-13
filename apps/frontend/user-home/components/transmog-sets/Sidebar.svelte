@@ -26,7 +26,6 @@
     }
 </script>
 
-<!-- svelte-ignore missing-declaration -->
 <style lang="scss">
     div {
         margin-bottom: 0.75rem;

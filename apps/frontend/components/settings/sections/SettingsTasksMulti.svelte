@@ -2,8 +2,8 @@
     import debounce from 'lodash/debounce'
 
     import { multiTaskMap } from '@/data/tasks'
-    import { settingsStore } from '@/stores'
-    import type { SettingsChoice } from '@/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'

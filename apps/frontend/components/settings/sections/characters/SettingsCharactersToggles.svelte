@@ -5,10 +5,10 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
+    import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/stores'
-    import { Region } from '@/enums/region'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
@@ -144,16 +144,14 @@
                     <th class="level">[{realmParts[0]}]</th>
                     <th class="name">{realmParts[1]}</th>
                     <th class="ignore">
-                        <span
+                        <button
                             on:click={realmClick}
-                            on:keypress={realmClick}
-                        >[ignore all]</span>
+                        >[ignore all]</button>
                     </th>
                     <th class="hide">
-                        <span
+                        <button
                             on:click={realmClick}
-                            on:keypress={realmClick}
-                        >[hide all]</span>
+                        >[hide all]</button>
                     </th>
                 </tr>
             </thead>

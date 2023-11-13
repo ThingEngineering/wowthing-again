@@ -3,9 +3,10 @@
     import sortBy from 'lodash/sortBy'
     import { onDestroy, onMount } from 'svelte'
 
-    import { lazyStore, settingsStore, timeStore, userStore } from '@/stores'
+    import { lazyStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState, newNavState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
     import { setElementStyleById } from '@/utils/dom'
     import { homeSort } from '@/utils/home'

@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 import { userModifiedStore } from './user-modified'
 import { WritableFancyStore } from '@/types/fancy-store'
 import type { UserTransmogData } from '@/types/data'
-import type { Settings } from '@/types/settings'
+import type { Settings } from '@/shared/stores/settings/types/settings'
 import type { UserAchievementData } from '@/types/user-achievement-data'
 
 

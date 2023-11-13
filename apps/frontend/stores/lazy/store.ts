@@ -30,7 +30,7 @@ import { appearanceStore } from '../appearance'
 import { itemStore } from '../item'
 import { journalStore } from '../journal'
 import { manualStore } from '../manual'
-import { settingsStore } from '../settings'
+import { settingsStore } from '@/shared/stores/settings'
 import { staticStore } from '@/shared/stores/static'
 import { timeStore } from '../time'
 import { userStore } from '../user'
@@ -41,7 +41,8 @@ import { userTransmogStore } from '../user-transmog'
 import { UserCount } from '@/types'
 
 import { hashObject } from '@/utils/hash-object'
-import type { FancyStoreType, Settings, UserAchievementData, UserData } from '@/types'
+import type { StaticData } from '@/shared/stores/static/types'
+import type { FancyStoreType, UserAchievementData, UserData } from '@/types'
 import type { JournalData, UserQuestData, UserTransmogData } from '@/types/data'
 import type { AppearanceData } from '@/types/data/appearance'
 import type {
@@ -50,7 +51,7 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual'
 import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/shared/stores/static/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 type LazyKey =

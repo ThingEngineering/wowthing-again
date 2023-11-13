@@ -1,6 +1,8 @@
 <script lang="ts">
+    import { afterUpdate } from 'svelte'
+
     import { lazyStore, manualStore } from '@/stores'
-    import { settingsStore } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings/store'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
 
@@ -43,6 +45,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <svelte:window on:resize={debouncedResize} />

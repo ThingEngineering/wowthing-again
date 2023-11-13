@@ -2,7 +2,8 @@
     import { setContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { settingsStore } from '@/stores'
     import { settingsState } from '@/stores/local-storage'
-    import type { SettingsCustomGroup } from '@/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsCustomGroup } from '@/shared/stores/settings/types'
 
     import Group from './SettingsLayoutGroupingGroup.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
@@ -64,24 +64,22 @@
     <div class="groups-wrapper">
         <div class="group-list">
             {#each $settingsStore.customGroups as customGroup}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry text-overflow"
                     class:active={$settingsState.selectedGroup === customGroup.id}
                     on:click={() => setActive(customGroup.id)}
                 >
                     {customGroup.name}
-                </div>
+                </button>
             {/each}
             
             {#if $settingsStore.customGroups.length < 10}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry"
                     on:click={newGroup}
                 >
                     New group
-                </div>
+                </button>
             {/if}
         </div>
 

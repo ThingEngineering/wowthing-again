@@ -5,7 +5,7 @@
     import { transmogSets } from '@/data/transmog'
     import { iconLibrary, uiIcons } from '@/shared/icons'
     import { lazyStore, userTransmogStore } from '@/stores'
-    import { settingsStore } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings/store'
     import { transmogSetsState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
@@ -17,7 +17,7 @@
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import TableSet from './SetsTableSet.svelte'
+    import TableSet from './TableSet.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let category: ManualDataTransmogCategory

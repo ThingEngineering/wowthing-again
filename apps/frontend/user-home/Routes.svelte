@@ -1,12 +1,17 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
     import { wrap } from 'svelte-spa-router/wrap'
+    import type { SvelteComponent } from 'svelte'
+
+    import Currencies from './components/currencies/Currencies.svelte'
+    import Matrix from './components/matrix/Matrix.svelte'
+    import Sets from './components/transmog-sets/TransmogSets.svelte'
+    import WorldQuests from './components/world-quests/WorldQuests.svelte'
 
     import Achievements from '@/components/achievements/Achievements.svelte'
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Auctions from '@/components/auctions/Auctions.svelte'
     import Collections from '@/components/collections/Collections.svelte'
-    import Currencies from '@/user-home/components/currencies/Currencies.svelte'
     import Explore from '@/components/explore/Explore.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
@@ -14,17 +19,14 @@
     import Items from '@/components/items/Items.svelte'
     import Journal from '@/components/journal/Journal.svelte'
     import Lockouts from '@/components/lockouts/Lockouts.svelte'
-    import Matrix from '@/user-home/components/matrix/Matrix.svelte'
     import Mounts from '@/components/collectible/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collectible/Pets.svelte'
     import Professions from '@/components/professions/Professions.svelte'
     import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
-    import Sets from '@/components/sets/Sets.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
-    import WorldQuests from '@/user-home/components/world-quests/WorldQuests.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
@@ -33,13 +35,13 @@
 
         // Expensive components are dynamically loaded for code-splitting
         '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?': wrap({
-            asyncComponent: () => import('@/components/characters/Characters.svelte')
+            asyncComponent: () => import('@/components/characters/Characters.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/history/:slug?': wrap({
-            asyncComponent: () => import('@/components/history/History.svelte')
+            asyncComponent: () => import('./components/history/History.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/settings/:slug1?/:slug2?': wrap({
-            asyncComponent: () => import('@/components/settings/Settings.svelte')
+            asyncComponent: () => import('@/components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
 
         '/achievements/:slug1?/:slug2?': Achievements,

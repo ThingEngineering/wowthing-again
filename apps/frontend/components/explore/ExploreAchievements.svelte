@@ -1,8 +1,9 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { achievementStore, settingsStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState, exploreState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'

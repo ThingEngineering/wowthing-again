@@ -2,10 +2,10 @@ import every from 'lodash/every'
 import { get } from 'svelte/store'
 import type { DateTime } from 'luxon'
 
-import { staticStore } from '@/shared/stores/static'
-import type { Settings } from '@/types'
-import type { StaticDataHoliday } from '@/shared/stores/static/types'
 import { pvpBrawlHolidays } from '@/data/tasks'
+import { staticStore } from '@/shared/stores/static'
+import type { StaticDataHoliday } from '@/shared/stores/static/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 type ActiveHolidays = Record<string, StaticDataHoliday>

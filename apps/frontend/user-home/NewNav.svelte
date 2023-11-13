@@ -3,8 +3,9 @@
 
     import { navItems } from '@/data/nav'
     import { iconLibrary } from '@/shared/icons'
-    import { settingsStore, userStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
+    import { userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
 
     import CharacterFilter from './CharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

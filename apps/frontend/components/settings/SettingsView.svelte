@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { SvelteComponent } from 'svelte'
+    import { afterUpdate, type ComponentType } from 'svelte'
 
     import { getColumnResizer } from '@/utils/get-column-resizer'
 
@@ -33,7 +33,7 @@
         slug = slug2 ? `${slug1}/${slug2}` : slug1
     }
 
-    const components: Record<string, typeof SvelteComponent> = {
+    const components: Record<string, ComponentType> = {
         'account': Account,
         'achievements': Achievements,
         'auctions': Auctions,
@@ -78,6 +78,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <svelte:window on:resize={debouncedResize} />

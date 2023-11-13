@@ -1,4 +1,6 @@
-<script lang="ts">
+<script lang="ts" generics="TComponent extends SvelteComponent">
+    import type { SvelteComponent } from 'svelte'
+
     import { iconLibrary } from '@/shared/icons'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types'
@@ -11,7 +13,7 @@
     export let maxlength: number = null
     export let name: string
     export let placeholder = ''
-    export let tooltipComponent: ComponentTooltipProps = undefined
+    export let tooltipComponent: ComponentTooltipProps<TComponent> = undefined
     export let value: string
 </script>
 
@@ -54,17 +56,16 @@
     >
 
     {#if clearButton}
-        <div
+        <button
             class="clear-text"
             class:disabled={!value}
             on:click={() => value = ''}
-            on:keypress={() => value = ''}
         >
             <IconifyIcon
                 icon={iconLibrary.mdiClose}
                 tooltip="Clear text"
             />
-        </div>
+        </button>
     {/if}
 
     <slot />

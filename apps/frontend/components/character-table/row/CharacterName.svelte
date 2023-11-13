@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Region } from '@/enums/region'
-    import { settingsStore } from '@/stores'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/character-name/TooltipCharacterName.svelte'

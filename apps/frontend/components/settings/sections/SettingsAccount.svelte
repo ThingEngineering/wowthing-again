@@ -3,8 +3,8 @@
 
     import { Language } from '@/enums/language'
     import { Region } from '@/enums/region'
-    import { settingsStore } from '@/stores'
     import { userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import getAccountCharacters from '@/utils/get-account-characters'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'

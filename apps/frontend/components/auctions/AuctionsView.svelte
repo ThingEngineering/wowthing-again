@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { SvelteComponent } from 'svelte'
+    import type { ComponentType } from 'svelte'
 
     import { expansionOrder } from '@/data/expansion'
     import { ItemQuality } from '@/enums/item-quality'
@@ -51,7 +51,7 @@
         .map(([key, value]) => [parseInt(key), value as string])
     weaponOptions.splice(0, 0, [-1, 'Any'])
 
-    const componentMap: Record<string, typeof SvelteComponent> = {
+    const componentMap: Record<string, ComponentType> = {
         'custom-1': Custom,
         'custom-2': Custom,
         'custom-3': Custom,

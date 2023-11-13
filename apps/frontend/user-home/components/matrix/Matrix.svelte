@@ -9,9 +9,10 @@
     import { isSecondaryProfession, professionOrder } from '@/data/professions'
     import { Gender, genderValues } from '@/enums/gender'
     import { Region } from '@/enums/region'
-    import { settingsStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { matrixState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
@@ -23,7 +24,7 @@
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
-    import TooltipCharacter from '@/components/tooltips/matrix-character/TooltipMatrixCharacter.svelte'
+    import TooltipCharacter from '@/user-home/components/matrix/TooltipCharacter.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     let matrix: Record<string, Character[]>

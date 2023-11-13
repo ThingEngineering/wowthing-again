@@ -3,14 +3,14 @@ import sortBy from 'lodash/sortBy'
 import { journalDifficultyMap } from '@/data/difficulty'
 import { RewardType } from '@/enums/reward-type'
 import { playableClasses } from '@/enums/playable-class'
-import { UserCount, type Settings, type UserData } from '@/types'
+import { UserCount, type UserData } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import { leftPad } from '@/utils/formatting'
-
 import { JournalDataEncounterItem, type JournalData, type UserTransmogData } from '@/types/data'
-import type { StaticData } from '@/shared/stores/static/types'
 import type { JournalState } from '../local-storage'
+import type { StaticData } from '@/shared/stores/static/types'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export interface LazyJournal {

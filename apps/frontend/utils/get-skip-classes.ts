@@ -1,7 +1,7 @@
 import every from 'lodash/every'
 
-import type { Settings } from '@/types'
 import type { ManualDataTransmogCategory } from '@/types/data/manual'
+import type { Settings } from '@/shared/stores/settings/types'
 
 
 export default function getSkipClasses(

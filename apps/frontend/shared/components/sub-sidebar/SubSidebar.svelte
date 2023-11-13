@@ -1,7 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { settingsStore } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings/store'
     import { measureScrollbar } from '@/utils/measure-scrollbar'
     import type { SidebarItem } from './types'
 

@@ -1,8 +1,8 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
 
-    import { settingsStore } from '@/stores'
-    import type { SettingsChoice } from '@/types'
+    import { settingsStore } from '@/shared/stores/settings'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'

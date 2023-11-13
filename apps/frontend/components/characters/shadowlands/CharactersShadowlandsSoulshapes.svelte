@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { settingsStore, userQuestStore } from '@/stores'
-
     import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
+    import { userQuestStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { UserCount, type Character } from '@/types'
 
     import Count from '@/components/collectible/CollectibleCount.svelte'

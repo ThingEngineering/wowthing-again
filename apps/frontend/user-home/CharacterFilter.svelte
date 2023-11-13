@@ -34,14 +34,13 @@
         }}
     />
 
-    <div
+    <button
         class="clear-filter"
         on:click={clearFilter}
-        on:keypress={clearFilter}
     >
         <IconifyIcon
             icon={iconLibrary.mdiClose}
             tooltip="Clear filter"
         />
-    </div>
+    </button>
 </div>

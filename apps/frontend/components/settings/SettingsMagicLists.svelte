@@ -2,7 +2,7 @@
     import ListView from 'svelte-sortable-flat-list-view'
 
     import { uiIcons } from '@/shared/icons'
-    import type { SettingsChoice } from '@/types'
+    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'

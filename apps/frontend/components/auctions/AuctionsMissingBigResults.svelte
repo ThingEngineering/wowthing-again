@@ -7,10 +7,11 @@
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
-    import { itemStore, settingsStore, timeStore, userStore } from '@/stores'
+    import { itemStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { settingsStore } from '@/shared/stores/settings'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
 
@@ -245,8 +246,7 @@
                                                     />
                                                 </span>
                                             {:else}
-                                                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                                                <span
+                                                <button
                                                     class="clipboard"
                                                     use:basicTooltip={"Copy to clipboard"}
                                                     on:click={() => navigator.clipboard.writeText(item.name)}
@@ -255,7 +255,7 @@
                                                         icon={iconLibrary.mdiClipboardPlusOutline}
                                                         scale={'0.9'}
                                                     />
-                                                </span>
+                                                </button>
                                             {/if}
                                         </span>
                                     </div>

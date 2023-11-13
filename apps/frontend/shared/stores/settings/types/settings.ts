@@ -1,3 +1,6 @@
+import type { SettingsAuctionCategory } from './auction-category'
+import type { SettingsCustomGroup } from './custom-group'
+import type { SettingsView } from './view'
 import type { CharacterFlag } from '@/enums/character-flag'
 import type { Language } from '@/enums/language'
 
@@ -115,35 +118,4 @@ export interface Settings {
 
     customGroups: SettingsCustomGroup[]
     views: SettingsView[]
-}
-
-export interface SettingsAuctionCategory {
-    name: string
-    itemIds: number[]
-}
-
-export interface SettingsChoice {
-    key: string
-    name: string
-}
-
-export interface SettingsCustomGroup {
-    filter: string
-    id: string
-    name: string
-}
-
-export interface SettingsView {
-    id: string
-    name: string
-
-    groups: string[]
-    groupBy: string[]
-    sortBy: string[]
-
-    commonFields: string[]
-    homeFields: string[]
-
-    homeLockouts: number[]
-    homeTasks: string[]
 }

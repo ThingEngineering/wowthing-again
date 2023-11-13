@@ -1,6 +1,3 @@
-import type { RewardType } from '@/enums/reward-type'
-
-
 export type ConvertibleCategoryTier = {
     itemLevel: number
     lowUpgrade?: [number, number][]

@@ -1,9 +1,11 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { afterUpdate } from 'svelte'
 
-    import { manualStore, lazyStore, settingsStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, userTransmogStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { illusionState } from '@/stores/local-storage'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -51,6 +53,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
