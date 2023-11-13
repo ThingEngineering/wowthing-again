@@ -171,12 +171,11 @@
                                 </WowheadLink>
                             </th>
                             <th class="ignore">
-                                <span
+                                <button
                                     on:click|preventDefault={() => ignoreClick(item.id)}
-                                    on:keypress|preventDefault={() => ignoreClick(item.id)}
                                 >
                                     {ignored ? 'Unignore' : 'Ignore'}
-                                </span>
+                                </button>
                             </th>
                         </tr>
                     </thead>

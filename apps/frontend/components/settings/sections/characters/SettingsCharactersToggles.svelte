@@ -144,16 +144,14 @@
                     <th class="level">[{realmParts[0]}]</th>
                     <th class="name">{realmParts[1]}</th>
                     <th class="ignore">
-                        <span
+                        <button
                             on:click={realmClick}
-                            on:keypress={realmClick}
-                        >[ignore all]</span>
+                        >[ignore all]</button>
                     </th>
                     <th class="hide">
-                        <span
+                        <button
                             on:click={realmClick}
-                            on:keypress={realmClick}
-                        >[hide all]</span>
+                        >[hide all]</button>
                     </th>
                 </tr>
             </thead>

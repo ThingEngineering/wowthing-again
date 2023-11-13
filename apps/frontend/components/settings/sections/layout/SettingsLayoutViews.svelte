@@ -70,24 +70,22 @@
     <div class="groups-wrapper">
         <div class="group-list">
             {#each $settingsStore.views as view}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry text-overflow"
                     class:active={$settingsState.selectedView === view.id}
                     on:click={() => setActive(view.id)}
                 >
                     {view.name}
-                </div>
+                </button>
             {/each}
             
             {#if $settingsStore.views.length < 5}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry"
                     on:click={newView}
                 >
                     New View
-                </div>
+                </button>
             {/if}
         </div>
 

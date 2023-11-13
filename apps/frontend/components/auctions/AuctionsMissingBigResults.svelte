@@ -246,8 +246,7 @@
                                                     />
                                                 </span>
                                             {:else}
-                                                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                                                <span
+                                                <button
                                                     class="clipboard"
                                                     use:basicTooltip={"Copy to clipboard"}
                                                     on:click={() => navigator.clipboard.writeText(item.name)}
@@ -256,7 +255,7 @@
                                                         icon={iconLibrary.mdiClipboardPlusOutline}
                                                         scale={'0.9'}
                                                     />
-                                                </span>
+                                                </button>
                                             {/if}
                                         </span>
                                     </div>

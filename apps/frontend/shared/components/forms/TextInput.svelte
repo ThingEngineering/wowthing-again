@@ -56,17 +56,16 @@
     >
 
     {#if clearButton}
-        <div
+        <button
             class="clear-text"
             class:disabled={!value}
             on:click={() => value = ''}
-            on:keypress={() => value = ''}
         >
             <IconifyIcon
                 icon={iconLibrary.mdiClose}
                 tooltip="Clear text"
             />
-        </div>
+        </button>
     {/if}
 
     <slot />

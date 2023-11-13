@@ -74,16 +74,15 @@
 </style>
 
 <div class="border collecting-settings">
-    <div
+    <button
         class="expand"
         on:click|preventDefault|stopPropagation={toggleExpanded}
-        on:keypress|preventDefault|stopPropagation={toggleExpanded}
     >
         Collecting Settings
         <IconifyIcon
             icon={iconStrings['chevron-' + ($collectingSettingsState.expanded ? 'down' : 'right')]}
         />
-    </div>
+    </button>
     
     {#if $collectingSettingsState.expanded}
         <div class="spacer"></div>

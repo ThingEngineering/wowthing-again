@@ -64,24 +64,22 @@
     <div class="groups-wrapper">
         <div class="group-list">
             {#each $settingsStore.customGroups as customGroup}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry text-overflow"
                     class:active={$settingsState.selectedGroup === customGroup.id}
                     on:click={() => setActive(customGroup.id)}
                 >
                     {customGroup.name}
-                </div>
+                </button>
             {/each}
             
             {#if $settingsStore.customGroups.length < 10}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
+                <button
                     class="group-entry"
                     on:click={newGroup}
                 >
                     New group
-                </div>
+                </button>
             {/if}
         </div>
 

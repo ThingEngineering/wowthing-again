@@ -394,10 +394,9 @@
             </div>
         </div>
 
-        <div
+        <button
             class="toggles class-toggles overlay-box"
             on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
-            on:keypress={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
         >
             Class:
 
@@ -414,7 +413,7 @@
             <IconifyIcon
                 icon={iconStrings['chevron-' + ($zoneMapState.classExpanded[slugKey] ? 'down' : 'right')]}
             />
-        </div>
+        </button>
 
         {#if $zoneMapState.classExpanded[slugKey]}
             <div class="toggles class-list overlay-box">
@@ -470,17 +469,16 @@
             </div>
         {/each}
 
-        <div
+        <button
             class="loot-list-toggle overlay-box"
             on:click={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
-            on:keypress={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
         >
             Loot list
 
             <IconifyIcon
                 icon={iconStrings['chevron-' + ($zoneMapState.lootExpanded[slugKey] ? 'up' : 'right')]}
             />
-        </div>
+        </button>
 
         {#if $zoneMapState.lootExpanded[slugKey] && loots?.length > 0}
             <div class="loot-list overlay-box">
