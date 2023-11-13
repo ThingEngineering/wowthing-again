@@ -1,4 +1,6 @@
-<script lang="ts">
+<script lang="ts" generics="TComponent extends SvelteComponent">
+    import type { SvelteComponent } from 'svelte'
+
     import { iconLibrary } from '@/shared/icons'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ComponentTooltipProps } from '@/shared/utils/tooltips/types'
@@ -11,7 +13,7 @@
     export let maxlength: number = null
     export let name: string
     export let placeholder = ''
-    export let tooltipComponent: ComponentTooltipProps = undefined
+    export let tooltipComponent: ComponentTooltipProps<TComponent> = undefined
     export let value: string
 </script>
 

@@ -12,9 +12,9 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let currency: StaticDataCurrency
-    export let item: ItemDataItem
-    export let itemId: number
+    export let currency: StaticDataCurrency = undefined
+    export let item: ItemDataItem = undefined
+    export let itemId: number = undefined
 
     let currencies: [Character, number][]
     let currencyName: string

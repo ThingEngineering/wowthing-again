@@ -1,6 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
     import { wrap } from 'svelte-spa-router/wrap'
+    import type { SvelteComponent } from 'svelte'
 
     import Currencies from './components/currencies/Currencies.svelte'
     import Matrix from './components/matrix/Matrix.svelte'
@@ -34,13 +35,13 @@
 
         // Expensive components are dynamically loaded for code-splitting
         '/characters/:slug1?/:slug2?/:slug3?/:slug4?/:slug5?/:slug6?': wrap({
-            asyncComponent: () => import('@/components/characters/Characters.svelte')
+            asyncComponent: () => import('@/components/characters/Characters.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/history/:slug?': wrap({
-            asyncComponent: () => import('./components/history/History.svelte')
+            asyncComponent: () => import('./components/history/History.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/settings/:slug1?/:slug2?': wrap({
-            asyncComponent: () => import('@/components/settings/Settings.svelte')
+            asyncComponent: () => import('@/components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
 
         '/achievements/:slug1?/:slug2?': Achievements,

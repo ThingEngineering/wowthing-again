@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { TippyProps } from '@/shared/utils/tooltips/types'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
@@ -12,7 +11,7 @@
     export let width = 0
     export let cls: string = undefined
     export let lazy = true
-    export let tooltip: TippyProps | string = undefined
+    export let tooltip: string = undefined
 
     let actualHeight: number
     let actualWidth: number

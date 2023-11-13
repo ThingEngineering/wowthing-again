@@ -25,7 +25,7 @@ export type FancyStoreType<T> = T & {
 export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T>> {
     protected value: FancyStoreType<T>
     
-    abstract initialize(data: T): void
+    public initialize?(data: T): void
     public set: (this: void, value: FancyStoreType<T>) => void
     public subscribe: (this: void, run: Subscriber<FancyStoreType<T>>, invalidate?: Invalidator<FancyStoreType<T>>) => Unsubscriber
     public update: (this: void, updater: Updater<FancyStoreType<T>>) => void
@@ -47,7 +47,7 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
         }
     }
 
-    abstract get dataUrl(): string
+    get dataUrl(): string { return null }
 
     get(): FancyStoreType<T> {
         return this.value

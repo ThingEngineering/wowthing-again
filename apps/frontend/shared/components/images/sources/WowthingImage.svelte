@@ -1,6 +1,4 @@
 <script lang="ts">
-    import type { TippyProps } from '@/shared/utils/tooltips/types'
-
     import Image from '../Image.svelte'
 
     export let border = 0
@@ -8,7 +6,7 @@
     export let lazy = true
     export let name: string
     export let size: number
-    export let tooltip: TippyProps | string = undefined
+    export let tooltip: string = undefined
 
     const actualSize = size + (border * 2)
 
