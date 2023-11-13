@@ -1,5 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { afterUpdate } from 'svelte'
 
     import { manualStore, lazyStore, userTransmogStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
@@ -52,6 +53,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">

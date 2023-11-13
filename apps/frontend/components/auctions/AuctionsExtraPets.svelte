@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { afterUpdate } from 'svelte'
+
     import { petBreedMap } from '@/data/pet-breed'
     import { ItemLocation } from '@/enums/item-location'
     import { itemLocationIcons } from '@/shared/icons/mappings'
@@ -25,6 +27,8 @@
             debouncedResize()
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">

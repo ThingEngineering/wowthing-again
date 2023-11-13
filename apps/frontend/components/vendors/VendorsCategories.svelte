@@ -1,5 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { afterUpdate } from 'svelte'
 
     import { lazyStore, manualStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
@@ -72,6 +73,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">

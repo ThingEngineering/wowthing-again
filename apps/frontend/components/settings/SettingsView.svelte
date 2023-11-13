@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { ComponentType } from 'svelte'
+    import { afterUpdate, type ComponentType } from 'svelte'
 
     import { getColumnResizer } from '@/utils/get-column-resizer'
 
@@ -78,6 +78,8 @@
             debouncedResize = null
         }
     }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <svelte:window on:resize={debouncedResize} />
