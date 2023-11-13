@@ -1,4 +1,5 @@
 import tippy from 'tippy.js'
+import type { ComponentProps, SvelteComponent } from 'svelte'
 import type { Instance, Props, SingleTarget } from 'tippy.js'
 
 import { defaultProps } from './default-props'
@@ -6,9 +7,9 @@ import type { ComponentTooltipProps, SvelteActionResult  } from './types'
 
 
 // TODO: fix typing of this mess
-export function componentTooltip(
+export function componentTooltip<TComponent extends SvelteComponent>(
     node: SingleTarget,
-    componentProps: ComponentTooltipProps
+    componentProps: ComponentTooltipProps<TComponent>
 ): SvelteActionResult {
     if (!componentProps) {
         return
@@ -20,8 +21,8 @@ export function componentTooltip(
         return
     }
 
-    let cmp: any
-    const elementProps: any = props
+    let cmp: SvelteComponent
+    const elementProps = props
 
     const finalProps = {
         ...defaultProps,
@@ -45,7 +46,7 @@ export function componentTooltip(
     })
 
     return {
-        update(params: {props: any}) {
+        update(params: { props: Partial<ComponentProps<TComponent>> }) {
             Object.assign(elementProps, params.props)
             if (cmp) {
                 cmp.$set(params.props)
