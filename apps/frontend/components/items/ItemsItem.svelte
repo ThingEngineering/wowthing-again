@@ -222,7 +222,7 @@
                                 name={iconName}
                                 size={20}
                             />
-                        {:else if iconName}
+                        {:else}
                             <IconifyIcon
                                 icon={iconStrings['plus']}
                             />

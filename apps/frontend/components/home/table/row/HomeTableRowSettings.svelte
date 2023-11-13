@@ -48,7 +48,6 @@
 </style>
 
 <td class="settings">
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <div
         class="settings-icon"
     >

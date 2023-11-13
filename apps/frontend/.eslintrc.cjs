@@ -1,6 +1,9 @@
 module.exports = {
     root: true,
     parser: '@typescript-eslint/parser',
+    parserOptions: {
+        extraFileExtensions: ['.svelte'],
+    },
     env: {
         browser: true,
         es6: true,
@@ -8,23 +11,28 @@ module.exports = {
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
+        'plugin:svelte/recommended',
     ],
     overrides: [
         {
             files: ['*.svelte'],
-            processor: 'svelte3/svelte3',
+            parser: 'svelte-eslint-parser',
+            parserOptions: {
+                parser: '@typescript-eslint/parser',
+            },
         },
     ],
     plugins: [
         '@typescript-eslint',
-        'svelte3',
     ],
     rules: {
         '@typescript-eslint/no-explicit-any': 'warn',
+        '@typescript-eslint/no-unused-vars': 'warn',
+        // doesn't seem to work properly?
+        'svelte/no-unused-svelte-ignore': 'warn',
+        // there's a lot of these to embed '&nbsp;', no user data is ever used
+        'svelte/no-at-html-tags': 'off',
     },
     settings: {
-        'svelte3/ignore-styles': () => true, // ignore styles, SASS breaks things
-        'svelte3/named-blocks': true, // use named blocks
-        'svelte3/typescript': true, // load TypeScript as a peer dependency
     },
 }
