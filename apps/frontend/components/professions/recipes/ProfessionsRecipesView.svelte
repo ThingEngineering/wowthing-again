@@ -41,7 +41,10 @@
         characters = $userStore.characters.filter((char) =>
             char.professions?.[profession.id]?.[subProfession.id]
         )
-        characters.sort((a, b) => a.name.localeCompare(b.name))
+        characters.sort((a, b) => {
+            if (a.level !== b.level) { return b.level - a.level }
+            return a.name.localeCompare(b.name)
+        })
 
         colspan = 3 + characters.length
     }
