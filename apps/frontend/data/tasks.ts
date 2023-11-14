@@ -229,29 +229,24 @@ export const taskList: Task[] = [
     },
     {
         key: 'dfChores',
-        name: '[DF] Chores',
-        shortName: 'Cho',
+        name: '[DF] Chores - 10.0.x',
+        shortName: '10.0',
         minimumLevel: 60,
         type: 'multi',
     },
     {
         key: 'dfChores10_1_0',
-        name: '[DF] Chores - 10.1.0',
+        name: '[DF] Chores - 10.1.x',
         shortName: '10.1',
         minimumLevel: 60,
         type: 'multi',
     },
     {
         key: 'dfChores10_2_0',
-        name: '[DF] Chores - 10.2.0',
+        name: '[DF] Chores - 10.2.x',
         shortName: '10.2',
         minimumLevel: 70,
         type: 'multi',
-    },
-    {
-        key: 'dfDreamsurge',
-        name: '[DF] Dreamsurge',
-        shortName: 'DS',
     },
     {
         key: 'dfFighting',
@@ -413,6 +408,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
     ],
     'dfChores10_1_0': [
+        {
+            taskKey: 'dfDreamsurge',
+            taskName: 'Dreamsurge',
+        },
         {
             minimumLevel: 60,
             taskKey: 'dfFyrakkAssault',
