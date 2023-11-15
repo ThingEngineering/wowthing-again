@@ -473,6 +473,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Blooming Dreamseeds',
         },
         {
+            taskKey: 'dfGoodsShipments1',
+            taskName: 'Shipments x1'
+        },
+        {
+            taskKey: 'dfGoodsShipments5',
+            taskName: 'Shipments x5'
+        },
+        {
             taskKey: 'dfSuperbloom',
             taskName: 'Superbloom',
         },
