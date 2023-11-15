@@ -65,7 +65,7 @@
     function isRenown(reputationSet: StaticDataReputationSet) {
         return reputationSet.both
             ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
-            : $staticStore.reputations[reputationSet.alliance.id || reputationSet.horde.id].renownCurrencyId > 0
+            : $staticStore.reputations[reputationSet.alliance?.id || reputationSet.horde.id].renownCurrencyId > 0
     }
 </script>
 
