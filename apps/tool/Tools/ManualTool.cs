@@ -30,7 +30,7 @@ public class ManualTool
     private Dictionary<int, WowMount> _mountMap;
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
-    private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
+    private Dictionary<(StringType Type, int Id), string> _stringMap;
 
     private int _tagIndex = 1;
     private HashSet<int> _questIds = new();
@@ -59,12 +59,12 @@ public class ManualTool
         ToolContext.Logger.Information("{Timer}", _timer.ToString());
     }
 
-    private string GetString(StringType type, Language language, int id)
+    private string GetString(StringType type, int id)
     {
-        if (!_stringMap.TryGetValue((type, language, id), out var languageName))
+        if (!_stringMap.TryGetValue((type, id), out var languageName))
         {
             languageName = _stringMap.GetValueOrDefault(
-                (type, language, id), $"{type.ToString()} #{id}");
+                (type, id), $"{type.ToString()} #{id}");
         }
 
         return languageName;
@@ -72,6 +72,15 @@ public class ManualTool
 
     private async Task LoadBasicData(WowDbContext context)
     {
+        _stringMap = await context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Language == Language.enUS && StringTypes.Contains(ls.Type))
+            .ToDictionaryAsync(
+                ls => (ls.Type, ls.Id),
+                ls => ls.String
+            );
+        _timer.AddPoint("Strings");
+
         _itemMap = await  context.WowItem
             .AsNoTracking()
             .ToDictionaryAsync(item => item.Id);
@@ -98,26 +107,18 @@ public class ManualTool
                     )
             );
 
-        _mountMap = await  context.WowMount
+        _mountMap = await context.WowMount
             .AsNoTracking()
             .ToDictionaryAsync(mount => mount.Id);
 
-        _petMap = await  context.WowPet
+        _petMap = await context.WowPet
             .AsNoTracking()
             .Where(pet => (pet.Flags & 32) == 0)
             .ToDictionaryAsync(pet => pet.Id);
 
-        _toyMap = await  context.WowToy
+        _toyMap = await context.WowToy
             .AsNoTracking()
             .ToDictionaryAsync(toy => toy.ItemId);
-
-        _stringMap = await  context.LanguageString
-            .AsNoTracking()
-            .Where(ls => StringTypes.Contains(ls.Type))
-            .ToDictionaryAsync(
-                ls => (ls.Type, ls.Language, ls.Id),
-                ls => ls.String
-            );
 
         var transmogSets = (await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem"))
             .ToGroupedDictionary(tsi => tsi.TransmogSetID);
@@ -176,21 +177,21 @@ public class ManualTool
         // Mount sets
         var mountSets = LoadCollectionSets("mounts");
         AddUncategorized("mounts", _mountMap, mountSets,
-            id => GetString(StringType.WowMountName, Language.enUS, id));
+            id => GetString(StringType.WowMountName, id));
         cacheData.RawMountSets = FinalizeCollections(mountSets);
         _timer.AddPoint("Mounts");
 
         // Pet sets
         var petSets = LoadCollectionSets("pets");
         AddUncategorized("pets", _petMap, petSets,
-            id => GetString(StringType.WowCreatureName, Language.enUS, _petMap[id].CreatureId));
+            id => GetString(StringType.WowCreatureName, _petMap[id].CreatureId));
         cacheData.RawPetSets = FinalizeCollections(petSets);
         _timer.AddPoint("Pets");
 
         // Toy sets
         var toySets = LoadCollectionSets("toys");
         AddUncategorized("toys", _toyMap, toySets,
-            id => GetString(StringType.WowItemName, Language.enUS, id));
+            id => GetString(StringType.WowItemName, id));
         cacheData.RawToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
