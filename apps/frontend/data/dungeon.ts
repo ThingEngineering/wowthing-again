@@ -340,14 +340,14 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         463,
         "Dawn of the Infinite: Galakrond's Fall",
-        'DGF',
+        'FALL',
         'achievement/18703',
         2100 / 60
     ),
     new Dungeon(
         464,
         "Dawn of the Infinite: Murozond's Rise",
-        'DMR',
+        'RISE',
         'achievement/6150',
         2220 / 60
     ),
