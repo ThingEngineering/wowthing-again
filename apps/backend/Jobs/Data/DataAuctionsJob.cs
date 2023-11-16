@@ -216,7 +216,10 @@ COPY wow_auction_commodity_hourly (
                         Logger.Warning("Partition {p} pending detach, trying to finalize", pendingPartition);
 
                         command.CommandText = string.Format(FinalizeDetachPartition, pendingPartition);
+                        // DETACH PARTITION ... FINALIZE acquires an ACCESS EXCLUSIVE lock and can take quite a long time
+                        command.CommandTimeout = 600;
                         await command.ExecuteNonQueryAsync();
+                        command.CommandTimeout = 30;
 
                         command.CommandText = detachSql;
                         await command.ExecuteNonQueryAsync();
