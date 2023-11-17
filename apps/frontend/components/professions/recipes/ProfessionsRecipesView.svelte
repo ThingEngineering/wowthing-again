@@ -58,7 +58,6 @@
                 !!$staticStore.skillLineAbilityItems[ability.id]
             )
         )
-        console.log(category, filteredAbilities)
         return sortBy(
             filteredAbilities,
             (ability) => {
@@ -74,7 +73,7 @@
                             : 1
                         )
                         : 0,
-                    item?.name || ability.name
+                    // item?.name || ability.name
                 ].join('|')
             }
         )

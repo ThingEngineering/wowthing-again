@@ -104,7 +104,7 @@
             <table class="table-striped border-bottom border-right">
                 <tbody>
                     {#each raiderIoScoreOrder as scoreKey}
-                        {@const score = scores[scoreKey] || 0}
+                        {@const score = scores?.[scoreKey] || 0}
                         {#if score > 0 && !(scoreCount === 2 && scoreKey === 'all')}
                             <tr>
                                 <td class="role">{raiderIoScores[scoreKey]}</td>

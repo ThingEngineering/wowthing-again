@@ -17,7 +17,7 @@
     $: {
         images = []
         
-        if (character.auras?.[359530] !== undefined) {
+        if (character.auras?.[418563] !== undefined) {
             images.push([Constants.icons.anniversary, 'Anniversary Buff'])
         }
 
