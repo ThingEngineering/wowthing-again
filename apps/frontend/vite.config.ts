@@ -42,10 +42,10 @@ const config = <UserConfig> defineConfig({
 		manifest: true,
 		rollupOptions: {
 			input: {
-				admin: 'admin/entrypoint.ts',
-				auctions: 'auctions/entrypoint.ts',
-				leaderboards: 'leaderboards/entrypoint.ts',
-				'user-home': 'user-home/entrypoint.ts',
+				admin: 'admin/admin.ts',
+				auctions: 'auctions/auctions.ts',
+				leaderboards: 'leaderboards/leaderboards.ts',
+				'user-home': 'user-home/user-home.ts',
 			},
 			output: {
 				assetFileNames: 'dist/assets/[name]-[hash][extname]',
