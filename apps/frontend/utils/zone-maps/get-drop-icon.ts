@@ -51,6 +51,9 @@ export function getDropIcon(
             const [profession,] = staticData.professionBySkillLine[skillLineId]
             icon = professionSlugIcons[profession.slug]
         }
+        else if (drop.limit?.[0] === 'profession') {
+            icon = professionSlugIcons[drop.limit[1]]
+        }
         else {
             const item = itemData.items[drop.id]
             icon = inventoryTypeIcons[item?.inventoryType]

@@ -129,7 +129,7 @@
         z-index: 6;
 
         &.big {
-            margin-top: -2px;
+            margin-top: 2px;
         }
     }
 </style>

@@ -44,16 +44,16 @@ public class ItemSearchController : Controller
             return BadRequest();
         }
 
-        var itemQuery = _context.LanguageString
+        var stringQuery = _context.LanguageString
             .Where(ls => ls.Language == user.Settings.General.Language && ls.Type == StringType.WowItemName);
         foreach (string part in parts)
         {
             // Alias to avoid variable capture bullshit
             string temp = part;
-            itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
+            stringQuery = stringQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
         }
 
-        var items = await itemQuery
+        var items = await stringQuery
             .Select(ls => new { ls.Id, ls.String })
             .Distinct()
             //.Take(100)
@@ -124,6 +124,7 @@ public class ItemSearchController : Controller
             .ToGroupedDictionary(pgi => pgi.ItemId);
 
         var foundItemIds = characterGrouped.Keys
+            .Union(equippedGrouped.Keys)
             .Union(guildGrouped.Keys)
             .Distinct()
             .OrderBy(id => id)
