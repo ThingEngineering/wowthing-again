@@ -131,6 +131,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             }
         }
 
+        data.druidFormItemToQuest = {}
+        for (const druidForumGroup of data.druidForms) {
+            for (const druidFormItem of druidForumGroup.items) {
+                data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
+            }
+        }
+
         console.timeEnd('ManualDataStore.initialize')
     }
     

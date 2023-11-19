@@ -43,6 +43,9 @@ export function getDropIcon(
         if (manualData.dragonridingItemToQuest[drop.id]) {
             icon = iconLibrary.gameSpikedDragonHead
         }
+        else if (manualData.druidFormItemToQuest[drop.id]) {
+            icon = iconLibrary.gameBearFace
+        }
         else if (itemData.teachesSpell[drop.id]) {
             const [skillLineId,] = staticData.itemToSkillLine[drop.id]
             const [profession,] = staticData.professionBySkillLine[skillLineId]

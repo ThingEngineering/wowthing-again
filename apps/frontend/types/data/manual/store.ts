@@ -36,6 +36,7 @@ export interface ManualData {
     // Computed data
     dragonridingItemToQuest: Record<number, number>
     druidForms: ManualDataDruidFormGroup[]
+    druidFormItemToQuest: Record<number, number>
     heirlooms: ManualDataHeirloomGroup[]
     illusions: ManualDataIllusionGroup[]
     shared: ManualDataShared
