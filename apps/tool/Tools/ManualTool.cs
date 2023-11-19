@@ -4,6 +4,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Dragonriding;
+using Wowthing.Tool.Models.DruidForms;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Items;
@@ -25,6 +26,7 @@ public class ManualTool
     private Dictionary<int, int> _bonusAppearanceModifiers;
     private Dictionary<int, int[]> _collectionItemToModifiedAppearances;
     private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
+    private Dictionary<int, WowItemEffectV2> _itemEffectMap;
     private Dictionary<int, WowItem> _itemMap;
     private Dictionary<int, WowItemModifiedAppearance> _itemModifiedAppearanceMap;
     private Dictionary<int, WowMount> _mountMap;
@@ -125,6 +127,7 @@ public class ManualTool
 
         var itemEffects = await context.WowItemEffectV2
             .ToArrayAsync();
+        _itemEffectMap = itemEffects.ToDictionary(ie => ie.ItemId);
 
         var transmogSetEffects = itemEffects.Where(itemEffect =>
             itemEffect.SpellEffects.Any(kvp =>
@@ -197,6 +200,9 @@ public class ManualTool
 
         cacheData.Dragonriding = LoadDragonriding();
         _timer.AddPoint("Dragonriding");
+
+        cacheData.RawDruidFormGroups = LoadDruidForms();
+        _timer.AddPoint("DruidForms");
 
         cacheData.RawHeirloomGroups = LoadHeirlooms();
         _timer.AddPoint("Heirlooms");
@@ -277,6 +283,44 @@ public class ManualTool
             ret.Add(category);
         }
 
+        return ret;
+    }
+
+    private List<OutDruidFormGroup> LoadDruidForms()
+    {
+        var groups = DataUtilities.YamlDeserializer
+            .Deserialize<DataDruidFormGroup[]>(
+                File.OpenText(
+                    Path.Join(DataUtilities.DataPath, "druid-forms", "druid_forms.yml")
+                )
+            );
+
+        var ret = new List<OutDruidFormGroup>();
+        foreach (var dataGroup in groups)
+        {
+            var outGroup = new OutDruidFormGroup(dataGroup);
+            foreach (int itemId in dataGroup.Items.EmptyIfNull())
+            {
+                var outItem = new OutDruidFormItem(itemId);
+                if (_itemEffectMap.TryGetValue(itemId, out var itemEffect))
+                {
+                    foreach (var spellEffects in itemEffect.SpellEffects.Values)
+                    {
+                        foreach (var spellEffect in spellEffects.Values)
+                        {
+                            if (spellEffect.Effect == WowSpellEffectEffect.CompleteQuest)
+                            {
+                                outItem.QuestId = spellEffect.Values[0];
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                outGroup.Items.Add(outItem);
+            }
+            ret.Add(outGroup);
+        }
         return ret;
     }
 
