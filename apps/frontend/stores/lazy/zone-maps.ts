@@ -220,6 +220,11 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     stores.manualData.dragonridingItemToQuest[drop.id]
                                 )
                             }
+                            else if (stores.manualData.druidFormItemToQuest[drop.id]) {
+                                dropStatus.need = !stores.userQuestData.accountHas.has(
+                                    stores.manualData.druidFormItemToQuest[drop.id]
+                                )
+                            }
                             else if (stores.staticData.professionAbilityByItemId[drop.id]) {
                                 const professionInfo = stores.staticData.professionAbilityByItemId[drop.id]
                                 dropStatus.need = !every(

@@ -27,6 +27,12 @@ export const imageStrings: Record<string, string> = {
     'covenant-necrolord': 'covenant_necrolord',
     'covenant-night-fae': 'covenant_night_fae',
     'covenant-venthyr': 'covenant_venthyr',
+    'druid-aquatic': 'spell/276012',
+    'druid-bear': 'spell/5487',
+    'druid-cat': 'spell/768',
+    'druid-flight': 'spell/165962',
+    'druid-moonkin': 'spell/24858',
+    'druid-travel': 'spell/783',
     hearthstone: 'item/6948',
 }
 

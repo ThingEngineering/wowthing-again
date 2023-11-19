@@ -1,5 +1,6 @@
 ﻿using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Dragonriding;
+using Wowthing.Tool.Models.DruidForms;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.ItemSets;
@@ -13,6 +14,7 @@ namespace Wowthing.Tool.Models.Manual;
 public class ManualCache
 {
     public List<DataDragonridingCategory> Dragonriding { get; set; }
+    public List<OutDruidFormGroup> RawDruidFormGroups { get; set; }
     public DataHeirloomGroup[] RawHeirloomGroups { get; set; }
     public DataIllusionGroup[] RawIllusionGroups { get; set; }
     public List<List<OutCollectionCategory>> RawMountSets { get; set; }
