@@ -70,7 +70,7 @@ public static class DataUtilities
         return records.ToDictionary(keyFunc);
     }
 
-    public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger? logger = null)
+    public static List<List<TCategory?>?> LoadData<TCategory>(string basePath, ILogger? logger = null)
         where TCategory : class, ICloneable, IDataCategory
     {
         var categories = new List<List<TCategory>>();
@@ -85,6 +85,11 @@ public static class DataUtilities
         List<TCategory>? things = null;
         foreach (var line in File.ReadLines(orderFile))
         {
+            if (line.StartsWith('#'))
+            {
+                continue;
+            }
+
             if (line == "*")
             {
                 inGlobal = true;
