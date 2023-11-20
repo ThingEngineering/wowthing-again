@@ -4,8 +4,7 @@ export class ManualDataCustomizationCategory {
     constructor(
         public name: string,
         public slug: string,
-        groupArrays: ManualDataCustomizationGroupArray[],
-        public skipClasses?: string[]
+        groupArrays: ManualDataCustomizationGroupArray[]
     )
     { 
         this.groups = groupArrays.map((groupArray) => new ManualDataCustomizationGroup(...groupArray))
@@ -28,9 +27,9 @@ export type ManualDataCustomizationGroupArray = ConstructorParameters<typeof Man
 
 export class ManualDataCustomizationThing {
     constructor(
-        public name: string,
         public itemId: number,
-        public questId: number
+        public questId: number,
+        public name: string
     )
     { }
 }

@@ -28,6 +28,11 @@
             <Percent percent={$lazyStore.appearances.OVERALL.percent} />
         </a>
 
+        <a href={"#/collections/customizations"} use:active>
+            Customizations
+            <Percent percent={$lazyStore.dragonriding.OVERALL.percent} />
+        </a>
+
         <a href={"#/collections/dragonriding"} use:active>
             Dragonriding
             <Percent percent={$lazyStore.dragonriding.OVERALL.percent} />
