@@ -1,6 +1,5 @@
 import type { ManualDataCustomizationCategory, ManualDataCustomizationCategoryArray } from './customization'
 import type { ManualDataDragonridingCategory } from './dragonriding'
-import type { ManualDataDruidFormGroup, ManualDataDruidFormGroupArray } from './druid-form'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'
@@ -26,7 +25,6 @@ export interface ManualData {
     rawToySets: ManualDataSetCategoryArray[][]
     
     rawCustomizationCategories: ManualDataCustomizationCategoryArray[][]
-    rawDruidFormGroups: ManualDataDruidFormGroupArray[]
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawIllusionGroups: ManualDataIllusionGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
@@ -37,7 +35,6 @@ export interface ManualData {
 
     // Computed data
     dragonridingItemToQuest: Record<number, number>
-    druidForms: ManualDataDruidFormGroup[]
     druidFormItemToQuest: Record<number, number>
     heirlooms: ManualDataHeirloomGroup[]
     illusions: ManualDataIllusionGroup[]

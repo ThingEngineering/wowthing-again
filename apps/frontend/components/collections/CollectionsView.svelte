@@ -4,7 +4,6 @@
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Customizations from '@/user-home/components/customizations/Customizations.svelte'
     import Dragonriding from './dragonriding/Dragonriding.svelte'
-    import DruidForms from '@/user-home/components/druid-forms/DruidForms.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import Illusions from '@/components/illusions/Illusions.svelte'
     import Mounts from '@/components/collectible/Mounts.svelte'
@@ -34,9 +33,6 @@
 
     {:else if params.slug1 === 'dragonriding'}
         <Dragonriding />
-    
-    {:else if params.slug1 === 'druid-forms'}
-        <DruidForms />
 
     {:else if params.slug1 === 'heirlooms'}
         <Heirlooms />

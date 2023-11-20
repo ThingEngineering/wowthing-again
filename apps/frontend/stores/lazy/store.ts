@@ -166,7 +166,6 @@ export class LazyStore implements LazyUgh {
     private appearancesFunc: () => UserCounts
     private customizationsFunc: () => UserCounts
     private dragonridingFunc: () => UserCounts
-    private druidFormsFunc: () => UserCounts
     private heirloomsFunc: () => UserCounts
     private illusionsFunc: () => UserCounts
 
@@ -321,7 +320,6 @@ export class LazyStore implements LazyUgh {
         if (changedData.userQuestData) {
             this.customizationsFunc = once(() => this.doCustomizations())
             this.dragonridingFunc = once(() => this.doDragonriding())
-            this.druidFormsFunc = once(() => this.doDruidForms())
         }
 
         if (changedData.userData ||
@@ -409,7 +407,6 @@ export class LazyStore implements LazyUgh {
     get convertible(): LazyConvertible { return this.convertibleFunc() }
     get customizations(): UserCounts { return this.customizationsFunc() }
     get dragonriding(): UserCounts { return this.dragonridingFunc() }
-    get druidForms(): UserCounts { return this.druidFormsFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
     get journal(): LazyJournal { return this.journalFunc() }
@@ -554,27 +551,6 @@ export class LazyStore implements LazyUgh {
                         sectionData.have++
                         groupData.have++
                     }
-                }
-            }
-        }
-
-        return counts
-    }
-
-    private doDruidForms(): UserCounts {
-        const counts: UserCounts = {}
-        const overallData = counts['OVERALL'] = new UserCount()
-        
-        for (const group of this.manualData.druidForms) {
-            const groupData = counts[group.name] = new UserCount()
-
-            for (const { questId } of group.items) {
-                overallData.total++
-                groupData.total++
-                
-                if (this.userQuestData.accountHas.has(questId)) {
-                    overallData.have++
-                    groupData.have++
                 }
             }
         }

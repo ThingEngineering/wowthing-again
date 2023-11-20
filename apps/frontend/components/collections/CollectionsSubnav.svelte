@@ -38,11 +38,6 @@
             <Percent percent={$lazyStore.dragonriding.OVERALL.percent} />
         </a>
 
-        <a href={"#/collections/druid-forms"} use:active>
-            Druid Forms
-            <Percent percent={$lazyStore.druidForms.OVERALL.percent} />
-        </a>
-
         <a href={"#/collections/heirlooms"} use:active>
             Heirlooms
             <Percent percent={$lazyStore.heirlooms.AVAILABLE.percent} />

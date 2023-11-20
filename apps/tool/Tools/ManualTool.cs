@@ -5,7 +5,6 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Customizations;
 using Wowthing.Tool.Models.Dragonriding;
-using Wowthing.Tool.Models.DruidForms;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Items;
@@ -204,9 +203,6 @@ public class ManualTool
 
         cacheData.Dragonriding = LoadDragonriding();
         _timer.AddPoint("Dragonriding");
-
-        cacheData.RawDruidFormGroups = LoadDruidForms();
-        _timer.AddPoint("DruidForms");
 
         cacheData.RawHeirloomGroups = LoadHeirlooms();
         _timer.AddPoint("Heirlooms");
@@ -426,44 +422,6 @@ public class ManualTool
             ret.Add(category);
         }
 
-        return ret;
-    }
-
-    private List<OutDruidFormGroup> LoadDruidForms()
-    {
-        var groups = DataUtilities.YamlDeserializer
-            .Deserialize<DataDruidFormGroup[]>(
-                File.OpenText(
-                    Path.Join(DataUtilities.DataPath, "druid-forms", "druid_forms.yml")
-                )
-            );
-
-        var ret = new List<OutDruidFormGroup>();
-        foreach (var dataGroup in groups)
-        {
-            var outGroup = new OutDruidFormGroup(dataGroup);
-            foreach (int itemId in dataGroup.Items.EmptyIfNull())
-            {
-                var outItem = new OutDruidFormItem(itemId);
-                if (_itemEffectMap.TryGetValue(itemId, out var itemEffect))
-                {
-                    foreach (var spellEffects in itemEffect.SpellEffects.Values)
-                    {
-                        foreach (var spellEffect in spellEffects.Values)
-                        {
-                            if (spellEffect.Effect == WowSpellEffectEffect.CompleteQuest)
-                            {
-                                outItem.QuestId = spellEffect.Values[0];
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                outGroup.Items.Add(outItem);
-            }
-            ret.Add(outGroup);
-        }
         return ret;
     }
 

@@ -13,7 +13,6 @@ import {
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
-import { ManualDataDruidFormGroup } from '@/types/data/manual/druid-form'
 
 
 export class ManualDataStore extends WritableFancyStore<ManualData> {
@@ -84,11 +83,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         )
         data.rawCustomizationCategories = null
 
-        data.druidForms = data.rawDruidFormGroups.map(
-            (groupArray) => new ManualDataDruidFormGroup(...groupArray)
-        )
-        data.rawDruidFormGroups = null
-
         data.heirlooms = data.rawHeirloomGroups.map(
             (groupArray) => new ManualDataHeirloomGroup(...groupArray)
         )
@@ -140,11 +134,11 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         }
 
         data.druidFormItemToQuest = {}
-        for (const druidForumGroup of data.druidForms) {
-            for (const druidFormItem of druidForumGroup.items) {
-                data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
-            }
-        }
+        // for (const druidForumGroup of data.druidForms) {
+        //     for (const druidFormItem of druidForumGroup.items) {
+        //         data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
+        //     }
+        // }
 
         console.timeEnd('ManualDataStore.initialize')
     }
