@@ -145,7 +145,7 @@
 {#each category.groups as group, groupIndex}
     {@const currentType = transmogSets[group.type].type}
     {@const showPercent = !isNaN(categoryPercent)}
-    {@const groupKey = `${setKey}--${groupIndex}`}
+    {@const groupKey = `${setKey}--${category.slug}--${groupIndex}`}
     {@const isExpanded = $transmogSetsState.collapsedCategories[groupKey] !== true}
     {#if groupIndex === 0 || (
         transmogSets[category.groups[groupIndex-1].type].type !== currentType &&
