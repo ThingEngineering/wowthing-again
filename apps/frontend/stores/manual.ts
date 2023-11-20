@@ -2,6 +2,7 @@ import sortBy from 'lodash/sortBy'
 
 import { WritableFancyStore } from '@/types/fancy-store'
 import {
+    ManualDataCustomizationCategory,
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,
     ManualDataSetCategory,
@@ -75,6 +76,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             }
         }
         data.rawSharedVendors = null
+
+        data.customizationCategories = data.rawCustomizationCategories.map(
+            (categories) => categories === null ? null : categories.map(
+                (catArray) => catArray === null ? null : new ManualDataCustomizationCategory(...catArray)
+            )
+        )
+        data.rawCustomizationCategories = null
 
         data.druidForms = data.rawDruidFormGroups.map(
             (groupArray) => new ManualDataDruidFormGroup(...groupArray)

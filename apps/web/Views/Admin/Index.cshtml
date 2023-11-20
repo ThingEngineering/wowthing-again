@@ -15,21 +15,21 @@
 
 @if (HostEnv.EnvironmentName != "Development")
 {
-@section css
-{
-    <partial name="_ManifestCss.cshtml" model='"admin/entrypoint.ts"' />
-}
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"admin/admin.ts"' />
+    }
 }
 
 @section js
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
-        <script type="module" src="http://localhost:55505/admin/entrypoint.ts"></script>
+        <script type="module" src="http://localhost:55505/admin/admin.ts"></script>
     }
     else
     {
-        <partial name="_ManifestJs.cshtml" model='"admin/entrypoint.ts"'/>
+        <partial name="_ManifestJs.cshtml" model='"admin/admin.ts"'/>
     }
 }
 

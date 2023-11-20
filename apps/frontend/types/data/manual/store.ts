@@ -1,3 +1,4 @@
+import type { ManualDataCustomizationCategory, ManualDataCustomizationCategoryArray } from './customization'
 import type { ManualDataDragonridingCategory } from './dragonriding'
 import type { ManualDataDruidFormGroup, ManualDataDruidFormGroupArray } from './druid-form'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
@@ -24,6 +25,7 @@ export interface ManualData {
     rawPetSets: ManualDataSetCategoryArray[][]
     rawToySets: ManualDataSetCategoryArray[][]
     
+    rawCustomizationCategories: ManualDataCustomizationCategoryArray[][]
     rawDruidFormGroups: ManualDataDruidFormGroupArray[]
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawIllusionGroups: ManualDataIllusionGroupArray[]
@@ -44,6 +46,7 @@ export interface ManualData {
     vendors: ManualDataVendors
     zoneMaps: ManualDataZoneMaps
 
+    customizationCategories: ManualDataCustomizationCategory[][]
     mountSets: ManualDataSetCategory[][]
     petSets: ManualDataSetCategory[][]
     toySets: ManualDataSetCategory[][]

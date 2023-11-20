@@ -26,7 +26,7 @@
 {
     @section css
     {
-        <partial name="_ManifestCss.cshtml" model='"user-home/entrypoint.ts"' />
+        <partial name="_ManifestCss.cshtml" model='"user-home/user-home.ts"' />
     }
 }
 
@@ -34,11 +34,11 @@
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
-        <script type="module" src="http://localhost:55505/user-home/entrypoint.ts"></script>
+        <script type="module" src="http://localhost:55505/user-home/user-home.ts"></script>
     }
     else
     {
-        <partial name="_ManifestJs.cshtml" model='"user-home/entrypoint.ts"' />
+        <partial name="_ManifestJs.cshtml" model='"user-home/user-home.ts"' />
     }
 
     <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>

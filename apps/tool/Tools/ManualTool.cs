@@ -3,6 +3,7 @@ using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Collections;
+using Wowthing.Tool.Models.Customizations;
 using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.DruidForms;
 using Wowthing.Tool.Models.Heirlooms;
@@ -198,6 +199,9 @@ public class ManualTool
         cacheData.RawToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
+        cacheData.RawCustomizationCategories = await LoadCustomizations(Language.enUS);
+        _timer.AddPoint("Customizations");
+
         cacheData.Dragonriding = LoadDragonriding();
         _timer.AddPoint("Dragonriding");
 
@@ -266,6 +270,145 @@ public class ManualTool
         await context.SaveChangesAsync();
 
         _timer.AddPoint("Quests", true);
+    }
+
+    private async Task<List<List<ManualCustomizationCategory?>?>> LoadCustomizations(Language language)
+    {
+        var customizationSets = DataUtilities.LoadData<DataCustomizationCategory>(
+            "customizations", ToolContext.Logger);
+
+        // var dumpCategories = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationCategory>(
+        //     "chrcustomizationcategory", language);
+
+        var dumpChoices = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationChoice>(
+            "chrcustomizationchoice", language);
+
+        var dumpOptions = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationOption>(
+            "chrcustomizationoption", language);
+
+        var dumpReqs = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationReq>(
+            "chrcustomizationreq", language);
+
+        var choicesByReqId = dumpChoices
+            .Where(choice => choice.ChrCustomizationReqID > 0)
+            .ToGroupedDictionary(choice => choice.ChrCustomizationReqID);
+
+        var optionsById = dumpOptions.ToDictionary(option => option.ID);
+
+        var reqsByQuestId = dumpReqs
+            .Where(req => req.ReqQuestID > 0)
+            .ToGroupedDictionary(req => req.ReqQuestID);
+
+        var ret = new List<List<ManualCustomizationCategory?>?>(customizationSets.Count);
+
+        foreach (var catList in customizationSets)
+        {
+            if (catList == null)
+            {
+                ret.Add(null);
+                continue;
+            }
+
+            var newList = new List<ManualCustomizationCategory?>();
+            foreach (var category in catList)
+            {
+                if (category == null)
+                {
+                    newList.Add(null);
+                    continue;
+                }
+
+                var newCat = new ManualCustomizationCategory(category);
+                if (category.Groups is [{ Name: "AUTO" }])
+                {
+                    var groupMap = new Dictionary<int, ManualCustomizationGroup>();
+
+                    foreach (var thing in category.Groups[0].Things)
+                    {
+                        var newThing = new ManualCustomizationThing(thing);
+                        if (newThing.QuestId == 0 && _itemEffectMap.TryGetValue(newThing.ItemId, out var itemEffect))
+                        {
+                            foreach (var spellEffects in itemEffect.SpellEffects.Values)
+                            {
+                                foreach (var spellEffect in spellEffects.Values)
+                                {
+                                    if (spellEffect.Effect == WowSpellEffectEffect.CompleteQuest)
+                                    {
+                                        newThing.QuestId = spellEffect.Values[0];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (newThing.QuestId == 0)
+                        {
+                            ToolContext.Logger.Warning("QuestID still 0 for ItemID {id}", newThing.ItemId);
+                            continue;
+                        }
+
+                        if (!reqsByQuestId.TryGetValue(newThing.QuestId, out var reqs))
+                        {
+                            ToolContext.Logger.Warning("No reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            continue;
+                        }
+
+                        if (reqs.Length > 1)
+                        {
+                            ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            continue;
+                        }
+
+                        var req = reqs[0];
+                        if (!choicesByReqId.TryGetValue(req.ID, out var choices))
+                        {
+                            ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            continue;
+                        }
+
+                        if (choices.Length > 1)
+                        {
+                            ToolContext.Logger.Warning("Too many choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            continue;
+                        }
+
+                        var choice = choices[0];
+                        if (choice.ChrCustomizationOptionID == 0 ||
+                            !optionsById.TryGetValue(choice.ChrCustomizationOptionID, out var option))
+                        {
+                            ToolContext.Logger.Warning("No option for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            continue;
+                        }
+
+                        if (!groupMap.TryGetValue(option.ID, out var newGroup))
+                        {
+                            newGroup = groupMap[option.ID] = new ManualCustomizationGroup(option.Name);
+                        }
+
+                        newThing.Name = choice.Name;
+                        newGroup.Things.Add(newThing);
+                    }
+
+                    newCat.Groups.AddRange(groupMap
+                        .Values
+                        .OrderBy(group => group.Name)
+                    );
+                }
+                else
+                {
+                    newCat.Groups.AddRange(category.Groups
+                        .EmptyIfNull()
+                        .Select(group => new ManualCustomizationGroup(group))
+                    );
+                }
+
+                newList.Add(newCat);
+            }
+
+            ret.Add(newList);
+        }
+
+        return ret;
     }
 
     private List<DataDragonridingCategory> LoadDragonriding()

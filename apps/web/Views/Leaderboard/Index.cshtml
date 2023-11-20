@@ -9,7 +9,7 @@
 {
     @section css
     {
-        <partial name="_ManifestCss.cshtml" model='"leaderboards/entrypoint.ts"' />
+        <partial name="_ManifestCss.cshtml" model='"leaderboards/leaderboards.ts"' />
     }
 }
 
@@ -17,11 +17,11 @@
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
-        <script type="module" src="http://localhost:55505/leaderboards/entrypoint.ts"></script>
+        <script type="module" src="http://localhost:55505/leaderboards/leaderboards.ts"></script>
     }
     else
     {
-        <partial name="_ManifestJs.cshtml" model='"leaderboards/entrypoint.ts"'/>
+        <partial name="_ManifestJs.cshtml" model='"leaderboards/leaderboards.ts"'/>
     }
 }
 
