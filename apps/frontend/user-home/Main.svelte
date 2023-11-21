@@ -91,6 +91,7 @@
 
             itemStore.setup(
                 $manualStore,
+                $staticStore
             )
 
             ready = true
