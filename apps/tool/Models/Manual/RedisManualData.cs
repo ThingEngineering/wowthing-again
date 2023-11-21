@@ -3,7 +3,6 @@ using Wowthing.Tool.Models.Customizations;
 using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
-using Wowthing.Tool.Models.ItemSets;
 using Wowthing.Tool.Models.Progress;
 using Wowthing.Tool.Models.Transmog;
 using Wowthing.Tool.Models.Vendors;
