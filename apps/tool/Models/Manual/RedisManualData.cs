@@ -29,7 +29,6 @@ public class ManualCache
     public List<List<ManualZoneMapCategory>> RawZoneMapSets { get; set; }
 
     // Shared
-    public List<ManualSharedItemSet> RawSharedItemSets { get; set; }
     public List<ManualSharedVendor> RawSharedVendors { get; set; }
 
     // Tags

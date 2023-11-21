@@ -9,7 +9,6 @@ using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Items;
-using Wowthing.Tool.Models.ItemSets;
 using Wowthing.Tool.Models.Manual;
 using Wowthing.Tool.Models.Progress;
 using Wowthing.Tool.Models.Transmog;
@@ -210,9 +209,6 @@ public class ManualTool
 
         cacheData.RawIllusionGroups = LoadIllusions();
         _timer.AddPoint("Illusions");
-
-        cacheData.RawSharedItemSets = LoadSharedItemSets();
-        _timer.AddPoint("ItemSets");
 
         cacheData.ProgressSets = LoadProgress();
         _timer.AddPoint("Progress");

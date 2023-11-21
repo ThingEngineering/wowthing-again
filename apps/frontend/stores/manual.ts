@@ -24,9 +24,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         console.time('ManualDataStore.initialize')
 
         data.shared = {
-            itemSets: [],
-            itemSetsByTag: {},
-
             vendors: {},
             vendorsByMap: {},
             vendorsByTag: {},
@@ -48,17 +45,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             data.tagsByName[tagName] = tagId
         }
         data.rawTags = null
-
-        for (const itemSetArray of data.rawSharedItemSets) {
-            const obj = new ManualDataSharedItemSet(...itemSetArray)
-            data.shared.itemSets.push(obj)
-
-            for (const tag of obj.tags) {
-                data.shared.itemSetsByTag[tag] ||= []
-                data.shared.itemSetsByTag[tag].push(obj)
-            }
-        }
-        data.rawSharedItemSets = null
 
         for (const vendorArray of data.rawSharedVendors) {
             const obj = new ManualDataSharedVendor(...vendorArray)
