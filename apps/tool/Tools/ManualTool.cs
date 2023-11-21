@@ -2,6 +2,7 @@
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Models.Achievements;
 using Wowthing.Tool.Models.Collections;
 using Wowthing.Tool.Models.Customizations;
 using Wowthing.Tool.Models.Dragonriding;
@@ -276,6 +277,41 @@ public class ManualTool
         // var dumpCategories = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationCategory>(
         //     "chrcustomizationcategory", language);
 
+        // Achievement garbage
+        var achievementById = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpAchievement>(
+            "achievement", achievement => achievement.ID);
+
+        var criteriaById = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpCriteria>(
+            "criteria", criteria => criteria.ID);
+
+        var criteriaTrees = await DataUtilities.LoadDumpCsvAsync<DumpCriteriaTree>("criteriatree");
+        var criteriaTreeById = criteriaTrees.ToDictionary(criteriaTree => criteriaTree.ID);
+        var criteriaTreeByParent = criteriaTrees
+            .Where(criteriaTree => criteriaTree.Parent > 0)
+            .ToGroupedDictionary(criteriaTree => criteriaTree.Parent);
+
+        var questIdToAchievements = new Dictionary<int, List<int>>();
+        foreach (var achievement in achievementById.Values)
+        {
+            if (!criteriaTreeById.TryGetValue(achievement.CriteriaTree, out var criteriaTree) ||
+                !criteriaTreeByParent.TryGetValue(criteriaTree.ID, out var criteriaChildren) ||
+                criteriaChildren.Length != 1 ||
+                !criteriaById.TryGetValue(criteriaChildren[0].CriteriaID, out var criteria) ||
+                criteria.Type != 27)
+            {
+                continue;
+            }
+
+            if (!questIdToAchievements.TryGetValue(criteria.Asset, out var questAchievements))
+            {
+                questAchievements = questIdToAchievements[criteria.Asset] = new();
+            }
+
+            questAchievements.Add(achievement.ID);
+            ToolContext.Logger.Debug("Achievement {a} -> Quest {q}", achievement.ID, criteria.Asset);
+        }
+
+        // ChrCustomization
         var dumpChoices = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationChoice>(
             "chrcustomizationchoice", language);
 
@@ -283,13 +319,17 @@ public class ManualTool
             "chrcustomizationoption", language);
 
         var dumpReqs = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationReq>(
-            "chrcustomizationreq", language);
+            "chrcustomizationreq", language, req => req.ReqType == 3);
 
         var choicesByReqId = dumpChoices
             .Where(choice => choice.ChrCustomizationReqID > 0)
             .ToGroupedDictionary(choice => choice.ChrCustomizationReqID);
 
         var optionsById = dumpOptions.ToDictionary(option => option.ID);
+
+        var reqsByAchievementId = dumpReqs
+            .Where(req => req.ReqAchievementID > 0)
+            .ToGroupedDictionary(req => req.ReqAchievementID);
 
         var reqsByQuestId = dumpReqs
             .Where(req => req.ReqQuestID > 0)
@@ -345,44 +385,74 @@ public class ManualTool
 
                         if (!reqsByQuestId.TryGetValue(newThing.QuestId, out var reqs))
                         {
-                            ToolContext.Logger.Warning("No reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                            continue;
+                            if (!questIdToAchievements.TryGetValue(newThing.QuestId, out var achievementIds))
+                            {
+                                ToolContext.Logger.Warning("No reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                                continue;
+                            }
+
+                            foreach (int achievementId in achievementIds)
+                            {
+                                if (reqsByAchievementId.TryGetValue(achievementId, out reqs))
+                                {
+                                    break;
+                                }
+                            }
+
+                            if (reqs == null)
+                            {
+                                ToolContext.Logger.Warning("No achievement reqs for ItemID {item}/QuestID {quest}", newThing.ItemId,
+                                    newThing.QuestId);
+                                continue;
+                            }
                         }
 
                         if (reqs.Length > 1)
                         {
-                            ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                            continue;
+                            var reqSources = new HashSet<string>(reqs.Select(req => req.ReqSource));
+                            if (reqSources.Count > 1)
+                            {
+                                ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest} - {reqs}",
+                                    newThing.ItemId, newThing.QuestId,
+                                    string.Join(",", reqs.Select(r => r.ID)));
+                                continue;
+                            }
                         }
 
-                        var req = reqs[0];
-                        if (!choicesByReqId.TryGetValue(req.ID, out var choices))
+                        if (!choicesByReqId.TryGetValue(reqs[0].ID, out var choices))
                         {
                             ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
                             continue;
                         }
 
-                        if (choices.Length > 1)
+                        bool foundAny = false;
+                        foreach (var choice in choices)
                         {
-                            ToolContext.Logger.Warning("Too many choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                            continue;
+                            if (choice.ChrCustomizationOptionID == 0 ||
+                                !optionsById.TryGetValue(choice.ChrCustomizationOptionID, out var option))
+                            {
+                                continue;
+                            }
+
+                            if (!groupMap.TryGetValue(option.ID, out var newGroup))
+                            {
+                                newGroup = groupMap[option.ID] = new ManualCustomizationGroup(option.Name);
+                            }
+
+                            newGroup.Things.Add(new ManualCustomizationThing
+                            {
+                                ItemId = newThing.ItemId,
+                                QuestId = newThing.QuestId,
+                                Name = choice.Name,
+                            });
+                            foundAny = true;
                         }
 
-                        var choice = choices[0];
-                        if (choice.ChrCustomizationOptionID == 0 ||
-                            !optionsById.TryGetValue(choice.ChrCustomizationOptionID, out var option))
+                        if (!foundAny)
                         {
                             ToolContext.Logger.Warning("No option for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
                             continue;
                         }
-
-                        if (!groupMap.TryGetValue(option.ID, out var newGroup))
-                        {
-                            newGroup = groupMap[option.ID] = new ManualCustomizationGroup(option.Name);
-                        }
-
-                        newThing.Name = choice.Name;
-                        newGroup.Things.Add(newThing);
                     }
 
                     newCat.Groups.AddRange(groupMap
@@ -477,44 +547,6 @@ public class ManualTool
             }
         }
 
-    }
-
-    private List<ManualSharedItemSet> LoadSharedItemSets()
-    {
-        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_shared", "item-sets"));
-        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
-            .OrderBy(file => file.FullName)
-            .ToArray();
-
-        var ret = new List<ManualSharedItemSet>();
-
-        foreach (var file in files)
-        {
-            ToolContext.Logger.Debug("Parsing {file}", file.FullName);
-            var itemSets = DataUtilities.YamlDeserializer.Deserialize<DataSharedItemSets>(File.OpenText(file.FullName));
-
-            if (itemSets == null)
-            {
-                continue;
-            }
-
-            AddTags(itemSets.Tags);
-
-            foreach (var itemSet in itemSets.Sets)
-            {
-                AddTags(itemSet.Tags.EmptyIfNull());
-
-                var tags = itemSets.Tags
-                    .Union(itemSet.Tags.EmptyIfNull())
-                    .Select(tag => _tagMap[tag])
-                    .OrderBy(tag => tag)
-                    .ToList();
-
-                ret.Add(new ManualSharedItemSet(itemSet, tags));
-            }
-        }
-
-        return ret;
     }
 
     private List<ManualSharedVendor> LoadSharedVendors()
