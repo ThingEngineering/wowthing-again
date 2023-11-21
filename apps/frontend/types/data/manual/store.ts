@@ -1,5 +1,4 @@
 import type { ManualDataCustomizationCategory, ManualDataCustomizationCategoryArray } from './customization'
-import type { ManualDataDragonridingCategory } from './dragonriding'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'

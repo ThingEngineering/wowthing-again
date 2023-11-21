@@ -111,13 +111,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawToySets = null
         
         data.dragonridingItemToQuest = {}
-        for (const dragonCategory of data.dragonriding) {
-            for (const dragonGroup of dragonCategory.groups) {
-                for (const dragonItem of dragonGroup.things) {
-                    data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
-                }
-            }
-        }
+        // for (const dragonCategory of data.dragonriding) {
+        //     for (const dragonGroup of dragonCategory.groups) {
+        //         for (const dragonItem of dragonGroup.things) {
+        //             data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
+        //         }
+        //     }
+        // }
 
         data.druidFormItemToQuest = {}
         // for (const druidForumGroup of data.druidForms) {
