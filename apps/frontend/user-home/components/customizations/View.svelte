@@ -21,8 +21,6 @@
 
         category = find(categories, (c) => c !== null && c.slug === params.slug2)
         if (!category) { break $ }
-        
-        console.log(category)
     }
 
     let containerElement: HTMLElement

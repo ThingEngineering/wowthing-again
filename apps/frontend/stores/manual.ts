@@ -6,7 +6,6 @@ import {
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,
     ManualDataSetCategory,
-    ManualDataSharedItemSet,
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
     ManualDataVendorCategory,

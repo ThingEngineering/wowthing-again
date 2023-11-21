@@ -11,7 +11,6 @@ import type { ManualDataZoneMapCategory, ManualDataZoneMapCategoryArray } from '
 
 export interface ManualData {
     // TODO pack these
-    dragonriding: ManualDataDragonridingCategory[]
     progressSets: ManualDataProgressCategory[][]
 
     // Packed data
