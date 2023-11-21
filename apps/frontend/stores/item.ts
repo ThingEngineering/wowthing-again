@@ -3,6 +3,7 @@ import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types/fancy-store'
 import { ItemDataItem, type ItemData, DataItemBonus, DataItemSet } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
+import type { StaticData } from '@/shared/stores/static/types'
 
 
 export class ItemDataStore extends WritableFancyStore<ItemData> {
@@ -109,8 +110,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItemBonuses = null
 
-        console.log(data.itemBonusCurrentSeason.keys)
-
         data.itemBonusToUpgrade = {}
         for (const bonusGroups of Object.values(data.itemBonusListGroups)) {
             for (const [sharedStringId, itemBonuses] of Object.entries(bonusGroups)) {
@@ -138,6 +137,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
 
     setup(
         manualData: ManualData,
+        staticData: StaticData
     ) {
         // console.time('ItemDataStore.setup')
 
@@ -145,23 +145,24 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             state.currentTier = {}
             state.previousTier = {}
 
-            for (const set of manualData.shared.itemSets) {
-                if (currentTier.sets[set.name]) {
-                    for (const itemIds of set.items) {
-                        const item = this.value.items[itemIds[0]]
-                        if (currentTier.slots.indexOf(item.inventoryType) >= 0)
-                        {
-                            state.currentTier[item.id] = item.inventoryType
-                        }
+            for (const setName of Object.keys(currentTier.sets)) {
+                const setId = parseInt(setName.split(':')[1])
+                const transmogSet = staticData.transmogSets[setId]
+                for (const [itemId,] of transmogSet.items) {
+                    const item = state.items[itemId]
+                    if (currentTier.slots.indexOf(item.inventoryType) >= 0) {
+                        state.currentTier[item.id] = item.inventoryType
                     }
                 }
-                if (previousTier?.sets[set.name]) {
-                    for (const itemIds of set.items) {
-                        const item = this.value.items[itemIds[0]]
-                        if (previousTier.slots.indexOf(item.inventoryType) >= 0)
-                        {
-                            state.previousTier[item.id] = item.inventoryType
-                        }
+            }
+
+            for (const setName of Object.keys(previousTier.sets)) {
+                const setId = parseInt(setName.split(':')[1])
+                const transmogSet = staticData.transmogSets[setId]
+                for (const [itemId,] of transmogSet.items) {
+                    const item = state.items[itemId]
+                    if (previousTier.slots.indexOf(item.inventoryType) >= 0) {
+                        state.previousTier[item.id] = item.inventoryType
                     }
                 }
             }

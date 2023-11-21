@@ -6,14 +6,12 @@ import {
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,
     ManualDataSetCategory,
-    ManualDataSharedItemSet,
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
     ManualDataVendorCategory,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
-import { ManualDataDruidFormGroup } from '@/types/data/manual/druid-form'
 
 
 export class ManualDataStore extends WritableFancyStore<ManualData> {
@@ -25,9 +23,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         console.time('ManualDataStore.initialize')
 
         data.shared = {
-            itemSets: [],
-            itemSetsByTag: {},
-
             vendors: {},
             vendorsByMap: {},
             vendorsByTag: {},
@@ -49,17 +44,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             data.tagsByName[tagName] = tagId
         }
         data.rawTags = null
-
-        for (const itemSetArray of data.rawSharedItemSets) {
-            const obj = new ManualDataSharedItemSet(...itemSetArray)
-            data.shared.itemSets.push(obj)
-
-            for (const tag of obj.tags) {
-                data.shared.itemSetsByTag[tag] ||= []
-                data.shared.itemSetsByTag[tag].push(obj)
-            }
-        }
-        data.rawSharedItemSets = null
 
         for (const vendorArray of data.rawSharedVendors) {
             const obj = new ManualDataSharedVendor(...vendorArray)
@@ -83,11 +67,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             )
         )
         data.rawCustomizationCategories = null
-
-        data.druidForms = data.rawDruidFormGroups.map(
-            (groupArray) => new ManualDataDruidFormGroup(...groupArray)
-        )
-        data.rawDruidFormGroups = null
 
         data.heirlooms = data.rawHeirloomGroups.map(
             (groupArray) => new ManualDataHeirloomGroup(...groupArray)
@@ -131,20 +110,20 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawToySets = null
         
         data.dragonridingItemToQuest = {}
-        for (const dragonCategory of data.dragonriding) {
-            for (const dragonGroup of dragonCategory.groups) {
-                for (const dragonItem of dragonGroup.things) {
-                    data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
-                }
-            }
-        }
+        // for (const dragonCategory of data.dragonriding) {
+        //     for (const dragonGroup of dragonCategory.groups) {
+        //         for (const dragonItem of dragonGroup.things) {
+        //             data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
+        //         }
+        //     }
+        // }
 
         data.druidFormItemToQuest = {}
-        for (const druidForumGroup of data.druidForms) {
-            for (const druidFormItem of druidForumGroup.items) {
-                data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
-            }
-        }
+        // for (const druidForumGroup of data.druidForms) {
+        //     for (const druidFormItem of druidForumGroup.items) {
+        //         data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
+        //     }
+        // }
 
         console.timeEnd('ManualDataStore.initialize')
     }

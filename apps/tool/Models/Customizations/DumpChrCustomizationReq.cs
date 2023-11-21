@@ -9,6 +9,7 @@ public class DumpChrCustomizationReq
     public int ReqAchievementID { get; set; }
     public int ReqItemModifiedAppearanceID { get; set; }
     public int ReqQuestID { get; set; }
+    public int ReqType { get; set; }
 
     [Name("ReqSource_lang")]
     public string ReqSource { get; set; } = string.Empty;

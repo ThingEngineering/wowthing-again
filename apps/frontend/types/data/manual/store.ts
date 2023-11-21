@@ -1,11 +1,8 @@
 import type { ManualDataCustomizationCategory, ManualDataCustomizationCategoryArray } from './customization'
-import type { ManualDataDragonridingCategory } from './dragonriding'
-import type { ManualDataDruidFormGroup, ManualDataDruidFormGroupArray } from './druid-form'
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'
 import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set'
-import type { ManualDataSharedItemSet, ManualDataSharedItemSetArray } from './shared-item-set'
 import type { ManualDataSharedVendor, ManualDataSharedVendorArray } from './shared-vendor'
 import type { ManualDataTransmogCategory, ManualDataTransmogCategoryArray } from './transmog'
 import type { ManualDataVendorCategory, ManualDataVendorCategoryArray } from './vendor'
@@ -14,11 +11,9 @@ import type { ManualDataZoneMapCategory, ManualDataZoneMapCategoryArray } from '
 
 export interface ManualData {
     // TODO pack these
-    dragonriding: ManualDataDragonridingCategory[]
     progressSets: ManualDataProgressCategory[][]
 
     // Packed data
-    rawSharedItemSets: ManualDataSharedItemSetArray[]
     rawSharedVendors: ManualDataSharedVendorArray[]
 
     rawMountSets: ManualDataSetCategoryArray[][]
@@ -26,7 +21,6 @@ export interface ManualData {
     rawToySets: ManualDataSetCategoryArray[][]
     
     rawCustomizationCategories: ManualDataCustomizationCategoryArray[][]
-    rawDruidFormGroups: ManualDataDruidFormGroupArray[]
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawIllusionGroups: ManualDataIllusionGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
@@ -37,7 +31,6 @@ export interface ManualData {
 
     // Computed data
     dragonridingItemToQuest: Record<number, number>
-    druidForms: ManualDataDruidFormGroup[]
     druidFormItemToQuest: Record<number, number>
     heirlooms: ManualDataHeirloomGroup[]
     illusions: ManualDataIllusionGroup[]
@@ -56,9 +49,6 @@ export interface ManualData {
 }
 
 export interface ManualDataShared {
-    itemSets: ManualDataSharedItemSet[]
-    itemSetsByTag: Record<number, ManualDataSharedItemSet[]>
-
     vendors: Record<number, ManualDataSharedVendor>
     vendorsByMap: Record<string, number[]>
     vendorsByTag: Record<string, number[]>
