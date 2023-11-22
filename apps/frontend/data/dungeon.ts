@@ -3,6 +3,9 @@ import type { StaticDataInstance } from '@/shared/stores/static/types'
 
 
 export const weeklyAffixes: string[][] = [
+    ['fortified', 'incorporeal', 'sanguine'],
+    ['tyrannical', 'entangling', 'bursting'],
+    ['fortified', 'volcanic', 'spiteful'],
     ['tyrannical', 'storming', 'raging'],
     ['fortified', 'entangling', 'bolstering'],
     ['tyrannical', 'incorporeal', 'spiteful'],
@@ -10,9 +13,6 @@ export const weeklyAffixes: string[][] = [
     ['tyrannical', 'volcanic', 'sanguine'],
     ['fortified', 'storming', 'bursting'],
     ['tyrannical', 'afflicted', 'bolstering'],
-    ['fortified', 'incorporeal', 'sanguine'],
-    ['tyrannical', 'entangling', 'bursting'],
-    ['fortified', 'volcanic', 'spiteful'],
 ]
 
 // MapChallengeMode.db2
