@@ -3,19 +3,19 @@ import { writable } from 'svelte/store'
 
 export class CollectibleState {
     public highlightMissing: Record<string, boolean> = {
-        dragonriding: true,
+        customizations: true,
         mounts: true,
         pets: true,
         toys: true,
     }
     public showCollected: Record<string, boolean> = {
-        dragonriding: true,
+        customizations: true,
         mounts: true,
         pets: true,
         toys: true,
     }
     public showUncollected: Record<string, boolean> = {
-        dragonriding: true,
+        customizations: true,
         mounts: true,
         pets: true,
         toys: true,

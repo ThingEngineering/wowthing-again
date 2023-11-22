@@ -3,14 +3,16 @@
     import { afterUpdate } from 'svelte'
 
     import { lazyStore, manualStore, userQuestStore } from '@/stores'
+    import { collectibleState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
+    import getPercentClass from '@/utils/get-percent-class'
     import type { MultiSlugParams } from '@/types'
     import type { ManualDataCustomizationCategory } from '@/types/data/manual'
 
+    import Options from './Options.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import getPercentClass from '@/utils/get-percent-class';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let params: MultiSlugParams
 
@@ -58,6 +60,8 @@
 
         break-inside: avoid;
         overflow: hidden; /* Firefox fix */
+        max-width: 35.5rem;
+        min-width: 35.5rem;
     }
     table + table {
         margin-top: 1rem;
@@ -73,6 +77,9 @@
     }
     .faded {
         opacity: 0.6;
+    }
+    .yes-no {
+        @include cell-width(1rem, $paddingLeft: 0px, $paddingRight: 0.5rem);
     }
     .name {
         @include cell-width(13rem);
@@ -90,6 +97,8 @@
 
 {#if category}
     <div class="resizer-view" bind:this={containerElement}>
+        <Options />
+
         <div class="idk" bind:this={resizeableElement}>
             {#each category.groups as group}
                 {@const groupStats = $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
@@ -110,27 +119,30 @@
                     <tbody>
                         {#each group.things as thing}
                             {@const have = $userQuestStore.accountHas.has(thing.questId)}
-                            <tr
-                                class:faded={have}
-                            >
-                                <td class="yes-no">
-                                    <YesNoIcon
-                                        state={have}
-                                        useStatusColors={true}
-                                    />
-                                </td>
-                                <td class="name text-overflow">
-                                    {thing.name}
-                                </td>
-                                <td class="item text-overflow">
-                                    <WowheadLink
-                                        id={thing.itemId}
-                                        type={'item'}
-                                    >
-                                        <ParsedText text={`{item:${thing.itemId}}`} />
-                                    </WowheadLink>
-                                </td>
-                            </tr>
+                            {#if (have && $collectibleState.showCollected['customizations'])
+                                || (!have && $collectibleState.showUncollected['customizations'])}
+                                <tr
+                                    class:faded={$collectibleState.highlightMissing['customizations'] ? have : !have}
+                                >
+                                    <td class="yes-no">
+                                        <YesNoIcon
+                                            state={have}
+                                            useStatusColors={true}
+                                        />
+                                    </td>
+                                    <td class="name text-overflow">
+                                        {thing.name}
+                                    </td>
+                                    <td class="item text-overflow">
+                                        <WowheadLink
+                                            id={thing.itemId}
+                                            type={'item'}
+                                        >
+                                            <ParsedText text={`{item:${thing.itemId}}`} />
+                                        </WowheadLink>
+                                    </td>
+                                </tr>
+                            {/if}
                         {/each}
                     </tbody>
                 </table>
