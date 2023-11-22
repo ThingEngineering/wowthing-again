@@ -110,20 +110,30 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawToySets = null
         
         data.dragonridingItemToQuest = {}
-        // for (const dragonCategory of data.dragonriding) {
-        //     for (const dragonGroup of dragonCategory.groups) {
-        //         for (const dragonItem of dragonGroup.things) {
-        //             data.dragonridingItemToQuest[dragonItem.itemId] = dragonItem.questId
-        //         }
-        //     }
-        // }
-
         data.druidFormItemToQuest = {}
-        // for (const druidForumGroup of data.druidForms) {
-        //     for (const druidFormItem of druidForumGroup.items) {
-        //         data.druidFormItemToQuest[druidFormItem.itemId] = druidFormItem.questId
-        //     }
-        // }
+        for (const categories of data.customizationCategories) {
+            if (categories === null) { continue }
+
+            for (const category of categories.slice(1)) {
+                if (category === null) { continue }
+                
+                for (const group of category.groups) {
+                    for (const thing of group.things) {
+                        if (!thing.itemId || !thing.questId) { continue }
+
+                        if (categories[0].slug === 'class') {
+                            if (category.slug === 'druid') {
+                                data.druidFormItemToQuest[thing.itemId] = thing.questId
+                            }
+                        }
+                        else if (categories[0].slug === 'dragonriding') {
+                            data.dragonridingItemToQuest[thing.itemId] = thing.questId
+                        }
+                    }
+                }
+            }
+        }
+        console.log(data.dragonridingItemToQuest, data.druidFormItemToQuest)
 
         console.timeEnd('ManualDataStore.initialize')
     }
