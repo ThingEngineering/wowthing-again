@@ -2,23 +2,32 @@ import { get } from 'svelte/store'
 
 import { InventoryType } from '@/enums/inventory-type'
 import { staticStore } from '@/shared/stores/static'
-import type { TierData } from '@/data/gear'
+import { itemStore } from '@/stores'
 import type { Character } from '@/types'
+import { typeOrder } from '@/data/inventory-type'
 
 
 type TierPieces = [string, number, number][]
 
 export function getTierPieces(
-    tierData: TierData,
+    itemSetIds: number[],
     tierMap: Record<number, InventoryType>,
     character: Character
 ): TierPieces {
     if (character.equippedItems) {
+        const itemData = get(itemStore)
         const staticData = get(staticStore)
 
         const tierPieceMap: Record<string, [number, number]> = {}
-        for (const tierSlot in tierData.slots) {
-            tierPieceMap[tierSlot] = [0, 0]
+        for (const itemSetId of itemSetIds) {
+            const itemSet = itemData.itemSets[itemSetId]
+            for (const itemId of itemSet.itemIds) {
+                const item = itemData.items[itemId]
+                const inventoryType = item.inventoryType === InventoryType.Chest2
+                    ? InventoryType.Chest
+                    : item.inventoryType
+                tierPieceMap[inventoryType] = [0, 0]
+            }
         }
 
         for (const item of Object.values(character.equippedItems)) {
@@ -31,11 +40,11 @@ export function getTierPieces(
             }
         }
 
-        return tierData.slots
-            .filter(slot => slot !== InventoryType.Chest2)
-            .map((slot) => [
-                staticData.inventoryTypes[slot],
-                ...(tierPieceMap[slot] || [0, 0]),
+        return typeOrder
+            .filter((type) => tierPieceMap[type] !== undefined)
+            .map((type) => [
+                staticData.inventoryTypes[type],
+                ...(tierPieceMap[type]),
             ])
     }
 }

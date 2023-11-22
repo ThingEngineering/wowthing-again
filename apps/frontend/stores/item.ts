@@ -132,45 +132,25 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItemSets = null
 
+        data.currentTier = {}
+        for (const itemSetId of currentTier) {
+            const itemSet = data.itemSets[itemSetId]
+            for (const itemId of itemSet.itemIds) {
+                const item = data.items[itemId]
+                data.currentTier[item.id] = item.inventoryType
+            }
+        }
+
+        data.previousTier = {}
+        for (const itemSetId of previousTier) {
+            const itemSet = data.itemSets[itemSetId]
+            for (const itemId of itemSet.itemIds) {
+                const item = data.items[itemId]
+                data.previousTier[item.id] = item.inventoryType
+            }
+        }
+
         console.timeEnd('ItemDataStore.initialize')
-    }
-
-    setup(
-        manualData: ManualData,
-        staticData: StaticData
-    ) {
-        // console.time('ItemDataStore.setup')
-
-        this.update((state) => {
-            state.currentTier = {}
-            state.previousTier = {}
-
-            for (const setName of Object.keys(currentTier.sets)) {
-                const setId = parseInt(setName.split(':')[1])
-                const transmogSet = staticData.transmogSets[setId]
-                for (const [itemId,] of transmogSet.items) {
-                    const item = state.items[itemId]
-                    if (currentTier.slots.indexOf(item.inventoryType) >= 0) {
-                        state.currentTier[item.id] = item.inventoryType
-                    }
-                }
-            }
-
-            for (const setName of Object.keys(previousTier.sets)) {
-                const setId = parseInt(setName.split(':')[1])
-                const transmogSet = staticData.transmogSets[setId]
-                for (const [itemId,] of transmogSet.items) {
-                    const item = state.items[itemId]
-                    if (previousTier.slots.indexOf(item.inventoryType) >= 0) {
-                        state.previousTier[item.id] = item.inventoryType
-                    }
-                }
-            }
-
-            return state
-        })
-
-        // console.timeEnd('ItemDataStore.setup')
     }
 }
 
