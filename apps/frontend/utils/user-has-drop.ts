@@ -5,11 +5,13 @@ import { transmogTypes } from '@/data/transmog'
 import { RewardType } from '@/enums/reward-type'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
+import type { ManualData } from '@/types/data/manual'
 import type { UserData } from '@/types/user-data'
 
 
 export default function userHasDrop(
     itemData: ItemData,
+    manualData: ManualData,
     userData: UserData,
     userQuestData: UserQuestData,
     userTransmogData: UserTransmogData,
@@ -24,6 +26,14 @@ export default function userHasDrop(
         (type === RewardType.Illusion && userTransmogData.hasIllusion.has(appearanceIds[0]))
     ) {
         return true
+    }
+    else if (type === RewardType.Item) {
+        if (manualData.dragonridingItemToQuest[id]) {
+            return userQuestData.accountHas.has(manualData.dragonridingItemToQuest[id])
+        }
+        else if (manualData.druidFormItemToQuest[id]) {
+            return userQuestData.accountHas.has(manualData.druidFormItemToQuest[id])
+        }
     }
     else if (type === RewardType.AccountTrackingQuest) {
         const questIds = itemData.completesQuest[id] || []

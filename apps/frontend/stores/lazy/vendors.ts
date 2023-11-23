@@ -131,6 +131,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
                         [groupKey, groupName] = ['90transmog', 'Transmog']
                     }
+                    else if (item.type === RewardType.Item) {
+                        if (stores.manualData.dragonridingItemToQuest[item.id]) {
+                            [groupKey, groupName] = ['00dragonriding', 'Dragonriding']
+                        }
+                        else if (stores.manualData.druidFormItemToQuest[item.id]) {
+                            [groupKey, groupName] = ['00druids', 'Druids']
+                        }
+                    }
 
                     item.faction = vendor.faction
                     item.sortedCosts = getCurrencyCosts(stores.itemData, stores.staticData, item.costs)
@@ -211,9 +219,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     item.sortedCosts = getCurrencyCosts(stores.itemData, stores.staticData, item.costs)
 
                     // Skip items, they're not collectible
-                    if (item.type === RewardType.Item) {
-                        continue
-                    }
+                    // if (item.type === RewardType.Item) {
+                    //     continue
+                    // }
 
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue
@@ -248,6 +256,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     const hasDrop = userHasDrop(
                         stores.itemData,
+                        stores.manualData,
                         stores.userData,
                         stores.userQuestData,
                         stores.userTransmogData,

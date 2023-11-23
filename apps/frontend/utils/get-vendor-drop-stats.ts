@@ -2,11 +2,12 @@ import userHasDrop from './user-has-drop'
 import type { UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
-import type { ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
 export function getVendorDropStats(
     itemData: ItemData,
+    manualData: ManualData,
     userData: UserData,
     userQuestData: UserQuestData,
     userTransmogData: UserTransmogData,
@@ -20,6 +21,7 @@ export function getVendorDropStats(
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
             itemData,
+            manualData,
             userData,
             userQuestData,
             userTransmogData,
