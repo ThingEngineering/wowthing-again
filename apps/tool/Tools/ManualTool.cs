@@ -231,6 +231,7 @@ public class ManualTool
         _timer.AddPoint("Tags");
 
 #if DEBUG
+        DumpCustomizationQuests(cacheData.RawCustomizationCategories);
         DumpZoneMapQuests(cacheData.RawSharedVendors, cacheData.RawZoneMapSets);
 #endif
 
@@ -832,6 +833,37 @@ public class ManualTool
         }
 
         return ret;
+    }
+
+    private void DumpCustomizationQuests(
+        List<List<ManualCustomizationCategory?>?> categoriesList
+    )
+    {
+        var seenQuestIds = new HashSet<int>();
+        using var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "auto_customizations.txt"));
+
+        foreach (var categories in categoriesList.Where(c => c != null))
+        {
+            foreach (var category in categories!.Where(c => c != null))
+            {
+                foreach (var group in category!.Groups)
+                {
+                    foreach (var thing in group.Things)
+                    {
+                        if (thing.QuestId > 0)
+                        {
+                            seenQuestIds.Add(thing.QuestId);
+                        }
+                    }
+                }
+            }
+        }
+
+        outFile.WriteLine("    -- This data is overwritten by the *manual* tool, don't edit by hand");
+        foreach (int[] chunk in seenQuestIds.OrderBy(id => id).Chunk(12))
+        {
+            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+        }
     }
 
     private void DumpZoneMapQuests(
