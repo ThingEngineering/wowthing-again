@@ -327,6 +327,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.SetSpecial:
                             [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
                                 stores.itemData,
+                                stores.manualData,
                                 stores.userData,
                                 stores.userQuestData,
                                 stores.userTransmogData,

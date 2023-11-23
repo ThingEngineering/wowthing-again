@@ -2,12 +2,14 @@
     import { dungeonMap } from '@/data/dungeon'
     import { getVaultItemLevel, getVaultQualityByItemLevel } from '@/utils/mythic-plus'
     import type { CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
+    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
 
     export let index: number
     export let progress: CharacterWeeklyProgress[]
     export let run: CharacterMythicPlusAddonRun
 
     let cls: string
+    let dungeonLevel: number
     let dungeonName: string
     let itemLevel: number
     let keyLevel: number
@@ -22,7 +24,8 @@
         }
 
         if (prog) {
-            if (prog.level > 0) {
+            dungeonLevel = getDungeonLevel(prog)
+            if (dungeonLevel > -2) {
                 cls = 'vault-reward'
                 dungeonName = run ? dungeonMap[run.mapId].name : 'Unknown dungeon'
                 keyLevel = prog.level
@@ -30,10 +33,11 @@
             else {
                 cls = 'vault-more'
                 const more = prog.threshold - prog.progress
-                dungeonName = `Do ${more} more key${more !== 1 ? 's' : ''}`
+                dungeonName = `Do ${more} more dungeon${more !== 1 ? 's' : ''}`
             }
         }
         else if (index < progress[2].progress) {
+            dungeonLevel = -2
             dungeonName = run ? dungeonMap[run.mapId].name : 'Unknown dungeon'
             keyLevel = run ? run.level : 0
         }
@@ -76,11 +80,21 @@
 {#if dungeonName}
     <tr class="{cls}">
         {#if keyLevel}
-            <td class="key-level">{keyLevel}</td>
+            <td class="key-level">
+                {keyLevel}
+            </td>
             <td class="dungeon-name text-overflow">{dungeonName}</td>
             <td class="item-level quality{getVaultQualityByItemLevel(itemLevel)}">{itemLevel}</td>
         {:else if dungeonName}
-            <td class="key-level">&nbsp;</td>
+            <td class="key-level">
+                {#if dungeonLevel === -1}
+                    H
+                {:else if dungeonLevel === 0}
+                    M
+                {:else}
+                    &nbsp;
+                {/if}
+            </td>
             <td class="dungeon-name">{dungeonName}</td>
             <td class="item-level"></td>
         {/if}

@@ -1922,6 +1922,7 @@ public class UserUploadJob : JobBase
                 Level = v.Level,
                 Progress = v.Progress,
                 Threshold = v.Threshold,
+                Tier = v.Tier,
             })
             .ToList();
     }

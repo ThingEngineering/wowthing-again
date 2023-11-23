@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { getVaultItemLevel } from '@/utils/mythic-plus'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
+    import { getVaultItemLevel } from '@/utils/mythic-plus'
+    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level'
+    import type { Character, CharacterWeeklyProgress } from '@/types'
 
     import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
     import VaultShared from './VaultShared.svelte'
@@ -9,6 +10,18 @@
     export let character: Character
 
     $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.mythicPlusProgress : []
+    
+    function qualityFunc(prog: CharacterWeeklyProgress): number {
+        return getVaultItemLevel(getDungeonLevel(prog))[1]
+    }
+    function textFunc(prog: CharacterWeeklyProgress): string {
+        if (prog.progress >= prog.threshold) {
+            return getVaultItemLevel(getDungeonLevel(prog))[0].toString()
+        }
+        else {
+            return `${prog.threshold - prog.progress} !`
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -23,10 +36,8 @@
     <td use:componentTooltip={{component: TooltipMythicPlusVault, props: { character }}}>
         <VaultShared
             progresses={mythicPlus}
-            qualityFunc={(prog) => getVaultItemLevel(prog.level)[1]}
-            textFunc={(prog) => prog.progress >= prog.threshold
-                ? getVaultItemLevel(prog.level)[0].toString()
-                : `${prog.threshold - prog.progress} !`}
+            {qualityFunc}
+            {textFunc}
         />
     </td>
 {:else}
