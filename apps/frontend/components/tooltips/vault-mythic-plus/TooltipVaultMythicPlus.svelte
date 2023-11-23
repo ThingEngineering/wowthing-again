@@ -4,6 +4,7 @@
     import { keyVaultItemLevel } from '@/data/dungeon'
     import { timeStore, userStore } from '@/stores'
     import { getVaultQualityByItemLevel } from '@/utils/mythic-plus'
+    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level'
     import type { Character, CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
 
     import Run from './TooltipVaultMythicPlusRun.svelte'
@@ -22,16 +23,21 @@
             (run: CharacterMythicPlusAddonRun) => -run.level
         )
 
-        const betterOptions = keyVaultItemLevel.filter(([level,]) => level > progress[0].level)
+        const firstLevel = getDungeonLevel(progress[0])
+        const betterOptions = keyVaultItemLevel.filter(([level,]) => level > firstLevel)
         improve = []
         for (let i = betterOptions.length - 1; i >= 0; i--) {
             const [keyLevel,] = betterOptions[i]
-            improve.push([
-                betterOptions[i-1] && (betterOptions[i-1][0] - keyLevel) > 1
-                    ? `${keyLevel} - ${betterOptions[i-1][0] - 1}`
-                    : keyLevel.toString(),
-                betterOptions[i][1]
-            ])
+            let keyRange = keyLevel.toString()
+            if (betterOptions[i - 1] && (betterOptions[i - 1][0] - keyLevel) > 1) {
+                if (keyLevel === 0) {
+                    keyRange = '0'
+                }
+                else {
+                    keyRange = `${keyLevel} - ${betterOptions[i-1][0] - 1}`
+                }
+            }
+            improve.push([keyRange, betterOptions[i][1]])
             if (improve.length === 3) {
                 break
             }
@@ -49,7 +55,7 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name} - M+ Vault</h4>
+    <h4>{character.name} - Dungeon Vault</h4>
     <div class="view">
         <table
             class="table-striped"

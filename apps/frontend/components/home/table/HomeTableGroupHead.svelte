@@ -237,7 +237,7 @@
                 class:sorted-by={$homeState.groupSort[groupIndex] === field}
                 on:click={() => setSorting(field)}
                 on:keypress={() => setSorting(field)}
-            >M+ Vault</td>
+            >Dungeon Vault</td>
 
         {:else if field === 'vaultPvp'}
             <td>PvP Vault</td>

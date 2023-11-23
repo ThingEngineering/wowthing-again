@@ -536,6 +536,8 @@ export const keyVaultItemLevel: Array<Array<number>> = [
     [4, 460 , 3],
     [3, 457, 3],
     [2, 454, 3],
+    [0, 450, 2],
+    [-1, 441, 2],
 ]
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {

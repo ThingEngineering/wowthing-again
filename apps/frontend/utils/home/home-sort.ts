@@ -8,6 +8,7 @@ import { getVaultItemLevel } from '@/utils/mythic-plus'
 import type { Character } from '@/types'
 import type { LazyStore } from '@/stores'
 import { getCharacterRested } from '../get-character-rested'
+import { getDungeonLevel } from '../mythic-plus/get-dungeon-level'
 
 
 export function homeSort(
@@ -83,9 +84,9 @@ export function homeSort(
     else if (sortBy === 'vaultMythicPlus') {
         const progress = char.isMaxLevel ? char.weekly?.vault?.mythicPlusProgress : []
         return [
-            leftPad(999 - getVaultItemLevel(progress?.[0]?.level || 0)[0], 3, '0'),
-            leftPad(999 - getVaultItemLevel(progress?.[1]?.level || 0)[0], 3, '0'),
-            leftPad(999 - getVaultItemLevel(progress?.[2]?.level || 0)[0], 3, '0'),
+            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[0]))[0], 3, '0'),
+            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[1]))[0], 3, '0'),
+            leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[2]))[0], 3, '0'),
         ].join('|')
     }
     else if (sortBy.startsWith('lockout:')) {

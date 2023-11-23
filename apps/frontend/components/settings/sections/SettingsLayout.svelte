@@ -40,7 +40,7 @@
         {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
         {key: 'tasks', name: 'Tasks'},
-        {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
+        {key: 'vaultMythicPlus', name: 'Vault - Dungeon'},
         {key: 'vaultPvp', name: 'Vault - PvP'},
         {key: 'vaultRaid', name: 'Vault - Raid'},
     ]
