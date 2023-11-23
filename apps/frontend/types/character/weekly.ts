@@ -17,4 +17,5 @@ export interface CharacterWeeklyProgress {
     level: number
     progress: number
     threshold: number
+    tier: number
 }
