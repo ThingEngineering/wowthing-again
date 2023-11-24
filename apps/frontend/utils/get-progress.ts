@@ -65,6 +65,10 @@ export default function getProgress(
                         value: 999999,
                     })
                 }
+                else {
+                    have++
+                }
+
                 if (bestTime === 0 || bestTime > times[1]) {
                     datas.push({
                         ids: data.ids,
@@ -72,6 +76,9 @@ export default function getProgress(
                         type: data.type,
                         value: times[0],
                     })
+                }
+                else {
+                    have++
                 }
                 
                 datas.push({
@@ -107,7 +114,10 @@ export default function getProgress(
         }
 
         if (datas) {
-            if (datas[0].type === ProgressDataType.GarrisonTree) {
+            if (group.type === 'dragon-racing') {
+                total = group.data[0].reduce((a, b) => a + 1 + b.description.split(' ').length, 0)
+            }
+            else if (datas[0].type === ProgressDataType.GarrisonTree) {
                 total = datas.reduce((a, b) => a + b.value, 0)
             }
             else {
