@@ -133,7 +133,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 }
             }
         }
-        console.log(data.dragonridingItemToQuest, data.druidFormItemToQuest)
 
         console.timeEnd('ManualDataStore.initialize')
     }

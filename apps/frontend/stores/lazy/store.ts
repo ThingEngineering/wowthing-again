@@ -337,6 +337,7 @@ export class LazyStore implements LazyUgh {
         {
             this.journalFunc = once(() => doJournal({
                 settings,
+                itemData,
                 journalState,
                 journalData,
                 staticData,
