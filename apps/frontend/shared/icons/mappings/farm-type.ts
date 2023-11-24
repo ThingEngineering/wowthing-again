@@ -18,9 +18,9 @@ export const farmTypeIcons: Record<number, IconifyIcon> = {
     [FarmType.Treasure]: iconLibrary.gamePresent,
     [FarmType.Vendor]: iconLibrary.mdiCart,
 
-    // [FarmType.Cloth]: mdiLetterC,
-    // [FarmType.Leather]: mdiLetterL,
-    // [FarmType.Mail]: mdiLetterM,
-    // [FarmType.Plate]: mdiLetterP,
+    [FarmType.Cloth]: iconLibrary.mdiLetterC,
+    [FarmType.Leather]: iconLibrary.mdiLetterL,
+    [FarmType.Mail]: iconLibrary.mdiLetterM,
+    [FarmType.Plate]: iconLibrary.mdiLetterP,
     // [FarmType.Weapon]: mdiAxeBattle,
 }

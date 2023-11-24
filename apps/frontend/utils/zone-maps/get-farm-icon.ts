@@ -31,6 +31,11 @@ function getIconScaling(icon: IconifyIcon) {
             return '0.9'
         case iconLibrary.gameTrophy:
             return '0.75'
-    }
+        case iconLibrary.mdiLetterC:
+        case iconLibrary.mdiLetterL:
+        case iconLibrary.mdiLetterM:
+        case iconLibrary.mdiLetterP:
+            return '0.9'
+        }
     return '0.8'
 }
