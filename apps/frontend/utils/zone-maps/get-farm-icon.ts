@@ -15,7 +15,7 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
     }
     
     const keys = Object.keys(professionLimits)
-    const icon = (keys.length === 1 && farm.type !== FarmType.Kill)
+    const icon = (farm.drops?.length === 1 && keys.length === 1 && farm.type !== FarmType.Kill)
         ? professionSlugIcons[keys[0]]
         : farmTypeIcons[farm.type]
 
