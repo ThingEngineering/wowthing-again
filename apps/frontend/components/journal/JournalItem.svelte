@@ -19,52 +19,14 @@
     export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem
 
-    let appearances: [JournalDataEncounterItemAppearance, boolean][]
     let classId: number
     $: {
-        if (item.type === RewardType.Illusion) {
-            appearances = item.appearances.map((appearance) => [
-                appearance,
-                $userTransmogStore.hasIllusion.has(
-                    $staticStore.illusions[appearance.appearanceId].enchantmentId
-                ),
-            ])
-        }
-        else if (item.type === RewardType.Mount) {
-            appearances = item.appearances.map((appearance) => [
-                appearance,
-                $userStore.hasMount[item.classId],
-            ])
-        }
-        else if (item.type === RewardType.Pet) {
-            appearances = item.appearances.map((appearance) => [
-                appearance,
-                $userStore.hasPet[item.classId],
-            ])
-        }
-        else if (item.type === RewardType.Toy) {
-            appearances = item.appearances.map((appearance) => [
-                appearance,
-                $userStore.hasToy[item.id],
-            ])
-        }
-        else {
-            appearances = item.appearances.map((appearance) => [
-                appearance,
-                $settingsStore.transmog.completionistMode ?
-                    $userTransmogStore.hasSource.has(`${item.id}_${appearance.modifierId}`) :
-                    $userTransmogStore.hasAppearance.has(appearance.appearanceId),
-            ])
-        }
-
         if (item.classMask in PlayableClassMask) {
             classId = PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
         }
         else {
             classId = 0
         }
-
-        //console.log(item, appearances)
     }
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
@@ -168,17 +130,17 @@
     }
 </style>
 
-{#each appearances as [appearance, userHas]}
+{#each item.appearances as appearance}
     {#if
-        ($journalState.showCollected && userHas) ||
-        ($journalState.showUncollected && !userHas)
+        ($journalState.showCollected && appearance.userHas) ||
+        ($journalState.showUncollected && !appearance.userHas)
     }
         {@const [diffShort, diffLong] = getDifficulties(appearance)}
         <div
             class="journal-item quality{getQuality(appearance)}"
             class:missing={
-                (!$journalState.highlightMissing && !userHas) ||
-                ($journalState.highlightMissing && userHas)
+                (!$journalState.highlightMissing && !appearance.userHas) ||
+                ($journalState.highlightMissing && appearance.userHas)
             }
         >
             <a href="{getItemUrl({
@@ -208,7 +170,7 @@
                 </div>
             {/if}
 
-            {#if userHas}
+            {#if appearance.userHas}
                 <CollectedIcon />
             {/if}
 

@@ -1,3 +1,4 @@
+import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 
 import { journalDifficultyMap } from '@/data/difficulty'
@@ -11,6 +12,8 @@ import { JournalDataEncounterItem, type JournalData, type UserTransmogData } fro
 import type { JournalState } from '../local-storage'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { Settings } from '@/shared/stores/settings/types'
+import type { ItemData, ItemDataItem } from '@/types/data/item'
+import { countSetBits } from '@/utils/count-set-bits'
 
 
 export interface LazyJournal {
@@ -20,6 +23,7 @@ export interface LazyJournal {
 
 interface LazyStores {
     settings: Settings
+    itemData: ItemData
     journalState: JournalState
     journalData: JournalData
     staticData: StaticData
@@ -163,36 +167,58 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                         for (const appearance of item.appearances) {
                             let appearanceKey: string
-                            let userHas: boolean
 
                             if (item.type === RewardType.Item) {
-                                appearanceKey = masochist ?
-                                    `${item.id}_${appearance.modifierId}` :
-                                    appearance.appearanceId.toString()
-                                
-                                userHas = masochist ?
-                                    stores.userTransmogData.hasSource.has(appearanceKey) :
-                                    stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+                                if (masochist) {
+                                    appearanceKey = `${item.id}_${appearance.modifierId}`
+                                    appearance.userHas = stores.userTransmogData.hasSource.has(appearanceKey)
+                                }
+                                else {
+                                    // Group items that share this appearance by the number of bits set
+                                    // in their class mask
+                                    const appearanceItemIds = stores.itemData.appearanceToItems[appearance.appearanceId]
+                                    const itemsByBitCount: Record<number, ItemDataItem[]> = {}
+                                    let highestBitCount = 0
+                                    for (const appearanceItemId of appearanceItemIds) {
+                                        const appearanceItem = stores.itemData.items[appearanceItemId]
+                                        const appearanceBitCount = countSetBits(appearanceItem.classMask)
+                                        highestBitCount = Math.max(appearanceBitCount, highestBitCount)
+                                        ; (itemsByBitCount[appearanceBitCount] ||= []).push(appearanceItem)
+                                    }
+
+                                    const bestItems = itemsByBitCount[highestBitCount]
+                                    if (some(bestItems, (best) => best.id === item.id)) {
+                                        appearance.userHas = some(
+                                            bestItems,
+                                            (best) => stores.userTransmogData.hasSource.has(`${best.id}_${appearance.modifierId}`)
+                                        )
+                                    }
+                                    else {
+                                        appearance.userHas = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+                                    }
+
+                                    appearanceKey = appearance.appearanceId.toString()
+                                }
                             }
                             else {
                                 appearanceKey = `z-${item.type}-${item.id}`
 
                                 if (item.type === RewardType.Illusion) {
                                     const enchantmentId = stores.staticData.illusions[item.appearances[0].appearanceId].enchantmentId
-                                    userHas = stores.userTransmogData.hasIllusion.has(enchantmentId)
+                                    appearance.userHas = stores.userTransmogData.hasIllusion.has(enchantmentId)
                                 }
                                 else if (item.type === RewardType.Mount) {
-                                    userHas = stores.userData.hasMount[item.classId]
+                                    appearance.userHas = stores.userData.hasMount[item.classId]
                                 }
                                 else if (item.type === RewardType.Pet) {
-                                    userHas = stores.userData.hasPet[item.classId]
+                                    appearance.userHas = stores.userData.hasPet[item.classId]
                                 }
                                 else if (item.type === RewardType.Toy) {
-                                    userHas = stores.userData.hasToy[item.id]
+                                    appearance.userHas = stores.userData.hasToy[item.id]
                                 }
                             }
 
-                            if (!userHas) {
+                            if (!appearance.userHas) {
                                 allCollected = false
                             }
 
@@ -215,7 +241,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 groupStats.total++
                             }
 
-                            if (userHas) {
+                            if (appearance.userHas) {
                                 if (!overallSeen[appearanceKey]) {
                                     overallStats.have++
                                     overallStats2.have++
@@ -252,7 +278,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                                 if (!instanceSeen[itemKey]) {
                                     instanceDifficultyStats.total++
-                                    if (userHas) {
+                                    if (appearance.userHas) {
                                         instanceDifficultyStats.have++
                                     }
                                     instanceSeen[itemKey] = true
@@ -260,7 +286,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                                 if (!encounterSeen[itemKey]) {
                                     encounterDifficultyStats.total++
-                                    if (userHas) {
+                                    if (appearance.userHas) {
                                         encounterDifficultyStats.have++
                                     }
                                     encounterSeen[itemKey] = true

@@ -153,6 +153,7 @@
 
                             {#if description && (
                                 haveIndexes.indexOf(dataIndex) === -1 ||
+                                group.type === 'dragon-racing' ||
                                 datas[0].type === ProgressDataType.GarrisonTree
                             )}
                                 {#if cls === 'short'}&ndash;{/if}

@@ -51,26 +51,59 @@ export default function getProgress(
             )
         )
     ) {
-        switch (group.lookup) {
-            case 'class':
-                //(c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
-                datas = group.data[staticData.characterClasses[character.classId].slug]
-                break
+        if (group.type === 'dragon-racing') {
+            datas = []
+            for (const data of group.data[0]) {
+                const times = data.description.split(' ').map((n) => parseInt(n) * 1000)
+                const bestTime = character.currencies?.[data.ids[0]]?.quantity || 0
 
-            case 'covenant':
-                datas = group.data[character.shadowlands?.covenantId]
-                if (datas) {
-                    icon = covenantMap[character.shadowlands.covenantId].icon
+                if (bestTime === 0 || bestTime > times[0]) {
+                    datas.push({
+                        ids: data.ids,
+                        name: `:bronze-medal: ${data.name}`,
+                        type: data.type,
+                        value: 999999,
+                    })
                 }
-                break
+                if (bestTime === 0 || bestTime > times[1]) {
+                    datas.push({
+                        ids: data.ids,
+                        name: `:silver-medal: ${data.name}`,
+                        type: data.type,
+                        value: times[0],
+                    })
+                }
+                
+                datas.push({
+                    ids: data.ids,
+                    name: `:gold-medal: ${data.name}`,
+                    type: data.type,
+                    value: times[1],
+                })
+            }
+        }
+        else {
+            switch (group.lookup) {
+                case 'class':
+                    //(c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
+                    datas = group.data[staticData.characterClasses[character.classId].slug]
+                    break
 
-            case 'faction':
-                datas = group.data[factionIdMap[character.faction]]
-                break
+                case 'covenant':
+                    datas = group.data[character.shadowlands?.covenantId]
+                    if (datas) {
+                        icon = covenantMap[character.shadowlands.covenantId].icon
+                    }
+                    break
 
-            default:
-                datas = group.data[0]
-                break
+                case 'faction':
+                    datas = group.data[factionIdMap[character.faction]]
+                    break
+
+                default:
+                    datas = group.data[0]
+                    break
+            }
         }
 
         if (datas) {
@@ -103,6 +136,21 @@ export default function getProgress(
                         data.ids,
                         (id) => character.getItemCount(id) > 0
                     )
+                }
+                else if (group.type === 'dragon-racing') {
+                    const bestTime = character.currencies?.[data.ids[0]]?.quantity || 0
+                    if (bestTime > 0) {
+                        haveThis = bestTime <= data.value
+                        if (data.value < 999999) {
+                            descriptionText[dataIndex] = `${Math.floor(bestTime / 1000)}.${bestTime % 1000}s / ${data.value / 1000}s`
+                        }
+                        else {
+                            descriptionText[dataIndex] = `${Math.floor(bestTime / 1000)}.${bestTime % 1000}s`
+                        }
+                    }
+                    else if (data.value < 999999) {
+                        descriptionText[dataIndex] = `${data.value / 1000}s`
+                    }
                 }
                 else if (group.type === 'mixed') {
                     switch (data.type) {

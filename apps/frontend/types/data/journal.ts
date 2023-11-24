@@ -103,6 +103,8 @@ export class JournalDataEncounterItem {
 type JournalDataEncounterItemArray = ConstructorParameters<typeof JournalDataEncounterItem>
 
 export class JournalDataEncounterItemAppearance {
+    public userHas: boolean
+
     constructor(
         public appearanceId: number,
         public modifierId: number,
