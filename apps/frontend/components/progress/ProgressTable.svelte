@@ -51,7 +51,7 @@
         }
 
         const minimumLevels = [firstCategory, ...categories]
-            .map((cat) => cat.minimumLevel)
+            .map((cat) => cat?.minimumLevel || 0)
             .filter((ml) => (ml || 0) > 0)
         const minimumLevel = minimumLevels.length > 0 ? Math.min(...minimumLevels) : 0
 
@@ -60,10 +60,26 @@
             if (minimumLevel > 0 && char.level < minimumLevel) {
                 return false
             }
+
             if (requiredQuestIds.length > 0 &&
                 !some(requiredQuestIds, (id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
+
+            if (categories[0]?.groups[0]?.type === 'dragon-racing' ||
+                categories[1]?.groups[0]?.type === 'dragon-racing') {
+                return some(
+                    categories.filter((cat) => !!cat),
+                    (cat) => some(
+                        cat.groups.filter((group) => !!group),
+                        (group) => some(
+                            group.data[0],
+                            (data) => char.currencies?.[data.ids[0]]?.quantity > 0
+                        )
+                    )
+                )
+            }
+
             return true
         }
 
@@ -140,7 +156,7 @@
                 {#if category === null}
                     <th class="spacer"></th>
                 {:else}
-                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1]?.groups?.length > 0}
                         <th class="spacer"></th>
                     {/if}
 
@@ -173,7 +189,7 @@
                 {#if category === null}
                     <td class="spacer"></td>
                 {:else}
-                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1]?.groups?.length > 0}
                         <td class="spacer"></td>
                     {/if}
 

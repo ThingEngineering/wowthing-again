@@ -34,6 +34,10 @@ export const imageStrings: Record<string, string> = {
     'druid-moonkin': 'spell/24858',
     'druid-travel': 'spell/783',
     hearthstone: 'item/6948',
+
+    'bronze-medal': 'achievement/8888',
+    'silver-medal': 'achievement/8889', // Mechanized Mackerel
+    'gold-medal': 'achievement/8890',
 }
 
 export const iconStrings: Record<string, IconifyIcon> = {
