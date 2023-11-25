@@ -281,12 +281,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         (item.type === RewardType.Mount && !stores.vendorState.showMounts) ||
                         (item.type === RewardType.Pet && !stores.vendorState.showPets) ||
                         (item.type === RewardType.Toy && !stores.vendorState.showToys) ||
-                        (item.type === RewardType.Armor &&
+                        (item.type === RewardType.Armor && (
                             (item.subType === 1 && !stores.vendorState.showCloth) ||
                             (item.subType === 2 && !stores.vendorState.showLeather) ||
                             (item.subType === 3 && !stores.vendorState.showMail) ||
                             (item.subType === 4 && !stores.vendorState.showPlate)
-                        ) ||
+                        )) ||
                         (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
                         (sharedItem?.inventoryType === InventoryType.Back && !stores.vendorState.showCloaks)
                     ) {
