@@ -28,13 +28,10 @@
     let categories: ManualDataProgressCategory[]
     let progress: Record<string, ProgressInfo>
     let filterFunc: (char: Character) => boolean
-    let slugKey: string
     let sorted: boolean
     let sortFunc: (char: Character) => string
 
-    $: {
-        slugKey = `${slug1}|${slug2}`
-    }
+    $: slugKey = `${slug1}|${slug2}`
 
     $: {
         categories = find($manualStore.progressSets, (p) => p !== null && p[0].slug === slug1) || []
@@ -88,11 +85,7 @@
             $userStore.characters
 
         progress = {}
-        for (const category of categories) {
-            if (category === null) {
-                continue
-            }
-
+        for (const category of categories.filter((cat) => cat !== null)) {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
