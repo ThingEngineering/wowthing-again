@@ -37,6 +37,10 @@
                     keyRange = `${keyLevel} - ${betterOptions[i-1][0] - 1}`
                 }
             }
+            else if (keyRange === '-1') {
+                keyRange = 'H'
+            }
+
             improve.push([keyRange, betterOptions[i][1]])
             if (improve.length === 3) {
                 break
@@ -73,11 +77,13 @@
             <table
                 class="table-striped border-left"
                 class:border-bottom={runs.length > 1 || useImprove.length < 3}
-            >
+            > 
                 <tbody>
                     {#each useImprove as [levelRange, itemLevel]}
                         <tr>
-                            <td class="level-range">{levelRange}</td>
+                            <td class="level-range">
+                                {levelRange}
+                            </td>
                             <td
                                 class="quality{getVaultQualityByItemLevel(itemLevel)}"
                             >{itemLevel}</td>
