@@ -10,7 +10,7 @@ import type { ComponentTooltipProps, SvelteActionResult  } from './types'
 export function componentTooltip<TComponent extends SvelteComponent>(
     node: SingleTarget,
     componentProps: ComponentTooltipProps<TComponent>
-): SvelteActionResult {
+): SvelteActionResult<Partial<ComponentProps<TComponent>>> {
     if (!componentProps) {
         return
     }

@@ -12,7 +12,7 @@ export interface ComponentTooltipProps<TComponent extends SvelteComponent> {
 }
 
 // why is this shit not in svelte types? WHO KNOWS
-export interface SvelteActionResult {
+export interface SvelteActionResult<TParams> {
     destroy?: () => void
-    update?: (params: any) => void
+    update?: (params: TParams) => void
 }
