@@ -9,8 +9,8 @@
         color: $color-success;
         pointer-events: none;
         position: absolute;
-        top: -4px;
-        right: -2px;
+        top: var(--collected-top, -4px);
+        right: var(--collected-right, -2px);
     }
 </style>
 
