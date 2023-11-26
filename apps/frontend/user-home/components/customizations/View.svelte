@@ -103,9 +103,8 @@
             {#each category.groups as group}
                 {@const groupStats = $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
                 {@const color = getPercentClass(groupStats.percent)}
-                {@const haveAll = groupStats.have === groupStats.total}
-                {#if (haveAll && $collectibleState.showCollected["customizations"]) 
-                    || (!haveAll && $collectibleState.showUncollected["customizations"])}
+                {#if ($collectibleState.showCollected["customizations"] && groupStats.have > 0)
+                    || ($collectibleState.showUncollected["customizations"] && groupStats.have < groupStats.total)}
                     <table class="table table-striped">
                         <thead>
                             <tr>
