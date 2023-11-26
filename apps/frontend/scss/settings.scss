@@ -30,6 +30,9 @@
             padding-top: 0.5rem;
         }
     }
+    h4 {
+        margin-top: 0.5rem;
+    }
 
     fieldset {
         margin: 0.25rem 0.25rem 0.25rem 0;
@@ -101,6 +104,17 @@
     .setting-checkbox {
         fieldset {
             flex: 1 0 30rem;
+        }
+    }
+
+    .setting-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1rem;
+
+        fieldset {
+            min-width: 0;
+            width: var(--fieldset-width, 14rem);
         }
     }
 }

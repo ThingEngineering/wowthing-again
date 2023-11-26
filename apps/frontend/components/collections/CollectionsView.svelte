@@ -28,7 +28,10 @@
         />
 
     {:else if params.slug1 === 'customizations'}
-        <Customizations params={shiftedParams} />
+        <Customizations
+            basePath={'collections'}
+            params={shiftedParams}
+        />
 
     {:else if params.slug1 === 'heirlooms'}
         <Heirlooms />

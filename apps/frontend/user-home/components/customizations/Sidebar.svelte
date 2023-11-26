@@ -5,6 +5,8 @@
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
+    export let basePath = ''
+
     let categories: SidebarItem[]
     $: {
         categories = $manualStore.customizationCategories
@@ -41,11 +43,11 @@
 </style>
 
 <Sidebar
-    baseUrl={'/collections/customizations'}
+    baseUrl={basePath ? `/${basePath}/customizations` : '/customizations'}
     items={categories}
     noVisitRoot={true}
     scrollable={true}
-    width="18rem"
+    width="16rem"
     {percentFunc}
 >
     <div slot="before">
