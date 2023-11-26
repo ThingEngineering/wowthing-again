@@ -3,11 +3,7 @@
 
     import { difficultyMap } from '@/data/difficulty'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
-    import { RewardType } from '@/enums/reward-type'
-    import { userStore, userTransmogStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
     import { journalState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
     import { getItemUrl } from '@/utils/get-item-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'

@@ -81,7 +81,7 @@
 
 {#await userAuctionSpecificItemStore.search($auctionState, $itemStore, $userStore, itemId)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then [things, updated]}
+{:then [things,]}
     {#each things as item}
         {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
         <table class="table table-striped">
