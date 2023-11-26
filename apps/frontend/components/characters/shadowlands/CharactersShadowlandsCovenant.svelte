@@ -15,7 +15,7 @@
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
-    import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
+    import Stitchyard from './necrolord/Stitchyard.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character

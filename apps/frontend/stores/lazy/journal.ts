@@ -45,11 +45,11 @@ export function doJournal(stores: LazyStores): LazyJournal {
     const overallStats = ret.stats['OVERALL'] = new UserCount()
     const overallDungeonStats = ret.stats['dungeons'] = new UserCount()
     const overallRaidStats = ret.stats['raids'] = new UserCount()
-    const overallSeen: Record<string, boolean> = {}
+    const overallSeen = new Set<string>()
 
     for (const tier of stores.journalData.tiers.filter((tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids')) {
         const tierStats = ret.stats[tier.slug] = new UserCount()
-        const tierSeen: Record<string, boolean> = {}
+        const tierSeen = new Set<string>()
 
         const tierDungeonStats = ret.stats[`dungeons--${tier.slug}`] = new UserCount()
         const tierRaidStats = ret.stats[`raids--${tier.slug}`] = new UserCount()
@@ -60,18 +60,19 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
             const instanceKey = `${tier.slug}--${instance.slug}`
             const instanceStats = ret.stats[instanceKey] = new UserCount()
-            const instanceSeen: Record<string, boolean> = {}
+            const instanceSeen = new Set<string>()
 
             const instanceExpansion = stores.staticData.instances[instance.id]?.expansion ?? 0
 
             for (const encounter of instance.encounters) {
+                // Chi-Ji, The Red Crane -> The August Celestials
                 if (encounter.id === 857) {
                     encounter.name = stores.staticData.reputations[1341].name
                 }
 
                 const encounterKey = `${instanceKey}--${encounter.name}`
                 const encounterStats = ret.stats[encounterKey] = new UserCount()
-                const encounterSeen: Record<string, boolean> = {}
+                const encounterSeen = new Set<string>()
 
                 if (!stores.journalState.showTrash && encounter.name === 'Trash Drops') {
                     continue
@@ -80,7 +81,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                 for (const group of encounter.groups) {
                     const groupKey = `${encounterKey}--${group.name}`
                     const groupStats = ret.stats[groupKey] = new UserCount()
-                    const groupSeen: Record<string, boolean> = {}
+                    const groupSeen = new Set<string>()
 
                     let filteredItems = getFilteredItems(
                         stores.journalState,
@@ -104,25 +105,25 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             }
                         }
 
-                        const usedItems: Record<number, boolean> = {}
+                        const usedItems = new Set<number>()
                         for (const [appearanceIdStr, appearanceItems] of Object.entries(appearanceMap)) {
                             const appearanceId = parseInt(appearanceIdStr)
 
-                            const difficulties: Record<number, boolean> = {}
+                            const difficulties = new Set<number>()
                             let itemId = 0
                             for (const item of appearanceItems) {
                                 for (const appearance of item.appearances) {
                                     if (appearance.appearanceId === appearanceId) {
                                         for (const difficulty of appearance.difficulties) {
-                                            difficulties[difficulty] = true
+                                            difficulties.add(difficulty)
                                         }
                                         break
                                     }
                                 }
 
-                                if (itemId === 0 && !usedItems[item.id]) {
+                                if (itemId === 0 && !usedItems.has(item.id)) {
                                     itemId = item.id
-                                    usedItems[item.id] = true
+                                    usedItems.add(item.id)
                                 }
                             }
 
@@ -137,8 +138,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearanceId,
                                     0,
                                     sortBy(
-                                        Object.keys(difficulties)
-                                            .map((difficulty) => parseInt(difficulty)),
+                                        Array.from(difficulties.values()),
                                         (diff) => journalDifficultyMap[diff]
                                     )
                                 ]]
@@ -151,15 +151,15 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         const groupIndices: Record<number, string> = {}
                         for (let groupItemIndex = 0; groupItemIndex < group.items.length; groupItemIndex++) {
                             const groupItem = group.items[groupItemIndex]
-                            if (groupIndices[groupItem.id] === undefined) {
-                                groupIndices[groupItem.id] = leftPad(groupItemIndex, 3, '0')
-                            }
+                            groupIndices[groupItem.id] ||= leftPad(groupItemIndex, 3, '0')
                         }
 
-                        filteredItems = keepItems.length === 1 ? keepItems : sortBy(
-                            keepItems,
-                            (item) => `${groupIndices[item.id]}|${journalDifficultyMap[item.appearances[0].difficulties[0]]}`
-                        )
+                        filteredItems = keepItems.length === 1
+                            ? keepItems
+                            : sortBy(
+                                keepItems,
+                                (item) => `${groupIndices[item.id]}|${journalDifficultyMap[item.appearances[0].difficulties[0]]}`
+                            )
                     }
 
                     for (const item of filteredItems) {
@@ -222,50 +222,54 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 allCollected = false
                             }
 
+                            const overallSeenHas = overallSeen.has(appearanceKey)
+                            const tierSeenHas = tierSeen.has(appearanceKey)
+                            const instanceSeenHas = instanceSeen.has(appearanceKey)
+                            const encounterSeenHas = encounterSeen.has(appearanceKey)
+                            const groupSeenHas = groupSeen.has(appearanceKey)
 
-                            if (!overallSeen[appearanceKey]) {
+                            if (!overallSeenHas) {
+                                overallSeen.add(appearanceKey)
                                 overallStats.total++
                                 overallStats2.total++
                             }
-                            if (!tierSeen[appearanceKey]) {
+                            if (!tierSeenHas) {
+                                tierSeen.add(appearanceKey)
                                 tierStats.total++
                                 tierStats2.total++
                             }
-                            if (!instanceSeen[appearanceKey]) {
+                            if (!instanceSeenHas) {
+                                instanceSeen.add(appearanceKey)
                                 instanceStats.total++
                             }
-                            if (!encounterSeen[appearanceKey]) {
+                            if (!encounterSeenHas) {
+                                encounterSeen.add(appearanceKey)
                                 encounterStats.total++
                             }
-                            if (!groupSeen[appearanceKey]) {
+                            if (!groupSeenHas) {
+                                groupSeen.add(appearanceKey)
                                 groupStats.total++
                             }
 
                             if (appearance.userHas) {
-                                if (!overallSeen[appearanceKey]) {
+                                if (!overallSeenHas) {
                                     overallStats.have++
                                     overallStats2.have++
                                 }
-                                if (!tierSeen[appearanceKey]) {
+                                if (!tierSeenHas) {
                                     tierStats.have++
                                     tierStats2.have++
                                 }
-                                if (!instanceSeen[appearanceKey]) {
+                                if (!instanceSeenHas) {
                                     instanceStats.have++
                                 }
-                                if (!encounterSeen[appearanceKey]) {
+                                if (!encounterSeenHas) {
                                     encounterStats.have++
                                 }
-                                if (!groupSeen[appearanceKey]) {
+                                if (!groupSeenHas) {
                                     groupStats.have++
                                 }
                             }
-
-                            overallSeen[appearanceKey] = true
-                            tierSeen[appearanceKey] = true
-                            instanceSeen[appearanceKey] = true
-                            encounterSeen[appearanceKey] = true
-                            groupSeen[appearanceKey] = true
 
                             for (const difficulty of appearance.difficulties) {
                                 const instanceDifficultyKey = `${instanceKey}--${difficulty}`
@@ -276,20 +280,20 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                                 const itemKey = `${appearanceKey}--${difficulty}`
 
-                                if (!instanceSeen[itemKey]) {
+                                if (!instanceSeen.has(itemKey)) {
                                     instanceDifficultyStats.total++
                                     if (appearance.userHas) {
                                         instanceDifficultyStats.have++
                                     }
-                                    instanceSeen[itemKey] = true
+                                    instanceSeen.add(itemKey)
                                 }
 
-                                if (!encounterSeen[itemKey]) {
+                                if (!encounterSeen.has(itemKey)) {
                                     encounterDifficultyStats.total++
                                     if (appearance.userHas) {
                                         encounterDifficultyStats.have++
                                     }
-                                    encounterSeen[itemKey] = true
+                                    encounterSeen.add(itemKey)
                                 }
                             }
                         }

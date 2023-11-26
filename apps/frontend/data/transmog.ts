@@ -3,12 +3,12 @@ import { TransmogSetType } from '@/enums/transmog-set-type'
 import { TransmogSet, TransmogSetData } from '@/types'
 
 
-export const transmogTypes: RewardType[] = [
+export const transmogTypes = new Set<RewardType>([
     RewardType.Armor,
     RewardType.Cosmetic,
     RewardType.Transmog,
     RewardType.Weapon,
-]
+])
 
 const transmogSets: Record<string, TransmogSet> = {
     'all': new TransmogSet('all', [

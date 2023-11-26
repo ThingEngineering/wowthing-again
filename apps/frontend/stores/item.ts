@@ -2,8 +2,6 @@ import { Constants } from '@/data/constants'
 import { currentTier, previousTier } from '@/data/gear'
 import { WritableFancyStore } from '@/types/fancy-store'
 import { ItemDataItem, type ItemData, DataItemBonus, DataItemSet } from '@/types/data/item'
-import type { ManualData } from '@/types/data/manual'
-import type { StaticData } from '@/shared/stores/static/types'
 
 
 export class ItemDataStore extends WritableFancyStore<ItemData> {

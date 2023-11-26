@@ -5,7 +5,10 @@ import { defaultProps } from './default-props'
 import type { SvelteActionResult, TippyProps } from './types'
 
 
-export function basicTooltip(node: SingleTarget, props: TippyProps | string): SvelteActionResult {
+export function basicTooltip(
+    node: SingleTarget,
+    props: string | TippyProps
+): SvelteActionResult<string | TippyProps> {
     if (props === undefined) {
         return
     }

@@ -32,7 +32,7 @@ export enum InventoryType {
     ProfessionGear = 30,
 }
 
-export const weaponInventoryTypes: InventoryType[] = [
+export const weaponInventoryTypes: Set<InventoryType> = new Set<InventoryType>([
     InventoryType.OneHand,
     InventoryType.OffHand,
     InventoryType.Ranged,
@@ -40,4 +40,4 @@ export const weaponInventoryTypes: InventoryType[] = [
     InventoryType.MainHand,
     InventoryType.OffHand2,
     InventoryType.HeldInOffHand,
-]
+])

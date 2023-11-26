@@ -39,7 +39,10 @@
     .expand {
         --image-margin-top: 0;
 
+        padding: 0;
         position: relative;
+        text-align: left;
+        width: 100%;
 
         :global(svg) {
             position: absolute;

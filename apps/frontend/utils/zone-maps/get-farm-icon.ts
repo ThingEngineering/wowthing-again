@@ -15,7 +15,7 @@ export function getFarmIcon(farm: ManualDataZoneMapFarm): [IconifyIcon, string] 
     }
     
     const keys = Object.keys(professionLimits)
-    const icon = (keys.length === 1 && farm.type !== FarmType.Kill)
+    const icon = (farm.drops?.length === 1 && keys.length === 1 && farm.type !== FarmType.Kill)
         ? professionSlugIcons[keys[0]]
         : farmTypeIcons[farm.type]
 
@@ -31,6 +31,11 @@ function getIconScaling(icon: IconifyIcon) {
             return '0.9'
         case iconLibrary.gameTrophy:
             return '0.75'
-    }
+        case iconLibrary.mdiLetterC:
+        case iconLibrary.mdiLetterL:
+        case iconLibrary.mdiLetterM:
+        case iconLibrary.mdiLetterP:
+            return '0.9'
+        }
     return '0.8'
 }

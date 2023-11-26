@@ -112,7 +112,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 const appearance = item.appearances[modifier]
 
                                 let actualSlot: number
-                                if (weaponInventoryTypes.indexOf(item.inventoryType) >= 0) {
+                                if (weaponInventoryTypes.has(item.inventoryType)) {
                                     if (completionistMode) {
                                         actualSlot = weaponIndex++
                                     }
@@ -129,7 +129,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                                 if (completionistMode
                                     && !completionistSets
-                                    && weaponInventoryTypes.indexOf(item.inventoryType) === -1
+                                    && !weaponInventoryTypes.has(item.inventoryType)
                                     && slotData[actualSlot] !== undefined) {
                                     continue
                                 }
@@ -146,8 +146,8 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                                 slotData[actualSlot] ||= [false, []]
                                 
+                                slotData[actualSlot][0] ||= hasSource
                                 slotData[actualSlot][1].push([hasSource, itemId, modifier])
-                                slotData[actualSlot][0] = slotData[actualSlot][1].filter((s) => s[0]).length > 0
                             }
 
                             // let setTotal = 0

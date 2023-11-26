@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 import type { DateTime } from 'luxon'
 
-import { journalDifficultyOrder } from '@/data/difficulty'
+import { journalDifficultyMap } from '@/data/difficulty'
 import { RewardType } from '@/enums/reward-type'
 import { leftPad } from '@/utils/formatting'
 import parseApiTime from '@/utils/parse-api-time'
@@ -52,7 +52,7 @@ export function getInstanceFarm(
 
             const sortedDifficulties = sortBy(
                 Array.from(difficulties.values()),
-                (diff) => journalDifficultyOrder.indexOf(diff)
+                (diff) => journalDifficultyMap[diff]
             )
             for (const difficulty of sortedDifficulties) {
                 const difficultyKey = `${instanceKey}--${difficulty}`

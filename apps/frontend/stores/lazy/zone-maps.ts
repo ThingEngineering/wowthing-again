@@ -356,7 +356,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         (drop.type === RewardType.Pet && !stores.zoneMapState.trackPets) ||
                         ((drop.type === RewardType.Quest || drop.type === RewardType.XpQuest) && !stores.zoneMapState.trackQuests) ||
                         (drop.type === RewardType.Toy && !stores.zoneMapState.trackToys) ||
-                        (transmogTypes.indexOf(drop.type) >= 0 && !stores.zoneMapState.trackTransmog)
+                        (transmogTypes.has(drop.type) && !stores.zoneMapState.trackTransmog)
                     )
 
                     if (!dropStatus.skip) {

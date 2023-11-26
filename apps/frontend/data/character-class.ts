@@ -2,6 +2,7 @@ import flatten from 'lodash/flatten'
 
 import { ArmorType } from '@/enums/armor-type'
 import { PlayableClass } from '@/enums/playable-class'
+import { toIndexRecord } from '@/utils/to-index-record'
 
 
 export const classOrder: number[] = [
@@ -22,6 +23,8 @@ export const classOrder: number[] = [
     PlayableClass.Paladin,
     PlayableClass.Warrior,
 ]
+
+export const classOrderMap = toIndexRecord(classOrder)
 
 export const classByArmorType: Record<number, PlayableClass[]> = {
     [ArmorType.Cloth]: [

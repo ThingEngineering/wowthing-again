@@ -16,5 +16,6 @@
 <Sidebar
     baseUrl="/progress"
     items={categories}
+    scrollable={true}
     width="12rem"
 />

@@ -1,8 +1,8 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import { classOrder } from '@/data/character-class'
-    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
+    import { classOrderMap } from '@/data/character-class'
+    import { difficultyMap, journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { PlayableClass, playableClasses } from '@/enums/playable-class'
     import { lazyStore, userAchievementStore } from '@/stores'
     import { UserCount } from '@/types'
@@ -79,7 +79,7 @@
                 heroicDifficulties[0][0] = 15
             }
 
-            difficulties.sort((a, b) => journalDifficultyOrder.indexOf(a[0]) - journalDifficultyOrder.indexOf(b[0]))
+            difficulties.sort((a, b) => journalDifficultyMap[a[0]] - journalDifficultyMap[b[0]])
         }
 
         classCounts = []
@@ -95,7 +95,7 @@
             classCounts,
             ([count, className]) => [
                 leftPad(1000 - count, 3, '0'),
-                leftPad(classOrder.indexOf(PlayableClass[className]), 2, '0')
+                leftPad(classOrderMap[PlayableClass[className]], 2, '0')
             ])
     }
 

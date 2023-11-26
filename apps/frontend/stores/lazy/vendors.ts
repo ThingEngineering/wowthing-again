@@ -232,7 +232,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     if (masochist) {
                         item.extraAppearances = 0
                     }
-                    else if (transmogTypes.indexOf(item.type) >= 0) {
+                    else if (transmogTypes.has(item.type)) {
                         const appearanceId = item.appearanceIds?.length === 1
                             ? item.appearanceIds[0]
                             : sharedItem?.appearances?.[0]?.appearanceId || 0
@@ -254,6 +254,24 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         }
                     }
 
+                    // Skip filtered things
+                    if (
+                        (item.type === RewardType.Illusion && !stores.vendorState.showIllusions) ||
+                        (item.type === RewardType.Mount && !stores.vendorState.showMounts) ||
+                        (item.type === RewardType.Pet && !stores.vendorState.showPets) ||
+                        (item.type === RewardType.Toy && !stores.vendorState.showToys) ||
+                        (item.type === RewardType.Armor && (
+                            (item.subType === 1 && !stores.vendorState.showCloth) ||
+                            (item.subType === 2 && !stores.vendorState.showLeather) ||
+                            (item.subType === 3 && !stores.vendorState.showMail) ||
+                            (item.subType === 4 && !stores.vendorState.showPlate)
+                        )) ||
+                        (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
+                        (sharedItem?.inventoryType === InventoryType.Back && !stores.vendorState.showCloaks)
+                    ) {
+                        continue
+                    }
+
                     const hasDrop = userHasDrop(
                         stores.itemData,
                         stores.manualData,
@@ -271,24 +289,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         item.appearanceIds?.length > 0 &&
                         unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
                         !hasDrop
-                    ) {
-                        continue
-                    }
-
-                    // Skip filtered things
-                    if (
-                        (item.type === RewardType.Illusion && !stores.vendorState.showIllusions) ||
-                        (item.type === RewardType.Mount && !stores.vendorState.showMounts) ||
-                        (item.type === RewardType.Pet && !stores.vendorState.showPets) ||
-                        (item.type === RewardType.Toy && !stores.vendorState.showToys) ||
-                        (item.type === RewardType.Armor &&
-                            (item.subType === 1 && !stores.vendorState.showCloth) ||
-                            (item.subType === 2 && !stores.vendorState.showLeather) ||
-                            (item.subType === 3 && !stores.vendorState.showMail) ||
-                            (item.subType === 4 && !stores.vendorState.showPlate)
-                        ) ||
-                        (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
-                        (sharedItem?.inventoryType === InventoryType.Back && !stores.vendorState.showCloaks)
                     ) {
                         continue
                     }
@@ -315,10 +315,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     seen[thingKey] = true
 
-                    if (hasDrop && !stores.vendorState.showCollected) {
-                        continue
-                    }
-                    if (!hasDrop && !stores.vendorState.showUncollected) {
+                    if ((hasDrop && !stores.vendorState.showCollected) ||
+                        (!hasDrop && !stores.vendorState.showUncollected)
+                    ) {
                         continue
                     }
 

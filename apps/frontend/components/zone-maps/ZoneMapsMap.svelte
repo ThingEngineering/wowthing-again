@@ -22,6 +22,7 @@
     import Image from '@/shared/components/images/Image.svelte'
     import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
+    import { toIndexRecord } from '@/utils/to-index-record';
 
     export let slug1: string
     export let slug2: string
@@ -78,9 +79,9 @@
         groups = Object.values(groupMap)
         for (const group of groups) {
             group.children.sort((a, b) => {
-                const aIndex = typeOrder.indexOf(a[0].type)
+                const aIndex = typeOrder[a[0].type] || -1
                 const aStatus = farmStatuses[a[1]]
-                const bIndex = typeOrder.indexOf(b[0].type)
+                const bIndex = typeOrder[b[0].type] || -1
                 const bStatus = farmStatuses[b[1]]
 
                 const aData = [
@@ -107,13 +108,13 @@
             for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
                 const farm = farms[farmIndex]
                 const farmStatus = farmStatuses[farmIndex]
-                if (farmStatus.need && lootFarmTypes.indexOf(farm.type) >= 0) {
+                if (farmStatus.need && lootFarmTypes[farm.type] >= 0) {
                     const needDrops: number[] = []
 
                     for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
                         const drop = farm.drops[dropIndex]
                         const dropStatus = farmStatus.drops[dropIndex]
-                        if (dropStatus.need && lootRewardTypes.indexOf(drop.type) >= 0) {
+                        if (dropStatus.need && lootRewardTypes[drop.type] >= 0) {
                             needDrops.push(dropIndex)
                         }
                     }
@@ -169,14 +170,14 @@
         }
     }
 
-    const lootFarmTypes: FarmType[] = [
+    const lootFarmTypes = toIndexRecord<number>([
         FarmType.Event,
         FarmType.EventBig,
         FarmType.Kill,
         FarmType.KillBig,
         FarmType.Treasure,
-    ]
-    const lootRewardTypes: RewardType[] = [
+    ])
+    const lootRewardTypes = toIndexRecord<number>([
         RewardType.Armor,
         RewardType.Cosmetic,
         RewardType.Illusion,
@@ -184,14 +185,14 @@
         RewardType.Pet,
         RewardType.Toy,
         RewardType.Weapon,
-    ]
-    const typeOrder: FarmType[] = [
+    ])
+    const typeOrder = toIndexRecord<number>([
         FarmType.Vendor,
         FarmType.Profession,
         FarmType.Quest,
         FarmType.Achievement,
         FarmType.Kill,
-    ]
+    ])
 </script>
 
 <style lang="scss">
