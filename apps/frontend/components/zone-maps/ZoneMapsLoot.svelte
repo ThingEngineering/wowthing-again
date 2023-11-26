@@ -2,11 +2,13 @@
     import { weaponSubclassToString } from '@/data/weapons'
     import { ArmorType } from '@/enums/armor-type'
     import { RewardType } from '@/enums/reward-type'
-    import { farmTypeIcons, rewardTypeIcons } from '@/shared/icons/mappings'
-    import { getDropData } from '@/utils/zone-maps'
+    import { farmTypeIcons } from '@/shared/icons/mappings'
+    import { staticStore } from '@/shared/stores/static'
+    import { itemStore, manualStore } from '@/stores'
+    import { getDropData, getDropIcon } from '@/utils/zone-maps'
+    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
 
     export let loots: [ManualDataZoneMapFarm, number[]][]
@@ -36,8 +38,9 @@
                     {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
                         {@const drop = farm.drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
+                        {@const icon = getDropIcon($itemStore, $manualStore, $staticStore, drop, false)}
                         <div>
-                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
+                            <IconifyIcon {icon} />
                             <span class="quality{dropData.quality}">
                                 <WowheadLink
                                     id={dropData.linkId}
