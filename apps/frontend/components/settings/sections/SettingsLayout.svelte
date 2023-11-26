@@ -109,6 +109,41 @@
             Only show icons
         </CheckboxInput>
     </div>
+
+    <h4>Show in main nav</h4>
+
+    <div class="setting-checkboxes" style:--fieldset-width={'10rem'}>
+        <CheckboxInput
+            bind:value={$settingsStore.layout.navigationAppearances}
+            name="layout_navigationAppearances"
+        >
+            Appearances
+        </CheckboxInput>
+        <CheckboxInput
+            bind:value={$settingsStore.layout.navigationCustomizations}
+            name="layout_navigationCustomizations"
+        >
+            Customizations
+        </CheckboxInput>
+        <CheckboxInput
+            bind:value={$settingsStore.layout.navigationMounts}
+            name="layout_navigationMounts"
+        >
+            Mounts
+        </CheckboxInput>
+        <CheckboxInput
+            bind:value={$settingsStore.layout.navigationPets}
+            name="layout_navigationPets"
+        >
+            Pets
+        </CheckboxInput>
+        <CheckboxInput
+            bind:value={$settingsStore.layout.navigationToys}
+            name="layout_navigationToys"
+        >
+            Toys
+        </CheckboxInput>
+    </div>
 </div>
 
 <div class="settings-block">

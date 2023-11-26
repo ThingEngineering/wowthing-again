@@ -35,14 +35,6 @@
         userTransmogStore.fetch(),
     ]))
 
-    $: {
-        const navTarget = document.querySelector('#app-nav')
-        navTarget.replaceChildren()
-        if ($settingsStore.layout.newNavigation) {
-            new NewNav({ target: navTarget })
-        }
-    }
-
     let error: boolean
     let loaded: boolean
     let ready: boolean
@@ -93,6 +85,16 @@
         }
     }
     
+    $: {
+        if (ready) {
+            const navTarget = document.querySelector('#app-nav')
+            navTarget.replaceChildren()
+            if ($settingsStore.layout.newNavigation) {
+                new NewNav({ target: navTarget })
+            }
+        }
+    }
+
     $: {
         if (ready && !$userStore.public && $userStore.lastApiCheck) {
             const parsedTime = parseApiTime($userStore.lastApiCheck)

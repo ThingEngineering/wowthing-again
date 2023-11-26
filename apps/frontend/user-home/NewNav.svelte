@@ -3,12 +3,20 @@
 
     import { navItems } from '@/data/nav'
     import { iconLibrary } from '@/shared/icons'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { userStore } from '@/stores'
     import { settingsStore } from '@/shared/stores/settings'
+    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { lazyStore, userStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
 
     import CharacterFilter from './CharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+
+    $: filteredNavItems = navItems
+        .filter((navItem) =>
+            navItem === null ||
+            !navItem.showFunc ||
+            navItem.showFunc($settingsStore)
+        )
 </script>
 
 <style lang="scss">
@@ -22,6 +30,7 @@
         flex-wrap: wrap;
         //font-size: 1.1rem;
         margin: -1px 0 0 0;
+        overflow: unset;
         padding: 0 1rem;
         position: sticky;
         top: 0;
@@ -38,6 +47,7 @@
     a {
         color: var(--link-color, #44ddff);
         padding: 0.25rem 0.7rem 0.3rem 0.5rem;
+        position: relative;
 
         :global(svg:focus) {
             outline: none;
@@ -60,32 +70,46 @@
     .wip:not(.active) {
         --link-color: #ffbb00;
     }
+    .percent {
+        border-color: #999;
+        bottom: -10px;
+        font-size: 85%;
+        padding: 1px 2px 2px 2px;
+        position: absolute;
+    }
 </style>
 
 <nav
     class="subnav"
     class:subnav-big={$settingsStore.layout.newNavigationIcons}
 >
-    {#each navItems as [path, linkText, iconName, privateOnly], navIndex}
-        {#if path !== null}
-            {#if !privateOnly
-                || (privateOnly && linkText === 'Currencies' && $settingsStore.privacy.publicCurrencies)
+    {#each filteredNavItems as navItem, navIndex}
+        {#if navItem !== null}
+            {#if !navItem.privateOnly
+                || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
                 || ($userStore.loaded && !$userStore.public)
             }
+                {@const percent = navItem.percentFunc?.($lazyStore)}
                 <a 
-                    class:spacer={navIndex < (navItems.length) && !navItems[navIndex+1]?.[0]}
-                    class:wip={linkText.indexOf('WIP') >= 0}
-                    href="#/{path}"
-                    use:active={path.endsWith('/') ? `/${path}*` : `/${path}`}
-                    use:basicTooltip={linkText}
+                    class:spacer={navIndex < (filteredNavItems.length) && !filteredNavItems[navIndex+1]?.path}
+                    class:wip={navItem.text.indexOf('WIP') >= 0}
+                    href="#/{navItem.path}"
+                    use:active={navItem.path.endsWith('/') ? `/${navItem.path}*` : `/${navItem.path}`}
+                    use:basicTooltip={navItem.text}
                 >
                     <IconifyIcon
-                        icon={iconLibrary[iconName]}
+                        icon={iconLibrary[navItem.icon]}
                         dropShadow={true}
                     />
                     
                     {#if !$settingsStore.layout.newNavigationIcons}
-                        {linkText}
+                        {navItem.text}
+                    {/if}
+
+                    {#if percent}
+                        <span class="percent pill abs-center {getPercentClass(percent)}">
+                            {percent.toFixed(1)}%
+                        </span>
                     {/if}
                 </a>
             {/if}

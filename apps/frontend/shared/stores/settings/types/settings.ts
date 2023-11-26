@@ -47,13 +47,18 @@ export interface Settings {
     }
 
     layout: {
+        includeArchaeology: boolean
         newNavigation: boolean
         newNavigationIcons: boolean
-
-        includeArchaeology: boolean
         showEmptyLockouts: boolean
         showPartialLevel: boolean
         useClassColors: boolean
+
+        navigationAppearances: boolean
+        navigationCustomizations: boolean
+        navigationMounts: boolean
+        navigationPets: boolean
+        navigationToys: boolean
 
         covenantColumn: 'current' | 'all'
         padding: 'small' | 'medium' | 'large'

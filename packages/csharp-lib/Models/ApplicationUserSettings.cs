@@ -276,13 +276,17 @@ public class ApplicationUserSettingsHistory
 public class ApplicationUserSettingsLayout
 {
     public bool IncludeArchaeology { get; set; } = false;
-    public bool ShowEmptyLockouts { get; set; } = false;
-    public bool ShowPartialLevel { get; set; } = true;
-
     public bool NewNavigation { get; set; } = false;
     public bool NewNavigationIcons { get; set; } = false;
-
+    public bool ShowEmptyLockouts { get; set; } = false;
+    public bool ShowPartialLevel { get; set; } = true;
     public bool UseClassColors { get; set; } = false;
+
+    public bool NavigationAppearances { get; set; } = false;
+    public bool NavigationCustomizations { get; set; } = false;
+    public bool NavigationMounts { get; set; } = false;
+    public bool NavigationPets { get; set; } = false;
+    public bool NavigationToys { get; set; } = false; 
 
     public string CovenantColumn { get; set; } = "current";
     public string Padding { get; set; } = "medium";
