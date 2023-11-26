@@ -103,49 +103,53 @@
             {#each category.groups as group}
                 {@const groupStats = $lazyStore.customizations[`${params.slug1}--${params.slug2}--${group.name}`]}
                 {@const color = getPercentClass(groupStats.percent)}
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td colspan="2" class="group-name {color}">
-                                {group.name}
-                            </td>
-                            <td class="group-stats">
-                                {groupStats.have}
-                                /
-                                {groupStats.total}
-                            </td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {#each group.things as thing}
-                            {@const have = $userQuestStore.accountHas.has(thing.questId)}
-                            {#if (have && $collectibleState.showCollected['customizations'])
-                                || (!have && $collectibleState.showUncollected['customizations'])}
-                                <tr
-                                    class:faded={$collectibleState.highlightMissing['customizations'] ? have : !have}
-                                >
-                                    <td class="yes-no">
-                                        <YesNoIcon
-                                            state={have}
-                                            useStatusColors={true}
-                                        />
-                                    </td>
-                                    <td class="name text-overflow">
-                                        {thing.name}
-                                    </td>
-                                    <td class="item text-overflow">
-                                        <WowheadLink
-                                            id={thing.itemId}
-                                            type={'item'}
-                                        >
-                                            <ParsedText text={`{item:${thing.itemId}}`} />
-                                        </WowheadLink>
-                                    </td>
-                                </tr>
-                            {/if}
-                        {/each}
-                    </tbody>
-                </table>
+                {@const haveAll = groupStats.have === groupStats.total}
+                {#if (haveAll && $collectibleState.showCollected["customizations"]) 
+                    || (!haveAll && $collectibleState.showUncollected["customizations"])}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <td colspan="2" class="group-name {color}">
+                                    {group.name}
+                                </td>
+                                <td class="group-stats">
+                                    {groupStats.have}
+                                    /
+                                    {groupStats.total}
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {#each group.things as thing}
+                                {@const have = $userQuestStore.accountHas.has(thing.questId)}
+                                {#if (have && $collectibleState.showCollected['customizations'])
+                                    || (!have && $collectibleState.showUncollected['customizations'])}
+                                    <tr
+                                        class:faded={$collectibleState.highlightMissing['customizations'] ? have : !have}
+                                    >
+                                        <td class="yes-no">
+                                            <YesNoIcon
+                                                state={have}
+                                                useStatusColors={true}
+                                            />
+                                        </td>
+                                        <td class="name text-overflow">
+                                            {thing.name}
+                                        </td>
+                                        <td class="item text-overflow">
+                                            <WowheadLink
+                                                id={thing.itemId}
+                                                type={'item'}
+                                            >
+                                                <ParsedText text={`{item:${thing.itemId}}`} />
+                                            </WowheadLink>
+                                        </td>
+                                    </tr>
+                                {/if}
+                            {/each}
+                        </tbody>
+                    </table>
+                {/if}
             {/each}
         </div>
     </div>
