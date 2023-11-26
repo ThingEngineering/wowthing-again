@@ -47,7 +47,7 @@
     items={categories}
     noVisitRoot={true}
     scrollable={true}
-    width="18rem"
+    width="16rem"
     {percentFunc}
 >
     <div slot="before">
