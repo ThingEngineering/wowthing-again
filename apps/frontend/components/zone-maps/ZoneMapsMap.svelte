@@ -3,7 +3,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { lazyStore, manualStore } from '@/stores'
+    import { itemStore, lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { FarmAnchorPoint } from '@/enums/farm-anchor-point'
@@ -115,6 +115,13 @@
                         const drop = farm.drops[dropIndex]
                         const dropStatus = farmStatus.drops[dropIndex]
                         if (dropStatus.need && lootRewardTypes[drop.type] >= 0) {
+                            if (drop.type === RewardType.Item && !(
+                                $manualStore.druidFormItemToQuest[drop.id] ||
+                                $manualStore.dragonridingItemToQuest[drop.id]
+                            )) {
+                                continue
+                            }
+                            
                             needDrops.push(dropIndex)
                         }
                     }
@@ -181,6 +188,7 @@
         RewardType.Armor,
         RewardType.Cosmetic,
         RewardType.Illusion,
+        RewardType.Item,
         RewardType.Mount,
         RewardType.Pet,
         RewardType.Toy,
