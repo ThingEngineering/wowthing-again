@@ -151,7 +151,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each categoryChildren as category, categoryIndex}
+        {#each categoryChildren as category}
             {@const abilities = getAbilities(category, $professionsRecipesState.includeTrainerRecipes)}
             {#if abilities.length > 0}
                 <tr class="spacer">

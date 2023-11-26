@@ -232,7 +232,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     if (masochist) {
                         item.extraAppearances = 0
                     }
-                    else if (transmogTypes.indexOf(item.type) >= 0) {
+                    else if (transmogTypes.has(item.type)) {
                         const appearanceId = item.appearanceIds?.length === 1
                             ? item.appearanceIds[0]
                             : sharedItem?.appearances?.[0]?.appearanceId || 0

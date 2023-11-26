@@ -46,7 +46,7 @@ export default function userHasDrop(
             )
         )
     }
-    else if (transmogTypes.indexOf(type) >= 0) {
+    else if (transmogTypes.has(type)) {
         if (appearanceIds?.[0] > 0) {
             return every(
                 appearanceIds,
