@@ -1,8 +1,8 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon'
     import { getVaultItemLevel, getVaultQualityByItemLevel } from '@/utils/mythic-plus'
+    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level'
     import type { CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'
-    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
 
     export let index: number
     export let progress: CharacterWeeklyProgress[]

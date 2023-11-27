@@ -4,7 +4,7 @@
     import type { SvelteComponent } from 'svelte'
 
     import Currencies from './components/currencies/Currencies.svelte'
-    import Customizations from './components/customizations/Customizations.svelte';
+    import Customizations from './components/customizations/Customizations.svelte'
     import Matrix from './components/matrix/Matrix.svelte'
     import Sets from './components/transmog-sets/TransmogSets.svelte'
     import WorldQuests from './components/world-quests/WorldQuests.svelte'

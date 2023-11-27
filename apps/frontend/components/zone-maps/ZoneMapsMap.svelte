@@ -3,15 +3,16 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { itemStore, lazyStore, manualStore } from '@/stores'
-    import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { FarmAnchorPoint } from '@/enums/farm-anchor-point'
     import { FarmType } from '@/enums/farm-type'
     import { PlayableClass } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { settingsStore } from '@/shared/stores/settings'
+    import { lazyStore, manualStore } from '@/stores'
+    import { zoneMapState } from '@/stores/local-storage/zone-map'
+    import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { leftPad } from '@/utils/formatting'
+    import { toIndexRecord } from '@/utils/to-index-record'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -22,7 +23,6 @@
     import Image from '@/shared/components/images/Image.svelte'
     import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
-    import { toIndexRecord } from '@/utils/to-index-record';
 
     export let slug1: string
     export let slug2: string
