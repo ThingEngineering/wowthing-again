@@ -1,5 +1,6 @@
 import type { CharacterMythicPlusAddonRun } from '@/types'
 
+
 export function getRunCounts(runs: CharacterMythicPlusAddonRun[]): number[] {
     const runCounts = [0, 0, 0, 0, 0, 0, 0]
     for (const run of (runs || [])) {

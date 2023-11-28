@@ -26,6 +26,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import TableFoot from './TableFoot.svelte'
 
     export let slug: string
 
@@ -104,6 +105,14 @@
     }
 </script>
 
+<style lang="scss">
+    .no-characters {
+        background: $horde-background;
+        padding: 0.3rem 0.5rem;
+        white-space: normal;
+    }
+</style>
+
 <CharacterTable
     skipGrouping={!isThisWeek}
     skipIgnored={true}
@@ -162,6 +171,12 @@
         {/key}
     </svelte:fragment>
 
+    <TableFoot
+        slot="foot"
+        extraColSpan={(isCurrentSeason ? 2 : 0) + 1 + (isThisWeek ? 1 : 0)}
+        {season}
+    />
+
     <svelte:fragment slot="emptyRow">
         <tr>
             <td class="no-characters" colspan="99">
@@ -170,11 +185,3 @@
         </tr>
     </svelte:fragment>
 </CharacterTable>
-
-<style lang="scss">
-    .no-characters {
-        background: $horde-background;
-        padding: 0.3rem 0.5rem;
-        white-space: normal;
-    }
-</style>

@@ -5,7 +5,7 @@
     import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import MagicLists from '../SettingsMagicLists.svelte'
+    import MagicLists from '../MagicLists.svelte'
     import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
     

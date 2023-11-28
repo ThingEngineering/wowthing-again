@@ -151,5 +151,6 @@
                 </slot>
             {/each}
         </tbody>
+        <slot name="foot" />
     </table>
 </div>

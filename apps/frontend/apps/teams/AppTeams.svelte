@@ -15,10 +15,6 @@
     onMount(async () => await fetchTeam())
 </script>
 
-<style lang="scss" global>
-    //@import "../../scss/global.scss";
-</style>
-
 <Sidebar />
 {#if $staticStore.error || $teamError}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>

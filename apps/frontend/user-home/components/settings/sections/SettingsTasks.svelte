@@ -6,7 +6,7 @@
     import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import Multi from './SettingsTasksMulti.svelte'
-    import MagicLists from '../SettingsMagicLists.svelte'
+    import MagicLists from '../MagicLists.svelte'
  
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
 

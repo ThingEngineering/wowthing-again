@@ -4,7 +4,7 @@
     import type { SvelteComponent } from 'svelte'
 
     import Currencies from './components/currencies/Currencies.svelte'
-    import Customizations from './components/customizations/Customizations.svelte';
+    import Customizations from './components/customizations/Customizations.svelte'
     import Matrix from './components/matrix/Matrix.svelte'
     import Sets from './components/transmog-sets/TransmogSets.svelte'
     import WorldQuests from './components/world-quests/WorldQuests.svelte'
@@ -42,7 +42,7 @@
             asyncComponent: () => import('./components/history/History.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/settings/:slug1?/:slug2?': wrap({
-            asyncComponent: () => import('@/components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
+            asyncComponent: () => import('./components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
 
         '/achievements/:slug1?/:slug2?': Achievements,

@@ -4,7 +4,7 @@
     import { characterNameTooltipChoices } from '@/data/settings'
     import { settingsStore } from '@/shared/stores/settings'
 
-    import MagicLists from '@/components/settings/SettingsMagicLists.svelte'
+    import MagicLists from '@/user-home/components/settings/MagicLists.svelte'
 
     const dataActive = $settingsStore.characters.nameTooltipDisplay
         .map((f) => characterNameTooltipChoices.filter((c) => c.key === f)[0])

@@ -6,11 +6,11 @@
     import { settingsStore } from '@/shared/stores/settings'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { lazyStore, userStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
 
     import CharacterFilter from './CharacterFilter.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import getPercentClass from '@/utils/get-percent-class';
 
     $: filteredNavItems = navItems
         .filter((navItem) =>
@@ -54,7 +54,7 @@
 
 <Sidebar>
     {#each filteredNavItems as navItem}
-        {#if navItem?.path}
+        {#if navItem !== null}
             {#if !navItem.privateOnly
                 || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
                 || ($userStore.loaded && !$userStore.public)
