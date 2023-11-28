@@ -42,7 +42,7 @@
             asyncComponent: () => import('./components/history/History.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
         '/settings/:slug1?/:slug2?': wrap({
-            asyncComponent: () => import('@/components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
+            asyncComponent: () => import('./components/settings/Settings.svelte') as Promise<{default: typeof SvelteComponent}>
         }),
 
         '/achievements/:slug1?/:slug2?': Achievements,

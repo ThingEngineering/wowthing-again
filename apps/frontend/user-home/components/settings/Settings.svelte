@@ -6,8 +6,8 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
-    import Sidebar from './SettingsSidebar.svelte'
-    import View from './SettingsView.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import View from './View.svelte'
 
     export let params: MultiSlugParams
 
