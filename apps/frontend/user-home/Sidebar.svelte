@@ -54,7 +54,7 @@
 
 <Sidebar>
     {#each filteredNavItems as navItem}
-        {#if navItem?.path}
+        {#if navItem !== null}
             {#if !navItem.privateOnly
                 || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
                 || ($userStore.loaded && !$userStore.public)
