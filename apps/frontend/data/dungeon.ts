@@ -349,7 +349,7 @@ export const dungeons: Dungeon[] = [
         "Dawn of the Infinite: Murozond's Rise",
         'RISE',
         'achievement/6150',
-        2220 / 60
+        2280 / 60
     ),
 ]
 
