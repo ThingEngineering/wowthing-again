@@ -8,9 +8,10 @@ import { multiTaskMap, taskMap } from '@/data/tasks'
 import { CharacterFlag } from '@/enums/character-flag'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
-import type { Character, ProfessionCooldown, ProfessionCooldownData, UserData } from '@/types'
+import type { Character, ProfessionCooldown, ProfessionCooldownQuest, ProfessionCooldownSpell, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 import type { Settings } from '@/shared/stores/settings/types'
+import { getNextDailyReset, getNextDailyResetFromTime } from '@/utils/get-next-reset'
 
 
 export interface LazyCharacter {
@@ -308,7 +309,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 function checkCooldowns(
     stores: LazyStores,
     character: Character,
-    cooldownDatas: ProfessionCooldownData[],
+    cooldownDatas: (ProfessionCooldownQuest | ProfessionCooldownSpell)[],
     useFlag: CharacterFlag = CharacterFlag.None
 ): LazyCharacterCooldowns {
     const ret = new LazyCharacterCooldowns()
@@ -319,57 +320,88 @@ function checkCooldowns(
             if (stores.settings.professions.cooldowns[cooldownData.key] === false) {
                 continue
             }
-
-            const charCooldown = character.professionCooldowns?.[cooldownData.key]
-            if (!charCooldown) {
+            if (!character.professions?.[cooldownData.profession]) {
                 continue
             }
 
-            let seconds = 0
-            for (const [tierSeconds, tierSubProfessionId, tierTraitId, tierMinimum] of cooldownData.cooldown) {
-                if (seconds === 0) {
-                    seconds = tierSeconds
-                }
-                else {
-                    const charTrait = character.professionTraits?.[tierSubProfessionId]?.[tierTraitId]
-                    if (charTrait && charTrait >= tierMinimum) {
-                        seconds = tierSeconds
+            if (cooldownData.type === 'quest') {
+                const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[cooldownData.key]
+                let full: DateTime = undefined
+                let have = 1
+                if (progressQuest) {
+                    const expires = DateTime.fromSeconds(progressQuest.expires)
+                    if (expires > stores.currentTime) {
+                        full = getNextDailyResetFromTime(expires, character.realm.region)
+                        have = 0
                     }
                 }
-            }
-
-            const [charNext, , charMax] = charCooldown
-            let [, charHave] = charCooldown
-            let charFull: DateTime = undefined
-
-            // if the next charge timestamp is in the past, add up to max charges and work
-            // out when this character will be full
-            if (charNext > 0) {
-                charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
-                const diff = Math.floor(stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000)
-                if (diff > 0) {
-                    charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds))
+                
+                ret.have += have
+                ret.total++
+                if (have) {
+                    ret.anyFull = true
                 }
-            }
 
-            ret.have += charHave
-            ret.total += charMax
-
-            const per = charHave / charMax * 100
-            if (per === 100) {
-                ret.anyFull = true
+                ret.cooldowns.push({
+                    data: cooldownData,
+                    have,
+                    max: 1,
+                    full,
+                    seconds: 86400,
+                })
             }
-            else if (per >= 50) {
-                ret.anyHalf = true
-            }
+            else if (cooldownData.type === 'spell') {
+                const charCooldown = character.professionCooldowns?.[cooldownData.key]
+                if (!charCooldown) {
+                    continue
+                }
 
-            ret.cooldowns.push({
-                data: cooldownData,
-                have: charHave,
-                max: charMax,
-                full: charFull,
-                seconds,
-            })
+                let seconds = 0
+                for (const [tierSeconds, tierSubProfessionId, tierTraitId, tierMinimum] of cooldownData.cooldown) {
+                    if (seconds === 0) {
+                        seconds = tierSeconds
+                    }
+                    else {
+                        const charTrait = character.professionTraits?.[tierSubProfessionId]?.[tierTraitId]
+                        if (charTrait && charTrait >= tierMinimum) {
+                            seconds = tierSeconds
+                        }
+                    }
+                }
+
+                const [charNext, , charMax] = charCooldown
+                let [, charHave] = charCooldown
+                let charFull: DateTime = undefined
+
+                // if the next charge timestamp is in the past, add up to max charges and work
+                // out when this character will be full
+                if (charNext > 0) {
+                    charFull = DateTime.fromSeconds(charNext + ((charMax - charHave - 1) * seconds))
+                    const diff = Math.floor(stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000)
+                    if (diff > 0) {
+                        charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds))
+                    }
+                }
+
+                ret.have += charHave
+                ret.total += charMax
+
+                const per = charHave / charMax * 100
+                if (per === 100) {
+                    ret.anyFull = true
+                }
+                else if (per >= 50) {
+                    ret.anyHalf = true
+                }
+
+                ret.cooldowns.push({
+                    data: cooldownData,
+                    have: charHave,
+                    max: charMax,
+                    full: charFull,
+                    seconds,
+                })
+            }
         }
     }
 
