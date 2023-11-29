@@ -445,6 +445,11 @@ public class JournalTool
                                 continue;
                             }
 
+                            if (item.InventoryType is WowInventoryType.Finger or WowInventoryType.Neck)
+                            {
+                                continue;
+                            }
+
                             bool difficultiesOverridden = false;
                             if (!hadDifficulties)
                             {

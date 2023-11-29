@@ -286,7 +286,7 @@ public class ApplicationUserSettingsLayout
     public bool NavigationCustomizations { get; set; } = false;
     public bool NavigationMounts { get; set; } = false;
     public bool NavigationPets { get; set; } = false;
-    public bool NavigationToys { get; set; } = false; 
+    public bool NavigationToys { get; set; } = false;
 
     public string CovenantColumn { get; set; } = "current";
     public string Padding { get; set; } = "medium";
