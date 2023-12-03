@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import type { ConvertibleCategory } from './types'
     import type { Character } from '@/types'
 
@@ -18,6 +19,8 @@
         if (season.conversionCurrencyId) {
             currencies.push([[season.conversionCurrencyId, 1]])
         }
+
+        currencies.push([[Constants.currencies.itemUpgrade, 1]])
 
         if (season.id === 3) {
             if (tier === 2 || tier === 3) {

@@ -9,7 +9,7 @@ export abstract class Constants {
     static readonly currencies = {
         catalyst: 2796, // Renascent Dream
         dragonridingPassengers: 2133,
-        valor: 1191,
+        itemUpgrade: 2245,
     }
 
     static readonly reputations = {
