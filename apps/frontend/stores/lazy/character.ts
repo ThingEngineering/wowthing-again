@@ -8,10 +8,10 @@ import { multiTaskMap, taskMap } from '@/data/tasks'
 import { CharacterFlag } from '@/enums/character-flag'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
+import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
 import type { Character, ProfessionCooldown, ProfessionCooldownQuest, ProfessionCooldownSpell, UserData } from '@/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 import type { Settings } from '@/shared/stores/settings/types'
-import { getNextDailyReset, getNextDailyResetFromTime } from '@/utils/get-next-reset'
 
 
 export interface LazyCharacter {
@@ -259,7 +259,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                     else if (charTask.quest.status === QuestStatus.InProgress) {
                         charTask.status = 'shrug'
                         
-                        const objectives = charTask.quest.objectives || []
+                        let objectives = charTask.quest.objectives || []
                         if (objectives.length === 1) {
                             const objective = charTask.quest.objectives[0]
                             if (objective.type === 'progressbar') {
@@ -273,17 +273,25 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             }
     
                             if (objective.have === objective.need) {
-                                charTask.status = `${status} status-turn-in`
+                                charTask.status = `${charTask.status} status-turn-in`
                             }
                         }
                         else {
+                            if (
+                                ([75859, 78446, 78447].indexOf(charTask.quest.id) >= 0) &&
+                                objectives[0].have === 1 &&
+                                objectives[0].need === 1
+                            ) {
+                                objectives = objectives.slice(1)
+                            }
+
                             const averagePercent = objectives
                                 .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
     
-                                charTask.text = `${Math.floor(averagePercent * 100)} %`
+                            charTask.text = `${Math.floor(averagePercent * 100)} %`
     
                             if (averagePercent >= 1) {
-                                charTask.status = `${status} status-turn-in`
+                                charTask.status = `${charTask.status} status-turn-in`
                             }
                         }
                     }

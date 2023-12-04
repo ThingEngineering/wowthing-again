@@ -29,6 +29,17 @@
         }
         return 2
     }
+
+    const skipObjective = function(objectiveIndex: number): boolean {
+        if (
+            ([75859, 78446, 78447].indexOf(progressQuest.id) >= 0) &&
+            objectiveIndex === 0 &&
+            progressQuest.objectives[0].have === 1
+        ) {
+            return true
+        }
+        return false
+    }
 </script>
 
 <style lang="scss">
@@ -55,12 +66,14 @@
     <table class="table-striped">
         <tbody>
             {#if status === QuestStatus.InProgress && progressQuest.objectives?.length > 0}
-                {#each progressQuest.objectives as objective}
-                    <tr>
-                        <td class="progress status-{objectiveStatus(objective)}">
-                            {objective.text}
-                        </td>
-                    </tr>
+                {#each progressQuest.objectives as objective, objectiveIndex}
+                    {#if !skipObjective(objectiveIndex)}
+                        <tr>
+                            <td class="progress status-{objectiveStatus(objective)}">
+                                {objective.text}
+                            </td>
+                        </tr>
+                    {/if}
                 {/each}
             {:else}
                 <tr>
