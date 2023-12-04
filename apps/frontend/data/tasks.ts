@@ -249,11 +249,6 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
-        key: 'dfFighting',
-        name: '[DF] Heroic Dungeons',
-        shortName: 'HDun',
-    },
-    {
         key: 'dfProfessionWeeklies',
         name: '[DF] Profession Weeklies',
         shortName: 'Pro',
