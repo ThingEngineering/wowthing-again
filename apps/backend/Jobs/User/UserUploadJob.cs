@@ -576,7 +576,7 @@ public class UserUploadJob : JobBase
 
             var item = character.AddonData.EquippedItems[slot] = new();
 
-            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems:modifiers
             item.ItemId = int.Parse(parts[1]);
             item.Context = context;
             item.ItemLevel = itemLevel;
@@ -1257,6 +1257,11 @@ public class UserUploadJob : JobBase
             if (parts.Length >= 10)
             {
                 item.CraftedQuality = GetCraftedQuality(parts[9]);
+                item.Modifiers = parts[9]
+                    .EmptyIfNullOrWhitespace()
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(value => value.Split('_'))
+                    .ToDictionary(key => int.Parse(key[0]), value => int.Parse(value[0]));
             }
         }
     }
