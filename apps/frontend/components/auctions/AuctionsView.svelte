@@ -11,6 +11,7 @@
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import Commodities from './commodities/Commodities.svelte'
     import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
@@ -52,6 +53,7 @@
     weaponOptions.splice(0, 0, [-1, 'Any'])
 
     const componentMap: Record<string, ComponentType> = {
+        'commodities': Commodities,
         'custom-1': Custom,
         'custom-2': Custom,
         'custom-3': Custom,

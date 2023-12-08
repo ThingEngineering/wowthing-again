@@ -40,6 +40,10 @@
             },
             null,
             {
+                name: 'Commodities',
+                slug: 'commodities',
+            },
+            {
                 name: 'Extra Pets',
                 slug: 'extra-pets',
                 forceWildcard: true,

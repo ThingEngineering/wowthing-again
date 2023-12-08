@@ -9,6 +9,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
+using Wowthing.Web.Models.Api;
 
 namespace Wowthing.Web.Services;
 
@@ -150,6 +151,57 @@ public class AuctionService
             .ToArrayAsync();
 
         return auctions;
+    }
+
+    public async Task<ApiAuctionCommodities> CommoditiesDataForUser(ApplicationUser user, JankTimer timer = null)
+    {
+        int[] realmIds = await _context.PlayerCharacter
+            .AsNoTracking()
+            .Where(pc => pc.Account.UserId == user.Id)
+            .Select(pc => pc.RealmId)
+            .Distinct()
+            .ToArrayAsync();
+
+        short[] regions = await _context.WowRealm
+            .AsNoTracking()
+            .Where(wr => realmIds.Contains(wr.Id))
+            .Select(wr => (short)wr.Region)
+            .Distinct()
+            .ToArrayAsync();
+
+        var data = new ApiAuctionCommodities(regions);
+
+        timer?.AddPoint("Regions");
+
+        foreach (short region in regions)
+        {
+            var regionData = data.Regions[region];
+
+            var maxStamp = await _context.WowAuctionCommodityHourly
+                .AsNoTracking()
+                .Where(hourly => hourly.Region == region)
+                .Select(hourly => hourly.Timestamp)
+                .MaxAsync();
+
+            var commodities = await _context.WowAuctionCommodityHourly
+                .AsNoTracking()
+                .Where(hourly => hourly.Region == region &&
+                                 hourly.Timestamp == maxStamp &&
+                                 hourly.Listed >= 1000)
+                .Select(hourly => new
+                {
+                    ItemId = hourly.ItemId,
+                    Price = hourly.Data[0]
+                })
+                .ToArrayAsync();
+
+            foreach (var commodity in commodities)
+            {
+                regionData.Add(commodity.ItemId, commodity.Price);
+            }
+        }
+
+        return data;
     }
 
     public async Task<UserAuctionData> ExtraPetDataForUser(ApplicationUser user, JankTimer timer = null)
