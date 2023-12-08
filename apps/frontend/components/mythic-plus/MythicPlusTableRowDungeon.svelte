@@ -1,6 +1,7 @@
 <script lang="ts">
+    import maxBy from 'lodash/maxBy'
     import { getContext } from 'svelte'
-
+    
     import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type {
@@ -11,6 +12,7 @@
     } from '@/types'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
+    import { leftPad } from '@/utils/formatting';
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -46,6 +48,14 @@
             }
         }
     }
+
+    $: bestRun = maxBy(
+        runs || [],
+        (run) => [
+            leftPad(100 - run.keystoneLevel, 3, '0'),
+            run.timed ? 0 : 1,
+        ].join('|')
+    )
 </script>
 
 <style lang="scss">
@@ -118,11 +128,14 @@
             {:else}
                 <span class="quality0">--</span>
             {/if}
-        {:else}
-            {#each runs as run}
-                <span class={getRunQuality(run)}
-                    >{run.keystoneLevel}</span>
-            {/each}
+        {:else if bestRun}
+            <span class={getRunQuality(bestRun)}>
+                {bestRun.keystoneLevel}
+            </span>
+            
+            {#if runs.length > 1}
+                ({runs.length - 1})
+            {/if}
         {/if}
     </div>
 </td>

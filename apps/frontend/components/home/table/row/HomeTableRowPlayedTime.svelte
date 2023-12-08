@@ -13,6 +13,7 @@
     td {
         @include cell-width($width-played);
 
+        border-left: 1px solid $border-color;
         text-align: right;
     }
     code {

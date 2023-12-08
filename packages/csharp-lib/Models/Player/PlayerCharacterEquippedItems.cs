@@ -25,4 +25,5 @@ public class PlayerCharacterEquippedItem
     public List<int> BonusIds { get; set; }
     public List<int> EnchantmentIds { get; set; }
     public List<int> GemIds { get; set; }
+    public Dictionary<int, int> Modifiers { get; set; }
 }

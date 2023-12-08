@@ -30,6 +30,9 @@ public class PlayerGuildItem : IPlayerItem
     public short Quality { get; set; }
     public short SuffixId { get; set; }
 
-    public List<int> Gems { get; set; }
     public List<short> BonusIds { get; set; }
+    public List<int> Gems { get; set; }
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, int> Modifiers { get; set; }
 }

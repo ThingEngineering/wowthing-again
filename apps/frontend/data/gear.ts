@@ -8,7 +8,7 @@ export const currentTier: number[] = [
     1563, // Monk - Mystic Heron's Discipline
     1564, // Paladin - Zealous Pyreknight's Ardor
     1565, // Priest - Blessings of Lunar Communion
-    1565, // Rogue - Lucid Shadewalker's Silence
+    1566, // Rogue - Lucid Shadewalker's Silence
     1567, // Shaman - Vision of the Greatwolf Outcast
     1568, // Warlock - Devout Ashdevil's Pactweave
     1569, // Warrior - Molten Vanguard's Mortarplate
