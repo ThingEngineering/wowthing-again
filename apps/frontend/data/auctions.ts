@@ -46,3 +46,8 @@ export const extraCraftedItemIds: Set<number> = new Set<number>([
     82933, // Ghost-Forged Boots
     82934, // Ghost-Forged Belt
 ])
+
+export const skipRecipeItemIds = new Set<number>([
+    16072, // Expert Cookbook
+    27736, // Master Cookbook
+])
