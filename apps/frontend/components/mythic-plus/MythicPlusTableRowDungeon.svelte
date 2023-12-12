@@ -12,7 +12,6 @@
     } from '@/types'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
-    import { leftPad } from '@/utils/formatting';
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -51,10 +50,7 @@
 
     $: bestRun = maxBy(
         runs || [],
-        (run) => [
-            leftPad(100 - run.keystoneLevel, 3, '0'),
-            run.timed ? 0 : 1,
-        ].join('|')
+        (run) => (run.keystoneLevel * 10) + (run.timed ? 0 : 1)
     )
 </script>
 

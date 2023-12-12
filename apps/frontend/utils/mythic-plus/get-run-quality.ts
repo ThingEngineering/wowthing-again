@@ -23,15 +23,11 @@ export function getRunQualityAffix(run: CharacterMythicPlusAddonMapAffix): strin
 }
 
 function getQuality(level: number): string {
-    if (level >= 20) {
-        return 'quality5'
-    } else if (level >= 15) {
+    if (level >= 17) {
         return 'quality4'
-    } else if (level >= 10) {
+    } else if (level >= 9) {
         return 'quality3'
-    } else if (level >= 5) {
-        return 'quality2'
     } else {
-        return 'quality1'
+        return 'quality2'
     }
 }

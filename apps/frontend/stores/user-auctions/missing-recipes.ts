@@ -1,5 +1,6 @@
 import some from 'lodash/some'
 
+import { skipRecipeItemIds } from '@/data/auctions'
 import { professionSpecializationSpells } from '@/data/professions'
 import { Faction } from '@/enums/faction'
 import { sortAuctions, type SortableAuction } from '@/utils/auctions/sort-auctions'
@@ -72,8 +73,13 @@ export class UserAuctionMissingRecipeDataStore {
                 updated = responseData.updated
 
                 const parsedData: Record<number, UserAuctionDataMissingRecipeAuction[]> = {}
-                for (const [itemId, rawAuctions] of Object.entries(responseData.auctions)) {
-                    parsedData[parseInt(itemId)] = rawAuctions
+                for (const [itemIdString, rawAuctions] of Object.entries(responseData.auctions)) {
+                    const itemId = parseInt(itemIdString)
+                    if (skipRecipeItemIds.has(itemId)) {
+                        continue
+                    }
+                    
+                    parsedData[itemId] = rawAuctions
                         .map((auctionArray) => new UserAuctionDataMissingRecipeAuction(...auctionArray))
                 }
     

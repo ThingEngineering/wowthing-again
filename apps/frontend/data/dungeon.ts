@@ -548,13 +548,13 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
 }
 
 export const keyTiers = [
-    '2-4',
-    '5-9',
-    '10-14',
-    '15-19',
-    '20-24',
-    '25-29',
-    '30+',
+    '2-5',
+    '6-10',
+    '11-15',
+    '16-20',
+    '21-25',
+    '26-30',
+    '31+',
 ]
 
 // Fake "instances" for tracking world bosses
