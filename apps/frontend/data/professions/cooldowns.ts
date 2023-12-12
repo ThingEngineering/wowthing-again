@@ -81,9 +81,16 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     {
         type: 'quest',
         key: 'dfProfessionSkinningMagmaCobra',
-        name: '[DF] Magma Cobra',
+        name: 'Magma Cobra',
         profession: Profession.Skinning,
         ids: [74235],
+    },
+    {
+        type: 'quest',
+        key: 'dfProfessionSkinningVerdantGladewarden',
+        name: 'Verdant Gladewarden',
+        profession: Profession.Skinning,
+        ids: [78397],
     },
 
     // Tailoring
