@@ -1040,12 +1040,12 @@ public class StaticTool
             var outTrees = ret[skillLineId] = new();
             foreach (var dumpTree in dumpTrees)
             {
+                ToolContext.Logger.Information("  Tree {tree}", dumpTree.ID);
+
                 if (dumpTree.FirstTraitNodeID == 0)
                 {
                     continue;
                 }
-
-                ToolContext.Logger.Information("  Tree {tree}", dumpTree.ID);
 
                 var outTree = new OutTraitTree(dumpTree.ID);
                 outTrees.Add(outTree);
