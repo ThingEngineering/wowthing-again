@@ -138,24 +138,31 @@ export const taskList: Task[] = [
         shortName: 'RBGs',
     },
     {
-        key: 'pvpBrawl',
-        name: '[PvP] Brawl (Something Different)',
-        shortName: 'Brawl',
-    },
-    {
         key: 'pvpArenas',
         name: '[PvP] Arenas',
         shortName: 'Arena',
     },
     {
-        key: 'pvpSolo',
-        name: '[PvP] Solo Shuffle',
-        shortName: 'Solo',
+        key: 'pvpBlitz',
+        minimumLevel: 70,
+        name: '[PvP] Battleground Blitz',
+        shortName: 'Blitz',
+        type: 'multi',
+    },
+    {
+        key: 'pvpBrawl',
+        name: '[PvP] Brawl (Something Different)',
+        shortName: 'Brawl',
     },
     {
         key: 'pvpOverwhelmingOdds',
         name: '[PvP] Overwhelming Odds',
         shortName: 'WM',
+    },
+    {
+        key: 'pvpSolo',
+        name: '[PvP] Solo Shuffle',
+        shortName: 'Solo',
     },
 
     // Warlords of Draenor
@@ -551,6 +558,16 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'warsongScramble',
             taskName: 'Warsong Scramble',
+        },
+    ],
+    'pvpBlitz': [
+        {
+            taskKey: 'pvpBlitz1',
+            taskName: 'Gotta Go Fast',
+        },
+        {
+            taskKey: 'pvpBlitz3',
+            taskName: 'Gotta Go Faster',
         },
     ],
 }
