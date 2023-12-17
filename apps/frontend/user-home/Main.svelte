@@ -77,7 +77,7 @@
             )
 
             userTransmogStore.setup(
-                $settingsStore,
+                $itemStore,
                 $userAchievementStore
             )
 

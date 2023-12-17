@@ -174,6 +174,7 @@
     <TableFoot
         slot="foot"
         extraColSpan={(isCurrentSeason ? 2 : 0) + 1 + (isThisWeek ? 1 : 0)}
+        {isThisWeek}
         {season}
     />
 

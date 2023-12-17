@@ -3,6 +3,7 @@ export interface UserTransmogData {
     appearanceSources: string[]
     illusionIds: number[]
 
+    appearanceMask?: Map<number, number>
     hasAppearance?: Set<number>
     hasIllusion?: Set<number>
     hasSource?: Set<string>

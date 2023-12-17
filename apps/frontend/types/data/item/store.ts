@@ -5,7 +5,7 @@ import type { DataItemSet, DataItemSetArray } from './item-set'
 
 
 export interface ItemData {
-    appearanceToItems: Record<number, number[]>
+    appearanceToItems: Record<number, [number, number][]>
     completesQuest: Record<number, number[]>
     craftingQualities: Record<number, number[]>
     itemBonusCurrentSeason: Set<number>

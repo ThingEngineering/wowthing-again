@@ -12,8 +12,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     initialize(data: ItemData) {
         console.time('ItemDataStore.initialize')
 
-        const appearanceIds = new Map<number, Set<number>>()
-
+        data.appearanceToItems = {}
         data.items = {}
         let itemId = 0;
         for (const itemArray of data.rawItems) {
@@ -32,13 +31,10 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             data.items[obj.id] = obj
 
             for (const appearanceData of (itemArray[10] || [])) {
-                let appSet = appearanceIds.get(appearanceData[0])
-                if (!appSet)
-                {
-                    appSet = new Set<number>()
-                    appearanceIds.set(appearanceData[0], appSet)
+                if (appearanceData[0] > 0) {
+                    const appItems = (data.appearanceToItems[appearanceData[0]] ||= [])
+                    appItems.push([itemId, appearanceData[2] || 0])
                 }
-                appSet.add(itemId)
             }
         }
         data.rawItems = null
@@ -55,12 +51,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             for (const itemId of itemIds) {
                 data.items[itemId].limitCategory = category
             }
-        }
-
-        data.appearanceToItems = {}
-        for (const [appearanceId, itemIds] of appearanceIds.entries())
-        {
-            data.appearanceToItems[appearanceId] = Array.from(itemIds)
         }
 
         data.oppositeFactionAppearance = {}

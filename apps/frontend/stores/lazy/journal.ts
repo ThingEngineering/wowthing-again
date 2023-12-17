@@ -1,4 +1,3 @@
-import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 
 import { journalDifficultyMap } from '@/data/difficulty'
@@ -12,8 +11,7 @@ import { JournalDataEncounterItem, type JournalData, type UserTransmogData } fro
 import type { JournalState } from '../local-storage'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { Settings } from '@/shared/stores/settings/types'
-import type { ItemData, ItemDataItem } from '@/types/data/item'
-import { countSetBits } from '@/utils/count-set-bits'
+import type { ItemData } from '@/types/data/item'
 
 
 export interface LazyJournal {
@@ -93,6 +91,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                     if (!masochist) {
                         const keepItems: JournalDataEncounterItem[] = []
 
+                        // Group items by appearanceId
                         const appearanceMap: Record<number, JournalDataEncounterItem[]> = {}
                         for (const item of filteredItems) {
                             if (item.type === RewardType.Item) {
@@ -136,7 +135,9 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 appearanceItems.reduce((a, b) => a | b.classMask, 0),
                                 [[
                                     appearanceId,
-                                    0,
+                                    appearanceItems[0].appearances
+                                        .filter((a) => a.appearanceId === appearanceId)[0]
+                                        .modifierId,
                                     sortBy(
                                         Array.from(difficulties.values()),
                                         (diff) => journalDifficultyMap[diff]
@@ -169,33 +170,23 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             let appearanceKey: string
 
                             if (item.type === RewardType.Item) {
-                                if (masochist) {
-                                    appearanceKey = `${item.id}_${appearance.modifierId}`
-                                    appearance.userHas = stores.userTransmogData.hasSource.has(appearanceKey)
-                                }
-                                else {
-                                    // Group items that share this appearance by the number of bits set
-                                    // in their class mask
-                                    const appearanceItemIds = stores.itemData.appearanceToItems[appearance.appearanceId]
-                                    const itemsByBitCount: Record<number, ItemDataItem[]> = {}
-                                    let highestBitCount = 0
-                                    for (const appearanceItemId of appearanceItemIds) {
-                                        const appearanceItem = stores.itemData.items[appearanceItemId]
-                                        const appearanceBitCount = countSetBits(appearanceItem.classMask)
-                                        highestBitCount = Math.max(appearanceBitCount, highestBitCount)
-                                        ; (itemsByBitCount[appearanceBitCount] ||= []).push(appearanceItem)
-                                    }
+                                // Check for source first, we're done if they have it
+                                appearanceKey = `${item.id}_${appearance.modifierId}`
+                                appearance.userHas = stores.userTransmogData.hasSource.has(appearanceKey)
 
-                                    const bestItems = itemsByBitCount[highestBitCount]
-                                    if (some(bestItems, (best) => best.id === item.id)) {
-                                        appearance.userHas = some(
-                                            bestItems,
-                                            (best) => stores.userTransmogData.hasSource.has(`${best.id}_${appearance.modifierId}`)
-                                        )
-                                    }
-                                    else {
-                                        appearance.userHas = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
-                                    }
+                                if (
+                                    !masochist &&
+                                    !appearance.userHas &&
+                                    stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+                                ) {
+                                    // Make sure that the class mask of this item is actually collected
+                                    appearance.userHas = (
+                                        item.classMask === 0 ||
+                                        (
+                                            stores.userTransmogData.appearanceMask.get(appearance.appearanceId) &
+                                            item.classMask
+                                        ) === item.classMask
+                                    )
 
                                     appearanceKey = appearance.appearanceId.toString()
                                 }

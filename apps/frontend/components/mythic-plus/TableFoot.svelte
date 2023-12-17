@@ -6,6 +6,7 @@
     import type { CharacterMythicPlusAddonRun, MythicPlusSeason } from '@/types'
 
     export let extraColSpan: number
+    export let isThisWeek: boolean
     export let season: MythicPlusSeason
     
     $: colspan = $settingsStore.layout.commonFields.length +
@@ -28,9 +29,16 @@
         }
         else {
             for (const character of characters) {
-                const startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[season.id].startPeriod)
-                    .startTime
-                    .toUnixInteger()
+                const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, character)
+                let startStamp: number
+                if (isThisWeek) {
+                    startStamp = currentPeriod.startTime.toUnixInteger()
+                }
+                else {
+                    startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[season.id].startPeriod)
+                        .startTime
+                        .toUnixInteger()
+                }
 
                 const endStamp = userStore.getCurrentPeriodForCharacter($timeStore, character)
                     .endTime
@@ -44,23 +52,26 @@
                 }
             }
         }
+        console.log(allRuns)
 
-        for (const character of characters) {
-            const thisSeason = character.mythicPlusSeasons?.[season.id]
-            if (thisSeason) {
-                for (const [dungeonIdStr, dungeonData] of Object.entries(thisSeason)) {
-                    const dungeonId = parseInt(dungeonIdStr)
-                    minCounts[dungeonId] = (minCounts[dungeonId] || 0) +
-                        (dungeonData.fortifiedScore ? 1 : 0) +
-                        (dungeonData.tyrannicalScore ? 1 : 0)
-                }
-            }
-            else {
-                const sighSeason = character.mythicPlus?.seasons?.[season.id]
-                if (sighSeason) {
-                    for (const [dungeonIdStr, dungeonData] of Object.entries(sighSeason)) {
+        if (!isThisWeek) {
+            for (const character of characters) {
+                const thisSeason = character.mythicPlusSeasons?.[season.id]
+                if (thisSeason) {
+                    for (const [dungeonIdStr, dungeonData] of Object.entries(thisSeason)) {
                         const dungeonId = parseInt(dungeonIdStr)
-                        minCounts[dungeonId] = (minCounts[dungeonId] || 0) + dungeonData.length
+                        minCounts[dungeonId] = (minCounts[dungeonId] || 0) +
+                            (dungeonData.fortifiedScore ? 1 : 0) +
+                            (dungeonData.tyrannicalScore ? 1 : 0)
+                    }
+                }
+                else {
+                    const sighSeason = character.mythicPlus?.seasons?.[season.id]
+                    if (sighSeason) {
+                        for (const [dungeonIdStr, dungeonData] of Object.entries(sighSeason)) {
+                            const dungeonId = parseInt(dungeonIdStr)
+                            minCounts[dungeonId] = (minCounts[dungeonId] || 0) + dungeonData.length
+                        }
                     }
                 }
             }
