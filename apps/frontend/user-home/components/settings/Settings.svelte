@@ -6,8 +6,8 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
+    import Routes from './Routes.svelte'
     import Sidebar from './Sidebar.svelte'
-    import View from './View.svelte'
 
     export let params: MultiSlugParams
 
@@ -18,8 +18,5 @@
 
 {#if !$userStore.public}
     <Sidebar />
-    <View
-        slug1={params.slug1}
-        slug2={params.slug2}
-    />
+    <Routes {params} />
 {/if}

@@ -1,7 +1,9 @@
 <script lang="ts">
-    import { afterUpdate, type ComponentType } from 'svelte'
+    import { afterUpdate } from 'svelte'
+    import Router from 'svelte-spa-router'
 
     import { getColumnResizer } from '@/utils/get-column-resizer'
+    import type { MultiSlugParams } from '@/types'
 
     import Achievements from './sections/SettingsAchievements.svelte'
     import Auctions from './sections/SettingsAuctions.svelte'
@@ -25,36 +27,30 @@
     import CharactersSort from './sections/characters/SettingsCharactersSort.svelte'
     import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte'
 
-    export let slug1: string
-    export let slug2: string
+    export let params: MultiSlugParams
 
-    let slug: string
-    $: {
-        slug = slug2 ? `${slug1}/${slug2}` : slug1
-    }
-
-    const components: Record<string, ComponentType> = {
-        'account': Account,
-        'achievements': Achievements,
-        'auctions': Auctions,
-        'auctions/custom': AuctionsCustom,
-        'collections': Collections,
-        'history': History,
-        'leaderboard': Leaderboard,
-        'privacy': Privacy,
-        'professions': Professions,
-        'transmog': Transmog,
+    const routes = {
+        '/account': Account,
+        '/achievements': Achievements,
+        '/auctions/custom': AuctionsCustom,
+        '/auctions': Auctions,
+        '/collections': Collections,
+        '/history': History,
+        '/leaderboard': Leaderboard,
+        '/privacy': Privacy,
+        '/professions': Professions,
+        '/transmog': Transmog,
         
-        'characters': Characters,
-        'characters/pin': CharactersPin,
-        'characters/sort': CharactersSort,
-        'characters/toggles': CharactersToggles,
+        '/characters/pin': CharactersPin,
+        '/characters/sort': CharactersSort,
+        '/characters/toggles': CharactersToggles,
+        '/characters': Characters,
 
-        'layout': Layout,
-        'layout/grouping': LayoutGrouping,
-        'layout/lockouts': Lockouts,
-        'layout/tasks': Tasks,
-        'layout/views': LayoutViews,
+        '/layout/grouping': LayoutGrouping,
+        '/layout/lockouts': Lockouts,
+        '/layout/tasks': Tasks,
+        '/layout/views': LayoutViews,
+        '/layout': Layout,
     }
 
     let containerElement: HTMLElement
@@ -88,14 +84,15 @@
     <div class="resizer-view" bind:this={containerElement}>
         <div bind:this={resizeableElement}>
             <div class="thing-container settings-container">
-                <svelte:component
-                    this={components[slug]}
+                <Router
+                    prefix={'/settings'}
+                    {routes}
                 />
             </div>
         </div>
     </div>
 
-    {#if slug === 'layout'}
+    {#if params.slug1 === 'layout' && !params.slug2}
         <HomeTable characterLimit={2} />
     {/if}
 </div>

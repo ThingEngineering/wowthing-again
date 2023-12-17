@@ -10,6 +10,15 @@
             slug: 'account',
         },
         {
+            name: 'Leaderboard',
+            slug: 'leaderboard',
+        },
+        {
+            name: 'Privacy',
+            slug: 'privacy',
+        },
+        null,
+        {
             name: 'Layout',
             slug: 'layout',
             children: [
@@ -26,19 +35,11 @@
                     name: 'Grouping',
                     slug: 'grouping',
                 },
-                {
-                    name: 'Views',
-                    slug: 'views',
-                },
             ],
         },
         {
-            name: 'Leaderboard',
-            slug: 'leaderboard',
-        },
-        {
-            name: 'Privacy',
-            slug: 'privacy',
+            name: 'Views',
+            slug: 'views',
         },
         null,
         {
