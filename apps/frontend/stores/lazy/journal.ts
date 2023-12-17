@@ -1,4 +1,3 @@
-import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 
 import { journalDifficultyMap } from '@/data/difficulty'
@@ -12,8 +11,7 @@ import { JournalDataEncounterItem, type JournalData, type UserTransmogData } fro
 import type { JournalState } from '../local-storage'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { Settings } from '@/shared/stores/settings/types'
-import type { ItemData, ItemDataItem } from '@/types/data/item'
-import { countSetBits } from '@/utils/count-set-bits'
+import type { ItemData } from '@/types/data/item'
 
 
 export interface LazyJournal {
