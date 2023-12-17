@@ -4,7 +4,7 @@
     import type { SettingsView } from '@/shared/stores/settings/types'
 
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
-    import View from './SettingsLayoutViewsView.svelte'
+    import View from './View.svelte'
 
     const newView = () => {
         const view: SettingsView = {

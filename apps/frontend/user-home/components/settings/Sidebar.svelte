@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { settingsSavingState } from '@/shared/stores/settings'
+    import { settingsSavingState, settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
@@ -40,6 +40,11 @@
         {
             name: 'Views',
             slug: 'views',
+            children: ($settingsStore.views || [])
+                .map((view) => ({
+                    name: view.name,
+                    slug: view.id,
+                }))
         },
         null,
         {

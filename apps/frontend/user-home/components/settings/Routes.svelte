@@ -14,13 +14,14 @@
     import HomeTable from '@/components/home/HomeTable.svelte'
     import Layout from './sections/SettingsLayout.svelte'
     import LayoutGrouping from './sections/layout/SettingsLayoutGrouping.svelte'
-    import LayoutViews from './sections/layout/SettingsLayoutViews.svelte'
     import Leaderboard from './sections/SettingsLeaderboard.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import Professions from './sections/SettingsProfessions.svelte'
     import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
+    import View from './sections/views/View.svelte'
+    import Views from './sections/views/Views.svelte'
 
     import Characters from './sections/characters/SettingsCharacters.svelte'
     import CharactersPin from './sections/characters/SettingsCharactersPin.svelte'
@@ -49,8 +50,10 @@
         '/layout/grouping': LayoutGrouping,
         '/layout/lockouts': Lockouts,
         '/layout/tasks': Tasks,
-        '/layout/views': LayoutViews,
         '/layout': Layout,
+
+        '/views': Views,
+        '/views/:view': View,
     }
 
     let containerElement: HTMLElement
