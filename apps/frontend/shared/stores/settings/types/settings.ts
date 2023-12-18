@@ -6,6 +6,8 @@ import type { Language } from '@/enums/language'
 
 
 export interface Settings {
+    activeView: string
+
     achievements: {
         showCharactersIfCompleted: boolean
     }

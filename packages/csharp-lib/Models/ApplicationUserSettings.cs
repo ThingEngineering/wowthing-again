@@ -9,6 +9,8 @@ public class ApplicationUserSettings
     private static readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
     private static readonly Regex ValidTaskString = new Regex(@"^\w{1,30}$", RegexOptions.Compiled);
 
+    public string ActiveView = String.Empty;
+
     public ApplicationUserSettingsAchievements? Achievements { get; set; } = new();
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
