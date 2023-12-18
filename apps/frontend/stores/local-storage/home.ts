@@ -3,7 +3,6 @@ import { writable } from 'svelte/store'
 
 export class HomeState {
     public groupSort: Record<number, string> = {}
-    public onlyWeekly = false
 }
 
 const key = 'state-home'

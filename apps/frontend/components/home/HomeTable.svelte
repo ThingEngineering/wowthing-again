@@ -52,46 +52,34 @@
     <svelte:fragment slot="rowExtra" let:character>
         {#each $settingsStore.layout.homeFields as field}
             {#if field === 'callings'}
-                {#if !$homeState.onlyWeekly}
-                    <RowDailies
-                        expansion={8}
-                        {character}
-                    />
-                {/if}
+                <RowDailies
+                    expansion={8}
+                    {character}
+                />
 
             {:else if field === 'covenant'}
-                {#if !$homeState.onlyWeekly}
-                    <RowCovenant {character} />
-                {/if}
+                <RowCovenant {character} />
                 
             {:else if field === 'currentLocation'}
-                {#if !$homeState.onlyWeekly}
-                    <RowCurrentLocation {character} />
-                {/if}
+                <RowCurrentLocation {character} />
 
             {:else if field === 'emissariesBfa'}
-                {#if !$homeState.onlyWeekly}
-                    <RowDailies
-                        expansion={7}
-                        {character}
-                    />
-                {/if}
+                <RowDailies
+                    expansion={7}
+                    {character}
+                />
 
             {:else if field === 'emissariesLegion'}
-                {#if !$homeState.onlyWeekly}
-                    <RowDailies
-                        expansion={6}
-                        {character}
-                    />
-                {/if}
+                <RowDailies
+                    expansion={6}
+                    {character}
+                />
 
             {:else if field === 'gear'}
-                {#if !$homeState.onlyWeekly}
-                    <RowGear {character} />
-                {/if}
+                <RowGear {character} />
 
             {:else if field === 'gold'}
-                {#if !isPublic && !$homeState.onlyWeekly}
+                {#if !isPublic}
                     <RowGold gold={character.gold} />
                 {/if}
             
@@ -99,20 +87,13 @@
                 <RowGuild {character} />
 
             {:else if field === 'hearthLocation'}
-                {#if !$homeState.onlyWeekly}
-                    <RowHearthLocation {character} />
-                {/if}
+                <RowHearthLocation {character} />
 
             {:else if field === 'itemLevel'}
-                {#if !$homeState.onlyWeekly}
-                    <RowItemLevel {character} />
-                {/if}
-
-            {:else if field === 'mountSpeed'}
-                <!-- remove later -->
+                <RowItemLevel {character} />
 
             {:else if field === 'keystone'}
-                {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
+                {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
                     <RowKeystone {character} />
                 {/if}
 
@@ -122,47 +103,35 @@
                 {/if}
 
             {:else if field === 'mythicPlusScore'}
-                {#if !$homeState.onlyWeekly}
-                    <RowMythicPlusScore
-                        seasonId={Constants.mythicPlusSeason}
-                        {character}
-                    />
-                {/if}
+                <RowMythicPlusScore
+                    seasonId={Constants.mythicPlusSeason}
+                    {character}
+                />
 
             {:else if field === 'playedTime'}
-                {#if !isPublic && !$homeState.onlyWeekly}
+                {#if !isPublic}
                     <RowPlayedTime playedTotal={character.playedTotal} />
                 {/if}
             
             {:else if field === 'professionCooldowns'}
-                {#if !$homeState.onlyWeekly}
-                    <RowProfessionCooldowns {character} />
-                {/if}
+                <RowProfessionCooldowns {character} />
             
             {:else if field === 'professionWorkOrders'}
-                {#if !$homeState.onlyWeekly}
-                    <RowProfessionWorkOrders {character} />
-                {/if}
+                <RowProfessionWorkOrders {character} />
 
             {:else if field === 'professions'}
-                {#if !$homeState.onlyWeekly}
-                    <RowProfessions {character} />
-                {/if}
+                <RowProfessions {character} />
     
             {:else if field === 'professionsSecondary'}
-                {#if !$homeState.onlyWeekly}
-                    <RowProfessions {character} professionType={1} />
-                {/if}
+                <RowProfessions {character} professionType={1} />
 
             {:else if field === 'restedExperience'}
-                {#if !isPublic && !$homeState.onlyWeekly}
+                {#if !isPublic}
                     <RowRestedExperience {character} />
                 {/if}
 
             {:else if field === 'statusIcons'}
-                {#if !$homeState.onlyWeekly}
-                    <RowStatuses {character} />
-                {/if}
+                <RowStatuses {character} />
 
             {:else if field === 'tasks'}
                 <RowTasks {character} />
