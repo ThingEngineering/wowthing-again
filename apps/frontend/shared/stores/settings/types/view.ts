@@ -11,4 +11,6 @@ export interface SettingsView {
 
     homeLockouts: number[]
     homeTasks: string[]
+
+    disabledChores: Record<string, string[]>
 }
