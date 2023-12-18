@@ -49,7 +49,6 @@
 
         '/layout/grouping': LayoutGrouping,
         '/layout/lockouts': Lockouts,
-        '/layout/tasks': Tasks,
         '/layout': Layout,
 
         '/views': Views,
