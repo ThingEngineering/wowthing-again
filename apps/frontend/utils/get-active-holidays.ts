@@ -38,7 +38,7 @@ export function getActiveHolidays(
         for (const startDate of holiday.startDates) {
             // Repeats, duration0 is duration and duration1 is time between
             if (holiday.looping === 1) {
-                let actualStartDate = startDate
+                let actualStartDate = addOffset(startDate, holiday.regionMask)
                 while (actualStartDate < currentTime) {
                     const endDate = actualStartDate.plus({ hours: holiday.durations[0] })
                     if (endDate > currentTime) {
@@ -55,13 +55,14 @@ export function getActiveHolidays(
                         break
                     }
 
-                    actualStartDate = actualStartDate.plus({ hours: holiday.durations[0] + holiday.durations[1] })
+                    actualStartDate = endDate.plus({ hours: holiday.durations[1] })
                 }
             }
             else {
-                const actualStartDate = holiday.durations.length > 1
-                    ? startDate.plus({ hours: holiday.durations[0] })
-                    : startDate
+                const actualStartDate = addOffset(
+                    holiday.durations.length > 1 ? startDate.plus({ hours: holiday.durations[0] }) : startDate,
+                    holiday.regionMask
+                )
                 const endDate = actualStartDate.plus({ hours: holiday.durations[holiday.durations.length - 1] })
 
                 if (actualStartDate < currentTime && endDate > currentTime) {
@@ -78,4 +79,18 @@ export function getActiveHolidays(
     cachedTime[regionMask] = currentTime
 
     return activeHolidays
+}
+
+function addOffset(dateTime: DateTime, regionMask: number): DateTime {
+    // US
+    if (regionMask === 1) {
+        return dateTime.plus({ hours: 7 })
+    }
+    // EU
+    else if (regionMask === 4) {
+        return dateTime.minus({ hours: 1 })
+    }
+    else {
+        return dateTime
+    }
 }
