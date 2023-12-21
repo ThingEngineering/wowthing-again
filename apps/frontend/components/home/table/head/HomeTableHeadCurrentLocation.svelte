@@ -2,14 +2,14 @@
     import { homeState } from '@/stores/local-storage'
     import { basicTooltip } from '@/shared/utils/tooltips'
 
-    export let groupIndex: number
+    export let sortKey: string
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[groupIndex]
-        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 
-    const sortKey = 'locationCurrent'
+    const sortField = 'locationCurrent'
 </script>
 
 <style lang="scss">
@@ -22,9 +22,9 @@
 
 <td
     class="sortable"
-    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
-    on:click={() => setSorting(sortKey)}
-    on:keypress={() => setSorting(sortKey)}
+    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+    on:click={() => setSorting(sortField)}
+    on:keypress={() => setSorting(sortField)}
     use:basicTooltip={'Current Location'}
 >
     Location
