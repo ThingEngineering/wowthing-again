@@ -85,39 +85,47 @@ export const taskList: Task[] = [
 
     // Holidays
     {
+        key: 'holidayWinterVeil',
+        name: '[Holiday] Winter Veil',
+        shortName: 'Xmas',
+        type: 'multi',
+    },
+
+    // Weekly Holidays
+    {
         key: 'holidayArena',
-        name: '[Holiday] Arena',
+        name: '[Weekly] Arena',
         shortName: 'Arena',
     },
     {
         key: 'holidayBattlegrounds',
-        name: '[Holiday] Battlegrounds',
+        name: '[Weekly] Battlegrounds',
         shortName: 'BGs',
     },
     {
         key: 'holidayDungeons',
-        name: '[Holiday] Mythic Dungeons',
+        name: '[Weekly] Mythic Dungeons',
         shortName: 'MDun',
     },
     {
         key: 'holidayPetPvp',
-        name: '[Holiday] Pet PvP',
+        name: '[Weekly] Pet PvP',
         shortName: 'Pets',
     },
     {
         key: 'holidayTimewalking',
-        name: '[Holiday] Timewalking Dungeons',
+        name: '[Weekly] Timewalking Dungeons',
         shortName: 'TW :exclamation:',
     },
     {
         key: 'holidayTimewalkingItem',
-        name: '[Holiday] Timewalking Item',
+        name: '[Weekly] Timewalking Item',
         shortName: 'TW :item:',
         minimumLevel: Constants.characterMaxLevel - 10,
     },
     {
         key: 'holidayWorldQuests',
-        name: '[Holiday] World Quests',
+        name: '[Weekly] World Quests',
         shortName: 'WQs',
     },
 
@@ -287,6 +295,28 @@ function garrisonCouldGet(char: Character): boolean {
 
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    'holidayWinterVeil': [
+        {
+            taskKey: 'meanOne',
+            taskName: "...You're a Mean One",
+        },
+        {
+            taskKey: 'merryGrumpus',
+            taskName: 'Grumpus',
+        },
+        {
+            taskKey: 'merryGrumplings',
+            taskName: 'Menacing Grumplings',
+        },
+        {
+            taskKey: 'merryPresents',
+            taskName: 'What Horrible Presents!',
+        },
+        {
+            taskKey: 'merryChildren',
+            taskName: 'Where Are the Children?',
+        },
+    ],
     'wodGarrison': [
         {
             taskKey: 'invasionBronze',
