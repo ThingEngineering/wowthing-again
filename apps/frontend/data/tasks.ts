@@ -86,6 +86,7 @@ export const taskList: Task[] = [
     // Holidays
     {
         key: 'holidayWinterVeil',
+        minimumLevel: 30,
         name: '[Holiday] Winter Veil',
         shortName: 'Xmas',
         type: 'multi',
@@ -297,22 +298,27 @@ function garrisonCouldGet(char: Character): boolean {
 export const multiTaskMap: Record<string, Chore[]> = {
     'holidayWinterVeil': [
         {
+            minimumLevel: 30,
             taskKey: 'meanOne',
             taskName: "...You're a Mean One",
         },
         {
+            minimumLevel: 40,
             taskKey: 'merryGrumpus',
             taskName: 'Grumpus',
         },
         {
+            minimumLevel: 40,
             taskKey: 'merryGrumplings',
             taskName: 'Menacing Grumplings',
         },
         {
+            minimumLevel: 40,
             taskKey: 'merryPresents',
             taskName: 'What Horrible Presents!',
         },
         {
+            minimumLevel: 40,
             taskKey: 'merryChildren',
             taskName: 'Where Are the Children?',
         },
