@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { userStore } from '@/stores'
-    import { homeState } from '@/stores/local-storage'
     import { settingsStore } from '@/shared/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -28,131 +27,139 @@
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+    import ViewSwitcher from './table/ViewSwitcher.svelte'
 
     export let characterLimit = 0
 
-    let isPublic: boolean
-    $: {
-        isPublic = $userStore.public
-    }
+    $: isPublic = $userStore.public
 </script>
 
-<CharacterTable
-    isHome={true}
-    {characterLimit}
->
-    <GroupHead
-        slot="groupHead"
-        {group}
-        {groupIndex}
-        let:group
-        let:groupIndex
-    />
+<style lang="scss">
+    .wrapper-column {
+        gap: 0;
+    }
+</style>
 
-    <svelte:fragment slot="rowExtra" let:character>
-        {#each $settingsStore.layout.homeFields as field}
-            {#if field === 'callings'}
-                <RowDailies
-                    expansion={8}
-                    {character}
-                />
+<div class="wrapper-column">
+    <ViewSwitcher />
 
-            {:else if field === 'covenant'}
-                <RowCovenant {character} />
+    <CharacterTable
+        isHome={true}
+        {characterLimit}
+    >
+        <GroupHead
+            slot="groupHead"
+            {group}
+            {groupIndex}
+            let:group
+            let:groupIndex
+        />
+
+        <svelte:fragment slot="rowExtra" let:character>
+            {#each settingsStore.view.homeFields as field (field)}
+                {#if field === 'callings'}
+                    <RowDailies
+                        expansion={8}
+                        {character}
+                    />
+
+                {:else if field === 'covenant'}
+                    <RowCovenant {character} />
+                    
+                {:else if field === 'currentLocation'}
+                    <RowCurrentLocation {character} />
+
+                {:else if field === 'emissariesBfa'}
+                    <RowDailies
+                        expansion={7}
+                        {character}
+                    />
+
+                {:else if field === 'emissariesLegion'}
+                    <RowDailies
+                        expansion={6}
+                        {character}
+                    />
+
+                {:else if field === 'gear'}
+                    <RowGear {character} />
+
+                {:else if field === 'gold'}
+                    {#if !isPublic}
+                        <RowGold gold={character.gold} />
+                    {/if}
                 
-            {:else if field === 'currentLocation'}
-                <RowCurrentLocation {character} />
+                {:else if field === 'guild'}
+                    <RowGuild {character} />
 
-            {:else if field === 'emissariesBfa'}
-                <RowDailies
-                    expansion={7}
-                    {character}
-                />
+                {:else if field === 'hearthLocation'}
+                    <RowHearthLocation {character} />
 
-            {:else if field === 'emissariesLegion'}
-                <RowDailies
-                    expansion={6}
-                    {character}
-                />
+                {:else if field === 'itemLevel'}
+                    <RowItemLevel {character} />
 
-            {:else if field === 'gear'}
-                <RowGear {character} />
+                {:else if field === 'keystone'}
+                    {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+                        <RowKeystone {character} />
+                    {/if}
 
-            {:else if field === 'gold'}
-                {#if !isPublic}
-                    <RowGold gold={character.gold} />
+                {:else if field === 'lockouts'}
+                    {#if !isPublic || $settingsStore.privacy.publicLockouts}
+                        <RowLockouts {character} />
+                    {/if}
+
+                {:else if field === 'mythicPlusScore'}
+                    <RowMythicPlusScore
+                        seasonId={Constants.mythicPlusSeason}
+                        {character}
+                    />
+
+                {:else if field === 'playedTime'}
+                    {#if !isPublic}
+                        <RowPlayedTime playedTotal={character.playedTotal} />
+                    {/if}
+                
+                {:else if field === 'professionCooldowns'}
+                    <RowProfessionCooldowns {character} />
+                
+                {:else if field === 'professionWorkOrders'}
+                    <RowProfessionWorkOrders {character} />
+
+                {:else if field === 'professions'}
+                    <RowProfessions {character} />
+        
+                {:else if field === 'professionsSecondary'}
+                    <RowProfessions {character} professionType={1} />
+
+                {:else if field === 'restedExperience'}
+                    {#if !isPublic}
+                        <RowRestedExperience {character} />
+                    {/if}
+
+                {:else if field === 'statusIcons'}
+                    <RowStatuses {character} />
+
+                {:else if field === 'tasks'}
+                    <RowTasks {character} />
+
+                {:else if field === 'vaultMythicPlus'}
+                    <RowVaultMythicPlus {character} />
+
+                {:else if field === 'vaultPvp'}
+                    <RowVaultPvp {character} />
+
+                {:else if field === 'vaultRaid'}
+                    <RowVaultRaid {character} />
+
+                {:else}
+                    <td>&nbsp;</td>
+
                 {/if}
-            
-            {:else if field === 'guild'}
-                <RowGuild {character} />
+            {/each}
 
-            {:else if field === 'hearthLocation'}
-                <RowHearthLocation {character} />
-
-            {:else if field === 'itemLevel'}
-                <RowItemLevel {character} />
-
-            {:else if field === 'keystone'}
-                {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
-                    <RowKeystone {character} />
-                {/if}
-
-            {:else if field === 'lockouts'}
-                {#if !isPublic || $settingsStore.privacy.publicLockouts}
-                    <RowLockouts {character} />
-                {/if}
-
-            {:else if field === 'mythicPlusScore'}
-                <RowMythicPlusScore
-                    seasonId={Constants.mythicPlusSeason}
-                    {character}
-                />
-
-            {:else if field === 'playedTime'}
-                {#if !isPublic}
-                    <RowPlayedTime playedTotal={character.playedTotal} />
-                {/if}
-            
-            {:else if field === 'professionCooldowns'}
-                <RowProfessionCooldowns {character} />
-            
-            {:else if field === 'professionWorkOrders'}
-                <RowProfessionWorkOrders {character} />
-
-            {:else if field === 'professions'}
-                <RowProfessions {character} />
-    
-            {:else if field === 'professionsSecondary'}
-                <RowProfessions {character} professionType={1} />
-
-            {:else if field === 'restedExperience'}
-                {#if !isPublic}
-                    <RowRestedExperience {character} />
-                {/if}
-
-            {:else if field === 'statusIcons'}
-                <RowStatuses {character} />
-
-            {:else if field === 'tasks'}
-                <RowTasks {character} />
-
-            {:else if field === 'vaultMythicPlus'}
-                <RowVaultMythicPlus {character} />
-
-            {:else if field === 'vaultPvp'}
-                <RowVaultPvp {character} />
-
-            {:else if field === 'vaultRaid'}
-                <RowVaultRaid {character} />
-
-            {:else}
-                <td>&nbsp;</td>
-
+            {#if !isPublic}
+                <RowSettings {character} />
             {/if}
-        {/each}
-
-        {#if !isPublic}
-            <RowSettings {character} />
-        {/if}
-    </svelte:fragment>
-</CharacterTable>
+        </svelte:fragment>
+    </CharacterTable>
+</div>

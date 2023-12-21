@@ -8,7 +8,6 @@
     import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
@@ -76,7 +75,7 @@
     <td class="only-weekly" colspan="{commonSpan}">
     </td>
 
-    {#each $settingsStore.layout.homeFields as field}
+    {#each settingsStore.view.homeFields as field (field)}
         {#if field === 'callings'}
             <td use:basicTooltip={"Shadowlands Callings"}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> SL

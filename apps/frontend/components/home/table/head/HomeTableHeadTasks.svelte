@@ -32,7 +32,7 @@
     }
 </style>
 
-{#each $settingsStore.layout.homeTasks as taskName}
+{#each settingsStore.view.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||
