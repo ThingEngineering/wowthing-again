@@ -17,6 +17,7 @@
             homeFields: [],
             homeLockouts: [],
             homeTasks: [],
+            disabledChores: {},
         }
 
         const newCustomViews = ($settingsStore.views || []).slice()
@@ -32,34 +33,7 @@
 </script>
 
 <style lang="scss">
-    .groups-wrapper {
-        display: flex;
-        gap: 1rem;
-    }
-    .group-list {
-        width: 8rem;
-    }
-    .group-entry {
-        border-left: 1px solid $border-color;
-        border-right: 1px solid $border-color;
-        border-top: 1px solid $border-color;
-        cursor: pointer;
-        padding: 0.3rem 0.5rem;
 
-        &.active {
-            background: $active-background;
-        }
-
-        &:nth-last-child(-n + 2) {
-            border-bottom: 1px solid $border-color;
-        }
-        &:nth-last-child(2) {
-            margin-bottom: 1rem;
-        }
-        &:last-child {
-            background: #242;
-        }
-    }
 </style>
 
 <div class="settings-block">
@@ -67,19 +41,22 @@
 
     <h3>Views</h3>
 
+    <table class="table table-striped">
+        <tbody>
+            {#each $settingsStore.views as view}
+                <tr>
+                    <td class="name">
+                        {view.name}
+                    </td>
+                </tr>
+            {/each}
+        </tbody>
+    </table>
+
     <div class="groups-wrapper">
         <div class="group-list">
-            {#each $settingsStore.views as view}
-                <button
-                    class="group-entry text-overflow"
-                    class:active={$settingsState.selectedView === view.id}
-                    on:click={() => setActive(view.id)}
-                >
-                    {view.name}
-                </button>
-            {/each}
             
-            {#if $settingsStore.views.length < 5}
+            {#if $settingsStore.views.length < 10}
                 <button
                     class="group-entry"
                     on:click={newView}
@@ -88,9 +65,5 @@
                 </button>
             {/if}
         </div>
-
-        {#if $settingsState.selectedView}
-            <View view={$settingsStore.views.filter((view) => view.id === $settingsState.selectedView)[0]} />
-        {/if}
     </div>
 </div>
