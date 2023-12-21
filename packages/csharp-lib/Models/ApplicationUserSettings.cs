@@ -121,6 +121,22 @@ public class ApplicationUserSettings
         CustomGroups ??= new List<ApplicationUserSettingsCustomGroup>();
         Views ??= new List<ApplicationUserSettingsView>();
 
+        if (Views.Count == 0)
+        {
+            Views.Add(new ApplicationUserSettingsView
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = "Default",
+                GroupBy = General.GroupBy,
+                SortBy = General.SortBy,
+                CommonFields = Layout.CommonFields,
+                HomeFields = Layout.HomeFields,
+                HomeLockouts = Layout.HomeLockouts,
+                HomeTasks = Layout.HomeTasks,
+                DisabledChores = Tasks.DisabledChores,
+            });
+        }
+
         Validate();
     }
 
