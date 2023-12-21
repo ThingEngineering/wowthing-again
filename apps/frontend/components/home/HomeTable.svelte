@@ -1,7 +1,6 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { userStore } from '@/stores'
-    import { homeState } from '@/stores/local-storage'
     import { settingsStore } from '@/shared/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -28,162 +27,139 @@
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+    import ViewSwitcher from './table/ViewSwitcher.svelte'
 
     export let characterLimit = 0
 
-    let isPublic: boolean
-    $: {
-        isPublic = $userStore.public
-    }
+    $: isPublic = $userStore.public
 </script>
 
-<CharacterTable
-    isHome={true}
-    {characterLimit}
->
-    <GroupHead
-        slot="groupHead"
-        {group}
-        {groupIndex}
-        let:group
-        let:groupIndex
-    />
+<style lang="scss">
+    .wrapper-column {
+        gap: 0;
+    }
+</style>
 
-    <svelte:fragment slot="rowExtra" let:character>
-        {#each $settingsStore.layout.homeFields as field}
-            {#if field === 'callings'}
-                {#if !$homeState.onlyWeekly}
+<div class="wrapper-column">
+    <ViewSwitcher />
+
+    <CharacterTable
+        isHome={true}
+        {characterLimit}
+    >
+        <GroupHead
+            slot="groupHead"
+            {group}
+            {groupIndex}
+            let:group
+            let:groupIndex
+        />
+
+        <svelte:fragment slot="rowExtra" let:character>
+            {#each settingsStore.view.homeFields as field (field)}
+                {#if field === 'callings'}
                     <RowDailies
                         expansion={8}
                         {character}
                     />
-                {/if}
 
-            {:else if field === 'covenant'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'covenant'}
                     <RowCovenant {character} />
-                {/if}
-                
-            {:else if field === 'currentLocation'}
-                {#if !$homeState.onlyWeekly}
+                    
+                {:else if field === 'currentLocation'}
                     <RowCurrentLocation {character} />
-                {/if}
 
-            {:else if field === 'emissariesBfa'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'emissariesBfa'}
                     <RowDailies
                         expansion={7}
                         {character}
                     />
-                {/if}
 
-            {:else if field === 'emissariesLegion'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'emissariesLegion'}
                     <RowDailies
                         expansion={6}
                         {character}
                     />
-                {/if}
 
-            {:else if field === 'gear'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'gear'}
                     <RowGear {character} />
-                {/if}
 
-            {:else if field === 'gold'}
-                {#if !isPublic && !$homeState.onlyWeekly}
-                    <RowGold gold={character.gold} />
-                {/if}
-            
-            {:else if field === 'guild'}
-                <RowGuild {character} />
+                {:else if field === 'gold'}
+                    {#if !isPublic}
+                        <RowGold gold={character.gold} />
+                    {/if}
+                
+                {:else if field === 'guild'}
+                    <RowGuild {character} />
 
-            {:else if field === 'hearthLocation'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'hearthLocation'}
                     <RowHearthLocation {character} />
-                {/if}
 
-            {:else if field === 'itemLevel'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'itemLevel'}
                     <RowItemLevel {character} />
-                {/if}
 
-            {:else if field === 'mountSpeed'}
-                <!-- remove later -->
+                {:else if field === 'keystone'}
+                    {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+                        <RowKeystone {character} />
+                    {/if}
 
-            {:else if field === 'keystone'}
-                {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
-                    <RowKeystone {character} />
-                {/if}
+                {:else if field === 'lockouts'}
+                    {#if !isPublic || $settingsStore.privacy.publicLockouts}
+                        <RowLockouts {character} />
+                    {/if}
 
-            {:else if field === 'lockouts'}
-                {#if !isPublic || $settingsStore.privacy.publicLockouts}
-                    <RowLockouts {character} />
-                {/if}
-
-            {:else if field === 'mythicPlusScore'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'mythicPlusScore'}
                     <RowMythicPlusScore
                         seasonId={Constants.mythicPlusSeason}
                         {character}
                     />
-                {/if}
 
-            {:else if field === 'playedTime'}
-                {#if !isPublic && !$homeState.onlyWeekly}
-                    <RowPlayedTime playedTotal={character.playedTotal} />
-                {/if}
-            
-            {:else if field === 'professionCooldowns'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'playedTime'}
+                    {#if !isPublic}
+                        <RowPlayedTime playedTotal={character.playedTotal} />
+                    {/if}
+                
+                {:else if field === 'professionCooldowns'}
                     <RowProfessionCooldowns {character} />
-                {/if}
-            
-            {:else if field === 'professionWorkOrders'}
-                {#if !$homeState.onlyWeekly}
+                
+                {:else if field === 'professionWorkOrders'}
                     <RowProfessionWorkOrders {character} />
-                {/if}
 
-            {:else if field === 'professions'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'professions'}
                     <RowProfessions {character} />
-                {/if}
-    
-            {:else if field === 'professionsSecondary'}
-                {#if !$homeState.onlyWeekly}
+        
+                {:else if field === 'professionsSecondary'}
                     <RowProfessions {character} professionType={1} />
-                {/if}
 
-            {:else if field === 'restedExperience'}
-                {#if !isPublic && !$homeState.onlyWeekly}
-                    <RowRestedExperience {character} />
-                {/if}
+                {:else if field === 'restedExperience'}
+                    {#if !isPublic}
+                        <RowRestedExperience {character} />
+                    {/if}
 
-            {:else if field === 'statusIcons'}
-                {#if !$homeState.onlyWeekly}
+                {:else if field === 'statusIcons'}
                     <RowStatuses {character} />
+
+                {:else if field === 'tasks'}
+                    <RowTasks {character} />
+
+                {:else if field === 'vaultMythicPlus'}
+                    <RowVaultMythicPlus {character} />
+
+                {:else if field === 'vaultPvp'}
+                    <RowVaultPvp {character} />
+
+                {:else if field === 'vaultRaid'}
+                    <RowVaultRaid {character} />
+
+                {:else}
+                    <td>&nbsp;</td>
+
                 {/if}
+            {/each}
 
-            {:else if field === 'tasks'}
-                <RowTasks {character} />
-
-            {:else if field === 'vaultMythicPlus'}
-                <RowVaultMythicPlus {character} />
-
-            {:else if field === 'vaultPvp'}
-                <RowVaultPvp {character} />
-
-            {:else if field === 'vaultRaid'}
-                <RowVaultRaid {character} />
-
-            {:else}
-                <td>&nbsp;</td>
-
+            {#if !isPublic}
+                <RowSettings {character} />
             {/if}
-        {/each}
-
-        {#if !isPublic}
-            <RowSettings {character} />
-        {/if}
-    </svelte:fragment>
-</CharacterTable>
+        </svelte:fragment>
+    </CharacterTable>
+</div>

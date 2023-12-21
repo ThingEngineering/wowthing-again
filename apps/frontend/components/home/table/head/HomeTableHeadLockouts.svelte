@@ -6,11 +6,11 @@
 
     import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'
 
-    export let groupIndex: number
+    export let sortKey: string
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[groupIndex]
-        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 </script>
 
@@ -23,12 +23,12 @@
 {#each $userStore.homeLockouts as {difficulty, instanceId}}
     {@const instance = $staticStore.instances[instanceId]}
     {#if instance}
-        {@const sortKey = `lockout:${instanceId}-${difficulty?.id || 0}`}
+        {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
         <td
             class="sortable"
-            class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
-            on:click={() => setSorting(sortKey)}
-            on:keypress={() => setSorting(sortKey)}
+            class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+            on:click={() => setSorting(sortField)}
+            on:keypress={() => setSorting(sortField)}
             use:componentTooltip={{
                 component: Tooltip,
                 props: {

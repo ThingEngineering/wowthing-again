@@ -10,13 +10,13 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
-    export let groupIndex: number
+    export let sortKey: string
 
     $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[groupIndex]
-        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 </script>
 
@@ -32,7 +32,7 @@
     }
 </style>
 
-{#each $settingsStore.layout.homeTasks as taskName}
+{#each settingsStore.view.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||
@@ -41,13 +41,13 @@
             taskName === 'pvpBlitz'
         ))
     )}
-        {@const sortKey = `task:${taskName}`}
+        {@const sortField = `task:${taskName}`}
         <td
             class="sortable"
-            class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
+            class:sorted-by={$homeState.groupSort[sortKey] === sortField}
             data-task="{taskName}"
-            on:click={() => setSorting(sortKey)}
-            on:keypress={() => setSorting(sortKey)}
+            on:click={() => setSorting(sortField)}
+            on:keypress={() => setSorting(sortField)}
             use:componentTooltip={{
                 component: Tooltip,
                 props: {

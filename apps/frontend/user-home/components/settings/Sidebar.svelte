@@ -1,96 +1,101 @@
 <script lang="ts">
-    import { settingsSavingState } from '@/shared/stores/settings'
+    import { settingsSavingState, settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
-    export const categories: SidebarItem[] = [
-        {
-            name: 'Account',
-            slug: 'account',
-        },
-        {
-            name: 'Layout',
-            slug: 'layout',
-            children: [
-                {
-                    name: 'Lockouts',
-                    slug: 'lockouts',
-                },
-                {
-                    name: 'Tasks',
-                    slug: 'tasks',
-                },
-                null,
-                {
-                    name: 'Grouping',
-                    slug: 'grouping',
-                },
-                {
-                    name: 'Views',
-                    slug: 'views',
-                },
-            ],
-        },
-        {
-            name: 'Leaderboard',
-            slug: 'leaderboard',
-        },
-        {
-            name: 'Privacy',
-            slug: 'privacy',
-        },
-        null,
-        {
-            name: 'Characters',
-            slug: 'characters',
-            children: [
-                {
-                    name: 'Pin',
-                    slug: 'pin',
-                },
-                {
-                    name: 'Sort',
-                    slug: 'sort',
-                },
-                {
-                    name: 'Toggles',
-                    slug: 'toggles',
-                },
-            ],
-        },
-        null,
-        {
-            name: 'Achievements',
-            slug: 'achievements',
-        },
-        {
-            name: 'Auctions',
-            slug: 'auctions',
-            children: [
-                {
-                    name: 'Custom Categories',
-                    slug: 'custom',
-                }
-            ],
-        },
-        {
-            name: 'Collections',
-            slug: 'collections',
-        },
-        {
-            name: 'History',
-            slug: 'history',
-        },
-        {
-            name: 'Professions',
-            slug: 'professions',
-        },
-        {
-            name: 'Transmog',
-            slug: 'transmog',
-        },
-    ]
+    let categories: SidebarItem[]
+    $: {
+        categories = [
+            {
+                name: 'Account',
+                slug: 'account',
+            },
+            {
+                name: 'Leaderboard',
+                slug: 'leaderboard',
+            },
+            {
+                name: 'Privacy',
+                slug: 'privacy',
+            },
+            null,
+            {
+                name: 'Layout',
+                slug: 'layout',
+                children: [
+                    {
+                        name: 'Lockouts',
+                        slug: 'lockouts',
+                    },
+                    // null,
+                    // {
+                    //     name: 'Grouping',
+                    //     slug: 'grouping',
+                    // },
+                ],
+            },
+            {
+                name: 'Views',
+                slug: 'views',
+                children: ($settingsStore.views || [])
+                    .map((view) => ({
+                        name: view.name,
+                        slug: view.id,
+                    }))
+            },
+            null,
+            {
+                name: 'Characters',
+                slug: 'characters',
+                children: [
+                    {
+                        name: 'Pin',
+                        slug: 'pin',
+                    },
+                    {
+                        name: 'Sort',
+                        slug: 'sort',
+                    },
+                    {
+                        name: 'Toggles',
+                        slug: 'toggles',
+                    },
+                ],
+            },
+            null,
+            {
+                name: 'Achievements',
+                slug: 'achievements',
+            },
+            {
+                name: 'Auctions',
+                slug: 'auctions',
+                children: [
+                    {
+                        name: 'Custom Categories',
+                        slug: 'custom',
+                    }
+                ],
+            },
+            {
+                name: 'Collections',
+                slug: 'collections',
+            },
+            {
+                name: 'History',
+                slug: 'history',
+            },
+            {
+                name: 'Professions',
+                slug: 'professions',
+            },
+            {
+                name: 'Transmog',
+                slug: 'transmog',
+            },
+        ]
+    }
 </script>
 
 <style lang="scss">

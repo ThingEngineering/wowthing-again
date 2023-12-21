@@ -2,8 +2,7 @@ import { writable } from 'svelte/store'
 
 
 export class HomeState {
-    public groupSort: Record<number, string> = {}
-    public onlyWeekly = false
+    public groupSort: Record<string, string> = {}
 }
 
 const key = 'state-home'

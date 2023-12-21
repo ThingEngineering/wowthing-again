@@ -5,14 +5,14 @@
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let groupIndex: number
+    export let sortKey: string
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[groupIndex]
-        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 
-    const sortKey = 'locationHearth'
+    const sortField = 'locationHearth'
 </script>
 
 <style lang="scss">
@@ -25,9 +25,9 @@
 
 <td
     class="sortable"
-    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
-    on:click={() => setSorting(sortKey)}
-    on:keypress={() => setSorting(sortKey)}
+    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+    on:click={() => setSorting(sortField)}
+    on:keypress={() => setSorting(sortField)}
     use:basicTooltip={'Hearth Location'}
 >
     <WowthingImage

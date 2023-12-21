@@ -106,8 +106,10 @@ export default function getCharacterSortFunc(
                 ].join('.'))
             }
             else if (thing === 'mplusrating') {
-                const rating = char.raiderIo?.[Constants.mythicPlusSeason]?.all || 0
-                out.push(leftPad(Math.floor(10000 - rating), 5, '0'))
+                const rating = char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
+                    char.raiderIo?.[Constants.mythicPlusSeason]?.all ||
+                    0
+                out.push(leftPad(Math.floor(100000 - (rating * 10)), 6, '0'))
             }
             else if (thing === 'name') {
                 out.push(char.name)

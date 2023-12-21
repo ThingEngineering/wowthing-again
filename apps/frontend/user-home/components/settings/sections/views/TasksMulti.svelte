@@ -2,19 +2,19 @@
     import debounce from 'lodash/debounce'
 
     import { multiTaskMap } from '@/data/tasks'
-    import { settingsStore } from '@/shared/stores/settings'
-    import type { SettingsChoice } from '@/shared/stores/settings/types'
+    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let multiTaskKey: string
+    export let view: SettingsView
 
     const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey]
         .map((t) => ({ key: t.taskKey, name: t.taskName }))
 
     let taskActive: string[] = taskChoices
-        .filter((choice) => ($settingsStore.tasks.disabledChores[multiTaskKey] || []).indexOf(choice.key) === -1)
+        .filter((choice) => (view.disabledChores[multiTaskKey] || []).indexOf(choice.key) === -1)
         .map((choice) => choice.key)
 
     $: {
@@ -23,13 +23,10 @@
             .map((choice) => choice.key)
 
         onTaskChange(taskInactive)
-   }
+    }
 
     const onTaskChange = debounce((keys: string[]) => {
-        settingsStore.update(state => {
-            (state.tasks.disabledChores ||= {})[multiTaskKey] = keys
-            return state
-        })
+        (view.disabledChores ||= {})[multiTaskKey] = keys
     }, 250)
 </script>
 

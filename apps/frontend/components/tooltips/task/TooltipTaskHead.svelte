@@ -73,9 +73,9 @@
                         }
                     }
 
-                    total += taskChores.countTotal
-                    completed += taskChores.countCompleted
-                    inProgress += taskChores.countStarted
+                    total += (taskChores?.countTotal || 0)
+                    completed += (taskChores?.countCompleted || 0)
+                    inProgress += (taskChores?.countStarted || 0)
                 }
                 else {
                     total++

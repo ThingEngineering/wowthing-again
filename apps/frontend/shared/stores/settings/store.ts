@@ -1,3 +1,4 @@
+import find from 'lodash/find'
 import { get, writable } from 'svelte/store'
 
 import { professionCooldowns } from '@/data/professions/cooldowns'
@@ -5,7 +6,7 @@ import { Language } from '@/enums/language'
 import { hashObject } from '@/utils/hash-object'
 import type { Account } from '@/types/account'
 import type { FancyStoreFetchOptions } from '@/types/fancy-store'
-import type { Settings } from './types'
+import type { Settings, SettingsView } from './types'
 
 import { achievementStore } from '@/stores/achievements'
 import { journalStore } from '@/stores/journal'
@@ -41,6 +42,10 @@ function createSettingsStore() {
     const store = writable<Settings>()
 
     return {
+        get view(): SettingsView {
+            const data = get(store)
+            return find(data.views, (view) => view.id === data.activeView) || data.views[0]
+        },
         get wowheadBaseUrl(): string {
             return `${languageToSubdomain[get(store).general.language]}.wowhead.com`
         },

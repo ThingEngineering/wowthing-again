@@ -1,3 +1,5 @@
+import flatten from 'lodash/flatten'
+import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
@@ -64,6 +66,12 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 
     const ret: Record<string, LazyCharacter> = {}
 
+    const taskNames = uniq(
+        flatten(
+            (stores.settings.views || []).map((view) => view.homeTasks)
+        )
+    )
+
     for (const character of stores.userData.characters) {
         ret[character.id] = {
             chores: {},
@@ -72,7 +80,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
             professionWorkOrders: checkCooldowns(stores, character, professionWorkOrders, CharacterFlag.IgnoreWorkOrders),
         }
 
-        for (const taskName of stores.settings.layout.homeTasks) {
+        for (const taskName of taskNames) {
             const task = taskMap[taskName]
             if (!task) {
                 continue

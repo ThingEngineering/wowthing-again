@@ -74,11 +74,12 @@
         const pairs: [string, Character[]][] = []
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex]
-            const keySort = isHome && $homeState.groupSort[keyIndex]
+            const sortKey = `${$settingsStore.activeView}|${keyIndex}`
+            const keySort = isHome && $homeState.groupSort[sortKey]
                 ? getCharacterSortFunc(
                     $settingsStore,
                     $staticStore,
-                    (char) => homeSort($lazyStore, $timeStore, $homeState.groupSort[keyIndex], char))
+                    (char) => homeSort($lazyStore, $timeStore, $homeState.groupSort[sortKey], char))
                 : sortFunc
             pairs.push([
                 key,

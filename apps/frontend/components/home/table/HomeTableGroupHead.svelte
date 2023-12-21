@@ -8,7 +8,6 @@
     import { settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
@@ -21,6 +20,8 @@
 
     export let group: Character[]
     export let groupIndex: number
+
+    $: sortKey = `${$settingsStore.activeView}|${groupIndex}`
 
     let commonSpan: number
     let gold: number
@@ -38,8 +39,8 @@
     }
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[groupIndex]
-        $homeState.groupSort[groupIndex] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 </script>
 
@@ -74,54 +75,38 @@
 
 <tr class="table-group-head">
     <td class="only-weekly" colspan="{commonSpan}">
-        <Checkbox
-            name="only_weekly"
-            bind:value={$homeState.onlyWeekly}
-        >Only weekly</Checkbox>
     </td>
 
-    {#each $settingsStore.layout.homeFields as field}
+    {#each settingsStore.view.homeFields as field (field)}
         {#if field === 'callings'}
-            {#if !$homeState.onlyWeekly}
-                <td use:basicTooltip={"Shadowlands Callings"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
-                </td>
-            {/if}
+            <td use:basicTooltip={"Shadowlands Callings"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
+            </td>
         
         {:else if field === 'covenant'}
-            {#if !$homeState.onlyWeekly}
-                <HeadCovenant />
-            {/if}
+            <HeadCovenant />
         
         {:else if field === 'currentLocation'}
-            {#if !$homeState.onlyWeekly}
-                <HeadCurrentLocation {groupIndex} />
-            {/if}
+            <HeadCurrentLocation {sortKey} />
 
         {:else if field === 'emissariesBfa'}
-            {#if !$homeState.onlyWeekly}
-                <td use:basicTooltip={"Battle for Azeroth Emissaries"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
-                </td>
-            {/if}
+            <td use:basicTooltip={"Battle for Azeroth Emissaries"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
+            </td>
 
         {:else if field === 'emissariesLegion'}
-            {#if !$homeState.onlyWeekly}
-                <td use:basicTooltip={"Legion Emissaries"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
-                </td>
-            {/if}
+            <td use:basicTooltip={"Legion Emissaries"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
+            </td>
         
         {:else if field === 'gear'}
-            {#if !$homeState.onlyWeekly}
-                <td>Gear</td>
-            {/if}
+            <td>Gear</td>
 
         {:else if field === 'gold'}
-            {#if !isPublic && !$homeState.onlyWeekly}
+            {#if !isPublic}
                 <RowGold
                     {gold}
-                    {groupIndex}
+                    {sortKey}
                     showSortable={true}
                 />
             {/if}
@@ -130,29 +115,25 @@
             <td>Guild</td>
 
         {:else if field === 'hearthLocation'}
-            {#if !$homeState.onlyWeekly}
-                <HeadHearthLocation {groupIndex} />
-            {/if}
+            <HeadHearthLocation {sortKey} />
 
         {:else if field === 'itemLevel'}
-            {#if !$homeState.onlyWeekly}
-                <td
-                    class="sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
-                    on:click={() => setSorting(field)}
-                    on:keypress={() => setSorting(field)}
-                    use:basicTooltip={'Item Level'}
-                >ilvl</td>
-            {/if}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Item Level'}
+            >ilvl</td>
 
         {:else if field === 'keystone'}
-            {#if (!isPublic || $settingsStore.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
-                {@const sortKey = 'mythicPlusKeystone'}
+            {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+                {@const sortField = 'mythicPlusKeystone'}
                 <td
                     class="sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
-                    on:click={() => setSorting(sortKey)}
-                    on:keypress={() => setSorting(sortKey)}
+                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+                    on:click={() => setSorting(sortField)}
+                    on:keypress={() => setSorting(sortField)}
                 >
                     M+ Key
                 </td>
@@ -160,81 +141,71 @@
 
         {:else if field === 'lockouts'}
             {#if !isPublic || $settingsStore.privacy.publicLockouts}
-                <HeadLockouts {groupIndex} />
+                <HeadLockouts {sortKey} />
             {/if}
 
         {:else if field === 'mountSpeed'}
             <!-- remove later -->
 
         {:else if field === 'mythicPlusScore'}
-            {#if !$homeState.onlyWeekly}
-                <td
-                    class="mythic-plus-score sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
-                    on:click={() => setSorting(field)}
-                    on:keypress={() => setSorting(field)}
-                >
-                    M+
-                </td>
-            {/if}
+            <td
+                class="mythic-plus-score sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >
+                M+
+            </td>
 
         {:else if field === 'playedTime'}
-            {#if !isPublic && !$homeState.onlyWeekly}
+            {#if !isPublic}
                 <RowPlayedTime {playedTotal} />
             {/if}
 
         {:else if field === 'professionCooldowns'}
-            {#if !$homeState.onlyWeekly}
-                <td
-                    class="sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
-                    on:click={() => setSorting(field)}
-                    on:keypress={() => setSorting(field)}
-                    use:basicTooltip={'Profession Cooldowns'}
-                >CDs</td>
-            {/if}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Profession Cooldowns'}
+            >CDs</td>
 
         {:else if field === 'professionWorkOrders'}
-            {#if !$homeState.onlyWeekly}
-                <td
-                    class="sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === field}
-                    on:click={() => setSorting(field)}
-                    on:keypress={() => setSorting(field)}
-                    use:basicTooltip={'Profession Work Orders'}
-                >WOs</td>
-            {/if}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Profession Work Orders'}
+            >WOs</td>
 
         {:else if field === 'professions'}
-            {#if !$homeState.onlyWeekly}
-                <td>Professions</td>
-            {/if}
+            <td>Professions</td>
 
         {:else if field === 'professionsSecondary'}
-            {#if !$homeState.onlyWeekly}
-                <td>Secondary Profs</td>
-            {/if}
+            <td>Secondary Profs</td>
 
         {:else if field === 'restedExperience'}
-            {#if !isPublic && !$homeState.onlyWeekly}
-                {@const sortKey = 'restedExperience'}
+            {#if !isPublic}
+                {@const sortField = 'restedExperience'}
                 <td
                     class="sortable"
-                    class:sorted-by={$homeState.groupSort[groupIndex] === sortKey}
-                    on:click={() => setSorting(sortKey)}
-                    on:keypress={() => setSorting(sortKey)}
+                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+                    on:click={() => setSorting(sortField)}
+                    on:keypress={() => setSorting(sortField)}
                 >
                     Rest
                 </td>
             {/if}
 
         {:else if field === 'tasks'}
-            <HeadTasks {groupIndex} />
+            <HeadTasks {sortKey} />
 
         {:else if field === 'vaultMythicPlus'}
             <td
                 class="sortable"
-                class:sorted-by={$homeState.groupSort[groupIndex] === field}
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
                 on:click={() => setSorting(field)}
                 on:keypress={() => setSorting(field)}
             >Dungeon Vault</td>
@@ -246,9 +217,7 @@
             <td>Raid Vault</td>
 
         {:else}
-            {#if !$homeState.onlyWeekly}
-                <td>&nbsp;</td>
-            {/if}
+            <td>&nbsp;</td>
 
         {/if}
     {/each}
