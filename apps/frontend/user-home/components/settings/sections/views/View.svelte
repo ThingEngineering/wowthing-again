@@ -2,8 +2,6 @@
     import find from 'lodash/find'
 
     import { settingsStore } from '@/shared/stores/settings'
-    import type { SettingsView } from '@/shared/stores/settings/types'
-    import type { MultiSlugParams } from '@/types'
 
     import CharacterTableSettings from './CharacterTableSettings.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte'

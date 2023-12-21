@@ -4,7 +4,6 @@
     import type { SettingsView } from '@/shared/stores/settings/types'
 
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
-    import View from './View.svelte'
 
     const newView = () => {
         const view: SettingsView = {
@@ -25,10 +24,6 @@
 
         $settingsStore.views = newCustomViews
         $settingsState.selectedView = view.id
-    }
-
-    const setActive = (viewId: string) => {
-        $settingsState.selectedView = viewId
     }
 </script>
 

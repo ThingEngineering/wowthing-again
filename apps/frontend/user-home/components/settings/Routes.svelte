@@ -18,7 +18,6 @@
     import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import Professions from './sections/SettingsProfessions.svelte'
-    import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
     import View from './sections/views/View.svelte'
     import Views from './sections/views/Views.svelte'
