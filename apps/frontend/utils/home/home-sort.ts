@@ -50,11 +50,10 @@ export function homeSort(
         return '100|ZZ'
     }
     else if (sortBy === 'mythicPlusScore') {
-        return leftPad(
-            10000 - Math.floor(char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] || 0),
-            5,
-            '0'
-        )
+        const rating = char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
+            char.raiderIo?.[Constants.mythicPlusSeason]?.all ||
+            0
+        return leftPad(Math.floor(100000 - (rating * 10)), 6, '0')
     }
     else if (sortBy === 'professionCooldowns') {
         const cooldownData = lazyStore.characters[char.id].professionCooldowns
