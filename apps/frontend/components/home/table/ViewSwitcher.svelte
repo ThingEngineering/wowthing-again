@@ -1,6 +1,11 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings'
+    import { link } from 'svelte-spa-router'
 
+    import { iconLibrary } from '@/shared/icons'
+    import { settingsStore } from '@/shared/stores/settings'
+    import { userStore } from '@/stores'
+
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 </script>
 
 <style lang="scss">
@@ -8,7 +13,7 @@
         display: flex;
         gap: 0.3rem;
     }
-    button {
+    a, button {
         border: 1px solid $border-color;
         border-top-left-radius: $border-radius-large;
         border-top-right-radius: $border-radius-large;
@@ -35,4 +40,12 @@
             {view.name}
         </button>
     {/each}
+
+    {#if !$userStore.public}
+        <a href="/settings/views" use:link>
+            <IconifyIcon
+                icon={iconLibrary.mdiCogOutline}
+            />
+        </a>
+    {/if}
 </div>
