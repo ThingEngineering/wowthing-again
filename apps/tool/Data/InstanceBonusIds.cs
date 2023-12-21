@@ -127,9 +127,9 @@ public static partial class Hardcoded
     private static readonly Dictionary<int, int> DfRaid = new()
     {
         { 14, 9324 }, // Normal
-        { 15, 9333 }, // Heroic
-        { 16, 9385 }, // Mythic
-        { 17, 9316 }, // LFR
+        { 15, 7980 }, // Heroic
+        { 16, 7981 }, // Mythic
+        { 17, 7982 }, // LFR
     };
 
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
