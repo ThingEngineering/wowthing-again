@@ -19,7 +19,7 @@
             groups: ['groupBy'],
             groupBy: [],
             sortBy: [],
-            commonFields: [],
+            commonFields: $settingsStore.views[0].commonFields,
             homeFields: [],
             homeLockouts: [],
             homeTasks: [],
