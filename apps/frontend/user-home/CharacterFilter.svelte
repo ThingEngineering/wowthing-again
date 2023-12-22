@@ -1,5 +1,6 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons'
+    import { settingsStore } from '@/shared/stores/settings'
     import { newNavState } from '@/stores/local-storage'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -12,7 +13,7 @@
 <style lang="scss">
     .character-filter {
         align-items: center;
-        display: none;
+        display: flex;
 
         :global(svg) {
             color: $color-fail;

@@ -1,14 +1,12 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy'
     import sortBy from 'lodash/sortBy'
-    import { onDestroy, onMount } from 'svelte'
 
     import { lazyStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState, newNavState } from '@/stores/local-storage'
     import { settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
-    import { setElementStyleById } from '@/utils/dom'
     import { homeSort } from '@/utils/home'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -93,9 +91,6 @@
             groups = []
         }
     }
-
-    onMount(() => setElementStyleById('character-filter', 'display', 'flex'))
-    onDestroy(() => setElementStyleById('character-filter', 'display', 'none'))
 
     const paddingMap: Record<string, number> = {
         small: 1,
