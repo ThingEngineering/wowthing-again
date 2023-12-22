@@ -22,6 +22,12 @@
     }
 </script>
 
+<style lang="scss">
+    code {
+        line-height: 1;
+    }
+</style>
+
 {#if $settingsStore.layout.showPartialLevel}
     <td
         class="level-partial"
