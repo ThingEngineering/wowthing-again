@@ -3,9 +3,11 @@
 
     import { settingsStore } from '@/shared/stores/settings'
 
-    import CharacterTableSettings from './CharacterTableSettings.svelte';
+    import CharacterTableSettings from './CharacterTableSettings.svelte'
+    import Grouping from './Grouping.svelte'
+    import Sorting from './Sorting.svelte'
+    import Tasks from './Tasks.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
-    import Tasks from './Tasks.svelte';
 
     export let params: { view: string }
 
@@ -24,12 +26,13 @@
 
 {#if view}
     <div class="settings-block">
-        <h2>Views &gt; {view.name}</h2>
+        <h2 class="text-overflow">Views &gt; {view.name}</h2>
         <div
             class="view-edit"
             data-id={view.id}
         >
             <TextInput
+                maxlength={32}
                 name="view_name"
                 label={'Name'}
                 bind:value={view.name}
@@ -48,6 +51,8 @@
     </div>
 
     {#key `view--${view.id}`}
+        <Grouping {view} />
+        <Sorting {view} />
         <CharacterTableSettings {view} />
         <Tasks {view} />
     {/key}

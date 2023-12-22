@@ -1,73 +1,9 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
-
     import { settingsStore } from '@/shared/stores/settings'
-    import type { SettingsChoice } from '@/shared/stores/settings/types'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import MagicLists from '../MagicLists.svelte'
     import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
-    
-    const commonChoices: SettingsChoice[] = [
-        {key: 'accountTag', name: 'Account tag'},
-        {key: 'characterLevel', name: 'Character level'},
-        {key: 'characterName', name: 'Character name'},
-        {key: 'characterIconClass', name: 'Icon - Class'},
-        {key: 'characterIconRace', name: 'Icon - Race'},
-        {key: 'characterIconSpec', name: 'Icon - Specialization'},
-        {key: 'realmName', name: 'Realm name'},
-    ]
-    const homeChoices: SettingsChoice[] = [
-        {key: 'callings', name: 'Callings'},
-        {key: 'covenant', name: 'Covenant'},
-        {key: 'emissariesBfa', name: 'Emissaries - BfA'},
-        {key: 'emissariesLegion', name: 'Emissaries - Legion'},
-        {key: 'gear', name: 'Gear'},
-        {key: 'gold', name: 'Gold'},
-        {key: 'guild', name: 'Guild'},
-        {key: 'itemLevel', name: 'Item level'},
-        {key: 'currentLocation', name: 'Location - Current'},
-        {key: 'hearthLocation', name: 'Location - Hearth'},
-        {key: 'lockouts', name: 'Lockouts'},
-        {key: 'keystone', name: 'Mythic+ keystone'},
-        {key: 'mythicPlusScore', name: 'Mythic+ score'},
-        {key: 'playedTime', name: 'Played time'},
-        {key: 'professions', name: 'Professions - Primary'},
-        {key: 'professionsSecondary', name: 'Professions - Secondary'},
-        {key: 'professionCooldowns', name: 'Profession Cooldowns'},
-        {key: 'professionWorkOrders', name: 'Profession Work Orders'},
-        {key: 'restedExperience', name: 'Rested XP'},
-        {key: 'statusIcons', name: 'Status icons'},
-        {key: 'tasks', name: 'Tasks'},
-        {key: 'vaultMythicPlus', name: 'Vault - Dungeon'},
-        {key: 'vaultPvp', name: 'Vault - PvP'},
-        {key: 'vaultRaid', name: 'Vault - Raid'},
-    ]
-
-    const commonActive = $settingsStore.layout.commonFields.map(
-        (f) => commonChoices.filter((c) => c.key === f)[0]
-    ).filter((f) => f !== undefined)
-    const commonInactive = commonChoices.filter((c) => commonActive.indexOf(c) < 0)
-
-    const homeActive = $settingsStore.layout.homeFields.map(
-        (f) => homeChoices.filter((c) => c.key === f)[0]
-    ).filter((f) => f !== undefined)
-    const homeInactive = homeChoices.filter((c) => homeActive.indexOf(c) < 0)
-
-    const onCommonChange = debounce(() => {
-        settingsStore.update(state => {
-            state.layout.commonFields = commonActive.map((c) => c.key)
-            return state
-        })
-    }, 100)
-
-    const onHomeChange = debounce(() => {
-        settingsStore.update(state => {
-            state.layout.homeFields = homeActive.map((c) => c.key)
-            return state
-        })
-    }, 100)
 </script>
 
 <style lang="scss">
@@ -211,23 +147,3 @@
 </div>
 
 <NameTooltip />
-
-<div class="settings-block">
-    <h3>Character table columns</h3>
-    
-    <MagicLists
-        key="common"
-        title="Common columns"
-        onFunc={onCommonChange}
-        active={commonActive}
-        inactive={commonInactive}
-    />
-
-    <MagicLists
-        key="home"
-        title="Home columns"
-        onFunc={onHomeChange}
-        active={homeActive}
-        inactive={homeInactive}
-    />
-</div>

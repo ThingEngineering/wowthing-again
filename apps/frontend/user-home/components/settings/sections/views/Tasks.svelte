@@ -21,13 +21,19 @@
     }, 100)
 </script>
 
-<div class="settings-block">
-    <h2>Tasks</h2>
+<style lang="scss">
+    .tasks {
+        --magic-min-height: 17rem;
+        --magic-max-height: 17rem;
+    }
+</style>
+
+<div class="settings-block tasks">
+    <h3>Tasks</h3>
 
     <p>
-        <code>[Holiday]</code> tasks will only show that column when that holiday is active.
-        You'll also need to add <code>Tasks</code> to <code>Home columns</code> in
-        <a href='#/settings/layout'>Settings->Layout</a>.
+        <code>[Holiday]</code> and <code>[Weekly]</code> tasks will only show that column when that
+        holiday/weekly is active.
     </p>
 
     <MagicLists

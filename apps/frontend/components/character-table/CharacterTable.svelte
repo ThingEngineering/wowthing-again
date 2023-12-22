@@ -33,10 +33,19 @@
         }
 
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
+            sortFunc = getCharacterSortFunc(
+                $settingsStore,
+                $staticStore,
+                undefined,
+                isHome ? settingsStore.view.sortBy : undefined
+            )
         }
 
-        groupFunc = getCharacterGroupFunc($settingsStore)
+        groupFunc = getCharacterGroupFunc(
+            $settingsStore,
+            isHome ? settingsStore.view.groupBy : undefined,
+            isHome ? settingsStore.view.sortBy : undefined,
+        )
     }
 
     $: {

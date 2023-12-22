@@ -13,10 +13,11 @@ import type { Settings } from '@/shared/stores/settings/types'
 export default function getCharacterSortFunc(
     settingsData: Settings,
     staticData: StaticData,
-    prefixFunc?: (char: Character) => string
+    prefixFunc?: (char: Character) => string,
+    viewSortBy?: string[]
 ): (char: Character) => string
 {
-    const sortBy = settingsData.general.sortBy || ['level', 'name']
+    const sortBy = viewSortBy || settingsData.views[0].sortBy || ['level', 'name']
 
     return (char: Character) => {
         const out: string[] = []

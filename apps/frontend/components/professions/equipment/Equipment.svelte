@@ -19,7 +19,7 @@
     $: filterFunc = (char: Character): boolean => {
         return slug === 'all'
             ? true
-            : !!char.professions[professionId]
+            : !!char.professions?.[professionId]
     }
 
     afterUpdate(() => getSavedRoute('professions/equipment', slug))

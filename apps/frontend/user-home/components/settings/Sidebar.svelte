@@ -53,10 +53,10 @@
                         name: 'Pin',
                         slug: 'pin',
                     },
-                    {
-                        name: 'Sort',
-                        slug: 'sort',
-                    },
+                    // {
+                    //     name: 'Sort',
+                    //     slug: 'sort',
+                    // },
                     {
                         name: 'Toggles',
                         slug: 'toggles',
