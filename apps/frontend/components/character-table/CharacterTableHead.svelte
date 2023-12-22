@@ -2,14 +2,9 @@
     import { userStore } from '@/stores'
     import { settingsStore } from '@/shared/stores/settings'
 
-    let colspan: number
-    $: {
-        colspan = $settingsStore.layout.commonFields.length +
-            ($settingsStore.layout.commonFields.indexOf('accountTag') >= 0
-                ? (userStore.useAccountTags ? 0 : -1)
-                : 0
-            )
-    }
+    $: commonFields = $settingsStore.views[0].commonFields
+    $: colspan = commonFields.length + 
+        (commonFields.indexOf('accountTag') >= 0 ? (userStore.useAccountTags ? 0 : -1) : 0)
 </script>
 
 <style lang="scss">

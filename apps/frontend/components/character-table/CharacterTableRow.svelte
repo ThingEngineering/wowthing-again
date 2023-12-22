@@ -23,9 +23,7 @@
     let intersected = false
 
     $: accountEnabled = !character.accountId || $userStore.accounts[character.accountId]?.enabled
-    $: commonFields = isHome
-        ? settingsStore.view.commonFields
-        : $settingsStore.views[0].commonFields
+    $: commonFields = isHome ? settingsStore.view.commonFields : $settingsStore.views[0].commonFields
 </script>
 
 <style lang="scss">
