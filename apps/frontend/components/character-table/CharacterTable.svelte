@@ -50,7 +50,12 @@
         )
 
         characters = characters.filter((char) => useCharacterFilter(
-            $lazyStore, filterFunc, char, $newNavState.characterFilter))
+            $lazyStore,
+            filterFunc,
+            char,
+            $newNavState.characterFilter ||
+                (isHome ? settingsStore.view.characterFilter : $settingsStore.views[0].characterFilter)
+        ))
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)
