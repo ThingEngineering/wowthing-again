@@ -229,7 +229,7 @@ export class LazyStore implements LazyUgh {
             return
         }
 
-        console.time('LazyStore.update')
+        // console.time('LazyStore.update')
 
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
@@ -394,7 +394,7 @@ export class LazyStore implements LazyUgh {
             }))
         }
 
-        console.timeEnd('LazyStore.update')
+        // console.timeEnd('LazyStore.update')
     }
 
     lookup(key: string): LazyCollectible|UserCounts {
