@@ -6,9 +6,14 @@ import { staticStore } from '@/shared/stores/static'
 import type { Character } from '@/types'
 import type { Settings } from '@/shared/stores/settings/types'
 
-export default function getCharacterGroupFunc(settingsData: Settings): (char: Character) => string {
-    const groupBy = settingsData.general.groupBy
-    const minusFaction = settingsData.general.sortBy.indexOf('-faction') >= 0
+export default function getCharacterGroupFunc(
+    settingsData: Settings,
+    viewGroupBy?: string[],
+    viewSortBy?: string[]
+): (char: Character) => string {
+    const groupBy = viewGroupBy || settingsData.views[0].groupBy || []
+    const sortBy = viewSortBy || settingsData.views[0].sortBy || []
+    const minusFaction = sortBy.indexOf('-faction') >= 0
 
     return (char: Character) => {
         const out: string[] = []
