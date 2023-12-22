@@ -26,12 +26,13 @@
 
 {#if view}
     <div class="settings-block">
-        <h2>Views &gt; {view.name}</h2>
+        <h2 class="text-overflow">Views &gt; {view.name}</h2>
         <div
             class="view-edit"
             data-id={view.id}
         >
             <TextInput
+                maxlength={32}
                 name="view_name"
                 label={'Name'}
                 bind:value={view.name}

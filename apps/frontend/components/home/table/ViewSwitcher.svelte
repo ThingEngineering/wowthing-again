@@ -22,6 +22,7 @@
         border-top-right-radius: $border-radius-large;
         cursor: pointer;
         margin-bottom: -1px;
+        max-width: 10rem;
         padding: 0.2rem 0.5rem;
         z-index: 10;
 
@@ -36,11 +37,14 @@
 <div>
     {#each $settingsStore.views as view, viewIndex}
         <button
+            class="text-overflow"
             class:active={$settingsStore.activeView === view.id || (!$settingsStore.activeView && viewIndex === 0)}
             data-id={view.id}
             on:click={() => $settingsStore.activeView = view.id}
         >
-            <ParsedText text={view.name} />
+            <ParsedText
+                text={view.name}
+            />
         </button>
     {/each}
 
