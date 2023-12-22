@@ -14,18 +14,18 @@
     import TableIcon from '@/components/common/TableIcon.svelte'
 
     export let character: Character
+    export let isHome: boolean
     export let last: boolean
 
     setContext('character', character)
 
-    let accountEnabled: boolean
     let element: HTMLElement
     let intersected = false
-    $: {
-        accountEnabled =
-            !character.accountId ||
-            $userStore.accounts[character.accountId]?.enabled
-    }
+
+    $: accountEnabled = !character.accountId || $userStore.accounts[character.accountId]?.enabled
+    $: commonFields = isHome
+        ? settingsStore.view.commonFields
+        : $settingsStore.views[0].commonFields
 </script>
 
 <style lang="scss">
@@ -64,7 +64,7 @@
         data-id="{character.id}"
     >
         {#if intersected}
-            {#each $settingsStore.layout.commonFields as field}
+            {#each commonFields as field}
                 {#if field === 'accountTag' && userStore.useAccountTags}
                     <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td>
 

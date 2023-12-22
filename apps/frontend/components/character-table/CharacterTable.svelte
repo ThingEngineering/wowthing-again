@@ -127,7 +127,11 @@
                 <slot name="groupHead" {group} {groupIndex} />
 
                 {#each group as character, characterIndex (character.id)}
-                    <CharacterRow {character} last={characterIndex === (group.length - 1)}>
+                    <CharacterRow
+                        {character}
+                        {isHome}
+                        last={characterIndex === (group.length - 1)}
+                    >
                         <slot slot="rowExtra" name="rowExtra" {character} />
                     </CharacterRow>
                 {/each}
