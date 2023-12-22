@@ -27,7 +27,7 @@
 <div class="character-filter" id="character-filter">
     <TextInput
         name="character-filter"
-        placeholder="Character filter..."
+        placeholder={settingsStore.view.characterFilter || 'Character filter...'}
         bind:value={$newNavState.characterFilter}
         tooltipComponent={{
             component: Tooltip,

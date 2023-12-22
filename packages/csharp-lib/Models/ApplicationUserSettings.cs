@@ -375,6 +375,8 @@ public class ApplicationUserSettingsView
     public string Id { get; set; }
     public string Name { get; set; }
 
+    public string CharacterFilter { get; set; } = string.Empty;
+
     public List<string> GroupBy { get; set; } = new();
     public List<string> Groups { get; set; } = new();
     public List<string> SortBy { get; set; } = new();

@@ -2,6 +2,8 @@ export interface SettingsView {
     id: string
     name: string
 
+    characterFilter: string
+
     groups: string[]
     groupBy: string[]
     sortBy: string[]

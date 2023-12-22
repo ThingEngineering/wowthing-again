@@ -14,10 +14,10 @@
 
 <style lang="scss">
     .view-edit {
-        width: 20rem;
+        width: 25rem;
 
         :global(label) {
-            flex-basis: 5rem;
+            flex-basis: 12rem;
         }
     }
 </style>
@@ -29,13 +29,21 @@
             class="view-edit"
             data-id={view.id}
         >
-            <div>
-                <TextInput
-                    name="view_name"
-                    label={'Name'}
-                    bind:value={view.name}
-                />
-            </div>
+            <TextInput
+                name="view_name"
+                label={'Name'}
+                bind:value={view.name}
+            />
+        </div>
+        <div
+            class="view-edit"
+            data-id={view.id}
+        >
+            <TextInput
+                name="view_characterFilter"
+                label={'Character Filter'}
+                bind:value={view.characterFilter}
+            />
         </div>
     </div>
 
