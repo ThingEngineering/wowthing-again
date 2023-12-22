@@ -51,11 +51,13 @@
         $deleting = null
     }
 
-    const deleteConfirmClick = (index: number) => {
-        const newViews = $settingsStore.views.slice(0, index)
-            .concat($settingsStore.views.slice(index + 1))
-        $settingsStore.views = newViews
+    const deleteConfirmClick = (viewId: string) => {
         $deleting = null
+        $settingsStore.views = $settingsStore.views.filter((view) => view.id !== viewId)
+        
+        if ($settingsStore.activeView === viewId) {
+            $settingsStore.activeView = $settingsStore.views[0].id
+        }
     }
 </script>
 
@@ -150,7 +152,7 @@
                                 extraClass={'status-fail'}
                                 icon={uiIcons.yes}
                                 tooltip={'Delete'}
-                                on:click={() => deleteConfirmClick(viewIndex)}
+                                on:click={() => deleteConfirmClick(view.id)}
                             />
                         </td>
                     {/if}
