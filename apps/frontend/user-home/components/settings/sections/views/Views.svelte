@@ -9,6 +9,7 @@
         const view: SettingsView = {
             id: crypto.randomUUID(),
             name: 'VIEW',
+            characterFilter: '',
             groups: ['groupBy'],
             groupBy: [],
             sortBy: [],
