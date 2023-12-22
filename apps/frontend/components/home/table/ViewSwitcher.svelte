@@ -42,7 +42,7 @@
     {/each}
 
     {#if !$userStore.public}
-        <a href="/settings/views" use:link>
+        <a href="/settings/views/{$settingsStore.activeView}" use:link>
             <IconifyIcon
                 icon={iconLibrary.mdiCogOutline}
             />

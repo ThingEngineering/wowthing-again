@@ -30,7 +30,7 @@
     $: {
         isPublic = $userStore.public
 
-        commonSpan = $settingsStore.layout.commonFields
+        commonSpan = settingsStore.view.commonFields
             .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))
             .length
 
