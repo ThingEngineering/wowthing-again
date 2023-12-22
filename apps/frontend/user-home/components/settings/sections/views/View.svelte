@@ -3,9 +3,11 @@
 
     import { settingsStore } from '@/shared/stores/settings'
 
-    import CharacterTableSettings from './CharacterTableSettings.svelte';
+    import CharacterTableSettings from './CharacterTableSettings.svelte'
+    import Grouping from './Grouping.svelte'
+    import Sorting from './Sorting.svelte'
+    import Tasks from './Tasks.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
-    import Tasks from './Tasks.svelte';
 
     export let params: { view: string }
 
@@ -48,6 +50,8 @@
     </div>
 
     {#key `view--${view.id}`}
+        <Grouping {view} />
+        <Sorting {view} />
         <CharacterTableSettings {view} />
         <Tasks {view} />
     {/key}

@@ -26,9 +26,18 @@
     })
 </script>
 
-<div class="settings-block">
-    <h3>Character table columns</h3>
-    
+<style lang="scss">
+    .common-columns {
+        --magic-min-height: 11.4rem;
+        --magic-max-height: 11.4rem;
+    }
+    .home-columns {
+        --magic-min-height: 17rem;
+        --magic-max-height: 17rem;
+    }
+</style>
+
+<div class="settings-block common-columns">
     <MagicLists
         key="common"
         title="Common columns"
@@ -36,7 +45,9 @@
         active={commonActive}
         inactive={commonInactive}
     />
+</div>
 
+<div class="settings-block home-columns">
     <MagicLists
         key="home"
         title="Home columns"
