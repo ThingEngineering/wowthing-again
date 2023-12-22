@@ -35,10 +35,6 @@
 </script>
 
 <style lang="scss">
-    .new-group {
-        background: $highlight-background;;
-        text-align: center;
-    }
     .settings-block {
         --magic-min-height: 11.4rem;
         --magic-max-height: 11.4rem;

@@ -6,7 +6,7 @@
     import { userStore } from '@/stores'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 </script>
 
 <style lang="scss">
