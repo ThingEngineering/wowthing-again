@@ -6,6 +6,7 @@
     import { userStore } from '@/stores'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 </script>
 
 <style lang="scss">
@@ -14,6 +15,8 @@
         gap: 0.3rem;
     }
     a, button {
+        --image-border-width: 1px;
+
         border: 1px solid $border-color;
         border-top-left-radius: $border-radius-large;
         border-top-right-radius: $border-radius-large;
@@ -37,7 +40,7 @@
             data-id={view.id}
             on:click={() => $settingsStore.activeView = view.id}
         >
-            {view.name}
+            <ParsedText text={view.name} />
         </button>
     {/each}
 
