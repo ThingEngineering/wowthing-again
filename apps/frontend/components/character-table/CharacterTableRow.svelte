@@ -3,7 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'
@@ -14,7 +14,6 @@
     import TableIcon from '@/components/common/TableIcon.svelte'
 
     export let character: Character
-    export let isHome: boolean
     export let last: boolean
 
     setContext('character', character)
@@ -23,7 +22,7 @@
     let intersected = false
 
     $: accountEnabled = !character.accountId || $userStore.accounts[character.accountId]?.enabled
-    $: commonFields = isHome ? settingsStore.view.commonFields : $settingsStore.views[0].commonFields
+    $: commonFields = $activeView.commonFields
 </script>
 
 <style lang="scss">

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
@@ -56,7 +56,7 @@
         />
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each settingsStore.view.homeFields as field (field)}
+            {#each $activeView.homeFields as field (field)}
                 {#if field === 'callings'}
                     <RowDailies
                         expansion={8}

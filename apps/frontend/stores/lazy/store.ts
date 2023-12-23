@@ -208,6 +208,7 @@ export class LazyStore implements LazyUgh {
             settingsCollections: hashObject(settings.collections),
             settingsTasks: hashObject(settings.tasks),
             settingsTransmog: hashObject(settings.transmog),
+            settingsViews: hashObject(settings.views),
         }
         const changedEntries = Object.entries(newHashes)
             .filter(([key, value]) => value !== this.hashes[key])
@@ -256,7 +257,8 @@ export class LazyStore implements LazyUgh {
             changedData.userQuestData ||
             changedHashes.currentTime ||
             changedHashes.settingsCharacterFlags ||
-            changedHashes.settingsTasks)
+            changedHashes.settingsTasks ||
+            changedHashes.settingsViews)
         {
             this.charactersFunc = once(() => doCharacters({
                 currentTime,

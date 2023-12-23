@@ -5,7 +5,7 @@
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
@@ -30,7 +30,7 @@
     $: {
         isPublic = $userStore.public
 
-        commonSpan = settingsStore.view.commonFields
+        commonSpan = $activeView.commonFields
             .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))
             .length
 
@@ -77,7 +77,7 @@
     <td class="only-weekly" colspan="{commonSpan}">
     </td>
 
-    {#each settingsStore.view.homeFields as field (field)}
+    {#each $activeView.homeFields as field (field)}
         {#if field === 'callings'}
             <td use:basicTooltip={"Shadowlands Callings"}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> SL

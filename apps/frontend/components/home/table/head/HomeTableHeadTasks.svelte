@@ -3,7 +3,7 @@
     import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
@@ -32,7 +32,7 @@
     }
 </style>
 
-{#each settingsStore.view.homeTasks as taskName}
+{#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||

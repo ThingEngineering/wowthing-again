@@ -8,7 +8,7 @@
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
     import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     
     export let taskName: string
 
@@ -26,7 +26,7 @@
 
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
-        disabledChores = settingsStore.view.disabledChores?.[taskName] || []
+        disabledChores = $activeView.disabledChores?.[taskName] || []
 
         const multiMap: Record<string, number> = {}
         multiStats = []
