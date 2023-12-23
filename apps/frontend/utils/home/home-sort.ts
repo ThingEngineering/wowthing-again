@@ -117,7 +117,7 @@ export function homeSort(
             const charTask = lazyStore.characters[char.id].tasks[`${settings.activeView}|${taskName}`]
             if (charTask) {
                 if (charTask.text === 'Done') {
-                    value = 100
+                    value = 101
                 }
                 else if (charTask.text === 'Get!') {
                     value = -1
