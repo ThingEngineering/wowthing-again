@@ -1,5 +1,6 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
@@ -9,7 +10,8 @@
     export let quest: string
     export let title: string
 
-    $: charTask = $lazyStore.characters[character.id].tasks[quest]
+    $: charTask = $lazyStore.characters[character.id]
+        .tasks[`${$settingsStore.activeView}|${quest}`]
 
 </script>
 
