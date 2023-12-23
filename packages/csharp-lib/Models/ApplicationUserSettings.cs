@@ -137,6 +137,11 @@ public class ApplicationUserSettings
             });
         }
 
+        if (string.IsNullOrEmpty(ActiveView) || Views.All(view => view.Id != ActiveView))
+        {
+            ActiveView = Views.First().Id;
+        }
+
         Validate();
     }
 
