@@ -86,7 +86,7 @@
                 $settingsStore,
                 $staticStore,
                 (char) => leftPad(
-                    100000 - Math.floor(char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0),
+                    100000 - Math.floor((char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0) * 10),
                     6,
                     '0'
                 )
