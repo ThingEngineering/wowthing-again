@@ -5,7 +5,7 @@
     import { lazyStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState, newNavState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
     import { homeSort } from '@/utils/home'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
@@ -37,14 +37,14 @@
                 $settingsStore,
                 $staticStore,
                 undefined,
-                isHome ? settingsStore.view.sortBy : undefined
+                $activeView.sortBy
             )
         }
 
         groupFunc = getCharacterGroupFunc(
             $settingsStore,
-            isHome ? settingsStore.view.groupBy : undefined,
-            isHome ? settingsStore.view.sortBy : undefined,
+            $activeView.groupBy,
+            $activeView.sortBy,
         )
     }
 
@@ -62,8 +62,7 @@
             $lazyStore,
             filterFunc,
             char,
-            $newNavState.characterFilter ||
-                (isHome ? settingsStore.view.characterFilter : $settingsStore.views[0].characterFilter)
+            $newNavState.characterFilter || $activeView.characterFilter
         ))
 
         if (characterLimit > 0) {
@@ -87,7 +86,7 @@
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex]
             const sortKey = `${$settingsStore.activeView}|${keyIndex}`
-            const keySort = isHome && $homeState.groupSort[sortKey]
+            const keySort = (isHome && $homeState.groupSort[sortKey])
                 ? getCharacterSortFunc(
                     $settingsStore,
                     $staticStore,
@@ -145,7 +144,6 @@
                 {#each group as character, characterIndex (character.id)}
                     <CharacterRow
                         {character}
-                        {isHome}
                         last={characterIndex === (group.length - 1)}
                     >
                         <slot slot="rowExtra" name="rowExtra" {character} />

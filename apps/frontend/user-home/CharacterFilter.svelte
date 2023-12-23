@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     import { newNavState } from '@/stores/local-storage'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -27,7 +27,7 @@
 <div class="character-filter" id="character-filter">
     <TextInput
         name="character-filter"
-        placeholder={settingsStore.view.characterFilter || 'Character filter...'}
+        placeholder={$activeView.characterFilter || 'Character filter...'}
         bind:value={$newNavState.characterFilter}
         tooltipComponent={{
             component: Tooltip,

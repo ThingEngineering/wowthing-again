@@ -2,7 +2,7 @@
     import { taskMap } from '@/data/tasks'
     import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
@@ -15,7 +15,7 @@
     $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
 </script>
 
-{#each settingsStore.view.homeTasks as taskName}
+{#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task}
         {#if taskName === 'dmfProfessions'}
