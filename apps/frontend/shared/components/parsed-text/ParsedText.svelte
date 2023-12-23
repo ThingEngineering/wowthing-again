@@ -159,6 +159,7 @@
     }
 
     afterUpdate(() => {
+        if (!element) { return }
         for (const span of element.querySelectorAll('span')) {
             if (span.hasAttribute('data-string')) {
                 span.replaceChildren()

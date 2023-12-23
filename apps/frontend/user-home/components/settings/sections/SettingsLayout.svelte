@@ -1,7 +1,9 @@
 <script lang="ts">
+    import { uiIcons } from '@/shared/icons'
     import { settingsStore } from '@/shared/stores/settings'
 
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import NameTooltip from './characters/SettingsCharactersNameTooltip.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
 </script>
@@ -96,6 +98,20 @@
             ]}
         />
         <p>How much white space is used between columns.</p>
+    </div>
+</div>
+
+<div class="settings-block">
+    <h3>Lockouts</h3>
+
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsStore.layout.showEmptyLockouts}
+            name="layout_showEmptyLockouts"
+        >
+            Show a <span class="status-fail"><IconifyIcon icon={uiIcons.starHalf} /></span>
+            for empty lockouts.
+        </CheckboxInput>
     </div>
 </div>
 

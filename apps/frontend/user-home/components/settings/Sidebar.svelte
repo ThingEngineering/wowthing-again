@@ -23,17 +23,6 @@
             {
                 name: 'Layout',
                 slug: 'layout',
-                children: [
-                    {
-                        name: 'Lockouts',
-                        slug: 'lockouts',
-                    },
-                    // null,
-                    // {
-                    //     name: 'Grouping',
-                    //     slug: 'grouping',
-                    // },
-                ],
             },
             {
                 name: 'Views',
@@ -53,10 +42,6 @@
                         name: 'Pin',
                         slug: 'pin',
                     },
-                    // {
-                    //     name: 'Sort',
-                    //     slug: 'sort',
-                    // },
                     {
                         name: 'Toggles',
                         slug: 'toggles',

@@ -15,7 +15,6 @@
     import Layout from './sections/SettingsLayout.svelte'
     import LayoutGrouping from './sections/layout/SettingsLayoutGrouping.svelte'
     import Leaderboard from './sections/SettingsLeaderboard.svelte'
-    import Lockouts from './sections/SettingsLockouts.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import Professions from './sections/SettingsProfessions.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
@@ -24,7 +23,6 @@
 
     import Characters from './sections/characters/SettingsCharacters.svelte'
     import CharactersPin from './sections/characters/SettingsCharactersPin.svelte'
-    import CharactersSort from './sections/characters/SettingsCharactersSort.svelte'
     import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte'
 
     export let params: MultiSlugParams
@@ -42,12 +40,10 @@
         '/transmog': Transmog,
         
         '/characters/pin': CharactersPin,
-        '/characters/sort': CharactersSort,
         '/characters/toggles': CharactersToggles,
         '/characters': Characters,
 
         '/layout/grouping': LayoutGrouping,
-        '/layout/lockouts': Lockouts,
         '/layout': Layout,
 
         '/views': Views,

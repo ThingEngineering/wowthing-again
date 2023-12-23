@@ -5,6 +5,7 @@
 
     import CharacterTableSettings from './CharacterTableSettings.svelte'
     import Grouping from './Grouping.svelte'
+    import Lockouts from './Lockouts.svelte'
     import Sorting from './Sorting.svelte'
     import Tasks from './Tasks.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
@@ -55,5 +56,6 @@
         <Sorting {view} />
         <CharacterTableSettings {view} />
         <Tasks {view} />
+        <Lockouts {view} />
     {/key}
 {/if}
