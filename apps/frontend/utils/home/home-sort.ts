@@ -5,14 +5,17 @@ import { dungeonMap } from '@/data/dungeon'
 import { leftPad } from '@/utils/formatting'
 import { getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getVaultItemLevel } from '@/utils/mythic-plus'
-import type { Character } from '@/types'
+import type { Settings } from '@/shared/stores/settings/types'
 import type { LazyStore } from '@/stores'
+import type { Character } from '@/types'
+
 import { getCharacterRested } from '../get-character-rested'
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level'
 
 
 export function homeSort(
     lazyStore: LazyStore,
+    settings: Settings,
     currentTime: DateTime,
     sortBy: string,
     char: Character
@@ -111,10 +114,10 @@ export function homeSort(
             value = Math.floor(charChore.countCompleted / charChore.countTotal * 100)
         }
         else {
-            const charTask = lazyStore.characters[char.id].tasks[taskName]
+            const charTask = lazyStore.characters[char.id].tasks[`${settings.activeView}|${taskName}`]
             if (charTask) {
                 if (charTask.text === 'Done') {
-                    value = 100
+                    value = 101
                 }
                 else if (charTask.text === 'Get!') {
                     value = -1

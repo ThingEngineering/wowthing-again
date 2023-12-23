@@ -91,7 +91,14 @@
                 ? getCharacterSortFunc(
                     $settingsStore,
                     $staticStore,
-                    (char) => homeSort($lazyStore, $timeStore, $homeState.groupSort[sortKey], char))
+                    (char) => homeSort(
+                        $lazyStore,
+                        $settingsStore,
+                        $timeStore,
+                        $homeState.groupSort[sortKey],
+                        char
+                    )
+                )
                 : sortFunc
             pairs.push([
                 key,

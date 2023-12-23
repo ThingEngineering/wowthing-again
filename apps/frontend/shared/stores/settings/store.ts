@@ -1,3 +1,4 @@
+import { debounce } from 'lodash'
 import find from 'lodash/find'
 import { get, writable } from 'svelte/store'
 
@@ -17,6 +18,7 @@ import { userAchievementStore } from '@/stores/user-achievements'
 import { userModifiedStore } from '@/stores/user-modified'
 import { userQuestStore } from '@/stores/user-quests'
 import { userTransmogStore } from '@/stores/user-transmog'
+import type { UserData } from '@/types'
 
 
 const languageToSubdomain: Record<Language, string> = {
@@ -91,49 +93,7 @@ function createSettingsStore() {
                         if (newAccountsHash !== accountsHash || newSettingsHash !== settingsHash) {
                             accountsHash = newAccountsHash
                             settingsHash = newSettingsHash
-
-                            settingsSavingState.set(1)
-                            const xsrf = document.getElementById('app').getAttribute('data-xsrf')
-                            const data = {
-                                accounts: userData.accounts,
-                                settings,
-                            }
-
-                            const response = await fetch('/api/settings', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'RequestVerificationToken': xsrf,
-                                },
-                                body: JSON.stringify(data),
-                            })
-
-                            if (response.ok) {
-                                const json = await response.json()
-                                const settings = json.settings as Settings
-                                settingsStore.set(settings)
-
-                                userStore.update(state => {
-                                    for (const account of json.accounts as Account[]) {
-                                        state.accounts[account.id] = account
-                                    }
-                                    return state
-                                })
-
-                                const fetchOptions: Partial<FancyStoreFetchOptions> = {
-                                    language: settings.general.language,
-                                    evenIfLoaded: true,
-                                    onlyIfLoaded: true,
-                                }
-                                await Promise.all([
-                                    achievementStore.fetch(fetchOptions),
-                                    journalStore.fetch(fetchOptions),
-                                    manualStore.fetch(fetchOptions),
-                                    staticStore.fetch(fetchOptions),
-                                ])
-
-                                settingsSavingState.set(2)
-                            }
+                            await debouncedSaveData(settings, userData)
                         }
                     },
                     1000
@@ -175,6 +135,56 @@ function createSettingsStore() {
         update: store.update,
     }
 }
+
+async function saveData(
+    settings: Settings,
+    userData: UserData,
+) {
+
+    settingsSavingState.set(1)
+    const xsrf = document.getElementById('app').getAttribute('data-xsrf')
+    const data = {
+        accounts: userData.accounts,
+        settings,
+    }
+
+    const response = await fetch('/api/settings', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'RequestVerificationToken': xsrf,
+        },
+        body: JSON.stringify(data),
+    })
+
+    if (response.ok) {
+        const json = await response.json()
+        const settings = json.settings as Settings
+        settingsStore.set(settings)
+
+        userStore.update(state => {
+            for (const account of json.accounts as Account[]) {
+                state.accounts[account.id] = account
+            }
+            return state
+        })
+
+        const fetchOptions: Partial<FancyStoreFetchOptions> = {
+            language: settings.general.language,
+            evenIfLoaded: true,
+            onlyIfLoaded: true,
+        }
+        await Promise.all([
+            achievementStore.fetch(fetchOptions),
+            journalStore.fetch(fetchOptions),
+            manualStore.fetch(fetchOptions),
+            staticStore.fetch(fetchOptions),
+        ])
+
+        settingsSavingState.set(2)
+    }    
+}
+const debouncedSaveData = debounce(saveData, 1500)
 
 export const settingsStore = createSettingsStore()
 settingsStore.set(

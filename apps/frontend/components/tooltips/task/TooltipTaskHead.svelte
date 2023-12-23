@@ -26,7 +26,7 @@
 
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
-        disabledChores = $settingsStore.tasks.disabledChores?.[taskName] || []
+        disabledChores = settingsStore.view.disabledChores?.[taskName] || []
 
         const multiMap: Record<string, number> = {}
         multiStats = []

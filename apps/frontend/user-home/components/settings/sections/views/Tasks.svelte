@@ -44,7 +44,7 @@
     />
 </div>
 
-{#each ['dfChores', 'dfChores10_1_0', 'dfChores10_2_0', 'pvpBlitz', 'pvpBrawl'] as taskKey}
+{#each ['dfChores', 'dfChores10_1_0', 'dfChores10_2_0', 'holidayWinterVeil', 'pvpBlitz', 'pvpBrawl'] as taskKey}
     {#if view.homeTasks.indexOf(taskKey) >= 0}
         <div class="settings-block">
             <div>
