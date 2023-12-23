@@ -29,7 +29,14 @@
     const lockoutActive = view.homeLockouts
         .map((f) => lockoutChoices.filter((c) => parseInt(c.key) === f)[0])
         .filter(f => f !== undefined)
-    const lockoutInactive = lockoutChoices.filter((c) => lockoutActive.indexOf(c) === -1)
+    
+    $: lockoutInactive = lockoutChoices.filter(
+        (instance) => lockoutActive.indexOf(instance) === -1 &&
+            (
+                !instanceFilter ||
+                instance.name.toLocaleLowerCase().indexOf(instanceFilter.toLocaleLowerCase()) >= 0
+            )
+    )
 
     const onLockoutChange = debounce(() => {
         view.homeLockouts = lockoutActive.map((c) => parseInt(c.key))
