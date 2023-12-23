@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { activeView } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
+    import { userStore } from '@/stores'
     import type { Character } from '@/types'
 
     import RowLockout from '@/components/lockouts/LockoutsTableRowLockout.svelte'
@@ -9,7 +10,8 @@
 </script>
 
 {#each $userStore.homeLockouts as instanceDifficulty}
-    {#if $staticStore.instances[instanceDifficulty.instanceId]}
+    {#if $activeView.homeLockouts.indexOf(instanceDifficulty.instanceId) >= 0 &&
+        $staticStore.instances[instanceDifficulty.instanceId]}
         <RowLockout
             showNumbers={false}
             {character}

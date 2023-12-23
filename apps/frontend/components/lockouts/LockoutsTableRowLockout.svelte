@@ -39,11 +39,11 @@
 
 {#if lockout}
     <td
-        use:componentTooltip={{component: TooltipLockout, props: {character, lockout}}}
         class:status-success={lockout.defeatedBosses >= maxBosses}
         class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}
         class:status-fail={lockout.defeatedBosses === 0}
         style="{!showNumbers ? '--less-width: 0.8rem;' : ''}"
+        use:componentTooltip={{component: TooltipLockout, props: {character, lockout}}}
     >
         {#if showNumbers}
             <span>{lockout.defeatedBosses}</span>
@@ -60,7 +60,17 @@
         {/if}
     </td>
 {:else}
-    <td class="status-fail">
+    <td
+        class="status-fail"
+        use:componentTooltip={{
+            component: TooltipLockout,
+            props: {
+                character,
+                instanceId: instanceDifficulty.instanceId,
+                lockout,
+            }
+        }}
+    >
         {#if $settingsStore.layout.showEmptyLockouts}
             <IconifyIcon icon={uiIcons.starEmpty} />
         {/if}

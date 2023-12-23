@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { activeView } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
+    import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
@@ -22,7 +23,7 @@
 
 {#each $userStore.homeLockouts as {difficulty, instanceId}}
     {@const instance = $staticStore.instances[instanceId]}
-    {#if instance}
+    {#if $activeView.homeLockouts.indexOf(instanceId) >= 0 && instance}
         {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
         <td
             class="sortable"

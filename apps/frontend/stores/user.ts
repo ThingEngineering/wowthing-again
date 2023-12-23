@@ -1,3 +1,4 @@
+import flatten from 'lodash/flatten'
 import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
@@ -226,8 +227,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         )
 
+        const instanceIds = uniq(flatten(settingsData.views.map((view) => view.homeLockouts)))
         userData.homeLockouts = []
-        for (const instanceId of settingsData.layout.homeLockouts) {
+        for (const instanceId of instanceIds) {
             let found = false
             for (const difficulty of lockoutDifficultyOrder) {
                 const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`]
