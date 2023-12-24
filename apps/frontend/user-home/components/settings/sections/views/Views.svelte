@@ -54,7 +54,7 @@
     const deleteConfirmClick = (viewId: string) => {
         $deleting = null
         $settingsStore.views = $settingsStore.views.filter((view) => view.id !== viewId)
-        
+
         if ($settingsStore.activeView === viewId) {
             $settingsStore.activeView = $settingsStore.views[0].id
         }
@@ -104,6 +104,11 @@
     <UnderConstruction />
 
     <h3>Views</h3>
+
+    <p>
+        The first View will be used as your default grouping/sorting on pages other than Home,
+        don't set it to anything that will annoy you.
+    </p>
 
     <table class="table table-striped">
         <tbody>
