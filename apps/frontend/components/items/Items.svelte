@@ -43,8 +43,8 @@
 
     {#if params.slug1 === 'convertible'}
         <Convertible
-            seasonSlug={params.slug2}
-            classSlug={params.slug3}
+            slug1={params.slug2}
+            slug2={params.slug3}
         />
     {:else if params.slug1 === 'search'}
         <Search />

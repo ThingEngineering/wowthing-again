@@ -84,7 +84,8 @@
         padding-bottom: 0.2rem;
     }
     .name {
-        direction: rtl; // not happy with this but ugh
+        --image-border-width: 1px;
+
         max-width: 15rem;
         min-width: 11rem;
         text-align: left;

@@ -5,6 +5,22 @@ import { PlayableClass } from '@/enums/playable-class'
 import { toIndexRecord } from '@/utils/to-index-record'
 
 
+export const characterClassBySlug: Record<string, PlayableClass> = {
+    'death-knight': PlayableClass.DeathKnight,
+    'demon-hunter': PlayableClass.DemonHunter,
+    druid: PlayableClass.Druid,
+    evoker: PlayableClass.Evoker,
+    hunter: PlayableClass.Hunter,
+    mage: PlayableClass.Mage,
+    monk: PlayableClass.Monk,
+    paladin: PlayableClass.Paladin,
+    priest: PlayableClass.Priest,
+    rogue: PlayableClass.Rogue,
+    shaman: PlayableClass.Shaman,
+    warlock: PlayableClass.Warlock,
+    warrior: PlayableClass.Warrior,
+}
+
 export const classOrder: number[] = [
     PlayableClass.Mage,
     PlayableClass.Priest,

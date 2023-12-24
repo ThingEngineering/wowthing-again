@@ -76,18 +76,17 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
 )
 
 export const taskList: Task[] = [
-    // Misc
+    // Events/Holidays/idk
     {
-        key: 'dmfProfessions',
-        name: '[DMF] Professions',
+        key: 'holidayDarkmoonFaire',
+        name: '[Event] Darkmoon Faire',
         shortName: 'DMF',
+        type: 'multi',
     },
-
-    // Holidays
     {
         key: 'holidayWinterVeil',
         minimumLevel: 30,
-        name: '[Holiday] Winter Veil',
+        name: '[Event] Winter Veil',
         shortName: 'Xmas',
         type: 'multi',
     },
@@ -296,6 +295,92 @@ function garrisonCouldGet(char: Character): boolean {
 
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    'holidayDarkmoonFaire': [
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfAlchemy',
+            taskName: ':alchemy: A Fizzy Fusion',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Alchemy],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfBlacksmithing',
+            taskName: ':blacksmithing: Baby Needs Two Pair of Shoes',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfEnchanting',
+            taskName: ':enchanting: Putting Trash to Good Use',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Enchanting],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfEngineering',
+            taskName: ":engineering: Talkin' Tonks",
+            couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfHerbalism',
+            taskName: ':herbalism: Herbs for Healing',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Herbalism],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfInscription',
+            taskName: ':inscription: Writing the Future',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfJewelcrafting',
+            taskName: ':jewelcrafting: Keeping the Faire Sparkling',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfLeatherworking',
+            taskName: ':leatherworking: Eyes on the Prizes',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfMining',
+            taskName: ':mining: Rearm, Reuse, Recycle',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Mining],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfSkinning',
+            taskName: ':skinning: Tan My Hide',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Skinning],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfTailoring',
+            taskName: ':tailoring: Banners, Banners Everywhere!',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Tailoring],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfArchaeology',
+            taskName: ':archaeology: Fun for the Little Ones',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfCooking',
+            taskName: ':cooking: Putting the Crunch in the Frog',
+            couldGetFunc: (char) => !!char.professions?.[Profession.Cooking],
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfFishing',
+            taskName: ":fishing: Spoilin' for Salty Sea Dogs",
+            couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
+        },
+    ],
     'holidayWinterVeil': [
         {
             minimumLevel: 30,

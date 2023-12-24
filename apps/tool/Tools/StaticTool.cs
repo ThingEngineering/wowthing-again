@@ -46,6 +46,24 @@ public class StaticTool
         StringType.WowTransmogSetName,
     };
 
+    private static readonly Dictionary<string, string> HolidayMap = new()
+    {
+        { "Brewfest", "holidayBrewfest" },
+        { "Darkmoon Faire", "holidayDarkmoonFaire" },
+        { "Feast of Winter Veil", "holidayFeastOfWinterVeil" },
+        { "Hallow's End", "holidayHallowsEnd" },
+        { "Love is in the Air", "holidayLoveIsInTheAir" },
+        { "Lunar Festival", "holidayLunarFestival" },
+        { "Midsummer Fire Festival", "holidayMidsummerFireFestival" },
+        { "Noblegarden", "holidayNoblegarden" },
+        { "Pilgrim's Bounty", "holidayPilgrimsBounty" },
+        // not holidays but too much effort to fix now
+        { "Arena Skirmish Bonus Event", "holidayArena" },
+        { "Battleground Bonus Event", "holidayBattlegrounds" },
+        { "Pet Battle Bonus Event", "holidayPetPvp" },
+        { "World Quest Bonus Event", "holidayWorldQuests" },
+    };
+
     public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Static");
@@ -165,52 +183,36 @@ public class StaticTool
 
         cacheData.HolidayIds = new()
         {
-            { "holidayArena", new() },
-            { "holidayBattlegrounds", new() },
-            { "holidayBrewfest", new() },
             { "holidayDungeons", new() },
-            { "holidayPetPvp", new() },
             { "holidayTimewalking", new() },
             { "holidayTimewalkingItem", new() },
-            { "holidayWorldQuests", new() },
             { "pvpBrawl", new() },
         };
 
         foreach (var holiday in cacheData.RawHolidays)
         {
             string holidayName = GetString(StringType.WowHolidayName, Language.enUS, holiday.Id);
-            if (holidayName == "Arena Skirmish Bonus Event")
+            if (HolidayMap.TryGetValue(holidayName, out string holidayKey))
             {
-                cacheData.HolidayIds["holidayArena"].Add(holiday.Id);
-            }
-            else if (holidayName == "Battleground Bonus Event")
-            {
-                cacheData.HolidayIds["holidayBattlegrounds"].Add(holiday.Id);
-            }
-            else if (holidayName == "Brewfest")
-            {
-                cacheData.HolidayIds["holidayBrewfest"].Add(holiday.Id);
-            }
-            else if (!holidayName.StartsWith("Timewalking") && holidayName.EndsWith("Dungeon Event"))
-            {
-                cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
-            }
-            else if (holidayName == "Pet Battle Bonus Event")
-            {
-                cacheData.HolidayIds["holidayPetPvp"].Add(holiday.Id);
-            }
-            else if (holidayName.StartsWith("PvP Brawl"))
-            {
-                cacheData.HolidayIds["pvpBrawl"].Add(holiday.Id);
+                if (!cacheData.HolidayIds.TryGetValue(holidayKey, out var keyIds))
+                {
+                    keyIds = cacheData.HolidayIds[holidayKey] = new();
+                }
+
+                keyIds.Add(holiday.Id);
             }
             else if (holidayName == "Timewalking Dungeon Event")
             {
                 cacheData.HolidayIds["holidayTimewalking"].Add(holiday.Id);
                 cacheData.HolidayIds["holidayTimewalkingItem"].Add(holiday.Id);
             }
-            else if (holidayName == "World Quest Bonus Event")
+            else if (holidayName.StartsWith("PvP Brawl"))
             {
-                cacheData.HolidayIds["holidayWorldQuests"].Add(holiday.Id);
+                cacheData.HolidayIds["pvpBrawl"].Add(holiday.Id);
+            }
+            else if (holidayName.EndsWith("Dungeon Event"))
+            {
+                cacheData.HolidayIds["holidayDungeons"].Add(holiday.Id);
             }
         }
 

@@ -36,10 +36,13 @@
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||
-        ($staticStore.holidayIds[taskName] === undefined && (
-            !taskName.startsWith('pvp') ||
-            taskName === 'pvpBlitz'
-        ))
+        (
+            $staticStore.holidayIds[taskName] === undefined &&
+            (
+                !taskName.startsWith('pvp') ||
+                taskName === 'pvpBlitz'
+            )
+        )
     )}
         {@const sortField = `task:${taskName}`}
         <td

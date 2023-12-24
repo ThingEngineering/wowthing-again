@@ -7,11 +7,30 @@
 
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
-    const children = classOrder.map((classId) => {
-        const data = { ...$staticStore.characterClasses[classId] }
-        data.name = `:class-${classId}: ${getGenderedName(data.name, Gender.Male)}`
-        return data
-    })
+    const children = [
+        ...classOrder.map((classId) => {
+            const data = { ...$staticStore.characterClasses[classId] }
+            data.name = `:class-${classId}: ${getGenderedName(data.name, Gender.Male)}`
+            return data
+        }),
+        null,
+        {
+            name: 'Mythic',
+            slug: 'mythic',
+        },
+        {
+            name: 'Heroic',
+            slug: 'heroic',
+        },
+        {
+            name: 'Normal',
+            slug: 'normal',
+        },
+        {
+            name: 'Looking For Raid',
+            slug: 'looking-for-raid',
+        },
+    ]
     const categories = convertibleCategories.map((cc) => ({ ...cc, children }))
 </script>
 
