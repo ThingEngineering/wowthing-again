@@ -5,7 +5,7 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { staticStore } from '@/shared/stores/static'
 
-    import Table from './Table.svelte'
+    import ClassTable from './ClassTable.svelte'
 
     export let seasonSlug: string
     export let classSlug: string
@@ -16,7 +16,7 @@
 
 <div class="wrapper-column">
     {#each [AppearanceModifier.Mythic, AppearanceModifier.Heroic, AppearanceModifier.Normal, AppearanceModifier.LookingForRaid] as modifier}
-        <Table
+        <ClassTable
             {modifier}
             {playerClass}
             {season}
