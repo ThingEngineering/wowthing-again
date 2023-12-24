@@ -6,7 +6,6 @@
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
-    import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte'
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte'
     import RowTaskChores from './HomeTableRowTaskChores.svelte'
 
@@ -17,22 +16,19 @@
 
 {#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
-    {#if task}
-        {#if taskName === 'dmfProfessions' && activeHolidays[taskName]}
-            <RowDmfProfessions {character} />
-        {:else if taskMap[taskName]?.type === 'multi'}
+    {#if task && (
+        activeHolidays[taskName] ||
+        (
+            $staticStore.holidayIds[taskName] === undefined &&
+            !taskName.startsWith('pvp')
+        )
+    )}
+        {#if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores
                 {character}
                 {taskName}
             />
-        {:else if (
-            activeHolidays[taskName] ||
-            (
-                $staticStore.holidayIds[taskName] === undefined &&
-                taskName !== 'dmfProfessions' &&
-                !taskName.startsWith('pvp')
-            )
-        )}
+        {:else}
             <RowProgressQuest
                 {character}
                 quest={taskName}
