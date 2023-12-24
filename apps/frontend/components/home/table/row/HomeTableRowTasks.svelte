@@ -18,7 +18,7 @@
 {#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
     {#if task}
-        {#if taskName === 'dmfProfessions'}
+        {#if taskName === 'dmfProfessions' && activeHolidays[taskName]}
             <RowDmfProfessions {character} />
         {:else if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores
@@ -27,7 +27,11 @@
             />
         {:else if (
             activeHolidays[taskName] ||
-            ($staticStore.holidayIds[taskName] === undefined && !taskName.startsWith('pvp'))
+            (
+                $staticStore.holidayIds[taskName] === undefined &&
+                taskName !== 'dmfProfessions' &&
+                !taskName.startsWith('pvp')
+            )
         )}
             <RowProgressQuest
                 {character}

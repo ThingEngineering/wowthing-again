@@ -36,7 +36,9 @@
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||
-        ($staticStore.holidayIds[taskName] === undefined && (
+        ($staticStore.holidayIds[taskName] === undefined &&
+        taskName !== 'dmfProfessions' &&
+        (
             !taskName.startsWith('pvp') ||
             taskName === 'pvpBlitz'
         ))
