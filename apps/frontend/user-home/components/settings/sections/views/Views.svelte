@@ -113,7 +113,7 @@
                         {view.name}
                     </td>
                     <td class="icon">
-                        {#if viewIndex > 1}
+                        {#if viewIndex > 0}
                             <IconifyIcon
                                 icon={uiIcons.chevronUp}
                                 scale={'1.2'}
@@ -123,7 +123,7 @@
                         {/if}
                     </td>
                     <td class="icon">
-                        {#if viewIndex > 0 && viewIndex < ($settingsStore.views.length - 1)}
+                        {#if viewIndex < ($settingsStore.views.length - 1)}
                             <IconifyIcon
                                 icon={uiIcons.chevronDown}
                                 scale={'1.2'}
