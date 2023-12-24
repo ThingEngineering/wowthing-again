@@ -1,6 +1,7 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy'
     import sortBy from 'lodash/sortBy'
+    import { location } from 'svelte-spa-router'
 
     import { lazyStore, timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
@@ -62,7 +63,8 @@
             $lazyStore,
             filterFunc,
             char,
-            $newNavState.characterFilter || $activeView.characterFilter
+            $newNavState.characterFilter ||
+                ($location === '/' ? $activeView.characterFilter : '')
         ))
 
         if (characterLimit > 0) {

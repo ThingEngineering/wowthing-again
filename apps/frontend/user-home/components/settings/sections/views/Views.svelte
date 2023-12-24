@@ -54,7 +54,7 @@
     const deleteConfirmClick = (viewId: string) => {
         $deleting = null
         $settingsStore.views = $settingsStore.views.filter((view) => view.id !== viewId)
-        
+
         if ($settingsStore.activeView === viewId) {
             $settingsStore.activeView = $settingsStore.views[0].id
         }
@@ -105,6 +105,11 @@
 
     <h3>Views</h3>
 
+    <p>
+        The first View will be used as your default grouping/sorting on pages other than Home,
+        don't set it to anything that will annoy you.
+    </p>
+
     <table class="table table-striped">
         <tbody>
             {#each $settingsStore.views as view, viewIndex}
@@ -113,7 +118,7 @@
                         {view.name}
                     </td>
                     <td class="icon">
-                        {#if viewIndex > 1}
+                        {#if viewIndex > 0}
                             <IconifyIcon
                                 icon={uiIcons.chevronUp}
                                 scale={'1.2'}
@@ -123,7 +128,7 @@
                         {/if}
                     </td>
                     <td class="icon">
-                        {#if viewIndex > 0 && viewIndex < ($settingsStore.views.length - 1)}
+                        {#if viewIndex < ($settingsStore.views.length - 1)}
                             <IconifyIcon
                                 icon={uiIcons.chevronDown}
                                 scale={'1.2'}
