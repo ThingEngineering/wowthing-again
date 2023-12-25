@@ -205,7 +205,6 @@ public class ApiController : Controller
             .Include(pa => pa.AddonData)
             .Include(pa => pa.Heirlooms)
             .Include(pa => pa.Pets)
-            .Include(pa => pa.Toys)
             .ToListAsync();
 
         if (!apiResult.Public || apiResult.Privacy.PublicAccounts)
