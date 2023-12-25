@@ -202,6 +202,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasDefaultValue(true);
 
         // Unique indexes
+        builder.Entity<ApplicationUser>()
+            .HasIndex(au => au.ApiKey)
+            .IsUnique();
+
         builder.Entity<PlayerAccount>()
             .HasIndex(pa => new { pa.Region, pa.AccountId })
             .IsUnique();
