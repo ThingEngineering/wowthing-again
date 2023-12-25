@@ -215,7 +215,8 @@ public class CacheService
             return userCache;
         }
 
-        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.MountsUpdated);
         var now = DateTimeOffset.UtcNow;
 
         // Mounts
@@ -387,12 +388,13 @@ public class CacheService
             userCache = new UserCache(userId);
             context.UserCache.Add(userCache);
         }
-        else if (lastModified.HasValue && lastModified <= userCache.MountsUpdated)
+        else if (lastModified.HasValue && lastModified <= userCache.ToysUpdated)
         {
             return userCache;
         }
 
-        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.ToysUpdated);
         var now = DateTimeOffset.UtcNow;
 
         // Toys
