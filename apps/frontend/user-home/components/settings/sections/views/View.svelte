@@ -3,12 +3,14 @@
 
     import { settingsStore } from '@/shared/stores/settings'
 
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
+
     import CharacterTableSettings from './CharacterTableSettings.svelte'
+    import Currencies from './Currencies.svelte'
     import Grouping from './Grouping.svelte'
     import Lockouts from './Lockouts.svelte'
     import Sorting from './Sorting.svelte'
     import Tasks from './Tasks.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let params: { view: string }
 
@@ -55,7 +57,8 @@
         <Grouping {view} />
         <Sorting {view} />
         <CharacterTableSettings {view} />
-        <Tasks {view} />
         <Lockouts {view} />
+        <Tasks {view} />
+        <Currencies {view} />
     {/key}
 {/if}

@@ -389,6 +389,7 @@ public class ApplicationUserSettingsView
     public List<string> CommonFields { get; set; } = new();
     public List<string> HomeFields { get; set; } = new();
 
+    public List<int> HomeCurrencies { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 
