@@ -39,6 +39,9 @@ export function getEnchantmentText(id: number, text: string): string {
     else if ([6550, 6556, 6562, 6568].indexOf(id) >= 0) {
         text = text.replace('$k1', '82')
     }
+    else if (id === 7052) {
+        return text.replace(/^\|cnITEM_EPIC_COLOR:(.+)\|r$/, '$1')
+    }
 
     return text
 }

@@ -11,6 +11,7 @@ export interface SettingsView {
     commonFields: string[]
     homeFields: string[]
 
+    homeCurrencies: number[]
     homeLockouts: number[]
     homeTasks: string[]
 

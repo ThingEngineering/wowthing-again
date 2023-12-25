@@ -21,6 +21,7 @@
             sortBy: [],
             commonFields: $settingsStore.views[0].commonFields,
             homeFields: [],
+            homeCurrencies: [],
             homeLockouts: [],
             homeTasks: [],
             disabledChores: {},

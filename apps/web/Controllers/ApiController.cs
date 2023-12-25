@@ -205,7 +205,6 @@ public class ApiController : Controller
             .Include(pa => pa.AddonData)
             .Include(pa => pa.Heirlooms)
             .Include(pa => pa.Pets)
-            .Include(pa => pa.Toys)
             .ToListAsync();
 
         if (!apiResult.Public || apiResult.Privacy.PublicAccounts)
@@ -341,6 +340,8 @@ public class ApiController : Controller
             }
         }
 
+        timer.AddPoint("Heirlooms");
+
         // Honor
         var maxHonorAccount = tempAccounts.MaxBy(pa => pa.AddonData?.HonorLevel);
 
@@ -390,6 +391,8 @@ public class ApiController : Controller
         timer.AddPoint("RaiderIO");
 
         // Objects
+        var accountMap = accounts.ToDictionary(k => k.Id, v => new ApiUserAccount(v));
+
         var characterObjects = characters
             .Select(character => new ApiUserCharacter(
                 character,
@@ -420,12 +423,24 @@ public class ApiController : Controller
                     .ToList()
             );
 
+        var mountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
+            .EmptyIfNull()
+            .Select(id => (ushort)id)
+            .ToArray()
+        );
+
+        var toysPacked = SerializationUtilities.SerializeUInt16Array(userCache.ToyIds
+            .EmptyIfNull()
+            .Select(id => (ushort)id)
+            .ToArray()
+        );
+
         timer.AddPoint("Objects");
 
         // Build response
         var apiData = new ApiUser
         {
-            Accounts = accounts.ToDictionary(k => k.Id, v => new ApiUserAccount(v)),
+            Accounts = accountMap,
             Characters = characterObjects,
             Guilds = guildObjects,
 
@@ -445,21 +460,13 @@ public class ApiController : Controller
 
             PetsRaw = petObjects,
 
-            MountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
-                .EmptyIfNull()
-                .Select(id => (ushort)id)
-                .ToArray()
-            ),
-
-            ToysPacked = SerializationUtilities.SerializeUInt16Array(userCache.ToyIds
-                .EmptyIfNull()
-                .Select(id => (ushort)id)
-                .ToArray()
-            ),
+            MountsPacked = mountsPacked,
+            ToysPacked = toysPacked,
         };
-        var json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
 
+        string json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
         timer.AddPoint("Build", true);
+
         _logger.LogInformation("{userId} | {userName} | {total} | {timer}",
             apiResult.User.Id, apiResult.User.UserName, timer.TotalDuration, timer);
 

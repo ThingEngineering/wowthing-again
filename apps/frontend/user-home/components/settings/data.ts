@@ -14,6 +14,7 @@ export const commonChoices: SettingsChoice[] = [
 export const homeChoices: SettingsChoice[] = [
     {key: 'callings', name: 'Callings'},
     {key: 'covenant', name: 'Covenant'},
+    {key: 'currencies', name: 'Currencies'},
     {key: 'emissariesBfa', name: 'Emissaries - BfA'},
     {key: 'emissariesLegion', name: 'Emissaries - Legion'},
     {key: 'gear', name: 'Gear'},

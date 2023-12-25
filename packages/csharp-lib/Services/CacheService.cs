@@ -215,7 +215,8 @@ public class CacheService
             return userCache;
         }
 
-        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.MountsUpdated);
         var now = DateTimeOffset.UtcNow;
 
         // Mounts
@@ -230,15 +231,16 @@ public class CacheService
             .Order()
             .ToList();
 
+        timer.AddPoint("QueryMounts");
+
         if (forceUpdate || userCache.MountIds == null || !sortedMountIds.SequenceEqual(userCache.MountIds))
         {
             userCache.MountsUpdated = now;
             userCache.MountIds = sortedMountIds;
+
+            await context.SaveChangesAsync();
+            timer.AddPoint("SaveMounts");
         }
-
-        await context.SaveChangesAsync();
-
-        timer.AddPoint("Save");
 
         return userCache;
     }
@@ -386,12 +388,13 @@ public class CacheService
             userCache = new UserCache(userId);
             context.UserCache.Add(userCache);
         }
-        else if (lastModified.HasValue && lastModified <= userCache.MountsUpdated)
+        else if (lastModified.HasValue && lastModified <= userCache.ToysUpdated)
         {
             return userCache;
         }
 
-        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.ToysUpdated);
         var now = DateTimeOffset.UtcNow;
 
         // Toys
@@ -406,15 +409,17 @@ public class CacheService
             .Order()
             .ToList();
 
+        timer.AddPoint("QueryToys");
+
         if (forceUpdate || userCache.ToyIds == null || !sortedToyIds.SequenceEqual(userCache.ToyIds))
         {
             userCache.ToysUpdated = now;
             userCache.ToyIds = sortedToyIds;
+
+            await context.SaveChangesAsync();
+
+            timer.AddPoint("SaveToys");
         }
-
-        await context.SaveChangesAsync();
-
-        timer.AddPoint("Save");
 
         return userCache;
     }

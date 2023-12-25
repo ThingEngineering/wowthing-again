@@ -9,6 +9,7 @@
     import type { Character } from '@/types'
 
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
+    import HeadCurrencies from './head/HomeTableHeadCurrencies.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
@@ -85,6 +86,9 @@
         
         {:else if field === 'covenant'}
             <HeadCovenant />
+
+        {:else if field === 'currencies'}
+            <HeadCurrencies {sortKey} />
         
         {:else if field === 'currentLocation'}
             <HeadCurrentLocation {sortKey} />
