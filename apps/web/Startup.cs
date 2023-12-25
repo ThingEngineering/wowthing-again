@@ -12,21 +12,16 @@ using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Newtonsoft.Json.Serialization;
+using Npgsql;
 using Wowthing.Lib.Services;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web;
 
-public class Startup
+public class Startup(IConfiguration configuration, IWebHostEnvironment env)
 {
-    public Startup(IConfiguration configuration, IWebHostEnvironment env)
-    {
-        Configuration = configuration;
-        Env = env;
-    }
-
-    public IConfiguration Configuration { get; }
-    public IWebHostEnvironment Env { get; }
+    public IConfiguration Configuration { get; } = configuration;
+    public IWebHostEnvironment Env { get; } = env;
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -119,9 +114,9 @@ public class Startup
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("172.16.0.0"), 12));
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("192.168.0.0"), 16));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("172.16.0.0"), 12));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("192.168.0.0"), 16));
                 //options.ForwardedForHeaderName = "CF-Connecting-IP";
             });
         }

@@ -15,7 +15,7 @@ WORKDIR /app/apps/frontend
 RUN npm run build
 
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build-web
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build-web
 
 WORKDIR /app
 COPY apps/web/ ./apps/web/
@@ -25,7 +25,7 @@ WORKDIR /app/apps/web
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS runtime
 
 WORKDIR /app
 COPY --from=build-web /app/apps/web/out ./
