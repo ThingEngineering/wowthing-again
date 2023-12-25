@@ -230,15 +230,16 @@ public class CacheService
             .Order()
             .ToList();
 
+        timer.AddPoint("QueryMounts");
+
         if (forceUpdate || userCache.MountIds == null || !sortedMountIds.SequenceEqual(userCache.MountIds))
         {
             userCache.MountsUpdated = now;
             userCache.MountIds = sortedMountIds;
+
+            await context.SaveChangesAsync();
+            timer.AddPoint("SaveMounts");
         }
-
-        await context.SaveChangesAsync();
-
-        timer.AddPoint("Save");
 
         return userCache;
     }
@@ -406,15 +407,17 @@ public class CacheService
             .Order()
             .ToList();
 
+        timer.AddPoint("QueryToys");
+
         if (forceUpdate || userCache.ToyIds == null || !sortedToyIds.SequenceEqual(userCache.ToyIds))
         {
             userCache.ToysUpdated = now;
             userCache.ToyIds = sortedToyIds;
+
+            await context.SaveChangesAsync();
+
+            timer.AddPoint("SaveToys");
         }
-
-        await context.SaveChangesAsync();
-
-        timer.AddPoint("Save");
 
         return userCache;
     }

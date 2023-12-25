@@ -347,8 +347,6 @@ public class ApiController : Controller
         var userCache = await _cacheService.CreateOrUpdateMountCacheAsync(
             _context, timer, apiResult.User.Id, lastModified);
 
-        timer.AddPoint("Mounts");
-
         // Pets
         var accountPets = tempAccounts
             .Where(pa => pa.Enabled && pa.Pets != null)
@@ -370,8 +368,6 @@ public class ApiController : Controller
         // Toys
         await _cacheService.CreateOrUpdateToyCacheAsync(
             _context, timer, apiResult.User.Id, lastModified, userCache);
-
-        timer.AddPoint("Toys");
 
         List<int> goldHistoryRealms = null;
         if (!apiResult.Public)
