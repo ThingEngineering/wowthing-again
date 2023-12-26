@@ -39,7 +39,7 @@
     >
         {#if currencyId > 1000000}
             {@const itemId = currencyId - 1000000}
-            {character.itemCounts[itemId]}
+            {character.getItemCount(itemId)}
         {:else}
             {toNiceNumber(character.currencies[currencyId]?.quantity || 0)}
         {/if}

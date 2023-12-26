@@ -124,6 +124,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         const itemData = get(itemStore)
         const staticData = get(staticStore)
         
+        this._itemCounts = {}
         userData.itemsByAppearanceId = {}
         userData.itemsByAppearanceSource = {}
         userData.itemsById = {}
@@ -531,7 +532,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     private _itemCounts: Record<number, number> = {}
     public getItemCount(itemId: number): number {
         return this._itemCounts[itemId] ||= this.value.characters
-            .map((char) => (char.itemsById[itemId] || []).reduce((a, b) => a + b.count, 0))
+            .map((char) => char.getItemCount(itemId))
             .reduce((a, b) => a + b, 0)
     }
 }
