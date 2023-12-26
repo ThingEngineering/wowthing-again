@@ -1,4 +1,5 @@
 ﻿using System.Text.Encodings.Web;
+using Npgsql;
 using Serilog;
 using Serilog.Templates;
 using StackExchange.Redis;
@@ -26,8 +27,13 @@ public static class ToolContext
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
 
+        var builder = new NpgsqlDataSourceBuilder(Environment.GetEnvironmentVariable("WOWTHING_DATABASE"));
+        builder.EnableDynamicJson();
+
+        var dataSource = builder.Build();
+
         OptionsBuilder = new DbContextOptionsBuilder<WowDbContext>();
-        OptionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("WOWTHING_DATABASE"));
+        OptionsBuilder.UseNpgsql(dataSource);
 
         Logger = new LoggerConfiguration()
             //.ReadFrom.Configuration(Configuration)
