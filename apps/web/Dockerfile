@@ -33,6 +33,8 @@ COPY --from=build-frontend /app/apps/frontend/dist/dist/ ./wwwroot/dist/
 COPY --from=build-frontend /app/apps/frontend/dist/manifest.json ./wwwroot/dist/
 
 ENV ASPNETCORE_URLS "http://0:5000"
+ENV DOTNET_GCConserveMemory=5
+ENV DOTNET_gcServer=1
 EXPOSE 5000
 
 ENTRYPOINT ["dotnet", "Wowthing.Web.dll"]
