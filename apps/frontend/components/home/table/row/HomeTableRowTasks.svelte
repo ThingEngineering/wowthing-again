@@ -18,10 +18,7 @@
     {@const task = taskMap[taskName]}
     {#if task && (
         activeHolidays[taskName] ||
-        (
-            $staticStore.holidayIds[taskName] === undefined &&
-            !taskName.startsWith('pvp')
-        )
+        $staticStore.holidayIds[taskName] === undefined
     )}
         {#if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores

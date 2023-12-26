@@ -94,61 +94,46 @@ export const taskList: Task[] = [
     // Weekly Holidays
     {
         key: 'holidayArena',
-        name: '[Weekly] Arena',
+        name: '[Event] Arena Skirmishes',
         shortName: 'Arena',
     },
     {
         key: 'holidayBattlegrounds',
-        name: '[Weekly] Battlegrounds',
+        name: '[Event] Battlegrounds',
         shortName: 'BGs',
     },
     {
         key: 'holidayDungeons',
-        name: '[Weekly] Mythic Dungeons',
+        name: '[Event] Mythic Dungeons',
         shortName: 'MDun',
     },
     {
         key: 'holidayPetPvp',
-        name: '[Weekly] Pet PvP',
+        name: '[Event] Pet PvP',
         shortName: 'Pets',
     },
     {
         key: 'holidayTimewalking',
-        name: '[Weekly] Timewalking Dungeons',
+        name: '[Event] Timewalking Dungeons',
         shortName: 'TW :exclamation:',
     },
     {
         key: 'holidayTimewalkingItem',
-        name: '[Weekly] Timewalking Item',
+        name: '[Event] Timewalking Item',
         shortName: 'TW :item:',
         minimumLevel: Constants.characterMaxLevel - 10,
     },
     {
         key: 'holidayWorldQuests',
-        name: '[Weekly] World Quests',
+        name: '[Event] World Quests',
         shortName: 'WQs',
     },
 
     // PvP
     {
-        key: 'pvpBattlegrounds',
-        name: '[PvP] Battlegrounds',
-        shortName: 'BGs',
-    },
-    {
-        key: 'pvpWar',
-        name: '[PvP] Epic Battlegrounds',
-        shortName: 'EBGs',
-    },
-    {
-        key: 'pvpTeamwork',
-        name: '[PvP] Rated Battlegrounds',
-        shortName: 'RBGs',
-    },
-    {
-        key: 'pvpArenas',
-        name: '[PvP] Arenas',
-        shortName: 'Arena',
+        key: 'pvpOverwhelmingOdds',
+        name: '[PvP] Overwhelming Odds',
+        shortName: 'WM',
     },
     {
         key: 'pvpBlitz',
@@ -159,13 +144,33 @@ export const taskList: Task[] = [
     },
     {
         key: 'pvpBrawl',
-        name: '[PvP] Brawl (Something Different)',
+        name: '[PvP] Brawl',
         shortName: 'Brawl',
     },
     {
-        key: 'pvpOverwhelmingOdds',
-        name: '[PvP] Overwhelming Odds',
-        shortName: 'WM',
+        key: 'pvpSkirmishes',
+        name: '[PvP] Arena Skirmishes',
+        shortName: 'Skirm',
+    },
+    {
+        key: 'pvpWar',
+        name: '[PvP] Epic Battlegrounds',
+        shortName: 'EBGs',
+    },
+    {
+        key: 'pvpBattle',
+        name: '[PvP] Random Battlegrounds',
+        shortName: 'BGs',
+    },
+    {
+        key: 'pvpArenas',
+        name: '[PvP] Rated Arenas',
+        shortName: 'RA',
+    },
+    {
+        key: 'pvpTeamwork',
+        name: '[PvP] Rated Battlegrounds',
+        shortName: 'RBGs',
     },
     {
         key: 'pvpSolo',
