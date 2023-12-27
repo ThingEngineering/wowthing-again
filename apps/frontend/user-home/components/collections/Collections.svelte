@@ -4,8 +4,8 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
-    import Subnav from './CollectionsSubnav.svelte'
-    import View from './CollectionsView.svelte'
+    import Subnav from './Subnav.svelte'
+    import View from './View.svelte'
 
     export let params: MultiSlugParams
 
