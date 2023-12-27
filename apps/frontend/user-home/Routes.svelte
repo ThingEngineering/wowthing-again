@@ -12,7 +12,7 @@
     import Achievements from '@/components/achievements/Achievements.svelte'
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Auctions from '@/components/auctions/Auctions.svelte'
-    import Collections from '@/components/collections/Collections.svelte'
+    import Collections from '@/user-home/components/collections/Collections.svelte'
     import Explore from '@/components/explore/Explore.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'

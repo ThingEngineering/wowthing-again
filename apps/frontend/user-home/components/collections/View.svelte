@@ -7,6 +7,7 @@
     import Illusions from '@/components/illusions/Illusions.svelte'
     import Mounts from '@/components/collectible/Mounts.svelte'
     import Pets from '@/components/collectible/Pets.svelte'
+    import Recipes from './recipes/Recipes.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
 
     export let params: MultiSlugParams
@@ -51,6 +52,10 @@
             params={shiftedParams}
         />
 
+    {:else if params.slug1 === 'recipes'}
+        <Recipes
+            params={shiftedParams}
+        />
     {:else if params.slug1 === 'toys'}
         <Toys
             basePath={'collections'}
