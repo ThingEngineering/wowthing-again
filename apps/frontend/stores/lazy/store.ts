@@ -9,6 +9,7 @@ import { doCharacters, type LazyCharacter } from './character'
 import { doCollectible, type LazyCollectible } from './collectible'
 import { doConvertible, type LazyConvertible } from './convertible'
 import { doJournal, type LazyJournal } from './journal'
+import { doRecipes } from './recipes'
 import { doTransmog, type LazyTransmog } from './transmog'
 import { doVendors, type LazyVendors } from './vendors'
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
@@ -60,6 +61,7 @@ type LazyKey =
     | 'illusions'
     | 'mounts'
     | 'pets'
+    | 'recipes'
     | 'toys'
 
 type LazyUgh = {
@@ -167,6 +169,7 @@ export class LazyStore implements LazyUgh {
     private customizationsFunc: () => UserCounts
     private heirloomsFunc: () => UserCounts
     private illusionsFunc: () => UserCounts
+    private recipesFunc: () => UserCounts
 
     private charactersFunc: () => Record<string, LazyCharacter>
     private convertibleFunc: () => LazyConvertible
@@ -348,6 +351,13 @@ export class LazyStore implements LazyUgh {
             }))
         }
 
+        if (changedData.userData) {
+            this.recipesFunc = once(() => doRecipes({
+                staticData,
+                userData,
+            }))
+        }
+
         if (changedData.userData ||
             changedData.userTransmogData ||
             changedHashes.settingsTransmog) {
@@ -404,11 +414,13 @@ export class LazyStore implements LazyUgh {
     }
 
     get appearances(): UserCounts { return this.appearancesFunc() }
-    get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
-    get convertible(): LazyConvertible { return this.convertibleFunc() }
     get customizations(): UserCounts { return this.customizationsFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
+    get recipes(): UserCounts { return this.recipesFunc() }
+
+    get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
+    get convertible(): LazyConvertible { return this.convertibleFunc() }
     get journal(): LazyJournal { return this.journalFunc() }
     get mounts(): LazyCollectible { return this.mountsFunc() }
     get pets(): LazyCollectible { return this.petsFunc() }
