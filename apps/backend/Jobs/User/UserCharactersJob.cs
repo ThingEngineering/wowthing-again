@@ -40,10 +40,10 @@ public class UserCharactersJob : JobBase
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
             // FIXME remove this if Blizzard ever fixes their broken APIs
-            if (region == WowRegion.KR || region == WowRegion.TW)
-            {
-                continue;
-            }
+            // if (region == WowRegion.KR || region == WowRegion.TW)
+            // {
+            //     continue;
+            // }
 
             var uri = GenerateUri(region, ApiNamespace.Profile, path);
             try
