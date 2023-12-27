@@ -61,7 +61,6 @@ export function doRecipes(
         }
     }
 
-    console.log(ret)
     console.timeEnd('doRecipes')
 
     return ret
