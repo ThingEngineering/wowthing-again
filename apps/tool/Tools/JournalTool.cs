@@ -495,10 +495,9 @@ public class JournalTool
                                 else
                                 {
                                     string itemName = GetString(StringType.WowItemName, Language.enUS, item.Id);
-                                    if (itemName.StartsWith("Illusion:"))
+                                    if (itemName.StartsWith("Illusion:") && _itemEffectIllusionMap.TryGetValue(item.Id, out int illusionId))
                                     {
-                                        AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties,
-                                            _itemEffectIllusionMap[item.Id]);
+                                        AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties, illusionId);
                                     }
                                     // else if (itemName.StartsWith(""))
                                 }
