@@ -25,12 +25,11 @@
         max-width: 10rem;
         padding: 0.2rem 0.5rem;
         z-index: 10;
-
-        &.active {
-            background: $active-background;
-            border-color: #ddd;
-            color: #fff;
-        }
+    }
+    button.active {
+        background: $active-background;
+        border-color: #ddd;
+        color: #fff;
     }
 </style>
 

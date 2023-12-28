@@ -5,8 +5,8 @@
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
     import { uiIcons } from '@/shared/icons'
-    import { lazyStore, userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { lazyStore } from '@/stores'
+    import { commonColspan } from '@/shared/stores/settings'
     import type { ConvertibleCategory } from './types'
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
@@ -23,12 +23,6 @@
 
     $: data = $lazyStore.convertible.seasons[season.id][playerClass.id]
     $: hasEverySlot = every(convertibleTypes, (type) => data[type].modifiers[modifier].userHas)
-
-    $: colspan = $settingsStore.layout.commonFields.length +
-        ($settingsStore.layout.commonFields.indexOf('accountTag') >= 0
-            ? (userStore.useAccountTags ? 0 : -1)
-            : 0
-        )
 
     $: filterFunc = function(char: Character): boolean {
         return (
@@ -108,7 +102,7 @@
     </svelte:fragment>
 
     <tr slot="emptyRow">
-        <td colspan={colspan}></td>
+        <td colspan={$commonColspan}></td>
         {#each convertibleTypes as inventoryType}
             <td class="item-slot">
                 {#if data[inventoryType].modifiers[modifier].userHas}

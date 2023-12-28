@@ -83,7 +83,7 @@
         text-align: right;
         white-space: nowrap;
 
-        span {
+        button {
             cursor: pointer;
 
             &:hover {

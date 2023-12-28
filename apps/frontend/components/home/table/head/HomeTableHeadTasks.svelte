@@ -3,7 +3,7 @@
     import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { homeState } from '@/stores/local-storage'
-    import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'
 
@@ -12,7 +12,7 @@
 
     export let sortKey: string
 
-    $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
+    $: activeHolidays = getActiveHolidays($timeStore, $activeView, ...$userStore.allRegions)
 
     function setSorting(column: string) {
         const current = $homeState.groupSort[sortKey]
