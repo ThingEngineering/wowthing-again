@@ -209,7 +209,6 @@ export class LazyStore implements LazyUgh {
             hideUnavailable: `${settings.collections.hideUnavailable}`,
             settingsCharacterFlags: hashObject(settings.characters.flags),
             settingsCollections: hashObject(settings.collections),
-            settingsTasks: hashObject(settings.tasks),
             settingsTransmog: hashObject(settings.transmog),
             settingsViews: hashObject(settings.views),
         }
@@ -260,7 +259,6 @@ export class LazyStore implements LazyUgh {
             changedData.userQuestData ||
             changedHashes.currentTime ||
             changedHashes.settingsCharacterFlags ||
-            changedHashes.settingsTasks ||
             changedHashes.settingsViews)
         {
             this.charactersFunc = once(() => doCharacters({
