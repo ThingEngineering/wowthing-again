@@ -9,6 +9,8 @@ public class WowItemEffectV2
     [Key]
     public int ItemId { get; set; }
 
+    public List<int> ItemEffectIds { get; set; } = new();
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, WowItemEffectV2SpellEffect>> SpellEffects { get; set; } = new();
 }
