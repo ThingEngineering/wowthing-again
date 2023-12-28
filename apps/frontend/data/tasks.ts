@@ -295,7 +295,7 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 
 
 function garrisonCouldGet(char: Character): boolean {
-    return userQuestStore.hasAny(char.id, 34586) || userQuestStore.hasAny(char.id, 34378)
+    return userQuestStore.hasAny(char.id, 36592) || userQuestStore.hasAny(char.id, 36567)
 }
 
 
@@ -418,21 +418,25 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'invasionBronze',
             taskName: '{item:120320}', // Invader's Abandoned Sack
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionSilver',
             taskName: '{item:120319}', // Invader's Damaged Cache
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionGold',
             taskName: '{item:116980}', // Invader's Forgotten Treasure
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionPlatinum',
             taskName: '{item:122163}', // Routed Invader's Crate of Spoils
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
     ],
     'dfCatchRelease': [
