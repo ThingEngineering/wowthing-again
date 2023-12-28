@@ -846,7 +846,7 @@ public class DumpsTool
 
     private async Task ImportItemStrings(WowDbContext context, Language language)
     {
-        var itemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>("itemsparse", language);
+        var itemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparseName>("itemsparse", language);
 
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
