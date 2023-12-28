@@ -40,8 +40,8 @@ export interface Settings {
         refreshInterval: number
         useEnglishRealmNames: boolean
         useWowdb: boolean
-        groupBy: string[]
-        sortBy: string[]
+        // groupBy: string[]
+        // sortBy: string[]
     }
 
     history: {
@@ -64,10 +64,10 @@ export interface Settings {
 
         covenantColumn: 'current' | 'all'
         padding: 'small' | 'medium' | 'large'
-        commonFields: string[]
-        homeFields: string[]
-        homeLockouts: number[]
-        homeTasks: string[]
+        // commonFields: string[]
+        // homeFields: string[]
+        // homeLockouts: number[]
+        // homeTasks: string[]
     }
 
     leaderboard: {
@@ -95,9 +95,9 @@ export interface Settings {
         cooldowns: Record<string, boolean>
     }
 
-    tasks: {
-        disabledChores: Record<string, string[]>
-    }
+    // tasks: {
+    //     disabledChores: Record<string, string[]>
+    // }
 
     transmog: {
         [index: string]: boolean
