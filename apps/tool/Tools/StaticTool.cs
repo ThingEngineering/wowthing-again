@@ -651,14 +651,20 @@ public class StaticTool
                             }
                         }
 
-                        if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemid))
+                        if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemId))
                         {
-                            outAbility.ItemId = nameItemid;
+                            outAbility.ItemId = nameItemId;
+                        }
+
+                        if (!_itemMap.TryGetValue(outAbility.ItemId, out var item))
+                        {
+                            ToolContext.Logger.Warning("Invalid item: {id}", outAbility.ItemId);
+                            continue;
                         }
 
                         if (outAbility.ItemId > 0)
                         {
-                            outAbility.ItemId2 = _itemMap[outAbility.ItemId].OppositeFactionId;
+                            outAbility.ItemId2 = item.OppositeFactionId;
 
                             // If the spell name matches the item name we don't need to send it
                             if (outAbility.Name == GetString(StringType.WowItemName, language, outAbility.ItemId))
