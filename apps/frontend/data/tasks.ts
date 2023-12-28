@@ -298,6 +298,9 @@ function garrisonCouldGet(char: Character): boolean {
     return userQuestStore.hasAny(char.id, 34586) || userQuestStore.hasAny(char.id, 34378)
 }
 
+function winterVeilCouldGet(char: Character): boolean {
+    return userQuestStore.hasAny(char.id, 36615) || userQuestStore.hasAny(char.id, 36614)
+}
 
 export const multiTaskMap: Record<string, Chore[]> = {
     'holidayDarkmoonFaire': [
@@ -396,21 +399,25 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 40,
             taskKey: 'merryGrumpus',
             taskName: 'Grumpus',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryGrumplings',
             taskName: 'Menacing Grumplings',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryPresents',
             taskName: 'What Horrible Presents!',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryChildren',
             taskName: 'Where Are the Children?',
+            couldGetFunc: winterVeilCouldGet,
         },
     ],
     'wodGarrison': [
@@ -532,7 +539,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             minimumLevel: 70,
             taskKey: 'dfReachStormsChest',
-            taskName: '[FR] Chest of Storms', 
+            taskName: '[FR] Chest of Storms',
         },
     ],
     'dfChores10_1_0': [
