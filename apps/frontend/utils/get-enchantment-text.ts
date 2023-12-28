@@ -4,7 +4,7 @@ export function getEnchantmentText(id: number, text: string): string {
     }
 
     // Bracer T3
-    if ([6574, 6580].indexOf(id) >= 0) {
+    if ([6574, 6580, 6586].indexOf(id) >= 0) {
         text = text.replace('$k1', '200')
     }
     // Legs: agi/str + sta T2
