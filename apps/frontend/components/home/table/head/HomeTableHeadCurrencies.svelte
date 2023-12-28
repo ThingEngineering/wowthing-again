@@ -35,15 +35,12 @@
             : $staticStore.currencies[currencyId].name}
     >
         {#if currencyId > 1000000}
-            {@const itemId = currencyId - 1000000}
-            {@const item = $itemStore.items[itemId]}
             <WowthingImage
-                name="item/{itemId}"
+                name="item/{currencyId - 1000000}"
                 size={16}
                 border={1}
             />
         {:else}
-            {@const currency = $staticStore.currencies[currencyId]}
             <WowthingImage
                 name="currency/{currencyId}"
                 size={16}

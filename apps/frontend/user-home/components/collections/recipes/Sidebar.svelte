@@ -2,7 +2,6 @@
     import sortBy from 'lodash/sortBy'
 
     import { expansionOrder } from '@/data/expansion'
-    import { professionOrder } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { lazyStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
