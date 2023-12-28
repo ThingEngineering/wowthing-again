@@ -79,6 +79,7 @@ public class ApplicationUserSettings
     {
         "callings",
         "covenant",
+        "currencies",
         "currentLocation",
         "emissariesBfa",
         "emissariesLegion",
