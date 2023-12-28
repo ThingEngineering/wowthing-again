@@ -5,7 +5,7 @@ import type { DateTime } from 'luxon'
 import { pvpBrawlHolidays } from '@/data/tasks'
 import { staticStore } from '@/shared/stores/static'
 import type { StaticDataHoliday } from '@/shared/stores/static/types'
-import type { Settings } from '@/shared/stores/settings/types'
+import type { SettingsView } from '@/shared/stores/settings/types'
 
 
 type ActiveHolidays = Record<string, StaticDataHoliday>
@@ -15,7 +15,7 @@ const cachedTime: Record<number, DateTime> = {}
 
 export function getActiveHolidays(
     currentTime: DateTime,
-    settings: Settings,
+    activeView: SettingsView,
     ...regions: number[]
 ): ActiveHolidays {
     const regionMask = regions.reduce((a, b) => a + (1 << (b - 1)), 0)
@@ -44,7 +44,7 @@ export function getActiveHolidays(
                     if (endDate > currentTime) {
                         for (const taskKey of taskKeys) {
                             if (taskKey === 'pvpBrawl') {
-                                const disabledBrawls = settings.tasks.disabledChores['pvpBrawl'] || []
+                                const disabledBrawls = activeView.disabledChores['pvpBrawl'] || []
                                 const brawlKey = pvpBrawlHolidays[holiday.id]
                                 if (disabledBrawls.indexOf(brawlKey) >= 0) {
                                     continue

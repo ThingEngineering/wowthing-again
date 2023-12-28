@@ -2,7 +2,7 @@
     import { taskMap } from '@/data/tasks'
     import { timeStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
-    import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
@@ -11,7 +11,7 @@
 
     export let character: Character
 
-    $: activeHolidays = getActiveHolidays($timeStore, $settingsStore, ...$userStore.allRegions)
+    $: activeHolidays = getActiveHolidays($timeStore, $activeView, ...$userStore.allRegions)
 </script>
 
 {#each $activeView.homeTasks as taskName}
