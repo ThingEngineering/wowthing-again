@@ -137,6 +137,7 @@ public class ApplicationUserSettings
             });
         }
 
+        // Set active view to the first one if it's no longer valid
         if (string.IsNullOrEmpty(ActiveView) || Views.All(view => view.Id != ActiveView))
         {
             ActiveView = Views.First().Id;
@@ -159,26 +160,6 @@ public class ApplicationUserSettings
             .Replace(General.DesiredAccountName.EmptyIfNullOrWhitespace(), "")
             .Truncate(32);
 
-        General.GroupBy = General.GroupBy
-            .EmptyIfNull()
-            .Select(gb => gb.ToLower())
-            .Where(gb => _validGroupBy.Contains(gb))
-            .Distinct()
-            .ToList();
-
-        General.SortBy = General.SortBy
-            .EmptyIfNull()
-            .Select(sb => sb.ToLower())
-            .Where(sb => _validSortBy.Contains(sb))
-            .Distinct()
-            .ToList();
-
-        if (General.SortBy.Count == 0)
-        {
-            General.SortBy.Add("level");
-            General.SortBy.Add("name");
-        }
-
         // Layout
         if (!_validCovenantColumn.Contains(Layout.CovenantColumn))
         {
@@ -189,49 +170,72 @@ public class ApplicationUserSettings
             Layout.Padding = "medium";
         }
 
-        Layout.CommonFields = Layout.CommonFields
-            .EmptyIfNull()
-            .Where(field => _validCommonFields.Contains(field))
-            .Distinct()
-            .ToList();
-
-        if (Layout.CommonFields.Count == 0)
+        // Views
+        foreach (var view in Views.EmptyIfNull())
         {
-            Layout.CommonFields.Add("characterIconRace");
-            Layout.CommonFields.Add("characterIconClass");
-            Layout.CommonFields.Add("characterIconSpec");
-            Layout.CommonFields.Add("characterName");
-            Layout.CommonFields.Add("realmName");
+            view.GroupBy = view.GroupBy
+                .EmptyIfNull()
+                .Select(gb => gb.ToLower())
+                .Where(gb => _validGroupBy.Contains(gb))
+                .Distinct()
+                .ToList();
+
+            view.SortBy = view.SortBy
+                .EmptyIfNull()
+                .Select(sb => sb.ToLower())
+                .Where(sb => _validSortBy.Contains(sb))
+                .Distinct()
+                .ToList();
+
+            if (view.SortBy.Count == 0)
+            {
+                view.SortBy.AddRange([
+                    "level",
+                    "name",
+                ]);
+            }
+
+            view.CommonFields = view.CommonFields
+                .EmptyIfNull()
+                .Where(field => _validCommonFields.Contains(field))
+                .Distinct()
+                .ToList();
+
+            if (view.CommonFields.Count == 0)
+            {
+                view.CommonFields.AddRange([
+                    "characterIconRace",
+                    "characterIconClass",
+                    "characterIconSpec",
+                    "characterName",
+                    "realmName",
+                ]);
+            }
+
+            view.HomeFields = view.HomeFields
+                .EmptyIfNull()
+                .Where(field => _validHomeFields.Contains(field))
+                .Distinct()
+                .ToList();
+
+            if (view.HomeFields.Count == 0)
+            {
+                view.HomeFields.AddRange([
+                    "gold",
+                    "itemLevel",
+                ]);
+            }
+
+            view.HomeTasks = view.HomeTasks
+                .EmptyIfNull()
+                .Where(field => ValidTaskString.IsMatch(field))
+                .Distinct()
+                .ToList();
+
+            view.DisabledChores = view.DisabledChores
+                .Where(kvp => ValidTaskString.IsMatch(kvp.Key))
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
-
-        Layout.HomeFields = Layout.HomeFields
-            .EmptyIfNull()
-            .Select(field => field == "weeklies" ? "tasks" : field)
-            .Where(field => _validHomeFields.Contains(field))
-            .Distinct()
-            .ToList();
-
-        if (Layout.HomeFields.Count == 0)
-        {
-            Layout.HomeFields.Add("gold");
-            Layout.HomeFields.Add("itemLevel");
-            Layout.HomeFields.Add("covenant");
-        }
-
-        if (Layout.HomeTasks.Count == 0)
-        {
-            Layout.HomeTasks = Layout.HomeWeeklies;
-        }
-
-        Layout.HomeTasks = Layout.HomeTasks
-            .EmptyIfNull()
-            .Where(field => ValidTaskString.IsMatch(field))
-            .Distinct()
-            .ToList();
-
-        Tasks.DisabledChores = Tasks.DisabledChores
-            .Where(kvp => ValidTaskString.IsMatch(kvp.Key))
-            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
     }
 }
 
@@ -317,7 +321,6 @@ public class ApplicationUserSettingsLayout
     public List<string> HomeFields { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
-    public List<string> HomeWeeklies { get; set; } = new();
 }
 
 public class ApplicationUserSettingsLeaderboard
