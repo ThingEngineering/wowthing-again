@@ -1,6 +1,6 @@
 <script lang="ts">
     import { seasonMap } from '@/data/dungeon'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { commonColspan } from '@/shared/stores/settings'
     import { timeStore, userStore } from '@/stores'
     import { getRunDungeonStats } from '@/utils/dungeon/get-run-dungeon-stats'
     import type { CharacterMythicPlusAddonRun, MythicPlusSeason } from '@/types'
@@ -8,12 +8,6 @@
     export let extraColSpan: number
     export let isThisWeek: boolean
     export let season: MythicPlusSeason
-    
-    $: colspan = $settingsStore.layout.commonFields.length +
-        ($settingsStore.layout.commonFields.indexOf('accountTag') >= 0
-            ? (userStore.useAccountTags ? 0 : -1)
-            : 0
-        )
 
     let minCounts: Record<number, number>
     let runCounts: Record<number, number>
@@ -95,7 +89,7 @@
 
 <tfoot>
     <tr>
-        <td class="hide-me" colspan={colspan + extraColSpan}>
+        <td class="hide-me" colspan={$commonColspan + extraColSpan}>
         </td>
         
         {#each season.orders as order}
