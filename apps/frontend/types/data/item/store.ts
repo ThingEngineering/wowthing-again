@@ -2,10 +2,12 @@ import type { InventoryType } from '@/enums/inventory-type'
 import type { ItemDataItem, ItemDataItemArray } from './item'
 import type { DataItemBonus, DataItemBonusArray } from './item-bonus'
 import type { DataItemSet, DataItemSetArray } from './item-set'
+import type { DataItemModifiedCrafting } from './modified-crafting'
 
 
 export interface ItemData {
     appearanceToItems: Record<number, [number, number][]>
+    bonusIdToModifiedCrafting: Record<number, DataItemModifiedCrafting>
     completesQuest: Record<number, number[]>
     craftingQualities: Record<number, number[]>
     itemBonusCurrentSeason: Set<number>

@@ -4,6 +4,7 @@ using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Models.Items;
+using Wowthing.Tool.Models.Professions;
 
 namespace Wowthing.Tool.Tools;
 
@@ -12,7 +13,54 @@ public class ItemsTool
     private readonly JankTimer _timer = new();
 
     private Dictionary<int, WowItemBonus> _itemBonusMap;
+    private Dictionary<int, WowItem> _itemMap;
     private Dictionary<(Language Language, int Id), string> _strings;
+
+    private static readonly HashSet<int> SkipReagentItems = [
+        202208,
+        202209,
+        202210,
+        202211,
+        202212,
+        202213,
+        202214,
+        202215,
+        202216,
+        202217,
+        202218,
+        202219,
+
+        // Dragonflight Missives
+        194552, // Fireflash
+        194566, // Feverflare
+        194569, // Aurora
+        194572, // Quickblade
+        194575, // Harmonious
+        194578, // Peerless
+
+        // Dragonflight S1
+        204186, // Greater Obsidian Trophy of Conquest
+        204188, // Lesser Obsidian Trophy of Conquest
+        204189, // Greater Obsidian Crest of Honor
+        204191, // Lesser Obsidian Crest of Honor
+
+        // Dragonflight S2?
+        208564, // Lesser Trophy of Conquest
+        208565,
+        208566, // Greater Trophy of Conquest
+        208568, // Lesser Crest of Honor
+        208569,
+        208570, // Greater Crest of Honor
+
+        // Dragonflight S3
+        206959, // Spark of Dreams
+        206960, // Enchanted Wyrm's Dreaming Crest
+        206961, // ENchanted Aspect's Dreaming Crest
+        212536, // Lesser Verdant Trophy of Conquest
+        212538, // Greater Verdant Trophy of Conquest
+        212539, // Lesser Verdant Crest of Honor
+        212541, // Greater Verdant Crest of Honor
+    ];
 
     public async Task Run(params string[] data)
     {
@@ -21,10 +69,9 @@ public class ItemsTool
 
         ToolContext.Logger.Information("Loading data...");
 
-        var items = await context.WowItem
+        _itemMap = await context.WowItem
             .AsNoTracking()
-            .OrderBy(item => item.Id)
-            .ToArrayAsync();
+            .ToDictionaryAsync(item => item.Id);
 
         _itemBonusMap = await context.WowItemBonus
             .ToDictionaryAsync(wib => wib.Id);
@@ -83,25 +130,25 @@ public class ItemsTool
 
         _timer.AddPoint("File");
 
-        var indexClassIdSubclassIdInventoryType = items
+        var indexClassIdSubclassIdInventoryType = _itemMap.Values
             .CountBy(item => (item.ClassId, item.SubclassId, item.InventoryType))
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        var indexClassMask = items
+        var indexClassMask = _itemMap.Values
             .CountBy(item => item.GetCalculatedClassMask())
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        var indexRaceMask = items
+        var indexRaceMask = _itemMap.Values
             .CountBy(item => item.RaceMask)
             .OrderByDescending(kvp => kvp.Value)
             .Select((kvp, index) => (kvp.Key, index))
             .ToDictionary(tup => tup.Key, tup => tup.index);
 
-        var idsByCraftingQuality = items
+        var idsByCraftingQuality = _itemMap.Values
             .Where(item => item.CraftingQuality > 0)
             .GroupBy(item => item.CraftingQuality)
             .ToDictionary(
@@ -139,7 +186,7 @@ public class ItemsTool
                 .Select(kvp => kvp.Key)
                 .ToArray(),
 
-            LimitCategories = items.Where(item => item.LimitCategory > 0)
+            LimitCategories = _itemMap.Values.Where(item => item.LimitCategory > 0)
                 .GroupBy(item => item.LimitCategory)
                 .ToDictionary(
                     group => group.Key,
@@ -149,7 +196,7 @@ public class ItemsTool
         string? cacheHash = null;
 
         var seen = new HashSet<(int, int)>();
-        var oppositeIds = items
+        var oppositeIds = _itemMap.Values
             .Where(item => item.OppositeFactionId > 0)
             .ToDictionary(item => item.Id, item => item.OppositeFactionId);
 
@@ -166,7 +213,8 @@ public class ItemsTool
             }
         }
 
-        cacheData.RawItems = new RedisItemData[items.Length];
+        var items = _itemMap.Values.OrderBy(item => item.Id).ToArray();
+        cacheData.RawItems = new RedisItemData[_itemMap.Count];
         int lastId = 0;
         for (int i = 0; i < items.Length; i++)
         {
@@ -175,10 +223,12 @@ public class ItemsTool
             {
                 // Id is actually the difference between this id and the previous id, saving ~5 bytes per item
                 IdDiff = item.Id - lastId,
-                ClassIdSubclassIdInventoryTypeIndex = indexClassIdSubclassIdInventoryType[(item.ClassId, item.SubclassId, item.InventoryType)],
+                ClassIdSubclassIdInventoryTypeIndex =
+                    indexClassIdSubclassIdInventoryType[(item.ClassId, item.SubclassId, item.InventoryType)],
                 ClassMaskIndex = indexClassMask[item.GetCalculatedClassMask()],
                 RaceMaskIndex = indexRaceMask[item.RaceMask],
-                Appearances = itemToModifiedAppearances.GetValueOrDefault(item.Id, Array.Empty<WowItemModifiedAppearance>()),
+                Appearances =
+                    itemToModifiedAppearances.GetValueOrDefault(item.Id, Array.Empty<WowItemModifiedAppearance>()),
             };
             lastId = item.Id;
         }
@@ -186,6 +236,8 @@ public class ItemsTool
         foreach (var language in Enum.GetValues<Language>())
         {
             ToolContext.Logger.Information("Generating {Lang}...", language);
+
+            cacheData.BonusIdToModifiedCrafting = await LoadModifiedCrafting(context);
 
             cacheData.RawItemSets = await LoadItemSets(language);
 
@@ -277,6 +329,92 @@ public class ItemsTool
         }
 
         return groupedBySharedString;
+    }
+
+    private async Task<Dictionary<int, RedisReagentBonus>> LoadModifiedCrafting(WowDbContext context)
+    {
+        var mcItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingItem>(
+            "modifiedcraftingitem");
+
+        var mcCategoryMap =
+            await DataUtilities.LoadDumpToDictionaryAsync<int, DumpModifiedCraftingCategory>(
+            "modifiedcraftingcategory", mcc => mcc.ID);
+
+        var mcReagentItemMap =
+            await DataUtilities.LoadDumpToDictionaryAsync<int, DumpModifiedCraftingReagentItem>(
+                "modifiedcraftingreagentitem", mcri => mcri.ID);
+
+        var ibTreeNodes = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonusTreeNode>("itembonustreenode"))
+            .ToGroupedDictionary(node => node.ParentItemBonusTreeID);
+
+        var ret = new Dictionary<int, RedisReagentBonus>();
+        foreach (var mcItem in mcItems.Where(mcItem => mcItem.ModifiedCraftingReagentItemID > 0))
+        {
+            if (SkipReagentItems.Contains(mcItem.ItemID))
+            {
+                continue;
+            }
+
+            if (!_itemMap.TryGetValue(mcItem.ItemID, out var item))
+            {
+                ToolContext.Logger.Warning("Invalid ItemID on ModifiedCraftingItem {id}", mcItem.ItemID);
+                continue;
+            }
+
+            if (item.CraftingQuality is > 0 and < 3)
+            {
+                // ToolContext.Logger.Warning("- Skipping due to item crafting quality {q}", item.CraftingQuality);
+                continue;
+            }
+
+            if (!mcReagentItemMap.TryGetValue(mcItem.ModifiedCraftingReagentItemID, out var mcReagentItem))
+            {
+                ToolContext.Logger.Warning("Invalid ModifiedCraftingReagentItemID on ModifiedCraftingItem {id}", mcItem.ItemID);
+                continue;
+            }
+
+            if (mcReagentItem.ItemBonusTreeID == 0)
+            {
+                continue;
+            }
+
+            if (!ibTreeNodes.TryGetValue(mcReagentItem.ItemBonusTreeID, out var treeNodes))
+            {
+                ToolContext.Logger.Warning("No ItemBonusTreeNodes on ModifiedCraftingReagentItem {id}", mcReagentItem.ID);
+                continue;
+            }
+
+            if (!mcCategoryMap.TryGetValue(mcReagentItem.ModifiedCraftingCategoryID, out var mcCategory))
+            {
+                ToolContext.Logger.Warning("Invalid ModifiedCraftingCategoryID on ModifiedCraftingReagentItem {id}", mcReagentItem.ID);
+                continue;
+            }
+
+            ToolContext.Logger.Information("ItemID={0} BonusTreeID={1} Name={2}",
+                mcItem.ItemID, mcReagentItem.ItemBonusTreeID, mcCategory.DisplayName);
+
+            foreach (var treeNode in treeNodes)
+            {
+                // Sets the ItemLimitCategory
+                if (treeNode.ChildItemBonusListID == 8960)
+                {
+                    continue;
+                }
+
+                // var redisBonus = new RedisReagentBonus
+                // {
+                //
+                // };
+                ToolContext.Logger.Information("  - Node {id}", treeNode.ChildItemBonusListID);
+                ret.Add(treeNode.ChildItemBonusListID, new RedisReagentBonus
+                {
+                    ItemId = mcItem.ItemID,
+                    DisplayName = mcCategory.DisplayName,
+                });
+            }
+        }
+
+        return ret;
     }
 
     private async Task<Dictionary<short, int[]>> LoadItemConversionEntries()

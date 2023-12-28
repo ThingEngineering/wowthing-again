@@ -1,4 +1,5 @@
 ﻿using Wowthing.Lib.Models.Wow;
+using Wowthing.Tool.Models.Professions;
 
 namespace Wowthing.Tool.Models.Items;
 
@@ -20,4 +21,5 @@ public class RedisItems
     public RedisItemData[]? RawItems { get; set; }
     public WowItemBonus[] RawItemBonuses { get; set; }
     public RedisItemSet[] RawItemSets { get; set; }
+    public Dictionary<int, RedisReagentBonus> BonusIdToModifiedCrafting { get; set; }
 }

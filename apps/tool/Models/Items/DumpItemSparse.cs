@@ -1,9 +1,9 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using Wowthing.Tool.Enums;
 
-// ReSharper disable InconsistentNaming
 namespace Wowthing.Tool.Models.Items;
 
+// ReSharper disable InconsistentNaming
 public class DumpItemSparse
 {
     public int ID { get; set; }

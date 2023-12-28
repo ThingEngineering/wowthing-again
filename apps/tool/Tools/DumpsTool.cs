@@ -170,6 +170,8 @@ public class DumpsTool
                     watch.ElapsedMilliseconds / 1000.0);
             }
         }
+
+        ToolContext.Logger.Information("{0}", _timer.ToString());
     }
 
     private async Task ImportStrings<TDump>(
@@ -690,6 +692,8 @@ public class DumpsTool
 
         _itemMap = await context.WowItem.ToDictionaryAsync(item => item.Id);
 
+        _timer.AddPoint("Items:Load");
+
         foreach (var item in items)
         {
             if (!baseItemSparseMap.TryGetValue(item.ID, out var itemSparse))
@@ -836,17 +840,19 @@ public class DumpsTool
             }*/
         }
 
+        _timer.AddPoint("Items:Process");
+
         foreach (var language in _languages)
         {
             await ImportItemStrings(context, language);
         }
 
-        _timer.AddPoint("Items");
+        _timer.AddPoint("Items:Strings");
     }
 
     private async Task ImportItemStrings(WowDbContext context, Language language)
     {
-        var itemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>("itemsparse", language);
+        var itemSparses = await DataUtilities.LoadDumpCsvAsync<DumpItemSparseName>("itemsparse", language);
 
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
@@ -1007,22 +1013,36 @@ public class DumpsTool
         var newMap = new Dictionary<int, WowItemEffectV2>();
         foreach (var dumpItemEffect in itemEffects)
         {
-            if (dumpItemEffect.TriggerType == 0) // On Use
+            if (dumpItemEffect.TriggerType is 0 or 1) // On Use
             {
                 if (!spellEffectMap.TryGetValue(dumpItemEffect.SpellID, out var spellEffects))
                 {
-                    ToolContext.Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
+                    // ToolContext.Logger.Information("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
                     continue;
                 }
 
                 foreach (var spellEffect in spellEffects)
                 {
-                    if (!Enum.IsDefined(typeof(WowSpellEffectEffect), spellEffect.Effect))
+                    // if (!Enum.IsDefined(typeof(WowSpellEffectEffect), spellEffect.Effect))
+                    // {
+                    //     ToolContext.Logger.Information("Unknown spell effect type: {effect}", spellEffect.Effect);
+                    //     continue;
+                    // }
+
+                    // If this item effect isn't attached to any items, make up a fake one
+                    if (!itemEffectToItems.TryGetValue(dumpItemEffect.ID, out var itemXItemEffects))
                     {
-                        continue;
+                        itemXItemEffects = [
+                            new DumpItemXItemEffect
+                            {
+                                ID = 10_000_000 + dumpItemEffect.ID,
+                                ItemEffectID = dumpItemEffect.ID,
+                                ItemID = 10_000_000 + dumpItemEffect.ID,
+                            },
+                        ];
                     }
 
-                    foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
+                    foreach (var itemXItemEffect in itemXItemEffects)
                     {
                         if (!newMap.TryGetValue(itemXItemEffect.ItemID, out var newItemEffect))
                         {
@@ -1032,6 +1052,8 @@ public class DumpsTool
                             };
                         }
 
+                        newItemEffect.ItemEffectIds.Add(itemXItemEffect.ItemEffectID);
+
                         if (!newItemEffect.SpellEffects.TryGetValue(spellEffect.SpellID, out var newSpellEffects))
                         {
                             newSpellEffects = newItemEffect.SpellEffects[spellEffect.SpellID] = new();
@@ -1040,11 +1062,7 @@ public class DumpsTool
                         newSpellEffects[spellEffect.EffectIndex] = new()
                         {
                             Effect = (WowSpellEffectEffect)spellEffect.Effect,
-                            Values = new[]
-                            {
-                                spellEffect.EffectMiscValue0,
-                                spellEffect.EffectMiscValue1,
-                            },
+                            Values = [ spellEffect.EffectMiscValue0, spellEffect.EffectMiscValue1 ],
                         };
 
                         if (spellEffect.Effect == (int)WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
@@ -1069,6 +1087,8 @@ public class DumpsTool
                             ItemId = itemXItemEffect.ItemID,
                         };
                     }
+
+                    newItemEffect.ItemEffectIds.Add(itemXItemEffect.ItemEffectID);
 
                     if (!newItemEffect.SpellEffects.TryGetValue(dumpItemEffect.SpellID, out var newSpellEffects))
                     {
@@ -1111,6 +1131,12 @@ public class DumpsTool
             }
             else
             {
+                var itemEffectIds = newEffect.ItemEffectIds.Distinct().Order().ToList();
+                if (dbEffect.ItemEffectIds == null || !itemEffectIds.SequenceEqual(dbEffect.ItemEffectIds))
+                {
+                    dbEffect.ItemEffectIds = itemEffectIds;
+                }
+
                 dbEffect.SpellEffects = newEffect.SpellEffects;
             }
         }

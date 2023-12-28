@@ -9,6 +9,7 @@
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let character: Character
     export let inventorySlot: InventorySlot
@@ -16,6 +17,10 @@
 
     $: equippedItem = character.equippedItems[inventorySlot]
     $: item = $itemStore.items[equippedItem?.itemId]
+
+    $: embellishments = (equippedItem?.bonusIds || [])
+        .map((bonusId) => $itemStore.bonusIdToModifiedCrafting[bonusId])
+        .filter((emb) => emb !== undefined)
 
     const getCraftedData = () => {
         // Dream Crafted
@@ -85,7 +90,7 @@
     .item-text {
         display: flex;
         flex-direction: column;
-        gap: 3px;
+        // gap: 3px;
         height: 60px;
         justify-content: center;
         padding-right: 0.1rem;
@@ -95,10 +100,9 @@
             padding: 0 3px 1px 3px;
         }
     }
-    .enchant {
+    .embellishment, .enchant {
         font-size: 90%;
     }
-
 </style>
 
 <div
@@ -154,6 +158,20 @@
         >
             <span class="quality{equippedItem.quality}">{item.name}</span>
             
+            {#each embellishments as embellishment}
+                <span
+                    class="embellishment quality8"
+                    data-id={embellishment.itemId}
+                >
+                    <WowheadLink
+                        id={embellishment.itemId}
+                        type="item"
+                    >
+                        {embellishment.displayName}
+                    </WowheadLink>
+                </span>
+            {/each}
+
             {#if equippedItem.enchantmentIds?.length > 0}
                 {@const enchantId = equippedItem.enchantmentIds[0]}
                 <span class="enchant">

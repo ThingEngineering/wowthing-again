@@ -295,9 +295,12 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 
 
 function garrisonCouldGet(char: Character): boolean {
-    return userQuestStore.hasAny(char.id, 34586) || userQuestStore.hasAny(char.id, 34378)
+    return userQuestStore.hasAny(char.id, 36592) || userQuestStore.hasAny(char.id, 36567)
 }
 
+function winterVeilCouldGet(char: Character): boolean {
+    return userQuestStore.hasAny(char.id, 36615) || userQuestStore.hasAny(char.id, 36614)
+}
 
 export const multiTaskMap: Record<string, Chore[]> = {
     'holidayDarkmoonFaire': [
@@ -396,21 +399,25 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 40,
             taskKey: 'merryGrumpus',
             taskName: 'Grumpus',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryGrumplings',
             taskName: 'Menacing Grumplings',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryPresents',
             taskName: 'What Horrible Presents!',
+            couldGetFunc: winterVeilCouldGet,
         },
         {
             minimumLevel: 40,
             taskKey: 'merryChildren',
             taskName: 'Where Are the Children?',
+            couldGetFunc: winterVeilCouldGet,
         },
     ],
     'wodGarrison': [
@@ -418,21 +425,25 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'invasionBronze',
             taskName: '{item:120320}', // Invader's Abandoned Sack
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionSilver',
             taskName: '{item:120319}', // Invader's Damaged Cache
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionGold',
             taskName: '{item:116980}', // Invader's Forgotten Treasure
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
         {
             taskKey: 'invasionPlatinum',
             taskName: '{item:122163}', // Routed Invader's Crate of Spoils
             couldGetFunc: garrisonCouldGet,
+            minimumLevel: 10,
         },
     ],
     'dfCatchRelease': [
@@ -532,7 +543,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             minimumLevel: 70,
             taskKey: 'dfReachStormsChest',
-            taskName: '[FR] Chest of Storms', 
+            taskName: '[FR] Chest of Storms',
         },
     ],
     'dfChores10_1_0': [
