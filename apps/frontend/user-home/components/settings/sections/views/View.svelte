@@ -2,7 +2,9 @@
     import find from 'lodash/find'
 
     import { settingsStore } from '@/shared/stores/settings'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
+    import TooltipCharacterFilter from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     import CharacterTableSettings from './CharacterTableSettings.svelte'
@@ -19,10 +21,10 @@
 
 <style lang="scss">
     .view-edit {
-        width: 25rem;
+        width: 100%;
 
         :global(label) {
-            flex-basis: 12rem;
+            flex-basis: 10rem;
         }
     }
 </style>
@@ -48,6 +50,10 @@
             <TextInput
                 name="view_characterFilter"
                 label={'Character Filter'}
+                tooltipComponent={{
+                    component: TooltipCharacterFilter,
+                    props: {},
+                }}
                 bind:value={view.characterFilter}
             />
         </div>
