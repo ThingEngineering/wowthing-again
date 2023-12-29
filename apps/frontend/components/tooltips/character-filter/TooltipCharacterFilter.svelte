@@ -36,9 +36,14 @@
                 <code>momo | steve | ...</code>
             </dd>
 
+            <dt>Realm</dt>
+            <dd>
+                <code>realm=malganis | realm=kirin-tor | ...</code>
+            </dd>
+
             <dt>Level</dt>
             <dd>
-                <code>level &lt;=,&lt;,=,&gt;,&gt;= 60</code>
+                <code>level=60 | &lt;=,&lt;,=,&gt;,&gt;=</code>
             </dd>
 
             <dt>Faction</dt>
@@ -46,14 +51,14 @@
                 <code>alliance | horde | neutral</code>
             </dd>
 
-            <dt>Class</dt>
-            <dd>
-                <code>dh | dk | hunter | ...</code>
-            </dd>
-
             <dt>Race</dt>
             <dd>
-                <code>pandaren | undead | ...</code>
+                <code>blood-elf | human | ...</code>
+            </dd>
+
+            <dt>Class</dt>
+            <dd>
+                <code>demon-hunter | death-knight | hunter | ...</code>
             </dd>
 
             <dt>Tank specs</dt>
@@ -71,9 +76,19 @@
                 <code>dps | deeps</code>
             </dd>
 
+            <dt>Armor type</dt>
+            <dd>
+                <code>cloth | leather | mail | plate</code>
+            </dd>
+
             <dt>Profession</dt>
             <dd>
                 <code>alchemy | blacksmithing | ...</code>
+            </dd>
+
+            <dt>Account tag</dt>
+            <dd>
+                <code>tag=[acc]</code>
             </dd>
 
             <dt>Has M+ score</dt>
@@ -81,9 +96,9 @@
                 <code>m+</code>
             </dd>
 
-            <dt>Account tag</dt>
+            <dt>Has work orders</dt>
             <dd>
-                <code>tag=[acc]</code>
+                <code>orders</code>
             </dd>
         </dl>
     </div>
