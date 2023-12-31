@@ -9,7 +9,7 @@
     import { QuestStatus } from '@/enums/quest-status'
     import { lazyStore, timeStore, userQuestStore, userStore } from '@/stores'
     import { activeView } from '@/shared/stores/settings'
-    
+
     export let taskName: string
 
     let completed: number
@@ -35,7 +35,7 @@
                 multiTaskMap[taskName],
                 (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0
             ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
-            
+
             for (let i = 0; i < multiStats.length; i++) {
                 multiMap[multiStats[i][1]] = i
             }
@@ -50,6 +50,7 @@
 
             if (
                 character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
+                character.level <= (task?.maximumLevel || Constants.characterMaxLevel) &&
                 (
                     !task?.requiredQuestId ||
                     $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId)
@@ -66,7 +67,7 @@
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId]
                     const taskChores = charChores?.[taskName]
-                    
+
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of (taskChores?.tasks || [])) {
                             multiStats[multiMap[choreTask.name]][2][choreTask.status]++

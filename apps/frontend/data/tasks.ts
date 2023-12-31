@@ -391,9 +391,15 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     'holidayWinterVeil': [
         {
-            minimumLevel: 30,
+            minimumLevel: 60,
             taskKey: 'meanOne',
             taskName: "...You're a Mean One",
+        },
+        {
+            minimumLevel: 30,
+            maximumLevel: 59,
+            taskKey: 'meanOneLowLevel',
+            taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
         {
             minimumLevel: 40,
