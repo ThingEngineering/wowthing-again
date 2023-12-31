@@ -9,7 +9,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
         var seasonId = int.Parse(data[1]);

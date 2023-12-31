@@ -103,7 +103,7 @@ public class Program
 
         services.AddHttpClient("limited", client =>
             {
-                client.Timeout = TimeSpan.FromSeconds(60);
+                client.Timeout = TimeSpan.FromSeconds(120);
             })
             .AddPolicyHandler(rateLimitPolicy)
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);

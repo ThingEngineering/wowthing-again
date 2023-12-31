@@ -9,7 +9,7 @@ public class DataMythicKeystonePeriodJob : JobBase
 {
     private const string ApiPath = "data/wow/mythic-keystone/period/{0}";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var region = Enum.Parse<WowRegion>(data[0]);
         int periodId = int.Parse(data[1]);

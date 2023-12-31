@@ -7,6 +7,7 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import { basicTooltip } from '@/shared/utils/tooltips';
 </script>
 
 <style lang="scss">
@@ -40,6 +41,7 @@
             class:active={$settingsStore.activeView === view.id || (!$settingsStore.activeView && viewIndex === 0)}
             data-id={view.id}
             on:click={() => $settingsStore.activeView = view.id}
+            use:basicTooltip={view.name}
         >
             <ParsedText
                 text={view.name}
@@ -48,7 +50,11 @@
     {/each}
 
     {#if !$userStore.public}
-        <a href="/settings/views/{$settingsStore.activeView}" use:link>
+        <a
+            href="/settings/views/{$settingsStore.activeView}"
+            use:basicTooltip={'Settings'}
+            use:link
+        >
             <IconifyIcon
                 icon={iconLibrary.mdiCogOutline}
             />

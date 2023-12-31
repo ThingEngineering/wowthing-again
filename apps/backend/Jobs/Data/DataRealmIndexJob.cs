@@ -19,7 +19,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
 
     private const string ApiPath = "data/wow/realm/index";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         // Fetch existing data
         var realmMap = await Context.WowRealm.ToDictionaryAsync(k => k.Id);

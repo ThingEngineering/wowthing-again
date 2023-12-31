@@ -12,7 +12,7 @@ public class UserCharactersJob : JobBase
 {
     private const string ApiPath = "profile/user/wow?access_token={0}";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         using var shrug = UserLog(data[0]);
         var timer = new JankTimer();

@@ -6,7 +6,7 @@ public class UserCacheQuestsJob : JobBase
 {
     private JankTimer _timer;
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         _timer = new JankTimer();
 
