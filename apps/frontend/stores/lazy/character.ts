@@ -101,6 +101,10 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             continue
                         }
 
+                        if (choreTask.taskKey.endsWith("Split")) {
+                            choreTask.taskKey = choreTask.taskKey.slice(0, -5);
+                        }
+
                         const charTask = new LazyCharacterChoreTask(
                             stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
                         )

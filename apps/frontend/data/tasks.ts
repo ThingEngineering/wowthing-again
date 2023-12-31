@@ -398,7 +398,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             minimumLevel: 30,
             maximumLevel: 59,
-            taskKey: 'meanOneLowLevel',
+            taskKey: 'meanOneSplit',
             taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
         {
