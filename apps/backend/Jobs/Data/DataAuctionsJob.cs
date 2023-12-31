@@ -103,7 +103,7 @@ COPY wow_auction_commodity_hourly (
 ) FROM STDIN (FORMAT BINARY)
 ";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var timer = new JankTimer();
 

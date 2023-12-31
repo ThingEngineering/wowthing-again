@@ -76,7 +76,7 @@ public class UserUploadJob : JobBase
             retryNumber => TimeSpan.FromMilliseconds(250)
         );
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         _timer = new JankTimer();
 

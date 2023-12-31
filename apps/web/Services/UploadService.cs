@@ -20,7 +20,7 @@ public class UploadService
         memoryStream.Seek(0, SeekOrigin.Begin);
 
         using var reader = new StreamReader(memoryStream, System.Text.Encoding.UTF8, true);
-        var data = await reader.ReadToEndAsync();
+        string data = await reader.ReadToEndAsync();
 
         await Process(userId, data);
     }

@@ -8,7 +8,7 @@ public class DataConnectedRealmJob : JobBase
 {
     private const string ApiPath = "data/wow/connected-realm/{0}";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var region = (WowRegion)int.Parse(data[0]);
 

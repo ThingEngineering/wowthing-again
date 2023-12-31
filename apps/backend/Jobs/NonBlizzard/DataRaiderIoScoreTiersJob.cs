@@ -19,7 +19,7 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
     private const string ApiUrl = "https://raider.io/api/v1/mythic-plus/score-tiers?season={0}";
     public const string CacheKey = "raider_io_tiers";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var db = Redis.GetDatabase();
 

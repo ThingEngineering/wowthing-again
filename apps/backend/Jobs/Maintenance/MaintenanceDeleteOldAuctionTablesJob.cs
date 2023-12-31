@@ -20,7 +20,7 @@ WHERE   table_schema = 'public'
         AND table_name LIKE 'wow_auction_%'
 ";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();

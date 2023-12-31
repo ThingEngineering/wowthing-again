@@ -12,7 +12,7 @@ public class DataConnectedRealmIndexJob : JobBase
     private const string ApiPath = "data/wow/connected-realm/index";
     private static readonly Regex RealmIdRegex = new Regex(@"\/(\d+)\?", RegexOptions.Compiled);
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {

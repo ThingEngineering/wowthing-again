@@ -17,7 +17,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
         Version = 2,
     };
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         long unixNow = DateTime.UtcNow.ToUnixTimeSeconds();
 

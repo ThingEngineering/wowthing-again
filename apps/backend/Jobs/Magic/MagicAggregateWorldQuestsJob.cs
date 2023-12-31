@@ -17,7 +17,7 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
         Version = 1,
     };
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var timer = new JankTimer();
 

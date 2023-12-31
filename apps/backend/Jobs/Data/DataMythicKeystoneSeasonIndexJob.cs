@@ -18,7 +18,7 @@ public class DataMythicKeystoneSeasonIndexJob : JobBase, IScheduledJob
 
     private const string ApiPath = "data/wow/mythic-keystone/season/index";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var seasonMap = await Context.WowMythicPlusSeason
             .ToDictionaryAsync(s => (s.Region, s.Id));

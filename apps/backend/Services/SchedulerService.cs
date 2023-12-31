@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
@@ -14,14 +15,16 @@ public sealed class SchedulerService : TimerService
 {
     private const int TimerInterval = 10;
 
+    private readonly IConnectionMultiplexer _redis;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly StateService _stateService;
 
     private readonly List<ScheduledJob> _scheduledJobs = new();
 
     public SchedulerService(
+        IConnectionMultiplexer redis,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
@@ -31,6 +34,7 @@ public sealed class SchedulerService : TimerService
     {
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
+        _redis = redis;
         _serviceScopeFactory = serviceScopeFactory;
         _stateService = stateService;
 
@@ -66,7 +70,11 @@ public sealed class SchedulerService : TimerService
             Logger.Error(ex, "Kaboom!");
         }
 
-        if (_stateService.JobQueueReaders[JobPriority.Low].Count < 5000)
+        var db = _redis.GetDatabase();
+        await db.StreamTrimAsync("stream:low", 10000, useApproximateMaxLength: true);
+
+        var groups = await db.StreamGroupInfoAsync("stream:low");
+        if (groups[0].PendingMessageCount < 5000)
         {
             try
             {

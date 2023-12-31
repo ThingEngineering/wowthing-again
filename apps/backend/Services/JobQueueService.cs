@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Threading.Channels;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Lib.Jobs;
@@ -10,43 +8,36 @@ namespace Wowthing.Backend.Services;
 
 public class JobQueueService : BackgroundService
 {
-    private readonly Dictionary<JobPriority, Channel<WorkerJob>> _channels = new();
+    private readonly IConnectionMultiplexer _redis;
+
     private readonly ILogger _logger;
+    private readonly JobPriority[] _priorities;
+    private readonly Dictionary<JobPriority, string> _streamKeys;
 
     public JobQueueService(
-        IConnectionMultiplexer redis,
-        JsonSerializerOptions jsonSerializerOptions,
-        StateService stateService
+        IConnectionMultiplexer redis
     )
     {
+        _redis = redis;
+
         _logger = Log.ForContext("Service", $"JobQueue");
+        _priorities = EnumUtilities.GetValues<JobPriority>();
+        _streamKeys = _priorities.ToDictionary(
+            priority => priority,
+            priority => $"stream:{priority.ToString().ToLowerInvariant()}"
+        );
 
-        foreach (var priority in EnumUtilities.GetValues<JobPriority>())
+        var db = _redis.GetDatabase();
+        foreach (var priority in _priorities)
         {
-            _channels[priority] = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
-            {
-                SingleReader = false,
-                SingleWriter = false,
-            });
-            stateService.JobQueueReaders[priority] = _channels[priority].Reader;
-        }
-
-        redis.GetSubscriber()
-            .Subscribe(RedisChannel.Literal("jobs"))
-            .OnMessage(async msg =>
-                {
-                    var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);
-                    if (!stateService.QueuedJobs.ContainsKey(job.Key))
-                    {
-                        stateService.QueuedJobs[job.Key] = true;
-                        await _channels[job.Priority].Writer.WriteAsync(job);
-                    }
-                    else
-                    {
-                        _logger.Debug("Refusing to queue duplicate job {key}", job.Key);
-                    }
-                }
+            db.StreamCreateConsumerGroup(
+                _streamKeys[priority],
+                "consumer_group",
+                StreamPosition.Beginning,
+                true,
+                CommandFlags.FireAndForget
             );
+        }
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -55,12 +46,14 @@ public class JobQueueService : BackgroundService
         {
             await Task.Delay(10000, stoppingToken);
 
-            foreach (var priority in EnumUtilities.GetValues<JobPriority>())
+            var db = _redis.GetDatabase();
+            foreach (var priority in _priorities)
             {
-                int count = _channels[priority].Reader.Count;
-                if (count > 1000)
+                var groups = await db.StreamGroupInfoAsync(_streamKeys[priority]);
+                if (groups[0].PendingMessageCount > 1000)
                 {
-                    _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(), count);
+                    _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(),
+                        groups[0].PendingMessageCount);
                 }
             }
         }

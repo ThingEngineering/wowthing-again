@@ -13,7 +13,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
         Version = 1,
     };
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var questIds = await Context
             .WowQuest
@@ -23,7 +23,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
 
         foreach (var questId in questIds)
         {
-            await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataQuest, questId.ToString());
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.DataQuest, questId.ToString());
         }
 
         await Context.WowQuest

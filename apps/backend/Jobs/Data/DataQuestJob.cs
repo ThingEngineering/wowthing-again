@@ -26,7 +26,7 @@ public class DataQuestJob : JobBase
         { Language.zhTW, "zh_TW" },
     };
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var questId = int.Parse(data[0]);
         using var shrug = QuestLog(questId);

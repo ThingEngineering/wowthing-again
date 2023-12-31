@@ -22,7 +22,7 @@ WHERE   id IN (
 )
 ";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();

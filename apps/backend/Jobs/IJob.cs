@@ -2,5 +2,5 @@
 
 public interface IJob
 {
-    Task Run(params string[] data);
+    Task Run(string[] data);
 }

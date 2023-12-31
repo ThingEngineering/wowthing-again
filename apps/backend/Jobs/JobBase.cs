@@ -53,7 +53,7 @@ public abstract class JobBase : IJob, IDisposable
     internal WowDbContext Context => _context ??= ContextFactory.CreateDbContext();
 
     #region IJob
-    public abstract Task Run(params string[] data);
+    public abstract Task Run(string[] data);
     #endregion
 
     protected IDisposable AuctionLog(WowRegion region, int connectedRealmId)
