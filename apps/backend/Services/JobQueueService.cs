@@ -50,10 +50,10 @@ public class JobQueueService : BackgroundService
             foreach (var priority in _priorities)
             {
                 var groups = await db.StreamGroupInfoAsync(_streamKeys[priority]);
-                if (groups[0].PendingMessageCount > 1000)
+                if (groups[0].Lag > 1000)
                 {
                     _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(),
-                        groups[0].PendingMessageCount);
+                        groups[0].Lag);
                 }
             }
         }

@@ -74,7 +74,7 @@ public sealed class SchedulerService : TimerService
         await db.StreamTrimAsync("stream:low", 10000, useApproximateMaxLength: true);
 
         var groups = await db.StreamGroupInfoAsync("stream:low");
-        if (groups[0].PendingMessageCount < 5000)
+        if (groups[0].Lag < 5000)
         {
             try
             {
