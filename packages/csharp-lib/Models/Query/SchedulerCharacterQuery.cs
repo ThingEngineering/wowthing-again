@@ -30,7 +30,7 @@ WHERE (
     c.should_update = true
     AND c.account_id IS NOT NULL
     AND a.user_id IS NOT NULL
-    AND (CURRENT_TIMESTAMP - c.last_api_check) > '8 hours'::interval
+    AND (CURRENT_TIMESTAMP - c.last_api_check) > '24 hours'::interval
 )
 ORDER BY c.last_api_check
 LIMIT 500
