@@ -9,6 +9,7 @@ public static class RedisKeys
     //public const string UserMounts = "collections:{0}:mounts";
     public const string UserQuests = "user:{0}:quests";
     public const string UserTransmog = "user:{0}:transmog";
+    public const string UserUpload = "upload:{0}:{1}";
 
     public const string ManualLastModified = "manual:last_modified";
     public const string UserLastModifiedAchievements = "user:{0}:last_modified:achievements";
