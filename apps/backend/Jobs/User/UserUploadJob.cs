@@ -11,6 +11,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
+using StackExchange.Redis;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -83,7 +84,7 @@ public class UserUploadJob : JobBase
         _userId = long.Parse(data[0]);
         using var shrug = UserLog(_userId);
 
-        Logger.Information("Processing upload...");
+        Logger.Information("Processing {key}...", data[1]);
 
         string lockKey = $"user_upload:{_userId}";
         string lockValue = Guid.NewGuid().ToString("N");
@@ -105,9 +106,16 @@ public class UserUploadJob : JobBase
             return;
         }
 
+        _timer.AddPoint("Lock");
+
+        var db = Redis.GetDatabase();
+        string luaData = await db.CompressedStringGetAsync(data[1], delete: true);
+
+        _timer.AddPoint("Redis");
+
         try
         {
-            await Process(data[1]);
+            await Process(luaData);
         }
         finally
         {

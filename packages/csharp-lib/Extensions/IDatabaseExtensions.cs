@@ -63,9 +63,9 @@ public static class DatabaseExtensions
         await db.StringSetAsync($"cache:{key}:hash", hash);
     }
 
-    public static async Task<string> CompressedStringGetAsync(this IDatabase db, string key)
+    public static async Task<string> CompressedStringGetAsync(this IDatabase db, string key, bool delete = false)
     {
-        var value = await db.StringGetAsync(key);
+        var value = await (delete ? db.StringGetDeleteAsync(key) : db.StringGetAsync(key));
         return value == RedisValue.Null ? null : Encoding.UTF8.GetString(LZ4Pickler.Unpickle(value));
     }
 
