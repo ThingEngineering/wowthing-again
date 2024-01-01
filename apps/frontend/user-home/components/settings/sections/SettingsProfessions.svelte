@@ -57,6 +57,13 @@
     </CheckboxInput>
 
     <CheckboxInput
+        bind:value={$settingsStore.professions.dragonflightCountTasks}
+        name="professions_dragonflightCountTasks"
+    >
+        Count incomplete "Task" tasks in Profession Weeklies.
+    </CheckboxInput>
+
+    <CheckboxInput
         bind:value={$settingsStore.professions.dragonflightTreatises}
         name="professions_dragonflightTreatises"
     >

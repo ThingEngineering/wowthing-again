@@ -346,6 +346,7 @@ public class ApplicationUserSettingsProfessions
 {
     public bool DragonflightCountCraftingDrops { get; set; } = true;
     public bool DragonflightCountGathering { get; set; } = true;
+    public bool DragonflightCountTasks { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
 
     public Dictionary<string, bool> Cooldowns { get; set; } = new();

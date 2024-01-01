@@ -126,6 +126,12 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             )
                             ||
                             (
+                                !stores.settings.professions.dragonflightCountTasks &&
+                                nameParts[1] === 'Task' &&
+                                charTask.status !== QuestStatus.Completed
+                            )
+                            ||
+                            (
                                 !stores.settings.professions.dragonflightCountGathering &&
                                 isGathering &&
                                 ['Gather'].indexOf(nameParts[1]) >= 0 &&
