@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Constants;
-using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models;
 

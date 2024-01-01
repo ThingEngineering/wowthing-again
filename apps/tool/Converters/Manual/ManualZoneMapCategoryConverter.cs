@@ -5,7 +5,7 @@ namespace Wowthing.Tool.Converters.Manual;
 
 public class ManualZoneMapCategoryConverter : JsonConverter<ManualZoneMapCategory>
 {
-    public override ManualZoneMapCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ManualZoneMapCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

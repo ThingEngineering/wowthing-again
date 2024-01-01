@@ -9,9 +9,9 @@ public class ManualZoneMapFarm
     public int? GroupId { get; set; }
     public int? MinimumLevel { get; set; }
     public int? StatisticId { get; set; }
-    public string Faction { get; set; }
+    public string? Faction { get; set; }
     public string Name { get; set; }
-    public string Note { get; set; }
+    public string? Note { get; set; }
     public string[] Location { get; set; }
     public FarmAnchorPoint AnchorPoint { get; set; }
     public FarmIdType IdType { get; set; }
@@ -27,7 +27,7 @@ public class ManualZoneMapFarm
             .EmptyIfNull()
             .Select(drop => new ManualZoneMapDrop(drop))
             .ToList();
-        Location = (farm.Location ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        Location = farm.Location.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         Name = farm.Name;
 
         QuestIds = farm.QuestId

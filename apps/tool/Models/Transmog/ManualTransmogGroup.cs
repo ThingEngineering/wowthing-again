@@ -3,8 +3,8 @@
 public class ManualTransmogGroup
 {
     public string Name { get; }
-    public string Tag { get; }
     public string Type { get; }
+    public string? Tag { get; }
 
     public Dictionary<string, List<ManualTransmogSet>> Data { get; }
 

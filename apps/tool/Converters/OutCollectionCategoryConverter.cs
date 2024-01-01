@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
-using Wowthing.Tool.Models.Collections;
+﻿using Wowthing.Tool.Models.Collections;
 
 namespace Wowthing.Tool.Converters;
 
 public class OutCollectionCategoryConverter : JsonConverter<OutCollectionCategory>
 {
-    public override OutCollectionCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutCollectionCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

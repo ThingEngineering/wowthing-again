@@ -273,7 +273,7 @@ COPY wow_auction_commodity_hourly (
             // Update WowAuctionCommodityHourly
             await using (var writer = await connection.BeginBinaryImportAsync(CopyCommodityHourly))
             {
-                await WriteCommodityHourly(writer, region, connectedRealmId - 100000, commodities);
+                await WriteCommodityHourly(writer, region, commodities);
             }
 
             timer.AddPoint("Commodity");
@@ -498,7 +498,6 @@ COPY wow_auction_commodity_hourly (
 
     private async Task WriteCommodityHourly(NpgsqlBinaryImporter writer,
         WowRegion wowRegion,
-        int connectedRealmId,
         Dictionary<int, List<ApiDataAuctionsAuction>> commodities)
     {
         var now = DateTime.UtcNow;

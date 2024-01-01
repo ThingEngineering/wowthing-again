@@ -1,5 +1,4 @@
-﻿using Polly;
-using Wowthing.Lib.Jobs;
+﻿using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Maintenance;
 

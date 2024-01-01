@@ -1,5 +1,7 @@
 using Wowthing.Lib.Models.Wow;
 
+namespace Wowthing.Tool.Models.Static;
+
 public class StaticReputationTier : WowReputationTier
 {
     public string[]? Names { get; set; }

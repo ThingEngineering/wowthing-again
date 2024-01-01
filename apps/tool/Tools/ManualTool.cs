@@ -21,21 +21,21 @@ public class ManualTool
 {
     private readonly JankTimer _timer = new();
 
-    private IDatabase _db;
+    private IDatabase _db = null!;
 
-    private Dictionary<int, int> _bonusAppearanceModifiers;
-    private Dictionary<int, int[]> _collectionItemToModifiedAppearances;
-    private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
-    private Dictionary<int, WowItemEffectV2> _itemEffectMap;
-    private Dictionary<int, WowItem> _itemMap;
-    private Dictionary<int, WowItemModifiedAppearance> _itemModifiedAppearanceMap;
-    private Dictionary<int, WowMount> _mountMap;
-    private Dictionary<int, WowPet> _petMap;
-    private Dictionary<int, WowToy> _toyMap;
-    private Dictionary<(StringType Type, int Id), string> _stringMap;
+    private Dictionary<int, int> _bonusAppearanceModifiers = null!;
+    private Dictionary<int, int[]> _collectionItemToModifiedAppearances = null!;
+    private Dictionary<int, Dictionary<short, int>> _itemToAppearance = null!;
+    private Dictionary<int, WowItemEffectV2> _itemEffectMap = null!;
+    private Dictionary<int, WowItem> _itemMap = null!;
+    private Dictionary<int, WowItemModifiedAppearance> _itemModifiedAppearanceMap = null!;
+    private Dictionary<int, WowMount> _mountMap = null!;
+    private Dictionary<int, WowPet> _petMap = null!;
+    private Dictionary<int, WowToy> _toyMap = null!;
+    private Dictionary<(StringType Type, int Id), string> _stringMap = null!;
 
     private int _tagIndex = 1;
-    private HashSet<int> _questIds = new();
+    private readonly HashSet<int> _questIds = new();
     private readonly Dictionary<string, int> _tagMap = new();
 
     private static readonly StringType[] StringTypes =
@@ -45,7 +45,7 @@ public class ManualTool
         StringType.WowMountName,
     };
 
-    public async Task Run(params string[] data)
+    public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Manual");
         await using var  context = ToolContext.GetDbContext();
@@ -448,7 +448,6 @@ public class ManualTool
                         if (!foundAny)
                         {
                             ToolContext.Logger.Warning("No option for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                            continue;
                         }
                     }
 

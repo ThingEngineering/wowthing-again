@@ -5,7 +5,7 @@ public class ManualSharedVendorSet
     public string Name { get; set; }
     public int[] Range { get; set; }
     public bool SkipTooltip { get; set; }
-    public string SortKey { get; set; }
+    public string? SortKey { get; set; }
 
     public ManualSharedVendorSet(DataSharedVendorSet set)
     {
@@ -13,16 +13,10 @@ public class ManualSharedVendorSet
         SkipTooltip = set.SkipTooltip;
         SortKey = set.SortKey;
 
-        var parts = set.Range
+        string[] parts = set.Range
+            .EmptyIfNullOrWhitespace()
             .Split(' ');
 
-        if (parts.Length == 1)
-        {
-            Range = new[] { int.Parse(parts[0]), 0 };
-        }
-        else
-        {
-            Range = new[] { int.Parse(parts[0]), int.Parse(parts[1]) };
-        }
+        Range = [int.Parse(parts[0]), parts.Length == 1 ? 0 : int.Parse(parts[1])];
     }
 }

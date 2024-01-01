@@ -11,10 +11,6 @@ public class ManualTransmogCategory
 
     public string Slug => Name.Slugify();
 
-    public ManualTransmogCategory()
-    {
-    }
-
     public ManualTransmogCategory(DataTransmogCategory category)
     {
         Name = category.Name;

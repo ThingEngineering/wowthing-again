@@ -18,10 +18,10 @@ public class StaticTool
 {
     private readonly JankTimer _timer = new();
 
-    private Dictionary<int, WowItem> _itemMap;
-    private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
+    private Dictionary<int, WowItem> _itemMap = null!;
+    private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap = null!;
 
-    private static readonly StringType[] StringTypes = {
+    private static readonly StringType[] StringTypes = [
         StringType.WowCharacterClassName,
         StringType.WowCharacterRaceName,
         StringType.WowCharacterSpecializationName,
@@ -44,7 +44,7 @@ public class StaticTool
         StringType.WowSkillLineName,
         StringType.WowSpellItemEnchantmentName,
         StringType.WowTransmogSetName,
-    };
+    ];
 
     private static readonly Dictionary<string, string> HolidayMap = new()
     {

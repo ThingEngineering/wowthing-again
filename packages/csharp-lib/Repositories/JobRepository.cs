@@ -10,14 +10,14 @@ public class JobRepository(
     JsonSerializerOptions jsonSerializerOptions
 )
 {
-    private static readonly Dictionary<JobPriority, string> _priorityToStream;
+    private static readonly Dictionary<JobPriority, string> PriorityToStream;
 
     static JobRepository()
     {
-        _priorityToStream = new();
+        PriorityToStream = new();
         foreach (var priority in Enum.GetValues<JobPriority>())
         {
-            _priorityToStream[priority] = $"stream:{priority.ToString().ToLowerInvariant()}";
+            PriorityToStream[priority] = $"stream:{priority.ToString().ToLowerInvariant()}";
         }
     }
 
@@ -30,7 +30,7 @@ public class JobRepository(
             new NameValueEntry("data", JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions)),
         };
 
-        await db.StreamAddAsync(_priorityToStream[priority], values);
+        await db.StreamAddAsync(PriorityToStream[priority], values);
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)

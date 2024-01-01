@@ -1,6 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-
-namespace Wowthing.Tool.Models.Reputations;
+﻿namespace Wowthing.Tool.Models.Reputations;
 
 // ReSharper disable InconsistentNaming
 public class DumpParagonReputation

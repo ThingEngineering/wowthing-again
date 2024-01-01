@@ -25,7 +25,7 @@ public class DumpsTool
     private Dictionary<int, List<int>>? _spellTeachMap;
     private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
 
-    private static readonly Dictionary<string, int> _inventorySlotMap = new()
+    private static readonly Dictionary<string, int> InventorySlotMap = new()
     {
         { "AMMOSLOT", 0 },
         { "HEADSLOT", 1 },
@@ -63,7 +63,7 @@ public class DumpsTool
         { "FISHINGGEAR1SLOT", 30 },
     };
 
-    private static readonly Dictionary<string, int> _inventoryTypeMap = new()
+    private static readonly Dictionary<string, int> InventoryTypeMap = new()
     {
         { "INVTYPE_NON_EQUIP", 0 },
         { "INVTYPE_HEAD", 1 },
@@ -1539,7 +1539,7 @@ public class DumpsTool
 
         foreach (var language in _languages)
         {
-            foreach (var (stringKey, slotId) in _inventorySlotMap)
+            foreach (var (stringKey, slotId) in InventorySlotMap)
             {
                 var stringValue = _globalStringMap[language][stringKey];
 
@@ -1561,7 +1561,7 @@ public class DumpsTool
                 }
             }
 
-            foreach (var (stringKey, slotId) in _inventoryTypeMap)
+            foreach (var (stringKey, slotId) in InventoryTypeMap)
             {
                 if (!_globalStringMap[language].TryGetValue(stringKey, out string stringValue))
                 {

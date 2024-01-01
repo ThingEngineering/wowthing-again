@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Items;
 
 public class RedisItemSetConverter : JsonConverter<RedisItemSet>
 {
-    public override RedisItemSet? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override RedisItemSet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

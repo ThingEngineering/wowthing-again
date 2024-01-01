@@ -7,11 +7,11 @@ public class ManualZoneMapDrop
     public int ClassMask { get; set; }
     public int SubType { get; set; }
     public int? RequiredQuestId { get; set; }
-    public string Note { get; set; }
+    public string? Note { get; set; }
     public string Type { get; set; }
 
-    public int[] QuestIds { get; set; }
-    public string[] Limit { get; set; }
+    public int[]? QuestIds { get; set; }
+    public string[]? Limit { get; set; }
 
     public ManualZoneMapDrop(DataZoneMapDrop drop)
     {

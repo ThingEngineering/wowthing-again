@@ -19,7 +19,6 @@ public sealed class SchedulerService : TimerService
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly StateService _stateService;
 
     private readonly List<ScheduledJob> _scheduledJobs = new();
 
@@ -27,8 +26,7 @@ public sealed class SchedulerService : TimerService
         IConnectionMultiplexer redis,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
-        JsonSerializerOptions jsonSerializerOptions,
-        StateService stateService
+        JsonSerializerOptions jsonSerializerOptions
     )
         : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
     {
@@ -36,7 +34,6 @@ public sealed class SchedulerService : TimerService
         _jsonSerializerOptions = jsonSerializerOptions;
         _redis = redis;
         _serviceScopeFactory = serviceScopeFactory;
-        _stateService = stateService;
 
         // Schedule jobs for all IScheduledJob implementers
         var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -46,7 +43,10 @@ public sealed class SchedulerService : TimerService
         foreach (var jobType in jobTypes)
         {
             var fieldInfo = jobType.GetField("Schedule", BindingFlags.Public | BindingFlags.Static);
-            _scheduledJobs.Add((ScheduledJob)fieldInfo.GetValue(null));
+            if (fieldInfo != null)
+            {
+                _scheduledJobs.Add((ScheduledJob)fieldInfo.GetValue(null));
+            }
         }
     }
 

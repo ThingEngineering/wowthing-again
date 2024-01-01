@@ -279,9 +279,9 @@ public class ApplicationUserSettingsCollections
 
 public class ApplicationUserSettingsCustomGroup
 {
-    public string Filter { get; set; }
-    public string Id { get; set; }
-    public string Name { get; set; }
+    public string Filter { get; set; } = String.Empty;
+    public string Id { get; set; } = String.Empty;
+    public string Name { get; set; } = String.Empty;
 }
 
 public class ApplicationUserSettingsGeneral
