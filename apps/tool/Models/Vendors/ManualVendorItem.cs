@@ -4,15 +4,15 @@ public class ManualVendorItem
 {
     public int ClassMask { get; set; }
     public int Id { get; set; }
-    public string Note { get; set; }
-    public string Reputation { get; set; }
     public int SubType { get; set; }
+    public string? Note { get; set; }
+    public string? Reputation { get; set; }
     public WowQuality Quality { get; set; }
     public RewardType Type { get; set; }
-    public Dictionary<int, int> Costs { get; set; }
 
-    public int[] AppearanceIds { get; set; }
-    public int[] BonusIds { get; set; }
+    public int[]? AppearanceIds { get; set; }
+    public int[]? BonusIds { get; set; }
+    public Dictionary<int, int>? Costs { get; set; }
 
     public ManualVendorItem()
     {}

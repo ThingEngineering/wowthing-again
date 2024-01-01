@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Manual;
 
 public class ManualCustomizationCategoryConverter : JsonConverter<ManualCustomizationCategory>
 {
-    public override ManualCustomizationCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ManualCustomizationCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Static;
 
 public class StaticQuestInfoConverter : JsonConverter<StaticQuestInfo>
 {
-    public override StaticQuestInfo? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override StaticQuestInfo Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

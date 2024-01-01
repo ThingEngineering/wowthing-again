@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Auctions;
 
 public class OutAuctionCategoryConverter : JsonConverter<OutAuctionCategory>
 {
-    public override OutAuctionCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutAuctionCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

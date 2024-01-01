@@ -8,7 +8,7 @@ public class ManualZoneMapCategory
     public int MinimumLevel { get; set; }
     public string MapName { get; set; }
     public string Name { get; set; }
-    public string WowheadGuide { get; set; }
+    public string? WowheadGuide { get; set; }
 
     public List<int> RequiredQuestIds { get; set; }
 

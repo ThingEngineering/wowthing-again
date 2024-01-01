@@ -1,5 +1,4 @@
-﻿using Wowthing.Lib.Enums;
-using Wowthing.Lib.Jobs;
+﻿using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data;
 

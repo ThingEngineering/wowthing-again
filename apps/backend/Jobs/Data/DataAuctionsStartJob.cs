@@ -1,7 +1,5 @@
 ﻿using Wowthing.Lib.Constants;
-using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Data;
 

@@ -5,7 +5,7 @@ namespace Wowthing.Tool.Converters.Manual;
 public class ManualTransmogCategoryConverter : JsonConverter<ManualTransmogCategory>
 {
 
-    public override ManualTransmogCategory? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ManualTransmogCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

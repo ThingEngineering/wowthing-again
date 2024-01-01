@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Static;
 
 public class StaticTransmogSetConverter : JsonConverter<StaticTransmogSet>
 {
-    public override StaticTransmogSet? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override StaticTransmogSet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

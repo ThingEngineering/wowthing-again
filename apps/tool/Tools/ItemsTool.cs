@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
-using MoreLinq;
+﻿using MoreLinq;
 using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Wow;
@@ -62,7 +61,7 @@ public class ItemsTool
         212541, // Greater Verdant Crest of Honor
     ];
 
-    public async Task Run(params string[] data)
+    public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Items");
         await using var context = ToolContext.GetDbContext();

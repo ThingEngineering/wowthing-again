@@ -6,7 +6,7 @@ public class ManualSharedVendorConverter : JsonConverter<ManualSharedVendor>
 {
     private static readonly int[] EmptyAppearances = { 0 };
 
-    public override ManualSharedVendor? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ManualSharedVendor Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -59,7 +59,7 @@ public class ManualSharedVendorConverter : JsonConverter<ManualSharedVendor>
 
         if (useGroupId)
         {
-            writer.WriteNumberValue(vendor.ZoneMapsGroupId.Value);
+            writer.WriteNumberValue(vendor.ZoneMapsGroupId!.Value);
         }
 
         writer.WriteEndArray();

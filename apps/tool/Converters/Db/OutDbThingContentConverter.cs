@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Db;
 
 public class OutDbThingContentConverter : JsonConverter<OutDbThingContent>
 {
-    public override OutDbThingContent? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override OutDbThingContent Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

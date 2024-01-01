@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Wowthing.Lib.Models.Wow;
+﻿namespace Wowthing.Lib.Models.Wow;
 
 public class WowProfessionRecipeItem
 {

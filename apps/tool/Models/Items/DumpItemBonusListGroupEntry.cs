@@ -1,6 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
-
-// ReSharper disable InconsistentNaming
+﻿// ReSharper disable InconsistentNaming
 namespace Wowthing.Tool.Models.Items;
 
 public class DumpItemBonusListGroupEntry

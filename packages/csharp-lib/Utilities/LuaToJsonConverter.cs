@@ -18,7 +18,7 @@ public class LuaToJsonConverter
 
         var (_, converted) = converter.Recurse();
         return converted;
-            
+
         /*if (type == StructureType.Array)
         {
             return "[" + converted + "]";

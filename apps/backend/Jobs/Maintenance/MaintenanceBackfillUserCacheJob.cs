@@ -1,7 +1,7 @@
 ﻿using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 
-namespace Wowthing.Backend.Jobs.User;
+namespace Wowthing.Backend.Jobs.Maintenance;
 
 public class MaintenanceBackfillUserCacheJob : JobBase, IScheduledJob
 {

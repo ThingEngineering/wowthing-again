@@ -12,7 +12,6 @@ using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Newtonsoft.Json.Serialization;
-using Npgsql;
 using Wowthing.Lib.Services;
 using Wowthing.Web.Models;
 

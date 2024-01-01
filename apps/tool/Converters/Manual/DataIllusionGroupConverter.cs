@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Manual;
 
 public class DataIllusionGroupConverter : JsonConverter<DataIllusionGroup>
 {
-    public override DataIllusionGroup? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override DataIllusionGroup Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

@@ -7,7 +7,7 @@ public class AuctionTool
 {
     private readonly JankTimer _timer = new();
 
-    public async Task Run(params string[] data)
+    public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Auction");
 
@@ -16,7 +16,7 @@ public class AuctionTool
         var db = ToolContext.Redis.GetDatabase();
         var cacheData = new RedisAuctionData();
 
-        string cacheHash = null;
+        string? cacheHash = null;
         foreach (var language in Enum.GetValues<Language>())
         {
             ToolContext.Logger.Information("Generating {lang}...", language);

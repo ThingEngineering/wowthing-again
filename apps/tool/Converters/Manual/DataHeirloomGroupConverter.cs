@@ -4,7 +4,7 @@ namespace Wowthing.Tool.Converters.Manual;
 
 public class DataHeirloomGroupConverter : JsonConverter<DataHeirloomGroup>
 {
-    public override DataHeirloomGroup? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override DataHeirloomGroup Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }

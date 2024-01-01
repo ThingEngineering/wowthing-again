@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;

@@ -9,9 +9,9 @@ public class ManualSharedVendor
     public int Id { get; set; }
     public int? ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
-    public string Note { get; set; }
-    public string[] Tags { get; set; }
-    public Dictionary<string, string[]> Locations { get; set; }
+    public string? Note { get; set; }
+    public string[]? Tags { get; set; }
+    public Dictionary<string, string[]>? Locations { get; set; }
     public ManualSharedVendorSet[] Sets { get; set; }
     public ManualVendorItem[] Sells { get; set; }
 

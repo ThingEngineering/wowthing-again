@@ -90,6 +90,7 @@ export interface Settings {
     professions: {
         dragonflightCountCraftingDrops: boolean
         dragonflightCountGathering: boolean
+        dragonflightCountTasks: boolean
         dragonflightTreatises: boolean
 
         cooldowns: Record<string, boolean>

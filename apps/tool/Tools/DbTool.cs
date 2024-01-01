@@ -17,7 +17,7 @@ public class DbTool
 
     private readonly List<OutDbThing> _things = new();
 
-    public async Task Run(params string[] data)
+    public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Db");
         await using var context = ToolContext.GetDbContext();

@@ -28,7 +28,7 @@ public class UserUploadJob : JobBase
     private Dictionary<string, int> _instanceNameToIdMap;
     private Dictionary<short, Dictionary<(short Expansion, int ZoneId, int QuestId, short Faction, short Class), WorldQuestReport>> _worldQuestReportMap;
 
-    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
+    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> AchievementComparer =
         new(new PlayerCharacterAddonAchievementsAchievementComparer());
 
     private readonly HashSet<string> _fortifiedNames = new()
@@ -73,7 +73,7 @@ public class UserUploadJob : JobBase
         .HandleResult<bool>(r => r == false)
         .WaitAndRetryAsync(
             retryCount: 20,
-            retryNumber => TimeSpan.FromMilliseconds(250)
+            _ => TimeSpan.FromMilliseconds(250)
         );
 
     public override async Task Run(string[] data)
@@ -572,7 +572,7 @@ public class UserUploadJob : JobBase
             short.TryParse(parts[3].OrDefault("0"), out short enchantId);
             short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
             short.TryParse(parts[5].OrDefault("0"), out short quality);
-            short.TryParse(parts[6].OrDefault("0"), out short suffixId);
+            // short.TryParse(parts[6].OrDefault("0"), out short suffixId);
 
             var item = character.AddonData.EquippedItems[slot] = new();
 
@@ -872,7 +872,7 @@ public class UserUploadJob : JobBase
                 }
             );
 
-        if (!_achievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
+        if (!AchievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
         {
             character.AddonAchievements.ScannedAt = scanTime;
             character.AddonAchievements.Achievements = characterData.Achievements

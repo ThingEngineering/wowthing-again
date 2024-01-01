@@ -13,7 +13,6 @@ public class UserCacheMountsJob : JobBase
         long userId = long.Parse(data[0]);
         using var shrug = UserLog(userId);
 
-        var db = Redis.GetDatabase();
         await CacheService.CreateOrUpdateMountCacheAsync(Context, _timer, userId);
 
         Logger.Debug("{0}", _timer.ToString());
