@@ -81,6 +81,9 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                 if (character.level < (task.minimumLevel || Constants.characterMaxLevel)) {
                     continue
                 }
+                if (character.level > (task.maximumLevel || Constants.characterMaxLevel)) {
+                    continue
+                }
 
                 if (task.type === 'multi') {
                     const charChore = new LazyCharacterChore()
@@ -91,8 +94,15 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
                             continue
                         }
+                        if (character.level > (choreTask.maximumLevel || Constants.characterMaxLevel)){
+                            continue
+                        }
                         if (choreTask.couldGetFunc?.(character) === false) {
                             continue
+                        }
+
+                        if (choreTask.taskKey.endsWith("Split")) {
+                            choreTask.taskKey = choreTask.taskKey.slice(0, -5);
                         }
 
                         const charTask = new LazyCharacterChoreTask(
@@ -140,7 +150,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             ||
                             charTask.statusTexts[0] !== ''
                         )
-            
+
                         if (!charTask.skipped) {
                             charChore.countTotal++
                         }
@@ -152,19 +162,19 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                             charTask.statusTexts = []
                             let haveCount = 0
                             let needCount = 0
-            
+
                             if (taskName === 'dfProfessionWeeklies') {
                                 const professionName = choreTask.taskKey.replace('dfProfession', '').replace('Drop#', '')
                                 const profession = Profession[professionName as keyof typeof Profession]
                                 const professionData = dragonflightProfessionMap[profession]
-                                
+
                                 if (professionData.dropQuests?.length > 0) {
                                     needCount = professionData.dropQuests.length
-            
+
                                     professionData.dropQuests.forEach((drop, index) => {
                                         const dropKey = choreTask.taskKey.replace('#', (index + 1).toString())
                                         const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
-            
+
                                         let statusText = ''
                                         if (progressQuest?.status === QuestStatus.Completed &&
                                             DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
@@ -174,15 +184,15 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                         else {
                                             statusText += '<span class="status-fail">:no:</span>'
                                         }
-                                        
+
                                         statusText += `{item:${drop.itemId}}`
                                         statusText += ` <span class="status-shrug">(${drop.source})</span>`
-            
+
                                         charTask.statusTexts.push(statusText)
                                     })
                                 }
                             }
-            
+
                             if (charTask.statusTexts.length === 0) {
                                 needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
                                 for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
@@ -193,7 +203,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                     }
                                 }
                             }
-            
+
                             if (haveCount === needCount) {
                                 charTask.status = QuestStatus.Completed
                             }
@@ -217,7 +227,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         charTask.name = taskName === 'dfDungeonWeeklies'
                             ? stores.userQuestData.questNames[choreTask.taskKey] || choreTask.taskName
                             : choreTask.taskName
-                        
+
                         if (!charTask.skipped) {
                             if (charTask.status === QuestStatus.Completed) {
                                 charChore.countCompleted++
@@ -226,7 +236,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                 charChore.countStarted++
                             }
                         }
-                    
+
                         charChore.tasks.push(charTask)
                     }
 
@@ -240,7 +250,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                         status: undefined,
                         text: undefined,
                     }
-                    
+
                     if (charTask.quest) {
                         const expires = DateTime.fromSeconds(charTask.quest.expires)
                         if (forcedReset[questKey]) {
@@ -255,14 +265,14 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                 charTask.quest.status = QuestStatus.NotStarted
                             }
                         }
-        
+
                         if (charTask.quest.status === QuestStatus.Completed) {
                             charTask.status = 'success'
                             charTask.text = 'Done'
                         }
                         else if (charTask.quest.status === QuestStatus.InProgress) {
                             charTask.status = 'shrug'
-                            
+
                             let objectives = charTask.quest.objectives || []
                             if (objectives.length === 1) {
                                 const objective = charTask.quest.objectives[0]
@@ -275,7 +285,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
                                 else {
                                     charTask.text = `${Math.floor(Math.min(objective.have, objective.need) / objective.need * 100)} %`
                                 }
-        
+
                                 if (objective.have === objective.need) {
                                     charTask.status = `${charTask.status} status-turn-in`
                                 }
@@ -291,16 +301,16 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
 
                                 const averagePercent = objectives
                                     .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
-        
+
                                 charTask.text = `${Math.floor(averagePercent * 100)} %`
-        
+
                                 if (averagePercent >= 1) {
                                     charTask.status = `${charTask.status} status-turn-in`
                                 }
                             }
                         }
                     }
-        
+
                     if (charTask.status === undefined) {
                         charTask.status = 'fail'
                         charTask.text = 'Get!'
@@ -346,7 +356,7 @@ function checkCooldowns(
                         have = 0
                     }
                 }
-                
+
                 ret.have += have
                 ret.total++
                 if (have) {
