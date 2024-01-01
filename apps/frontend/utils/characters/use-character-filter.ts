@@ -46,28 +46,28 @@ export function useCharacterFilter(
                         }
 
                         // Level
-                        const match = part.match(/^(level|lvl)(<|<=|=|>=|>)(\d+)$/)
+                        let match = part.match(/^(level|lvl)(<|<=|=|>=|>)(\d+)$/)
                         if (match) {
-                            const comparison = match[2].toString()
-                            const value = parseInt(match[3])
-                            if (comparison === '<') return char.level < value
-                            else if (comparison === '<=') return char.level <= value
-                            else if (comparison === '=') return char.level === value
-                            else if (comparison === '>=') return char.level >= value
-                            else if (comparison === '>') return char.level > value
+                            return compareValues(match[2].toString(), char.level, parseInt(match[3]))
+                        }
+
+                        // Item level
+                        match = part.match(/^(itemlevel|ilevel|ilvl)(<|<=|=|>=|>)(\d+)$/)
+                        if (match) {
+                            return compareValues(match[2].toString(), char.equippedItemLevel, parseInt(match[3]))
                         }
 
                         // Account tag
-                        const match2 = part.match(/^tag=(.*)$/)
-                        if (match2) {
-                            const tag = match2[1].toString()
+                        match = part.match(/^tag=(.*)$/)
+                        if (match) {
+                            const tag = match[1].toString()
                             return userData.accounts[char.accountId].tag.toLocaleLowerCase() == tag
                         }
 
                         // Realm slug
-                        const match3 = part.match(/^realm=(.+)$/)
-                        if (match3) {
-                            const slug = match3[1].toString()
+                        match = part.match(/^realm=(.+)$/)
+                        if (match) {
+                            const slug = match[1].toString()
                             return char.realm.slug === slug
                         }
 
@@ -167,6 +167,14 @@ export function useCharacterFilter(
     }
 
     return filterFunc ? filterFunc(char) && result : result
+}
+
+function compareValues(comparison: string, sourceValue: number, compareValue: number): boolean {
+    if (comparison === '<') return sourceValue < compareValue
+    else if (comparison === '<=') return sourceValue <= compareValue
+    else if (comparison === '=') return sourceValue === compareValue
+    else if (comparison === '>=') return sourceValue >= compareValue
+    else if (comparison === '>') return sourceValue > compareValue
 }
 
 const professionSlugMap: Record<string, string> = {

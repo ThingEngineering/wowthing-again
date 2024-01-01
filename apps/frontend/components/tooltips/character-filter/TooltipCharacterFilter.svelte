@@ -46,6 +46,11 @@
                 <code>level=60 | &lt;=,&lt;,=,&gt;,&gt;=</code>
             </dd>
 
+            <dt>Item Level</dt>
+            <dd>
+                <code>ilevel&gt;=400 | &lt;=,&lt;,=,&gt;,&gt;=</code>
+            </dd>
+
             <dt>Faction</dt>
             <dd>
                 <code>alliance | horde | neutral</code>
