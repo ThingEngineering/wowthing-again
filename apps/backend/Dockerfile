@@ -15,8 +15,6 @@ WORKDIR /app
 COPY --from=build /app/apps/backend/out ./
 
 ENV ASPNETCORE_URLS "http://0:5000"
-ENV DOTNET_GCConserveMemory=5
-ENV DOTNET_gcServer=1
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "Wowthing.Backend.dll"]
