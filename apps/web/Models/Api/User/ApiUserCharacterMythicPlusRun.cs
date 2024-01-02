@@ -3,7 +3,7 @@ using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(ApiUserCharacterMythicPlusRunConverter))]
+[JsonConverter(typeof(ApiUserCharacterMythicPlusRunConverter))]
 public class ApiUserCharacterMythicPlusRun : PlayerCharacterAddonDataMythicPlusRun
 {
     public ApiUserCharacterMythicPlusRun(PlayerCharacterAddonDataMythicPlusRun run)

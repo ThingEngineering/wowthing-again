@@ -4,7 +4,7 @@ using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(ApiUserCharacterStatisticsConverter))]
+[JsonConverter(typeof(ApiUserCharacterStatisticsConverter))]
 public class ApiUserCharacterStatistics
 {
     public Dictionary<WowItemStatType, PlayerCharacterStatsBasic> Basic { get; set; }

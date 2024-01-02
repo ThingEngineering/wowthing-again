@@ -3,7 +3,7 @@ using Wowthing.Web.Models.Api.User;
 
 namespace Wowthing.Web.Converters;
 
-public class ApiUserCharacterStatisticsConverter : System.Text.Json.Serialization.JsonConverter<ApiUserCharacterStatistics>
+public class ApiUserCharacterStatisticsConverter : JsonConverter<ApiUserCharacterStatistics>
 {
     public override ApiUserCharacterStatistics Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

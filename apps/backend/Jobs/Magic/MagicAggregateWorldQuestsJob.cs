@@ -85,7 +85,7 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
             questIds.Add(aggregate.QuestId);
             seen.Add(questKey);
 
-            aggregate.JsonData = System.Text.Json.JsonSerializer.Serialize(questData, JsonSerializerOptions);
+            aggregate.JsonData = JsonSerializer.Serialize(questData, JsonSerializerOptions);
         }
 
         foreach (var (questKey, aggregate) in aggregateMap)

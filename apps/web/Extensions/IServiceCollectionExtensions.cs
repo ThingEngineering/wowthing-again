@@ -15,7 +15,7 @@ public static class IServiceCollectionExtensions
         if (File.Exists(manifestFilename))
         {
             string json = File.ReadAllText(manifestFilename);
-            var entries = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, FrontendManifestJson>>(
+            var entries = JsonSerializer.Deserialize<Dictionary<string, FrontendManifestJson>>(
                 json, jsonSerializerOptions);
             foreach (var entry in entries.Values.Where(e => e.IsEntry))
             {
@@ -26,7 +26,7 @@ public static class IServiceCollectionExtensions
 
         foreach (var (key, value) in manifest.Entrypoints)
         {
-            Console.WriteLine($"{key} => {System.Text.Json.JsonSerializer.Serialize(value.Css)} {System.Text.Json.JsonSerializer.Serialize(value.Js)}");
+            Console.WriteLine($"{key} => {JsonSerializer.Serialize(value.Css)} {JsonSerializer.Serialize(value.Js)}");
         }
 
         services.AddSingleton(manifest);

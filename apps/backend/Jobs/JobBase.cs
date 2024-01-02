@@ -57,19 +57,19 @@ public abstract class JobBase : IJob, IDisposable
 
     protected IDisposable AuctionLog(WowRegion region, int connectedRealmId)
     {
-        var jobName = this.GetType().Name[0..^3];
+        var jobName = GetType().Name[0..^3];
         return LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
     }
 
     protected IDisposable CharacterLog(SchedulerCharacterQuery query)
     {
-        var jobName = this.GetType().Name[0..^3];
+        var jobName = GetType().Name[0..^3];
         return LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
     }
 
     protected IDisposable UserLog(string userId)
     {
-        var jobName = this.GetType().Name[0..^3];
+        var jobName = GetType().Name[0..^3];
         return LogContext.PushProperty("Task", $"{userId} {jobName}");
     }
 
@@ -77,13 +77,13 @@ public abstract class JobBase : IJob, IDisposable
 
     protected IDisposable QuestLog(int questId)
     {
-        var jobName = this.GetType().Name[0..^3];
+        var jobName = GetType().Name[0..^3];
         return LogContext.PushProperty("Task", $"{jobName} {questId}");
     }
 
     protected SchedulerCharacterQuery DeserializeCharacterQuery(string data)
     {
-        var query = System.Text.Json.JsonSerializer.Deserialize<SchedulerCharacterQuery>(data, JsonSerializerOptions);
+        var query = JsonSerializer.Deserialize<SchedulerCharacterQuery>(data, JsonSerializerOptions);
         if (query == null)
         {
             throw new InvalidJsonException(data);
@@ -131,7 +131,7 @@ public abstract class JobBase : IJob, IDisposable
         }
 
         string jsonString = Encoding.UTF8.GetString(result.Data);
-        var obj = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString, JsonSerializerOptions);
+        var obj = JsonSerializer.Deserialize<T>(jsonString, JsonSerializerOptions);
         timer.AddPoint("JSON");
 
         if (timerOutput)
