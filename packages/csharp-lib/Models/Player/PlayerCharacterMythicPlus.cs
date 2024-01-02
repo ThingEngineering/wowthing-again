@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Player;
@@ -26,7 +26,7 @@ public class PlayerCharacterMythicPlusRun
     public int KeystoneLevel { get; set; }
     public bool Timed { get; set; }
 
-    [System.Text.Json.Serialization.JsonIgnore]
+    [JsonIgnore]
     public List<PlayerCharacterMythicPlusRunMember> Members { get; set; }
 }
 

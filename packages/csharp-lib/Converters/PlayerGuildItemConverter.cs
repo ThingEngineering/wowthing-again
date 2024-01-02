@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Converters;
 
-public class PlayerGuildItemConverter : System.Text.Json.Serialization.JsonConverter<PlayerGuildItem>
+public class PlayerGuildItemConverter : JsonConverter<PlayerGuildItem>
 {
     public override PlayerGuildItem Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

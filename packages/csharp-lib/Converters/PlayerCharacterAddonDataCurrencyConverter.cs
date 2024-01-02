@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Converters;
 
-public class PlayerCharacterAddonDataCurrencyConverter
-    : System.Text.Json.Serialization.JsonConverter<PlayerCharacterAddonDataCurrency>
+public class PlayerCharacterAddonDataCurrencyConverter : JsonConverter<PlayerCharacterAddonDataCurrency>
 {
     public override PlayerCharacterAddonDataCurrency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

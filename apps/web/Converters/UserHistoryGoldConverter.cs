@@ -1,40 +1,33 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Converters;
 
-public class UserHistoryGoldConverter : JsonConverter
+public class UserHistoryGoldConverter : JsonConverter<UserHistoryGold>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var uhg = (UserHistoryGold) value;
-        var arr = new JArray();
-        arr.Add(uhg.Time);
-
-        var entriesArr = new JArray();
-        foreach (var entry in uhg.Entries)
-        {
-            var entryArr = new JArray();
-            entryArr.Add(entry.AccountId);
-            entryArr.Add(entry.RealmId);
-            entryArr.Add(entry.Gold);
-            entriesArr.Add(entryArr);
-        }
-        arr.Add(entriesArr);
-
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override UserHistoryGold Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, UserHistoryGold value, JsonSerializerOptions options)
     {
-        return typeof(UserHistoryGold) == objectType;
+        writer.WriteStartArray();
+
+        writer.WriteStringValue(value.Time.ToString("O"));
+
+        writer.WriteStartArray();
+        foreach (var entry in value.Entries)
+        {
+            writer.WriteStartArray();
+            writer.WriteNumberValue(entry.AccountId);
+            writer.WriteNumberValue(entry.RealmId);
+            writer.WriteNumberValue(entry.Gold);
+            writer.WriteEndArray();
+        }
+        writer.WriteEndArray();
+
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
-
 }

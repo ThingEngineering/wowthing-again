@@ -9,7 +9,6 @@ public class UserAuctionData
     public Dictionary<int, List<WowAuction>> RawAuctions { get; set; }
     public Dictionary<int, string> Names { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<short, UserAuctionDataPet[]> Pets { get; set; }
 }
 
@@ -20,7 +19,6 @@ public class UserAuctionDataPet
     public ItemLocation Location { get; set; }
     public WowQuality Quality { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? LocationId { get; set; }
 
     public UserAuctionDataPet(PlayerAccountPetsPet pet)

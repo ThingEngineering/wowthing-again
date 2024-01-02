@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using K4os.Compression.LZ4;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace Wowthing.Lib.Extensions;
@@ -36,12 +37,12 @@ public static class DatabaseExtensions
         where T : class
     {
         string value = await db.StringGetAsync(key);
-        return value == null ? null : JsonConvert.DeserializeObject<T>(value);
+        return value == null ? null : JsonSerializer.Deserialize<T>(value);
     }
 
     public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj, TimeSpan? expiry = null)
     {
-        return await db.StringSetAsync(key, JsonConvert.SerializeObject(obj), expiry);
+        return await db.StringSetAsync(key, JsonSerializer.Serialize(obj), expiry);
     }
 
     public static async Task<string[]> StringMultiGetAsync(this IDatabase db, IEnumerable<string> keys)

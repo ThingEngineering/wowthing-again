@@ -1,5 +1,4 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
@@ -44,7 +43,8 @@ public class CacheService
 
     public async Task<(bool, DateTimeOffset)> CheckLastModified(
         string cacheKey,
-        HttpRequest request,
+        // HttpRequest request,
+        object idk,
         ApiUserResult apiUserResult
     )
     {
@@ -58,11 +58,11 @@ public class CacheService
             await db.DateTimeOffsetSetAsync(redisKey, lastModified, CommandFlags.FireAndForget);
         }
 
-        var headers = request?.GetTypedHeaders();
-        if (headers?.IfModifiedSince != null && lastModified <= headers.IfModifiedSince)
-        {
-            return (false, lastModified);
-        }
+        // var headers = request?.GetTypedHeaders();
+        // if (headers?.IfModifiedSince != null && lastModified <= headers.IfModifiedSince)
+        // {
+        //     return (false, lastModified);
+        // }
 
         return (true, lastModified);
     }

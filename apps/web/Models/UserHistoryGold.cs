@@ -1,4 +1,5 @@
-﻿using Wowthing.Web.Converters;
+﻿using System.Text.Json.Serialization;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models;
 

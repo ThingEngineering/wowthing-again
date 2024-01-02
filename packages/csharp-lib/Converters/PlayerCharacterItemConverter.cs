@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Converters;
 
-public class PlayerCharacterItemConverter : System.Text.Json.Serialization.JsonConverter<PlayerCharacterItem>
+public class PlayerCharacterItemConverter : JsonConverter<PlayerCharacterItem>
 {
     public override PlayerCharacterItem Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
