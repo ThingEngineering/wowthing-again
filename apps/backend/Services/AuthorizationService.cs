@@ -58,7 +58,7 @@ public sealed class AuthorizationService : TimerService
             response.EnsureSuccessStatusCode();
 
             var content = await response.Content.ReadAsStringAsync();
-            var apiToken = JsonConvert.DeserializeObject<ApiAccessToken>(content);
+            var apiToken = JsonSerializer.Deserialize<ApiAccessToken>(content);
             Logger.Debug("API token: {@token}", apiToken);
 
             // Save to Redis

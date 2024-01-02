@@ -3,7 +3,6 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 using Polly;
 using Serilog;
 using Serilog.Templates;
@@ -38,13 +37,13 @@ public class Program
                 " {@m:lj}\n{@x}"))
             .CreateLogger();
 
-        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(),
-            },
-        };
+        // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        // {
+        //     ContractResolver = new DefaultContractResolver
+        //     {
+        //         NamingStrategy = new CamelCaseNamingStrategy(),
+        //     },
+        // };
 
         try
         {

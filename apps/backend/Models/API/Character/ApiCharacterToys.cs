@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterToys
 {

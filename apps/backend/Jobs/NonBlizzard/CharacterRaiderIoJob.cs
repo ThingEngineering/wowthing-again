@@ -13,8 +13,8 @@ public class CharacterRaiderIoJob : JobBase
         var query = DeserializeCharacterQuery(data[0]);        using var shrug = CharacterLog(query);
 
         // Fetch seasons
-        var seasonIds = JsonConvert
-            .DeserializeObject<int[]>(data[1])
+        var seasonIds = JsonSerializer
+            .Deserialize<int[]>(data[1])
             .EmptyIfNull();
 
         var oofParts = new List<string>();

@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterAchievementStatistics
 {
@@ -11,7 +9,6 @@ public class ApiCharacterAchievementStatisticsCategory
 {
     public int Id { get; set; }
 
-    [JsonProperty("sub_categories")]
     [JsonPropertyName("sub_categories")]
     public List<ApiCharacterAchievementStatisticsCategory> SubCategories { get; set; }
 

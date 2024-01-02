@@ -11,7 +11,6 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
-using StackExchange.Redis;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
