@@ -98,14 +98,14 @@ public abstract class JobBase : IJob, IDisposable
         var query = HttpUtility.ParseQueryString(builder.Query);
         query["locale"] = !string.IsNullOrEmpty(locale) ? locale : RegionToLocale[region];
         query["namespace"] = $"{ NamespaceToString[lamespace] }-{ RegionToString[region] }";
-        builder.Query = query.ToString();
+        builder.Query = query.ToString()!;
         return builder.Uri;
     }
 
     protected static Uri GenerateUri(SchedulerCharacterQuery query, string path, params string[] formatExtra)
     {
-        var formatParams = new[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
-        var filledPath = string.Format(path, formatParams);
+        object[] formatParams = new object[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
+        string filledPath = string.Format(path, formatParams);
         return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
     }
 
