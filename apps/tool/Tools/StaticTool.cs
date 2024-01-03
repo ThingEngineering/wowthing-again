@@ -50,7 +50,7 @@ public class StaticTool
     {
         { "Brewfest", "holidayBrewfest" },
         { "Darkmoon Faire", "holidayDarkmoonFaire" },
-        { "Feast of Winter Veil", "holidayFeastOfWinterVeil" },
+        { "Feast of Winter Veil", "holidayWinterVeil" },
         { "Hallow's End", "holidayHallowsEnd" },
         { "Love is in the Air", "holidayLoveIsInTheAir" },
         { "Lunar Festival", "holidayLunarFestival" },
