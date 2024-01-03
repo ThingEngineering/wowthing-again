@@ -3,6 +3,7 @@
 
     import PaginateBar from './PaginateBar.svelte'
 
+    // eslint-disable-next-line no-undef
     export let items: TData[]
     export let page: number
     export let perPage: number
