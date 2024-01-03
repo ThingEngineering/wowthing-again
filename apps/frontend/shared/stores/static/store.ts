@@ -100,6 +100,16 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawCurrencyCategories = null
         }
 
+        if (data.rawEnchantments !== null) {
+            data.enchantments = {}
+            for (const [enchantString, enchantIds] of Object.entries(data.rawEnchantments)) {
+                for (const enchantId of enchantIds) {
+                    data.enchantments[enchantId] = enchantString
+                }
+            }
+            data.rawEnchantments = null
+        }
+
         if (data.rawHolidays !== null) {
             data.holidays = StaticDataStore.createObjects(data.rawHolidays, StaticDataHoliday)
             data.rawHolidays = null

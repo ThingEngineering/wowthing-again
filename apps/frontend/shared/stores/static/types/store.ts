@@ -20,7 +20,6 @@ import type { StaticDataWorldQuest, StaticDataWorldQuestArray } from './world-qu
 
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
-    enchantments: Record<number, string>
     illusions: Record<number, StaticDataIllusion>
     inventorySlots: Record<number, string>
     inventoryTypes: Record<number, string>
@@ -56,6 +55,9 @@ export interface StaticData {
 
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
+
+    enchantments: Record<number, string>
+    rawEnchantments: Record<string, number[]>
 
     heirlooms: StaticDataHeirloom[]
     heirloomsById: Record<number, StaticDataHeirloom>
