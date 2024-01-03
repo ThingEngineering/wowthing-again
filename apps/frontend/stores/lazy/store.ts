@@ -5,6 +5,7 @@ import some from 'lodash/some'
 import { derived, get } from 'svelte/store'
 import type { DateTime } from 'luxon'
 
+import { doAppearances, type LazyAppearances } from './appearances'
 import { doCharacters, type LazyCharacter } from './character'
 import { doCollectible, type LazyCollectible } from './collectible'
 import { doConvertible, type LazyConvertible } from './convertible'
@@ -27,7 +28,6 @@ import {
     type ZoneMapState
 } from '../local-storage'
 
-import { appearanceStore } from '../appearance'
 import { itemStore } from '../item'
 import { journalStore } from '../journal'
 import { manualStore } from '../manual'
@@ -45,7 +45,6 @@ import { hashObject } from '@/utils/hash-object'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types'
 import type { JournalData, UserQuestData, UserTransmogData } from '@/types/data'
-import type { AppearanceData } from '@/types/data/appearance'
 import type {
     ManualData,
     ManualDataHeirloomItem,
@@ -56,7 +55,6 @@ import type { Settings } from '@/shared/stores/settings/types'
 
 
 type LazyKey =
-    | 'appearances'
     | 'heirlooms'
     | 'illusions'
     | 'mounts'
@@ -154,7 +152,6 @@ export class LazyStore implements LazyUgh {
     private journalState: JournalState
     private zoneMapState: ZoneMapState
     
-    private appearanceData: AppearanceData
     private itemData: ItemData
     private journalData: JournalData
     private manualData: ManualData
@@ -165,12 +162,12 @@ export class LazyStore implements LazyUgh {
     private userQuestData: UserQuestData
     private userTransmogData: UserTransmogData
     
-    private appearancesFunc: () => UserCounts
     private customizationsFunc: () => UserCounts
     private heirloomsFunc: () => UserCounts
     private illusionsFunc: () => UserCounts
     private recipesFunc: () => UserCounts
 
+    private appearancesFunc: () => LazyAppearances
     private charactersFunc: () => Record<string, LazyCharacter>
     private convertibleFunc: () => LazyConvertible
     private journalFunc: () => LazyJournal
@@ -237,7 +234,6 @@ export class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries)
         this.hashes = newHashes
 
-        /*const appearanceData =*/ this.appearanceData = get(appearanceStore)
         const itemData = this.itemData = get(itemStore)
         const journalData = this.journalData = get(journalStore)
         const manualData = this.manualData = get(manualStore)
@@ -254,6 +250,19 @@ export class LazyStore implements LazyUgh {
         this.userAchievementData = userAchievementData
         this.userQuestData = userQuestData
         this.userTransmogData = userTransmogData
+
+        if (changedData.userTransmogData ||
+            changedHashes.appearanceState ||
+            changedHashes.settingsTransmog)
+        {
+            this.appearancesFunc = once(() => doAppearances({
+                appearanceState,
+                settings,
+                itemData,
+                staticData,
+                userTransmogData,
+            }))
+        }
 
         if (changedData.userData ||
             changedData.userQuestData ||
@@ -310,13 +319,6 @@ export class LazyStore implements LazyUgh {
                 this.manualData.toySets,
                 this.userData.hasToy
             ))
-        }
-
-        if (changedData.userTransmogData ||
-            changedHashes.appearanceState ||
-            changedHashes.settingsTransmog)
-        {
-            this.appearancesFunc = once(() => this.doAppearances())
         }
 
         if (changedData.userQuestData) {
@@ -411,12 +413,12 @@ export class LazyStore implements LazyUgh {
         return this[key as LazyKey]
     }
 
-    get appearances(): UserCounts { return this.appearancesFunc() }
     get customizations(): UserCounts { return this.customizationsFunc() }
     get heirlooms(): UserCounts { return this.heirloomsFunc() }
     get illusions(): UserCounts { return this.illusionsFunc() }
     get recipes(): UserCounts { return this.recipesFunc() }
 
+    get appearances(): LazyAppearances { return this.appearancesFunc() }
     get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
     get convertible(): LazyConvertible { return this.convertibleFunc() }
     get journal(): LazyJournal { return this.journalFunc() }
@@ -453,50 +455,6 @@ export class LazyStore implements LazyUgh {
                     overallData.have += haveCount
                     availabilityData.have += haveCount
                     categoryData.have += haveCount
-                }
-            }
-        }
-
-        return counts
-    }
-
-    private doAppearances(): UserCounts {
-        const counts: UserCounts = {}
-        const overallData = counts['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
-
-        for (const [key, sets] of Object.entries(this.appearanceData.appearances)) {
-            const parentData = counts[key.split('--')[0]] ||= new UserCount()
-            const catData = counts[key] = new UserCount()
-
-            for (const set of sets) {
-                const setData = counts[`${key}--${set.name}`] = new UserCount()
-
-                for (const appearance of set.appearances) {
-                    const quality = appearance.modifiedAppearances[0]?.quality
-                    if (this.appearanceState[`showQuality${quality}`] === false) {
-                        continue
-                    }
-
-                    if (!overallSeen[appearance.appearanceId]) {
-                        overallData.total++
-                    }
-
-                    parentData.total++
-                    catData.total++
-                    setData.total++
-                    
-                    if (this.userTransmogData.hasAppearance.has(appearance.appearanceId)) {
-                        if (!overallSeen[appearance.appearanceId]) {
-                            overallData.have++
-                        }
-
-                        parentData.have++
-                        catData.have++
-                        setData.have++
-                    }
-
-                    overallSeen[appearance.appearanceId] = true
                 }
             }
         }

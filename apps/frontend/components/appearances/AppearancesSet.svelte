@@ -15,7 +15,7 @@
     let element: HTMLElement
     let intersected: boolean
 
-    $: counts = $lazyStore.appearances[slug]
+    $: counts = $lazyStore.appearances.stats[slug]
 </script>
 
 {#if counts.total > 0}

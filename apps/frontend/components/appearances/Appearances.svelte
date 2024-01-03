@@ -2,7 +2,6 @@
     import { afterUpdate } from 'svelte'
 
     import getSavedRoute from '@/utils/get-saved-route'
-    import { appearanceStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
 
     import Sidebar from './AppearancesSidebar.svelte'
@@ -17,7 +16,7 @@
 <div class="view">
     <Sidebar {basePath} />
     
-    {#if $appearanceStore.loaded && params.slug1}
+    {#if params.slug1}
         <View
             {params}
         />

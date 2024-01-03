@@ -1,9 +1,10 @@
-<script lang="ts">
+<script lang="ts" generics="TData">
     import { location } from 'svelte-spa-router'
 
     import PaginateBar from './PaginateBar.svelte'
 
-    export let items: any[]
+    // eslint-disable-next-line no-undef
+    export let items: TData[]
     export let page: number
     export let perPage: number
 

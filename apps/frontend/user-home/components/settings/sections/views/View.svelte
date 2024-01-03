@@ -2,7 +2,6 @@
     import find from 'lodash/find'
 
     import { settingsStore } from '@/shared/stores/settings'
-    import { componentTooltip } from '@/shared/utils/tooltips'
 
     import TooltipCharacterFilter from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'

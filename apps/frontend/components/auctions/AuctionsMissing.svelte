@@ -33,7 +33,7 @@
         }
     }
 
-    const ignoreClick = function(id: number): void {
+    const ignoreClick = function(id: string): void {
         const ignored = $auctionState.ignored[slug1] ||= {}
         if (ignored[id]) {
             delete ignored[id]
@@ -164,7 +164,7 @@
                             <th class="item" colspan="{slug1 === 'missing-pets' ? 4 : 3}">
                                 <WowheadLink
                                     type={thingType}
-                                    id={item.id}
+                                    id={parseInt(item.id)}
                                 >
                                     <WowthingImage
                                         name="{thingType}/{item.id}"

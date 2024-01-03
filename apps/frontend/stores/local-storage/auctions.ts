@@ -36,7 +36,7 @@ export class AuctionState {
 
     public specificItemId = 0
 
-    public ignored: Record<string, Record<number, boolean>> = {}
+    public ignored: Record<string, Record<string, boolean>> = {}
     public includeRussia = false
     public region = '0'
 

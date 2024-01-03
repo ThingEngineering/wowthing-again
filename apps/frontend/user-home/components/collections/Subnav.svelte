@@ -25,7 +25,7 @@
     <nav class="subnav" id="collections-subnav">
         <a href={"#/collections/appearances"} use:active={"/collections/appearances/*"}>
             Appearances
-            <Percent percent={$lazyStore.appearances.OVERALL.percent} />
+            <Percent percent={$lazyStore.appearances.stats.OVERALL.percent} />
         </a>
 
         <a href={"#/collections/customizations"} use:active={"/collections/customizations/*"}>

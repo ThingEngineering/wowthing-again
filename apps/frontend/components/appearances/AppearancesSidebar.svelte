@@ -52,7 +52,7 @@
                 children: weaponChildren,
             }
         ]
-        stats = $lazyStore.appearances.OVERALL
+        stats = $lazyStore.appearances.stats.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -63,7 +63,7 @@
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $lazyStore.appearances[slug]
+        const hasData = $lazyStore.appearances.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 

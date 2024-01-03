@@ -19,7 +19,7 @@
         categories = (find($manualStore.transmog.sets, (s) => s !== null && s[0].slug === slug1) || [])
             .filter((s) =>
                 s.groups.length > 0 &&
-                s.groups[0].type !== null &&
+                !!s.groups[0].type &&
                 (!slug2 || s.slug === slug2)
             )
 
