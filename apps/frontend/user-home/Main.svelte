@@ -2,7 +2,6 @@
     import { onMount } from 'svelte'
 
     import {
-        appearanceStore,
         itemStore,
         journalStore,
         manualStore,
@@ -23,7 +22,6 @@
     import Sidebar from './Sidebar.svelte'
 
     onMount(async () => await Promise.all([
-        appearanceStore.fetch(),
         dbStore.fetch({ language: $settingsStore.general.language }),
         itemStore.fetch({ language: $settingsStore.general.language }),
         journalStore.fetch({ language: $settingsStore.general.language }),
@@ -39,8 +37,7 @@
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $appearanceStore.error
-            || $dbStore.error
+        error = $dbStore.error
             || $itemStore.error
             || $journalStore.error
             || $manualStore.error
@@ -50,8 +47,7 @@
             || $userStore.error
             || $userTransmogStore.error
 
-        loaded = $appearanceStore.loaded
-            && $dbStore.loaded
+        loaded = $dbStore.loaded
             && $itemStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
@@ -65,10 +61,6 @@
             staticStore.setup(
                 $settingsStore,
                 $itemStore
-            )
-
-            appearanceStore.setup(
-                $staticStore
             )
 
             userStore.setup(
