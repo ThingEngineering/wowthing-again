@@ -1,31 +1,28 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Converters;
 
-public class PlayerCharacterMythicPlusRunMemberConverter : JsonConverter
+public class
+    PlayerCharacterMythicPlusRunMemberConverter : JsonConverter<PlayerCharacterMythicPlusRunMember>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var member = (PlayerCharacterMythicPlusRunMember) value;
-        var arr = new JArray();
-        arr.Add(member.RealmId);
-        arr.Add(member.Name);
-        arr.Add(member.SpecializationId);
-        arr.Add(member.ItemLevel);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override PlayerCharacterMythicPlusRunMember Read(ref Utf8JsonReader reader, Type typeToConvert,
+        JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, PlayerCharacterMythicPlusRunMember member,
+        JsonSerializerOptions options)
     {
-        return typeof(PlayerCharacterMythicPlusRunMember) == objectType;
-    }
+        writer.WriteStartArray();
 
-    public override bool CanRead => false;
+        writer.WriteNumberValue(member.RealmId);
+        writer.WriteStringValue(member.Name);
+        writer.WriteNumberValue(member.SpecializationId);
+        writer.WriteNumberValue(member.ItemLevel);
+
+        writer.WriteEndArray();
+    }
 }

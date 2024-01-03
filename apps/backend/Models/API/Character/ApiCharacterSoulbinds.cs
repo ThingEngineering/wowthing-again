@@ -1,14 +1,10 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterSoulbinds
 {
-    [JsonProperty("chosen_covenant")]
     [JsonPropertyName("chosen_covenant")]
     public ApiObnoxiousObject ChosenCovenant { get; set; }
 
-    [JsonProperty("renown_level")]
     [JsonPropertyName("renown_level")]
     public int RenownLevel { get; set; }
 
@@ -17,7 +13,6 @@ public class ApiCharacterSoulbinds
 
 public class ApiCharacterSoulbindsSoulbind
 {
-    [JsonProperty("is_active")]
     [JsonPropertyName("is_active")]
     public bool IsActive { get; set; }
 
@@ -29,7 +24,6 @@ public class ApiCharacterSoulbindsTraitOrConduit
 {
     public int Tier { get; set; }
 
-    [JsonProperty("conduit_socket")]
     [JsonPropertyName("conduit_socket")]
     public ApiCharacterSoulbindsConduit Conduit { get; set; }
 

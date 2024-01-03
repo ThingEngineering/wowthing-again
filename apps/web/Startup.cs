@@ -11,7 +11,6 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
-using Newtonsoft.Json.Serialization;
 using Wowthing.Lib.Services;
 using Wowthing.Web.Models;
 
@@ -37,8 +36,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
 
         services.AddRequestDecompression();
 
-        services.AddControllersWithViews()
-            .AddNewtonsoftJson();
+        services.AddControllersWithViews();
 
         services.AddRouting(options =>
         {
@@ -151,14 +149,14 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, WowDbContext dbContext)
     {
-        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(),
-            },
-            DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
-        };
+        // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        // {
+        //     ContractResolver = new DefaultContractResolver
+        //     {
+        //         NamingStrategy = new CamelCaseNamingStrategy(),
+        //     },
+        //     DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
+        // };
 
         dbContext.Database.Migrate();
 

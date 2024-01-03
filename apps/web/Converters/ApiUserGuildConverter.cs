@@ -4,7 +4,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Web.Converters;
 
-public class ApiUserGuildConverter : System.Text.Json.Serialization.JsonConverter<ApiUserGuild>
+public class ApiUserGuildConverter : JsonConverter<ApiUserGuild>
 {
     public override ApiUserGuild Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

@@ -4,7 +4,7 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Web.Converters;
 
-public class ApiUserCharacterConverter : System.Text.Json.Serialization.JsonConverter<ApiUserCharacter>
+public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
 {
     public override ApiUserCharacter Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

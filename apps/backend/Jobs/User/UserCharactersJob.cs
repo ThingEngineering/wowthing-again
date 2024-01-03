@@ -160,7 +160,7 @@ public class UserCharactersJob : JobBase
                 catch (Exception ex)
                 {
                     Logger.Error(ex, "Error in region {Region}", region.ToString());
-                    Logger.Warning("Character: {json}", JsonConvert.SerializeObject(apiCharacter));
+                    Logger.Warning("Character: {json}", JsonSerializer.Serialize(apiCharacter));
                 }
             }
 

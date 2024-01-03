@@ -5,7 +5,7 @@ using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(ApiUserCharacterConverter))]
+[JsonConverter(typeof(ApiUserCharacterConverter))]
 public class ApiUserCharacter
 {
     public int Id { get; }

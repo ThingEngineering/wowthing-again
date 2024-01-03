@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Converters;
 
@@ -60,7 +61,7 @@ public class PlayerCharacterAddonDataAura
     public int Stacks { get; set; }
 }
 
-[System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
+[JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
 public class PlayerCharacterAddonDataCurrency
 {
     public int Quantity { get; set; }

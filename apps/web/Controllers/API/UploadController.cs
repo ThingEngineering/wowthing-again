@@ -30,7 +30,6 @@ public class UploadController : Controller
         if (apiUpload?.ApiKey == null || apiUpload.LuaFile == null)
         {
             _logger.LogWarning("Invalid request format");
-            _logger.LogDebug("Upload: {0}", JsonConvert.SerializeObject(apiUpload));
             return BadRequest("Invalid request format");
         }
 

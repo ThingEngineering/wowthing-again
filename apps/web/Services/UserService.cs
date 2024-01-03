@@ -49,7 +49,7 @@ public class UserService
 
         var settings = apiResult.User.Settings ?? new ApplicationUserSettings();
         settings.Migrate();
-        string settingsJson = System.Text.Json.JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+        string settingsJson = JsonSerializer.Serialize(settings, _jsonSerializerOptions);
 
         string modifiedJson = await _memoryCacheService.GetUserModifiedJsonAsync(apiResult);
 

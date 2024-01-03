@@ -10,7 +10,6 @@ public class ApiUser
     public DateTime? LastApiCheck { get; set; }
     public bool Public { get; init; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Dictionary<int, ApiUserAccount> Accounts { get; init; }
 
     [JsonPropertyName("charactersRaw")]

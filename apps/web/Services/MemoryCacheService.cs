@@ -236,7 +236,6 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
             task => task.Key,
             task => Math.Max(0, task.Value.Result.Item2.ToUnixTimeSeconds())
         );
-        string json = System.Text.Json.JsonSerializer.Serialize(times);
-        return json;
+        return JsonSerializer.Serialize(times);
     }
 }

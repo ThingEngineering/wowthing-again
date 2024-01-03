@@ -11,7 +11,6 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
-using StackExchange.Redis;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -192,7 +191,7 @@ public class UserUploadJob : JobBase
 #endif
 
         //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
-        var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
+        var parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
 
         // Fetch guild data

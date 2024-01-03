@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterEquipment
 {
-    [JsonProperty("equipped_items")]
     [JsonPropertyName("equipped_items")]
     public List<ApiCharacterEquipmentItem> Items { get; set; }
 }
@@ -17,7 +14,6 @@ public class ApiCharacterEquipmentItem
     public ApiTypeName Slot { get; set; }
     public ApiValueDisplay Level { get; set; }
 
-    [JsonProperty("bonus_list")]
     [JsonPropertyName("bonus_list")]
     public List<int> BonusList { get; set; }
 
@@ -27,11 +23,9 @@ public class ApiCharacterEquipmentItem
 
 public class ApiCharacterEquipmentItemEnchantment
 {
-    [JsonProperty("enchantment_id")]
     [JsonPropertyName("enchantment_id")]
     public int Id { get; set; }
 
-    [JsonProperty("enchantment_slot")]
     [JsonPropertyName("enchantment_slot")]
     public ApiTypeId Slot { get; set; }
 }

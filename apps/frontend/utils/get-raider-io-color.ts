@@ -8,7 +8,7 @@ export default function getRaiderIoColor(
     if (score === 0) {
         return '#9d9d9d';
     }
-    if (tiers) {
+    if (tiers?.score?.length > 0) {
         for (let i = 0; i < tiers.score.length; i++) {
             if (score >= tiers.score[i]) {
                 return tiers.rgbHex[i]

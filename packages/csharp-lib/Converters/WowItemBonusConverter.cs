@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Converters;
 
-public class WowItemBonusConverter : System.Text.Json.Serialization.JsonConverter<WowItemBonus>
+public class WowItemBonusConverter : JsonConverter<WowItemBonus>
 {
     public override WowItemBonus Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterMythicKeystoneProfile
 {
-    [JsonProperty("current_period")]
     [JsonPropertyName("current_period")]
     public ApiCharacterMythicKeystonePeriod CurrentPeriod { get; set; }
 
@@ -15,7 +12,6 @@ public class ApiCharacterMythicKeystonePeriod
 {
     public ApiObnoxiousObject Period { get; set; }
 
-    [JsonProperty("best_runs")]
     [JsonPropertyName("best_runs")]
     public List<ApiCharacterMythicKeystoneBestRun> BestRuns { get; set; }
 }
@@ -26,19 +22,15 @@ public class ApiCharacterMythicKeystoneBestRun
     public int Duration { get; set; }
     public List<ApiCharacterMythicKeystoneMember> Members { get; set; }
 
-    [JsonProperty("keystone_affixes")]
     [JsonPropertyName("keystone_affixes")]
     public List<ApiObnoxiousObject> Affixes { get; set; }
 
-    [JsonProperty("completed_timestamp")]
     [JsonPropertyName("completed_timestamp")]
     public long CompletedTimestamp { get; set; }
 
-    [JsonProperty("keystone_level")]
     [JsonPropertyName("keystone_level")]
     public int KeystoneLevel { get; set; }
 
-    [JsonProperty("is_completed_within_time")]
     [JsonPropertyName("is_completed_within_time")]
     public bool Timed { get; set; }
 }
@@ -48,7 +40,6 @@ public class ApiCharacterMythicKeystoneMember
     public ApiCharacterMythicKeystoneMemberCharacter Character { get; set; }
     public ApiObnoxiousObject Specialization { get; set; }
 
-    [JsonProperty("equipped_item_level")]
     [JsonPropertyName("equipped_item_level")]
     public int ItemLevel { get; set; }
 }

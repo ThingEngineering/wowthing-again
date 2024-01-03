@@ -50,7 +50,7 @@ public class StaticTool
     {
         { "Brewfest", "holidayBrewfest" },
         { "Darkmoon Faire", "holidayDarkmoonFaire" },
-        { "Feast of Winter Veil", "holidayFeastOfWinterVeil" },
+        { "Feast of Winter Veil", "holidayWinterVeil" },
         { "Hallow's End", "holidayHallowsEnd" },
         { "Love is in the Air", "holidayLoveIsInTheAir" },
         { "Lunar Festival", "holidayLunarFestival" },
@@ -350,9 +350,16 @@ public class StaticTool
             cacheData.Professions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
 
-            cacheData.Enchantments = _stringMap
-                .Where(kvp => kvp.Key.Type == StringType.WowSpellItemEnchantmentName && kvp.Key.Language == language)
-                .ToDictionary(kvp => kvp.Key.Id, kvp => kvp.Value);
+            cacheData.RawEnchantments = _stringMap
+                .Where(kvp =>
+                    kvp.Key.Type == StringType.WowSpellItemEnchantmentName
+                    && kvp.Key.Language == language
+                    && !string.IsNullOrWhiteSpace(kvp.Value)
+                )
+                .ToGroupedDictionary(
+                    kvp => kvp.Value,
+                    kvp => kvp.Key.Id
+                );
 
             cacheData.InventorySlots = _stringMap
                 .Where(kvp => kvp.Key.Type == StringType.WowInventorySlot && kvp.Key.Language == language)

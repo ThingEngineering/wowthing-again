@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Wowthing.Lib.Models.Player;
+﻿using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Backend.Models.API.Character;
 

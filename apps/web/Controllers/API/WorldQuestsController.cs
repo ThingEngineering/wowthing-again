@@ -32,7 +32,7 @@ public class WorldQuestsController : Controller
             .Where(wqa => wqa.Region == (short)(region & 0x7FFF))
             .ToArrayAsync();
 
-        string json = System.Text.Json.JsonSerializer.Serialize(results, _jsonSerializerOptions);
+        string json = JsonSerializer.Serialize(results, _jsonSerializerOptions);
         return Content(json, MediaTypeNames.Application.Json);
     }
 }

@@ -4,7 +4,7 @@ using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
-[System.Text.Json.Serialization.JsonConverter(typeof(ApiUserGuildConverter))]
+[JsonConverter(typeof(ApiUserGuildConverter))]
 public class ApiUserGuild
 {
     public int Id { get; set; }

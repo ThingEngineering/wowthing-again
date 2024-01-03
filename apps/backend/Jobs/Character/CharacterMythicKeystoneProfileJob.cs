@@ -100,7 +100,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
 
         if (apiSeasons.Length > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonConvert.SerializeObject(apiSeasons));
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
         }
     }
 }
