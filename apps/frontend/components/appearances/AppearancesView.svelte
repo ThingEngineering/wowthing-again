@@ -50,7 +50,7 @@
     {#if name && sets}
         <div class="collection thing-container">
             <SectionTitle
-                count={$lazyStore.appearances[dataSlug]}
+                count={$lazyStore.appearances.stats[dataSlug]}
                 title={name}
             />
             
