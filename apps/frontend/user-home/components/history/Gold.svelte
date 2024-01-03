@@ -12,7 +12,7 @@
         Title,
         Tooltip,
     } from 'chart.js'
-    import type { TimeUnit } from 'chart.js'
+    import type { ChartData, TimeUnit } from 'chart.js'
     import 'chartjs-adapter-luxon'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
@@ -47,7 +47,12 @@
         Tooltip,
     )
 
-    let chart: Chart
+    type DateTimePoint = {
+        x: DateTime,
+        y: number,
+    }
+
+    let chart: Chart<'line', DateTimePoint[]>
     let ready: boolean
     $: {
         if (ready) {
@@ -78,15 +83,13 @@
         month: ['MMM yyyy', 'month'],
     }
 
-    type DataPoint = {x: DateTime, y: number}
-    const redrawChart = function(historyState: HistoryState, userHistoryData: UserHistoryData)
-    {
+    const redrawChart = function(historyState: HistoryState, userHistoryData: UserHistoryData) {
         console.time('redrawChart')
         if (chart) {
             chart.destroy()
         }
 
-        const data: { datasets: any[] } = {
+        const data: ChartData<'line', DateTimePoint[]> = {
             datasets: [],
         }
         const stacked = historyState.chartType === 'area-stacked'
@@ -138,7 +141,7 @@
 
             const color = colors[(realmIndex + 1) * 2]
 
-            let points: DataPoint[]
+            let points: DateTimePoint[]
             if (historyState.interval === 'hour') {
                 points = userHistoryData.gold[realmId]
                     .map((point) => ({
@@ -231,7 +234,9 @@
             }
 
             for (const point of points) {
-                pointMap[point.x.toUnixInteger()] = point.x
+                if (point.x instanceof DateTime) {
+                    pointMap[point.x.toUnixInteger()] = point.x
+                }
             }
 
             data.datasets.push({
@@ -248,18 +253,18 @@
 
         // Pad out each dataset with data for all time periods
         console.time('redrawChart.datasets')
-        const smalls: Record<number, DataPoint> = {}
-        const totals: Record<number, DataPoint> = {}
+        const smalls: Record<number, DateTimePoint> = {}
+        const totals: Record<number, DateTimePoint> = {}
 
         const allPoints: [number, DateTime][] = Object.entries(pointMap)
             .map(([a, b]) => [parseInt(a), b])
         allPoints.sort()
 
         for (const dataset of data.datasets) {
-            const oldMap: Record<number, DataPoint> = Object.fromEntries(
-                dataset.data.map((dataPoint: DataPoint) => [dataPoint.x.toUnixInteger(), dataPoint])
+            const oldMap: Record<number, DateTimePoint> = Object.fromEntries(
+                dataset.data.map((dataPoint: DateTimePoint) => [dataPoint.x.toUnixInteger(), dataPoint])
             )
-            const newData: DataPoint[] = []
+            const newData: DateTimePoint[] = []
 
             for (let pointIndex = 0; pointIndex < allPoints.length; pointIndex++) {
                 const [ts, dateTime] = allPoints[pointIndex]
@@ -303,7 +308,7 @@
                 if (anyUseful) {
                     const smallPoints = sortBy(
                         Object.values(smalls),
-                        (point: DataPoint) => point.x.toUnixInteger()
+                        (point: DateTimePoint) => point.x.toUnixInteger()
                     )
 
                     data.datasets.push({
@@ -320,7 +325,7 @@
 
             const totalPoints = sortBy(
                 Object.values(totals),
-                (point: DataPoint) => point.x.toUnixInteger()
+                (point) => point.x.toUnixInteger()
             )
 
             data.datasets.push({
