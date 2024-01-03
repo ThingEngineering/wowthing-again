@@ -6,27 +6,22 @@ namespace Wowthing.Tool.Models.Static;
 [JsonConverter(typeof(StaticTransmogSetConverter))]
 public class StaticTransmogSet : WowTransmogSet
 {
-    public List<List<int>> Items { get; set; }
-    public string Name { get; set; }
+    public Dictionary<int, List<int>> ItemsByModifier { get; } = new();
+    public string Name { get; set; } = string.Empty;
 
     public StaticTransmogSet(WowTransmogSet transmogSet, Dictionary<int, WowItemModifiedAppearance> imaMap) : base(transmogSet.Id)
     {
         ClassMask = transmogSet.ClassMask;
         Flags = transmogSet.Flags;
         GroupId = transmogSet.GroupId;
-        // ItemModifiedAppearanceIds = transmogSet.ItemModifiedAppearanceIds;
         ItemNameDescriptionId = transmogSet.ItemNameDescriptionId;
 
-        Items = new();
         foreach (int imaId in transmogSet.ItemModifiedAppearanceIds)
         {
             if (imaMap.TryGetValue(imaId, out var ima))
             {
-                Items.Add(new List<int>
-                {
-                    ima.ItemId,
-                    ima.Modifier,
-                });
+                ItemsByModifier.TryAdd(ima.Modifier, []);
+                ItemsByModifier[ima.Modifier].Add(ima.ItemId);
             }
         }
     }

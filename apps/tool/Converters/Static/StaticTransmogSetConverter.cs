@@ -20,14 +20,18 @@ public class StaticTransmogSetConverter : JsonConverter<StaticTransmogSet>
         // writer.WriteNumberValue(value.ItemNameDescriptionId);
 
         writer.WriteStartArray();
-        foreach (var itemInfo in value.Items)
+        foreach (var (modifier, itemIds) in value.ItemsByModifier)
         {
             writer.WriteStartArray();
-            writer.WriteNumberValue(itemInfo[0]);
-            if (itemInfo[1] > 0)
+            writer.WriteNumberValue(modifier);
+
+            int lastId = 0;
+            foreach (int itemId in itemIds.Order())
             {
-                writer.WriteNumberValue(itemInfo[1]);
+                writer.WriteNumberValue(itemId - lastId);
+                lastId = itemId;
             }
+
             writer.WriteEndArray();
         }
         writer.WriteEndArray();
