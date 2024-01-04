@@ -254,6 +254,11 @@ public class StaticTool
                 item => item.RequiredAbility
             );
 
+        foreach (var kvp in Hardcoded.ItemToRequiredAbility)
+        {
+            cacheData.ItemToRequiredAbility.Add(kvp.Key, kvp.Value);
+        }
+
         cacheData.ItemToSkillLine = _itemMap.Values
             .Where(item => item.RequiredSkill > 0)
             .ToDictionary(
