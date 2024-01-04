@@ -668,6 +668,11 @@ public class StaticTool
                             outAbility.ItemId = nameItemId;
                         }
 
+                        if (outAbility.ItemId == 0)
+                        {
+                            continue;
+                        }
+
                         if (!_itemMap.TryGetValue(outAbility.ItemId, out var item))
                         {
                             ToolContext.Logger.Warning("Invalid item: {id}", outAbility.ItemId);
