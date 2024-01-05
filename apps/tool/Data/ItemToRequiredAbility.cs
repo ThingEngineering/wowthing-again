@@ -17,6 +17,7 @@ public partial class Hardcoded
         { 18645, 20219 }, // Gnomish Alarm-o-Bot
 
         // Classic: Goblin Engineering
+        { 7189, 20222 }, // Goblin Rocket Boots
         { 10542, 20222 }, // Goblin Mining Helmet
         { 10543, 20222 }, // Goblin Construction Helmet
         { 10577, 20222 }, // Goblin Mortar
