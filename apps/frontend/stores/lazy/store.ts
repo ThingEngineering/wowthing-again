@@ -273,6 +273,7 @@ export class LazyStore implements LazyUgh {
             this.charactersFunc = once(() => doCharacters({
                 currentTime,
                 settings: this.settings,
+                staticData: this.staticData,
                 userData: this.userData,
                 userQuestData: this.userQuestData
             }))
