@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { userStore } from '@/stores'
     import { settingsStore } from '@/shared/stores/settings'
     import { toNiceDuration } from '@/utils/formatting'
     import { getCharacterRested } from '@/utils/get-character-rested'

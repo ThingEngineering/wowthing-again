@@ -5,15 +5,15 @@
         itemStore,
         journalStore,
         manualStore,
-        timeStore,
         userAchievementStore,
         userQuestStore,
         userStore,
         userTransmogStore,
     } from '@/stores'
     import { dbStore } from '@/shared/stores/db'
-    import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/shared/stores/settings'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import parseApiTime from '@/utils/parse-api-time'
 
     import NewNav from './NewNav.svelte'

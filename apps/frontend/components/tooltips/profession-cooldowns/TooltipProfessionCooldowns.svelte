@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character, ProfessionCooldown } from '@/types'
 

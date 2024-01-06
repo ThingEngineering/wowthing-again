@@ -5,7 +5,8 @@
 
     import { Constants } from '@/data/constants'
     import { seasonMap } from '@/data/dungeon'
-    import { timeStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'

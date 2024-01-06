@@ -1,7 +1,8 @@
 <script lang="ts">
     import { seasonMap } from '@/data/dungeon'
     import { commonColspan } from '@/shared/stores/settings'
-    import { timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { userStore } from '@/stores'
     import { getRunDungeonStats } from '@/utils/dungeon/get-run-dungeon-stats'
     import type { CharacterMythicPlusAddonRun, MythicPlusSeason } from '@/types'
 

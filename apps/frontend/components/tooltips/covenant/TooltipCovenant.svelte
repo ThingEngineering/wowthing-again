@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 

@@ -1,7 +1,8 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { timeStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import { homeState } from '@/stores/local-storage'
     import { activeView } from '@/shared/stores/settings'
     import { getActiveHolidays } from '@/utils/get-active-holidays'

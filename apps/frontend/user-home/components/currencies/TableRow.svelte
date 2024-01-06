@@ -1,6 +1,7 @@
 <script lang="ts">
     import { currencyItemCurrencies } from '@/data/currencies'
-    import { itemStore, timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { itemStore, userStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { toNiceNumber } from '@/utils/formatting'
     import type { Character } from '@/types'

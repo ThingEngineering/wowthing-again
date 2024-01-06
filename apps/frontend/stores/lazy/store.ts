@@ -21,8 +21,8 @@ import {
     journalState,
     vendorState,
     zoneMapState,
-    type CollectibleState,
     type AppearancesState,
+    type CollectibleState,
     type JournalState,
     type VendorState,
     type ZoneMapState
@@ -33,7 +33,7 @@ import { journalStore } from '../journal'
 import { manualStore } from '../manual'
 import { settingsStore } from '@/shared/stores/settings'
 import { staticStore } from '@/shared/stores/static'
-import { timeStore } from '../time'
+import { timeStore } from '@/shared/stores/time'
 import { userStore } from '../user'
 import { userAchievementStore } from '../user-achievements'
 import { userQuestStore } from '../user-quests'
