@@ -2,7 +2,8 @@
     import { writable } from 'svelte/store'
 
     import { uiIcons } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { browserStore } from '@/shared/stores/browser'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
     import { settingsState } from '@/stores/local-storage'
     import type { SettingsView } from '@/shared/stores/settings/types'
 
@@ -56,8 +57,8 @@
         $deleting = null
         $settingsStore.views = $settingsStore.views.filter((view) => view.id !== viewId)
 
-        if ($settingsStore.activeView === viewId) {
-            $settingsStore.activeView = $settingsStore.views[0].id
+        if ($activeView.id === viewId) {
+            $browserStore.home.activeView = $settingsStore.views[0].id
         }
     }
 </script>
