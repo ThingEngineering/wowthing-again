@@ -5,11 +5,11 @@
 
     import { categoryChildren, categoryOrder, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
     import { staticStore } from '@/shared/stores/static'
+    import { itemStore } from '@/stores'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
-    import { itemStore } from '@/stores';
 
     export let view: SettingsView
 

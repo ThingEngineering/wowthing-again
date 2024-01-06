@@ -3,11 +3,11 @@
 
     import { iconLibrary } from '@/shared/icons'
     import { settingsStore } from '@/shared/stores/settings'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import { basicTooltip } from '@/shared/utils/tooltips';
 </script>
 
 <style lang="scss">

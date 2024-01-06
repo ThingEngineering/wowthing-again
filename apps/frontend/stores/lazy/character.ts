@@ -1,22 +1,21 @@
 import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
+import { expansionOrder } from '@/data/expansion'
 import { dragonflightProfessionMap, professionSpecializationSpells } from '@/data/professions'
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
 import { CharacterFlag } from '@/enums/character-flag'
+import { Faction } from '@/enums/faction'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
 import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
 import { UserCount, type Character, type ProfessionCooldown, type ProfessionCooldownQuest, type ProfessionCooldownSpell, type UserData } from '@/types'
-import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 import type { Settings } from '@/shared/stores/settings/types'
 import type { StaticData, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
-import { expansionOrder } from '@/data/expansion'
-import CharacterProfessions from '@/components/characters/professions/CharacterProfessions.svelte'
-import { Faction } from '@/enums/faction'
+import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 
 
 export interface LazyCharacter {
