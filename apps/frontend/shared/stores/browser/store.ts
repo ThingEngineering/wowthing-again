@@ -5,12 +5,21 @@ import { objectKeys } from '@/utils/object-keys'
 
 const storageKey = 'browserStore'
 
-export class BrowserState {
-    home: BrowserStateHome = new BrowserStateHome()
+class BrowserState {
+    home = new BrowserStateHome()
+    matrix = new BrowserStateMatrix()
 }
 
 class BrowserStateHome {
     activeView: string = ''
+}
+
+class BrowserStateMatrix {
+    minLevel = 0
+    showCharacterAs: 'level' | 'name' = 'level'
+    showCovenant = false
+    xAxis: string[] = []
+    yAxis: string[] = []
 }
 
 const initialState = new BrowserState()

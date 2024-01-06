@@ -10,8 +10,8 @@
     import { Gender, genderValues } from '@/enums/gender'
     import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
+    import { browserStore } from '@/shared/stores/browser'
     import { staticStore } from '@/shared/stores/static'
-    import { matrixState } from '@/stores/local-storage'
     import { settingsStore } from '@/shared/stores/settings'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import { componentTooltip } from '@/shared/utils/tooltips'
@@ -39,7 +39,7 @@
             (char) => (
                 $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
-                char.level >= $matrixState.minLevel
+                char.level >= $browserStore.matrix.minLevel
             )
         )
 
@@ -57,11 +57,11 @@
             ])
         //realms.sort()
 
-        const sortedX = sortBy($matrixState.xAxis, (key) => axisOrder.indexOf(key))
-        const sortedY = sortBy($matrixState.yAxis, (key) => axisOrder.indexOf(key))
+        const sortedX = sortBy($browserStore.matrix.xAxis, (key) => axisOrder.indexOf(key))
+        const sortedY = sortBy($browserStore.matrix.yAxis, (key) => axisOrder.indexOf(key))
 
         const allAxis = sortBy(
-            [...$matrixState.xAxis, ...$matrixState.yAxis],
+            [...$browserStore.matrix.xAxis, ...$browserStore.matrix.yAxis],
             (key) => axisOrder.indexOf(key)
         )
         
@@ -376,9 +376,9 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="x_{value}"
-                    disabled={$matrixState.yAxis.indexOf(value) >= 0}
+                    disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0}
                     {value}
-                    bind:bindGroup={$matrixState.xAxis}
+                    bind:bindGroup={$browserStore.matrix.xAxis}
                 >{label}</GroupedCheckbox>
             {/each}
         </div>
@@ -389,9 +389,9 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="y_{value}"
-                    disabled={$matrixState.xAxis.indexOf(value) >= 0}
+                    disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0}
                     {value}
-                    bind:bindGroup={$matrixState.yAxis}
+                    bind:bindGroup={$browserStore.matrix.yAxis}
                 >{label}</GroupedCheckbox>
             {/each}
         </div>
@@ -403,7 +403,7 @@
                 name="min_level"
                 minValue={0}
                 maxValue={Constants.characterMaxLevel}
-                bind:value={$matrixState.minLevel}
+                bind:value={$browserStore.matrix.minLevel}
             />
         </div>
 
@@ -411,7 +411,7 @@
             Show as:&nbsp;
             <RadioGroup
                 name="show_character_as"
-                bind:value={$matrixState.showCharacterAs}
+                bind:value={$browserStore.matrix.showCharacterAs}
                 options={[
                     ['level', 'Level'],
                     ['name', 'Name'],
@@ -422,7 +422,7 @@
         <div class="options-container background-box">
             <CheckboxInput
                 name="show_covenant"
-                bind:value={$matrixState.showCovenant}
+                bind:value={$browserStore.matrix.showCovenant}
             >
                 Show Covenant
             </CheckboxInput>
@@ -453,7 +453,7 @@
                     {#each xKeys as xKey}
                         {@const keyCharacters = getCharacters(xKey, yKey)}
                         <td
-                            class="characters as-{$matrixState.showCharacterAs}"
+                            class="characters as-{$browserStore.matrix.showCharacterAs}"
                             class:max-level={some(keyCharacters, (char) => char.level === Constants.characterMaxLevel)}
                             class:no-characters={keyCharacters.length === 0}
                         >
@@ -467,10 +467,10 @@
                                         },
                                     }}
                                 >
-                                    {#if $matrixState.showCovenant && character.shadowlands?.covenantId}
+                                    {#if $browserStore.matrix.showCovenant && character.shadowlands?.covenantId}
                                         <CovenantIcon covenantId={character.shadowlands.covenantId} />
                                     {/if}
-                                    {#if $matrixState.showCharacterAs === 'level'}
+                                    {#if $browserStore.matrix.showCharacterAs === 'level'}
                                         {character.level}
                                     {:else}
                                         <a
