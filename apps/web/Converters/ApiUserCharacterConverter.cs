@@ -58,6 +58,7 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         JsonSerializer.Serialize(writer, character.Reputations, options); // 38
         JsonSerializer.Serialize(writer, character.Shadowlands, options); // 39
         JsonSerializer.Serialize(writer, character.Weekly, options); // 40
+        // JsonSerializer.Serialize(writer, "", options); // 40
 
         JsonSerializer.Serialize(writer, character.RawCurrencies, options); // 41
         JsonSerializer.Serialize(writer, character.RawItems, options); // 42

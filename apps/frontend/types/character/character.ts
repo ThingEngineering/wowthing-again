@@ -31,7 +31,7 @@ import {
     type CharacterStatisticMiscArray,
     type CharacterStatisticRatingArray
 } from './statistics'
-import type { CharacterWeekly } from './weekly'
+import { CharacterWeekly, type CharacterWeeklyArray } from './weekly'
 
 import type { ContainsItems, HasNameAndRealm } from '../shared'
 import type { Account } from '../account'
@@ -63,6 +63,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public reputationData: Record<string, CharacterReputation>
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
+    public weekly: CharacterWeekly
 
     constructor(
         public id: number,
@@ -107,7 +108,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public raiderIo: Record<number, CharacterRaiderIoSeason>,
         public reputations: Record<number, number>,
         public shadowlands: CharacterShadowlands,
-        public weekly: CharacterWeekly,
+        rawWeekly: CharacterWeeklyArray,
 
         rawCurrencies: CharacterCurrencyArray[],
         rawItems: CharacterItemArray[],
@@ -136,6 +137,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.itemsByAppearanceSource = {}
         this.itemsById = {}
         this.itemsByLocation = {}
+
+        if (rawWeekly) {
+            this.weekly = new CharacterWeekly(...rawWeekly)
+        }
 
         for (const rawCurrency of (rawCurrencies || [])) {
             const obj = new CharacterCurrency(...rawCurrency)
