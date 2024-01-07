@@ -44,7 +44,7 @@ public class ApiUserCharacter
 
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
     public ApiUserCharacterMythicPlus MythicPlus { get; }
-    public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
+    public Dictionary<int, ApiUserCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
@@ -205,7 +205,13 @@ public class ApiUserCharacter
                     pub && privacy?.Anonymized == true);
             }
 
-            MythicPlusAddon = character.AddonData?.MythicPlus;
+            MythicPlusAddon = character.AddonData?.MythicPlus
+                .EmptyIfNull()
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => new ApiUserCharacterAddonDataMythicPlus(kvp.Value)
+                );
+
             MythicPlusSeasons = character.AddonData?.MythicPlusSeasons;
 
             if (character.AddonData?.MythicPlusWeeks != null)

@@ -1,13 +1,15 @@
 export interface CharacterMythicPlus {
-    currentPeriodId: number
-    periodRuns: Record<number, CharacterMythicPlusRun[]>
     seasons: Record<number, Record<number, CharacterMythicPlusRun[]>>
+
+    currentPeriodId: number
+    rawSeasons: Record<number, Record<number, CharacterMythicPlusRunArray[]>>
 }
 
 export interface CharacterMythicPlusAddon {
-    maps: Record<number, CharacterMythicPlusAddonMap>
     runs: Array<CharacterMythicPlusAddonRun>
-    season: number
+
+    maps: Record<number, CharacterMythicPlusAddonMap>
+    rawRuns: CharacterMythicPlusAddonRunArray[]
 }
 
 export class CharacterMythicPlusAddonRun {
@@ -53,16 +55,19 @@ export class CharacterMythicPlusAddonMapAffix {
 }
 type CharacterMythicPlusAddonMapAffixArray = ConstructorParameters<typeof CharacterMythicPlusAddonMapAffix>
 
-export interface CharacterMythicPlusRun {
-    affixes: number[]
-    completed: string
-    dungeonId: number
-    duration: number
-    keystoneLevel: number
-    members: CharacterMythicPlusRunMemberArray[]
-    memberObjects: CharacterMythicPlusRunMember[]
-    timed: boolean
+export class CharacterMythicPlusRun {
+    constructor(
+        public completed: string,
+        public dungeonId: number,
+        public keystoneLevel: number,
+        public duration: number,
+        public timed: boolean,
+        public affixes: number[],
+        public members?: CharacterMythicPlusRunMemberArray[],
+        public memberObjects?: CharacterMythicPlusRunMember[]
+    ) { }
 }
+export type CharacterMythicPlusRunArray = ConstructorParameters<typeof CharacterMythicPlusRun>
 
 export class CharacterMythicPlusRunMember {
     constructor(

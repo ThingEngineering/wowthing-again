@@ -1,6 +1,6 @@
 ﻿using Wowthing.Lib.Models.Player;
 
-namespace Wowthing.Lib.Converters;
+namespace Wowthing.Web.Converters;
 
 public class PlayerCharacterAddonDataMythicPlusMapConverter : JsonConverter<PlayerCharacterAddonDataMythicPlusMap>
 {

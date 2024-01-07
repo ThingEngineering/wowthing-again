@@ -12,6 +12,7 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Converters;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Api.User;
@@ -470,6 +471,8 @@ public class ApiController : Controller
             Converters =
             {
                 new PlayerCharacterAddonDataMythicPlusMapConverter(),
+                new PlayerCharacterAddonDataMythicPlusRunConverter(),
+                new PlayerCharacterMythicPlusRunConverter(),
             },
         };
 

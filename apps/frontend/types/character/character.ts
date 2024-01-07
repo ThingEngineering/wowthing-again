@@ -15,7 +15,8 @@ import {
     type CharacterMythicPlus,
     type CharacterMythicPlusAddon, CharacterMythicPlusAddonMap,
     type CharacterMythicPlusAddonRunArray,
-    type CharacterMythicPlusAddonMapArray
+    type CharacterMythicPlusAddonMapArray,
+    CharacterMythicPlusRun
 } from './mythic-plus'
 import type { CharacterProfession } from './profession'
 import type { CharacterRaiderIoSeason } from './raider-io-season'
@@ -156,6 +157,26 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
             else {
                 (this.itemsByLocation[obj.location] ||= []).push(obj)
+            }
+        }
+
+        if (this.mythicPlus) {
+            this.mythicPlus.seasons = {}
+            for (const [seasonId, seasonData] of getNumberKeyedEntries(this.mythicPlus.rawSeasons || {})) {
+                this.mythicPlus.seasons[seasonId] = {}
+                for (const [mapId, runArrays] of getNumberKeyedEntries(seasonData)) {
+                    this.mythicPlus.seasons[seasonId][mapId] = runArrays.map((runArray) =>
+                        new CharacterMythicPlusRun(...runArray))
+                }
+            }
+            this.mythicPlus.rawSeasons = null
+        }
+
+        if (this.mythicPlusAddon) {
+            for (const seasonData of Object.values(this.mythicPlusAddon)) {
+                seasonData.runs = (seasonData.rawRuns || [])
+                    .map((runArray) => new CharacterMythicPlusAddonRun(...runArray))
+                seasonData.rawRuns = null
             }
         }
 
