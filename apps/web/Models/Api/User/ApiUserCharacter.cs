@@ -57,7 +57,7 @@ public class ApiUserCharacter
     public ApiUserCharacterShadowlands Shadowlands { get; set; }
     public ApiUserCharacterWeekly Weekly { get; }
 
-    public List<PlayerCharacterAddonDataCurrency> RawCurrencies { get; }
+    public ApiUserCharacterCurrency[] RawCurrencies { get; }
     public PlayerCharacterItem[] RawItems { get; set; }
     public Dictionary<int, List<ApiUserCharacterMythicPlusRun>> RawMythicPlusWeeks { get; set; }
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> RawSpecializations { get; }
@@ -143,15 +143,23 @@ public class ApiUserCharacter
         if (!pub || privacy?.PublicCurrencies == true)
         {
             var currencyValues = character.AddonData?.Currencies?.Values.ToList();
-            RawCurrencies = currencyValues.EmptyIfNull();
+            RawCurrencies = currencyValues
+                .EmptyIfNull()
+                .Where(currency => currency.Max > 0 ||
+                                   currency.Quantity > 0 ||
+                                   currency.TotalQuantity > 0 ||
+                                   currency.WeekMax > 0 ||
+                                   currency.WeekQuantity > 0)
+                .Select(currency => new ApiUserCharacterCurrency(currency))
+                .ToArray();
 
-        //     CurrencyItems = currencyItems
-        //         .EmptyIfNull()
-        //         .GroupBy(ci => ci.ItemId)
-        //         .ToDictionary(
-        //             group => group.Key,
-        //             group => group.Sum(ci => ci.Count)
-        //         );
+            //     CurrencyItems = currencyItems
+            //         .EmptyIfNull()
+            //         .GroupBy(ci => ci.ItemId)
+            //         .ToDictionary(
+            //             group => group.Key,
+            //             group => group.Sum(ci => ci.Count)
+            //         );
         }
 
         // Equipped Items
