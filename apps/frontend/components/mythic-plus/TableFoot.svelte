@@ -47,7 +47,6 @@
                 }
             }
         }
-        console.log(allRuns)
 
         if (!isThisWeek) {
             for (const character of characters) {
