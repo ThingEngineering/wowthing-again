@@ -20,18 +20,38 @@ export class CharacterMythicPlusAddonRun {
 }
 export type CharacterMythicPlusAddonRunArray = ConstructorParameters<typeof CharacterMythicPlusAddonRun>
 
-export interface CharacterMythicPlusAddonMap {
-    overallScore: number
-    fortifiedScore: CharacterMythicPlusAddonMapAffix
-    tyrannicalScore: CharacterMythicPlusAddonMapAffix
-}
+export class CharacterMythicPlusAddonMap {
+    public fortifiedScore?: CharacterMythicPlusAddonMapAffix
+    public tyrannicalScore?: CharacterMythicPlusAddonMapAffix
 
-export interface CharacterMythicPlusAddonMapAffix {
-    durationSec: number
-    level: number
-    overTime: boolean
-    score: number
+    constructor(
+        public overallScore: number,
+        fortifiedScoreArray?: CharacterMythicPlusAddonMapAffixArray,
+        tyrannicalScoreArray?: CharacterMythicPlusAddonMapAffixArray
+    ) {
+        if (fortifiedScoreArray) {
+            this.fortifiedScore = new CharacterMythicPlusAddonMapAffix(...fortifiedScoreArray)
+        }
+        if (tyrannicalScoreArray) {
+            this.tyrannicalScore = new CharacterMythicPlusAddonMapAffix(...tyrannicalScoreArray)
+        }
+    }
 }
+export type CharacterMythicPlusAddonMapArray = ConstructorParameters<typeof CharacterMythicPlusAddonMap>
+
+export class CharacterMythicPlusAddonMapAffix {
+    public overTime: boolean
+
+    constructor(
+        public level: number,
+        public score: number,
+        public durationSec: number,
+        overTime: number
+    ) {
+        this.overTime = overTime === 1
+    }
+}
+type CharacterMythicPlusAddonMapAffixArray = ConstructorParameters<typeof CharacterMythicPlusAddonMapAffix>
 
 export interface CharacterMythicPlusRun {
     affixes: number[]
