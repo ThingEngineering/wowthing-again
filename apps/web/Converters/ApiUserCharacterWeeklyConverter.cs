@@ -37,6 +37,12 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
         JsonSerializerOptions options
     )
     {
+        if (vaultProgresses == null)
+        {
+            writer.WriteNullValue();
+            return;
+        }
+
         writer.WriteStartArray();
 
         foreach (var vaultProgress in vaultProgresses)
