@@ -5,12 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Converters;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Api.User;
@@ -464,7 +466,17 @@ public class ApiController : Controller
             ToysPacked = toysPacked,
         };
 
-        string json = JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
+        var options = new JsonSerializerOptions(_jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonDataMythicPlusMapConverter(),
+                new PlayerCharacterAddonDataMythicPlusRunConverter(),
+                new PlayerCharacterMythicPlusRunConverter(),
+            },
+        };
+
+        string json = JsonSerializer.Serialize(apiData, options);
         timer.AddPoint("Build", true);
 
         _logger.LogInformation("{userId} | {userName} | {total} | {timer}",

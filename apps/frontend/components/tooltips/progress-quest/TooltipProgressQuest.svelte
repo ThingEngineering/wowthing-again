@@ -2,7 +2,7 @@
     import { DateTime } from 'luxon'
 
     import { forcedReset } from '@/data/quests'
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { QuestStatus } from '@/enums/quest-status'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'

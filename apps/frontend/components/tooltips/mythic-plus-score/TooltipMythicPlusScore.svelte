@@ -3,7 +3,8 @@
 
     import { dungeonMap, keyTiers, seasonMap } from '@/data/dungeon'
     import { raiderIoScores, raiderIoScoreOrder } from '@/data/raider-io'
-    import { timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { userStore } from '@/stores'
     import { getRunCounts } from '@/utils/dungeon'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
     import { getRunQualityAffix } from '@/utils/mythic-plus'

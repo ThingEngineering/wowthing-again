@@ -1,7 +1,8 @@
 <script lang="ts">
     import { FarmIdType } from '@/enums/farm-id-type'
     import { FarmType } from '@/enums/farm-type'
-    import { journalStore, lazyStore, timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { journalStore, lazyStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { getInstanceFarm } from '@/utils/get-instance-farm'

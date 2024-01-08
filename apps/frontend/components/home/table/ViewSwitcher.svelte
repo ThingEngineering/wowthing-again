@@ -2,12 +2,17 @@
     import { link } from 'svelte-spa-router'
 
     import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
+    import { browserStore } from '@/shared/stores/browser'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import { basicTooltip } from '@/shared/utils/tooltips';
+
+    const setActiveView = (viewId: string) => {
+        $browserStore.home.activeView = viewId
+    }
 </script>
 
 <style lang="scss">
@@ -35,12 +40,12 @@
 </style>
 
 <div>
-    {#each $settingsStore.views as view, viewIndex}
+    {#each $settingsStore.views as view}
         <button
             class="text-overflow"
-            class:active={$settingsStore.activeView === view.id || (!$settingsStore.activeView && viewIndex === 0)}
+            class:active={$activeView.id === view.id}
             data-id={view.id}
-            on:click={() => $settingsStore.activeView = view.id}
+            on:click={() => setActiveView(view.id)}
             use:basicTooltip={view.name}
         >
             <ParsedText
@@ -51,7 +56,7 @@
 
     {#if !$userStore.public}
         <a
-            href="/settings/views/{$settingsStore.activeView}"
+            href="/settings/views/{$activeView.id}"
             use:basicTooltip={'Settings'}
             use:link
         >

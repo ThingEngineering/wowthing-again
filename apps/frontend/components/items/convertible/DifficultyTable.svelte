@@ -2,6 +2,7 @@
     import some from 'lodash/some'
 
     import { classOrder } from '@/data/character-class'
+    import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
     import { iconLibrary, uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
@@ -11,7 +12,6 @@
     import { convertibleTypes } from './data'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import { AppearanceModifier } from '@/enums/appearance-modifier';
 
     export let classData: Record<number, Record<number, LazyConvertibleModifier>>
     export let modifier: number

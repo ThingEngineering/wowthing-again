@@ -22,7 +22,7 @@
     export let group: Character[]
     export let groupIndex: number
 
-    $: sortKey = `${$settingsStore.activeView}|${groupIndex}`
+    $: sortKey = `${$activeView.id}|${groupIndex}`
 
     let commonSpan: number
     let gold: number

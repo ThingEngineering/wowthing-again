@@ -2,7 +2,7 @@
     import { worldQuestPrereqs } from './data'
     import { RewardType } from '@/enums/reward-type'
     import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/stores/time'
+    import { timeStore } from '@/shared/stores/time'
     import { userQuestStore, userStore } from '@/stores'
     import type { ApiWorldQuest } from './types'
     import type { Character } from '@/types/character'

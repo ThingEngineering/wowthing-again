@@ -1,17 +1,21 @@
 import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
-import { dragonflightProfessionMap } from '@/data/professions'
+import { expansionOrder } from '@/data/expansion'
+import { dragonflightProfessionMap, professionSpecializationSpells } from '@/data/professions'
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
 import { CharacterFlag } from '@/enums/character-flag'
+import { Faction } from '@/enums/faction'
 import { Profession } from '@/enums/profession'
 import { QuestStatus } from '@/enums/quest-status'
 import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-import type { Character, ProfessionCooldown, ProfessionCooldownQuest, ProfessionCooldownSpell, UserData } from '@/types'
-import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
+import { UserCount, type Character, type ProfessionCooldown, type ProfessionCooldownQuest, type ProfessionCooldownSpell, type UserData } from '@/types'
 import type { Settings } from '@/shared/stores/settings/types'
+import type { StaticData, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 
 
 export interface LazyCharacter {
@@ -19,6 +23,7 @@ export interface LazyCharacter {
     tasks: Record<string, LazyCharacterTask>
     professionCooldowns: LazyCharacterCooldowns
     professionWorkOrders: LazyCharacterCooldowns
+    professions: LazyCharacterProfessions
 }
 export class LazyCharacterChore {
     countCompleted = 0
@@ -51,10 +56,23 @@ export class LazyCharacterCooldowns {
     total = 0
     cooldowns: ProfessionCooldown[] = []
 }
+export class LazyCharacterProfessions {
+    knownRecipes: Set<number> = new Set<number>()
+    professions: Record<number, LazyCharacterProfession> = {}
+}
+export class LazyCharacterProfession {
+    filteredCategories: Record<number, StaticDataProfessionAbility[]> = {}
+    stats: UserCount = new UserCount()
+
+    constructor(
+        public professionId: number
+    ) { }
+}
 
 interface LazyStores {
     currentTime: DateTime
     settings: Settings
+    staticData: StaticData,
     userData: UserData
     userQuestData: UserQuestData
 }
@@ -65,261 +83,18 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
     const ret: Record<string, LazyCharacter> = {}
 
     for (const character of stores.userData.characters) {
-        ret[character.id] = {
+        const characterData = ret[character.id] = {
             chores: {},
             tasks: {},
-            professionCooldowns: checkCooldowns(stores, character, professionCooldowns),
-            professionWorkOrders: checkCooldowns(stores, character, professionWorkOrders, CharacterFlag.IgnoreWorkOrders),
+            professionCooldowns: doProfessionCooldowns(stores, character, professionCooldowns),
+            professionWorkOrders: doProfessionCooldowns(stores, character, professionWorkOrders, CharacterFlag.IgnoreWorkOrders),
+            professions: new LazyCharacterProfessions(),
         }
 
-        for (const view of stores.settings.views) {
-            for (const taskName of view.homeTasks) {
-                const task = taskMap[taskName]
-                if (!task) {
-                    continue
-                }
-                if (character.level < (task.minimumLevel || Constants.characterMaxLevel)) {
-                    continue
-                }
-                if (character.level > (task.maximumLevel || Constants.characterMaxLevel)) {
-                    continue
-                }
+        doCharacterTasks(stores, character, characterData)
 
-                if (task.type === 'multi') {
-                    const charChore = new LazyCharacterChore()
-                    const disabledChores = (view.disabledChores?.[taskName] || [])
-
-                    // ugh
-                    for (const choreTask of multiTaskMap[taskName]) {
-                        if (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) {
-                            continue
-                        }
-                        if (character.level > (choreTask.maximumLevel || Constants.characterMaxLevel)){
-                            continue
-                        }
-                        if (choreTask.couldGetFunc?.(character) === false) {
-                            continue
-                        }
-
-                        if (choreTask.taskKey.endsWith("Split")) {
-                            choreTask.taskKey = choreTask.taskKey.slice(0, -5);
-                        }
-
-                        const charTask = new LazyCharacterChoreTask(
-                            stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
-                        )
-
-                        if (disabledChores.indexOf(choreTask.taskKey) >= 0 &&
-                            charTask.quest?.status !== QuestStatus.Completed) {
-                            continue
-                        }
-
-                        if (!charTask.quest &&
-                            choreTask.taskKey.endsWith('Treatise') &&
-                            !stores.settings.professions.dragonflightTreatises) {
-                            continue
-                        }
-
-                        charTask.statusTexts.push(!charTask.quest ? choreTask.canGetFunc?.(character) || '' : '')
-
-                        const nameParts = choreTask.taskName.split(': ')
-                        if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
-                            continue
-                        }
-
-                        const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
-                        charTask.skipped = (
-                            (
-                                !stores.settings.professions.dragonflightCountCraftingDrops &&
-                                nameParts[1] === 'Drops' &&
-                                charTask.status !== QuestStatus.Completed
-                            )
-                            ||
-                            (
-                                !stores.settings.professions.dragonflightCountTasks &&
-                                nameParts[1] === 'Task' &&
-                                charTask.status !== QuestStatus.Completed
-                            )
-                            ||
-                            (
-                                !stores.settings.professions.dragonflightCountGathering &&
-                                isGathering &&
-                                ['Gather'].indexOf(nameParts[1]) >= 0 &&
-                                charTask.status !== QuestStatus.Completed
-                            )
-                            ||
-                            charTask.statusTexts[0] !== ''
-                        )
-
-                        if (!charTask.skipped) {
-                            charChore.countTotal++
-                        }
-
-                        if (charTask.statusTexts[0].startsWith('Need')) {
-                            charTask.status = QuestStatus.Error
-                        }
-                        else if (choreTask.taskKey.endsWith('Drop#')) {
-                            charTask.statusTexts = []
-                            let haveCount = 0
-                            let needCount = 0
-
-                            if (taskName === 'dfProfessionWeeklies') {
-                                const professionName = choreTask.taskKey.replace('dfProfession', '').replace('Drop#', '')
-                                const profession = Profession[professionName as keyof typeof Profession]
-                                const professionData = dragonflightProfessionMap[profession]
-
-                                if (professionData.dropQuests?.length > 0) {
-                                    needCount = professionData.dropQuests.length
-
-                                    professionData.dropQuests.forEach((drop, index) => {
-                                        const dropKey = choreTask.taskKey.replace('#', (index + 1).toString())
-                                        const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
-
-                                        let statusText = ''
-                                        if (progressQuest?.status === QuestStatus.Completed &&
-                                            DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
-                                            haveCount++
-                                            statusText += '<span class="status-success">:yes:</span>'
-                                        }
-                                        else {
-                                            statusText += '<span class="status-fail">:no:</span>'
-                                        }
-
-                                        statusText += `{item:${drop.itemId}}`
-                                        statusText += ` <span class="status-shrug">(${drop.source})</span>`
-
-                                        charTask.statusTexts.push(statusText)
-                                    })
-                                }
-                            }
-
-                            if (charTask.statusTexts.length === 0) {
-                                needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
-                                for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
-                                    const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
-                                    const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
-                                    if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
-                                        haveCount++
-                                    }
-                                }
-                            }
-
-                            if (haveCount === needCount) {
-                                charTask.status = QuestStatus.Completed
-                            }
-                            else {
-                                charTask.status = QuestStatus.InProgress
-                                if (charTask.statusTexts.length === 0) {
-                                    charTask.statusTexts.push(`${haveCount}/${needCount} Collected`)
-                                }
-                            }
-                        }
-                        else {
-                            if (!!charTask.quest && DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime) {
-                                charTask.status = charTask.quest.status
-                                if (charTask.status === QuestStatus.InProgress &&
-                                    charTask.quest.objectives?.length > 0) {
-                                    charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
-                                }
-                            }
-                        }
-
-                        charTask.name = taskName === 'dfDungeonWeeklies'
-                            ? stores.userQuestData.questNames[choreTask.taskKey] || choreTask.taskName
-                            : choreTask.taskName
-
-                        if (!charTask.skipped) {
-                            if (charTask.status === QuestStatus.Completed) {
-                                charChore.countCompleted++
-                            }
-                            else if (charTask.status === QuestStatus.InProgress) {
-                                charChore.countStarted++
-                            }
-                        }
-
-                        charChore.tasks.push(charTask)
-                    }
-
-                    ret[character.id].chores[taskName] = charChore
-                }
-                else {
-                    // still ugh
-                    const questKey = progressQuestMap[taskName] || taskName
-                    const charTask: LazyCharacterTask = {
-                        quest: stores.userQuestData.characters[character.id]?.progressQuests?.[questKey],
-                        status: undefined,
-                        text: undefined,
-                    }
-
-                    if (charTask.quest) {
-                        const expires = DateTime.fromSeconds(charTask.quest.expires)
-                        if (forcedReset[questKey]) {
-                            // quest always resets even if incomplete
-                            if (expires < stores.currentTime) {
-                                charTask.quest.status = QuestStatus.NotStarted
-                            }
-                        }
-                        else {
-                            // quest was completed and it's a new week
-                            if (charTask.quest.status === QuestStatus.Completed && expires < stores.currentTime) {
-                                charTask.quest.status = QuestStatus.NotStarted
-                            }
-                        }
-
-                        if (charTask.quest.status === QuestStatus.Completed) {
-                            charTask.status = 'success'
-                            charTask.text = 'Done'
-                        }
-                        else if (charTask.quest.status === QuestStatus.InProgress) {
-                            charTask.status = 'shrug'
-
-                            let objectives = charTask.quest.objectives || []
-                            if (objectives.length === 1) {
-                                const objective = charTask.quest.objectives[0]
-                                if (objective.type === 'progressbar') {
-                                    charTask.text = `${objective.have} %`
-                                }
-                                else if (questKey === 'weeklyHoliday' || questKey === 'weeklyPvp') {
-                                    charTask.text = `${objective.have} / ${objective.need}`
-                                }
-                                else {
-                                    charTask.text = `${Math.floor(Math.min(objective.have, objective.need) / objective.need * 100)} %`
-                                }
-
-                                if (objective.have === objective.need) {
-                                    charTask.status = `${charTask.status} status-turn-in`
-                                }
-                            }
-                            else {
-                                if (
-                                    ([75859, 78446, 78447].indexOf(charTask.quest.id) >= 0) &&
-                                    objectives[0].have === 1 &&
-                                    objectives[0].need === 1
-                                ) {
-                                    objectives = objectives.slice(1)
-                                }
-
-                                const averagePercent = objectives
-                                    .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
-
-                                charTask.text = `${Math.floor(averagePercent * 100)} %`
-
-                                if (averagePercent >= 1) {
-                                    charTask.status = `${charTask.status} status-turn-in`
-                                }
-                            }
-                        }
-                    }
-
-                    if (charTask.status === undefined) {
-                        charTask.status = 'fail'
-                        charTask.text = 'Get!'
-                    }
-
-                    ret[character.id].tasks[`${view.id}|${taskName}`] = charTask
-                }
-            } // choreTask of choreTasks
-        } // view of views
+        const professions = new ProcessCharacterProfessions(stores, character, characterData.professions)
+        professions.process()
     }
 
     console.timeEnd('doCharacters')
@@ -327,7 +102,344 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
     return ret
 }
 
-function checkCooldowns(
+class ProcessCharacterProfessions {
+    private currentProfession: LazyCharacterProfession
+
+    constructor(
+        private stores: LazyStores,
+        private character: Character,
+        private characterData: LazyCharacterProfessions
+    ) { }
+
+    public process() {
+        for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(this.character.professions || {})) {
+            const staticProfession = this.stores.staticData.professions[professionId]
+            if (staticProfession.type !== 0) { continue }
+    
+            for (const subProfession of Object.values(characterSubProfessions)) {
+                for (const abilityId of subProfession.knownRecipes) {
+                    this.characterData.knownRecipes.add(abilityId)
+                }
+            }
+    
+            this.currentProfession = this.characterData.professions[professionId] = new LazyCharacterProfession(professionId)
+    
+            for (const expansion of expansionOrder) {
+                const subProfession = staticProfession.subProfessions[expansion.id]
+                if (!subProfession) { continue }
+                
+                const characterSubProfession = characterSubProfessions[subProfession.id]
+                if (!characterSubProfession) { continue }
+    
+                let rootCategory = staticProfession.categories?.[expansion.id]
+                if (rootCategory) {
+                    while (rootCategory.children.length === 1) {
+                        rootCategory = rootCategory.children[0]
+                    }
+                }
+    
+                this.recurseCategory(rootCategory)
+            }
+        }    
+    }
+
+    private recurseCategory(category: StaticDataProfessionCategory) {
+        const filteredCategory: StaticDataProfessionAbility[] = this.currentProfession.filteredCategories[category.id] = []
+    
+        for (const ability of (category.abilities || [])) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== this.character.faction) {
+                continue
+            }
+    
+            const requiredAbility = this.stores.staticData.itemToRequiredAbility[ability.itemIds[0]]
+            if (professionSpecializationSpells[requiredAbility]) {
+                const charSpecialization = this.character.professionSpecializations[this.currentProfession.professionId]
+                if (charSpecialization !== undefined && charSpecialization !== requiredAbility) {
+                    continue
+                }
+            }
+    
+            filteredCategory.push(ability)
+    
+            if (ability.extraRanks) {
+                this.currentProfession.stats.total += (ability.extraRanks.length + 1)
+    
+                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
+                    if (this.characterData.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
+                        this.currentProfession.stats.have += (rankIndex + 2)
+                        break
+                    }
+                }
+                if (this.characterData.knownRecipes.has(ability.id)) {
+                    this.currentProfession.stats.have++
+                }
+            }
+            else {
+                this.currentProfession.stats.total++
+                if (this.characterData.knownRecipes.has(ability.id)) {
+                    this.currentProfession.stats.have++
+                }
+            }
+        }
+    
+        for (const child of (category.children || [])) {
+            this.recurseCategory(child)
+        }
+    }
+}
+
+function doCharacterTasks(
+    stores: LazyStores,
+    character: Character,
+    characterData: LazyCharacter
+) {
+    for (const view of stores.settings.views) {
+        for (const taskName of view.homeTasks) {
+            const task = taskMap[taskName]
+            if (
+                !task ||
+                (character.level < (task.minimumLevel || Constants.characterMaxLevel)) ||
+                (character.level > (task.maximumLevel || Constants.characterMaxLevel))
+            ) {
+                continue
+            }
+
+            if (task.type === 'multi') {
+                const charChore = new LazyCharacterChore()
+                const disabledChores = (view.disabledChores?.[taskName] || [])
+
+                // ugh
+                for (const choreTask of multiTaskMap[taskName]) {
+                    if (
+                        (character.level < (choreTask.minimumLevel || Constants.characterMaxLevel)) ||
+                        (character.level > (choreTask.maximumLevel || Constants.characterMaxLevel)) ||
+                        (choreTask.couldGetFunc?.(character) === false)
+                    ){
+                        continue
+                    }
+
+                    if (choreTask.taskKey.endsWith('Split')) {
+                        choreTask.taskKey = choreTask.taskKey.slice(0, -5);
+                    }
+
+                    const charTask = new LazyCharacterChoreTask(
+                        stores.userQuestData.characters[character.id]?.progressQuests?.[choreTask.taskKey]
+                    )
+
+                    if (disabledChores.indexOf(choreTask.taskKey) >= 0 &&
+                        charTask.quest?.status !== QuestStatus.Completed) {
+                        continue
+                    }
+
+                    if (!charTask.quest &&
+                        choreTask.taskKey.endsWith('Treatise') &&
+                        !stores.settings.professions.dragonflightTreatises) {
+                        continue
+                    }
+
+                    charTask.statusTexts.push(!charTask.quest ? choreTask.canGetFunc?.(character) || '' : '')
+
+                    const nameParts = choreTask.taskName.split(': ')
+                    if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
+                        continue
+                    }
+
+                    const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
+                    charTask.skipped = (
+                        (
+                            !stores.settings.professions.dragonflightCountCraftingDrops &&
+                            nameParts[1] === 'Drops' &&
+                            charTask.status !== QuestStatus.Completed
+                        )
+                        ||
+                        (
+                            !stores.settings.professions.dragonflightCountTasks &&
+                            nameParts[1] === 'Task' &&
+                            charTask.status !== QuestStatus.Completed
+                        )
+                        ||
+                        (
+                            !stores.settings.professions.dragonflightCountGathering &&
+                            isGathering &&
+                            ['Gather'].indexOf(nameParts[1]) >= 0 &&
+                            charTask.status !== QuestStatus.Completed
+                        )
+                        ||
+                        charTask.statusTexts[0] !== ''
+                    )
+
+                    if (!charTask.skipped) {
+                        charChore.countTotal++
+                    }
+
+                    if (charTask.statusTexts[0].startsWith('Need')) {
+                        charTask.status = QuestStatus.Error
+                    }
+                    else if (choreTask.taskKey.endsWith('Drop#')) {
+                        charTask.statusTexts = []
+                        let haveCount = 0
+                        let needCount = 0
+
+                        if (taskName === 'dfProfessionWeeklies') {
+                            const professionName = choreTask.taskKey.replace('dfProfession', '').replace('Drop#', '')
+                            const profession = Profession[professionName as keyof typeof Profession]
+                            const professionData = dragonflightProfessionMap[profession]
+
+                            if (professionData.dropQuests?.length > 0) {
+                                needCount = professionData.dropQuests.length
+
+                                professionData.dropQuests.forEach((drop, index) => {
+                                    const dropKey = choreTask.taskKey.replace('#', (index + 1).toString())
+                                    const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
+
+                                    let statusText = ''
+                                    if (progressQuest?.status === QuestStatus.Completed &&
+                                        DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
+                                        haveCount++
+                                        statusText += '<span class="status-success">:yes:</span>'
+                                    }
+                                    else {
+                                        statusText += '<span class="status-fail">:no:</span>'
+                                    }
+
+                                    statusText += `{item:${drop.itemId}}`
+                                    statusText += ` <span class="status-shrug">(${drop.source})</span>`
+
+                                    charTask.statusTexts.push(statusText)
+                                })
+                            }
+                        }
+
+                        if (charTask.statusTexts.length === 0) {
+                            needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/) ? 6 : 4
+                            for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
+                                const dropKey = choreTask.taskKey.replace('#', (dropIndex + 1).toString())
+                                const progressQuest = stores.userQuestData.characters[character.id]?.progressQuests?.[dropKey]
+                                if (progressQuest?.status === QuestStatus.Completed && DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
+                                    haveCount++
+                                }
+                            }
+                        }
+
+                        if (haveCount === needCount) {
+                            charTask.status = QuestStatus.Completed
+                        }
+                        else {
+                            charTask.status = QuestStatus.InProgress
+                            if (charTask.statusTexts.length === 0) {
+                                charTask.statusTexts.push(`${haveCount}/${needCount} Collected`)
+                            }
+                        }
+                    }
+                    else {
+                        if (!!charTask.quest && DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime) {
+                            charTask.status = charTask.quest.status
+                            if (charTask.status === QuestStatus.InProgress &&
+                                charTask.quest.objectives?.length > 0) {
+                                charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
+                            }
+                        }
+                    }
+
+                    charTask.name = taskName === 'dfDungeonWeeklies'
+                        ? stores.userQuestData.questNames[choreTask.taskKey] || choreTask.taskName
+                        : choreTask.taskName
+
+                    if (!charTask.skipped) {
+                        if (charTask.status === QuestStatus.Completed) {
+                            charChore.countCompleted++
+                        }
+                        else if (charTask.status === QuestStatus.InProgress) {
+                            charChore.countStarted++
+                        }
+                    }
+
+                    charChore.tasks.push(charTask)
+                }
+
+                characterData.chores[taskName] = charChore
+            }
+            else {
+                // still ugh
+                const questKey = progressQuestMap[taskName] || taskName
+                const charTask: LazyCharacterTask = {
+                    quest: stores.userQuestData.characters[character.id]?.progressQuests?.[questKey],
+                    status: undefined,
+                    text: undefined,
+                }
+
+                if (charTask.quest) {
+                    const expires = DateTime.fromSeconds(charTask.quest.expires)
+                    if (forcedReset[questKey]) {
+                        // quest always resets even if incomplete
+                        if (expires < stores.currentTime) {
+                            charTask.quest.status = QuestStatus.NotStarted
+                        }
+                    }
+                    else {
+                        // quest was completed and it's a new week
+                        if (charTask.quest.status === QuestStatus.Completed && expires < stores.currentTime) {
+                            charTask.quest.status = QuestStatus.NotStarted
+                        }
+                    }
+
+                    if (charTask.quest.status === QuestStatus.Completed) {
+                        charTask.status = 'success'
+                        charTask.text = 'Done'
+                    }
+                    else if (charTask.quest.status === QuestStatus.InProgress) {
+                        charTask.status = 'shrug'
+
+                        let objectives = charTask.quest.objectives || []
+                        if (objectives.length === 1) {
+                            const objective = charTask.quest.objectives[0]
+                            if (objective.type === 'progressbar') {
+                                charTask.text = `${objective.have} %`
+                            }
+                            else if (questKey === 'weeklyHoliday' || questKey === 'weeklyPvp') {
+                                charTask.text = `${objective.have} / ${objective.need}`
+                            }
+                            else {
+                                charTask.text = `${Math.floor(Math.min(objective.have, objective.need) / objective.need * 100)} %`
+                            }
+
+                            if (objective.have === objective.need) {
+                                charTask.status = `${charTask.status} status-turn-in`
+                            }
+                        }
+                        else {
+                            if (
+                                ([75859, 78446, 78447].indexOf(charTask.quest.id) >= 0) &&
+                                objectives[0].have === 1 &&
+                                objectives[0].need === 1
+                            ) {
+                                objectives = objectives.slice(1)
+                            }
+
+                            const averagePercent = objectives
+                                .reduce((a, b) => (a + (Math.min(b.have, b.need) / b.need)), 0) / objectives.length
+
+                            charTask.text = `${Math.floor(averagePercent * 100)} %`
+
+                            if (averagePercent >= 1) {
+                                charTask.status = `${charTask.status} status-turn-in`
+                            }
+                        }
+                    }
+                }
+
+                if (charTask.status === undefined) {
+                    charTask.status = 'fail'
+                    charTask.text = 'Get!'
+                }
+
+                characterData.tasks[`${view.id}|${taskName}`] = charTask
+            }
+        } // choreTask of choreTasks
+    } // view of views
+}
+
+function doProfessionCooldowns(
     stores: LazyStores,
     character: Character,
     cooldownDatas: (ProfessionCooldownQuest | ProfessionCooldownSpell)[],

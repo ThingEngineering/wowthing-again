@@ -2,7 +2,8 @@
     import sortBy from 'lodash/sortBy'
 
     import { keyVaultItemLevel } from '@/data/dungeon'
-    import { timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { userStore } from '@/stores'
     import { getVaultQualityByItemLevel } from '@/utils/mythic-plus'
     import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level'
     import type { Character, CharacterMythicPlusAddonRun, CharacterWeeklyProgress } from '@/types'

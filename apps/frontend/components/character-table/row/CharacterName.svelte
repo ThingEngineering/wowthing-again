@@ -29,8 +29,8 @@
     }}
 >
     <a
-        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : undefined} drop-shadow"
-        href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}"
+        class="{$settingsStore.layout.useClassColors ? `class-${character.classId}` : ''} drop-shadow"
+        href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/paperdoll"
     >
         {character.name}
     </a>

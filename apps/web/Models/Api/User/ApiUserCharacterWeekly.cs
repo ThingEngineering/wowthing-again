@@ -1,8 +1,10 @@
 ﻿using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
+[JsonConverter(typeof(ApiUserCharacterWeeklyConverter))]
 public class ApiUserCharacterWeekly
 {
     public DateTime KeystoneScannedAt { get; set; }

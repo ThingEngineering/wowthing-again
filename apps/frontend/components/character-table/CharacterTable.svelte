@@ -3,8 +3,9 @@
     import sortBy from 'lodash/sortBy'
     import { location } from 'svelte-spa-router'
 
-    import { lazyStore, timeStore, userStore } from '@/stores'
+    import { lazyStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import { homeState, newNavState } from '@/stores/local-storage'
     import { activeView, settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
@@ -87,7 +88,7 @@
         const pairs: [string, Character[]][] = []
         for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
             const key = groupKeys[keyIndex]
-            const sortKey = `${$settingsStore.activeView}|${keyIndex}`
+            const sortKey = `${$activeView.id}|${keyIndex}`
             const keySort = (isHome && $homeState.groupSort[sortKey])
                 ? getCharacterSortFunc(
                     $settingsStore,

@@ -13,9 +13,10 @@ import type { CharacterLockout } from './lockout'
 import {
     CharacterMythicPlusAddonRun,
     type CharacterMythicPlus,
-    type CharacterMythicPlusAddon,
-    type CharacterMythicPlusAddonMap,
-    type CharacterMythicPlusAddonRunArray
+    type CharacterMythicPlusAddon, CharacterMythicPlusAddonMap,
+    type CharacterMythicPlusAddonRunArray,
+    type CharacterMythicPlusAddonMapArray,
+    CharacterMythicPlusRun
 } from './mythic-plus'
 import type { CharacterProfession } from './profession'
 import type { CharacterRaiderIoSeason } from './raider-io-season'
@@ -31,11 +32,12 @@ import {
     type CharacterStatisticMiscArray,
     type CharacterStatisticRatingArray
 } from './statistics'
-import type { CharacterWeekly } from './weekly'
+import { CharacterWeekly, type CharacterWeeklyArray } from './weekly'
 
 import type { ContainsItems, HasNameAndRealm } from '../shared'
 import type { Account } from '../account'
 import type { CharacterAura } from './aura'
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
 
 
 export class Character implements ContainsItems, HasNameAndRealm {
@@ -58,11 +60,13 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public itemsById: Record<number, CharacterItem[]>
     public itemsByLocation: Record<number, CharacterItem[]>
     public mythicPlusSeasonScores: Record<number, number>
+    public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
     public mythicPlusWeeks: Record<number, CharacterMythicPlusAddonRun[]> = {}
     public professionSpecializations: Record<number, number>
     public reputationData: Record<string, CharacterReputation>
     public specializations: Record<number, Record<number, number>> = {}
     public statistics: CharacterStatistics = new CharacterStatistics()
+    public weekly: CharacterWeekly
 
     constructor(
         public id: number,
@@ -98,7 +102,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public lockouts: Record<string, CharacterLockout>,
         public mythicPlus: CharacterMythicPlus,
         public mythicPlusAddon: Record<number, CharacterMythicPlusAddon>,
-        public mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>,
+        rawMythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMapArray>>,
         public paragons: Record<number, CharacterReputationParagon>,
         public professions: Record<number, Record<number, CharacterProfession>>,
         public professionCooldowns: Record<string, [number, number, number]>,
@@ -107,7 +111,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public raiderIo: Record<number, CharacterRaiderIoSeason>,
         public reputations: Record<number, number>,
         public shadowlands: CharacterShadowlands,
-        public weekly: CharacterWeekly,
+        rawWeekly: CharacterWeeklyArray,
 
         rawCurrencies: CharacterCurrencyArray[],
         rawItems: CharacterItemArray[],
@@ -137,6 +141,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         this.itemsById = {}
         this.itemsByLocation = {}
 
+        if (rawWeekly) {
+            this.weekly = new CharacterWeekly(...rawWeekly)
+        }
+
         for (const rawCurrency of (rawCurrencies || [])) {
             const obj = new CharacterCurrency(...rawCurrency)
             this.currencies[obj.id] = obj
@@ -151,7 +159,34 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 (this.itemsByLocation[obj.location] ||= []).push(obj)
             }
         }
-        // console.log(this.itemsByLocation)
+
+        if (this.mythicPlus) {
+            this.mythicPlus.seasons = {}
+            for (const [seasonId, seasonData] of getNumberKeyedEntries(this.mythicPlus.rawSeasons || {})) {
+                this.mythicPlus.seasons[seasonId] = {}
+                for (const [mapId, runArrays] of getNumberKeyedEntries(seasonData)) {
+                    this.mythicPlus.seasons[seasonId][mapId] = runArrays.map((runArray) =>
+                        new CharacterMythicPlusRun(...runArray))
+                }
+            }
+            this.mythicPlus.rawSeasons = null
+        }
+
+        if (this.mythicPlusAddon) {
+            for (const seasonData of Object.values(this.mythicPlusAddon)) {
+                seasonData.runs = (seasonData.rawRuns || [])
+                    .map((runArray) => new CharacterMythicPlusAddonRun(...runArray))
+                seasonData.rawRuns = null
+            }
+        }
+
+        this.mythicPlusSeasons = {}
+        for (const [seasonId, seasonData] of getNumberKeyedEntries(rawMythicPlusSeasons || {})) {
+            this.mythicPlusSeasons[seasonId] = {}
+            for (const [mapId, mapArray] of getNumberKeyedEntries(seasonData)) {
+                this.mythicPlusSeasons[seasonId][mapId] = new CharacterMythicPlusAddonMap(...mapArray)
+            }
+        }
 
         for (const [week, runsArray] of Object.entries(rawMythicPlusWeeks || {})) {
             this.mythicPlusWeeks[parseInt(week)] = runsArray

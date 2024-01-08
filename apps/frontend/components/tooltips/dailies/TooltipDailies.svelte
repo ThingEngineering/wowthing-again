@@ -3,7 +3,8 @@
 
     import { uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
-    import { itemStore, timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { itemStore } from '@/stores'
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'

@@ -254,6 +254,11 @@ public class StaticTool
                 item => item.RequiredAbility
             );
 
+        foreach (var kvp in Hardcoded.ItemToRequiredAbility)
+        {
+            cacheData.ItemToRequiredAbility.Add(kvp.Key, kvp.Value);
+        }
+
         cacheData.ItemToSkillLine = _itemMap.Values
             .Where(item => item.RequiredSkill > 0)
             .ToDictionary(
@@ -661,6 +666,11 @@ public class StaticTool
                         if (outAbility.ItemId == 0 && itemNameToId.TryGetValue(outAbility.Name, out int nameItemId))
                         {
                             outAbility.ItemId = nameItemId;
+                        }
+
+                        if (outAbility.ItemId == 0)
+                        {
+                            continue;
                         }
 
                         if (!_itemMap.TryGetValue(outAbility.ItemId, out var item))

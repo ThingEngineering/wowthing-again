@@ -2,7 +2,8 @@
     import { DateTime } from 'luxon'
 
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
-    import { timeStore, userQuestStore, userStore } from '@/stores'
+    import { userQuestStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
     import type { Character, DailyQuestsReward } from '@/types'

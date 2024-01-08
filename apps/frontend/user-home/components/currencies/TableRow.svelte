@@ -1,9 +1,10 @@
 <script lang="ts">
     import { currencyItemCurrencies } from '@/data/currencies'
-    import { itemStore, timeStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { itemStore, userStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { toNiceNumber } from '@/utils/formatting'
-    import type { Character } from '@/types'
+    import { CharacterCurrency, type Character } from '@/types'
     import type { StaticDataCurrency } from '@/shared/stores/static/types'
 
     export let character: Character
@@ -16,26 +17,25 @@
     let tooltip = ''
     $: {
         if (currency) {
-            const characterCurrency = character.currencies?.[currency.id]
-            if (characterCurrency) {
-                amount = toNiceNumber(characterCurrency.quantity)
+            const characterCurrency = character.currencies?.[currency.id] ||
+                new CharacterCurrency(currency.id)
+            amount = toNiceNumber(characterCurrency.quantity)
 
-                if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
-                    per = characterCurrency.totalQuantity / characterCurrency.max * 100
-                    tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+            if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
+                per = characterCurrency.totalQuantity / characterCurrency.max * 100
+                tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+            }
+            else {
+                if (characterCurrency.max > 0) {
+                    per = characterCurrency.quantity / characterCurrency.max * 100
+                    tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
                 }
                 else {
-                    if (characterCurrency.max > 0) {
-                        per = characterCurrency.quantity / characterCurrency.max * 100
-                        tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
-                    }
-                    else {
-                        per = 0
-                        tooltip = characterCurrency.quantity.toLocaleString()
-                    }
+                    per = 0
+                    tooltip = characterCurrency.quantity.toLocaleString()
                 }
-                tooltip += ` ${currency.name}`
             }
+            tooltip += ` ${currency.name}`
         }
         else {
             const characterItemCount = character.getItemCount(itemId)
@@ -78,6 +78,9 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    .faded {
+        color: #aaa;
+    }
 </style>
 
 {#if amount}
@@ -85,6 +88,7 @@
         class:alt={sortingBy}
         class:status-shrug={per > 50}
         class:status-fail={per > 90}
+        class:faded={amount === '0'}
         use:basicTooltip={{
             allowHTML: true,
             content: tooltip

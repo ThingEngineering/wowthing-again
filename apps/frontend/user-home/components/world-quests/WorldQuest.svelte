@@ -5,7 +5,7 @@
     import { staticStore } from '@/shared/stores/static'
     import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import { timeStore } from '@/stores/time'
+    import { timeStore } from '@/shared/stores/time'
     import { toNiceNumber } from '@/utils/formatting/to-nice-number'
     import type { ApiWorldQuest } from './types'
 

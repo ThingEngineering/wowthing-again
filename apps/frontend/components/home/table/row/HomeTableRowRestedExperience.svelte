@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { getCharacterRested } from '@/utils/get-character-rested'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'

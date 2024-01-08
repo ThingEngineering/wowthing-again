@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { dungeonMap } from '@/data/dungeon'
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { getNextWeeklyReset } from '@/utils/get-next-reset'
     import { getRunQuality, isKeystoneUpgrade } from '@/utils/mythic-plus'
     import { componentTooltip } from '@/shared/utils/tooltips'

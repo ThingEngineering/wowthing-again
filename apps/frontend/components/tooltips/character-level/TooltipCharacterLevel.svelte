@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { experiencePerLevel } from '@/data/experience'
-    import { timeStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
     import { getCharacterLevel } from '@/utils/get-character-level'
     import { getCharacterRested } from '@/utils/get-character-rested'
     import type { Character } from '@/types'
