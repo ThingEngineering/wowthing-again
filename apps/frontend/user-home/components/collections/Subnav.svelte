@@ -43,7 +43,7 @@
             <Percent percent={$lazyStore.illusions.AVAILABLE.percent} />
         </a>
 
-        <a href={"#/collections/recipes"} use:active>
+        <a href={"#/collections/recipes"} use:active={"/collections/recipes/*"}>
             Recipes
             <Percent percent={$lazyStore.recipes.OVERALL.percent} />
         </a>

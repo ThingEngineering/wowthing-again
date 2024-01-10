@@ -142,6 +142,7 @@ public class DumpsTool
             ImportSkillLineStrings,
             ImportSoulbindStrings,
             ImportSpellItemEnchantmentStrings,
+            ImportSpellNameStrings,
             ImportTransmogSetStrings,
             ImportTransmogSetGroupStrings,
         };
@@ -327,6 +328,15 @@ public class DumpsTool
             "spellitemenchantment",
             ench => ench.ID,
             ench => ench.Name
+        );
+
+    private async Task ImportSpellNameStrings(WowDbContext context) =>
+        await ImportStrings<DumpSpellName>(
+            context,
+            StringType.WowSpellName,
+            "spellname",
+            spellName => spellName.ID,
+            spellName => spellName.Name
         );
 
     private async Task ImportTransmogSetStrings(WowDbContext context) =>

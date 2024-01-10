@@ -43,6 +43,7 @@ public class StaticTool
         StringType.WowSoulbindName,
         StringType.WowSkillLineName,
         StringType.WowSpellItemEnchantmentName,
+        StringType.WowSpellName,
         StringType.WowTransmogSetName,
     ];
 
@@ -590,11 +591,6 @@ public class StaticTool
                     : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
                 .ToDictionary(group => group.Key, group => group.ToList());
 
-            var spellNameMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellName>(
-                "spellname",
-                language
-            )).ToDictionary(dsn => dsn.ID, dsn => dsn.Name);
-
             var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
             foreach (int professionId in allProfs)
             {
@@ -615,6 +611,20 @@ public class StaticTool
 
                     var outCategory = categoryMap[category.ID] = new OutProfessionCategory(category);
 
+                    if (Hardcoded.ProfessionCategorySplits.TryGetValue(category.ID, out var splitCategories))
+                    {
+                        for (int splitIndex = 0; splitIndex < splitCategories.Length; splitIndex++)
+                        {
+                            var splitCategory = splitCategories[splitIndex];
+                            int splitId = (category.ID * 1000) + splitIndex;
+                            categoryMap[splitId] = new OutProfessionCategory(category)
+                            {
+                                Id = splitId,
+                                Name = $"{category.AllianceName} > {splitCategory.Name}",
+                            };
+                        }
+                    }
+
                     var abilities = categoryAbilities
                         .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
                         .Where(ability => ability.SupercedesSpell == 0 &&
@@ -622,13 +632,13 @@ public class StaticTool
                         .OrderByDescending(ability => ability.MinSkillLineRank)
                         //.ThenByDescending(ability => ability.TrivialSkillLineRankLow)
                         .ThenByDescending(ability => ability.TrivialSkillLineRankHigh)
-                        .ThenBy(ability => spellNameMap.GetValueOrDefault(ability.Spell, $"ZZZ"))
+                        .ThenBy(ability => GetString(StringType.WowSpellName, language, ability.Spell))
                         .ToArray();
                     foreach (var ability in abilities)
                     {
                         var outAbility = new OutProfessionAbility(
                             ability,
-                            spellNameMap.GetValueOrDefault(ability.Spell, $"Spell #{ability.Spell}")
+                            GetString(StringType.WowSpellName, language, ability.Spell).Replace("WowSpellName", "Spell")
                         );
 
                         if (supersededBy.TryGetValue(ability.Spell, out var superAbility))
@@ -652,13 +662,11 @@ public class StaticTool
                                 {
                                     outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
                                     outAbility.ItemId = craftingData.CraftedItemID;
-                                    break;
                                 }
                                 // 24=create item, 157=create loot
                                 else if (abilityEffect.Effect is 24 or 157 && abilityEffect.EffectItemType > 0)
                                 {
                                     outAbility.ItemId = abilityEffect.EffectItemType;
-                                    break;
                                 }
                             }
                         }
@@ -707,7 +715,27 @@ public class StaticTool
                             outAbility.Source = spellSource;
                         }
 
-                        outCategory.Abilities.Add(outAbility);
+                        bool added = false;
+                        if (splitCategories != null)
+                        {
+                            string englishName = GetString(StringType.WowSpellName, Language.enUS, outAbility.SpellId);
+
+                            for (int splitIndex = 0; splitIndex < splitCategories.Length; splitIndex++)
+                            {
+                                var splitCategory = splitCategories[splitIndex];
+                                if (englishName.StartsWith(splitCategory.Prefix))
+                                {
+                                    categoryMap[(outCategory.Id * 1000) + splitIndex].Abilities.Add(outAbility);
+                                    added = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (!added)
+                        {
+                            outCategory.Abilities.Add(outAbility);
+                        }
                     }
                 }
 
@@ -716,7 +744,15 @@ public class StaticTool
                 {
                     if (category.ParentTradeSkillCategoryID > 0)
                     {
-                        categoryMap[category.ParentTradeSkillCategoryID].Children.Add(categoryMap[category.ID]);
+                        var parent = categoryMap[category.ParentTradeSkillCategoryID];
+                        parent.Children.Add(categoryMap[category.ID]);
+
+                        int extraCategoryId = category.ID * 1000;
+                        while (categoryMap.ContainsKey(extraCategoryId))
+                        {
+                            parent.Children.Add(categoryMap[extraCategoryId]);
+                            extraCategoryId++;
+                        }
                     }
                     else
                     {

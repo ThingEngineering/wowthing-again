@@ -79,6 +79,7 @@ export const taskList: Task[] = [
     // Events/Holidays/idk
     {
         key: 'holidayDarkmoonFaire',
+        minimumLevel: 1,
         name: '[Event] Darkmoon Faire',
         shortName: 'DMF',
         type: 'multi',
