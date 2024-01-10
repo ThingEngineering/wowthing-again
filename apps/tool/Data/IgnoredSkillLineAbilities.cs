@@ -7,7 +7,9 @@ public static partial class Hardcoded
     {
         // Alchemy
         28577, // Major Holy Protection Potion
-        156567, // Draenor Armor Flask
+        156567, // Draenor Armor Flask (never implemented)
+        156591, // Primal Alchemy (never implemented)
+        168042, // Alchemical Catalyst (dupe for max results?)
         370771, // Dragon Isles Alchemy Troubleshooting Test Recipe (DNT)
         371635, // Demonstration Item Recipe
 
@@ -68,16 +70,37 @@ public static partial class Hardcoded
         169696, // Marinated Elekk Steak
         169699, // Seasoned Elekk Ribeye
 
+        // Enchanting
+        422338, // Shalasar's Sophic Vellum (temporary legendary craft)
+
         // Engineering
         12900, // Mobile Alarm
+        162208, // Ultimate Gnomish Army Knife (dupe for BoE?)
+        178242, // Gearspring Parts (dupe for max results?)
         407170, // Inspired Order Recalibrator (temporary legendary craft)
+
+        // Inscription
+        422337, // Lydaria's Binding Rune (temporary legendary craft)
 
         // Jewelcrafting
         25614, // Silver Rose Pendant
         407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
+        // Leatherworking
+        171713, // Burnished Leather (dupe for max results?)
+        173416, // Small Football (never implemented?)
+        422330, // Erden's Glowspore Grip (temporary legendary craft)
+
         // Mining
         389465, // Severite Seam
         389458, // Draconium Seam
+
+        // Tailoring
+        168851, // Miniature Flying Carpet (never implemented)
+        169669, // Hexweave Cloth (dupe for max results?)
+        176313, // [A] Inspiring Battle Standard (garrison building craft)
+        176314, // [A] Fearsome Battle Standard (garrison building craft)
+        176315, // [H] Inspiring Battle Standard (garrison building craft)
+        176316, // [H] Fearsome Battle Standard (garrison building craft)
     };
 }
