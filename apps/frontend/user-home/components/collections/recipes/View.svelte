@@ -84,7 +84,10 @@
 
 <div class="wrapper">
     {#each subCategories as subCategory}
-        <table class="table table-striped">
+        <table
+            class="table table-striped"
+            data-id="{subCategory.id}"
+        >
             <thead>
                 <tr>
                     <th colspan="2">{subCategory.name}</th>
