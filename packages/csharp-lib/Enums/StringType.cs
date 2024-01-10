@@ -29,6 +29,7 @@ public enum StringType : short
     WowTransmogSetGroupName = 25,
     WowTransmogSetName = 26,
     WowSharedString = 27,
+    WowSpellName = 28,
 
     // Hacky garbage
     WowJournalInstanceMapName = 1000,
