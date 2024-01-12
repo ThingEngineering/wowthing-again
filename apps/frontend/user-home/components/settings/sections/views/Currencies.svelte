@@ -18,13 +18,14 @@
     const categoryPrefix: Record<number, string> = {
         250: '[DF]',
         245: '[SL]',
+        22: '', // Dungeon and Raid
     }
 
     let currencyChoices: SettingsChoice[]
     $: {
         currencyChoices = []
         for (const categoryId of categoryOrder) {
-            if (categoryId === 0 || !categoryPrefix[categoryId]) { continue }
+            if (categoryId === 0 || categoryPrefix[categoryId] === undefined) { continue }
             
             const categoryIds: number[] = [categoryId]
             if (categoryChildren[categoryId]) {

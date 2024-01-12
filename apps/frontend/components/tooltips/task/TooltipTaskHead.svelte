@@ -10,6 +10,7 @@
     import { timeStore } from '@/shared/stores/time'
     import { lazyStore, userQuestStore, userStore } from '@/stores'
     import { activeView } from '@/shared/stores/settings'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     export let taskName: string
 
@@ -115,6 +116,8 @@
         text-align: right;
     }
     .value {
+        --image-border-width: 1px;
+
         text-align: left;
     }
     .faded {
@@ -130,7 +133,9 @@
                 <tr
                     class:faded={disabledChores.indexOf(multiTaskKey) >= 0}
                 >
-                    <td class="value">{multiTaskName}</td>
+                    <td class="value">
+                        <ParsedText text={multiTaskName} />
+                    </td>
                     <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
                     <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
                     <td class="label drop-shadow status-success">{questStatuses[2]}</td>
