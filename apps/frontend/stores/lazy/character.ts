@@ -332,7 +332,10 @@ function doCharacterTasks(
                         }
                     }
                     else {
-                        if (!!charTask.quest && DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime) {
+                        if (!!charTask.quest && (
+                            (DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime) ||
+                            (choreTask.taskKey.startsWith('dmf') && charTask.quest.expires === 0)
+                        )) {
                             charTask.status = charTask.quest.status
                             if (charTask.status === QuestStatus.InProgress &&
                                 charTask.quest.objectives?.length > 0) {
