@@ -135,7 +135,6 @@ async function saveData(
     settings: Settings,
     userData: UserData,
 ) {
-
     settingsSavingState.set(1)
     const xsrf = document.getElementById('app').getAttribute('data-xsrf')
     const data = {
@@ -164,17 +163,19 @@ async function saveData(
             return state
         })
 
-        const fetchOptions: Partial<FancyStoreFetchOptions> = {
-            language: settings.general.language,
-            evenIfLoaded: true,
-            onlyIfLoaded: true,
+        if (settings.general.language !== staticStore.language) {
+            const fetchOptions: Partial<FancyStoreFetchOptions> = {
+                language: settings.general.language,
+                evenIfLoaded: true,
+                onlyIfLoaded: true,
+            }
+            await Promise.all([
+                achievementStore.fetch(fetchOptions),
+                journalStore.fetch(fetchOptions),
+                manualStore.fetch(fetchOptions),
+                staticStore.fetch(fetchOptions),
+            ])
         }
-        await Promise.all([
-            achievementStore.fetch(fetchOptions),
-            journalStore.fetch(fetchOptions),
-            manualStore.fetch(fetchOptions),
-            staticStore.fetch(fetchOptions),
-        ])
 
         settingsSavingState.set(2)
     }    

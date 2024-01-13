@@ -23,6 +23,7 @@ export type FancyStoreType<T> = T & {
 // }
 
 export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T>> {
+    protected _language: Language
     protected value: FancyStoreType<T>
     
     public initialize?(data: T): void
@@ -49,6 +50,8 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
 
     get dataUrl(): string { return null }
 
+    get language(): Language { return this._language }
+
     get(): FancyStoreType<T> {
         return this.value
     }
@@ -64,7 +67,8 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
             return false
         }
 
-        const url = this.dataUrl.replace('zzZZ', Language[options?.language ?? Language.enUS])
+        this._language = options?.language ?? Language.enUS
+        const url = this.dataUrl.replace('zzZZ', Language[this._language])
         if (!url) {
             this.update(state => {
                 state.error = true
