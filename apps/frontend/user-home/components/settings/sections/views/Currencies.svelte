@@ -18,14 +18,23 @@
     const categoryPrefix: Record<number, string> = {
         250: '[DF]',
         245: '[SL]',
-        22: '', // Dungeon and Raid
+        143: '[BfA]', // Battle for Azeroth
+        141: '[Leg]', // Legion
+        137: '[WoD]', // Warlords of Draenor
+        133: '[MoP]', // Mists of Pandaria
+        81: '[Cata]', // Cataclysm
+        21: '[Wrath]', // Wrath of the Lich King
+        23: '[TBC]', // Burning Crusade
+        22: '[Dun]', // Dungeon and Raid
+        1: '[Misc]', // Miscellaneous
+        2: '[PvP]', // Player vs. Player
     }
 
     let currencyChoices: SettingsChoice[]
     $: {
         currencyChoices = []
         for (const categoryId of categoryOrder) {
-            if (categoryId === 0 || categoryPrefix[categoryId] === undefined) { continue }
+            if (categoryPrefix[categoryId] === undefined) { continue }
             
             const categoryIds: number[] = [categoryId]
             if (categoryChildren[categoryId]) {
@@ -75,12 +84,12 @@
             }
 
             currencyChoices.push(...sortBy(
-                uniqBy(currencies, (currency) => currency.key),
+                currencies,
                 (currency) => currency.name
             ))
         }
 
-        console.log(currencyChoices)
+        currencyChoices = uniqBy(currencyChoices, (c) => c.key)
     }
 
     $: currencyActive = view.homeCurrencies
