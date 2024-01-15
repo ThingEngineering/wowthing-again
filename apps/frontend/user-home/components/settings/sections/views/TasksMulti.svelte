@@ -47,6 +47,7 @@
     {#each taskChoices as choice}
         <GroupedCheckbox
             name="choice_{choice.key}"
+            tooltip={choice.name}
             value={choice.key}
             bind:bindGroup={taskActive}
         >
