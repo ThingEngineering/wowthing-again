@@ -1,5 +1,6 @@
 <script lang="ts">
     import { iconLibrary } from '@/shared/icons'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
@@ -7,6 +8,7 @@
     export let disabled = false
     export let name: string
     export let textClass = ''
+    export let tooltip: string = undefined
     export let value = ''
 
     let checked = bindGroup.indexOf(value) >= 0
@@ -42,6 +44,7 @@
     <label
         class="text-overflow"
         for="input-{name}"
+        use:basicTooltip={tooltip}
     >
         <input
             id="input-{name}"
