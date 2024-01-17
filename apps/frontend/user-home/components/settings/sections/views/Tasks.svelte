@@ -1,7 +1,8 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
+    import sortBy from 'lodash/sortBy'
 
-    import { taskList, taskMap } from '@/data/tasks'
+    import { multiTaskMap, taskList, taskMap } from '@/data/tasks'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
@@ -9,6 +10,8 @@
 
     export let active: boolean
     export let view: SettingsView
+
+    const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key)
 
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
 
@@ -52,7 +55,7 @@
     {/if}
 </div>
 
-{#each ['dfChores', 'dfChores10_1_0', 'dfChores10_2_0', 'holidayDarkmoonFaire', 'holidayWinterVeil', 'pvpBlitz', 'pvpBrawl'] as taskKey}
+{#each multiTasks as taskKey}
     {#if view.homeTasks.indexOf(taskKey) >= 0}
         <div class="settings-block">
             <div>
