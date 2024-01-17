@@ -12,6 +12,7 @@
     import HeadCurrencies from './head/HomeTableHeadCurrencies.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
+    import HeadItems from './head/HomeTableHeadItems.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadTasks from './head/HomeTableHeadTasks.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -129,6 +130,11 @@
                 on:keypress={() => setSorting(field)}
                 use:basicTooltip={'Item Level'}
             >ilvl</td>
+        
+        {:else if field === 'items'}
+            {#if !isPublic}
+                <HeadItems {sortKey} />
+            {/if}
 
         {:else if field === 'keystone'}
             {#if !isPublic || $settingsStore.privacy.publicMythicPlus}

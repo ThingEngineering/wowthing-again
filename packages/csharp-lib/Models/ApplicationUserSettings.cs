@@ -88,6 +88,7 @@ public class ApplicationUserSettings
         "guild",
         "hearthLocation",
         "itemLevel",
+        "items",
         "keystone",
         "lockouts",
         "mountSpeed",
@@ -395,6 +396,7 @@ public class ApplicationUserSettingsView
     public List<string> HomeFields { get; set; } = new();
 
     public List<int> HomeCurrencies { get; set; } = new();
+    public List<int> HomeItems { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
     public List<string> HomeTasks { get; set; } = new();
 

@@ -1,14 +1,16 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { onMount } from 'svelte'
 
     import { settingsStore } from '@/shared/stores/settings'
 
     import TooltipCharacterFilter from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
-    import CharacterTableSettings from './CharacterTableSettings.svelte'
+    import TableSettings from './TableSettings.svelte'
     import Currencies from './Currencies.svelte'
     import Grouping from './Grouping.svelte'
+    import Items from './Items.svelte'
     import Lockouts from './Lockouts.svelte'
     import Sorting from './Sorting.svelte'
     import Tasks from './Tasks.svelte'
@@ -16,6 +18,16 @@
     export let params: { view: string }
 
     $: view = find($settingsStore.views || [], (view) => view.id === params.view)
+    $: homeFields = view.homeFields
+
+    const onHomeFieldsUpdated = (e) => {
+        console.log(homeFields = e.detail)
+    }
+
+    onMount(() => {
+        document.addEventListener('homeFieldsUpdated', onHomeFieldsUpdated)
+        return () => { document.removeEventListener('homeFieldsUpdated', onHomeFieldsUpdated) }
+    })
 </script>
 
 <style lang="scss">
@@ -61,9 +73,23 @@
     {#key `view--${view.id}`}
         <Grouping {view} />
         <Sorting {view} />
-        <CharacterTableSettings {view} />
-        <Lockouts {view} />
-        <Tasks {view} />
-        <Currencies {view} />
+        <TableSettings {view} />
+
+        <Lockouts
+            active={homeFields.indexOf('lockouts') >= 0}
+            {view}
+        />
+        <Tasks
+            active={homeFields.indexOf('tasks') >= 0}
+            {view}
+        />
+        <Currencies
+            active={homeFields.indexOf('currencies') >= 0}
+            {view}
+        />
+        <Items
+            active={homeFields.indexOf('items') >= 0}
+            {view}
+        />
     {/key}
 {/if}

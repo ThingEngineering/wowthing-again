@@ -7,6 +7,7 @@
     import MagicLists from '../../MagicLists.svelte'
     import Multi from './TasksMulti.svelte'
 
+    export let active: boolean
     export let view: SettingsView
 
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
@@ -29,19 +30,26 @@
 </style>
 
 <div class="settings-block tasks">
-    <h3>Tasks</h3>
+    <h3>
+        Tasks
+        {#if !active}
+            <span>add to Home columns to configure</span>
+        {/if}
+    </h3>
 
-    <p>
-        <code>[Holiday]</code> and <code>[Weekly]</code> tasks will only show that column when that
-        holiday/weekly is active.
-    </p>
+    {#if active}
+        <p>
+            <code>[Holiday]</code> and <code>[Weekly]</code> tasks will only show that column when that
+            holiday/weekly is active.
+        </p>
 
-    <MagicLists
-        key='lockouts'
-        onFunc={onTaskChange}
-        active={taskActive}
-        inactive={taskInactive}
-    />
+        <MagicLists
+            key='lockouts'
+            onFunc={onTaskChange}
+            active={taskActive}
+            inactive={taskInactive}
+        />
+    {/if}
 </div>
 
 {#each ['dfChores', 'dfChores10_1_0', 'dfChores10_2_0', 'holidayDarkmoonFaire', 'holidayWinterVeil', 'pvpBlitz', 'pvpBrawl'] as taskKey}

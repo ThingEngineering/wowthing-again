@@ -11,6 +11,7 @@
     import MagicLists from '../../MagicLists.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
+    export let active: boolean
     export let view: SettingsView
 
     let currencyFilter: string
@@ -128,26 +129,29 @@
 </style>
 
 <div class="settings-block">
-    <h3>Currencies</h3>
+    <h3>
+        Currencies
+        {#if !active}
+            <span>add to Home columns to configure</span>
+        {/if}
+    </h3>
 
-    <p>
-        You'll also need to add <code>Currencies</code> to <code>Home columns</code>.
-    </p>
+    {#if active}
+        <div class="filter-currencies">
+            <TextInput
+                name="filter"
+                maxlength={20}
+                placeholder="Search..."
+                bind:value={currencyFilter}
+            />
+        </div>
 
-    <div class="filter-currencies">
-        <TextInput
-            name="filter"
-            maxlength={20}
-            placeholder="Search..."
-            bind:value={currencyFilter}
+        <MagicLists
+            key="currencies"
+            title="Currencies"
+            onFunc={onCurrenciesChange}
+            active={currencyActive}
+            inactive={currencyInactive}
         />
-    </div>
-
-    <MagicLists
-        key="currencies"
-        title="Currencies"
-        onFunc={onCurrenciesChange}
-        active={currencyActive}
-        inactive={currencyInactive}
-    />
+    {/if}
 </div>
