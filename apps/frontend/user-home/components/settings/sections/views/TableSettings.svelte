@@ -23,6 +23,8 @@
     })
     const onHomeChange = debounce(() => {
         view.homeFields = homeActive.map((field) => field.key)
+
+        document.dispatchEvent(new CustomEvent('homeFieldsUpdated', { detail: view.homeFields }))
     })
 </script>
 

@@ -14,6 +14,7 @@
     import RowGuild from './table/row/HomeTableRowGuild.svelte'
     import RowHearthLocation from './table/row/HomeTableRowHearthLocation.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
+    import RowItems from './table/row/HomeTableRowItems.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
@@ -101,6 +102,9 @@
 
                 {:else if field === 'itemLevel'}
                     <RowItemLevel {character} />
+
+                {:else if field === 'items'}
+                    <RowItems {character} />
 
                 {:else if field === 'keystone'}
                     {#if !isPublic || $settingsStore.privacy.publicMythicPlus}

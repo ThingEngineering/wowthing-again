@@ -10,6 +10,7 @@
     import MagicLists from '../../MagicLists.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
+    export let active: boolean
     export let view: SettingsView
 
     let instanceFilter: string
@@ -62,27 +63,29 @@
 </style>
 
 <div class="settings-block">
-    <h3>Lockouts</h3>
+    <h3>
+        Lockouts
+        {#if !active}
+            <span>add to Home columns to configure</span>
+        {/if}
+    </h3>
 
-    <p>
-        Search for instances and add them to the left list to have them show up under Lockouts.
-        You'll also need to add <code>Lockouts</code> to <code>Home columns</code>.
-    </p>
+    {#if active}
+        <div class="filter-instances">
+            <TextInput
+                name="filter"
+                maxlength={20}
+                placeholder="Search..."
+                bind:value={instanceFilter}
+            />
+        </div>
 
-    <div class="filter-instances">
-        <TextInput
-            name="filter"
-            maxlength={20}
-            placeholder="Search..."
-            bind:value={instanceFilter}
+        <MagicLists
+            key="lockouts"
+            title="Lockouts"
+            onFunc={onLockoutChange}
+            active={lockoutActive}
+            inactive={lockoutInactive}
         />
-    </div>
-
-    <MagicLists
-        key="lockouts"
-        title="Lockouts"
-        onFunc={onLockoutChange}
-        active={lockoutActive}
-        inactive={lockoutInactive}
-    />
+    {/if}
 </div>

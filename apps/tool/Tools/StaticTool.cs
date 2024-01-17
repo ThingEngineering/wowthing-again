@@ -1064,9 +1064,10 @@ public class StaticTool
 
         // TraitNodeXTraitCond
         var traitCondIdToTraitNode = (await LoadCsv<DumpTraitNodeXTraitCond>("traitnodextraitcond"))
+            .GroupBy(tnxtc => tnxtc.TraitCondID)
             .ToDictionary(
-                tnxtc => tnxtc.TraitCondID,
-                tnxtc => traitNodeById[tnxtc.TraitNodeID]
+                group => group.Key,
+                group => traitNodeById[group.First().TraitNodeID]
             );
             // .GroupBy(tnxtc => tnxtc.TraitCondID)
             // .ToDictionary(

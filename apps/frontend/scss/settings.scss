@@ -29,6 +29,7 @@
             margin-top: 1.5rem;
             padding-top: 0.5rem;
         }
+
     }
     h4 {
         margin-top: 0.5rem;
@@ -123,4 +124,13 @@
     break-inside: avoid;
     overflow: hidden; /* Firefox fix */
     width: $settings-column-width;
+
+    > h3 {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 1rem;
+        }
+    }
 }

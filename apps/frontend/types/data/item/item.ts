@@ -60,6 +60,9 @@ export class ItemDataItem {
     get equippable(): boolean {
         return this.classId === 2 || this.classId === 4
     }
+    get key(): string {
+        return this.id.toString()
+    }
 }
 // Can't use the auto type as we use array indexes for name/classMask/raceMask
 // export type ItemDataItemArray = ConstructorParameters<typeof ItemDataItem>
