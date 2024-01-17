@@ -4,7 +4,6 @@
     import some from 'lodash/some'
 
     import { itemStore } from '@/stores'
-    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'

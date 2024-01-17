@@ -280,7 +280,6 @@
                                         )
                                     }
                                 >
-                                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                                     <td
                                         class="realm text-overflow"
                                         on:click={() => setRealmSearch(auction.connectedRealmId)}

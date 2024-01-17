@@ -20,8 +20,8 @@
     $: view = find($settingsStore.views || [], (view) => view.id === params.view)
     $: homeFields = view.homeFields
 
-    const onHomeFieldsUpdated = (e) => {
-        console.log(homeFields = e.detail)
+    const onHomeFieldsUpdated = (e: Event) => {
+        homeFields = (e as CustomEvent<string[]>).detail
     }
 
     onMount(() => {

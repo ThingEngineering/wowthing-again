@@ -23,6 +23,7 @@
             commonFields: $settingsStore.views[0].commonFields,
             homeFields: [],
             homeCurrencies: [],
+            homeItems: [],
             homeLockouts: [],
             homeTasks: [],
             disabledChores: {},
