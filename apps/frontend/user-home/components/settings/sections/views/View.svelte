@@ -75,20 +75,20 @@
         <Sorting {view} />
         <TableSettings {view} />
 
-        <Lockouts
-            active={homeFields.indexOf('lockouts') >= 0}
-            {view}
-        />
-        <Tasks
-            active={homeFields.indexOf('tasks') >= 0}
-            {view}
-        />
         <Currencies
             active={homeFields.indexOf('currencies') >= 0}
             {view}
         />
         <Items
             active={homeFields.indexOf('items') >= 0}
+            {view}
+        />
+        <Lockouts
+            active={homeFields.indexOf('lockouts') >= 0}
+            {view}
+        />
+        <Tasks
+            active={homeFields.indexOf('tasks') >= 0}
             {view}
         />
     {/key}
