@@ -158,9 +158,9 @@ export function useCharacterFilter(
                             return lazyStore.characters[char.id].professionWorkOrders.have > 0
                         }
 
-                        // console.log('unmatched filter:', part)
-                        return false
-                    })(outerPart)
+                        console.log('unmatched filter:', part)
+                        return null
+                    })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!') ? false : true
                 )
             )
         }

@@ -94,7 +94,6 @@
                     <Misc type={StatType.Health} {character} />
                     <Basic type={StatType.Stamina} {character} />
                     <Basic type={mainStat} {character} />
-                    <Rating label={'Leech'} type={StatType.LifestealRating} {character} />
                     <Rating label={'Speed'} type={StatType.SpeedRating} {character} />
                 </tbody>
             </table>
@@ -120,6 +119,8 @@
                 <tbody>
                     <Rating label={'Dodge'} type={StatType.DodgeRating} {character} />
                     <Rating label={'Parry'} type={StatType.ParryRating} {character} />
+                    <Rating label={'Avoidance'} type={StatType.AvoidanceRating} {character} />
+                    <Rating label={'Leech'} type={StatType.LifestealRating} {character} />
                     <Rating label={'Versatility'} type={StatType.VersatilityDamageTaken} {character} />
                 </tbody>
             </table>
