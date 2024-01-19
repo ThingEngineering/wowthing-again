@@ -158,8 +158,7 @@ export function useCharacterFilter(
                             return lazyStore.characters[char.id].professionWorkOrders.have > 0
                         }
 
-                        console.log('unmatched filter:', part)
-                        return null
+                        return false
                     })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!') ? false : true
                 )
             )
