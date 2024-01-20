@@ -196,7 +196,7 @@ public class CacheService
     {
         db ??= _redis.GetDatabase();
         await db.KeyDeleteAsync(string.Format(RedisKeys.UserAchievements, userId));
-        await db.KeyDeleteAsync(string.Format(RedisKeys.UserLastModifiedAchievements, userId));
+        await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
     }
     #endregion
 
@@ -374,7 +374,7 @@ public class CacheService
     {
         db ??= _redis.GetDatabase();
         await db.KeyDeleteAsync(string.Format(RedisKeys.UserQuests, userId));
-        await db.KeyDeleteAsync(string.Format(RedisKeys.UserLastModifiedQuests, userId));
+        await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
     }
     #endregion
 
