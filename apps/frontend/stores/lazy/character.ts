@@ -78,7 +78,7 @@ interface LazyStores {
 }
 
 export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> {
-    console.time('doCharacters')
+    // console.time('doCharacters')
 
     const ret: Record<string, LazyCharacter> = {}
 
@@ -97,7 +97,7 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         professions.process()
     }
 
-    console.timeEnd('doCharacters')
+    // console.timeEnd('doCharacters')
 
     return ret
 }

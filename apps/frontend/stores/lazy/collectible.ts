@@ -25,7 +25,7 @@ export function doCollectible(
 ): LazyCollectible {
     if (!userHas) { return }
 
-    console.time(`doCollectible(${collectionKey})`)
+    // console.time(`doCollectible(${collectionKey})`)
 
     const ret: LazyCollectible = {
         filteredCategories: categories,
@@ -152,7 +152,7 @@ export function doCollectible(
         }
     }
     
-    console.timeEnd(`doCollectible(${collectionKey})`)
+    // console.timeEnd(`doCollectible(${collectionKey})`)
 
     return ret
 }
