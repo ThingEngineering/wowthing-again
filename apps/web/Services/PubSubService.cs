@@ -33,7 +33,7 @@ public class PubSubService : IHostedService
         queue.OnMessage(async channelMessage =>
         {
             string message = channelMessage.Message.ToString();
-            _logger.LogInformation("PubSub: {msg}", message);
+            // _logger.LogDebug("PubSub: {msg}", message);
 
             string[] parts = message.Split("|");
             await _userUpdateHub
