@@ -630,6 +630,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'dfSuperbloom',
             taskName: 'Superbloom',
         },
+        {
+            taskKey: 'dfBigDig',
+            taskName: 'The Big Dig',
+        },
     ],
     'dfDungeonWeeklies': [
         {
