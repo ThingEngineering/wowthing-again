@@ -10,6 +10,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { userUpdateHubStore } from './signalr/user-update-hub-store'
     import { dbStore } from '@/shared/stores/db'
     import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
@@ -72,6 +73,10 @@
                 $itemStore,
                 $userAchievementStore
             )
+
+            if (!$userStore.public) {
+                userUpdateHubStore.connect()
+            }
 
             ready = true
         }
