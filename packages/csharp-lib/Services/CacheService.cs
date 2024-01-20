@@ -513,11 +513,14 @@ public class CacheService
             userCache.IllusionIds = sortedIllusions;
         }
 
-        await context.SaveChangesAsync();
+        int updated = await context.SaveChangesAsync();
 
         timer.AddPoint("Save");
 
-        await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+        if (updated > 0)
+        {
+            await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+        }
 
         return userCache;
     }
