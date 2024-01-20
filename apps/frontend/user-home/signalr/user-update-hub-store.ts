@@ -34,7 +34,7 @@ function createStore() {
                 console.warn('Unknown key', key, timestamp)
             }
         }
-    }, 1000)
+    }, 5000)
 
     const onDataUpdated = (key: string, timestamp: string) => {
         updatedKeys[key] = timestamp
