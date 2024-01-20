@@ -1,19 +1,51 @@
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
-import { createEventDispatcher, type EventDispatcher } from 'svelte'
+import debounce from 'lodash/debounce'
+// import { createEventDispatcher, type EventDispatcher } from 'svelte'
 import { readable } from 'svelte/store'
+
+import { userAchievementStore, userQuestStore, userStore, userTransmogStore } from '@/stores'
 
 
 function createStore() {
     const store = readable<string>()
 
     let connection: HubConnection
-    let dispatch: EventDispatcher<any>
+    // let dispatch: EventDispatcher<any>
+    let updatedKeys: Record<string, string> = {}
 
+    const doUpdates = debounce(async () => {
+        const keyEntries = Object.entries(updatedKeys)
+        updatedKeys = {}
+        console.log('Updating', keyEntries)
+        for (const [key, timestamp] of keyEntries) {
+            if (key === 'achievements') {
+                await userAchievementStore.fetch({ evenIfLoaded: true, timestamp })
+            }
+            else if (key === 'general') {
+                await userStore.fetch({ evenIfLoaded: true, timestamp })
+            }
+            else if (key === 'quests') {
+                await userQuestStore.fetch({ evenIfLoaded: true, timestamp })
+            }
+            else if (key === 'transmog') {
+                await userTransmogStore.fetch({ evenIfLoaded: true, timestamp })
+            }
+            else {
+                console.warn('Unknown key', key, timestamp)
+            }
+        }
+    }, 1000)
+
+    const onDataUpdated = (key: string, timestamp: string) => {
+        updatedKeys[key] = timestamp
+        doUpdates()
+    }
+    
     return {
         connect: () => {
             if (connection) { return }
 
-            dispatch = createEventDispatcher()
+            // dispatch = createEventDispatcher()
 
             connection = new HubConnectionBuilder()
                 .withUrl('/userUpdate')
@@ -23,10 +55,12 @@ function createStore() {
             
             connection.start()
 
-            connection.on('dataUpdated', (args) => {
-                console.log(args)
-                dispatch('data-updated', args)
-            })
+            connection.on('dataUpdated', onDataUpdated)
+        },
+        disconnect: () => {
+            if (!connection) { return }
+
+            connection.stop()
         },
         subscribe: store.subscribe,
     }

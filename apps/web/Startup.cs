@@ -140,6 +140,8 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
         services.AddManifest(jsonOptions);
 
         // Our services
+        services.AddHostedService<PubSubService>();
+
         services.AddScoped<AuctionService>();
         services.AddScoped<CacheService>();
         services.AddScoped<UploadService>();

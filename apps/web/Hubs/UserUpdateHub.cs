@@ -29,8 +29,8 @@ public class UserUpdateHub : Hub
         await base.OnDisconnectedAsync(exception);
     }
 
-    public async Task SendMessage(string user, string message)
+    public async Task SendDataUpdated(string userId, string key)
     {
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        await Clients.Group(userId).SendAsync("dataUpdated", key);
     }
 }

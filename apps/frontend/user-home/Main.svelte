@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onDestroy, onMount } from 'svelte'
 
     import {
         itemStore,
@@ -33,6 +33,8 @@
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
+
+    onDestroy(() => userUpdateHubStore.disconnect())
 
     let error: boolean
     let loaded: boolean
