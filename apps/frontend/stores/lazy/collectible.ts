@@ -23,6 +23,8 @@ export function doCollectible(
     categories: ManualDataSetCategory[][],
     userHas: Record<number, boolean>
 ): LazyCollectible {
+    if (!userHas) { return }
+
     console.time(`doCollectible(${collectionKey})`)
 
     const ret: LazyCollectible = {

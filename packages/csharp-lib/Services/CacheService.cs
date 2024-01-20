@@ -33,12 +33,20 @@ public class CacheService
         return await db.DateTimeOffsetGetAsync(redisKey);
     }
 
-    public async Task<(bool, DateTimeOffset)> SetLastModified(string key, long userId)
+    public async Task<DateTimeOffset> SetLastModified(string key, long userId)
     {
         var db = _redis.GetDatabase();
-        var redisKey = string.Format(key, userId);
+        string redisKey = string.Format(key, userId);
         var now = DateTimeOffset.UtcNow;
-        return (await db.DateTimeOffsetSetAsync(redisKey, now), now);
+        await db.DateTimeOffsetSetAsync(redisKey, now);
+
+        if (key.Contains(":last_modified"))
+        {
+            await db.PublishAsync(RedisKeys.UserUpdatesChannel,
+                $"{userId}|{redisKey.Split(':').Last()}|{now.ToUnixTimeSeconds()}");
+        }
+
+        return now;
     }
 
     public async Task<(bool, DateTimeOffset)> CheckLastModified(
@@ -177,7 +185,7 @@ public class CacheService
         timer.AddPoint("JSON", true);
 
         await db.CompressedStringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
+        var lastModified = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
 
@@ -335,7 +343,7 @@ public class CacheService
         timer.AddPoint("JSON");
 
         await db.CompressedStringSetAsync(string.Format(RedisKeys.UserQuests, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+        var lastModified = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
 
         timer.AddPoint("Redis");
 
@@ -508,6 +516,8 @@ public class CacheService
         await context.SaveChangesAsync();
 
         timer.AddPoint("Save");
+
+        await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
 
         return userCache;
     }

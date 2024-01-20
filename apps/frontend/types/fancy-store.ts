@@ -9,6 +9,7 @@ export interface FancyStoreFetchOptions {
     evenIfLoaded: boolean
     onlyIfLoaded: boolean
     language: Language
+    timestamp: string
 }
 
 export type FancyStoreType<T> = T & {
@@ -68,7 +69,12 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
         }
 
         this._language = options?.language ?? Language.enUS
-        const url = this.dataUrl.replace('zzZZ', Language[this._language])
+        let url = this.dataUrl.replace('zzZZ', Language[this._language])
+
+        if (options?.timestamp) {
+            url = url.replace(/-\d+\.json/, `-${options.timestamp}.json`)
+        }
+
         if (!url) {
             this.update(state => {
                 state.error = true

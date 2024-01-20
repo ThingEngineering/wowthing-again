@@ -12,6 +12,7 @@ using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Wowthing.Lib.Services;
+using Wowthing.Web.Hubs;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web;
@@ -132,11 +133,15 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
             );
         });
 
+        services.AddSignalR();
+
         // Options
         var jsonOptions = services.AddJsonOptions();
         services.AddManifest(jsonOptions);
 
         // Our services
+        services.AddHostedService<PubSubService>();
+
         services.AddScoped<AuctionService>();
         services.AddScoped<CacheService>();
         services.AddScoped<UploadService>();
@@ -187,6 +192,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapHub<UserUpdateHub>("/userUpdate");
             endpoints.MapControllers();
         });
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onDestroy, onMount } from 'svelte'
 
     import {
         itemStore,
@@ -10,6 +10,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { userUpdateHubStore } from './signalr/user-update-hub-store'
     import { dbStore } from '@/shared/stores/db'
     import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
@@ -32,6 +33,8 @@
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
+
+    onDestroy(() => userUpdateHubStore.disconnect())
 
     let error: boolean
     let loaded: boolean
@@ -72,6 +75,10 @@
                 $itemStore,
                 $userAchievementStore
             )
+
+            if (!$userStore.public) {
+                userUpdateHubStore.connect()
+            }
 
             ready = true
         }
