@@ -12,6 +12,7 @@ export class StaticDataRealm {
         public connectedRealmId: number,
         public name: string,
         public slug: string,
+        public locale: string,
         public englishName?: string
     )
     { }
