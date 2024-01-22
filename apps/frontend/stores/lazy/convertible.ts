@@ -36,6 +36,10 @@ export class LazyConvertibleCharacterItem {
 }
 
 export class LazyConvertibleModifier {
+    public anyCanConvert: boolean
+    public anyCanUpgrade: boolean
+    public anyIsConvertible: boolean
+    public anyIsUpgradeable: boolean
     public characters: Record<number, LazyConvertibleCharacterItem[]> = {}
     public userHas: boolean
 }
@@ -358,6 +362,23 @@ export function doConvertible(
                         modifierData.characters[character.id] = characterData
                     }
                 } // for character
+
+                modifierData.anyCanConvert = some(
+                    Object.values(modifierData.characters),
+                    (entries) => some(entries, (entry) => entry.canConvert)
+                )
+                modifierData.anyIsConvertible = some(
+                    Object.values(modifierData.characters),
+                    (entries) => some(entries, (entry) => entry.isConvertible)
+                )
+                modifierData.anyCanUpgrade = some(
+                    Object.values(modifierData.characters),
+                    (entries) => some(entries, (entry) => entry.canUpgrade)
+                )
+                modifierData.anyIsUpgradeable = some(
+                    Object.values(modifierData.characters),
+                    (entries) => some(entries, (entry) => entry.isUpgradeable)
+                )
             } // for modifier
         } // for setItemId
     } // for convertibleCategory
