@@ -144,11 +144,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         if (data.rawRealms !== null) {
             data.realms = {
-                0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
-                100001: new StaticDataRealm(100001, 1, 100001, 'Commodities', 'commodities'),
-                100002: new StaticDataRealm(100002, 2, 100002, 'Commodities', 'commodities'),
-                100003: new StaticDataRealm(100003, 3, 100003, 'Commodities', 'commodities'),
-                100004: new StaticDataRealm(100004, 4, 100004, 'Commodities', 'commodities'),
+                0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza', 'zzZZ'),
+                100001: new StaticDataRealm(100001, 1, 100001, 'Commodities', 'commodities', 'zzZZ'),
+                100002: new StaticDataRealm(100002, 2, 100002, 'Commodities', 'commodities', 'zzZZ'),
+                100003: new StaticDataRealm(100003, 3, 100003, 'Commodities', 'commodities', 'zzZZ'),
+                100004: new StaticDataRealm(100004, 4, 100004, 'Commodities', 'commodities', 'zzZZ'),
             }
             for (const realmArray of data.rawRealms) {
                 const obj = new StaticDataRealm(...realmArray)
@@ -224,7 +224,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     ) {
         this.value.connectedRealms = {}
 
-        const connected: Record<number, { region: number, names: string[] }> = {}
+        const connected: Record<number, { region: number, locale: string, names: string[] }> = {}
         for (const realm of Object.values(this.value.realms)) {
             if (settings?.general?.useEnglishRealmNames !== false && realm.englishName) {
                 realm.name = realm.englishName
@@ -233,18 +233,20 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             if (realm.connectedRealmId > 0) {
                 connected[realm.connectedRealmId] ||= {
                     region: realm.region,
+                    locale: realm.locale,
                     names: [],
                 }
                 connected[realm.connectedRealmId].names.push(realm.name)
             }
         }
 
-        for (const [crId, {region, names}] of Object.entries(connected)) {
+        for (const [crId, {locale, names, region}] of Object.entries(connected)) {
             names.sort()
             this.value.connectedRealms[parseInt(crId)] = {
                 id: parseInt(crId),
                 region: region,
                 displayText: names.join(' / '),
+                locale: locale,
                 realmNames: names,
             }
         }

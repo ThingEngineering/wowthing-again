@@ -1,12 +1,11 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { classOrder } from '@/data/character-class'
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
     import { iconLibrary, uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
     import { getGenderedName } from '@/utils/get-gendered-name'
+    import getPercentClass from '@/utils/get-percent-class'
     import type { LazyConvertibleModifier } from '@/stores/lazy/convertible'
 
     import { convertibleTypes } from './data'
@@ -27,6 +26,12 @@
     .name {
         @include cell-width(9rem);
     }
+    .counts {
+        @include cell-width(3rem);
+
+        border-left: 1px solid $border-color;
+        text-align: center;
+    }
     .item-slot {
         --image-margin-top: -4px;
 
@@ -46,6 +51,8 @@
                 <th class="name">
                     {AppearanceModifier[modifier]}
                 </th>
+                <th class="counts">Now</th>
+                <th class="counts">Max</th>
                 {#each convertibleTypes as inventoryType}
                     <th class="item-slot">
                         {InventoryType[inventoryType]}
@@ -56,9 +63,22 @@
         <tbody>
             {#each classOrder as classId}
                 {@const characterClass = $staticStore.characterClasses[classId]}
+                {@const slotsHave = Object.values(classData[classId]).filter((mod) => mod.userHas).length}
+                {@const slotsCouldHave = Object.values(classData[classId]).filter((mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable).length}
+                {@const slotsTotal = Object.values(classData[classId]).length}
                 <tr>
                     <td class="name class-{classId}">
                         {getGenderedName(characterClass.name, 0)}
+                    </td>
+                    <td class="counts {getPercentClass(slotsHave / slotsTotal * 100)}">
+                        {slotsHave}
+                        /
+                        {slotsTotal}
+                    </td>
+                    <td class="counts {getPercentClass(slotsCouldHave / slotsTotal * 100)}">
+                        {slotsCouldHave}
+                        /
+                        {slotsTotal}
                     </td>
                     
                     {#each convertibleTypes as inventoryType}
@@ -70,34 +90,17 @@
                                     icon={uiIcons.yes}
                                 />
                             {:else}
-                                {@const canConvert = some(
-                                    Object.values(data.characters),
-                                    (entries) => some(entries, (entry) => entry.canConvert)
-                                )}
-                                {@const isConvertible = some(
-                                    Object.values(data.characters),
-                                    (entries) => some(entries, (entry) => entry.isConvertible)
-                                )}
-                                {@const canUpgrade = some(
-                                    Object.values(data.characters),
-                                    (entries) => some(entries, (entry) => entry.canUpgrade)
-                                )}
-                                {@const isUpgradeable = some(
-                                    Object.values(data.characters),
-                                    (entries) => some(entries, (entry) => entry.isUpgradeable)
-                                )}
-                                
-                                {#if isUpgradeable || isConvertible}
-                                    {#if isUpgradeable}
+                                {#if data.anyIsUpgradeable || data.anyIsConvertible}
+                                    {#if data.anyIsUpgradeable}
                                         <IconifyIcon
-                                            extraClass={canUpgrade ? 'status-success' : 'status-fail'}
+                                            extraClass={data.anyCanUpgrade ? 'status-success' : 'status-fail'}
                                             icon={uiIcons.plus}
                                             tooltip={'Upgrade this item!'}
                                         />
                                     {/if}
-                                    {#if isConvertible}
+                                    {#if data.anyIsConvertible}
                                         <IconifyIcon
-                                            extraClass={canConvert ? 'status-success' : 'status-fail'}
+                                            extraClass={data.anyCanConvert ? 'status-success' : 'status-fail'}
                                             icon={iconLibrary.gameShurikenAperture}
                                             scale={'0.85'}
                                             tooltip={'Convert this item at the Catalyst!'}

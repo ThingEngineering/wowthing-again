@@ -20,6 +20,8 @@ public class WowRealmConverter : JsonConverter<WowRealm>
         writer.WriteStringValue(value.Name);
         writer.WriteStringValue(value.Slug);
 
+        writer.WriteStringValue(value.Locale);
+
         if (value.EnglishName != null)
         {
             writer.WriteStringValue(value.EnglishName);

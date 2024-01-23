@@ -256,6 +256,10 @@ img.quality5 {
         border-color: $quality6-color;
     }
 }
+.quality6-border {
+    border-color: $quality6-border;
+}
+
 // Heirloom
 .quality7 {
     --image-border-color: #{$quality7-border};
@@ -265,4 +269,7 @@ img.quality5 {
     div,img {
         border-color: $quality7-color;
     }
+}
+.quality7-border {
+    border-color: $quality7-border;
 }

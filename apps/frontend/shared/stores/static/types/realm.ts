@@ -1,8 +1,9 @@
 export interface StaticDataConnectedRealm {
-    id: number
-    region: number
     displayText: string
+    id: number
+    locale: string
     realmNames: string[]
+    region: number
 }
 
 export class StaticDataRealm {
@@ -12,6 +13,7 @@ export class StaticDataRealm {
         public connectedRealmId: number,
         public name: string,
         public slug: string,
+        public locale: string,
         public englishName?: string
     )
     { }

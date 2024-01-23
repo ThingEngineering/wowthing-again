@@ -1,5 +1,7 @@
 import { Region } from '@/enums/region'
+import { iconLibrary } from '@/shared/icons'
 import type { ResetTime } from '@/types'
+import type { IconifyIcon } from '@iconify/types'
 
 // Times are [hour, minute] in UTC
 export const resetTimes: Record<Region, ResetTime> = {
@@ -19,4 +21,35 @@ export const resetTimes: Record<Region, ResetTime> = {
         biWeeklyResetTime: [19, 0], // 7pm/8pm
     },
     [Region.TW]: null,
+}
+
+export const euLocales: Record<string, { icon: IconifyIcon, name: string }> = {
+    deDE: {
+        icon: iconLibrary.openmojiFlagGermany,
+        name: 'Germany',
+    },
+    enGB: {
+        icon: iconLibrary.openmojiFlagUnitedKingdom,
+        name: 'United Kingdom',
+    },
+    esES: {
+        icon: iconLibrary.openmojiFlagSpain,
+        name: 'Spain',
+    },
+    frFR: {
+        icon: iconLibrary.openmojiFlagFrance,
+        name: 'France',
+    },
+    itIT: {
+        icon: iconLibrary.openmojiFlagItaly,
+        name: 'Italy',
+    },
+    ptPT: {
+        icon: iconLibrary.openmojiFlagPortugal,
+        name: 'Portugal',
+    },
+    ruRU: {
+        icon: iconLibrary.openmojiFlagRussia,
+        name: 'Russia',
+    },
 }

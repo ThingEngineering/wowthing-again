@@ -71,7 +71,7 @@
 
         {#each runCounts as count, countIndex}
             <div
-                class="stats-box border quality{Math.min(5, countIndex + 1)}-border"
+                class="stats-box border quality{Math.min(6, countIndex + 1)}-border"
             >
                 {keyTiers[countIndex]}: {count}
             </div>
