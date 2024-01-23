@@ -1,9 +1,13 @@
 <script lang="ts">
     import { auctionsAppState } from '@/auctions/stores/state'
     import { specificStore } from '@/auctions/stores/specific'
+    import { euLocales } from '@/data/region'
+    import { Region } from '@/enums/region'
     import { staticStore } from '@/shared/stores/static'
-    import { leftPad } from '@/utils/formatting'
     import { basicTooltip } from '@/shared/utils/tooltips'
+    import { leftPad } from '@/utils/formatting'
+
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
     export let selected: string
 
@@ -71,6 +75,14 @@
                             use:basicTooltip={realm.displayText}
                         >
                             <!-- <code>[{Region[realm.region]}]</code> -->
+                            {#if realm.region === Region.EU}
+                                {@const { icon: countryIcon, name: countryName } = euLocales[realm.locale]}
+                                <IconifyIcon
+                                    icon={countryIcon}
+                                    tooltip={`EU: ${countryName}`}
+                                />
+                            {/if}
+
                             {realm.displayText}
                         </td>
                         <td class="quantity">

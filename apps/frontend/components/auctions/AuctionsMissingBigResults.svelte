@@ -24,6 +24,7 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { euLocales } from '@/data/region';
 
     export let page: number
     export let slug1: string
@@ -293,7 +294,15 @@
     `
                                         }}
                                     >
-                                        <code>[{Region[connectedRealm.region]}]</code>
+                                        {#if connectedRealm.region === Region.EU}
+                                            {@const { icon: countryIcon, name: countryName } = euLocales[connectedRealm.locale]}
+                                            <IconifyIcon
+                                                icon={countryIcon}
+                                                tooltip={`EU: ${countryName}`}
+                                            />
+                                        {:else}
+                                            <code>[{Region[connectedRealm.region]}]</code>
+                                        {/if}
                                         <span
                                             class:age-1={ageInMinutes < 20}
                                             class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}

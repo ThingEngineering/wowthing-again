@@ -224,7 +224,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     ) {
         this.value.connectedRealms = {}
 
-        const connected: Record<number, { region: number, names: string[] }> = {}
+        const connected: Record<number, { region: number, locale: string, names: string[] }> = {}
         for (const realm of Object.values(this.value.realms)) {
             if (settings?.general?.useEnglishRealmNames !== false && realm.englishName) {
                 realm.name = realm.englishName
@@ -233,18 +233,20 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             if (realm.connectedRealmId > 0) {
                 connected[realm.connectedRealmId] ||= {
                     region: realm.region,
+                    locale: realm.locale,
                     names: [],
                 }
                 connected[realm.connectedRealmId].names.push(realm.name)
             }
         }
 
-        for (const [crId, {region, names}] of Object.entries(connected)) {
+        for (const [crId, {locale, names, region}] of Object.entries(connected)) {
             names.sort()
             this.value.connectedRealms[parseInt(crId)] = {
                 id: parseInt(crId),
                 region: region,
                 displayText: names.join(' / '),
+                locale: locale,
                 realmNames: names,
             }
         }
