@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { classOrder } from '@/data/character-class'
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { InventoryType } from '@/enums/inventory-type'
@@ -85,7 +83,6 @@
                     
                     {#each convertibleTypes as inventoryType}
                         {@const data = classData[classId][inventoryType]}
-                        {@const foo = console.log(classId, inventoryType, data)}
                         <td class="item-slot">
                             {#if data.userHas}
                                 <IconifyIcon

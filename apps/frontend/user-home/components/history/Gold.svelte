@@ -16,7 +16,7 @@
     import 'chartjs-adapter-luxon'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
-    import { DateTime } from 'luxon'
+    import { DateTime, type WeekdayNumbers } from 'luxon'
     import { onMount } from 'svelte'
 
     import { colors } from '@/data/colors'
@@ -173,7 +173,7 @@
                                 )
                             ) {
                                 fakeTime = parsedTime.set({
-                                    weekday: 7 + resetData.weeklyResetDay,
+                                    weekday: (7 + resetData.weeklyResetDay) as WeekdayNumbers,
                                     hour: resetData.weeklyResetTime[0] - 1,
                                     minute: 59,
                                     second: 0,
@@ -181,7 +181,7 @@
                             }
                             else if (parsedTime.weekday < resetData.weeklyResetDay) {
                                 fakeTime = parsedTime.set({
-                                    weekday: resetData.weeklyResetDay,
+                                    weekday: resetData.weeklyResetDay as WeekdayNumbers,
                                     hour: resetData.weeklyResetTime[0] - 1,
                                     minute: 59,
                                     second: 0,
