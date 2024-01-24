@@ -56,12 +56,12 @@
             ret[1].push(difficultyMap[17].name)
         }
         // Normal Dungeon, 10 Normal, 25 Normal, 40 Normal, Normal Raid
-        if (some([1, 3, 4, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+        if (some([1, 3, 5, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
             ret[0].push(difficultyMap[14].shortName)
             ret[1].push(difficultyMap[14].name)
         }
         // Heroic Dungeon, 10 Heroic, 25 Heroic, Heroic Raid
-        if (some([2, 5, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+        if (some([2, 4, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
             ret[0].push(difficultyMap[15].shortName)
             ret[1].push(difficultyMap[15].name)
         }
