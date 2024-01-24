@@ -169,6 +169,8 @@ img.quality0 {
     }
 }
 .quality1-border {
+    --bar-border-color: #{$quality1-border};
+
     border-color: $quality1-border;
 }
 /*img.quality1 {
@@ -186,6 +188,8 @@ img.quality0 {
     }
 }
 .quality2-border {
+    --bar-border-color: #{$quality2-border};
+
     border-color: $quality2-border;
 }
 img.quality2 {
@@ -203,6 +207,8 @@ img.quality2 {
     }
 }
 .quality3-border {
+    --bar-border-color: #{$quality3-border};
+
     border-color: $quality3-border;
 }
 img.quality3 {
@@ -220,6 +226,8 @@ img.quality3 {
     }
 }
 .quality4-border {
+    --bar-border-color: #{$quality4-border};
+
     border-color: $quality4-border;
 }
 img.quality4 {
@@ -240,6 +248,8 @@ img.quality4 {
     }
 }
 .quality5-border {
+    --bar-border-color: #{$quality5-border};
+
     border-color: $quality5-border;
 }
 img.quality5 {
@@ -257,6 +267,8 @@ img.quality5 {
     }
 }
 .quality6-border {
+    --bar-border-color: #{$quality6-border};
+
     border-color: $quality6-border;
 }
 
@@ -271,5 +283,7 @@ img.quality5 {
     }
 }
 .quality7-border {
+    --bar-border-color: #{$quality7-border};
+
     border-color: $quality7-border;
 }
