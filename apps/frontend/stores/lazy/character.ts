@@ -14,7 +14,7 @@ import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
 import { UserCount, type Character, type ProfessionCooldown, type ProfessionCooldownQuest, type ProfessionCooldownSpell, type UserData } from '@/types'
 import type { Settings } from '@/shared/stores/settings/types'
-import type { StaticData, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+import type { StaticData, StaticDataProfessionAbility, StaticDataProfessionCategory, StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types'
 import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
 
 
@@ -63,10 +63,16 @@ export class LazyCharacterProfessions {
 export class LazyCharacterProfession {
     filteredCategories: Record<number, StaticDataProfessionAbility[]> = {}
     stats: UserCount = new UserCount()
+    subProfessions: Record<number, LazyCharacterSubProfession> = {}
 
     constructor(
         public professionId: number
     ) { }
+}
+
+export class LazyCharacterSubProfession {
+    stats: UserCount = new UserCount()
+    traitStats?: UserCount
 }
 
 interface LazyStores {
@@ -78,7 +84,7 @@ interface LazyStores {
 }
 
 export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> {
-    // console.time('doCharacters')
+    console.time('doCharacters')
 
     const ret: Record<string, LazyCharacter> = {}
 
@@ -97,13 +103,14 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
         professions.process()
     }
 
-    // console.timeEnd('doCharacters')
+    console.timeEnd('doCharacters')
 
     return ret
 }
 
 class ProcessCharacterProfessions {
     private currentProfession: LazyCharacterProfession
+    private currentSubProfession: LazyCharacterSubProfession
 
     constructor(
         private stores: LazyStores,
@@ -128,8 +135,10 @@ class ProcessCharacterProfessions {
                 const subProfession = staticProfession.subProfessions[expansion.id]
                 if (!subProfession) { continue }
                 
-                const characterSubProfession = characterSubProfessions[subProfession.id]
-                if (!characterSubProfession) { continue }
+                // const characterSubProfession = characterSubProfessions[subProfession.id]
+                // if (!characterSubProfession) { continue }
+
+                this.currentSubProfession = this.currentProfession.subProfessions[subProfession.id] = new LazyCharacterSubProfession()
     
                 let rootCategory = staticProfession.categories?.[expansion.id]
                 if (rootCategory) {
@@ -139,6 +148,15 @@ class ProcessCharacterProfessions {
                 }
     
                 this.recurseCategory(rootCategory)
+
+                if (subProfession.traitTrees) {
+                    this.currentSubProfession.traitStats = new UserCount()
+
+                    const charTraits = this.character.professionTraits?.[subProfession.id] || {}
+                    for (const traitTree of subProfession.traitTrees) {
+                        this.recurseTraits(charTraits, traitTree.firstNode)
+                    }
+                }
             }
         }    
     }
@@ -163,27 +181,42 @@ class ProcessCharacterProfessions {
     
             if (ability.extraRanks) {
                 this.currentProfession.stats.total += (ability.extraRanks.length + 1)
+                this.currentSubProfession.stats.total += (ability.extraRanks.length + 1)
     
                 for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
                     if (this.characterData.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
                         this.currentProfession.stats.have += (rankIndex + 2)
+                        this.currentSubProfession.stats.have += (rankIndex + 2)
                         break
                     }
                 }
                 if (this.characterData.knownRecipes.has(ability.id)) {
                     this.currentProfession.stats.have++
+                    this.currentSubProfession.stats.have++
                 }
             }
             else {
                 this.currentProfession.stats.total++
+                this.currentSubProfession.stats.total++
+
                 if (this.characterData.knownRecipes.has(ability.id)) {
                     this.currentProfession.stats.have++
+                    this.currentSubProfession.stats.have++
                 }
             }
         }
     
         for (const child of (category.children || [])) {
             this.recurseCategory(child)
+        }
+    }
+
+    private recurseTraits(charTraits: Record<number, number>, node: StaticDataSubProfessionTraitNode) {
+        this.currentSubProfession.traitStats.have += ((charTraits[node.nodeId] || 1) - 1)
+        this.currentSubProfession.traitStats.total += node.rankMax
+        
+        for (const childNode of (node.children || [])) {
+            this.recurseTraits(charTraits, childNode)
         }
     }
 }

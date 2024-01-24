@@ -1,15 +1,16 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { expansionOrder } from '@/data/expansion'
+    import { expansionOrder, expansionSlugMap } from '@/data/expansion'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
-    import type { MultiSlugParams, UserCount } from '@/types'
+    import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import { lazyStore } from '@/stores';
 
+    export let character: Character
     export let params: MultiSlugParams
     export let staticProfession: StaticDataProfession
-    export let stats: Record<number, UserCount>
 
     let sidebarItems: SidebarItem[]
     $: {
@@ -32,9 +33,17 @@
         }
     }
 
-    const percentFunc = function(entry: SidebarItem): number {
-        const cat = stats[Constants.expansion - sidebarItems.indexOf(entry)]
-        return cat ? cat.have / cat.total * 100 : 0
+    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]): number {
+        const characterProfession = $lazyStore.characters[character.id].professions.professions[staticProfession.id]
+        if (!characterProfession) { return 0 }
+
+        let staticSubProfession = staticProfession
+            .subProfessions[expansionSlugMap[(parentEntries?.[0] || entry).slug].id]
+
+        const stats = parentEntries.length > 0
+            ? characterProfession.subProfessions[staticSubProfession.id].traitStats
+            : characterProfession.subProfessions[staticSubProfession.id].stats
+        return stats ? stats.have / stats.total * 100 : 0
     }
 </script>
 
