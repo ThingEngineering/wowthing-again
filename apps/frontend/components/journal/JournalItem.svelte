@@ -2,7 +2,9 @@
     import { some } from 'lodash'
 
     import { difficultyMap } from '@/data/difficulty'
+    import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
+    import { itemStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { getItemUrl } from '@/utils/get-item-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -10,6 +12,7 @@
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
@@ -24,6 +27,8 @@
             classId = 0
         }
     }
+
+    $: dataItem = $itemStore.items[item.id]
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
         // Mythic Keystone/Mythic difficulties should probably set the quality to epic?
@@ -56,12 +61,12 @@
             ret[1].push(difficultyMap[17].name)
         }
         // Normal Dungeon, 10 Normal, 25 Normal, 40 Normal, Normal Raid
-        if (some([1, 3, 4, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+        if (some([1, 3, 5, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
             ret[0].push(difficultyMap[14].shortName)
             ret[1].push(difficultyMap[14].name)
         }
         // Heroic Dungeon, 10 Heroic, 25 Heroic, Heroic Raid
-        if (some([2, 5, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
+        if (some([2, 4, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
             ret[0].push(difficultyMap[15].shortName)
             ret[1].push(difficultyMap[15].name)
         }
@@ -84,7 +89,7 @@
         min-height: 52px;
         width: 52px;
 
-        :global(img) {
+        :global(a > img) {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
 
@@ -96,20 +101,32 @@
 
         border: none;
         height: 24px;
-        left: -1px;
-        width: 24px;
+        left: 0;
         position: absolute;
-        top: -1px;
+        top: -2px;
+        width: 24px;
+    }
+    .player-faction {
+        --shadow-color: rgba(0, 0, 0, 0.8);
+
+        border: none;
+        height: 24px;
+        left: 0;
+        position: absolute;
+        top: 26px;
+        width: 24px;
     }
     .collected-appearances {
         border-bottom-left-radius: 0;
+        border-bottom-width: 0 !important;
         border-top-right-radius: 0;
         color: $color-success;
+        font-size: 95%;
         line-height: 1;
         padding: 0.1rem 0.2rem;
         pointer-events: none;
         position: absolute;
-        top: 30px;
+        top: 31px;
         right: 1px;
     }
     .difficulties {
@@ -151,7 +168,7 @@
             </a>
 
             {#if classId > 0}
-                <div class="player-class class-{classId} drop-shadow">
+                <div class="player-class class-{classId} drop-shadow-single">
                     <ClassIcon
                         border={2}
                         size={20}
@@ -161,13 +178,19 @@
             {/if}
             
             {#if item.extraAppearances > 0}
-                <div class="collected-appearances background-box drop-shadow">
+                <div class="collected-appearances background-box drop-shadow-single">
                     +{item.extraAppearances}
                 </div>
             {/if}
 
             {#if appearance.userHas}
                 <CollectedIcon />
+            {/if}
+
+            {#if dataItem.allianceOnly || dataItem.hordeOnly}
+                <div class="player-faction drop-shadow-single">
+                    <FactionIcon faction={dataItem.allianceOnly ? Faction.Alliance : Faction.Horde} />
+                </div>
             {/if}
 
             <div class="difficulties" use:basicTooltip={diffLong.join(' / ')}>

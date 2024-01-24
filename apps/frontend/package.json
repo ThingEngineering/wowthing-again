@@ -28,6 +28,7 @@
     "@iconify/icons-mdi": "^1.2.48",
     "@iconify/icons-noto": "^1.2.10",
     "@iconify/icons-openmoji": "^1.2.33",
+    "@iconify/icons-twemoji": "^1.2.8",
     "@iconify/svelte": "^3.1.6",
     "@iconify/types": "^2.0.0",
     "@types/luxon": "^3.4.2",

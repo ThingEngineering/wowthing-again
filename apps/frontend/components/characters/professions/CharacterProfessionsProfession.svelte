@@ -7,6 +7,7 @@
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Table from './CharacterProfessionsProfessionTable.svelte'
+    import getPercentClass from '@/utils/get-percent-class';
 
     export let character: Character
     export let params: MultiSlugParams
@@ -34,13 +35,22 @@
 
         const lazyProfession = lazyProfessions.professions[staticProfession.id]
         filteredCategories = lazyProfession.filteredCategories
-        stats = lazyProfession.stats
+        stats = lazyProfession.subProfessions[subProfessionId]?.stats
 
         rootCategory = staticProfession.categories?.[expansion.id]
         if (rootCategory) {
             while (rootCategory.children.length === 1) {
                 rootCategory = rootCategory.children[0]
             }
+        }
+    }
+
+    const getProgressClass = (current: number, max: number) => {
+        if (current === 0) {
+            return 'border-fail'
+        }
+        else {
+            return `${getPercentClass(current / max * 100)}-border`
         }
     }
 </script>
@@ -61,23 +71,25 @@
 
 {#if expansion}
     <div class="professions-wrapper">
-        {#if charSubProfession}
-            <div class="professions-container">
-                <ProgressBar
-                    have={charSubProfession.currentSkill}
-                    total={charSubProfession.maxSkill}
-                    title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
-                />
+        <div
+            class="professions-container"
+        >
+            <ProgressBar
+                cls={getProgressClass(charSubProfession?.currentSkill || 0, charSubProfession?.maxSkill || 1)}
+                have={charSubProfession?.currentSkill || 0}
+                total={charSubProfession?.maxSkill || -1}
+                title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
+            />
 
-                {#if stats.total > 0}
-                    <ProgressBar
-                        have={stats.have}
-                        total={stats.total}
-                        title="Known recipes"
-                    />
-                {/if}
-            </div>
-        {/if}
+            {#if stats.total > 0}
+                <ProgressBar
+                    cls={getProgressClass(stats.have, stats.total)}
+                    have={stats.have}
+                    total={stats.total}
+                    title="Known recipes"
+                />
+            {/if}
+        </div>
 
         {#if rootCategory}
             <div class="professions-container">

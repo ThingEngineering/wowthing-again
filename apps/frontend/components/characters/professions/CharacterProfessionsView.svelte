@@ -4,9 +4,8 @@
     import { replace } from 'svelte-spa-router'
 
     import { staticStore } from '@/shared/stores/static'
-    import { UserCount } from '@/types'
     import type { Character, MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Collectibles from './CharacterProfessionsCollectibles.svelte'
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
@@ -19,11 +18,9 @@
 
     let knownRecipes: Set<number>
     let staticProfession: StaticDataProfession
-    let stats: Record<number, UserCount>
 
     $: {
         knownRecipes = new Set<number>()
-        stats = {}
 
         staticProfession = find($staticStore.professions, (prof) => prof.slug === params.slug4)
         const charProfession = character.professions[staticProfession?.id]
@@ -45,39 +42,6 @@
                 ?.knownRecipes
                 ?.forEach((value) => knownRecipes.add(value))
         })
-
-        staticProfession.categories?.forEach((category, index) => {
-            stats[index] = new UserCount()
-            recurse(stats[index], category)
-        })
-    }
-
-    const recurse = function(stats: UserCount, category: StaticDataProfessionCategory) {
-        for (const ability of (category.abilities || [])) {
-            if (ability.extraRanks) {
-                stats.total += (ability.extraRanks.length + 1)
-
-                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
-                    if (knownRecipes.has(ability.extraRanks[rankIndex][0])) {
-                        stats.have += (rankIndex + 2)
-                        break
-                    }
-                }
-                if (knownRecipes.has(ability.id)) {
-                    stats.have++
-                }
-            }
-            else {
-                stats.total++
-                if (knownRecipes.has(ability.id)) {
-                    stats.have++
-                }
-            }
-        }
-
-        for (const child of (category.children || [])) {
-            recurse(stats, child)
-        }
     }
 </script>
 
@@ -99,9 +63,9 @@
 <div class="professions">
     <div class="professions-sidebar">
         <Sidebar
+            {character}
             {params}
             {staticProfession}
-            {stats}
         >
             <svelt:fragment slot="after">
                 {#if staticProfession}

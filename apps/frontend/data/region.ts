@@ -25,31 +25,31 @@ export const resetTimes: Record<Region, ResetTime> = {
 
 export const euLocales: Record<string, { icon: IconifyIcon, name: string }> = {
     deDE: {
-        icon: iconLibrary.openmojiFlagGermany,
+        icon: iconLibrary.twemojiFlagGermany,
         name: 'Germany',
     },
     enGB: {
-        icon: iconLibrary.openmojiFlagUnitedKingdom,
+        icon: iconLibrary.twemojiFlagUnitedKingdom,
         name: 'United Kingdom',
     },
     esES: {
-        icon: iconLibrary.openmojiFlagSpain,
+        icon: iconLibrary.twemojiFlagSpain,
         name: 'Spain',
     },
     frFR: {
-        icon: iconLibrary.openmojiFlagFrance,
+        icon: iconLibrary.twemojiFlagFrance,
         name: 'France',
     },
     itIT: {
-        icon: iconLibrary.openmojiFlagItaly,
+        icon: iconLibrary.twemojiFlagItaly,
         name: 'Italy',
     },
     ptPT: {
-        icon: iconLibrary.openmojiFlagPortugal,
+        icon: iconLibrary.twemojiFlagPortugal,
         name: 'Portugal',
     },
     ruRU: {
-        icon: iconLibrary.openmojiFlagRussia,
+        icon: iconLibrary.twemojiFlagRussia,
         name: 'Russia',
     },
 }

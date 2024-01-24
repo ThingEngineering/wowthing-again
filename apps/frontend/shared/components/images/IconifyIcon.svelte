@@ -31,7 +31,7 @@
     aria-hidden="true"
     role="img"
     class="{extraClass}"
-    class:drop-shadow={dropShadow}
+    class:drop-shadow-single={dropShadow}
     on:click
     use:basicTooltip={tooltip}
 >

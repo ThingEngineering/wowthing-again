@@ -1,10 +1,12 @@
 <script lang="ts">
     import { expansionSlugMap } from '@/data/expansion'
+    import { lazyStore } from '@/stores'
     import type { Character, Expansion, MultiSlugParams } from '@/types'
-    import type { StaticDataProfession, StaticDataSubProfession, StaticDataSubProfessionTraitNode } from '@/shared/stores/static/types'
+    import type { StaticDataProfession, StaticDataSubProfession } from '@/shared/stores/static/types'
 
     import Node from './CharacterProfessionsTraitsNode.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import getPercentClass from '@/utils/get-percent-class';
 
     export let character: Character
     export let params: MultiSlugParams
@@ -13,8 +15,6 @@
     let charTraits: Record<number, number>
     let expansion: Expansion
     let subProfession: StaticDataSubProfession
-    let totalHave: number
-    let totalPoints: number
     $: {
         expansion = expansionSlugMap[params.slug5]
         const charProfession = character.professions[staticProfession.id]
@@ -24,21 +24,6 @@
         }
 
         charTraits = character.professionTraits?.[subProfession.id] || {}
-
-        totalHave = 0
-        totalPoints = 0
-        for (const traitTree of subProfession.traitTrees) {
-            recurse(traitTree.firstNode)
-        }
-    }
-
-    const recurse = (node: StaticDataSubProfessionTraitNode) => {
-        totalHave += ((charTraits[node.nodeId] || 1) - 1)
-        totalPoints += node.rankMax
-        
-        for (const child of (node.children || [])) {
-            recurse(child)
-        }
     }
 </script>
 
@@ -57,11 +42,16 @@
 </style>
 
 {#if subProfession}
+    {@const stats = $lazyStore.characters[character.id].professions
+        .professions[staticProfession.id]
+        .subProfessions[subProfession.id]
+        .traitStats}
     <div class="wrapper-column">
         <ProgressBar
+            cls={`${getPercentClass(stats.percent)}-border`}
             title="Total Knowledge"
-            have={totalHave}
-            total={totalPoints}
+            have={stats.have}
+            total={stats.total}
         />
 
         <div class="tree-wrapper">

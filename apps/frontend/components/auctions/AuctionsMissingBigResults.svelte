@@ -294,9 +294,10 @@
     `
                                         }}
                                     >
-                                        {#if connectedRealm.region === Region.EU}
+                                        {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
                                             {@const { icon: countryIcon, name: countryName } = euLocales[connectedRealm.locale]}
                                             <IconifyIcon
+                                                dropShadow={true}
                                                 icon={countryIcon}
                                                 tooltip={`EU: ${countryName}`}
                                             />
