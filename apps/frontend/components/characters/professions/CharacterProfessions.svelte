@@ -32,7 +32,7 @@
             getSavedRoute(
                 `characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`,
                 params.slug5,
-                null,
+                params.slug6,
                 'character-professions-sidebar',
                 true
             )
