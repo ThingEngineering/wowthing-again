@@ -84,7 +84,7 @@
         min-height: 52px;
         width: 52px;
 
-        :global(img) {
+        :global(a > img) {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
 
@@ -96,10 +96,10 @@
 
         border: none;
         height: 24px;
-        left: -1px;
+        left: 0;
         width: 24px;
         position: absolute;
-        top: -1px;
+        top: -2px;
     }
     .collected-appearances {
         border-bottom-left-radius: 0;
