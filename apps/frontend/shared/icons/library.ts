@@ -163,3 +163,11 @@ export { default as openmojiFlagPortgual } from '@iconify/icons-openmoji/flag-po
 export { default as openmojiFlagRussia } from '@iconify/icons-openmoji/flag-russia'
 export { default as openmojiFlagSpain } from '@iconify/icons-openmoji/flag-spain'
 export { default as openmojiFlagUnitedKingdom } from '@iconify/icons-openmoji/flag-united-kingdom'
+
+export { default as twemojiFlagFrance } from '@iconify/icons-twemoji/flag-france'
+export { default as twemojiFlagGermany } from '@iconify/icons-twemoji/flag-germany'
+export { default as twemojiFlagItaly } from '@iconify/icons-twemoji/flag-italy'
+export { default as twemojiFlagPortgual } from '@iconify/icons-twemoji/flag-portugal'
+export { default as twemojiFlagRussia } from '@iconify/icons-twemoji/flag-russia'
+export { default as twemojiFlagSpain } from '@iconify/icons-twemoji/flag-spain'
+export { default as twemojiFlagUnitedKingdom } from '@iconify/icons-twemoji/flag-united-kingdom'
