@@ -34,6 +34,9 @@
         color: $body-text;
     }
     .realm {
+        --image-margin-top: -4px;
+        --shadow-color: #bbb;
+
         max-width: 20rem;
         width: 20rem;
     }
@@ -75,9 +78,10 @@
                             use:basicTooltip={realm.displayText}
                         >
                             <!-- <code>[{Region[realm.region]}]</code> -->
-                            {#if realm.region === Region.EU}
+                            {#if realm.region === Region.EU && euLocales[realm.locale]}
                                 {@const { icon: countryIcon, name: countryName } = euLocales[realm.locale]}
                                 <IconifyIcon
+                                    dropShadow={true}
                                     icon={countryIcon}
                                     tooltip={`EU: ${countryName}`}
                                 />
