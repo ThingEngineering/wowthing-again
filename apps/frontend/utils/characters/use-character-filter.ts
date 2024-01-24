@@ -129,8 +129,13 @@ export function useCharacterFilter(
                         }
 
                         // Mythic+ score
-                        if (part === 'm+') {
-                            return char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] > 0
+                        match = part.match(/^m\+((<|<=|=|>=|>)(\d+))?$/)
+                        if (match) {
+                            const mythicPlusScore = char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] || 0
+                            if (match[2] && match[3]) {
+                                return compareValues(match[2].toString(), mythicPlusScore, parseInt(match[3]))
+                            }
+                            return mythicPlusScore > 0
                         }
 
                         // Profession slug
