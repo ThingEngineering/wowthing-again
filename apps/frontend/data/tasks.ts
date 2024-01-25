@@ -2,19 +2,19 @@ import flatten from 'lodash/flatten'
 import some from 'lodash/some'
 import { get } from 'svelte/store'
 
-import { Constants } from './constants'
-import { userQuestStore } from '@/stores'
-import { staticStore } from '@/shared/stores/static'
 import { Profession } from '@/enums/profession'
+import { staticStore } from '@/shared/stores/static'
+import { userQuestStore } from '@/stores'
 import type { Character } from '@/types'
 import type { Chore, Task } from '@/types/tasks'
+
+import { Constants } from './constants'
 import { dragonflightProfessions, isGatheringProfession, professionSlugToId } from './professions'
 
 
 export const dragonflightProfessionTasks: Chore[] = flatten(
     dragonflightProfessions.map((profession) => {
         const name = Profession[profession.id]
-        const lowerName = Profession[profession.id].toLowerCase()
         const tasks: Chore[] = []
 
         tasks.push(
@@ -22,8 +22,8 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskKey: `dfProfession${name}Provide`,
                 taskName: `${name}: Provide`,
                 minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
-                canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
+                canGetFunc: (char) => getLatestSkill(char, profession.id, 45),
             },
         )
 
@@ -33,8 +33,8 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                     taskKey: `dfProfession${name}Task`,
                     taskName: `${name}: Task`,
                     minimumLevel: 60,
-                    couldGetFunc: (char) => couldGet(lowerName, char),
-                    canGetFunc: (char) => getLatestSkill(char, lowerName,
+                    couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
+                    canGetFunc: (char) => getLatestSkill(char, profession.id,
                         isGatheringProfession[profession.id] ? 45 : 25),
                 },
             )
@@ -45,7 +45,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskKey: `dfProfession${name}Drop#`,
                 taskName: `${name}: Drops`,
                 minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
             },
         )
@@ -56,8 +56,8 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                     taskKey: `dfProfession${name}Orders`,
                     taskName: `${name}: Orders`,
                     minimumLevel: 60,
-                    couldGetFunc: (char) => couldGet(lowerName, char),
-                    canGetFunc: (char) => getLatestSkill(char, lowerName, 25),
+                    couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
+                    canGetFunc: (char) => getLatestSkill(char, profession.id, 25),
                 },
             )
         }
@@ -67,7 +67,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskKey: `dfProfession${name}Treatise`,
                 taskName: `${name}: Treatise`,
                 minimumLevel: 60,
-                couldGetFunc: (char) => couldGet(lowerName, char),
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             },
         )
 
@@ -741,17 +741,16 @@ export const pvpBrawlHolidays: Record<number, string> = Object.fromEntries(
 )
 
 
-function couldGet(slug: string, char: Character): boolean {
+function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
     const staticData = get(staticStore)
 
-    const profession = staticData.professions[professionSlugToId[slug]]
-    return !!char.professions?.[profession.id]?.[profession.subProfessions[9].id]
+    const profession = staticData.professions[professionId]
+    return !!char.professions?.[profession.id]?.[subProfessionId]
 }
 
-function getLatestSkill(char: Character, slug: string, minSkill: number): string {
+function getLatestSkill(char: Character, professionId: number, minSkill: number): string {
     const staticData = get(staticStore)
 
-    const professionId = professionSlugToId[slug]
     const subProfessions = staticData.professions[professionId].subProfessions
     const skill = char.professions[professionId][subProfessions[subProfessions.length - 1].id] ?.currentSkill ?? 0
 

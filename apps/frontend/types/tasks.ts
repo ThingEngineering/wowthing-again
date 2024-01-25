@@ -16,6 +16,12 @@ export type Chore = {
     maximumLevel?: number,
     taskKey: string,
     taskName: string,
+    /**
+     * Function to check if character is able to pick up this task (eg has a high enough skill)
+     */
     canGetFunc?: (char: Character) => string
+    /**
+     * Function to check if character is eligibile for this task (eg has a profession)
+     */
     couldGetFunc?: (char: Character) => boolean
 }
