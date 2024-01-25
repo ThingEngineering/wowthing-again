@@ -69,6 +69,13 @@
     >
         Show Treatises in Profession Weeklies.
     </CheckboxInput>
+
+    <CheckboxInput
+        bind:value={$settingsStore.professions.ignoreTasksWhenDoneWithTraits}
+        name="professions_ignoreTasksWhenDoneWithTraits"
+    >
+        Ignore tasks when character has 100% of traits.
+    </CheckboxInput>
 </div>
 
 <div class="settings-block">

@@ -92,6 +92,7 @@ export interface Settings {
         dragonflightCountGathering: boolean
         dragonflightCountTasks: boolean
         dragonflightTreatises: boolean
+        ignoreTasksWhenDoneWithTraits: boolean
 
         cooldowns: Record<string, boolean>
     }
