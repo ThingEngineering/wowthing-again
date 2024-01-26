@@ -3,6 +3,7 @@ import type { DragonflightProfession } from '@/types/data'
 
 export const dragonflightSkinning: DragonflightProfession = {
     id: Profession.Skinning,
+    subProfessionId: 2834,
     masterQuestId: 70259,
     bookQuests: [
         {

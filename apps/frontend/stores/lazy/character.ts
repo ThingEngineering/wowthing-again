@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 
 import { Constants } from '@/data/constants'
 import { expansionOrder } from '@/data/expansion'
-import { dragonflightProfessionMap, professionSpecializationSpells } from '@/data/professions'
+import { dragonflightProfessionMap, professionSlugToId, professionSpecializationSpells } from '@/data/professions'
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns'
 import { forcedReset, progressQuestMap } from '@/data/quests'
 import { multiTaskMap, taskMap } from '@/data/tasks'
@@ -97,10 +97,10 @@ export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> 
             professions: new LazyCharacterProfessions(),
         }
 
-        doCharacterTasks(stores, character, characterData)
-
         const professions = new ProcessCharacterProfessions(stores, character, characterData.professions)
         professions.process()
+
+        doCharacterTasks(stores, character, characterData)
     }
 
     console.timeEnd('doCharacters')
@@ -277,28 +277,41 @@ function doCharacterTasks(
                         continue
                     }
 
+                    let skipTraits = false
+                    if (
+                        stores.settings.professions.ignoreTasksWhenDoneWithTraits &&
+                        choreTask.taskKey.startsWith('dfProfession')
+                    ) {
+                        const professionId = professionSlugToId[nameParts[0].toLocaleLowerCase()]
+                        if (professionId) {
+                            const dfProfession = dragonflightProfessionMap[professionId]
+                            const traitStats = characterData.professions
+                                .professions[professionId]
+                                ?.subProfessions[dfProfession.subProfessionId]
+                                ?.traitStats
+                            if (traitStats && traitStats.percent === 100) {
+                                skipTraits = true
+                            }
+                        }
+                    }
+                
                     const isGathering = ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0
-                    charTask.skipped = (
+                    charTask.skipped = charTask.status !== QuestStatus.Completed && (
                         (
                             !stores.settings.professions.dragonflightCountCraftingDrops &&
-                            nameParts[1] === 'Drops' &&
-                            charTask.status !== QuestStatus.Completed
-                        )
-                        ||
+                            nameParts[1] === 'Drops'
+                        ) ||
                         (
                             !stores.settings.professions.dragonflightCountTasks &&
-                            nameParts[1] === 'Task' &&
-                            charTask.status !== QuestStatus.Completed
-                        )
-                        ||
+                            nameParts[1] === 'Task'
+                        ) ||
                         (
                             !stores.settings.professions.dragonflightCountGathering &&
                             isGathering &&
-                            ['Gather'].indexOf(nameParts[1]) >= 0 &&
-                            charTask.status !== QuestStatus.Completed
-                        )
-                        ||
-                        charTask.statusTexts[0] !== ''
+                            ['Gather'].indexOf(nameParts[1]) >= 0
+                        ) ||
+                        charTask.statusTexts[0] !== '' ||
+                        skipTraits
                     )
 
                     if (!charTask.skipped) {
@@ -329,10 +342,10 @@ function doCharacterTasks(
                                     if (progressQuest?.status === QuestStatus.Completed &&
                                         DateTime.fromSeconds(progressQuest.expires) > stores.currentTime) {
                                         haveCount++
-                                        statusText += '<span class="status-success">:yes:</span>'
+                                        statusText += '<span class="status-success">:starFull:</span>'
                                     }
                                     else {
-                                        statusText += '<span class="status-fail">:no:</span>'
+                                        statusText += '<span class="status-fail">:starEmpty:</span>'
                                     }
 
                                     statusText += `{item:${drop.itemId}}`
@@ -371,8 +384,32 @@ function doCharacterTasks(
                         )) {
                             charTask.status = charTask.quest.status
                             if (charTask.status === QuestStatus.InProgress &&
-                                charTask.quest.objectives?.length > 0) {
-                                charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
+                                charTask.quest.objectives?.length > 0
+                            ) {
+                                // charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
+                                charTask.statusTexts = []
+                                for (const objective of charTask.quest.objectives) {
+                                    if (objective.have === objective.need && objective.text.includes('"Enter the Dream"')) {
+                                        continue
+                                    }
+                                    if (objective.have === 0 && objective.text.endsWith('(Optional)')) {
+                                        continue
+                                    }
+
+                                    let statusText = ''
+                                    if (objective.have === objective.need) {
+                                        statusText += '<span class="status-success">:starFull:</span>'
+                                    }
+                                    else if (objective.have > 0) {
+                                        statusText += '<span class="status-shrug">:starHalf:</span>'
+                                    }
+                                    else {
+                                        statusText += '<span class="status-fail">:starEmpty:</span>'
+                                    }
+                                    statusText += ` ${objective.text}`
+
+                                    charTask.statusTexts.push(statusText)
+                                }
                             }
                         }
                     }

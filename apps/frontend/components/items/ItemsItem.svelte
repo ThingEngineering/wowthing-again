@@ -48,13 +48,13 @@
                     console.log(upgrade)
                 }
 
-                if (upgrade[1] <= 4 && tiers[0]) {
+                if (upgrade[1] < 4 && tiers[0]) {
                     return [
                         `currency/${tiers[0][0][0]}`,
                         Math.floor((character.currencies?.[tiers[0][0][0]]?.quantity || 0) / tiers[0][0][1])
                     ]
                 }
-                else if (upgrade[1] >= 5 && tiers[1]) {
+                else if (upgrade[1] >= 4 && tiers[1]) {
                     return [
                         `currency/${tiers[1][0][0]}`,
                         Math.floor((character.currencies?.[tiers[1][0][0]]?.quantity || 0) / tiers[1][0][1])
