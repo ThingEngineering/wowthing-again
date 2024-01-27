@@ -17,7 +17,7 @@ public class DataConnectedRealmIndexJob : JobBase
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
             var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-            var result = await GetJson<ApiDataConnectedRealmIndex>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiDataConnectedRealmIndex>(uri, useLastModified: false);
 
             foreach (var href in result.Data.ConnectedRealms)
             {

@@ -48,7 +48,7 @@ public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
             string url = string.Format(ApiUrl, seasonSlug);
             try
             {
-                var result = await GetJson<ApiDataRaiderIoScoreTier[]>(
+                var result = await GetUriAsJsonAsync<ApiDataRaiderIoScoreTier[]>(
                     new Uri(url),
                     timer: timer,
                     useAuthorization: false,

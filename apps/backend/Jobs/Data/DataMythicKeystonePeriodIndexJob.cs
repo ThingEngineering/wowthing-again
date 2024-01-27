@@ -26,7 +26,7 @@ public class DataMythicKeystonePeriodIndexJob : JobBase, IScheduledJob
         {
             // Fetch API data
             var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-            var result = await GetJson<ApiDataMythicKeystonePeriodIndex>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiDataMythicKeystonePeriodIndex>(uri, useLastModified: false);
 
             foreach (var period in result.Data.Periods.TakeLast(5))
             {

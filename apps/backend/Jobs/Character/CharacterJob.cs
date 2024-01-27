@@ -34,7 +34,7 @@ public class CharacterJob : JobBase
         DateTime lastModified;
         try
         {
-            var result = await GetJson<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
+            var result = await GetUriAsJsonAsync<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
             if (result.NotModified)
             {
                 LogNotModified();

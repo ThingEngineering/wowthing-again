@@ -18,7 +18,7 @@ public class CharacterMountsJob : JobBase
         ApiCharacterMounts resultData;
         var uri = GenerateUri(query, ApiPath);
         try {
-            var result = await GetJson<ApiCharacterMounts>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMounts>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

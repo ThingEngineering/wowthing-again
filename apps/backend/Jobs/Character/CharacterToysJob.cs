@@ -42,7 +42,7 @@ public class CharacterToysJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterToys>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterToys>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

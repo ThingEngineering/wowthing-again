@@ -41,7 +41,7 @@ public class CharacterHeirloomsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterHeirlooms>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterHeirlooms>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

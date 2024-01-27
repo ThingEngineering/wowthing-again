@@ -20,7 +20,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
         var uri = GenerateUri(query, ApiPath, data[1]);
         try
         {
-            var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

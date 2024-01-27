@@ -27,7 +27,7 @@ public class DataMythicKeystoneSeasonIndexJob : JobBase, IScheduledJob
         {
             // Fetch API data
             var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-            var result = await GetJson<ApiDataMythicKeystoneSeasonIndex>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiDataMythicKeystoneSeasonIndex>(uri, useLastModified: false);
 
             foreach (var apiSeason in result.Data.Seasons)
             {

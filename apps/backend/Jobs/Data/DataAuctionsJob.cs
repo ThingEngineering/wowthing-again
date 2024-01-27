@@ -120,7 +120,7 @@ COPY wow_auction_commodity_hourly (
         JobHttpResult<ApiDataAuctions> result;
         try
         {
-            result = await GetJson<ApiDataAuctions>(uri, timer: timer);
+            result = await GetUriAsJsonAsync<ApiDataAuctions>(uri, timer: timer);
         }
         catch (HttpRequestException e)
         {

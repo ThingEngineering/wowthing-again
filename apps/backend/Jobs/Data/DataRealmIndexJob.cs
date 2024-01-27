@@ -28,7 +28,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         {
             // Fetch API data
             var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, region == WowRegion.EU ? "ru_RU" : null);
-            var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiDataRealmIndex>(uri, useLastModified: false);
 
             foreach (var apiRealm in result.Data.Realms)
             {
@@ -50,7 +50,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
             if (region != WowRegion.US)
             {
                 uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, "en_US");
-                result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
+                result = await GetUriAsJsonAsync<ApiDataRealmIndex>(uri, useLastModified: false);
 
                 foreach (var apiRealm in result.Data.Realms)
                 {

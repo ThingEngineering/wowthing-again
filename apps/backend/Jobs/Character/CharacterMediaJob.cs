@@ -20,7 +20,7 @@ public class CharacterMediaJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterMedia>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMedia>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

@@ -19,7 +19,7 @@ public class CharacterSoulbindsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterSoulbinds>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterSoulbinds>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

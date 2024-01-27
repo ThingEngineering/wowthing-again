@@ -109,7 +109,7 @@ public abstract class JobBase : IJob, IDisposable
         return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
     }
 
-    protected async Task<JobHttpResult<byte[]>> GetBytes(
+    protected async Task<JobHttpResult<byte[]>> GetUriAsBytesAsync(
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
@@ -139,7 +139,7 @@ public abstract class JobBase : IJob, IDisposable
         return await response.Content.ReadAsByteArrayAsync(CancellationToken);
     }
 
-    protected async Task<JobHttpResult<T>> GetJson<T>(
+    protected async Task<JobHttpResult<T>> GetUriAsJsonAsync<T>(
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,

@@ -22,7 +22,7 @@ public class CharacterAchievementsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
+            var result = await GetUriAsJsonAsync<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();

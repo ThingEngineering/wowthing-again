@@ -19,7 +19,7 @@ public class CharacterProfessionsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterProfessions>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterProfessions>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

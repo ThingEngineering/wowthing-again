@@ -43,7 +43,7 @@ public class CharacterRaiderIoJob : JobBase
         ApiCharacterRaiderIo resultData;
         try
         {
-            var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
             resultData = result.Data;
         }
         catch (HttpRequestException e)

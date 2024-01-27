@@ -14,7 +14,7 @@ public class DataConnectedRealmJob : JobBase
 
         // Fetch API data
         var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(ApiPath, data[1]));
-        var result = await GetJson<ApiDataConnectedRealm>(uri);
+        var result = await GetUriAsJsonAsync<ApiDataConnectedRealm>(uri);
 
         var realmMap = result.Data.Realms
             .ToDictionary(realm => realm.Id);
