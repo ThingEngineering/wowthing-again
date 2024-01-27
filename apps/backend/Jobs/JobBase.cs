@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Web;
 using Polly.RateLimit;
 using Serilog;
@@ -283,5 +282,7 @@ public abstract class JobBase : IJob, IDisposable
         Http?.Dispose();
         //Redis?.Dispose();
         _context?.Dispose();
+
+        GC.SuppressFinalize(this);
     }
 }
