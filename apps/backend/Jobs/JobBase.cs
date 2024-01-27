@@ -109,6 +109,36 @@ public abstract class JobBase : IJob, IDisposable
         return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
     }
 
+    protected async Task<JobHttpResult<byte[]>> GetBytes(
+        Uri uri,
+        bool useAuthorization = true,
+        bool useLastModified = true,
+        DateTime? lastModified = null,
+        JankTimer timer = null
+    )
+    {
+        bool timerOutput = false;
+        if (timer == null)
+        {
+            timer = new JankTimer();
+            timerOutput = true;
+        }
+
+        var result = await MakeHttpRequest(ReadBytesAsync, uri, useAuthorization, useLastModified, lastModified, timer);
+
+        if (timerOutput)
+        {
+            Logger.Debug("{0}", timer.ToString());
+        }
+
+        return result;
+    }
+
+    private async Task<byte[]> ReadBytesAsync(HttpResponseMessage response)
+    {
+        return await response.Content.ReadAsByteArrayAsync(CancellationToken);
+    }
+
     protected async Task<JobHttpResult<T>> GetJson<T>(
         Uri uri,
         bool useAuthorization = true,
@@ -124,29 +154,24 @@ public abstract class JobBase : IJob, IDisposable
             timerOutput = true;
         }
 
-        var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
-        if (result.NotModified)
-        {
-            return new JobHttpResult<T> { NotModified = true };
-        }
-
-        string jsonString = Encoding.UTF8.GetString(result.Data);
-        var obj = JsonSerializer.Deserialize<T>(jsonString, JsonSerializerOptions);
-        timer.AddPoint("JSON");
+        var result = await MakeHttpRequest(ParseJsonAsync<T>, uri, useAuthorization, useLastModified, lastModified, timer);
 
         if (timerOutput)
         {
             Logger.Debug("{0}", timer.ToString());
         }
 
-        return new JobHttpResult<T>
-        {
-            Data = obj,
-            LastModified = result.LastModified,
-        };
+        return result;
     }
 
-    protected async Task<JobHttpResult<byte[]>> GetBytes(
+    private async Task<T> ParseJsonAsync<T>(HttpResponseMessage response)
+    {
+        var contentStream = await response.Content.ReadAsStreamAsync(CancellationToken);
+        return await JsonSerializer.DeserializeAsync<T>(contentStream, JsonSerializerOptions, CancellationToken);
+    }
+
+    private async Task<JobHttpResult<T>> MakeHttpRequest<T>(
+        Func<HttpResponseMessage, Task<T>> resultFunc,
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
@@ -191,7 +216,7 @@ public abstract class JobBase : IJob, IDisposable
 
             try
             {
-                response = await Http.SendAsync(request, CancellationToken);
+                response = await Http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, CancellationToken);
                 break;
             }
             catch (RateLimitRejectedException ex)
@@ -205,16 +230,14 @@ public abstract class JobBase : IJob, IDisposable
                 {
                     throw ex.InnerException;
                 }
-                else
-                {
-                    throw new HttpRequestException("Operation canceled??");
-                }
+
+                throw new HttpRequestException("Operation canceled??");
             }
         }
 
         if (response.StatusCode == HttpStatusCode.NotModified)
         {
-            return new JobHttpResult<byte[]> { NotModified = true };
+            return new JobHttpResult<T> { NotModified = true };
         }
 
         if (!response.IsSuccessStatusCode)
@@ -222,8 +245,6 @@ public abstract class JobBase : IJob, IDisposable
             response.Content?.Dispose();
             throw new HttpRequestException(((int)response.StatusCode).ToString());
         }
-
-        byte[] bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
 
         timer.AddPoint("API");
 
@@ -236,6 +257,8 @@ public abstract class JobBase : IJob, IDisposable
             }
         }
 
+        var result = await resultFunc(response);
+
         response.Content.Dispose();
 
         if (timerOutput)
@@ -243,9 +266,9 @@ public abstract class JobBase : IJob, IDisposable
             Logger.Debug("{0}", timer.ToString());
         }
 
-        return new JobHttpResult<byte[]>
+        return new JobHttpResult<T>
         {
-            Data = bytes,
+            Data = result,
             LastModified = lastModified ?? MiscConstants.DefaultDateTime,
         };
     }
