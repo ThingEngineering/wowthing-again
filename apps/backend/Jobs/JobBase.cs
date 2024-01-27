@@ -223,7 +223,7 @@ public abstract class JobBase : IJob, IDisposable
             throw new HttpRequestException(((int)response.StatusCode).ToString());
         }
 
-        var bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
+        byte[] bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
 
         timer.AddPoint("API");
 
@@ -232,7 +232,7 @@ public abstract class JobBase : IJob, IDisposable
             lastModified = response.Content.Headers.LastModified.Value.UtcDateTime;
             if (useLastModified && !useProvidedLastModified)
             {
-                await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"));
+                await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"), flags: CommandFlags.FireAndForget);
             }
         }
 
