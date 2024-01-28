@@ -8,7 +8,6 @@
         userAchievementStore,
         userQuestStore,
         userStore,
-        userTransmogStore,
     } from '@/stores'
     import { userUpdateHubStore } from './signalr/user-update-hub-store'
     import { dbStore } from '@/shared/stores/db'
@@ -31,7 +30,6 @@
         userAchievementStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),
-        userTransmogStore.fetch(),
     ]))
 
     onDestroy(() => userUpdateHubStore.disconnect())
@@ -48,7 +46,6 @@
             || $userAchievementStore.error
             || $userQuestStore.error
             || $userStore.error
-            || $userTransmogStore.error
 
         loaded = $dbStore.loaded
             && $itemStore.loaded
@@ -58,7 +55,6 @@
             && $userAchievementStore.loaded
             && $userQuestStore.loaded
             && $userStore.loaded
-            && $userTransmogStore.loaded
 
         if (!error && loaded) {
             staticStore.setup(
@@ -69,10 +65,6 @@
             userStore.setup(
                 $settingsStore,
                 $userStore,
-            )
-
-            userTransmogStore.setup(
-                $itemStore,
                 $userAchievementStore
             )
 

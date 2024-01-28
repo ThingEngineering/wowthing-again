@@ -37,14 +37,13 @@ import { timeStore } from '@/shared/stores/time'
 import { userStore } from '../user'
 import { userAchievementStore } from '../user-achievements'
 import { userQuestStore } from '../user-quests'
-import { userTransmogStore } from '../user-transmog'
 
 import { UserCount } from '@/types'
 
 import { hashObject } from '@/utils/hash-object'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types'
-import type { JournalData, UserQuestData, UserTransmogData } from '@/types/data'
+import type { JournalData, UserQuestData } from '@/types/data'
 import type {
     ManualData,
     ManualDataHeirloomItem,
@@ -92,8 +91,7 @@ export const lazyStore = derived(
         zoneMapState,
         userStore,
         userAchievementStore,
-        userQuestStore,
-        userTransmogStore
+        userQuestStore
     ],
     debounce(
         ([
@@ -106,8 +104,7 @@ export const lazyStore = derived(
             $zoneMapState,
             $userStore,
             $userAchievementStore,
-            $userQuestStore,
-            $userTransmogStore
+            $userQuestStore
         ]: [
             Settings,
             DateTime,
@@ -118,8 +115,7 @@ export const lazyStore = derived(
             ZoneMapState,
             FancyStoreType<UserData>,
             FancyStoreType<UserAchievementData>,
-            FancyStoreType<UserQuestData>,
-            FancyStoreType<UserTransmogData>
+            FancyStoreType<UserQuestData>
         ]) => {
             storeInstance.update(
                 $settingsStore,
@@ -131,8 +127,7 @@ export const lazyStore = derived(
                 $zoneMapState,
                 $userStore,
                 $userAchievementStore,
-                $userQuestStore,
-                $userTransmogStore
+                $userQuestStore
             )
             return storeInstance
         },
@@ -160,7 +155,6 @@ export class LazyStore implements LazyUgh {
     private userAchievementData: UserAchievementData
     private userData: UserData
     private userQuestData: UserQuestData
-    private userTransmogData: UserTransmogData
     
     private customizationsFunc: () => UserCounts
     private heirloomsFunc: () => UserCounts
@@ -190,8 +184,7 @@ export class LazyStore implements LazyUgh {
         zoneMapState: ZoneMapState,
         userData: UserData,
         userAchievementData: UserAchievementData,
-        userQuestData: UserQuestData,
-        userTransmogData: UserTransmogData
+        userQuestData: UserQuestData
     )
     {
         const newHashes: Record<string, string> = {
@@ -216,7 +209,6 @@ export class LazyStore implements LazyUgh {
             userData: this.userData !== userData,
             userAchievementData: this.userAchievementData !== userAchievementData,
             userQuestData: this.userQuestData !== userQuestData,
-            userTransmogData: this.userTransmogData !== userTransmogData
         }
 
         if (
@@ -249,9 +241,8 @@ export class LazyStore implements LazyUgh {
         this.userData = userData
         this.userAchievementData = userAchievementData
         this.userQuestData = userQuestData
-        this.userTransmogData = userTransmogData
 
-        if (changedData.userTransmogData ||
+        if (changedData.userData ||
             changedHashes.appearanceState ||
             changedHashes.settingsTransmog)
         {
@@ -260,7 +251,7 @@ export class LazyStore implements LazyUgh {
                 settings,
                 itemData,
                 staticData,
-                userTransmogData,
+                userData,
             }))
         }
 
@@ -281,7 +272,6 @@ export class LazyStore implements LazyUgh {
 
         if (changedData.userData ||
             changedData.userQuestData ||
-            changedData.userTransmogData ||
             changedHashes.settings)
         {
             this.convertibleFunc = once(() => doConvertible({
@@ -289,7 +279,6 @@ export class LazyStore implements LazyUgh {
                 settings: this.settings,
                 userData: this.userData,
                 userQuestData: this.userQuestData,
-                userTransmogData: this.userTransmogData,
             }))
         }
 
@@ -331,13 +320,12 @@ export class LazyStore implements LazyUgh {
             this.heirloomsFunc = once(() => this.doHeirlooms())
         }
 
-        if (changedData.userTransmogData ||
+        if (changedData.userData ||
             changedHashes.settingsCollections) {
             this.illusionsFunc = once(() => this.doIllusions())
         }
 
         if (changedData.userData ||
-            changedData.userTransmogData ||
             changedHashes.journalState ||
             changedHashes.settingsTransmog)
         {
@@ -348,7 +336,6 @@ export class LazyStore implements LazyUgh {
                 journalData,
                 staticData,
                 userData,
-                userTransmogData,
             }))
         }
 
@@ -360,19 +347,17 @@ export class LazyStore implements LazyUgh {
         }
 
         if (changedData.userData ||
-            changedData.userTransmogData ||
             changedHashes.settingsTransmog) {
             this.transmogFunc = once(() => doTransmog({
                 settings,
                 itemData,
                 manualData,
                 staticData,
-                userTransmogData,
+                userData,
             }))
         }
 
         if (changedData.userData ||
-            changedData.userTransmogData ||
             changedHashes.settingsTransmog ||
             changedHashes.vendorState)
         {
@@ -384,7 +369,6 @@ export class LazyStore implements LazyUgh {
                 staticData,
                 userData,
                 userQuestData,
-                userTransmogData,
             }))
         }
 
@@ -403,7 +387,6 @@ export class LazyStore implements LazyUgh {
                 userData,
                 userAchievementData,
                 userQuestData,
-                userTransmogData,
             }))
         }
 
@@ -517,7 +500,7 @@ export class LazyStore implements LazyUgh {
         return this.doGeneric({
             categories: this.manualData.illusions,
             includeUnavailable: !this.settings.collections.hideUnavailable,
-            haveFunc: (illusion: ManualDataIllusionItem) => this.userTransmogData.hasIllusion.has(
+            haveFunc: (illusion: ManualDataIllusionItem) => this.userData.hasIllusion.has(
                 find(
                     this.staticData.illusions,
                     (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId

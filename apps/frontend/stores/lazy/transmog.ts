@@ -1,10 +1,9 @@
 import some from 'lodash/some'
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type'
-import { UserCount } from '@/types'
+import { UserCount, type UserData } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
 import type { StaticData } from '@/shared/stores/static/types'
-import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual'
 import type { Settings } from '@/shared/stores/settings/types'
@@ -24,7 +23,7 @@ interface LazyStores {
     itemData: ItemData,
     manualData: ManualData,
     staticData: StaticData,
-    userTransmogData: UserTransmogData,
+    userData: UserData,
 }
 
 export function doTransmog(stores: LazyStores): LazyTransmog {
@@ -134,8 +133,8 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     continue
                                 }
 
-                                // const hasAppearance = stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
-                                const hasSource = stores.userTransmogData.hasSource.has(`${itemId}_${modifier}`)
+                                // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
+                                const hasSource = stores.userData.hasSource.has(`${itemId}_${modifier}`)
                                 
                                 // const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
                                 //     ? hasSource : hasAppearance
@@ -214,7 +213,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                                 let haveAny = false
                                 for (const transmogId of transmogIds) {
-                                    if (stores.userTransmogData.hasAppearance.has(transmogId)) {
+                                    if (stores.userData.hasAppearance.has(transmogId)) {
                                         haveAny = true
 
                                         if (countUncollected) {

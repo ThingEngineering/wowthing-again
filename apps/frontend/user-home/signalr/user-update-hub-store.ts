@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce'
 // import { createEventDispatcher, type EventDispatcher } from 'svelte'
 import { readable } from 'svelte/store'
 
-import { userAchievementStore, userQuestStore, userStore, userTransmogStore } from '@/stores'
+import { userAchievementStore, userQuestStore, userStore } from '@/stores'
 
 
 function createStore() {
@@ -26,9 +26,6 @@ function createStore() {
             }
             else if (key === 'quests') {
                 await userQuestStore.fetch({ evenIfLoaded: true, timestamp })
-            }
-            else if (key === 'transmog') {
-                await userTransmogStore.fetch({ evenIfLoaded: true, timestamp })
             }
             else {
                 console.warn('Unknown key', key, timestamp)

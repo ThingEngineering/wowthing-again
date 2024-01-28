@@ -1,10 +1,9 @@
 import sortBy from 'lodash/sortBy'
 
-import { UserCount } from '@/types'
+import { UserCount, type UserData } from '@/types'
 import type { Settings } from '@/shared/stores/settings/types'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ItemData } from '@/types/data/item'
-import type { UserTransmogData } from '@/types/data/user-transmog'
 import { AppearanceDataAppearance, AppearanceDataSet } from '@/types/data/appearance'
 import { expansionMap, expansionSlugMap } from '@/data/expansion'
 import { ItemClass } from '@/enums/item-class'
@@ -20,7 +19,7 @@ interface LazyStores {
     settings: Settings,
     itemData: ItemData,
     staticData: StaticData,
-    userTransmogData: UserTransmogData,
+    userData: UserData,
 }
 
 export interface LazyAppearances {
@@ -64,7 +63,7 @@ export function doAppearances(stores: LazyStores): LazyAppearances {
                 catData.total++
                 setData.total++
                 
-                if (stores.userTransmogData.hasAppearance.has(appearance.appearanceId)) {
+                if (stores.userData.hasAppearance.has(appearance.appearanceId)) {
                     if (!overallSeen[appearance.appearanceId]) {
                         overallData.have++
                     }

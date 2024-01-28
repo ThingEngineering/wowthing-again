@@ -22,7 +22,7 @@ import { getVendorDropStats } from '@/utils/get-vendor-drop-stats'
 
 import type { ZoneMapState } from '../local-storage'
 import type { UserAchievementData, UserData } from '@/types'
-import type { UserQuestData, UserTransmogData } from '@/types/data'
+import type { UserQuestData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/shared/stores/static/types'
@@ -42,7 +42,6 @@ interface LazyStores {
     userData: UserData
     userAchievementData: UserAchievementData
     userQuestData: UserQuestData
-    userTransmogData: UserTransmogData
 }
 
 export interface LazyZoneMaps {
@@ -299,7 +298,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             if (drop.appearanceIds?.length > 0) {
                                 dropStatus.need = some(
                                     drop.appearanceIds[0],
-                                    (appearanceId) => !stores.userTransmogData.hasAppearance.has(appearanceId)
+                                    (appearanceId) => !stores.userData.hasAppearance.has(appearanceId)
                                 )
                             }
                             else {
@@ -313,7 +312,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     }
                                 }
                                 
-                                if (!stores.userTransmogData.hasAppearance.has(appearanceId)) {
+                                if (!stores.userData.hasAppearance.has(appearanceId)) {
                                     dropStatus.need = true
                                 }
                             }
@@ -321,7 +320,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break
                         
                         case RewardType.Illusion:
-                            dropStatus.need = stores.userTransmogData.hasIllusion.has(drop.appearanceIds[0][0])
+                            dropStatus.need = stores.userData.hasIllusion.has(drop.appearanceIds[0][0])
                             break
 
                         case RewardType.SetSpecial:
@@ -330,7 +329,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 stores.manualData,
                                 stores.userData,
                                 stores.userQuestData,
-                                stores.userTransmogData,
                                 masochist,
                                 drop
                             )
@@ -341,7 +339,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 stores.staticData,
                                 drop.appearanceIds,
                                 drop.costs,
-                                (appearanceId) => stores.userTransmogData.hasAppearance.has(appearanceId)
+                                (appearanceId) => stores.userData.hasAppearance.has(appearanceId)
                             )
                             
                             break

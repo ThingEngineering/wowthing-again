@@ -1,7 +1,7 @@
 <script lang="ts">
     import { classIdToArmorType } from '@/data/character-class'
     import { basicTooltip } from '@/shared/utils/tooltips'
-    import { itemStore, userTransmogStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
     import type { CovenantAbomination } from '@/data/covenant'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
@@ -24,7 +24,7 @@
         if (abomination.itemIds) {
             const itemIndex = classIdToArmorType[character.classId] - 1
             questItemId = abomination.itemIds[itemIndex]
-            userHasQuestItem = $userTransmogStore.hasSource.has(`${questItemId}_0`)
+            userHasQuestItem = $userStore.hasSource.has(`${questItemId}_0`)
         }
     }
 </script>

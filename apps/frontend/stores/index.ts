@@ -11,6 +11,5 @@ export * from './user-history'
 export * from './user-modified'
 export * from './user-quests'
 export * from './user-teams'
-export * from './user-transmog'
 
 export * from './lazy'

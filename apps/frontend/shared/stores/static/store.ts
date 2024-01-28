@@ -220,7 +220,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
     setup(
         settings: Settings,
-        itemData: ItemData,
+        itemData: ItemData
     ) {
         this.value.connectedRealms = {}
 

@@ -7,7 +7,7 @@ import { UserCount, type UserData } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import { leftPad } from '@/utils/formatting'
-import { JournalDataEncounterItem, type JournalData, type UserTransmogData } from '@/types/data'
+import { JournalDataEncounterItem, type JournalData } from '@/types/data'
 import type { JournalState } from '../local-storage'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { Settings } from '@/shared/stores/settings/types'
@@ -26,7 +26,6 @@ interface LazyStores {
     journalData: JournalData
     staticData: StaticData
     userData: UserData
-    userTransmogData: UserTransmogData
 }
 
 export function doJournal(stores: LazyStores): LazyJournal {
@@ -172,18 +171,18 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (item.type === RewardType.Item) {
                                 // Check for source first, we're done if they have it
                                 appearanceKey = `${item.id}_${appearance.modifierId}`
-                                appearance.userHas = stores.userTransmogData.hasSource.has(appearanceKey)
+                                appearance.userHas = stores.userData.hasSource.has(appearanceKey)
 
                                 if (
                                     !masochist &&
                                     !appearance.userHas &&
-                                    stores.userTransmogData.hasAppearance.has(appearance.appearanceId)
+                                    stores.userData.hasAppearance.has(appearance.appearanceId)
                                 ) {
                                     // Make sure that the class mask of this item is actually collected
                                     appearance.userHas = (
                                         item.classMask === 0 ||
                                         (
-                                            stores.userTransmogData.appearanceMask.get(appearance.appearanceId) &
+                                            stores.userData.appearanceMask.get(appearance.appearanceId) &
                                             item.classMask
                                         ) === item.classMask
                                     )
@@ -196,7 +195,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                                 if (item.type === RewardType.Illusion) {
                                     const enchantmentId = stores.staticData.illusions[item.appearances[0].appearanceId].enchantmentId
-                                    appearance.userHas = stores.userTransmogData.hasIllusion.has(enchantmentId)
+                                    appearance.userHas = stores.userData.hasIllusion.has(enchantmentId)
                                 }
                                 else if (item.type === RewardType.Mount) {
                                     appearance.userHas = stores.userData.hasMount[item.classId]
