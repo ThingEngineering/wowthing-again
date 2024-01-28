@@ -89,7 +89,7 @@ public class CharacterAchievementStatisticsJob : JobBase
 
         timer.AddPoint("Process");
 
-        var updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
@@ -113,5 +113,10 @@ public class CharacterAchievementStatisticsJob : JobBase
         {
             statistics.AddRange(category.Statistics);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

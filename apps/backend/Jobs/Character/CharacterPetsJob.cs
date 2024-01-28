@@ -9,6 +9,7 @@ namespace Wowthing.Backend.Jobs.Character;
 public class CharacterPetsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/collections/pets";
+
     public override async Task Run(string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
@@ -83,12 +84,13 @@ public class CharacterPetsJob : JobBase
 
         pets.UpdatedAt = DateTime.UtcNow;
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

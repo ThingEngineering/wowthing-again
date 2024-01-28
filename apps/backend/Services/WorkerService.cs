@@ -150,15 +150,26 @@ public class WorkerService : BackgroundService
             Type classType = JobTypeMap[messageData["type"]];
             using (LogContext.PushProperty("Task", messageData["type"]))
             {
+                JobBase job = null;
+
                 try
                 {
-                    using var job = _jobFactory.Create(classType, contextFactory, cancellationToken);
                     string[] data = JsonSerializer.Deserialize<string[]>(messageData.GetValueOrDefault("data", "[]"));
+
+                    job = _jobFactory.Create(classType, contextFactory, cancellationToken);
                     await job.Run(data);
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Job failed");
+                }
+                finally
+                {
+                    if (job != null)
+                    {
+                        await job.Finally();
+                        job.Dispose();
+                    }
                 }
             }
 

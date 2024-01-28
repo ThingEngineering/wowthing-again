@@ -149,6 +149,11 @@ public class CharacterStatsJob : JobBase
         Logger.Debug("{Timer}", timer.ToString());
     }
 
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
+    }
+
     private int RoundToTwoPlaces(decimal value)
     {
         return (int)Math.Round(value * 100);

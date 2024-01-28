@@ -12,7 +12,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
     public override async Task Run(string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
-        var seasonId = int.Parse(data[1]);
+        int seasonId = int.Parse(data[1]);
         using var shrug = CharacterLog(query);
 
         // Fetch API data
@@ -73,10 +73,11 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
                 .ToList();
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

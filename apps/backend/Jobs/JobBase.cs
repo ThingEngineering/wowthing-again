@@ -35,6 +35,9 @@ public abstract class JobBase : IJob, IDisposable
     internal MemoryCacheService MemoryCacheService;
     internal StateService StateService;
 
+    internal long UserId;
+    internal int CharacterId;
+
     private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
     private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
@@ -87,6 +90,9 @@ public abstract class JobBase : IJob, IDisposable
         {
             throw new InvalidJsonException(data);
         }
+
+        UserId = query.UserId;
+        CharacterId = query.CharacterId;
 
         return query;
     }
@@ -284,5 +290,25 @@ public abstract class JobBase : IJob, IDisposable
         _context?.Dispose();
 
         GC.SuppressFinalize(this);
+    }
+
+    public virtual Task Finally()
+    {
+        return Task.CompletedTask;
+    }
+
+    protected async Task DecrementCharacterJobs()
+    {
+        var db = Redis.GetDatabase();
+        string characterKey = string.Format(RedisKeys.CharacterJobCounter, CharacterId);
+        long value = await db.StringDecrementAsync(characterKey);
+
+        if (value <= 0)
+        {
+            Logger.Debug("Character {id} job count is {value}", CharacterId, value);
+
+            await db.KeyDeleteAsync(characterKey, CommandFlags.FireAndForget);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, UserId);
+        }
     }
 }
