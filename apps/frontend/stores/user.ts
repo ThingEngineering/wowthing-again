@@ -38,6 +38,7 @@ import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ContainsItems, UserItem } from '@/types/shared'
 import type { Settings } from '@/shared/stores/settings/types'
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -91,6 +92,29 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
             userData.petsRaw = null
         }
+
+        // Transmog
+        userData.hasIllusion = new Set<number>(userData.illusionIds || [])
+
+        userData.hasAppearance = new Set<number>()
+        let lastAppearanceId = 0;
+        for (const diffedAppearanceId of userData.rawAppearanceIds) {
+            const appearanceId = diffedAppearanceId + lastAppearanceId;
+            userData.hasAppearance.add(appearanceId)
+            lastAppearanceId = appearanceId;
+        }
+        userData.rawAppearanceIds = null
+
+        userData.hasSource = new Set<string>()
+        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(userData.rawAppearanceSources)) {
+            let lastItemId = 0;
+            for (const diffedItemId of diffedItemIds) {
+                const itemId = diffedItemId + lastItemId
+                userData.hasSource.add(`${itemId}_${modifier}`)
+                lastItemId = itemId
+            }
+        }
+        userData.rawAppearanceSources = null
 
         // Characters
         userData.characterMap = {}

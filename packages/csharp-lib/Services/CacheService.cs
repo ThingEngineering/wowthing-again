@@ -438,12 +438,14 @@ public class CacheService
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset? lastModified = null
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
     )
     {
-        var userCache = await context.UserCache
+        userCache ??= await context.UserCache
             .Where(utc => utc.UserId == userId)
             .SingleOrDefaultAsync();
+
         if (userCache == null)
         {
             userCache = new UserCache(userId);

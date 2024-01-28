@@ -21,6 +21,7 @@ export interface UserData {
     goldHistoryRealms: number[]
     guildsRaw: GuildArray[]
     heirlooms: Record<number, number>
+    illusionIds: number[]
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>
 
     honorCurrent: number
@@ -37,6 +38,8 @@ export interface UserData {
     toysPacked: string
 
     petsRaw: Record<number, UserDataPetArray[]>
+    rawAppearanceIds: number[]
+    rawAppearanceSources: Record<number, number[]>
 
     // Calculated
     allLockouts: InstanceDifficulty[]
@@ -61,6 +64,11 @@ export interface UserData {
 
     pets: Record<number, UserDataPet[]>
     setCounts: Record<string, Record<string, UserCount>>
+
+    appearanceMask?: Map<number, number>
+    hasAppearance?: Set<number>
+    hasIllusion?: Set<number>
+    hasSource?: Set<string>
 }
 
 export class UserDataCurrentPeriod {

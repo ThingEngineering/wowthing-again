@@ -35,4 +35,8 @@ public class ApiUser
 
     public string MountsPacked { get; init; }
     public string ToysPacked { get; init; }
+
+    public List<short> IllusionIds { get; set; }
+    public List<int> RawAppearanceIds { get; set; }
+    public Dictionary<int, List<int>> RawAppearanceSources { get; set; }
 }
