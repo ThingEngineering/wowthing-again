@@ -33,6 +33,7 @@
     "@iconify/types": "^2.0.0",
     "@types/luxon": "^3.4.2",
     "autoprefixer": "^10.4.17",
+    "idb": "^8.0.0",
     "svelte-drag-and-drop-actions": "^1.0.1",
     "svelte-intersection-observer": "^1.0.0",
     "svelte-media": "^0.1.5",
