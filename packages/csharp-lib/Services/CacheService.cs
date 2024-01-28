@@ -317,17 +317,7 @@ public class CacheService
 
         var characterData = characters.ToDictionary(
             c => c.Id,
-            c => new ApiUserQuestsCharacter
-            {
-                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
-                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
-                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
-                    .Distinct()
-                    .ToList(),
-                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
-            }
+            c => new ApiUserQuestsCharacter(c.AddonQuests, c.Quests)
         );
 
         timer.AddPoint("Database");

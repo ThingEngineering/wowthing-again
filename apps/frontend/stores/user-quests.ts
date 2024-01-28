@@ -31,7 +31,13 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             }
 
             if (characterData.quests === undefined) {
-                characterData.quests = new Set<number>(characterData.questList)
+                characterData.quests = new Set<number>()
+                let lastQuestId = 0
+                for (const questIdDiff of characterData.questList) {
+                    const questId = questIdDiff + lastQuestId
+                    characterData.quests.add(questId)
+                    lastQuestId = questId
+                }
                 characterData.questList = null
             }
 
