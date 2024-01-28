@@ -15,24 +15,36 @@ export interface UserQuestDataCharacter {
     dailies: Record<number, number[][]>
     dailyQuestList: number[]
     questList: number[]
-    progressQuests?: Record<string, UserQuestDataCharacterProgress>
+    rawProgressQuests?: Record<string, UserQuestDataCharacterProgressArray>
 
     // Computed
     dailyQuests?: Set<number>
+    progressQuests?: Record<string, UserQuestDataCharacterProgress>
     quests?: Set<number>
 }
 
-export interface UserQuestDataCharacterProgress {
-    expires: number
-    id: number
-    name: string
-    status: QuestStatus
-    objectives: UserQuestDataCharacterProgressObjective[]
-}
+export class UserQuestDataCharacterProgress {
+    public objectives: UserQuestDataCharacterProgressObjective[]
 
-export interface UserQuestDataCharacterProgressObjective {
-    have: number
-    need: number
-    text: string
-    type: string
+    constructor(
+        public id: number,
+        public status: QuestStatus,
+        public expires: number,
+        public name: string,
+        objectiveArrays: UserQuestDataCharacterProgressObjectiveArray[],
+    ) {
+        this.objectives = (objectiveArrays || [])
+            .map((objectiveArray) => new UserQuestDataCharacterProgressObjective(...objectiveArray))
+    }
 }
+type UserQuestDataCharacterProgressArray = ConstructorParameters<typeof UserQuestDataCharacterProgress>
+
+export class UserQuestDataCharacterProgressObjective {
+    constructor(
+        public type: string,
+        public have: number,
+        public need: number,
+        public text: string
+    ) { }
+}
+type UserQuestDataCharacterProgressObjectiveArray = ConstructorParameters<typeof UserQuestDataCharacterProgressObjective>

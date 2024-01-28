@@ -2,6 +2,7 @@
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Models.Query;
@@ -328,7 +329,16 @@ public class CacheService
             Account = accountQuests,
             Characters = characterData,
         };
-        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        var options = new JsonSerializerOptions(_jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonQuestsProgressConverter(),
+            },
+        };
+
+        string json = JsonSerializer.Serialize(data, options);
 
         timer.AddPoint("JSON");
 

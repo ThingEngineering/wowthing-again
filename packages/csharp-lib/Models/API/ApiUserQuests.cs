@@ -17,7 +17,7 @@ public class ApiUserQuestsCharacter
     public List<int> DailyQuestList { get; set; }
     public List<int> QuestList { get; set; } = new();
 
-    public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
+    public Dictionary<string, PlayerCharacterAddonQuestsProgress> RawProgressQuests { get; set; }
 
     public ApiUserQuestsCharacter(PlayerCharacterAddonQuests addonQuests, PlayerCharacterQuests quests)
     {
@@ -25,7 +25,7 @@ public class ApiUserQuestsCharacter
             ScannedAt = addonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime;
             Dailies = addonQuests?.Dailies.EmptyIfNull();
             DailyQuestList = addonQuests?.DailyQuests ?? new List<int>();
-            ProgressQuests = addonQuests?.ProgressQuests.EmptyIfNull();
+            RawProgressQuests = addonQuests?.ProgressQuests.EmptyIfNull();
 
             int[] distinctQuestIds = (quests?.CompletedIds ?? new List<int>())
                 .Union(addonQuests?.OtherQuests ?? new List<int>())
