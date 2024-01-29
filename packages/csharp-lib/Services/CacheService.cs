@@ -456,7 +456,8 @@ public class CacheService
             return userCache;
         }
 
-        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue ||
+                           lastModified.HasValue && lastModified > userCache.TransmogUpdated;
         var now = DateTimeOffset.UtcNow;
 
         var allTransmog = await context.AccountTransmogQuery
