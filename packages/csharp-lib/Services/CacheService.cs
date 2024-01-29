@@ -522,7 +522,7 @@ public class CacheService
 
         if (updated > 0)
         {
-            await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+            await SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
         }
 
         return userCache;
