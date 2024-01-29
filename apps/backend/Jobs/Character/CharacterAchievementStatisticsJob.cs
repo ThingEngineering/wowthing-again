@@ -22,7 +22,7 @@ public class CharacterAchievementStatisticsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterAchievementStatistics>(uri, useLastModified: false, timer: timer);
+            var result = await GetUriAsJsonAsync<ApiCharacterAchievementStatistics>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -89,7 +89,7 @@ public class CharacterAchievementStatisticsJob : JobBase
 
         timer.AddPoint("Process");
 
-        var updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
@@ -113,5 +113,10 @@ public class CharacterAchievementStatisticsJob : JobBase
         {
             statistics.AddRange(category.Statistics);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

@@ -20,7 +20,7 @@ public class CharacterEquipmentJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterEquipment>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterEquipment>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -75,10 +75,11 @@ public class CharacterEquipmentJob : JobBase
                 }
             );
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

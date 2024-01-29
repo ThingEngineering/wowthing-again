@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 
@@ -19,7 +20,7 @@ public class CharacterQuestsCompletedJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterQuestsCompleted>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterQuestsCompleted>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -59,7 +60,12 @@ public class CharacterQuestsCompletedJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, query.UserId.ToString());
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, query.UserId);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

@@ -7,6 +7,8 @@ namespace Wowthing.Backend.Jobs.NonBlizzard;
 public class CharacterRaiderIoJob : JobBase
 {
     private const string ApiUrl = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season:{3}";
+    private int _characterId;
+    private long _userId;
 
     public override async Task Run(string[] data)
     {
@@ -43,7 +45,7 @@ public class CharacterRaiderIoJob : JobBase
         ApiCharacterRaiderIo resultData;
         try
         {
-            var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
             resultData = result.Data;
         }
         catch (HttpRequestException e)
@@ -82,5 +84,10 @@ public class CharacterRaiderIoJob : JobBase
         raiderIo.Seasons = seasons;
 
         await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

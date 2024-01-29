@@ -16,7 +16,7 @@ public class ImageJob : JobBase
 
         var timer = new JankTimer();
 
-        var result = await GetBytes(new Uri(url), useAuthorization: false, useLastModified: false, timer: timer);
+        var result = await GetUriAsBytesAsync(new Uri(url), useAuthorization: false, useLastModified: false, timer: timer);
         if (result.NotModified)
         {
             LogNotModified();

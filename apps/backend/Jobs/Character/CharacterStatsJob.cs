@@ -22,7 +22,7 @@ public class CharacterStatsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterStats>(uri, useLastModified: false, timer: timer);
+            var result = await GetUriAsJsonAsync<ApiCharacterStats>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -147,6 +147,11 @@ public class CharacterStatsJob : JobBase
 
         timer.AddPoint("Update", true);
         Logger.Debug("{Timer}", timer.ToString());
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 
     private int RoundToTwoPlaces(decimal value)

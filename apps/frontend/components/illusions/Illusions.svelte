@@ -2,7 +2,7 @@
     import find from 'lodash/find'
     import { afterUpdate } from 'svelte'
 
-    import { manualStore, lazyStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { illusionState } from '@/stores/local-storage'
     import { settingsStore } from '@/shared/stores/settings'
@@ -130,7 +130,7 @@
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const illusion = find($staticStore.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.hasIllusion.has(illusion.enchantmentId)}
+                                {@const have = $userStore.hasIllusion.has(illusion.enchantmentId)}
                                 <div
                                     class="collection-object"
                                     class:missing={

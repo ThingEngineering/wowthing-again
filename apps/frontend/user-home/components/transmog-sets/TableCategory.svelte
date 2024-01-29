@@ -4,7 +4,7 @@
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog'
     import { iconLibrary, uiIcons } from '@/shared/icons'
-    import { lazyStore, userTransmogStore } from '@/stores'
+    import { lazyStore, userStore } from '@/stores'
     import { settingsStore } from '@/shared/stores/settings/store'
     import { transmogSetsState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
@@ -334,7 +334,7 @@
     {/if}
 
     {#if isExpanded}
-        {#each getFilteredSets($settingsStore, $userTransmogStore, group) as [setShow, setName], setIndex}
+        {#each getFilteredSets($settingsStore, $userStore, group) as [setShow, setName], setIndex}
             {#if setShow}
                 {@const setPercent = getPercent(groupIndex, setIndex)}
                 <tr class:faded={setName.endsWith('*')}>

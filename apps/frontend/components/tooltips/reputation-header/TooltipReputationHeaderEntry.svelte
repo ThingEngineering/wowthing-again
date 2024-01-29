@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { Faction } from '@/enums/faction'
     import { RewardType } from '@/enums/reward-type'
-    import { itemStore, userStore, userTransmogStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
     import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
@@ -52,7 +52,7 @@
                     }
                     else if (reward.type === RewardType.Transmog) {
                         const item = $itemStore.items[reward.id]
-                        have = $userTransmogStore.hasAppearance.has(item?.appearances[0]?.appearanceId || 0)
+                        have = $userStore.hasAppearance.has(item?.appearances[0]?.appearanceId || 0)
                         name = item?.name || `Item #${reward.id}`
                     }
 

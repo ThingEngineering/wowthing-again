@@ -16,7 +16,7 @@ public class DataMythicKeystonePeriodJob : JobBase
 
         // Fetch API data
         var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(ApiPath, periodId));
-        var result = await GetJson<ApiDataMythicKeystonePeriod>(uri);
+        var result = await GetUriAsJsonAsync<ApiDataMythicKeystonePeriod>(uri);
         if (result.NotModified)
         {
             return;

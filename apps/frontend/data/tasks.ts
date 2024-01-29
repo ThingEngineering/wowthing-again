@@ -9,7 +9,7 @@ import type { Character } from '@/types'
 import type { Chore, Task } from '@/types/tasks'
 
 import { Constants } from './constants'
-import { dragonflightProfessions, isGatheringProfession, professionSlugToId } from './professions'
+import { dragonflightProfessions, isGatheringProfession } from './professions'
 
 
 export const dragonflightProfessionTasks: Chore[] = flatten(

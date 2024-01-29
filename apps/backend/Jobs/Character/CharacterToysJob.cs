@@ -42,7 +42,7 @@ public class CharacterToysJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterToys>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterToys>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -73,12 +73,13 @@ public class CharacterToysJob : JobBase
             .Select(toy => toy.Toy.Id)
             .ToList();
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

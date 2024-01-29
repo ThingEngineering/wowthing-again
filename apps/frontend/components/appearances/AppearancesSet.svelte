@@ -1,7 +1,7 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { lazyStore, userTransmogStore } from '@/stores'
+    import { lazyStore, userStore } from '@/stores'
     import { appearanceState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import type { AppearanceDataSet } from '@/types/data/appearance'
@@ -36,7 +36,7 @@
             >
                 {#if intersected}
                     {#each set.appearances as appearance}
-                        {@const has = $userTransmogStore.hasAppearance.has(appearance.appearanceId)}
+                        {@const has = $userStore.hasAppearance.has(appearance.appearanceId)}
                         {@const show = (
                             ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected))
                             && $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true

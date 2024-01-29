@@ -48,7 +48,7 @@ public class DataQuestJob : JobBase
             ApiDataQuest resultData;
             try
             {
-                var result = await GetJson<ApiDataQuest>(uri, timer: new JankTimer());
+                var result = await GetUriAsJsonAsync<ApiDataQuest>(uri, timer: new JankTimer());
                 if (result.NotModified)
                 {
                     LogNotModified();

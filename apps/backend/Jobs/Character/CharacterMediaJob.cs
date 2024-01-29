@@ -20,7 +20,7 @@ public class CharacterMediaJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterMedia>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMedia>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -59,11 +59,7 @@ public class CharacterMediaJob : JobBase
         media.MainUrl = assetMap.GetValueOrDefault("main");
         media.MainRawUrl = assetMap.GetValueOrDefault("main-raw");
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
 
         /*if (!string.IsNullOrWhiteSpace(media.MainUrl))
         {
@@ -74,5 +70,10 @@ public class CharacterMediaJob : JobBase
         {
             await JobRepository.AddImageJobAsync(ImageType.Character, query.CharacterId, ImageFormat.WebP, media.MainRawUrl);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

@@ -41,9 +41,9 @@ public class UserQuestController : Controller
 
         timer.AddPoint("CheckUser");
 
-        var (isModified, lastModified) =
+        var (_, lastModified) =
             await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, null, apiResult);
-        var lastUnix = lastModified.ToUnixTimeSeconds();
+        long lastUnix = lastModified.ToUnixTimeSeconds();
         if (lastUnix != modified)
         {
             return RedirectToAction("UserQuestData", new { username, modified = lastUnix });

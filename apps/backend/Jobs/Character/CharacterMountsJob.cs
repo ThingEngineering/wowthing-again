@@ -18,7 +18,7 @@ public class CharacterMountsJob : JobBase
         ApiCharacterMounts resultData;
         var uri = GenerateUri(query, ApiPath);
         try {
-            var result = await GetJson<ApiCharacterMounts>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMounts>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -54,10 +54,11 @@ public class CharacterMountsJob : JobBase
             pcMounts.Mounts = mounts;
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

@@ -1,13 +1,13 @@
 import some from 'lodash/some'
 
-import type { UserTransmogData } from '@/types/data'
-import type { ManualDataTransmogGroup, ManualDataTransmogGroupData } from '@/types/data/manual'
 import type { Settings } from '@/shared/stores/settings/types'
+import type { UserData } from '@/types'
+import type { ManualDataTransmogGroup, ManualDataTransmogGroupData } from '@/types/data/manual'
 
 
 export default function getFilteredSets(
     settings: Settings,
-    userTransmogData: UserTransmogData,
+    userData: UserData,
     group: ManualDataTransmogGroup
 ): [boolean, string][] {
     const ret: [boolean, string][] = []
@@ -22,7 +22,7 @@ export default function getFilteredSets(
             !(
                 (skipAlliance && setName.indexOf(':alliance:') >= 0) ||
                 (skipHorde && setName.indexOf(':horde:') >= 0) ||
-                (skipUnavailable && setName.endsWith('*') && !hasAnyOfSets(userTransmogData,
+                (skipUnavailable && setName.endsWith('*') && !hasAnyOfSets(userData,
                     Object.values(group.data).map((datas) => datas[setIndex])))
             ),
             setName
@@ -33,7 +33,7 @@ export default function getFilteredSets(
 }
 
 function hasAnyOfSets(
-    userTransmogData: UserTransmogData,
+    userData: UserData,
     sets: ManualDataTransmogGroupData[]
 ): boolean {
     return some(
@@ -42,7 +42,7 @@ function hasAnyOfSets(
             set.items || {},
             (itemIds) => some(
                 itemIds,
-                (itemId) => userTransmogData.hasAppearance.has(itemId)
+                (itemId) => userData.hasAppearance.has(itemId)
             )
         )
     )

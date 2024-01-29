@@ -377,6 +377,40 @@ public class ApiController : Controller
 
         timer.AddPoint("Toys");
 
+        // Transmog
+        await _cacheService.CreateOrUpdateTransmogCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified, userCache);
+
+        var diffedAppearanceIds = new List<int>();
+        int lastAppearanceId = 0;
+        foreach (int appearanceId in userCache.AppearanceIds)
+        {
+            diffedAppearanceIds.Add(appearanceId - lastAppearanceId);
+            lastAppearanceId = appearanceId;
+        }
+
+        var splitSources = userCache.AppearanceSources
+            .Select(source => source.Split('_').Select(int.Parse).ToArray())
+            .GroupBy(parts => parts[1])
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(g => g[0]).ToArray()
+            );
+
+        var diffedSources = new Dictionary<int, List<int>>();
+        foreach ((int modifier, int[] itemIds) in splitSources)
+        {
+            var modifierItemIds = diffedSources[modifier] = [];
+            int lastItemId = 0;
+            foreach (int itemId in itemIds.Order())
+            {
+                modifierItemIds.Add(itemId - lastItemId);
+                lastItemId = itemId;
+            }
+        }
+
+        timer.AddPoint("Transmog");
+
         List<int> goldHistoryRealms = null;
         if (!apiResult.Public)
         {
@@ -464,6 +498,10 @@ public class ApiController : Controller
 
             MountsPacked = mountsPacked,
             ToysPacked = toysPacked,
+
+            IllusionIds = userCache.IllusionIds,
+            RawAppearanceIds = diffedAppearanceIds,
+            RawAppearanceSources = diffedSources,
         };
 
         var options = new JsonSerializerOptions(_jsonSerializerOptions)

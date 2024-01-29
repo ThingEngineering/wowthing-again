@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
 import { WritableFancyStore } from '@/types/fancy-store'
-import type { UserQuestData } from '@/types/data'
+import { UserQuestDataCharacterProgress, type UserQuestData } from '@/types/data'
 
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
@@ -31,8 +31,23 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             }
 
             if (characterData.quests === undefined) {
-                characterData.quests = new Set<number>(characterData.questList)
+                characterData.quests = new Set<number>()
+                let lastQuestId = 0
+                for (const questIdDiff of characterData.questList) {
+                    const questId = questIdDiff + lastQuestId
+                    characterData.quests.add(questId)
+                    lastQuestId = questId
+                }
                 characterData.questList = null
+            }
+
+            characterData.progressQuests ||= {}
+            if (characterData.rawProgressQuests) {
+                for (const [questKey, questArray] of Object.entries(characterData.rawProgressQuests)) {
+                    characterData.progressQuests[questKey] = new UserQuestDataCharacterProgress(...questArray)
+                }
+
+                characterData.rawProgressQuests = null
             }
 
             for (const [key, progressQuest] of Object.entries(characterData.progressQuests || {})) {

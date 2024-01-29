@@ -111,7 +111,7 @@ export function homeSort(
 
         const charChore = lazyStore.characters[char.id].chores[taskName]
         if (charChore) {
-            value = Math.floor(charChore.countCompleted / charChore.countTotal * 100)
+            value = (charChore.countCompleted * 100) + charChore.countStarted
         }
         else {
             const charTask = lazyStore.characters[char.id].tasks[`${settings.activeView}|${taskName}`]
@@ -137,6 +137,6 @@ export function homeSort(
             }
         }
 
-        return leftPad(100 - value, 3, '0')
+        return leftPad(1000 - value, 4, '0')
     }
 }

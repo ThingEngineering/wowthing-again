@@ -19,7 +19,7 @@ public class CharacterSoulbindsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterSoulbinds>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterSoulbinds>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -76,10 +76,11 @@ public class CharacterSoulbindsJob : JobBase
             shadowlands.ConduitRanks = new List<int>();
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

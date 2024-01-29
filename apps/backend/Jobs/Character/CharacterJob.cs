@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Text.RegularExpressions;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -34,7 +35,7 @@ public class CharacterJob : JobBase
         DateTime lastModified;
         try
         {
-            var result = await GetJson<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
+            var result = await GetUriAsJsonAsync<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -87,10 +88,6 @@ public class CharacterJob : JobBase
         character.ShouldUpdate = true;
 
         int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
 
         // Character changed, queue some more stuff
         var jobs = new List<JobType>();
@@ -160,6 +157,10 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterPets);
             jobs.Add(JobType.CharacterToys);
         }
+
+        var db = Redis.GetDatabase();
+        await db.StringSetAsync(string.Format(RedisKeys.CharacterJobCounter, character.Id), jobs.Count);
+        Logger.Debug("Character {id} job count is {value}", CharacterId, jobs.Count);
 
         foreach (var jobType in jobs)
         {

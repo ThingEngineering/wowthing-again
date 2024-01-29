@@ -2,6 +2,7 @@
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Models.Query;
@@ -317,17 +318,7 @@ public class CacheService
 
         var characterData = characters.ToDictionary(
             c => c.Id,
-            c => new ApiUserQuestsCharacter
-            {
-                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
-                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
-                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
-                    .Distinct()
-                    .ToList(),
-                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
-            }
+            c => new ApiUserQuestsCharacter(c.AddonQuests, c.Quests)
         );
 
         timer.AddPoint("Database");
@@ -338,7 +329,16 @@ public class CacheService
             Account = accountQuests,
             Characters = characterData,
         };
-        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        var options = new JsonSerializerOptions(_jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonQuestsProgressConverter(),
+            },
+        };
+
+        string json = JsonSerializer.Serialize(data, options);
 
         timer.AddPoint("JSON");
 
@@ -438,12 +438,14 @@ public class CacheService
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset? lastModified = null
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
     )
     {
-        var userCache = await context.UserCache
+        userCache ??= await context.UserCache
             .Where(utc => utc.UserId == userId)
             .SingleOrDefaultAsync();
+
         if (userCache == null)
         {
             userCache = new UserCache(userId);
@@ -454,7 +456,8 @@ public class CacheService
             return userCache;
         }
 
-        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue;
+        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue ||
+                           lastModified.HasValue && lastModified > userCache.TransmogUpdated;
         var now = DateTimeOffset.UtcNow;
 
         var allTransmog = await context.AccountTransmogQuery
@@ -519,7 +522,7 @@ public class CacheService
 
         if (updated > 0)
         {
-            await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+            await SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
         }
 
         return userCache;

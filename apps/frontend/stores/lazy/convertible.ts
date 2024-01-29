@@ -7,7 +7,7 @@ import { ItemLocation } from '@/enums/item-location'
 import { PlayableClass, playableClasses } from '@/enums/playable-class'
 import { QuestStatus } from '@/enums/quest-status'
 import type { Character, CharacterEquippedItem, CharacterItem, UserData } from '@/types'
-import type { UserQuestData, UserTransmogData } from '@/types/data'
+import type { UserQuestData } from '@/types/data'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { Settings } from '@/shared/stores/settings/types'
 
@@ -17,7 +17,6 @@ interface LazyStores {
     settings: Settings,
     userData: UserData,
     userQuestData: UserQuestData,
-    userTransmogData: UserTransmogData,
 }
 
 export class LazyConvertibleCharacterItem {
@@ -108,10 +107,10 @@ export function doConvertible(
                 const modifierData = slotData.modifiers[modifier] = new LazyConvertibleModifier()
                 
                 if (stores.settings.transmog.completionistMode) {
-                    modifierData.userHas = stores.userTransmogData.hasSource.has(`${setItemId}_${modifier}`)
+                    modifierData.userHas = stores.userData.hasSource.has(`${setItemId}_${modifier}`)
                 }
                 else {
-                    modifierData.userHas = stores.userTransmogData.hasAppearance.has(setItem.appearances[modifier]?.appearanceId ?? -1)
+                    modifierData.userHas = stores.userData.hasAppearance.has(setItem.appearances[modifier]?.appearanceId ?? -1)
                 }
 
                 if (modifierData.userHas) {

@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
@@ -22,7 +23,7 @@ public class CharacterAchievementsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
+            var result = await GetUriAsJsonAsync<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -123,10 +124,10 @@ public class CharacterAchievementsJob : JobBase
 
         timer.AddPoint("Process");
 
-        var updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, query.UserId.ToString());
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
         }
 
         timer.AddPoint("Update", true);
@@ -143,5 +144,10 @@ public class CharacterAchievementsJob : JobBase
             );
             RecurseCriteria(criteriaAmounts, child.ChildCriteria);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

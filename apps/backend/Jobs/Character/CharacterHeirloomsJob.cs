@@ -8,6 +8,7 @@ namespace Wowthing.Backend.Jobs.Character;
 public class CharacterHeirloomsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/collections/heirlooms";
+
     public override async Task Run(string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
@@ -41,7 +42,7 @@ public class CharacterHeirloomsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterHeirlooms>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterHeirlooms>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -74,12 +75,13 @@ public class CharacterHeirloomsJob : JobBase
                 heirloom => heirloom.Upgrade.Level
             );
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

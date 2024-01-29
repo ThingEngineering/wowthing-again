@@ -20,7 +20,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -93,14 +93,23 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             apiSeasons = new[] { apiSeasons[0] };
         }
 
-        foreach (var apiSeason in apiSeasons)
-        {
-            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
-        }
-
         if (apiSeasons.Length > 0)
         {
+            var db = Redis.GetDatabase();
+            await db.StringIncrementAsync(string.Format(RedisKeys.CharacterJobCounter, query.CharacterId),
+                apiSeasons.Length + 1);
+
             await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
+
+            foreach (int apiSeason in apiSeasons)
+            {
+                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
+            }
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

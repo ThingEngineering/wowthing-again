@@ -41,7 +41,7 @@ export function getCurrencyCosts(
             sortKey = [
                 '999999',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
-                leftPad(10 - item?.quality ?? 0, 2, '0'),
+                leftPad(10 - (item?.quality ?? 0), 2, '0'),
                 item?.name ?? 'ZZZ',
             ].join('|')
         }

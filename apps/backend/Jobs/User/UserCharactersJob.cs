@@ -48,7 +48,7 @@ public class UserCharactersJob : JobBase
             var uri = GenerateUri(region, ApiNamespace.Profile, path);
             try
             {
-                var result = await GetJson<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
+                var result = await GetUriAsJsonAsync<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
                 var profile = result.Data;
                 if (profile?.Accounts == null)
                 {

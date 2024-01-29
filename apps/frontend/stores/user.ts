@@ -32,12 +32,14 @@ import type {
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
+    UserAchievementData,
     UserData,
 } from '@/types'
 import type { ItemData, ItemDataItem } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ContainsItems, UserItem } from '@/types/shared'
 import type { Settings } from '@/shared/stores/settings/types'
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -92,6 +94,29 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             userData.petsRaw = null
         }
 
+        // Transmog
+        userData.hasIllusion = new Set<number>(userData.illusionIds || [])
+
+        userData.hasAppearance = new Set<number>()
+        let lastAppearanceId = 0;
+        for (const diffedAppearanceId of userData.rawAppearanceIds) {
+            const appearanceId = diffedAppearanceId + lastAppearanceId;
+            userData.hasAppearance.add(appearanceId)
+            lastAppearanceId = appearanceId;
+        }
+        userData.rawAppearanceIds = null
+
+        userData.hasSource = new Set<string>()
+        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(userData.rawAppearanceSources)) {
+            let lastItemId = 0;
+            for (const diffedItemId of diffedItemIds) {
+                const itemId = diffedItemId + lastItemId
+                userData.hasSource.add(`${itemId}_${modifier}`)
+                lastItemId = itemId
+            }
+        }
+        userData.rawAppearanceSources = null
+
         // Characters
         userData.characterMap = {}
         userData.characters = []
@@ -117,7 +142,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     setup(
         settingsData: Settings,
-        userData: UserData
+        userData: UserData,
+        userAchievementData: UserAchievementData
     ): void {
         console.time('UserDataStore.setup')
 
@@ -259,6 +285,28 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             else {
                 console.error('Missing toy id', toyId)
             }
+        }
+
+        // Transmog
+        userData.appearanceMask = new Map<number, number>()
+        for (const [appearanceIdString, items] of Object.entries(itemData.appearanceToItems)) {
+            const appearanceId = parseInt(appearanceIdString)
+            let mask = 0
+
+            for (const [itemId, modifier] of items) {
+                if (userData.hasSource.has(`${itemId}_${modifier}`)) {
+                    const item = itemData.items[itemId]
+                    mask |= item.classMask
+                }
+            }
+
+            userData.appearanceMask.set(appearanceId, mask)
+        }
+        
+        // HACK: Warglaives of Azzinoth
+        if (userAchievementData.achievements[426]) {
+            userData.hasSource.add('32837_0')
+            userData.hasSource.add('32838_0')
         }
 
         console.timeEnd('UserDataStore.setup')

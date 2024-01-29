@@ -11,7 +11,7 @@ import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/shared/stores/static/types'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
 import type { UserData } from '@/types'
-import type { UserQuestData, UserTransmogData } from '@/types/data'
+import type { UserQuestData } from '@/types/data'
 import type { Settings } from '@/shared/stores/settings/types'
 import type { VendorState } from '../local-storage'
 
@@ -31,9 +31,8 @@ interface LazyStores {
     itemData: ItemData
     manualData: ManualData
     staticData: StaticData
-    userData: UserData,
+    userData: UserData
     userQuestData: UserQuestData
-    userTransmogData: UserTransmogData,
 }
 
 export function doVendors(stores: LazyStores): LazyVendors {
@@ -277,7 +276,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.manualData,
                         stores.userData,
                         stores.userQuestData,
-                        stores.userTransmogData,
                         item.type,
                         item.id,
                         item.appearanceIds
