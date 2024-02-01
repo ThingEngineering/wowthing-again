@@ -430,7 +430,7 @@ function doCharacterTasks(
                     charChore.tasks.push(charTask)
                 }
 
-                characterData.chores[taskName] = charChore
+                characterData.chores[`${view.id}|${taskName}`] = charChore
             }
             else {
                 // still ugh
