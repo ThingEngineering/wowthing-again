@@ -1,3 +1,4 @@
+using AspNet.Security.OAuth.BattleNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -66,12 +67,14 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
                 string oauthHost = Configuration["BattleNet:OAuthHost"];
                 if (oauthHost != null)
                 {
-                    options.AuthorizationEndpoint =
-                        options.AuthorizationEndpoint.Replace("oauth.battle.net", oauthHost);
-                    options.TokenEndpoint =
-                        options.TokenEndpoint .Replace("oauth.battle.net", oauthHost);
-                    options.UserInformationEndpoint =
-                        options.UserInformationEndpoint .Replace("oauth.battle.net", oauthHost);
+                    options.Region = BattleNetAuthenticationRegion.Custom;
+                    
+                    options.AuthorizationEndpoint = BattleNetAuthenticationDefaults.Unified.AuthorizationEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
+                    options.TokenEndpoint = BattleNetAuthenticationDefaults.Unified.TokenEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
+                    options.UserInformationEndpoint = BattleNetAuthenticationDefaults.Unified.UserInformationEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
                 }
             });
 
