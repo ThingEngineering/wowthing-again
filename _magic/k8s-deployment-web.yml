@@ -48,6 +48,8 @@ spec:
           envFrom:
             - secretRef:
                 name: wowthing-again
+            - secretRef:
+                name: wowthing-web
           resources:
             requests:
               memory: "128Mi"

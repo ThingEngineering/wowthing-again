@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
+    import { activeView } from '@/shared/stores/settings'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { lazyStore } from '@/stores'
     import type { LazyCharacterChore } from '@/stores/lazy/character'
     import type { Character } from '@/types'
 
@@ -12,7 +13,7 @@
     let chore: LazyCharacterChore
     $: {
         const lazyCharacter = $lazyStore.characters[character.id]
-        chore = lazyCharacter.chores[taskName]
+        chore = lazyCharacter.chores[`${$activeView.id}|${taskName}`]
     }
 </script>
 
