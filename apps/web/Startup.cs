@@ -62,6 +62,17 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
                 options.ClientSecret = Configuration["BattleNet:ClientSecret"];
                 options.SaveTokens = true;
                 options.Scope.Add("wow.profile");
+
+                string oauthHost = Configuration["BattleNet:OAuthHost"];
+                if (oauthHost != null)
+                {
+                    options.AuthorizationEndpoint =
+                        options.AuthorizationEndpoint.Replace("oauth.battle.net", oauthHost);
+                    options.TokenEndpoint =
+                        options.TokenEndpoint .Replace("oauth.battle.net", oauthHost);
+                    options.UserInformationEndpoint =
+                        options.UserInformationEndpoint .Replace("oauth.battle.net", oauthHost);
+                }
             });
 
         services.ConfigureApplicationCookie(options =>
