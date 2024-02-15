@@ -91,6 +91,10 @@ export function homeSort(
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[2]))[0], 3, '0'),
         ].join('|')
     }
+    else if (sortBy.startsWith('item:')) {
+        const itemId = parseInt(sortBy.split(':')[1])
+        return leftPad(1000000 - char.getItemCount(itemId), 7, '0')
+    }
     else if (sortBy.startsWith('lockout:')) {
         const lockoutKey = sortBy.split(':')[1]
         const lockout = char.lockouts?.[lockoutKey]
