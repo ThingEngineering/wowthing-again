@@ -7,10 +7,11 @@
     import { progressQuestMap } from '@/data/quests'
     import { multiTaskMap, taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
+    import { activeView } from '@/shared/stores/settings'
     import { timeStore } from '@/shared/stores/time'
     import { lazyStore, userQuestStore, userStore } from '@/stores'
-    import { activeView } from '@/shared/stores/settings'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
 
     export let taskName: string
 
@@ -29,7 +30,7 @@
         const questName = progressQuestMap[taskName] || taskName
         const task = taskMap[taskName]
         disabledChores = $activeView.disabledChores?.[taskName] || []
-
+        
         const multiMap: Record<string, number> = {}
         multiStats = []
         if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
@@ -68,7 +69,7 @@
 
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId]
-                    const taskChores = charChores?.[taskName]
+                    const taskChores = charChores?.[`${$activeView.id}|${taskName}`]
 
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of (taskChores?.tasks || [])) {
@@ -130,16 +131,19 @@
     <table class="table-striped">
         <tbody>
             {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
-                <tr
-                    class:faded={disabledChores.indexOf(multiTaskKey) >= 0}
-                >
-                    <td class="value">
-                        <ParsedText text={multiTaskName} />
-                    </td>
-                    <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
-                    <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
-                    <td class="label drop-shadow status-success">{questStatuses[2]}</td>
-                </tr>
+                {@const disabled = disabledChores.indexOf(multiTaskKey) >= 0}
+                {#if !disabled || questStatuses[1] > 0 || questStatuses[2] > 0}
+                    <tr
+                        class:faded={disabled}
+                    >
+                        <td class="value">
+                            <ParsedText text={multiTaskName} />
+                        </td>
+                        <td class="label drop-shadow status-fail">{questStatuses[0]}</td>
+                        <td class="label drop-shadow status-shrug">{questStatuses[1]}</td>
+                        <td class="label drop-shadow status-success">{questStatuses[2]}</td>
+                    </tr>
+                {/if}
             {:else}
                 <tr>
                     <td class="label status-success">Completed:</td>
