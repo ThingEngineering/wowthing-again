@@ -318,7 +318,12 @@ public class CacheService
 
         var characterData = characters.ToDictionary(
             c => c.Id,
-            c => new ApiUserQuestsCharacter(c.AddonQuests, c.Quests)
+            c => new ApiUserQuestsCharacter(
+                c.AddonQuests,
+                SerializationUtilities.AsDiffedList(
+                    (c.Quests?.CompletedIds ?? []).Union(c.AddonQuests?.OtherQuests ?? [])
+                )
+            )
         );
 
         timer.AddPoint("Database");
