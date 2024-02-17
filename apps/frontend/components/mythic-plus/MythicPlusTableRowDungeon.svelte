@@ -21,6 +21,8 @@
 
     let addonMap: CharacterMythicPlusAddonMap
     let allRuns: CharacterMythicPlusAddonRun[]
+    let bestRun: CharacterMythicPlusRun
+    let hasPortal: boolean
     let isTyrannical: boolean
     let runs: CharacterMythicPlusRun[]
     let showBoth: boolean
@@ -42,16 +44,25 @@
             showBoth = seasonId >= 6
             if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
                 addonMap = tempMap
+                hasPortal = Math.max(
+                    tempMap.fortifiedScore?.overTime === false ? tempMap.fortifiedScore.level : 0,
+                    tempMap.tyrannicalScore?.overTime === false ? tempMap.tyrannicalScore.level : 0
+                ) >= 20
                 //allRuns = character.mythicPlusAddon[seasonId].runs
                 //    .filter((run) => run.mapId === dungeonId)
             }
         }
     }
 
-    $: bestRun = maxBy(
-        runs || [],
-        (run) => (run.keystoneLevel * 10) + (run.timed ? 0 : 1)
-    )
+    $: {
+        bestRun = maxBy(
+            runs || [],
+            (run) => (run.keystoneLevel * 10) + (run.timed ? 0 : 1)
+        )
+        if (!addonMap) {
+            hasPortal = bestRun?.timed === true && bestRun.keystoneLevel >= 20
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -80,9 +91,12 @@
                 background: var(--active-background);
             }
         }
+        &.portal {
+            box-shadow: inset 0 0 0 1px #{$quality5-border};
+        }
     }
     span {
-        width: 50%;
+        width: 2rem;
 
         &.failed {
             color: #888;
@@ -96,6 +110,7 @@
 <td
     class:fortified={!isTyrannical}
     class:tyrannical={isTyrannical}
+    class:portal={hasPortal}
     use:componentTooltip={{
         component: TooltipMythicPlusRuns,
         props: {
