@@ -1552,6 +1552,8 @@ public class UserUploadJob : JobBase
 
         if (questsScanTimestamp > 0)
         {
+            _resetQuestCache = true;
+
             var scanTime = questsScanTimestamp.AsUtcDateTime();
             if (scanTime >= character.AddonQuests.QuestsScannedAt)
             {
@@ -1710,8 +1712,6 @@ public class UserUploadJob : JobBase
 
                     dailiesUpdated = true;
                 }
-
-                _resetQuestCache = true;
             }
         }
 
