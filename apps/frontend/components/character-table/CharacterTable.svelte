@@ -94,8 +94,8 @@
                     $settingsStore,
                     $staticStore,
                     (char) => homeSort(
+                        $activeView,
                         $lazyStore,
-                        $settingsStore,
                         $timeStore,
                         $homeState.groupSort[sortKey],
                         char

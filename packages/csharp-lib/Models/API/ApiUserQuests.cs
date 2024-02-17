@@ -19,26 +19,14 @@ public class ApiUserQuestsCharacter
 
     public Dictionary<string, PlayerCharacterAddonQuestsProgress> RawProgressQuests { get; set; }
 
-    public ApiUserQuestsCharacter(PlayerCharacterAddonQuests addonQuests, PlayerCharacterQuests quests)
+    public ApiUserQuestsCharacter(PlayerCharacterAddonQuests addonQuests, List<int> quests)
     {
         {
             ScannedAt = addonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime;
             Dailies = addonQuests?.Dailies.EmptyIfNull();
             DailyQuestList = addonQuests?.DailyQuests ?? new List<int>();
             RawProgressQuests = addonQuests?.ProgressQuests.EmptyIfNull();
-
-            int[] distinctQuestIds = (quests?.CompletedIds ?? new List<int>())
-                .Union(addonQuests?.OtherQuests ?? new List<int>())
-                .Distinct()
-                .Order()
-                .ToArray();
-
-            int lastQuestId = 0;
-            foreach (int questId in distinctQuestIds)
-            {
-                QuestList.Add(questId - lastQuestId);
-                lastQuestId = questId;
-            }
+            QuestList = quests;
         }
     }
 }

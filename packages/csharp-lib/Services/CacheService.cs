@@ -27,10 +27,10 @@ public class CacheService
         _redis = redis;
     }
 
-    public async Task<DateTimeOffset> GetLastModified(string key, ApiUserResult apiUserResult)
+    public async Task<DateTimeOffset> GetLastModified(string key, long userId)
     {
         var db = _redis.GetDatabase();
-        var redisKey = string.Format(key, apiUserResult.User.Id);
+        var redisKey = string.Format(key, userId);
         return await db.DateTimeOffsetGetAsync(redisKey);
     }
 
@@ -265,23 +265,42 @@ public class CacheService
     #endregion
 
     #region Quests
-    public async Task<(string, DateTimeOffset)> GetOrCreateQuestCacheAsync(
+    public async Task<(string, DateTimeOffset)> CreateOrUpdateQuestCacheAsync(
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset lastModified,
+        DateTimeOffset? lastModified = null,
         UserCache userCache = null
     )
     {
         var db = _redis.GetDatabase();
 
-        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
-        if (string.IsNullOrEmpty(json))
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        var cacheLastModified = await GetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+
+        string json;
+        if (userCache == null)
         {
-            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId, userCache);
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (cacheLastModified > DateTimeOffset.MinValue &&
+                 lastModified.HasValue &&
+                 lastModified <= cacheLastModified)
+        {
+            json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
+            if (!string.IsNullOrEmpty(json))
+            {
+                return (json, cacheLastModified);
+            }
         }
 
-        return (json, lastModified);
+        (json, cacheLastModified) = await CreateQuestCacheAsync(context, db, timer, userId, userCache);
+
+        return (json, cacheLastModified);
     }
 
     public async Task<(string, DateTimeOffset)> CreateQuestCacheAsync(
@@ -318,7 +337,12 @@ public class CacheService
 
         var characterData = characters.ToDictionary(
             c => c.Id,
-            c => new ApiUserQuestsCharacter(c.AddonQuests, c.Quests)
+            c => new ApiUserQuestsCharacter(
+                c.AddonQuests,
+                SerializationUtilities.AsDiffedList(
+                    (c.Quests?.CompletedIds ?? []).Union(c.AddonQuests?.OtherQuests ?? [])
+                )
+            )
         );
 
         timer.AddPoint("Database");

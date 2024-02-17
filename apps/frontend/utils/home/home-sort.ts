@@ -5,17 +5,18 @@ import { dungeonMap } from '@/data/dungeon'
 import { leftPad } from '@/utils/formatting'
 import { getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getVaultItemLevel } from '@/utils/mythic-plus'
-import type { Settings } from '@/shared/stores/settings/types'
+import type { SettingsView } from '@/shared/stores/settings/types'
 import type { LazyStore } from '@/stores'
 import type { Character } from '@/types'
 
 import { getCharacterRested } from '../get-character-rested'
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level'
+import { QuestStatus } from '@/enums/quest-status'
 
 
 export function homeSort(
+    activeView: SettingsView,
     lazyStore: LazyStore,
-    settings: Settings,
     currentTime: DateTime,
     sortBy: string,
     char: Character
@@ -110,18 +111,20 @@ export function homeSort(
     }
     else if (sortBy.startsWith('task:')) {
         let value = -5
-
-        const taskName = sortBy.split(':')[1]
+        const taskName = `${activeView.id}|${sortBy.split(':')[1]}`
 
         const charChore = lazyStore.characters[char.id].chores[taskName]
         if (charChore) {
             value = (charChore.countCompleted * 100) + charChore.countStarted
+            if (charChore.countTotal > 0 && charChore.countCompleted === charChore.countTotal) {
+                value += 5000
+            }
         }
         else {
-            const charTask = lazyStore.characters[char.id].tasks[`${settings.activeView}|${taskName}`]
+            const charTask = lazyStore.characters[char.id].tasks[taskName]
             if (charTask) {
                 if (charTask.text === 'Done') {
-                    value = 101
+                    value = 9999
                 }
                 else if (charTask.text === 'Get!') {
                     value = -1
@@ -141,6 +144,6 @@ export function homeSort(
             }
         }
 
-        return leftPad(1000 - value, 4, '0')
+        return leftPad(10000 - value, 5, '0')
     }
 }
