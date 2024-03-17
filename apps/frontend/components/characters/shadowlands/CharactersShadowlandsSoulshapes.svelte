@@ -76,7 +76,7 @@
     <h3>
         Soulshapes
         <Count counts={stats} />
-        <a href="https://${settingsStore.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant">Guide</a>
+        <a href="https://{settingsStore.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant">Guide</a>
     </h3>
     <div class="collection-section">
         {#each allShapes as shapes}
