@@ -29,7 +29,6 @@ for (const key of objectKeys(initialState)) {
 
     Object.assign(initialState[key], userJson[key] || {})
     for (const objectKey of objectKeys(initialState[key])) {
-        console.log(subKeys, objectKey)
         if (subKeys.indexOf(objectKey) === -1) {
             delete initialState[key][objectKey]
         }
