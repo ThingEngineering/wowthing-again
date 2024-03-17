@@ -83,7 +83,9 @@ export function useCharacterFilter(
                         }
 
                         // Race slug
-                        const raceSlug = part === 'pandaren' ? `pandaren${char.faction}` : part
+                        const raceSlug = ['dracthyr', 'pandaren'].includes(part)
+                            ? `${part}${char.faction}`
+                            : part
                         if (staticData.characterRacesBySlug[raceSlug]) {
                             return char.raceId === staticData.characterRacesBySlug[raceSlug].id
                         }

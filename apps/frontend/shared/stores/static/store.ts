@@ -46,7 +46,9 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         data.characterRacesBySlug = Object.fromEntries(
             Object.values(data.characterRaces)
                 .map((race) => [
-                    race.slug === 'pandaren' ? `pandaren${race.faction}` : race.slug,
+                    ['dracthyr', 'pandaren'].includes(race.slug)
+                        ? `${race.slug}${race.faction}`
+                        : race.slug,
                     race,
                 ])
         )
