@@ -166,6 +166,7 @@ public class MemoryCacheService
 
                 var realmMap = await contextWrapper.Context.WowRealm
                     .AsNoTracking()
+                    .Where(realm => realm.Name != null)
                     .ToDictionaryAsync(wr => (wr.Region, wr.Name));
 
                 foreach (var ((region, realmName), realm) in realmMap.ToArray())
