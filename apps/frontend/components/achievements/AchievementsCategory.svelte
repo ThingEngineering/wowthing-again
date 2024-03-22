@@ -28,7 +28,7 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = sortBy(
+        achievementIds = category.slug === 'a-world-awoken' ? category.achievementIds : sortBy(
             category.achievementIds,
             id => [
                 $userAchievementStore.achievements[id] === undefined ? '1' : '0',
@@ -115,6 +115,7 @@
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
                 <AchievementsAchievement
+                    kindaAlwaysShow={category.slug === 'a-world-awoken'}
                     {achievementId}
                 />
             {/each}

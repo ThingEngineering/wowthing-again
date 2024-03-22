@@ -14,6 +14,7 @@
 
     export let achievementId: number
     export let alwaysShow = false
+    export let kindaAlwaysShow = false
 
     let achievement: AchievementDataAchievement
     let earned: number
@@ -56,7 +57,7 @@
         )) {
             show = false
         }
-        else if (achievement.supersedes && $userAchievementStore.achievements[achievement.supersedes] === undefined) {
+        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.achievements[achievement.supersedes] === undefined) {
             show = false
         }
         else {
@@ -92,6 +93,9 @@
             }
             else if (!earned && $achievementStore.isHidden[achievementId]) {
                 show = false
+            }
+            else if (kindaAlwaysShow) {
+                show = true
             }
         }
     }
