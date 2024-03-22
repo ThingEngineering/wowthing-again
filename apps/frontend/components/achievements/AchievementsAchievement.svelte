@@ -23,6 +23,8 @@
     let faction: number
     $: {
         achievement = $achievementStore.achievement[achievementId]
+        if (!achievement) { break $ }
+
         earned = $userAchievementStore.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
