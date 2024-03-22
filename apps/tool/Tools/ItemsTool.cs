@@ -54,11 +54,19 @@ public class ItemsTool
         // Dragonflight S3
         206959, // Spark of Dreams
         206960, // Enchanted Wyrm's Dreaming Crest
-        206961, // ENchanted Aspect's Dreaming Crest
+        206961, // Enchanted Aspect's Dreaming Crest
         212536, // Lesser Verdant Trophy of Conquest
         212538, // Greater Verdant Trophy of Conquest
         212539, // Lesser Verdant Crest of Honor
         212541, // Greater Verdant Crest of Honor
+
+        // Dragonflight S4
+        211684, // Lesser Draconic Trophy of Conquest
+        211685, // Draconic Trophy of Conquest
+        211686, // Greater Draconic Trophy of Conquest
+        211687, // Lesser Draconic Crest of Honor
+        211688, // Draconic Crest of Honor
+        211689, // Greater Draconic Crest of Honor
     ];
 
     public async Task Run()

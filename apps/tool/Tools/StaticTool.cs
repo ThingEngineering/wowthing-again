@@ -295,6 +295,7 @@ public class StaticTool
         // Basic database dumps
         cacheData.RawRealms = await context.WowRealm
             .AsNoTracking()
+            .Where(realm => realm.Name != null && !EF.Functions.ILike(realm.Slug, "%-ps-realm-%"))
             .OrderBy(realm => realm.Id)
             .ToListAsync();
 
