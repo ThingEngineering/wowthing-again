@@ -1,5 +1,4 @@
-import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types'
-
+import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 
 export const categoryOrder: number[] = [
     250, // Dragonflight
@@ -16,7 +15,7 @@ export const categoryOrder: number[] = [
     22, // Dungeon and Raid
     1, // Miscellaneous
     2, // Player vs. Player
-]
+];
 
 export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
     // Miscellaneous
@@ -25,7 +24,7 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             id: 100101,
             name: 'World Events',
             slug: 'world-events',
-        }
+        },
     ],
 
     // Dragonflight
@@ -55,8 +54,13 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Season 3',
             slug: 'season-3',
         },
+        {
+            id: 125014,
+            name: 'Season 4',
+            slug: 'season-4',
+        },
     ],
-}
+};
 
 export const currencyExtra: Record<number, number[]> = {
     // Dragonflight
@@ -84,7 +88,6 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // Dragonflight - Season 3
     125013: [
-        2245, // Flightstones
         2796, // Renascent Dream
         2797, // Trophy of Strife
         null,
@@ -93,7 +96,17 @@ export const currencyExtra: Record<number, number[]> = {
         2708, // Wyrm's Dreaming Crests
         2709, // Aspect's Dreaming Crests
     ],
-}
+    // Dragonflight - Season 4
+    125014: [
+        2245, // Flightstones
+        2912, // Renascent Awakening
+        null,
+        2806, // Whelpling's Awakened Crest
+        2807, // Drake's Awakened Crest
+        2809, // Wyrm's Awakened Crest
+        2812, // Aspect's Awakened Crest
+    ],
+};
 
 export const currencyItems: Record<number, number[]> = {
     // Burning Crusade
@@ -196,7 +209,11 @@ export const currencyItems: Record<number, number[]> = {
     125013: [
         208396, // Splintered Spark of Dreams
         206959, // Spark of Dreams
-        208821, // Aspects' Token of Merit
+    ],
+    125014: [
+        211515, // Splintered Spark of Awakening
+        211516, // Spark of Awakening
+        217409, // Aspects' Token of Merit
     ],
 
     // Player vs Player
@@ -219,14 +236,14 @@ export const currencyItems: Record<number, number[]> = {
         44791, // Noblegarden Chocolate
         33226, // Tricky Treat
     ],
-}
+};
 
 export const currencyItemCurrencies: Record<number, number> = {
     204075: 2409, // Whelpling Crest Fragment
     204076: 2410, // Drake Crest Fragment
     204077: 2411, // Wyrm Crest Fragment
     204078: 2412, // Aspect Crest Fragment
-}
+};
 
 const skipCurrencies: number[] = [
     // Dragonflight
@@ -235,6 +252,10 @@ const skipCurrencies: number[] = [
     2707, // Drake's Dreaming Crests
     2708, // Wyrm's Dreaming Crests
     2709, // Aspect's Dreaming Crests
+    2806, // Whelpling's Awakened Crest
+    2807, // Drake's Awakened Crest
+    2809, // Wyrm's Awakened Crest
+    2812, // Aspect's Awakened Crest
 
     // Warlords of Draenor
     897, // UNUSED
@@ -301,8 +322,8 @@ const skipCurrencies: number[] = [
     161, // Stone Keeper's Shard
     181, // Honor Points DEPRECATED2
     201, // Venture Coin
-]
+];
 
 export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(
-    skipCurrencies.map((currencyId) => [currencyId, true])
-)
+    skipCurrencies.map((currencyId) => [currencyId, true]),
+);
