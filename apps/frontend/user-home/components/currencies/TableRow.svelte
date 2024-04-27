@@ -52,12 +52,12 @@
                 }
             }
             // This has a backing currency which does not have a max, whee
-            else if (itemId === 208396) {
-                const characterCurrency = character.currencies?.[2774]
+            else if (itemId === 211515) {
+                const characterCurrency = character.currencies?.[2800]
                 const quantity = characterCurrency?.quantity || 0
                 
                 const period = userStore.getCurrentPeriodForCharacter($timeStore, character)
-                const max = period.id - 931
+                const max = period.id - 954
 
                 per = quantity / max * 100
                 tooltip += ` &ndash; ${quantity} / ${max}`
