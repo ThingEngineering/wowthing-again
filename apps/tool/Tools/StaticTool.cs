@@ -65,6 +65,12 @@ public class StaticTool
         { "World Quest Bonus Event", "holidayWorldQuests" },
     };
 
+    private static readonly HashSet<int> TimewalkingRaidIds = [
+        559, 622, 623, 624, // TBC: Black Temple
+        562, 616, 617, 618, // WotLK: Ulduar
+        587, 628, 629, 630, // Cata: Firelands
+    ];
+
     public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Static");
@@ -187,6 +193,7 @@ public class StaticTool
             { "holidayDungeons", new() },
             { "holidayTimewalking", new() },
             { "holidayTimewalkingItem", new() },
+            { "holidayTimewalkingRaid", new() },
             { "pvpBrawl", new() },
         };
 
@@ -206,6 +213,10 @@ public class StaticTool
             {
                 cacheData.HolidayIds["holidayTimewalking"].Add(holiday.Id);
                 cacheData.HolidayIds["holidayTimewalkingItem"].Add(holiday.Id);
+                if (TimewalkingRaidIds.Contains(holiday.Id))
+                {
+                    cacheData.HolidayIds["holidayTimewalkingRaid"].Add(holiday.Id);
+                }
             }
             else if (holidayName.StartsWith("PvP Brawl"))
             {
