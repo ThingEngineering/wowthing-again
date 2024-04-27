@@ -57,7 +57,7 @@ export const dungeons: Dungeon[] = [
     ),
     new Dungeon(199, 'Black Rook Hold', 'BRH', 'achievement/10804', 2160 / 60),
     new Dungeon(200, 'Halls of Valor', 'HoV', 'achievement/10786', 38),
-    new Dungeon(206, 'Neltharion's Lair', 'NL', 'achievement/10795', 33),
+    new Dungeon(206, "Neltharion's Lair", 'NL', 'achievement/10795', 33),
     new Dungeon(210, 'Court of Stars', 'CoS', 'achievement/10816', 30),
     new Dungeon(
         227,
@@ -75,12 +75,12 @@ export const dungeons: Dungeon[] = [
     ),
 
     // Battle for Azeroth
-    new Dungeon(244, 'Atal'Dazar', 'AD', 'achievement/12824', 1800 / 60),
+    new Dungeon(244, "Atal'Dazar", 'AD', 'achievement/12824', 1800 / 60),
     new Dungeon(245, 'Freehold', 'FH', 'achievement/12831', 1860 / 60),
     new Dungeon(246, 'Tol Dagor', 'TD', 'achievement/12840', 2160 / 60),
     new Dungeon(247, 'The MOTHERLODE!!', 'ML', 'achievement/12844', 2340 / 60),
     new Dungeon(248, 'Waycrest Manor', 'WM', 'achievement/12483', 2220 / 60),
-    new Dungeon(249, 'Kings' Rest', 'KR', 'achievement/12848', 2520 / 60),
+    new Dungeon(249, "Kings' Rest", 'KR', 'achievement/12848', 2520 / 60),
     new Dungeon(
         250,
         'Temple of Sethraliss',
@@ -154,7 +154,7 @@ export const dungeons: Dungeon[] = [
     ),
     new Dungeon(
         392,
-        'Tazavesh: So'leah's Gambit',
+        "Tazavesh: So'leah's Gambit",
         'GMBT',
         'achievement/15177',
         30,
@@ -164,7 +164,7 @@ export const dungeons: Dungeon[] = [
     new Dungeon(399, 'Ruby Life Pools', 'RLP', 'achievement/16266', 30),
     new Dungeon(400, 'The Nokhud Offensive', 'NO', 'achievement/16277', 40),
     new Dungeon(401, 'The Azure Vaults', 'AV', 'achievement/16272', 35.5),
-    new Dungeon(402, 'Algeth'ar Academy', 'AA', 'achievement/16271', 32),
+    new Dungeon(402, "Algeth'ar Academy", 'AA', 'achievement/16271', 32),
     new Dungeon(
         403,
         'Uldaman: Legacy of Tyr',
@@ -189,14 +189,14 @@ export const dungeons: Dungeon[] = [
     ),
     new Dungeon(
         463,
-        'Dawn of the Infinite: Galakrond's Fall',
+        "Dawn of the Infinite: Galakrond's Fall",
         'FALL',
         'achievement/18703',
         2100 / 60,
     ),
     new Dungeon(
         464,
-        'Dawn of the Infinite: Murozond's Rise',
+        "Dawn of the Infinite: Murozond's Rise",
         'RISE',
         'achievement/6150',
         2280 / 60,
@@ -533,7 +533,7 @@ export const extraInstances: StaticDataInstance[] = [
     {
         expansion: 8,
         id: 108004,
-        name: 'Mor'geth, Tormentor of the Damned',
+        name: "Mor'geth, Tormentor of the Damned",
         shortName: 'MTD',
     },
     {
