@@ -210,6 +210,7 @@ export const currencyItems: Record<number, number[]> = {
         208396, // Splintered Spark of Dreams
         206959, // Spark of Dreams
     ],
+    // Dragonflight > Season 4
     125014: [
         211515, // Splintered Spark of Awakening
         211516, // Spark of Awakening

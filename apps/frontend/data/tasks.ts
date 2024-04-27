@@ -273,6 +273,12 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'dfLastHurrah',
+        name: '[DF] Last Hurrah',
+        shortName: 'LH',
+        minimumLevel: 70,
+    },
+    {
         key: 'dfProfessionWeeklies',
         name: '[DF] Profession Weeklies',
         shortName: 'Pro',
