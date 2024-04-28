@@ -9,12 +9,12 @@
 
     const currencies: number[][] = [
         [
-            2706, // Whelpling's Dreaming Crests
-            2707, // Drake's Dreaming Crests
+            2806, // Whelpling's Awakened Crest
+            2807, // Drake's Awakened Crest
         ],
         [
-            2708, // Wyrm's Dreaming Crests
-            2709, // Aspect's Dreaming Crests
+            2809, // Wyrm's Awakened Crest
+            2812, // Aspect's Awakened Crest
         ],
     ]
 </script>
