@@ -28,6 +28,7 @@
             name={name}
             type="checkbox"
             bind:checked={value}
+            on:change
             {disabled}
         >
         <IconifyIcon

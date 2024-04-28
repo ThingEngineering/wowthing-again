@@ -60,7 +60,7 @@
         {#if $characterSettingsStore === character.id}
             <div class="options-menu border">
                 <CheckboxInput
-                    name=""
+                    name="ignore-work-orders-{character.id}"
                     bind:value={ignoreWorkOrders}
                     on:change={ignoreWorkOrdersChanged}
                 >Ignore work orders</CheckboxInput>
