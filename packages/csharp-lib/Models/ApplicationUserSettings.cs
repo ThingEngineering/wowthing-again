@@ -25,6 +25,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
 
     public List<ApplicationUserSettingsCustomGroup>? CustomGroups { get; set; } = new();
+    public List<ApplicationUserSettingsTag>? Tags { get; set; } = new();
     public List<ApplicationUserSettingsView>? Views { get; set; } = new();
 
     private readonly HashSet<string> _validGroupBy = new()
@@ -352,6 +353,12 @@ public class ApplicationUserSettingsProfessions
     public bool IgnoreTasksWhenDoneWithTraits { get; set; } = true;
 
     public Dictionary<string, bool> Cooldowns { get; set; } = new();
+}
+
+public class ApplicationUserSettingsTag
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
 
 public class ApplicationUserSettingsTasks
