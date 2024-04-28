@@ -40,7 +40,7 @@ export const dfS4Aspect: [number, number][] = [[2812, 15]];
 export const convertibleCategories: ConvertibleCategory[] = [
     {
         id: 9,
-        minimumLevel: 90,
+        minimumLevel: 70,
         name: '[DF] Season 4',
         slug: 'df-season-4',
         conversionCurrencyId: 2912, // Renascent Awakening
@@ -51,7 +51,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 highUpgrade: dfS4Aspect,
             },
             {
-                itemLevel: 406,
+                itemLevel: 506,
                 lowUpgrade: dfS4Drake,
                 highUpgrade: dfS4Wyrm,
             },
