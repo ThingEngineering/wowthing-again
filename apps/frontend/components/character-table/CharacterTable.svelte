@@ -157,18 +157,23 @@
                 <slot name="emptyRow">
                     <tr>
                         <td class="uhoh">
-                            It looks like you have no valid characters. If this is a new account,
-                            check again in a minute or so. If you still have no characters, try:
-                            
-                            <ul>
-                                <li>Log out and back in on this site to trigger an account update.</li>
-                                <li>If that didn't work, reset WoWthing's permissions on Battle.net:
-                                    go to your <a href="https://account.battle.net/connections#connected-accounts">Battle.net Connections page</a>,
-                                    find "WoWthing Live" and click <code>X REMOVE</code>. Then log out and back in
-                                    on this site. DO NOT UNTICK THE BOX WHEN BATTLE.NET ASKS!</li>
-                                <li>If that still didn't work, drop by <a href="https://discord.gg/4UkTT5y">the Discord</a> and
-                                    ask for help.</li>
-                            </ul>
+                            {#if $userStore.characters.length > 0}
+                                It looks like you have characters but none match your current character filter,
+                                try clearing that (end of the navigation)!
+                            {:else}
+                                It looks like you have no valid characters. If this is a new account,
+                                check again in a minute or so. If you still have no characters, try:
+                                
+                                <ul>
+                                    <li>Log out and back in on this site to trigger an account update.</li>
+                                    <li>If that didn't work, reset WoWthing's permissions on Battle.net:
+                                        go to your <a href="https://account.battle.net/connections#connected-accounts">Battle.net Connections page</a>,
+                                        find "WoWthing Live" and click <code>X REMOVE</code>. Then log out and back in
+                                        on this site. DO NOT UNTICK THE BOX WHEN BATTLE.NET ASKS!</li>
+                                    <li>If that still didn't work, drop by <a href="https://discord.gg/4UkTT5y">the Discord</a> and
+                                        ask for help.</li>
+                                </ul>
+                            {/if}
                         </td>
                     </tr>
                 </slot>
