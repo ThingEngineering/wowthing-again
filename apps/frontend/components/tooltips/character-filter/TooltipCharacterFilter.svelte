@@ -93,7 +93,12 @@
 
             <dt>Account tag</dt>
             <dd>
-                <code>tag=[acc]</code>
+                <code>accountTag=[tag]</code>
+            </dd>
+
+            <dt>Character tag</dt>
+            <dd>
+                <code>tag=[tag]</code>
             </dd>
 
             <dt>Has M+ score</dt>

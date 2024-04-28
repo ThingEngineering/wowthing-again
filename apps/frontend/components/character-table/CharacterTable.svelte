@@ -62,6 +62,7 @@
 
         characters = characters.filter((char) => useCharacterFilter(
             $lazyStore,
+            $settingsStore,
             filterFunc,
             char,
             $newNavState.characterFilter ||

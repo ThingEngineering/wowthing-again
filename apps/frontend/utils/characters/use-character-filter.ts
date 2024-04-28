@@ -16,6 +16,7 @@ import { staticStore } from '@/shared/stores/static';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
 import { LazyStore, userStore } from '@/stores';
 import type { Character } from '@/types';
+import type { Settings } from '@/shared/stores/settings/types';
 
 type FilterFunc = (char: Character) => boolean;
 
@@ -23,6 +24,7 @@ const _cache: Record<string, string[][]> = {};
 
 export function useCharacterFilter(
     lazyStore: LazyStore,
+    settings: Settings,
     filterFunc: FilterFunc,
     char: Character,
     filterString: string,
@@ -79,13 +81,34 @@ export function useCharacterFilter(
                                 }
 
                                 // Account tag
-                                match = part.match(/^tag=(.*)$/);
+                                match = part.match(/^accountTag=(.*)$/);
                                 if (match) {
-                                    const tag = match[1].toString();
+                                    const accountTag = match[1].toString();
                                     return (
                                         userData.accounts[
                                             char.accountId
-                                        ].tag.toLocaleLowerCase() == tag
+                                        ].tag.toLocaleLowerCase() == accountTag
+                                    );
+                                }
+
+                                // Tag
+                                match = part.match(/^tag=(.*)$/);
+                                if (match) {
+                                    const tagName = match[1]
+                                        .toString()
+                                        .toLocaleLowerCase();
+                                    const tag = (settings.tags || []).find(
+                                        (t) =>
+                                            t.name.toLocaleLowerCase() ===
+                                            tagName,
+                                    );
+                                    return (
+                                        tag &&
+                                        ((settings.characters.flags?.[
+                                            char.id
+                                        ] || 0) &
+                                            (1 << tag.id)) >
+                                            0
                                     );
                                 }
 
