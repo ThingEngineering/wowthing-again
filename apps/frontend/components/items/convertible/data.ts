@@ -1,47 +1,70 @@
-import { InventoryType } from '@/enums/inventory-type'
-import type { ConvertibleCategory } from './types'
-import { ArmorType } from '@/enums/armor-type'
-import { AppearanceModifier } from '@/enums/appearance-modifier'
-
+import { InventoryType } from '@/enums/inventory-type';
+import type { ConvertibleCategory } from './types';
+import { ArmorType } from '@/enums/armor-type';
+import { AppearanceModifier } from '@/enums/appearance-modifier';
 
 export const modifierToTier: Record<number, number> = {
     [AppearanceModifier.Mythic]: 4,
     [AppearanceModifier.Heroic]: 3,
     [AppearanceModifier.Normal]: 2,
-    [AppearanceModifier.LookingForRaid]: 1
-}
+    [AppearanceModifier.LookingForRaid]: 1,
+};
 
 const dfS2Whelpling: [number, number][] = [
     [204193, 1],
     [204075, 15],
-]
+];
 const dfS2Drake: [number, number][] = [
     [204195, 1],
     [204076, 15],
-]
+];
 const dfS2Wyrm: [number, number][] = [
     [204196, 1],
     [204077, 15],
-]
+];
 const dfS2Aspect: [number, number][] = [
     [204194, 1],
     [204078, 15],
-]
+];
 
-export const dfS3Whelpling: [number, number][] = [
-    [2706, 15],
-]
-export const dfS3Drake: [number, number][] = [
-    [2707, 15],
-]
-export const dfS3Wyrm: [number, number][] = [
-    [2708, 15],
-]
-export const dfS3Aspect: [number, number][] = [
-    [2709, 15],
-]
+export const dfS3Whelpling: [number, number][] = [[2706, 15]];
+export const dfS3Drake: [number, number][] = [[2707, 15]];
+export const dfS3Wyrm: [number, number][] = [[2708, 15]];
+export const dfS3Aspect: [number, number][] = [[2709, 15]];
+
+export const dfS4Whelpling: [number, number][] = [[2806, 15]];
+export const dfS4Drake: [number, number][] = [[2807, 15]];
+export const dfS4Wyrm: [number, number][] = [[2809, 15]];
+export const dfS4Aspect: [number, number][] = [[2812, 15]];
 
 export const convertibleCategories: ConvertibleCategory[] = [
+    {
+        id: 9,
+        minimumLevel: 70,
+        name: '[DF] Season 4',
+        slug: 'df-season-4',
+        conversionCurrencyId: 2912, // Renascent Awakening
+        tiers: [
+            {
+                itemLevel: 519,
+                lowUpgrade: dfS4Wyrm,
+                highUpgrade: dfS4Aspect,
+            },
+            {
+                itemLevel: 506,
+                lowUpgrade: dfS4Drake,
+                highUpgrade: dfS4Wyrm,
+            },
+            {
+                itemLevel: 493,
+                lowUpgrade: dfS4Whelpling,
+                highUpgrade: dfS4Drake,
+            },
+            {
+                itemLevel: 480,
+            },
+        ],
+    },
     {
         id: 7,
         minimumLevel: 70,
@@ -247,7 +270,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
             },
         },
     },
-]
+];
 
 export const convertibleTypes: InventoryType[] = [
     InventoryType.Head,
@@ -259,4 +282,4 @@ export const convertibleTypes: InventoryType[] = [
     InventoryType.Waist,
     InventoryType.Legs,
     InventoryType.Feet,
-]
+];

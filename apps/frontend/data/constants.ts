@@ -17,7 +17,7 @@ export abstract class Constants {
         loammNiffen: 2564,
     };
 
-    static readonly seasonItemBonusListGroups = [305, 306, 307, 308, 309, 310];
+    static readonly seasonItemBonusListGroups = [354, 355, 356, 357, 358, 360];
 
     static readonly upgradeTiers = {
         explorer: 970,
@@ -29,26 +29,26 @@ export abstract class Constants {
     };
 
     static readonly icons = {
-        alliance: "achievement/13467", // Tides of Vengeance
-        horde: "achievement/13466", // Tides of Vengeance
+        alliance: 'achievement/13467', // Tides of Vengeance
+        horde: 'achievement/13466', // Tides of Vengeance
 
-        anniversary: "item/71134", // Celebration Package
-        chromieTime: "spell/96794", // Time Warp
-        dragonridingPassengers: "spell/372610", // Skyward Ascent
-        enchant: "spell/7411", // Enchanting
-        gem: "item/12361", // Blue Sapphire
-        heirloom: "item/122338", // Ancient Heirloom Armor Casing
-        resting: "spell/140430", // Passed Out
-        torghast: "spell/334746", // Access to Torghast
-        upgrade: "spell/331516", // Enhance Soulkeeper
-        warMode: "spell/304019", // Conflict and Strife
-        weeklyAnima: "spell/341209", // Overwhelming Anima
-        weeklyShapingFate: "item/186196", // Death's Advance War Chest
-        weeklySouls: "spell/225100", // Charging Station
+        anniversary: 'item/71134', // Celebration Package
+        chromieTime: 'spell/96794', // Time Warp
+        dragonridingPassengers: 'spell/372610', // Skyward Ascent
+        enchant: 'spell/7411', // Enchanting
+        gem: 'item/12361', // Blue Sapphire
+        heirloom: 'item/122338', // Ancient Heirloom Armor Casing
+        resting: 'spell/140430', // Passed Out
+        torghast: 'spell/334746', // Access to Torghast
+        upgrade: 'spell/331516', // Enhance Soulkeeper
+        warMode: 'spell/304019', // Conflict and Strife
+        weeklyAnima: 'spell/341209', // Overwhelming Anima
+        weeklyShapingFate: 'item/186196', // Death's Advance War Chest
+        weeklySouls: 'spell/225100', // Charging Station
 
-        armorCloth: "item/102289",
-        armorLeather: "item/102282",
-        armorMail: "item/102275",
-        armorPlate: "item/102268",
+        armorCloth: 'item/102289',
+        armorLeather: 'item/102282',
+        armorMail: 'item/102275',
+        armorPlate: 'item/102268',
     };
 }

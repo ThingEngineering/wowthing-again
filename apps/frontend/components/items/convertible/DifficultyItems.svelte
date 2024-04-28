@@ -23,7 +23,7 @@
                 classData[classId][slotId] = slotData.modifiers[modifier]
             }
         }
-        console.log(classData)
+        // console.log(classData)
     }
 </script>
 
