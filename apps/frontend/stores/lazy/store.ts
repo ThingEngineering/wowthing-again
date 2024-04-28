@@ -1,19 +1,19 @@
-import debounce from 'lodash/debounce'
-import find from 'lodash/find'
-import once from 'lodash/once'
-import some from 'lodash/some'
-import { derived, get } from 'svelte/store'
-import type { DateTime } from 'luxon'
+import debounce from 'lodash/debounce';
+import find from 'lodash/find';
+import once from 'lodash/once';
+import some from 'lodash/some';
+import { derived, get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
-import { doAppearances, type LazyAppearances } from './appearances'
-import { doCharacters, type LazyCharacter } from './character'
-import { doCollectible, type LazyCollectible } from './collectible'
-import { doConvertible, type LazyConvertible } from './convertible'
-import { doJournal, type LazyJournal } from './journal'
-import { doRecipes } from './recipes'
-import { doTransmog, type LazyTransmog } from './transmog'
-import { doVendors, type LazyVendors } from './vendors'
-import { doZoneMaps, type LazyZoneMaps } from './zone-maps'
+import { doAppearances, type LazyAppearances } from './appearances';
+import { doCharacters, type LazyCharacter } from './character';
+import { doCollectible, type LazyCollectible } from './collectible';
+import { doConvertible, type LazyConvertible } from './convertible';
+import { doJournal, type LazyJournal } from './journal';
+import { doRecipes } from './recipes';
+import { doTransmog, type LazyTransmog } from './transmog';
+import { doVendors, type LazyVendors } from './vendors';
+import { doZoneMaps, type LazyZoneMaps } from './zone-maps';
 
 import {
     appearanceState,
@@ -25,33 +25,32 @@ import {
     type CollectibleState,
     type JournalState,
     type VendorState,
-    type ZoneMapState
-} from '../local-storage'
+    type ZoneMapState,
+} from '../local-storage';
 
-import { itemStore } from '../item'
-import { journalStore } from '../journal'
-import { manualStore } from '../manual'
-import { settingsStore } from '@/shared/stores/settings'
-import { staticStore } from '@/shared/stores/static'
-import { timeStore } from '@/shared/stores/time'
-import { userStore } from '../user'
-import { userAchievementStore } from '../user-achievements'
-import { userQuestStore } from '../user-quests'
+import { itemStore } from '../item';
+import { journalStore } from '../journal';
+import { manualStore } from '../manual';
+import { settingsStore } from '@/shared/stores/settings';
+import { staticStore } from '@/shared/stores/static';
+import { timeStore } from '@/shared/stores/time';
+import { userStore } from '../user';
+import { userAchievementStore } from '../user-achievements';
+import { userQuestStore } from '../user-quests';
 
-import { UserCount } from '@/types'
+import { UserCount } from '@/types';
 
-import { hashObject } from '@/utils/hash-object'
-import type { StaticData } from '@/shared/stores/static/types'
-import type { FancyStoreType, UserAchievementData, UserData } from '@/types'
-import type { JournalData, UserQuestData } from '@/types/data'
+import { hashObject } from '@/utils/hash-object';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
+import type { JournalData, UserQuestData } from '@/types/data';
 import type {
     ManualData,
     ManualDataHeirloomItem,
     ManualDataIllusionItem,
-} from '@/types/data/manual'
-import type { ItemData } from '@/types/data/item'
-import type { Settings } from '@/shared/stores/settings/types'
-
+} from '@/types/data/manual';
+import type { ItemData } from '@/types/data/item';
+import type { Settings } from '@/shared/stores/settings/types';
 
 type LazyKey =
     | 'heirlooms'
@@ -59,26 +58,26 @@ type LazyKey =
     | 'mounts'
     | 'pets'
     | 'recipes'
-    | 'toys'
+    | 'toys';
 
 type LazyUgh = {
-    [k in LazyKey]: LazyCollectible|UserCounts
-}
+    [k in LazyKey]: LazyCollectible | UserCounts;
+};
 
 type GenericCategory<T> = {
-    name: string
-    items: T[]
-}
+    name: string;
+    items: T[];
+};
 
 type DoGenericParameters<T, U> = {
-    categories: T[]
-    haveFunc: (item: U) => boolean
-    includeUnavailable: boolean
-    haveCountFunc?: (item: U) => number
-    totalCountFunc?: (item: U) => number
-}
+    categories: T[];
+    haveFunc: (item: U) => boolean;
+    includeUnavailable: boolean;
+    haveCountFunc?: (item: U) => number;
+    totalCountFunc?: (item: U) => number;
+};
 
-type UserCounts = Record<string, UserCount>
+type UserCounts = Record<string, UserCount>;
 
 export const lazyStore = derived(
     [
@@ -91,7 +90,7 @@ export const lazyStore = derived(
         zoneMapState,
         userStore,
         userAchievementStore,
-        userQuestStore
+        userQuestStore,
     ],
     debounce(
         ([
@@ -104,7 +103,7 @@ export const lazyStore = derived(
             $zoneMapState,
             $userStore,
             $userAchievementStore,
-            $userQuestStore
+            $userQuestStore,
         ]: [
             Settings,
             DateTime,
@@ -115,7 +114,7 @@ export const lazyStore = derived(
             ZoneMapState,
             FancyStoreType<UserData>,
             FancyStoreType<UserAchievementData>,
-            FancyStoreType<UserQuestData>
+            FancyStoreType<UserQuestData>,
         ]) => {
             storeInstance.update(
                 $settingsStore,
@@ -127,52 +126,52 @@ export const lazyStore = derived(
                 $zoneMapState,
                 $userStore,
                 $userAchievementStore,
-                $userQuestStore
-            )
-            return storeInstance
+                $userQuestStore,
+            );
+            return storeInstance;
         },
         100,
         {
             leading: true,
             trailing: true,
-        }
-    )
-)
+        },
+    ),
+);
 
 export class LazyStore implements LazyUgh {
-    private settings: Settings
+    private settings: Settings;
 
-    private appearanceState: AppearancesState
-    private collectibleState: CollectibleState
-    private journalState: JournalState
-    private zoneMapState: ZoneMapState
-    
-    private itemData: ItemData
-    private journalData: JournalData
-    private manualData: ManualData
-    private staticData: StaticData
+    private appearanceState: AppearancesState;
+    private collectibleState: CollectibleState;
+    private journalState: JournalState;
+    private zoneMapState: ZoneMapState;
 
-    private userAchievementData: UserAchievementData
-    private userData: UserData
-    private userQuestData: UserQuestData
-    
-    private customizationsFunc: () => UserCounts
-    private heirloomsFunc: () => UserCounts
-    private illusionsFunc: () => UserCounts
-    private recipesFunc: () => UserCounts
+    private itemData: ItemData;
+    private journalData: JournalData;
+    private manualData: ManualData;
+    private staticData: StaticData;
 
-    private appearancesFunc: () => LazyAppearances
-    private charactersFunc: () => Record<string, LazyCharacter>
-    private convertibleFunc: () => LazyConvertible
-    private journalFunc: () => LazyJournal
-    private mountsFunc: () => LazyCollectible
-    private petsFunc: () => LazyCollectible
-    private toysFunc: () => LazyCollectible
-    private transmogFunc: () => LazyTransmog
-    private vendorsFunc: () => LazyVendors
-    private zoneMapsFunc: () => LazyZoneMaps
+    private userAchievementData: UserAchievementData;
+    private userData: UserData;
+    private userQuestData: UserQuestData;
 
-    private hashes: Record<string, string> = {}
+    private customizationsFunc: () => UserCounts;
+    private heirloomsFunc: () => UserCounts;
+    private illusionsFunc: () => UserCounts;
+    private recipesFunc: () => UserCounts;
+
+    private appearancesFunc: () => LazyAppearances;
+    private charactersFunc: () => Record<string, LazyCharacter>;
+    private convertibleFunc: () => LazyConvertible;
+    private journalFunc: () => LazyJournal;
+    private mountsFunc: () => LazyCollectible;
+    private petsFunc: () => LazyCollectible;
+    private toysFunc: () => LazyCollectible;
+    private transmogFunc: () => LazyTransmog;
+    private vendorsFunc: () => LazyVendors;
+    private zoneMapsFunc: () => LazyZoneMaps;
+
+    private hashes: Record<string, string> = {};
 
     update(
         settings: Settings,
@@ -184,330 +183,403 @@ export class LazyStore implements LazyUgh {
         zoneMapState: ZoneMapState,
         userData: UserData,
         userAchievementData: UserAchievementData,
-        userQuestData: UserQuestData
-    )
-    {
+        userQuestData: UserQuestData,
+    ) {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
 
-            appearanceState: hashObject(appearanceState), 
+            appearanceState: hashObject(appearanceState),
             collectibleState: hashObject(collectibleState),
-            journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
+            journalState: hashObject(journalState, [
+                'filtersExpanded',
+                'highlightMissing',
+            ]),
             vendorState: hashObject(vendorState, ['filtersExpanded']),
             zoneMapState: hashObject(zoneMapState),
-            
+
             hideUnavailable: `${settings.collections.hideUnavailable}`,
             settingsCharacterFlags: hashObject(settings.characters.flags),
             settingsCollections: hashObject(settings.collections),
             settingsTransmog: hashObject(settings.transmog),
             settingsViews: hashObject(settings.views),
-        }
-        const changedEntries = Object.entries(newHashes)
-            .filter(([key, value]) => value !== this.hashes[key])
+        };
+        const changedEntries = Object.entries(newHashes).filter(
+            ([key, value]) => value !== this.hashes[key],
+        );
 
         const changedData = {
             userData: this.userData !== userData,
-            userAchievementData: this.userAchievementData !== userAchievementData,
+            userAchievementData:
+                this.userAchievementData !== userAchievementData,
             userQuestData: this.userQuestData !== userQuestData,
-        }
+        };
 
         if (
             changedEntries.length === 0 &&
-            !some(
-                Object.entries(changedData),
-                ([, value]) => value
-            )
+            !some(Object.entries(changedData), ([, value]) => value)
         ) {
-            return
+            return;
         }
 
         // console.time('LazyStore.update')
 
-        const changedHashes = Object.fromEntries(changedEntries)
-        this.hashes = newHashes
+        const changedHashes = Object.fromEntries(changedEntries);
+        this.hashes = newHashes;
 
-        const itemData = this.itemData = get(itemStore)
-        const journalData = this.journalData = get(journalStore)
-        const manualData = this.manualData = get(manualStore)
-        const staticData = this.staticData = get(staticStore)
+        const itemData = (this.itemData = get(itemStore));
+        const journalData = (this.journalData = get(journalStore));
+        const manualData = (this.manualData = get(manualStore));
+        const staticData = (this.staticData = get(staticStore));
 
-        this.settings = settings
+        this.settings = settings;
 
-        this.appearanceState = appearanceState
-        this.collectibleState = collectibleState
-        this.journalState = journalState
-        this.zoneMapState = zoneMapState
+        this.appearanceState = appearanceState;
+        this.collectibleState = collectibleState;
+        this.journalState = journalState;
+        this.zoneMapState = zoneMapState;
 
-        this.userData = userData
-        this.userAchievementData = userAchievementData
-        this.userQuestData = userQuestData
+        this.userData = userData;
+        this.userAchievementData = userAchievementData;
+        this.userQuestData = userQuestData;
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedHashes.appearanceState ||
-            changedHashes.settingsTransmog)
-        {
-            this.appearancesFunc = once(() => doAppearances({
-                appearanceState,
-                settings,
-                itemData,
-                staticData,
-                userData,
-            }))
+            changedHashes.settingsTransmog
+        ) {
+            this.appearancesFunc = once(() =>
+                doAppearances({
+                    appearanceState,
+                    settings,
+                    itemData,
+                    staticData,
+                    userData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedData.userQuestData ||
             changedHashes.currentTime ||
             changedHashes.settingsCharacterFlags ||
-            changedHashes.settingsViews)
-        {
-            this.charactersFunc = once(() => doCharacters({
-                currentTime,
-                settings: this.settings,
-                staticData: this.staticData,
-                userData: this.userData,
-                userQuestData: this.userQuestData
-            }))
+            changedHashes.settingsViews
+        ) {
+            this.charactersFunc = once(() =>
+                doCharacters({
+                    currentTime,
+                    settings: this.settings,
+                    staticData: this.staticData,
+                    userData: this.userData,
+                    userQuestData: this.userQuestData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedData.userQuestData ||
-            changedHashes.settings)
-        {
-            this.convertibleFunc = once(() => doConvertible({
-                itemData: this.itemData,
-                settings: this.settings,
-                userData: this.userData,
-                userQuestData: this.userQuestData,
-            }))
+            changedHashes.settings
+        ) {
+            this.convertibleFunc = once(() =>
+                doConvertible({
+                    itemData: this.itemData,
+                    settings: this.settings,
+                    userData: this.userData,
+                    userQuestData: this.userQuestData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedHashes.collectibleState ||
-            changedHashes.hideUnavailable)
-        {
+            changedHashes.hideUnavailable
+        ) {
             const collectibleStores = {
                 collectibleState,
                 settings,
-            }
+            };
 
-            this.mountsFunc = once(() => doCollectible(
-                collectibleStores,
-                'mounts',
-                this.manualData.mountSets,
-                this.userData.hasMount
-            ))
-            this.petsFunc = once(() => doCollectible(
-                collectibleStores,
-                'pets',
-                this.manualData.petSets,
-                this.userData.hasPet
-            ))
-            this.toysFunc = once(() => doCollectible(
-                collectibleStores,
-                'toys',
-                this.manualData.toySets,
-                this.userData.hasToy
-            ))
+            this.mountsFunc = once(() =>
+                doCollectible(
+                    collectibleStores,
+                    'mounts',
+                    this.manualData.mountSets,
+                    this.userData.hasMount,
+                ),
+            );
+            this.petsFunc = once(() =>
+                doCollectible(
+                    collectibleStores,
+                    'pets',
+                    this.manualData.petSets,
+                    this.userData.hasPet,
+                ),
+            );
+            this.toysFunc = once(() =>
+                doCollectible(
+                    collectibleStores,
+                    'toys',
+                    this.manualData.toySets,
+                    this.userData.hasToy,
+                ),
+            );
         }
 
         if (changedData.userQuestData) {
-            this.customizationsFunc = once(() => this.doCustomizations())
+            this.customizationsFunc = once(() => this.doCustomizations());
         }
 
-        if (changedData.userData ||
-            changedHashes.settingsCollections) {
-            this.heirloomsFunc = once(() => this.doHeirlooms())
+        if (changedData.userData || changedHashes.settingsCollections) {
+            this.heirloomsFunc = once(() => this.doHeirlooms());
         }
 
-        if (changedData.userData ||
-            changedHashes.settingsCollections) {
-            this.illusionsFunc = once(() => this.doIllusions())
+        if (changedData.userData || changedHashes.settingsCollections) {
+            this.illusionsFunc = once(() => this.doIllusions());
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedHashes.journalState ||
-            changedHashes.settingsTransmog)
-        {
-            this.journalFunc = once(() => doJournal({
-                settings,
-                itemData,
-                journalState,
-                journalData,
-                staticData,
-                userData,
-            }))
+            changedHashes.settingsTransmog
+        ) {
+            this.journalFunc = once(() =>
+                doJournal({
+                    settings,
+                    itemData,
+                    journalState,
+                    journalData,
+                    staticData,
+                    userData,
+                }),
+            );
         }
 
         if (changedData.userData) {
-            this.recipesFunc = once(() => doRecipes({
-                staticData,
-                userData,
-            }))
+            this.recipesFunc = once(() =>
+                doRecipes({
+                    staticData,
+                    userData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
-            changedHashes.settingsTransmog) {
-            this.transmogFunc = once(() => doTransmog({
-                settings,
-                itemData,
-                manualData,
-                staticData,
-                userData,
-            }))
+        if (changedData.userData || changedHashes.settingsTransmog) {
+            this.transmogFunc = once(() =>
+                doTransmog({
+                    settings,
+                    itemData,
+                    manualData,
+                    staticData,
+                    userData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedHashes.settingsTransmog ||
-            changedHashes.vendorState)
-        {
-            this.vendorsFunc = once(() => doVendors({
-                settings,
-                vendorState,
-                itemData,
-                manualData,
-                staticData,
-                userData,
-                userQuestData,
-            }))
+            changedHashes.vendorState
+        ) {
+            this.vendorsFunc = once(() =>
+                doVendors({
+                    settings,
+                    vendorState,
+                    itemData,
+                    manualData,
+                    staticData,
+                    userData,
+                    userQuestData,
+                }),
+            );
         }
 
-        if (changedData.userData ||
+        if (
+            changedData.userData ||
             changedData.userAchievementData ||
             changedData.userQuestData ||
             changedData.userAchievementData ||
-            changedHashes.zoneMapState)
-        {
-            this.zoneMapsFunc = once(() => this.vendorsFunc() && doZoneMaps({
-                settings,
-                zoneMapState,
-                itemData,
-                manualData,
-                staticData,
-                userData,
-                userAchievementData,
-                userQuestData,
-            }))
+            changedHashes.zoneMapState
+        ) {
+            this.zoneMapsFunc = once(
+                () =>
+                    this.vendorsFunc() &&
+                    doZoneMaps({
+                        settings,
+                        zoneMapState,
+                        itemData,
+                        manualData,
+                        staticData,
+                        userData,
+                        userAchievementData,
+                        userQuestData,
+                    }),
+            );
         }
 
         // console.timeEnd('LazyStore.update')
     }
 
-    lookup(key: string): LazyCollectible|UserCounts {
-        return this[key as LazyKey]
+    lookup(key: string): LazyCollectible | UserCounts {
+        return this[key as LazyKey];
     }
 
-    get customizations(): UserCounts { return this.customizationsFunc() }
-    get heirlooms(): UserCounts { return this.heirloomsFunc() }
-    get illusions(): UserCounts { return this.illusionsFunc() }
-    get recipes(): UserCounts { return this.recipesFunc() }
+    get customizations(): UserCounts {
+        return this.customizationsFunc();
+    }
+    get heirlooms(): UserCounts {
+        return this.heirloomsFunc();
+    }
+    get illusions(): UserCounts {
+        return this.illusionsFunc();
+    }
+    get recipes(): UserCounts {
+        return this.recipesFunc();
+    }
 
-    get appearances(): LazyAppearances { return this.appearancesFunc() }
-    get characters(): Record<string, LazyCharacter> { return this.charactersFunc() }
-    get convertible(): LazyConvertible { return this.convertibleFunc() }
-    get journal(): LazyJournal { return this.journalFunc() }
-    get mounts(): LazyCollectible { return this.mountsFunc() }
-    get pets(): LazyCollectible { return this.petsFunc() }
-    get toys(): LazyCollectible { return this.toysFunc() }
-    get transmog(): LazyTransmog { return this.transmogFunc() }
-    get vendors(): LazyVendors { return this.vendorsFunc() }
-    get zoneMaps(): LazyZoneMaps { return this.zoneMapsFunc() }
+    get appearances(): LazyAppearances {
+        return this.appearancesFunc();
+    }
+    get characters(): Record<string, LazyCharacter> {
+        return this.charactersFunc();
+    }
+    get convertible(): LazyConvertible {
+        return this.convertibleFunc();
+    }
+    get journal(): LazyJournal {
+        return this.journalFunc();
+    }
+    get mounts(): LazyCollectible {
+        return this.mountsFunc();
+    }
+    get pets(): LazyCollectible {
+        return this.petsFunc();
+    }
+    get toys(): LazyCollectible {
+        return this.toysFunc();
+    }
+    get transmog(): LazyTransmog {
+        return this.transmogFunc();
+    }
+    get vendors(): LazyVendors {
+        return this.vendorsFunc();
+    }
+    get zoneMaps(): LazyZoneMaps {
+        return this.zoneMapsFunc();
+    }
 
-    private doGeneric<T extends GenericCategory<U>, U>(params: DoGenericParameters<T, U>): UserCounts {
-        const counts: UserCounts = {}
-        const overallData = counts['OVERALL'] = new UserCount()
+    private doGeneric<T extends GenericCategory<U>, U>(
+        params: DoGenericParameters<T, U>,
+    ): UserCounts {
+        const counts: UserCounts = {};
+        const overallData = (counts['OVERALL'] = new UserCount());
 
         for (const category of params.categories) {
-            const categoryUnavailable = category.name.startsWith('Unavailable')
-            const availabilityData = counts[categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'] ||= new UserCount()
-            const categoryData = counts[category.name] = new UserCount()
+            const categoryUnavailable = category.name.startsWith('Unavailable');
+            const availabilityData = (counts[
+                categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'
+            ] ||= new UserCount());
+            const categoryData = (counts[category.name] = new UserCount());
 
             for (const item of category.items) {
-                const userHas = params.haveFunc(item)
+                const userHas = params.haveFunc(item);
 
-                if (categoryUnavailable && params.includeUnavailable !== true && !userHas) {
-                    continue
+                if (
+                    categoryUnavailable &&
+                    params.includeUnavailable !== true &&
+                    !userHas
+                ) {
+                    continue;
                 }
-                
-                const totalCount = params.totalCountFunc?.(item) || 1
-                overallData.total += totalCount
-                availabilityData.total += totalCount
-                categoryData.total += totalCount
+
+                const totalCount = params.totalCountFunc?.(item) || 1;
+                overallData.total += totalCount;
+                availabilityData.total += totalCount;
+                categoryData.total += totalCount;
 
                 if (userHas) {
-                    const haveCount = params.haveCountFunc?.(item) || 1
-                    overallData.have += haveCount
-                    availabilityData.have += haveCount
-                    categoryData.have += haveCount
+                    const haveCount = params.haveCountFunc?.(item) || 1;
+                    overallData.have += haveCount;
+                    availabilityData.have += haveCount;
+                    categoryData.have += haveCount;
                 }
             }
         }
 
-        return counts
+        return counts;
     }
 
     private doCustomizations(): UserCounts {
-        const counts: UserCounts = {}
-        const overallData = counts['OVERALL'] = new UserCount()
+        const counts: UserCounts = {};
+        const overallData = (counts['OVERALL'] = new UserCount());
 
         for (const categories of this.manualData.customizationCategories) {
-            const sectionData = counts[categories[0].slug] = new UserCount()
+            const sectionData = (counts[categories[0].slug] = new UserCount());
 
             for (const category of categories.slice(1)) {
-                const categoryKey = `${categories[0].slug}--${category.slug}`
-                const categoryData = counts[categoryKey] = new UserCount()
+                const categoryKey = `${categories[0].slug}--${category.slug}`;
+                const categoryData = (counts[categoryKey] = new UserCount());
 
                 for (const group of category.groups) {
-                    const groupKey = `${categoryKey}--${group.name}`
-                    const groupData = counts[groupKey] = new UserCount()
+                    const groupKey = `${categoryKey}--${group.name}`;
+                    const groupData = (counts[groupKey] = new UserCount());
 
                     for (const { questId } of group.things) {
-                        overallData.total++
-                        sectionData.total++
-                        categoryData.total++
-                        groupData.total++
+                        overallData.total++;
+                        sectionData.total++;
+                        categoryData.total++;
+                        groupData.total++;
 
                         if (this.userQuestData.accountHas.has(questId)) {
-                            overallData.have++
-                            sectionData.have++
-                            categoryData.have++
-                            groupData.have++
+                            overallData.have++;
+                            sectionData.have++;
+                            categoryData.have++;
+                            groupData.have++;
                         }
                     }
                 }
             }
         }
 
-        return counts
+        return counts;
     }
 
     private doHeirlooms(): UserCounts {
         return this.doGeneric({
             categories: this.manualData.heirlooms,
             includeUnavailable: !this.settings.collections.hideUnavailable,
-            haveFunc: (heirloom: ManualDataHeirloomItem) => this.userData.heirlooms?.[
-                this.staticData.heirloomsByItemId[heirloom.itemId].id] !== undefined,
-            totalCountFunc: (heirloom: ManualDataHeirloomItem) => this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length + 1,
+            haveFunc: (heirloom: ManualDataHeirloomItem) =>
+                this.userData.heirlooms?.[
+                    this.staticData.heirloomsByItemId[heirloom.itemId].id
+                ] !== undefined,
+            totalCountFunc: (heirloom: ManualDataHeirloomItem) =>
+                this.staticData.heirloomsByItemId[heirloom.itemId]
+                    .upgradeBonusIds.length + 1,
             haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
-                const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId]
-                const userCount = this.userData.heirlooms?.[staticHeirloom.id]
-                return userCount !== undefined ? userCount + 1 : 0
+                const staticHeirloom =
+                    this.staticData.heirloomsByItemId[heirloom.itemId];
+                const userCount = this.userData.heirlooms?.[staticHeirloom.id];
+                return userCount !== undefined ? userCount + 1 : 0;
             },
-        })
+        });
     }
 
     private doIllusions(): UserCounts {
         return this.doGeneric({
             categories: this.manualData.illusions,
             includeUnavailable: !this.settings.collections.hideUnavailable,
-            haveFunc: (illusion: ManualDataIllusionItem) => this.userData.hasIllusion.has(
-                find(
-                    this.staticData.illusions,
-                    (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId
-                )?.enchantmentId
-            ),
-        })
+            haveFunc: (illusion: ManualDataIllusionItem) =>
+                this.userData.hasIllusion.has(
+                    find(
+                        this.staticData.illusions,
+                        (staticIllusion) =>
+                            staticIllusion.enchantmentId ===
+                            illusion.enchantmentId,
+                    )?.enchantmentId,
+                ),
+        });
     }
 }
 
-const storeInstance = new LazyStore()
+const storeInstance = new LazyStore();

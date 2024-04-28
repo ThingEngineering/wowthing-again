@@ -17,6 +17,7 @@
     import Leaderboard from './sections/SettingsLeaderboard.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import Professions from './sections/SettingsProfessions.svelte'
+    import Tags from './sections/SettingsTags.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
     import View from './sections/views/View.svelte'
     import Views from './sections/views/Views.svelte'
@@ -37,6 +38,7 @@
         '/leaderboard': Leaderboard,
         '/privacy': Privacy,
         '/professions': Professions,
+        '/tags': Tags,
         '/transmog': Transmog,
         
         '/characters/pin': CharactersPin,
