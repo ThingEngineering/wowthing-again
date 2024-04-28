@@ -207,8 +207,6 @@ export class LazyStore implements LazyUgh {
             ([key, value]) => value !== this.hashes[key],
         );
 
-        console.log(newHashes.settingsCharacterFlags);
-
         const changedData = {
             userData: this.userData !== userData,
             userAchievementData:

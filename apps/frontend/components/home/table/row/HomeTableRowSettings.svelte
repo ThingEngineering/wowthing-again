@@ -27,6 +27,17 @@
     $: ignoreWorkOrdersChanged = () => {
         ($settingsStore.characters.flags ||= {})[character.id] ^= CharacterFlag.IgnoreWorkOrders
     }
+
+    $: toggleTag = (mask: number) => {
+        let flags = ($settingsStore.characters.flags ||= {})[character.id] || 0
+        if ((flags & mask) === mask) {
+            flags = flags ^ mask
+        }
+        else {
+            flags = flags | mask
+        }
+        $settingsStore.characters.flags[character.id] = flags
+    }
 </script>
 
 <style lang="scss">
@@ -64,6 +75,14 @@
                     bind:value={ignoreWorkOrders}
                     on:change={ignoreWorkOrdersChanged}
                 >Ignore work orders</CheckboxInput>
+                {#each ($settingsStore.tags || []) as tag}
+                    {@const mask = 1 << tag.id}
+                    <CheckboxInput
+                        name="tag-{character.id}-{tag.id}"
+                        value={(($settingsStore.characters.flags?.[character.id] || 0) & mask) === mask}
+                        on:change={() => toggleTag(mask)}
+                    >Tag: {tag.name}</CheckboxInput>
+                {/each}
             </div>
         {/if}
     </div>

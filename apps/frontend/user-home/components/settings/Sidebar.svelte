@@ -25,6 +25,10 @@
                 slug: 'layout',
             },
             {
+                name: 'Tags',
+                slug: 'tags',
+            },
+            {
                 name: 'Views',
                 slug: 'views',
                 children: ($settingsStore.views || [])
