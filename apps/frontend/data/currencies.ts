@@ -215,6 +215,7 @@ export const currencyItems: Record<number, number[]> = {
         211515, // Splintered Spark of Awakening
         211516, // Spark of Awakening
         217409, // Aspects' Token of Merit
+        213089, // Antique Bronze Bullion
     ],
 
     // Player vs Player
@@ -244,6 +245,8 @@ export const currencyItemCurrencies: Record<number, number> = {
     204076: 2410, // Drake Crest Fragment
     204077: 2411, // Wyrm Crest Fragment
     204078: 2412, // Aspect Crest Fragment
+
+    213089: 3010, // Antique Bronze Bullion
 };
 
 const skipCurrencies: number[] = [
