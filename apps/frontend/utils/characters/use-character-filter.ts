@@ -104,7 +104,7 @@ export function useCharacterFilter(
                                 }
 
                                 // Account tag
-                                match = part.match(/^accountTag=(.*)$/);
+                                match = part.match(/^accounttag=(.*)$/);
                                 if (match) {
                                     const accountTag = match[1].toString();
                                     return (
