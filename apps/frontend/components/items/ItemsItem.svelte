@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { dfS3Aspect, dfS3Drake, dfS3Whelpling, dfS3Wyrm } from './convertible/data'
+    import { dfS4Aspect, dfS4Drake, dfS4Whelpling, dfS4Wyrm } from './convertible/data'
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { itemStore } from '@/stores'
@@ -30,19 +30,19 @@
                     tiers = [null, null]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.adventurer) {
-                    tiers = [null, dfS3Whelpling]
+                    tiers = [null, dfS4Whelpling]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.veteran) {
-                    tiers = [dfS3Whelpling, dfS3Drake]
+                    tiers = [dfS4Whelpling, dfS4Drake]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.champion) {
-                    tiers = [dfS3Drake, dfS3Wyrm]
+                    tiers = [dfS4Drake, dfS4Wyrm]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.hero) {
-                    tiers = [dfS3Wyrm, dfS3Aspect]
+                    tiers = [dfS4Wyrm, dfS4Aspect]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.myth) {
-                    tiers = [dfS3Aspect, null]
+                    tiers = [dfS4Aspect, null]
                 }
                 else {
                     console.log(upgrade)
