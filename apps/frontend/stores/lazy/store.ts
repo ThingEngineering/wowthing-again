@@ -52,13 +52,7 @@ import type {
 import type { ItemData } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 
-type LazyKey =
-    | 'heirlooms'
-    | 'illusions'
-    | 'mounts'
-    | 'pets'
-    | 'recipes'
-    | 'toys';
+type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'recipes' | 'toys';
 
 type LazyUgh = {
     [k in LazyKey]: LazyCollectible | UserCounts;
@@ -190,10 +184,7 @@ export class LazyStore implements LazyUgh {
 
             appearanceState: hashObject(appearanceState),
             collectibleState: hashObject(collectibleState),
-            journalState: hashObject(journalState, [
-                'filtersExpanded',
-                'highlightMissing',
-            ]),
+            journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
             vendorState: hashObject(vendorState, ['filtersExpanded']),
             zoneMapState: hashObject(zoneMapState),
 
@@ -209,8 +200,7 @@ export class LazyStore implements LazyUgh {
 
         const changedData = {
             userData: this.userData !== userData,
-            userAchievementData:
-                this.userAchievementData !== userAchievementData,
+            userAchievementData: this.userAchievementData !== userAchievementData,
             userQuestData: this.userQuestData !== userQuestData,
         };
 
@@ -276,11 +266,7 @@ export class LazyStore implements LazyUgh {
             );
         }
 
-        if (
-            changedData.userData ||
-            changedData.userQuestData ||
-            changedHashes.settings
-        ) {
+        if (changedData.userData || changedData.userQuestData || changedHashes.settingsTransmog) {
             this.convertibleFunc = once(() =>
                 doConvertible({
                     itemData: this.itemData,
@@ -339,11 +325,7 @@ export class LazyStore implements LazyUgh {
             this.illusionsFunc = once(() => this.doIllusions());
         }
 
-        if (
-            changedData.userData ||
-            changedHashes.journalState ||
-            changedHashes.settingsTransmog
-        ) {
+        if (changedData.userData || changedHashes.journalState || changedHashes.settingsTransmog) {
             this.journalFunc = once(() =>
                 doJournal({
                     settings,
@@ -377,11 +359,7 @@ export class LazyStore implements LazyUgh {
             );
         }
 
-        if (
-            changedData.userData ||
-            changedHashes.settingsTransmog ||
-            changedHashes.vendorState
-        ) {
+        if (changedData.userData || changedHashes.settingsTransmog || changedHashes.vendorState) {
             this.vendorsFunc = once(() =>
                 doVendors({
                     settings,
@@ -477,19 +455,14 @@ export class LazyStore implements LazyUgh {
 
         for (const category of params.categories) {
             const categoryUnavailable = category.name.startsWith('Unavailable');
-            const availabilityData = (counts[
-                categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'
-            ] ||= new UserCount());
+            const availabilityData = (counts[categoryUnavailable ? 'UNAVAILABLE' : 'AVAILABLE'] ||=
+                new UserCount());
             const categoryData = (counts[category.name] = new UserCount());
 
             for (const item of category.items) {
                 const userHas = params.haveFunc(item);
 
-                if (
-                    categoryUnavailable &&
-                    params.includeUnavailable !== true &&
-                    !userHas
-                ) {
+                if (categoryUnavailable && params.includeUnavailable !== true && !userHas) {
                     continue;
                 }
 
@@ -550,15 +523,12 @@ export class LazyStore implements LazyUgh {
             categories: this.manualData.heirlooms,
             includeUnavailable: !this.settings.collections.hideUnavailable,
             haveFunc: (heirloom: ManualDataHeirloomItem) =>
-                this.userData.heirlooms?.[
-                    this.staticData.heirloomsByItemId[heirloom.itemId].id
-                ] !== undefined,
+                this.userData.heirlooms?.[this.staticData.heirloomsByItemId[heirloom.itemId].id] !==
+                undefined,
             totalCountFunc: (heirloom: ManualDataHeirloomItem) =>
-                this.staticData.heirloomsByItemId[heirloom.itemId]
-                    .upgradeBonusIds.length + 1,
+                this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length + 1,
             haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
-                const staticHeirloom =
-                    this.staticData.heirloomsByItemId[heirloom.itemId];
+                const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId];
                 const userCount = this.userData.heirlooms?.[staticHeirloom.id];
                 return userCount !== undefined ? userCount + 1 : 0;
             },
@@ -573,9 +543,7 @@ export class LazyStore implements LazyUgh {
                 this.userData.hasIllusion.has(
                     find(
                         this.staticData.illusions,
-                        (staticIllusion) =>
-                            staticIllusion.enchantmentId ===
-                            illusion.enchantmentId,
+                        (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId,
                     )?.enchantmentId,
                 ),
         });
