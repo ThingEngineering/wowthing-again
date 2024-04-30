@@ -65,7 +65,7 @@
             <span class="icons-left status-shrug drop-shadow">
                 {#if slotData.isPurchased}
                     <IconifyIcon
-                        extraClass={slotData.canAfford ? 'status-success' : 'status-fail'}
+                        extraClass={slotData.canAfford ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.mdiCurrencyUsd}
                         scale={'0.85'}
                         tooltip={'Purchase this item!'}
@@ -74,9 +74,9 @@
 
                 {#if slotData.isUpgradeable}
                     <IconifyIcon
-                        extraClass={slotData.canUpgrade ? 'status-success' : 'status-fail'}
+                        extraClass={slotData.canUpgrade ? 'status-shrug' : 'status-fail'}
                         icon={iconStrings.plus}
-                        tooltip={'Upgrade this item!'}
+                        tooltip={slotData.canUpgrade ? 'Upgrade this item!' : "Upgrade this item when you can afford to!"}
                     />
                 {/if}
             </span>
@@ -101,10 +101,10 @@
             <span class="icons-right status-shrug drop-shadow">
                 {#if slotData.isConvertible}
                     <IconifyIcon
-                        extraClass={slotData.canConvert ? 'status-success' : 'status-fail'}
+                        extraClass={slotData.canConvert ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.gameShurikenAperture}
                         scale={'0.85'}
-                        tooltip={'Convert this item at the Catalyst!'}
+                        tooltip={slotData.canConvert ? 'Convert this item at the Catalyst!' : 'Convert this item at the Catalyst when you have a charge!'}
                     />
                 {/if}
             </span>

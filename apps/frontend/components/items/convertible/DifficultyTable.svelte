@@ -93,17 +93,17 @@
                                 {#if data.anyIsUpgradeable || data.anyIsConvertible}
                                     {#if data.anyIsUpgradeable}
                                         <IconifyIcon
-                                            extraClass={data.anyCanUpgrade ? 'status-success' : 'status-fail'}
+                                            extraClass={data.anyCanUpgrade ? 'status-shrug' : 'status-fail'}
                                             icon={uiIcons.plus}
-                                            tooltip={'Upgrade this item!'}
+                                            tooltip={data.anyCanUpgrade ? 'Upgrade this item!' : "Upgrade this item when you can afford to!"}
                                         />
                                     {/if}
                                     {#if data.anyIsConvertible}
                                         <IconifyIcon
-                                            extraClass={data.anyCanConvert ? 'status-success' : 'status-fail'}
+                                            extraClass={data.anyCanConvert ? 'status-shrug' : 'status-fail'}
                                             icon={iconLibrary.gameShurikenAperture}
                                             scale={'0.85'}
-                                            tooltip={'Convert this item at the Catalyst!'}
+                                            tooltip={data.anyCanConvert ? 'Convert this item at the Catalyst!' : 'Convert this item at the Catalyst when you have a charge!'}
                                         />
                                     {/if}
                                 {:else}
