@@ -15,8 +15,10 @@ import { Role } from '@/enums/role';
 import { staticStore } from '@/shared/stores/static';
 import { parseBooleanQuery } from '@/shared/utils/boolean-parser';
 import { LazyStore, userStore } from '@/stores';
-import type { Character } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
+import type { Character } from '@/types';
+import type { UserQuestData } from '@/types/data';
+import { QuestStatus } from '@/enums/quest-status';
 
 type FilterFunc = (char: Character) => boolean;
 
@@ -25,6 +27,7 @@ const _cache: Record<string, string[][]> = {};
 export function useCharacterFilter(
     lazyStore: LazyStore,
     settings: Settings,
+    userQuestData: UserQuestData,
     filterFunc: FilterFunc,
     char: Character,
     filterString: string,
@@ -35,8 +38,7 @@ export function useCharacterFilter(
         const userData = get(userStore);
 
         const filterLower = filterString.toLocaleLowerCase();
-        const partArrays = (_cache[filterLower] ||=
-            parseBooleanQuery(filterLower));
+        const partArrays = (_cache[filterLower] ||= parseBooleanQuery(filterLower));
         // console.log(char.name, partArrays)
 
         const partCache: Record<string, boolean> = {};
@@ -48,18 +50,12 @@ export function useCharacterFilter(
                     (outerPart) =>
                         (partCache[outerPart] ||=
                             (function (part: string) {
-                                if (
-                                    char.name
-                                        .toLocaleLowerCase()
-                                        .indexOf(part) >= 0
-                                ) {
+                                if (char.name.toLocaleLowerCase().indexOf(part) >= 0) {
                                     return true;
                                 }
 
                                 // Level
-                                let match = part.match(
-                                    /^(level|lvl)(<|<=|=|>=|>)(\d+)$/,
-                                );
+                                let match = part.match(/^(level|lvl)(<|<=|=|>=|>)(\d+)$/);
                                 if (match) {
                                     return compareValues(
                                         match[2].toString(),
@@ -69,9 +65,7 @@ export function useCharacterFilter(
                                 }
 
                                 // Item level
-                                match = part.match(
-                                    /^(itemlevel|ilevel|ilvl)(<|<=|=|>=|>)(\d+)$/,
-                                );
+                                match = part.match(/^(itemlevel|ilevel|ilvl)(<|<=|=|>=|>)(\d+)$/);
                                 if (match) {
                                     return compareValues(
                                         match[2].toString(),
@@ -80,33 +74,55 @@ export function useCharacterFilter(
                                     );
                                 }
 
+                                // Quests
+                                match = part.match(/^(no)?quest=(.+)$/);
+                                if (match) {
+                                    const questString = match[2].toString();
+                                    const questId = parseInt(questString);
+
+                                    const charQuests = userQuestData.characters[char.id];
+                                    let hasQuest = false;
+
+                                    if (isNaN(questId)) {
+                                        const matchingQuests = Object.entries(
+                                            charQuests?.progressQuests || {},
+                                        )
+                                            .filter(
+                                                ([key]) => key.toLocaleLowerCase() === questString,
+                                            )
+                                            .map(([, value]) => value);
+                                        hasQuest =
+                                            matchingQuests.length === 1 &&
+                                            matchingQuests[0].status === QuestStatus.Completed;
+                                    } else {
+                                        hasQuest =
+                                            charQuests?.quests?.has(questId) ||
+                                            charQuests?.dailyQuests?.has(questId);
+                                    }
+
+                                    return match[1]?.toString() === 'no' ? !hasQuest : hasQuest;
+                                }
+
                                 // Account tag
                                 match = part.match(/^accountTag=(.*)$/);
                                 if (match) {
                                     const accountTag = match[1].toString();
                                     return (
-                                        userData.accounts[
-                                            char.accountId
-                                        ].tag.toLocaleLowerCase() == accountTag
+                                        userData.accounts[char.accountId].tag.toLocaleLowerCase() ==
+                                        accountTag
                                     );
                                 }
 
                                 // Tag
                                 match = part.match(/^tag=(.*)$/);
                                 if (match) {
-                                    const tagName = match[1]
-                                        .toString()
-                                        .toLocaleLowerCase();
+                                    const tagName = match[1].toString().toLocaleLowerCase();
                                     const tag = (settings.tags || []).find(
-                                        (t) =>
-                                            t.name.toLocaleLowerCase() ===
-                                            tagName,
+                                        (t) => t.name.toLocaleLowerCase() === tagName,
                                     );
                                     return (
                                         tag &&
-                                        ((settings.characters.flags?.[
-                                            char.id
-                                        ] || 0) &
+                                        ((settings.characters.flags?.[char.id] || 0) &
                                             (1 << tag.id)) >
                                             0
                                     );
@@ -129,18 +145,12 @@ export function useCharacterFilter(
                                 }
 
                                 // Race slug
-                                const raceSlug = [
-                                    'dracthyr',
-                                    'pandaren',
-                                ].includes(part)
+                                const raceSlug = ['dracthyr', 'pandaren'].includes(part)
                                     ? `${part}${char.faction}`
                                     : part;
                                 if (staticData.characterRacesBySlug[raceSlug]) {
                                     return (
-                                        char.raceId ===
-                                        staticData.characterRacesBySlug[
-                                            raceSlug
-                                        ].id
+                                        char.raceId === staticData.characterRacesBySlug[raceSlug].id
                                     );
                                 }
 
@@ -151,50 +161,37 @@ export function useCharacterFilter(
                                 } else if (classSlug === 'dk') {
                                     classSlug = 'death-knight';
                                 }
-                                if (
-                                    staticData.characterClassesBySlug[classSlug]
-                                ) {
+                                if (staticData.characterClassesBySlug[classSlug]) {
                                     return (
                                         char.classId ===
-                                        staticData.characterClassesBySlug[
-                                            classSlug
-                                        ].id
+                                        staticData.characterClassesBySlug[classSlug].id
                                     );
                                 }
 
                                 // Armor type
                                 if (part === 'cloth') {
                                     return (
-                                        classByArmorType[
-                                            ArmorType.Cloth
-                                        ].indexOf(char.classId) >= 0
+                                        classByArmorType[ArmorType.Cloth].indexOf(char.classId) >= 0
                                     );
                                 } else if (part === 'leather') {
                                     return (
-                                        classByArmorType[
-                                            ArmorType.Leather
-                                        ].indexOf(char.classId) >= 0
+                                        classByArmorType[ArmorType.Leather].indexOf(char.classId) >=
+                                        0
                                     );
                                 } else if (part === 'mail') {
                                     return (
-                                        classByArmorType[
-                                            ArmorType.Mail
-                                        ].indexOf(char.classId) >= 0
+                                        classByArmorType[ArmorType.Mail].indexOf(char.classId) >= 0
                                     );
                                 } else if (part === 'plate') {
                                     return (
-                                        classByArmorType[
-                                            ArmorType.Plate
-                                        ].indexOf(char.classId) >= 0
+                                        classByArmorType[ArmorType.Plate].indexOf(char.classId) >= 0
                                     );
                                 }
 
                                 // Specializations
                                 if (part === 'tank') {
                                     const spec =
-                                        staticData.characterSpecializations[
-                                            char.activeSpecId
-                                        ];
+                                        staticData.characterSpecializations[char.activeSpecId];
                                     return spec?.role === Role.Tank;
                                 } else if (
                                     part === 'heal' ||
@@ -202,15 +199,11 @@ export function useCharacterFilter(
                                     part === 'heals'
                                 ) {
                                     const spec =
-                                        staticData.characterSpecializations[
-                                            char.activeSpecId
-                                        ];
+                                        staticData.characterSpecializations[char.activeSpecId];
                                     return spec?.role === Role.Healer;
                                 } else if (part === 'dps' || part === 'deeps') {
                                     const spec =
-                                        staticData.characterSpecializations[
-                                            char.activeSpecId
-                                        ];
+                                        staticData.characterSpecializations[char.activeSpecId];
                                     return (
                                         spec?.role === Role.MeleeDps ||
                                         spec?.role === Role.RangedDps
@@ -218,14 +211,11 @@ export function useCharacterFilter(
                                 }
 
                                 // Mythic+ score
-                                match = part.match(
-                                    /^m\+((<|<=|=|>=|>)(\d+))?$/,
-                                );
+                                match = part.match(/^m\+((<|<=|=|>=|>)(\d+))?$/);
                                 if (match) {
                                     const mythicPlusScore =
-                                        char.mythicPlusSeasonScores?.[
-                                            Constants.mythicPlusSeason
-                                        ] || 0;
+                                        char.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] ||
+                                        0;
                                     if (match[2] && match[3]) {
                                         return compareValues(
                                             match[2].toString(),
@@ -237,12 +227,9 @@ export function useCharacterFilter(
                                 }
 
                                 // Profession slug
-                                const professionSlug =
-                                    professionSlugMap[part] || part;
+                                const professionSlug = professionSlugMap[part] || part;
                                 if (professionSlugToId[professionSlug]) {
-                                    return !!char.professions?.[
-                                        professionSlugToId[professionSlug]
-                                    ];
+                                    return !!char.professions?.[professionSlugToId[professionSlug]];
                                 }
 
                                 // Profession type
@@ -250,34 +237,26 @@ export function useCharacterFilter(
                                     return some(
                                         Object.keys(char.professions || {}),
                                         (professionId) =>
-                                            isCraftingProfession[
-                                                parseInt(professionId)
-                                            ],
+                                            isCraftingProfession[parseInt(professionId)],
                                     );
                                 }
-                                if (
-                                    part.match(/^(gather|gatherer|gathering)$/)
-                                ) {
+                                if (part.match(/^(gather|gatherer|gathering)$/)) {
                                     return some(
                                         Object.keys(char.professions || {}),
                                         (professionId) =>
-                                            isGatheringProfession[
-                                                parseInt(professionId)
-                                            ],
+                                            isGatheringProfession[parseInt(professionId)],
                                     );
                                 }
 
-                                // Available work orders
+                                // Work orders available?
                                 if (part === 'orders') {
                                     return (
-                                        lazyStore.characters[char.id]
-                                            .professionWorkOrders.have > 0
+                                        lazyStore.characters[char.id].professionWorkOrders.have > 0
                                     );
                                 }
 
                                 return false;
-                            })(outerPart.replace(/^!/, '')) ===
-                            outerPart.startsWith('!')
+                            })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!')
                                 ? false
                                 : true),
                 ),
@@ -288,11 +267,7 @@ export function useCharacterFilter(
     return filterFunc ? filterFunc(char) && result : result;
 }
 
-function compareValues(
-    comparison: string,
-    sourceValue: number,
-    compareValue: number,
-): boolean {
+function compareValues(comparison: string, sourceValue: number, compareValue: number): boolean {
     if (comparison === '<') return sourceValue < compareValue;
     else if (comparison === '<=') return sourceValue <= compareValue;
     else if (comparison === '=') return sourceValue === compareValue;

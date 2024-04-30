@@ -3,7 +3,7 @@
     import sortBy from 'lodash/sortBy'
     import { location } from 'svelte-spa-router'
 
-    import { lazyStore, userStore } from '@/stores'
+    import { lazyStore, userQuestStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
     import { homeState, newNavState } from '@/stores/local-storage'
@@ -63,6 +63,7 @@
         characters = characters.filter((char) => useCharacterFilter(
             $lazyStore,
             $settingsStore,
+            $userQuestStore,
             filterFunc,
             char,
             $newNavState.characterFilter ||
