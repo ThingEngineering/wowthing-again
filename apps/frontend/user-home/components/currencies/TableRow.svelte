@@ -16,6 +16,7 @@
     let per: number
     let tooltip = ''
     $: {
+        per = 0
         if (currency) {
             const characterCurrency = character.currencies?.[currency.id] ||
                 new CharacterCurrency(currency.id)
@@ -88,7 +89,7 @@
         class:alt={sortingBy}
         class:status-shrug={per > 50}
         class:status-fail={per > 90}
-        class:faded={amount === '0'}
+        class:faded={amount === '0' && per === 0}
         use:basicTooltip={{
             allowHTML: true,
             content: tooltip
