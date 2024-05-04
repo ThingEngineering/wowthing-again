@@ -6,20 +6,23 @@
     thead {
         tr {
             &:first-child {
-                td, th {
+                td,
+                th {
                     border-top: 1px solid $border-color;
                 }
             }
 
             &:last-child {
-                td, th {
+                td,
+                th {
                     border-bottom: 1px solid $border-color;
                 }
             }
         }
     }
 
-    td, th {
+    td,
+    th {
         &:first-child {
             border-left: 1px solid $border-color;
         }
@@ -44,6 +47,10 @@
         border-top-width: 0 !important;
         min-width: 1rem;
         width: 1rem;
+    }
+
+    .spacer + td {
+        border-left: 1px solid $border-color;
     }
 
     .settings {
@@ -78,8 +85,8 @@
 
 .table-striped2 {
     tbody {
-        tr:nth-child(4n+1),
-        tr:nth-child(4n+2) {
+        tr:nth-child(4n + 1),
+        tr:nth-child(4n + 2) {
             background: $table-striped-bg;
         }
         tr:nth-child(2n):not(:last-child) {
@@ -91,8 +98,7 @@
 }
 
 .table-striped,
-.table-striped2
-{
+.table-striped2 {
     tr {
         td {
             border-bottom: 1px solid $border-color;

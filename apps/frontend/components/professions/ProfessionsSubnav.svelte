@@ -25,6 +25,10 @@
             Equipment
         </a>
 
+        <a href={"#/professions/knowledge"} use:active>
+            Knowledge
+        </a>
+
         <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
             Recipes
         </a>
