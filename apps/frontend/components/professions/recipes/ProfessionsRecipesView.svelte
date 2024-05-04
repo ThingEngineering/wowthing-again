@@ -66,17 +66,24 @@
                 return [
                     hasItems ? 0 : 1,
                     ability.itemIds[0] ? 9 - item.quality : 9,
-                    // Hack to sort enchanting crest recipes by season
-                    category.id === 1871
-                        ? (ability.spellId >= 414985
-                            ? 0
-                            : 1
-                        )
-                        : 0,
+                    category.id === 1871 ? getCrestOrder(ability.spellId) : 0,
                     // item?.name || ability.name
                 ].join('|')
             }
         )
+    }
+
+    const getCrestOrder = (spellId: number): number => {
+        if ([429945, 429947, 429948].includes(spellId)) {
+            return 0;
+        }
+        else if ([414985, 414988, 414989].includes(spellId)) {
+            return 1;
+        }
+        else if ([406108, 406413, 406418].includes(spellId)) {
+            return 2;
+        }
+        return 999;
     }
 </script>
 

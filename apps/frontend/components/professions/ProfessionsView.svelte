@@ -2,7 +2,8 @@
     import type { MultiSlugParams } from '@/types'
 
     import Equipment from './equipment/Equipment.svelte'
-    import Knowledge from './knowledge/ProfessionsKnowledge.svelte'
+    import DragonflightKnowledge from './dragonflight-knowledge/DragonflightKnowledge.svelte'
+    import Knowledge from './knowledge/Knowledge.svelte';
     import Overview from './overview/ProfessionsOverview.svelte'
     import Recipes from './recipes/ProfessionsRecipes.svelte'
 
@@ -11,9 +12,11 @@
 
 <div class="view">
     {#if params.slug1 === 'dragonflight-knowledge'}
-        <Knowledge />
+        <DragonflightKnowledge />
     {:else if params.slug1 === 'equipment'}
         <Equipment slug={params.slug2} />
+    {:else if params.slug1 === 'knowledge'}
+        <Knowledge />
     {:else if params.slug1 === 'overview'}
         <Overview slug={params.slug2} />
     {:else if params.slug1 === 'recipes'}

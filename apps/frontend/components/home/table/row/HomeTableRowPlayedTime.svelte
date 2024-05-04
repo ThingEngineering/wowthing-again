@@ -11,7 +11,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-played);
+        @include cell-width($width-played, $maxWidth: $width-played-max);
 
         border-left: 1px solid $border-color;
         text-align: right;

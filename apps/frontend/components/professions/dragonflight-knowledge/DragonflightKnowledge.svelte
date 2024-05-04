@@ -7,7 +7,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import Row from './ProfessionsKnowledgeTableRow.svelte'
+    import Row from './TableRow.svelte'
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 

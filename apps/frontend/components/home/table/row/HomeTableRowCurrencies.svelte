@@ -1,25 +1,13 @@
 <script lang="ts">
     import { activeView } from '@/shared/stores/settings'
-    import { toNiceNumber } from '@/utils/formatting'
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { itemStore, userStore } from '@/stores';
+    import { getCurrencyData } from '@/utils/characters/get-currency-data';
     import type { Character } from '@/types'
 
     export let character: Character
-
-    const getCurrencyPercent = (currencyId: number): number => {
-        const characterCurrency = character.currencies?.[currencyId]
-        let per = -1
-        if (characterCurrency) {
-            if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
-                per = characterCurrency.totalQuantity / characterCurrency.max * 100
-            }
-            else {
-                if (characterCurrency.max > 0) {
-                    per = characterCurrency.quantity / characterCurrency.max * 100
-                }
-            }
-        }
-        return per
-    }
 </script>
 
 <style lang="scss">
@@ -29,19 +17,28 @@
         border-left: 1px solid $border-color;
         text-align: right;
     }
+    .faded {
+        color: #aaa;
+    }
 </style>
 
 {#each $activeView.homeCurrencies as currencyId}
-    {@const per = getCurrencyPercent(currencyId)}
-    <td
-        class:status-fail={per === 100}
-        class:status-shrug={per >= 75 && per < 100}
-    >
-        {#if currencyId > 1000000}
-            {@const itemId = currencyId - 1000000}
-            {character.getItemCount(itemId)}
-        {:else}
-            {toNiceNumber(character.currencies[currencyId]?.quantity || 0)}
-        {/if}
-    </td>
+    {@const currency = currencyId < 1000000 ? $staticStore.currencies[currencyId] : undefined}
+    {@const itemId = currencyId > 1000000 ? (currencyId - 1000000) : 0}
+    {@const { amount, percent, tooltip } = getCurrencyData($itemStore, $timeStore, userStore, character, currency, itemId)}
+    {#if amount}
+        <td
+            class:status-shrug={percent > 50}
+            class:status-fail={percent >= 100}
+            class:faded={amount === '0' && percent === 0}
+            use:basicTooltip={{
+                allowHTML: true,
+                content: tooltip
+            }}
+        >
+            {amount}
+        </td>
+    {:else}
+        <td>&nbsp;</td>
+    {/if}
 {/each}
