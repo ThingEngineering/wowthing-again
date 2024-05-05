@@ -71,7 +71,7 @@ export function getBestItemLevels(character: Character): Record<number, string> 
                 continue;
             }
 
-            const bestForType = bestItemLevels[inventoryType];
+            const bestForType = bestItemLevels[inventoryType] || [];
             count++;
 
             bestForType.sort((a, b) => b[1] - a[1]);

@@ -23,7 +23,11 @@ export function homeSort(
     if (sortBy === 'gold') {
         return leftPad(10_000_000 - char.gold, 8, '0');
     } else if (sortBy === 'bestItemLevel') {
-        return leftPad(10000 - Math.floor(parseFloat(char.bestItemLevel || '0.0') * 10), 5, '0');
+        return leftPad(
+            10000 - Math.floor(parseFloat(char.bestItemLevels[char.activeSpecId] || '0.0') * 10),
+            5,
+            '0',
+        );
     } else if (sortBy === 'itemLevel') {
         return leftPad(
             10000 - Math.floor(parseFloat(char.calculatedItemLevel || '0.0') * 10),
