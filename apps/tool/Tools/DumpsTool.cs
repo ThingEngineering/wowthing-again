@@ -758,6 +758,7 @@ public class DumpsTool
                 .SelectMany(stat => Hardcoded.PrimaryStats[stat])
             );
 
+            dbItem.PrimaryStat = WowStat.None;
             if (itemSparse.ItemLevel == 1 && dbItem.Flags.HasFlag(WowItemFlags.Cosmetic))
             {
                 dbItem.PrimaryStat = WowStat.None;
