@@ -1,4 +1,4 @@
-import { InventoryType } from '@/enums/inventory-type'
+import { InventoryType } from '@/enums/inventory-type';
 
 export const typeOrder: InventoryType[] = [
     InventoryType.MainHand,
@@ -17,8 +17,8 @@ export const typeOrder: InventoryType[] = [
     InventoryType.Feet,
     InventoryType.Finger,
     InventoryType.Trinket,
-]
+];
 
 export const typeOrderMap: Record<number, number> = Object.fromEntries(
-    typeOrder.map((type, index) => [type, index])
-)
+    typeOrder.map((type, index) => [type, index]),
+);
