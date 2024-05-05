@@ -244,7 +244,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
         }
 
         this._bestItemLevels = getBestItemLevels(this);
-        console.log(this._bestItemLevels);
         return this._bestItemLevels;
     }
 
