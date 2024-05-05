@@ -99,7 +99,7 @@ export function getBestItemLevels(character: Character): Record<number, string> 
                     }
                 }
             } else {
-                levels += bestForType[0][1];
+                levels += bestForType[0]?.[1] || 0;
             }
         }
 
