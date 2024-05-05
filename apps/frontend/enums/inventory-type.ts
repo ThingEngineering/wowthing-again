@@ -40,4 +40,4 @@ export const weaponInventoryTypes: Set<InventoryType> = new Set<InventoryType>([
     InventoryType.MainHand,
     InventoryType.OffHand2,
     InventoryType.HeldInOffHand,
-])
+]);

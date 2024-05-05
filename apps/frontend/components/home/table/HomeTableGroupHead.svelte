@@ -80,7 +80,16 @@
     </td>
 
     {#each $activeView.homeFields as field (field)}
-        {#if field === 'callings'}
+        {#if field === 'bestItemLevel'}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Best Item Level'}
+            >Best</td>
+
+        {:else if field === 'callings'}
             <td use:basicTooltip={"Shadowlands Callings"}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
             </td>
@@ -128,8 +137,8 @@
                 class:sorted-by={$homeState.groupSort[sortKey] === field}
                 on:click={() => setSorting(field)}
                 on:keypress={() => setSorting(field)}
-                use:basicTooltip={'Item Level'}
-            >ilvl</td>
+                use:basicTooltip={'Equipped Item Level'}
+            >Equip</td>
         
         {:else if field === 'items'}
             {#if !isPublic}

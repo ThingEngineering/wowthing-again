@@ -173,6 +173,7 @@ public class ItemsTool
             CraftingQualities = idsByCraftingQuality,
             ItemBonusListGroups = listGroups,
             ItemConversionEntries = await LoadItemConversionEntries(),
+            LimitCategories = await LoadLimitCategories(),
             TeachesSpell = teachesSpellMap,
 
             RawItemBonuses = _itemBonusMap.Values
@@ -193,7 +194,7 @@ public class ItemsTool
                 .Select(kvp => kvp.Key)
                 .ToArray(),
 
-            LimitCategories = _itemMap.Values.Where(item => item.LimitCategory > 0)
+            LimitCategoryItems = _itemMap.Values.Where(item => item.LimitCategory > 0)
                 .GroupBy(item => item.LimitCategory)
                 .ToDictionary(
                     group => group.Key,
@@ -336,6 +337,16 @@ public class ItemsTool
         }
 
         return groupedBySharedString;
+    }
+
+    private async Task<Dictionary<short, short>> LoadLimitCategories()
+    {
+        var limitCategories = await DataUtilities.LoadDumpCsvAsync<DumpItemLimitCategory>(
+            "itemlimitcategory");
+        return limitCategories.ToDictionary(
+            lc => lc.ID,
+            lc => lc.Quantity
+        );
     }
 
     private async Task<Dictionary<int, RedisReagentBonus>> LoadModifiedCrafting(WowDbContext context)

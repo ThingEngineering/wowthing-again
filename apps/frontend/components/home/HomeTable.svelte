@@ -5,6 +5,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
+    import RowBestItemLevel from '@/components/character-table/row/BestItemLevel.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
     import RowCurrencies from './table/row/HomeTableRowCurrencies.svelte'
     import RowCurrentLocation from './table/row/HomeTableRowCurrentLocation.svelte'
@@ -59,7 +60,10 @@
 
         <svelte:fragment slot="rowExtra" let:character>
             {#each $activeView.homeFields as field (field)}
-                {#if field === 'callings'}
+                {#if field === 'bestItemLevel'}
+                    <RowBestItemLevel {character} />
+                
+                {:else if field === 'callings'}
                     <RowDailies
                         expansion={8}
                         {character}
