@@ -24,7 +24,7 @@ public class RedisItemDataConverter : JsonConverter<RedisItemData>
         // writer.WriteNumberValue((int)item.InventoryType);
         // writer.WriteNumberValue(item.ContainerSlots);
         writer.WriteNumberValue((int)item.Quality);
-        // writer.WriteNumberValue((int)item.PrimaryStat);
+        writer.WriteNumberValue((int)item.PrimaryStat);
         writer.WriteNumberValue((int)item.Flags);
         writer.WriteNumberValue(item.Expansion);
         writer.WriteNumberValue(item.ItemLevel);
