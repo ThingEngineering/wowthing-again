@@ -48,6 +48,7 @@ import { slotOrder } from '@/data/inventory-slot';
 import { typeOrder } from '@/data/inventory-type';
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { InventorySlot } from '@/enums/inventory-slot';
+import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -236,76 +237,15 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
-    private _bestItemLevel: string;
-    get bestItemLevel(): string {
-        if (this._bestItemLevel) {
-            return this._bestItemLevel;
+    private _bestItemLevels: Record<number, string>;
+    get bestItemLevels(): Record<number, string> {
+        if (this._bestItemLevels) {
+            return this._bestItemLevels;
         }
 
-        const bestItemLevels: Record<number, [ItemDataItem, number][]> = {};
-        const itemData = get(itemStore);
-
-        for (const locationItem of this.itemsByLocation[ItemLocation.Bags] || []) {
-            const item = itemData.items[locationItem.itemId];
-            if (item?.inventoryType) {
-                const sighInventoryType =
-                    item.inventoryType === InventoryType.Chest2
-                        ? InventoryType.Chest
-                        : item.inventoryType;
-                (bestItemLevels[sighInventoryType] ||= []).push([item, locationItem.itemLevel]);
-            }
-        }
-
-        for (const slot of slotOrder) {
-            const equippedItem = this.equippedItems[slot];
-            if (equippedItem === undefined) {
-                continue;
-            }
-
-            const item = itemData.items[equippedItem.itemId];
-            const sighInventoryType =
-                item.inventoryType === InventoryType.Chest2
-                    ? InventoryType.Chest
-                    : item.inventoryType;
-            (bestItemLevels[sighInventoryType] ||= []).push([item, equippedItem.itemLevel]);
-        }
-
-        let count = 0;
-        let levels = 0;
-        for (const inventoryType of typeOrder) {
-            if ([InventoryType.Chest2, InventoryType.Tabard].includes(inventoryType)) {
-                continue;
-            }
-
-            const bestForType = bestItemLevels[inventoryType];
-            if (!bestForType) {
-                continue;
-            }
-
-            bestForType.sort((a, b) => b[1] - a[1]);
-            if ([InventoryType.Finger, InventoryType.Trinket].includes(inventoryType)) {
-                // TODO handle limit category
-                count += 2;
-                levels += bestForType[0][1];
-                levels += bestForType[1]?.[1] || 0;
-            } else if (!weaponInventoryTypes.has(inventoryType)) {
-                // TODO handle weapons, oof
-                count++;
-                levels += bestForType[0][1];
-            }
-        }
-
-        // use equipped weapons for now
-        count += 2;
-        levels += this.equippedItems[InventorySlot.MainHand]?.itemLevel || 0;
-        if (this.equippedItems[InventorySlot.OffHand]) {
-            levels += this.equippedItems[InventorySlot.OffHand].itemLevel;
-        } else {
-            levels += this.equippedItems[InventorySlot.MainHand]?.itemLevel || 0;
-        }
-
-        this._bestItemLevel = (levels / count).toFixed(1);
-        return this._bestItemLevel;
+        this._bestItemLevels = getBestItemLevels(this);
+        console.log(this._bestItemLevels);
+        return this._bestItemLevels;
     }
 
     private _itemCounts: Record<number, number>;

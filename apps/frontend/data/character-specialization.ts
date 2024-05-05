@@ -105,6 +105,7 @@ export const specializationData: Record<number, SpecializationData> = {
     },
     // Monk - Brewmaster
     268: {
+        dualWield: true,
         primaryStat: PrimaryStat.Agility,
         weaponTypes: [
             WeaponSubclass.Fist,
@@ -205,6 +206,7 @@ export const specializationData: Record<number, SpecializationData> = {
     },
     // Shaman - Enhancement
     263: {
+        dualWield: true,
         primaryStat: PrimaryStat.Agility,
         weaponTypes: [
             WeaponSubclass.Fist,
