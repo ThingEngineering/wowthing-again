@@ -1,10 +1,12 @@
-import 'vite/modulepreload-polyfill'
+import 'vite/modulepreload-polyfill';
 
-import '../scss/global.scss'
+import '../scss/global.scss';
 
-import App from './Main.svelte'
+import App from './Main.svelte';
 
-const appTarget = document.querySelector('#app')
-const app = appTarget ? new App({ target: appTarget }) : null
+import { settingsStore } from '@/shared/stores/settings';
 
-export default app
+const appTarget = document.querySelector('#app');
+const app = appTarget ? new App({ target: appTarget }) : null;
+
+export default app;
