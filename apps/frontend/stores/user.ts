@@ -23,9 +23,10 @@ import {
     WritableFancyStore,
 } from '@/types';
 import base64ToRecord from '@/utils/base64-to-record';
+import { leftPad } from '@/utils/formatting';
 import { getGenderedName } from '@/utils/get-gendered-name';
 import getItemLevelQuality from '@/utils/get-item-level-quality';
-import { leftPad } from '@/utils/formatting';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
 import type {
     Account,
@@ -35,13 +36,10 @@ import type {
     UserAchievementData,
     UserData,
 } from '@/types';
-import type { ItemData, ItemDataItem } from '@/types/data/item';
-import type { StaticData } from '@/shared/stores/static/types';
-import type { ContainsItems, UserItem } from '@/types/shared';
 import type { Settings } from '@/shared/stores/settings/types';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import { InventoryType } from '@/enums/inventory-type';
-import { ItemLocation } from '@/enums/item-location';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { ItemData, ItemDataItem } from '@/types/data/item';
+import type { ContainsItems, UserItem } from '@/types/shared';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
