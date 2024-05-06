@@ -15,6 +15,12 @@ import { staticStore } from '@/shared/stores/static';
 import { userStore } from '@/stores/user';
 import type { UserData } from '@/types';
 
+import { location } from 'svelte-spa-router';
+import { derived, type Readable } from 'svelte/store';
+
+import { browserStore } from '../browser';
+import type { SettingsView } from './types';
+
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
     [Language.enUS]: 'www',
@@ -143,3 +149,15 @@ async function saveData(settings: Settings, userData: UserData) {
 const debouncedSaveData = debounce(saveData, 1500);
 
 export const settingsStore = createSettingsStore();
+
+// Why is this breaking things?
+export const activeView: Readable<SettingsView> = derived(
+    [browserStore, location, settingsStore],
+    ([$browserStore, $location, $settingsStore]) => {
+        return (
+            ($location === '/'
+                ? $settingsStore.views.find((view) => view.id === $browserStore.home.activeView)
+                : $settingsStore.views[0]) || $settingsStore.views[0]
+        );
+    },
+);

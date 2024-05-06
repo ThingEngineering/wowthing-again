@@ -1,6 +1,3 @@
-import { settingsStore } from '../stores/settings/store';
-console.log(settingsStore);
-
 export { default as carbonScatterMatrix } from '@iconify/icons-carbon/scatter-matrix';
 
 export { default as emojiConstruction } from '@iconify/icons-emojione-monotone/construction';
