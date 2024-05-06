@@ -4,10 +4,12 @@
     import type { Character } from '@/types';
 
     import Tooltip from '@/components/tooltips/character-best-item-level/Tooltip.svelte'
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore } from '@/stores';
 
     export let character: Character;
 
-    $: bestItemLevels = character.bestItemLevels;
+    $: bestItemLevels = character.getBestItemLevels($itemStore, $staticStore);
     $: itemLevel = bestItemLevels[character.activeSpecId];
 </script>
 

@@ -3,7 +3,7 @@ import { professionSpecializationToSpell } from '@/data/professions';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
-import type { StaticDataRealm } from '@/shared/stores/static/types';
+import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
@@ -40,6 +40,7 @@ import { CharacterWeekly, type CharacterWeeklyArray } from './weekly';
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
+import type { ItemData } from '../data/item';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -228,10 +229,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
-    private _bestItemLevels: Record<number, string>;
-    get bestItemLevels(): Record<number, string> {
-        this._bestItemLevels ||= getBestItemLevels(this);
-        return this._bestItemLevels;
+    public bestItemLevels: Record<number, string>;
+    getBestItemLevels(itemData: ItemData, staticData: StaticData): Record<number, string> {
+        this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);
+        return this.bestItemLevels;
     }
 
     private _itemCounts: Record<number, number>;
