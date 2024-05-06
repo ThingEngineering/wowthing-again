@@ -28,28 +28,30 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = category.slug === 'a-world-awoken' ? category.achievementIds : sortBy(
-            category.achievementIds,
-            id => [
-                $userAchievementStore.achievements[id] === undefined ? '1' : '0',
-                leftPad($achievementStore.achievement[id].order, 4, '0'),
-                leftPad(100000 - id, 6, '0')
-            ].join('|')
-        ).filter((id) => {
-            const cheev = $achievementStore.achievement[id]
+        achievementIds = ['a-world-awoken', 'back-from-the-beyond'].includes(category.slug)
+            ? category.achievementIds
+            : sortBy(
+                category.achievementIds,
+                id => [
+                    $userAchievementStore.achievements[id] === undefined ? '1' : '0',
+                    leftPad($achievementStore.achievement[id].order, 4, '0'),
+                    leftPad(100000 - id, 6, '0')
+                ].join('|')
+            ).filter((id) => {
+                const cheev = $achievementStore.achievement[id]
 
-            // Don't show tracking achievements
-            if ((cheev.flags & 0x100_000) > 0) {
-                return false
-            }
+                // Don't show tracking achievements
+                if ((cheev.flags & 0x100_000) > 0) {
+                    return false
+                }
 
-            // Obey faction filters
-            return (
-                (cheev.faction === -1) ||
-                (cheev.faction === 1 && $achievementState.showAlliance) ||
-                (cheev.faction === 0 && $achievementState.showHorde)
-            )
-        })
+                // Obey faction filters
+                return (
+                    (cheev.faction === -1) ||
+                    (cheev.faction === 1 && $achievementState.showAlliance) ||
+                    (cheev.faction === 0 && $achievementState.showHorde)
+                )
+            })
     }
 </script>
 
