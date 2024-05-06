@@ -11,7 +11,6 @@ import type { Character } from '@/types';
 
 import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
-import { QuestStatus } from '@/enums/quest-status';
 
 export function homeSort(
     activeView: SettingsView,

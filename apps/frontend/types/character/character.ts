@@ -1,13 +1,9 @@
-import { get } from 'svelte/store';
-
 import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
-import { ItemLocation } from '@/enums/item-location';
-import { itemStore } from '@/stores';
+import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
 import type { StaticDataRealm } from '@/shared/stores/static/types';
-import type { ItemDataItem } from '@/types/data/item';
 import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
@@ -44,11 +40,6 @@ import { CharacterWeekly, type CharacterWeeklyArray } from './weekly';
 import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
-import { slotOrder } from '@/data/inventory-slot';
-import { typeOrder } from '@/data/inventory-type';
-import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
-import { InventorySlot } from '@/enums/inventory-slot';
-import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -239,11 +230,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     private _bestItemLevels: Record<number, string>;
     get bestItemLevels(): Record<number, string> {
-        if (this._bestItemLevels) {
-            return this._bestItemLevels;
-        }
-
-        this._bestItemLevels = getBestItemLevels(this);
+        this._bestItemLevels ||= getBestItemLevels(this);
         return this._bestItemLevels;
     }
 
