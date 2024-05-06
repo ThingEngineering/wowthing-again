@@ -1,5 +1,3 @@
-import { get } from 'svelte/store';
-
 import { specializationData } from '@/data/character-specialization';
 import { slotOrder } from '@/data/inventory-slot';
 import { typeOrder } from '@/data/inventory-type';
@@ -11,16 +9,16 @@ import {
     oneHandWeaponSubclasses,
     twoHandWeaponSubclasses,
 } from '@/enums/weapon-subclass';
-import { staticStore } from '@/shared/stores/static';
-import { itemStore } from '@/stores';
 import type { Character } from '@/types/character';
-import type { ItemDataItem } from '@/types/data/item';
+import type { ItemData, ItemDataItem } from '@/types/data/item';
+import type { StaticData } from '@/shared/stores/static/types';
 
-export function getBestItemLevels(character: Character): Record<number, string> {
+export function getBestItemLevels(
+    itemData: ItemData,
+    staticData: StaticData,
+    character: Character,
+): Record<number, string> {
     const ret: Record<number, string> = {};
-
-    const itemData = get(itemStore);
-    const staticData = get(staticStore);
 
     const specializations = Object.values(staticData.characterSpecializations).filter(
         (spec) => spec.classId === character.classId,
