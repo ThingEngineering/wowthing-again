@@ -161,3 +161,15 @@ export const activeView: Readable<SettingsView> = derived(
         );
     },
 );
+
+// SIGH
+export const commonColspan: Readable<number> = derived([activeView, userStore], ([$activeView]) => {
+    return (
+        $activeView.commonFields.length +
+        ($activeView.commonFields.indexOf('accountTag') >= 0
+            ? userStore.useAccountTags
+                ? 0
+                : -1
+            : 0)
+    );
+});
