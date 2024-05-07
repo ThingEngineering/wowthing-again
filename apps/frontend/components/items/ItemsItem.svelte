@@ -44,21 +44,21 @@
                 else if (upgrade[0] === Constants.upgradeTiers.myth) {
                     tiers = [dfS4Aspect, null]
                 }
+                else if (upgrade[0] === Constants.upgradeTiers.awakened) {
+                    tiers = [dfS4Drake, dfS4Wyrm, dfS4Aspect]
+                }
                 else {
                     console.log(upgrade)
                 }
 
                 if (upgrade[1] < 4 && tiers[0]) {
-                    return [
-                        `currency/${tiers[0][0][0]}`,
-                        Math.floor((character.currencies?.[tiers[0][0][0]]?.quantity || 0) / tiers[0][0][1])
-                    ]
+                    return getCurrencyData(tiers[0][0])
                 }
-                else if (upgrade[1] >= 4 && tiers[1]) {
-                    return [
-                        `currency/${tiers[1][0][0]}`,
-                        Math.floor((character.currencies?.[tiers[1][0][0]]?.quantity || 0) / tiers[1][0][1])
-                    ]
+                else if (upgrade[1] >= 4 && tiers[1] && (tiers.length === 2 || upgrade[1] < 8)) {
+                    return getCurrencyData(tiers[1][0])
+                }
+                else if (upgrade[1] >= 8 && tiers[2]) {
+                    return getCurrencyData(tiers[2][0])
                 }
         
                 return ['currency/2245', 0]
@@ -66,6 +66,13 @@
         }
 
         return [null, 0]
+    }
+
+    function getCurrencyData(tier: [number, number]): [string, number] {
+        return [
+            `currency/${tier[0]}`,
+            Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1])
+        ]
     }
 </script>
 
