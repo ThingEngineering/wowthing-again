@@ -308,6 +308,17 @@
                     bind:value={$auctionState.missingTransmogShowRaid}
                 >Raid</Checkbox> -->
             </div>
+
+            <div class="options-group">
+                <TextInput
+                    name="transmog_maximum_gold"
+                    maxlength={9}
+                    placeholder={"Maximum gold"}
+                    clearButton={true}
+                    inputWidth={"8rem"}
+                    bind:value={$auctionState.missingTransmogMaxGold}
+                />
+            </div>
         </div>
 
     {:else if params.slug1 === 'missing-recipes'}
