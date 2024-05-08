@@ -5,6 +5,7 @@ interface SpecializationData {
     dualWield?: boolean;
     primaryStat: PrimaryStat;
     weaponTypes: WeaponSubclass[];
+    weaponTypesOffhand?: WeaponSubclass[];
 }
 
 export const specializationData: Record<number, SpecializationData> = {
@@ -189,6 +190,9 @@ export const specializationData: Record<number, SpecializationData> = {
             WeaponSubclass.OneHandedAxe,
             WeaponSubclass.OneHandedMace,
             WeaponSubclass.OneHandedSword,
+        ],
+        weaponTypesOffhand: [
+            WeaponSubclass.Dagger,
         ],
     },
     // Shaman - Elemental

@@ -118,11 +118,17 @@ export function getBestItemLevels(
             }
 
             for (const [item, itemLevel] of bestForType) {
-                if (!specData.weaponTypes.includes(item.subclassId)) {
+                if (
+                    !specData.weaponTypes.includes(item.subclassId) &&
+                    !specData.weaponTypesOffhand?.includes(item.subclassId)
+                ) {
                     continue;
                 }
 
-                if (offHandWeaponSubclasses.has(item.subclassId)) {
+                if (
+                    offHandWeaponSubclasses.has(item.subclassId) ||
+                    specData.weaponTypesOffhand?.includes(item.subclassId)
+                ) {
                     weaponsByType.offHand.push([item, itemLevel]);
                 } else if (oneHandWeaponSubclasses.has(item.subclassId)) {
                     weaponsByType.oneHand.push([item, itemLevel]);
@@ -138,21 +144,33 @@ export function getBestItemLevels(
         // console.log(weaponsByType);
 
         count += 2;
+        const weaponSetups: number[] = [];
         if (specData.dualWield === true) {
             // TODO unique-equipped weapons? ew
-            const bestOneOne =
-                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.oneHand[1]?.[1] || 0);
-            const bestTwo =
-                specialization.id === 72
-                    ? (weaponsByType.twoHand[0]?.[1] || 0) + (weaponsByType.twoHand[1]?.[1] || 0)
-                    : (weaponsByType.twoHand[0]?.[1] || 0) * 2;
-            levels += Math.max(bestOneOne, bestTwo);
+            weaponSetups.push(
+                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.oneHand[1]?.[1] || 0),
+            );
+
+            if (specialization.id === 72) {
+                // Fury can dual-wield 2h
+                weaponSetups.push(
+                    (weaponsByType.twoHand[0]?.[1] || 0) + (weaponsByType.twoHand[1]?.[1] || 0),
+                );
+            } else if (specialization.id === 260) {
+                // Outlaw dagger off-hands
+                weaponSetups.push(
+                    (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0),
+                );
+            } else {
+                weaponSetups.push((weaponsByType.twoHand[0]?.[1] || 0) * 2);
+            }
         } else {
-            const bestOneOff =
-                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0);
-            const bestTwo = (weaponsByType.twoHand[0]?.[1] || 0) * 2;
-            levels += Math.max(bestOneOff, bestTwo);
+            weaponSetups.push(
+                (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0),
+            );
+            weaponSetups.push((weaponsByType.twoHand[0]?.[1] || 0) * 2);
         }
+        levels += Math.max(...weaponSetups);
 
         ret[specialization.id] = (levels / count).toFixed(1);
 
