@@ -33,11 +33,12 @@ export enum InventoryType {
 }
 
 export const weaponInventoryTypes: Set<InventoryType> = new Set<InventoryType>([
+    InventoryType.HeldInOffHand,
+    InventoryType.MainHand,
     InventoryType.OneHand,
     InventoryType.OffHand,
-    InventoryType.Ranged,
-    InventoryType.TwoHand,
-    InventoryType.MainHand,
     InventoryType.OffHand2,
-    InventoryType.HeldInOffHand,
+    InventoryType.Ranged,
+    InventoryType.Ranged2,
+    InventoryType.TwoHand,
 ]);

@@ -22,7 +22,7 @@
 </style>
 
 <td
-    class="border-left quality{getItemLevelQuality(parseFloat(itemLevel))}"
+    class="border-left quality{itemLevel ? getItemLevelQuality(parseFloat(itemLevel)) : character.calculatedItemLevelQuality}"
     use:componentTooltip={{
         component: Tooltip,
         props: {
@@ -31,5 +31,5 @@
         }
     }}
 >
-    {itemLevel}
+    {itemLevel || character.calculatedItemLevel}
 </td>

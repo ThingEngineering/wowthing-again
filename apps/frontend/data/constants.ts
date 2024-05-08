@@ -26,6 +26,7 @@ export abstract class Constants {
         champion: 973,
         hero: 974,
         myth: 978,
+        awakened: 998,
     };
 
     static readonly icons = {
