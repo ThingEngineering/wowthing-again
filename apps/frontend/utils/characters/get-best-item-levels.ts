@@ -1,6 +1,6 @@
 import { specializationData } from '@/data/character-specialization';
 import { slotOrder } from '@/data/inventory-slot';
-import { typeOrder } from '@/data/inventory-type';
+import { bestTypeOrder, typeOrder } from '@/data/inventory-type';
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemLocation } from '@/enums/item-location';
 import { PrimaryStat, primaryStatToStats } from '@/enums/primary-stat';
@@ -30,7 +30,7 @@ export function getBestItemLevels(
         for (const locationItem of character.itemsByLocation[ItemLocation.Bags] || []) {
             const item = itemData.items[locationItem.itemId];
             const invType = item?.inventoryType;
-            if (!typeOrder.includes(invType) && !weaponInventoryTypes.has(invType)) {
+            if (!bestTypeOrder.includes(invType) && !weaponInventoryTypes.has(invType)) {
                 continue;
             }
 
@@ -61,14 +61,7 @@ export function getBestItemLevels(
 
         let count = 0;
         let levels = 0;
-        for (const inventoryType of typeOrder) {
-            if (
-                [InventoryType.Chest2, InventoryType.Tabard].includes(inventoryType) ||
-                weaponInventoryTypes.has(inventoryType)
-            ) {
-                continue;
-            }
-
+        for (const inventoryType of bestTypeOrder) {
             const bestForType = bestItemLevels[inventoryType] || [];
             count++;
 
@@ -80,14 +73,22 @@ export function getBestItemLevels(
 
                 let found = 0;
                 for (const [item, itemLevel] of bestForType) {
+                    // console.log(
+                    //     inventoryType,
+                    //     itemLevel,
+                    //     seenCategory[item.limitCategory],
+                    //     itemData.limitCategories[item.limitCategory],
+                    // );
                     if (
                         !item.limitCategory ||
                         (seenCategory[item.limitCategory] || 0) <
                             itemData.limitCategories[item.limitCategory]
                     ) {
                         found++;
-                        seenCategory[item.limitCategory] =
-                            (seenCategory[item.limitCategory] || 0) + 1;
+                        if (item.limitCategory) {
+                            seenCategory[item.limitCategory] =
+                                (seenCategory[item.limitCategory] || 0) + 1;
+                        }
 
                         levels += itemLevel;
 
@@ -97,6 +98,8 @@ export function getBestItemLevels(
                     }
                 }
             } else {
+                // console.log(inventoryType, InventoryType[inventoryType], bestForType[0]?.[1]);
+
                 levels += bestForType[0]?.[1] || 0;
             }
         }
@@ -132,17 +135,18 @@ export function getBestItemLevels(
         for (const weapons of Object.values(weaponsByType)) {
             weapons.sort((a, b) => b[1] - a[1]);
         }
+        // console.log(weaponsByType);
 
         count += 2;
         if (specData.dualWield === true) {
             // TODO unique-equipped weapons? ew
             const bestOneOne =
                 (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.oneHand[1]?.[1] || 0);
-            const bestTwoTwo =
+            const bestTwo =
                 specialization.id === 72
                     ? (weaponsByType.twoHand[0]?.[1] || 0) + (weaponsByType.twoHand[1]?.[1] || 0)
-                    : 0;
-            levels += Math.max(bestOneOne, bestTwoTwo);
+                    : (weaponsByType.twoHand[0]?.[1] || 0) * 2;
+            levels += Math.max(bestOneOne, bestTwo);
         } else {
             const bestOneOff =
                 (weaponsByType.oneHand[0]?.[1] || 0) + (weaponsByType.offHand[0]?.[1] || 0);
@@ -151,6 +155,8 @@ export function getBestItemLevels(
         }
 
         ret[specialization.id] = (levels / count).toFixed(1);
+
+        // console.log(character.name, specialization.id, specialization.name, bestItemLevels);
     }
 
     return ret;

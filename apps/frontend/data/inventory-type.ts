@@ -19,6 +19,21 @@ export const typeOrder: InventoryType[] = [
     InventoryType.Trinket,
 ];
 
+export const bestTypeOrder: InventoryType[] = [
+    InventoryType.Head,
+    InventoryType.Neck,
+    InventoryType.Shoulders,
+    InventoryType.Back,
+    InventoryType.Chest,
+    InventoryType.Wrist,
+    InventoryType.Hands,
+    InventoryType.Waist,
+    InventoryType.Legs,
+    InventoryType.Feet,
+    InventoryType.Finger,
+    InventoryType.Trinket,
+];
+
 export const typeOrderMap: Record<number, number> = Object.fromEntries(
     typeOrder.map((type, index) => [type, index]),
 );
