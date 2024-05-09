@@ -4,12 +4,13 @@ import { get } from 'svelte/store';
 
 import { Profession } from '@/enums/profession';
 import { staticStore } from '@/shared/stores/static';
-import { userQuestStore } from '@/stores';
+import { userQuestStore, userStore } from '@/stores';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
 
 import { Constants } from './constants';
 import { dragonflightProfessions, isGatheringProfession } from './professions';
+import { timeStore } from '@/shared/stores/time';
 
 export const dragonflightProfessionTasks: Chore[] = flatten(
     dragonflightProfessions.map((profession) => {
@@ -20,8 +21,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
             taskKey: `dfProfession${name}Provide`,
             taskName: `${name}: Provide`,
             minimumLevel: 60,
-            couldGetFunc: (char) =>
-                couldGet(char, profession.id, profession.subProfessionId),
+            couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             canGetFunc: (char) => getLatestSkill(char, profession.id, 45),
         });
 
@@ -30,8 +30,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskKey: `dfProfession${name}Task`,
                 taskName: `${name}: Task`,
                 minimumLevel: 60,
-                couldGetFunc: (char) =>
-                    couldGet(char, profession.id, profession.subProfessionId),
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
                     getLatestSkill(
                         char,
@@ -45,8 +44,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
             taskKey: `dfProfession${name}Drop#`,
             taskName: `${name}: Drops`,
             minimumLevel: 60,
-            couldGetFunc: (char) =>
-                couldGet(char, profession.id, profession.subProfessionId),
+            couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
         });
 
@@ -55,8 +53,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
                 taskKey: `dfProfession${name}Orders`,
                 taskName: `${name}: Orders`,
                 minimumLevel: 60,
-                couldGetFunc: (char) =>
-                    couldGet(char, profession.id, profession.subProfessionId),
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) => getLatestSkill(char, profession.id, 25),
             });
         }
@@ -65,8 +62,7 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
             taskKey: `dfProfession${name}Treatise`,
             taskName: `${name}: Treatise`,
             minimumLevel: 60,
-            couldGetFunc: (char) =>
-                couldGet(char, profession.id, profession.subProfessionId),
+            couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
         });
 
         return tasks;
@@ -273,6 +269,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'dfChoresAwakened',
+        name: '[DF] Chores - Awakened',
+        shortName: 'Awake',
+        minimumLevel: 70,
+        type: 'multi',
+    },
+    {
         key: 'dfLastHurrah',
         name: '[DF] Last Hurrah',
         shortName: 'LH',
@@ -304,17 +307,11 @@ export const taskMap: Record<string, Task> = Object.fromEntries(
 );
 
 function garrisonCouldGet(char: Character): boolean {
-    return (
-        userQuestStore.hasAny(char.id, 36592) ||
-        userQuestStore.hasAny(char.id, 36567)
-    );
+    return userQuestStore.hasAny(char.id, 36592) || userQuestStore.hasAny(char.id, 36567);
 }
 
 function winterVeilCouldGet(char: Character): boolean {
-    return (
-        userQuestStore.hasAny(char.id, 36615) ||
-        userQuestStore.hasAny(char.id, 36614)
-    );
+    return userQuestStore.hasAny(char.id, 36615) || userQuestStore.hasAny(char.id, 36614);
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
@@ -329,8 +326,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 1,
             taskKey: 'dmfBlacksmithing',
             taskName: ':blacksmithing: Baby Needs Two Pair of Shoes',
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Blacksmithing],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
         },
         {
             minimumLevel: 1,
@@ -342,8 +338,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 1,
             taskKey: 'dmfEngineering',
             taskName: ":engineering: Talkin' Tonks",
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Engineering],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
         },
         {
             minimumLevel: 1,
@@ -355,22 +350,19 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 1,
             taskKey: 'dmfInscription',
             taskName: ':inscription: Writing the Future',
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Inscription],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
         },
         {
             minimumLevel: 1,
             taskKey: 'dmfJewelcrafting',
             taskName: ':jewelcrafting: Keeping the Faire Sparkling',
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Jewelcrafting],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
         },
         {
             minimumLevel: 1,
             taskKey: 'dmfLeatherworking',
             taskName: ':leatherworking: Eyes on the Prizes',
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Leatherworking],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
         },
         {
             minimumLevel: 1,
@@ -394,8 +386,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 1,
             taskKey: 'dmfArchaeology',
             taskName: ':archaeology: Fun for the Little Ones',
-            couldGetFunc: (char) =>
-                !!char.professions?.[Profession.Archaeology],
+            couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
         },
         {
             minimumLevel: 1,
@@ -655,6 +646,56 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'The Big Dig',
         },
     ],
+    dfChoresAwakened: [
+        // Week 1
+        {
+            taskKey: 'dfCommunityFeast',
+            taskName: 'Community Feast',
+            couldGetFunc: (char) => couldGetAwakened(char, 0),
+        },
+        {
+            taskKey: 'dfGrandHuntMythic',
+            taskName: 'Grand Hunt: Epic',
+            couldGetFunc: (char) => couldGetAwakened(char, 0),
+        },
+        {
+            taskKey: 'dfSiegeDragonbaneKeep',
+            taskName: 'Siege on Dragonbane Keep',
+            couldGetFunc: (char) => couldGetAwakened(char, 0),
+        },
+        // Week 2
+        {
+            taskKey: 'dfFyrakkShipment',
+            taskName: 'Fyrakk - Secured Shipment',
+            couldGetFunc: (char) => couldGetAwakened(char, 1),
+        },
+        {
+            taskKey: 'dfResearchersUnderFire4',
+            taskName: 'Researchers Under Fire :quality-4-T4:',
+            couldGetFunc: (char) => couldGetAwakened(char, 1),
+        },
+        {
+            taskKey: 'dfTimeRift',
+            taskName: 'Time Rift',
+            couldGetFunc: (char) => couldGetAwakened(char, 1),
+        },
+        // Week 3
+        {
+            taskKey: 'dfBloomingDreamseeds',
+            taskName: 'Blooming Dreamseeds',
+            couldGetFunc: (char) => couldGetAwakened(char, 2),
+        },
+        {
+            taskKey: 'dfDreamsurge',
+            taskName: 'Dreamsurge',
+            couldGetFunc: (char) => couldGetAwakened(char, 2),
+        },
+        {
+            taskKey: 'dfSuperbloom',
+            taskName: 'Superbloom',
+            couldGetFunc: (char) => couldGetAwakened(char, 2),
+        },
+    ],
     dfDungeonWeeklies: [
         {
             taskKey: 'dfDungeonPreserving',
@@ -672,18 +713,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 60,
             couldGetFunc: (char) =>
                 some(
-                    Object.values(get(staticStore).professions).filter(
-                        (prof) => prof.type === 0,
-                    ),
+                    Object.values(get(staticStore).professions).filter((prof) => prof.type === 0),
                     (profession) =>
-                        !!char.professions?.[profession.id]?.[
-                            profession.subProfessions[9].id
-                        ],
+                        !!char.professions?.[profession.id]?.[profession.subProfessions[9].id],
                 ),
             canGetFunc: (char) =>
-                char.reputations?.[2544] >= 500
-                    ? ''
-                    : "Need Preferred with Artisan's Consortium",
+                char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
         },
         ...dragonflightProfessionTasks,
     ],
@@ -768,29 +803,26 @@ export const pvpBrawlHolidays: Record<number, string> = Object.fromEntries(
     ),
 );
 
-function couldGet(
-    char: Character,
-    professionId: number,
-    subProfessionId: number,
-): boolean {
+function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
     const staticData = get(staticStore);
 
     const profession = staticData.professions[professionId];
     return !!char.professions?.[profession.id]?.[subProfessionId];
 }
 
-function getLatestSkill(
-    char: Character,
-    professionId: number,
-    minSkill: number,
-): string {
+function couldGetAwakened(char: Character, week: number): boolean {
+    const time = get(timeStore);
+    const currentPeriod = userStore.getCurrentPeriodForCharacter(time, char);
+    return (currentPeriod.id - 956) % 3 === week;
+}
+
+function getLatestSkill(char: Character, professionId: number, minSkill: number): string {
     const staticData = get(staticStore);
 
     const subProfessions = staticData.professions[professionId].subProfessions;
     const skill =
-        char.professions[professionId][
-            subProfessions[subProfessions.length - 1].id
-        ]?.currentSkill ?? 0;
+        char.professions[professionId][subProfessions[subProfessions.length - 1].id]
+            ?.currentSkill ?? 0;
 
     return skill < minSkill ? `Need ${minSkill} skill` : '';
 }

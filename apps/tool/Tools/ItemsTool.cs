@@ -61,6 +61,10 @@ public class ItemsTool
         212541, // Greater Verdant Crest of Honor
 
         // Dragonflight S4
+        211516, // spark
+        211518, // wyrm crest
+        211519, // aspect crest
+        211520, // whelpling crest
         211684, // Lesser Draconic Trophy of Conquest
         211685, // Draconic Trophy of Conquest
         211686, // Greater Draconic Trophy of Conquest

@@ -163,9 +163,6 @@
                 <HeadLockouts {sortKey} />
             {/if}
 
-        {:else if field === 'mountSpeed'}
-            <!-- remove later -->
-
         {:else if field === 'mythicPlusScore'}
             <td
                 class="mythic-plus-score sortable"

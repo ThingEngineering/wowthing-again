@@ -15,7 +15,6 @@ import { staticStore } from '@/shared/stores/static';
 import { userStore } from '@/stores/user';
 import type { UserData } from '@/types';
 
-
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
     [Language.enUS]: 'www',
@@ -36,7 +35,6 @@ function createSettingsStore() {
     let settingsHash = '';
 
     const store = writable<Settings>();
-    store.set(JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings);
 
     return {
         get wowheadBaseUrl(): string {
@@ -144,3 +142,6 @@ async function saveData(settings: Settings, userData: UserData) {
 const debouncedSaveData = debounce(saveData, 1500);
 
 export const settingsStore = createSettingsStore();
+settingsStore.set(
+    JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings,
+);
