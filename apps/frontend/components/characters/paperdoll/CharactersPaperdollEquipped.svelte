@@ -1,9 +1,11 @@
 <script lang="ts">
+    import { craftedTiers } from '@/data/crafted-gear'
     import { InventorySlot  } from '@/enums/inventory-slot'
     import { staticStore } from '@/shared/stores/static'
     import { itemStore } from '@/stores'
     import { getEnchantmentText } from '@/utils/get-enchantment-text'
     import { getItemUrl } from '@/utils/get-item-url'
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
     import type { Character } from '@/types'
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
@@ -23,22 +25,16 @@
         .filter((emb) => emb !== undefined)
 
     const getCraftedData = () => {
-        // Dream Crafted
-        if (equippedItem.bonusIds.indexOf(9498) >= 0) {
-            if (equippedItem.bonusIds.indexOf(9405) >= 0) {
-                return [5, 5]
-            }
-            else if (equippedItem.bonusIds.indexOf(9404) >= 0) {
-                return [4, 5]
-            }
-            else if (equippedItem.bonusIds.indexOf(9403) >= 0) {
-                return [3, 5]
-            }
-            else if (equippedItem.bonusIds.indexOf(9402) >= 0) {
-                return [2, 5]
-            }
-            else {
-                return [1, 5]
+        for (const [craftedBonusId, levelIds] of getNumberKeyedEntries(craftedTiers)) {
+            if (equippedItem.bonusIds.includes(craftedBonusId)) {
+                for (let index = 0; index <= levelIds.length; index++) {
+                    const tierBonusId = levelIds[index]
+                    if (tierBonusId === null) { continue }
+
+                    if (equippedItem.bonusIds.includes(tierBonusId)) {
+                        return [index + 1, levelIds.length]
+                    }
+                }
             }
         }
         return [0, 0]
