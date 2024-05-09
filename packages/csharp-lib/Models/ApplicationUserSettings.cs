@@ -93,7 +93,6 @@ public class ApplicationUserSettings
         "items",
         "keystone",
         "lockouts",
-        "mountSpeed",
         "mythicPlusScore",
         "playedTime",
         "professionCooldowns",
