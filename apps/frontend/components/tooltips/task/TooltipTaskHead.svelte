@@ -132,7 +132,8 @@
         <tbody>
             {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
                 {@const disabled = disabledChores.indexOf(multiTaskKey) >= 0}
-                {#if !disabled || questStatuses[1] > 0 || questStatuses[2] > 0}
+                {#if (Object.values(questStatuses).reduce((a, b) => a + b, 0)) > 0 &&
+                    (!disabled || questStatuses[1] > 0 || questStatuses[2] > 0)}
                     <tr
                         class:faded={disabled}
                     >
