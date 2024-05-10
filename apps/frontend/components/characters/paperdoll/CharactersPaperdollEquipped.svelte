@@ -41,9 +41,11 @@
     }
     const getUpgradeData = () => {
         for (const bonusId of equippedItem.bonusIds) {
-            const upgrades = $itemStore.itemBonusToUpgrade[bonusId]
-            if (upgrades) {
-                return upgrades
+            if ($itemStore.itemBonusCurrentSeason.has(bonusId)) {
+                const upgrades = $itemStore.itemBonusToUpgrade[bonusId]
+                if (upgrades) {
+                    return upgrades
+                }
             }
         }
     }
