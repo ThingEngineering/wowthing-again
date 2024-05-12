@@ -73,8 +73,8 @@ public sealed class SchedulerService : TimerService
         await db.StreamTrimAsync("stream:low", 10000, useApproximateMaxLength: true);
 
         var groups = await db.StreamGroupInfoAsync("stream:low");
-        if (groups[0].Lag < 5000)
-        {
+        // if (groups[0].Lag < 5000)
+        // {
             try
             {
                 using var scope = _serviceScopeFactory.CreateScope();
@@ -135,9 +135,9 @@ public sealed class SchedulerService : TimerService
             {
                 Logger.Error(ex, "Kaboom!");
             }
-        }
-        else {
-            Logger.Warning("Low queue is too large!");
-        }
+        // }
+        // else {
+        //     Logger.Warning("Low queue is too large!");
+        // }
     }
 }
