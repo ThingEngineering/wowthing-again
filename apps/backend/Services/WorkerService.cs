@@ -102,25 +102,32 @@ public class WorkerService : BackgroundService
             }
 
             var db = _redis.GetDatabase();
-            var messages = await db.StreamReadGroupAsync(
+
+            // Check for any old pending messages first
+            var result = await db.StreamAutoClaimAsync(
                 _streamKey,
                 "consumer_group",
                 _name,
-                ">",
-                1);
+                MinimumIdleTime,
+                StreamPosition.Beginning,
+                1
+            );
+            var messages = result.ClaimedEntries;
 
-            // No messages in queue, check for any old unacknowledged ones
-            if (messages.Length == 0)
+            switch (messages.Length)
             {
-                var result = await db.StreamAutoClaimAsync(
-                    _streamKey,
-                    "consumer_group",
-                    _name,
-                    MinimumIdleTime,
-                    StreamPosition.Beginning,
-                    1
-                );
-                messages = result.ClaimedEntries;
+                case > 0:
+                    _logger.Information("XAUTOCLAIM retrieved message {msg}", messages[0].Id.ToString());
+                    break;
+                case 0:
+                    // No old messages, look for a new one
+                    messages = await db.StreamReadGroupAsync(
+                        _streamKey,
+                        "consumer_group",
+                        _name,
+                        ">",
+                        1);
+                    break;
             }
 
             // No messages at all, give up for now

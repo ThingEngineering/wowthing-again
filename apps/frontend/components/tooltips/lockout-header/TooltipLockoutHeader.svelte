@@ -36,7 +36,13 @@
     <table class="table-tooltip-lockout table-striped">
         <tbody>
             <tr>
-                <td>{count} character{count === 1 ? '' : 's'} have lockouts</td>
+                <td>
+                    {#if count === 1}
+                        1 character has a lockout
+                    {:else}
+                        {count} characters have lockouts
+                    {/if}
+                </td>
             </tr>
         </tbody>
     </table>

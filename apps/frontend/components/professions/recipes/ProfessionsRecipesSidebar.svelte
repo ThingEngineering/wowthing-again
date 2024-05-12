@@ -21,6 +21,13 @@
         }
         children.sort((a, b) => a.slug.localeCompare(b.slug))
 
+        const cooking = Object.values($staticStore.professions).find((p) => p.slug === 'cooking')
+        children.push(null)
+        children.push({
+            name: `:profession-${cooking.id}: ${cooking.name.split('|')[0]}`,
+            slug: cooking.slug,
+        })
+
         categories = []
         for (const expansion of expansionOrder) {
             categories.push({
