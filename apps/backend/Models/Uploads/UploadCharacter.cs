@@ -29,7 +29,7 @@ public class UploadCharacter
     public List<UploadCharacterCovenant> Covenants { get; set; }
     public Dictionary<short, string> Currencies { get; set; }
     public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
-    public Dictionary<int, string> Equipment { get; set; }
+    public Dictionary<string, string> EquipmentV2 { get; set; }
     public List<UploadCharacterGarrison> Garrisons { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
     public string Illusions { get; set; }
