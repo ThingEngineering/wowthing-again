@@ -103,10 +103,11 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterMounts);
         }
 
-        if (apiCharacter.EquipmentLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterEquipment);
-        }
+        // Replaced with addon data
+        // if (apiCharacter.EquipmentLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterEquipment);
+        // }
 
         if (apiCharacter.MediaLink?.Href != null)
         {
