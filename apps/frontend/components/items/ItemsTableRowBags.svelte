@@ -2,7 +2,7 @@
     import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
     import { staticStore } from '@/shared/stores/static'
     import { gearState } from '@/stores/local-storage'
-    import type { Character, CharacterGear } from '@/types'
+    import { CharacterEquippedItem, type Character, type CharacterGear } from '@/types'
 
     import Empty from './ItemsEmpty.svelte'
     import Item from './ItemsItem.svelte'
@@ -23,16 +23,16 @@
                     bagThings.push([
                         bagSlot,
                         {
-                            equipped: {
-                                context: 0,
-                                craftedQuality: 0,
-                                itemId: itemId,
-                                itemLevel: bag.slots,
-                                quality: bag.quality,
-                                bonusIds: [],
-                                enchantmentIds: [],
-                                gemIds: [],
-                            },
+                            equipped: new CharacterEquippedItem(
+                                0,
+                                0,
+                                itemId,
+                                bag.slots,
+                                bag.quality,
+                                [],
+                                [],
+                                [],
+                            ),
                             highlight: $gearState.minimumBagSize > 0 && bag.slots < $gearState.minimumBagSize
                         }
                     ])
