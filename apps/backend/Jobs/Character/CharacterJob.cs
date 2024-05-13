@@ -140,10 +140,11 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterStats);
         }
 
-        if (apiCharacter.SpecializationsLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterSpecializations);
-        }
+        // TODO re-enable when spec data works
+        // if (apiCharacter.SpecializationsLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterSpecializations);
+        // }
 
         // Shadowlands specific
         if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
