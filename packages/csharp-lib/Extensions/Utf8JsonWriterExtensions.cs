@@ -7,9 +7,12 @@ public static class Utf8JsonWriterExtensions
     public static void WriteNumberArray(this Utf8JsonWriter writer, IEnumerable<int> values)
     {
         writer.WriteStartArray();
-        foreach (int value in values)
+        if (values != null)
         {
-            writer.WriteNumberValue(value);
+            foreach (int value in values)
+            {
+                writer.WriteNumberValue(value);
+            }
         }
         writer.WriteEndArray();
     }
@@ -17,9 +20,12 @@ public static class Utf8JsonWriterExtensions
     public static void WriteStringArray(this Utf8JsonWriter writer, IEnumerable<string> values)
     {
         writer.WriteStartArray();
-        foreach (string value in values)
+        if (values != null)
         {
-            writer.WriteStringValue(value);
+            foreach (string value in values)
+            {
+                writer.WriteStringValue(value);
+            }
         }
         writer.WriteEndArray();
     }
