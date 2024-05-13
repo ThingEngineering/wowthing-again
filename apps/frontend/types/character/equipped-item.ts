@@ -9,5 +9,9 @@ export class CharacterEquippedItem {
         public enchantmentIds: number[],
         public gemIds: number[],
     ) {}
+
+    get count(): number {
+        return 1;
+    }
 }
 export type CharacterEquippedItemArray = ConstructorParameters<typeof CharacterEquippedItem>;
