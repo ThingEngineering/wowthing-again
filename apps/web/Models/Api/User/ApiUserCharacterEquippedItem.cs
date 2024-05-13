@@ -1,8 +1,10 @@
 ﻿using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models.Api.User;
 
+[JsonConverter(typeof(ApiUserCharacterEquippedItemConverter))]
 public class ApiUserCharacterEquippedItem
 {
     public int Context { get; set; }

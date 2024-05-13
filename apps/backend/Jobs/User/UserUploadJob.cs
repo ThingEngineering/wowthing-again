@@ -566,10 +566,11 @@ public class UserUploadJob : JobBase
 
         // Equipment
         character.AddonData.EquippedItems = new();
-        foreach ((int slot, string itemString) in characterData.Equipment.EmptyIfNull())
+        foreach ((string slotString, string itemString) in characterData.EquipmentV2.EmptyIfNull())
         {
+            int slot = int.Parse(slotString[1..]);
             var parts = itemString.Split(":");
-            if (parts.Length != 9 && parts.Length != 10)
+            if (parts.Length != 10)
             {
                 Logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
                 continue;

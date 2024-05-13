@@ -44,11 +44,23 @@ public class ApiController : Controller
     {
         _cacheService = cacheService;
         _logger = logger;
-        _jsonSerializerOptions = jsonSerializerOptions;
         _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _userService = userService;
         _context = context;
+
+        // Custom converters for database model objects, we register them here instead of as a class attribute to avoid
+        // writing squished data to the database
+        _jsonSerializerOptions = new JsonSerializerOptions(jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonDataMythicPlusMapConverter(),
+                new PlayerCharacterAddonDataMythicPlusRunConverter(),
+                new PlayerCharacterMythicPlusRunConverter(),
+            },
+        };
+
     }
 
     [HttpGet("api-key-get")]
@@ -504,17 +516,7 @@ public class ApiController : Controller
             RawAppearanceSources = diffedSources,
         };
 
-        var options = new JsonSerializerOptions(_jsonSerializerOptions)
-        {
-            Converters =
-            {
-                new PlayerCharacterAddonDataMythicPlusMapConverter(),
-                new PlayerCharacterAddonDataMythicPlusRunConverter(),
-                new PlayerCharacterMythicPlusRunConverter(),
-            },
-        };
-
-        string json = JsonSerializer.Serialize(apiData, options);
+        string json = JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
         timer.AddPoint("Build", true);
 
         _logger.LogInformation("{userId} | {userName} | {total} | {timer}",

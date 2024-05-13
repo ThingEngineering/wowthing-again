@@ -103,10 +103,11 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterMounts);
         }
 
-        if (apiCharacter.EquipmentLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterEquipment);
-        }
+        // Replaced with addon data
+        // if (apiCharacter.EquipmentLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterEquipment);
+        // }
 
         if (apiCharacter.MediaLink?.Href != null)
         {
@@ -139,10 +140,11 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterStats);
         }
 
-        if (apiCharacter.SpecializationsLink?.Href != null)
-        {
-            jobs.Add(JobType.CharacterSpecializations);
-        }
+        // TODO re-enable when spec data works
+        // if (apiCharacter.SpecializationsLink?.Href != null)
+        // {
+        //     jobs.Add(JobType.CharacterSpecializations);
+        // }
 
         // Shadowlands specific
         if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
