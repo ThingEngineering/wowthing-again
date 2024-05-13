@@ -8,7 +8,7 @@ import type { Guild } from '@/types/guild';
 
 import type { CharacterConfiguration } from './configuration';
 import { CharacterCurrency, type CharacterCurrencyArray } from './currency';
-import type { CharacterEquippedItem } from './equipped-item';
+import { CharacterEquippedItem, type CharacterEquippedItemArray } from './equipped-item';
 import type { CharacterGarrison } from './garrison';
 import { CharacterItem, type CharacterItemArray } from './item';
 import type { CharacterLockout } from './lockout';
@@ -57,6 +57,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public bags: Record<number, number> = {};
     public currencies: Record<number, CharacterCurrency> = {};
+    public equippedItems: Record<number, CharacterEquippedItem>;
     public itemsByAppearanceId: Record<number, CharacterItem[]>;
     public itemsByAppearanceSource: Record<string, CharacterItem[]>;
     public itemsById: Record<number, CharacterItem[]>;
@@ -98,7 +99,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public configuration: CharacterConfiguration,
 
         public auras: Record<number, CharacterAura>,
-        public equippedItems: Record<number, CharacterEquippedItem>,
+        rawEquippedItems: Record<number, CharacterEquippedItemArray>,
         public garrisons: Record<number, CharacterGarrison>,
         public garrisonTrees: Record<number, Record<number, number[]>>,
         public lockouts: Record<string, CharacterLockout>,
@@ -148,6 +149,12 @@ export class Character implements ContainsItems, HasNameAndRealm {
         for (const rawCurrency of rawCurrencies || []) {
             const obj = new CharacterCurrency(...rawCurrency);
             this.currencies[obj.id] = obj;
+        }
+
+        this.equippedItems = {};
+        for (const [slot, rawEquippedItemArray] of getNumberKeyedEntries(rawEquippedItems || {})) {
+            const obj = new CharacterEquippedItem(...rawEquippedItemArray);
+            this.equippedItems[slot] = obj;
         }
 
         for (const rawItem of rawItems || []) {
