@@ -358,9 +358,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             const itemLevel = itemLevels / count;
-            if (itemLevel - character.equippedItemLevel < 1) {
-                character.calculatedItemLevel = itemLevel.toFixed(1);
-            }
+            character.calculatedItemLevel = itemLevel.toFixed(1);
         }
 
         if (character.calculatedItemLevel === undefined) {
