@@ -17,7 +17,7 @@ export abstract class Constants {
         loammNiffen: 2564,
     };
 
-    static readonly seasonItemBonusListGroups = [354, 355, 356, 357, 358, 360];
+    static readonly seasonItemBonusListGroups = [354, 355, 356, 357, 358, 360, 382];
 
     static readonly upgradeTiers = {
         explorer: 970,
