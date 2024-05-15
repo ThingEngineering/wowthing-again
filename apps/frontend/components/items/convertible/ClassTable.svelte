@@ -16,6 +16,8 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Percent from '@/components/common/Percent.svelte';
+    import getPercentClass from '@/utils/get-percent-class';
 
     export let modifier: AppearanceModifier
     export let playerClass: StaticDataCharacterClass
@@ -23,6 +25,7 @@
 
     $: data = $lazyStore.convertible.seasons[season.id][playerClass.id]
     $: hasEverySlot = every(convertibleTypes, (type) => data[type].modifiers[modifier].userHas)
+    $: stats = $lazyStore.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`]
 
     $: filterFunc = function(char: Character): boolean {
         return (
@@ -43,8 +46,14 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
-    .head-text {
+    .flex-wrapper {
+        padding-right: 0.3rem;
+    }
+    .difficulty-text {
         width: 10rem;
+    }
+    .percent-text {
+        word-spacing: -0.2ch;
     }
     .currency-head {
         background: $body-background;
@@ -62,7 +71,18 @@
 >
     <CharacterTableHead slot="head">
         <svelte:fragment slot="headText">
-            <div class="head-text">{AppearanceModifier[modifier]}</div>
+            <div class="flex-wrapper">
+                <span class="difficulty-text">
+                    {#if modifier === AppearanceModifier.LookingForRaid}
+                        Looking For Raid
+                    {:else}
+                        {AppearanceModifier[modifier]}
+                    {/if}
+                </span>
+                <span class="percent-text drop-shadow {getPercentClass(stats.percent)}">
+                    {stats.percent.toFixed(0)} %
+                </span>
+            </div>
         </svelte:fragment>
 
         {#each convertibleTypes as inventoryType}

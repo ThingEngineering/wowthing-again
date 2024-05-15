@@ -1,23 +1,22 @@
 import some from 'lodash/some';
 
-import {
-    convertibleCategories,
-    modifierToTier,
-} from '@/components/items/convertible/data';
-import { classIdToArmorType } from '@/data/character-class';
+import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data';
+import { classIdToArmorType, classOrder } from '@/data/character-class';
 import { InventoryType } from '@/enums/inventory-type';
 import { ItemLocation } from '@/enums/item-location';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
-import type {
-    Character,
-    CharacterEquippedItem,
-    CharacterItem,
-    UserData,
+import {
+    UserCount,
+    type Character,
+    type CharacterEquippedItem,
+    type CharacterItem,
+    type UserData,
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 interface LazyStores {
     itemData: ItemData;
@@ -52,19 +51,17 @@ export class LazyConvertibleModifier {
 
 export class LazyConvertibleSlot {
     public modifiers: Record<number, LazyConvertibleModifier> = {};
-    public userHas: boolean;
 
     constructor(public setItem: ItemDataItem) {}
 }
 
 export interface LazyConvertible {
     // { season -> { classId -> { inventoryType -> slotData } } }
-    seasons: Record<
-        number,
-        Record<number, Record<number, LazyConvertibleSlot>>
-    >;
+    seasons: Record<number, SeasonData>;
+    stats: Record<string, UserCount>;
 }
 
+type SeasonData = Record<number, Record<number, LazyConvertibleSlot>>;
 type WhateverItem = CharacterEquippedItem | CharacterItem;
 
 export function doConvertible(stores: LazyStores): LazyConvertible {
@@ -78,25 +75,20 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
     );
 
     const itemCounts: Record<number, number> = {};
-    const ret: LazyConvertible = { seasons: {} };
+    const ret: LazyConvertible = {
+        seasons: {},
+        stats: {},
+    };
     for (const convertibleCategory of convertibleCategories) {
-        const seasonData: Record<
-            number,
-            Record<number, LazyConvertibleSlot>
-        > = (ret.seasons[convertibleCategory.id] = {});
+        const seasonData: SeasonData = (ret.seasons[convertibleCategory.id] = {});
 
         const bonusIds = new Set<number>(
             Object.entries(stores.itemData.itemConversionBonus)
-                .filter(
-                    ([, convertSeason]) =>
-                        convertSeason === convertibleCategory.id,
-                )
+                .filter(([, convertSeason]) => convertSeason === convertibleCategory.id)
                 .map(([bonusId]) => parseInt(bonusId)),
         );
 
-        for (const setItemId of stores.itemData.itemConversionEntries[
-            convertibleCategory.id
-        ]) {
+        for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id]) {
             const setItem = stores.itemData.items[setItemId];
             const classId = maskToClass[setItem.classMask];
             const setItemInventoryType =
@@ -105,25 +97,26 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     : setItem.inventoryType;
 
             seasonData[classId] ||= {};
-            const slotData = (seasonData[classId][setItemInventoryType] =
-                new LazyConvertibleSlot(setItem));
+            const slotData = (seasonData[classId][setItemInventoryType] = new LazyConvertibleSlot(
+                setItem,
+            ));
 
             const validCharacters = stores.userData.characters.filter(
                 (char) => char.classId === classId && char.level,
             );
 
-            const charactersWithItems: [Character, WhateverItem[]][] =
-                validCharacters.map((char) => [
+            const charactersWithItems: [Character, WhateverItem[]][] = validCharacters.map(
+                (char) => [
                     char,
                     [
                         ...(char.itemsByLocation?.[ItemLocation.Bags] || []),
                         ...Object.values(char.equippedItems),
                     ],
-                ]);
+                ],
+            );
 
             for (const modifier of [0, 1, 3, 4]) {
-                const modifierData = (slotData.modifiers[modifier] =
-                    new LazyConvertibleModifier());
+                const modifierData = (slotData.modifiers[modifier] = new LazyConvertibleModifier());
 
                 if (stores.settings.transmog.completionistMode) {
                     modifierData.userHas = stores.userData.hasSource.has(
@@ -148,9 +141,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         if (
                             !(
                                 charItem.itemId === setItem.id ||
-                                some(charItem.bonusIds || [], (bonusId) =>
-                                    bonusIds.has(bonusId),
-                                )
+                                some(charItem.bonusIds || [], (bonusId) => bonusIds.has(bonusId))
                             )
                         ) {
                             continue;
@@ -171,15 +162,12 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         let upgrade: [number, number, number];
                         for (const bonusId of charItem.bonusIds) {
                             // sharedStringId, current, max
-                            upgrade =
-                                stores.itemData.itemBonusToUpgrade[bonusId];
+                            upgrade = stores.itemData.itemBonusToUpgrade[bonusId];
                             if (!upgrade) {
                                 continue;
                             }
 
-                            const awfulSeason =
-                                convertibleCategory.id === 3 &&
-                                upgrade[2] === 6;
+                            const awfulSeason = convertibleCategory.id === 3 && upgrade[2] === 6;
 
                             // Forbidden Reach gear is _weird_, 385 gear (2/3) is 5/6 and
                             // 395 gear (3/3) is 6/6?
@@ -192,16 +180,10 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     currentTierLevel = 1;
                                 }
                             } else {
-                                for (
-                                    let i = 0;
-                                    i < convertibleCategory.tiers.length;
-                                    i++
-                                ) {
+                                for (let i = 0; i < convertibleCategory.tiers.length; i++) {
                                     const tier = convertibleCategory.tiers[i];
                                     if (charItem.itemLevel >= tier.itemLevel) {
-                                        currentTierLevel =
-                                            convertibleCategory.tiers.length -
-                                            i;
+                                        currentTierLevel = convertibleCategory.tiers.length - i;
                                         break;
                                     }
                                 }
@@ -245,10 +227,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     ) {
                                         isConvertible = true;
                                         isUpgradeable = true;
-                                    } else if (
-                                        currentTierLevel === 2 &&
-                                        desiredTier === 3
-                                    ) {
+                                    } else if (currentTierLevel === 2 && desiredTier === 3) {
                                         isConvertible = true;
                                         isUpgradeable = true;
                                     } else if (
@@ -286,21 +265,17 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         convertibleCategory.sourceTier >= desiredTier - 1 &&
                         convertibleCategory.sourceTier <= desiredTier
                     ) {
-                        const charArmorType =
-                            classIdToArmorType[character.classId];
+                        const charArmorType = classIdToArmorType[character.classId];
                         const sourceItemId =
-                            convertibleCategory.sources[charArmorType][
-                                setItemInventoryType
-                            ];
-                        const userCount = (itemCounts[sourceItemId] ||=
-                            stores.userData.characters
-                                .map((char) =>
-                                    (char.itemsById[sourceItemId] || []).reduce(
-                                        (a, b) => a + b.count,
-                                        0,
-                                    ),
-                                )
-                                .reduce((a, b) => a + b, 0));
+                            convertibleCategory.sources[charArmorType][setItemInventoryType];
+                        const userCount = (itemCounts[sourceItemId] ||= stores.userData.characters
+                            .map((char) =>
+                                (char.itemsById[sourceItemId] || []).reduce(
+                                    (a, b) => a + b.count,
+                                    0,
+                                ),
+                            )
+                            .reduce((a, b) => a + b, 0));
                         if (userCount > 0) {
                             characterData.push(
                                 new LazyConvertibleCharacterItem(
@@ -312,32 +287,27 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     convertibleCategory.sourceTier,
                                     0,
                                     true,
-                                    convertibleCategory.sourceTier <
-                                        desiredTier,
+                                    convertibleCategory.sourceTier < desiredTier,
                                 ),
                             );
                         }
                     }
 
                     // Purchaseable?
-                    if (
-                        characterData.length === 0 &&
-                        convertibleCategory.purchases
-                    ) {
-                        const usefulPurchases =
-                            convertibleCategory.purchases.filter((purchase) =>
-                                purchase.upgradeable === false
-                                    ? purchase.upgradeTier === desiredTier
-                                    : purchase.upgradeTier >= desiredTier - 1 &&
-                                      purchase.upgradeTier <= desiredTier,
-                            );
+                    if (characterData.length === 0 && convertibleCategory.purchases) {
+                        const usefulPurchases = convertibleCategory.purchases.filter((purchase) =>
+                            purchase.upgradeable === false
+                                ? purchase.upgradeTier === desiredTier
+                                : purchase.upgradeTier >= desiredTier - 1 &&
+                                  purchase.upgradeTier <= desiredTier,
+                        );
 
                         for (const purchase of usefulPurchases) {
                             if (
                                 purchase.progressKey &&
-                                stores.userQuestData.characters[character.id]
-                                    ?.progressQuests?.[purchase.progressKey]
-                                    ?.status === QuestStatus.Completed
+                                stores.userQuestData.characters[character.id]?.progressQuests?.[
+                                    purchase.progressKey
+                                ]?.status === QuestStatus.Completed
                             ) {
                                 continue;
                             }
@@ -347,26 +317,25 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                     ? purchase.costAmount[setItemInventoryType]
                                     : purchase.costAmount;
 
-                            const purchaseable =
-                                new LazyConvertibleCharacterItem(
-                                    {
-                                        itemId: purchase.costId,
-                                        itemLevel: costAmount,
-                                        quality: 1,
-                                    } as CharacterItem,
-                                    purchase.upgradeTier,
-                                    0,
-                                    true,
-                                    purchase.upgradeable !== false &&
-                                        purchase.upgradeTier < desiredTier,
-                                );
+                            const purchaseable = new LazyConvertibleCharacterItem(
+                                {
+                                    itemId: purchase.costId,
+                                    itemLevel: costAmount,
+                                    quality: 1,
+                                } as CharacterItem,
+                                purchase.upgradeTier,
+                                0,
+                                true,
+                                purchase.upgradeable !== false &&
+                                    purchase.upgradeTier < desiredTier,
+                            );
 
                             purchaseable.isPurchased = true;
                             purchaseable.canAfford =
                                 (purchase.costId > 10_000
                                     ? character.getItemCount(purchase.costId)
-                                    : character.currencies?.[purchase.costId]
-                                          ?.quantity || 0) >= costAmount;
+                                    : character.currencies?.[purchase.costId]?.quantity || 0) >=
+                                costAmount;
 
                             characterData.push(purchaseable);
                         }
@@ -384,60 +353,40 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             if (sigh.isUpgradeable) {
                                 const tier =
                                     convertibleCategory.tiers[
-                                        convertibleCategory.tiers.length -
-                                            desiredTier
+                                        convertibleCategory.tiers.length - desiredTier
                                     ];
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (
                                     convertibleCategory.id === 3 &&
                                     ((sigh.equippedItem.itemLevel === 385 &&
-                                        (sigh.currentUpgrade === 4 ||
-                                            sigh.currentUpgrade === 5)) ||
+                                        (sigh.currentUpgrade === 4 || sigh.currentUpgrade === 5)) ||
                                         sigh.equippedItem.itemLevel < 100)
                                 ) {
-                                    sigh.canUpgrade =
-                                        character.getItemCount(204276) > 0;
+                                    sigh.canUpgrade = character.getItemCount(204276) > 0;
                                 } else if (tier.lowUpgrade) {
                                     if (sigh.currentUpgrade < 4) {
                                         let charHas = 0;
-                                        for (const [
-                                            upgradeId,
-                                            upgradeCount,
-                                        ] of tier.lowUpgrade) {
+                                        for (const [upgradeId, upgradeCount] of tier.lowUpgrade) {
                                             const charCount =
                                                 upgradeId > 10_000
-                                                    ? character.getItemCount(
-                                                          upgradeId,
-                                                      )
-                                                    : character.currencies?.[
-                                                          upgradeId
-                                                      ]?.quantity || 0;
-                                            charHas += Math.floor(
-                                                charCount / upgradeCount,
-                                            );
+                                                    ? character.getItemCount(upgradeId)
+                                                    : character.currencies?.[upgradeId]?.quantity ||
+                                                      0;
+                                            charHas += Math.floor(charCount / upgradeCount);
                                         }
 
-                                        sigh.canUpgrade =
-                                            charHas >= 4 - sigh.currentUpgrade;
+                                        sigh.canUpgrade = charHas >= 4 - sigh.currentUpgrade;
                                     }
 
                                     if (sigh.canUpgrade && tier.highUpgrade) {
                                         let charHas = 0;
-                                        for (const [
-                                            upgradeId,
-                                            upgradeCount,
-                                        ] of tier.highUpgrade) {
+                                        for (const [upgradeId, upgradeCount] of tier.highUpgrade) {
                                             const charCount =
                                                 upgradeId > 10_000
-                                                    ? character.getItemCount(
-                                                          upgradeId,
-                                                      )
-                                                    : character.currencies?.[
-                                                          upgradeId
-                                                      ]?.quantity || 0;
-                                            charHas += Math.floor(
-                                                charCount / upgradeCount,
-                                            );
+                                                    ? character.getItemCount(upgradeId)
+                                                    : character.currencies?.[upgradeId]?.quantity ||
+                                                      0;
+                                            charHas += Math.floor(charCount / upgradeCount);
                                         }
 
                                         sigh.canUpgrade = charHas >= 1;
@@ -447,26 +396,14 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         }
 
                         characterData.sort((a, b) => {
-                            if (
-                                a.equippedItem.itemLevel !==
-                                b.equippedItem.itemLevel
-                            ) {
-                                return (
-                                    b.equippedItem.itemLevel -
-                                    a.equippedItem.itemLevel
-                                );
+                            if (a.equippedItem.itemLevel !== b.equippedItem.itemLevel) {
+                                return b.equippedItem.itemLevel - a.equippedItem.itemLevel;
                             }
                             if (a.isUpgradeable !== b.isUpgradeable) {
-                                return (
-                                    (a.isUpgradeable ? 1 : 0) -
-                                    (b.isUpgradeable ? 1 : 0)
-                                );
+                                return (a.isUpgradeable ? 1 : 0) - (b.isUpgradeable ? 1 : 0);
                             }
                             if (a.isConvertible !== b.isConvertible) {
-                                return (
-                                    (a.isConvertible ? 1 : 0) -
-                                    (b.isConvertible ? 1 : 0)
-                                );
+                                return (a.isConvertible ? 1 : 0) - (b.isConvertible ? 1 : 0);
                             }
                             return 0;
                         });
@@ -493,6 +430,44 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                 );
             } // for modifier
         } // for setItemId
+
+        const seasonStats = (ret.stats[convertibleCategory.id] = new UserCount());
+        const modifierStats: Record<number, UserCount> = {};
+        const classModifierStats: Record<string, UserCount> = {};
+        const classStats: Record<number, UserCount> = {};
+        for (const modifier of [0, 1, 3, 4]) {
+            modifierStats[modifier] = ret.stats[`${convertibleCategory.id}--m${modifier}`] =
+                new UserCount();
+            for (const classId of classOrder) {
+                classModifierStats[`c${classId}--m${modifier}`] = ret.stats[
+                    `${convertibleCategory.id}--c${classId}--m${modifier}`
+                ] = new UserCount();
+            }
+        }
+        for (const classId of classOrder) {
+            classStats[classId] = ret.stats[`${convertibleCategory.id}--c${classId}`] =
+                new UserCount();
+        }
+
+        for (const [classId, classData] of getNumberKeyedEntries(seasonData)) {
+            for (const slotData of Object.values(classData)) {
+                for (const [modifier, modifierData] of getNumberKeyedEntries(slotData.modifiers)) {
+                    const classModifierKey = `c${classId}--m${modifier}`;
+
+                    seasonStats.total++;
+                    classStats[classId].total++;
+                    classModifierStats[classModifierKey].total++;
+                    modifierStats[modifier].total++;
+
+                    if (modifierData.userHas) {
+                        seasonStats.have++;
+                        classStats[classId].have++;
+                        classModifierStats[classModifierKey].have++;
+                        modifierStats[modifier].have++;
+                    }
+                }
+            }
+        }
     } // for convertibleCategory
 
     console.timeEnd('doConvertible');
