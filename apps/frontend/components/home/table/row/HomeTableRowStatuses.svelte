@@ -101,8 +101,6 @@
     td {
         @include cell-width(var(--width, 0));
 
-        --image-margin-top: -4px !important;
-
         border-left: 1px solid $border-color;
         white-space: nowrap;
 
@@ -115,6 +113,8 @@
         }
     }
     .flex-wrapper {
+        --image-margin-top: -4px !important;
+
         justify-content: start;
         gap: 3px;
     }
