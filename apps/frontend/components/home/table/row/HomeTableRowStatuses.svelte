@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { contractAuras } from '@/data/reputation'
-    import { durationAuras } from '@/data/spells'
+    import { durationAuras, staticAuras } from '@/data/spells'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
     import { toNiceDuration } from '@/utils/formatting'
@@ -56,6 +56,16 @@
                         iconText
                     ])
                 }
+            }
+        }
+
+        for (const [spellId, auraTooltip] of staticAuras) {
+            const aura = character.auras?.[spellId]
+            if (aura) {
+                images.push([
+                    `spell/${spellId}`,
+                    `<div class="center">${auraTooltip}</div>`,
+                ])
             }
         }
         
