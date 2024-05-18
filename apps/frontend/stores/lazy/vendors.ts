@@ -37,11 +37,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
     console.time('LazyStore.doVendors');
 
     for (const vendor of Object.values(stores.manualData.shared.vendors)) {
-        vendor.createFarmData(
-            stores.itemData,
-            stores.manualData,
-            stores.staticData,
-        );
+        vendor.createFarmData(stores.itemData, stores.manualData, stores.staticData);
     }
 
     for (const categories of stores.manualData.vendors.sets) {
@@ -52,8 +48,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
         for (const category of categories) {
             if (
                 category === null ||
-                (category.vendorMaps.length === 0 &&
-                    category.vendorTags.length === 0)
+                (category.vendorMaps.length === 0 && category.vendorTags.length === 0)
             ) {
                 continue;
             }
@@ -61,21 +56,15 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const autoSeen: Record<string, ManualDataVendorItem> = {};
 
             // Remove any auto groups
-            category.groups = category.groups.filter(
-                (group) => group.auto !== true,
-            );
+            category.groups = category.groups.filter((group) => group.auto !== true);
 
             // Find useful vendors
             const vendorIds: number[] = [];
             for (const mapName of category.vendorMaps) {
-                vendorIds.push(
-                    ...(stores.manualData.shared.vendorsByMap[mapName] || []),
-                );
+                vendorIds.push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
             }
             for (const tagName of category.vendorTags) {
-                vendorIds.push(
-                    ...(stores.manualData.shared.vendorsByTag[tagName] || []),
-                );
+                vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
             }
 
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
@@ -84,11 +73,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 const vendor = stores.manualData.shared.vendors[vendorId];
 
                 let setPosition = 0;
-                for (
-                    let setIndex = 0;
-                    setIndex < vendor.sets.length;
-                    setIndex++
-                ) {
+                for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
                     const set = vendor.sets[setIndex];
                     const groupKey = `${set.sortKey ? '09' + set.sortKey : 10 + setIndex}${set.name}`;
 
@@ -101,13 +86,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         setEnd = vendor.sells.length;
                     }
 
-                    const autoGroup = (autoGroups[groupKey] ||=
-                        new ManualDataVendorGroup(set.name, [], true));
-                    for (
-                        let itemIndex = setPosition;
-                        itemIndex < setEnd;
-                        itemIndex++
-                    ) {
+                    const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
+                        set.name,
+                        [],
+                        true,
+                    ));
+                    for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
                         setPosition++;
 
                         const item = vendor.sells[itemIndex];
@@ -152,17 +136,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     ) {
                         [groupKey, groupName] = ['90transmog', 'Transmog'];
                     } else if (item.type === RewardType.Item) {
-                        if (
-                            stores.manualData.dragonridingItemToQuest[item.id]
-                        ) {
-                            [groupKey, groupName] = [
-                                '00dragonriding',
-                                'Dragonriding',
-                            ];
-                        } else if (
-                            stores.manualData.druidFormItemToQuest[item.id]
-                        ) {
+                        if (stores.manualData.dragonridingItemToQuest[item.id]) {
+                            [groupKey, groupName] = ['00dragonriding', 'Dragonriding'];
+                        } else if (stores.manualData.druidFormItemToQuest[item.id]) {
                             [groupKey, groupName] = ['00druids', 'Druids'];
+                        } else if (stores.staticData.mountsByItem[item.id]) {
+                            [groupKey, groupName] = ['00mounts', 'Mounts'];
                         }
                     }
 
@@ -174,8 +153,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     );
 
                     if (groupKey) {
-                        const autoGroup = (autoGroups[groupKey] ||=
-                            new ManualDataVendorGroup(groupName, [], true));
+                        const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
+                            groupName,
+                            [],
+                            true,
+                        ));
 
                         const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`;
                         const autoItem = autoSeen[seenKey];
@@ -232,21 +214,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const catKey = `${categories[0].slug}--${category.slug}`;
             const catStats = (stats[catKey] = new UserCount());
 
-            for (
-                let groupIndex = 0;
-                groupIndex < category.groups.length;
-                groupIndex++
-            ) {
+            for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex];
                 group.sellsFiltered = [];
 
                 if (!stores.vendorState.showPvp && pvpRegex.test(group.name)) {
                     continue;
                 }
-                if (
-                    !stores.vendorState.showTier &&
-                    tierRegex.test(group.name)
-                ) {
+                if (!stores.vendorState.showTier && tierRegex.test(group.name)) {
                     continue;
                 }
 
@@ -267,10 +242,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     //     continue
                     // }
 
-                    if (
-                        item.classMask > 0 &&
-                        (item.classMask & classMask) === 0
-                    ) {
+                    if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue;
                     }
 
@@ -282,8 +254,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         const appearanceId =
                             item.appearanceIds?.length === 1
                                 ? item.appearanceIds[0]
-                                : sharedItem?.appearances?.[0]?.appearanceId ||
-                                  0;
+                                : sharedItem?.appearances?.[0]?.appearanceId || 0;
                         if (appearanceId) {
                             const existingItem = appearanceMap[appearanceId];
                             if (existingItem) {
@@ -306,25 +277,16 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     // Skip filtered things
                     if (
-                        (item.type === RewardType.Illusion &&
-                            !stores.vendorState.showIllusions) ||
-                        (item.type === RewardType.Mount &&
-                            !stores.vendorState.showMounts) ||
-                        (item.type === RewardType.Pet &&
-                            !stores.vendorState.showPets) ||
-                        (item.type === RewardType.Toy &&
-                            !stores.vendorState.showToys) ||
+                        (item.type === RewardType.Illusion && !stores.vendorState.showIllusions) ||
+                        (item.type === RewardType.Mount && !stores.vendorState.showMounts) ||
+                        (item.type === RewardType.Pet && !stores.vendorState.showPets) ||
+                        (item.type === RewardType.Toy && !stores.vendorState.showToys) ||
                         (item.type === RewardType.Armor &&
-                            ((item.subType === 1 &&
-                                !stores.vendorState.showCloth) ||
-                                (item.subType === 2 &&
-                                    !stores.vendorState.showLeather) ||
-                                (item.subType === 3 &&
-                                    !stores.vendorState.showMail) ||
-                                (item.subType === 4 &&
-                                    !stores.vendorState.showPlate))) ||
-                        (item.type === RewardType.Weapon &&
-                            !stores.vendorState.showWeapons) ||
+                            ((item.subType === 1 && !stores.vendorState.showCloth) ||
+                                (item.subType === 2 && !stores.vendorState.showLeather) ||
+                                (item.subType === 3 && !stores.vendorState.showMail) ||
+                                (item.subType === 4 && !stores.vendorState.showPlate))) ||
+                        (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
                         (sharedItem?.inventoryType === InventoryType.Back &&
                             !stores.vendorState.showCloaks)
                     ) {
@@ -334,6 +296,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     const hasDrop = userHasDrop(
                         stores.itemData,
                         stores.manualData,
+                        stores.staticData,
                         stores.userData,
                         stores.userQuestData,
                         item.type,
@@ -345,8 +308,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     if (
                         item.type === RewardType.Illusion &&
                         item.appearanceIds?.length > 0 &&
-                        unavailableIllusions.indexOf(item.appearanceIds[0]) >=
-                            0 &&
+                        unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
                         !hasDrop
                     ) {
                         continue;

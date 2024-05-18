@@ -1,36 +1,38 @@
-import userHasDrop from './user-has-drop'
-import type { UserData } from '@/types'
-import type { UserQuestData } from '@/types/data'
-import type { ItemData } from '@/types/data/item'
-import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
-
+import userHasDrop from './user-has-drop';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { UserData } from '@/types';
+import type { UserQuestData } from '@/types/data';
+import type { ItemData } from '@/types/data/item';
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual';
 
 export function getVendorDropStats(
     itemData: ItemData,
     manualData: ManualData,
+    staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
     masochist: boolean,
-    drop: ManualDataZoneMapDrop
+    drop: ManualDataZoneMapDrop,
 ): [number, number] {
-    let have = 0
-    let total = 0
+    let have = 0;
+    let total = 0;
     //const seen: Record<number, boolean> = {}
 
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
             itemData,
             manualData,
+            staticData,
             userData,
             userQuestData,
             vendorItem.type,
             vendorItem.id,
-            vendorItem.appearanceIds
-        )
-        
-        total++
+            vendorItem.appearanceIds,
+        );
+
+        total++;
         if (hasDrop) {
-            have++
+            have++;
         }
     }
 
@@ -51,5 +53,5 @@ export function getVendorDropStats(
         total++
     }*/
 
-    return [have, total]
+    return [have, total];
 }
