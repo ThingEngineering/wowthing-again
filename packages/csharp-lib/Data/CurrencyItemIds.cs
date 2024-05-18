@@ -101,5 +101,8 @@ public static partial class Hardcoded
         209856, // Dilated Time Pod
         210254, // Dreamsurge Cocoon
         211376, // Seedbloom
+
+        // MoP Remix
+        224461, // Bones of Mannoroth
     };
 }

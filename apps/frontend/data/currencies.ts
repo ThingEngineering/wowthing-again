@@ -227,6 +227,8 @@ export const currencyItems: Record<number, number[]> = {
     1: [
         163036, // Polished Pet Charm
         116415, // Shiny Pet Charm
+        null,
+        224461, // Bones of Mannoroth
     ],
 
     // Miscellaneous > World Events
