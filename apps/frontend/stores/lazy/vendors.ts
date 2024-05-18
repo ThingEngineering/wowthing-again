@@ -142,6 +142,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             [groupKey, groupName] = ['00druids', 'Druids'];
                         } else if (stores.staticData.mountsByItem[item.id]) {
                             [groupKey, groupName] = ['00mounts', 'Mounts'];
+                        } else if (stores.staticData.toys[item.id]) {
+                            [groupKey, groupName] = ['00toys', 'Toys'];
                         }
                     }
 
