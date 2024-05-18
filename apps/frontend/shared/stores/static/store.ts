@@ -222,6 +222,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 data.mounts[obj.id] = obj;
                 if (obj.itemId) {
                     data.mountsByItem[obj.itemId] = obj;
+                    // Thundering Ruby Cloud Serpent got a new item
+                    if (obj.itemId === 90655) {
+                        data.mountsByItem[224374] = obj;
+                    }
                 }
                 if (obj.spellId) {
                     data.mountsBySpell[obj.spellId] = obj;
