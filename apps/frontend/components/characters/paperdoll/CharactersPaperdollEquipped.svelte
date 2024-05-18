@@ -98,8 +98,8 @@
             padding: 0 3px 1px 3px;
         }
     }
-    .embellishment, .enchant {
-        font-size: 90%;
+    .embellishment, .enchant, .gem {
+        font-size: 85%;
     }
 </style>
 
@@ -166,6 +166,20 @@
                         type="item"
                     >
                         {embellishment.displayName}
+                    </WowheadLink>
+                </span>
+            {/each}
+
+            {#each (equippedItem.gemIds || []) as gemId}
+                <span class="gem">
+                    <WowheadLink
+                        id={gemId}
+                        type="item"
+                    >
+                        <ParsedText
+                            cls="quality2"
+                            text={`{itemWithIcon:${gemId}}`}
+                        />
                     </WowheadLink>
                 </span>
             {/each}
