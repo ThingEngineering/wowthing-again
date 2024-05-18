@@ -6,7 +6,8 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
-    import Tooltip from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
+    import TooltipRemix from '@/components/tooltips/remix-cloak/TooltipRemixCloak.svelte'
+    import TooltipSet from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
 
     export let character: Character
 
@@ -31,6 +32,11 @@
             previousCount = 0
         }
     }
+
+    const getRemixTotal = () => {
+        return [2853, 2854, 2855, 2856, 2857, 2858, 2859, 2860, 3001]
+            .reduce((total, currencyId) => total + character.currencies?.[currencyId]?.quantity || 0, 0)
+    }
 </script>
 
 <style lang="scss">
@@ -48,11 +54,24 @@
     }
 </style>
 
-{#if character.level === Constants.characterMaxLevel}
+{#if character.isRemix}
+    {@const total = getRemixTotal()}
+    <td
+        use:componentTooltip={{
+            component: TooltipRemix,
+            props: {
+                character,
+                total,
+            },
+        }}
+    >
+        {total}
+    </td>
+{:else if character.level === Constants.characterMaxLevel}
     {#if previousCount > 0}
         <td
             use:componentTooltip={{
-                component: Tooltip,
+                component: TooltipSet,
                 props: {
                     character,
                     tierSets: [currentPieces, previousPieces],
@@ -78,7 +97,7 @@
             class:status-shrug={currentCount >= 2 && currentCount < 4}
             class:status-success={currentCount >= 4}
             use:componentTooltip={{
-                component: Tooltip,
+                component: TooltipSet,
                 props: {
                     character,
                     tierSets: [currentPieces],
