@@ -24,7 +24,7 @@
         text-align: left;
     }
     .name {
-        @include cell-width(9rem);
+        @include cell-width(10rem);
     }
     .counts {
         @include cell-width(3rem);
@@ -33,7 +33,7 @@
         text-align: center;
     }
     .item-slot {
-        --image-margin-top: -4px;
+        --image-margin-top: -5px;
 
         @include cell-width(6rem, $paddingLeft: 0px, $paddingRight: 0px);
 
@@ -49,7 +49,11 @@
         <thead>
             <tr>
                 <th class="name">
-                    {AppearanceModifier[modifier]}
+                    {#if modifier === AppearanceModifier.LookingForRaid}
+                        Looking For Raid
+                    {:else}
+                        {AppearanceModifier[modifier]}
+                    {/if}
                 </th>
                 <th class="counts">Now</th>
                 <th class="counts">Max</th>

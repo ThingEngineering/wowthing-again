@@ -6,6 +6,10 @@
     import { getGenderedName } from '@/utils/get-gendered-name'
 
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+    import { lazyStore } from '@/stores';
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
 
     const children = [
         ...classOrder.map((classId) => {
@@ -15,23 +19,43 @@
         }),
         null,
         {
+            id: AppearanceModifier.Mythic,
             name: 'Mythic',
             slug: 'mythic',
         },
         {
+            id: AppearanceModifier.Heroic,
             name: 'Heroic',
             slug: 'heroic',
         },
         {
+            id: AppearanceModifier.Normal,
             name: 'Normal',
             slug: 'normal',
         },
         {
+            id: AppearanceModifier.LookingForRaid,
             name: 'Looking For Raid',
             slug: 'looking-for-raid',
         },
     ]
     const categories = convertibleCategories.map((cc) => ({ ...cc, children }))
+
+    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]): number {
+        const seasonId = parentEntries[0]?.id || entry.id
+
+        if (parentEntries.length > 0) {
+            if (entry.name.includes(':class')) {
+                return $lazyStore.convertible.stats[`${seasonId}--c${entry.id}`].percent
+            }
+            else {
+                return $lazyStore.convertible.stats[`${seasonId}--m${entry.id}`].percent
+            }
+        }
+        else {
+            return $lazyStore.convertible.stats[`${seasonId}`].percent
+        }
+    }
 </script>
 
 <SubSidebar
@@ -39,5 +63,6 @@
     items={categories}
     noVisitRoot={true}
     scrollable={true}
-    width={'11rem'}
+    width={'15rem'}
+    {percentFunc}
 />

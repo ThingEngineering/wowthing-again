@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { contractAuras } from '@/data/reputation'
-    import { durationAuras } from '@/data/spells'
+    import { durationAuras, staticAuras } from '@/data/spells'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
     import { toNiceDuration } from '@/utils/formatting'
@@ -58,6 +58,16 @@
                 }
             }
         }
+
+        for (const [spellId, auraTooltip] of staticAuras) {
+            const aura = character.auras?.[spellId]
+            if (aura) {
+                images.push([
+                    `spell/${spellId}`,
+                    `<div class="center">${auraTooltip}</div>`,
+                ])
+            }
+        }
         
         if (character.level < Constants.characterMaxLevel) {
             if (character.chromieTime) {
@@ -101,8 +111,6 @@
     td {
         @include cell-width(var(--width, 0));
 
-        --image-margin-top: -4px !important;
-
         border-left: 1px solid $border-color;
         white-space: nowrap;
 
@@ -115,6 +123,8 @@
         }
     }
     .flex-wrapper {
+        --image-margin-top: -4px !important;
+
         justify-content: start;
         gap: 3px;
     }

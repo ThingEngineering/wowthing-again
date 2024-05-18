@@ -7,9 +7,12 @@
     import ClassItems from './ClassItems.svelte'
     import DifficultyItems from './DifficultyItems.svelte'
     import Sidebar from './Sidebar.svelte'
+    import { convertibleCategories } from './data';
 
     export let slug1: string
     export let slug2: string
+
+    $: season = convertibleCategories.find((cc) => cc.slug === slug1)
 
     afterUpdate(() => getSavedRoute('items/convertible', slug1, slug2))
 </script>
@@ -20,12 +23,12 @@
     {#if slug1 && slug2}
         {#if characterClassBySlug[slug2]}
             <ClassItems
-                seasonSlug={slug1}
+                {season}
                 classSlug={slug2}
             />
         {:else}
             <DifficultyItems
-                seasonSlug={slug1}
+                {season}
                 difficultySlug={slug2}
             />
         {/if}

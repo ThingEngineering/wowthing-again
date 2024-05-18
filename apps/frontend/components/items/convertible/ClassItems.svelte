@@ -1,16 +1,14 @@
 <script lang="ts">
-    import find from 'lodash/find'
-
-    import { convertibleCategories } from './data'
     import { AppearanceModifier } from '@/enums/appearance-modifier'
     import { staticStore } from '@/shared/stores/static'
 
+    import type { ConvertibleCategory } from './types';
+
     import ClassTable from './ClassTable.svelte'
 
-    export let seasonSlug: string
     export let classSlug: string
+    export let season: ConvertibleCategory
 
-    $: season = find(convertibleCategories, (cc) => cc.slug === seasonSlug)
     $: playerClass = $staticStore.characterClassesBySlug[classSlug]
 </script>
 

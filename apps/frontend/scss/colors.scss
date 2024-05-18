@@ -8,6 +8,11 @@
 
     color: $color-shrug;
 }
+.status-warn {
+    --link-color: $color-warn;
+
+    color: $color-warn;
+}
 .status-fail {
     --link-color: $color-fail;
 

@@ -1,105 +1,125 @@
-import type { StaticDataBag, StaticDataBagArray } from './bag'
-import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
-import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
-import type { StaticDataHeirloom } from './heirloom'
-import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday'
-import type { StaticDataIllusion } from './illusion'
-import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
-import type { StaticDataKeystoneAffix } from './keystone-affix'
-import type { StaticDataMount, StaticDataMountArray } from './mount'
-import type { StaticDataPet, StaticDataPetArray } from './pet'
-import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionAbilityInfo } from './profession'
-import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info'
-import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
-import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
-import type { StaticDataSoulbind } from './soulbind'
-import type { StaticDataToy, StaticDataToyArray } from './toy'
-import type { StaticDataTransmogSet, StaticDataTransmogSetArray } from './transmog-set'
-import type { StaticDataWorldQuest, StaticDataWorldQuestArray } from './world-quest'
-
+import type { StaticDataBag, StaticDataBagArray } from './bag';
+import type {
+    StaticDataCharacterClass,
+    StaticDataCharacterRace,
+    StaticDataCharacterSpecialization,
+} from './character';
+import type {
+    StaticDataCurrency,
+    StaticDataCurrencyArray,
+    StaticDataCurrencyCategory,
+    StaticDataCurrencyCategoryArray,
+} from './currency';
+import type { StaticDataHeirloom } from './heirloom';
+import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday';
+import type { StaticDataIllusion } from './illusion';
+import type { StaticDataInstance, StaticDataInstanceArray } from './instance';
+import type { StaticDataKeystoneAffix } from './keystone-affix';
+import type { StaticDataMount, StaticDataMountArray } from './mount';
+import type { StaticDataPet, StaticDataPetArray } from './pet';
+import type {
+    StaticDataProfession,
+    StaticDataProfessionAbility,
+    StaticDataProfessionAbilityInfo,
+} from './profession';
+import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
+import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';
+import type {
+    StaticDataReputation,
+    StaticDataReputationArray,
+    StaticDataReputationCategory,
+    StaticDataReputationCategoryArray,
+    StaticDataReputationTier,
+} from './reputation';
+import type { StaticDataSoulbind } from './soulbind';
+import type { StaticDataToy, StaticDataToyArray } from './toy';
+import type { StaticDataTransmogSet, StaticDataTransmogSetArray } from './transmog-set';
+import type { StaticDataWorldQuest, StaticDataWorldQuestArray } from './world-quest';
 
 export interface StaticData {
-    connectedRealms: Record<number, StaticDataConnectedRealm>
-    illusions: Record<number, StaticDataIllusion>
-    inventorySlots: Record<number, string>
-    inventoryTypes: Record<number, string>
-    keystoneAffixes: Record<number, StaticDataKeystoneAffix>
-    questNames: Record<number, string>
-    sharedStrings: Record<number, string>
-    soulbinds: Record<number, StaticDataSoulbind[]>
-    talents: Record<number, number[][]>
+    connectedRealms: Record<number, StaticDataConnectedRealm>;
+    illusions: Record<number, StaticDataIllusion>;
+    inventorySlots: Record<number, string>;
+    inventoryTypes: Record<number, string>;
+    keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
+    questNames: Record<number, string>;
+    sharedStrings: Record<number, string>;
+    soulbinds: Record<number, StaticDataSoulbind[]>;
+    talents: Record<number, number[][]>;
 
-    characterClasses: Record<number, StaticDataCharacterClass>
-    characterClassesBySlug: Record<string, StaticDataCharacterClass>
-    characterRaces: Record<number, StaticDataCharacterRace>
-    characterRacesBySlug: Record<string, StaticDataCharacterRace>
-    characterSpecializations: Record<number, StaticDataCharacterSpecialization>
+    characterClasses: Record<number, StaticDataCharacterClass>;
+    characterClassesBySlug: Record<string, StaticDataCharacterClass>;
+    characterRaces: Record<number, StaticDataCharacterRace>;
+    characterRacesBySlug: Record<string, StaticDataCharacterRace>;
+    characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
 
-    itemToRequiredAbility: Record<number, number>
-    itemToSkillLine: Record<number, [number, number]>
-    itemToSkillLineAbility: Record<number, number>
-    professions: Record<number, StaticDataProfession>
-    professionBySkillLine: Record<number, [StaticDataProfession, number]>
-    skillLineAbilityItems: Record<number, number[]>
-    spellToProfessionAbility: Record<number, StaticDataProfessionAbility>
+    itemToRequiredAbility: Record<number, number>;
+    itemToSkillLine: Record<number, [number, number]>;
+    itemToSkillLineAbility: Record<number, number>;
+    professions: Record<number, StaticDataProfession>;
+    professionBySkillLine: Record<number, [StaticDataProfession, number]>;
+    skillLineAbilityItems: Record<number, number[]>;
+    spellToProfessionAbility: Record<number, StaticDataProfessionAbility>;
 
-    professionAbilityByAbilityId: Record<number, StaticDataProfessionAbilityInfo>
-    professionAbilityByItemId: Record<number, StaticDataProfessionAbilityInfo>
-    professionAbilityBySpellId: Record<number, StaticDataProfessionAbilityInfo>
+    professionAbilityByAbilityId: Record<number, StaticDataProfessionAbilityInfo>;
+    professionAbilityByItemId: Record<number, StaticDataProfessionAbilityInfo>;
+    professionAbilityBySpellId: Record<number, StaticDataProfessionAbilityInfo>;
 
-    bags: Record<number, StaticDataBag>
-    rawBags: StaticDataBagArray[]
+    bags: Record<number, StaticDataBag>;
+    rawBags: StaticDataBagArray[];
 
-    currencies: Record<number, StaticDataCurrency>
-    rawCurrencies: StaticDataCurrencyArray[]
+    currencies: Record<number, StaticDataCurrency>;
+    rawCurrencies: StaticDataCurrencyArray[];
 
-    currencyCategories: Record<number, StaticDataCurrencyCategory>
-    rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
+    currencyCategories: Record<number, StaticDataCurrencyCategory>;
+    rawCurrencyCategories: StaticDataCurrencyCategoryArray[];
 
-    enchantments: Record<number, string>
-    rawEnchantments: Record<string, number[]>
+    enchantments: Record<number, string>;
+    rawEnchantments: Record<string, number[]>;
 
-    heirlooms: StaticDataHeirloom[]
-    heirloomsById: Record<number, StaticDataHeirloom>
-    heirloomsByItemId: Record<number, StaticDataHeirloom>
+    heirlooms: StaticDataHeirloom[];
+    heirloomsById: Record<number, StaticDataHeirloom>;
+    heirloomsByItemId: Record<number, StaticDataHeirloom>;
 
-    holidays: Record<number, StaticDataHoliday>
-    rawHolidays: StaticDataHolidayArray[]
+    holidays: Record<number, StaticDataHoliday>;
+    rawHolidays: StaticDataHolidayArray[];
 
-    holidayIds: Record<string, number[]>
-    holidayIdToKeys: Record<number, string[]>
+    holidayIds: Record<string, number[]>;
+    holidayIdToKeys: Record<number, string[]>;
 
-    instances: Record<number, StaticDataInstance>
-    instancesRaw: StaticDataInstanceArray[]
+    instances: Record<number, StaticDataInstance>;
+    instancesRaw: StaticDataInstanceArray[];
 
-    mounts: Record<number, StaticDataMount>
-    rawMounts: StaticDataMountArray[]
+    mounts: Record<number, StaticDataMount>;
+    mountsByItem: Record<number, StaticDataMount>;
+    mountsBySpell: Record<number, StaticDataMount>;
+    rawMounts: StaticDataMountArray[];
 
-    pets: Record<number, StaticDataPet>
-    petsByName: Record<string, StaticDataPet>
-    rawPets: StaticDataPetArray[]
+    pets: Record<number, StaticDataPet>;
+    petsByName: Record<string, StaticDataPet>;
+    rawPets: StaticDataPetArray[];
 
-    questInfo: Record<number, StaticDataQuestInfo>
-    rawQuestInfo: StaticDataQuestInfoArray[]
+    questInfo: Record<number, StaticDataQuestInfo>;
+    rawQuestInfo: StaticDataQuestInfoArray[];
 
-    realms: Record<number, StaticDataRealm>
-    rawRealms: StaticDataRealmArray[]
+    realms: Record<number, StaticDataRealm>;
+    rawRealms: StaticDataRealmArray[];
 
-    reputations: Record<number, StaticDataReputation>
-    rawReputations: StaticDataReputationArray[]
+    reputations: Record<number, StaticDataReputation>;
+    rawReputations: StaticDataReputationArray[];
 
-    reputationSets: StaticDataReputationCategory[]
-    rawReputationSets: StaticDataReputationCategoryArray[]
+    reputationSets: StaticDataReputationCategory[];
+    rawReputationSets: StaticDataReputationCategoryArray[];
 
-    reputationTiers: Record<number, StaticDataReputationTier>
+    reputationTiers: Record<number, StaticDataReputationTier>;
 
-    toys: Record<number, StaticDataToy>
-    toysById: Record<number, StaticDataToy>
-    rawToys: StaticDataToyArray[]
+    toys: Record<number, StaticDataToy>;
+    toysById: Record<number, StaticDataToy>;
+    rawToys: StaticDataToyArray[];
 
-    transmogSets: Record<number, StaticDataTransmogSet>
-    rawTransmogSets: StaticDataTransmogSetArray[]
+    transmogSets: Record<number, StaticDataTransmogSet>;
+    rawTransmogSets: StaticDataTransmogSetArray[];
 
-    worldQuests: Record<number, StaticDataWorldQuest>
-    rawWorldQuests: StaticDataWorldQuestArray[]
+    worldQuests: Record<number, StaticDataWorldQuest>;
+    rawWorldQuests: StaticDataWorldQuestArray[];
 }

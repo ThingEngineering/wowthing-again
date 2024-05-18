@@ -280,6 +280,7 @@ export const taskList: Task[] = [
         name: '[DF] Last Hurrah',
         shortName: 'LH',
         minimumLevel: 70,
+        isCurrentFunc: isCurrentLastHurrah,
     },
     {
         key: 'dfProfessionWeeklies',
@@ -814,6 +815,17 @@ function couldGetAwakened(char: Character, week: number): boolean {
     const time = get(timeStore);
     const currentPeriod = userStore.getCurrentPeriodForCharacter(time, char);
     return (currentPeriod.id - 956) % 3 === week;
+}
+
+function isCurrentLastHurrah(char: Character, questId: number) {
+    const time = get(timeStore);
+    const currentPeriod = userStore.getCurrentPeriodForCharacter(time, char);
+    const week = (currentPeriod.id - 956) % 3;
+    return (
+        (week === 0 && questId === 80385) ||
+        (week === 1 && questId === 80386) ||
+        (week === 2 && questId === 80388)
+    );
 }
 
 function getLatestSkill(char: Character, professionId: number, minSkill: number): string {
