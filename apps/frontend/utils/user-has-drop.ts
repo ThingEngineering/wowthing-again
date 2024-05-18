@@ -34,20 +34,12 @@ export default function userHasDrop(
         } else if (staticData.mountsByItem[id]) {
             return userData.hasMount[staticData.mountsByItem[id].id] === true;
         } else if (staticData.toys[id]) {
-            return userData.hasToy[id] === true
+            return userData.hasToy[id] === true;
+        } else if (itemData.completesQuest[id]) {
+            return accountTrackingQuest(itemData, userQuestData, id);
         }
     } else if (type === RewardType.AccountTrackingQuest) {
-        const questIds = itemData.completesQuest[id] || [];
-        return some(
-            questIds,
-            (questId) =>
-                userQuestData.accountHas?.has(questId) ||
-                some(
-                    Object.values(userQuestData.characters),
-                    (charData) =>
-                        charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId),
-                ),
-        );
+        return accountTrackingQuest(itemData, userQuestData, id);
     } else if (transmogTypes.has(type)) {
         if (appearanceIds?.[0] > 0) {
             return every(appearanceIds, (appearanceId) => userData.hasAppearance.has(appearanceId));
@@ -58,4 +50,21 @@ export default function userHasDrop(
     }
 
     return false;
+}
+
+function accountTrackingQuest(
+    itemData: ItemData,
+    userQuestData: UserQuestData,
+    id: number,
+): boolean {
+    const questIds = itemData.completesQuest[id] || [];
+    return some(
+        questIds,
+        (questId) =>
+            userQuestData.accountHas?.has(questId) ||
+            some(
+                Object.values(userQuestData.characters),
+                (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId),
+            ),
+    );
 }
