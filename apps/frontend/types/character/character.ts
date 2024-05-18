@@ -236,6 +236,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
+    get isRemix(): boolean {
+        return !!this.auras?.[424143];
+    }
+
     public bestItemLevels: Record<number, string>;
     getBestItemLevels(itemData: ItemData, staticData: StaticData): Record<number, string> {
         this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);

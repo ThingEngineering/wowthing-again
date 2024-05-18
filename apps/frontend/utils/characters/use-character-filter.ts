@@ -257,7 +257,7 @@ export function useCharacterFilter(
 
                                 // Remix
                                 if (part === 'remix') {
-                                    return !!char.auras?.[424143];
+                                    return char.isRemix;
                                 }
 
                                 return false;
