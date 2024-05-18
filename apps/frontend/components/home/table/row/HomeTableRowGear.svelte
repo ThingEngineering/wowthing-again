@@ -1,9 +1,12 @@
 <script lang="ts">
+    import { convertibleCategories } from '@/components/items/convertible/data';
     import { Constants } from '@/data/constants'
     import { currentTier, previousTier } from '@/data/gear'
-    import { itemStore } from '@/stores'
+    import { InventoryType } from '@/enums/inventory-type';
+    import { itemStore, lazyStore } from '@/stores'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types'
 
     import TooltipRemix from '@/components/tooltips/remix-cloak/TooltipRemixCloak.svelte'
@@ -12,9 +15,9 @@
     export let character: Character
 
     let currentCount: number
-    let currentPieces: [string, number, number][]
+    let currentPieces: [string, number, number, LazyConvertibleCharacterItem?][]
     let previousCount: number
-    let previousPieces: [string, number, number][]
+    let previousPieces: [string, number, number, LazyConvertibleCharacterItem?][]
     $: {
         currentPieces = getTierPieces(currentTier, $itemStore.currentTier, character)
         currentCount = currentPieces
@@ -31,12 +34,31 @@
             previousPieces = []
             previousCount = 0
         }
+
+        // Convertibles
+        const category = convertibleCategories[0]
+        const seasonData = $lazyStore.convertible.seasons[category.id][character.classId]
+        
+        slots.forEach((inventoryType, index) => {
+            if (currentPieces[index][2] === 0) {
+                const slotData = seasonData[inventoryType]
+                const bestPiece = Object.values(slotData.modifiers)
+                    .flatMap((modifier) => modifier.characters[character.id] || [])
+                    .filter((item) => item.canConvert)
+                    .reduce((a, b) => (a && a.equippedItem.itemLevel > b.equippedItem.itemLevel) ? a : b, null)
+                if (bestPiece) {
+                    currentPieces[index].push(bestPiece)
+                }
+            }
+        })
     }
 
     const getRemixTotal = () => {
         return [2853, 2854, 2855, 2856, 2857, 2858, 2859, 2860, 3001]
             .reduce((total, currencyId) => total + character.currencies?.[currencyId]?.quantity || 0, 0)
     }
+
+    const slots = [InventoryType.Head, InventoryType.Shoulders, InventoryType.Chest, InventoryType.Hands, InventoryType.Legs]
 </script>
 
 <style lang="scss">
@@ -107,7 +129,18 @@
             {currentCount} pc
         </td>
     {:else}
-        <td class="faded">---</td>
+        <td
+            class="faded"
+            use:componentTooltip={{
+                component: TooltipSet,
+                props: {
+                    character,
+                    tierSets: [currentPieces],
+                },
+            }}
+        >
+            ---
+        </td>
     {/if}
 {:else}
     <td></td>

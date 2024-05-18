@@ -2,10 +2,13 @@
     import { Constants } from '@/data/constants'
     import { userStore } from '@/stores'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
+    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { CharacterCurrency, Character } from '@/types'
+    import { iconLibrary } from '@/shared/icons';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
     export let character: Character
-    export let tierSets: [string, number, number][][]
+    export let tierSets: [string, number, number, LazyConvertibleCharacterItem?][][]
 
     let charCatalyst: CharacterCurrency
     let haveCharges: number
@@ -37,12 +40,15 @@
         gap: 1rem;
     }
     .slot {
+        @include cell-width(5rem);
+
         text-align: left;
     }
     .itemLevel {
-        @include cell-width(2rem);
+        @include cell-width(2rem, $maxWidth: 4rem);
 
         text-align: center;
+        white-space: nowrap;
     }
 </style>
 
@@ -64,7 +70,7 @@
                         </tr>
                     {/if}
 
-                    {#each tierPieces as [slot, , itemLevel]}
+                    {#each tierPieces as [slot, , itemLevel, convertible]}
                         <tr>
                             <td class="slot">{slot}</td>
                             <td
@@ -72,6 +78,13 @@
                             >
                                 {#if itemLevel > 0}
                                     {itemLevel}
+                                {:else if convertible}
+                                    {convertible.equippedItem.itemLevel}
+                                    <IconifyIcon
+                                        extraClass={'status-shrug'}
+                                        icon={iconLibrary.gameShurikenAperture}
+                                        scale={'0.85'}
+                                    />
                                 {:else}
                                     &mdash;
                                 {/if}
