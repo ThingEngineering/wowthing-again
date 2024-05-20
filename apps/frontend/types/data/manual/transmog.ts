@@ -1,20 +1,21 @@
 export class ManualDataTransmogCategory {
-    public groups: ManualDataTransmogGroup[]
+    public groups: ManualDataTransmogGroup[];
 
     constructor(
         public name: string,
         public slug: string,
         groupArrays: ManualDataTransmogGroupArray[],
-        public skipClasses?: string[]
-    )
-    { 
-        this.groups = groupArrays.map((groupArray) => new ManualDataTransmogGroup(...groupArray))
+        public skipClasses?: string[],
+    ) {
+        this.groups = groupArrays.map((groupArray) => new ManualDataTransmogGroup(...groupArray));
     }
 }
-export type ManualDataTransmogCategoryArray = ConstructorParameters<typeof ManualDataTransmogCategory>
+export type ManualDataTransmogCategoryArray = ConstructorParameters<
+    typeof ManualDataTransmogCategory
+>;
 
 export class ManualDataTransmogGroup {
-    public data: Record<string, ManualDataTransmogGroupData[]>
+    public data: Record<string, ManualDataTransmogGroupData[]>;
 
     constructor(
         public name: string,
@@ -22,15 +23,16 @@ export class ManualDataTransmogGroup {
         public sets: string[],
         dataRaw: [string, ManualDataTransmogGroupDataArray[]][],
         public tag?: string,
-    )
-    {
-        this.data = {}
+    ) {
+        this.data = {};
         for (const [key, dataArrays] of dataRaw) {
-            this.data[key] = dataArrays.map((dataArray) => new ManualDataTransmogGroupData(...dataArray))
+            this.data[key] = dataArrays.map(
+                (dataArray) => new ManualDataTransmogGroupData(...dataArray),
+            );
         }
     }
 }
-export type ManualDataTransmogGroupArray = ConstructorParameters<typeof ManualDataTransmogGroup>
+export type ManualDataTransmogGroupArray = ConstructorParameters<typeof ManualDataTransmogGroup>;
 
 export class ManualDataTransmogGroupData {
     constructor(
@@ -38,8 +40,10 @@ export class ManualDataTransmogGroupData {
         public items: Record<number, number[]>,
         public wowheadSetId?: number,
         public transmogSetId?: number,
-        public achievementId?: number
-    )
-    { }
+        public questId?: number,
+        public achievementId?: number,
+    ) {}
 }
-export type ManualDataTransmogGroupDataArray = ConstructorParameters<typeof ManualDataTransmogGroupData>
+export type ManualDataTransmogGroupDataArray = ConstructorParameters<
+    typeof ManualDataTransmogGroupData
+>;
