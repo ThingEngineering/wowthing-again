@@ -114,10 +114,11 @@
                 {previousCount}
             </span>
         </td>
-    {:else if currentCount > 0}
+    {:else}
         <td
             class:status-shrug={currentCount >= 2 && currentCount < 4}
             class:status-success={currentCount >= 4}
+            class:faded={(currentCount + previousCount) === 0}
             use:componentTooltip={{
                 component: TooltipSet,
                 props: {
@@ -127,19 +128,6 @@
             }}
         >
             {currentCount} pc
-        </td>
-    {:else}
-        <td
-            class="faded"
-            use:componentTooltip={{
-                component: TooltipSet,
-                props: {
-                    character,
-                    tierSets: [currentPieces],
-                },
-            }}
-        >
-            ---
         </td>
     {/if}
 {:else}
