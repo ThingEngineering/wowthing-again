@@ -58,6 +58,7 @@ public class ManualTransmogCategoryConverter : JsonConverter<ManualTransmogCateg
     private void WriteSetArray(Utf8JsonWriter writer, ManualTransmogSet set)
     {
         bool useAchievementId = set.AchievementId > 0;
+        bool useQuestId = set.QuestId > 0;
         bool useTransmogSetId = set.TransmogSetId > 0;
         bool useWowheadSetId = set.WowheadSetId > 0;
 
@@ -73,14 +74,19 @@ public class ManualTransmogCategoryConverter : JsonConverter<ManualTransmogCateg
         }
         writer.WriteEndObject();
 
-        if (useAchievementId || useTransmogSetId || useWowheadSetId)
+        if (useAchievementId || useQuestId || useTransmogSetId || useWowheadSetId)
         {
             writer.WriteNumberValue(set.WowheadSetId);
         }
 
-        if (useAchievementId || useTransmogSetId)
+        if (useAchievementId || useQuestId || useTransmogSetId)
         {
             writer.WriteNumberValue(set.TransmogSetId);
+        }
+
+        if (useAchievementId || useQuestId)
+        {
+            writer.WriteNumberValue(set.QuestId);
         }
 
         if (useAchievementId)

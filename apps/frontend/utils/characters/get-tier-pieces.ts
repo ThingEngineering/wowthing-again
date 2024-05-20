@@ -1,12 +1,13 @@
 import { get } from 'svelte/store';
 
+import { typeOrder } from '@/data/inventory-type';
 import { InventoryType } from '@/enums/inventory-type';
 import { staticStore } from '@/shared/stores/static';
 import { itemStore } from '@/stores';
+import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
 import type { Character } from '@/types';
-import { typeOrder } from '@/data/inventory-type';
 
-type TierPieces = [string, number, number][];
+type TierPieces = [string, number, number, LazyConvertibleCharacterItem?][];
 
 export function getTierPieces(
     itemSetIds: number[],
@@ -33,19 +34,15 @@ export function getTierPieces(
         for (const item of Object.values(character.equippedItems)) {
             const tierSlot = tierMap[item.itemId];
             if (tierSlot) {
-                tierPieceMap[
-                    tierSlot === InventoryType.Chest2
-                        ? InventoryType.Chest
-                        : tierSlot
-                ] = [item.itemId, item.itemLevel];
+                tierPieceMap[tierSlot === InventoryType.Chest2 ? InventoryType.Chest : tierSlot] = [
+                    item.itemId,
+                    item.itemLevel,
+                ];
             }
         }
 
         return typeOrder
             .filter((type) => tierPieceMap[type] !== undefined)
-            .map((type) => [
-                staticData.inventoryTypes[type],
-                ...tierPieceMap[type],
-            ]);
+            .map((type) => [staticData.inventoryTypes[type], ...tierPieceMap[type]]);
     }
 }

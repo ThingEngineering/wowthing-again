@@ -128,9 +128,9 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     );
                 }
 
-                if (modifierData.userHas) {
-                    continue;
-                }
+                // if (modifierData.userHas) {
+                //     continue;
+                // }
 
                 const desiredTier = modifierToTier[modifier];
 
