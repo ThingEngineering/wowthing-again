@@ -1,20 +1,15 @@
 import some from 'lodash/some';
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
-import { UserCount, type UserData } from '@/types';
+import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import getSkipClasses from '@/utils/get-skip-classes';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData } from '@/types/data/item';
-import type {
-    ManualData,
-    ManualDataTransmogCategory,
-} from '@/types/data/manual';
+import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
 import type { Settings } from '@/shared/stores/settings/types';
+import type { UserQuestData } from '@/types/data';
 
-export type TransmogSlotData = Record<
-    number,
-    [boolean, [boolean, number, number][]?]
->;
+export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>;
 
 export interface LazyTransmog {
     filteredCategories: ManualDataTransmogCategory[][];
@@ -28,7 +23,9 @@ interface LazyStores {
     itemData: ItemData;
     manualData: ManualData;
     staticData: StaticData;
+    userAchievementData: UserAchievementData;
     userData: UserData;
+    userQuestData: UserQuestData;
 }
 
 export function doTransmog(stores: LazyStores): LazyTransmog {
@@ -42,8 +39,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
     };
 
     const completionistMode = stores.settings.transmog.completionistMode;
-    const completionistSets =
-        completionistMode && stores.settings.transmog.completionistSets;
+    const completionistSets = completionistMode && stores.settings.transmog.completionistSets;
     const skipAlliance = !stores.settings.transmog.showAllianceOnly;
     const skipHorde = !stores.settings.transmog.showHordeOnly;
     const skipClasses = getSkipClasses(stores.settings);
@@ -65,11 +61,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             const catStats = (ret.stats[catKey] = new UserCount());
 
             let keptAny = false;
-            for (
-                let groupIndex = 0;
-                groupIndex < category.groups.length;
-                groupIndex++
-            ) {
+            for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex];
 
                 const groupKey = `${catKey}--${groupIndex}`;
@@ -80,24 +72,17 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         continue;
                     }
 
-                    for (
-                        let setIndex = 0;
-                        setIndex < dataValue.length;
-                        setIndex++
-                    ) {
+                    for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
                         const setKey = `${groupKey}--${setIndex}`;
-                        const setStats = (ret.stats[setKey] ||=
-                            new UserCount());
+                        const setStats = (ret.stats[setKey] ||= new UserCount());
                         const setName = group.sets[setIndex];
 
                         const setDataKey = `${setKey}--${dataKey}`;
-                        const setDataStats = (ret.stats[setDataKey] ||=
-                            new UserCount());
+                        const setDataStats = (ret.stats[setDataKey] ||= new UserCount());
 
                         // Faction filters
                         if (
-                            (skipAlliance &&
-                                setName.indexOf(':alliance:') >= 0) ||
+                            (skipAlliance && setName.indexOf(':alliance:') >= 0) ||
                             (skipHorde && setName.indexOf(':horde') >= 0)
                         ) {
                             ret.skip.add(setKey);
@@ -110,23 +95,18 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const countUncollected = !setName.endsWith('*');
 
                         const groupSigh = dataValue[setIndex];
-                        const slotData: TransmogSlotData = (ret.slots[
-                            setDataKey
-                        ] = {});
+                        const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
                         const weaponGarbage: Record<number, number> = {};
                         let weaponIndex = 100;
                         if (groupSigh.transmogSetId) {
                             const transmogSet =
-                                stores.staticData.transmogSets[
-                                    groupSigh.transmogSetId
-                                ];
+                                stores.staticData.transmogSets[groupSigh.transmogSetId];
                             for (
                                 let itemIndex = 0;
                                 itemIndex < transmogSet.items.length;
                                 itemIndex++
                             ) {
-                                const [itemId, maybeModifier] =
-                                    transmogSet.items[itemIndex];
+                                const [itemId, maybeModifier] = transmogSet.items[itemIndex];
                                 const modifier = maybeModifier || 0;
 
                                 // Dragonflight set mythic looks?
@@ -138,30 +118,18 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 const appearance = item.appearances[modifier];
 
                                 let actualSlot: number;
-                                if (
-                                    weaponInventoryTypes.has(item.inventoryType)
-                                ) {
+                                if (weaponInventoryTypes.has(item.inventoryType)) {
                                     if (completionistMode) {
                                         actualSlot = weaponIndex++;
                                     } else {
-                                        if (
-                                            !weaponGarbage[
-                                                appearance.appearanceId
-                                            ]
-                                        ) {
-                                            weaponGarbage[
-                                                appearance.appearanceId
-                                            ] = weaponIndex++;
+                                        if (!weaponGarbage[appearance.appearanceId]) {
+                                            weaponGarbage[appearance.appearanceId] = weaponIndex++;
                                         }
-                                        actualSlot =
-                                            weaponGarbage[
-                                                appearance.appearanceId
-                                            ];
+                                        actualSlot = weaponGarbage[appearance.appearanceId];
                                     }
                                 } else {
                                     actualSlot =
-                                        item.inventoryType ===
-                                        InventoryType.Chest2
+                                        item.inventoryType === InventoryType.Chest2
                                             ? InventoryType.Chest
                                             : item.inventoryType;
                                 }
@@ -169,9 +137,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 if (
                                     completionistMode &&
                                     !completionistSets &&
-                                    !weaponInventoryTypes.has(
-                                        item.inventoryType,
-                                    ) &&
+                                    !weaponInventoryTypes.has(item.inventoryType) &&
                                     slotData[actualSlot] !== undefined
                                 ) {
                                     continue;
@@ -192,36 +158,27 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 slotData[actualSlot] ||= [false, []];
 
                                 slotData[actualSlot][0] ||= hasSource;
-                                slotData[actualSlot][1].push([
-                                    hasSource,
-                                    itemId,
-                                    modifier,
-                                ]);
+                                slotData[actualSlot][1].push([hasSource, itemId, modifier]);
                             }
 
                             // let setTotal = 0
                             // let setHave = 0
 
                             if (completionistSets) {
-                                setDataStats.total = Object.values(
-                                    slotData,
-                                ).reduce((a, b) => a + b[1].length, 0);
-                                setDataStats.have = Object.values(
-                                    slotData,
-                                ).reduce(
+                                setDataStats.total = Object.values(slotData).reduce(
+                                    (a, b) => a + b[1].length,
+                                    0,
+                                );
+                                setDataStats.have = Object.values(slotData).reduce(
                                     (a, b) =>
-                                        a +
-                                        b[1].filter(
-                                            (hasSlot) => hasSlot[0] === true,
-                                        ).length,
+                                        a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
                                     0,
                                 );
                             } else {
-                                setDataStats.total =
-                                    Object.values(slotData).length;
-                                setDataStats.have = Object.values(
-                                    slotData,
-                                ).filter((has) => has[0] === true).length;
+                                setDataStats.total = Object.values(slotData).length;
+                                setDataStats.have = Object.values(slotData).filter(
+                                    (has) => has[0] === true,
+                                ).length;
                             }
 
                             if (countUncollected) {
@@ -250,16 +207,14 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 setStats.have += setDataStats.have;
                             }
                         } else {
-                            const slotKeys = Object.keys(groupSigh.items).map(
-                                (key) => parseInt(key),
+                            const slotKeys = Object.keys(groupSigh.items).map((key) =>
+                                parseInt(key),
                             );
 
                             for (const slotKey of slotKeys) {
                                 const transmogIds = groupSigh.items[slotKey];
-                                const seenAny = some(
-                                    transmogIds,
-                                    (id) => overallSeen[id],
-                                );
+
+                                const seenAny = some(transmogIds, (id) => overallSeen[id]);
 
                                 if (countUncollected) {
                                     if (!seenAny) {
@@ -273,13 +228,22 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                                 let haveAny = false;
                                 for (const transmogId of transmogIds) {
-                                    if (
-                                        stores.userData.hasAppearance.has(
-                                            transmogId,
-                                        )
-                                    ) {
-                                        haveAny = true;
+                                    if (groupSigh.achievementId) {
+                                        haveAny ||=
+                                            !!stores.userAchievementData.achievements[
+                                                groupSigh.achievementId
+                                            ];
+                                    } else if (groupSigh.questId) {
+                                        haveAny ||= Object.values(
+                                            stores.userQuestData.characters,
+                                        ).some((charQuests) =>
+                                            charQuests.quests?.has(groupSigh.questId),
+                                        );
+                                    } else {
+                                        haveAny ||= stores.userData.hasAppearance.has(transmogId);
+                                    }
 
+                                    if (haveAny) {
                                         if (countUncollected) {
                                             if (!overallSeen[transmogId]) {
                                                 overallStats.have++;
