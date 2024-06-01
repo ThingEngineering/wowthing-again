@@ -809,19 +809,43 @@ export const multiTaskMap: Record<string, Chore[]> = {
     mopRemixChores: [
         {
             taskKey: 'remixScenario',
-            taskName: '[Daily] Scenario',
+            taskName: '[Daily] Scenario Quest',
             minimumLevel: 10,
             couldGetFunc: (char) => char.isRemix,
         },
         {
             taskKey: 'remixDungeon',
-            taskName: '[Daily] Dungeon bosses',
+            taskName: '[Daily] Dungeon Quest',
             minimumLevel: 10,
             couldGetFunc: (char) => char.isRemix,
         },
         {
             taskKey: 'remixRaid',
-            taskName: '[Daily] Raid bosses',
+            taskName: '[Daily] Raid Quest',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixNormalScenario',
+            taskName: '[Daily] Normal Scenario',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixHeroicScenario',
+            taskName: '[Daily] Heroic Scenario',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixNormalDungeon',
+            taskName: '[Daily] Normal Dungeon',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixHeroicDungeon',
+            taskName: '[Daily] Heroic Dungeon',
             minimumLevel: 10,
             couldGetFunc: (char) => char.isRemix,
         },
