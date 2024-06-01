@@ -12,6 +12,10 @@
             name: 'Quests',
             slug: 'quests',
         },
+        {
+            name: 'Transmog Sets',
+            slug: 'transmog',
+        },
     ]
 </script>
 

@@ -2,9 +2,6 @@ import { Dungeon, MythicPlusSeason } from '@/types';
 import type { StaticDataInstance } from '@/shared/stores/static/types';
 
 export const weeklyAffixes: string[][] = [
-    ['fortified', 'incorporeal', 'sanguine'],
-    ['tyrannical', 'entangling', 'bursting'],
-    ['fortified', 'volcanic', 'spiteful'],
     ['tyrannical', 'storming', 'raging'],
     ['fortified', 'entangling', 'bolstering'],
     ['tyrannical', 'incorporeal', 'spiteful'],
@@ -12,49 +9,28 @@ export const weeklyAffixes: string[][] = [
     ['tyrannical', 'volcanic', 'sanguine'],
     ['fortified', 'storming', 'bursting'],
     ['tyrannical', 'afflicted', 'bolstering'],
+    ['fortified', 'incorporeal', 'sanguine'],
+    ['tyrannical', 'entangling', 'bursting'],
+    ['fortified', 'volcanic', 'spiteful'],
 ];
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
     // Cataclysm
-    new Dungeon(
-        438,
-        'The Vortex Pinnacle',
-        'VP',
-        'achievement/4847',
-        1800 / 60,
-    ),
-    new Dungeon(
-        456,
-        'Throne of the Tides',
-        'ToT',
-        'achievement/4839',
-        2040 / 60,
-    ),
+    new Dungeon(438, 'The Vortex Pinnacle', 'VP', 'achievement/4847', 1800 / 60),
+    new Dungeon(456, 'Throne of the Tides', 'ToT', 'achievement/4839', 2040 / 60),
 
     // Mists of Pandaria
     new Dungeon(2, 'Temple of the Jade Serpent', 'TJS', 'achievement/6757', 30),
 
     // Warlords of Draenor
-    new Dungeon(
-        165,
-        'Shadowmoon Burial Grounds',
-        'SBG',
-        'achievement/9041',
-        33,
-    ),
+    new Dungeon(165, 'Shadowmoon Burial Grounds', 'SBG', 'achievement/9041', 33),
     new Dungeon(166, 'Grimrail Depot', 'GD', 'achievement/9043', 30),
     new Dungeon(168, 'The Everbloom', 'EB', 'achievement/9044', 1980 / 60),
     new Dungeon(169, 'Iron Docks', 'ID', 'achievement/9038', 32),
 
     // Legion
-    new Dungeon(
-        198,
-        'Darkheart Thicket',
-        'DHT',
-        'achievement/10783',
-        1800 / 60,
-    ),
+    new Dungeon(198, 'Darkheart Thicket', 'DHT', 'achievement/10783', 1800 / 60),
     new Dungeon(199, 'Black Rook Hold', 'BRH', 'achievement/10804', 2160 / 60),
     new Dungeon(200, 'Halls of Valor', 'HoV', 'achievement/10786', 38),
     new Dungeon(206, "Neltharion's Lair", 'NL', 'achievement/10795', 33),
@@ -66,13 +42,7 @@ export const dungeons: Dungeon[] = [
         'achievement/11338', // Dine and Dash
         42,
     ),
-    new Dungeon(
-        234,
-        'Return to Karazhan: Upper',
-        'UPPR',
-        'achievement/11429',
-        35,
-    ),
+    new Dungeon(234, 'Return to Karazhan: Upper', 'UPPR', 'achievement/11429', 35),
 
     // Battle for Azeroth
     new Dungeon(244, "Atal'Dazar", 'AD', 'achievement/12824', 1800 / 60),
@@ -81,69 +51,21 @@ export const dungeons: Dungeon[] = [
     new Dungeon(247, 'The MOTHERLODE!!', 'ML', 'achievement/12844', 2340 / 60),
     new Dungeon(248, 'Waycrest Manor', 'WM', 'achievement/12483', 2220 / 60),
     new Dungeon(249, "Kings' Rest", 'KR', 'achievement/12848', 2520 / 60),
-    new Dungeon(
-        250,
-        'Temple of Sethraliss',
-        'ToS',
-        'achievement/12504',
-        2160 / 60,
-    ),
+    new Dungeon(250, 'Temple of Sethraliss', 'ToS', 'achievement/12504', 2160 / 60),
     new Dungeon(251, 'The Underrot', 'UR', 'achievement/12500', 1920 / 60),
-    new Dungeon(
-        252,
-        'Shrine of the Storm',
-        'SoS',
-        'achievement/12835',
-        2520 / 60,
-    ),
+    new Dungeon(252, 'Shrine of the Storm', 'SoS', 'achievement/12835', 2520 / 60),
     new Dungeon(353, 'Siege of Boralus', 'SoB', 'achievement/12847', 2160 / 60),
-    new Dungeon(
-        369,
-        'Operation: Mechagon - Junkyard',
-        'YARD',
-        'achievement/15693',
-        2280 / 60,
-    ),
-    new Dungeon(
-        370,
-        'Operation: Mechagon - Workshop',
-        'WORK',
-        'achievement/15693',
-        1920 / 60,
-    ),
+    new Dungeon(369, 'Operation: Mechagon - Junkyard', 'YARD', 'achievement/15693', 2280 / 60),
+    new Dungeon(370, 'Operation: Mechagon - Workshop', 'WORK', 'achievement/15693', 1920 / 60),
 
     // Shadowlands
-    new Dungeon(
-        375,
-        'Mists of Tirna Scithe',
-        'MoTS',
-        'dungeon_mists_of_tirna_scithe',
-        30,
-    ),
-    new Dungeon(
-        376,
-        'The Necrotic Wake',
-        'NW',
-        'dungeon_the_necrotic_wake',
-        36,
-    ),
+    new Dungeon(375, 'Mists of Tirna Scithe', 'MoTS', 'dungeon_mists_of_tirna_scithe', 30),
+    new Dungeon(376, 'The Necrotic Wake', 'NW', 'dungeon_the_necrotic_wake', 36),
     new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side', 43),
-    new Dungeon(
-        378,
-        'Halls of Atonement',
-        'HoA',
-        'dungeon_halls_of_atonement',
-        31,
-    ),
+    new Dungeon(378, 'Halls of Atonement', 'HoA', 'dungeon_halls_of_atonement', 31),
     new Dungeon(379, 'Plaguefall', 'PF', 'dungeon_plaguefall', 38),
     new Dungeon(380, 'Sanguine Depths', 'SD', 'dungeon_sanguine_depths', 41),
-    new Dungeon(
-        381,
-        'Spires of Ascension',
-        'SoA',
-        'dungeon_spires_of_ascension',
-        39,
-    ),
+    new Dungeon(381, 'Spires of Ascension', 'SoA', 'dungeon_spires_of_ascension', 39),
     new Dungeon(382, 'Theater of Pain', 'ToP', 'dungeon_theater_of_pain', 37),
     new Dungeon(
         391,
@@ -152,41 +74,17 @@ export const dungeons: Dungeon[] = [
         'achievement/15106', // Quality Control
         39,
     ),
-    new Dungeon(
-        392,
-        "Tazavesh: So'leah's Gambit",
-        'GMBT',
-        'achievement/15177',
-        30,
-    ),
+    new Dungeon(392, "Tazavesh: So'leah's Gambit", 'GMBT', 'achievement/15177', 30),
 
     // Dragonflight
     new Dungeon(399, 'Ruby Life Pools', 'RLP', 'achievement/16266', 30),
     new Dungeon(400, 'The Nokhud Offensive', 'NO', 'achievement/16277', 40),
     new Dungeon(401, 'The Azure Vaults', 'AV', 'achievement/16272', 35.5),
     new Dungeon(402, "Algeth'ar Academy", 'AA', 'achievement/16271', 32),
-    new Dungeon(
-        403,
-        'Uldaman: Legacy of Tyr',
-        'ULD',
-        'achievement/16278',
-        2280 / 60,
-    ),
+    new Dungeon(403, 'Uldaman: Legacy of Tyr', 'ULD', 'achievement/16278', 2280 / 60),
     new Dungeon(404, 'Neltharus', 'NELT', 'achievement/16263', 1980 / 60),
-    new Dungeon(
-        405,
-        'Brackenhide Hollow',
-        'BH',
-        'achievement/16255',
-        2100 / 60,
-    ),
-    new Dungeon(
-        406,
-        'Halls of Infusion',
-        'HOI',
-        'achievement/16260',
-        2100 / 60,
-    ),
+    new Dungeon(405, 'Brackenhide Hollow', 'BH', 'achievement/16255', 2100 / 60),
+    new Dungeon(406, 'Halls of Infusion', 'HOI', 'achievement/16260', 2100 / 60),
     new Dungeon(
         463,
         "Dawn of the Infinite: Galakrond's Fall",
@@ -340,15 +238,9 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             [orderShadowlandsS4],
             866, // 2022-08-02
         ),
-        new MythicPlusSeason(7, '[SL] Season 3', 'shadowlands-3', 60, [
-            orderShadowlandsS3,
-        ]),
-        new MythicPlusSeason(6, '[SL] Season 2', 'shadowlands-2', 60, [
-            orderShadowlands,
-        ]),
-        new MythicPlusSeason(5, '[SL] Season 1', 'shadowlands-1', 60, [
-            orderShadowlands,
-        ]),
+        new MythicPlusSeason(7, '[SL] Season 3', 'shadowlands-3', 60, [orderShadowlandsS3]),
+        new MythicPlusSeason(6, '[SL] Season 2', 'shadowlands-2', 60, [orderShadowlands]),
+        new MythicPlusSeason(5, '[SL] Season 1', 'shadowlands-1', 60, [orderShadowlands]),
         new MythicPlusSeason(4, '[BfA] Season 4', 'battle-for-azeroth-4', 50, [
             orderBattleForAzeroth,
             orderBattleForAzeroth2,
@@ -383,15 +275,7 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
     16: [519, 5], // Mythic
 };
 
-export const keyTiers = [
-    '2-5',
-    '6-10',
-    '11-15',
-    '16-20',
-    '21-25',
-    '26-30',
-    '31+',
-];
+export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
 
 // Fake 'instances' for tracking world bosses
 export const extraInstances: StaticDataInstance[] = [
@@ -616,10 +500,9 @@ export const extraInstances: StaticDataInstance[] = [
     },
 ];
 
-export const extraInstanceMap: Record<number, StaticDataInstance> =
-    Object.fromEntries(
-        extraInstances.map((instance) => [instance.id, instance]),
-    );
+export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromEntries(
+    extraInstances.map((instance) => [instance.id, instance]),
+);
 
 export const lockoutOverride: Record<number, number> = {
     777: 3, // Legion: Assault on Violet Hold
@@ -634,10 +517,9 @@ export const worldBossInstanceIds: number[] = [
     1205, // Dragonflight
 ];
 
-export const ignoredLockoutInstances: Record<number, boolean> =
-    Object.fromEntries(
-        [
-            1192, // Shadowlands
-            1205, // Dragon Isles
-        ].map((id) => [id, true]),
-    );
+export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntries(
+    [
+        1192, // Shadowlands
+        1205, // Dragon Isles
+    ].map((id) => [id, true]),
+);

@@ -7,6 +7,7 @@
     import Achievements from './ExploreAchievements.svelte'
     import Quests from './ExploreQuests.svelte'
     import Sidebar from './ExploreSidebar.svelte'
+    import Transmog from './ExploreTransmog.svelte';
 
     export let params: MultiSlugParams
 
@@ -15,10 +16,9 @@
     const componentMap: Record<string, ComponentType> = {
         'achievements': Achievements,
         'quests': Quests,
+        'transmog': Transmog,
     }
 </script>
 
 <Sidebar />
-<svelte:component
-    this={componentMap[params.slug1]}
-/>
+<svelte:component this={componentMap[params.slug1]} />

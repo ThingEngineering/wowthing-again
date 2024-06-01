@@ -1303,6 +1303,7 @@ public class UserUploadJob : JobBase
         // Basic sanity checks
         if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
         {
+            Logger.Information("return 1");
             return;
         }
 
@@ -1318,6 +1319,7 @@ public class UserUploadJob : JobBase
         var scanTime = scanTimestamp.AsUtcDateTime();
         if (scanTime <= character.Lockouts.LastUpdated)
         {
+            Logger.Information("return 2");
             return;
         }
 
@@ -1615,103 +1617,16 @@ public class UserUploadJob : JobBase
                     character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
                 }
 
-                if (characterData.Emissaries != null)
+                // Hacky workaround to make these into progress quests
+                foreach (var instanceDone in characterData.InstanceDone.EmptyIfNull())
                 {
-                    foreach (var (expansion, emissaries) in characterData.Emissaries)
+                    character.AddonQuests.ProgressQuests[instanceDone.Key] = new PlayerCharacterAddonQuestsProgress
                     {
-                        character.AddonQuests.Dailies[expansion] = new List<List<int>>
-                        {
-                            emissaries
-                                .Select(em => em.Completed ? 1 : 0)
-                                .ToList(),
-                            emissaries
-                                .Select(em => em.Expires)
-                                .ToList(),
-                        };
-
-                        // User is trusted, update global dailies from emissaries
-                        if (_globalDailiesMap != null)
-                        {
-                            var globalDailies = _globalDailiesMap[(region, expansion)];
-
-                            var questMap = new Dictionary<int, EmissaryData>();
-                            for (int i = 0; i < globalDailies.QuestIds.Count; i++)
-                            {
-                                questMap[globalDailies.QuestExpires[i]] = new EmissaryData
-                                {
-                                    QuestId = globalDailies.QuestIds[i],
-                                    OldReward = globalDailies.QuestRewards[i],
-                                };
-                            }
-
-                            foreach (var emissary in emissaries)
-                            {
-                                if (emissary.QuestID > 0)
-                                {
-                                    if (questMap.TryGetValue(emissary.Expires, out var existing))
-                                    {
-                                        existing.QuestId = Hardcoded.CallingQuestLookup
-                                            .GetValueOrDefault(emissary.QuestID, emissary.QuestID);
-                                        existing.NewReward = emissary.Reward;
-                                    }
-                                    else
-                                    {
-                                        questMap[emissary.Expires] = new EmissaryData
-                                        {
-                                            QuestId = Hardcoded.CallingQuestLookup
-                                                .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
-                                            NewReward = emissary.Reward,
-                                        };
-                                    }
-                                }
-                            }
-
-                            var questPairs = questMap
-                                .OrderBy(kvp => kvp.Key)
-                                .TakeLast(3)
-                                .ToList();
-
-                            globalDailies.QuestExpires = questPairs
-                                .Select(kvp => kvp.Key)
-                                .ToList();
-
-                            globalDailies.QuestIds = questPairs
-                                .Select(kvp => kvp.Value.QuestId)
-                                .ToList();
-
-                            var rewards = new List<GlobalDailiesReward>();
-                            foreach (var (_, emissaryData) in questPairs)
-                            {
-                                var gdReward = new GlobalDailiesReward
-                                {
-                                    CurrencyId = emissaryData.NewReward?.CurrencyID ?? 0,
-                                    ItemId = emissaryData.NewReward?.ItemID ?? 0,
-                                    Money = emissaryData.NewReward?.Money ?? 0,
-                                    Quality = emissaryData.NewReward?.Quality ?? 0,
-                                    Quantity = emissaryData.NewReward?.Quantity ?? 0,
-                                };
-
-                                if (emissaryData.OldReward == null ||
-                                    gdReward.CurrencyId > emissaryData.OldReward.CurrencyId ||
-                                    gdReward.ItemId > emissaryData.OldReward.ItemId ||
-                                    gdReward.Money > emissaryData.OldReward.Money ||
-                                    gdReward.Quality > emissaryData.OldReward.Quality ||
-                                    gdReward.Quantity > emissaryData.OldReward.Quantity
-                                )
-                                {
-                                    rewards.Add(gdReward);
-                                }
-                                else
-                                {
-                                    rewards.Add(emissaryData.OldReward);
-                                }
-                            }
-
-                            globalDailies.QuestRewards = rewards;
-                        }
-                    }
-
-                    dailiesUpdated = true;
+                        Id = 0,
+                        Name = "Hack",
+                        Status = instanceDone.Locked ? 2 : 0,
+                        Expires = instanceDone.ResetTime,
+                    };
                 }
             }
         }

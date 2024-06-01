@@ -12,7 +12,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2rem);
+        @include cell-width(2rem, $maxWidth: 4rem);
 
         border-left: 1px solid $border-color;
         text-align: right;

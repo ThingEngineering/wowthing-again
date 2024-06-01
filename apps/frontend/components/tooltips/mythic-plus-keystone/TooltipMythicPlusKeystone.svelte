@@ -20,6 +20,7 @@
     let isUpgrade = false
     let mapInfo: CharacterMythicPlusAddonMapAffix
     let mapInfoAlt: CharacterMythicPlusAddonMapAffix
+    let mapInfos: [StaticDataKeystoneAffix, CharacterMythicPlusAddonMapAffix][]
     let maxScoreIncrease = 0
     let minScoreIncrease = 0
     $: {
@@ -32,6 +33,16 @@
                 minScoreIncrease,
                 maxScoreIncrease
             } = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
+        }
+
+        mapInfos = []
+        const otherAffix = $staticStore.keystoneAffixes[affixes[0].id === 9 ? 10 : 9]
+        if (affixes[0].slug === 'fortified') {
+            mapInfos.push([affixes[0], mapInfo])
+            mapInfos.push([otherAffix, mapInfoAlt])
+        } else {
+            mapInfos.push([affixes[0], mapInfoAlt])
+            mapInfos.push([otherAffix, mapInfo])
         }
     }
 
@@ -81,60 +92,48 @@
     <table class="table-striped">
         <tbody>
             {#if dungeon && character.weekly?.keystoneLevel}
-                {@const otherAffix = $staticStore.keystoneAffixes[affixes[0].id === 9 ? 10 : 9]}
                 <tr>
                     <td colspan="2">
                         {dungeon.name}
-                        <span class="{getRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
+                        <span class="{getRunQuality(character.weekly.keystoneLevel)}">
+                            {character.weekly.keystoneLevel}
+                        </span>
                     </td>
                 </tr>
 
                 <tr>
                     <td class="info">
-                        <div class="view" style="opacity: 0.8">
-                            {#if mapInfoAlt}
-                                {@const level = leftPad(mapInfoAlt.level, 2)}
-                                <div class="best-text">Best {otherAffix.name} key:</div>
-                                <div class="best-key">
-                                    <code class="{getRunQualityAffix(mapInfoAlt)}">{@html level}</code>
-                                </div>
-                                <div class="best-plus">{getPlus(mapInfoAlt)}</div>
-                            {:else}
-                                <div class="best-text">No {otherAffix.name} score!</div>
-                                <div class="best-key"></div>
-                                <div class="best-plus"></div>
-                            {/if}
-                        </div>
-
-                        <div class="view">
-                            {#if mapInfo}
-                                {@const level = leftPad(mapInfo.level, 2)}
-                                <div class="best-text">Best {affixes[0].name} key:</div>
-                                <div class="best-key">
-                                    <code class="{getRunQualityAffix(mapInfo)}">{@html level}</code>
-                                </div>
-                                <div class="best-plus">{getPlus(mapInfo)}</div>
-                            {:else}
-                                <div class="best-text">No {affixes[0].name} score!</div>
-                                <div class="best-key"></div>
-                                <div class="best-plus"></div>
-                            {/if}
-                        </div>
+                        {#each mapInfos as [affix, info], index}
+                            <div class="view" style="opacity: {affix.id === affixes[0].id ? '1' : '0.8'}">
+                                {#if info}
+                                    {@const level = leftPad(info.level, 2)}
+                                    <div class="best-text">Best {affix.name} key:</div>
+                                    <div class="best-key">
+                                        <code class="{getRunQualityAffix(info)}">{@html level}</code>
+                                    </div>
+                                    <div class="best-plus">{getPlus(info)}</div>
+                                {:else}
+                                    <div class="best-text">No {affix.name} score!</div>
+                                    <div class="best-key"></div>
+                                    <div class="best-plus"></div>
+                                {/if}
+                            </div>
+                        {/each}
                     </td>
                 </tr>
                 
-                <tr>
-                    <td class="info" colspan="2">
-                        {#if isUpgrade}
+                {#if isUpgrade}
+                    <tr>
+                        <td class="info" colspan="2">
                             {#if minScoreIncrease > 0}
                                 <p>This key would be a score upgrade!</p>
                             {:else}
                                 <p>This key could be a score upgrade.</p>
                             {/if}
                             <p>Expected score increase is <span class="status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
-                        {/if}
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                {/if}
             {:else}
                 <tr>
                     <td colspan="2">This character has no keystone!</td>

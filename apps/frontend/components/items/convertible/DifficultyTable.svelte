@@ -4,6 +4,7 @@
     import { InventoryType } from '@/enums/inventory-type'
     import { iconLibrary, uiIcons } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import getPercentClass from '@/utils/get-percent-class'
     import type { LazyConvertibleModifier } from '@/stores/lazy/convertible'
@@ -11,6 +12,7 @@
     import { convertibleTypes } from './data'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Tooltip from './DifficultyTooltip.svelte'
 
     export let classData: Record<number, Record<number, LazyConvertibleModifier>>
     export let modifier: number
@@ -68,7 +70,8 @@
             {#each classOrder as classId}
                 {@const characterClass = $staticStore.characterClasses[classId]}
                 {@const slotsHave = Object.values(classData[classId]).filter((mod) => mod.userHas).length}
-                {@const slotsCouldHave = Object.values(classData[classId]).filter((mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable).length}
+                {@const slotsCouldHave = Object.values(classData[classId])
+                    .filter((mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable).length}
                 {@const slotsTotal = Object.values(classData[classId]).length}
                 <tr>
                     <td class="name class-{classId}">
@@ -87,7 +90,17 @@
                     
                     {#each convertibleTypes as inventoryType}
                         {@const data = classData[classId][inventoryType]}
-                        <td class="item-slot">
+                        <td
+                            class="item-slot"
+                            use:componentTooltip={{
+                                component: Tooltip,
+                                props: {
+                                    characterClass,
+                                    inventoryType,
+                                    modifier: data,
+                                },
+                            }}
+                        >
                             {#if data.userHas}
                                 <IconifyIcon
                                     extraClass={'status-success'}
@@ -99,7 +112,6 @@
                                         <IconifyIcon
                                             extraClass={data.anyCanUpgrade ? 'status-shrug' : 'status-fail'}
                                             icon={uiIcons.plus}
-                                            tooltip={data.anyCanUpgrade ? 'Upgrade this item!' : "Upgrade this item when you can afford to!"}
                                         />
                                     {/if}
                                     {#if data.anyIsConvertible}
@@ -107,7 +119,6 @@
                                             extraClass={data.anyCanConvert ? 'status-shrug' : 'status-fail'}
                                             icon={iconLibrary.gameShurikenAperture}
                                             scale={'0.85'}
-                                            tooltip={data.anyCanConvert ? 'Convert this item at the Catalyst!' : 'Convert this item at the Catalyst when you have a charge!'}
                                         />
                                     {/if}
                                 {:else}

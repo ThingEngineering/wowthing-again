@@ -301,6 +301,29 @@ export const taskList: Task[] = [
         shortName: 'TR',
         minimumLevel: 60,
     },
+
+    // Misc
+    {
+        key: 'mopRemixChores',
+        name: '[MoP Remix] Chores',
+        shortName: '🐼Cho',
+        type: 'multi',
+        minimumLevel: 10,
+    },
+    {
+        key: 'mopRemixLookingForRaid',
+        name: '[MoP Remix] Looking For Raid',
+        shortName: '🐼LFR',
+        type: 'multi',
+        minimumLevel: 10,
+    },
+    {
+        key: 'mopRemixWorldBosses',
+        name: '[MoP Remix] World Bosses',
+        shortName: '🐼WB',
+        type: 'multi',
+        minimumLevel: 10,
+    },
 ];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
@@ -781,6 +804,144 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'pvpBlitz3',
             taskName: 'Gotta Go Faster',
+        },
+    ],
+    mopRemixChores: [
+        {
+            taskKey: 'remixScenario',
+            taskName: '[Daily] Scenario',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixDungeon',
+            taskName: '[Daily] Dungeon bosses',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixRaid',
+            taskName: '[Daily] Raid bosses',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+    ],
+    mopRemixLookingForRaid: [
+        {
+            taskKey: 'remixMSV1',
+            taskName: '[MSV] Wing 1',
+            minimumLevel: 25,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixMSV2',
+            taskName: '[MSV] Wing 2',
+            minimumLevel: 25,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixHoF1',
+            taskName: '[HoF] Wing 1',
+            minimumLevel: 35,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixHoF2',
+            taskName: '[HoF] Wing 2',
+            minimumLevel: 35,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixToES1',
+            taskName: '[ToES] Wing 1',
+            minimumLevel: 40,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixToT1',
+            taskName: '[ToT] Wing 1',
+            minimumLevel: 50,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixToT2',
+            taskName: '[ToT] Wing 2',
+            minimumLevel: 50,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixToT3',
+            taskName: '[ToT] Wing 3',
+            minimumLevel: 50,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixToT4',
+            taskName: '[ToT] Wing 4',
+            minimumLevel: 50,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixSoO1',
+            taskName: '[SoO] Wing 1',
+            minimumLevel: 60,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixSoO1',
+            taskName: '[SoO] Wing 2',
+            minimumLevel: 60,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixSoO1',
+            taskName: '[SoO] Wing 3',
+            minimumLevel: 60,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixSoO1',
+            taskName: '[SoO] Wing 4',
+            minimumLevel: 60,
+            couldGetFunc: (char) => char.isRemix,
+        },
+    ],
+    mopRemixWorldBosses: [
+        {
+            taskKey: 'remixCelestials',
+            taskName: '[Daily] Celestials',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixGalleon',
+            taskName: '[Daily] Galleon',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixNalak',
+            taskName: '[Daily] Nalak',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixOondasta',
+            taskName: '[Daily] Oondasta',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixOrdos',
+            taskName: '[Daily] Ordos',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixSha',
+            taskName: '[Daily] Sha of Anger',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
         },
     ],
 };

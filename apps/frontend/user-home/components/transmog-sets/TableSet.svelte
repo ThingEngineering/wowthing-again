@@ -40,6 +40,9 @@
             percent = have / total * 100
         }
     }
+
+    $: tdAction = span <= 1 ? componentTooltip : () => {}
+    $: spanAction = span > 1 ? componentTooltip : () => {}
 </script>
 
 <style lang="scss">
@@ -50,13 +53,17 @@
         text-align: center;
         word-spacing: -0.2ch;
     }
+    .blocky {
+        display: inline-block;
+        width: 4rem;
+    }
 </style>
 
 {#if total > 0}
     <td
         class="{getPercentClass(percent)}"
         colspan="{span}"
-        use:componentTooltip={{
+        use:tdAction={{
             component: Tooltip,
             props: {
                 set,
@@ -70,16 +77,33 @@
             },
         }}
     >
-        {#if set.wowheadSetId}
-            <WowheadTransmogSetLink
-                id={set.wowheadSetId}
-                cls="{getPercentClass(percent)}"
-            >
+        <span
+            class:blocky={span > 1}
+            use:spanAction={{
+                component: Tooltip,
+                props: {
+                    set,
+                    setTitle,
+                    slotHave,
+                    subType,
+                },
+                tippyProps: {
+                    allowHTML: true,
+                    placement: 'left-end',
+                },
+            }}
+        >
+            {#if set.wowheadSetId}
+                <WowheadTransmogSetLink
+                    id={set.wowheadSetId}
+                    cls="{getPercentClass(percent)}"
+                >
+                    {have} / {total}
+                </WowheadTransmogSetLink>
+            {:else}
                 {have} / {total}
-            </WowheadTransmogSetLink>
-        {:else}
-            {have} / {total}
-        {/if}
+            {/if}
+        </span>
     </td>
 {:else}
     <td class="quality0" colspan="{span}">---</td>

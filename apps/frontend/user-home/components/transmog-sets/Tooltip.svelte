@@ -5,6 +5,7 @@
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import TooltipItems from './TooltipItems.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let set: ManualDataTransmogGroupData
@@ -61,15 +62,15 @@
                             <td class="have">
                                 <YesNoIcon state={slotHave[type][0]} useStatusColors={true} />
                             </td>
-                            <td class="type">{$staticStore.inventoryTypes[type]}</td>
+                            <td class="type">
+                                {$staticStore.inventoryTypes[type]}
+                                {#if slotHave[type][1]?.length > 2}
+                                    <div>+{slotHave[type][1].length - 2}</div>
+                                {/if}
+                            </td>
                             {#if slotHave[type][1]?.length > 0}
                                 <td class="items">
-                                    {#each slotHave[type][1] as [itemHave, itemId]}
-                                        <div class="item">
-                                            <YesNoIcon state={itemHave} useStatusColors={true} />
-                                            <ParsedText text={`{item:${itemId}}`} />
-                                        </div>
-                                    {/each}
+                                    <TooltipItems items={slotHave[type][1]} />
                                 </td>
                             {/if}
                         </tr>
