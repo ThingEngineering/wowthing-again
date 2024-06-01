@@ -28,6 +28,7 @@
         type="number"
         min="{minValue}"
         max="{maxValue}"
+        data-1p-ignore
         class:disabled
         {disabled}
         bind:value={value}
