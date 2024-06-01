@@ -33,6 +33,7 @@ public class UploadCharacter
     public List<UploadCharacterGarrison> Garrisons { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
     public string Illusions { get; set; }
+    public List<UploadCharacterInstanceDone> InstanceDone { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
     public List<UploadCharacterLockout> Lockouts { get; set; }
     public List<int> Mounts { get; set; }
@@ -125,6 +126,13 @@ public class UploadCharacterGarrisonBuilding
     public int PlotId { get; set; }
     public int Rank { get; set; }
     public string Name { get; set; }
+}
+
+public class UploadCharacterInstanceDone
+{
+    public bool Locked { get; set; }
+    public int ResetTime { get; set; }
+    public string Key { get; set; }
 }
 
 public class UploadCharacterLockout
