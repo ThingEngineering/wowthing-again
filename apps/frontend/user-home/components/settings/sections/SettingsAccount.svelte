@@ -69,6 +69,7 @@
 
         button {
             background: $button-success;
+            border: 1px solid $border-color;
             border-radius: $border-radius;
             display: block;
             font-size: 1.2rem;
