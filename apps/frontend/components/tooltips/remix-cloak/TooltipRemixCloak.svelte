@@ -14,7 +14,7 @@
         ['Versatility', 2860],
         ['Leech', 2857],
         ['Speed', 2859],
-        ['XP', 3001],
+        ['% XP', 3001],
     ]
 </script>
 
@@ -39,8 +39,8 @@
             {@const have = character.currencies?.[currencyId]?.quantity || 0}
             {#if have > 0}
                 <tr>
+                    <td class="value">+{toNiceNumber(have)}</td>
                     <td class="text">{text}</td>
-                    <td class="value">{toNiceNumber(have)} %</td>
                 </tr>
             {/if}
         {/each}
