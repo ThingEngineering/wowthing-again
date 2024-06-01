@@ -7,10 +7,7 @@ import {
     professionSlugToId,
     professionSpecializationSpells,
 } from '@/data/professions';
-import {
-    professionCooldowns,
-    professionWorkOrders,
-} from '@/data/professions/cooldowns';
+import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
 import { forcedReset, progressQuestMap } from '@/data/quests';
 import { multiTaskMap, taskMap } from '@/data/tasks';
 import { CharacterFlag } from '@/enums/character-flag';
@@ -34,10 +31,7 @@ import type {
     StaticDataProfessionCategory,
     StaticDataSubProfessionTraitNode,
 } from '@/shared/stores/static/types';
-import type {
-    UserQuestData,
-    UserQuestDataCharacterProgress,
-} from '@/types/data';
+import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -99,9 +93,7 @@ interface LazyStores {
     userQuestData: UserQuestData;
 }
 
-export function doCharacters(
-    stores: LazyStores,
-): Record<string, LazyCharacter> {
+export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> {
     console.time('doCharacters');
 
     const ret: Record<string, LazyCharacter> = {};
@@ -110,11 +102,7 @@ export function doCharacters(
         const characterData = (ret[character.id] = {
             chores: {},
             tasks: {},
-            professionCooldowns: doProfessionCooldowns(
-                stores,
-                character,
-                professionCooldowns,
-            ),
+            professionCooldowns: doProfessionCooldowns(stores, character, professionCooldowns),
             professionWorkOrders: doProfessionCooldowns(
                 stores,
                 character,
@@ -150,31 +138,25 @@ class ProcessCharacterProfessions {
     ) {}
 
     public process() {
-        for (const [
-            professionId,
-            characterSubProfessions,
-        ] of getNumberKeyedEntries(this.character.professions || {})) {
-            const staticProfession =
-                this.stores.staticData.professions[professionId];
+        for (const [professionId, characterSubProfessions] of getNumberKeyedEntries(
+            this.character.professions || {},
+        )) {
+            const staticProfession = this.stores.staticData.professions[professionId];
             if (staticProfession.type !== 0) {
                 continue;
             }
 
-            for (const subProfession of Object.values(
-                characterSubProfessions,
-            )) {
+            for (const subProfession of Object.values(characterSubProfessions)) {
                 for (const abilityId of subProfession.knownRecipes) {
                     this.characterData.knownRecipes.add(abilityId);
                 }
             }
 
-            this.currentProfession = this.characterData.professions[
-                professionId
-            ] = new LazyCharacterProfession(professionId);
+            this.currentProfession = this.characterData.professions[professionId] =
+                new LazyCharacterProfession(professionId);
 
             for (const expansion of expansionOrder) {
-                const subProfession =
-                    staticProfession.subProfessions[expansion.id];
+                const subProfession = staticProfession.subProfessions[expansion.id];
                 if (!subProfession) {
                     continue;
                 }
@@ -182,9 +164,9 @@ class ProcessCharacterProfessions {
                 // const characterSubProfession = characterSubProfessions[subProfession.id]
                 // if (!characterSubProfession) { continue }
 
-                this.currentSubProfession =
-                    this.currentProfession.subProfessions[subProfession.id] =
-                        new LazyCharacterSubProfession();
+                this.currentSubProfession = this.currentProfession.subProfessions[
+                    subProfession.id
+                ] = new LazyCharacterSubProfession();
 
                 let rootCategory = staticProfession.categories?.[expansion.id];
                 if (rootCategory) {
@@ -198,9 +180,7 @@ class ProcessCharacterProfessions {
                 if (subProfession.traitTrees) {
                     this.currentSubProfession.traitStats = new UserCount();
 
-                    const charTraits =
-                        this.character.professionTraits?.[subProfession.id] ||
-                        {};
+                    const charTraits = this.character.professionTraits?.[subProfession.id] || {};
                     for (const traitTree of subProfession.traitTrees) {
                         this.recurseTraits(charTraits, traitTree.firstNode);
                     }
@@ -214,26 +194,16 @@ class ProcessCharacterProfessions {
             (this.currentProfession.filteredCategories[category.id] = []);
 
         for (const ability of category.abilities || []) {
-            if (
-                ability.faction !== Faction.Neutral &&
-                ability.faction !== this.character.faction
-            ) {
+            if (ability.faction !== Faction.Neutral && ability.faction !== this.character.faction) {
                 continue;
             }
 
             const requiredAbility =
-                this.stores.staticData.itemToRequiredAbility[
-                    ability.itemIds[0]
-                ];
+                this.stores.staticData.itemToRequiredAbility[ability.itemIds[0]];
             if (professionSpecializationSpells[requiredAbility]) {
                 const charSpecialization =
-                    this.character.professionSpecializations[
-                        this.currentProfession.professionId
-                    ];
-                if (
-                    charSpecialization !== undefined &&
-                    charSpecialization !== requiredAbility
-                ) {
+                    this.character.professionSpecializations[this.currentProfession.professionId];
+                if (charSpecialization !== undefined && charSpecialization !== requiredAbility) {
                     continue;
                 }
             }
@@ -241,21 +211,11 @@ class ProcessCharacterProfessions {
             filteredCategory.push(ability);
 
             if (ability.extraRanks) {
-                this.currentProfession.stats.total +=
-                    ability.extraRanks.length + 1;
-                this.currentSubProfession.stats.total +=
-                    ability.extraRanks.length + 1;
+                this.currentProfession.stats.total += ability.extraRanks.length + 1;
+                this.currentSubProfession.stats.total += ability.extraRanks.length + 1;
 
-                for (
-                    let rankIndex = ability.extraRanks.length - 1;
-                    rankIndex >= 0;
-                    rankIndex--
-                ) {
-                    if (
-                        this.characterData.knownRecipes.has(
-                            ability.extraRanks[rankIndex][0],
-                        )
-                    ) {
+                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
+                    if (this.characterData.knownRecipes.has(ability.extraRanks[rankIndex][0])) {
                         this.currentProfession.stats.have += rankIndex + 2;
                         this.currentSubProfession.stats.have += rankIndex + 2;
                         break;
@@ -285,8 +245,7 @@ class ProcessCharacterProfessions {
         charTraits: Record<number, number>,
         node: StaticDataSubProfessionTraitNode,
     ) {
-        this.currentSubProfession.traitStats.have +=
-            (charTraits[node.nodeId] || 1) - 1;
+        this.currentSubProfession.traitStats.have += (charTraits[node.nodeId] || 1) - 1;
         this.currentSubProfession.traitStats.total += node.rankMax;
 
         for (const childNode of node.children || []) {
@@ -295,20 +254,14 @@ class ProcessCharacterProfessions {
     }
 }
 
-function doCharacterTasks(
-    stores: LazyStores,
-    character: Character,
-    characterData: LazyCharacter,
-) {
+function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     for (const view of stores.settings.views) {
         for (const taskName of view.homeTasks) {
             const task = taskMap[taskName];
             if (
                 !task ||
-                character.level <
-                    (task.minimumLevel || Constants.characterMaxLevel) ||
-                character.level >
-                    (task.maximumLevel || Constants.characterMaxLevel)
+                character.level < (task.minimumLevel || Constants.characterMaxLevel) ||
+                character.level > (task.maximumLevel || Constants.characterMaxLevel)
             ) {
                 continue;
             }
@@ -320,12 +273,8 @@ function doCharacterTasks(
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
                     if (
-                        character.level <
-                            (choreTask.minimumLevel ||
-                                Constants.characterMaxLevel) ||
-                        character.level >
-                            (choreTask.maximumLevel ||
-                                Constants.characterMaxLevel) ||
+                        character.level < (choreTask.minimumLevel || Constants.characterMaxLevel) ||
+                        character.level > (choreTask.maximumLevel || Constants.characterMaxLevel) ||
                         choreTask.couldGetFunc?.(character) === false
                     ) {
                         continue;
@@ -336,9 +285,9 @@ function doCharacterTasks(
                     }
 
                     const charTask = new LazyCharacterChoreTask(
-                        stores.userQuestData.characters[
-                            character.id
-                        ]?.progressQuests?.[choreTask.taskKey],
+                        stores.userQuestData.characters[character.id]?.progressQuests?.[
+                            choreTask.taskKey
+                        ],
                     );
 
                     if (
@@ -357,9 +306,7 @@ function doCharacterTasks(
                     }
 
                     charTask.statusTexts.push(
-                        !charTask.quest
-                            ? choreTask.canGetFunc?.(character) || ''
-                            : '',
+                        !charTask.quest ? choreTask.canGetFunc?.(character) || '' : '',
                     );
 
                     const nameParts = choreTask.taskName.split(': ');
@@ -369,22 +316,16 @@ function doCharacterTasks(
 
                     let skipTraits = false;
                     if (
-                        stores.settings.professions
-                            .ignoreTasksWhenDoneWithTraits &&
+                        stores.settings.professions.ignoreTasksWhenDoneWithTraits &&
                         choreTask.taskKey.startsWith('dfProfession')
                     ) {
-                        const professionId =
-                            professionSlugToId[
-                                nameParts[0].toLocaleLowerCase()
-                            ];
+                        const professionId = professionSlugToId[nameParts[0].toLocaleLowerCase()];
                         if (professionId) {
-                            const dfProfession =
-                                dragonflightProfessionMap[professionId];
+                            const dfProfession = dragonflightProfessionMap[professionId];
                             const traitStats =
-                                characterData.professions.professions[
-                                    professionId
-                                ]?.subProfessions[dfProfession.subProfessionId]
-                                    ?.traitStats;
+                                characterData.professions.professions[professionId]?.subProfessions[
+                                    dfProfession.subProfessionId
+                                ]?.traitStats;
                             if (traitStats && traitStats.percent === 100) {
                                 skipTraits = true;
                             }
@@ -392,19 +333,14 @@ function doCharacterTasks(
                     }
 
                     const isGathering =
-                        ['Herbalism', 'Mining', 'Skinning'].indexOf(
-                            nameParts[0],
-                        ) >= 0;
+                        ['Herbalism', 'Mining', 'Skinning'].indexOf(nameParts[0]) >= 0;
                     charTask.skipped =
                         charTask.status !== QuestStatus.Completed &&
-                        ((!stores.settings.professions
-                            .dragonflightCountCraftingDrops &&
+                        ((!stores.settings.professions.dragonflightCountCraftingDrops &&
                             nameParts[1] === 'Drops') ||
-                            (!stores.settings.professions
-                                .dragonflightCountTasks &&
+                            (!stores.settings.professions.dragonflightCountTasks &&
                                 nameParts[1] === 'Task') ||
-                            (!stores.settings.professions
-                                .dragonflightCountGathering &&
+                            (!stores.settings.professions.dragonflightCountGathering &&
                                 isGathering &&
                                 ['Gather'].indexOf(nameParts[1]) >= 0) ||
                             charTask.statusTexts[0] !== '' ||
@@ -426,77 +362,59 @@ function doCharacterTasks(
                                 .replace('dfProfession', '')
                                 .replace('Drop#', '');
                             const profession =
-                                Profession[
-                                    professionName as keyof typeof Profession
-                                ];
-                            const professionData =
-                                dragonflightProfessionMap[profession];
+                                Profession[professionName as keyof typeof Profession];
+                            const professionData = dragonflightProfessionMap[profession];
 
                             if (professionData.dropQuests?.length > 0) {
                                 needCount = professionData.dropQuests.length;
 
-                                professionData.dropQuests.forEach(
-                                    (drop, index) => {
-                                        const dropKey =
-                                            choreTask.taskKey.replace(
-                                                '#',
-                                                (index + 1).toString(),
-                                            );
-                                        const progressQuest =
-                                            stores.userQuestData.characters[
-                                                character.id
-                                            ]?.progressQuests?.[dropKey];
+                                professionData.dropQuests.forEach((drop, index) => {
+                                    const dropKey = choreTask.taskKey.replace(
+                                        '#',
+                                        (index + 1).toString(),
+                                    );
+                                    const progressQuest =
+                                        stores.userQuestData.characters[character.id]
+                                            ?.progressQuests?.[dropKey];
 
-                                        let statusText = '';
-                                        if (
-                                            progressQuest?.status ===
-                                                QuestStatus.Completed &&
-                                            DateTime.fromSeconds(
-                                                progressQuest.expires,
-                                            ) > stores.currentTime
-                                        ) {
-                                            haveCount++;
-                                            statusText +=
-                                                '<span class="status-success">:starFull:</span>';
-                                        } else {
-                                            statusText +=
-                                                '<span class="status-fail">:starEmpty:</span>';
-                                        }
+                                    let statusText = '';
+                                    if (
+                                        progressQuest?.status === QuestStatus.Completed &&
+                                        DateTime.fromSeconds(progressQuest.expires) >
+                                            stores.currentTime
+                                    ) {
+                                        haveCount++;
+                                        statusText +=
+                                            '<span class="status-success">:starFull:</span>';
+                                    } else {
+                                        statusText +=
+                                            '<span class="status-fail">:starEmpty:</span>';
+                                    }
 
-                                        statusText += `{item:${drop.itemId}}`;
-                                        statusText += ` <span class="status-shrug">(${drop.source})</span>`;
+                                    statusText += `{item:${drop.itemId}}`;
+                                    statusText += ` <span class="status-shrug">(${drop.source})</span>`;
 
-                                        charTask.statusTexts.push(statusText);
-                                    },
-                                );
+                                    charTask.statusTexts.push(statusText);
+                                });
                             }
                         }
 
                         if (charTask.statusTexts.length === 0) {
-                            needCount = choreTask.taskName.match(
-                                /^(Herbalism|Mining|Skinning):/,
-                            )
+                            needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/)
                                 ? 6
                                 : 4;
-                            for (
-                                let dropIndex = 0;
-                                dropIndex < needCount;
-                                dropIndex++
-                            ) {
+                            for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {
                                 const dropKey = choreTask.taskKey.replace(
                                     '#',
                                     (dropIndex + 1).toString(),
                                 );
                                 const progressQuest =
-                                    stores.userQuestData.characters[
-                                        character.id
-                                    ]?.progressQuests?.[dropKey];
+                                    stores.userQuestData.characters[character.id]?.progressQuests?.[
+                                        dropKey
+                                    ];
                                 if (
-                                    progressQuest?.status ===
-                                        QuestStatus.Completed &&
-                                    DateTime.fromSeconds(
-                                        progressQuest.expires,
-                                    ) > stores.currentTime
+                                    progressQuest?.status === QuestStatus.Completed &&
+                                    DateTime.fromSeconds(progressQuest.expires) > stores.currentTime
                                 ) {
                                     haveCount++;
                                 }
@@ -508,16 +426,13 @@ function doCharacterTasks(
                         } else {
                             charTask.status = QuestStatus.InProgress;
                             if (charTask.statusTexts.length === 0) {
-                                charTask.statusTexts.push(
-                                    `${haveCount}/${needCount} Collected`,
-                                );
+                                charTask.statusTexts.push(`${haveCount}/${needCount} Collected`);
                             }
                         }
                     } else {
                         if (
                             !!charTask.quest &&
-                            (DateTime.fromSeconds(charTask.quest.expires) >
-                                stores.currentTime ||
+                            (DateTime.fromSeconds(charTask.quest.expires) > stores.currentTime ||
                                 (choreTask.taskKey.startsWith('dmf') &&
                                     charTask.quest.expires === 0))
                         ) {
@@ -528,13 +443,10 @@ function doCharacterTasks(
                             ) {
                                 // charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
                                 charTask.statusTexts = [];
-                                for (const objective of charTask.quest
-                                    .objectives) {
+                                for (const objective of charTask.quest.objectives) {
                                     if (
                                         objective.have === objective.need &&
-                                        objective.text.includes(
-                                            '"Enter the Dream"',
-                                        )
+                                        objective.text.includes('"Enter the Dream"')
                                     ) {
                                         continue;
                                     }
@@ -549,12 +461,9 @@ function doCharacterTasks(
                                     if (objective.have === objective.need) {
                                         statusText +=
                                             '<span class="status-success">:starFull:</span>';
-                                    } else if (objective.have > 0) {
-                                        statusText +=
-                                            '<span class="status-shrug">:starHalf:</span>';
                                     } else {
                                         statusText +=
-                                            '<span class="status-fail">:starEmpty:</span>';
+                                            '<span class="status-shrug">:starHalf:</span>';
                                     }
                                     statusText += ` ${objective.text}`;
 
@@ -566,9 +475,8 @@ function doCharacterTasks(
 
                     charTask.name =
                         taskName === 'dfDungeonWeeklies'
-                            ? stores.userQuestData.questNames[
-                                  choreTask.taskKey
-                              ] || choreTask.taskName
+                            ? stores.userQuestData.questNames[choreTask.taskKey] ||
+                              choreTask.taskName
                             : choreTask.taskName;
 
                     if (!charTask.skipped) {
@@ -587,16 +495,15 @@ function doCharacterTasks(
                 // still ugh
                 const questKey = progressQuestMap[taskName] || taskName;
                 const charTask: LazyCharacterTask = {
-                    quest: stores.userQuestData.characters[character.id]
-                        ?.progressQuests?.[questKey],
+                    quest: stores.userQuestData.characters[character.id]?.progressQuests?.[
+                        questKey
+                    ],
                     status: undefined,
                     text: undefined,
                 };
 
                 if (charTask.quest) {
-                    const expires = DateTime.fromSeconds(
-                        charTask.quest.expires,
-                    );
+                    const expires = DateTime.fromSeconds(charTask.quest.expires);
                     if (forcedReset[questKey]) {
                         // quest always resets even if incomplete
                         if (expires < stores.currentTime) {
@@ -615,9 +522,7 @@ function doCharacterTasks(
                     if (charTask.quest.status === QuestStatus.Completed) {
                         charTask.status = 'success';
                         charTask.text = 'Done';
-                    } else if (
-                        charTask.quest.status === QuestStatus.InProgress
-                    ) {
+                    } else if (charTask.quest.status === QuestStatus.InProgress) {
                         charTask.status = 'shrug';
 
                         let objectives = charTask.quest.objectives || [];
@@ -625,10 +530,7 @@ function doCharacterTasks(
                             const objective = charTask.quest.objectives[0];
                             if (objective.type === 'progressbar') {
                                 charTask.text = `${objective.have} %`;
-                            } else if (
-                                questKey === 'weeklyHoliday' ||
-                                questKey === 'weeklyPvp'
-                            ) {
+                            } else if (questKey === 'weeklyHoliday' || questKey === 'weeklyPvp') {
                                 charTask.text = `${objective.have} / ${objective.need}`;
                             } else {
                                 charTask.text = `${Math.floor((Math.min(objective.have, objective.need) / objective.need) * 100)} %`;
@@ -639,9 +541,7 @@ function doCharacterTasks(
                             }
                         } else {
                             if (
-                                [75859, 78446, 78447].indexOf(
-                                    charTask.quest.id,
-                                ) >= 0 &&
+                                [75859, 78446, 78447].indexOf(charTask.quest.id) >= 0 &&
                                 objectives[0].have === 1 &&
                                 objectives[0].need === 1
                             ) {
@@ -650,8 +550,7 @@ function doCharacterTasks(
 
                             const averagePercent =
                                 objectives.reduce(
-                                    (a, b) =>
-                                        a + Math.min(b.have, b.need) / b.need,
+                                    (a, b) => a + Math.min(b.have, b.need) / b.need,
                                     0,
                                 ) / objectives.length;
 
@@ -686,10 +585,7 @@ function doProfessionCooldowns(
     const flags = stores.settings.characters.flags[character.id] || 0;
     if ((flags & useFlag) === 0) {
         for (const cooldownData of cooldownDatas) {
-            if (
-                stores.settings.professions.cooldowns[cooldownData.key] ===
-                false
-            ) {
+            if (stores.settings.professions.cooldowns[cooldownData.key] === false) {
                 continue;
             }
             if (!character.professions?.[cooldownData.profession]) {
@@ -698,17 +594,15 @@ function doProfessionCooldowns(
 
             if (cooldownData.type === 'quest') {
                 const progressQuest =
-                    stores.userQuestData.characters[character.id]
-                        ?.progressQuests?.[cooldownData.key];
+                    stores.userQuestData.characters[character.id]?.progressQuests?.[
+                        cooldownData.key
+                    ];
                 let full: DateTime = undefined;
                 let have = 1;
                 if (progressQuest) {
                     const expires = DateTime.fromSeconds(progressQuest.expires);
                     if (expires > stores.currentTime) {
-                        full = getNextDailyResetFromTime(
-                            expires,
-                            character.realm.region,
-                        );
+                        full = getNextDailyResetFromTime(expires, character.realm.region);
                         have = 0;
                     }
                 }
@@ -727,8 +621,7 @@ function doProfessionCooldowns(
                     seconds: 86400,
                 });
             } else if (cooldownData.type === 'spell') {
-                const charCooldown =
-                    character.professionCooldowns?.[cooldownData.key];
+                const charCooldown = character.professionCooldowns?.[cooldownData.key];
                 if (!charCooldown) {
                     continue;
                 }
@@ -744,9 +637,7 @@ function doProfessionCooldowns(
                         seconds = tierSeconds;
                     } else {
                         const charTrait =
-                            character.professionTraits?.[tierSubProfessionId]?.[
-                                tierTraitId
-                            ];
+                            character.professionTraits?.[tierSubProfessionId]?.[tierTraitId];
                         if (charTrait && charTrait >= tierMinimum) {
                             seconds = tierSeconds;
                         }
@@ -760,19 +651,12 @@ function doProfessionCooldowns(
                 // if the next charge timestamp is in the past, add up to max charges and work
                 // out when this character will be full
                 if (charNext > 0) {
-                    charFull = DateTime.fromSeconds(
-                        charNext + (charMax - charHave - 1) * seconds,
-                    );
+                    charFull = DateTime.fromSeconds(charNext + (charMax - charHave - 1) * seconds);
                     const diff = Math.floor(
-                        stores.currentTime
-                            .diff(DateTime.fromSeconds(charNext))
-                            .toMillis() / 1000,
+                        stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000,
                     );
                     if (diff > 0) {
-                        charHave = Math.min(
-                            charMax,
-                            charHave + 1 + Math.floor(diff / seconds),
-                        );
+                        charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds));
                     }
                 }
 
