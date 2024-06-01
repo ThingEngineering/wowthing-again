@@ -1,10 +1,11 @@
 <script lang="ts">
     import { activeView } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
 
+    import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let sortKey: string
@@ -30,9 +31,13 @@
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
         on:click={() => setSorting(sortField)}
         on:keypress={() => setSorting(sortField)}
-        use:basicTooltip={currencyId > 1000000
-            ? $itemStore.items[currencyId - 1000000].name
-            : $staticStore.currencies[currencyId].name}
+        use:componentTooltip={{
+            component: Tooltip,
+            props: {
+                currency: $staticStore.currencies[currencyId],
+                item: $itemStore.items[currencyId - 1000000],
+            }
+        }}
     >
         {#if currencyId > 1000000}
             <WowthingImage
