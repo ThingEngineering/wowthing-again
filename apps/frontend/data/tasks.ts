@@ -301,6 +301,15 @@ export const taskList: Task[] = [
         shortName: 'TR',
         minimumLevel: 60,
     },
+
+    // Misc
+    {
+        key: 'mopRemixChores',
+        name: '[MoP Remix] Chores',
+        shortName: 'MoP',
+        type: 'multi',
+        minimumLevel: 10,
+    },
 ];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
@@ -781,6 +790,26 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'pvpBlitz3',
             taskName: 'Gotta Go Faster',
+        },
+    ],
+    mopRemixChores: [
+        {
+            taskKey: 'remixDungeon',
+            taskName: '[Daily] Dungeon bosses',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixRaid',
+            taskName: '[Daily] Raid bosses',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
+        },
+        {
+            taskKey: 'remixScenario',
+            taskName: '[Daily] Scenario',
+            minimumLevel: 10,
+            couldGetFunc: (char) => char.isRemix,
         },
     ],
 };
