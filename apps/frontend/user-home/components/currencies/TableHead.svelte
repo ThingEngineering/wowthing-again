@@ -1,7 +1,7 @@
 <script lang="ts">
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
-    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { StaticDataCurrency } from '@/shared/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'

@@ -132,7 +132,11 @@
                             class="name text-overflow"
                             class:status-shrug={charTask.status === QuestStatus.Error}
                         >
-                            <ParsedText text={charTask.name.replace(/^\[.*?\] /, '')} />
+                            <ParsedText
+                                text={taskName === 'mopRemixChores'
+                                    ? charTask.name
+                                    : charTask.name.replace(/^\[.*?\] /, '')}
+                            />
                         </td>
                         <td class="status">
                             <IconifyIcon
