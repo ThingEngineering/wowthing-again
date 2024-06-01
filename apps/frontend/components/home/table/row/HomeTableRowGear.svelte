@@ -3,9 +3,10 @@
     import { Constants } from '@/data/constants'
     import { currentTier, previousTier } from '@/data/gear'
     import { InventoryType } from '@/enums/inventory-type';
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore, lazyStore } from '@/stores'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
-    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { toNiceNumber } from '@/utils/formatting';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types'
 
@@ -53,9 +54,9 @@
         })
     }
 
-    const getRemixTotal = () => {
+    const getRemixTotal = (char: Character) => {
         return [2853, 2854, 2855, 2856, 2857, 2858, 2859, 2860, 3001]
-            .reduce((total, currencyId) => total + character.currencies?.[currencyId]?.quantity || 0, 0)
+            .reduce((total, currencyId) => total + char.currencies?.[currencyId]?.quantity || 0, 0)
     }
 
     const slots = [InventoryType.Head, InventoryType.Shoulders, InventoryType.Chest, InventoryType.Hands, InventoryType.Legs]
@@ -77,7 +78,7 @@
 </style>
 
 {#if character.isRemix}
-    {@const total = getRemixTotal()}
+    {@const total = getRemixTotal(character)}
     <td
         use:componentTooltip={{
             component: TooltipRemix,
@@ -87,7 +88,7 @@
             },
         }}
     >
-        {total}
+        {toNiceNumber(total)}
     </td>
 {:else if character.level === Constants.characterMaxLevel}
     {#if previousCount > 0}
