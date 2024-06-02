@@ -91,6 +91,7 @@ public class ItemsTool
 
         var completesQuestMap = new Dictionary<int, List<int>>();
         var teachesSpellMap = new Dictionary<int, int>();
+        var teachesTransmogMap = new Dictionary<int, int>();
         foreach (var itemEffect in itemEffects)
         {
             foreach (var effectSpell in itemEffect.SpellEffects.Values)
@@ -115,6 +116,10 @@ public class ItemsTool
                         }
 
                         teachesSpellMap[itemEffect.ItemId] = spellEffect.Values[0];
+                    }
+                    else if (spellEffect.Effect == WowSpellEffectEffect.LearnTransmogSet)
+                    {
+                        teachesTransmogMap[itemEffect.ItemId] = spellEffect.Values[0];
                     }
                 }
             }
@@ -179,6 +184,7 @@ public class ItemsTool
             ItemConversionEntries = await LoadItemConversionEntries(),
             LimitCategories = await LoadLimitCategories(),
             TeachesSpell = teachesSpellMap,
+            TeachesTransmog = teachesTransmogMap,
 
             RawItemBonuses = _itemBonusMap.Values
                 .Where(itemBonus => itemBonus.Bonuses.Count > 0)

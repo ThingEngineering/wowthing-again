@@ -17,6 +17,7 @@ export interface ItemData {
     limitCategoryItems: Record<number, number[]>;
     oppositeFactionAppearance: Record<number, number[]>;
     teachesSpell: Record<number, number>;
+    teachesTransmog: Record<number, number>;
 
     currentTier: Record<number, InventoryType>;
     previousTier: Record<number, InventoryType>;
