@@ -885,7 +885,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         {
             taskKey: 'remixToES1',
-            taskName: '[ToES] Wing 1',
+            taskName: '[TES] Wing 1',
             minimumLevel: 40,
             noProgress: true,
             couldGetFunc: (char) => char.isRemix,
