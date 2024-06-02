@@ -1,7 +1,9 @@
 import every from 'lodash/every';
 import some from 'lodash/some';
 
+import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
+import { InventoryType } from '@/enums/inventory-type';
 import { RewardType } from '@/enums/reward-type';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserQuestData } from '@/types/data';
@@ -42,7 +44,16 @@ export default function userHasDrop(
         return accountTrackingQuest(itemData, userQuestData, id);
     } else if (transmogTypes.has(type)) {
         if (appearanceIds?.[0] > 0) {
-            return every(appearanceIds, (appearanceId) => userData.hasAppearance.has(appearanceId));
+            const bySlot: Record<number, boolean> = {};
+            for (const appearanceId of appearanceIds) {
+                const appearanceItemsAndModifiers = itemData.appearanceToItems[appearanceId];
+                for (const [itemId] of appearanceItemsAndModifiers) {
+                    const appearanceItem = itemData.items[itemId];
+                    const invType = fixedInventoryType(appearanceItem.inventoryType);
+                    bySlot[invType] ||= userData.hasAppearance.has(appearanceId);
+                }
+            }
+            return every(Object.values(bySlot), (hasSlot) => !!hasSlot);
         } else {
             const appearanceId = itemData.items[id]?.appearances?.[0]?.appearanceId || 0;
             return userData.hasAppearance.has(appearanceId);
