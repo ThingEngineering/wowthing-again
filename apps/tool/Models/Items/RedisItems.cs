@@ -18,6 +18,7 @@ public class RedisItems
     public Dictionary<short, short> LimitCategories { get; set; }
     public Dictionary<short, int[]> LimitCategoryItems { get; set; }
     public Dictionary<int, int> TeachesSpell { get; set; }
+    public Dictionary<int, int> TeachesTransmog { get; set; }
 
     public RedisItemData[]? RawItems { get; set; }
     public WowItemBonus[] RawItemBonuses { get; set; }

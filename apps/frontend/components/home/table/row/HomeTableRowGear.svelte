@@ -64,7 +64,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-home-gear);
+        @include cell-width($width-home-gear, $maxWidth: $width-home-gear-max);
 
         --link-color: #{ $quality5-color };
 
@@ -80,6 +80,7 @@
 {#if character.isRemix}
     {@const total = getRemixTotal(character)}
     <td
+        style="text-align: right"
         use:componentTooltip={{
             component: TooltipRemix,
             props: {

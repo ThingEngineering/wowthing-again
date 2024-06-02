@@ -55,6 +55,10 @@
     }
     .account-characters {
         @include cell-width(100%);
+
+        code {
+            word-spacing: -0.5ch;
+        }
     }
 
     .api-key {
@@ -226,9 +230,9 @@
                             <span class="class-{character.classId}">{character.name}</span>
                         {/each}
                         <code
-                            class:status-fail={accountCharacters.length == 60}
-                            class:status-shrug={accountCharacters.length > 45 && accountCharacters.length < 60}
-                        > ({accountCharacters.length})</code>
+                            class:status-fail={accountCharacters.length == 65}
+                            class:status-shrug={accountCharacters.length > 45 && accountCharacters.length < 65}
+                        > ({accountCharacters.length} / 65)</code>
                     </td>
                 </tr>
             {/each}
