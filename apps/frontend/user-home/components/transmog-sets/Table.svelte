@@ -12,6 +12,7 @@
     export let slug1: string
     export let slug2: string
 
+    let anyClasses: boolean
     let categories: ManualDataTransmogCategory[]
     let slugs: string[]
     let skipClasses: Record<string, boolean|number>
@@ -25,12 +26,15 @@
 
         slugs = slug2 ? [slug1, slug2] : [slug1]
 
+        anyClasses = false
         skipClasses = getSkipClasses($settingsStore, categories?.[0])
-        for (let i = 1; i < categories.length; i++) {
+        for (let i = 0; i < categories.length; i++) {
             const category = categories[i]
             if (!some(category.groups, (group) => group.type === 'class')) {
                 continue
             }
+
+            anyClasses = true
 
             const catSkipClasses = getSkipClasses($settingsStore, category)
             for (const [key, value] of Object.entries(catSkipClasses)) {
@@ -47,6 +51,7 @@
         <tbody>
             {#each categories as category, categoryIndex}
                 <Category
+                    {anyClasses}
                     {category}
                     {skipClasses}
                     {slugs}

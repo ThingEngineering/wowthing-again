@@ -11,7 +11,7 @@
     import getTransmogSpan from '@/utils/get-transmog-span'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
-    import type { ManualDataTransmogCategory } from '@/types/data/manual'
+    import type { ManualDataTransmogCategory, ManualDataTransmogGroup } from '@/types/data/manual'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
@@ -19,18 +19,18 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TableSet from './TableSet.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import type { TransmogSetData } from '@/types';
+    import { classByArmorType } from '@/data/character-class';
 
+    export let anyClasses: boolean
     export let category: ManualDataTransmogCategory
     export let skipClasses: Record<string, boolean|number>
     export let slugs: string[]
     export let startSpacer = false
 
-    let anyClass: boolean
     let categoryPercent: number
     let setKey: string
     $: {
-        anyClass = some(category.groups, (group) => group.type === 'class')
-
         categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent
         
         setKey = slugs.join('--')
@@ -45,6 +45,22 @@
             key = `${slugs[0]}--${category.slug}--${groupIndex}`
         }
         return $lazyStore.transmog.stats[key]?.percent
+    }
+
+    $: fakeArmorSpan = function(type: string): number {
+        const fakeGroup: ManualDataTransmogGroup = { data: {}, name: '', sets: [], type: 'armor'}
+        const fakeSet: TransmogSetData = {
+            span: anyClasses
+                ? classByArmorType[[null, 'cloth', 'leather', 'mail', 'plate'].indexOf(type)].length
+                : 1,
+            type
+        }
+        return getTransmogSpan(fakeGroup, fakeSet, skipClasses)
+    }
+
+    $: completionistReady = function(group: ManualDataTransmogGroup, setIndex: number): boolean {
+        return group.data?.[transmogSets[group.type].sets[0].type]
+            ?.every((groupData) => groupData === null || !!groupData.transmogSetId)
     }
 </script>
 
@@ -178,7 +194,8 @@
 
             {:else if currentType === 'armor'}
                 {#if !skipClasses['cloth']}
-                    <td class="icon">
+                    {@const span = fakeArmorSpan('cloth')}
+                    <td class="icon" colspan={span}>
                         <WowthingImage
                             name={Constants.icons.armorCloth}
                             size={40}
@@ -189,7 +206,8 @@
                 {/if}
                 
                 {#if !skipClasses['leather']}
-                    <td class="icon">
+                    {@const span = fakeArmorSpan('leather')}
+                    <td class="icon" colspan={span}>
                         <WowthingImage
                             name={Constants.icons.armorLeather}
                             size={40}
@@ -200,7 +218,8 @@
                 {/if}
                 
                 {#if !skipClasses['mail']}
-                    <td class="icon">
+                {@const span = fakeArmorSpan('mail')}
+                <td class="icon" colspan={span}>
                         <WowthingImage
                             name={Constants.icons.armorMail}
                             size={40}
@@ -211,7 +230,8 @@
                 {/if}
                 
                 {#if !skipClasses['plate']}
-                    <td class="icon">
+                    {@const span = fakeArmorSpan('plate')}
+                    <td class="icon" colspan={span}>
                         <WowthingImage
                             name={Constants.icons.armorPlate}
                             size={40}
@@ -220,10 +240,8 @@
                         <span class="abs-center pill">P</span>
                     </td>
                 {/if}
-
-                <td class="icon" colspan="100"></td>
-
-            {:else if !anyClass}
+                
+            {:else if !anyClasses}
                 <td class="icon">
                     <WowthingImage
                         name="spell/154611"
@@ -353,7 +371,7 @@
                                 text={setName.replace('*', '')}
                             />
                         
-                            {#if group.data?.[transmogSets[group.type].sets[0].type]?.[setIndex]?.transmogSetId}
+                            {#if completionistReady(group, setIndex)}
                                 <span class="has-transmog-set-id" use:basicTooltip={'Updated for completionist!'}>
                                     <IconifyIcon
                                         icon={iconLibrary.gameStaryu}
@@ -370,15 +388,11 @@
                                 set={group.data?.[transmogSet.type]?.[setIndex]}
                                 setKey={`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`}
                                 setTitle={setName}
-                                span={anyClass ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
+                                span={anyClasses ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
                                 subType={transmogSet.subType}
                             />
                         {/if}
                     {/each}
-
-                    {#if !anyClass}
-                        <td class="border-left" colspan="100"></td>
-                    {/if}
                 </tr>
             {/if}
         {/each}
