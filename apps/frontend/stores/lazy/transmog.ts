@@ -95,6 +95,21 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const countUncollected = !setName.endsWith('*');
 
                         const groupSigh = dataValue[setIndex];
+                        if (groupSigh === null) {
+                            continue;
+                        }
+
+                        let overrideHas = false;
+                        if (groupSigh.achievementId) {
+                            overrideHas ||=
+                                !!stores.userAchievementData.achievements[groupSigh.achievementId];
+                        }
+                        if (groupSigh.questId) {
+                            overrideHas ||= Object.values(stores.userQuestData.characters).some(
+                                (charQuests) => charQuests.quests?.has(groupSigh.questId),
+                            );
+                        }
+
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
                         const weaponGarbage: Record<number, number> = {};
                         let weaponIndex = 100;
@@ -144,9 +159,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 }
 
                                 // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
-                                const hasSource = stores.userData.hasSource.has(
-                                    `${itemId}_${modifier}`,
-                                );
+                                const hasSource =
+                                    overrideHas ||
+                                    stores.userData.hasSource.has(`${itemId}_${modifier}`);
 
                                 // const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
                                 //     ? hasSource : hasAppearance
@@ -226,22 +241,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     setStats.total++;
                                 }
 
-                                let haveAny = false;
+                                let haveAny = overrideHas;
                                 for (const transmogId of transmogIds) {
-                                    if (groupSigh.achievementId) {
-                                        haveAny ||=
-                                            !!stores.userAchievementData.achievements[
-                                                groupSigh.achievementId
-                                            ];
-                                    } else if (groupSigh.questId) {
-                                        haveAny ||= Object.values(
-                                            stores.userQuestData.characters,
-                                        ).some((charQuests) =>
-                                            charQuests.quests?.has(groupSigh.questId),
-                                        );
-                                    } else {
-                                        haveAny ||= stores.userData.hasAppearance.has(transmogId);
-                                    }
+                                    haveAny ||= stores.userData.hasAppearance.has(transmogId);
 
                                     if (haveAny) {
                                         if (countUncollected) {
