@@ -39,7 +39,14 @@ public static class Utf8JsonWriterExtensions
         writer.WriteStartArray();
         foreach (var value in values)
         {
-            writeFunc(writer, value);
+            if (value != null)
+            {
+                writeFunc(writer, value);
+            }
+            else
+            {
+                writer.WriteNullValue();
+            }
         }
         writer.WriteEndArray();
     }

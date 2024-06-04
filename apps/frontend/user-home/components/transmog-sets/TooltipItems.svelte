@@ -31,7 +31,6 @@
             }
             return 0;
         })
-        console.log(byName)
     }
 </script>
 

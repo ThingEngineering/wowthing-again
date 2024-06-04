@@ -11,6 +11,7 @@
     export let characterRep: CharacterReputationReputation
     export let reputation: StaticDataReputationSet
 
+    let cls: string
     let dataRep: StaticDataReputation
     let paragon: CharacterReputationParagon
     let repTier: ReputationTier
@@ -36,6 +37,13 @@
                 else {
                     paragon = undefined
                 }
+
+                if (characterRep.value >= 0) {
+                    cls = `reputation${repTier.tier}`
+                } else {
+                    const sigh = tiers.minValues.length - repTier.tier
+                    cls = ['status-fail', 'status-warn', 'status-shrug'][Math.min(2, sigh)]
+                }
             }
         }
     }
@@ -50,7 +58,7 @@
 
 {#if characterRep.value !== -1}
     <td
-        class="reputation{repTier.tier}"
+        class={cls}
         use:componentTooltip={{
             component: TooltipReputation,
             props: {

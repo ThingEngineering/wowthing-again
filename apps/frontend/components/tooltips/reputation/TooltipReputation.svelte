@@ -23,19 +23,25 @@
     }[]
 
     $: {
-        reps = []
         const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]
 
+        reps = []
         for (let i = 0; i < tiers.names.length; i++) {
-            const nextValue = tiers.minValues[i + 1] !== undefined ? tiers.minValues[i + 1] : tiers.minValues[i]
+            const minValue = tiers.minValues[i]
+            const maxValue = tiers.minValues[i + 1] !== undefined ? tiers.minValues[i + 1] : minValue
+            if (minValue < 0 && characterRep >= maxValue) {
+                continue
+            }
+
             const thisOne = (
-                characterRep >= tiers.minValues[i] &&
-                (nextValue === 0 || characterRep < nextValue)
+                characterRep >= minValue &&
+                (maxValue === 0 || characterRep < maxValue)
             )
+
             reps.push({
                 cls: 'quality0',
-                maxValue: nextValue,
-                minValue: tiers.minValues[i],
+                maxValue,
+                minValue,
                 name: tiers.names[i],
                 thisOne,
             })
@@ -43,10 +49,24 @@
 
         // Apply quality colours to the bottom 5 tiers
         const start = Math.max(0, reps.length - 1)
-        for (let i = start; i >= Math.max(0, start - 5); i--) {
-            reps[i].cls = `reputation${start - i + 1}`
-            if (reps[i].thisOne && reps[i + 1]) {
-                reps[i + 1].thisOne = false
+        const setClass = Math.max(0, start - 5)
+        let seenThisOne = false;
+        let badCount = 0;
+        for (let i = start; i >= 0; i--) {
+            if (reps[i].maxValue <= 0) {
+                reps[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)]
+                badCount++;
+            }
+            else if (i >= setClass) {
+                reps[i].cls = `reputation${start - i + 1}`
+            }
+
+            if (reps[i].thisOne) {
+                if (!seenThisOne) {
+                    seenThisOne = true
+                } else {
+                    reps[i].thisOne = false
+                }
             }
         }
 
@@ -69,7 +89,8 @@
         text-align: left;
     }
     .number1 {
-        padding-left: 0.8rem;
+        min-width: 3.5rem;
+        padding-left: 0.2rem;
         text-align: right;
     }
     .number2 {
@@ -107,13 +128,19 @@
                     {:else}
                         <td class="drop-shadow number1">
                             {#if rep.thisOne}
-                                {toNiceNumber(characterRep - rep.minValue)}
+                                {toNiceNumber(characterRep < 0
+                                    ? Math.abs(characterRep) + rep.minValue
+                                    : characterRep - rep.minValue)}
                             {:else}
-                                0
+                                {toNiceNumber(rep.minValue < 0 ? rep.minValue - rep.maxValue : 0)}
                             {/if}
                         </td>
                         <td class="separator">/</td>
-                        <td class="drop-shadow number2">{toNiceNumber(rep.maxValue - rep.minValue)}</td>
+                        <td class="drop-shadow number2">
+                            {toNiceNumber(rep.minValue < 0
+                                ? rep.minValue - rep.maxValue
+                                : rep.maxValue - rep.minValue)}
+                        </td>
                     {/if}
                     <td class="name">{rep.name}</td>
                 </tr>

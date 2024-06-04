@@ -21,7 +21,7 @@ public class ManualTransmogGroup
             .ToDictionary(
                 kvp => kvp.Key,
                 kvp => kvp.Value
-                    .Select(set => new ManualTransmogSet(set))
+                    .Select(set => set == null ? null : new ManualTransmogSet(set))
                     .ToList()
             );
 

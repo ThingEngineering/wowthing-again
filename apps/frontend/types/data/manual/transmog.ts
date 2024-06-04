@@ -26,8 +26,8 @@ export class ManualDataTransmogGroup {
     ) {
         this.data = {};
         for (const [key, dataArrays] of dataRaw) {
-            this.data[key] = dataArrays.map(
-                (dataArray) => new ManualDataTransmogGroupData(...dataArray),
+            this.data[key] = dataArrays.map((dataArray) =>
+                dataArray === null ? null : new ManualDataTransmogGroupData(...dataArray),
             );
         }
     }
