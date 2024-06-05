@@ -41,8 +41,8 @@
             mapInfos.push([affixes[0], mapInfo])
             mapInfos.push([otherAffix, mapInfoAlt])
         } else {
-            mapInfos.push([affixes[0], mapInfoAlt])
-            mapInfos.push([otherAffix, mapInfo])
+            mapInfos.push([otherAffix, mapInfoAlt])
+            mapInfos.push([affixes[0], mapInfo])
         }
     }
 
@@ -53,6 +53,9 @@
 </script>
 
 <style lang="scss">
+    code {
+        background: transparent;
+    }
     .info {
         .view {
             justify-content: center;
@@ -82,7 +85,7 @@
             margin-left: 5px;
         }
     }
-    .status-success {
+    .score-increase {
         word-spacing: -0.4ch;
     }
 </style>
@@ -104,16 +107,20 @@
                 <tr>
                     <td class="info">
                         {#each mapInfos as [affix, info], index}
-                            <div class="view" style="opacity: {affix.id === affixes[0].id ? '1' : '0.8'}">
+                            <div class="view">
                                 {#if info}
                                     {@const level = leftPad(info.level, 2)}
-                                    <div class="best-text">Best {affix.name} key:</div>
+                                    <div class="best-text" class:status-success={affix.id === affixes[0].id}>
+                                        Best {affix.name} key:
+                                    </div>
                                     <div class="best-key">
                                         <code class="{getRunQualityAffix(info)}">{@html level}</code>
                                     </div>
                                     <div class="best-plus">{getPlus(info)}</div>
                                 {:else}
-                                    <div class="best-text">No {affix.name} score!</div>
+                                    <div class="best-text" class:status-success={affix.id === affixes[0].id}>
+                                        No {affix.name} score!
+                                    </div>
                                     <div class="best-key"></div>
                                     <div class="best-plus"></div>
                                 {/if}
@@ -130,7 +137,7 @@
                             {:else}
                                 <p>This key could be a score upgrade.</p>
                             {/if}
-                            <p>Expected score increase is <span class="status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
+                            <p>Expected score increase is <span class="score-increase status-success">{minScoreIncrease} - {maxScoreIncrease}</span></p>
                         </td>
                     </tr>
                 {/if}
