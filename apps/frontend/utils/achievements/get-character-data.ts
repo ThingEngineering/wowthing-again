@@ -160,9 +160,7 @@ export function getCharacterData(
     ret.characters = sortBy(
         Object.entries(characterCounts).filter(([, count]) => count > 0),
         ([characterId, count]) => [10000000 - count, characterId],
-    )
-        .slice(0, 3)
-        .map(([characterId, count]) => [parseInt(characterId), count]);
+    ).map(([characterId, count]) => [parseInt(characterId), count]);
 
     if (achievement.id === debugId) {
         console.log(characterCounts);

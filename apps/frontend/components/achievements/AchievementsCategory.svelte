@@ -71,9 +71,11 @@
             //grid-template-columns: 1fr 1fr;
         }
     }
+    .new-group {
+        margin-left: 1rem;
+    }
     .faction0 {
         border-color: $alliance-border;
-        margin-left: 1rem;
     }
     .faction1 {
         border-color: $horde-border;
@@ -98,7 +100,7 @@
             >Incomplete</Checkbox>
         </button>
 
-        <button class="faction0">
+        <button class="faction0 new-group">
             <Checkbox
                 name="show_alliance"
                 bind:value={$achievementState.showAlliance}
@@ -110,6 +112,13 @@
                 name="show_horde"
                 bind:value={$achievementState.showHorde}
             >Horde</Checkbox>
+        </button>
+
+        <button class="new-group">
+            <Checkbox
+                name="show_all_characters"
+                bind:value={$achievementState.showAllCharacters}
+            >All character progress</Checkbox>
         </button>
     </div>
 
