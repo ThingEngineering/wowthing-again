@@ -1,7 +1,7 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
-    import getPercentClass from '@/utils/get-percent-class'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import getPercentClass from '@/utils/get-percent-class'
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
@@ -18,6 +18,7 @@
     let percent: number
     let total: number
     let slotHave: TransmogSlotData
+    let spanElement: HTMLElement
     $: {
         have = 0
         percent = 0
@@ -40,9 +41,6 @@
             percent = have / total * 100
         }
     }
-
-    $: tdAction = span <= 1 ? componentTooltip : () => {}
-    $: spanAction = span > 1 ? componentTooltip : () => {}
 </script>
 
 <style lang="scss">
@@ -63,35 +61,26 @@
     <td
         class="{getPercentClass(percent)}"
         colspan="{span}"
-        use:tdAction={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
+                have,
                 set,
                 setTitle,
                 slotHave,
                 subType,
+                total,
             },
             tippyProps: {
                 allowHTML: true,
+                getReferenceClientRect: () => spanElement.getBoundingClientRect(),
                 placement: 'left-end',
             },
         }}
     >
         <span
+            bind:this={spanElement}
             class:blocky={span > 1}
-            use:spanAction={{
-                component: Tooltip,
-                props: {
-                    set,
-                    setTitle,
-                    slotHave,
-                    subType,
-                },
-                tippyProps: {
-                    allowHTML: true,
-                    placement: 'left-end',
-                },
-            }}
         >
             {#if set.wowheadSetId}
                 <WowheadTransmogSetLink

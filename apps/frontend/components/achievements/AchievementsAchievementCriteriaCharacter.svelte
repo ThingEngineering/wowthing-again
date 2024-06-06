@@ -1,5 +1,6 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
+    import { achievementState } from '@/stores/local-storage';
     import { getCharacterData } from '@/utils/achievements'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
@@ -76,8 +77,9 @@
     </div>
 
     {#if data.characters.length > 0}
+        {@const characters = data.characters.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
         <div class="progress">
-            {#each data.characters as [characterId, count]}
+            {#each characters as [characterId, count]}
                 {@const selected = selectedCharacterId === characterId}
                 <ProgressBar
                     on:click={() => selectedCharacterId = characterId}

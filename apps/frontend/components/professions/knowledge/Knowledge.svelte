@@ -1,8 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { dragonflightKnowledge, dragonflightProfessions } from '@/data/professions'
-    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { dragonflightProfessions } from '@/data/professions'
     import type { Character } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
