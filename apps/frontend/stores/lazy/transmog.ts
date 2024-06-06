@@ -130,18 +130,10 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 }
 
                                 const item = stores.itemData.items[itemId];
-                                const appearance = item.appearances[modifier];
 
                                 let actualSlot: number;
                                 if (weaponInventoryTypes.has(item.inventoryType)) {
-                                    if (completionistMode) {
-                                        actualSlot = weaponIndex++;
-                                    } else {
-                                        if (!weaponGarbage[appearance.appearanceId]) {
-                                            weaponGarbage[appearance.appearanceId] = weaponIndex++;
-                                        }
-                                        actualSlot = weaponGarbage[appearance.appearanceId];
-                                    }
+                                    actualSlot = 100 + item.subclassId;
                                 } else {
                                     actualSlot =
                                         item.inventoryType === InventoryType.Chest2

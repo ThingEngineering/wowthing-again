@@ -1,5 +1,6 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type'
+    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
     import { staticStore } from '@/shared/stores/static'
     import getPercentClass from '@/utils/get-percent-class';
     import type { TransmogSlotData } from '@/stores/lazy/transmog'
@@ -9,10 +10,12 @@
     import TooltipItems from './TooltipItems.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
+    export let have: number
     export let set: ManualDataTransmogGroupData
     export let setTitle: string
     export let slotHave: TransmogSlotData
     export let subType: string
+    export let total: number
 
     let setName: string
     let shiftPressed: boolean
@@ -22,6 +25,7 @@
         : set.name
     
     $: weapons = Object.keys(slotHave).filter((key) => parseInt(key) >= 100)
+    $: actualSlotOrder = weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey
@@ -69,46 +73,46 @@
     {/if}
     <table class="table-tooltip-vault table-striped">
         <tbody>
-            {#if weapons.length > 0}
-                <!-- NYI -->
-            {:else}
-                {#each typeOrder as type}
-                    {#if slotHave[type] !== undefined}
-                        {@const [slotCollected, slotItems] = slotHave[type]}
-                        {@const have = slotItems.filter(([data,]) => data).length}
-                        <tr>
-                            <td class="have">
-                                <YesNoIcon state={slotCollected} useStatusColors={true} />
-                            </td>
-                            <td class="type">
-                                {$staticStore.inventoryTypes[type]}
-                                {#if slotItems?.length > 2}
-                                    <div class="slot-count {getPercentClass(have / slotItems.length * 100)}">
-                                        {have} / {slotItems.length}
-                                    </div>
-                                {/if}
-                            </td>
-                            {#if shiftPressed}
-                                <td class="items">
-                                    <TooltipItems
-                                        dedupe={false}
-                                        items={slotItems.filter(([itemCollected,]) => !itemCollected)}
-                                    />
-                                </td>
+            {#each actualSlotOrder as type}
+                {#if slotHave[type] !== undefined}
+                    {@const [slotCollected, slotItems] = slotHave[type]}
+                    {@const have = slotItems.filter(([data,]) => data).length}
+                    <tr>
+                        <td class="have">
+                            <YesNoIcon state={slotCollected} useStatusColors={true} />
+                        </td>
+                        <td class="type">
+                            {#if type >= 100}
+                                {weaponSubclassToString[type - 100]}
                             {:else}
-                                {#if slotHave[type][1]?.length > 0}
-                                    <td class="items">
-                                        <TooltipItems items={slotItems.slice(0, 2)} />
-                                    </td>
-                                {/if}
+                                {$staticStore.inventoryTypes[type]}
                             {/if}
-                        </tr>
-                    {/if}
-                {/each}
-            {/if}
-            {#if !shiftPressed}
+                            {#if slotItems?.length > 2}
+                                <div class="slot-count {getPercentClass(have / slotItems.length * 100)}">
+                                    {have} / {slotItems.length}
+                                </div>
+                            {/if}
+                        </td>
+                        {#if shiftPressed}
+                            <td class="items">
+                                <TooltipItems
+                                    dedupe={false}
+                                    items={slotItems.filter(([itemCollected,]) => !itemCollected)}
+                                />
+                            </td>
+                        {:else}
+                            {#if slotHave[type][1]?.length > 0}
+                                <td class="items">
+                                    <TooltipItems items={slotItems.slice(0, 2)} />
+                                </td>
+                            {/if}
+                        {/if}
+                    </tr>
+                {/if}
+            {/each}
+            {#if have < total && !shiftPressed}
                 <tr>
-                    <td colspan="100">Hold Shift to see missing items!</td>
+                    <td colspan="100">Hold Shift to see all missing items!</td>
                 </tr>
             {/if}
         </tbody>
