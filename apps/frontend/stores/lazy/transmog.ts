@@ -111,8 +111,6 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         }
 
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
-                        const weaponGarbage: Record<number, number> = {};
-                        let weaponIndex = 100;
                         if (groupSigh.transmogSetId) {
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];

@@ -1,6 +1,6 @@
 import { specializationData } from '@/data/character-specialization';
 import { slotOrder } from '@/data/inventory-slot';
-import { bestTypeOrder, typeOrder } from '@/data/inventory-type';
+import { bestTypeOrder } from '@/data/inventory-type';
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemLocation } from '@/enums/item-location';
 import { PrimaryStat, primaryStatToStats } from '@/enums/primary-stat';

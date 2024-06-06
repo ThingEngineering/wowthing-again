@@ -1,7 +1,7 @@
 <script lang="ts">
     import { activeView } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
 

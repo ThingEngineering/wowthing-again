@@ -14,7 +14,6 @@
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     let slots: Record<number, ItemDataItem[]>
     let transmogSet: StaticDataTransmogSet
@@ -22,7 +21,7 @@
         slots = {}
         transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId]
         if (transmogSet) {
-            for (const [itemId, modifier] of transmogSet.items) {
+            for (const [itemId,] of transmogSet.items) {
                 const item = $itemStore.items[itemId];
                 (slots[item.inventoryType] ||= []).push(item)
             }

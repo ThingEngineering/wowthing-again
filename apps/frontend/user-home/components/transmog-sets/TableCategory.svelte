@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { Constants } from '@/data/constants'
     import { transmogSets } from '@/data/transmog'
     import { iconLibrary, uiIcons } from '@/shared/icons'
@@ -58,7 +56,7 @@
         return getTransmogSpan(fakeGroup, fakeSet, skipClasses)
     }
 
-    $: completionistReady = function(group: ManualDataTransmogGroup, setIndex: number): boolean {
+    $: completionistReady = function(group: ManualDataTransmogGroup, _setIndex: number): boolean {
         return group.data?.[transmogSets[group.type].sets[0].type]
             ?.every((groupData) => groupData === null || !!groupData.transmogSetId)
     }

@@ -3,11 +3,10 @@
     import { classOrder } from '@/data/character-class'
     import { Gender } from '@/enums/gender'
     import { staticStore } from '@/shared/stores/static'
+    import { lazyStore } from '@/stores';
     import { getGenderedName } from '@/utils/get-gendered-name'
 
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-    import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
 

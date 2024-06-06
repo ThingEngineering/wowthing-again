@@ -7,6 +7,7 @@
     import { uiIcons } from '@/shared/icons'
     import { lazyStore } from '@/stores'
     import { commonColspan } from '@/shared/stores/settings'
+    import getPercentClass from '@/utils/get-percent-class';
     import type { ConvertibleCategory } from './types'
     import type { StaticDataCharacterClass } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
@@ -16,8 +17,6 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Percent from '@/components/common/Percent.svelte';
-    import getPercentClass from '@/utils/get-percent-class';
 
     export let modifier: AppearanceModifier
     export let playerClass: StaticDataCharacterClass

@@ -3,7 +3,6 @@ import some from 'lodash/some';
 
 import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
-import { InventoryType } from '@/enums/inventory-type';
 import { RewardType } from '@/enums/reward-type';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserQuestData } from '@/types/data';
