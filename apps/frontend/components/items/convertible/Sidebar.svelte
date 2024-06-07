@@ -1,14 +1,15 @@
 <script lang="ts">
     import { convertibleCategories } from './data'
     import { classOrder } from '@/data/character-class'
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Gender } from '@/enums/gender'
     import { staticStore } from '@/shared/stores/static'
     import { lazyStore } from '@/stores';
     import { getGenderedName } from '@/utils/get-gendered-name'
-
-    import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types';
-    import { AppearanceModifier } from '@/enums/appearance-modifier';
+
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte'
+    import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     const children = [
         ...classOrder.map((classId) => {
@@ -64,4 +65,8 @@
     scrollable={true}
     width={'15rem'}
     {percentFunc}
-/>
+>
+    <svelte:fragment slot="before">
+        <Settings />
+    </svelte:fragment>
+</SubSidebar>
