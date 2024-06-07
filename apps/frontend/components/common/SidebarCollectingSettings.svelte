@@ -28,12 +28,11 @@
     .collecting-settings {
         --image-margin-top: -2px;
 
-        margin-top: 0.75rem;
         padding: 0.25rem 0.5rem;
 
         :global(fieldset) {
-            margin-bottom: 0.15rem;
-            margin-top: 0.15rem;
+            margin-bottom: 0.25rem;
+            margin-top: 0.25rem;
         }
     }
     .expand {

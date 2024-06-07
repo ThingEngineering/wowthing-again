@@ -28,6 +28,9 @@
     div {
         --image-border-width: 1px;
 
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
         margin-right: 1rem;
         min-width: var(--width);
         position: sticky;
