@@ -822,7 +822,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'remixRaid',
             taskName: '[Daily] Raid Quest',
-            minimumLevel: 10,
+            minimumLevel: 25,
             couldGetFunc: (char) => char.isRemix,
         },
         {
