@@ -26,16 +26,6 @@
     }
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-
-        :global(fieldset) {
-            margin-top: 0.5rem;
-        }
-    }
-</style>
-
 <Sidebar
     baseUrl="/sets"
     items={categories}
@@ -43,13 +33,15 @@
     width="16rem"
     {percentFunc}
 >
-    <div slot="before">
-        <ProgressBar
-            title="Overall"
-            have={overall.have}
-            total={overall.total}
-        />
+    <svelte:fragment slot="before">
+        <div>
+            <ProgressBar
+                title="Overall"
+                have={overall.have}
+                total={overall.total}
+            />
+        </div>
 
         <Settings />
-    </div>
+    </svelte:fragment>
 </Sidebar>

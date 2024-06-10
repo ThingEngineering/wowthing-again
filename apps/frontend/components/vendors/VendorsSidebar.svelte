@@ -7,6 +7,7 @@
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte'
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
@@ -29,16 +30,6 @@
     }
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-
-        :global(fieldset) {
-            margin-top: 0.5rem;
-        }
-    }
-</style>
-
 <Sidebar
     baseUrl="/vendors"
     items={categories}
@@ -46,16 +37,15 @@
     width="16rem"
     {percentFunc}
 >
-    <div slot="before">
-        <ProgressBar
-            title="Overall"
-            have={overall.have}
-            total={overall.total}
-        />
-        
-        <Checkbox
-            name="transmog_completionistMode"
-            bind:value={$settingsStore.transmog.completionistMode}
-        >Completionist Mode</Checkbox>
-    </div>
+    <svelte:fragment slot="before">
+        <div>
+            <ProgressBar
+                title="Overall"
+                have={overall.have}
+                total={overall.total}
+            />
+        </div>
+
+        <Settings />
+    </svelte:fragment>
 </Sidebar>
