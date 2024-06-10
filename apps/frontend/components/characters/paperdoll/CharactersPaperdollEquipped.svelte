@@ -154,7 +154,9 @@
             class="item-text"
             style:align-items={leftSide ? 'flex-end' : 'flex-start'}
         >
-            <span class="quality{equippedItem.quality}">{item.name}</span>
+            <span class="quality{equippedItem.quality}">
+                {item?.name || `Item #${equippedItem?.itemId}`}
+            </span>
             
             {#each embellishments as embellishment}
                 <span
