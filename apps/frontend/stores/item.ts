@@ -30,7 +30,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
             );
             data.items[obj.id] = obj;
 
-            for (const appearanceData of itemArray[11] || []) {
+            for (const appearanceData of itemArray[12] || []) {
                 if (appearanceData[0] > 0) {
                     const appItems = (data.appearanceToItems[appearanceData[0]] ||= []);
                     appItems.push([itemId, appearanceData[2] || 0]);
