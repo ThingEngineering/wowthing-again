@@ -309,6 +309,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         item.type,
                         item.id,
                         item.appearanceIds,
+                        masochist,
                     );
 
                     // Skip unavailable illusions
