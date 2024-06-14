@@ -5,6 +5,7 @@ import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
 import type { StaticData } from '@/shared/stores/static/types';
+import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData } from '@/types/data/manual';
@@ -16,6 +17,7 @@ export default function userHasDrop(
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
+    lazyTransmog: LazyTransmog,
     type: RewardType,
     id: number,
     appearanceIds?: number[],
@@ -42,6 +44,15 @@ export default function userHasDrop(
     } else if (type === RewardType.AccountTrackingQuest) {
         return accountTrackingQuest(itemData, userQuestData, id);
     } else if (transmogTypes.has(type)) {
+        if (itemData.teachesTransmog[id]) {
+            const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
+            const stats = lazyTransmog.stats[statsKey];
+            if (stats) {
+                console.log(id, itemData.teachesTransmog[id], stats);
+                return stats.percent >= 100;
+            }
+        }
+
         if (appearanceIds?.[0] > 0) {
             const bySlot: Record<number, boolean> = {};
             for (const appearanceId of appearanceIds) {
