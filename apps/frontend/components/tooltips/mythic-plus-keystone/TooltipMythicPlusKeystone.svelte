@@ -106,7 +106,7 @@
 
                 <tr>
                     <td class="info">
-                        {#each mapInfos as [affix, info], index}
+                        {#each mapInfos as [affix, info]}
                             <div class="view">
                                 {#if info}
                                     {@const level = leftPad(info.level, 2)}

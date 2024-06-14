@@ -1,4 +1,6 @@
-﻿namespace Wowthing.Lib.Models.Wow;
+﻿using Wowthing.Lib.Enums;
+
+namespace Wowthing.Lib.Models.Wow;
 
 public class WowItemModifiedAppearance
 {
@@ -7,7 +9,7 @@ public class WowItemModifiedAppearance
     public int AppearanceId { get; set; }
     public short Modifier { get; set; }
     public short Order { get; set; }
-    public short SourceType { get; set; }
+    public TransmogSourceType SourceType { get; set; }
 
     public WowItemModifiedAppearance(int id)
     {

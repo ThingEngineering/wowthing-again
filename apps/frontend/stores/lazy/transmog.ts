@@ -114,6 +114,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         if (groupSigh.transmogSetId) {
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
+                            ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
                             for (
                                 let itemIndex = 0;
                                 itemIndex < transmogSet.items.length;

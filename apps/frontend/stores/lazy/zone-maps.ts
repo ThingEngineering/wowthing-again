@@ -32,6 +32,7 @@ import type { ManualData } from '@/types/data/manual';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 import type { Settings } from '@/shared/stores/settings/types';
+import type { LazyTransmog } from './transmog';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
 
@@ -44,6 +45,7 @@ interface LazyStores {
     userData: UserData;
     userAchievementData: UserAchievementData;
     userQuestData: UserQuestData;
+    lazyTransmog: LazyTransmog;
 }
 
 export interface LazyZoneMaps {
@@ -326,6 +328,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 stores.staticData,
                                 stores.userData,
                                 stores.userQuestData,
+                                stores.lazyTransmog,
                                 masochist,
                                 drop,
                             );

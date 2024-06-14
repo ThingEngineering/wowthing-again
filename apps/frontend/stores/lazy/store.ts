@@ -371,6 +371,7 @@ export class LazyStore implements LazyUgh {
                     staticData,
                     userData,
                     userQuestData,
+                    lazyTransmog: this.transmogFunc(),
                 }),
             );
         }
@@ -394,6 +395,7 @@ export class LazyStore implements LazyUgh {
                         userData,
                         userAchievementData,
                         userQuestData,
+                        lazyTransmog: this.transmogFunc(),
                     }),
             );
         }

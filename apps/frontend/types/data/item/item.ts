@@ -32,6 +32,7 @@ export class ItemDataItem {
         public itemLevel: number,
         // public requiredLevel: number,
         public bindType: BindType,
+        public unique: number,
         appearanceArrays?: ItemDataItemAppearanceArray[],
     ) {
         this.appearanceArrays = appearanceArrays || [];
@@ -79,6 +80,7 @@ export type ItemDataItemArray = [
     itemLevel: number,
     // requiredLevel: number,
     bindType: BindType,
+    unique: number,
     appearanceArrays?: ItemDataItemAppearanceArray[],
 ];
 

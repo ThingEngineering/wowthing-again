@@ -1,5 +1,6 @@
 import userHasDrop from './user-has-drop';
 import type { StaticData } from '@/shared/stores/static/types';
+import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
@@ -11,6 +12,7 @@ export function getVendorDropStats(
     staticData: StaticData,
     userData: UserData,
     userQuestData: UserQuestData,
+    lazyTransmog: LazyTransmog,
     masochist: boolean,
     drop: ManualDataZoneMapDrop,
 ): [number, number] {
@@ -25,6 +27,7 @@ export function getVendorDropStats(
             staticData,
             userData,
             userQuestData,
+            lazyTransmog,
             vendorItem.type,
             vendorItem.id,
             vendorItem.appearanceIds,

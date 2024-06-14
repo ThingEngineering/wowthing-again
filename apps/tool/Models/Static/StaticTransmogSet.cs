@@ -18,7 +18,9 @@ public class StaticTransmogSet : WowTransmogSet
 
         foreach (int imaId in transmogSet.ItemModifiedAppearanceIds)
         {
-            if (imaMap.TryGetValue(imaId, out var ima))
+            // skip NotValidForTransmog sources
+            if (imaMap.TryGetValue(imaId, out var ima) &&
+                ima.SourceType != TransmogSourceType.NotValidForTransmog)
             {
                 ItemsByModifier.TryAdd(ima.Modifier, []);
                 ItemsByModifier[ima.Modifier].Add(ima.ItemId);
