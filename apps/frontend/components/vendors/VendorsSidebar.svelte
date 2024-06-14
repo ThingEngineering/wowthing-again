@@ -1,11 +1,9 @@
 <script lang="ts">
     import { manualStore } from '@/stores'
     import { lazyStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
