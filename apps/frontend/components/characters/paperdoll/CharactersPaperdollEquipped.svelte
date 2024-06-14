@@ -93,13 +93,20 @@
         justify-content: center;
         padding-right: 0.1rem;
 
-        span {
+        > span {
             background-color: rgba(0, 0, 0, 0.75);
             padding: 0 3px 1px 3px;
         }
     }
-    .embellishment, .enchant, .gem {
+    .embellishment, .enchant {
         font-size: 85%;
+    }
+    .gems {
+        --image-border-width: 2px;
+
+        display: flex;
+        line-height: 1;
+        gap: 2px;
     }
 </style>
 
@@ -150,6 +157,8 @@
     </div>
 
     {#if equippedItem}
+        {@const enchantmentIds = equippedItem.enchantmentIds || []}
+        {@const gemIds = equippedItem.gemIds || []}
         <div
             class="item-text"
             style:align-items={leftSide ? 'flex-end' : 'flex-start'}
@@ -172,27 +181,32 @@
                 </span>
             {/each}
 
-            {#each (equippedItem.gemIds || []) as gemId}
-                <span class="gem">
-                    <WowheadLink
-                        id={gemId}
-                        type="item"
-                    >
-                        <ParsedText
-                            cls="quality2"
-                            text={`{itemWithIcon:${gemId}}`}
-                        />
-                    </WowheadLink>
-                </span>
-            {/each}
-
-            {#if equippedItem.enchantmentIds?.length > 0}
+            {#if enchantmentIds.length > 0 || gemIds.length > 0}
                 {@const enchantId = equippedItem.enchantmentIds[0]}
-                <span class="enchant">
-                    <ParsedText
-                        cls="quality2"
-                        text={getEnchantmentText(enchantId, $staticStore.enchantments[enchantId])}
-                    />
+                <span class="gems">
+                    {#each gemIds as gemId}
+                        {@const gemItem = $itemStore.items[gemId]}
+                        <span class="gem quality{gemItem?.quality}">
+                            <WowheadLink
+                                id={gemId}
+                                type="item"
+                            >
+                                <WowthingImage
+                                    name="item/{gemId}"
+                                    size={20}
+                                />
+                            </WowheadLink>
+                        </span>
+                    {/each}
+
+                    {#if enchantId}
+                        <span class="enchant">
+                            <ParsedText
+                                cls="quality2"
+                                text={getEnchantmentText(enchantId, $staticStore.enchantments[enchantId])}
+                            />
+                        </span>
+                    {/if}
                 </span>
             {/if}
         </div>
