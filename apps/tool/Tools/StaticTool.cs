@@ -1229,12 +1229,6 @@ public class StaticTool
     {
         var journalInstances = await DataUtilities
             .LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
-        var mapIdToInstanceId = journalInstances
-            .GroupBy(instance => instance.MapID)
-            .ToDictionary(
-                k => k.Key,
-                v => v.First().ID
-            );
 
         var mapsById = (await DataUtilities.LoadDumpCsvAsync<DumpMap>("map"))
             .ToDictionary(map => map.ID);
@@ -1242,6 +1236,11 @@ public class StaticTool
         var sigh = new Dictionary<int, OutInstance>();
         foreach (var journalInstance in journalInstances)
         {
+            if (Hardcoded.SkipInstances.Contains(journalInstance.ID))
+            {
+                continue;
+            }
+
             if (mapsById.TryGetValue(journalInstance.MapID, out var map))
             {
                 if (InstanceTypes.Contains(map.InstanceType))
