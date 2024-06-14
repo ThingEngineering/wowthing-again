@@ -144,6 +144,21 @@
             width: auto;
         }
     }
+    .stats {
+        justify-content: center;
+        display: flex;
+        font-size: 0.85rem;
+        gap: 3px;
+        pointer-events: none;
+        position: absolute;
+        top: 36px;
+        width: 100%;
+        letter-spacing: -0.1ch;
+
+        span:nth-child(2) {
+            font-size: 0.7rem;
+        }
+    }
 </style>
 
 {#if things?.length > 0}
@@ -213,6 +228,17 @@
                                         useTooltip={false}
                                     />
                                 </div>
+                            {/if}
+
+                            {#if $itemStore.teachesTransmog[thing.item.id]}
+                                {@const setStats = $lazyStore.transmog.stats[`transmogSet:${$itemStore.teachesTransmog[thing.item.id]}`]}
+                                {#if setStats}
+                                    <div class="stats pill">
+                                        <span class="{getPercentClass(setStats.percent)}">{setStats.have}</span>
+                                        <span class="quality1">/</span>
+                                        <span class="{getPercentClass(setStats.percent)}">{setStats.total}</span>
+                                    </div>
+                                {/if}
                             {/if}
             
                             {#if thing.userHas}

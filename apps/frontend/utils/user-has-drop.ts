@@ -21,6 +21,7 @@ export default function userHasDrop(
     type: RewardType,
     id: number,
     appearanceIds?: number[],
+    completionist?: boolean,
 ): boolean {
     if (
         (type === RewardType.Mount && userData.hasMount[id] === true) ||
@@ -48,7 +49,6 @@ export default function userHasDrop(
             const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
             const stats = lazyTransmog.stats[statsKey];
             if (stats) {
-                console.log(id, itemData.teachesTransmog[id], stats);
                 return stats.percent >= 100;
             }
         }
@@ -65,6 +65,10 @@ export default function userHasDrop(
             }
             return every(Object.values(bySlot), (hasSlot) => !!hasSlot);
         } else {
+            if (completionist) {
+                return userData.hasSource.has(`${id}_0`);
+            }
+
             const appearanceId = itemData.items[id]?.appearances?.[0]?.appearanceId || 0;
             return userData.hasAppearance.has(appearanceId);
         }
