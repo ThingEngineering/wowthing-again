@@ -34,6 +34,7 @@ public static partial class Hardcoded
         { "Lower Blackrock Spire", "LBRS" },
         { "Maraudon", "Mara" },
         { "Mogu'shan Palace", "MSP" },
+        { "Mogu'shan Vaults", "MSV" },
         { "Naxxramas", "Naxx" },
         { "Neltharus", "Nel" },
         { "Onyxia's Lair", "Ony" },
