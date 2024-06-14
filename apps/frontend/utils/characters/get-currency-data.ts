@@ -47,7 +47,8 @@ export function getCurrencyData(
         ret.tooltip += ` ${currency.name}`;
     } else {
         const characterItemCount = character.getItemCount(itemId);
-        const name = itemData.items[itemId]?.name || `Item #${itemId}`;
+        const item = itemData.items[itemId];
+        const name = item?.name || `Item #${itemId}`;
 
         ret.amount = toNiceNumber(characterItemCount);
         ret.tooltip = `${characterItemCount.toLocaleString()}x ${name}`;
@@ -69,11 +70,9 @@ export function getCurrencyData(
 
             ret.percent = (quantity / max) * 100;
             ret.tooltip += ` &ndash; ${quantity} / ${max}`;
-        }
-        // TODO remove this once unique count is in item data
-        else if (itemId === 201836) {
-            ret.percent = (characterItemCount / 12) * 100;
-            ret.tooltip = ret.tooltip.replace('x ', ` / ${12} `);
+        } else if (item?.unique > 0) {
+            ret.percent = (characterItemCount / item.unique) * 100;
+            ret.tooltip = ret.tooltip.replace('x ', ` / ${item.unique} `);
         }
     }
 
