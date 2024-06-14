@@ -28,7 +28,7 @@
     {@const { amount, percent, tooltip } = getCurrencyData($itemStore, $timeStore, userStore, character, currency, itemId)}
     {#if amount}
         <td
-            class:status-shrug={percent > 50}
+            class:status-shrug={percent >= 50 && percent < 100}
             class:status-fail={percent >= 100}
             class:faded={amount === '0' && percent === 0}
             use:basicTooltip={{
