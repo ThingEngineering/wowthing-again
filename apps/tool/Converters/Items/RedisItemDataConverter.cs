@@ -39,7 +39,7 @@ public class RedisItemDataConverter : JsonConverter<RedisItemData>
             {
                 writer.WriteStartArray();
                 writer.WriteNumberValue(appearance.AppearanceId);
-                writer.WriteNumberValue(appearance.SourceType);
+                writer.WriteNumberValue((int)appearance.SourceType);
 
                 if (appearance.Modifier > 0)
                 {

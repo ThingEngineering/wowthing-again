@@ -8,5 +8,5 @@ public class DumpItemModifiedAppearance
     public int ItemAppearanceID { get; set; }
     public short ItemAppearanceModifierID { get; set; }
     public short OrderIndex { get; set; }
-    public short TransmogSourceTypeEnum { get; set; }
+    public TransmogSourceType TransmogSourceTypeEnum { get; set; }
 }
