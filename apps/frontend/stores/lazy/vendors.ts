@@ -15,6 +15,7 @@ import type { UserQuestData } from '@/types/data';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
+import { LookupType } from '@/enums/lookup-type';
 
 const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
@@ -282,11 +283,20 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     // Skip filtered things
+                    const [lookupType] = item.getLookupData(
+                        stores.itemData,
+                        stores.manualData,
+                        stores.staticData,
+                    );
+
                     if (
                         (item.type === RewardType.Illusion && !stores.vendorState.showIllusions) ||
-                        (item.type === RewardType.Mount && !stores.vendorState.showMounts) ||
-                        (item.type === RewardType.Pet && !stores.vendorState.showPets) ||
-                        (item.type === RewardType.Toy && !stores.vendorState.showToys) ||
+                        (!stores.vendorState.showMounts &&
+                            (item.type === RewardType.Mount || lookupType === LookupType.Mount)) ||
+                        (!stores.vendorState.showPets &&
+                            (item.type === RewardType.Pet || lookupType === LookupType.Pet)) ||
+                        (!stores.vendorState.showToys &&
+                            (item.type === RewardType.Toy || lookupType === LookupType.Toy)) ||
                         (item.type === RewardType.Armor &&
                             ((item.subType === 1 && !stores.vendorState.showCloth) ||
                                 (item.subType === 2 && !stores.vendorState.showLeather) ||
