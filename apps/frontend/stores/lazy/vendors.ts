@@ -16,6 +16,10 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
 import { LookupType } from '@/enums/lookup-type';
+import { classByArmorType } from '@/data/character-class';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { ArmorType } from '@/enums/armor-type';
+import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 
 const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
@@ -191,6 +195,23 @@ export function doVendors(stores: LazyStores): LazyVendors {
     const classMask = getTransmogClassMask(stores.settings);
     const masochist = stores.settings.transmog.completionistMode;
 
+    let armorClassMask = 0;
+    for (const [armorType, playableClasses] of getNumberKeyedEntries(classByArmorType)) {
+        if (
+            (armorType === ArmorType.Cloth && stores.vendorState.showCloth) ||
+            (armorType === ArmorType.Leather && stores.vendorState.showLeather) ||
+            (armorType === ArmorType.Mail && stores.vendorState.showMail) ||
+            (armorType === ArmorType.Plate && stores.vendorState.showPlate)
+        ) {
+            for (const playableClass of playableClasses) {
+                armorClassMask |=
+                    PlayableClassMask[
+                        PlayableClass[playableClass] as keyof typeof PlayableClassMask
+                    ];
+            }
+        }
+    }
+
     const seen: Record<string, boolean> = {};
     const stats: Record<string, UserCount> = {};
     const userHas: Record<string, boolean> = {};
@@ -251,6 +272,36 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue;
+                    }
+
+                    // Transmog sets are annoying
+                    const transmogSetId = stores.itemData.teachesTransmog[item.id];
+                    if (transmogSetId) {
+                        const transmogSet = stores.staticData.transmogSets[transmogSetId];
+                        if (
+                            transmogSet.classMask > 0 &&
+                            ((transmogSet.classMask & classMask) === 0 ||
+                                (transmogSet.classMask & armorClassMask) === 0)
+                        ) {
+                            continue;
+                        }
+
+                        if (
+                            transmogSet.items.every(([itemId]) => {
+                                const setItem = stores.itemData.items[itemId];
+                                if (!setItem || setItem.classMask === 0) {
+                                    return false;
+                                }
+
+                                return (
+                                    (setItem.classMask & classMask) === 0 ||
+                                    (armorClassMask > 0 &&
+                                        (setItem.classMask & armorClassMask) === 0)
+                                );
+                            })
+                        ) {
+                            continue;
+                        }
                     }
 
                     const sharedItem = stores.itemData.items[item.id];
