@@ -2,6 +2,7 @@ import some from 'lodash/some';
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData } from '@/types/data/item';
@@ -274,6 +275,71 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
         if (newCategories.length > 0) {
             ret.filteredCategories.push(newCategories);
+        }
+    } // categories of stores.manualData.transmog.sets
+
+    // generate stats for any transmog sets not seen in manual sets
+    for (const [transmogSetId, transmogSet] of getNumberKeyedEntries(
+        stores.staticData.transmogSets,
+    )) {
+        const setKey = `transmogSet:${transmogSetId}`;
+        if (ret.stats[setKey]) {
+            continue;
+        }
+
+        const setStats = (ret.stats[setKey] = new UserCount());
+        const slotData: TransmogSlotData = (ret.slots[setKey] = {});
+        for (let itemIndex = 0; itemIndex < transmogSet.items.length; itemIndex++) {
+            const [itemId, maybeModifier] = transmogSet.items[itemIndex];
+            const modifier = maybeModifier || 0;
+
+            // Dragonflight set mythic looks?
+            if (modifier >= 153 && modifier <= 156) {
+                continue;
+            }
+
+            const item = stores.itemData.items[itemId];
+            if (!item) {
+                continue;
+            }
+
+            let actualSlot: number;
+            if (weaponInventoryTypes.has(item.inventoryType)) {
+                actualSlot = 100 + item.subclassId;
+            } else {
+                actualSlot =
+                    item.inventoryType === InventoryType.Chest2
+                        ? InventoryType.Chest
+                        : item.inventoryType;
+            }
+
+            if (
+                completionistMode &&
+                !completionistSets &&
+                !weaponInventoryTypes.has(item.inventoryType) &&
+                slotData[actualSlot] !== undefined
+            ) {
+                continue;
+            }
+
+            // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
+            const hasSource = stores.userData.hasSource.has(`${itemId}_${modifier}`);
+
+            slotData[actualSlot] ||= [false, []];
+
+            slotData[actualSlot][0] ||= hasSource;
+            slotData[actualSlot][1].push([hasSource, itemId, modifier]);
+        }
+
+        if (completionistSets) {
+            setStats.total = Object.values(slotData).reduce((a, b) => a + b[1].length, 0);
+            setStats.have = Object.values(slotData).reduce(
+                (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
+                0,
+            );
+        } else {
+            setStats.total = Object.values(slotData).length;
+            setStats.have = Object.values(slotData).filter((has) => has[0] === true).length;
         }
     }
 
