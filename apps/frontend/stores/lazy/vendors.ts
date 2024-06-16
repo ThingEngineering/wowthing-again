@@ -1,10 +1,16 @@
+import { classByArmorType } from '@/data/character-class';
 import { transmogTypes } from '@/data/transmog';
+import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { InventoryType } from '@/enums/inventory-type';
+import { ItemClass } from '@/enums/item-class';
+import { LookupType } from '@/enums/lookup-type';
+import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
 import { UserCount } from '@/types';
 import { ManualDataVendorGroup } from '@/types/data/manual';
 import { getCurrencyCosts } from '@/utils/get-currency-costs';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import userHasDrop from '@/utils/user-has-drop';
 import type { ItemData } from '@/types/data/item';
@@ -15,11 +21,6 @@ import type { UserQuestData } from '@/types/data';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
-import { LookupType } from '@/enums/lookup-type';
-import { classByArmorType } from '@/data/character-class';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import { ArmorType } from '@/enums/armor-type';
-import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 
 const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
@@ -265,11 +266,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         item.costs,
                     );
 
-                    // Skip items, they're not collectible
-                    // if (item.type === RewardType.Item) {
-                    //     continue
-                    // }
-
                     if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                         continue;
                     }
@@ -280,25 +276,35 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         const transmogSet = stores.staticData.transmogSets[transmogSetId];
                         if (
                             transmogSet.classMask > 0 &&
-                            ((transmogSet.classMask & classMask) === 0 ||
-                                (transmogSet.classMask & armorClassMask) === 0)
+                            (transmogSet.classMask & classMask) === 0
                         ) {
                             continue;
                         }
 
-                        if (
-                            transmogSet.items.every(([itemId]) => {
-                                const setItem = stores.itemData.items[itemId];
-                                if (!setItem || setItem.classMask === 0) {
-                                    return false;
-                                }
+                        // Scan the actual items within the transmog set now
+                        let allArmor = true;
+                        let allClassMask = true;
+                        let allWeapon = true;
+                        transmogSet.items.forEach(([itemId]) => {
+                            const item = stores.itemData.items[itemId];
+                            if (!item) {
+                                return;
+                            }
 
-                                return (
-                                    (setItem.classMask & classMask) === 0 ||
-                                    (armorClassMask > 0 &&
-                                        (setItem.classMask & armorClassMask) === 0)
-                                );
-                            })
+                            if (item.classId !== ItemClass.Armor) {
+                                allArmor = false;
+                            }
+                            if (item.classId !== ItemClass.Weapon) {
+                                allWeapon = false;
+                            }
+                            if (item.classMask > 0 && (item.classMask & classMask) === 0) {
+                                allClassMask = false;
+                            }
+                        });
+                        if (
+                            !allClassMask ||
+                            (allArmor && (transmogSet.classMask & armorClassMask) === 0) ||
+                            (allWeapon && !stores.vendorState.showWeapons)
                         ) {
                             continue;
                         }
