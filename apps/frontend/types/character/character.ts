@@ -237,7 +237,10 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     get isRemix(): boolean {
-        return !!this.auras?.[424143];
+        return (
+            !!this.auras?.[424143] ||
+            Object.values(this.equippedItems || {}).some((item) => item.itemId === 210333) // cloak
+        );
     }
 
     public bestItemLevels: Record<number, string>;

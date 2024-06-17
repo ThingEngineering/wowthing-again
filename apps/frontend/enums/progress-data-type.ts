@@ -10,4 +10,5 @@ export enum ProgressDataType {
     Always,
     HonorLevel,
     GarrisonTree,
+    AccountQuest,
 }
