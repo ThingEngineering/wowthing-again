@@ -85,6 +85,7 @@ public class ManualTransmogCategoryConverter : JsonConverter<ManualTransmogCateg
         if (useAchievementId || useQuestId || useTransmogSetId)
         {
             writer.WriteNumberValue(set.TransmogSetId);
+            writer.WriteNumberValue(set.TransmogSetModifier);
         }
 
         if (useAchievementId || useQuestId)

@@ -5,6 +5,7 @@ public class ManualTransmogSet
     public int AchievementId { get; set; }
     public int QuestId { get; set; }
     public int TransmogSetId { get; set; }
+    public int TransmogSetModifier { get; set; }
     public int WowheadSetId { get; set; }
     public string Name { get; set; }
     public Dictionary<string, List<int>> Items { get; set; }
@@ -15,6 +16,7 @@ public class ManualTransmogSet
         AchievementId = set.AchievementId ?? 0;
         QuestId = set.QuestId ?? 0;
         TransmogSetId = set.TransmogSetId ?? 0;
+        TransmogSetModifier = set.TransmogSetModifier ?? -1;
         WowheadSetId = set.WowheadSetId ?? 0;
         Name = set.Name;
 

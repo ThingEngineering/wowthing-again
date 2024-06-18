@@ -118,7 +118,11 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
                             for (const [itemId, maybeModifier] of transmogSet.items) {
-                                itemsWithModifiers.push([itemId, maybeModifier || 0]);
+                                const modifier =
+                                    groupSigh.transmogSetModifier >= 0
+                                        ? groupSigh.transmogSetModifier
+                                        : maybeModifier || 0;
+                                itemsWithModifiers.push([itemId, modifier]);
                             }
                         } else if (groupSigh.itemsV2) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
@@ -153,26 +157,15 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     continue;
                                 }
 
-                                // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
                                 const hasSource =
                                     overrideHas ||
                                     stores.userData.hasSource.has(`${itemId}_${modifier}`);
-
-                                // const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
-                                //     ? hasSource : hasAppearance
-
-                                // if (userHas) {
-                                //     slotData[actualSlot][0] = true
-                                // }
 
                                 slotData[actualSlot] ||= [false, []];
 
                                 slotData[actualSlot][0] ||= hasSource;
                                 slotData[actualSlot][1].push([hasSource, itemId, modifier]);
                             }
-
-                            // let setTotal = 0
-                            // let setHave = 0
 
                             if (completionistSets) {
                                 setDataStats.total = Object.values(slotData).reduce(

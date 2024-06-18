@@ -43,6 +43,7 @@ export class ManualDataTransmogGroupData {
         itemsV2: string[],
         public wowheadSetId?: number,
         public transmogSetId?: number,
+        public transmogSetModifier?: number,
         public questId?: number,
         public achievementId?: number,
     ) {
