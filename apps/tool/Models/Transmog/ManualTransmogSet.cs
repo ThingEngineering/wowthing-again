@@ -8,6 +8,7 @@ public class ManualTransmogSet
     public int WowheadSetId { get; set; }
     public string Name { get; set; }
     public Dictionary<string, List<int>> Items { get; set; }
+    public List<string> ItemsV2 { get; set; }
 
     public ManualTransmogSet(DataTransmogSet set)
     {
@@ -27,5 +28,7 @@ public class ManualTransmogSet
                     .Select(int.Parse)
                     .ToList()
             );
+
+        ItemsV2 = set.ItemsV2.EmptyIfNull();
     }
 }

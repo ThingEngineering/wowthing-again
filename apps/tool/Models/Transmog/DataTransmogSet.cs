@@ -8,4 +8,5 @@ public class DataTransmogSet
     public int? WowheadSetId { get; set; }
     public string Name { get; set; } = string.Empty;
     public Dictionary<string, string>? Items { get; set; }
+    public List<string>? ItemsV2 { get; set; }
 }

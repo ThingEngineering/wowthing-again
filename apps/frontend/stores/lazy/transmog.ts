@@ -81,6 +81,11 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const setDataKey = `${setKey}--${dataKey}`;
                         const setDataStats = (ret.stats[setDataKey] ||= new UserCount());
 
+                        const groupSigh = dataValue[setIndex];
+                        if (groupSigh === null) {
+                            continue;
+                        }
+
                         // Faction filters
                         if (
                             (skipAlliance && setName.indexOf(':alliance:') >= 0) ||
@@ -95,11 +100,6 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         // Sets that are explicitly not counted
                         const countUncollected = !setName.endsWith('*');
 
-                        const groupSigh = dataValue[setIndex];
-                        if (groupSigh === null) {
-                            continue;
-                        }
-
                         let overrideHas = false;
                         if (groupSigh.achievementId) {
                             overrideHas ||=
@@ -111,19 +111,22 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             );
                         }
 
-                        const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
+                        // Get itemId/modifier pairs from newer data
+                        const itemsWithModifiers: [number, number][] = [];
                         if (groupSigh.transmogSetId) {
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
-                            for (
-                                let itemIndex = 0;
-                                itemIndex < transmogSet.items.length;
-                                itemIndex++
-                            ) {
-                                const [itemId, maybeModifier] = transmogSet.items[itemIndex];
-                                const modifier = maybeModifier || 0;
+                            for (const [itemId, maybeModifier] of transmogSet.items) {
+                                itemsWithModifiers.push([itemId, maybeModifier || 0]);
+                            }
+                        } else if (groupSigh.itemsV2) {
+                            itemsWithModifiers.push(...groupSigh.itemsV2);
+                        }
 
+                        const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
+                        if (itemsWithModifiers.length > 0) {
+                            for (const [itemId, modifier] of itemsWithModifiers) {
                                 // Dragonflight set mythic looks?
                                 if (modifier >= 153 && modifier <= 156) {
                                     continue;
@@ -214,6 +217,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 setStats.have += setDataStats.have;
                             }
                         } else {
+                            // Fall back to the awkward { slot: itemids } mapping
                             const slotKeys = Object.keys(groupSigh.items).map((key) =>
                                 parseInt(key),
                             );
