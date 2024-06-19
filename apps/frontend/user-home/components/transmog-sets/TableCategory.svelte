@@ -216,8 +216,8 @@
                 {/if}
                 
                 {#if !skipClasses['mail']}
-                {@const span = fakeArmorSpan('mail')}
-                <td class="icon" colspan={span}>
+                    {@const span = fakeArmorSpan('mail')}
+                    <td class="icon" colspan={span}>
                         <WowthingImage
                             name={Constants.icons.armorMail}
                             size={40}
@@ -239,8 +239,8 @@
                     </td>
                 {/if}
                 
-            {:else if !anyClasses}
-                <td class="icon">
+            {:else if !anyClasses || currentType === 'all'}
+                <td class="icon" colspan="100">
                     <WowthingImage
                         name="spell/154611"
                         size={40}
@@ -248,8 +248,6 @@
                     />
                     <span class="abs-center pill">All</span>
                 </td>
-
-                <td class="icon" colspan="100"></td>
 
             {:else}
                 {#if !skipClasses['mage']}
@@ -386,7 +384,9 @@
                                 set={group.data?.[transmogSet.type]?.[setIndex]}
                                 setKey={`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`}
                                 setTitle={setName}
-                                span={anyClasses ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
+                                span={anyClasses
+                                    ? getTransmogSpan(group, transmogSet, skipClasses)
+                                    : (transmogSet.type === 'all' ? 100 : 1)}
                                 subType={transmogSet.subType}
                             />
                         {/if}
