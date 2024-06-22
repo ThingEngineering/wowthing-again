@@ -100,6 +100,11 @@
             bind:value={$settingsStore.transmog.completionistSets}
         >Completionist Sets</Checkbox>
         
+        <Checkbox
+            name="collections_hideUnavailable"
+            bind:value={$settingsStore.collections.hideUnavailable}
+        >Hide Unavailable</Checkbox>
+
         <div class="spacer"></div>
 
         <div class="flex-wrapper">
