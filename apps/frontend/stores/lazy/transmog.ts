@@ -2,6 +2,7 @@ import some from 'lodash/some';
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
+import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
 import type { StaticData } from '@/shared/stores/static/types';
@@ -142,19 +143,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 if (weaponInventoryTypes.has(item.inventoryType)) {
                                     actualSlot = 100 + item.subclassId;
                                 } else {
-                                    actualSlot =
-                                        item.inventoryType === InventoryType.Chest2
-                                            ? InventoryType.Chest
-                                            : item.inventoryType;
-                                }
-
-                                if (
-                                    completionistMode &&
-                                    !completionistSets &&
-                                    !weaponInventoryTypes.has(item.inventoryType) &&
-                                    slotData[actualSlot] !== undefined
-                                ) {
-                                    continue;
+                                    actualSlot = fixedInventoryType(item.inventoryType);
                                 }
 
                                 const hasSource =
@@ -162,7 +151,6 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     stores.userData.hasSource.has(`${itemId}_${modifier}`);
 
                                 slotData[actualSlot] ||= [false, []];
-
                                 slotData[actualSlot][0] ||= hasSource;
                                 slotData[actualSlot][1].push([hasSource, itemId, modifier]);
                             }
