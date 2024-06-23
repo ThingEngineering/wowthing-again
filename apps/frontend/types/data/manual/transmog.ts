@@ -35,14 +35,24 @@ export class ManualDataTransmogGroup {
 export type ManualDataTransmogGroupArray = ConstructorParameters<typeof ManualDataTransmogGroup>;
 
 export class ManualDataTransmogGroupData {
+    public itemsV2: [number, number][];
+
     constructor(
         public name: string,
         public items: Record<number, number[]>,
+        itemsV2: string[],
         public wowheadSetId?: number,
         public transmogSetId?: number,
+        public transmogSetModifier?: number,
         public questId?: number,
         public achievementId?: number,
-    ) {}
+    ) {
+        this.itemsV2 = [];
+        for (const item of itemsV2) {
+            const [itemId, modifier] = item.split('_');
+            this.itemsV2.push([parseInt(itemId), parseInt(modifier || '0')]);
+        }
+    }
 }
 export type ManualDataTransmogGroupDataArray = ConstructorParameters<
     typeof ManualDataTransmogGroupData

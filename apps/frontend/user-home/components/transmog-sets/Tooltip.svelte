@@ -50,6 +50,8 @@
         word-spacing: -0.2ch;
     }
     .items {
+        --image-border-width: 1px;
+
         text-align: left;
 
         :global(span[data-string="yes"]) {
@@ -76,7 +78,7 @@
             {#each actualSlotOrder as type}
                 {#if slotHave[type] !== undefined}
                     {@const [slotCollected, slotItems] = slotHave[type]}
-                    {@const have = slotItems.filter(([data,]) => data).length}
+                    {@const have = (slotItems || []).filter(([haveItem,]) => haveItem).length}
                     <tr>
                         <td class="have">
                             <YesNoIcon state={slotCollected} useStatusColors={true} />
@@ -97,13 +99,13 @@
                             <td class="items">
                                 <TooltipItems
                                     dedupe={false}
-                                    items={slotItems.filter(([itemCollected,]) => !itemCollected)}
+                                    items={(slotItems || []).filter(([itemCollected,]) => !itemCollected)}
                                 />
                             </td>
                         {:else}
                             {#if slotHave[type][1]?.length > 0}
                                 <td class="items">
-                                    <TooltipItems items={slotItems.slice(0, 2)} />
+                                    <TooltipItems items={slotItems || []} />
                                 </td>
                             {/if}
                         {/if}

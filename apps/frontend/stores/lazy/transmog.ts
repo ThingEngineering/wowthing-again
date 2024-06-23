@@ -2,6 +2,7 @@ import some from 'lodash/some';
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
+import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
 import type { StaticData } from '@/shared/stores/static/types';
@@ -81,6 +82,11 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const setDataKey = `${setKey}--${dataKey}`;
                         const setDataStats = (ret.stats[setDataKey] ||= new UserCount());
 
+                        const groupSigh = dataValue[setIndex];
+                        if (groupSigh === null) {
+                            continue;
+                        }
+
                         // Faction filters
                         if (
                             (skipAlliance && setName.indexOf(':alliance:') >= 0) ||
@@ -95,11 +101,6 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         // Sets that are explicitly not counted
                         const countUncollected = !setName.endsWith('*');
 
-                        const groupSigh = dataValue[setIndex];
-                        if (groupSigh === null) {
-                            continue;
-                        }
-
                         let overrideHas = false;
                         if (groupSigh.achievementId) {
                             overrideHas ||=
@@ -111,19 +112,26 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             );
                         }
 
-                        const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
+                        // Get itemId/modifier pairs from newer data
+                        const itemsWithModifiers: [number, number][] = [];
                         if (groupSigh.transmogSetId) {
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
-                            for (
-                                let itemIndex = 0;
-                                itemIndex < transmogSet.items.length;
-                                itemIndex++
-                            ) {
-                                const [itemId, maybeModifier] = transmogSet.items[itemIndex];
-                                const modifier = maybeModifier || 0;
+                            for (const [itemId, maybeModifier] of transmogSet.items) {
+                                const modifier =
+                                    groupSigh.transmogSetModifier >= 0
+                                        ? groupSigh.transmogSetModifier
+                                        : maybeModifier || 0;
+                                itemsWithModifiers.push([itemId, modifier]);
+                            }
+                        } else if (groupSigh.itemsV2) {
+                            itemsWithModifiers.push(...groupSigh.itemsV2);
+                        }
 
+                        const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
+                        if (itemsWithModifiers.length > 0) {
+                            for (const [itemId, modifier] of itemsWithModifiers) {
                                 // Dragonflight set mythic looks?
                                 if (modifier >= 153 && modifier <= 156) {
                                     continue;
@@ -135,41 +143,17 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 if (weaponInventoryTypes.has(item.inventoryType)) {
                                     actualSlot = 100 + item.subclassId;
                                 } else {
-                                    actualSlot =
-                                        item.inventoryType === InventoryType.Chest2
-                                            ? InventoryType.Chest
-                                            : item.inventoryType;
+                                    actualSlot = fixedInventoryType(item.inventoryType);
                                 }
 
-                                if (
-                                    completionistMode &&
-                                    !completionistSets &&
-                                    !weaponInventoryTypes.has(item.inventoryType) &&
-                                    slotData[actualSlot] !== undefined
-                                ) {
-                                    continue;
-                                }
-
-                                // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
                                 const hasSource =
                                     overrideHas ||
                                     stores.userData.hasSource.has(`${itemId}_${modifier}`);
 
-                                // const userHas = (completionistMode || transmogSet.allianceOnly || transmogSet.hordeOnly)
-                                //     ? hasSource : hasAppearance
-
-                                // if (userHas) {
-                                //     slotData[actualSlot][0] = true
-                                // }
-
                                 slotData[actualSlot] ||= [false, []];
-
                                 slotData[actualSlot][0] ||= hasSource;
                                 slotData[actualSlot][1].push([hasSource, itemId, modifier]);
                             }
-
-                            // let setTotal = 0
-                            // let setHave = 0
 
                             if (completionistSets) {
                                 setDataStats.total = Object.values(slotData).reduce(
@@ -214,6 +198,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 setStats.have += setDataStats.have;
                             }
                         } else {
+                            // Fall back to the awkward { slot: itemids } mapping
                             const slotKeys = Object.keys(groupSigh.items).map((key) =>
                                 parseInt(key),
                             );
