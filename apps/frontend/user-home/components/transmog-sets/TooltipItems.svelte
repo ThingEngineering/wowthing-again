@@ -43,6 +43,19 @@
         } else {
             itemData = items.map(([itemHave, itemId, modifier]) => [itemHave, $itemStore.items[itemId], modifier])
         }
+
+        itemData.sort(([aHave], [bHave]) => {
+            if (aHave === true && bHave === false) {
+                return -1;
+            } else if (aHave === false && bHave === true) {
+                return 1;
+            }
+            return 0;
+        })
+
+        if (dedupe) {
+            itemData = itemData.slice(0, 2);
+        }
     }
 
     function getItemText(item: ItemDataItem, modifier: number): string {

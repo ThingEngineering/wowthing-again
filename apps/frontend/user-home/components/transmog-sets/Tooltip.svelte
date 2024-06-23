@@ -105,7 +105,7 @@
                         {:else}
                             {#if slotHave[type][1]?.length > 0}
                                 <td class="items">
-                                    <TooltipItems items={(slotItems || []).slice(0, 2)} />
+                                    <TooltipItems items={slotItems || []} />
                                 </td>
                             {/if}
                         {/if}

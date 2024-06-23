@@ -368,7 +368,7 @@
                             />
                         
                             {#if completionistReady(group, setIndex)}
-                                <span class="has-transmog-set-id" use:basicTooltip={'Updated for completionist!'}>
+                                <span class="has-transmog-set-id" use:basicTooltip={'Uses a Blizzard transmog set'}>
                                     <IconifyIcon
                                         icon={iconLibrary.gameStaryu}
                                         scale={'0.8'}
