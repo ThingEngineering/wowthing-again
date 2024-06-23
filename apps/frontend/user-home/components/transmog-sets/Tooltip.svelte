@@ -26,6 +26,7 @@
     
     $: weapons = Object.keys(slotHave).filter((key) => parseInt(key) >= 100)
     $: actualSlotOrder = weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder
+    $: showShift = have < total && Object.values(slotHave).some(([, items]) => items.length > 2)
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey
@@ -89,13 +90,13 @@
                             {:else}
                                 {$staticStore.inventoryTypes[type]}
                             {/if}
-                            {#if slotItems?.length > 2}
+                            {#if slotItems?.length >= 2}
                                 <div class="slot-count {getPercentClass(have / slotItems.length * 100)}">
                                     {have} / {slotItems.length}
                                 </div>
                             {/if}
                         </td>
-                        {#if shiftPressed}
+                        {#if showShift && shiftPressed}
                             <td class="items">
                                 <TooltipItems
                                     dedupe={false}
@@ -112,7 +113,7 @@
                     </tr>
                 {/if}
             {/each}
-            {#if have < total && !shiftPressed}
+            {#if showShift && !shiftPressed}
                 <tr>
                     <td colspan="100">Hold Shift to see all missing items!</td>
                 </tr>
