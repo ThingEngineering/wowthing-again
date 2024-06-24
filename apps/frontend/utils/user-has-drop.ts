@@ -39,6 +39,12 @@ export default function userHasDrop(
             return userData.hasMount[staticData.mountsByItem[id].id] === true;
         } else if (staticData.toys[id]) {
             return userData.hasToy[id] === true;
+        } else if (itemData.teachesTransmog[id]) {
+            const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
+            const stats = lazyTransmog.stats[statsKey];
+            if (stats) {
+                return stats.percent >= 100;
+            }
         } else if (itemData.completesQuest[id]) {
             return accountTrackingQuest(itemData, userQuestData, id);
         }
