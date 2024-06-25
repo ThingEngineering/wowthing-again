@@ -255,11 +255,15 @@ public class CacheService
             .FromSqlRaw(MountQuery.UserQuery, userId)
             .SingleAsync();
 
-        var sortedMountIds = userBulk?.MountIds.EmptyIfNull()
-            .Select(n => (int)n)
-            .Union(mounts.AddonMounts.EmptyIfNull())
-            .Union(mounts.Mounts.EmptyIfNull())
-            .Select(id => (short)id)
+        var allMountIds = new List<short>();
+        if (userBulk?.MountIds != null)
+        {
+            allMountIds.AddRange(userBulk.MountIds);
+        }
+        allMountIds.AddRange(mounts.AddonMounts.EmptyIfNull().Select(n => (short)n));
+        allMountIds.AddRange(mounts.Mounts.EmptyIfNull().Select(n => (short)n));
+
+        var sortedMountIds = allMountIds
             .Distinct()
             .Order()
             .ToList();
@@ -460,12 +464,18 @@ public class CacheService
             .Where(pat => pat.Account.UserId == userId)
             .ToArrayAsync();
 
-        var sortedToyIds = userBulk?.ToyIds
-            .Union(
-                accountToys
-                    .SelectMany(pat => pat.ToyIds.EmptyIfNull())
-                    .Select(id => (short)id)
-            )
+        var allToyIds = new List<short>();
+        if (userBulk?.ToyIds != null)
+        {
+            allToyIds.AddRange(userBulk.ToyIds);
+        }
+        allToyIds.AddRange(
+            accountToys
+                .SelectMany(pat => pat.ToyIds.EmptyIfNull())
+                .Select(id => (short)id)
+        );
+
+        var sortedToyIds = allToyIds
             .Distinct()
             .Order()
             .ToList();
@@ -532,14 +542,14 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var appearanceIds = new List<int>();
+        var allAppearanceIds = new List<int>();
         if (userBulk?.TransmogIds != null)
         {
-            appearanceIds.AddRange(userBulk.TransmogIds);
+            allAppearanceIds.AddRange(userBulk.TransmogIds);
         }
-        appearanceIds.AddRange(allTransmog.TransmogIds);
+        allAppearanceIds.AddRange(allTransmog.TransmogIds);
 
-        var sortedAppearanceIds = appearanceIds
+        var sortedAppearanceIds = allAppearanceIds
             .Distinct()
             .Order()
             .ToList();

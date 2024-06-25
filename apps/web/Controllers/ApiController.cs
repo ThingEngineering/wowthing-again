@@ -395,7 +395,7 @@ public class ApiController : Controller
 
         var diffedAppearanceIds = new List<int>();
         int lastAppearanceId = 0;
-        foreach (int appearanceId in userCache.AppearanceIds)
+        foreach (int appearanceId in userCache.AppearanceIds.EmptyIfNull())
         {
             diffedAppearanceIds.Add(appearanceId - lastAppearanceId);
             lastAppearanceId = appearanceId;
