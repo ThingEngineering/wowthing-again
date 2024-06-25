@@ -145,6 +145,8 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterSpecializations);
         }
 
+        jobs.Add(JobType.CharacterTransmogs);
+
         // Shadowlands specific
         if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
         {
