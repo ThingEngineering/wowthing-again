@@ -15,11 +15,11 @@ public class CharacterTransmogsJob : JobBase
         using var shrug = CharacterLog(query);
 
         // Fetch API data
-        ApiCharacterTransmog resultData;
+        ApiCharacterTransmogs resultData;
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetUriAsJsonAsync<ApiCharacterTransmog>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterTransmogs>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

@@ -3,6 +3,7 @@
 public enum JobType
 {
     UserCharacters = 0,
+    UserBulkData,
 
     Character = 100,
     CharacterAchievements,

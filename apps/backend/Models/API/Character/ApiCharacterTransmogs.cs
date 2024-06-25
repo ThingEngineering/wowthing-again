@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Backend.Models.API.Character;
 
-public class ApiCharacterTransmog
+public class ApiCharacterTransmogs
 {
     public List<ApiCharacterTransmogSlot> Slots { get; set; }
 }
