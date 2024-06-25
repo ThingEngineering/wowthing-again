@@ -76,6 +76,26 @@ public class CacheService
         return (true, lastModified);
     }
 
+    public async Task ResetForBulkData(WowDbContext context, JankTimer timer, long userId)
+    {
+        var userCache = await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            return;
+        }
+
+        userCache.MountsUpdated = DateTimeOffset.MinValue;
+        userCache.ToysUpdated = DateTimeOffset.MinValue;
+        userCache.TransmogUpdated = DateTimeOffset.MinValue;
+
+        await context.SaveChangesAsync();
+
+        await SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+    }
+
     #region Achievements
     public async Task<(string, DateTimeOffset)> GetOrCreateAchievementCacheAsync(
         WowDbContext context,
@@ -229,11 +249,15 @@ public class CacheService
         var now = DateTimeOffset.UtcNow;
 
         // Mounts
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
         var mounts = await context.MountQuery
             .FromSqlRaw(MountQuery.UserQuery, userId)
             .SingleAsync();
 
-        var sortedMountIds = mounts.AddonMounts.EmptyIfNull()
+        var sortedMountIds = userBulk?.MountIds.EmptyIfNull()
+            .Select(n => (int)n)
+            .Union(mounts.AddonMounts.EmptyIfNull())
             .Union(mounts.Mounts.EmptyIfNull())
             .Select(id => (short)id)
             .Distinct()
@@ -400,7 +424,7 @@ public class CacheService
         await db.KeyDeleteAsync(string.Format(RedisKeys.UserQuests, userId));
         await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
     }
-    #endregion
+#endregion
 
     #region Toys
     public async Task<UserCache> CreateOrUpdateToyCacheAsync(
@@ -430,14 +454,19 @@ public class CacheService
         var now = DateTimeOffset.UtcNow;
 
         // Toys
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
         var accountToys = await context.PlayerAccountToys
             .Where(pat => pat.Account.UserId == userId)
             .ToArrayAsync();
 
-        var sortedToyIds = accountToys
-            .SelectMany(pat => pat.ToyIds.EmptyIfNull())
+        var sortedToyIds = userBulk?.ToyIds
+            .Union(
+                accountToys
+                    .SelectMany(pat => pat.ToyIds.EmptyIfNull())
+                    .Select(id => (short)id)
+            )
             .Distinct()
-            .Select(id => (short)id)
             .Order()
             .ToList();
 
@@ -484,6 +513,8 @@ public class CacheService
                            lastModified.HasValue && lastModified > userCache.TransmogUpdated;
         var now = DateTimeOffset.UtcNow;
 
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
         var allTransmog = await context.AccountTransmogQuery
             .FromSqlRaw(AccountTransmogQuery.Sql, userId)
             .SingleAsync();
@@ -501,7 +532,8 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var sortedAppearanceIds = allTransmog.TransmogIds
+        var sortedAppearanceIds = userBulk?.TransmogIds.EmptyIfNull()
+            .Union(allTransmog.TransmogIds)
             .Distinct()
             .Order()
             .ToList();

@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.User;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
@@ -68,6 +69,8 @@ public class UserBulkDataJob : JobBase
         await Context.SaveChangesAsync();
 
         _timer.AddPoint("Save", true);
+
+        await CacheService.ResetForBulkData(Context, _timer, _userId);
 
         Logger.Information("{timer}", _timer.ToString());
     }
