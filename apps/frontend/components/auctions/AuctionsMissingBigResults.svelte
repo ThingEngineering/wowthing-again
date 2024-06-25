@@ -269,7 +269,7 @@
                                 {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
                                 {@const ageInMinutes = Math.floor(
                                     $timeStore.diff(
-                                        DateTime.fromSeconds(updated[auction.connectedRealmId])
+                                        DateTime.fromSeconds(updated[auction.connectedRealmId] || 1000)
                                     ).toMillis() / 1000 / 60
                                 )}
                                 <tr

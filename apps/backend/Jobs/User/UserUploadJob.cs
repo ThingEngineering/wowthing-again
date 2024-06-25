@@ -1781,17 +1781,18 @@ public class UserUploadJob : JobBase
             _resetTransmogCache = true;
         }
 
-        var transmog = characterData.Transmog
-            .EmptyIfNullOrWhitespace()
-            .Split(':', StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse)
-            .Order()
-            .ToList();
-        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null || !transmog.SequenceEqual(character.Transmog.TransmogIds)))
-        {
-            character.Transmog.TransmogIds = transmog;
-            _resetTransmogCache = true;
-        }
+        // Disable for now in favour of CharacterTransmogsJob
+        // var transmog = characterData.Transmog
+        //     .EmptyIfNullOrWhitespace()
+        //     .Split(':', StringSplitOptions.RemoveEmptyEntries)
+        //     .Select(int.Parse)
+        //     .Order()
+        //     .ToList();
+        // if (transmog.Count > 0 && (character.Transmog.TransmogIds == null || !transmog.SequenceEqual(character.Transmog.TransmogIds)))
+        // {
+        //     character.Transmog.TransmogIds = transmog;
+        //     _resetTransmogCache = true;
+        // }
     }
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)

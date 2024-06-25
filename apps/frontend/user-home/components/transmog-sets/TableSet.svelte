@@ -78,21 +78,26 @@
             },
         }}
     >
-        <span
-            bind:this={spanElement}
-            class:blocky={span > 1}
-        >
-            {#if set.wowheadSetId}
-                <WowheadTransmogSetLink
-                    id={set.wowheadSetId}
-                    cls="{getPercentClass(percent)}"
+        {#if set.wowheadSetId}
+            <WowheadTransmogSetLink
+                id={set.wowheadSetId}
+                cls="{getPercentClass(percent)}"
+            >
+                <span
+                    bind:this={spanElement}
+                    class:blocky={span > 1}
                 >
                     {have} / {total}
-                </WowheadTransmogSetLink>
-            {:else}
+                </span>
+            </WowheadTransmogSetLink>
+        {:else}
+            <span
+                bind:this={spanElement}
+                class:blocky={span > 1}
+            >
                 {have} / {total}
-            {/if}
-        </span>
+            </span>
+        {/if}
     </td>
 {:else}
     <td class="quality0" colspan="{span}">---</td>

@@ -3,7 +3,9 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -17,7 +19,7 @@ public class UserCharactersJob : JobBase
         using var shrug = UserLog(data[0]);
         var timer = new JankTimer();
 
-        var userId = long.Parse(data[0]);
+        long userId = long.Parse(data[0]);
 
         // Get user access token
         var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
@@ -28,7 +30,7 @@ public class UserCharactersJob : JobBase
             return;
         }
 
-        var path = string.Format(ApiPath, accessToken.Value);
+        string path = string.Format(ApiPath, accessToken.Value);
 
         timer.AddPoint("Token");
 
@@ -232,5 +234,7 @@ public class UserCharactersJob : JobBase
         timer.AddPoint("Unlink", true);
 
         Logger.Information("{timer}", timer.ToString());
+
+        await JobRepository.AddJobAsync(JobPriority.High, JobType.UserBulkData, data);
     }
 }
