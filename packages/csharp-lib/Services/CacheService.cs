@@ -532,8 +532,14 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var sortedAppearanceIds = userBulk?.TransmogIds.EmptyIfNull()
-            .Union(allTransmog.TransmogIds)
+        var appearanceIds = new List<int>();
+        if (userBulk?.TransmogIds != null)
+        {
+            appearanceIds.AddRange(userBulk.TransmogIds);
+        }
+        appearanceIds.AddRange(allTransmog.TransmogIds);
+
+        var sortedAppearanceIds = appearanceIds
             .Distinct()
             .Order()
             .ToList();
