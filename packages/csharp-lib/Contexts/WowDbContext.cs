@@ -96,6 +96,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
+    public DbSet<UserBulkData> UserBulkData { get; set; }
     public DbSet<UserCache> UserCache { get; set; }
     public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
 
