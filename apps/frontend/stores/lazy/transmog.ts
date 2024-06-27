@@ -115,10 +115,31 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
                         if (groupSigh.transmogSetId) {
+                            ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
+
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
-                            ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
+
                             for (const [itemId, maybeModifier] of transmogSet.items) {
+                                const item = stores.itemData.items[itemId];
+
+                                // Skip items that don't match the transmog set's class mask
+                                if (
+                                    item.classMask > 0 &&
+                                    transmogSet.classMask > 0 &&
+                                    (item.classMask & transmogSet.classMask) === 0
+                                ) {
+                                    continue;
+                                }
+
+                                // Skip items that don't match the transmog set's faction
+                                if (
+                                    (transmogSet.allianceOnly && item.hordeOnly) ||
+                                    (transmogSet.hordeOnly && item.allianceOnly)
+                                ) {
+                                    continue;
+                                }
+
                                 const modifier =
                                     groupSigh.transmogSetModifier >= 0
                                         ? groupSigh.transmogSetModifier
