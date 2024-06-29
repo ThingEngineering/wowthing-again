@@ -5,6 +5,7 @@ using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Backend.Jobs.Character;
 
+// Don't use this for now, the character endpoint straight up lies about what appearances you have
 public class CharacterTransmogsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/collections/transmogs";
