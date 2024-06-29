@@ -127,7 +127,8 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 if (
                                     item.classMask > 0 &&
                                     transmogSet.classMask > 0 &&
-                                    (item.classMask & transmogSet.classMask) === 0
+                                    (item.classMask & transmogSet.classMask) !==
+                                        transmogSet.classMask
                                 ) {
                                     continue;
                                 }
