@@ -1,15 +1,16 @@
 import some from 'lodash/some';
 
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
+import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
+import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
+import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
-import type { Settings } from '@/shared/stores/settings/types';
-import type { UserQuestData } from '@/types/data';
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>;
 
@@ -122,6 +123,14 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                             for (const [itemId, maybeModifier] of transmogSet.items) {
                                 const item = stores.itemData.items[itemId];
+                                if (!item) {
+                                    continue;
+                                }
+
+                                // These don't collect properly
+                                if (item.quality === ItemQuality.Heirloom) {
+                                    continue;
+                                }
 
                                 // Skip items that don't match the transmog set's class mask
                                 if (
