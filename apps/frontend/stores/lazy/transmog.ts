@@ -46,7 +46,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
     const skipHorde = !stores.settings.transmog.showHordeOnly;
     const skipClasses = getSkipClasses(stores.settings);
 
-    const overallSeen: Record<number, boolean> = {};
+    const overallSeen: Record<string, boolean> = {};
     const overallStats = (ret.stats['OVERALL'] = new UserCount());
 
     for (const categories of stores.manualData.transmog.sets) {
@@ -115,10 +115,32 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
                         if (groupSigh.transmogSetId) {
+                            ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
+
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
-                            ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
+
                             for (const [itemId, maybeModifier] of transmogSet.items) {
+                                const item = stores.itemData.items[itemId];
+
+                                // Skip items that don't match the transmog set's class mask
+                                if (
+                                    item.classMask > 0 &&
+                                    transmogSet.classMask > 0 &&
+                                    (item.classMask & transmogSet.classMask) !==
+                                        transmogSet.classMask
+                                ) {
+                                    continue;
+                                }
+
+                                // Skip items that don't match the transmog set's faction
+                                if (
+                                    (transmogSet.allianceOnly && item.hordeOnly) ||
+                                    (transmogSet.hordeOnly && item.allianceOnly)
+                                ) {
+                                    continue;
+                                }
+
                                 const modifier =
                                     groupSigh.transmogSetModifier >= 0
                                         ? groupSigh.transmogSetModifier
@@ -165,37 +187,63 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                         a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
                                     0,
                                 );
+
+                                // [hasSlot, [hasSource, itemId, modifier][]][]
+                                for (const itemDatas of Object.values(slotData)) {
+                                    for (const [hasSource, itemId, modifier] of itemDatas[1]) {
+                                        const sourceKey = `${itemId}_${modifier}`;
+
+                                        // unavailable sets can skip?
+                                        if (!hasSource && !countUncollected) {
+                                            continue;
+                                        }
+
+                                        if (!overallSeen[sourceKey]) {
+                                            overallStats.total++;
+                                        }
+                                        baseStats.total++;
+                                        catStats.total++;
+                                        groupStats.total++;
+                                        setStats.total++;
+
+                                        if (hasSource) {
+                                            if (!overallSeen[sourceKey]) {
+                                                overallStats.have++;
+                                            }
+                                            baseStats.have++;
+                                            catStats.have++;
+                                            groupStats.have++;
+                                            setStats.have++;
+                                        }
+
+                                        overallSeen[sourceKey] = true;
+                                    }
+                                }
                             } else {
                                 setDataStats.total = Object.values(slotData).length;
                                 setDataStats.have = Object.values(slotData).filter(
                                     (has) => has[0] === true,
                                 ).length;
-                            }
 
-                            if (countUncollected) {
-                                overallStats.total += setDataStats.total;
-                                overallStats.have += setDataStats.have;
-
-                                baseStats.total += setDataStats.total;
-                                baseStats.have += setDataStats.have;
-
-                                catStats.total += setDataStats.total;
                                 catStats.have += setDataStats.have;
-
-                                groupStats.total += setDataStats.total;
                                 groupStats.have += setDataStats.have;
-
-                                setStats.total += setDataStats.total;
                                 setStats.have += setDataStats.have;
-                            } else {
-                                catStats.total += setDataStats.have;
-                                catStats.have += setDataStats.have;
 
-                                groupStats.total += setDataStats.have;
-                                groupStats.have += setDataStats.have;
+                                if (countUncollected) {
+                                    overallStats.total += setDataStats.total;
+                                    overallStats.have += setDataStats.have;
 
-                                setStats.total += setDataStats.have;
-                                setStats.have += setDataStats.have;
+                                    baseStats.total += setDataStats.total;
+                                    baseStats.have += setDataStats.have;
+
+                                    catStats.total += setDataStats.total;
+                                    groupStats.total += setDataStats.total;
+                                    setStats.total += setDataStats.total;
+                                } else {
+                                    catStats.total += setDataStats.have;
+                                    groupStats.total += setDataStats.have;
+                                    setStats.total += setDataStats.have;
+                                }
                             }
                         } else {
                             // Fall back to the awkward { slot: itemids } mapping

@@ -26,7 +26,7 @@
     
     $: weapons = Object.keys(slotHave).filter((key) => parseInt(key) >= 100)
     $: actualSlotOrder = weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder
-    $: showShift = have < total && Object.values(slotHave).some(([, items]) => items.length > 2)
+    $: showShift = Object.values(slotHave).some(([, items]) => items.length > 2)
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey
@@ -100,7 +100,7 @@
                             <td class="items">
                                 <TooltipItems
                                     dedupe={false}
-                                    items={(slotItems || []).filter(([itemCollected,]) => !itemCollected)}
+                                    items={(slotItems || []).filter(([itemCollected,]) => have < slotItems.length ? !itemCollected : true)}
                                 />
                             </td>
                         {:else}
@@ -115,7 +115,7 @@
             {/each}
             {#if showShift && !shiftPressed}
                 <tr>
-                    <td colspan="100">Hold Shift to see all missing items!</td>
+                    <td colspan="100">Hold Shift to see all {have < total ? 'missing' : ''} items!</td>
                 </tr>
             {/if}
         </tbody>
