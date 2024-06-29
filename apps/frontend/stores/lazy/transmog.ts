@@ -156,8 +156,16 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                         : maybeModifier || 0;
                                 itemsWithModifiers.push([itemId, modifier]);
                             }
-                        } else if (groupSigh.itemsV2) {
+                        } else if (groupSigh.itemsV2.length > 0) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
+                        } else {
+                            for (const appearanceIds of Object.values(groupSigh.items)) {
+                                for (const appearanceId of appearanceIds) {
+                                    itemsWithModifiers.push(
+                                        ...(stores.itemData.appearanceToItems[appearanceId] || []),
+                                    );
+                                }
+                            }
                         }
 
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
@@ -255,56 +263,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 }
                             }
                         } else {
-                            // Fall back to the awkward { slot: itemids } mapping
-                            const slotKeys = Object.keys(groupSigh.items).map((key) =>
-                                parseInt(key),
-                            );
-
-                            for (const slotKey of slotKeys) {
-                                const transmogIds = groupSigh.items[slotKey];
-
-                                const seenAny = some(transmogIds, (id) => overallSeen[id]);
-
-                                if (countUncollected) {
-                                    if (!seenAny) {
-                                        overallStats.total++;
-                                    }
-                                    baseStats.total++;
-                                    catStats.total++;
-                                    groupStats.total++;
-                                    setStats.total++;
-                                }
-
-                                let haveAny = overrideHas;
-                                for (const transmogId of transmogIds) {
-                                    haveAny ||= stores.userData.hasAppearance.has(transmogId);
-
-                                    if (haveAny) {
-                                        if (countUncollected) {
-                                            if (!overallSeen[transmogId]) {
-                                                overallStats.have++;
-                                            }
-                                            baseStats.have++;
-                                        } else {
-                                            catStats.total++;
-                                            groupStats.total++;
-                                            setStats.total++;
-                                        }
-
-                                        catStats.have++;
-                                        groupStats.have++;
-                                        setStats.have++;
-
-                                        break;
-                                    }
-                                }
-
-                                slotData[slotKey] = [haveAny];
-
-                                for (const transmogId of transmogIds) {
-                                    overallSeen[transmogId] = true;
-                                }
-                            }
+                            console.error('Wacky set', group, groupSigh);
                         }
                     }
                 }
