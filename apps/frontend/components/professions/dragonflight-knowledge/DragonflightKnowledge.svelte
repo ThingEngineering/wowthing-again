@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { dragonflightKnowledge, dragonflightProfessions } from '@/data/professions'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
@@ -11,7 +9,7 @@
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    const filterFunc = (char: Character) => some(dragonflightProfessions, (p) => char.professions?.[p.id])
+    const filterFunc = (char: Character) => dragonflightProfessions.some((p) => char.professions?.[p.id])
 </script>
 
 <style lang="scss">

@@ -1,6 +1,5 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy'
-    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
     import xor from 'lodash/xor'
 
@@ -193,12 +192,12 @@
                 const xSplit = xParts.map((s) => s.split('|'))
 
                 const xKey = xSplit.map((parts) => parts[0]).join(',')
-                if (!some(xKeys, (key) => key === xKey)) {
+                if (!xKeys.some((key) => key === xKey)) {
                     xKeys.push(xKey)
                 }
 
                 const xEntry = xSplit.map((parts) => parts[1] || '')
-                if (!some(xEntries, (entry) => xor(entry, xEntry).length === 0)) {
+                if (!xEntries.some((entry) => xor(entry, xEntry).length === 0)) {
                     xEntries.push(xEntry)
                 }
             }
@@ -206,12 +205,12 @@
                 const ySplit = yParts.map((s) => s.split('|'))
 
                 const yKey = ySplit.map((parts) => parts[0]).join(',')
-                if (!some(yKeys, (key) => key === yKey)) {
+                if (!yKeys.some((key) => key === yKey)) {
                     yKeys.push(yKey)
                 }
 
                 const yEntry = ySplit.map((parts) => parts[1] || '')
-                if (!some(yEntries, (entry) => xor(entry, yEntry).length === 0)) {
+                if (!yEntries.some((entry) => xor(entry, yEntry).length === 0)) {
                     yEntries.push(yEntry)
                 }
             }
@@ -220,12 +219,12 @@
         // console.log('x', xKeys, xEntries)
         // console.log('y', yKeys, yEntries)
 
-        if (xEntries.length === 1 && !some(xEntries[0], (x) => x !== '')) {
+        if (xEntries.length === 1 && !xEntries[0].some((x) => x !== '')) {
             xEntries[0] = ['All']
             //xKeys.push('')
         }
 
-        if (yEntries.length === 1 && !some(yEntries[0], (y) => y !== '')) {
+        if (yEntries.length === 1 && !yEntries[0].some((y) => y !== '')) {
             yEntries[0] = ['All']
         }
 
@@ -454,7 +453,7 @@
                         {@const keyCharacters = getCharacters(xKey, yKey)}
                         <td
                             class="characters as-{$browserStore.matrix.showCharacterAs}"
-                            class:max-level={some(keyCharacters, (char) => char.level === Constants.characterMaxLevel)}
+                            class:max-level={keyCharacters.some((char) => char.level === Constants.characterMaxLevel)}
                             class:no-characters={keyCharacters.length === 0}
                         >
                             {#each keyCharacters as character}

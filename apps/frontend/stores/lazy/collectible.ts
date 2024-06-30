@@ -1,5 +1,3 @@
-import some from 'lodash/some';
-
 import { UserCount } from '@/types';
 import { ManualDataSetCategory, ManualDataSetGroup } from '@/types/data/manual';
 import type { CollectibleState } from '../local-storage';
@@ -35,8 +33,7 @@ export function doCollectible(
 
     const hideUnavailable = stores.settings.collections.hideUnavailable;
     const showCollected = stores.collectibleState.showCollected[collectionKey];
-    const showUncollected =
-        stores.collectibleState.showUncollected[collectionKey];
+    const showUncollected = stores.collectibleState.showUncollected[collectionKey];
 
     // Stats
     const overallData = (ret.stats['OVERALL'] = new UserCount());
@@ -51,26 +48,22 @@ export function doCollectible(
         const categoryUnavailable = category[0].slug === 'unavailable';
 
         for (const set of category) {
-            const setData = (ret.stats[`${category[0].slug}--${set.slug}`] =
-                new UserCount());
+            const setData = (ret.stats[`${category[0].slug}--${set.slug}`] = new UserCount());
             const setUnavailable = set.slug === 'unavailable';
 
             for (const group of set.groups) {
-                const groupData = (ret.stats[
-                    `${category[0].slug}--${set.slug}--${group.name}`
-                ] = new UserCount());
+                const groupData = (ret.stats[`${category[0].slug}--${set.slug}--${group.name}`] =
+                    new UserCount());
                 const groupUnavailable = group.name.indexOf('Unavailable') >= 0;
 
                 for (const things of group.things) {
-                    const hasThing = some(things, (t) => userHas[t]);
-                    const seenOverall = some(things, (t) => overallSeen[t]);
+                    const hasThing = things.some((t) => userHas[t]);
+                    const seenOverall = things.some((t) => overallSeen[t]);
 
                     const doOverall =
                         !seenOverall &&
                         (hasThing ||
-                            (!categoryUnavailable &&
-                                !setUnavailable &&
-                                !groupUnavailable));
+                            (!categoryUnavailable && !setUnavailable && !groupUnavailable));
                     const doCategory =
                         hasThing ||
                         (!setUnavailable &&
@@ -79,9 +72,7 @@ export function doCollectible(
                     const doSet =
                         hasThing ||
                         !hideUnavailable ||
-                        (!groupUnavailable &&
-                            !setUnavailable &&
-                            !categoryUnavailable);
+                        (!groupUnavailable && !setUnavailable && !categoryUnavailable);
 
                     if (doOverall) {
                         overallData.total++;
@@ -131,49 +122,31 @@ export function doCollectible(
                 const setUnavailable = set.slug === 'unavailable';
                 const newGroups: ManualDataSetGroup[] = [];
                 for (const group of set.groups) {
-                    const groupUnavailable =
-                        group.name.indexOf('Unavailable') >= 0;
-                    const newThings: number[][] = group.things.filter(
-                        (thing) => {
-                            const hasThing = some(
-                                thing,
-                                (thingId) => userHas[thingId],
-                            );
+                    const groupUnavailable = group.name.indexOf('Unavailable') >= 0;
+                    const newThings: number[][] = group.things.filter((thing) => {
+                        const hasThing = thing.some((thingId) => userHas[thingId]);
 
-                            if (
-                                hideUnavailable &&
-                                (categoryUnavailable ||
-                                    setUnavailable ||
-                                    groupUnavailable) &&
-                                !hasThing
-                            ) {
-                                return false;
-                            }
+                        if (
+                            hideUnavailable &&
+                            (categoryUnavailable || setUnavailable || groupUnavailable) &&
+                            !hasThing
+                        ) {
+                            return false;
+                        }
 
-                            return (
-                                (showCollected && hasThing) ||
-                                (showUncollected && !hasThing)
-                            );
-                        },
-                    );
+                        return (showCollected && hasThing) || (showUncollected && !hasThing);
+                    });
 
                     if (newThings.length > 0) {
-                        newGroups.push(
-                            new ManualDataSetGroup(group.name, newThings),
-                        );
+                        newGroups.push(new ManualDataSetGroup(group.name, newThings));
                     }
                 }
 
-                const newGroupArrays: ManualDataSetGroupArray[] = newGroups.map(
-                    (group) => [group.name, group.things],
-                );
-                newCategory.push(
-                    new ManualDataSetCategory(
-                        set.name,
-                        set.slug,
-                        newGroupArrays,
-                    ),
-                );
+                const newGroupArrays: ManualDataSetGroupArray[] = newGroups.map((group) => [
+                    group.name,
+                    group.things,
+                ]);
+                newCategory.push(new ManualDataSetCategory(set.name, set.slug, newGroupArrays));
             }
 
             ret.filteredCategories.push(newCategory);

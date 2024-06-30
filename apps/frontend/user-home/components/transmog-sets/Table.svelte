@@ -1,6 +1,5 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import some from 'lodash/some'
 
     import { manualStore } from '@/stores'
     import { settingsStore } from '@/shared/stores/settings'
@@ -30,7 +29,7 @@
         skipClasses = getSkipClasses($settingsStore, categories?.[0])
         for (let i = 0; i < categories.length; i++) {
             const category = categories[i]
-            if (!some(category.groups, (group) => group.type === 'class')) {
+            if (!category.groups.some((group) => group.type === 'class')) {
                 continue
             }
 

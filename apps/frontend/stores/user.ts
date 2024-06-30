@@ -1,5 +1,4 @@
 import flatten from 'lodash/flatten';
-import some from 'lodash/some';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { get } from 'svelte/store';
@@ -52,7 +51,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     get useAccountTags(): boolean {
-        return some(get(this).accounts, (a: Account) => !!a.tag);
+        return Object.values(get(this).accounts).some((a: Account) => !!a.tag);
     }
 
     initialize(userData: UserData): void {

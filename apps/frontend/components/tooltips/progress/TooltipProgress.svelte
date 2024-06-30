@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { covenantFeatureCost } from '@/data/covenant'
     import { ProgressDataType } from '@/enums/progress-data-type'
     import { achievementStore, userAchievementStore } from '@/stores'
@@ -22,7 +20,7 @@
     let cls: string
     let dataChunks: [ManualDataProgressData, number][][]
     $: {
-        cls = some(datas, (data, i) => {
+        cls = datas.some((data, i) => {
             const desc = descriptionText[i] || data.description
             if (desc && desc.length > 20) {
                 return true

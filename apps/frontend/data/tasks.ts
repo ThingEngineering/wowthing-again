@@ -1,5 +1,4 @@
 import flatten from 'lodash/flatten';
-import some from 'lodash/some';
 import { get } from 'svelte/store';
 
 import { Profession } from '@/enums/profession';
@@ -736,11 +735,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Show Your Mettle',
             minimumLevel: 60,
             couldGetFunc: (char) =>
-                some(
-                    Object.values(get(staticStore).professions).filter((prof) => prof.type === 0),
-                    (profession) =>
-                        !!char.professions?.[profession.id]?.[profession.subProfessions[9].id],
-                ),
+                Object.values(get(staticStore).professions)
+                    .filter((prof) => prof.type === 0)
+                    .some(
+                        (profession) =>
+                            !!char.professions?.[profession.id]?.[profession.subProfessions[9].id],
+                    ),
             canGetFunc: (char) =>
                 char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",
         },

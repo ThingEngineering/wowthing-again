@@ -1,5 +1,4 @@
 import every from 'lodash/every';
-import some from 'lodash/some';
 
 import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
@@ -89,12 +88,10 @@ function accountTrackingQuest(
     id: number,
 ): boolean {
     const questIds = itemData.completesQuest[id] || [];
-    return some(
-        questIds,
+    return questIds.some(
         (questId) =>
             userQuestData.accountHas?.has(questId) ||
-            some(
-                Object.values(userQuestData.characters),
+            Object.values(userQuestData.characters).some(
                 (charData) => charData?.dailyQuests?.has(questId) || charData?.quests?.has(questId),
             ),
     );

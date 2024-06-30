@@ -14,7 +14,6 @@
     } from 'chart.js'
     import type { ChartData, TimeUnit } from 'chart.js'
     import 'chartjs-adapter-luxon'
-    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
     import { DateTime, type WeekdayNumbers } from 'luxon'
     import { onMount } from 'svelte'
@@ -97,7 +96,7 @@
 
         const realms: [string, number][] = []
         for (const realmId in userHistoryData.gold) {
-            if (!some(userHistoryData.gold[realmId], ([, value]) => value > 0)) {
+            if (!userHistoryData.gold[realmId].some(([, value]) => value > 0)) {
                 continue
             }
 

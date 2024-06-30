@@ -1,5 +1,4 @@
 import every from 'lodash/every';
-import some from 'lodash/some';
 import { get } from 'svelte/store';
 
 import { classByArmorType } from '@/data/character-class';
@@ -44,7 +43,7 @@ export function useCharacterFilter(
         const partCache: Record<string, boolean> = {};
         result = false;
         if (partArrays.length > 0) {
-            result = some(partArrays, (parts) =>
+            result = partArrays.some((parts) =>
                 every(
                     parts,
                     (outerPart) =>
@@ -234,15 +233,13 @@ export function useCharacterFilter(
 
                                 // Profession type
                                 if (part.match(/^(craft|crafter|crafting)$/)) {
-                                    return some(
-                                        Object.keys(char.professions || {}),
+                                    return Object.keys(char.professions || {}).some(
                                         (professionId) =>
                                             isCraftingProfession[parseInt(professionId)],
                                     );
                                 }
                                 if (part.match(/^(gather|gatherer|gathering)$/)) {
-                                    return some(
-                                        Object.keys(char.professions || {}),
+                                    return Object.keys(char.professions || {}).some(
                                         (professionId) =>
                                             isGatheringProfession[parseInt(professionId)],
                                     );

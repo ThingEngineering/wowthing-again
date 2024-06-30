@@ -1,7 +1,6 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
     import every from 'lodash/every'
-    import some from 'lodash/some'
 
     import { itemStore } from '@/stores'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
@@ -36,7 +35,7 @@
 
     $: itemsActive = view.homeItems.map((active) => $itemStore.items[active])
     
-    $: itemsInactive = itemChoices.filter((item) => !some(itemsActive, (active) => active.key === item.key))
+    $: itemsInactive = itemChoices.filter((item) => !itemsActive.some((active) => active.key === item.key))
 
     const onItemsChange = debounce(() => {
         view.homeItems = itemsActive.map((item) => parseInt(item.key))

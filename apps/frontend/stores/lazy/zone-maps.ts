@@ -1,5 +1,4 @@
 import every from 'lodash/every';
-import some from 'lodash/some';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
@@ -104,7 +103,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             (char) =>
                 char.level >= maps[0].minimumLevel &&
                 (maps[0].requiredQuestIds.length === 0 ||
-                    some(maps[0].requiredQuestIds, (questId) =>
+                    maps[0].requiredQuestIds.some((questId) =>
                         stores.userQuestData.characters[char.id]?.quests?.has(questId),
                     )),
         );
@@ -134,7 +133,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 (char) =>
                     char.level >= map.minimumLevel &&
                     (map.requiredQuestIds.length === 0 ||
-                        some(map.requiredQuestIds, (questId) =>
+                        map.requiredQuestIds.some((questId) =>
                             stores.userQuestData.characters[char.id]?.quests?.has(questId),
                         )) &&
                     (mapClassMask === 0 ||
@@ -176,7 +175,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 }
                 if (farm.requiredQuestIds?.length > 0) {
                     farmCharacters = farmCharacters.filter((c) =>
-                        some(farm.requiredQuestIds, (q) =>
+                        farm.requiredQuestIds.some((q) =>
                             stores.userQuestData.characters[c.id]?.quests?.has(q),
                         ),
                     );
@@ -290,8 +289,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         case RewardType.Weapon:
                         case RewardType.Transmog:
                             if (drop.appearanceIds?.length > 0) {
-                                dropStatus.need = some(
-                                    drop.appearanceIds[0],
+                                dropStatus.need = drop.appearanceIds[0].some(
                                     (appearanceId) =>
                                         !stores.userData.hasAppearance.has(appearanceId),
                                 );
@@ -423,12 +421,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                                 case 'class':
                                     dropCharacters = dropCharacters.filter((c) =>
-                                        some(
-                                            drop.limit.slice(1),
-                                            (cl) =>
-                                                stores.staticData.characterClassesBySlug[cl].id ===
-                                                c.classId,
-                                        ),
+                                        drop.limit
+                                            .slice(1)
+                                            .some(
+                                                (cl) =>
+                                                    stores.staticData.characterClassesBySlug[cl]
+                                                        .id === c.classId,
+                                            ),
                                     );
                                     break;
 
@@ -591,13 +590,13 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     farmStatus.drops.push(dropStatus);
                 } // for drop of farm.drops
 
-                farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip);
+                farmStatus.need = farmStatus.drops.some((d) => d.need && !d.skip);
                 if (
                     farmStatus.need &&
                     farm.type !== FarmType.Vendor &&
                     (farm.reset === FarmResetType.Never || farm.reset === FarmResetType.None)
                 ) {
-                    farmStatus.need = some(farmStatus.drops, (d) => d.characterIds.length > 0);
+                    farmStatus.need = farmStatus.drops.some((d) => d.characterIds.length > 0);
                 }
 
                 const characterIds: Record<number, RewardType[]> = {};

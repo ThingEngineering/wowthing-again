@@ -2,7 +2,6 @@
     import debounce from 'lodash/debounce'
     import find from 'lodash/find'
     import groupBy from 'lodash/groupBy'
-    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
     import { Region } from '@/enums/region'
@@ -62,8 +61,7 @@
             ([realm]) => realm === realmString
         )[1].map((char) => char.id.toString())
 
-        const anyMissing: boolean = some(
-            realmCharacters,
+        const anyMissing: boolean = realmCharacters.some(
             (charId) => (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1
         )
         const toChange: string[] = realmCharacters.filter(

@@ -1,5 +1,3 @@
-import some from 'lodash/some';
-
 import { extraCraftedItemIds } from '@/data/auctions';
 import { InventoryType } from '@/enums/inventory-type';
 import { ItemClass } from '@/enums/item-class';
@@ -154,13 +152,14 @@ export class UserAuctionMissingTransmogDataStore {
                 item.expansion === auctionState.missingTransmogExpansion;
 
             const matchesName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0;
-            const matchesRealm = some(
-                thing.auctions.slice(0, auctionState.limitToCheapestRealm ? 1 : undefined),
-                (auction) =>
-                    staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
-                        (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0,
-                    ).length > 0,
-            );
+            const matchesRealm = thing.auctions
+                .slice(0, auctionState.limitToCheapestRealm ? 1 : undefined)
+                .some(
+                    (auction) =>
+                        staticData.connectedRealms[auction.connectedRealmId].realmNames.filter(
+                            (name) => name.toLocaleLowerCase().indexOf(realmLower) >= 0,
+                        ).length > 0,
+                );
 
             let matchesArmor = true;
             if (auctionState.missingTransmogItemClass === 'armor') {

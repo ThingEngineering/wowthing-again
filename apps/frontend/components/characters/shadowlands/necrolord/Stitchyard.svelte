@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { abominations, CovenantAbomination } from '@/data/covenant'
     import { itemStore, userAchievementStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -19,8 +17,7 @@
             for (const abomination of abominations) {
                 charAboms.push([
                     abomination,
-                    some(
-                        $userAchievementStore.criteria[abomination.criteriaId] || [],
+                    ($userAchievementStore.criteria[abomination.criteriaId] || []).some(
                         ([charId, value]) => charId === character.id && value > 0
                     )
                 ])
