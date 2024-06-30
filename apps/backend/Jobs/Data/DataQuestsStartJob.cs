@@ -16,7 +16,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
     {
         var questIds = await Context
             .WowQuest
-            .Where(wq => wq.LastApiCheck < DateTime.UtcNow.AddDays(-1))
+            .Where(wq => wq.LastApiCheck < DateTime.UtcNow.AddDays(-30))
             .Select(wq => wq.Id)
             .ToArrayAsync();
 
