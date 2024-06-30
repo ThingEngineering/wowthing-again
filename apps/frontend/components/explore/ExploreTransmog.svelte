@@ -1,7 +1,8 @@
 <script lang="ts">
     import { bestTypeOrder } from '@/data/inventory-type';
+    import { weaponSubclassOrder } from '@/data/weapons';
     import { Faction } from '@/enums/faction';
-    import { InventoryType } from '@/enums/inventory-type';
+    import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore } from '@/stores';
     import { exploreState } from '@/stores/local-storage'
@@ -14,17 +15,30 @@
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import { fixedInventoryType } from '@/utils/fixed-inventory-type';
+    import { WeaponSubclass } from '@/enums/weapon-subclass';
 
-    let slots: Record<number, ItemDataItem[]>
-    let transmogSet: StaticDataTransmogSet
+    const slotOrder = bestTypeOrder.concat(weaponSubclassOrder.map((sub) => sub + 100));
+
+    let slots: Record<number, ItemDataItem[]>;
+    let transmogSet: StaticDataTransmogSet;
     $: {
-        slots = {}
-        transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId]
+        slots = {};
+        transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId];
         if (transmogSet) {
             for (const [itemId,] of transmogSet.items) {
                 const item = $itemStore.items[itemId];
-                (slots[item.inventoryType] ||= []).push(item)
+
+                let actualSlot: number
+                if (weaponInventoryTypes.has(item.inventoryType)) {
+                    actualSlot = 100 + item.subclassId;
+                } else {
+                    actualSlot = fixedInventoryType(item.inventoryType);
+                }
+
+                (slots[actualSlot] ||= []).push(item);
             }
+            console.log(slots)
         }
     }
 </script>
@@ -83,11 +97,17 @@
             {/each}
         </h3>
         <div class="slots">
-            {#each bestTypeOrder as inventoryType}
-                {#if slots[inventoryType]}
+            {#each slotOrder as slot}
+                {#if slots[slot]}
                     <div class="slot">
-                        <h4>{InventoryType[inventoryType]}</h4>
-                        {#each slots[inventoryType] as item}
+                        <h4>
+                            {#if slot >= 100}
+                                {WeaponSubclass[slot - 100]}
+                            {:else}
+                                {InventoryType[slot]}
+                            {/if}
+                        </h4>
+                        {#each slots[slot] as item}
                             {@const itemClasses = getClassesFromMask(item.classMask)}
                             <div class="item">
                                 <WowheadLink type={'item'} id={item.id}>
