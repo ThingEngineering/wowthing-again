@@ -1,9 +1,6 @@
-import flatten from 'lodash/flatten'
-
-import { ArmorType } from '@/enums/armor-type'
-import { PlayableClass } from '@/enums/playable-class'
-import { toIndexRecord } from '@/utils/to-index-record'
-
+import { ArmorType } from '@/enums/armor-type';
+import { PlayableClass } from '@/enums/playable-class';
+import { toIndexRecord } from '@/utils/to-index-record';
 
 export const characterClassBySlug: Record<string, PlayableClass> = {
     'death-knight': PlayableClass.DeathKnight,
@@ -19,7 +16,7 @@ export const characterClassBySlug: Record<string, PlayableClass> = {
     shaman: PlayableClass.Shaman,
     warlock: PlayableClass.Warlock,
     warrior: PlayableClass.Warrior,
-}
+};
 
 export const classOrder: number[] = [
     PlayableClass.Mage,
@@ -38,47 +35,31 @@ export const classOrder: number[] = [
     PlayableClass.DeathKnight,
     PlayableClass.Paladin,
     PlayableClass.Warrior,
-]
+];
 
-export const classOrderMap = toIndexRecord(classOrder)
+export const classOrderMap = toIndexRecord(classOrder);
 
 export const classByArmorType: Record<number, PlayableClass[]> = {
-    [ArmorType.Cloth]: [
-        PlayableClass.Mage,
-        PlayableClass.Priest,
-        PlayableClass.Warlock,
-    ],
+    [ArmorType.Cloth]: [PlayableClass.Mage, PlayableClass.Priest, PlayableClass.Warlock],
     [ArmorType.Leather]: [
         PlayableClass.DemonHunter,
         PlayableClass.Druid,
         PlayableClass.Monk,
         PlayableClass.Rogue,
     ],
-    [ArmorType.Mail]: [
-        PlayableClass.Evoker,
-        PlayableClass.Hunter,
-        PlayableClass.Shaman,
-    ],
-    [ArmorType.Plate]: [
-        PlayableClass.DeathKnight,
-        PlayableClass.Paladin,
-        PlayableClass.Warrior,
-    ],
-}
+    [ArmorType.Mail]: [PlayableClass.Evoker, PlayableClass.Hunter, PlayableClass.Shaman],
+    [ArmorType.Plate]: [PlayableClass.DeathKnight, PlayableClass.Paladin, PlayableClass.Warrior],
+};
 
 export const classByArmorTypeString: Record<string, PlayableClass[]> = Object.fromEntries(
-    Object.entries(classByArmorType)
-        .map(
-            ([armorType, classes]) => [
-                ArmorType[parseInt(armorType)].toLowerCase(),
-                classes,
-            ]
-        )
-)
+    Object.entries(classByArmorType).map(([armorType, classes]) => [
+        ArmorType[parseInt(armorType)].toLowerCase(),
+        classes,
+    ]),
+);
 
 export const classIdToArmorType: Record<number, ArmorType> = Object.fromEntries(
-    flatten(
-        Object.entries(classByArmorType)
-            .map(([armorType, classIds]) => classIds.map((classId) => [classId, parseInt(armorType)]))
-    )
-)
+    Object.entries(classByArmorType)
+        .map(([armorType, classIds]) => classIds.map((classId) => [classId, parseInt(armorType)]))
+        .flat(),
+);

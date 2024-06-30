@@ -1,4 +1,3 @@
-import flatten from 'lodash/flatten';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
 import { get } from 'svelte/store';
@@ -249,7 +248,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             ].join('|');
         });
 
-        const instanceIds = uniq(flatten(settingsData.views.map((view) => view.homeLockouts)));
+        const instanceIds = uniq(settingsData.views.map((view) => view.homeLockouts).flat());
         userData.homeLockouts = [];
         for (const instanceId of instanceIds) {
             let found = false;

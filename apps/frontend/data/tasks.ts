@@ -1,4 +1,3 @@
-import flatten from 'lodash/flatten';
 import { get } from 'svelte/store';
 
 import { Profession } from '@/enums/profession';
@@ -11,8 +10,8 @@ import { Constants } from './constants';
 import { dragonflightProfessions, isGatheringProfession } from './professions';
 import { timeStore } from '@/shared/stores/time';
 
-export const dragonflightProfessionTasks: Chore[] = flatten(
-    dragonflightProfessions.map((profession) => {
+export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
+    .map((profession) => {
         const name = Profession[profession.id];
         const tasks: Chore[] = [];
 
@@ -65,8 +64,8 @@ export const dragonflightProfessionTasks: Chore[] = flatten(
         });
 
         return tasks;
-    }),
-);
+    })
+    .flat();
 
 export const taskList: Task[] = [
     // Events/Holidays/idk
@@ -994,22 +993,22 @@ export const multiTaskMap: Record<string, Chore[]> = {
 };
 
 export const pvpBrawlHolidays: Record<number, string> = Object.fromEntries(
-    flatten(
-        Object.entries({
-            arathiBlizzard: [666, 673, 680, 697, 737],
-            classicAshran: [1120, 1121, 1122, 1123, 1124],
-            compStomp: [1234, 1235, 1236, 1237, 1238],
-            cookingImpossible: [1047, 1048, 1049, 1050, 1051],
-            deepSix: [702, 704, 705, 706, 736],
-            deepwindDunk: [1239, 1240, 1241, 1242, 1243],
-            gravityLapse: [659, 663, 670, 677, 684],
-            packedHouse: [667, 674, 681, 688, 701],
-            shadoPanShowdown: [1232, 1233, 1244, 1245, 1246, 1312],
-            southshoreVsTarrenMill: [660, 662, 669, 676, 683],
-            templeOfHotmogu: [1166, 1167, 1168, 1169, 1170],
-            warsongScramble: [664, 671, 678, 685, 1221],
-        }).map(([key, values]) => values.map((id) => [id, key])),
-    ),
+    Object.entries({
+        arathiBlizzard: [666, 673, 680, 697, 737],
+        classicAshran: [1120, 1121, 1122, 1123, 1124],
+        compStomp: [1234, 1235, 1236, 1237, 1238],
+        cookingImpossible: [1047, 1048, 1049, 1050, 1051],
+        deepSix: [702, 704, 705, 706, 736],
+        deepwindDunk: [1239, 1240, 1241, 1242, 1243],
+        gravityLapse: [659, 663, 670, 677, 684],
+        packedHouse: [667, 674, 681, 688, 701],
+        shadoPanShowdown: [1232, 1233, 1244, 1245, 1246, 1312],
+        southshoreVsTarrenMill: [660, 662, 669, 676, 683],
+        templeOfHotmogu: [1166, 1167, 1168, 1169, 1170],
+        warsongScramble: [664, 671, 678, 685, 1221],
+    })
+        .map(([key, values]) => values.map((id) => [id, key]))
+        .flat(),
 );
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {
