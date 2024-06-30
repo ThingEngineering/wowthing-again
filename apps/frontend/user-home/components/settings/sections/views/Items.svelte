@@ -1,6 +1,5 @@
 <script lang="ts">
     import debounce from 'lodash/debounce'
-    import every from 'lodash/every'
 
     import { itemStore } from '@/stores'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
@@ -21,7 +20,7 @@
         if (itemWords.length > 0) {
             for (const item of Object.values($itemStore.items)) {
                 const lowerName = item.name.toLocaleLowerCase()
-                if (every(itemWords, (word) => lowerName.indexOf(word) >= 0)) {
+                if (itemWords.every((word) => lowerName.indexOf(word) >= 0)) {
                     itemChoices.push(item)
                     if (itemChoices.length === 50) {
                         break

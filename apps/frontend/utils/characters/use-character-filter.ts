@@ -1,4 +1,3 @@
-import every from 'lodash/every';
 import { get } from 'svelte/store';
 
 import { classByArmorType } from '@/data/character-class';
@@ -44,8 +43,7 @@ export function useCharacterFilter(
         result = false;
         if (partArrays.length > 0) {
             result = partArrays.some((parts) =>
-                every(
-                    parts,
+                parts.every(
                     (outerPart) =>
                         (partCache[outerPart] ||=
                             (function (part: string) {

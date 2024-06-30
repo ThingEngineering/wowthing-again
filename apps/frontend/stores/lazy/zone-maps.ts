@@ -1,4 +1,3 @@
-import every from 'lodash/every';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
@@ -210,8 +209,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
                                 const professionInfo =
                                     stores.staticData.professionAbilityByItemId[drop.id];
-                                dropStatus.need = !every(
-                                    stores.userData.characters,
+                                dropStatus.need = !stores.userData.characters.every(
                                     (char) =>
                                         char.professions?.[professionInfo.professionId] ===
                                             undefined ||
@@ -252,7 +250,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                         case RewardType.Quest:
                             if (
-                                !every(stores.userQuestData.characters, (char) =>
+                                !Object.values(stores.userQuestData.characters).every((char) =>
                                     char?.quests?.has(drop.id),
                                 )
                             ) {
@@ -268,8 +266,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
 
                         case RewardType.XpQuest:
                             if (
-                                !every(
-                                    stores.userData.characters,
+                                !Object.values(stores.userData.characters).every(
                                     (char) =>
                                         char.isMaxLevel ||
                                         !!stores.userQuestData.characters[
@@ -494,8 +491,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             dropCharacters = dropCharacters.filter(
                                 (c) =>
                                     expiredFunc(c.id) ||
-                                    every(
-                                        drop.questIds,
+                                    drop.questIds.every(
                                         (q) =>
                                             !stores.userQuestData.characters[
                                                 c.id
@@ -507,8 +503,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         for (const character of dropCharacters) {
                             if (farm.type === FarmType.Quest) {
                                 if (
-                                    every(
-                                        farm.questIds,
+                                    farm.questIds.every(
                                         (q) =>
                                             !stores.userQuestData.characters[
                                                 character.id
@@ -557,8 +552,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             } else {
                                 if (
                                     expiredFunc(character.id) ||
-                                    every(
-                                        farm.questIds,
+                                    farm.questIds.every(
                                         (q) =>
                                             !stores.userQuestData.characters[
                                                 character.id

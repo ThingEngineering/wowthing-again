@@ -1,5 +1,3 @@
-import every from 'lodash/every';
-
 import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
@@ -68,7 +66,7 @@ export default function userHasDrop(
                     bySlot[invType] ||= userData.hasAppearance.has(appearanceId);
                 }
             }
-            return every(Object.values(bySlot), (hasSlot) => !!hasSlot);
+            return Object.values(bySlot).every((hasSlot) => !!hasSlot);
         } else {
             if (completionist) {
                 return userData.hasSource.has(`${id}_0`);
