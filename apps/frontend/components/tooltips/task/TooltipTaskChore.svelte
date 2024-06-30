@@ -1,6 +1,5 @@
 <script lang="ts">
     import groupBy from 'lodash/groupBy'
-    import some from 'lodash/some'
 
     import { taskMap } from '@/data/tasks'
     import { QuestStatus } from '@/enums/quest-status'
@@ -34,16 +33,14 @@
             taskSets.push(chore.tasks)
         }
 
-        anyErrors = some(
-            taskSets,
-            (taskSet) => some(
-                taskSet,
+        anyErrors = taskSets.some(
+            (taskSet) => taskSet.some(
                 (task) => (
                     task.status === QuestStatus.NotStarted ||
                     task.status === QuestStatus.Error
                 )
                 && task.name !== ''
-                && some(task.statusTexts, (st) => !!st)
+                && task.statusTexts.some((st) => !!st)
             )
         )
     }

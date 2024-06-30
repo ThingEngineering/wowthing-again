@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import { lockoutState } from '@/stores/local-storage'
@@ -21,8 +19,7 @@
         return Object.keys(char.lockouts || {}).length > 0 ? 'b' : 'z'
     }
     const hasSortedLockout = function(char: Character): string {
-        return some(
-            Object.keys(char.lockouts || {}),
+        return Object.keys(char.lockouts || {}).some(
             (key) => key.startsWith(`${$lockoutState.sortBy}-`)
         ) ? 'a' : anyLockouts(char)
     }

@@ -1,90 +1,84 @@
-import every from 'lodash/every'
+import { costOrderMap } from '@/data/vendors';
+import { leftPad } from '@/utils/formatting';
+import { toNiceNumber } from '@/utils/formatting';
+import type { ItemData } from '@/types/data/item';
+import type { StaticData } from '@/shared/stores/static/types';
 
-import { costOrderMap } from '@/data/vendors'
-import { leftPad } from '@/utils/formatting'
-import { toNiceNumber } from '@/utils/formatting'
-import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/shared/stores/static/types'
-
-
-type CurrencyArray = [string, number, string, number, number]
+type CurrencyArray = [string, number, string, number, number];
 
 export function getCurrencyCosts(
     itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
     skipCostOrder?: boolean,
-    skipNiceNumbers?: boolean
+    skipNiceNumbers?: boolean,
 ): CurrencyArray[] {
-    const temp: [string, CurrencyArray][] = []
+    const temp: [string, CurrencyArray][] = [];
 
-    const currencyIds = Object.keys(costs)
-        .map((currencyId) => parseInt(currencyId))
-    
+    const currencyIds = Object.keys(costs).map((currencyId) => parseInt(currencyId));
+
     for (const currencyId of currencyIds) {
         const currencyData: CurrencyArray = [
             currencyId > 1000000 ? 'item' : 'currency',
             currencyId > 1000000 ? currencyId - 1000000 : currencyId,
-            skipNiceNumbers === true ? costs[currencyId].toLocaleString() : toNiceNumber(costs[currencyId]),
+            skipNiceNumbers === true
+                ? costs[currencyId].toLocaleString()
+                : toNiceNumber(costs[currencyId]),
             currencyId,
             costs[currencyId],
-        ]
+        ];
 
-        let sortKey: string
+        let sortKey: string;
 
-        const index = costOrderMap[currencyId] || -1
+        const index = costOrderMap[currencyId] || -1;
         if (skipCostOrder !== true && index >= 0) {
-            sortKey = leftPad(index, 6, '0')
-        }
-        else if (currencyData[0] === 'item') {
-            const item = itemData.items[currencyData[1]]
+            sortKey = leftPad(index, 6, '0');
+        } else if (currencyData[0] === 'item') {
+            const item = itemData.items[currencyData[1]];
             sortKey = [
                 '999999',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
                 leftPad(10 - (item?.quality ?? 0), 2, '0'),
                 item?.name ?? 'ZZZ',
-            ].join('|')
-        }
-        else {
+            ].join('|');
+        } else {
             sortKey = [
                 '555555',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
-                staticData.currencies[currencyData[1]]?.name ?? 'ZZZ'
-            ].join('|')
+                staticData.currencies[currencyData[1]]?.name ?? 'ZZZ',
+            ].join('|');
         }
 
-        temp.push([sortKey, currencyData])
+        temp.push([sortKey, currencyData]);
     }
 
-    temp.sort()
-    return temp.map(([, currencyData]) => currencyData)
+    temp.sort();
+    return temp.map(([, currencyData]) => currencyData);
 }
 
 export function getCurrencyCostsString(
     itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
-    reputation?: number[]
+    reputation?: number[],
 ): string {
-    const parts: string[] = []
-    const sortedCosts = getCurrencyCosts(itemData, staticData, costs)
+    const parts: string[] = [];
+    const sortedCosts = getCurrencyCosts(itemData, staticData, costs);
     for (const [type, , , id, value] of sortedCosts) {
-        let price: string
+        let price: string;
         if (type === 'currency' && id === 0) {
-            price = `${value}`
-        }
-        else {
-            price = `${value}|${id}`
+            price = `${value}`;
+        } else {
+            price = `${value}|${id}`;
         }
 
         if (reputation?.length === 2) {
-            parts.push(`{repPrice:${reputation[0]}|${reputation[1]}|${price}}`)
-        }
-        else {
-            parts.push(`{price:${price}}`)
+            parts.push(`{repPrice:${reputation[0]}|${reputation[1]}|${price}}`);
+        } else {
+            parts.push(`{price:${price}}`);
         }
     }
-    return parts.join(', ')
+    return parts.join(', ');
 }
 
 export function getSetCurrencyCostsString(
@@ -92,18 +86,18 @@ export function getSetCurrencyCostsString(
     staticData: StaticData,
     allAppearanceIds: number[][],
     costses: Record<number, number>[],
-    haveFunc: (appearanceId: number) => boolean
+    haveFunc: (appearanceId: number) => boolean,
 ): string {
-    const totalCosts: Record<number, number> = {}
+    const totalCosts: Record<number, number> = {};
     for (let i = 0; i < allAppearanceIds.length; i++) {
-        if (every(allAppearanceIds[i], (appearanceId: number) => haveFunc(appearanceId))) {
-            continue
+        if (allAppearanceIds[i].every((appearanceId: number) => haveFunc(appearanceId))) {
+            continue;
         }
 
         for (const key in costses[i]) {
-            const keyNumber = parseInt(key)
-            totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber]
+            const keyNumber = parseInt(key);
+            totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber];
         }
     }
-    return getCurrencyCostsString(itemData, staticData, totalCosts)
+    return getCurrencyCostsString(itemData, staticData, totalCosts);
 }

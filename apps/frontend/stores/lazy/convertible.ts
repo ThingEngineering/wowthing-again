@@ -1,5 +1,3 @@
-import some from 'lodash/some';
-
 import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data';
 import { classIdToArmorType, classOrder } from '@/data/character-class';
 import { InventoryType } from '@/enums/inventory-type';
@@ -141,7 +139,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         if (
                             !(
                                 charItem.itemId === setItem.id ||
-                                some(charItem.bonusIds || [], (bonusId) => bonusIds.has(bonusId))
+                                (charItem.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))
                             )
                         ) {
                             continue;
@@ -412,21 +410,17 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     }
                 } // for character
 
-                modifierData.anyCanConvert = some(
-                    Object.values(modifierData.characters),
-                    (entries) => some(entries, (entry) => entry.canConvert),
+                modifierData.anyCanConvert = Object.values(modifierData.characters).some(
+                    (entries) => entries.some((entry) => entry.canConvert),
                 );
-                modifierData.anyIsConvertible = some(
-                    Object.values(modifierData.characters),
-                    (entries) => some(entries, (entry) => entry.isConvertible),
+                modifierData.anyIsConvertible = Object.values(modifierData.characters).some(
+                    (entries) => entries.some((entry) => entry.isConvertible),
                 );
-                modifierData.anyCanUpgrade = some(
-                    Object.values(modifierData.characters),
-                    (entries) => some(entries, (entry) => entry.canUpgrade),
+                modifierData.anyCanUpgrade = Object.values(modifierData.characters).some(
+                    (entries) => entries.some((entry) => entry.canUpgrade),
                 );
-                modifierData.anyIsUpgradeable = some(
-                    Object.values(modifierData.characters),
-                    (entries) => some(entries, (entry) => entry.isUpgradeable),
+                modifierData.anyIsUpgradeable = Object.values(modifierData.characters).some(
+                    (entries) => entries.some((entry) => entry.isUpgradeable),
                 );
             } // for modifier
         } // for setItemId

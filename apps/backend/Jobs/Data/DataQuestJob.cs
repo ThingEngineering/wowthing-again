@@ -60,6 +60,12 @@ public class DataQuestJob : JobBase
             catch (HttpRequestException e)
             {
                 Logger.Error("{locale} HTTP {error}", locale, e.Message);
+
+                if (e.Message == "404")
+                {
+                    break;
+                }
+
                 continue;
             }
 

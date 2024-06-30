@@ -8,6 +8,6 @@ public class ApiTypeName
     public TEnum EnumParse<TEnum>()
         where TEnum : struct, Enum
     {
-        return Enum.Parse<TEnum>(Name.Replace(" ", ""), true);
+        return Enum.Parse<TEnum>(Type, true);
     }
 }

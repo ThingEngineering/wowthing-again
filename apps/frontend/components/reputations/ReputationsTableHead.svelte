@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { reputationState } from '@/stores/local-storage'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { StaticDataReputationSet } from '@/shared/stores/static/types'
@@ -21,8 +19,7 @@
             reputation.alliance?.id ?? 0,
             reputation.horde?.id ?? 0,
         ]
-        sortingBy = some(
-            $reputationState.sortOrder[slug] || [],
+        sortingBy = ($reputationState.sortOrder[slug] || []).some(
             (repId) => repId > 0 && repIds.indexOf(repId) >= 0
         )
 

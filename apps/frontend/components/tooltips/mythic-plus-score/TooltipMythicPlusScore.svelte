@@ -1,6 +1,4 @@
 <script lang="ts">
-    import flatten from 'lodash/flatten'
-
     import { dungeonMap, keyTiers, seasonMap } from '@/data/dungeon'
     import { raiderIoScores, raiderIoScoreOrder } from '@/data/raider-io'
     import { timeStore } from '@/shared/stores/time'
@@ -21,7 +19,7 @@
     let scoreCount: number
     let totalRuns: number
     $: {
-        dungeonIds = flatten(seasonMap[seasonId].orders)
+        dungeonIds = seasonMap[seasonId].orders.flat()
 
         const startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[seasonId].startPeriod)
             .startTime

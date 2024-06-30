@@ -1,5 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
     import { BindType } from '@/enums/bind-type'
@@ -207,7 +206,7 @@
                             </WowheadLink>
                         </td>
                         <td class="auctions">
-                            {#if recipes && some(recipes, (id) => $itemStore.items[id]?.bindType !== BindType.BindOnAcquire) }
+                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.BindOnAcquire) }
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"

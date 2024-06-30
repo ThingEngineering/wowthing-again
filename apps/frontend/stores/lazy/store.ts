@@ -1,7 +1,6 @@
 import debounce from 'lodash/debounce';
 import find from 'lodash/find';
 import once from 'lodash/once';
-import some from 'lodash/some';
 import { derived, get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
@@ -206,7 +205,7 @@ export class LazyStore implements LazyUgh {
 
         if (
             changedEntries.length === 0 &&
-            !some(Object.entries(changedData), ([, value]) => value)
+            !Object.entries(changedData).some(([, value]) => value)
         ) {
             return;
         }

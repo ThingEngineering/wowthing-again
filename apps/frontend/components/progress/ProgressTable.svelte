@@ -1,6 +1,5 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import some from 'lodash/some'
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
@@ -59,18 +58,15 @@
             }
 
             if (requiredQuestIds.length > 0 &&
-                !some(requiredQuestIds, (id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
+                requiredQuestIds.some((id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
 
             if (categories[0]?.groups[0]?.type === 'dragon-racing' ||
                 categories[1]?.groups[0]?.type === 'dragon-racing') {
-                return some(
-                    categories.filter((cat) => !!cat),
-                    (cat) => some(
-                        cat.groups.filter((group) => !!group),
-                        (group) => some(
-                            group.data[0],
+                return categories.filter((cat) => !!cat).some(
+                    (cat) => cat.groups.filter((group) => !!group).some(
+                        (group) => group.data[0].some(
                             (data) => char.currencies?.[data.ids[0]]?.quantity > 0
                         )
                     )

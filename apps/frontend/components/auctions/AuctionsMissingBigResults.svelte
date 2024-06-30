@@ -1,6 +1,5 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
-    import some from 'lodash/some'
     import { replace } from 'svelte-spa-router'
 
     import { timeLeft } from '@/data/auctions'
@@ -275,8 +274,7 @@
                                 <tr
                                     class:filter-highlight={realmSearch
                                         && !$auctionState.limitToCheapestRealm
-                                        && some(
-                                            connectedRealm.realmNames,
+                                        && connectedRealm.realmNames.some(
                                             (name) => name.toLocaleLowerCase().indexOf(realmSearch) >= 0
                                         )
                                     }

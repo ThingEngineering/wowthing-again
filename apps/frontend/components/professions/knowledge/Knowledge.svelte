@@ -1,6 +1,4 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { dragonflightProfessions } from '@/data/professions'
     import type { Character } from '@/types'
 
@@ -8,7 +6,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import CharacterKnowledge from './CharacterKnowledge.svelte';
 
-    const filterFunc = (char: Character) => some(dragonflightProfessions, (p) => char.professions?.[p.id])
+    const filterFunc = (char: Character) => dragonflightProfessions.some((p) => char.professions?.[p.id])
 </script>
 
 <style lang="scss">

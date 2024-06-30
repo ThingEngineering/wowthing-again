@@ -1,5 +1,4 @@
 import find from 'lodash/find';
-import some from 'lodash/some';
 
 import { toNiceNumber } from '@/utils/formatting';
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant';
@@ -47,11 +46,11 @@ export default function getProgress(
         character.level >= (category.minimumLevel || 0) &&
         character.level >= (group.minimumLevel || 0) &&
         (category.requiredQuestIds.length === 0 ||
-            some(category.requiredQuestIds, (questId) =>
+            category.requiredQuestIds.some((questId) =>
                 userQuestData.characters[character.id]?.quests?.has(questId),
             )) &&
         ((group.requiredQuestIds?.length || 0) === 0 ||
-            some(group.requiredQuestIds, (questId) =>
+            group.requiredQuestIds.some((questId) =>
                 userQuestData.characters[character.id]?.quests?.has(questId),
             ))
     ) {
@@ -141,7 +140,7 @@ export default function getProgress(
                         showCurrency = 1037829; // Cyphers of the First Ones
                     }
                 } else if (group.type === 'item') {
-                    haveThis = some(data.ids, (id) => character.getItemCount(id) > 0);
+                    haveThis = data.ids.some((id) => character.getItemCount(id) > 0);
                 } else if (group.type === 'dragon-racing') {
                     const bestTime = character.currencies?.[data.ids[0]]?.quantity || 0;
                     if (bestTime > 0) {
@@ -324,7 +323,7 @@ export default function getProgress(
                                     total = 3;
                                 } else {
                                     if (
-                                        some(garrisonUnlockQuests, (questId) =>
+                                        garrisonUnlockQuests.some((questId) =>
                                             userQuestData.characters[character.id].quests?.has(
                                                 questId,
                                             ),
@@ -386,7 +385,9 @@ export default function getProgress(
 }
 
 function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) {
-    return some(userQuestData.characters, (char) => some(questIds, (id) => char.quests?.has(id)));
+    return Object.values(userQuestData.characters).some((char) =>
+        questIds.some((id) => char.quests?.has(id)),
+    );
 }
 
 function checkCharacterQuestIds(
@@ -394,7 +395,7 @@ function checkCharacterQuestIds(
     characterId: number,
     questIds: number[],
 ) {
-    return some(questIds, (id) => userQuestData.characters[characterId]?.quests?.has(id));
+    return questIds.some((id) => userQuestData.characters[characterId]?.quests?.has(id));
 }
 
 function getSpentCyphers(character: Character): number {
