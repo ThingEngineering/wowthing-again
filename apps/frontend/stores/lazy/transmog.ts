@@ -172,9 +172,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         if (itemsWithModifiers.length > 0) {
                             for (const [itemId, modifier] of itemsWithModifiers) {
                                 // Dragonflight set mythic looks?
-                                if (modifier >= 153 && modifier <= 156) {
-                                    continue;
-                                }
+                                // if (modifier >= 153 && modifier <= 156) {
+                                //     continue;
+                                // }
 
                                 const item = stores.itemData.items[itemId];
 
