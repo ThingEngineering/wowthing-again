@@ -1,5 +1,3 @@
-import some from 'lodash/some';
-
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
