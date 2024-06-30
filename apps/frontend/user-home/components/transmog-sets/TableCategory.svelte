@@ -364,7 +364,7 @@
                         <div class="flex-wrapper">
                             <ParsedText
                                 cls="text-overflow"
-                                text={setName.replace('*', '')}
+                                text={setName.replace(/[*$]/, '')}
                             />
                         
                             {#if completionistReady(group, setIndex)}

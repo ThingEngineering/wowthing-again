@@ -26,7 +26,7 @@
     
     $: weapons = Object.keys(slotHave).filter((key) => parseInt(key) >= 100)
     $: actualSlotOrder = weapons.length > 0 ? weaponSubclassOrder.map((subClass) => 100 + subClass) : typeOrder
-    $: showShift = Object.values(slotHave).some(([, items]) => items.length > 2)
+    $: showShift = Object.values(slotHave).some(([, items]) => items?.length > 2)
 
     function keyDown(event: KeyboardEvent) {
         shiftPressed = event.shiftKey

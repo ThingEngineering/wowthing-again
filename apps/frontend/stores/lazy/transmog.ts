@@ -1,15 +1,14 @@
-import some from 'lodash/some';
-
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
+import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getSkipClasses from '@/utils/get-skip-classes';
+import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
+import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
-import type { Settings } from '@/shared/stores/settings/types';
-import type { UserQuestData } from '@/types/data';
 
 export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>;
 
@@ -122,6 +121,14 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                             for (const [itemId, maybeModifier] of transmogSet.items) {
                                 const item = stores.itemData.items[itemId];
+                                if (!item) {
+                                    continue;
+                                }
+
+                                // These don't collect properly
+                                if (item.quality === ItemQuality.Heirloom) {
+                                    continue;
+                                }
 
                                 // Skip items that don't match the transmog set's class mask
                                 if (
@@ -147,17 +154,25 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                         : maybeModifier || 0;
                                 itemsWithModifiers.push([itemId, modifier]);
                             }
-                        } else if (groupSigh.itemsV2) {
+                        } else if (groupSigh.itemsV2.length > 0) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
+                        } else {
+                            for (const appearanceIds of Object.values(groupSigh.items)) {
+                                for (const appearanceId of appearanceIds) {
+                                    itemsWithModifiers.push(
+                                        ...(stores.itemData.appearanceToItems[appearanceId] || []),
+                                    );
+                                }
+                            }
                         }
 
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
                         if (itemsWithModifiers.length > 0) {
                             for (const [itemId, modifier] of itemsWithModifiers) {
                                 // Dragonflight set mythic looks?
-                                if (modifier >= 153 && modifier <= 156) {
-                                    continue;
-                                }
+                                // if (modifier >= 153 && modifier <= 156) {
+                                //     continue;
+                                // }
 
                                 const item = stores.itemData.items[itemId];
 
@@ -246,56 +261,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 }
                             }
                         } else {
-                            // Fall back to the awkward { slot: itemids } mapping
-                            const slotKeys = Object.keys(groupSigh.items).map((key) =>
-                                parseInt(key),
-                            );
-
-                            for (const slotKey of slotKeys) {
-                                const transmogIds = groupSigh.items[slotKey];
-
-                                const seenAny = some(transmogIds, (id) => overallSeen[id]);
-
-                                if (countUncollected) {
-                                    if (!seenAny) {
-                                        overallStats.total++;
-                                    }
-                                    baseStats.total++;
-                                    catStats.total++;
-                                    groupStats.total++;
-                                    setStats.total++;
-                                }
-
-                                let haveAny = overrideHas;
-                                for (const transmogId of transmogIds) {
-                                    haveAny ||= stores.userData.hasAppearance.has(transmogId);
-
-                                    if (haveAny) {
-                                        if (countUncollected) {
-                                            if (!overallSeen[transmogId]) {
-                                                overallStats.have++;
-                                            }
-                                            baseStats.have++;
-                                        } else {
-                                            catStats.total++;
-                                            groupStats.total++;
-                                            setStats.total++;
-                                        }
-
-                                        catStats.have++;
-                                        groupStats.have++;
-                                        setStats.have++;
-
-                                        break;
-                                    }
-                                }
-
-                                slotData[slotKey] = [haveAny];
-
-                                for (const transmogId of transmogIds) {
-                                    overallSeen[transmogId] = true;
-                                }
-                            }
+                            console.error('Wacky set', group, groupSigh);
                         }
                     }
                 }
