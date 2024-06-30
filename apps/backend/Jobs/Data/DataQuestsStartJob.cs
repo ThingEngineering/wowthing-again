@@ -22,7 +22,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
 
         foreach (var questId in questIds)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.DataQuest, questId.ToString());
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.DataQuest, questId.ToString());
         }
 
         await Context.WowQuest
