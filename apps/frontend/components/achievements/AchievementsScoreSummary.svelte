@@ -1,9 +1,9 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore } from '@/stores'
+    import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import type { AchievementDataCategory } from '@/types'
 
     let categories: AchievementDataCategory[]
     $: {
