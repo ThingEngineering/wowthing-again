@@ -2,6 +2,7 @@
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
@@ -33,4 +34,12 @@
     scrollable={true}
     width="17rem"
     percentFunc={percentFunc}
-/>
+>
+    <div slot="before">
+        <ProgressBar
+            title="Overall"
+            have={$userAchievementStore.achievementCategories[0].havePoints}
+            total={$userAchievementStore.achievementCategories[0].totalPoints}
+        />
+    </div>
+</Sidebar>
