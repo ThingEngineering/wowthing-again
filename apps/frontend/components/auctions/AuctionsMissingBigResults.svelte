@@ -10,7 +10,7 @@
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
     import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
     import { settingsStore } from '@/shared/stores/settings'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
@@ -53,6 +53,16 @@
                 replace(`/auctions/${slug1}/1`)
             }
         }
+    }
+
+    let pageItems: UserAuctionEntry[]
+    function exportShoppingList() {
+        const lines: string[] = [];
+        lines.push(`WoWthing ${DateTime.now().toUnixInteger()}`);
+        for (const pageItem of pageItems) {
+            lines.push(`"${pageItem.name}"`);
+        }
+        navigator.clipboard.writeText(lines.join('^'));
     }
 </script>
 
@@ -188,6 +198,7 @@
             items={(things || [])}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
             {page}
+            bind:pageItems
             let:paginated
         >
             <div class="wrapper">
@@ -336,9 +347,24 @@
             <div
                 slot="bar-end"
                 class="total-gold"
-                use:basicTooltip={"Total gold required to buy the cheapest of each item"}
             >
-                {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+                <div class="bar-flex">
+                    <span class="shopping-list">
+                        <button
+                            class="clipboard"
+                            use:basicTooltip={"Copy shopping list to clipboard"}
+                            on:click={() => exportShoppingList()}
+                        >
+                            <IconifyIcon
+                                icon={iconLibrary.mdiClipboardPlusOutline}
+                                scale={'0.9'}
+                            />
+                        </button>
+                    </span>
+                    <span class="total-gold" use:basicTooltip={"Total gold required to buy the cheapest of each item"}>
+                        {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+                    </span>
+                </div>
             </div>
         </Paginate>
     {:else}
