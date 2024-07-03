@@ -7,6 +7,7 @@
     export let items: TData[]
     export let page: number
     export let perPage: number
+    export let pageItems: TData[]
 
     let end: number
     let pages: number
@@ -19,6 +20,8 @@
         end = start + perPage
 
         url = '#' + $location.replace(/\/?\d+$/, '')
+
+        pageItems = items.slice(start, end);
     }
 </script>
 
@@ -34,7 +37,7 @@
     </PaginateBar>
 {/if}
 
-<slot paginated={items.slice(start, end)} />
+<slot paginated={pageItems} />
 
 {#if items.length > 0}
     <PaginateBar
