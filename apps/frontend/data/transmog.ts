@@ -5,6 +5,7 @@ import { TransmogSet, TransmogSetData } from '@/types';
 export const transmogTypes = new Set<RewardType>([
     RewardType.Armor,
     RewardType.Cosmetic,
+    RewardType.Item,
     RewardType.Transmog,
     RewardType.Weapon,
 ]);
