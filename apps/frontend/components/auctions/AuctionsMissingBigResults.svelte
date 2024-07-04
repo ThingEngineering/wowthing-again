@@ -3,17 +3,19 @@
     import { replace } from 'svelte-spa-router'
 
     import { timeLeft } from '@/data/auctions'
+    import { euLocales } from '@/data/region';
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
-    import { itemStore, userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
+    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
+    import { itemStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
-    import { settingsStore } from '@/shared/stores/settings'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
+    import type { ItemDataItem } from '@/types/data/item';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -23,9 +25,6 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { euLocales } from '@/data/region';
-    import type { ItemDataItem } from '@/types/data/item';
-    import { mdiWizardHat } from '@/shared/icons/library';
 
     export let page: number
     export let slug1: string

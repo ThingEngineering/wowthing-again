@@ -7,6 +7,7 @@
     export let items: TData[]
     export let page: number
     export let perPage: number
+    // eslint-disable-next-line no-undef
     export let pageItems: TData[]
 
     let end: number

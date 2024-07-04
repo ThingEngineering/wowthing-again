@@ -45,7 +45,7 @@ import { UserCount } from '@/types';
 
 import { hashObject } from '@/utils/hash-object';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { AchievementData, FancyStoreType, UserAchievementData, UserData } from '@/types';
+import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { JournalData, UserQuestData } from '@/types/data';
 import type {
     ManualData,
