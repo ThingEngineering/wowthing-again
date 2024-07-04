@@ -24,6 +24,8 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
     import { euLocales } from '@/data/region';
+    import type { ItemDataItem } from '@/types/data/item';
+    import { mdiWizardHat } from '@/shared/icons/library';
 
     export let page: number
     export let slug1: string
@@ -63,6 +65,31 @@
             lines.push(`"${pageItem.name}"`);
         }
         navigator.clipboard.writeText(lines.join('^'));
+    }
+
+    function getHaveClass(result: UserAuctionEntry, item: ItemDataItem): [boolean, boolean] {
+        let [needAppearance, needSource] = [false, false];
+
+        if (slug1.startsWith('missing-appearance-')) {
+            // source
+            if (result.id.includes('_')) {
+                const modifier = parseInt(result.id.split('_')[1]);
+                const appearance = item.appearances?.[modifier];
+                needAppearance = (!!appearance && !$userStore.hasAppearance.has(appearance.appearanceId));
+                needSource = !$userStore.hasSource.has(result.id);
+            } else {
+                const appearanceId = parseInt(result.id);
+                needAppearance = !$userStore.hasAppearance.has(appearanceId);
+                for (const appearance of Object.values(item.appearances)) {
+                    if (appearance.appearanceId === appearanceId) {
+                        needSource = !$userStore.hasSource.has(`${result.id}_${appearance.modifier}`);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return [needAppearance, needSource];
     }
 </script>
 
@@ -119,6 +146,10 @@
         --image-margin-top: -5px;
 
         margin-left: auto;
+
+        :global(svg) {
+            margin-left: -0.4rem;
+        }
     }
     .already-have {
         color: $color-fail;
@@ -206,13 +237,17 @@
                     {@const auctions = result.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
                     {@const item = $itemStore.items[itemId]}
+                    {@const [needAppearance, needSource] = getHaveClass(result, item)}
                     <table
                         class="table table-striped"
                         class:faded={result.hasItems.length > 0}
                     >
                         <thead>
                             <tr>
-                                <th class="item text-overflow" colspan="3">
+                                <th
+                                    class="item text-overflow"
+                                    colspan="3"
+                                >
                                     <div class="flex-wrapper">
                                         <WowheadLink
                                             type={'item'}
@@ -242,6 +277,22 @@
                                         </WowheadLink>
 
                                         <span class="icons">
+                                            {#if needSource && !needAppearance}
+                                                <IconifyIcon
+                                                    extraClass={'status-shrug'}
+                                                    icon={iconLibrary.mdiWizardHat}
+                                                    scale={'0.85'}
+                                                    tooltip={'You have collected this appearance from another item'}
+                                                />
+                                            {:else if needAppearance}
+                                                <IconifyIcon
+                                                    extraClass={'status-fail'}
+                                                    icon={iconLibrary.mdiWizardHat}
+                                                    scale={'0.85'}
+                                                    tooltip={'You have not collected this appearance'}
+                                                />
+                                            {/if}
+
                                             {#if result.hasItems.length > 0}
                                                 <span
                                                     class="already-have"
