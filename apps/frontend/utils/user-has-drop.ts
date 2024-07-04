@@ -68,12 +68,22 @@ export default function userHasDrop(
             }
             return Object.values(bySlot).every((hasSlot) => !!hasSlot);
         } else {
-            if (completionist) {
-                return userData.hasSource.has(`${id}_0`);
+            const item = itemData.items[id];
+            if (!item) {
+                return false;
             }
 
-            const appearanceId = itemData.items[id]?.appearances?.[0]?.appearanceId || 0;
-            return userData.hasAppearance.has(appearanceId);
+            // If an item only has a single appearance, use that modifier. This is true
+            // for things like Cosmetic items that teach specific difficulty appearances.
+            const keys = Object.keys(item.appearances);
+            const modifier = parseInt(keys.length === 1 ? keys[0] : '0');
+
+            if (completionist) {
+                return userData.hasSource.has(`${id}_${modifier}`);
+            } else {
+                const appearanceId = item.appearances?.[modifier]?.appearanceId || 0;
+                return userData.hasAppearance.has(appearanceId);
+            }
         }
     }
 
