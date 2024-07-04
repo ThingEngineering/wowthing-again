@@ -4,11 +4,13 @@
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { userStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class';
+    import { UserCount, type MultiSlugParams } from '@/types'
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types'
-    import type { MultiSlugParams } from '@/types'
 
     import { recipesState } from './state'
 
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
@@ -18,7 +20,7 @@
 
     let allKnown: Set<number>
     let category: StaticDataProfessionCategory
-    let subCategories: StaticDataProfessionCategory[]
+    let subCategories: [StaticDataProfessionCategory, UserCount][]
     $: {
         const professionId = professionSlugToId[params.slug1]
         const profession = $staticStore.professions[professionId]
@@ -40,20 +42,29 @@
         for (const subCategory of category.children) {
             if (subCategory.abilities.length === 0) { continue }
 
+            const subStats = new UserCount()
+
             let anyShown = false
             for (const ability of subCategory.abilities) {
+                subStats.total++
+
                 const userHas = allKnown.has(ability.id)
+                if (userHas) {
+                    subStats.have++
+                }
+
                 if (
                     (userHas && $recipesState.showCollected) ||
                     (!userHas && $recipesState.showUncollected)
                 ) {
                     anyShown = true
-                    break
+                    // break
                 }
             }
 
             if (anyShown) {
-                subCategories.push(subCategory)
+                console.log(subCategory, subStats)
+                subCategories.push([subCategory, subStats])
             }
         }
     }
@@ -72,6 +83,9 @@
         table-layout: auto;
         width: 22.3rem;
     }
+    th {
+        padding: 0.15rem 0.3rem;
+    }
     .status {
         @include cell-width(1.3rem);
     }
@@ -83,14 +97,22 @@
 </style>
 
 <div class="wrapper">
-    {#each subCategories as subCategory}
+    {#each subCategories as [subCategory, subStats]}
         <table
             class="table table-striped"
             data-id="{subCategory.id}"
         >
             <thead>
                 <tr>
-                    <th colspan="2">{subCategory.name}</th>
+                    <th
+                        class="{getPercentClass(subStats.percent)}"
+                        colspan="2"
+                    >
+                        <div class="flex-wrapper">
+                            {subCategory.name}
+                            <CollectibleCount counts={subStats} />
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
