@@ -5,6 +5,7 @@
     import type { MultiSlugParams } from '@/types'
 
     import Achievements from './ExploreAchievements.svelte'
+    import Icons from './ExploreIcons.svelte';
     import Quests from './ExploreQuests.svelte'
     import Sidebar from './ExploreSidebar.svelte'
     import Transmog from './ExploreTransmog.svelte';
@@ -15,6 +16,7 @@
 
     const componentMap: Record<string, ComponentType> = {
         'achievements': Achievements,
+        'icons': Icons,
         'quests': Quests,
         'transmog': Transmog,
     }

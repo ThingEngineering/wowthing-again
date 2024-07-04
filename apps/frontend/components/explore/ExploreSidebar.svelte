@@ -9,6 +9,10 @@
             slug: 'achievements',
         },
         {
+            name: 'Icons',
+            slug: 'icons',
+        },
+        {
             name: 'Quests',
             slug: 'quests',
         },
