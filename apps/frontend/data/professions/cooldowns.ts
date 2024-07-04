@@ -1,6 +1,5 @@
-import { Profession } from '@/enums/profession'
-import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types'
-
+import { Profession } from '@/enums/profession';
+import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
 
 export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownSpell)[] = [
     // Alchemy
@@ -12,6 +11,26 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         cooldown: [
             [86400], // 24h
             [60480, 2823, 19538, 21], // 16h48m @ 20 points in Transmutation
+        ],
+    },
+
+    // Engineering
+    {
+        type: 'spell',
+        key: 'dfSuspiciouslySilent',
+        name: '[DF] Suspiciously Silent',
+        profession: Profession.Engineering,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'dfSuspiciouslyTicking',
+        name: '[DF] Suspiciously Ticking',
+        profession: Profession.Engineering,
+        cooldown: [
+            [72000], // 20h
         ],
     },
 
@@ -116,7 +135,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
             [30240, 2831, 40070, 21], // 8h24m @ 20 points in Timeweaving
         ],
     },
-]
+];
 
 export const professionWorkOrders: ProfessionCooldownSpell[] = [
     // Alchemy
@@ -151,7 +170,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
             [86400], // 24h
         ],
     },
-    
+
     // Engineering
     {
         type: 'spell',
@@ -184,7 +203,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
             [86400], // 24h
         ],
     },
-    
+
     // Leatherworking
     {
         type: 'spell',
@@ -206,4 +225,4 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
             [86400], // 24h
         ],
     },
-]
+];
