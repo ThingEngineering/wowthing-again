@@ -10,11 +10,8 @@
 
     import { recipesState } from './state'
 
+    import Ability from './Ability.svelte'
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let params: MultiSlugParams
 
@@ -46,24 +43,31 @@
 
             let anyShown = false
             for (const ability of subCategory.abilities) {
-                subStats.total++
+                const abilityIds = [
+                    ability.id,
+                    ...(ability.extraRanks || []).map(([abilityId,]) => abilityId)
+                ]
 
-                const userHas = allKnown.has(ability.id)
-                if (userHas) {
-                    subStats.have++
-                }
+                abilityIds.forEach((_abilityId, index) => {
+                    subStats.total++
+                    const userHas = abilityIds.slice(index)
+                        .some((abilityId) => allKnown.has(abilityId))
 
-                if (
-                    (userHas && $recipesState.showCollected) ||
-                    (!userHas && $recipesState.showUncollected)
-                ) {
-                    anyShown = true
-                    // break
-                }
+                    if (userHas) {
+                        subStats.have++
+                    }
+
+                    if (
+                        (userHas && $recipesState.showCollected) ||
+                        (!userHas && $recipesState.showUncollected)
+                    ) {
+                        anyShown = true
+                        // break
+                    }
+                })
             }
 
             if (anyShown) {
-                console.log(subCategory, subStats)
                 subCategories.push([subCategory, subStats])
             }
         }
@@ -85,14 +89,6 @@
     }
     th {
         padding: 0.15rem 0.3rem;
-    }
-    .status {
-        @include cell-width(1.3rem);
-    }
-    .name {
-        --image-border-width: 1px;
-
-        @include cell-width(20rem);
     }
 </style>
 
@@ -117,33 +113,19 @@
             </thead>
             <tbody>
                 {#each subCategory.abilities as ability}
-                    {@const userHas = allKnown.has(ability.id)}
-                    {@const name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${ability.spellId}`}
-                    {#if (userHas && $recipesState.showCollected) ||
-                        (!userHas && $recipesState.showUncollected)}
-                        <tr>
-                            <td class="status">
-                                <YesNoIcon
-                                    state={userHas}
-                                    useStatusColors={true}
-                                />
-                            </td>
-                            <td class="name text-overflow">
-                                <WowheadLink
-                                    id={ability.spellId}
-                                    type={"spell"}
-                                >
-                                    <WowthingImage
-                                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${ability.spellId}`}
-                                        size={20}
-                                        border={1}
-                                    />
+                    <Ability
+                        rank={ability.extraRanks?.length > 0 ? 1 : 0}
+                        {ability}
+                        {allKnown}
+                    />
 
-                                    <ParsedText text={name} />
-                                </WowheadLink>
-                            </td>
-                        </tr>
-                    {/if}
+                    {#each (ability.extraRanks || []) as _, rankIndex}
+                        <Ability
+                            rank={rankIndex + 2}
+                            {ability}
+                            {allKnown}
+                        />
+                    {/each}
                 {/each}
             </tbody>
         </table>
