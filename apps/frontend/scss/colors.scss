@@ -27,6 +27,10 @@
     --image-border-color: #{mix($color-shrug, $border-color, 90%)} !important;
     border-color: mix($color-shrug, $border-color, 90%) !important;
 }
+.border-warn {
+    --image-border-color: #{mix($color-warn, $border-color, 90%)} !important;
+    border-color: mix($color-warn, $border-color, 90%) !important;
+}
 .border-fail {
     --image-border-color: #{mix($color-fail, $border-color, 90%)} !important;
     border-color: mix($color-fail, $border-color, 90%) !important;
