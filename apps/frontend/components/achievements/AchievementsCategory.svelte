@@ -10,6 +10,7 @@
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -80,6 +81,9 @@
     .faction1 {
         border-color: $horde-border;
     }
+    .progress-bar {
+        width: 15rem;
+    }
 </style>
 
 <div class="wrapper">
@@ -120,6 +124,16 @@
                 bind:value={$achievementState.showAllCharacters}
             >All character progress</Checkbox>
         </button>
+
+        {#if category && $userAchievementStore.achievementCategories[category.id].totalPoints}
+            <div class="progress-bar new-group">
+                <ProgressBar
+                    title="Points"
+                    have={$userAchievementStore.achievementCategories[category.id].havePoints}
+                    total={$userAchievementStore.achievementCategories[category.id].totalPoints}
+                />
+            </div>
+        {/if}
     </div>
 
     {#if category && achievementIds}

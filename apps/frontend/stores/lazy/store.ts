@@ -4,6 +4,7 @@ import once from 'lodash/once';
 import { derived, get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
+import { doAchievements, type LazyAchievements } from './achievements';
 import { doAppearances, type LazyAppearances } from './appearances';
 import { doCharacters, type LazyCharacter } from './character';
 import { doCollectible, type LazyCollectible } from './collectible';
@@ -15,6 +16,8 @@ import { doVendors, type LazyVendors } from './vendors';
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps';
 
 import {
+    AchievementsState,
+    achievementState,
     appearanceState,
     collectibleState,
     journalState,
@@ -27,6 +30,7 @@ import {
     type ZoneMapState,
 } from '../local-storage';
 
+import { achievementStore } from '../achievements';
 import { itemStore } from '../item';
 import { journalStore } from '../journal';
 import { manualStore } from '../manual';
@@ -76,6 +80,7 @@ export const lazyStore = derived(
     [
         settingsStore,
         timeStore,
+        achievementState,
         appearanceState,
         collectibleState,
         journalState,
@@ -89,6 +94,7 @@ export const lazyStore = derived(
         ([
             $settingsStore,
             $timeStore,
+            $achievementState,
             $appearanceState,
             $collectibleState,
             $journalState,
@@ -100,6 +106,7 @@ export const lazyStore = derived(
         ]: [
             Settings,
             DateTime,
+            AchievementsState,
             AppearancesState,
             CollectibleState,
             JournalState,
@@ -112,6 +119,7 @@ export const lazyStore = derived(
             storeInstance.update(
                 $settingsStore,
                 $timeStore,
+                $achievementState,
                 $appearanceState,
                 $collectibleState,
                 $journalState,
@@ -134,11 +142,6 @@ export const lazyStore = derived(
 export class LazyStore implements LazyUgh {
     private settings: Settings;
 
-    private appearanceState: AppearancesState;
-    private collectibleState: CollectibleState;
-    private journalState: JournalState;
-    private zoneMapState: ZoneMapState;
-
     private itemData: ItemData;
     private journalData: JournalData;
     private manualData: ManualData;
@@ -153,6 +156,7 @@ export class LazyStore implements LazyUgh {
     private illusionsFunc: () => UserCounts;
     private recipesFunc: () => UserCounts;
 
+    private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
     private charactersFunc: () => Record<string, LazyCharacter>;
     private convertibleFunc: () => LazyConvertible;
@@ -169,6 +173,7 @@ export class LazyStore implements LazyUgh {
     update(
         settings: Settings,
         currentTime: DateTime,
+        achievementState: AchievementsState,
         appearanceState: AppearancesState,
         collectibleState: CollectibleState,
         journalState: JournalState,
@@ -181,6 +186,7 @@ export class LazyStore implements LazyUgh {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
 
+            achievementState: hashObject(achievementState),
             appearanceState: hashObject(appearanceState),
             collectibleState: hashObject(collectibleState),
             journalState: hashObject(journalState, ['filtersExpanded', 'highlightMissing']),
@@ -222,14 +228,26 @@ export class LazyStore implements LazyUgh {
 
         this.settings = settings;
 
-        this.appearanceState = appearanceState;
-        this.collectibleState = collectibleState;
-        this.journalState = journalState;
-        this.zoneMapState = zoneMapState;
-
         this.userData = userData;
         this.userAchievementData = userAchievementData;
         this.userQuestData = userQuestData;
+
+        if (
+            changedData.userAchievementData ||
+            changedData.userData ||
+            changedData.userQuestData ||
+            changedHashes.achievementState
+        ) {
+            this.achievementsFunc = once(() =>
+                doAchievements({
+                    achievementState: achievementState,
+                    achievementData: get(achievementStore),
+                    userAchievementData,
+                    userData,
+                    userQuestData,
+                }),
+            );
+        }
 
         if (
             changedData.userData ||
@@ -419,6 +437,9 @@ export class LazyStore implements LazyUgh {
         return this.recipesFunc();
     }
 
+    get achievements(): LazyAchievements {
+        return this.achievementsFunc();
+    }
     get appearances(): LazyAppearances {
         return this.appearancesFunc();
     }

@@ -169,6 +169,7 @@ export class ManualDataSharedVendorSet {
         public name: string,
         public range: number[],
         public sortKey?: string,
+        public showNormalTag?: boolean,
         public skipTooltip?: boolean,
     ) {}
 }

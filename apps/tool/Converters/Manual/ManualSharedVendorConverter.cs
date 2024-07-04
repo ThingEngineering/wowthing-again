@@ -72,9 +72,14 @@ public class ManualSharedVendorConverter : JsonConverter<ManualSharedVendor>
         writer.WriteStringValue(set.Name);
         writer.WriteNumberArray(set.Range);
 
-        if (set.SkipTooltip || !string.IsNullOrWhiteSpace(set.SortKey))
+        if (set.SkipTooltip || set.ShowNormalTag || !string.IsNullOrWhiteSpace(set.SortKey))
         {
             writer.WriteStringValue(set.SortKey);
+        }
+
+        if (set.SkipTooltip || set.ShowNormalTag)
+        {
+            writer.WriteBooleanValue(set.ShowNormalTag);
         }
 
         if (set.SkipTooltip)

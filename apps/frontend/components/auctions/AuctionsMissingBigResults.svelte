@@ -3,17 +3,19 @@
     import { replace } from 'svelte-spa-router'
 
     import { timeLeft } from '@/data/auctions'
+    import { euLocales } from '@/data/region';
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
-    import { itemStore, userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
-    import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore } from '@/stores/user-auctions'
-    import { settingsStore } from '@/shared/stores/settings'
-    import connectedRealmName from '@/utils/connected-realm-name'
     import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
+    import { itemStore, userStore } from '@/stores'
+    import { auctionState } from '@/stores/local-storage'
+    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
+    import connectedRealmName from '@/utils/connected-realm-name'
+    import type { ItemDataItem } from '@/types/data/item';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -23,7 +25,6 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { euLocales } from '@/data/region';
 
     export let page: number
     export let slug1: string
@@ -53,6 +54,41 @@
                 replace(`/auctions/${slug1}/1`)
             }
         }
+    }
+
+    let pageItems: UserAuctionEntry[]
+    function exportShoppingList() {
+        const lines: string[] = [];
+        lines.push(`WoWthing ${DateTime.now().toUnixInteger()}`);
+        for (const pageItem of pageItems) {
+            lines.push(`"${pageItem.name}"`);
+        }
+        navigator.clipboard.writeText(lines.join('^'));
+    }
+
+    function getHaveClass(result: UserAuctionEntry, item: ItemDataItem): [boolean, boolean] {
+        let [needAppearance, needSource] = [false, false];
+
+        if (slug1.startsWith('missing-appearance-')) {
+            // source
+            if (result.id.includes('_')) {
+                const modifier = parseInt(result.id.split('_')[1]);
+                const appearance = item.appearances?.[modifier];
+                needAppearance = (!!appearance && !$userStore.hasAppearance.has(appearance.appearanceId));
+                needSource = !$userStore.hasSource.has(result.id);
+            } else {
+                const appearanceId = parseInt(result.id);
+                needAppearance = !$userStore.hasAppearance.has(appearanceId);
+                for (const appearance of Object.values(item.appearances)) {
+                    if (appearance.appearanceId === appearanceId) {
+                        needSource = !$userStore.hasSource.has(`${result.id}_${appearance.modifier}`);
+                        break;
+                    }
+                }
+            }
+        }
+
+        return [needAppearance, needSource];
     }
 </script>
 
@@ -109,6 +145,10 @@
         --image-margin-top: -5px;
 
         margin-left: auto;
+
+        :global(svg) {
+            margin-left: -0.4rem;
+        }
     }
     .already-have {
         color: $color-fail;
@@ -188,6 +228,7 @@
             items={(things || [])}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
             {page}
+            bind:pageItems
             let:paginated
         >
             <div class="wrapper">
@@ -195,13 +236,17 @@
                     {@const auctions = result.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
                     {@const item = $itemStore.items[itemId]}
+                    {@const [needAppearance, needSource] = getHaveClass(result, item)}
                     <table
                         class="table table-striped"
                         class:faded={result.hasItems.length > 0}
                     >
                         <thead>
                             <tr>
-                                <th class="item text-overflow" colspan="3">
+                                <th
+                                    class="item text-overflow"
+                                    colspan="3"
+                                >
                                     <div class="flex-wrapper">
                                         <WowheadLink
                                             type={'item'}
@@ -231,6 +276,22 @@
                                         </WowheadLink>
 
                                         <span class="icons">
+                                            {#if needSource && !needAppearance}
+                                                <IconifyIcon
+                                                    extraClass={'status-shrug'}
+                                                    icon={iconLibrary.mdiWizardHat}
+                                                    scale={'0.85'}
+                                                    tooltip={'You have collected this appearance from another item'}
+                                                />
+                                            {:else if needAppearance}
+                                                <IconifyIcon
+                                                    extraClass={'status-fail'}
+                                                    icon={iconLibrary.mdiWizardHat}
+                                                    scale={'0.85'}
+                                                    tooltip={'You have not collected this appearance'}
+                                                />
+                                            {/if}
+
                                             {#if result.hasItems.length > 0}
                                                 <span
                                                     class="already-have"
@@ -336,9 +397,24 @@
             <div
                 slot="bar-end"
                 class="total-gold"
-                use:basicTooltip={"Total gold required to buy the cheapest of each item"}
             >
-                {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+                <div class="bar-flex">
+                    <span class="shopping-list">
+                        <button
+                            class="clipboard"
+                            use:basicTooltip={"Copy shopping list to clipboard"}
+                            on:click={() => exportShoppingList()}
+                        >
+                            <IconifyIcon
+                                icon={iconLibrary.mdiClipboardPlusOutline}
+                                scale={'0.9'}
+                            />
+                        </button>
+                    </span>
+                    <span class="total-gold" use:basicTooltip={"Total gold required to buy the cheapest of each item"}>
+                        {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+                    </span>
+                </div>
             </div>
         </Paginate>
     {:else}

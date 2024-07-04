@@ -4,12 +4,14 @@ public class ManualSharedVendorSet
 {
     public string Name { get; set; }
     public int[] Range { get; set; }
+    public bool ShowNormalTag { get; set; }
     public bool SkipTooltip { get; set; }
     public string? SortKey { get; set; }
 
     public ManualSharedVendorSet(DataSharedVendorSet set)
     {
         Name = set.Name;
+        ShowNormalTag = set.ShowNormalTag;
         SkipTooltip = set.SkipTooltip;
         SortKey = set.SortKey;
 

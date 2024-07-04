@@ -32,6 +32,7 @@ export class ManualDataVendorGroup {
         public name: string,
         itemArrays: ManualDataVendorItemArray[],
         public auto?: boolean,
+        public showNormalTag?: boolean,
     ) {
         this.sells = itemArrays.map((itemArray) => new ManualDataVendorItem(...itemArray));
     }

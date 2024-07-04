@@ -98,6 +98,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         set.name,
                         [],
                         true,
+                        set.showNormalTag,
                     ));
                     for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
                         setPosition++;

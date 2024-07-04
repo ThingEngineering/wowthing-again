@@ -7,6 +7,7 @@
     export let cls: string = null
     export let title: string = null
     export let have = Math.floor(Math.random() * 100)
+    export let midText: string = undefined
     export let selected = false
     export let shortText = false
     export let textCls: string = null
@@ -20,6 +21,7 @@
         display: block;
         margin-top: var(--progress-margin-top, 0);
         overflow: hidden;
+        padding: 2px;
         position: relative;
         width: 100%;
     }
@@ -48,25 +50,30 @@
         top: 0;
         width: calc(100% - var(--width, 0%));
     }
-    span {
+    .text-container {
+        display: flex;
+        justify-content: space-between;
+        left: 0;
+        padding: 0 0.6rem;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        width: 100%;
+    }
+    span {
+        --image-margin-top: -4px;
+
+        margin: 0;
         white-space: nowrap;
 
-        &.left {
-            left: 0.8rem;
-        }
         &.right {
-            right: 0.8rem;
-            word-spacing: -0.1ch;
+            word-spacing: -0.2ch;
         }
         &.short {
             font-size: 0.95rem;
-            left: 0;
             text-align: center;
             width: 100%;
-            word-spacing: -0.1ch;
+            word-spacing: -0.2ch;
         }
     }
 </style>
@@ -78,26 +85,34 @@
 >
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
-    {#if title}
-        <span class="left drop-shadow {textCls || ''}">
-            {#if selected}
-                <IconifyIcon icon={iconStrings['arrow-right']} />
+    <div class="text-container">
+        <span class="drop-shadow {textCls || ''}">
+            {#if title}
+                {#if selected}
+                    <IconifyIcon icon={iconStrings['arrow-right']} />
+                {/if}
+                {title}
             {/if}
-            {title}
         </span>
-    {/if}
 
-    {#if total > 0}
+        <span class="drop-shadow">
+            {#if midText}
+                {midText}
+            {/if}
+        </span>
+
         <span
             class="drop-shadow"
             class:short={shortText}
             class:right={!shortText}
         >
-            {#if shortText}
-                {toNiceNumber(have)} / {toNiceNumber(total)}
-            {:else}
-                {have.toLocaleString()} / {total.toLocaleString()}
+            {#if total > 0}
+                {#if shortText}
+                    {toNiceNumber(have)} / {toNiceNumber(total)}
+                {:else}
+                    {have.toLocaleString()} / {total.toLocaleString()}
+                {/if}
             {/if}
         </span>
-    {/if}
+    </div>
 </button>

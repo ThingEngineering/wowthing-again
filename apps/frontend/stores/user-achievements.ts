@@ -1,136 +1,135 @@
-import { get } from 'svelte/store'
+import { get } from 'svelte/store';
 
-import { userModifiedStore } from './user-modified'
-import { WritableFancyStore } from '@/types/fancy-store'
-import { UserAchievementDataCategory, type UserAchievementData } from '@/types/user-achievement-data'
-import type { AchievementsState } from '@/stores/local-storage'
-import type { AchievementData } from '@/types/achievement-data'
-
+import { userModifiedStore } from './user-modified';
+import { WritableFancyStore } from '@/types/fancy-store';
+import {
+    UserAchievementDataCategory,
+    type UserAchievementData,
+} from '@/types/user-achievement-data';
+import type { AchievementsState } from '@/stores/local-storage';
+import type { AchievementData } from '@/types/achievement-data';
 
 export class UserAchievementDataStore extends WritableFancyStore<UserAchievementData> {
     get dataUrl(): string {
-        let url = document.getElementById('app')?.getAttribute('data-user')
+        let url = document.getElementById('app')?.getAttribute('data-user');
         if (url) {
-            const modified = get(userModifiedStore).achievements
-            url = url.replace(/\/(?:public|private).+$/, `/achievements-${modified}.json`)
+            const modified = get(userModifiedStore).achievements;
+            url = url.replace(/\/(?:public|private).+$/, `/achievements-${modified}.json`);
         }
-        return url
+        return url;
     }
 
     initialize(data: UserAchievementData): void {
-        console.time('UserAchievementDataStore.initialize')
+        console.time('UserAchievementDataStore.initialize');
 
-        data.criteria = {}
+        data.criteria = {};
         for (const criteriaData of data.rawCriteria) {
-            const baseArray: number[][] = data.criteria[criteriaData[0]] = []
+            const baseArray: number[][] = (data.criteria[criteriaData[0]] = []);
             for (let i = 1; i < criteriaData.length; i++) {
-                const sigh = criteriaData[i] as number[]
+                const sigh = criteriaData[i] as number[];
                 for (let j = 1; j < sigh.length; j++) {
-                    baseArray.push([
-                        sigh[j],
-                        sigh[0],
-                    ])
+                    baseArray.push([sigh[j], sigh[0]]);
                 }
             }
         }
-        data.rawCriteria = null
+        data.rawCriteria = null;
 
-        console.timeEnd('UserAchievementDataStore.initialize')
+        console.timeEnd('UserAchievementDataStore.initialize');
     }
 
-    setup(
-        achievementState: AchievementsState,
-        achievementData: AchievementData
-    ): void {
-        console.time('UserAchievementDataStore.setup')
+    setup(achievementState: AchievementsState, achievementData: AchievementData): void {
+        console.time('UserAchievementDataStore.setup');
 
-        const userAchievements = this.value.achievements
+        const userAchievements = this.value.achievements;
 
-        const categories = achievementData.categories
-        const keepIds: Record<number, boolean> = {}
+        const categories = achievementData.categories;
+        const keepIds: Record<number, boolean> = {};
         for (const category of categories) {
             if (category === null) {
-                continue
+                continue;
             }
 
             if (category.name !== 'Feats of Strength' && category.name !== 'Legacy') {
-                keepIds[category.id] = true
+                keepIds[category.id] = true;
                 for (const child of category.children.filter((child) => child !== null)) {
-                    keepIds[child.id] = true
+                    keepIds[child.id] = true;
                 }
             }
         }
 
-        const cheevs: Record<number, UserAchievementDataCategory> = {}
-        cheevs[0] = new UserAchievementDataCategory(0, 0, 0)
+        const cheevs: Record<number, UserAchievementDataCategory> = {};
+        cheevs[0] = new UserAchievementDataCategory(0, 0, 0, 0);
 
-        const all: [number, number][] = []
+        const all: [number, number][] = [];
         for (const achievement of Object.values(achievementData.achievement)) {
             if (
                 (achievement.faction === 1 && !achievementState.showHorde) ||
                 (achievement.faction === 0 && !achievementState.showAlliance) ||
-                ((achievement.flags & 0x100_000) > 0)
+                (achievement.flags & 0x100_000) > 0
             ) {
                 // console.log('skip', achievement)
-                continue
+                continue;
             }
 
             if (!cheevs[achievement.categoryId]) {
-                cheevs[achievement.categoryId] = new UserAchievementDataCategory(0, 0, 0)
+                cheevs[achievement.categoryId] = new UserAchievementDataCategory(0, 0, 0, 0);
             }
 
-            cheevs[achievement.categoryId].total++
+            cheevs[achievement.categoryId].total++;
+            cheevs[achievement.categoryId].totalPoints += achievement.points;
 
             if (keepIds[achievement.categoryId]) {
-                cheevs[0].total++
+                cheevs[0].total++;
+                cheevs[0].totalPoints += achievement.points;
             }
 
             if (userAchievements[achievement.id]) {
-                all.push([userAchievements[achievement.id], achievement.id])
+                all.push([userAchievements[achievement.id], achievement.id]);
 
-                cheevs[achievement.categoryId].have++
-                cheevs[achievement.categoryId].points += achievement.points
+                cheevs[achievement.categoryId].have++;
+                cheevs[achievement.categoryId].havePoints += achievement.points;
 
                 if (keepIds[achievement.categoryId]) {
-                    cheevs[0].have++
-                    cheevs[0].points += achievement.points
+                    cheevs[0].have++;
+                    cheevs[0].havePoints += achievement.points;
                 }
             }
         }
 
         for (const category of achievementData.categories.filter((cat) => cat !== null)) {
             if (!cheevs[category.id]) {
-                cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0)
+                cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0, 0);
             }
 
             for (const child of category.children.filter((child) => child !== null)) {
                 // Statistics
                 if (child.id === 1) {
-                    continue
+                    continue;
                 }
 
-                const childStats = cheevs[child.id]
+                const childStats = cheevs[child.id];
                 if (!childStats) {
-                    continue
+                    continue;
                 }
 
-                cheevs[category.id].have += childStats.have
-                cheevs[category.id].points += childStats.points
-                cheevs[category.id].total += childStats.total
+                cheevs[category.id].have += childStats.have;
+                cheevs[category.id].total += childStats.total;
+                cheevs[category.id].havePoints += childStats.havePoints;
+                cheevs[category.id].totalPoints += childStats.totalPoints;
             }
         }
 
-        all.sort()
-        all.reverse()
+        all.sort();
+        all.reverse();
 
-        this.update(state => {
-            state.achievementCategories = cheevs
-            state.achievementRecent = all.slice(0, 10).map(([, id]) => id)
-            return state
-        })
+        this.update((state) => {
+            state.achievementCategories = cheevs;
+            state.achievementRecent = all.slice(0, 10).map(([, id]) => id);
+            return state;
+        });
 
-        console.timeEnd('UserAchievementDataStore.setup')
+        console.timeEnd('UserAchievementDataStore.setup');
     }
 }
 
-export const userAchievementStore = new UserAchievementDataStore()
+export const userAchievementStore = new UserAchievementDataStore();

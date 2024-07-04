@@ -38,6 +38,17 @@ export enum CriteriaTreeFlags {
     IsForQuest                  = 0x1000, // 4096
 }
 
+export enum CriteriaTreeOperator {
+    Single = 0,
+    SingleNotCompleted = 1,
+    All = 4,
+    SumChildren = 5,
+    MaxChild = 6,
+    CountDirectChildren = 7,
+    Any = 8,
+    SumChildrenWeight = 9,
+}
+
 export enum TransmogSetFlags {
     NotInTransmogSetUi          = 0x01, // 1
     HiddenUntilCollected        = 0x02, // 2
