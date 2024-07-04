@@ -13,6 +13,31 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
             [60480, 2823, 19538, 21], // 16h48m @ 20 points in Transmutation
         ],
     },
+    {
+        type: 'spell',
+        key: 'wodAlchemySecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Alchemy,
+        cooldown: [[0]],
+    },
+
+    // Blacksmithing
+    {
+        type: 'spell',
+        key: 'wodBlacksmithingSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
+
+    // Enchanting
+    {
+        type: 'spell',
+        key: 'wodEnchantingSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Enchanting,
+        cooldown: [[0]],
+    },
 
     // Engineering
     {
@@ -32,6 +57,22 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         cooldown: [
             [72000], // 20h
         ],
+    },
+    {
+        type: 'spell',
+        key: 'wodEngineeringSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Engineering,
+        cooldown: [[0]],
+    },
+
+    // Inscription
+    {
+        type: 'spell',
+        key: 'wodInscriptionSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Inscription,
+        cooldown: [[0]],
     },
 
     // Jewelcrafting
@@ -95,6 +136,22 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
             [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
         ],
     },
+    {
+        type: 'spell',
+        key: 'wodJewelcraftingSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Jewelcrafting,
+        cooldown: [[0]],
+    },
+
+    // Leatherworking
+    {
+        type: 'spell',
+        key: 'wodLeatherworkingSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
 
     // Skinning
     {
@@ -134,6 +191,13 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
             [43200, 2831, 40070, 1], // 12h @ unlocked Timeweaving
             [30240, 2831, 40070, 21], // 8h24m @ 20 points in Timeweaving
         ],
+    },
+    {
+        type: 'spell',
+        key: 'wodTailoringingSecrets',
+        name: '[WoD] Secrets',
+        profession: Profession.Tailoring,
+        cooldown: [[0]],
     },
 ];
 
