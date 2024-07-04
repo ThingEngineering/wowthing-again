@@ -19,6 +19,7 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount
@@ -28,6 +29,7 @@
     let intersected = false
     let percent: number
     let things: ThingData[]
+
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
@@ -61,6 +63,22 @@
                     }
                     else {
                         thingData.classId = 0
+                    }
+                    
+                    const item = $itemStore.items[thingData.linkId];
+                    const appearanceKeys = Object.keys(item?.appearances || {}).map((n) => parseInt(n));
+                    if (appearanceKeys.length === 1) {
+                        if (appearanceKeys[0] === AppearanceModifier.Mythic) {
+                            thingData.difficulty = 'M';
+                        } else if (appearanceKeys[0] === AppearanceModifier.Heroic) {
+                            thingData.difficulty = 'H';
+                        } else if (appearanceKeys[0] === AppearanceModifier.LookingForRaid) {
+                            thingData.difficulty = 'L';
+                        } else if (appearanceKeys[0] === AppearanceModifier.Normal && group.showNormalTag) {
+                            thingData.difficulty = 'N';
+                        } else {
+                            console.log(item, appearanceKeys, group);
+                        }
                     }
                 }
 
@@ -239,6 +257,10 @@
                                         <span class="{getPercentClass(setStats.percent)}">{setStats.total}</span>
                                     </div>
                                 {/if}
+                            {:else if thing.difficulty}
+                                <div class="stats pill quality1">
+                                    {thing.difficulty}
+                                </div>
                             {/if}
             
                             {#if thing.userHas}
