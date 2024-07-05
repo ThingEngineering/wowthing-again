@@ -609,11 +609,37 @@ public class StaticTool
                 category => !Hardcoded.IgnoredTradeSkillCategories.Contains(category.ID)
             );
 
-            var categoriesByProfession = categories
-                .GroupBy(tsc => allProfs.Contains(tsc.SkillLineID)
-                    ? tsc.SkillLineID
-                    : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
-                .ToDictionary(group => group.Key, group => group.ToList());
+            var categoriesByProfession = new Dictionary<int, List<DumpTradeSkillCategory>>();
+            foreach (var category in categories)
+            {
+                int professionId;
+                if (allProfs.Contains(category.SkillLineID))
+                {
+                    professionId = category.SkillLineID;
+                }
+                else
+                {
+                    int parentId = skillLineParentMap.GetValueOrDefault(category.SkillLineID, 0);
+                    // Continue up the tree until we run out or find a profession (Pandaria Cooking Ways suck)
+                    while (parentId > 0 && !allProfs.Contains(parentId))
+                    {
+                        parentId = skillLineParentMap.GetValueOrDefault(parentId, 0);
+                    }
+
+                    professionId = parentId;
+                }
+
+                if (professionId > 0)
+                {
+                    ToolContext.Logger.Information("Adding category {category} with profession {profession}", category.ID, professionId);
+                }
+
+                if (!categoriesByProfession.ContainsKey(professionId))
+                {
+                    categoriesByProfession[professionId] = [];
+                }
+                categoriesByProfession[professionId].Add(category);
+            }
 
             var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
             foreach (int professionId in allProfs)
@@ -650,7 +676,7 @@ public class StaticTool
                     }
 
                     var abilities = categoryAbilities
-                        .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
+                        .GetValueOrDefault(category.ID, [])
                         .Where(ability => ability.SupercedesSpell == 0 &&
                                           !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.Spell))
                         .OrderByDescending(ability => ability.MinSkillLineRank)
@@ -797,7 +823,12 @@ public class StaticTool
                 {
                     if (category.ParentTradeSkillCategoryID > 0)
                     {
-                        var parent = categoryMap[category.ParentTradeSkillCategoryID];
+                        if (!categoryMap.TryGetValue(category.ParentTradeSkillCategoryID, out var parent))
+                        {
+                            ToolContext.Logger.Warning("No category? category={category} parent={parent}", category.ID, category.ParentTradeSkillCategoryID);
+                            continue;
+                        }
+
                         parent.Children.Add(categoryMap[category.ID]);
 
                         int extraCategoryId = category.ID * 1000;
