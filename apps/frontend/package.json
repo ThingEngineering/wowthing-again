@@ -37,6 +37,7 @@
     "svelte-drag-and-drop-actions": "^1.0.1",
     "svelte-intersection-observer": "^1.0.0",
     "svelte-media": "^0.1.5",
+    "svelte-multiselect": "^10.3.0",
     "svelte-sortable-flat-list-view": "^1.0.0",
     "svelte-spa-router": "^4.0.1"
   }

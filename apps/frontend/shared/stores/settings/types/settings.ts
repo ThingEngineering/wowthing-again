@@ -97,6 +97,7 @@ export interface Settings {
         dragonflightTreatises: boolean;
         ignoreTasksWhenDoneWithTraits: boolean;
 
+        collectingCharacters: Record<number, number>;
         cooldowns: Record<string, boolean>;
     };
 

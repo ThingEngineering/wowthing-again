@@ -4,21 +4,20 @@
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { userStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class';
+    import { UserCount, type MultiSlugParams } from '@/types'
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types'
-    import type { MultiSlugParams } from '@/types'
 
     import { recipesState } from './state'
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import Ability from './Ability.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
 
     export let params: MultiSlugParams
 
     let allKnown: Set<number>
     let category: StaticDataProfessionCategory
-    let subCategories: StaticDataProfessionCategory[]
+    let subCategories: [StaticDataProfessionCategory, UserCount][]
     $: {
         const professionId = professionSlugToId[params.slug1]
         const profession = $staticStore.professions[professionId]
@@ -40,20 +39,36 @@
         for (const subCategory of category.children) {
             if (subCategory.abilities.length === 0) { continue }
 
+            const subStats = new UserCount()
+
             let anyShown = false
             for (const ability of subCategory.abilities) {
-                const userHas = allKnown.has(ability.id)
-                if (
-                    (userHas && $recipesState.showCollected) ||
-                    (!userHas && $recipesState.showUncollected)
-                ) {
-                    anyShown = true
-                    break
-                }
+                const abilityIds = [
+                    ability.id,
+                    ...(ability.extraRanks || []).map(([abilityId,]) => abilityId)
+                ]
+
+                abilityIds.forEach((_abilityId, index) => {
+                    subStats.total++
+                    const userHas = abilityIds.slice(index)
+                        .some((abilityId) => allKnown.has(abilityId))
+
+                    if (userHas) {
+                        subStats.have++
+                    }
+
+                    if (
+                        (userHas && $recipesState.showCollected) ||
+                        (!userHas && $recipesState.showUncollected)
+                    ) {
+                        anyShown = true
+                        // break
+                    }
+                })
             }
 
             if (anyShown) {
-                subCategories.push(subCategory)
+                subCategories.push([subCategory, subStats])
             }
         }
     }
@@ -72,56 +87,45 @@
         table-layout: auto;
         width: 22.3rem;
     }
-    .status {
-        @include cell-width(1.3rem);
-    }
-    .name {
-        --image-border-width: 1px;
-
-        @include cell-width(20rem);
+    th {
+        padding: 0.15rem 0.3rem;
     }
 </style>
 
 <div class="wrapper">
-    {#each subCategories as subCategory}
+    {#each subCategories as [subCategory, subStats]}
         <table
             class="table table-striped"
             data-id="{subCategory.id}"
         >
             <thead>
                 <tr>
-                    <th colspan="2">{subCategory.name}</th>
+                    <th
+                        class="{getPercentClass(subStats.percent)}"
+                        colspan="2"
+                    >
+                        <div class="flex-wrapper">
+                            {subCategory.name}
+                            <CollectibleCount counts={subStats} />
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 {#each subCategory.abilities as ability}
-                    {@const userHas = allKnown.has(ability.id)}
-                    {@const name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${ability.spellId}`}
-                    {#if (userHas && $recipesState.showCollected) ||
-                        (!userHas && $recipesState.showUncollected)}
-                        <tr>
-                            <td class="status">
-                                <YesNoIcon
-                                    state={userHas}
-                                    useStatusColors={true}
-                                />
-                            </td>
-                            <td class="name text-overflow">
-                                <WowheadLink
-                                    id={ability.spellId}
-                                    type={"spell"}
-                                >
-                                    <WowthingImage
-                                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${ability.spellId}`}
-                                        size={20}
-                                        border={1}
-                                    />
+                    <Ability
+                        rank={ability.extraRanks?.length > 0 ? 1 : 0}
+                        {ability}
+                        {allKnown}
+                    />
 
-                                    <ParsedText text={name} />
-                                </WowheadLink>
-                            </td>
-                        </tr>
-                    {/if}
+                    {#each (ability.extraRanks || []) as _, rankIndex}
+                        <Ability
+                            rank={rankIndex + 2}
+                            {ability}
+                            {allKnown}
+                        />
+                    {/each}
                 {/each}
             </tbody>
         </table>

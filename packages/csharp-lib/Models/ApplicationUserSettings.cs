@@ -352,6 +352,7 @@ public class ApplicationUserSettingsProfessions
     public bool DragonflightTreatises { get; set; } = true;
     public bool IgnoreTasksWhenDoneWithTraits { get; set; } = true;
 
+    public Dictionary<int, int> CollectingCharacters { get; set; } = new();
     public Dictionary<string, bool> Cooldowns { get; set; } = new();
 }
 

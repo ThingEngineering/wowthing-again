@@ -1,12 +1,13 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { itemStore, lazyStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { vendorState } from '@/stores/local-storage'
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
+    import { staticStore } from '@/shared/stores/static'
+    import { itemStore, lazyStore } from '@/stores'
+    import { vendorState } from '@/stores/local-storage'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
@@ -17,9 +18,9 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { AppearanceModifier } from '@/enums/appearance-modifier';
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount
@@ -30,6 +31,7 @@
     let percent: number
     let things: ThingData[]
 
+    $: console.log($staticStore)
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
@@ -76,8 +78,6 @@
                             thingData.difficulty = 'L';
                         } else if (appearanceKeys[0] === AppearanceModifier.Normal && group.showNormalTag) {
                             thingData.difficulty = 'N';
-                        } else {
-                            console.log(item, appearanceKeys, group);
                         }
                     }
                 }
@@ -111,6 +111,9 @@
         position: absolute;
         top: 30px;
         right: 1px;
+    }
+    h4 {
+        --image-border-width: 1px;
     }
     .costs {
         --image-border-width: 0;
@@ -191,7 +194,7 @@
         >
             <div class="title">
                 <h4 class="drop-shadow text-overflow {getPercentClass(percent)}">
-                    {group.name}
+                    <ParsedText text={group.name} />
                 </h4>
                 <CollectibleCount counts={stats} />
             </div>
