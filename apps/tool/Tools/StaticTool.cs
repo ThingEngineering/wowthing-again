@@ -692,6 +692,7 @@ public class StaticTool
                                     {
                                         outAbility.ItemId = craftingData.CraftedItemID;
                                     }
+                                    // CraftingDataItemQuality, find the highest rank crafted item
                                     else if (craftingItemsMap.TryGetValue(abilityEffect.EffectMiscValue0,
                                             out var craftingItems))
                                     {
@@ -706,7 +707,7 @@ public class StaticTool
                                         }
                                     }
                                 }
-                                // CraftingDataEnchantQuality
+                                // CraftingDataEnchantQuality, find the highest rank crafted item
                                 else if (abilityEffect.Effect == 301 &&
                                          craftingData != null &&
                                          craftingEnchantMap.TryGetValue(abilityEffect.EffectMiscValue0,
