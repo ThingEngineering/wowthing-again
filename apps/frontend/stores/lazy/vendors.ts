@@ -248,7 +248,10 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 const group = category.groups[groupIndex];
                 group.sellsFiltered = [];
 
-                if (!stores.vendorState.showPvp && pvpRegex.test(group.name)) {
+                if (
+                    !stores.vendorState.showPvp &&
+                    (pvpRegex.test(group.name) || group.name.includes('War Mode'))
+                ) {
                     continue;
                 }
                 if (!stores.vendorState.showTier && tierRegex.test(group.name)) {
