@@ -541,6 +541,18 @@ public class StaticTool
         var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
             .ToDictionary(cd => cd.ID, cd => cd);
 
+        var craftingEnchantMap =
+            (await DataUtilities.LoadDumpCsvAsync<DumpCraftingDataEnchantQuality>("craftingdataenchantquality"))
+            .GroupBy(cdeq => cdeq.CraftingDataID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderByDescending(cdeq => cdeq.Rank).First()
+            );
+
+        var craftingItemsMap =
+            (await DataUtilities.LoadDumpCsvAsync<DumpCraftingDataItemQuality>("craftingdataitemquality"))
+            .ToGroupedDictionary(cdiq => cdiq.CraftingDataID);
+
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>("skillline");
 
         var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>("skilllineability");
@@ -668,12 +680,40 @@ public class StaticTool
                         {
                             foreach (var abilityEffect in abilityEffects)
                             {
+                                craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData);
+
                                 // CraftingData
                                 if (abilityEffect.Effect == 288 &&
-                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData))
+                                    craftingData != null)
                                 {
                                     outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
-                                    outAbility.ItemId = craftingData.CraftedItemID;
+
+                                    if (craftingData.CraftedItemID > 0)
+                                    {
+                                        outAbility.ItemId = craftingData.CraftedItemID;
+                                    }
+                                    else if (craftingItemsMap.TryGetValue(abilityEffect.EffectMiscValue0,
+                                            out var craftingItems))
+                                    {
+                                        var craftedItems =
+                                            craftingItems.Select(ci => _itemMap.GetValueOrDefault(ci.ItemID))
+                                                .Where(ci => ci != null)
+                                                .OrderByDescending(ci => ci.CraftingQuality)
+                                                .ToArray();
+                                        if (craftedItems.Length > 0)
+                                        {
+                                            outAbility.ItemId = craftedItems[0].Id;
+                                        }
+                                    }
+                                }
+                                // CraftingDataEnchantQuality
+                                else if (abilityEffect.Effect == 301 &&
+                                         craftingData != null &&
+                                         craftingEnchantMap.TryGetValue(abilityEffect.EffectMiscValue0,
+                                             out var enchantData))
+                                {
+                                    outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
+                                    outAbility.ItemId = enchantData.ItemID;
                                 }
                                 // 24=create item, 157=create loot
                                 else if (abilityEffect.Effect is 24 or 157 && abilityEffect.EffectItemType > 0)
