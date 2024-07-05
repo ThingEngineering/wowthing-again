@@ -41,6 +41,7 @@ public class UploadCharacter
     public UploadCharacterMythicPlus MythicPlus { get; set; }
     public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
+    public List<UploadCharacterProfession> Professions { get; set; }
     public List<string> ProfessionCooldowns { get; set; }
     public List<string> ProfessionOrders { get; set; }
     public List<string> ProfessionTraits { get; set; }
@@ -180,6 +181,14 @@ public class UploadCharacterMythicPlusMapScore
     public int Level { get; set; }
     public int Score { get; set; }
     public string Name { get; set; }
+}
+
+public class UploadCharacterProfession
+{
+    public int Id { get; set; }
+    public int CurrentSkill { get; set; }
+    public int MaxSkill { get; set; }
+    public List<int> KnownRecipes { get; set; }
 }
 
 public class UploadCharacterTorghast
