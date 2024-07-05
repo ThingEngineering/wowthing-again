@@ -24,7 +24,7 @@
             (prof) => [prof.type, prof.name]
         )
 
-        for (const profession of sorted.filter((prof) => prof.type === 0)) {
+        for (const profession of sorted.filter((prof) => prof.type === 0 || prof.slug === 'cooking')) {
             sidebarItems.push({
                 name: profession.name.split('|')[0],
                 slug: profession.slug,
