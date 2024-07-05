@@ -33,6 +33,18 @@
             for (const recipeId of subProfession.knownRecipes) {
                 allKnown.add(recipeId)
             }
+
+            // Pandaria cooking, ugh
+            if (subProfessionId === 2544) {
+                for (let wayId = 975; wayId <= 980; wayId++) {
+                    const wayProfession = character.professions?.[professionId]?.[wayId];
+                    if (!wayProfession) { continue }
+
+                    for (const spellId of wayProfession.knownRecipes) {
+                        allKnown.add(spellId)
+                    }
+                }
+            }
         }
 
         subCategories = []

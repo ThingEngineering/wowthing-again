@@ -119,6 +119,26 @@ public class ApiUserCharacter
 
         Professions = character.Professions?.Professions;
         ProfessionSpecializations = character.Professions?.ProfessionSpecializations ?? new();
+
+        // Merge any addon data
+        if (Professions != null && character.AddonData?.Professions != null)
+        {
+            foreach (var (skillLineId, professionData) in character.AddonData.Professions)
+            {
+                int parentId = 0;
+                // Pandaria Cooking Ways
+                if (skillLineId is >= 975 and <= 980)
+                {
+                    parentId = 185;
+                }
+
+                if (parentId > 0 && Professions.TryGetValue(parentId, out var parentProfession))
+                {
+                    parentProfession[skillLineId] = professionData;
+                }
+            }
+        }
+
         RawSpecializations = character.Specializations?.Specializations;
 
         Configuration = new ApiUserCharacterConfiguration(character.Configuration);
