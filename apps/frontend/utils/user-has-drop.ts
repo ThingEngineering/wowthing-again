@@ -47,7 +47,9 @@ export default function userHasDrop(
         }
     } else if (type === RewardType.AccountTrackingQuest) {
         return accountTrackingQuest(itemData, userQuestData, id);
-    } else if (transmogTypes.has(type)) {
+    }
+
+    if (transmogTypes.has(type)) {
         if (itemData.teachesTransmog[id]) {
             const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
             const stats = lazyTransmog.stats[statsKey];
