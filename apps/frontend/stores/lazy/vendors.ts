@@ -155,6 +155,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             [groupKey, groupName] = ['00toys', 'Toys'];
                         } else if (stores.itemData.completesQuest[item.id]) {
                             [groupKey, groupName] = ['10misc', 'Misc'];
+                        } else if (stores.staticData.professionAbilityByItemId[item.id]) {
+                            [groupKey, groupName] = ['10recipes', 'Recipes'];
                         }
                     }
 
