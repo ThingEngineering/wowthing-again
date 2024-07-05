@@ -31,6 +31,7 @@
     let percent: number
     let things: ThingData[]
 
+    $: console.log($staticStore)
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
@@ -77,8 +78,6 @@
                             thingData.difficulty = 'L';
                         } else if (appearanceKeys[0] === AppearanceModifier.Normal && group.showNormalTag) {
                             thingData.difficulty = 'N';
-                        } else {
-                            console.log(item, appearanceKeys, group);
                         }
                     }
                 }

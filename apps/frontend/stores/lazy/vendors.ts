@@ -368,6 +368,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     const hasDrop = userHasDrop(
+                        stores.settings,
                         stores.itemData,
                         stores.manualData,
                         stores.staticData,

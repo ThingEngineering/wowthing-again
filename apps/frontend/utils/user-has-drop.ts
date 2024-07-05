@@ -1,6 +1,7 @@
 import { fixedInventoryType } from './fixed-inventory-type';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
+import type { Settings } from '@/shared/stores/settings/types/settings';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { LazyTransmog } from '@/stores/lazy/transmog';
 import type { UserQuestData } from '@/types/data';
@@ -9,6 +10,7 @@ import type { ManualData } from '@/types/data/manual';
 import type { UserData } from '@/types/user-data';
 
 export default function userHasDrop(
+    settings: Settings,
     itemData: ItemData,
     manualData: ManualData,
     staticData: StaticData,
@@ -44,6 +46,18 @@ export default function userHasDrop(
             }
         } else if (itemData.completesQuest[id]) {
             return accountTrackingQuest(itemData, userQuestData, id);
+        } else if (staticData.professionAbilityByItemId[id]) {
+            const ability = staticData.professionAbilityByItemId[id];
+            const characterId = settings.professions.collectingCharacters?.[ability.professionId];
+            if (characterId) {
+                return userData.characterMap[characterId]?.knowsProfessionAbility(
+                    ability.abilityId,
+                );
+            } else {
+                return userData.characters.some((char) =>
+                    char?.knowsProfessionAbility(ability.abilityId),
+                );
+            }
         }
     } else if (type === RewardType.AccountTrackingQuest) {
         return accountTrackingQuest(itemData, userQuestData, id);
