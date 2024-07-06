@@ -219,7 +219,7 @@
 
                         {#each characters as character}
                             {@const charProf = character.professions[profession.id][subProfession.id]}
-                            {@const charHas = charProf.knownRecipes.indexOf(ability.id) >= 0}
+                            {@const charHas = charProf.knownRecipes?.indexOf(ability.id) >= 0}
                             <td
                                 class="status"
                                 class:status-success={charHas}

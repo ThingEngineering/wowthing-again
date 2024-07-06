@@ -147,7 +147,7 @@ class ProcessCharacterProfessions {
             }
 
             for (const subProfession of Object.values(characterSubProfessions)) {
-                for (const abilityId of subProfession.knownRecipes) {
+                for (const abilityId of subProfession.knownRecipes || []) {
                     this.characterData.knownRecipes.add(abilityId);
                 }
             }

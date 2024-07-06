@@ -132,7 +132,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {
                 const skillLine = this.professions[Profession.Cooking][skillLineId];
                 if (skillLine) {
-                    for (const abilityId of skillLine.knownRecipes) {
+                    for (const abilityId of skillLine.knownRecipes || []) {
                         pandaCooking.knownRecipes.push(abilityId);
                     }
                 }
