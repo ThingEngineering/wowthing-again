@@ -149,6 +149,23 @@
             }
         )
 
+        html = html.replaceAll(/\{color:([A-Z0-9]+)(?::([A-Z0-9]+))?\}/g,
+            (_, hex1: string, hex2: string) => {
+                if (hex2) {
+                    return `
+<div class="flex-wrapper drop-shadow" style="height: 16px; width:48px;">
+<div style="height: 16px; width: 24px; background-color: #${hex1}; border: 1px solid #888;"></div>
+<div style="height: 16px; width: 24px; background-color: #${hex2}; border: 1px solid #888; border-left-width: 0;"></div>
+</div>
+`;
+                } else {
+                    return `
+<div class="drop-shadow" style="height: 16px; width: 48px; background-color: #${hex1}; border: 1px solid #888;"></div>
+`;
+                }
+            }
+        );
+
         html = html.replaceAll(/\{craftedQuality:(\d+)\}/g, '<span data-crafted-quality="$1"></span>')
 
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
@@ -160,7 +177,7 @@
 
         // :foo: icon strings
         html = html.replaceAll(/:([a-zA-Z0-9_-]+):/g, '<span data-string="$1"></span>')
-
+        
         // Square brackets => code
         html = html.replaceAll(/(\[(.*?)\])/g, '<code>$1</code>')
 

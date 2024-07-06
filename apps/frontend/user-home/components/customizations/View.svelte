@@ -133,7 +133,7 @@
                                             />
                                         </td>
                                         <td class="name text-overflow">
-                                            {thing.name}
+                                            <ParsedText text={thing.name} />
                                         </td>
                                         <td class="item text-overflow">
                                             <WowheadLink
