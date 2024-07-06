@@ -149,7 +149,7 @@
             }
         )
 
-        html = html.replaceAll(/\{color:([A-Z0-9]+)(?:\:([A-Z0-9]+))?\}/g,
+        html = html.replaceAll(/\{color:([A-Z0-9]+)(?::([A-Z0-9]+))?\}/g,
             (_, hex1: string, hex2: string) => {
                 if (hex2) {
                     return `

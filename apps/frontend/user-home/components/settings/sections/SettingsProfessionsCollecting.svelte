@@ -1,6 +1,5 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
-    import { writable } from 'svelte/store';
     import MultiSelect from 'svelte-multiselect';
 
     import { settingsStore } from '@/shared/stores/settings';
@@ -11,8 +10,6 @@
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
 
     export let sortedProfessions: StaticDataProfession[];
-
-    // const selecting = writable<number>(null);
 
     type CharacterOption = {
         id: number;
@@ -83,7 +80,6 @@
     <table class="table table-striped">
         <tbody>
             {#each sortedProfessions as profession}
-                {@const character = $userStore.characterMap[$settingsStore.professions.collectingCharacters[profession.id]]}
                 <tr>
                     <td class="name">
                         <ProfessionIcon
