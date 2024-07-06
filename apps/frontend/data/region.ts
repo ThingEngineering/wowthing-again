@@ -1,7 +1,7 @@
-import { Region } from '@/enums/region'
-import { iconLibrary } from '@/shared/icons'
-import type { ResetTime } from '@/types'
-import type { IconifyIcon } from '@iconify/types'
+import { Region } from '@/enums/region';
+import { iconLibrary } from '@/shared/icons';
+import type { ResetTime } from '@/types';
+import type { IconifyIcon } from '@iconify/types';
 
 // Times are [hour, minute] in UTC
 export const resetTimes: Record<Region, ResetTime> = {
@@ -12,7 +12,14 @@ export const resetTimes: Record<Region, ResetTime> = {
         biWeeklyResetDay: 5, // Friday
         biWeeklyResetTime: [3, 0], // 7pm/8pm
     },
-    [Region.KR]: null,
+    // FIXME copied US
+    [Region.KR]: {
+        dailyResetTime: [15, 0], // 7am/8am
+        weeklyResetDay: 2, // Tuesday
+        weeklyResetTime: [15, 0], // 7am/8am
+        biWeeklyResetDay: 5, // Friday
+        biWeeklyResetTime: [3, 0], // 7pm/8pm
+    },
     [Region.EU]: {
         dailyResetTime: [7, 0], // 7am/8am
         weeklyResetDay: 3, // Wednesday
@@ -20,10 +27,17 @@ export const resetTimes: Record<Region, ResetTime> = {
         biWeeklyResetDay: 6, // Saturday
         biWeeklyResetTime: [19, 0], // 7pm/8pm
     },
-    [Region.TW]: null,
-}
+    // FIXME copied US
+    [Region.TW]: {
+        dailyResetTime: [15, 0], // 7am/8am
+        weeklyResetDay: 2, // Tuesday
+        weeklyResetTime: [15, 0], // 7am/8am
+        biWeeklyResetDay: 5, // Friday
+        biWeeklyResetTime: [3, 0], // 7pm/8pm
+    },
+};
 
-export const euLocales: Record<string, { icon: IconifyIcon, name: string }> = {
+export const euLocales: Record<string, { icon: IconifyIcon; name: string }> = {
     deDE: {
         icon: iconLibrary.twemojiFlagGermany,
         name: 'Germany',
@@ -52,4 +66,4 @@ export const euLocales: Record<string, { icon: IconifyIcon, name: string }> = {
         icon: iconLibrary.twemojiFlagRussia,
         name: 'Russia',
     },
-}
+};
