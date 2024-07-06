@@ -14,13 +14,17 @@
 <style lang="scss">
     .wrapper-column {
         gap: 0.5rem;
-        padding: 0.4rem 0 0 0;
+        // padding: 0.4rem 0 0 0;
         width: 100%;
     }
     .upgradeable-item {
         display: flex;
         align-items: center;
         justify-content: space-around;
+
+        &:first-child {
+            padding-top: 0.5rem;
+        }
     }
     a {
         height: 44px;
