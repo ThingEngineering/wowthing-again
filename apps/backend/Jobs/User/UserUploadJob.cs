@@ -393,10 +393,12 @@ public class UserUploadJob : JobBase
             // }
 
             // Quests
-            var newQuests = parsed.Quests
+            List<int> questIds = parsed.QuestsV2?.Keys.ToList() ?? parsed.Quests.EmptyIfNull();
+            var newQuests = questIds
                 .EmptyIfNull()
-                .OrderBy(q => q)
+                .Order()
                 .ToList();
+
             if (accountAddonData.Quests == null || !newQuests.SequenceEqual(accountAddonData.Quests))
             {
                 accountAddonData.Quests = newQuests;
