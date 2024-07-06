@@ -271,9 +271,6 @@ public class ManualTool
         var customizationSets = DataUtilities.LoadData<DataCustomizationCategory>(
             "customizations", ToolContext.Logger);
 
-        // var dumpCategories = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationCategory>(
-        //     "chrcustomizationcategory", language);
-
         // Achievement garbage
         var achievementById = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpAchievement>(
             "achievement", achievement => achievement.ID);
@@ -309,14 +306,24 @@ public class ManualTool
         }
 
         // ChrCustomization
+        var dumpCategories = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationCategory>(
+            "chrcustomizationcategory", language);
+
         var dumpChoices = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationChoice>(
             "chrcustomizationchoice", language);
 
         var dumpOptions = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationOption>(
             "chrcustomizationoption", language);
 
+        // 1 = Class, 3 = ChrCustomizationReqChoice
         var dumpReqs = await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationReq>(
-            "chrcustomizationreq", language, req => req.ReqType == 3);
+            "chrcustomizationreq", language, req => req.ReqType is 1 or 3);
+
+        var dumpReqChoices =
+            await DataUtilities.LoadDumpCsvAsync<DumpChrCustomizationReqChoice>("chrcustomizationreqchoice");
+
+        // Useful data structures
+        var categoriesById = dumpCategories.ToDictionary(cat => cat.ID);
 
         var choicesByReqId = dumpChoices
             .Where(choice => choice.ChrCustomizationReqID > 0)
@@ -327,6 +334,12 @@ public class ManualTool
         var reqsByAchievementId = dumpReqs
             .Where(req => req.ReqAchievementID > 0)
             .ToGroupedDictionary(req => req.ReqAchievementID);
+
+        var reqsByChoiceId = dumpReqChoices
+            .ToGroupedDictionary(
+                reqChoice => reqChoice.ChrCustomizationChoiceID,
+                reqChoice => reqChoice.ChrCustomizationReqID
+            );
 
         var reqsByQuestId = dumpReqs
             .Where(req => req.ReqQuestID > 0)
@@ -404,22 +417,31 @@ public class ManualTool
                             }
                         }
 
-                        if (reqs.Length > 1)
-                        {
-                            var reqSources = new HashSet<string>(reqs.Select(req => req.ReqSource));
-                            if (reqSources.Count > 1)
-                            {
-                                ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest} - {reqs}",
-                                    newThing.ItemId, newThing.QuestId,
-                                    string.Join(",", reqs.Select(r => r.ID)));
-                                continue;
-                            }
-                        }
+                        // if (reqs.Length > 1)
+                        // {
+                        //     var reqSources = new HashSet<string>(reqs.Select(req => req.ReqSource));
+                        //     if (reqSources.Count > 1)
+                        //     {
+                        //         ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest} - {reqs}",
+                        //             newThing.ItemId, newThing.QuestId,
+                        //             string.Join(",", reqs.Select(r => r.ID)));
+                        //         continue;
+                        //     }
+                        // }
+                        //
+                        // if (!choicesByReqId.TryGetValue(reqs[0].ID, out var choices))
+                        // {
+                        //     ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                        //     continue;
+                        // }
 
-                        if (!choicesByReqId.TryGetValue(reqs[0].ID, out var choices))
+                        var choices = new HashSet<DumpChrCustomizationChoice>();
+                        foreach (var req in reqs)
                         {
-                            ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                            continue;
+                            if (choicesByReqId.TryGetValue(req.ID, out var reqChoices))
+                            {
+                                choices.UnionWith(reqChoices);
+                            }
                         }
 
                         bool foundAny = false;
@@ -431,18 +453,63 @@ public class ManualTool
                                 continue;
                             }
 
-                            if (!groupMap.TryGetValue(option.ID, out var newGroup))
+                            // categoriesById.TryGetValue(option.ChrCustomizationCategoryID, out var cat);
+
+                            int groupKey = option.ID;
+                            string groupName = option.Name;
+
+                            // Warlocks are weird, do a bunch of lookups to find the actual type of pet
+                            if (reqs[0].ClassMask == 256 &&
+                                reqsByChoiceId.TryGetValue(choice.ID, out var reqIds) &&
+                                choicesByReqId.TryGetValue(reqIds[0], out var choices2))
                             {
-                                newGroup = groupMap[option.ID] = new ManualCustomizationGroup(option.Name);
+                                groupKey = choices2[0].ID * 1000;
+                                groupName = choices2[0].Name;
+                                // Console.WriteLine("req {0} -> choice {1} {2} -> req {3} -> choice {4} {5}",
+                                //     reqs[0].ID,
+                                //     choice.ID,
+                                //     choice.Name,
+                                //     reqIds[0],
+                                //     choices2[0].ID,
+                                //     choices2[0].Name);
+                            }
+
+                            if (!groupMap.TryGetValue(groupKey, out var newGroup))
+                            {
+                                newGroup = groupMap[groupKey] = new ManualCustomizationGroup(groupName);
+                            }
+
+                            string thingName = choice.Name;
+                            if (string.IsNullOrWhiteSpace(thingName) && choice.SwatchColor0 != 0)
+                            {
+                                string hex = (choice.SwatchColor0 >>> 0).ToString("X8");
+                                if (choice.SwatchColor1 != 0)
+                                {
+                                    string hex2 = (choice.SwatchColor1 >>> 0).ToString("X8");
+                                    // actually ARGB, flip to RGBA
+                                    thingName = $"{{color:{hex[2..]}{hex[..2]}:{hex2[2..]}{hex2[..2]}}}";
+                                }
+                                else
+                                {
+                                    // actually ARGB, flip to RGBA
+                                    thingName = $"{{color:{hex[2..]}{hex[..2]}}}";
+                                }
+                            }
+
+                            if (newGroup.SeenNames.Contains(thingName))
+                            {
+                                continue;
                             }
 
                             newGroup.Things.Add(new ManualCustomizationThing
                             {
                                 ItemId = newThing.ItemId,
                                 QuestId = newThing.QuestId,
-                                Name = choice.Name,
+                                Name = thingName,
                             });
+
                             foundAny = true;
+                            newGroup.SeenNames.Add(thingName);
                         }
 
                         if (!foundAny)

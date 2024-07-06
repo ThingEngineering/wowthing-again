@@ -4,6 +4,7 @@ public class ManualCustomizationGroup
 {
     public string Name { get; }
     public List<ManualCustomizationThing> Things { get; }
+    public HashSet<string> SeenNames { get; } = new();
 
     public ManualCustomizationGroup(string name)
     {
