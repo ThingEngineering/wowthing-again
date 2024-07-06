@@ -325,6 +325,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
+            HandleProfessions(character, characterData);
             HandleProfessionCooldowns(character, characterData);
             HandleProfessionTraits(character, characterData);
             HandleQuests(character, characterData, realm.Region);
@@ -392,10 +393,12 @@ public class UserUploadJob : JobBase
             // }
 
             // Quests
-            var newQuests = parsed.Quests
+            List<int> questIds = parsed.QuestsV2?.Keys.ToList() ?? parsed.Quests.EmptyIfNull();
+            var newQuests = questIds
                 .EmptyIfNull()
-                .OrderBy(q => q)
+                .Order()
                 .ToList();
+
             if (accountAddonData.Quests == null || !newQuests.SequenceEqual(accountAddonData.Quests))
             {
                 accountAddonData.Quests = newQuests;
@@ -1425,6 +1428,21 @@ public class UserUploadJob : JobBase
                 _resetMountCache = true;
                 character.AddonMounts.Mounts = sortedMountIds;
             }
+        }
+    }
+
+    private void HandleProfessions(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.Professions = new();
+
+        foreach (var profession in characterData.Professions.EmptyIfNull())
+        {
+            character.AddonData.Professions[profession.Id] = new PlayerCharacterProfessionTier()
+            {
+                CurrentSkill = profession.CurrentSkill,
+                MaxSkill = profession.MaxSkill,
+                KnownRecipes = profession.KnownRecipes,
+            };
         }
     }
 

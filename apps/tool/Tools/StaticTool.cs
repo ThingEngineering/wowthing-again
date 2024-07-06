@@ -541,6 +541,18 @@ public class StaticTool
         var craftingDataMap = (await DataUtilities.LoadDumpCsvAsync<DumpCraftingData>("craftingdata"))
             .ToDictionary(cd => cd.ID, cd => cd);
 
+        var craftingEnchantMap =
+            (await DataUtilities.LoadDumpCsvAsync<DumpCraftingDataEnchantQuality>("craftingdataenchantquality"))
+            .GroupBy(cdeq => cdeq.CraftingDataID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderByDescending(cdeq => cdeq.Rank).First()
+            );
+
+        var craftingItemsMap =
+            (await DataUtilities.LoadDumpCsvAsync<DumpCraftingDataItemQuality>("craftingdataitemquality"))
+            .ToGroupedDictionary(cdiq => cdiq.CraftingDataID);
+
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>("skillline");
 
         var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>("skilllineability");
@@ -597,11 +609,37 @@ public class StaticTool
                 category => !Hardcoded.IgnoredTradeSkillCategories.Contains(category.ID)
             );
 
-            var categoriesByProfession = categories
-                .GroupBy(tsc => allProfs.Contains(tsc.SkillLineID)
-                    ? tsc.SkillLineID
-                    : skillLineParentMap.GetValueOrDefault(tsc.SkillLineID, 0))
-                .ToDictionary(group => group.Key, group => group.ToList());
+            var categoriesByProfession = new Dictionary<int, List<DumpTradeSkillCategory>>();
+            foreach (var category in categories)
+            {
+                int professionId;
+                if (allProfs.Contains(category.SkillLineID))
+                {
+                    professionId = category.SkillLineID;
+                }
+                else
+                {
+                    int parentId = skillLineParentMap.GetValueOrDefault(category.SkillLineID, 0);
+                    // Continue up the tree until we run out or find a profession (Pandaria Cooking Ways suck)
+                    while (parentId > 0 && !allProfs.Contains(parentId))
+                    {
+                        parentId = skillLineParentMap.GetValueOrDefault(parentId, 0);
+                    }
+
+                    professionId = parentId;
+                }
+
+                if (professionId > 0)
+                {
+                    ToolContext.Logger.Information("Adding category {category} with profession {profession}", category.ID, professionId);
+                }
+
+                if (!categoriesByProfession.ContainsKey(professionId))
+                {
+                    categoriesByProfession[professionId] = [];
+                }
+                categoriesByProfession[professionId].Add(category);
+            }
 
             var professionRootCategories = new Dictionary<int, List<OutProfessionCategory>>();
             foreach (int professionId in allProfs)
@@ -638,7 +676,7 @@ public class StaticTool
                     }
 
                     var abilities = categoryAbilities
-                        .GetValueOrDefault(category.ID, Array.Empty<DumpSkillLineAbility>())
+                        .GetValueOrDefault(category.ID, [])
                         .Where(ability => ability.SupercedesSpell == 0 &&
                                           !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.Spell))
                         .OrderByDescending(ability => ability.MinSkillLineRank)
@@ -668,12 +706,41 @@ public class StaticTool
                         {
                             foreach (var abilityEffect in abilityEffects)
                             {
+                                craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData);
+
                                 // CraftingData
                                 if (abilityEffect.Effect == 288 &&
-                                    craftingDataMap.TryGetValue(abilityEffect.EffectMiscValue0, out var craftingData))
+                                    craftingData != null)
                                 {
                                     outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
-                                    outAbility.ItemId = craftingData.CraftedItemID;
+
+                                    if (craftingData.CraftedItemID > 0)
+                                    {
+                                        outAbility.ItemId = craftingData.CraftedItemID;
+                                    }
+                                    // CraftingDataItemQuality, find the highest rank crafted item
+                                    else if (craftingItemsMap.TryGetValue(abilityEffect.EffectMiscValue0,
+                                            out var craftingItems))
+                                    {
+                                        var craftedItems =
+                                            craftingItems.Select(ci => _itemMap.GetValueOrDefault(ci.ItemID))
+                                                .Where(ci => ci != null)
+                                                .OrderByDescending(ci => ci.CraftingQuality)
+                                                .ToArray();
+                                        if (craftedItems.Length > 0)
+                                        {
+                                            outAbility.ItemId = craftedItems[0].Id;
+                                        }
+                                    }
+                                }
+                                // CraftingDataEnchantQuality, find the highest rank crafted item
+                                else if (abilityEffect.Effect == 301 &&
+                                         craftingData != null &&
+                                         craftingEnchantMap.TryGetValue(abilityEffect.EffectMiscValue0,
+                                             out var enchantData))
+                                {
+                                    outAbility.FirstCraftQuestId = craftingData.FirstCraftFlagQuestID;
+                                    outAbility.ItemId = enchantData.ItemID;
                                 }
                                 // 24=create item, 157=create loot
                                 else if (abilityEffect.Effect is 24 or 157 && abilityEffect.EffectItemType > 0)
@@ -756,7 +823,12 @@ public class StaticTool
                 {
                     if (category.ParentTradeSkillCategoryID > 0)
                     {
-                        var parent = categoryMap[category.ParentTradeSkillCategoryID];
+                        if (!categoryMap.TryGetValue(category.ParentTradeSkillCategoryID, out var parent))
+                        {
+                            ToolContext.Logger.Warning("No category? category={category} parent={parent}", category.ID, category.ParentTradeSkillCategoryID);
+                            continue;
+                        }
+
                         parent.Children.Add(categoryMap[category.ID]);
 
                         int extraCategoryId = category.ID * 1000;

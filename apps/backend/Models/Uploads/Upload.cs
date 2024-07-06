@@ -18,6 +18,7 @@ public class Upload
     public List<string> Heirlooms { get; set; }
 
     public List<int> Quests { get; set; }
+    public Dictionary<int, int> QuestsV2 { get; set; }
 
     public List<int> Toys { get; set; }
 

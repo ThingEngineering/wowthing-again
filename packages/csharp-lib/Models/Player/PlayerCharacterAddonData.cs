@@ -48,6 +48,9 @@ public class PlayerCharacterAddonData
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterProfessionTier> Professions { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
     public Dictionary<string, List<int>> ProfessionCooldowns { get; set; } = new();
 
     [Column(TypeName = "jsonb")]

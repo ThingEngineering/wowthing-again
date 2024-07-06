@@ -12,6 +12,14 @@
     $: playerClass = $staticStore.characterClassesBySlug[classSlug]
 </script>
 
+<style lang="scss">
+    div {
+        :global(td.realm) {
+            @include cell-width(9rem);
+        }
+    }
+</style>
+
 <div class="wrapper-column">
     {#each [AppearanceModifier.Mythic, AppearanceModifier.Heroic, AppearanceModifier.Normal, AppearanceModifier.LookingForRaid] as modifier}
         <ClassTable

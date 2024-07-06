@@ -30,7 +30,7 @@
             const subProfession = character.professions?.[professionId]?.[subProfessionId]
             if (!subProfession) { continue }
 
-            for (const recipeId of subProfession.knownRecipes) {
+            for (const recipeId of subProfession.knownRecipes || []) {
                 allKnown.add(recipeId)
             }
         }

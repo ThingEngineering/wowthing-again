@@ -31,7 +31,6 @@
     let percent: number
     let things: ThingData[]
 
-    $: console.log($staticStore)
     $: {
         things = []
         for (const thing of group.sellsFiltered) {

@@ -1,5 +1,6 @@
 import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
+import { Profession } from '@/enums/profession';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
@@ -126,6 +127,18 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticRatingArray[],
         ],
     ) {
+        const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
+        if (pandaCooking) {
+            for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {
+                const skillLine = this.professions[Profession.Cooking][skillLineId];
+                if (skillLine) {
+                    for (const abilityId of skillLine.knownRecipes || []) {
+                        pandaCooking.knownRecipes.push(abilityId);
+                    }
+                }
+            }
+        }
+
         this.professionSpecializations = {};
         for (const [professionId, specialization] of Object.entries(professionSpecializations)) {
             const spellId = professionSpecializationToSpell[specialization];
@@ -263,7 +276,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this._professionKnownAbilities = new Set<number>();
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
-                    for (const abilityId of subProfession.knownRecipes) {
+                    for (const abilityId of subProfession.knownRecipes || []) {
                         this._professionKnownAbilities.add(abilityId);
                     }
                 }
