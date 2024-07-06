@@ -276,7 +276,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             this._professionKnownAbilities = new Set<number>();
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
-                    for (const abilityId of subProfession.knownRecipes) {
+                    for (const abilityId of subProfession.knownRecipes || []) {
                         this._professionKnownAbilities.add(abilityId);
                     }
                 }

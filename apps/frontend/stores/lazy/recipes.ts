@@ -25,18 +25,14 @@ export function doRecipes(stores: LazyStores): Record<string, UserCount> {
             for (const subProfession of Object.values(
                 character.professions?.[profession.id] || {},
             )) {
-                for (const recipeId of subProfession.knownRecipes) {
+                for (const recipeId of subProfession.knownRecipes || []) {
                     allKnown.add(recipeId);
                 }
             }
         }
 
         const categories = profession.categories || [];
-        for (
-            let categoryIndex = 0;
-            categoryIndex < categories.length;
-            categoryIndex++
-        ) {
+        for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
             const category = categories[categoryIndex];
             if (!category.children[0]?.children) {
                 continue;
