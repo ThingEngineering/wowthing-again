@@ -16,6 +16,7 @@ public class StaticPetConverter : JsonConverter<StaticPet>
         writer.WriteNumberValue(value.SourceType);
         writer.WriteNumberValue(value.PetType);
         writer.WriteNumberValue(value.CreatureId);
+        writer.WriteNumberValue(value.ItemId);
         writer.WriteNumberValue(value.SpellId);
         writer.WriteStringValue(value.Name);
         writer.WriteEndArray();

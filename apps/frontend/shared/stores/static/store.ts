@@ -236,11 +236,16 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         if (data.rawPets !== null) {
             data.pets = {};
+            data.petsByItem = {};
             data.petsByName = {};
             for (const petArray of data.rawPets) {
                 const obj = new StaticDataPet(...petArray);
                 data.pets[obj.id] = obj;
                 data.petsByName[obj.name] = obj;
+
+                if (obj.itemId > 0) {
+                    data.petsByItem[obj.itemId] = obj;
+                }
             }
             data.rawPets = null;
         }
