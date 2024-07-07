@@ -2,7 +2,7 @@
     import find from 'lodash/find'
     import { afterUpdate } from 'svelte'
 
-    import { lazyStore, manualStore, userQuestStore } from '@/stores'
+    import { lazyStore, manualStore, userAchievementStore, userQuestStore } from '@/stores'
     import { collectibleState } from '@/stores/local-storage'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import getPercentClass from '@/utils/get-percent-class'
@@ -120,7 +120,10 @@
                         </thead>
                         <tbody>
                             {#each group.things as thing}
-                                {@const have = $userQuestStore.accountHas.has(thing.questId)}
+                                {console.log(thing)}
+                                {@const have =
+                                    (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
+                                    (thing.questId > 0 && $userQuestStore.accountHas.has(thing.questId))}
                                 {#if (have && $collectibleState.showCollected['customizations'])
                                     || (!have && $collectibleState.showUncollected['customizations'])}
                                     <tr

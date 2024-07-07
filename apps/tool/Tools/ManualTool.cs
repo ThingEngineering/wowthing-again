@@ -372,7 +372,8 @@ public class ManualTool
                     foreach (var thing in category.Groups[0].Things)
                     {
                         var newThing = new ManualCustomizationThing(thing);
-                        if (newThing.QuestId == 0 && _itemEffectMap.TryGetValue(newThing.ItemId, out var itemEffect))
+                        if (newThing is { AchievementId: 0, QuestId: 0 } &&
+                            _itemEffectMap.TryGetValue(newThing.ItemId, out var itemEffect))
                         {
                             foreach (var spellEffects in itemEffect.SpellEffects.Values)
                             {
@@ -387,13 +388,23 @@ public class ManualTool
                             }
                         }
 
-                        if (newThing.QuestId == 0)
+                        if (newThing is { AchievementId: 0, QuestId: 0 })
                         {
-                            ToolContext.Logger.Warning("QuestID still 0 for ItemID {id}", newThing.ItemId);
+                            ToolContext.Logger.Warning("AchievementID/QuestID still 0 for ItemID {id}", newThing.ItemId);
                             continue;
                         }
 
-                        if (!reqsByQuestId.TryGetValue(newThing.QuestId, out var reqs))
+                        DumpChrCustomizationReq[]? reqs = [];
+                        if (newThing.AchievementId > 0 &&
+                            !reqsByAchievementId.TryGetValue(newThing.AchievementId, out reqs))
+                        {
+                            ToolContext.Logger.Warning("No reqs for ItemID {item}/AchievementID {cheev}",
+                                newThing.ItemId, newThing.AchievementId);
+                            continue;
+                        }
+
+                        if (newThing.QuestId > 0 &&
+                            !reqsByQuestId.TryGetValue(newThing.QuestId, out reqs))
                         {
                             if (!questIdToAchievements.TryGetValue(newThing.QuestId, out var achievementIds))
                             {
@@ -503,6 +514,7 @@ public class ManualTool
 
                             newGroup.Things.Add(new ManualCustomizationThing
                             {
+                                AchievementId = newThing.AchievementId,
                                 ItemId = newThing.ItemId,
                                 QuestId = newThing.QuestId,
                                 Name = thingName,
