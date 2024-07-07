@@ -98,6 +98,7 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
+        int backoffDelay = 125;
         while (!cancellationToken.IsCancellationRequested)
         {
             while (_stateService.AccessToken?.Valid != true)
@@ -122,9 +123,12 @@ LIMIT 1
 
             if (queuedJob == null)
             {
-                await Task.Delay(250, cancellationToken);
+                backoffDelay = Math.Min(2000, backoffDelay * 2);
+                await Task.Delay(backoffDelay, cancellationToken);
                 continue;
             }
+
+            backoffDelay = 125;
 
             queuedJob.StartedAt = DateTime.UtcNow;
             await context.SaveChangesAsync(cancellationToken);
