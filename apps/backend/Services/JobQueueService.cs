@@ -40,6 +40,7 @@ public class JobQueueService : BackgroundService
         }
     }
 
+    // TODO rewrite this to do a SELECT COUNT..GROUPED BY on the queued_job table
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)

@@ -29,6 +29,8 @@ public class WorkerService : BackgroundService
 
     private readonly string _name;
     private readonly string _streamKey;
+    private readonly JobPriority _priority;
+    private readonly IDbContextFactory<WowDbContext> _contextFactory;
 
     private const int MinimumIdleTime = 120 * 1000; // 2 minutes
 
@@ -37,6 +39,7 @@ public class WorkerService : BackgroundService
         CacheService cacheService,
         IConfiguration config,
         IConnectionMultiplexer redis,
+        IDbContextFactory<WowDbContext> contextFactory,
         IHttpClientFactory clientFactory,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
@@ -45,10 +48,12 @@ public class WorkerService : BackgroundService
         StateService stateService
     )
     {
+        _contextFactory = contextFactory;
         _redis = redis;
         _serviceScopeFactory = serviceScopeFactory;
         _stateService = stateService;
 
+        _priority = priority;
         _name = priority.ToString()[..1];
         _streamKey = $"stream:{priority.ToString().ToLowerInvariant()}";
 
@@ -101,70 +106,43 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, cancellationToken);
             }
 
-            var db = _redis.GetDatabase();
+            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            // Check for any old pending messages first
-            var result = await db.StreamAutoClaimAsync(
-                _streamKey,
-                "consumer_group",
-                _name,
-                MinimumIdleTime,
-                StreamPosition.Beginning,
-                1
-            );
-            var messages = result.ClaimedEntries;
+            var queuedJob = await context.QueuedJob
+                .FromSql($@"
+SELECT  *
+FROM    queued_job
+WHERE   priority = {_priority}
+        AND started_at IS NULL
+ORDER BY id
+FOR UPDATE SKIP LOCKED
+LIMIT 1
+")
+                .SingleOrDefaultAsync(cancellationToken);
 
-            switch (messages.Length)
-            {
-                case > 0:
-                    _logger.Information("XAUTOCLAIM retrieved message {msg}", messages[0].Id.ToString());
-                    break;
-                case 0:
-                    // No old messages, look for a new one
-                    messages = await db.StreamReadGroupAsync(
-                        _streamKey,
-                        "consumer_group",
-                        _name,
-                        ">",
-                        1);
-                    break;
-            }
-
-            // No messages at all, give up for now
-            if (messages.Length == 0)
+            if (queuedJob == null)
             {
                 await Task.Delay(250, cancellationToken);
                 continue;
             }
 
-            var message = messages[0];
-            var messageData = message.Values.ToDictionary(
-                entry => entry.Name.ToString(),
-                entry => entry.Value.ToString()
-            );
+            queuedJob.StartedAt = DateTime.UtcNow;
+            await context.SaveChangesAsync(cancellationToken);
 
-            // _logger.Debug("Received message {id} with type {type} and keys: {keys}", message.Id,
-            //     messageData["type"], string.Join(", ", messageData.Keys.Order()));
-
-            // Create a scope to retrieve the context factory
-            using var scope = _serviceScopeFactory.CreateScope();
-            var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
-            if (contextFactory == null)
-            {
-                throw new NullReferenceException("contextFactory is null??");
-            }
-
-            Type classType = JobTypeMap[messageData["type"]];
-            using (LogContext.PushProperty("Task", messageData["type"]))
+            string jobTypeName = queuedJob.Type.ToString();
+            Type classType = JobTypeMap[jobTypeName];
+            using (LogContext.PushProperty("Task", jobTypeName))
             {
                 JobBase job = null;
 
                 try
                 {
-                    string[] data = JsonSerializer.Deserialize<string[]>(messageData.GetValueOrDefault("data", "[]"));
+                    string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
-                    job = _jobFactory.Create(classType, contextFactory, cancellationToken);
+                    job = _jobFactory.Create(classType, _contextFactory, cancellationToken);
                     await job.Run(data);
+
+                    await context.QueuedJob.Where(qj => qj.Id == queuedJob.Id).ExecuteDeleteAsync(cancellationToken);
                 }
                 catch (Exception ex)
                 {
@@ -179,8 +157,6 @@ public class WorkerService : BackgroundService
                     }
                 }
             }
-
-            await db.StreamAcknowledgeAsync(_streamKey, "consumer_group", message.Id);
         }
     }
 }

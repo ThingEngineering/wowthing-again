@@ -1,13 +1,16 @@
 ﻿using System.Text.Json;
 using StackExchange.Redis;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Repositories;
 
 public class JobRepository(
     IConnectionMultiplexer redis,
-    JsonSerializerOptions jsonSerializerOptions
+    JsonSerializerOptions jsonSerializerOptions,
+    IDbContextFactory<WowDbContext> contextFactory
 )
 {
     private static readonly Dictionary<JobPriority, string> PriorityToStream;
@@ -23,14 +26,15 @@ public class JobRepository(
 
     public async Task AddJobAsync(JobPriority priority, JobType type, params string[] data)
     {
-        var db = redis.GetDatabase();
-        var values = new[]
-        {
-            new NameValueEntry("type", type.ToString()),
-            new NameValueEntry("data", JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions)),
-        };
+        await using var context = await contextFactory.CreateDbContextAsync();
 
-        await db.StreamAddAsync(PriorityToStream[priority], values);
+        context.QueuedJob.Add(new QueuedJob
+        {
+            Priority = priority,
+            Type = type,
+            Data = JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions)
+        });
+        await context.SaveChangesAsync();
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
