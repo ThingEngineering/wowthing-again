@@ -125,6 +125,16 @@ any help with getting started, I'm available most days.
 
 1. Visit https://localhost:55501 and accept the security warning (self-signed certificate)
 
+### Troubleshooting
+
+- If you have no realms ("Honkstrasza" is not a real realm), reset the timer on the realms job and run `dotnet run static` in the tool directory once `backend` finishes updating.
+
+    ```bash
+    $ docker-compose exec redis redis-cli
+    127.0.0.1:6379> del scheduled_job:DataRealmIndex_v3
+    127.0.0.1:6379> exit
+    ```
+
 ### Making database changes
 
 Changes need to be made in the `Wowthing.Lib` project. If adding a new column, make sure it's
