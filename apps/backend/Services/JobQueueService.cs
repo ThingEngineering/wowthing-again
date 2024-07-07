@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Core;
 using StackExchange.Redis;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 
@@ -8,54 +10,36 @@ namespace Wowthing.Backend.Services;
 
 public class JobQueueService : BackgroundService
 {
-    private readonly IConnectionMultiplexer _redis;
-
+    private readonly IDbContextFactory<WowDbContext> _contextFactory;
     private readonly ILogger _logger;
-    private readonly JobPriority[] _priorities;
-    private readonly Dictionary<JobPriority, string> _streamKeys;
 
     public JobQueueService(
-        IConnectionMultiplexer redis
+        IDbContextFactory<WowDbContext> contextFactory
     )
     {
-        _redis = redis;
+        _contextFactory = contextFactory;
 
         _logger = Log.ForContext("Service", $"JobQueue");
-        _priorities = EnumUtilities.GetValues<JobPriority>();
-        _streamKeys = _priorities.ToDictionary(
-            priority => priority,
-            priority => $"stream:{priority.ToString().ToLowerInvariant()}"
-        );
-
-        var db = _redis.GetDatabase();
-        foreach (var priority in _priorities)
-        {
-            db.StreamCreateConsumerGroup(
-                _streamKeys[priority],
-                "consumer_group",
-                StreamPosition.Beginning,
-                true,
-                CommandFlags.FireAndForget
-            );
-        }
     }
 
-    // TODO rewrite this to do a SELECT COUNT..GROUPED BY on the queued_job table
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(10000, stoppingToken);
+            await Task.Delay(10000, cancellationToken);
 
-            var db = _redis.GetDatabase();
-            foreach (var priority in _priorities)
+            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+            // Reset any jobs that have been stuck for at least 5 minutes
+            int updated = await context.QueuedJob
+                .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddMinutes(5))
+                .ExecuteUpdateAsync(
+                    s => s.SetProperty(job => job.StartedAt, job => null),
+                    cancellationToken
+                );
+            if (updated > 0)
             {
-                var groups = await db.StreamGroupInfoAsync(_streamKeys[priority]);
-                if (groups[0].Lag > 1000)
-                {
-                    _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(),
-                        groups[0].Lag);
-                }
+                _logger.Warning("Reset {count} incomplete job(s)", updated);
             }
         }
     }

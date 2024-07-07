@@ -118,7 +118,7 @@ public class Program
         services.AddHostedService<AuthorizationService>();
         services.AddHostedService<GarbageService>();
         services.AddHostedService<GoldSnapshotService>();
-        // services.AddHostedService<JobQueueService>();
+        services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();
         services.AddHostedService<UserLeaderboardService>();
 

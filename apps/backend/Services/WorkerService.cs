@@ -21,14 +21,11 @@ public class WorkerService : BackgroundService
     private static readonly Dictionary<Type, Func<object>> ConstructorMap = new();
     private static readonly Dictionary<string, Type> JobTypeMap = new();
 
-    private readonly IConnectionMultiplexer _redis;
     private readonly ILogger _logger;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobFactory _jobFactory;
     private readonly StateService _stateService;
 
     private readonly string _name;
-    private readonly string _streamKey;
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
 
@@ -38,10 +35,8 @@ public class WorkerService : BackgroundService
         JobPriority priority,
         CacheService cacheService,
         IConfiguration config,
-        IConnectionMultiplexer redis,
         IDbContextFactory<WowDbContext> contextFactory,
         IHttpClientFactory clientFactory,
-        IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
@@ -49,13 +44,10 @@ public class WorkerService : BackgroundService
     )
     {
         _contextFactory = contextFactory;
-        _redis = redis;
-        _serviceScopeFactory = serviceScopeFactory;
         _stateService = stateService;
 
         _priority = priority;
         _name = priority.ToString()[..1];
-        _streamKey = $"stream:{priority.ToString().ToLowerInvariant()}";
 
         int instanceId = Interlocked.Increment(ref _instanceCount);
         _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_name}");
