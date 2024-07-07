@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Jobs;
 
-public enum JobPriority
+public enum JobPriority : short
 {
     High = 1,
     Low = 2,

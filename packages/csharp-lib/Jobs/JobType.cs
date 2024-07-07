@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Jobs;
 
-public enum JobType
+public enum JobType : short
 {
     UserCharacters = 0,
     UserBulkData,
