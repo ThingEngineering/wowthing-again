@@ -36,6 +36,8 @@ export default function userHasDrop(
             return userQuestData.accountHas.has(manualData.druidFormItemToQuest[id]);
         } else if (staticData.mountsByItem[id]) {
             return userData.hasMount[staticData.mountsByItem[id].id] === true;
+        } else if (staticData.petsByItem[id]) {
+            return userData.hasPet[staticData.petsByItem[id].id] === true;
         } else if (staticData.toys[id]) {
             return userData.hasToy[id] === true;
         } else if (itemData.teachesTransmog[id]) {
