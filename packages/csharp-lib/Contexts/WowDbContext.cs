@@ -17,6 +17,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 {
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
     public DbSet<AuditLog> AuditLog { get; set; }
+    public DbSet<QueuedJob> QueuedJob { get; set; }
 
     public DbSet<BackgroundImage> BackgroundImage { get; set; }
     public DbSet<Image> Image { get; set; }
@@ -236,6 +237,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasIndex(pc => pc.LastApiCheck)
             .IncludeProperties(pc => new { pc.Id, pc.AccountId, pc.Name, pc.LastApiModified })
             .HasFilter("should_update = true AND account_id IS NOT NULL");
+
+        builder.Entity<QueuedJob>()
+            .HasIndex(qj => qj.Priority)
+            .HasFilter("started_at IS NULL");
 
         builder.Entity<WowAuction>()
             .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })

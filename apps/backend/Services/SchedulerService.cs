@@ -69,10 +69,6 @@ public sealed class SchedulerService : TimerService
             Logger.Error(ex, "Kaboom!");
         }
 
-        var db = _redis.GetDatabase();
-        await db.StreamTrimAsync("stream:low", 10000, useApproximateMaxLength: true);
-
-        var groups = await db.StreamGroupInfoAsync("stream:low");
         // if (groups[0].Lag < 5000)
         // {
             try
