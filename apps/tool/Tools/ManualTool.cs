@@ -198,7 +198,7 @@ public class ManualTool
         cacheData.RawToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
-        cacheData.RawCustomizationCategories = await LoadCustomizations(Language.enUS);
+        cacheData.RawCustomizationCategories = await LoadCustomizations(context, Language.enUS);
         _timer.AddPoint("Customizations");
 
         cacheData.Dragonriding = LoadDragonriding();
@@ -266,7 +266,7 @@ public class ManualTool
         _timer.AddPoint("Quests", true);
     }
 
-    private async Task<List<List<ManualCustomizationCategory?>?>> LoadCustomizations(Language language)
+    private async Task<List<List<ManualCustomizationCategory?>?>> LoadCustomizations(WowDbContext context, Language language)
     {
         var customizationSets = DataUtilities.LoadData<DataCustomizationCategory>(
             "customizations", ToolContext.Logger);
@@ -325,11 +325,15 @@ public class ManualTool
         // Useful data structures
         var categoriesById = dumpCategories.ToDictionary(cat => cat.ID);
 
+        var choicesById = dumpChoices.ToDictionary(choice => choice.ID);
+
         var choicesByReqId = dumpChoices
             .Where(choice => choice.ChrCustomizationReqID > 0)
             .ToGroupedDictionary(choice => choice.ChrCustomizationReqID);
 
         var optionsById = dumpOptions.ToDictionary(option => option.ID);
+
+        var reqsById = dumpReqs.ToDictionary(req => req.ID);
 
         var reqsByAchievementId = dumpReqs
             .Where(req => req.ReqAchievementID > 0)
@@ -372,7 +376,7 @@ public class ManualTool
                     foreach (var thing in category.Groups[0].Things)
                     {
                         var newThing = new ManualCustomizationThing(thing);
-                        if (newThing is { AchievementId: 0, QuestId: 0 } &&
+                        if (thing is { AchievementId: 0, ChoiceId: 0, QuestId: 0 } &&
                             _itemEffectMap.TryGetValue(newThing.ItemId, out var itemEffect))
                         {
                             foreach (var spellEffects in itemEffect.SpellEffects.Values)
@@ -388,70 +392,91 @@ public class ManualTool
                             }
                         }
 
-                        if (newThing is { AchievementId: 0, QuestId: 0 })
-                        {
-                            ToolContext.Logger.Warning("AchievementID/QuestID still 0 for ItemID {id}", newThing.ItemId);
-                            continue;
-                        }
+                        long classMask = 0;
+                        HashSet<DumpChrCustomizationChoice> choices = [];
 
-                        DumpChrCustomizationReq[]? reqs = [];
-                        if (newThing.AchievementId > 0 &&
-                            !reqsByAchievementId.TryGetValue(newThing.AchievementId, out reqs))
+                        if (thing.ChoiceId > 0 &&
+                            choicesById.TryGetValue(thing.ChoiceId, out var thingChoice) &&
+                            reqsById.TryGetValue(thingChoice.ChrCustomizationReqID, out var thingReq))
                         {
-                            ToolContext.Logger.Warning("No reqs for ItemID {item}/AchievementID {cheev}",
-                                newThing.ItemId, newThing.AchievementId);
-                            continue;
-                        }
-
-                        if (newThing.QuestId > 0 &&
-                            !reqsByQuestId.TryGetValue(newThing.QuestId, out reqs))
-                        {
-                            if (!questIdToAchievements.TryGetValue(newThing.QuestId, out var achievementIds))
+                            choices.Add(thingChoice);
+                            if (thingReq.ReqItemModifiedAppearanceID > 0)
                             {
-                                ToolContext.Logger.Warning("No reqs for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                                var ima = await context.WowItemModifiedAppearance.FindAsync(thingReq.ReqItemModifiedAppearanceID);
+                                newThing.ItemId = ima.ItemId;
+                                newThing.AppearanceModifier = ima.Modifier;
+                            }
+                        }
+                        else
+                        {
+                            if (newThing is { AchievementId: 0, QuestId: 0, Name: "" })
+                            {
+                                ToolContext.Logger.Warning("AchievementID/QuestID still 0 for ItemID {id}",
+                                    newThing.ItemId);
                                 continue;
                             }
 
-                            foreach (int achievementId in achievementIds)
+                            DumpChrCustomizationReq[]? reqs = [];
+                            if (newThing.AchievementId > 0 &&
+                                !reqsByAchievementId.TryGetValue(newThing.AchievementId, out reqs))
                             {
-                                if (reqsByAchievementId.TryGetValue(achievementId, out reqs))
+                                ToolContext.Logger.Warning("No reqs for ItemID {item}/AchievementID {cheev}",
+                                    newThing.ItemId, newThing.AchievementId);
+                                continue;
+                            }
+
+                            if (newThing.QuestId > 0 &&
+                                !reqsByQuestId.TryGetValue(newThing.QuestId, out reqs))
+                            {
+                                if (!questIdToAchievements.TryGetValue(newThing.QuestId, out var achievementIds))
                                 {
-                                    break;
+                                    ToolContext.Logger.Warning("No reqs for ItemID {item}/QuestID {quest}",
+                                        newThing.ItemId, newThing.QuestId);
+                                    continue;
+                                }
+
+                                foreach (int achievementId in achievementIds)
+                                {
+                                    if (reqsByAchievementId.TryGetValue(achievementId, out reqs))
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                if (reqs == null)
+                                {
+                                    ToolContext.Logger.Warning("No achievement reqs for ItemID {item}/QuestID {quest}",
+                                        newThing.ItemId,
+                                        newThing.QuestId);
+                                    continue;
                                 }
                             }
 
-                            if (reqs == null)
-                            {
-                                ToolContext.Logger.Warning("No achievement reqs for ItemID {item}/QuestID {quest}", newThing.ItemId,
-                                    newThing.QuestId);
-                                continue;
-                            }
-                        }
+                            // if (reqs.Length > 1)
+                            // {
+                            //     var reqSources = new HashSet<string>(reqs.Select(req => req.ReqSource));
+                            //     if (reqSources.Count > 1)
+                            //     {
+                            //         ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest} - {reqs}",
+                            //             newThing.ItemId, newThing.QuestId,
+                            //             string.Join(",", reqs.Select(r => r.ID)));
+                            //         continue;
+                            //     }
+                            // }
+                            //
+                            // if (!choicesByReqId.TryGetValue(reqs[0].ID, out var choices))
+                            // {
+                            //     ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
+                            //     continue;
+                            // }
 
-                        // if (reqs.Length > 1)
-                        // {
-                        //     var reqSources = new HashSet<string>(reqs.Select(req => req.ReqSource));
-                        //     if (reqSources.Count > 1)
-                        //     {
-                        //         ToolContext.Logger.Warning("Too many reqs for ItemID {item}/QuestID {quest} - {reqs}",
-                        //             newThing.ItemId, newThing.QuestId,
-                        //             string.Join(",", reqs.Select(r => r.ID)));
-                        //         continue;
-                        //     }
-                        // }
-                        //
-                        // if (!choicesByReqId.TryGetValue(reqs[0].ID, out var choices))
-                        // {
-                        //     ToolContext.Logger.Warning("No choices for ItemID {item}/QuestID {quest}", newThing.ItemId, newThing.QuestId);
-                        //     continue;
-                        // }
-
-                        var choices = new HashSet<DumpChrCustomizationChoice>();
-                        foreach (var req in reqs)
-                        {
-                            if (choicesByReqId.TryGetValue(req.ID, out var reqChoices))
+                            classMask = reqs[0].ClassMask;
+                            foreach (var req in reqs)
                             {
-                                choices.UnionWith(reqChoices);
+                                if (choicesByReqId.TryGetValue(req.ID, out var reqChoices))
+                                {
+                                    choices.UnionWith(reqChoices);
+                                }
                             }
                         }
 
@@ -470,7 +495,7 @@ public class ManualTool
                             string groupName = option.Name;
 
                             // Warlocks are weird, do a bunch of lookups to find the actual type of pet
-                            if (reqs[0].ClassMask == 256 &&
+                            if (classMask == 256 &&
                                 reqsByChoiceId.TryGetValue(choice.ID, out var reqIds) &&
                                 choicesByReqId.TryGetValue(reqIds[0], out var choices2))
                             {
@@ -483,6 +508,20 @@ public class ManualTool
                                 //     reqIds[0],
                                 //     choices2[0].ID,
                                 //     choices2[0].Name);
+                            }
+                            else if (category.Name is "Druid" or "Warlock" &&
+                                option.ChrCustomizationCategoryID > 0 &&
+                                categoriesById.TryGetValue(option.ChrCustomizationCategoryID, out var optionCat) &&
+                                optionCat.CategoryName != groupName)
+                            {
+                                groupName = $"{optionCat.CategoryName} > {groupName}";
+
+                                // Accessories, Body (Moonkin) -> Moonkin Form
+                                if (option.ChrCustomizationCategoryID is 3 or 46)
+                                {
+                                    var moonkinCat = categoriesById[12];
+                                    groupName = $"{moonkinCat.CategoryName} > {groupName}";
+                                }
                             }
 
                             if (!groupMap.TryGetValue(groupKey, out var newGroup))
@@ -509,12 +548,15 @@ public class ManualTool
 
                             if (newGroup.SeenNames.Contains(thingName))
                             {
+                                ToolContext.Logger.Information("Already seen name {name} for ItemID {item}",
+                                    thingName, newThing.ItemId);
                                 continue;
                             }
 
                             newGroup.Things.Add(new ManualCustomizationThing
                             {
                                 AchievementId = newThing.AchievementId,
+                                AppearanceModifier = newThing.AppearanceModifier,
                                 ItemId = newThing.ItemId,
                                 QuestId = newThing.QuestId,
                                 Name = thingName,

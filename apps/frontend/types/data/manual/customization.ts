@@ -33,9 +33,10 @@ export type ManualDataCustomizationGroupArray = ConstructorParameters<
 
 export class ManualDataCustomizationThing {
     constructor(
-        public achievementId: number,
         public itemId: number,
+        public achievementId: number,
         public questId: number,
+        public appearanceModifier: number,
         public name: string,
     ) {}
 }
