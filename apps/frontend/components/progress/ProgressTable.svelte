@@ -58,7 +58,7 @@
             }
 
             if (requiredQuestIds.length > 0 &&
-                requiredQuestIds.some((id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
+                !requiredQuestIds.some((id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
 
