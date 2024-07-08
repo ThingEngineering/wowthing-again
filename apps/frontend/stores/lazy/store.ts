@@ -522,13 +522,22 @@ export class LazyStore implements LazyUgh {
                     const groupKey = `${categoryKey}--${group.name}`;
                     const groupData = (counts[groupKey] = new UserCount());
 
-                    for (const { questId } of group.things) {
+                    for (const thing of group.things) {
                         overallData.total++;
                         sectionData.total++;
                         categoryData.total++;
                         groupData.total++;
 
-                        if (this.userQuestData.accountHas.has(questId)) {
+                        if (
+                            (thing.achievementId > 0 &&
+                                !!this.userAchievementData.achievements[thing.achievementId]) ||
+                            (thing.questId > 0 &&
+                                this.userQuestData.accountHas.has(thing.questId)) ||
+                            (thing.appearanceModifier >= 0 &&
+                                this.userData.hasSource.has(
+                                    `${thing.itemId}_${thing.appearanceModifier}`,
+                                ))
+                        ) {
                             overallData.have++;
                             sectionData.have++;
                             categoryData.have++;

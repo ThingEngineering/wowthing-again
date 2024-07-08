@@ -6,6 +6,7 @@ import {
     UserAchievementDataCategory,
     type UserAchievementData,
 } from '@/types/user-achievement-data';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { AchievementsState } from '@/stores/local-storage';
 import type { AchievementData } from '@/types/achievement-data';
 
@@ -33,6 +34,15 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
         }
         data.rawCriteria = null;
+
+        // { characterId: { achievementId: data, ... } }
+        for (const characterAchievements of Object.values(data.addonAchievements)) {
+            for (const [achievementId, addonData] of getNumberKeyedEntries(characterAchievements)) {
+                if (addonData.earned) {
+                    data.achievements[achievementId] = 1;
+                }
+            }
+        }
 
         console.timeEnd('UserAchievementDataStore.initialize');
     }
