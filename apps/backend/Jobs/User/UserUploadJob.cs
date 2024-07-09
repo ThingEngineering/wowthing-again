@@ -85,11 +85,11 @@ public class UserUploadJob : JobBase
 
         Logger.Information("Processing {key}...", data[1]);
 
+        // Lock on the user ID to prevent simultaneous uploads
         string lockKey = $"user_upload:{_userId}";
         string lockValue = Guid.NewGuid().ToString("N");
         try
         {
-            // Attempt to get exclusive scheduler lock
             var lockResult = await LockRetryPolicy.ExecuteAndCaptureAsync(
                 () => JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1))
             );
@@ -108,13 +108,14 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Lock");
 
         var db = Redis.GetDatabase();
-        string luaData = await db.CompressedStringGetAsync(data[1], delete: true);
+        string luaData = await db.CompressedStringGetAsync(data[1]);
 
         _timer.AddPoint("Redis");
 
         try
         {
             await Process(luaData);
+            await db.KeyDeleteAsync(data[1]);
         }
         finally
         {

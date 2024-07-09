@@ -1,11 +1,9 @@
 ﻿using System.Linq.Expressions;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Context;
-using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
@@ -101,19 +99,26 @@ public class WorkerService : BackgroundService
 
             await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            var queuedJob = await context.QueuedJob
+            var queuedJobs = await context.QueuedJob
                 .FromSql($@"
-SELECT  *
-FROM    queued_job
-WHERE   priority = {_priority}
+WITH job_ids AS (
+    SELECT  id
+    FROM    queued_job
+    WHERE   priority = {(short)_priority}
+            AND started_at IS NULL
+    ORDER BY id
+    FOR UPDATE SKIP LOCKED
+    LIMIT 1
+)
+UPDATE  queued_job
+SET     started_at = CURRENT_TIMESTAMP
+WHERE   id = ANY(SELECT id FROM job_ids)
         AND started_at IS NULL
-ORDER BY id
-FOR UPDATE SKIP LOCKED
-LIMIT 1
+RETURNING *
 ")
-                .SingleOrDefaultAsync(cancellationToken);
+                .ToArrayAsync(cancellationToken);
 
-            if (queuedJob == null)
+            if (queuedJobs.Length == 0)
             {
                 backoffDelay = Math.Min(2000, backoffDelay * 2);
                 await Task.Delay(backoffDelay, cancellationToken);
@@ -121,11 +126,7 @@ LIMIT 1
             }
 
             backoffDelay = 125;
-
-            await context.QueuedJob.Where(qj => qj.Id == queuedJob.Id).ExecuteUpdateAsync(
-                s => s.SetProperty(job => job.StartedAt, job => DateTime.UtcNow),
-                cancellationToken
-            );
+            var queuedJob = queuedJobs[0];
 
             string jobTypeName = queuedJob.Type.ToString();
             Type classType = JobTypeMap[jobTypeName];
