@@ -98,7 +98,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         const categoryCounts = (setCounts[maps[0].slug] = new UserCount());
         const categorySeen: Record<number, Record<number, boolean>> = {};
 
-        const categoryCharacters = shownCharacters.filter(
+        let categoryCharacters = shownCharacters.filter(
             (char) =>
                 char.level >= maps[0].minimumLevel &&
                 (maps[0].requiredQuestIds.length === 0 ||
@@ -106,6 +106,10 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         stores.userQuestData.characters[char.id]?.quests?.has(questId),
                     )),
         );
+
+        if (maps[0].slug !== 'mists-of-pandaria') {
+            categoryCharacters = categoryCharacters.filter((char) => !char.isRemix);
+        }
 
         for (const map of maps.slice(1)) {
             if (map === null) {
