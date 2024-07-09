@@ -1,70 +1,65 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import { iconStrings } from '@/data/icons'
-import { ArmorType } from '@/enums/armor-type'
-import { RewardType } from '@/enums/reward-type'
-import { WeaponSubclass } from '@/enums/weapon-subclass'
-import { iconLibrary } from '@/shared/icons'
+import { iconStrings } from '@/data/icons';
+import { ArmorType } from '@/enums/armor-type';
+import { RewardType } from '@/enums/reward-type';
+import { WeaponSubclass } from '@/enums/weapon-subclass';
+import { iconLibrary } from '@/shared/icons';
 import {
     armorTypeIcons,
     inventoryTypeIcons,
     professionSlugIcons,
     rewardTypeIcons,
     weaponSubclassIcons,
-} from '@/shared/icons/mappings'
-import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
-import type { StaticData } from '@/shared/stores/static/types'
-import type { ItemData } from '@/types/data/item'
-
+} from '@/shared/icons/mappings';
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { ItemData } from '@/types/data/item';
 
 export function getDropIcon(
     itemData: ItemData,
     manualData: ManualData,
     staticData: StaticData,
     drop: ManualDataZoneMapDrop,
-    isCriteria: boolean
+    isCriteria: boolean,
 ): IconifyIcon {
-    let icon: IconifyIcon
+    let icon: IconifyIcon;
     if (isCriteria) {
-        icon = iconStrings['list']
-    }
-    else if (drop.type === RewardType.Armor) {
+        icon = iconStrings['list'];
+    } else if (drop.type === RewardType.Armor) {
         // Cloth, Leather, Mail, Plate
         if (drop.subType >= 1 && drop.subType <= 4) {
-            const item = itemData.items[drop.id]
-            icon = inventoryTypeIcons[item?.inventoryType]
+            const item = itemData.items[drop.id];
+            icon = inventoryTypeIcons[item?.inventoryType];
         }
         // Misc
         else {
-            icon = armorTypeIcons[<ArmorType>drop.subType]
+            icon = armorTypeIcons[<ArmorType>drop.subType];
         }
-    }
-    else if (drop.type === RewardType.Item) {
+    } else if (drop.type === RewardType.Item) {
         if (manualData.dragonridingItemToQuest[drop.id]) {
-            icon = iconLibrary.gameSpikedDragonHead
+            icon = iconLibrary.gameSpikedDragonHead;
+        } else if (manualData.druidFormItemToQuest[drop.id]) {
+            icon = iconLibrary.gameBearFace;
+        } else if (staticData.mountsByItem[drop.id]) {
+            icon = rewardTypeIcons[RewardType.Mount];
+        } else if (staticData.petsByItem[drop.id]) {
+            icon = rewardTypeIcons[RewardType.Pet];
+        } else if (itemData.teachesSpell[drop.id]) {
+            const [skillLineId] = staticData.itemToSkillLine[drop.id];
+            const [profession] = staticData.professionBySkillLine[skillLineId];
+            icon = professionSlugIcons[profession.slug];
+        } else if (drop.limit?.[0] === 'profession') {
+            icon = professionSlugIcons[drop.limit[1]];
+        } else {
+            const item = itemData.items[drop.id];
+            icon = inventoryTypeIcons[item?.inventoryType];
         }
-        else if (manualData.druidFormItemToQuest[drop.id]) {
-            icon = iconLibrary.gameBearFace
-        }
-        else if (itemData.teachesSpell[drop.id]) {
-            const [skillLineId,] = staticData.itemToSkillLine[drop.id]
-            const [profession,] = staticData.professionBySkillLine[skillLineId]
-            icon = professionSlugIcons[profession.slug]
-        }
-        else if (drop.limit?.[0] === 'profession') {
-            icon = professionSlugIcons[drop.limit[1]]
-        }
-        else {
-            const item = itemData.items[drop.id]
-            icon = inventoryTypeIcons[item?.inventoryType]
-        }
-    }
-    else if (drop.type === RewardType.Reputation) {
-        icon = iconLibrary['gameThumbUp']
-    }
-    else if (drop.type === RewardType.Weapon) {
-        icon = weaponSubclassIcons[<WeaponSubclass>drop.subType]
+    } else if (drop.type === RewardType.Reputation) {
+        icon = iconLibrary['gameThumbUp'];
+    } else if (drop.type === RewardType.Weapon) {
+        icon = weaponSubclassIcons[<WeaponSubclass>drop.subType];
     }
 
-    return icon || rewardTypeIcons[drop.type]
+    return icon || rewardTypeIcons[drop.type];
 }
