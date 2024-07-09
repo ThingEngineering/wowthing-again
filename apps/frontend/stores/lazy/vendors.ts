@@ -12,7 +12,8 @@ import { ManualDataVendorGroup } from '@/types/data/manual';
 import { getCurrencyCosts } from '@/utils/get-currency-costs';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
-import userHasDrop from '@/utils/user-has-drop';
+import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
+import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual';
@@ -348,20 +349,19 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     // Skip filtered things
-                    const [lookupType] = item.getLookupData(
+                    const [lookupType, lookupId] = rewardToLookup(
                         stores.itemData,
                         stores.manualData,
                         stores.staticData,
+                        item.type,
+                        item.id,
                     );
 
                     if (
-                        (item.type === RewardType.Illusion && !stores.vendorState.showIllusions) ||
-                        (!stores.vendorState.showMounts &&
-                            (item.type === RewardType.Mount || lookupType === LookupType.Mount)) ||
-                        (!stores.vendorState.showPets &&
-                            (item.type === RewardType.Pet || lookupType === LookupType.Pet)) ||
-                        (!stores.vendorState.showToys &&
-                            (item.type === RewardType.Toy || lookupType === LookupType.Toy)) ||
+                        (!stores.vendorState.showIllusions && lookupType === LookupType.Illusion) ||
+                        (!stores.vendorState.showMounts && lookupType === LookupType.Mount) ||
+                        (!stores.vendorState.showPets && lookupType === LookupType.Pet) ||
+                        (!stores.vendorState.showToys && lookupType === LookupType.Toy) ||
                         (item.type === RewardType.Armor &&
                             ((item.subType === 1 && !stores.vendorState.showCloth) ||
                                 (item.subType === 2 && !stores.vendorState.showLeather) ||
@@ -374,23 +374,22 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         continue;
                     }
 
-                    const hasDrop = userHasDrop(
+                    const hasDrop = userHasLookup(
                         stores.settings,
                         stores.itemData,
-                        stores.manualData,
                         stores.staticData,
                         stores.userData,
                         stores.userQuestData,
                         stores.lazyTransmog,
-                        item.type,
-                        item.id,
+                        lookupType,
+                        lookupId,
                         item.appearanceIds,
                         masochist,
                     );
 
                     // Skip unavailable illusions
                     if (
-                        item.type === RewardType.Illusion &&
+                        lookupType === LookupType.Illusion &&
                         item.appearanceIds?.length > 0 &&
                         unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
                         !hasDrop
