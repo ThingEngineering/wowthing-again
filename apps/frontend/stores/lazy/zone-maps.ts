@@ -458,6 +458,18 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                                 : true),
                                     );
                                     break;
+
+                                case 'race':
+                                    dropCharacters = dropCharacters.filter((c) =>
+                                        drop.limit
+                                            .slice(1)
+                                            .some(
+                                                (raceSlug) =>
+                                                    stores.staticData.characterRacesBySlug[raceSlug]
+                                                        .id === c.raceId,
+                                            ),
+                                    );
+                                    break;
                             }
                         }
 
