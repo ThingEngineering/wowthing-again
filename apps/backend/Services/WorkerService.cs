@@ -122,8 +122,10 @@ LIMIT 1
 
             backoffDelay = 125;
 
-            queuedJob.StartedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync(cancellationToken);
+            await context.QueuedJob.Where(qj => qj.Id == queuedJob.Id).ExecuteUpdateAsync(
+                s => s.SetProperty(job => job.StartedAt, job => DateTime.UtcNow),
+                cancellationToken
+            );
 
             string jobTypeName = queuedJob.Type.ToString();
             Type classType = JobTypeMap[jobTypeName];
