@@ -32,7 +32,7 @@ public class JobQueueService : BackgroundService
 
             // Reset any jobs that have been stuck for at least 5 minutes
             int updated = await context.QueuedJob
-                .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddMinutes(5))
+                .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddMinutes(-5))
                 .ExecuteUpdateAsync(
                     s => s.SetProperty(job => job.StartedAt, job => null),
                     cancellationToken
