@@ -95,14 +95,18 @@
     .statistic {
         background: #232;
     }
-    .note {
-        color: #00ddff;
-        font-size: 0.95rem;
-    }
-    p.note {
-        border-bottom: 1px solid $border-color;
-        margin: 0;
-        padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    .wowthing-tooltip {
+        :global(.note) {
+            color: #00ddff;
+            font-size: 0.95rem;
+        }
+
+        :global(span.note) {
+            border-bottom: 1px solid $border-color;
+            display: block;
+            margin: 0;
+            padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+        }
     }
     td.note {
         padding-left: 0;
@@ -183,7 +187,7 @@
     {/if}
 
     {#if farm.note}
-        <p class="note">{farm.note}</p>
+        <ParsedText cls={'note'} text={farm.note} />
     {/if}
 
     <table class="table-tooltip-farm table-striped">

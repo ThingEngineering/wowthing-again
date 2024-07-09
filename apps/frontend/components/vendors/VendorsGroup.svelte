@@ -19,6 +19,7 @@
     import CurrencyLink from '@/shared/components/links/CurrencyLink.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -209,6 +210,8 @@
                         style:height="{!thing.userHas ? (52 + (20 * thing.item.sortedCosts.length)) + 'px' : null}"
                     >
                         {#if intersected}
+                            {@const teachesTransmog = $itemStore.teachesTransmog[thing.item.id]}
+                            {@const professionAbility = $staticStore.professionAbilityByItemId[thing.item.id]}
                             <WowheadLink
                                 id={thing.linkId}
                                 type={thing.linkType}
@@ -250,8 +253,8 @@
                                 </div>
                             {/if}
 
-                            {#if $itemStore.teachesTransmog[thing.item.id]}
-                                {@const setStats = $lazyStore.transmog.stats[`transmogSet:${$itemStore.teachesTransmog[thing.item.id]}`]}
+                            {#if teachesTransmog}
+                                {@const setStats = $lazyStore.transmog.stats[`transmogSet:${teachesTransmog}`]}
                                 {#if setStats}
                                     <div class="stats pill">
                                         <span class="{getPercentClass(setStats.percent)}">{setStats.have}</span>
@@ -259,6 +262,14 @@
                                         <span class="{getPercentClass(setStats.percent)}">{setStats.total}</span>
                                     </div>
                                 {/if}
+                            {:else if professionAbility}
+                                <div class="icon icon-class drop-shadow">
+                                    <ProfessionIcon
+                                        border={2}
+                                        size={20}
+                                        id={professionAbility.professionId}
+                                    />
+                                </div>
                             {:else if thing.difficulty}
                                 <div class="stats pill quality1">
                                     {thing.difficulty}

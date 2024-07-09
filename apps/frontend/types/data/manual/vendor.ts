@@ -70,36 +70,5 @@ export class ManualDataVendorItem {
             ? getCurrencyCostsString(itemData, staticData, this.costs, this.reputation)
             : this.note;
     }
-
-    private _lookupType?: LookupType;
-    private _lookupId?: number;
-    getLookupData(
-        itemData: ItemData,
-        manualData: ManualData,
-        staticData: StaticData,
-    ): [LookupType, number] {
-        let ret: [LookupType, number] = [this._lookupType, this._lookupId];
-        if (!ret[0]) {
-            if (this.type === RewardType.Item) {
-                if (staticData.mountsByItem[this.id]) {
-                    ret = [LookupType.Mount, staticData.mountsByItem[this.id].id];
-                } else if (itemData.completesQuest[this.id]) {
-                    ret = [LookupType.Quest, this.id];
-                } else if (manualData.dragonridingItemToQuest[this.id]) {
-                    ret = [LookupType.Quest, manualData.dragonridingItemToQuest[this.id]];
-                } else if (manualData.druidFormItemToQuest[this.id]) {
-                    ret = [LookupType.Quest, manualData.druidFormItemToQuest[this.id]];
-                } else if (staticData.toys[this.id]) {
-                    ret = [LookupType.Toy, this.id];
-                }
-            }
-
-            if (ret[0]) {
-                this._lookupType = ret[0];
-                this._lookupId = ret[1];
-            }
-        }
-        return ret;
-    }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>;
