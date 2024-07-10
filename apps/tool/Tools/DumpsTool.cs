@@ -175,6 +175,33 @@ public class DumpsTool
         ToolContext.Logger.Information("{0}", _timer.ToString());
     }
 
+    private void CreateOrUpdateString(
+        WowDbContext context,
+        Dictionary<(Language, StringType, int), LanguageString> dbLanguageMap,
+        Language language,
+        StringType type,
+        int id,
+        string value
+    )
+    {
+        if (!dbLanguageMap.TryGetValue((language, type, id), out var languageString))
+        {
+            languageString = new LanguageString
+            {
+                Language = language,
+                Type = StringType.WowInventorySlot,
+                Id = id,
+                String = value,
+            };
+            context.LanguageString.Add(languageString);
+        }
+        else if (value != languageString.String)
+        {
+            languageString.String = value;
+            context.LanguageString.Update(languageString);
+        }
+    }
+
     private async Task ImportStrings<TDump>(
         WowDbContext context,
         StringType type,
@@ -187,7 +214,7 @@ public class DumpsTool
         var dbLanguageMap = await context.LanguageString
             .Where(ls => ls.Type == type)
             .AsNoTracking()
-            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var language in _languages)
         {
@@ -209,22 +236,7 @@ public class DumpsTool
                 int objectId = getIdFunc(dumpObject);
                 string objectString = getStringFunc(dumpObject);
 
-                if (!dbLanguageMap.TryGetValue((language, objectId), out var languageString))
-                {
-                    languageString = dbLanguageMap[(language, objectId)] = new LanguageString
-                    {
-                        Language = language,
-                        Type = type,
-                        Id = objectId,
-                        String = objectString,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (objectString != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = objectString;
-                }
+                CreateOrUpdateString(context, dbLanguageMap, language, type, objectId, objectString);
             }
         }
 
@@ -630,39 +642,26 @@ public class DumpsTool
             }
         }
 
-        var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>("holidaynames"))
-            .ToDictionary(dhn => dhn.ID, dhn => dhn.Name);
-
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
-            .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowHolidayName)
-            .ToDictionaryAsync(ls => ls.Id);
+            .Where(ls => ls.Type == StringType.WowHolidayName)
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
-        // TODO fix language support with dumps
-        foreach (var holiday in holidays)
+        foreach (var language in _languages)
         {
-            if (!nameMap.TryGetValue(holiday.HolidayNameID, out string? name))
-            {
-                // ToolContext.Logger.Warning("No holiday name for {holidayId} {nameId}",
-                //     holiday.ID, holiday.HolidayNameID);
-                continue;
-            }
+            var nameMap = (await DataUtilities.LoadDumpCsvAsync<DumpHolidayNames>("holidaynames", language))
+                .ToDictionary(dhn => dhn.ID, dhn => dhn.Name);
 
-            if (!dbLanguageMap.TryGetValue(holiday.ID, out var languageString))
+            foreach (var holiday in holidays)
             {
-                languageString = new LanguageString
+                if (!nameMap.TryGetValue(holiday.HolidayNameID, out string? holidayName))
                 {
-                    Language = Language.enUS,
-                    Type = StringType.WowHolidayName,
-                    Id = holiday.ID,
-                    String = name,
-                };
-                context.LanguageString.Add(languageString);
-            }
-            else if (name != languageString.String)
-            {
-                context.LanguageString.Update(languageString);
-                languageString.String = name;
+                    // ToolContext.Logger.Warning("No holiday name for {holidayId} {nameId}",
+                    //     holiday.ID, holiday.HolidayNameID);
+                    continue;
+                }
+
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowItemName, holiday.ID, holidayName);
             }
         }
 
@@ -868,26 +867,11 @@ public class DumpsTool
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
             .Where(ls => ls.Language == language && ls.Type == StringType.WowItemName)
-            .ToDictionaryAsync(ls => ls.Id);
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var itemSparse in itemSparses)
         {
-            if (!dbLanguageMap.TryGetValue(itemSparse.ID, out var languageString))
-            {
-                languageString = new LanguageString
-                {
-                    Language = language,
-                    Type = StringType.WowItemName,
-                    Id = itemSparse.ID,
-                    String = itemSparse.Name,
-                };
-                context.LanguageString.Add(languageString);
-            }
-            else if (itemSparse.Name != languageString.String)
-            {
-                context.LanguageString.Update(languageString);
-                languageString.String = itemSparse.Name;
-            }
+            CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowItemName, itemSparse.ID, itemSparse.Name);
         }
     }
 
@@ -1165,7 +1149,7 @@ public class DumpsTool
         var dbLanguageMap = await context.LanguageString
             .Where(ls => ls.Type == StringType.WowMountName)
             .AsNoTracking()
-            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var mount in baseMounts)
         {
@@ -1197,23 +1181,6 @@ public class DumpsTool
                     dbMount.ItemId = itemIds.Last();
                 }
             }
-
-            if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
-            {
-                dbLanguageMap[(Language.enUS, mount.ID)] = languageString = new LanguageString
-                {
-                    Language = Language.enUS,
-                    Type = StringType.WowMountName,
-                    Id = mount.ID,
-                    String = mount.Name,
-                };
-                context.LanguageString.Add(languageString);
-            }
-            else if (mount.Name != languageString.String)
-            {
-                context.LanguageString.Update(languageString);
-                languageString.String = mount.Name;
-            }
         }
 
         foreach (var language in _languages)
@@ -1221,22 +1188,7 @@ public class DumpsTool
             var languageMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>("mount", language);
             foreach (var mount in languageMounts)
             {
-                if (!dbLanguageMap.TryGetValue((language, mount.ID), out var languageString))
-                {
-                    languageString = new LanguageString
-                    {
-                        Language = language,
-                        Type = StringType.WowMountName,
-                        Id = mount.ID,
-                        String = mount.Name,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (mount.Name != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = mount.Name;
-                }
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowMountName, mount.ID, mount.Name);
             }
         }
 
@@ -1317,7 +1269,7 @@ public class DumpsTool
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
             .Where(ls => ls.Type == StringType.WowReputationTier)
-            .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var language in _languages)
         {
@@ -1360,50 +1312,20 @@ public class DumpsTool
             }
 
             // Hack for weird hardcoded OG tier
-            var basicString = string.Join(
+            string basicString = string.Join(
                 '|',
                 _globalStringMap[language]
                     .Where(kvp => kvp.Key.StartsWith("FACTION_STANDING_LABEL") && kvp.Key.Length == 23)
                     .OrderBy(kvp => kvp.Key)
                     .Select(kvp => kvp.Value)
             );
-            if (!dbLanguageMap.TryGetValue((language, 0), out var basicLanguageString))
-            {
-                context.LanguageString.Add(new LanguageString
-                {
-                    Language = language,
-                    Type = StringType.WowReputationTier,
-                    Id = 0,
-                    String = basicString,
-                });
-            }
-            else if (basicString != basicLanguageString.String)
-            {
-                context.LanguageString.Update(basicLanguageString);
-                basicLanguageString.String = basicString;
-            }
+            CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowReputationTier, 0, basicString);
             // End hack
 
-            foreach (var (tierId, tiers) in groupedTiers)
+            foreach ((int tierId, var tiers) in groupedTiers)
             {
-                var tierString = string.Join('|', tiers.Select(tier => tier.Reaction));
-
-                if (!dbLanguageMap.TryGetValue((language, tierId), out var languageString))
-                {
-                    languageString = dbLanguageMap[(language, tierId)] = new LanguageString
-                    {
-                        Language = language,
-                        Type = StringType.WowReputationTier,
-                        Id = tierId,
-                        String = tierString,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (tierString != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = tierString;
-                }
+                string tierString = string.Join('|', tiers.Select(tier => tier.Reaction));
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowReputationTier, tierId, tierString);
             }
         }
 
@@ -1546,58 +1468,31 @@ public class DumpsTool
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
             .Where(ls => ls.Type == StringType.WowInventorySlot || ls.Type == StringType.WowInventoryType)
-            .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id));
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var language in _languages)
         {
-            foreach (var (stringKey, slotId) in InventorySlotMap)
+            foreach ((string stringKey, int slotId) in InventorySlotMap)
             {
-                var stringValue = _globalStringMap[language][stringKey];
-
-                if (!dbLanguageMap.TryGetValue((StringType.WowInventorySlot, language, slotId), out var languageString))
-                {
-                    languageString = new LanguageString
-                    {
-                        Language = language,
-                        Type = StringType.WowInventorySlot,
-                        Id = slotId,
-                        String = stringValue,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (stringValue != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = stringValue;
-                }
-            }
-
-            foreach (var (stringKey, slotId) in InventoryTypeMap)
-            {
-                if (!_globalStringMap[language].TryGetValue(stringKey, out string stringValue))
+                if (!_globalStringMap[language].TryGetValue(stringKey, out string? stringValue))
                 {
                     ToolContext.Logger.Warning("Missing globalstrings key: {key}", stringKey);
                     continue;
                 }
 
-                if (!dbLanguageMap.TryGetValue((StringType.WowInventoryType, language, slotId), out var languageString))
-                {
-                    languageString = new LanguageString
-                    {
-                        Language = language,
-                        Type = StringType.WowInventoryType,
-                        Id = slotId,
-                        String = stringValue,
-                    };
-                    context.LanguageString.Add(languageString);
-                }
-                else if (stringValue != languageString.String)
-                {
-                    context.LanguageString.Update(languageString);
-                    languageString.String = stringValue;
-                }
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventorySlot, slotId, stringValue);
             }
 
+            foreach ((string stringKey, int slotId) in InventoryTypeMap)
+            {
+                if (!_globalStringMap[language].TryGetValue(stringKey, out string? stringValue))
+                {
+                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", stringKey);
+                    continue;
+                }
+
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventoryType, slotId, stringValue);
+            }
         }
 
         _timer.AddPoint("InventoryStrings");
