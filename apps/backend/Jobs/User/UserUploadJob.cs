@@ -202,6 +202,7 @@ public class UserUploadJob : JobBase
             .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
 
         // Deal with guild data
+        var guildItems = new List<(PlayerGuild, UploadGuild)>();
         foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
         {
             var (realm, guildName) = ParseAddonId(addonId);
@@ -221,10 +222,16 @@ public class UserUploadJob : JobBase
                 Context.PlayerGuild.Add(guild);
             }
 
-            await HandleGuildItems(guild, guildData);
+            guildItems.Add((guild, guildData));
         }
 
+        // Save any new guilds now, EF likes to try to save the guild items first sometimes
         await Context.SaveChangesAsync();
+
+        foreach (var (guild, guildData) in guildItems)
+        {
+            await HandleGuildItems(guild, guildData);
+        }
 
         _timer.AddPoint("Guilds");
 
