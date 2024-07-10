@@ -27,6 +27,8 @@ public class WorkerService : BackgroundService
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
 
+    private const int InitialBackoff = 1000;
+    private const int MaxBackoff = 4000;
     private const int MinimumIdleTime = 120 * 1000; // 2 minutes
 
     public WorkerService(
@@ -88,7 +90,7 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
-        int backoffDelay = 125;
+        int backoffDelay = InitialBackoff;
         while (!cancellationToken.IsCancellationRequested)
         {
             while (_stateService.AccessToken?.Valid != true)
@@ -120,12 +122,12 @@ RETURNING *
 
             if (queuedJobs.Length == 0)
             {
-                backoffDelay = Math.Min(2000, backoffDelay * 2);
+                backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
                 await Task.Delay(backoffDelay, cancellationToken);
                 continue;
             }
 
-            backoffDelay = 125;
+            backoffDelay = InitialBackoff;
             var queuedJob = queuedJobs[0];
 
             string jobTypeName = queuedJob.Type.ToString();
