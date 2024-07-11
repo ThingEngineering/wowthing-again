@@ -117,6 +117,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // Characters
         userData.characterMap = {};
+        userData.charactersByConnectedRealm = {};
+        userData.charactersByRealm = {};
         userData.characters = [];
         for (const charArray of userData.charactersRaw || []) {
             const character = new Character(...charArray);
@@ -331,6 +333,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // realm
         character.realm = staticData.realms[character.realmId] || staticData.realms[0];
+        if (character.realmId > 0 && character.realm) {
+            (this.value.charactersByRealm[character.realmId] ||= []).push(character);
+            (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
+                character,
+            );
+        }
 
         // guild
         character.guild = this.value.guildMap[character.guildId];
