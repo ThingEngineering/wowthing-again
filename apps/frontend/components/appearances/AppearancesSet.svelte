@@ -1,6 +1,7 @@
 <script lang="ts">
     import IntersectionObserver from 'svelte-intersection-observer'
 
+    import { settingsStore } from '@/shared/stores/settings'
     import { lazyStore, userStore } from '@/stores'
     import { appearanceState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
@@ -16,6 +17,7 @@
     let intersected: boolean
 
     $: counts = $lazyStore.appearances.stats[slug]
+    $: masochist = $settingsStore.transmog.completionistMode;
 </script>
 
 {#if counts.total > 0}
@@ -36,17 +38,22 @@
             >
                 {#if intersected}
                     {#each set.appearances as appearance}
-                        {@const has = $userStore.hasAppearance.has(appearance.appearanceId)}
-                        {@const show = (
-                            ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected))
-                            && $appearanceState[`showQuality${appearance.modifiedAppearances[0].quality}`] === true
-                        )}
-                        {#if show}
-                            <Item
-                                {appearance}
-                                {has}
-                            />
-                        {/if}
+                        {@const modifiedAppearances = appearance.modifiedAppearances.slice(0, masochist ? 9999 : 1)}
+                        {#each modifiedAppearances as modifiedAppearance}
+                            {@const has = masochist
+                                ? $userStore.hasSource.has(`${modifiedAppearance.itemId}_${modifiedAppearance.modifier}`)
+                                : $userStore.hasAppearance.has(appearance.appearanceId)}
+                            {@const show = (
+                                ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected))
+                                && $appearanceState[`showQuality${modifiedAppearance.quality}`] === true
+                            )}
+                            {#if show}
+                                <Item
+                                    {has}
+                                    {modifiedAppearance}
+                                />
+                            {/if}
+                        {/each}
                     {/each}
                 {/if}
             </IntersectionObserver>

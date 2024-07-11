@@ -2,21 +2,21 @@
     import { itemModifierMap } from '@/data/item-modifier'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { appearanceState } from '@/stores/local-storage'
-    import type { AppearanceDataAppearance } from '@/types/data/appearance'
+    import type { AppearanceDataAppearance, AppearanceDataModifiedAppearance } from '@/types/data/appearance'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let appearance: AppearanceDataAppearance
     export let has: boolean
+    export let modifiedAppearance: AppearanceDataModifiedAppearance
 
     let bonusId: number
     let difficulty: string
     let difficultyShort: string
     let imageName: string
     $: {
-        const mod = appearance.modifiedAppearances[0]
+        const mod = modifiedAppearance
 
         imageName = `item/${mod.itemId}`
         if (mod.modifier > 0) {
@@ -53,14 +53,14 @@
 <svelte:options immutable={true} />
 
 <div
-    class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
+    class="appearance-item quality{modifiedAppearance.quality}"
     class:missing={
         (has && $appearanceState.highlightMissing) ||
         (!has && !$appearanceState.highlightMissing)
     }
 >
     <WowheadLink
-        id={appearance.modifiedAppearances[0].itemId}
+        id={modifiedAppearance.itemId}
         type="item"
         extraParams={bonusId ? { 'bonus': bonusId.toString() } : null}
     >
