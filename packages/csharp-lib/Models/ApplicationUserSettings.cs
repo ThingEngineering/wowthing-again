@@ -156,9 +156,6 @@ public class ApplicationUserSettings
         Debug.Assert(Tasks != null);
 
         // General
-        // Clamp between 0 and 1440 minutes
-        General.RefreshInterval = Math.Max(0, Math.Min(1440, General.RefreshInterval));
-
         General.DesiredAccountName = FixDesiredAccountNameRegex
             .Replace(General.DesiredAccountName.EmptyIfNullOrWhitespace(), "")
             .Truncate(32);
@@ -290,7 +287,6 @@ public class ApplicationUserSettingsGeneral
 {
     public string? DesiredAccountName { get; set; }
     public Language Language { get; set; } = Language.enUS;
-    public int RefreshInterval { get; set; }
     public bool UseEnglishRealmNames { get; set; } = true;
     public bool UseWowdb { get; set; } = false;
 
