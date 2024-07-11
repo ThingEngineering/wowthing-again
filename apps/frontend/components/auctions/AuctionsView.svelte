@@ -198,6 +198,12 @@
                     name="pets_max_level"
                     bind:value={$auctionState.missingPetsMaxLevel}
                 >Only level 25</Checkbox>
+
+                <Checkbox
+                    name="pets_need_max_level"
+                    disabled={!$auctionState.missingPetsMaxLevel}
+                    bind:value={$auctionState.missingPetsNeedMaxLevel}
+                >If missing level 25</Checkbox>
             </div>
         {/if}
     </div>

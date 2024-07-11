@@ -9,6 +9,7 @@ export class AuctionState {
     public limitToBestRealms = false;
     public limitToCheapestRealm = false;
     public missingPetsMaxLevel = false;
+    public missingPetsNeedMaxLevel = false;
     public showDontHave = true;
     public showHave = true;
 
