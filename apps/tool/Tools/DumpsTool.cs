@@ -1073,6 +1073,12 @@ public class DumpsTool
             }
             else if (dumpItemEffect.TriggerType == 6) // On Learn
             {
+                if (!itemEffectToItems.TryGetValue(dumpItemEffect.ID, out var itemXItemEffects))
+                {
+                    ToolContext.Logger.Warning("ItemEffect {effect} has an On Learn trigger but no items??", dumpItemEffect.ID);
+                    continue;
+                }
+
                 foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
                 {
                     if (!newMap.TryGetValue(itemXItemEffect.ItemID, out var newItemEffect))
