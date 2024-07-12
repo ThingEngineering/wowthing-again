@@ -3,7 +3,6 @@
 
     import { userStore } from '@/stores';
     import type { StaticDataConnectedRealm } from '@/shared/stores/static/types';
-    import { toNiceNumber } from '@/utils/formatting';
 
     export let ageInMinutes: number = -1;
     export let connectedRealm: StaticDataConnectedRealm;

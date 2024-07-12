@@ -8,7 +8,6 @@
     import getAccountCharacters from '@/utils/get-account-characters'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import Select from '@/shared/components/forms/Select.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 

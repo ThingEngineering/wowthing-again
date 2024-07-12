@@ -2,7 +2,7 @@
     import { itemModifierMap } from '@/data/item-modifier'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import { appearanceState } from '@/stores/local-storage'
-    import type { AppearanceDataAppearance, AppearanceDataModifiedAppearance } from '@/types/data/appearance'
+    import type { AppearanceDataModifiedAppearance } from '@/types/data/appearance'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
