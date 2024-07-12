@@ -434,6 +434,13 @@ public class ItemsTool
                 //
                 // };
                 ToolContext.Logger.Information("  - Node {id}", treeNode.ChildItemBonusListID);
+                if (ret.TryGetValue(treeNode.ChildItemBonusListID, out var impostor))
+                {
+                    ToolContext.Logger.Warning("Duplicate bonus list {id} - item={item1} name={name1} / item={item2} name={name2}",
+                        treeNode.ChildItemBonusListID, impostor.ItemId, impostor.DisplayName, mcItem.ItemID, mcCategory.DisplayName);
+                    continue;
+                }
+
                 ret.Add(treeNode.ChildItemBonusListID, new RedisReagentBonus
                 {
                     ItemId = mcItem.ItemID,
