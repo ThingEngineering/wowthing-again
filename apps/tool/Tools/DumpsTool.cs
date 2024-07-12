@@ -1402,7 +1402,7 @@ public class DumpsTool
     private async Task ImportWorldQuests(WowDbContext context)
     {
         var contentTuningMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpContentTuning>(
-            "contenttuning", ct => ct.ID);
+            "contenttuning", ct => ct.ID, skipValidation: true);
         var modifierTreeMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpModifierTree>(
             "modifiertree", mt => mt.ID);
         var playerConditionMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpPlayerCondition>(
@@ -1436,8 +1436,8 @@ public class DumpsTool
             }
 
             dbQuest.Expansion = contentTuning.ExpansionID;
-            dbQuest.MaxLevel = contentTuning.LfgMaxLevel;
-            dbQuest.MinLevel = contentTuning.LfgMinLevel;
+            dbQuest.MaxLevel = contentTuning.MaxLevel ?? contentTuning.LfgMaxLevel ?? 0;
+            dbQuest.MinLevel = contentTuning.MinLevel ?? contentTuning.LfgMinLevel ?? 0;
             dbQuest.QuestInfoId = questV2.QuestInfoID;
 
             dbQuest.NeedQuestIds = new();
