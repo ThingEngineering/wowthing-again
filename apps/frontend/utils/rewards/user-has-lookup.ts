@@ -28,7 +28,7 @@ export function userHasLookup(
     } else if (type === LookupType.Toy) {
         return !!userData.hasToy[id];
     } else if (type === LookupType.ProfessionAbility) {
-        const ability = staticData.professionAbilityByItemId[id];
+        const ability = staticData.professionAbilityByAbilityId[id];
         const characterId = settings.professions.collectingCharacters?.[ability.professionId];
         if (characterId) {
             return userData.characterMap[characterId]?.knowsProfessionAbility(ability.abilityId);
@@ -40,7 +40,7 @@ export function userHasLookup(
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(itemData, userQuestData, id);
     } else if (type === LookupType.TransmogSet) {
-        const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
+        const statsKey = `transmogSet:${id}`;
         const stats = lazyTransmog.stats[statsKey];
         return stats?.percent >= 100;
     } else if (type === LookupType.Transmog) {
