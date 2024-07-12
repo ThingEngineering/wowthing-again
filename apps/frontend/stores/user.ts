@@ -173,6 +173,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // Initialize characters
+        userData.charactersByConnectedRealm = {};
+        userData.charactersByRealm = {};
         const allLockouts: Record<string, boolean> = {};
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, staticData, character);
