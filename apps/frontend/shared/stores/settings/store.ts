@@ -30,7 +30,6 @@ export const settingsSavingState = writable<number>(0);
 
 function createSettingsStore() {
     let hashTimer: NodeJS.Timer | null = null;
-    let refreshTimer: NodeJS.Timer | null = null;
     let accountsHash = '';
     let settingsHash = '';
 
@@ -49,10 +48,6 @@ function createSettingsStore() {
             if (hashTimer !== null) {
                 clearInterval(hashTimer);
                 hashTimer = null;
-            }
-            if (refreshTimer !== null) {
-                clearInterval(refreshTimer);
-                refreshTimer = null;
             }
 
             const userData = get(userStore);
