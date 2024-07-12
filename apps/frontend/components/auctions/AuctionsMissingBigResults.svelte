@@ -10,7 +10,7 @@
     import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
-    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
+    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore, userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage'
     import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
@@ -21,6 +21,7 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import RealmTooltip from './RealmTooltip.svelte';
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -343,14 +344,13 @@
                                     <td
                                         class="realm text-overflow"
                                         on:click={() => setRealmSearch(auction.connectedRealmId)}
-                                        use:basicTooltip={{
-                                            allowHTML: true,
-                                            content: `
-    ${connectedRealm.realmNames.join(' / ')}
-    <br><br>
-    Data is ${ageInMinutes} minute(s) old
-    ${ageInMinutes >= 60 ? '- refresh!' : ''}
-    `
+                                        use:componentTooltip={{
+                                            component: RealmTooltip,
+                                            props: {
+                                                ageInMinutes,
+                                                connectedRealm,
+                                                price: auction.buyoutPrice,
+                                            },
                                         }}
                                     >
                                         {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
