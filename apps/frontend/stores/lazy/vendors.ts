@@ -262,6 +262,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 if (!stores.vendorState.showTier && tierRegex.test(group.name)) {
                     continue;
                 }
+                if (!stores.vendorState.showAwakened && group.name.endsWith('Awakened')) {
+                    continue;
+                }
 
                 const groupKey = `${catKey}--${groupIndex}`;
                 const groupStats = (stats[groupKey] = new UserCount());
