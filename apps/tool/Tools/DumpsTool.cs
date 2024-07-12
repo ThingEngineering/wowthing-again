@@ -1436,8 +1436,8 @@ public class DumpsTool
             }
 
             dbQuest.Expansion = contentTuning.ExpansionID;
-            dbQuest.MaxLevel = contentTuning.MaxLevel;
-            dbQuest.MinLevel = contentTuning.MinLevel;
+            dbQuest.MaxLevel = contentTuning.LfgMaxLevel;
+            dbQuest.MinLevel = contentTuning.LfgMinLevel;
             dbQuest.QuestInfoId = questV2.QuestInfoID;
 
             dbQuest.NeedQuestIds = new();
