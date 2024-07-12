@@ -189,7 +189,7 @@ public class DumpsTool
             languageString = new LanguageString
             {
                 Language = language,
-                Type = StringType.WowInventorySlot,
+                Type = type,
                 Id = id,
                 String = value,
             };
@@ -661,7 +661,7 @@ public class DumpsTool
                     continue;
                 }
 
-                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowItemName, holiday.ID, holidayName);
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowHolidayName, holiday.ID, holidayName);
             }
         }
 
@@ -1073,6 +1073,12 @@ public class DumpsTool
             }
             else if (dumpItemEffect.TriggerType == 6) // On Learn
             {
+                if (!itemEffectToItems.TryGetValue(dumpItemEffect.ID, out var itemXItemEffects))
+                {
+                    ToolContext.Logger.Warning("ItemEffect {effect} has an On Learn trigger but no items??", dumpItemEffect.ID);
+                    continue;
+                }
+
                 foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
                 {
                     if (!newMap.TryGetValue(itemXItemEffect.ItemID, out var newItemEffect))
@@ -1430,8 +1436,8 @@ public class DumpsTool
             }
 
             dbQuest.Expansion = contentTuning.ExpansionID;
-            dbQuest.MaxLevel = contentTuning.MaxLevel;
-            dbQuest.MinLevel = contentTuning.MinLevel;
+            dbQuest.MaxLevel = contentTuning.LfgMaxLevel;
+            dbQuest.MinLevel = contentTuning.LfgMinLevel;
             dbQuest.QuestInfoId = questV2.QuestInfoID;
 
             dbQuest.NeedQuestIds = new();

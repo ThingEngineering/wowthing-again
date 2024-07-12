@@ -282,13 +282,15 @@ public class AuctionsController : Controller
         }
         else if (form.Type == "pets")
         {
-            // Missing
-            var accountPetIds = accounts
+            var allPets = accounts
                 .Where(account => account.Pets != null)
-                .SelectMany(account => account.Pets.Pets
-                    .EmptyIfNull()
-                    .Select(pet => pet.Value.SpeciesId)
-                )
+                .SelectMany(account => account.Pets.Pets.EmptyIfNull().Values)
+                .ToArray();
+
+            var havePets = form.MissingPetsNeedMaxLevel ? allPets.Where(pet => pet.Level == 25) : allPets;
+
+            int[] accountPetIds = havePets
+                .Select(pet => pet.SpeciesId)
                 .Distinct()
                 .ToArray();
 

@@ -1120,6 +1120,7 @@ public class StaticTool
             .ToDictionary(
                 group => group.Key,
                 group => group
+                    .Where(tnxtne => tnxtne.TraitNodeEntryID > 0)
                     .OrderBy(tnxtne => tnxtne.Index)
                     .Select(tnxtne => traitNodeEntryById[tnxtne.TraitNodeEntryID])
                     .ToArray()

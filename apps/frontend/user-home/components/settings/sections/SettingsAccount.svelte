@@ -8,7 +8,6 @@
     import getAccountCharacters from '@/utils/get-account-characters'
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import Select from '@/shared/components/forms/Select.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
@@ -151,21 +150,6 @@
                 Pinging Freddie on Discord to remind him to do this regularly might help!
             </p>
         </div>
-    </div>
-</div>
-
-<div class="settings-block">
-    <h3 class="space-me">Auto Refresh</h3>
-
-    <div class="setting">
-        <NumberInput
-            name="general_RefreshInterval"
-            label="Refresh interval"
-            minValue={0}
-            maxValue={1440}
-            bind:value={$settingsStore.general.refreshInterval}
-        />
-        <p>How long in minutes to wait between requesting updated data. Set to 0 to disable.</p>
     </div>
 </div>
 

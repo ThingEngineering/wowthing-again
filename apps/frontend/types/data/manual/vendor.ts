@@ -1,12 +1,10 @@
 import { Faction } from '@/enums/faction';
+import { RewardType } from '@/enums/reward-type';
 import { getCurrencyCostsString } from '@/utils/get-currency-costs';
 import type { ItemQuality } from '@/enums/item-quality';
-import { RewardType } from '@/enums/reward-type';
+import type { StaticData } from '@/shared/stores/static/types/store';
 import type { UserCount } from '@/types';
 import type { ItemData } from '@/types/data/item';
-import type { StaticData } from '@/shared/stores/static/types/store';
-import { LookupType } from '@/enums/lookup-type';
-import type { ManualData } from './store';
 
 export class ManualDataVendorCategory {
     public groups: ManualDataVendorGroup[];

@@ -72,11 +72,14 @@
         if (state.showTier) {
             bySet.push('T')
         }
+        if (state.showAwakened) {
+            bySet.push('A')
+        }
 
         if (bySet.length === 0) {
             bySet = ['---']
         }
-        else if (bySet.length === 2) {
+        else if (bySet.length === 3) {
             bySet = ['ALL']
         }
 
@@ -105,6 +108,9 @@
                 margin-right: -1px;
             }
         }
+    }
+    .margin-left {
+        margin-left: 0.75rem;
     }
 </style>
 
@@ -236,6 +242,13 @@
                 name="show_tier"
                 bind:value={$vendorState.showTier}
             >Tier</CheckboxInput>
+        </button>
+
+        <button class="margin-left">
+            <CheckboxInput
+                name="show_awakened"
+                bind:value={$vendorState.showAwakened}
+            >Awakened</CheckboxInput>
         </button>
     </div>
 {/if}

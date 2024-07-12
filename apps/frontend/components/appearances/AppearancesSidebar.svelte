@@ -2,13 +2,14 @@
     import sortBy from 'lodash/sortBy'
 
     import { expansionMap, expansionOrderMap } from '@/data/expansion'
+    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
     import { lazyStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte';
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
 
     export let basePath = ''
 
@@ -109,12 +110,6 @@
         }))
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-    }
-</style>
-
 <Sidebar
     baseUrl={basePath ? `/${basePath}/appearances` : '/appearances'}
     items={categories}
@@ -123,11 +118,15 @@
     width="16rem"
     {percentFunc}
 >
-    <div slot="before">
-        <ProgressBar
-            title="Overall"
-            have={stats.have}
-            total={stats.total}
-        />
-    </div>
+    <svelte:fragment slot="before">
+        <div>
+            <ProgressBar
+                title="Overall"
+                have={stats.have}
+                total={stats.total}
+            />
+        </div>
+
+        <Settings />
+    </svelte:fragment>
 </Sidebar>

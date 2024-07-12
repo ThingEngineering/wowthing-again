@@ -8,9 +8,10 @@
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
 
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
+    import RealmTooltip from './RealmTooltip.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -191,7 +192,14 @@
                                 <tr>
                                     <td
                                         class="realm text-overflow"
-                                        use:basicTooltip={connectedRealm.realmNames.join(' / ')}
+                                        use:componentTooltip={{
+                                            component: RealmTooltip,
+                                            props: {
+                                                ageInMinutes: 0,
+                                                connectedRealm,
+                                                price: auction.buyoutPrice,
+                                            },
+                                        }}
                                     >
                                         <code>[{Region[connectedRealm.region]}]</code>
                                         {connectedRealmName(auction.connectedRealmId)}

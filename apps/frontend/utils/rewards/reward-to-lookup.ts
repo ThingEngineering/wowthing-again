@@ -32,9 +32,12 @@ export function rewardToLookup(
         } else if (staticData.toys[rewardId]) {
             ret = [LookupType.Toy, rewardId];
         } else if (itemData.teachesTransmog[rewardId]) {
-            ret = [LookupType.TransmogSet, rewardId];
+            ret = [LookupType.TransmogSet, itemData.teachesTransmog[rewardId]];
+        } else if (staticData.professionAbilityByItemId[rewardId]) {
+            const ability = staticData.professionAbilityByItemId[rewardId];
+            ret = [LookupType.ProfessionAbility, ability.abilityId];
         } else if (itemData.completesQuest[rewardId]) {
-            ret = [LookupType.Quest, rewardId];
+            ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
         } else if (manualData.dragonridingItemToQuest[rewardId]) {
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest[rewardId]];
         } else if (manualData.druidFormItemToQuest[rewardId]) {

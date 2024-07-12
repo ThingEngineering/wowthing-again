@@ -40,7 +40,6 @@ export interface Settings {
     general: {
         desiredAccountName: string;
         language: Language;
-        refreshInterval: number;
         useEnglishRealmNames: boolean;
         useWowdb: boolean;
         // groupBy: string[]

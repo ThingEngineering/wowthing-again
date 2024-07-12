@@ -68,7 +68,7 @@
 
 <div class="thing-container border">
     <NumberInput
-        name="general_RefreshInterval"
+        name="achievement_id"
         minValue={0}
         maxValue={999999}
         bind:value={$exploreState.achievementId}
