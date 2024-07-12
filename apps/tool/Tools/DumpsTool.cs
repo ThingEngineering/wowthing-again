@@ -189,7 +189,7 @@ public class DumpsTool
             languageString = new LanguageString
             {
                 Language = language,
-                Type = StringType.WowInventorySlot,
+                Type = type,
                 Id = id,
                 String = value,
             };
