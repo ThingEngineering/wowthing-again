@@ -661,7 +661,7 @@ public class DumpsTool
                     continue;
                 }
 
-                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowItemName, holiday.ID, holidayName);
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowHolidayName, holiday.ID, holidayName);
             }
         }
 
