@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Services;
 
 public sealed class SchedulerService : TimerService
 {
-    private const int TimerInterval = 10;
+    private const int TimerInterval = 5;
 
     private readonly IConnectionMultiplexer _redis;
     private readonly IServiceScopeFactory _serviceScopeFactory;
