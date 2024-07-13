@@ -20,6 +20,14 @@ public static partial class Hardcoded
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
+        122600, // MoP ??
+        122601, // MoP ??
+        122602, // MoP ??
+        122603, // MoP ??
+        122604, // MoP ??
+        122605, // MoP ??
+        122606, // MoP ??
+        122607, // MoP ??
         409224, // Reclaimed Gauntlet Chassis (temporary legendary craft)
 
         // Blacksmithing - Draenic Steel
@@ -71,6 +79,7 @@ public static partial class Hardcoded
         169699, // Seasoned Elekk Ribeye
 
         // Enchanting
+        343681, // Shadowlands ??
         422338, // Shalasar's Sophic Vellum (temporary legendary craft)
 
         // Engineering
@@ -80,6 +89,7 @@ public static partial class Hardcoded
         407170, // Inspired Order Recalibrator (temporary legendary craft)
 
         // Inscription
+        343687, // Shadowlands ??
         422337, // Lydaria's Binding Rune (temporary legendary craft)
 
         // Jewelcrafting
@@ -87,6 +97,7 @@ public static partial class Hardcoded
         407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
         // Leatherworking
+        102366, // Mist-Touched Leather (combining 5 pieces?)
         171713, // Burnished Leather (dupe for max results?)
         173416, // Small Football (never implemented?)
         422330, // Erden's Glowspore Grip (temporary legendary craft)
@@ -98,9 +109,22 @@ public static partial class Hardcoded
         // Tailoring
         168851, // Miniature Flying Carpet (never implemented)
         169669, // Hexweave Cloth (dupe for max results?)
+        173415, // WoD ??
         176313, // [A] Inspiring Battle Standard (garrison building craft)
         176314, // [A] Fearsome Battle Standard (garrison building craft)
         176315, // [H] Inspiring Battle Standard (garrison building craft)
         176316, // [H] Fearsome Battle Standard (garrison building craft)
+
+        // Tailoring ranks?
+        3908,
+        3909,
+        3910,
+        12180,
+        26790,
+        51309,
+        75156,
+        110426,
+        158758,
+        195126,
     };
 }
