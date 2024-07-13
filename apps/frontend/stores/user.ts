@@ -335,7 +335,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // realm
         character.realm = staticData.realms[character.realmId] || staticData.realms[0];
-        if (character.realmId > 0 && character.realm) {
+        if (character.account?.enabled && character.realmId > 0 && character.realm) {
             (this.value.charactersByRealm[character.realmId] ||= []).push(character);
             (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
                 character,

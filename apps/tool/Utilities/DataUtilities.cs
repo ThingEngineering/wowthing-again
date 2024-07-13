@@ -32,18 +32,18 @@ public static class DataUtilities
     public static async Task<List<T>> LoadDumpCsvAsync<T>(
         string fileName,
         Language language = Language.enUS,
-        Func<T, bool>? validFunc = null
-        // bool skipValidation = false
+        Func<T, bool>? validFunc = null,
+        bool skipValidation = false
     )
     {
         string filePath = Path.Join(DumpsPath, language.ToString(), fileName + ".csv");
 
         var config = new CsvConfiguration(CultureInfo.InvariantCulture);
-        // if (skipValidation)
-        // {
-        //     config.HeaderValidated = null;
-        //     config.MissingFieldFound = null;
-        // }
+        if (skipValidation)
+        {
+             config.HeaderValidated = null;
+             config.MissingFieldFound = null;
+        }
 
         using var reader = new StreamReader(filePath);
         using var csvReader = new CsvReader(reader, config);
@@ -63,10 +63,11 @@ public static class DataUtilities
         string fileName,
         Func<TValue, TKey> keyFunc,
         Language language = Language.enUS,
-        Func<TValue, bool>? validFunc = null
+        Func<TValue, bool>? validFunc = null,
+        bool skipValidation = false
     ) where TKey : notnull
     {
-        var records = await LoadDumpCsvAsync<TValue>(fileName, language, validFunc);
+        var records = await LoadDumpCsvAsync<TValue>(fileName, language, validFunc, skipValidation);
         return records.ToDictionary(keyFunc);
     }
 

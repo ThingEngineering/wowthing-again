@@ -10,7 +10,7 @@ import { doCharacters, type LazyCharacter } from './character';
 import { doCollectible, type LazyCollectible } from './collectible';
 import { doConvertible, type LazyConvertible } from './convertible';
 import { doJournal, type LazyJournal } from './journal';
-import { doRecipes } from './recipes';
+import { doRecipes, LazyRecipes } from './recipes';
 import { doTransmog, type LazyTransmog } from './transmog';
 import { doVendors, type LazyVendors } from './vendors';
 import { doZoneMaps, type LazyZoneMaps } from './zone-maps';
@@ -55,7 +55,7 @@ import type {
 import type { ItemData } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 
-type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'recipes' | 'toys';
+type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 
 type LazyUgh = {
     [k in LazyKey]: LazyCollectible | UserCounts;
@@ -154,7 +154,6 @@ export class LazyStore implements LazyUgh {
     private customizationsFunc: () => UserCounts;
     private heirloomsFunc: () => UserCounts;
     private illusionsFunc: () => UserCounts;
-    private recipesFunc: () => UserCounts;
 
     private achievementsFunc: () => LazyAchievements;
     private appearancesFunc: () => LazyAppearances;
@@ -163,6 +162,7 @@ export class LazyStore implements LazyUgh {
     private journalFunc: () => LazyJournal;
     private mountsFunc: () => LazyCollectible;
     private petsFunc: () => LazyCollectible;
+    private recipesFunc: () => LazyRecipes;
     private toysFunc: () => LazyCollectible;
     private transmogFunc: () => LazyTransmog;
     private vendorsFunc: () => LazyVendors;
@@ -433,9 +433,6 @@ export class LazyStore implements LazyUgh {
     get illusions(): UserCounts {
         return this.illusionsFunc();
     }
-    get recipes(): UserCounts {
-        return this.recipesFunc();
-    }
 
     get achievements(): LazyAchievements {
         return this.achievementsFunc();
@@ -457,6 +454,9 @@ export class LazyStore implements LazyUgh {
     }
     get pets(): LazyCollectible {
         return this.petsFunc();
+    }
+    get recipes(): LazyRecipes {
+        return this.recipesFunc();
     }
     get toys(): LazyCollectible {
         return this.toysFunc();

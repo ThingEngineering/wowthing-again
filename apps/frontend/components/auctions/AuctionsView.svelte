@@ -1,11 +1,11 @@
 <script lang="ts">
     import type { ComponentType } from 'svelte'
 
-    import { expansionOrder } from '@/data/expansion'
     import { ItemQuality } from '@/enums/item-quality'
     import { Profession } from '@/enums/profession'
     import { Region } from '@/enums/region'
     import { WeaponSubclass } from '@/enums/weapon-subclass'
+    import { settingsStore } from '@/shared/stores/settings'
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import type { MultiSlugParams } from '@/types'
@@ -38,7 +38,7 @@
         }
     }
 
-    const expansionOptions: [number, string][] = expansionOrder
+    const expansionOptions: [number, string][] = settingsStore.expansions
         .map((expansion) => [expansion.id, expansion.name])
 
     const professionOptions: [number, string][] = Object.entries(Profession)

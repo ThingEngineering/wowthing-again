@@ -1,24 +1,29 @@
 import { Constants } from '@/data/constants';
-import { expansionOrder } from '@/data/expansion';
+import { expansionOrder, maxExpansionId } from '@/data/expansion';
 import { UserCount } from '@/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
+
+export class LazyRecipes {
+    public hasAbility: Record<number, boolean[]> = {};
+    public stats: Record<string, UserCount> = {};
+}
 
 interface LazyStores {
     staticData: StaticData;
     userData: UserData;
 }
 
-export function doRecipes(stores: LazyStores): Record<string, UserCount> {
+export function doRecipes(stores: LazyStores): LazyRecipes {
     console.time('doRecipes');
 
-    const ret: Record<string, UserCount> = {};
+    const ret = new LazyRecipes();
 
-    const overallData = (ret['OVERALL'] = new UserCount());
+    const overallData = (ret.stats['OVERALL'] = new UserCount());
 
     for (const profession of Object.values(stores.staticData.professions)) {
         const professionKey = profession.slug;
-        const professionData = (ret[professionKey] = new UserCount());
+        const professionData = (ret.stats[professionKey] = new UserCount());
 
         const allKnown = new Set<number>();
         for (const character of stores.userData.characters) {
@@ -38,25 +43,49 @@ export function doRecipes(stores: LazyStores): Record<string, UserCount> {
                 continue;
             }
 
-            const categoryKey = `${professionKey}--${expansionOrder[Constants.expansion - categoryIndex].slug}`;
-            const categoryData = (ret[categoryKey] = new UserCount());
+            if (categoryIndex >= expansionOrder.length) {
+                console.warn(
+                    'Uhhhh this profession category has no expansion?',
+                    profession,
+                    categoryIndex,
+                );
+                continue;
+            }
+
+            const categoryKey = `${professionKey}--${expansionOrder[maxExpansionId - categoryIndex].slug}`;
+            const categoryData = (ret.stats[categoryKey] = new UserCount());
 
             for (const child of category.children[0].children) {
                 const childKey = `${categoryKey}--${child.id}`;
-                const childData = (ret[childKey] = new UserCount());
+                const childData = (ret.stats[childKey] = new UserCount());
 
                 for (const ability of child.abilities) {
-                    overallData.total++;
-                    professionData.total++;
-                    categoryData.total++;
-                    childData.total++;
+                    const abilityIds = [
+                        ability.id,
+                        ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
+                    ];
+                    // a multi-rank ability is collected if you know that specific rank OR
+                    // any higher rank
+                    ret.hasAbility[ability.id] = abilityIds.map((_, index) =>
+                        abilityIds.slice(index).some((abilityId) => allKnown.has(abilityId)),
+                    );
 
-                    if (allKnown.has(ability.id)) {
-                        overallData.have++;
-                        professionData.have++;
-                        categoryData.have++;
-                        childData.have++;
+                    const abilityCount = abilityIds.length;
+                    const abilityHave = ret.hasAbility[ability.id].filter((have) => have).length;
+
+                    if (categoryIndex <= Constants.expansion) {
+                        overallData.total += abilityCount;
+                        overallData.have += abilityHave;
+
+                        professionData.total += abilityCount;
+                        professionData.have += abilityHave;
                     }
+
+                    categoryData.total += abilityCount;
+                    categoryData.have += abilityHave;
+
+                    childData.total += abilityCount;
+                    childData.have += abilityHave;
                 }
             }
         }

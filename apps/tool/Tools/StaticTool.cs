@@ -596,9 +596,31 @@ public class StaticTool
                 group => group.ToArray()
             );
 
-        var allProfs = new HashSet<int>(Hardcoded.PrimaryProfessions
+        var allProfs = new HashSet<int>(
+            Hardcoded.PrimaryProfessions
                 .Concat(Hardcoded.SecondaryProfessions)
         );
+
+        // Shadowlands legendary base hacks, set up the superseded IDs for ranking
+        foreach (int categoryId in new[]
+                 {
+                     1314, // Blacksmithing
+                     1472, // Leatherworking
+                     1513, // Tailoring
+                 })
+        {
+            var lastSlot = new Dictionary<string, int>();
+            foreach (var ability in categoryAbilities[categoryId])
+            {
+                string spellName = GetString(StringType.WowSpellName, Language.enUS, ability.Spell);
+                if (lastSlot.TryGetValue(spellName, out int lastSpellId))
+                {
+                    ability.SupercedesSpell = lastSpellId;
+                    supersededBy[lastSpellId] = ability;
+                }
+                lastSlot[spellName] = ability.Spell;
+            }
+        }
 
         var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
         foreach (var language in Enum.GetValues<Language>())
@@ -629,10 +651,10 @@ public class StaticTool
                     professionId = parentId;
                 }
 
-                if (professionId > 0)
-                {
-                    ToolContext.Logger.Information("Adding category {category} with profession {profession}", category.ID, professionId);
-                }
+                // if (professionId > 0)
+                // {
+                //     ToolContext.Logger.Information("Adding category {category} with profession {profession}", category.ID, professionId);
+                // }
 
                 if (!categoriesByProfession.ContainsKey(professionId))
                 {
@@ -755,19 +777,14 @@ public class StaticTool
                             outAbility.ItemId = nameItemId;
                         }
 
-                        if (outAbility.ItemId == 0)
-                        {
-                            continue;
-                        }
-
-                        if (!_itemMap.TryGetValue(outAbility.ItemId, out var item))
-                        {
-                            ToolContext.Logger.Warning("Invalid item: {id}", outAbility.ItemId);
-                            continue;
-                        }
-
                         if (outAbility.ItemId > 0)
                         {
+                            if (!_itemMap.TryGetValue(outAbility.ItemId, out var item))
+                            {
+                                ToolContext.Logger.Warning("Invalid item: {id}", outAbility.ItemId);
+                                continue;
+                            }
+
                             outAbility.ItemId2 = item.OppositeFactionId;
 
                             // If the spell name matches the item name we don't need to send it
@@ -802,7 +819,7 @@ public class StaticTool
                             for (int splitIndex = 0; splitIndex < splitCategories.Length; splitIndex++)
                             {
                                 var splitCategory = splitCategories[splitIndex];
-                                if (englishName.StartsWith(splitCategory.Prefix))
+                                if (splitCategory.Matches(englishName))
                                 {
                                     categoryMap[(outCategory.Id * 1000) + splitIndex].Abilities.Add(outAbility);
                                     added = true;

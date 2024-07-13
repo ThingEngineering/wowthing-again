@@ -1,9 +1,12 @@
 import { debounce } from 'lodash';
 import { get, writable } from 'svelte/store';
 
+import { Constants } from '@/data/constants';
+import { expansionOrder } from '@/data/expansion';
 import { professionCooldowns } from '@/data/professions/cooldowns';
 import { Language } from '@/enums/language';
 import { hashObject } from '@/utils/hash-object';
+import type { Expansion, UserData } from '@/types';
 import type { Account } from '@/types/account';
 import type { FancyStoreFetchOptions } from '@/types/fancy-store';
 import type { Settings } from './types';
@@ -13,7 +16,6 @@ import { journalStore } from '@/stores/journal';
 import { manualStore } from '@/stores/manual';
 import { staticStore } from '@/shared/stores/static';
 import { userStore } from '@/stores/user';
-import type { UserData } from '@/types';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -36,6 +38,11 @@ function createSettingsStore() {
     const store = writable<Settings>();
 
     return {
+        get expansions(): Expansion[] {
+            return expansionOrder.filter(
+                (exp) => !get(store).collections.hideFuture || exp.id <= Constants.expansion,
+            );
+        },
         get wowheadBaseUrl(): string {
             return `${languageToSubdomain[get(store).general.language]}.wowhead.com`;
         },

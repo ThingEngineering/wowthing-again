@@ -1,9 +1,9 @@
 import { Constants } from '@/data/constants'
 import type { JournalState } from '@/stores/local-storage'
-import type {
-    JournalDataEncounterItem,
+import {
     JournalDataEncounterItemAppearance,
-    JournalDataEncounterItemGroup,
+    type JournalDataEncounterItem,
+    type JournalDataEncounterItemGroup,
 } from '@/types/data'
 
 
@@ -143,9 +143,12 @@ export default function getFilteredItems(
                 }
             }
 
-            appearance.difficulties = difficulties
-            if (appearance.difficulties.length > 0) {
-                appearances.push(appearance)
+            if (difficulties.length > 0) {
+                appearances.push(new JournalDataEncounterItemAppearance(
+                    appearance.appearanceId,
+                    appearance.modifierId,
+                    difficulties,
+                ))
             }
         }
 

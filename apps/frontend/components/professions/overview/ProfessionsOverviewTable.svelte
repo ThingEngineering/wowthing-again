@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { expansionOrder } from '@/data/expansion'
+    import { settingsStore } from '@/shared/stores/settings';
     import { imageStrings } from '@/data/icons'
     import type { Character } from '@/types'
     import type { StaticDataProfession, StaticDataSubProfession } from '@/shared/stores/static/types'
@@ -51,7 +51,7 @@
             {#if profession.slug === 'archaeology'}
                 <th class="profession-head">Ugh</th>
             {:else}
-                {#each expansionOrder as expansion}
+                {#each settingsStore.expansions as expansion}
                     <th class="profession-head">{expansion.shortName}</th>
                 {/each}
             {/if}

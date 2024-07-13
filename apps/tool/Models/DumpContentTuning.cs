@@ -6,6 +6,8 @@ public class DumpContentTuning
     public short ID { get; set; }
 
     public short ExpansionID { get; set; }
-    public short LfgMaxLevel { get; set; }
-    public short LfgMinLevel { get; set; }
+    public short? MaxLevel { get; set; }
+    public short? LfgMaxLevel { get; set; }
+    public short? MinLevel { get; set;}
+    public short? LfgMinLevel { get; set; }
 }

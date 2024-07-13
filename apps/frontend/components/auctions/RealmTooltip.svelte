@@ -13,7 +13,6 @@
         (char) => -char.gold
     );
     $: goldPrice = price / 10000;
-    $: console.log(price, goldPrice);
 </script>
 
 <style lang="scss">

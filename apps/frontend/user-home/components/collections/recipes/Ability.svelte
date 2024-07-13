@@ -20,7 +20,6 @@
     $: {
         if (rank > 1) {
             spellId = ability.extraRanks[rank - 2][1]
-            console.log(rank, ability.extraRanks)
             userHas = ability.extraRanks.slice(rank - 2)
                 .some(([abilityId,]) => allKnown.has(abilityId))
         } else {
@@ -33,6 +32,9 @@
 </script>
 
 <style lang="scss">
+    .faded td {
+        opacity: 0.6;
+    }
     .status {
         width: 22px;
 
@@ -43,14 +45,21 @@
     .name {
         --image-border-width: 1px;
 
-        @include cell-width(20rem);
+        @include cell-width(20rem, $paddingLeft: 0, $paddingRight: 0);
 
-        padding-left: 0;
+        .flex-wrapper {
+            max-width: 20rem;
+            min-width: 20rem;
+        }
+
+        .text-overflow {
+            min-width: 0;
+        }
     }
     .rank {
         --scale: 0.8;
 
-        width: 3.5rem;
+        flex-shrink: 0;
 
         :global(svg:not(:first-child)) {
             margin-left: -6px;
@@ -63,7 +72,7 @@
 
 {#if (userHas && $recipesState.showCollected) ||
     (!userHas && $recipesState.showUncollected)}
-    <tr>
+    <tr class:faded={(userHas && $recipesState.highlightMissing) || (!userHas && !$recipesState.highlightMissing)}>
         <td class="status">
             <YesNoIcon
                 state={userHas}
@@ -89,7 +98,7 @@
 
                 {#if rank > 0}
                     <div class="rank">
-                        {#each Array(3) as _, index}
+                        {#each Array(ability.extraRanks.length + 1) as _, index}
                             <IconifyIcon
                                 extraClass={rank <= index ? 'faded' : undefined}
                                 icon={rank > index ? uiIcons.starFull : uiIcons.starEmpty}

@@ -9,6 +9,7 @@ import {
 import { sortAuctions } from '@/utils/auctions/sort-auctions';
 import type { HasNameAndRealm, UserItem } from '@/types/shared';
 import type { AuctionState } from '../local-storage';
+import { ItemQuality } from '@/enums/item-quality';
 
 export type UserExtraPetEntry = {
     id: number;
@@ -73,7 +74,6 @@ export class UserAuctionExtraPetsStore {
                         pets: responseData.pets[petId],
                     });
                 }
-                console.log(things);
             }
         }
 
@@ -84,18 +84,18 @@ export class UserAuctionExtraPetsStore {
 }
 export const userAuctionExtraPetsStore = new UserAuctionExtraPetsStore();
 
+type AuctionCache = [UserAuctionEntry[], Record<number, number>];
+
 export class UserAuctionMissingDataStore {
     private static url = '/api/auctions/missing';
-    private cache: Record<string, UserAuctionEntry[]> = {};
+    private cache: Record<string, AuctionCache> = {};
 
-    async search(auctionState: AuctionState, type: string): Promise<UserAuctionEntry[]> {
+    async search(auctionState: AuctionState, type: string): Promise<AuctionCache> {
         let things: UserAuctionEntry[] = [];
+        let updated: Record<number, number>;
 
         const petsMaxLevel = type === 'pets' && auctionState.missingPetsMaxLevel;
-        const petsNeedMaxLevel =
-            type === 'pets' &&
-            auctionState.missingPetsMaxLevel &&
-            auctionState.missingPetsNeedMaxLevel;
+        const petsNeedMaxLevel = petsMaxLevel && auctionState.missingPetsNeedMaxLevel;
 
         const cacheKey = [
             auctionState.region,
@@ -107,7 +107,7 @@ export class UserAuctionMissingDataStore {
         ].join('--');
 
         if (this.cache[cacheKey]) {
-            things = this.cache[cacheKey];
+            [things, updated] = this.cache[cacheKey];
         } else {
             const region = parseInt(auctionState.region) || 0;
             const data = {
@@ -140,12 +140,30 @@ export class UserAuctionMissingDataStore {
                     );
                 }
 
+                updated = responseData.updated;
+
                 if (responseData?.auctions) {
-                    for (const thingId in responseData.auctions) {
+                    for (const [thingId, auctions] of Object.entries(responseData.auctions)) {
+                        let filteredAuctions: MangledAuctionType[] = [];
+                        if (petsMaxLevel) {
+                            let minQuality = -1;
+                            for (const auction of auctions) {
+                                if (
+                                    auction.petQuality > minQuality ||
+                                    auction.petQuality === ItemQuality.Rare
+                                ) {
+                                    filteredAuctions.push(auction);
+                                    minQuality = auction.petQuality;
+                                }
+                            }
+                        } else {
+                            filteredAuctions = auctions;
+                        }
+
                         things.push({
                             id: thingId,
-                            name: responseData.names[thingId],
-                            auctions: responseData.auctions[thingId],
+                            name: responseData.names[parseInt(thingId)],
+                            auctions: filteredAuctions,
                         });
                     }
                 }
@@ -153,8 +171,8 @@ export class UserAuctionMissingDataStore {
         }
 
         things = sortAuctions(auctionState.sortBy[`missing-${type}`], things);
-        this.cache[cacheKey] = things;
-        return things;
+        this.cache[cacheKey] = [things, updated];
+        return [things, updated];
     }
 }
 export const userAuctionMissingStore = new UserAuctionMissingDataStore();

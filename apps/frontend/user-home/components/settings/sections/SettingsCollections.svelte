@@ -9,6 +9,18 @@
 
     <div class="setting">
         <Checkbox
+            name="collections_hideFuture"
+            bind:value={$settingsStore.collections.hideFuture}
+        >Hide Future Expansions</Checkbox>
+        <div>
+            <p>
+                Hide collectibles from future expansions.
+            </p>
+        </div>
+    </div>
+
+    <div class="setting">
+        <Checkbox
             name="collections_hideUnavailable"
             bind:value={$settingsStore.collections.hideUnavailable}
         >Hide Unavailable</Checkbox>

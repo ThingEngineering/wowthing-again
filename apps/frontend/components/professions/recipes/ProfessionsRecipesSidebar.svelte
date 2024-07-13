@@ -1,10 +1,10 @@
 <script lang="ts">
+    import { isCraftingProfession } from '@/data/professions'
+    import { settingsStore } from '@/shared/stores/settings';
     import { staticStore } from '@/shared/stores/static'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import { expansionOrder } from '@/data/expansion'
-    import { isCraftingProfession } from '@/data/professions'
 
     let categories: SidebarItem[]
     $: {
@@ -29,7 +29,7 @@
         })
 
         categories = []
-        for (const expansion of expansionOrder) {
+        for (const expansion of settingsStore.expansions) {
             categories.push({
                 name: expansion.name,
                 slug: expansion.slug,

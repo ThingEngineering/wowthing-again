@@ -1,14 +1,14 @@
-import type { ItemLocation } from '@/enums/item-location'
-import type { ItemQuality } from '@/enums/item-quality'
-
+import type { ItemLocation } from '@/enums/item-location';
+import type { ItemQuality } from '@/enums/item-quality';
 
 export interface UserAuctionData {
-    names: Record<number, string>
+    names: Record<number, string>;
+    updated: Record<number, number>;
 
-    pets?: Record<number, UserAuctionDataPet[]>
+    auctions: Record<number, UserAuctionDataAuction[]>;
+    rawAuctions: Record<number, UserAuctionDataAuctionArray[]>;
 
-    auctions: Record<number, UserAuctionDataAuction[]>
-    rawAuctions: Record<number, UserAuctionDataAuctionArray[]>
+    pets?: Record<number, UserAuctionDataPet[]>;
 }
 
 export class UserAuctionDataAuction {
@@ -26,46 +26,47 @@ export class UserAuctionDataAuction {
         public buyoutPrice: number,
         public bonusIds: number[],
         public modifierTypes: number[],
-        public modifierValues: number[]
-    )
-    { }
+        public modifierValues: number[],
+    ) {}
 }
 
-export type UserAuctionDataAuctionArray = ConstructorParameters<typeof UserAuctionDataAuction>
+export type UserAuctionDataAuctionArray = ConstructorParameters<typeof UserAuctionDataAuction>;
 
 export class UserAuctionDataMissingTransmogAuction {
-    public bidPrice = 0
+    public bidPrice = 0;
 
     constructor(
         public connectedRealmId: number,
         public timeLeft: number,
         public itemId: number,
         public buyoutPrice: number,
-        public bonusIds: number[]
-    )
-    { }
+        public bonusIds: number[],
+    ) {}
 }
 
-export type UserAuctionDataMissingTransmogAuctionArray = ConstructorParameters<typeof UserAuctionDataMissingTransmogAuction>
+export type UserAuctionDataMissingTransmogAuctionArray = ConstructorParameters<
+    typeof UserAuctionDataMissingTransmogAuction
+>;
 
 export class UserAuctionDataMissingRecipeAuction {
-    public bidPrice = 0
+    public bidPrice = 0;
 
     constructor(
         public connectedRealmId: number,
         public timeLeft: number,
         public itemId: number,
-        public buyoutPrice: number
-    )
-    { }
+        public buyoutPrice: number,
+    ) {}
 }
 
-export type UserAuctionDataMissingRecipeAuctionArray = ConstructorParameters<typeof UserAuctionDataMissingRecipeAuction>
-    
+export type UserAuctionDataMissingRecipeAuctionArray = ConstructorParameters<
+    typeof UserAuctionDataMissingRecipeAuction
+>;
+
 export interface UserAuctionDataPet {
-    breedId: number
-    level: number
-    location: ItemLocation
-    locationId: number
-    quality: ItemQuality
+    breedId: number;
+    level: number;
+    location: ItemLocation;
+    locationId: number;
+    quality: ItemQuality;
 }
