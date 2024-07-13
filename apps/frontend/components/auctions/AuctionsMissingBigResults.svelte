@@ -179,18 +179,6 @@
         margin-left: auto;
         padding-right: 0.5rem;
     }
-    // .age-1 {
-    //     color: #f8f;
-    // }
-    .age-2 {
-        color: #ff9;
-    }
-    .age-3 {
-        color: #fa5;
-    }
-    .age-4 {
-        color: #f51;
-    }
     code {
         color: $body-text;
     }
@@ -364,10 +352,10 @@
                                             <code>[{Region[connectedRealm.region]}]</code>
                                         {/if}
                                         <span
-                                            class:age-1={ageInMinutes < 20}
-                                            class:age-2={ageInMinutes >= 20 && ageInMinutes < 40}
-                                            class:age-3={ageInMinutes >= 40 && ageInMinutes < 60}
-                                            class:age-4={ageInMinutes >= 60}
+                                            class:auction-age-1={ageInMinutes < 20}
+                                            class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}
+                                            class:auction-age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                            class:auction-age-4={ageInMinutes >= 60}
                                         >
                                             {connectedRealmName(auction.connectedRealmId)}
                                         </span>

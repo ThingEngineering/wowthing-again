@@ -1,10 +1,12 @@
 <script lang="ts">
+    import { DateTime } from 'luxon'
     import { afterUpdate } from 'svelte'
 
     import { timeLeft } from '@/data/auctions'
     import { Region } from '@/enums/region'
     import { userAuctionMissingStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
@@ -143,7 +145,7 @@
 
 {#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then things}
+{:then [things, updated]}
     <Paginate
         items={(things || []).filter((thing) => $auctionState.hideIgnored
             ? $auctionState.ignored[slug1]?.[parseInt(thing.id)] !== true
@@ -189,20 +191,32 @@
                         <tbody>
                             {#each auctions as auction}
                                 {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const ageInMinutes = Math.floor(
+                                    $timeStore.diff(
+                                        DateTime.fromSeconds(updated[auction.connectedRealmId] || 1000)
+                                    ).toMillis() / 1000 / 60
+                                )}
                                 <tr>
                                     <td
                                         class="realm text-overflow"
                                         use:componentTooltip={{
                                             component: RealmTooltip,
                                             props: {
-                                                ageInMinutes: 0,
+                                                ageInMinutes,
                                                 connectedRealm,
                                                 price: auction.buyoutPrice,
                                             },
                                         }}
                                     >
                                         <code>[{Region[connectedRealm.region]}]</code>
-                                        {connectedRealmName(auction.connectedRealmId)}
+                                        <span
+                                            class:auction-age-1={ageInMinutes < 20}
+                                            class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}
+                                            class:auction-age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                            class:auction-age-4={ageInMinutes >= 60}
+                                        >
+                                            {connectedRealmName(auction.connectedRealmId)}
+                                        </span>
                                     </td>
                                     {#if slug1 === 'missing-pets'}
                                         <td class="level quality{auction.petQuality}">

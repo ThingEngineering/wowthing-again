@@ -74,7 +74,6 @@ export class UserAuctionExtraPetsStore {
                         pets: responseData.pets[petId],
                     });
                 }
-                console.log(things);
             }
         }
 
@@ -85,12 +84,15 @@ export class UserAuctionExtraPetsStore {
 }
 export const userAuctionExtraPetsStore = new UserAuctionExtraPetsStore();
 
+type AuctionCache = [UserAuctionEntry[], Record<number, number>];
+
 export class UserAuctionMissingDataStore {
     private static url = '/api/auctions/missing';
-    private cache: Record<string, UserAuctionEntry[]> = {};
+    private cache: Record<string, AuctionCache> = {};
 
-    async search(auctionState: AuctionState, type: string): Promise<UserAuctionEntry[]> {
+    async search(auctionState: AuctionState, type: string): Promise<AuctionCache> {
         let things: UserAuctionEntry[] = [];
+        let updated: Record<number, number>;
 
         const petsMaxLevel = type === 'pets' && auctionState.missingPetsMaxLevel;
         const petsNeedMaxLevel = petsMaxLevel && auctionState.missingPetsNeedMaxLevel;
@@ -105,7 +107,7 @@ export class UserAuctionMissingDataStore {
         ].join('--');
 
         if (this.cache[cacheKey]) {
-            things = this.cache[cacheKey];
+            [things, updated] = this.cache[cacheKey];
         } else {
             const region = parseInt(auctionState.region) || 0;
             const data = {
@@ -138,6 +140,8 @@ export class UserAuctionMissingDataStore {
                     );
                 }
 
+                updated = responseData.updated;
+
                 if (responseData?.auctions) {
                     for (const [thingId, auctions] of Object.entries(responseData.auctions)) {
                         let filteredAuctions: MangledAuctionType[] = [];
@@ -167,8 +171,8 @@ export class UserAuctionMissingDataStore {
         }
 
         things = sortAuctions(auctionState.sortBy[`missing-${type}`], things);
-        this.cache[cacheKey] = things;
-        return things;
+        this.cache[cacheKey] = [things, updated];
+        return [things, updated];
     }
 }
 export const userAuctionMissingStore = new UserAuctionMissingDataStore();
