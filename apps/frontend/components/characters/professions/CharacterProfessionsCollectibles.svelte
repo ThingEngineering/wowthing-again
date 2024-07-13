@@ -25,7 +25,7 @@
         dfData = undefined
 
         const expansion = expansionSlugMap[expansionSlug]
-        if (!expansion || expansion.id !== Constants.expansion) {
+        if (!expansion || expansionSlug !== 'dragonflight') {
             break $
         }
         

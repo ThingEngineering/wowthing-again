@@ -34,6 +34,7 @@ export interface Settings {
     };
 
     collections: {
+        hideFuture: boolean;
         hideUnavailable: boolean;
     };
 

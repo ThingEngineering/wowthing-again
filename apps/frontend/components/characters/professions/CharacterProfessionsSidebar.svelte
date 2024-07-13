@@ -1,6 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { expansionOrder, expansionSlugMap } from '@/data/expansion'
+    import { expansionSlugMap } from '@/data/expansion'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
     import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
@@ -14,8 +15,7 @@
 
     let sidebarItems: SidebarItem[]
     $: {
-        sidebarItems = expansionOrder
-            .filter((expansion) => expansion.id >= 0 && expansion.id < 100)
+        sidebarItems = settingsStore.expansions
             .map((expansion) => ({
                 name: expansion.name,
                 slug: expansion.slug,
