@@ -8,6 +8,7 @@ public class UserAuctionData
 {
     public Dictionary<int, List<WowAuction>> RawAuctions { get; set; }
     public Dictionary<int, string> Names { get; set; }
+    public Dictionary<int, long> Updated { get; set; }
 
     public Dictionary<short, UserAuctionDataPet[]> Pets { get; set; }
 }

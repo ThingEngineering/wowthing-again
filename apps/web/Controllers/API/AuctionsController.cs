@@ -394,6 +394,8 @@ public class AuctionsController : Controller
                 );
         }
 
+        data.Updated = await _memoryCacheService.GetAuctionHouseUpdatedTimes();
+
         timer.AddPoint("Data", true);
 
         _logger.LogInformation($"{timer}");
