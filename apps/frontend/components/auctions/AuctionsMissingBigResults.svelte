@@ -351,6 +351,7 @@
                                         {:else}
                                             <code>[{Region[connectedRealm.region]}]</code>
                                         {/if}
+                                        
                                         <span
                                             class:auction-age-1={ageInMinutes < 20}
                                             class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}

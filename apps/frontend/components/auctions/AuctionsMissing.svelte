@@ -3,6 +3,7 @@
     import { afterUpdate } from 'svelte'
 
     import { timeLeft } from '@/data/auctions'
+    import { euLocales } from '@/data/region';
     import { Region } from '@/enums/region'
     import { userAuctionMissingStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
@@ -10,8 +11,9 @@
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import { getColumnResizer } from '@/utils/get-column-resizer'
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
     import RealmTooltip from './RealmTooltip.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -208,7 +210,17 @@
                                             },
                                         }}
                                     >
-                                        <code>[{Region[connectedRealm.region]}]</code>
+                                        {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
+                                            {@const { icon: countryIcon, name: countryName } = euLocales[connectedRealm.locale]}
+                                            <IconifyIcon
+                                                dropShadow={true}
+                                                icon={countryIcon}
+                                                tooltip={`EU: ${countryName}`}
+                                            />
+                                        {:else}
+                                            <code>[{Region[connectedRealm.region]}]</code>
+                                        {/if}
+
                                         <span
                                             class:auction-age-1={ageInMinutes < 20}
                                             class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}
