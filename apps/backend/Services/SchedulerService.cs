@@ -106,8 +106,9 @@ public sealed class SchedulerService : TimerService
                 // }
 
                 // Execute some sort of nasty database query to get characters that need an API check
+                var minimumCheckTime = DateTime.UtcNow.AddHours(-24);
                 var characterResults = await context.SchedulerCharacterQuery
-                    .FromSqlRaw(SchedulerCharacterQuery.SqlQuery)
+                    .FromSqlRaw(SchedulerCharacterQuery.SqlQuery, minimumCheckTime)
                     .ToArrayAsync();
                 if (characterResults.Length > 0)
                 {
