@@ -9,6 +9,7 @@ import {
 import { sortAuctions } from '@/utils/auctions/sort-auctions';
 import type { HasNameAndRealm, UserItem } from '@/types/shared';
 import type { AuctionState } from '../local-storage';
+import { ItemQuality } from '@/enums/item-quality';
 
 export type UserExtraPetEntry = {
     id: number;
@@ -92,10 +93,7 @@ export class UserAuctionMissingDataStore {
         let things: UserAuctionEntry[] = [];
 
         const petsMaxLevel = type === 'pets' && auctionState.missingPetsMaxLevel;
-        const petsNeedMaxLevel =
-            type === 'pets' &&
-            auctionState.missingPetsMaxLevel &&
-            auctionState.missingPetsNeedMaxLevel;
+        const petsNeedMaxLevel = petsMaxLevel && auctionState.missingPetsNeedMaxLevel;
 
         const cacheKey = [
             auctionState.region,
@@ -141,11 +139,27 @@ export class UserAuctionMissingDataStore {
                 }
 
                 if (responseData?.auctions) {
-                    for (const thingId in responseData.auctions) {
+                    for (const [thingId, auctions] of Object.entries(responseData.auctions)) {
+                        let filteredAuctions: MangledAuctionType[] = [];
+                        if (petsMaxLevel) {
+                            let minQuality = -1;
+                            for (const auction of auctions) {
+                                if (
+                                    auction.petQuality > minQuality ||
+                                    auction.petQuality === ItemQuality.Rare
+                                ) {
+                                    filteredAuctions.push(auction);
+                                    minQuality = auction.petQuality;
+                                }
+                            }
+                        } else {
+                            filteredAuctions = auctions;
+                        }
+
                         things.push({
                             id: thingId,
-                            name: responseData.names[thingId],
-                            auctions: responseData.auctions[thingId],
+                            name: responseData.names[parseInt(thingId)],
+                            auctions: filteredAuctions,
                         });
                     }
                 }
