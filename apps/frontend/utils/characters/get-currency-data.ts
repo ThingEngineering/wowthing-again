@@ -9,6 +9,7 @@ import type { ItemData } from '@/types/data/item';
 
 interface CharacterCurrencyData {
     amount: string;
+    capRemaining: number;
     percent: number;
     tooltip: string;
 }
@@ -23,6 +24,7 @@ export function getCurrencyData(
 ): CharacterCurrencyData {
     const ret: CharacterCurrencyData = {
         amount: '',
+        capRemaining: 0,
         percent: 0,
         tooltip: '',
     };
@@ -33,10 +35,12 @@ export function getCurrencyData(
         ret.amount = toNiceNumber(characterCurrency.quantity);
 
         if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
+            ret.capRemaining = characterCurrency.max - characterCurrency.totalQuantity;
             ret.percent = (characterCurrency.totalQuantity / characterCurrency.max) * 100;
             ret.tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
         } else {
             if (characterCurrency.max > 0) {
+                ret.capRemaining = characterCurrency.max - characterCurrency.quantity;
                 ret.percent = (characterCurrency.quantity / characterCurrency.max) * 100;
                 ret.tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
             } else {
@@ -56,6 +60,7 @@ export function getCurrencyData(
         if (currencyItemCurrencies[itemId]) {
             const characterCurrency = character.currencies?.[currencyItemCurrencies[itemId]];
             if (characterCurrency?.max > 0) {
+                ret.capRemaining = characterCurrency.max - characterCurrency.quantity;
                 ret.percent = (characterCurrency.quantity / characterCurrency.max) * 100;
                 ret.tooltip += ` &ndash; ${characterCurrency.quantity} / ${characterCurrency.max}`;
             }
