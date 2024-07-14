@@ -1,12 +1,13 @@
 <script lang="ts">
     import { covenantNameMap } from '@/data/covenant'
     import { progressState } from '@/stores/local-storage'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataProgressGroup
@@ -64,7 +65,12 @@
 
 <th
     on:click={onClick}
-    use:basicTooltip={group.name}
+    use:componentTooltip={{
+        component: Tooltip,
+        props: {
+            content: group.name,
+        },
+    }}
 >
     <div class="split-icon-{icons.length === 2 ? 'yes' : 'no'}">
         {#if icons.length === 2}
