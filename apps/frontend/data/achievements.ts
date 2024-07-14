@@ -210,4 +210,17 @@ export const extraCategories: [string, [string, number, string?, string?][]][] =
             ['collections/dragon-isle-drake-cosmetics', 2],
         ],
     ],
+    [
+        'war-within',
+        [
+            ['exploration/war-within', 1],
+            ['quests/war-within', 1],
+            ['reputation/war-within', 1],
+            null,
+            ['dungeons-raids/war-within-dungeon', 3, 'dungeons', 'Dungeons'],
+            ['dungeons-raids/war-within-raid', 3, 'raids', 'Raids'],
+            null,
+            ['delves/the-war-within', 1],
+        ],
+    ],
 ];
