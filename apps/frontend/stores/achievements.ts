@@ -174,6 +174,14 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16297, // Treasures of The Waking Shores
 
                 19481, // Centaur of Attention
+                16540, // Hunt Master
+                16541, // Longhunter
+                16545, // The Best at What I Do
+                16542, // The Disgruntled Hunter
+                16543, // Tetrachromancer
+                16424, // Who's a Good Bakar?
+                16677, // Adventurer of the Ohn'ahran Plains
+                16299, // Treasures of the Ohn'ahran Plains
 
                 19482, // Army of the Fed
                 16443, // Soupervisor
@@ -237,7 +245,8 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 17785, // Que Zara(lek), Zara(lek)
                 17783, // Adventurer of Zaralek Cavern
                 17781, // The Smell of Money
-                // 17766, // Explore Zaralek Cavern
+                // 17766, // Explore Zaralek Cavern (above)
+                // 17763, // There's No Place Like Loamm (above)
                 17786, // Treasures of Zaralek Cavern
                 17832, // Sniffen Around
                 17830, // Stones Can't Fly!
