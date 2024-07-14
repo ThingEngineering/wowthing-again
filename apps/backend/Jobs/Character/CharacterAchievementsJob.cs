@@ -127,6 +127,7 @@ public class CharacterAchievementsJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
+            await CacheService.DeleteAchievementCacheAsync(query.UserId);
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
         }
 
