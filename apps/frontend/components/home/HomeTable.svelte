@@ -54,15 +54,17 @@
             slot="groupHead"
             {group}
             {groupIndex}
+            {groupByContext}
             let:group
             let:groupIndex
+            let:groupByContext
         />
 
         <svelte:fragment slot="rowExtra" let:character>
             {#each $activeView.homeFields as field (field)}
                 {#if field === 'bestItemLevel'}
                     <RowBestItemLevel {character} />
-                
+
                 {:else if field === 'callings'}
                     <RowDailies
                         expansion={8}
@@ -71,7 +73,7 @@
 
                 {:else if field === 'covenant'}
                     <RowCovenant {character} />
-                    
+
                 {:else if field === 'currencies'}
                     <RowCurrencies {character} />
 
@@ -97,7 +99,7 @@
                     {#if !isPublic}
                         <RowGold gold={character.gold} />
                     {/if}
-                
+
                 {:else if field === 'guild'}
                     <RowGuild {character} />
 
@@ -130,16 +132,16 @@
                     {#if !isPublic}
                         <RowPlayedTime playedTotal={character.playedTotal} />
                     {/if}
-                
+
                 {:else if field === 'professionCooldowns'}
                     <RowProfessionCooldowns {character} />
-                
+
                 {:else if field === 'professionWorkOrders'}
                     <RowProfessionWorkOrders {character} />
 
                 {:else if field === 'professions'}
                     <RowProfessions {character} />
-        
+
                 {:else if field === 'professionsSecondary'}
                     <RowProfessions {character} professionType={1} />
 

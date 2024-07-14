@@ -10,7 +10,10 @@
     import { activeView, settingsStore } from '@/shared/stores/settings'
     import { useCharacterFilter } from '@/utils/characters'
     import { homeSort } from '@/utils/home'
-    import getCharacterGroupFunc from '@/utils/get-character-group-func'
+    import {
+        getCharacterGroupContext,
+        type GroupByContext
+    } from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
@@ -27,7 +30,7 @@
 
     let characters: Character[]
     let groups: Character[][]
-    let groupFunc: (char: Character) => string
+    let groupByContext: GroupByContext;
 
     $: {
         if (!filterFunc) {
@@ -43,7 +46,7 @@
             )
         }
 
-        groupFunc = getCharacterGroupFunc(
+        groupByContext = getCharacterGroupContext(
             $settingsStore,
             $activeView.groupBy,
             $activeView.sortBy,
@@ -81,7 +84,7 @@
             }
         }
         else {
-            grouped = groupBy(characters, groupFunc)
+            grouped = groupBy(characters, groupByContext.groupByFn)
         }
 
         const groupKeys = Object.keys(grouped)
@@ -144,7 +147,7 @@
         <slot name="head" />
         <tbody>
             {#each groups as group, groupIndex}
-                <slot name="groupHead" {group} {groupIndex} />
+                <slot name="groupHead" {group} {groupIndex} {groupByContext} />
 
                 {#each group as character, characterIndex (character.id)}
                     <CharacterRow
@@ -164,7 +167,7 @@
                             {:else}
                                 It looks like you have no valid characters. If this is a new account,
                                 check again in a minute or so. If you still have no characters, try:
-                                
+
                                 <ul>
                                     <li>Log out and back in on this site to trigger an account update.</li>
                                     <li>If that didn't work, reset WoWthing's permissions on Battle.net:
