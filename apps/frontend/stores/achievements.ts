@@ -113,7 +113,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         // DF hack
         data.categories.push(null);
         data.categories.push({
-            id: categoryId,
+            id: categoryId++,
             name: 'A World Awoken',
             slug: 'a-world-awoken',
             achievementIds: [
