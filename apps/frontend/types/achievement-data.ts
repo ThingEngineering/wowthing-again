@@ -1,27 +1,27 @@
-import { AchievementFlags, CriteriaTreeFlags } from '@/enums/wow'
-import type { CriteriaType } from '@/enums/criteria-type'
-
+import { AchievementFlags, CriteriaTreeFlags } from '@/enums/wow';
+import type { CriteriaType } from '@/enums/criteria-type';
 
 export interface AchievementData {
-    categories: AchievementDataCategory[]
+    achievementToCategory: Record<number, number>;
+    categories: AchievementDataCategory[];
 
-    achievement: Record<number, AchievementDataAchievement>
-    criteria: Record<number, AchievementDataCriteria>
-    criteriaTree: Record<number, AchievementDataCriteriaTree>
-    isHidden: Record<number, boolean>
+    achievement: Record<number, AchievementDataAchievement>;
+    criteria: Record<number, AchievementDataCriteria>;
+    criteriaTree: Record<number, AchievementDataCriteriaTree>;
+    isHidden: Record<number, boolean>;
 
-    achievementRaw: AchievementDataAchievementArray[]
-    criteriaRaw: AchievementDataCriteriaArray[]
-    criteriaTreeRaw: AchievementDataCriteriaTreeArray[]
-    hideIds: number[]
+    achievementRaw: AchievementDataAchievementArray[];
+    criteriaRaw: AchievementDataCriteriaArray[];
+    criteriaTreeRaw: AchievementDataCriteriaTreeArray[];
+    hideIds: number[];
 }
 
 export interface AchievementDataCategory {
-    id: number
-    name: string
-    slug: string
-    achievementIds: number[]
-    children: AchievementDataCategory[]
+    id: number;
+    name: string;
+    slug: string;
+    achievementIds: number[];
+    children: AchievementDataCategory[];
 }
 
 export class AchievementDataAchievement {
@@ -39,19 +39,21 @@ export class AchievementDataAchievement {
         public description: string,
         public name: string,
         public reward: string,
-    )
-    { }
+    ) {}
 
     get isAccountWide(): boolean {
-        return (this.flags & AchievementFlags.AccountWide) > 0
+        return (this.flags & AchievementFlags.AccountWide) > 0;
     }
 
     get isProgressBar(): boolean {
-        return (this.flags & AchievementFlags.Counter) > 0 || (this.flags & AchievementFlags.ProgressBar) > 0
+        return (
+            (this.flags & AchievementFlags.Counter) > 0 ||
+            (this.flags & AchievementFlags.ProgressBar) > 0
+        );
     }
 }
 
-type AchievementDataAchievementArray = ConstructorParameters<typeof AchievementDataAchievement>
+type AchievementDataAchievementArray = ConstructorParameters<typeof AchievementDataAchievement>;
 
 export class AchievementDataCriteria {
     constructor(
@@ -59,11 +61,10 @@ export class AchievementDataCriteria {
         public asset: number,
         public modifierTreeId: number,
         public type: CriteriaType,
-    )
-    { }
+    ) {}
 }
 
-type AchievementDataCriteriaArray = ConstructorParameters<typeof AchievementDataCriteria>
+type AchievementDataCriteriaArray = ConstructorParameters<typeof AchievementDataCriteria>;
 
 export class AchievementDataCriteriaTree {
     constructor(
@@ -74,12 +75,11 @@ export class AchievementDataCriteriaTree {
         public operator: number,
         public description: string,
         public children: number[],
-    )
-    { }
+    ) {}
 
-    get isProgressBar() : boolean {
-        return (this.flags & CriteriaTreeFlags.ProgressBar) > 0
+    get isProgressBar(): boolean {
+        return (this.flags & CriteriaTreeFlags.ProgressBar) > 0;
     }
 }
 
-type AchievementDataCriteriaTreeArray = ConstructorParameters<typeof AchievementDataCriteriaTree>
+type AchievementDataCriteriaTreeArray = ConstructorParameters<typeof AchievementDataCriteriaTree>;

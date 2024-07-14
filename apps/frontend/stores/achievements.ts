@@ -362,6 +362,13 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
             children: [],
         });
 
+        data.achievementToCategory = {};
+        for (const category of data.categories.filter((cat) => cat?.id >= 100000)) {
+            for (const achievementId of category.achievementIds) {
+                data.achievementToCategory[achievementId] = category.id;
+            }
+        }
+
         console.timeEnd('AchievementData.initialize');
     }
 }

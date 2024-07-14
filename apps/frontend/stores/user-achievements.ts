@@ -81,27 +81,34 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
                 continue;
             }
 
-            if (!cheevs[achievement.categoryId]) {
-                cheevs[achievement.categoryId] = new UserAchievementDataCategory(0, 0, 0, 0);
+            const categoryIds = [achievement.categoryId];
+            if (achievementData.achievementToCategory[achievement.id]) {
+                categoryIds.push(achievementData.achievementToCategory[achievement.id]);
             }
 
-            cheevs[achievement.categoryId].total++;
-            cheevs[achievement.categoryId].totalPoints += achievement.points;
+            for (const categoryId of categoryIds) {
+                if (!cheevs[categoryId]) {
+                    cheevs[categoryId] = new UserAchievementDataCategory(0, 0, 0, 0)
+                }
 
-            if (keepIds[achievement.categoryId]) {
-                cheevs[0].total++;
-                cheevs[0].totalPoints += achievement.points;
-            }
+                cheevs[categoryId].total++
+                cheevs[categoryId].totalPoints += achievement.points
 
-            if (userAchievements[achievement.id]) {
-                all.push([userAchievements[achievement.id], achievement.id]);
+                if (keepIds[categoryId]) {
+                    cheevs[0].total++
+                    cheevs[0].totalPoints += achievement.points
+                }
 
-                cheevs[achievement.categoryId].have++;
-                cheevs[achievement.categoryId].havePoints += achievement.points;
+                if (userAchievements[achievement.id]) {
+                    all.push([userAchievements[achievement.id], achievement.id])
 
-                if (keepIds[achievement.categoryId]) {
-                    cheevs[0].have++;
-                    cheevs[0].havePoints += achievement.points;
+                    cheevs[categoryId].have++
+                    cheevs[categoryId].havePoints += achievement.points
+
+                    if (keepIds[categoryId]) {
+                        cheevs[0].have++
+                        cheevs[0].havePoints += achievement.points
+                    }
                 }
             }
         }
