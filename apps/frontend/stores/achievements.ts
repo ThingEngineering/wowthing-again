@@ -220,10 +220,30 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 18704, // Dawn of the Infinite: Murozond's Rise
 
                 16492, // Into the Storm
-                16490, // Storm Chaser
-                16461, // Stormed Off
-                16500, // Elemental Overload
-                16502, // Storming the Runway
+                16490, // Into the Storm > Storm Chaser
+                16468, // Into the Storm > Storm Chaser > Chasing Storms in The Waking Shores
+                16463, // Into the Storm > Storm Chaser > Chasing Storms in The Waking Shores > Thunderstorms
+                16465, // Into the Storm > Storm Chaser > Chasing Storms in The Waking Shores > Sandstorms
+                16466, // Into the Storm > Storm Chaser > Chasing Storms in The Waking Shores > Firestorms
+                16467, // Into the Storm > Storm Chaser > Chasing Storms in The Waking Shores > Snowstorms
+                16476, // Into the Storm > Storm Chaser > Chasing Storms in the Ohn'ahran Plains
+                16475, // Into the Storm > Storm Chaser > Chasing Storms in the Ohn'ahran Plains > Thunderstorms
+                16477, // Into the Storm > Storm Chaser > Chasing Storms in the Ohn'ahran Plains > Sandstorms
+                16478, // Into the Storm > Storm Chaser > Chasing Storms in the Ohn'ahran Plains > Firestorms
+                16479, // Into the Storm > Storm Chaser > Chasing Storms in the Ohn'ahran Plains > Snowstorms
+                16484, // Into the Storm > Storm Chaser > Chasing Storms in The Azure Span
+                16480, // Into the Storm > Storm Chaser > Chasing Storms in The Azure Span > Thunderstorms
+                16481, // Into the Storm > Storm Chaser > Chasing Storms in The Azure Span > Sandstorms
+                16482, // Into the Storm > Storm Chaser > Chasing Storms in The Azure Span > Firestorms
+                16483, // Into the Storm > Storm Chaser > Chasing Storms in The Azure Span > Snowstorms
+                16489, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus
+                16485, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Thunderstorms
+                16486, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Sandstorms
+                16487, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Firestorms
+                16488, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Snowstorms
+                16461, // Into the Storm > Stormed Off
+                16500, // Into the Storm > Elemental Overload
+                16502, // Into the Storm > Storming the Runway
 
                 18209, // Nothing Stops the Research
                 18867, // Through the Ashes and Flames
