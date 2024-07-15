@@ -35,7 +35,7 @@ export function rewardToLookup(
             ret = [LookupType.TransmogSet, itemData.teachesTransmog[rewardId]];
         } else if (staticData.professionAbilityByItemId[rewardId]) {
             const ability = staticData.professionAbilityByItemId[rewardId];
-            ret = [LookupType.ProfessionAbility, ability.abilityId];
+            ret = [LookupType.Recipe, ability.abilityId];
         } else if (itemData.completesQuest[rewardId]) {
             ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
         } else if (manualData.dragonridingItemToQuest[rewardId]) {

@@ -27,7 +27,7 @@ export function userHasLookup(
         return !!userData.hasPet[id];
     } else if (type === LookupType.Toy) {
         return !!userData.hasToy[id];
-    } else if (type === LookupType.ProfessionAbility) {
+    } else if (type === LookupType.Recipe) {
         const ability = staticData.professionAbilityByAbilityId[id];
         const characterId = settings.professions.collectingCharacters?.[ability.professionId];
         if (characterId) {
