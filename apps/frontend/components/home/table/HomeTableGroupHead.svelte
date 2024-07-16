@@ -53,7 +53,7 @@
 
 <style lang="scss">
     .only-weekly {
-        text-align: left;
+        padding: 0 $width-padding;
     }
     tr {
         --scale: 0.91;
