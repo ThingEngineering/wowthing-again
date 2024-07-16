@@ -43,6 +43,7 @@
         <CheckboxInput
             bind:value={$settingsStore.layout.newNavigationIcons}
             name="layout_newNavigationIcons"
+            disabled={!$settingsStore.layout.newNavigation}
         >
             Only show icons
         </CheckboxInput>
