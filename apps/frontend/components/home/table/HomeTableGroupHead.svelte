@@ -19,9 +19,14 @@
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
+    import type {GroupByContext} from "@/utils/get-character-group-func";
+    import HomeTableHeadGroupedByCell
+        from "@/components/home/table/head/HomeTableHeadGroupedByCell.svelte";
 
     export let group: Character[]
     export let groupIndex: number
+
+    export let groupByContext: GroupByContext;
 
     $: sortKey = `${$activeView.id}|${groupIndex}`
 
@@ -48,11 +53,11 @@
 
 <style lang="scss">
     .only-weekly {
-        text-align: left;
+        padding: 0 $width-padding;
     }
     tr {
         --scale: 0.91;
-        
+
         :global(td:not(:first-child)) {
             border-left: 1px solid $border-color;
         }
@@ -77,6 +82,7 @@
 
 <tr class="table-group-head">
     <td class="only-weekly" colspan="{commonSpan}">
+       <HomeTableHeadGroupedByCell {groupByContext} {group}/>
     </td>
 
     {#each $activeView.homeFields as field (field)}
@@ -93,13 +99,13 @@
             <td use:basicTooltip={"Shadowlands Callings"}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
             </td>
-        
+
         {:else if field === 'covenant'}
             <HeadCovenant />
 
         {:else if field === 'currencies'}
             <HeadCurrencies {sortKey} />
-        
+
         {:else if field === 'currentLocation'}
             <HeadCurrentLocation {sortKey} />
 
@@ -112,7 +118,7 @@
             <td use:basicTooltip={"Legion Emissaries"}>
                 <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
             </td>
-        
+
         {:else if field === 'gear'}
             <td>Gear</td>
 
@@ -124,7 +130,7 @@
                     showSortable={true}
                 />
             {/if}
-        
+
         {:else if field === 'guild'}
             <td>Guild</td>
 
@@ -139,7 +145,7 @@
                 on:keypress={() => setSorting(field)}
                 use:basicTooltip={'Equipped Item Level'}
             >Equip</td>
-        
+
         {:else if field === 'items'}
             {#if !isPublic}
                 <HeadItems {sortKey} />

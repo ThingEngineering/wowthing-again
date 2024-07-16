@@ -111,11 +111,76 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
             data.categories.push(category);
         }
 
-        // DF hack
         data.categories.push(null);
+
+        // SL hack
         data.categories.push({
             id: categoryId++,
-            name: 'A World Awoken',
+            name: '[SL] Back from the Beyond',
+            slug: 'back-from-the-beyond',
+            achievementIds: [
+                20501, // Back from the Beyond
+
+                14715, // Castle Nathria
+                14961, // Chains of Domination
+                15647, // Dead Men Tell Some Tales
+                15178, // Fake It 'Til You Make It
+
+                15336, // From A to Zereth
+                15259, // From A to Zereth > Secrets of the First Ones
+                15331, // From A to Zereth > Treasures of Zereth Mortis
+                15392, // From A to Zereth > Dune Dominance
+                15391, // From A to Zereth > Adventurer of Zereth Mortis
+                15402, // From A to Zereth > Cyphers of the First Ones
+                15407, // From A to Zereth > Synthe-fived!
+                15220, // From A to Zereth > The Enlightened
+
+                15079, // Many, Many Things
+                15651, // Myths of the Shadowland Dungeons
+                15035, // On the Offensive
+                15646, // Re-Re-Re-Renowned
+                15025, // Sanctum Superior
+                15126, // Sanctum of Domination
+                // 15259, // Secrets of the First Ones
+                15417, // Sepulcher of the First Ones
+
+                15649, // Shadowlands Dilettante
+                14502, // Shadowlands Dilettante > Pursuing Loyalty
+                14723, // Shadowlands Dilettante > Be Our Guest
+                14752, // Shadowlands Dilettante > Things To Do When You're Dead
+                14684, // Shadowlands Dilettante > Things To Do When You're Dead > Abominable Lives
+                14748, // Shadowlands Dilettante > Things To Do When You're Dead > Wardrobe Makeover
+                14751, // Shadowlands Dilettante > Things To Do When You're Dead > The Gang's All Here
+                14753, // Shadowlands Dilettante > Things To Do When You're Dead > It's a Wrap
+                14775, // Shadowlands Dilettante > Mush Appreciated
+
+                15324, // Tower Ranger
+                15322, // Tower Ranger > Flawless Master (Layer 16)
+                15067, // Tower Ranger > Adamant Vaults
+                14570, // Tower Ranger > Twisting Corridors: Layer 8
+                15254, // Tower Ranger > The Jailer's Gauntlet: Layer 4
+                15092, // Tower Ranger > Master of Torment
+                15093, // Tower Ranger > Master of Torment > Avenge Me!
+                15095, // Tower Ranger > Master of Torment > No Doubt
+                15094, // Tower Ranger > Master of Torment > Rampage
+                15096, // Tower Ranger > Master of Torment > Crowd Pleaser
+
+                15648, // Walking in Maw-mphis
+                14895, // Walking in Maw-mphis > 'Ghast Five
+                14744, // Walking in Maw-mphis > Better to Be Lucky Than Dead
+                14660, // Walking in Maw-mphis > It's About Sending a Message
+                14738, // Walking in Maw-mphis > Hunting Party
+                14656, // Walking in Maw-mphis > Trading Partners
+                14658, // Walking in Maw-mphis > Soulkeeper's Burden
+                14663, // Walking in Maw-mphis > Explore The Maw
+            ],
+            children: [],
+        });
+
+        // DF hack
+        data.categories.push({
+            id: categoryId++,
+            name: '[DF] A World Awoken',
             slug: 'a-world-awoken',
             achievementIds: [
                 19458, // A World Awoken
@@ -316,69 +381,6 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 18150, // Zaralek Cavern Glyph Hunter
                 19306, // Emerald Dream Glyph Hunter
                 // END UGH
-            ],
-            children: [],
-        });
-
-        // SL hack
-        data.categories.push({
-            id: categoryId,
-            name: 'Back from the Beyond',
-            slug: 'back-from-the-beyond',
-            achievementIds: [
-                20501, // Back from the Beyond
-
-                14715, // Castle Nathria
-                14961, // Chains of Domination
-                15647, // Dead Men Tell Some Tales
-                15178, // Fake It 'Til You Make It
-
-                15336, // From A to Zereth
-                15331, // Treasures of Zereth Mortis
-                15392, // Dune Dominance
-                15391, // Adventurer of Zereth Mortis
-                15402, // Cyphers of the First Ones
-                15407, // Synthe-fived!
-                15220, // The Enlightened
-
-                15079, // Many, Many Things
-                15651, // Myths of the Shadowland Dungeons
-                15035, // On the Offensive
-                15646, // Re-Re-Re-Renowned
-                15025, // Sanctum Superior
-                15126, // Sanctum of Domination
-                15259, // Secrets of the First Ones
-                15417, // Sepulcher of the First Ones
-
-                15649, // Shadowlands Dilettante
-                14502, // Pursuing Loyalty
-                14723, // Be Our Guest
-                14752, // Things To Do When You're Dead
-                14684, // Abominable Lives
-                14751, // The Gang's All Here
-                14748, // Wardrobe Makeover
-                14753, // It's a Wrap
-                14775, // Mush Appreciated
-
-                15324, // Tower Ranger
-                15322, // Flawless Master (Layer 16)
-                15067, // Adamant Vaults
-                14570, // Twisting Corridors: Layer 8
-                15254, // The Jailer's Gauntlet: Layer 4
-                15092, // Master of Torment
-                15093, // Avenge Me!
-                15095, // No Doubt
-                15094, // Rampage
-                15096, // Crowd Pleaser
-
-                15648, // Walking in Maw-mphis
-                14895, // 'Ghast Five
-                14744, // Better to Be Lucky Than Dead
-                14660, // It's About Sending a Message
-                14738, // Hunting Party
-                14656, // Trading Partners
-                14658, // Soulkeeper's Burden
-                14663, // Explore The Maw
             ],
             children: [],
         });

@@ -219,6 +219,18 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                             undefined ||
                                         char.knowsProfessionAbility(professionInfo.abilityId),
                                 );
+                            } else if (stores.staticData.mountsByItem[drop.id]) {
+                                dropStatus.need =
+                                    !stores.userData.hasMount[
+                                        stores.staticData.mountsByItem[drop.id].id
+                                    ];
+                            } else if (stores.staticData.petsByItem[drop.id]) {
+                                dropStatus.need =
+                                    !stores.userData.hasPet[
+                                        stores.staticData.petsByItem[drop.id].id
+                                    ];
+                            } else if (stores.staticData.toys[drop.id]) {
+                                dropStatus.need = !stores.userData.hasToy[drop.id];
                             } else {
                                 dropStatus.need = true;
                             }

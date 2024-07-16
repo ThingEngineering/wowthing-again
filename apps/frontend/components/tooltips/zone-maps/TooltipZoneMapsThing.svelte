@@ -10,11 +10,13 @@
     import { FarmIdType } from '@/enums/farm-id-type'
     import { FarmResetType } from '@/enums/farm-reset-type'
     import { FarmType } from '@/enums/farm-type'
+    import { LookupType } from '@/enums/lookup-type';
     import { RewardType } from '@/enums/reward-type'
     import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
     import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import { leftPad } from '@/utils/formatting'
+    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
     import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
@@ -254,6 +256,13 @@
                                 {:else}
                                     [{drop.limit.slice(2).join(', ')}]
                                 {/if}
+                            {/if}
+                        {:else if drop.type === RewardType.Item}
+                            {@const [lookupType,] = rewardToLookup($itemStore, $manualStore, $staticStore, drop.type, drop.id)}
+                            {#if lookupType !== LookupType.None}
+                                {LookupType[lookupType].toLowerCase()}
+                            {:else}
+                                item
                             {/if}
                         {:else}
                             {RewardType[drop.type].toLowerCase()}

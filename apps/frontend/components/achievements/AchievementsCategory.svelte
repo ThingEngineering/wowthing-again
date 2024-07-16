@@ -140,7 +140,7 @@
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
                 <AchievementsAchievement
-                    kindaAlwaysShow={category.slug === 'a-world-awoken'}
+                    kindaAlwaysShow={['back-from-the-beyond', 'a-world-awoken'].includes(category.slug)}
                     {achievementId}
                 />
             {/each}

@@ -56,7 +56,7 @@
             {#each (zone.children || []).filter((zone) => zone?.continentPoint) as childZone}
                 <ContinentBox zone={childZone} worldQuests={worldQuests[childZone.id]} />
             {:else}
-                {#each worldQuests[zone.id] as worldQuest}
+                {#each (worldQuests[zone.id] || []) as worldQuest}
                     <WorldQuest {worldQuest} />
                 {/each}
             {/each}

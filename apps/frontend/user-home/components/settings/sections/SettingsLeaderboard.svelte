@@ -23,6 +23,7 @@
     <div class="setting">
         <Checkbox
             name="leaderboard_anonymous"
+            disabled={!$settingsStore.leaderboard.enabled}
             bind:value={$settingsStore.leaderboard.anonymous}
         >Anonymous</Checkbox>
         <p>

@@ -94,6 +94,9 @@
 </script>
 
 <style lang="scss">
+    button {
+        padding: 0;
+    }
     .wrapper {
         align-items: flex-start;
         display: flex;

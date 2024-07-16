@@ -25,6 +25,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_anonymized"
+            disabled={!$settingsStore.privacy.public}
             bind:value={$settingsStore.privacy.anonymized}
         >Anonymize names</Checkbox>
         <p>
@@ -34,8 +35,9 @@
 
     <div class="setting">
         <Checkbox
-                name="privacy_public_accounts"
-                bind:value={$settingsStore.privacy.publicAccounts}
+            name="privacy_public_accounts"
+            disabled={!$settingsStore.privacy.public}
+            bind:value={$settingsStore.privacy.publicAccounts}
         >Public Accounts</Checkbox>
         <p>
             Allow visitors to see account tags on characters
@@ -45,6 +47,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_currencies"
+            disabled={!$settingsStore.privacy.public}
             bind:value={$settingsStore.privacy.publicCurrencies}
         >Public Currencies</Checkbox>
         <p>
@@ -55,6 +58,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_lockouts"
+            disabled={!$settingsStore.privacy.public}
             bind:value={$settingsStore.privacy.publicLockouts}
         >Public Lockouts</Checkbox>
         <p>Allow visitors to see your Lockouts data</p>
@@ -63,6 +67,7 @@
     <div class="setting">
         <Checkbox
             name="privacy_public_mythic_plus"
+            disabled={!$settingsStore.privacy.public}
             bind:value={$settingsStore.privacy.publicMythicPlus}
         >Public Mythic+</Checkbox>
         <p>

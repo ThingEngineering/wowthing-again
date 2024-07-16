@@ -71,6 +71,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         cheevs[0] = new UserAchievementDataCategory(0, 0, 0, 0);
 
         const all: [number, number][] = [];
+        const allSeen = new Set<number>();
         for (const achievement of Object.values(achievementData.achievement)) {
             if (
                 (achievement.faction === 1 && !achievementState.showHorde) ||
@@ -88,26 +89,29 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
 
             for (const categoryId of categoryIds) {
                 if (!cheevs[categoryId]) {
-                    cheevs[categoryId] = new UserAchievementDataCategory(0, 0, 0, 0)
+                    cheevs[categoryId] = new UserAchievementDataCategory(0, 0, 0, 0);
                 }
 
-                cheevs[categoryId].total++
-                cheevs[categoryId].totalPoints += achievement.points
+                cheevs[categoryId].total++;
+                cheevs[categoryId].totalPoints += achievement.points;
 
                 if (keepIds[categoryId]) {
-                    cheevs[0].total++
-                    cheevs[0].totalPoints += achievement.points
+                    cheevs[0].total++;
+                    cheevs[0].totalPoints += achievement.points;
                 }
 
                 if (userAchievements[achievement.id]) {
-                    all.push([userAchievements[achievement.id], achievement.id])
+                    if (!allSeen.has(achievement.id)) {
+                        all.push([userAchievements[achievement.id], achievement.id]);
+                        allSeen.add(achievement.id);
+                    }
 
-                    cheevs[categoryId].have++
-                    cheevs[categoryId].havePoints += achievement.points
+                    cheevs[categoryId].have++;
+                    cheevs[categoryId].havePoints += achievement.points;
 
                     if (keepIds[categoryId]) {
-                        cheevs[0].have++
-                        cheevs[0].havePoints += achievement.points
+                        cheevs[0].have++;
+                        cheevs[0].havePoints += achievement.points;
                     }
                 }
             }
