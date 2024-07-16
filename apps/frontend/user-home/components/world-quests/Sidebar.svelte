@@ -11,13 +11,9 @@
 </script>
 
 <style lang="scss">
-    .before {
-        margin-bottom: 1rem;
-    }
     .regions {
         display: flex;
         justify-content: space-around;
-        margin-bottom: 1rem;
         width: 100%;
         
         button {
