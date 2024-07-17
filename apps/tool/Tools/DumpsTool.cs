@@ -418,6 +418,7 @@ public class DumpsTool
             }
 
             dbRace.Faction = dumpRace.Faction;
+            dbRace.Bit = dumpRace.PlayableRaceBit;
         }
 
         _timer.AddPoint("CharacterRaces");
