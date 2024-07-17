@@ -9,6 +9,7 @@ public class StaticCharacterRace : WowCharacterRace
 
     public StaticCharacterRace(WowCharacterRace dbRace) : base(dbRace.Id)
     {
+        Bit = dbRace.Bit;
         Faction = dbRace.Faction;
     }
 }

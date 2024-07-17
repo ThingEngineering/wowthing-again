@@ -1,32 +1,32 @@
-import type { Faction } from '@/enums/faction'
-import type { PrimaryStat } from '@/enums/primary-stat'
-import type { Role } from '@/enums/role'
-
+import type { Faction } from '@/enums/faction';
+import type { PrimaryStat } from '@/enums/primary-stat';
+import type { Role } from '@/enums/role';
 
 export interface StaticDataCharacterClass {
-    armorMask: number
-    id: number
-    name: string
-    rolesMask: number
-    slug: string
+    armorMask: number;
+    id: number;
+    name: string;
+    rolesMask: number;
+    slug: string;
 
     // calculated
-    mask: number
-    specializationIds: number[]
+    mask: number;
+    specializationIds: number[];
 }
 
 export interface StaticDataCharacterRace {
-    faction: Faction
-    id: number
-    name: string
-    slug: string
+    bit: number;
+    faction: Faction;
+    id: number;
+    name: string;
+    slug: string;
 }
 
 export interface StaticDataCharacterSpecialization {
-    classId: number
-    id: number
-    name: string
-    order: number
-    primaryStat: PrimaryStat
-    role: Role
+    classId: number;
+    id: number;
+    name: string;
+    order: number;
+    primaryStat: PrimaryStat;
+    role: Role;
 }

@@ -99,8 +99,9 @@ export class UserAuctionMissingDataStore {
 
         const cacheKey = [
             auctionState.region,
-            auctionState.allRealms ? '1' : '0',
-            auctionState.includeRussia ? '1' : '0',
+            auctionState.allRealms,
+            auctionState.includeBids,
+            auctionState.includeRussia,
             type,
             petsMaxLevel,
             petsNeedMaxLevel,
@@ -112,6 +113,7 @@ export class UserAuctionMissingDataStore {
             const region = parseInt(auctionState.region) || 0;
             const data = {
                 allRealms: auctionState.allRealms,
+                includeBids: auctionState.includeBids,
                 includeRussia: region === 3 ? auctionState.includeRussia : false,
                 missingPetsMaxLevel: petsMaxLevel,
                 missingPetsNeedMaxLevel: petsNeedMaxLevel,
@@ -170,7 +172,7 @@ export class UserAuctionMissingDataStore {
             }
         }
 
-        things = sortAuctions(auctionState.sortBy[`missing-${type}`], things);
+        things = sortAuctions(auctionState.sortBy[`missing-${type}`], things, !auctionState.includeBids);
         this.cache[cacheKey] = [things, updated];
         return [things, updated];
     }

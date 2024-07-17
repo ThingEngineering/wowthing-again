@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { questInfoIcon } from './data'
+    import { Faction } from '@/enums/faction';
     import { RewardType } from '@/enums/reward-type'
     import { iconLibrary } from '@/shared/icons'
     import { staticStore } from '@/shared/stores/static'
@@ -7,8 +7,11 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { timeStore } from '@/shared/stores/time'
     import { toNiceNumber } from '@/utils/formatting/to-nice-number'
+
+    import { questInfoIcon } from './data'
     import type { ApiWorldQuest } from './types'
 
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Tooltip from './Tooltip.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
@@ -43,7 +46,6 @@
             }
         }
     }
-
 </script>
 
 <style lang="scss">
@@ -78,6 +80,15 @@
         overflow: hidden;
         position: relative;
         width: 36px;
+    }
+    .world-quest-faction {
+        --image-border-radius: 50%;
+        --scale: 0.8;
+
+        pointer-events: none;
+        top: 5px;
+        position: absolute;
+        left: -8px;
     }
     .world-quest-type {
         --scale: 0.8;
@@ -131,6 +142,12 @@
                     WQ
                 {/if}
             </div>
+
+            {#if staticWorldQuest.faction !== Faction.Neutral}
+                <div class="world-quest-faction">
+                    <FactionIcon faction={staticWorldQuest.faction} />
+                </div>
+            {/if}
 
             {#if questInfoIcon[questInfo?.type]}
                 <div class="world-quest-type drop-shadow">
