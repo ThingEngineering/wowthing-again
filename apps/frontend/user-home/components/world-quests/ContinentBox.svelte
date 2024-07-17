@@ -5,6 +5,7 @@
     import type { ApiWorldQuest, WorldQuestZone } from './types'
 
     import WorldQuest from './WorldQuest.svelte'
+    import { staticStore } from '@/shared/stores/static';
 
     export let worldQuests: ApiWorldQuest[]
     export let zone: WorldQuestZone
@@ -13,26 +14,23 @@
         worldQuests,
         (worldQuest) => [
             worldQuest.expires,
-            ...sortFields(worldQuest)
-        ]
+            sortFields(worldQuest)
+        ].join('|')
     )
 
     const sortFields = (worldQuest: ApiWorldQuest): string => {
         const reward = worldQuest.rewards[0][1][0]
-        const parts: number[] = []
+        
+        const faction: number = (($staticStore.worldQuests[worldQuest.questId]?.faction ?? 2) + 1) % 3;
 
-        if (reward.type === 11) {
-            parts.push(0)
-            parts.push(reward.id)
-            parts.push(1_000_000_000 - reward.amount)
-        }
-        else {
-            parts.push(1)
-            parts.push(1_000_000_000 - reward.amount)
-            parts.push(reward.id)
-        }
-
-        return parts.map((part) => leftPad(part, 6, '0')).join(':')
+        // Currency
+        const parts: string[] = [
+            (reward.type === 11 && reward.id === 0) ? '0' : '1',
+            faction.toString(),
+            leftPad(1_000_000_000 - reward.amount, 10, '0'),
+            leftPad(reward.id, 7, '0'),
+        ];
+        return parts.join(':');
     }
 </script>
 
