@@ -43,7 +43,6 @@
             }
         }
     }
-
 </script>
 
 <style lang="scss">

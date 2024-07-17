@@ -20,8 +20,6 @@
 
     let characters: string
     $: {
-        console.log(staticWorldQuest, worldQuest)
-
         let validCharacters = $userStore.characters.filter((char) => char.level >= 60)
         
         if (staticWorldQuest) {

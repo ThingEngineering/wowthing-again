@@ -350,7 +350,6 @@ public class StaticTool
             .ToArray();
 
         cacheData.RawWorldQuests = await context.WowWorldQuest
-            .Where(wq => wq.Expansion == 9)
             .OrderBy(wq => wq.Id)
             .Select(wq => new StaticWorldQuest(wq))
             .ToArrayAsync();
