@@ -143,7 +143,7 @@
                 {/if}
             </div>
 
-            {#if staticWorldQuest.faction !== Faction.Neutral}
+            {#if staticWorldQuest && staticWorldQuest.faction !== Faction.Neutral}
                 <div class="world-quest-faction">
                     <FactionIcon faction={staticWorldQuest.faction} />
                 </div>
