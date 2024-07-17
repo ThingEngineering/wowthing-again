@@ -1,8 +1,10 @@
-﻿using Serilog.Context;
+﻿using System.Collections;
+using Serilog.Context;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
+using Wowthing.Tool.Extensions;
 using Wowthing.Tool.Models;
 using Wowthing.Tool.Models.Achievements;
 using Wowthing.Tool.Models.Covenants;
@@ -1419,6 +1421,24 @@ public class DumpsTool
         var dbQuestMap = await context.WowWorldQuest
             .ToDictionaryAsync(wq => wq.Id);
 
+        var characterRaces = await context.WowCharacterRace.ToArrayAsync();
+        var allianceArray = new BitArray(63);
+        var hordeArray = new BitArray(63);
+        foreach (var characterRace in characterRaces)
+        {
+            if (characterRace.Faction == WowFaction.Alliance)
+            {
+                allianceArray.Set(characterRace.Bit, true);
+            }
+            else if (characterRace.Faction == WowFaction.Horde)
+            {
+                hordeArray.Set(characterRace.Bit, true);
+            }
+        }
+
+        ulong allianceMask = allianceArray.ToUInt64();
+        ulong hordeMask = hordeArray.ToUInt64();
+
         var questV2s = await DataUtilities.LoadDumpCsvAsync<DumpQuestV2CliTask>("questv2clitask");
         foreach (var questV2 in questV2s)
         {
@@ -1440,6 +1460,22 @@ public class DumpsTool
             dbQuest.MaxLevel = contentTuning.MaxLevel ?? contentTuning.LfgMaxLevel ?? 0;
             dbQuest.MinLevel = contentTuning.MinLevel ?? contentTuning.LfgMinLevel ?? 0;
             dbQuest.QuestInfoId = questV2.QuestInfoID;
+
+            dbQuest.Faction = WowFaction.Neutral;
+            if (questV2.FiltRaces != -1)
+            {
+                ulong raceMask = (ulong)questV2.FiltRaces;
+                bool allianceMatch = (raceMask & allianceMask) > 0;
+                bool hordeMatch = (raceMask & hordeMask) > 0;
+                if (allianceMatch && !hordeMatch)
+                {
+                    dbQuest.Faction = WowFaction.Alliance;
+                }
+                else if (!allianceMatch && hordeMatch)
+                {
+                    dbQuest.Faction = WowFaction.Horde;
+                }
+            }
 
             dbQuest.NeedQuestIds = new();
             dbQuest.SkipQuestIds = new();

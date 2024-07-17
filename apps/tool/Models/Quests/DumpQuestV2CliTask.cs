@@ -10,6 +10,7 @@ public class DumpQuestV2CliTask
     public int ID { get; set; }
 
     public short ContentTuningID { get; set; }
+    public long FiltRaces { get; set; }
     public short QuestInfoID { get; set; }
 
     [Name("FiltCompletedQuest[0]")]

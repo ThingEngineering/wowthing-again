@@ -1,15 +1,17 @@
 <script lang="ts">
-    import { worldQuestPrereqs } from './data'
     import { RewardType } from '@/enums/reward-type'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
     import { userQuestStore, userStore } from '@/stores'
-    import type { ApiWorldQuest } from './types'
+    import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types/character'
 
-    import { toNiceDuration } from '@/utils/formatting'
+    import { worldQuestPrereqs } from './data'
+    import type { ApiWorldQuest } from './types'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import { Faction } from '@/enums/faction';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
 
     export let worldQuest: ApiWorldQuest
 
@@ -63,6 +65,9 @@
 </script>
 
 <style lang="scss">
+    h4 {
+        --image-border-width: 1px;
+    }
     table {
         margin: 0 auto;
         width: auto;
@@ -92,7 +97,12 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{staticWorldQuest?.name || `Quest #${worldQuest.questId}`}</h4>
+    <h4>
+        {#if staticWorldQuest && staticWorldQuest.faction !== Faction.Neutral}
+            <FactionIcon faction={staticWorldQuest.faction} size={16} />
+        {/if}
+        {staticWorldQuest?.name || `Quest #${worldQuest.questId}`}
+    </h4>
     <h5>
         {#if questInfo}
             {questInfo.name} -

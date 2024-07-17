@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow;
 
@@ -8,6 +9,7 @@ public class WowWorldQuest
     public int Id { get; set; }
 
     public short Expansion { get; set; }
+    public WowFaction Faction { get; set; } = WowFaction.Neutral;
     public short MaxLevel { get; set; }
     public short MinLevel { get; set; }
     public short QuestInfoId { get; set; }

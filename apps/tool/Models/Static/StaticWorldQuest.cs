@@ -11,6 +11,7 @@ public class StaticWorldQuest : WowWorldQuest
     public StaticWorldQuest(WowWorldQuest worldQuest) : base(worldQuest.Id)
     {
         Expansion = worldQuest.Expansion;
+        Faction = worldQuest.Faction;
         MaxLevel = worldQuest.MaxLevel;
         MinLevel = worldQuest.MinLevel;
         QuestInfoId = worldQuest.QuestInfoId;

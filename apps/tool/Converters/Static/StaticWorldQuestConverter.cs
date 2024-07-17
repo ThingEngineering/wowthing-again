@@ -16,6 +16,7 @@ public class StaticWorldQuestConverter : JsonConverter<StaticWorldQuest>
         writer.WriteNumberValue(worldQuest.Id);
         writer.WriteNumberValue(worldQuest.Expansion);
         writer.WriteNumberValue(worldQuest.QuestInfoId);
+        writer.WriteNumberValue((short)worldQuest.Faction);
         writer.WriteNumberValue(worldQuest.MinLevel);
         writer.WriteNumberValue(worldQuest.MaxLevel);
         writer.WriteStringValue(worldQuest.Name);
