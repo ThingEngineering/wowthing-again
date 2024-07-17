@@ -38,6 +38,8 @@
         }
     }
 
+    $: colspan = (slug1 === 'missing-pets' ? 3 : 2) + ($auctionState.includeBids ? 1 : 0);
+
     const ignoreClick = function(id: string): void {
         const ignored = $auctionState.ignored[slug1] ||= {}
         if (ignored[id]) {
@@ -166,7 +168,7 @@
                 >
                     <thead>
                         <tr>
-                            <th class="item" colspan="{slug1 === 'missing-pets' ? 4 : 3}">
+                            <th class="item" colspan="{colspan}">
                                 <WowheadLink
                                     type={thingType}
                                     id={parseInt(item.id)}
@@ -235,16 +237,18 @@
                                             {auction.petLevel}
                                         </td>
                                     {/if}
-                                    <td
-                                        class="price"
-                                        class:no-bid={auction.bidPrice === 0}
-                                    >
-                                        {#if auction.bidPrice > 0}
-                                            {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                                        {:else}
-                                            &lt;no bid&gt;
-                                        {/if}
-                                    </td>
+                                    {#if $auctionState.includeBids}
+                                        <td
+                                            class="price"
+                                            class:no-bid={auction.bidPrice === 0}
+                                        >
+                                            {#if auction.bidPrice > 0}
+                                                {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                            {:else}
+                                                &lt;no bid&gt;
+                                            {/if}
+                                        </td>
+                                    {/if}
                                     <td
                                         class="price"
                                         class:no-bid={auction.bidPrice > 0 && auction.buyoutPrice === 0}

@@ -178,6 +178,11 @@
         {:else}
             <div class="options-group">
                 <Checkbox
+                    name="include_bids"
+                    bind:value={$auctionState.includeBids}
+                >Include bids</Checkbox>
+
+                <Checkbox
                     name="limit_to_best_realms"
                     bind:value={$auctionState.limitToBestRealms}
                 >Only top 5</Checkbox>

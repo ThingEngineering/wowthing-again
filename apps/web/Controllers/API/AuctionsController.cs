@@ -261,7 +261,10 @@ public class AuctionsController : Controller
                 .Where(auction => missingMounts.Select(mount => mount.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
 
-            data.RawAuctions = DoAuctionStuff(mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]));
+            data.RawAuctions = DoAuctionStuff(
+                mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]),
+                form.IncludeBids
+            );
 
             // Strings
             var mountIdToSpellId = missingMounts
@@ -335,8 +338,9 @@ public class AuctionsController : Controller
             data.RawAuctions = DoAuctionStuff(
                 petAuctions.GroupBy(auction => auction.PetSpeciesId > 0
                     ? petSpeciesMap[auction.PetSpeciesId]
-                    : petItemMap[auction.ItemId]
-            ));
+                    : petItemMap[auction.ItemId]),
+                form.IncludeBids
+            );
 
             // Strings
             var allCreatureIds = missingPets
@@ -376,7 +380,10 @@ public class AuctionsController : Controller
                 .Where(auction => missingToys.Select(toy => toy.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
 
-            data.RawAuctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
+            data.RawAuctions = DoAuctionStuff(
+                toyAuctions.GroupBy(auction => auction.ItemId),
+                form.IncludeBids
+                );
 
             // Strings
             var allItemIds = data.RawAuctions.Keys
@@ -954,7 +961,7 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
             ret[thingId] = new List<WowAuction>();
             foreach (var (_, realmAuctions) in itemRealms)
             {
-                var lowestBid = realmAuctions
+                var lowestBid = !includeLowBid ? null : realmAuctions
                     .Where(auction => auction.BidPrice > 0)
                     .MinBy(auction => auction.BidPrice);
                 var lowestBuyout = realmAuctions
