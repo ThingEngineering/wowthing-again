@@ -36,12 +36,14 @@ export function rewardToLookup(
         } else if (staticData.professionAbilityByItemId[rewardId]) {
             const ability = staticData.professionAbilityByItemId[rewardId];
             ret = [LookupType.Recipe, ability.abilityId];
-        } else if (itemData.completesQuest[rewardId]) {
-            ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
         } else if (manualData.dragonridingItemToQuest[rewardId]) {
             ret = [LookupType.Quest, manualData.dragonridingItemToQuest[rewardId]];
         } else if (manualData.druidFormItemToQuest[rewardId]) {
             ret = [LookupType.Quest, manualData.druidFormItemToQuest[rewardId]];
+        } else if (itemData.completesQuest[rewardId]) {
+            // this should always be the last Quest return type, several other kinds of item
+            // are also included in this lookup table
+            ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
         }
     }
 
