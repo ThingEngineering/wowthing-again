@@ -157,7 +157,17 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 15324, // Tower Ranger
                 15322, // Tower Ranger > Flawless Master (Layer 16)
                 15067, // Tower Ranger > Adamant Vaults
+                14468, // Tower Ranger > Twisting Corridors: Layer 1
+                14469, // Tower Ranger > Twisting Corridors: Layer 2
+                14470, // Tower Ranger > Twisting Corridors: Layer 3
+                14471, // Tower Ranger > Twisting Corridors: Layer 4
+                14472, // Tower Ranger > Twisting Corridors: Layer 5
+                14568, // Tower Ranger > Twisting Corridors: Layer 6
+                14569, // Tower Ranger > Twisting Corridors: Layer 7
                 14570, // Tower Ranger > Twisting Corridors: Layer 8
+                15251, // Tower Ranger > The Jailer's Gauntlet: Layer 1
+                15252, // Tower Ranger > The Jailer's Gauntlet: Layer 2
+                15253, // Tower Ranger > The Jailer's Gauntlet: Layer 3
                 15254, // Tower Ranger > The Jailer's Gauntlet: Layer 4
                 15092, // Tower Ranger > Master of Torment
                 15093, // Tower Ranger > Master of Torment > Avenge Me!
@@ -212,7 +222,8 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16529, // Joining the Community
                 16530, // Ally of the Flights
                 17763, // There's No Place Like Loamm
-                19235, // Warden of the Dream
+                19230, // [1] Friends in the Dream
+                19235, // [2] Warden of the Dream
                 18615, // Legend of the Multiverse
                 16494, // Loyalty to the Prince
                 16760, // The Obsidian Bloodline
@@ -230,8 +241,12 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 19486, // Across the Isles
 
                 19479, // Wake Me Up
-                16570, // A Legendary Album
-                16568, // Great Shots Galore!
+                16572, // [1] Legendary Photograph
+                16573, // [2] Legendary Photographs
+                16570, // [3] A Legendary Album
+                16566, // [1] Great Shot!
+                16567, // [2] A Lot of Great Shots!
+                16568, // [3] Great Shots Galore!
                 16587, // Lead Climber
                 16588, // How Did These Get Here?
                 15890, // Dragonscale Expedition: The Highest Peaks
@@ -254,7 +269,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16444, // Leftovers' Revenge
                 16317, // Secret Fishing Spots
                 16553, // Taking From Nature
-                16563, // We're Going to Need a Bigger Harpoon
+                16546, // [1] What's Down There?
+                16562, // [2] That's not a Fish...
+                16563, // [3] We're Going to Need a Bigger Harpoon
                 16580, // Lend a Helping Span
                 16678, // Adventurer of The Azure Span
                 16300, // Treasures of The Azure Span
@@ -307,7 +324,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16487, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Firestorms
                 16488, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Snowstorms
                 16461, // Into the Storm > Stormed Off
-                16500, // Into the Storm > Elemental Overload
+                16498, // Into the Storm > [1] Elemental Overflow
+                16499, // Into the Storm > [2] Elemental Overflowing
+                16500, // Into the Storm > [3] Elemental Overload
                 16502, // Into the Storm > Storming the Runway
 
                 18209, // Nothing Stops the Research
@@ -318,13 +337,17 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 17543, // You Know How to Reach Me
                 17534, // Explore the Forbidden Reach
                 17526, // Treasures of the Forbidden Reach
-                17528, // Hoarder of the Forbidden Reach
-                17525, // Champion of the Forbidden Reach
+                17527, // [1] Scavenger of the Forbidden Reach
+                17528, // [2] Hoarder of the Forbidden Reach
+                17524, // [1] Adventurer of the Forbidden Reach
+                17525, // [2] Champion of the Forbidden Reach
                 17529, // Forbidden Spoils
                 17530, // Librarian of the Reach
-                17532, // Scroll Hunter
+                17531, // [1] X Marks the Spot
+                17532, // [2] Scroll Hunter
                 17540, // Under the Weather
-                17413, // Door Buster
+                17397, // [1] Door To Door
+                17413, // [2] Door Buster
                 17509, // Every Door, Everywhere, All At Once
                 17315, // While We Were Sleeping
 
