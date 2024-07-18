@@ -38,7 +38,7 @@ export function userHasLookup(
             );
         }
     } else if (type === LookupType.Quest) {
-        return accountTrackingQuest(itemData, userQuestData, id);
+        return accountTrackingQuest(userQuestData, [id]);
     } else if (type === LookupType.TransmogSet) {
         const statsKey = `transmogSet:${id}`;
         const stats = lazyTransmog.stats[statsKey];
@@ -79,11 +79,9 @@ export function userHasLookup(
 }
 
 function accountTrackingQuest(
-    itemData: ItemData,
     userQuestData: UserQuestData,
-    id: number,
+    questIds: number[],
 ): boolean {
-    const questIds = itemData.completesQuest[id] || [];
     return questIds.some(
         (questId) =>
             userQuestData.accountHas?.has(questId) ||
