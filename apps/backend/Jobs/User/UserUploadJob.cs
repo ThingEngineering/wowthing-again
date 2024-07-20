@@ -890,9 +890,12 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
-        entry.Property(ad => ad.Garrisons).IsModified = true;
-        entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
-        entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(ad => ad.Garrisons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
+        }
     }
 
     private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
@@ -984,9 +987,11 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.Shadowlands)
-            .Property(cs => cs.Covenants)
-            .IsModified = true;
+        var entry = Context.Entry(character.Shadowlands);
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(cs => cs.Covenants).IsModified = true;
+        }
     }
 
     private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
@@ -1718,9 +1723,11 @@ public class UserUploadJob : JobBase
 
         if (dailiesUpdated)
         {
-            Context.Entry(character.AddonQuests)
-                .Property(caq => caq.Dailies)
-                .IsModified = true;
+            var entry = Context.Entry(character.AddonQuests);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(caq => caq.Dailies).IsModified = true;
+            }
         }
     }
 
@@ -1912,7 +1919,11 @@ public class UserUploadJob : JobBase
                 character.Weekly.Vault.RaidProgress = null;
             }
 
-            Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+            var entry = Context.Entry(character.Weekly);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(e => e.Vault).IsModified = true;
+            }
         }
     }
 
