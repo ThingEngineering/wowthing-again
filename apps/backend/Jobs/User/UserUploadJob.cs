@@ -549,11 +549,6 @@ public class UserUploadJob : JobBase
 
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (characterData.CompletedQuestsSquish != null)
-        {
-            Unsquish(characterData.CompletedQuestsSquish);
-        }
-
         character.AddonData.Level = characterData.Level;
         character.AddonData.LevelXp = characterData.LevelXp;
 
