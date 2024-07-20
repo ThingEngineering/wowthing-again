@@ -358,6 +358,7 @@ export class LazyStore implements LazyUgh {
         if (changedData.userData) {
             this.recipesFunc = once(() =>
                 doRecipes({
+                    settings,
                     staticData,
                     userData,
                 }),

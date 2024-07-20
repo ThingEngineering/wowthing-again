@@ -2,12 +2,12 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { settingsStore } from '@/shared/stores/settings'
+    import { lazyStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
-    import type { Character, MultiSlugParams } from '@/types'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
+    import type { Character, MultiSlugParams } from '@/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
-    import { lazyStore } from '@/stores';
 
     export let character: Character
     export let params: MultiSlugParams
@@ -16,21 +16,16 @@
     let sidebarItems: SidebarItem[]
     $: {
         sidebarItems = settingsStore.expansions
-            .map((expansion) => ({
-                name: expansion.name,
-                slug: expansion.slug,
-            }))
-
-        if (staticProfession) {
-            for (let i = 0; i < sidebarItems.length; i++) {
-                if (staticProfession.subProfessions[Constants.expansion - i]?.traitTrees) {
-                    sidebarItems[i].children = [{
-                        name: 'Traits',
-                        slug: 'traits',
-                    }]
-                }
-            }
-        }
+            .map((expansion) => {
+                const subProfession = staticProfession?.expansionSubProfession?.[expansion.id];
+                return {
+                    name: expansion.name,
+                    slug: expansion.slug,
+                    children: subProfession?.traitTrees
+                        ? [{ name: 'Traits', slug: 'traits' }]
+                        : []
+                };
+            })
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]): number {
@@ -38,7 +33,7 @@
         if (!characterProfession) { return 0 }
 
         let staticSubProfession = staticProfession
-            .subProfessions[expansionSlugMap[(parentEntries?.[0] || entry).slug].id]
+            .expansionSubProfession[expansionSlugMap[(parentEntries?.[0] || entry).slug].id]
 
         const stats = parentEntries.length > 0
             ? characterProfession.subProfessions[staticSubProfession.id].traitStats

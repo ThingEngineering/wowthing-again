@@ -738,7 +738,9 @@ export const multiTaskMap: Record<string, Chore[]> = {
                     .filter((prof) => prof.type === 0)
                     .some(
                         (profession) =>
-                            !!char.professions?.[profession.id]?.[profession.subProfessions[9].id],
+                            !!char.professions?.[profession.id]?.[
+                                profession.expansionSubProfession[9].id
+                            ],
                     ),
             canGetFunc: (char) =>
                 char.reputations?.[2544] >= 500 ? '' : "Need Preferred with Artisan's Consortium",

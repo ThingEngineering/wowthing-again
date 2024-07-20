@@ -1,9 +1,10 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
     import { professionIdToSlug } from '@/data/professions'
+    import { settingsStore } from '@/shared/stores/settings';
     import getPercentClass from '@/utils/get-percent-class'
-    import type { Character } from '@/types'
     import type { StaticDataProfession} from '@/shared/stores/static/types'
+    import type { Character } from '@/types'
     
     import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
@@ -18,13 +19,15 @@
         name = names[character.faction] || names[0]
 
         subProfessions = []
-        for (const subProfession of profession.subProfessions) {
-            const subNames = subProfession.name.split('|')
+        for (const expansion of settingsStore.expansions) {
+            const subProfession = profession.expansionSubProfession[expansion.id];
+            const subNames = subProfession.name.split('|');
+            
             subProfessions.push([
                 subNames[character.faction] || subNames[0],
                 character.professions?.[profession.id][subProfession.id]?.currentSkill ?? 0,
                 character.professions?.[profession.id][subProfession.id]?.maxSkill ?? 0,
-            ])
+            ]);
         }
     }
 </script>

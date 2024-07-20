@@ -30,7 +30,7 @@
         }
         
         const charProfession = character.professions[staticProfession.id]
-        const charSubProfession = charProfession?.[staticProfession.subProfessions[expansion.id].id]
+        const charSubProfession = charProfession?.[staticProfession.expansionSubProfession[expansion.id].id]
         if (!charSubProfession) {
             break $
         }

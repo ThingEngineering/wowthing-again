@@ -11,6 +11,7 @@
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { Constants } from '@/data/constants';
 
     export let character: Character
     export let professionType = 0
@@ -27,14 +28,14 @@
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
                     let found = false
-                    for (let i = profession.subProfessions.length; i > 0; i--) {
-                        const subProfession = profession.subProfessions[i - 1]
+                    for (const expansion of settingsStore.expansions) {
+                        const subProfession = profession.expansionSubProfession[expansion.id]
                         const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
                         if (characterSubProfession) {
                             professions.push([
                                 profession,
                                 characterSubProfession,
-                                i === profession.subProfessions.length
+                                expansion.id === Constants.expansion
                             ])
                             found = true
                             break

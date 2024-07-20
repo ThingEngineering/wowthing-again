@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { expansionOrderMap, expansionSlugMap, maxExpansionId } from '@/data/expansion'
+    import { expansionOrderMap, expansionSlugMap } from '@/data/expansion'
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { lazyStore, userStore } from '@/stores'
@@ -21,9 +21,9 @@
     $: {
         const professionId = professionSlugToId[params.slug1]
         const profession = $staticStore.professions[professionId]
-        const categoryIndex = expansionOrderMap[expansionSlugMap[params.slug2].id]
-        const subProfessionId = profession.subProfessions[maxExpansionId - categoryIndex].id
-        category = profession.categories[maxExpansionId - categoryIndex].children[0]
+        const expansionId = expansionSlugMap[params.slug2].id
+        const subProfessionId = profession.expansionSubProfession[expansionId].id
+        category = profession.expansionCategory[expansionId].children[0]
         
         allKnown = new Set<number>()
         for (const character of $userStore.characters) {

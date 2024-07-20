@@ -24,7 +24,7 @@ export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
 
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
-    (expansion) => -expansion.id,
+    (expansion) => expansion.id,
 );
 
 export const expansionOrderMap: Record<number, number> = Object.fromEntries(
@@ -34,4 +34,4 @@ export const expansionOrderMap: Record<number, number> = Object.fromEntries(
 export const expansionReverseOrder = expansionOrder.slice();
 expansionReverseOrder.reverse();
 
-export const maxExpansionId = expansionOrder[0].id;
+export const maxExpansionId = expansionOrder[expansionOrder.length - 1].id;

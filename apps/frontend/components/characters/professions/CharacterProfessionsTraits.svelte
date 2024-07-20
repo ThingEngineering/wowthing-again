@@ -18,7 +18,7 @@
     $: {
         expansion = expansionSlugMap[params.slug5]
         const charProfession = character.professions[staticProfession.id]
-        subProfession = staticProfession.subProfessions[expansion.id]
+        subProfession = staticProfession.expansionSubProfession[expansion.id]
         if (!expansion || !charProfession || !subProfession.traitTrees) {
             break $
         }
