@@ -131,6 +131,11 @@ public class UserCharactersJob : JobBase
 
             foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
             {
+                if (string.IsNullOrWhiteSpace(apiCharacter.Name))
+                {
+                    continue;
+                }
+
                 try
                 {
                     var key = (apiCharacter.Realm.Id, apiCharacter.Name);
