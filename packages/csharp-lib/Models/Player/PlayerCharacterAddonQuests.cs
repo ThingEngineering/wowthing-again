@@ -11,9 +11,11 @@ public class PlayerCharacterAddonQuests
     public PlayerCharacter Character { get; set; }
 
     public DateTime CallingsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime CompletedQuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime QuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime WorldQuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
+    public List<int> CompletedQuests { get; set; }
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
 

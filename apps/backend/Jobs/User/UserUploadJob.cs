@@ -514,8 +514,37 @@ public class UserUploadJob : JobBase
         return (realm, parts[2]);
     }
 
+    private List<int> Unsquish(string squished)
+    {
+        var ret = new List<int>();
+
+        // questId(.deltas)|...
+        foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|'))
+        {
+            string[] questParts = part.Split('.', 2);
+            int questId = int.Parse(questParts[0]);
+            ret.Add(questId);
+
+            if (questParts.Length == 2)
+            {
+                foreach (char deltaChar in questParts[1].EmptyIfNullOrWhitespace())
+                {
+                    questId += MemoryCacheService.SquishedCharMap[deltaChar];
+                    ret.Add(questId);
+                }
+            }
+        }
+
+        return ret;
+    }
+
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
     {
+        if (characterData.CompletedQuestsSquish != null)
+        {
+            Unsquish(characterData.CompletedQuestsSquish);
+        }
+
         character.AddonData.Level = characterData.Level;
         character.AddonData.LevelXp = characterData.LevelXp;
 
@@ -1502,9 +1531,10 @@ public class UserUploadJob : JobBase
     private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
     {
         bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
+        bool hasCompleted = characterData.ScanTimes.TryGetValue("completedQuests", out int completedScanTimestamp);
         bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
         bool hasWorldQuests = characterData.ScanTimes.TryGetValue("worldQuests", out int worldQuestsScanTimestamp);
-        if (!hasCallings && !hasQuests && !hasWorldQuests)
+        if (!hasCallings && !hasCompleted && !hasQuests && !hasWorldQuests)
         {
             return;
         }
@@ -1518,10 +1548,8 @@ public class UserUploadJob : JobBase
             Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
         }
 
-        if (character.AddonQuests.Dailies == null)
-        {
-            character.AddonQuests.Dailies = new();
-        }
+        character.AddonQuests.CompletedQuests ??= new();
+        character.AddonQuests.Dailies ??= new();
 
         bool dailiesUpdated = false;
         if (callingsScanTimestamp > 0)
@@ -1576,6 +1604,18 @@ public class UserUploadJob : JobBase
                 }
 
                 dailiesUpdated = true;
+            }
+        }
+
+        if (completedScanTimestamp > 0)
+        {
+            _resetQuestCache = true;
+
+            var scanTime = completedScanTimestamp.AsUtcDateTime();
+            if (scanTime >= character.AddonQuests.CompletedQuestsScannedAt)
+            {
+                character.AddonQuests.CompletedQuestsScannedAt = scanTime;
+                character.AddonQuests.CompletedQuests = Unsquish(characterData.CompletedQuestsSquish);
             }
         }
 
