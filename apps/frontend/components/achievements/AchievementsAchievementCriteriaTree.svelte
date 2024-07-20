@@ -1,12 +1,15 @@
 <script lang="ts">
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
+    import { Faction } from '@/enums/faction';
     import { staticStore } from '@/shared/stores/static'
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import { forceShowCriteriaTree } from '@/data/achievements';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
@@ -40,10 +43,15 @@
         }
         else {
             have = (
-                (criteriaTree.amount > 0 && haveMap?.[criteriaTreeId] >= criteriaTree.amount) ||
-                (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
-            )
+                //(criteriaTree.amount > 0 &&)
+                haveMap?.[criteriaTreeId] > 0 &&
+                haveMap?.[criteriaTreeId] >= criteriaTree.amount
+                // (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
+            );
         }
+
+        if (rootCriteriaTree.id === 81150)
+        console.log({rootCriteriaTree, criteria, criteriaTree, description, have, haveMap})
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
@@ -69,8 +77,11 @@
             else if (criteria?.type === CriteriaType.GainAura) {
                 description = `Gain aura #${criteria.asset}`
             }
+            else if (criteria?.type === CriteriaType.ReputationGained) {
+                description = `Gain reputation #${criteria.asset}`
+            }
             else {
-                //console.log('Unknown criteria', criteriaTree, criteria)
+                // console.log('Unknown criteria', criteriaTree, criteria)
             }
         }
 
@@ -117,6 +128,8 @@
 
 <style lang="scss">
     div {
+        --image-margin-top: -4px;
+
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -134,7 +147,7 @@
 </style>
 
 {#if criteriaTree &&
-    (criteriaTree.flags & 0x02) === 0 &&
+    (forceShowCriteriaTree.has(criteriaTree.id) || (criteriaTree.flags & 0x02) === 0) &&
     (description || criteriaTree.children.length > 0)
 }
     <div
@@ -151,6 +164,13 @@
                 type={linkType}
             >
                 <YesNoIcon state={have} />
+
+                {#if criteriaTree.isAllianceOnly}
+                    <FactionIcon faction={Faction.Alliance} />
+                {:else if criteriaTree.isHordeOnly}
+                    <FactionIcon faction={Faction.Horde} />
+                {/if}
+
                 {description}
             </WowheadLink>
         {/if}

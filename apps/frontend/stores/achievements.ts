@@ -55,11 +55,13 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
         data.categories.push(null);
         let categoryId = 100000;
-        for (const [baseSlug, children] of extraCategories) {
+        for (const extraCategory of extraCategories) {
             const reputations = data.categories.find((cat) => cat?.slug === 'reputation');
-            const slugCat = reputations?.children.find((child) => child.slug === baseSlug);
+            const slugCat = reputations?.children.find(
+                (child) => child.slug === extraCategory.slug,
+            );
             if (!slugCat) {
-                console.log('uh oh', baseSlug);
+                console.log('uh oh', extraCategory);
                 continue;
             }
 
@@ -67,17 +69,22 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 id: categoryId++,
                 name: slugCat.name,
                 slug: slugCat.slug,
-                achievementIds: [],
+                achievementIds: extraCategory.achievementIds || [],
                 children: [],
             };
 
-            for (const child of children) {
+            for (const child of extraCategory.children) {
                 if (child === null) {
                     category.children.push(null);
                     continue;
                 }
 
-                const [childSlug, childNameType, childSlugOverride, childNameOverride] = child;
+                const {
+                    targetSlug: childSlug,
+                    nameType: childNameType,
+                    overrideSlug: childSlugOverride,
+                    overrideName: childNameOverride,
+                } = child;
 
                 const [childSlug1, childSlug2] = childSlug.split('/');
                 const childCat1 = find(data.categories, (c) => c !== null && c.slug === childSlug1);
@@ -100,7 +107,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                         id: childCat2.id,
                         name: childName,
                         slug: childSlug,
-                        achievementIds: childCat2.achievementIds,
+                        achievementIds: (child.achievementIds || []).concat(
+                            childCat2.achievementIds,
+                        ),
                         children: [],
                     });
                 } else {
@@ -112,6 +121,62 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         }
 
         data.categories.push(null);
+
+        categoryId = 200000;
+        // BfA hack
+        data.categories.push({
+            id: categoryId++,
+            name: '[BfA] Undersea Usurper',
+            slug: 'undersea-usurper',
+            achievementIds: [
+                13638, // Undersea Usurper
+
+                13635, // Tour of the Depths
+                13690, // Nazjatarget Eliminated
+                13691, // I Thought You Said They'd Be Rare?
+
+                13704, // [A] Nautical Battlefield Training
+                13762, // [A] Aqua Team Murder Force
+                13744, // Seasoned: Bladesman Inowari
+                13754, // Veteran: Bladesman Inowari
+                13759, // Battle-Scarred: Bladesman Inowari
+                13745, // Seasoned: Farseer Ori
+                13755, // Veteran: Farseer Ori
+                13760, // Battle-Scarred: Farseer Ori
+                13743, // Seasoned: Hunter Akana
+                13753, // Veteran: Hunter Akana
+                13758, // Battle-Scarred: Hunter Akana
+
+                13645, // [A] Nautical Battlefield Training
+                13761, // [H] Aqua Team Murder Force
+                13746, // Seasoned: Neri Sharpfin
+                13749, // Veteran: Neri Sharpfin
+                13750, // Battle-Scarred: Neri Sharpfin
+                13747, // Seasoned: Poen Gillbrack
+                13751, // Veteran: Poen Gillbrack
+                13756, // Battle-Scarred: Poen Gillbrack
+                13748, // Seasoned: Vim Brineheart
+                13752, // Veteran: Vim Brineheart
+                13757, // Battle-Scarred: Vim Brineheart
+
+                13549, // Trove Tracker
+                13711, // A Fistful of Manapearls
+                13722, // Terror of the Tadpoles
+                13699, // Periodic Destruction
+                13713, // Nothing To Scry About
+                13707, // Mrrl's Secret Stash
+                13763, // Back to the Depths!
+                13764, // Puzzle Performer
+                13712, // Explore Nazjatar
+                13558, // [A] Waveblade Ankoan
+                13559, // [H] The Unshackled
+                13765, // Subaquatic Support
+                13710, // [A] Sunken Ambitions
+                13709, // [H] Unfathomable
+                13836, // Feline Figurines Found
+            ],
+            children: [],
+        });
 
         // SL hack
         data.categories.push({

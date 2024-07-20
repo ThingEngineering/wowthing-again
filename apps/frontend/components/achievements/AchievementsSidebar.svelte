@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, lazyStore, userAchievementStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -18,6 +18,7 @@
             ...$achievementStore.categories,
         ]
     }
+    $: foo = $lazyStore.achievements
 
     const percentFunc = function(entry: SidebarItem): number {
         const cat = $userAchievementStore.achievementCategories[entry.id]

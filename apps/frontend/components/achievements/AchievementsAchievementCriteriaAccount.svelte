@@ -1,6 +1,6 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements'
-    import { achievementStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
@@ -18,12 +18,13 @@
             $achievementStore,
             $userAchievementStore,
             $userStore,
+            $userQuestStore,
             achievement
         )
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 12909) {
+        if (achievement.id === 13764) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
