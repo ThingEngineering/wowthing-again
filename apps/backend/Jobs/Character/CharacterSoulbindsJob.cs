@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -9,14 +9,19 @@ public class CharacterSoulbindsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/soulbinds";
 
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
     public override async Task Run(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
-
         // Fetch API data
         ApiCharacterSoulbinds resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
             var result = await GetUriAsJsonAsync<ApiCharacterSoulbinds>(uri, useLastModified: false);
@@ -35,12 +40,12 @@ public class CharacterSoulbindsJob : JobBase
         }
 
         // Fetch character data
-        var shadowlands = await Context.PlayerCharacterShadowlands.FindAsync(query.CharacterId);
+        var shadowlands = await Context.PlayerCharacterShadowlands.FindAsync(_query.CharacterId);
         if (shadowlands == null)
         {
             shadowlands = new PlayerCharacterShadowlands
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterShadowlands.Add(shadowlands);
         }

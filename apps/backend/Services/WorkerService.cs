@@ -141,6 +141,7 @@ RETURNING *
                     string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
                     job = _jobFactory.Create(classType, _contextFactory, cancellationToken);
+                    job.Setup(data);
                     await job.Run(data);
 
                     await context.QueuedJob.Where(qj => qj.Id == queuedJob.Id).ExecuteDeleteAsync(cancellationToken);

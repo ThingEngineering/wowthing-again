@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -10,14 +11,19 @@ public class CharacterTransmogsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/collections/transmogs";
 
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
     public override async Task Run(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
-
         // Fetch API data
         ApiCharacterTransmogs resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
             var result = await GetUriAsJsonAsync<ApiCharacterTransmogs>(uri, useLastModified: false);
@@ -36,12 +42,12 @@ public class CharacterTransmogsJob : JobBase
         }
 
         // Fetch character data
-        var pcTransmog = await Context.PlayerCharacterTransmog.FindAsync(query.CharacterId);
+        var pcTransmog = await Context.PlayerCharacterTransmog.FindAsync(_query.CharacterId);
         if (pcTransmog == null)
         {
             pcTransmog = new PlayerCharacterTransmog
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterTransmog.Add(pcTransmog);
         }
@@ -57,7 +63,7 @@ public class CharacterTransmogsJob : JobBase
         {
             pcTransmog.TransmogIds = appearanceIds;
 
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, query.UserId.ToString());
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, _query.UserId.ToString());
             Logger.Debug("Regenerating transmog cache");
         }
 

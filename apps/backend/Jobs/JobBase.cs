@@ -37,6 +37,7 @@ public abstract class JobBase : IJob, IDisposable
 
     internal long UserId;
     internal int CharacterId;
+    internal IDisposable LogProperty;
 
     private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
@@ -55,6 +56,10 @@ public abstract class JobBase : IJob, IDisposable
 
     #region IJob
     public abstract Task Run(string[] data);
+
+    // This runs in the WorkerService context, logging context properties set here will persist into the exception handler
+    public virtual void Setup(string[] data)
+    { }
     #endregion
 
     protected IDisposable AuctionLog(WowRegion region, int connectedRealmId)
@@ -63,10 +68,10 @@ public abstract class JobBase : IJob, IDisposable
         return LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
     }
 
-    protected IDisposable CharacterLog(SchedulerCharacterQuery query)
+    protected void CharacterLog(SchedulerCharacterQuery query)
     {
-        var jobName = GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
     }
 
     protected IDisposable UserLog(string userId)
@@ -288,6 +293,7 @@ public abstract class JobBase : IJob, IDisposable
         Http?.Dispose();
         //Redis?.Dispose();
         _context?.Dispose();
+        LogProperty?.Dispose();
 
         GC.SuppressFinalize(this);
     }
