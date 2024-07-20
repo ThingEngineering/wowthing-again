@@ -4,27 +4,30 @@ using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
 public class CharacterJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}";
-    private readonly Regex _numberRegex = new Regex(@"\d", RegexOptions.Compiled);
+    private readonly Regex _numberRegex = new(@"\d", RegexOptions.Compiled);
+
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
 
     public override async Task Run(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        Logger.Information("query: {data}", data[0]);
-        Logger.Information("parsed: {userId} {accountId} {region} {realmSlug} {characterId} {characterName}",
-            query.UserId, query.AccountId, query.Region, query.RealmSlug, query.CharacterId, query.CharacterName);
-        using var shrug = CharacterLog(query);
-
         // Skip invalid character names
-        if (_numberRegex.IsMatch(query.CharacterName))
+        if (_numberRegex.IsMatch(_query.CharacterName))
         {
             await Context.PlayerCharacter
-                .Where(c => c.Id == query.CharacterId)
+                .Where(c => c.Id == _query.CharacterId)
                 .ExecuteUpdateAsync(s => s
                     .SetProperty(pc => pc.ShouldUpdate, pc => false)
                 );
@@ -32,12 +35,12 @@ public class CharacterJob : JobBase
         }
 
         // Get character from API
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         ApiCharacter apiCharacter;
         DateTime lastModified;
         try
         {
-            var result = await GetUriAsJsonAsync<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
+            var result = await GetUriAsJsonAsync<ApiCharacter>(uri, useLastModified: true, lastModified: _query.LastApiModified);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -56,7 +59,7 @@ public class CharacterJob : JobBase
             if (e.Message is "403" or "404")
             {
                 await Context.PlayerCharacter
-                    .Where(c => c.Id == query.CharacterId)
+                    .Where(c => c.Id == _query.CharacterId)
                     .ExecuteUpdateAsync(s => s
                         .SetProperty(pc => pc.ShouldUpdate, pc => false)
                     );
@@ -66,7 +69,7 @@ public class CharacterJob : JobBase
         }
 
         // Get character from database
-        var character = await Context.PlayerCharacter.FindAsync(query.CharacterId);
+        var character = await Context.PlayerCharacter.FindAsync(_query.CharacterId);
         if (character == null)
         {
             // This shouldn't be possible
@@ -156,7 +159,7 @@ public class CharacterJob : JobBase
         }
 
         // Account stuff
-        if (query.AccountId.HasValue)
+        if (_query.AccountId.HasValue)
         {
             jobs.Add(JobType.CharacterHeirlooms);
             jobs.Add(JobType.CharacterPets);

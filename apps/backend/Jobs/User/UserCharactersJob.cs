@@ -5,7 +5,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -14,19 +13,24 @@ public class UserCharactersJob : JobBase
 {
     private const string ApiPath = "profile/user/wow?access_token={0}";
 
+    private long _userId;
+
+    public override void Setup(string[] data)
+    {
+        _userId = long.Parse(data[0]);
+        UserLog(_userId);
+    }
+
     public override async Task Run(string[] data)
     {
-        using var shrug = UserLog(data[0]);
         var timer = new JankTimer();
-
-        long userId = long.Parse(data[0]);
 
         // Get user access token
         var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
-            t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
+            t.UserId == _userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
         if (accessToken == null)
         {
-            Logger.Error("No access_token for user {0}", userId);
+            Logger.Error("No access_token for user {0}", _userId);
             return;
         }
 
@@ -39,14 +43,9 @@ public class UserCharactersJob : JobBase
 
         // Add any new accounts
         var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
+        var failedRegions = new HashSet<WowRegion>();
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
-            // FIXME remove this if Blizzard ever fixes their broken APIs
-            // if (region == WowRegion.KR || region == WowRegion.TW)
-            // {
-            //     continue;
-            // }
-
             var uri = GenerateUri(region, ApiNamespace.Profile, path);
             try
             {
@@ -84,14 +83,14 @@ public class UserCharactersJob : JobBase
                         Context.PlayerAccount.Add(playerAccount);
                         Logger.Information("Added new account {0}/{1}", region, apiAccount.Id);
                     }
-                    else if (playerAccount.UserId != userId)
+                    else if (playerAccount.UserId != _userId)
                     {
                         Logger.Warning("Changed owner of account {region} {id} from {user1} to {user2}",
-                            region, playerAccount.AccountId, playerAccount.UserId, userId);
+                            region, playerAccount.AccountId, playerAccount.UserId, _userId);
                         playerAccount.Enabled = true;
                     }
 
-                    playerAccount.UserId = userId;
+                    playerAccount.UserId = _userId;
                 }
             }
             catch (HttpRequestException e)
@@ -100,10 +99,12 @@ public class UserCharactersJob : JobBase
                 {
                     Logger.Error("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
                 }
+                failedRegions.Add(region);
             }
             catch (Exception ex) when (ex is TimeoutException or TaskCanceledException)
             {
                 Logger.Error("HTTP request timed out: {region} {msg}", region, ex.Message);
+                failedRegions.Add(region);
             }
         }
 
@@ -135,6 +136,11 @@ public class UserCharactersJob : JobBase
 
             foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
             {
+                if (string.IsNullOrWhiteSpace(apiCharacter.Name))
+                {
+                    continue;
+                }
+
                 try
                 {
                     var key = (apiCharacter.Realm.Id, apiCharacter.Name);
@@ -178,7 +184,7 @@ public class UserCharactersJob : JobBase
         int written = await Context.SaveChangesAsync();
         if (written > 0)
         {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _userId);
         }
 
         timer.AddPoint("Save");
@@ -218,14 +224,17 @@ public class UserCharactersJob : JobBase
 
         // Unlink accounts that weren't in the response
         var otherAccounts = await Context.PlayerAccount
-            .Where(pa => pa.UserId == userId && !seenAccountIds.Contains(pa.Id))
+            .Where(pa => pa.UserId == _userId && !seenAccountIds.Contains(pa.Id))
             .ToArrayAsync();
         if (otherAccounts.Length > 0)
         {
             foreach (var otherAccount in otherAccounts)
             {
-                otherAccount.UserId = null;
-                Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+                if (!failedRegions.Contains(otherAccount.Region))
+                {
+                    otherAccount.UserId = null;
+                    Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+                }
             }
 
             await Context.SaveChangesAsync();

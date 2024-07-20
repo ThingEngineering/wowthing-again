@@ -76,12 +76,15 @@ public class UserUploadJob : JobBase
             _ => TimeSpan.FromMilliseconds(250)
         );
 
+    public override void Setup(string[] data)
+    {
+        _userId = long.Parse(data[0]);
+        UserLog(_userId);
+    }
+
     public override async Task Run(string[] data)
     {
         _timer = new JankTimer();
-
-        _userId = long.Parse(data[0]);
-        using var shrug = UserLog(_userId);
 
         Logger.Information("Processing {key}...", data[1]);
 
@@ -111,6 +114,12 @@ public class UserUploadJob : JobBase
         string luaData = await db.CompressedStringGetAsync(data[1]);
 
         _timer.AddPoint("Redis");
+
+        if (string.IsNullOrWhiteSpace(luaData))
+        {
+            Logger.Error("Lua data is empty!");
+            return;
+        }
 
         try
         {
@@ -881,9 +890,12 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
-        entry.Property(ad => ad.Garrisons).IsModified = true;
-        entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
-        entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(ad => ad.Garrisons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
+        }
     }
 
     private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
@@ -975,9 +987,11 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.Shadowlands)
-            .Property(cs => cs.Covenants)
-            .IsModified = true;
+        var entry = Context.Entry(character.Shadowlands);
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(cs => cs.Covenants).IsModified = true;
+        }
     }
 
     private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
@@ -1709,9 +1723,11 @@ public class UserUploadJob : JobBase
 
         if (dailiesUpdated)
         {
-            Context.Entry(character.AddonQuests)
-                .Property(caq => caq.Dailies)
-                .IsModified = true;
+            var entry = Context.Entry(character.AddonQuests);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(caq => caq.Dailies).IsModified = true;
+            }
         }
     }
 
@@ -1903,7 +1919,11 @@ public class UserUploadJob : JobBase
                 character.Weekly.Vault.RaidProgress = null;
             }
 
-            Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+            var entry = Context.Entry(character.Weekly);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(e => e.Vault).IsModified = true;
+            }
         }
     }
 

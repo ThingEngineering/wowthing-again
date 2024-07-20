@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Character;
@@ -10,16 +11,21 @@ public class CharacterAchievementStatisticsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/achievements/statistics";
 
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
     public override async Task Run(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
-
         var timer = new JankTimer();
 
         // Fetch API data
         ApiCharacterAchievementStatistics resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
             var result = await GetUriAsJsonAsync<ApiCharacterAchievementStatistics>(uri, useLastModified: false, timer: timer);
@@ -38,12 +44,12 @@ public class CharacterAchievementStatisticsJob : JobBase
         }
 
         // Fetch character data
-        var pcStatistics = await Context.PlayerCharacterStatistics.FindAsync(query.CharacterId);
+        var pcStatistics = await Context.PlayerCharacterStatistics.FindAsync(_query.CharacterId);
         if (pcStatistics == null)
         {
             pcStatistics = new PlayerCharacterStatistics
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterStatistics.Add(pcStatistics);
         }
@@ -92,7 +98,7 @@ public class CharacterAchievementStatisticsJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, _query.UserId);
         }
 
         timer.AddPoint("Update", true);

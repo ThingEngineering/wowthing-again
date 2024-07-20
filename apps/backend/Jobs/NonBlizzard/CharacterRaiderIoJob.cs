@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.NonBlizzard;
 
@@ -10,10 +11,16 @@ public class CharacterRaiderIoJob : JobBase
     private int _characterId;
     private long _userId;
 
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
     public override async Task Run(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);        using var shrug = CharacterLog(query);
-
         // Fetch seasons
         var seasonIds = JsonSerializer
             .Deserialize<int[]>(data[1])
@@ -40,7 +47,7 @@ public class CharacterRaiderIoJob : JobBase
         var oof = string.Join(":", oofParts);
 
         // Fetch API data
-        var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName, oof));
+        var uri = new Uri(string.Format(ApiUrl, _query.Region.ToString().ToLowerInvariant(), _query.RealmSlug, _query.CharacterName, oof));
 
         ApiCharacterRaiderIo resultData;
         try
@@ -55,12 +62,12 @@ public class CharacterRaiderIoJob : JobBase
         }
 
         // Fetch character data
-        var raiderIo = await Context.PlayerCharacterRaiderIo.FindAsync(query.CharacterId);
+        var raiderIo = await Context.PlayerCharacterRaiderIo.FindAsync(_query.CharacterId);
         if (raiderIo == null)
         {
             raiderIo = new PlayerCharacterRaiderIo
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterRaiderIo.Add(raiderIo);
         }

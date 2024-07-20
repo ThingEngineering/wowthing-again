@@ -22,8 +22,10 @@ public class DataAuctionsJob : JobBase
     private const string ApiPath = "data/wow/connected-realm/{0}/auctions";
     private const string CommoditiesPath = "data/wow/auctions/commodities";
 
+    private int _connectedRealmId;
     private Dictionary<int, WowItemBonus> _itemAppearanceBonuses;
     private ItemModifiedAppearanceCache _itemModifiedAppearances;
+    private WowRegion _region;
 
     private readonly Dictionary<string, WowAuctionTimeLeft> _timeLeftMap = new()
     {
@@ -103,18 +105,21 @@ COPY wow_auction_commodity_hourly (
 ) FROM STDIN (FORMAT BINARY)
 ";
 
+    public override void Setup(string[] data)
+    {
+        _region = (WowRegion)int.Parse(data[0]);
+        _connectedRealmId = int.Parse(data[1]);
+
+        AuctionLog(_region, _connectedRealmId);
+    }
+
     public override async Task Run(string[] data)
     {
         var timer = new JankTimer();
 
-        var region = (WowRegion)int.Parse(data[0]);
-        int connectedRealmId = int.Parse(data[1]);
-
-        using var shrug = AuctionLog(region, connectedRealmId);
-
-        var uri = GenerateUri(region, ApiNamespace.Dynamic, connectedRealmId > 100000
+        var uri = GenerateUri(_region, ApiNamespace.Dynamic, _connectedRealmId > 100000
             ? CommoditiesPath
-            : string.Format(ApiPath, connectedRealmId)
+            : string.Format(ApiPath, _connectedRealmId)
         );
 
         JobHttpResult<ApiDataAuctions> result;
@@ -149,7 +154,7 @@ COPY wow_auction_commodity_hourly (
         await using var command = connection.CreateCommand();
 
         // Create new table
-        string tableName = $"wow_auction_{connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
+        string tableName = $"wow_auction_{_connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
         command.CommandText = string.Format(CreateTable, tableName);
         await command.ExecuteNonQueryAsync();
 
@@ -161,7 +166,7 @@ COPY wow_auction_commodity_hourly (
         Dictionary<int, List<ApiDataAuctionsAuction>> commodities;
         await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) = await WriteAuctionData(writer, connectedRealmId, result.Data.Auctions);
+            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) = await WriteAuctionData(writer, _connectedRealmId, result.Data.Auctions);
         }
 
         timer.AddPoint("Copy");
@@ -187,7 +192,7 @@ COPY wow_auction_commodity_hourly (
             while (await reader.ReadAsync())
             {
                 string partition = reader.GetString(0);
-                if (partition.StartsWith($"wow_auction_{connectedRealmId}_"))
+                if (partition.StartsWith($"wow_auction_{_connectedRealmId}_"))
                 {
                     existing = partition;
                 }
@@ -236,7 +241,7 @@ COPY wow_auction_commodity_hourly (
         }
 
         // Attach new partition
-        command.CommandText = string.Format(AttachPartition, tableName, connectedRealmId);
+        command.CommandText = string.Format(AttachPartition, tableName, _connectedRealmId);
         await command.ExecuteNonQueryAsync();
 
         timer.AddPoint("Partition");
@@ -244,26 +249,26 @@ COPY wow_auction_commodity_hourly (
         // Release the lock
         await JobRepository.ReleaseLockAsync(RedisKeys.AuctionsLock, lockValue);
 
-        if (connectedRealmId < 100000)
+        if (_connectedRealmId < 100000)
         {
             // Update WowAuctionCheapestByAppearanceId
             await Context.WowAuctionCheapestByAppearanceId
-                .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
+                .Where(cheapest => cheapest.ConnectedRealmId == _connectedRealmId)
                 .ExecuteDeleteAsync();
 
             await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
             {
-                await WriteCheapestByAppearanceIdData(writer, connectedRealmId, auctionsByAppearanceId);
+                await WriteCheapestByAppearanceIdData(writer, _connectedRealmId, auctionsByAppearanceId);
             }
 
             // Update WowAuctionCheapestByAppearanceSource
             await Context.WowAuctionCheapestByAppearanceSource
-                .Where(cheapest => cheapest.ConnectedRealmId == connectedRealmId)
+                .Where(cheapest => cheapest.ConnectedRealmId == _connectedRealmId)
                 .ExecuteDeleteAsync();
 
             await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
             {
-                await WriteCheapestByAppearanceSourceData(writer, connectedRealmId, auctionsByAppearanceSource);
+                await WriteCheapestByAppearanceSourceData(writer, _connectedRealmId, auctionsByAppearanceSource);
             }
 
             timer.AddPoint("Cheapest");
@@ -273,7 +278,7 @@ COPY wow_auction_commodity_hourly (
             // Update WowAuctionCommodityHourly
             await using (var writer = await connection.BeginBinaryImportAsync(CopyCommodityHourly))
             {
-                await WriteCommodityHourly(writer, region, commodities);
+                await WriteCommodityHourly(writer, _region, commodities);
             }
 
             timer.AddPoint("Commodity");
@@ -283,7 +288,7 @@ COPY wow_auction_commodity_hourly (
         var db = Redis.GetDatabase();
         await db.HashSetAsync(
             RedisKeys.CheckedAuctions,
-            connectedRealmId,
+            _connectedRealmId,
             DateTime.UtcNow.ToUnixTimeSeconds(),
             flags: CommandFlags.FireAndForget
         );

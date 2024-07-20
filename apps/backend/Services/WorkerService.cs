@@ -141,13 +141,32 @@ RETURNING *
                     string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
                     job = _jobFactory.Create(classType, _contextFactory, cancellationToken);
+                    job.Setup(data);
                     await job.Run(data);
 
-                    await context.QueuedJob.Where(qj => qj.Id == queuedJob.Id).ExecuteDeleteAsync(cancellationToken);
+                    await context.QueuedJob
+                        .Where(qj => qj.Id == queuedJob.Id)
+                        .ExecuteDeleteAsync(cancellationToken);
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Job failed");
+
+                    if (queuedJob.Failures >= 2)
+                    {
+                        await context.QueuedJob
+                            .Where(qj => qj.Id == queuedJob.Id)
+                            .ExecuteDeleteAsync(cancellationToken);
+                    }
+                    else
+                    {
+                        await context.QueuedJob
+                            .Where(qj => qj.Id == queuedJob.Id)
+                            .ExecuteUpdateAsync(
+                                setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
+                                cancellationToken: cancellationToken
+                            );
+                    }
                 }
                 finally
                 {
