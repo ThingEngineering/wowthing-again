@@ -115,6 +115,12 @@ public class UserUploadJob : JobBase
 
         _timer.AddPoint("Redis");
 
+        if (string.IsNullOrWhiteSpace(luaData))
+        {
+            Logger.Error("Lua data is empty!");
+            return;
+        }
+
         try
         {
             await Process(luaData);
