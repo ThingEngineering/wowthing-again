@@ -5,7 +5,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -39,14 +38,9 @@ public class UserCharactersJob : JobBase
 
         // Add any new accounts
         var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
+        var failedRegions = new HashSet<WowRegion>();
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
-            // FIXME remove this if Blizzard ever fixes their broken APIs
-            // if (region == WowRegion.KR || region == WowRegion.TW)
-            // {
-            //     continue;
-            // }
-
             var uri = GenerateUri(region, ApiNamespace.Profile, path);
             try
             {
@@ -100,10 +94,12 @@ public class UserCharactersJob : JobBase
                 {
                     Logger.Error("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
                 }
+                failedRegions.Add(region);
             }
             catch (Exception ex) when (ex is TimeoutException or TaskCanceledException)
             {
                 Logger.Error("HTTP request timed out: {region} {msg}", region, ex.Message);
+                failedRegions.Add(region);
             }
         }
 
@@ -224,8 +220,11 @@ public class UserCharactersJob : JobBase
         {
             foreach (var otherAccount in otherAccounts)
             {
-                otherAccount.UserId = null;
-                Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+                if (!failedRegions.Contains(otherAccount.Region))
+                {
+                    otherAccount.UserId = null;
+                    Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+                }
             }
 
             await Context.SaveChangesAsync();
