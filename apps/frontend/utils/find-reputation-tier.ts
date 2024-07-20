@@ -25,7 +25,11 @@ export default function findReputationTier(
                     tiers.minValues[i] < 0
                         ? tiers.minValues[i] - tiers.minValues[i + 1]
                         : tiers.minValues[i + 1] - tiers.minValues[i];
-                percent = ((value / maxValue) * 100).toFixed(1);
+                percent = (
+                    characterRep < 0
+                        ? ((maxValue - value) / maxValue) * 100
+                        : (value / maxValue) * 100
+                ).toFixed(1);
             }
 
             return new ReputationTier(

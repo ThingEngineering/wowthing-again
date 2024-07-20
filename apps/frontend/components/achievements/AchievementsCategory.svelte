@@ -29,12 +29,13 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = ['a-world-awoken', 'back-from-the-beyond'].includes(category.slug)
+        achievementIds = category.id >= 200000
             ? category.achievementIds
             : sortBy(
                 category.achievementIds,
                 id => [
                     $userAchievementStore.achievements[id] === undefined ? '1' : '0',
+                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
                     leftPad($achievementStore.achievement[id].order, 4, '0'),
                     leftPad(100000 - id, 6, '0')
                 ].join('|')
@@ -140,7 +141,7 @@
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
                 <AchievementsAchievement
-                    kindaAlwaysShow={['back-from-the-beyond', 'a-world-awoken'].includes(category.slug)}
+                    kindaAlwaysShow={category.id >= 200000}
                     {achievementId}
                 />
             {/each}

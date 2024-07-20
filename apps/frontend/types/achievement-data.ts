@@ -77,8 +77,20 @@ export class AchievementDataCriteriaTree {
         public children: number[],
     ) {}
 
+    hasFlag(flag: CriteriaTreeFlags): boolean {
+        return (this.flags & flag) > 0;
+    }
+
     get isProgressBar(): boolean {
-        return (this.flags & CriteriaTreeFlags.ProgressBar) > 0;
+        return this.hasFlag(CriteriaTreeFlags.ProgressBar);
+    }
+
+    get isAllianceOnly(): boolean {
+        return this.hasFlag(CriteriaTreeFlags.AllianceOnly);
+    }
+
+    get isHordeOnly(): boolean {
+        return this.hasFlag(CriteriaTreeFlags.HordeOnly);
     }
 }
 

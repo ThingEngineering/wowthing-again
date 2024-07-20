@@ -368,7 +368,9 @@ public class CacheService
             c => new ApiUserQuestsCharacter(
                 c.AddonQuests,
                 SerializationUtilities.AsDiffedList(
-                    (c.Quests?.CompletedIds ?? []).Union(c.AddonQuests?.OtherQuests ?? [])
+                    (c.Quests?.CompletedIds ?? [])
+                        .Union(c.AddonQuests?.OtherQuests ?? [])
+                        .Union(c.AddonQuests?.CompletedQuests ?? [])
                 )
             )
         );

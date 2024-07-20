@@ -32,6 +32,21 @@ public class MemoryCacheService
         _logger = Log.ForContext("Service", $"MemoryCache");
     }
 
+    // This probably doesn't really belong here, but adding an entire new service for it seemed silly
+    private const string CharValues =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&*()-_=+[{]};:,<.>/?";
+
+    private Dictionary<char, int> _squishedCharMap;
+    public Dictionary<char, int> SquishedCharMap
+    {
+        get
+        {
+            _squishedCharMap ??= CharValues.Select((chr, index) => (chr, index))
+                .ToDictionary(tup => tup.chr, tup => tup.index + 1);
+            return _squishedCharMap;
+        }
+    }
+
     public async Task<ActiveConnectedRealmQuery[]> GetAuctionConnectedRealms()
     {
         return await _memoryCache.GetOrCreateAsync(

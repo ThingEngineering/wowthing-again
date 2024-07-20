@@ -55,11 +55,13 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
         data.categories.push(null);
         let categoryId = 100000;
-        for (const [baseSlug, children] of extraCategories) {
+        for (const extraCategory of extraCategories) {
             const reputations = data.categories.find((cat) => cat?.slug === 'reputation');
-            const slugCat = reputations?.children.find((child) => child.slug === baseSlug);
+            const slugCat = reputations?.children.find(
+                (child) => child.slug === extraCategory.slug,
+            );
             if (!slugCat) {
-                console.log('uh oh', baseSlug);
+                console.log('uh oh', extraCategory);
                 continue;
             }
 
@@ -67,17 +69,22 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 id: categoryId++,
                 name: slugCat.name,
                 slug: slugCat.slug,
-                achievementIds: [],
+                achievementIds: extraCategory.achievementIds || [],
                 children: [],
             };
 
-            for (const child of children) {
+            for (const child of extraCategory.children) {
                 if (child === null) {
                     category.children.push(null);
                     continue;
                 }
 
-                const [childSlug, childNameType, childSlugOverride, childNameOverride] = child;
+                const {
+                    targetSlug: childSlug,
+                    nameType: childNameType,
+                    overrideSlug: childSlugOverride,
+                    overrideName: childNameOverride,
+                } = child;
 
                 const [childSlug1, childSlug2] = childSlug.split('/');
                 const childCat1 = find(data.categories, (c) => c !== null && c.slug === childSlug1);
@@ -100,7 +107,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                         id: childCat2.id,
                         name: childName,
                         slug: childSlug,
-                        achievementIds: childCat2.achievementIds,
+                        achievementIds: (child.achievementIds || []).concat(
+                            childCat2.achievementIds,
+                        ),
                         children: [],
                     });
                 } else {
@@ -112,6 +121,62 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         }
 
         data.categories.push(null);
+
+        categoryId = 200000;
+        // BfA hack
+        data.categories.push({
+            id: categoryId++,
+            name: '[BfA] Undersea Usurper',
+            slug: 'undersea-usurper',
+            achievementIds: [
+                13638, // Undersea Usurper
+
+                13635, // Tour of the Depths
+                13690, // Nazjatarget Eliminated
+                13691, // I Thought You Said They'd Be Rare?
+
+                13704, // [A] Nautical Battlefield Training
+                13762, // [A] Aqua Team Murder Force
+                13744, // Seasoned: Bladesman Inowari
+                13754, // Veteran: Bladesman Inowari
+                13759, // Battle-Scarred: Bladesman Inowari
+                13745, // Seasoned: Farseer Ori
+                13755, // Veteran: Farseer Ori
+                13760, // Battle-Scarred: Farseer Ori
+                13743, // Seasoned: Hunter Akana
+                13753, // Veteran: Hunter Akana
+                13758, // Battle-Scarred: Hunter Akana
+
+                13645, // [A] Nautical Battlefield Training
+                13761, // [H] Aqua Team Murder Force
+                13746, // Seasoned: Neri Sharpfin
+                13749, // Veteran: Neri Sharpfin
+                13750, // Battle-Scarred: Neri Sharpfin
+                13747, // Seasoned: Poen Gillbrack
+                13751, // Veteran: Poen Gillbrack
+                13756, // Battle-Scarred: Poen Gillbrack
+                13748, // Seasoned: Vim Brineheart
+                13752, // Veteran: Vim Brineheart
+                13757, // Battle-Scarred: Vim Brineheart
+
+                13549, // Trove Tracker
+                13711, // A Fistful of Manapearls
+                13722, // Terror of the Tadpoles
+                13699, // Periodic Destruction
+                13713, // Nothing To Scry About
+                13707, // Mrrl's Secret Stash
+                13763, // Back to the Depths!
+                13764, // Puzzle Performer
+                13712, // Explore Nazjatar
+                13558, // [A] Waveblade Ankoan
+                13559, // [H] The Unshackled
+                13765, // Subaquatic Support
+                13710, // [A] Sunken Ambitions
+                13709, // [H] Unfathomable
+                13836, // Feline Figurines Found
+            ],
+            children: [],
+        });
 
         // SL hack
         data.categories.push({
@@ -157,7 +222,17 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 15324, // Tower Ranger
                 15322, // Tower Ranger > Flawless Master (Layer 16)
                 15067, // Tower Ranger > Adamant Vaults
+                14468, // Tower Ranger > Twisting Corridors: Layer 1
+                14469, // Tower Ranger > Twisting Corridors: Layer 2
+                14470, // Tower Ranger > Twisting Corridors: Layer 3
+                14471, // Tower Ranger > Twisting Corridors: Layer 4
+                14472, // Tower Ranger > Twisting Corridors: Layer 5
+                14568, // Tower Ranger > Twisting Corridors: Layer 6
+                14569, // Tower Ranger > Twisting Corridors: Layer 7
                 14570, // Tower Ranger > Twisting Corridors: Layer 8
+                15251, // Tower Ranger > The Jailer's Gauntlet: Layer 1
+                15252, // Tower Ranger > The Jailer's Gauntlet: Layer 2
+                15253, // Tower Ranger > The Jailer's Gauntlet: Layer 3
                 15254, // Tower Ranger > The Jailer's Gauntlet: Layer 4
                 15092, // Tower Ranger > Master of Torment
                 15093, // Tower Ranger > Master of Torment > Avenge Me!
@@ -212,7 +287,8 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16529, // Joining the Community
                 16530, // Ally of the Flights
                 17763, // There's No Place Like Loamm
-                19235, // Warden of the Dream
+                19230, // [1] Friends in the Dream
+                19235, // [2] Warden of the Dream
                 18615, // Legend of the Multiverse
                 16494, // Loyalty to the Prince
                 16760, // The Obsidian Bloodline
@@ -230,8 +306,12 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 19486, // Across the Isles
 
                 19479, // Wake Me Up
-                16570, // A Legendary Album
-                16568, // Great Shots Galore!
+                16572, // [1] Legendary Photograph
+                16573, // [2] Legendary Photographs
+                16570, // [3] A Legendary Album
+                16566, // [1] Great Shot!
+                16567, // [2] A Lot of Great Shots!
+                16568, // [3] Great Shots Galore!
                 16587, // Lead Climber
                 16588, // How Did These Get Here?
                 15890, // Dragonscale Expedition: The Highest Peaks
@@ -254,7 +334,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16444, // Leftovers' Revenge
                 16317, // Secret Fishing Spots
                 16553, // Taking From Nature
-                16563, // We're Going to Need a Bigger Harpoon
+                16546, // [1] What's Down There?
+                16562, // [2] That's not a Fish...
+                16563, // [3] We're Going to Need a Bigger Harpoon
                 16580, // Lend a Helping Span
                 16678, // Adventurer of The Azure Span
                 16300, // Treasures of The Azure Span
@@ -307,7 +389,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 16487, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Firestorms
                 16488, // Into the Storm > Storm Chaser > Chasing Storms in Thaldraszus > Snowstorms
                 16461, // Into the Storm > Stormed Off
-                16500, // Into the Storm > Elemental Overload
+                16498, // Into the Storm > [1] Elemental Overflow
+                16499, // Into the Storm > [2] Elemental Overflowing
+                16500, // Into the Storm > [3] Elemental Overload
                 16502, // Into the Storm > Storming the Runway
 
                 18209, // Nothing Stops the Research
@@ -318,13 +402,17 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 17543, // You Know How to Reach Me
                 17534, // Explore the Forbidden Reach
                 17526, // Treasures of the Forbidden Reach
-                17528, // Hoarder of the Forbidden Reach
-                17525, // Champion of the Forbidden Reach
+                17527, // [1] Scavenger of the Forbidden Reach
+                17528, // [2] Hoarder of the Forbidden Reach
+                17524, // [1] Adventurer of the Forbidden Reach
+                17525, // [2] Champion of the Forbidden Reach
                 17529, // Forbidden Spoils
                 17530, // Librarian of the Reach
-                17532, // Scroll Hunter
+                17531, // [1] X Marks the Spot
+                17532, // [2] Scroll Hunter
                 17540, // Under the Weather
-                17413, // Door Buster
+                17397, // [1] Door To Door
+                17413, // [2] Door Buster
                 17509, // Every Door, Everywhere, All At Once
                 17315, // While We Were Sleeping
 

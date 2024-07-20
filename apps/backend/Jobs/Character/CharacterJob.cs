@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Text.RegularExpressions;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -16,6 +15,9 @@ public class CharacterJob : JobBase
     public override async Task Run(string[] data)
     {
         var query = DeserializeCharacterQuery(data[0]);
+        Logger.Information("query: {data}", data[0]);
+        Logger.Information("parsed: {userId} {accountId} {region} {realmSlug} {characterId} {characterName}",
+            query.UserId, query.AccountId, query.Region, query.RealmSlug, query.CharacterId, query.CharacterName);
         using var shrug = CharacterLog(query);
 
         // Skip invalid character names

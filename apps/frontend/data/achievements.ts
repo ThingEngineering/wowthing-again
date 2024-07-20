@@ -20,6 +20,10 @@ export const forceSupersededBy: Record<number, number> = {
     13702: 13703, // Battlefield Tactician -> Battlefield Master
 };
 
+export const forceShowCriteriaTree: Set<number> = new Set<number>([
+    80091, // Waveblade Ankoan
+]);
+
 export const forceGarrisonTalent: Record<number, [number, number]> = {
     91802: [1863, 2], // Elite Slayer Rank 2
     91803: [1783, 3], // Blessing Rank 3
@@ -70,157 +74,322 @@ export const honorAchievements: Record<number, boolean> = Object.fromEntries(
     ].map((id) => [id, true]),
 );
 
-export const extraCategories: [string, [string, number, string?, string?][]][] = [
-    [
-        'classic',
-        [
-            [
-                'exploration/eastern-kingdoms',
-                3,
-                'exploration-eastern-kingdoms',
-                'Exploration > Eastern Kingdoms',
-            ],
-            ['exploration/kalimdor', 3, 'exploration-kalimdor', 'Exploration > Kalimdor'],
-            ['quests/eastern-kingdoms', 3, 'quests-eastern-kingdoms', 'Quests > Eastern Kingdoms'],
-            ['quests/kalimdor', 3, 'quests-kalimdor', 'Quests > Kalimdor'],
-            ['reputation/classic', 1],
+type ExtraAchievementCategory = {
+    slug: string;
+    achievementIds?: number[];
+    children: {
+        // 1 = target category, 2 = parent category, 3 = custom
+        nameType: number;
+        targetSlug: string;
+
+        achievementIds?: number[];
+        overrideName?: string;
+        overrideSlug?: string;
+    }[];
+};
+export const extraCategories: ExtraAchievementCategory[] = [
+    {
+        slug: 'classic',
+        children: [
+            {
+                targetSlug: 'exploration/eastern-kingdoms',
+                nameType: 3,
+                overrideName: 'Exploration > Eastern Kingdoms',
+                overrideSlug: 'exploration-eastern-kingdoms',
+            },
+            {
+                targetSlug: 'exploration/kalimdor',
+                nameType: 3,
+                overrideName: 'Exploration > Kalimdor',
+                overrideSlug: 'exploration-kalimdor',
+            },
+            {
+                targetSlug: 'quests/eastern-kingdoms',
+                nameType: 3,
+                overrideName: 'Quests > Eastern Kingdoms',
+                overrideSlug: 'quests-eastern-kingdoms',
+            },
+            {
+                targetSlug: 'quests/kalimdor',
+                nameType: 3,
+                overrideName: 'Quests > Kalimdor',
+                overrideSlug: 'quests-kalimdor',
+            },
+            { targetSlug: 'reputation/classic', nameType: 1 },
             null,
-            ['dungeons-raids/classic', 3, 'dungeons-raids', 'Dungeons & Raids'],
+            {
+                targetSlug: 'dungeons-raids/classic',
+                nameType: 3,
+                overrideName: 'Dungeons & Raids',
+                overrideSlug: 'dungeons-raids',
+            },
         ],
-    ],
-    [
-        'the-burning-crusade',
-        [
-            ['exploration/outland', 1],
-            ['quests/outland', 1],
-            ['reputation/the-burning-crusade', 1],
+    },
+    {
+        slug: 'the-burning-crusade',
+        children: [
+            { targetSlug: 'exploration/outland', nameType: 1 },
+            { targetSlug: 'quests/outland', nameType: 1 },
+            { targetSlug: 'reputation/the-burning-crusade', nameType: 1 },
             null,
-            ['dungeons-raids/the-burning-crusade', 3, 'dungeons-raids', 'Dungeons & Raids'],
+            {
+                targetSlug: 'dungeons-raids/the-burning-crusade',
+                nameType: 3,
+                overrideName: 'Dungeons & Raids',
+                overrideSlug: 'dungeons-raids',
+            },
         ],
-    ],
-    [
-        'wrath-of-the-lich-king',
-        [
-            ['exploration/northrend', 1],
-            ['quests/northrend', 1],
-            ['reputation/wrath-of-the-lich-king', 1],
+    },
+    {
+        slug: 'wrath-of-the-lich-king',
+        children: [
+            { targetSlug: 'exploration/northrend', nameType: 1 },
+            { targetSlug: 'quests/northrend', nameType: 1 },
+            { targetSlug: 'reputation/wrath-of-the-lich-king', nameType: 1 },
             null,
-            ['dungeons-raids/lich-king-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/lich-king-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/lich-king-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/lich-king-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/argent-tournament', 2],
+            { targetSlug: 'expansion-features/argent-tournament', nameType: 2 },
         ],
-    ],
-    [
-        'cataclysm',
-        [
-            ['exploration/cataclysm', 1],
-            ['quests/cataclysm', 1],
-            ['reputation/cataclysm', 1],
+    },
+    {
+        slug: 'cataclysm',
+        children: [
+            { targetSlug: 'exploration/cataclysm', nameType: 1 },
+            { targetSlug: 'quests/cataclysm', nameType: 1 },
+            { targetSlug: 'reputation/cataclysm', nameType: 1 },
             null,
-            ['dungeons-raids/cataclysm-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/cataclysm-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/cataclysm-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/cataclysm-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/tol-barad', 2],
+            { targetSlug: 'expansion-features/tol-barad', nameType: 2 },
         ],
-    ],
-    [
-        'pandaria',
-        [
-            ['exploration/pandaria', 1],
-            ['quests/pandaria', 1],
-            ['reputation/pandaria', 1],
+    },
+    {
+        slug: 'pandaria',
+        children: [
+            { targetSlug: 'exploration/pandaria', nameType: 1 },
+            { targetSlug: 'quests/pandaria', nameType: 1 },
+            { targetSlug: 'reputation/pandaria', nameType: 1 },
             null,
-            ['dungeons-raids/pandaria-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/pandaria-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/pandaria-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/pandaria-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/proving-grounds', 2],
-            ['expansion-features/pandaria-scenarios', 3, 'scenarios', 'Scenarios'],
+            { targetSlug: 'expansion-features/proving-grounds', nameType: 2 },
+            {
+                targetSlug: 'expansion-features/pandaria-scenarios',
+                nameType: 3,
+                overrideName: 'Scenarios',
+                overrideSlug: 'scenarios',
+            },
         ],
-    ],
-    [
-        'draenor',
-        [
-            ['exploration/draenor', 1],
-            ['quests/draenor', 1],
-            ['reputation/draenor', 1],
+    },
+    {
+        slug: 'draenor',
+        children: [
+            { targetSlug: 'exploration/draenor', nameType: 1 },
+            { targetSlug: 'quests/draenor', nameType: 1 },
+            { targetSlug: 'reputation/draenor', nameType: 1 },
             null,
-            ['dungeons-raids/draenor-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/draenor-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/draenor-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/draenor-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/draenor-garrison', 3, 'garrison', 'Garrison'],
+            {
+                targetSlug: 'expansion-features/draenor-garrison',
+                nameType: 3,
+                overrideName: 'Garrison',
+                overrideSlug: 'garrison',
+            },
         ],
-    ],
-    [
-        'legion',
-        [
-            ['exploration/legion', 1],
-            ['quests/legion', 1],
-            ['reputation/legion', 1],
+    },
+    {
+        slug: 'legion',
+        children: [
+            { targetSlug: 'exploration/legion', nameType: 1 },
+            { targetSlug: 'quests/legion', nameType: 1 },
+            { targetSlug: 'reputation/legion', nameType: 1 },
             null,
-            ['dungeons-raids/legion-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/legion-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/legion-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/legion-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/legion-class-hall', 3, 'class-hall', 'Class Hall'],
+            {
+                targetSlug: 'expansion-features/legion-class-hall',
+                nameType: 3,
+                overrideName: 'Class Hall',
+                overrideSlug: 'class-hall',
+            },
         ],
-    ],
-    [
-        'battle-for-azeroth',
-        [
-            ['exploration/battle-for-azeroth', 1],
-            ['quests/battle-for-azeroth', 1],
-            ['reputation/battle-for-azeroth', 1],
+    },
+    {
+        slug: 'battle-for-azeroth',
+        children: [
+            { targetSlug: 'exploration/battle-for-azeroth', nameType: 1 },
+            { targetSlug: 'quests/battle-for-azeroth', nameType: 1 },
+            { targetSlug: 'reputation/battle-for-azeroth', nameType: 1 },
             null,
-            ['dungeons-raids/battle-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/battle-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/battle-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/battle-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/heart-of-azeroth', 2],
-            ['expansion-features/island-expeditions', 2],
-            ['expansion-features/visions-of-nzoth', 2],
-            ['expansion-features/war-effort', 2],
+            { targetSlug: 'expansion-features/heart-of-azeroth', nameType: 2 },
+            { targetSlug: 'expansion-features/island-expeditions', nameType: 2 },
+            { targetSlug: 'expansion-features/visions-of-nzoth', nameType: 2 },
+            { targetSlug: 'expansion-features/war-effort', nameType: 2 },
         ],
-    ],
-    [
-        'shadowlands',
-        [
-            ['exploration/shadowlands', 1],
-            ['quests/shadowlands', 1],
-            ['reputation/shadowlands', 1],
+    },
+    {
+        slug: 'shadowlands',
+        children: [
+            { targetSlug: 'exploration/shadowlands', nameType: 1 },
+            { targetSlug: 'quests/shadowlands', nameType: 1 },
+            { targetSlug: 'reputation/shadowlands', nameType: 1 },
             null,
-            ['dungeons-raids/shadowlands-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/shadowlands-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/shadowlands-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/shadowlands-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['expansion-features/covenant-sanctums', 2],
-            ['expansion-features/torghast', 2],
+            { targetSlug: 'expansion-features/covenant-sanctums', nameType: 2 },
+            { targetSlug: 'expansion-features/torghast', nameType: 2 },
         ],
-    ],
-    [
-        'dragonflight',
-        [
-            ['exploration/dragonflight', 1], // 10.x
-            ['exploration/dragon-isles', 1], // 11.x
-            ['quests/dragonflight', 1],
-            ['reputation/dragonflight', 1],
+    },
+    {
+        slug: 'dragonflight',
+        children: [
+            // 10.x
+            { targetSlug: 'exploration/dragonflight', nameType: 1 },
+            // 11.x
+            {
+                targetSlug: 'exploration/dragon-isles',
+                nameType: 1,
+                achievementIds: [
+                    16761, // Dragon Isles Explorer
+                ],
+            },
+            { targetSlug: 'quests/dragonflight', nameType: 1 },
+            { targetSlug: 'reputation/dragonflight', nameType: 1 },
             null,
-            ['dungeons-raids/dragonflight-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/dragonflight-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/dragonflight-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+                achievementIds: [
+                    16294, // Dragonflight Dungeon Hero
+                    16295, // Glory of the Dragonflight Hero
+                ],
+            },
+            {
+                targetSlug: 'dungeons-raids/dragonflight-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+                achievementIds: [
+                    16355, // Glory of the Vault Raider
+                    18251, // Glory of the Aberrus Raider
+                    19349, // Glory of the Dream Raider
+                ],
+            },
             null,
-            ['expansion-features/dragonriding', 2], // 10.x
-            ['expansion-features/skyriding', 2], // 11.x
-            ['collections/dragon-isle-drake-cosmetics', 2],
+            { targetSlug: 'expansion-features/dragonriding', nameType: 2 }, // 10.x
+            { targetSlug: 'expansion-features/skyriding', nameType: 2 }, // 11.x
+            {
+                targetSlug: 'collections/dragon-isle-drake-cosmetics',
+                nameType: 3,
+                overrideName: 'Drake Cosmetics',
+                overrideSlug: 'drake-cosmetics',
+            },
         ],
-    ],
-    [
-        'war-within',
-        [
-            ['exploration/war-within', 1],
-            ['quests/war-within', 1],
-            ['reputation/war-within', 1],
+    },
+    {
+        slug: 'war-within',
+        children: [
+            { targetSlug: 'exploration/war-within', nameType: 1 },
+            { targetSlug: 'quests/war-within', nameType: 1 },
+            { targetSlug: 'reputation/war-within', nameType: 1 },
             null,
-            ['dungeons-raids/war-within-dungeon', 3, 'dungeons', 'Dungeons'],
-            ['dungeons-raids/war-within-raid', 3, 'raids', 'Raids'],
+            {
+                targetSlug: 'dungeons-raids/war-within-dungeon',
+                nameType: 3,
+                overrideName: 'Dungeons',
+                overrideSlug: 'dungeons',
+            },
+            {
+                targetSlug: 'dungeons-raids/war-within-raid',
+                nameType: 3,
+                overrideName: 'Raids',
+                overrideSlug: 'raids',
+            },
             null,
-            ['delves/the-war-within', 1],
+            { targetSlug: 'delves/the-war-within', nameType: 1 },
         ],
-    ],
+    },
 ];
