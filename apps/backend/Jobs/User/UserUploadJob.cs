@@ -76,12 +76,15 @@ public class UserUploadJob : JobBase
             _ => TimeSpan.FromMilliseconds(250)
         );
 
+    public override void Setup(string[] data)
+    {
+        _userId = long.Parse(data[0]);
+        UserLog(_userId);
+    }
+
     public override async Task Run(string[] data)
     {
         _timer = new JankTimer();
-
-        _userId = long.Parse(data[0]);
-        using var shrug = UserLog(_userId);
 
         Logger.Information("Processing {key}...", data[1]);
 

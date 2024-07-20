@@ -17,17 +17,20 @@ public class UserBulkDataJob : JobBase
     private const string ToysApiPath = "profile/user/wow/collections/toys?access_token={0}";
     private const string TransmogsApiPath = "profile/user/wow/collections/transmogs?access_token={0}";
 
-    private string _accessToken = string.Empty;
     private long _userId;
+    private string _accessToken = string.Empty;
     private JankTimer _timer;
     private UserBulkData _bulkData;
 
+    public override void Setup(string[] data)
+    {
+        _userId = long.Parse(data[0]);
+        UserLog(_userId);
+    }
+
     public override async Task Run(string[] data)
     {
-        using var shrug = UserLog(data[0]);
         _timer = new JankTimer();
-
-        _userId = long.Parse(data[0]);
 
         // Get user access token
         var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>

@@ -9,6 +9,8 @@ namespace Wowthing.Backend.Jobs.Data;
 
 public class DataQuestJob : JobBase
 {
+    private int _questId;
+
     private const string ApiPath = "data/wow/quest/{0}";
 
     private static readonly Dictionary<Language, string> LanguageToLocale = new()
@@ -26,13 +28,16 @@ public class DataQuestJob : JobBase
         { Language.zhTW, "zh_TW" },
     };
 
+    public override void Setup(string[] data)
+    {
+        _questId = int.Parse(data[0]);
+        QuestLog(_questId);
+    }
+
     public override async Task Run(string[] data)
     {
-        var questId = int.Parse(data[0]);
-        using var shrug = QuestLog(questId);
-
         var languageMap = await Context.LanguageString
-            .Where(ls => ls.Type == StringType.WowQuestName && ls.Id == questId)
+            .Where(ls => ls.Type == StringType.WowQuestName && ls.Id == _questId)
             .ToDictionaryAsync(ls => ls.Language);
 
         // Fetch API data
@@ -41,7 +46,7 @@ public class DataQuestJob : JobBase
             var uri = GenerateUri(
                 WowRegion.US,
                 ApiNamespace.Static,
-                string.Format(ApiPath, questId),
+                string.Format(ApiPath, _questId),
                 locale
             );
 
@@ -75,7 +80,7 @@ public class DataQuestJob : JobBase
                 {
                     Language = language,
                     Type = StringType.WowQuestName,
-                    Id = questId,
+                    Id = _questId,
                 };
                 Context.Add(languageString);
             }

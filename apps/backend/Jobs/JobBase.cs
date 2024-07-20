@@ -62,10 +62,10 @@ public abstract class JobBase : IJob, IDisposable
     { }
     #endregion
 
-    protected IDisposable AuctionLog(WowRegion region, int connectedRealmId)
+    protected void AuctionLog(WowRegion region, int connectedRealmId)
     {
-        var jobName = GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
     }
 
     protected void CharacterLog(SchedulerCharacterQuery query)
@@ -74,18 +74,18 @@ public abstract class JobBase : IJob, IDisposable
         LogProperty = LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
     }
 
-    protected IDisposable UserLog(string userId)
+    protected void UserLog(string userId)
     {
-        var jobName = GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{userId} {jobName}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{userId} {jobName}");
     }
 
-    protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
+    protected void UserLog(long userId) => UserLog(userId.ToString());
 
-    protected IDisposable QuestLog(int questId)
+    protected void QuestLog(int questId)
     {
         var jobName = GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{jobName} {questId}");
+        LogProperty = LogContext.PushProperty("Task", $"{jobName} {questId}");
     }
 
     protected SchedulerCharacterQuery DeserializeCharacterQuery(string data)
