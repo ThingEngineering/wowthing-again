@@ -451,7 +451,22 @@ public class UserUploadJob : JobBase
                 Context.PlayerAccountTransmogSources.Add(accountTransmogSources);
             }
 
-            if (parsed.TransmogSources?.Count > 0)
+            if (parsed.TransmogSourcesSquish != null)
+            {
+                var sources = new List<string>();
+
+                foreach ((string key, string squished) in parsed.TransmogSourcesSquish)
+                {
+                    int modifier = int.Parse(key.Replace("m", ""));
+                    foreach (int itemId in Unsquish(squished))
+                    {
+                        sources.Add($"{itemId}_{modifier}");
+                    }
+                }
+
+                accountTransmogSources.Sources = sources.Order().ToList();
+            }
+            else if (parsed.TransmogSources?.Count > 0)
             {
                 accountTransmogSources.Sources = parsed.TransmogSources
                     .Keys
@@ -549,11 +564,6 @@ public class UserUploadJob : JobBase
 
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (characterData.CompletedQuestsSquish != null)
-        {
-            Unsquish(characterData.CompletedQuestsSquish);
-        }
-
         character.AddonData.Level = characterData.Level;
         character.AddonData.LevelXp = characterData.LevelXp;
 

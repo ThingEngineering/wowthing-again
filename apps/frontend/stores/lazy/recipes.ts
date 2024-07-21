@@ -1,8 +1,9 @@
 import { Constants } from '@/data/constants';
-import { expansionOrder, maxExpansionId } from '@/data/expansion';
+import { expansionMap, expansionOrder } from '@/data/expansion';
 import { UserCount } from '@/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { UserData } from '@/types';
+import type { Settings } from '@/shared/stores/settings/types';
 
 export class LazyRecipes {
     public hasAbility: Record<number, boolean[]> = {};
@@ -10,6 +11,7 @@ export class LazyRecipes {
 }
 
 interface LazyStores {
+    settings: Settings;
     staticData: StaticData;
     userData: UserData;
 }
@@ -52,7 +54,7 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                 continue;
             }
 
-            const categoryKey = `${professionKey}--${expansionOrder[maxExpansionId - categoryIndex].slug}`;
+            const categoryKey = `${professionKey}--${expansionMap[categoryIndex].slug}`;
             const categoryData = (ret.stats[categoryKey] = new UserCount());
 
             for (const child of category.children[0].children) {
@@ -73,7 +75,10 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                     const abilityCount = abilityIds.length;
                     const abilityHave = ret.hasAbility[ability.id].filter((have) => have).length;
 
-                    if (categoryIndex <= Constants.expansion) {
+                    if (
+                        !stores.settings.collections.hideFuture ||
+                        categoryIndex <= Constants.expansion
+                    ) {
                         overallData.total += abilityCount;
                         overallData.have += abilityHave;
 

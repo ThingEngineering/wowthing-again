@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings';
     import { imageStrings } from '@/data/icons'
+    import { settingsStore } from '@/shared/stores/settings';
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
-    import type { StaticDataProfession, StaticDataSubProfession } from '@/shared/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -12,11 +12,9 @@
     export let profession: StaticDataProfession
 
     let filterFunc: (char: Character) => boolean
-    let subProfessions: StaticDataSubProfession[]
     $: {
         if (profession) {
             filterFunc = (char) => !!char.professions?.[profession.id]
-            subProfessions = profession.subProfessions.slice().reverse()
         }
         else {
             filterFunc = () => false
@@ -58,10 +56,10 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each subProfessions as subProfession}
+            {#each settingsStore.expansions as expansion}
                 <Profession
                     primaryId={profession.id}
-                    subId={subProfession.id}
+                    subId={profession.expansionSubProfession[expansion.id].id}
                     {character}
                 />
             {:else}

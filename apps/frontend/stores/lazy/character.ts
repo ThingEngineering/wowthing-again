@@ -156,7 +156,7 @@ class ProcessCharacterProfessions {
                 new LazyCharacterProfession(professionId);
 
             for (const expansion of expansionOrder) {
-                const subProfession = staticProfession.subProfessions[expansion.id];
+                const subProfession = staticProfession.expansionSubProfession[expansion.id];
                 if (!subProfession) {
                     continue;
                 }
@@ -168,7 +168,7 @@ class ProcessCharacterProfessions {
                     subProfession.id
                 ] = new LazyCharacterSubProfession();
 
-                let rootCategory = staticProfession.categories?.[expansion.id];
+                let rootCategory = staticProfession.expansionCategory?.[expansion.id];
                 if (rootCategory) {
                     while (rootCategory.children.length === 1) {
                         rootCategory = rootCategory.children[0];

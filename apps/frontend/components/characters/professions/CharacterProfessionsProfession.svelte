@@ -2,7 +2,7 @@
     import { expansionSlugMap } from '@/data/expansion'
     import { lazyStore } from '@/stores'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
-    import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+    import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory, StaticDataSubProfession } from '@/shared/stores/static/types'
     import type { Character, CharacterProfession, Expansion, MultiSlugParams, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -19,6 +19,7 @@
     let knownRecipes: Set<number>
     let rootCategory: StaticDataProfessionCategory
     let stats: UserCount
+    let subProfession: StaticDataSubProfession
 
     $: {
         expansion = expansionSlugMap[params.slug5]
@@ -27,17 +28,17 @@
             break $
         }
 
-        const subProfessionId = staticProfession.subProfessions[expansion.id].id
-        charSubProfession = charProfession[subProfessionId]
+        subProfession = staticProfession.expansionSubProfession[expansion.id]
+        charSubProfession = charProfession[subProfession.id]
 
         const lazyProfessions = $lazyStore.characters[character.id].professions
         knownRecipes = lazyProfessions.knownRecipes
 
         const lazyProfession = lazyProfessions.professions[staticProfession.id]
-        filteredCategories = lazyProfession.filteredCategories
-        stats = lazyProfession.subProfessions[subProfessionId]?.stats
+        filteredCategories = lazyProfession?.filteredCategories || {}
+        stats = lazyProfession?.subProfessions[subProfession.id]?.stats
 
-        rootCategory = staticProfession.categories?.[expansion.id]
+        rootCategory = staticProfession.expansionCategory?.[expansion.id]
         if (rootCategory) {
             while (rootCategory.children.length === 1) {
                 rootCategory = rootCategory.children[0]
@@ -78,10 +79,10 @@
                 cls={getProgressClass(charSubProfession?.currentSkill || 0, charSubProfession?.maxSkill || 1)}
                 have={charSubProfession?.currentSkill || 0}
                 total={charSubProfession?.maxSkill || -1}
-                title={getNameForFaction(staticProfession.subProfessions[expansion.id].name, character.faction)}
+                title={getNameForFaction(subProfession.name, character.faction)}
             />
 
-            {#if stats.total > 0}
+            {#if stats?.total > 0}
                 <ProgressBar
                     cls={getProgressClass(stats.have, stats.total)}
                     have={stats.have}

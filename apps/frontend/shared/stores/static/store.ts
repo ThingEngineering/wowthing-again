@@ -60,8 +60,17 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 profession.categories = profession.rawCategories.map(
                     (categoryArray) => new StaticDataProfessionCategory(...categoryArray),
                 );
+
+                profession.expansionCategory = Object.fromEntries(
+                    profession.categories.map((cat, index) => [index, cat]),
+                );
+
                 profession.rawCategories = null;
             }
+
+            profession.expansionSubProfession = Object.fromEntries(
+                profession.subProfessions.map((cat, index) => [index, cat]),
+            );
 
             data.professionBySkillLine[profession.id] = [profession, 0];
             for (let i = 0; i < profession.subProfessions.length; i++) {

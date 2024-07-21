@@ -37,7 +37,7 @@
 <td>
     {#if professions[profession]}
         {@const [staticProfession,] = professions[profession]}
-        {@const staticSubProfession = staticProfession.subProfessions[expansionSlugMap['dragonflight'].id]}
+        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap['dragonflight'].id]}
         {@const lazyData = $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
         {@const charStats = lazyData.subProfessions[staticSubProfession.id]?.traitStats}
         <div class="flex-wrapper">

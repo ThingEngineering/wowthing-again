@@ -31,11 +31,11 @@
     let colspan: number
     let subProfession: StaticDataSubProfession
     $: {
-        categoryChildren = profession.categories[expansion.id]
+        categoryChildren = profession.expansionCategory[expansion.id]
             .children[0]
             .children
             .filter((cat) => cat.abilities.length > 0)
-        subProfession = profession.subProfessions[expansion.id]
+        subProfession = profession.expansionSubProfession[expansion.id]
         
         characters = $userStore.characters.filter((char) =>
             char.professions?.[profession.id]?.[subProfession.id]
