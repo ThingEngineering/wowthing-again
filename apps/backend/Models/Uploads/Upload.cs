@@ -24,4 +24,6 @@ public class Upload
 
     [JsonPropertyName("transmogSourcesV2")]
     public Dictionary<string, bool> TransmogSources { get; set; }
+
+    public Dictionary<string, string> TransmogSourcesSquish { get; set; }
 }
