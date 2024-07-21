@@ -131,7 +131,7 @@ public class DumpsTool
             ImportTransmogSets,
             ImportWorldQuests,
 
-            ImportInventoryStrings,
+            ImportGlobalStrings,
 
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
@@ -590,6 +590,48 @@ public class DumpsTool
             faction => faction.ID,
             faction => faction.Description
         );
+    }
+
+    private async Task ImportGlobalStrings(WowDbContext context)
+    {
+        var dbLanguageMap = await context.LanguageString
+            .AsNoTracking()
+            .Where(ls => ls.Type == StringType.WowInventorySlot || ls.Type == StringType.WowInventoryType)
+            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
+
+        foreach (var language in _languages)
+        {
+            foreach ((string key, string value) in _globalStringMap[language]
+                         .Where(kvp => kvp.Key.StartsWith("EXPANSION_NAME")))
+            {
+                int expansionId = int.Parse(key.Replace("EXPANSION_NAME", ""));
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowExpansion, expansionId, value);
+            }
+
+            foreach ((string key, int slotId) in InventorySlotMap)
+            {
+                if (!_globalStringMap[language].TryGetValue(key, out string? value))
+                {
+                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", key);
+                    continue;
+                }
+
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventorySlot, slotId, value);
+            }
+
+            foreach ((string key, int slotId) in InventoryTypeMap)
+            {
+                if (!_globalStringMap[language].TryGetValue(key, out string? value))
+                {
+                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", key);
+                    continue;
+                }
+
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventoryType, slotId, value);
+            }
+        }
+
+        _timer.AddPoint("GlobalStrings");
     }
 
     private async Task ImportHolidays(WowDbContext context)
@@ -1504,40 +1546,5 @@ public class DumpsTool
         }
 
         _timer.AddPoint("WorldQuests");
-    }
-
-    private async Task ImportInventoryStrings(WowDbContext context)
-    {
-        var dbLanguageMap = await context.LanguageString
-            .AsNoTracking()
-            .Where(ls => ls.Type == StringType.WowInventorySlot || ls.Type == StringType.WowInventoryType)
-            .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
-
-        foreach (var language in _languages)
-        {
-            foreach ((string stringKey, int slotId) in InventorySlotMap)
-            {
-                if (!_globalStringMap[language].TryGetValue(stringKey, out string? stringValue))
-                {
-                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", stringKey);
-                    continue;
-                }
-
-                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventorySlot, slotId, stringValue);
-            }
-
-            foreach ((string stringKey, int slotId) in InventoryTypeMap)
-            {
-                if (!_globalStringMap[language].TryGetValue(stringKey, out string? stringValue))
-                {
-                    ToolContext.Logger.Warning("Missing globalstrings key: {key}", stringKey);
-                    continue;
-                }
-
-                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowInventoryType, slotId, stringValue);
-            }
-        }
-
-        _timer.AddPoint("InventoryStrings");
     }
 }
