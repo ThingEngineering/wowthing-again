@@ -5,22 +5,22 @@
     import { staticStore } from '@/shared/stores/static'
     import { itemStore, userQuestStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
-    import type { Character, CharacterProfession, Expansion } from '@/types'
     import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+    import type { Character, CharacterProfession } from '@/types'
 
     import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
     export let category: StaticDataProfessionCategory
     export let character: Character
     export let charSubProfession: CharacterProfession
-    export let expansion: Expansion
     export let filteredCategories: Record<number, StaticDataProfessionAbility[]>
+    export let hasFirstCraft: boolean
     export let knownRecipes: Set<number>
 
     let abilities: [StaticDataProfessionAbility, boolean, number, number, number, number][]
@@ -211,7 +211,7 @@
                                         {ability}
                                     />
 
-                                    {#if expansion.id >= 9}
+                                    {#if hasFirstCraft}
                                         <span class="has-crafted">
                                             {#if ability.firstCraftQuestId}
                                                 {@const hasCrafted = userQuestStore.hasAny(character.id, ability.firstCraftQuestId)}
