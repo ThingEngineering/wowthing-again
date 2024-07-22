@@ -1,6 +1,4 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
     import { lazyStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'

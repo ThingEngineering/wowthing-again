@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { settingsStore } from '@/shared/stores/settings'
     import { lazyStore } from '@/stores';
