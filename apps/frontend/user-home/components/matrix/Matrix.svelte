@@ -8,12 +8,12 @@
     import { isSecondaryProfession, professionOrder } from '@/data/professions'
     import { Gender, genderValues } from '@/enums/gender'
     import { Region } from '@/enums/region'
-    import { userStore } from '@/stores'
     import { browserStore } from '@/shared/stores/browser'
-    import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/shared/stores/settings'
-    import { cartesianProduct } from '@/utils/cartesian-product'
+    import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { userStore } from '@/stores'
+    import { cartesianProduct } from '@/utils/cartesian-product'
     import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/shared/stores/static/types'
 
@@ -25,6 +25,7 @@
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
     import TooltipCharacter from '@/user-home/components/matrix/TooltipCharacter.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
+    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
     let matrix: Record<string, Character[]>
     let xCounts: Record<string, number>
@@ -38,7 +39,8 @@
             (char) => (
                 $settingsStore.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                 $settingsStore.characters.ignoredCharacters.indexOf(char.id) === -1 &&
-                char.level >= $browserStore.matrix.minLevel
+                char.level >= $browserStore.matrix.minLevel &&
+                char.account?.enabled === true
             )
         )
 
@@ -118,9 +120,10 @@
 
             if (axis.indexOf('account') >= 0) {
                 combos.push(sortBy(
-                    Object.keys($userStore.accounts)
-                        .map((accountId) => {
-                            const tag = $userStore.accounts[parseInt(accountId)].tag || accountId
+                    Object.values($userStore.accounts)
+                        .filter((account) => account.enabled)
+                        .map((account) => {
+                            const tag = account.tag || account.id
                             return `${tag}|${tag}`
                         }),
                     (key) => key.split('|')[0]
