@@ -59,13 +59,7 @@
             {#each settingsStore.expansions as expansion}
                 <Profession
                     primaryId={profession.id}
-                    subId={profession.expansionSubProfession[expansion.id].id}
-                    {character}
-                />
-            {:else}
-                <Profession
-                    primaryId={profession.id}
-                    subId={profession.id}
+                    subId={profession.expansionSubProfession[expansion.id]?.id}
                     {character}
                 />
             {/each}
