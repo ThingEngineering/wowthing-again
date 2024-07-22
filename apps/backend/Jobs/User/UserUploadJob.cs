@@ -458,7 +458,8 @@ public class UserUploadJob : JobBase
                 foreach ((string key, string squished) in parsed.TransmogSourcesSquish)
                 {
                     int modifier = int.Parse(key.Replace("m", ""));
-                    foreach (int itemId in Unsquish(squished))
+                    var itemIds = Unsquish(squished);
+                    foreach (int itemId in itemIds)
                     {
                         sources.Add($"{itemId}_{modifier}");
                     }
