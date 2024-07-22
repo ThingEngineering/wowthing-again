@@ -2,12 +2,12 @@
     import { expansionSlugMap } from '@/data/expansion'
     import { lazyStore } from '@/stores'
     import { getNameForFaction } from '@/utils/get-name-for-faction'
+    import getPercentClass from '@/utils/get-percent-class';
     import type { StaticDataProfession, StaticDataProfessionAbility, StaticDataProfessionCategory, StaticDataSubProfession } from '@/shared/stores/static/types'
     import type { Character, CharacterProfession, Expansion, MultiSlugParams, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Table from './CharacterProfessionsProfessionTable.svelte'
-    import getPercentClass from '@/utils/get-percent-class';
 
     export let character: Character
     export let params: MultiSlugParams
@@ -16,6 +16,7 @@
     let charSubProfession: CharacterProfession
     let expansion: Expansion
     let filteredCategories: Record<number, StaticDataProfessionAbility[]>
+    let hasFirstCraft: boolean
     let knownRecipes: Set<number>
     let rootCategory: StaticDataProfessionCategory
     let stats: UserCount
@@ -44,6 +45,12 @@
                 rootCategory = rootCategory.children[0]
             }
         }
+
+        hasFirstCraft = rootCategory.children.some(
+            (child) => child.abilities.some(
+                (ability) => !!ability.firstCraftQuestId
+            )
+        )
     }
 
     const getProgressClass = (current: number, max: number) => {
@@ -99,8 +106,8 @@
                         category={rootCategory}
                         {character}
                         {charSubProfession}
-                        {expansion}
                         {filteredCategories}
+                        {hasFirstCraft}
                         {knownRecipes}
                     />
                 {/if}
@@ -110,8 +117,8 @@
                         category={child}
                         {character}
                         {charSubProfession}
-                        {expansion}
                         {filteredCategories}
+                        {hasFirstCraft}
                         {knownRecipes}
                     />
                 {/each}

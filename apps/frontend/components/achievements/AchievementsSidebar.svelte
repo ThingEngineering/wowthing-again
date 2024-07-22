@@ -18,7 +18,6 @@
             ...$achievementStore.categories,
         ]
     }
-    $: foo = $lazyStore.achievements
 
     const percentFunc = function(entry: SidebarItem): number {
         const cat = $userAchievementStore.achievementCategories[entry.id]

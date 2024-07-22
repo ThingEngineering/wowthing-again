@@ -79,10 +79,19 @@
         --image-border-width: 2px;
 
         border-left: 1px solid $border-color;
-        padding: 0 0.4rem;
+        padding: 0 0.1rem;
+    }
+    .icon-wrapper {
+        --image-margin-top: 0;
+
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        height: 42px;
+        width: 42px;
     }
     .no-profession {
-        --scale: 1.3;
+        --scale: 1.5;
 
         color: $color-fail;
     }
@@ -95,19 +104,21 @@
         class="profession-icon"
         class:no-profession={!userHas}
     >
-        {#if userHas}
-            <WowthingImage
-                name="{imageStrings[professionIdToSlug[profession.id]]}"
-                size={24}
-                border={2}
-                tooltip={getNameForFaction(profession.name, character.faction)}
-            />
-        {:else}
-            <IconifyIcon
-                icon={uiIcons.no}
-                tooltip="No profession!"
-            />
-        {/if}
+        <div class="icon-wrapper">
+            {#if userHas}
+                <WowthingImage
+                    name="{imageStrings[professionIdToSlug[profession.id]]}"
+                    size={32}
+                    border={2}
+                    tooltip={getNameForFaction(profession.name, character.faction)}
+                />
+            {:else}
+                <IconifyIcon
+                    icon={uiIcons.no}
+                    tooltip="No profession!"
+                />
+            {/if}
+        </div>
     </td>
 
     {#each Array(profession?.slug === 'fishing' ? 1 : (profession.type === 0 ? 3 : 2)) as _, slot}

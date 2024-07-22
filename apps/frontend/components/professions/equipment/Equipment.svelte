@@ -13,7 +13,7 @@
 
     let professionId: number
     $: {
-        professionId = professionSlugToId[slug]
+        professionId = professionSlugToId[slug] || 0
     }
 
     $: filterFunc = (char: Character): boolean => {

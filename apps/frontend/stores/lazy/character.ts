@@ -142,9 +142,9 @@ class ProcessCharacterProfessions {
             this.character.professions || {},
         )) {
             const staticProfession = this.stores.staticData.professions[professionId];
-            if (staticProfession.type !== 0) {
-                continue;
-            }
+            // if (staticProfession.type !== 0) {
+            //     continue;
+            // }
 
             for (const subProfession of Object.values(characterSubProfessions)) {
                 for (const abilityId of subProfession.knownRecipes || []) {

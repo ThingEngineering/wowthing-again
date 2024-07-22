@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { expansionOrderMap, expansionSlugMap } from '@/data/expansion'
+    import { expansionSlugMap } from '@/data/expansion'
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { lazyStore, userStore } from '@/stores'
