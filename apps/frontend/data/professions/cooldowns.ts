@@ -164,6 +164,20 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'mopJewelcraftingResearch',
+        name: '[MoP] Research',
+        profession: Profession.Jewelcrafting,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopJewelcraftingSerpents',
+        name: "[MoP] Serpent's Heart",
+        profession: Profession.Jewelcrafting,
+        cooldown: [[0]],
+    },
 
     // Leatherworking
     {
