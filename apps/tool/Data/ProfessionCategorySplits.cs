@@ -2,12 +2,18 @@
 
 public static partial class Hardcoded
 {
-    private static readonly ProfessionCategorySplit[] BattleForAzerothPvp = {
+    private static readonly ProfessionCategorySplit[] BattleForAzerothPvp =
+    [
         new("Notorious Combatant"),
         new("Uncanny Combatant"),
         new("Sinister Combatant"),
         new("Honorable Combatant"),
-    };
+    ];
+    private static readonly ProfessionCategorySplit[] MistsOfPandariaPvp =
+    [
+        new("Dreadful", anywhere: true),
+        new("Malevolent", anywhere: true),
+    ];
 
     public static readonly Dictionary<int, ProfessionCategorySplit[]> ProfessionCategorySplits = new()
     {
@@ -30,14 +36,8 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Primal Molten"),
             ]
         },
-        {
-            547, // Battle for Azeroth > Armor
-            BattleForAzerothPvp
-        },
-        {
-            548, // Battle for Azeroth > Weapons
-            BattleForAzerothPvp
-        },
+        { 547, BattleForAzerothPvp }, // Battle for Azeroth > Armor
+        { 548, BattleForAzerothPvp }, // Battle for Azeroth > Weapons
         {
             427, // Legion > Armor
             [
@@ -51,6 +51,23 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Vicious"),
             ]
         },
+        { 554, MistsOfPandariaPvp }, // Mists of Pandaria > Helms
+        { 555, MistsOfPandariaPvp }, // Mists of Pandaria > Shoulders
+        { 559, MistsOfPandariaPvp }, // Mists of Pandaria > Chest
+        { 560, MistsOfPandariaPvp }, // Mists of Pandaria > Bracers
+        { 561, MistsOfPandariaPvp }, // Mists of Pandaria > Gloves
+        { 562, MistsOfPandariaPvp }, // Mists of Pandaria > Belts
+        { 563, MistsOfPandariaPvp }, // Mists of Pandaria > Pants
+        { 564, MistsOfPandariaPvp }, // Mists of Pandaria > Boots
+
+        // Engineering
+        {
+            470, // Legion > Goggles
+            [
+                new ProfessionCategorySplit("Cranial Cannon", anywhere: true),
+                new ProfessionCategorySplit("Headgun", anywhere: true),
+            ]
+        },
 
         // Leatherworking
         {
@@ -60,14 +77,8 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Umbrahide"),
             ]
         },
-        {
-            883, // Battle for Azeroth > Leather Armor
-            BattleForAzerothPvp
-        },
-        {
-            884, // Battle for Azeroth > Mail Armor
-            BattleForAzerothPvp
-        },
+        { 883, BattleForAzerothPvp }, // Battle for Azeroth > Leather Armor
+        { 884, BattleForAzerothPvp }, // Battle for Azeroth > Mail Armor
         {
             461, // Legion > Leather Armor
             [
@@ -82,6 +93,14 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Battlebound"),
             ]
         },
+        { 891, MistsOfPandariaPvp }, // Mists of Pandaria > Helms
+        { 892, MistsOfPandariaPvp }, // Mists of Pandaria > Shoulders
+        { 893, MistsOfPandariaPvp }, // Mists of Pandaria > Chest
+        { 894, MistsOfPandariaPvp }, // Mists of Pandaria > Bracers
+        { 895, MistsOfPandariaPvp }, // Mists of Pandaria > Gloves
+        { 896, MistsOfPandariaPvp }, // Mists of Pandaria > Belts
+        { 897, MistsOfPandariaPvp }, // Mists of Pandaria > Pants
+        { 898, MistsOfPandariaPvp }, // Mists of Pandaria > Boots
 
         // Tailoring
         {
@@ -96,7 +115,10 @@ public static partial class Hardcoded
         },
         {
             944, // Battle for Azeroth > Armor
-            BattleForAzerothPvp
+            new[] {
+                new ProfessionCategorySplit("Seaweave", anywhere: true),
+                new ProfessionCategorySplit("Deep Sea", anywhere: true),
+            }.Union(BattleForAzerothPvp).ToArray()
         },
         {
             495, // Legion > Cloth Armor
