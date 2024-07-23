@@ -2,6 +2,7 @@
     import { expansionSlugMap } from '@/data/expansion'
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class';
     import { UserCount, type MultiSlugParams } from '@/types'
@@ -99,6 +100,7 @@
                     <th
                         class="{getPercentClass(subStats.percent)}"
                         colspan="2"
+                        use:basicTooltip={`Category ${subCategory.id}`}
                     >
                         <div class="flex-wrapper">
                             <span class="text-overflow">
