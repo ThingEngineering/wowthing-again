@@ -29,6 +29,27 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Blacksmithing,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'wodBlacksmithingTruesteel',
+        name: '[WoD] Truesteel',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopBlacksmithingTrillium',
+        name: '[MoP] Balanced Trillium',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopBlacksmithingLightning',
+        name: '[MoP] Lightning Steel',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
 
     // Enchanting
     {
