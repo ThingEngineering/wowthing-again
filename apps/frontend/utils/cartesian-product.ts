@@ -1,9 +1,3 @@
 export function cartesianProduct<T>(...allEntries: T[][]): T[][] {
-    return allEntries.reduce<T[][]>(
-        (results, entries) =>
-            results
-                .map(result => entries.map(entry => [...result, entry] ))
-                .reduce((subResults, result) => [...subResults, ...result], []),
-        [[]]
-    )
+    return allEntries.reduce((a, b) => a.flatMap((x) => b.map((y) => [...x, y])), [[]]);
 }
