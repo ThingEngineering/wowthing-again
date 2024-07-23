@@ -30,9 +30,11 @@
                     let best: [CharacterProfession, number]
                     for (const expansion of settingsStore.expansions) {
                         const subProfession = profession.expansionSubProfession[expansion.id]
-                        const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
-                        if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
-                            best = [characterSubProfession, expansion.id]
+                        if (subProfession) {
+                            const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
+                            if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
+                                best = [characterSubProfession, expansion.id]
+                            }
                         }
                     }
 
