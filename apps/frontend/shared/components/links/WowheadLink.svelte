@@ -42,6 +42,7 @@
 
 {#if id > 0}
     <a
+        class="text-overflow"
         href="{url}"
         rel="noopener"
         target="_blank"
