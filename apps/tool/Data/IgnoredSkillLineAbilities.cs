@@ -20,15 +20,47 @@ public static partial class Hardcoded
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
-        122600, // MoP ??
-        122601, // MoP ??
-        122602, // MoP ??
-        122603, // MoP ??
-        122604, // MoP ??
-        122605, // MoP ??
-        122606, // MoP ??
-        122607, // MoP ??
         409224, // Reclaimed Gauntlet Chassis (temporary legendary craft)
+
+        // Blacksmithing - MoP Spiritguard
+        122568, // Helm
+        122569, // Shoulders
+        122570, // Breastplate
+        122571, // Gauntlets
+        122572, // Legplates
+        122573, // Bracers
+        122574, // Boots
+        122575, // Belt
+
+        // Blacksmithing - MoP Lightsteel
+        122584, // Helm
+        122585, // Shoulders
+        122586, // Breastplate
+        122587, // Gauntlets
+        122588, // Legplates
+        122589, // Bracers
+        122590, // Boots
+        122591, // Belt
+
+        // Blacksmithing - MoP Masterwork Lightsteel
+        122608, // Helm
+        122609, // Shoulders
+        122610, // Breastplate
+        122611, // Gauntlets
+        122612, // Legplates
+        122613, // Bracers
+        122614, // Boots
+        122615, // Belt
+
+        // Blacksmithing - MoP ??
+        122600,
+        122601,
+        122602,
+        122603,
+        122604,
+        122605,
+        122606,
+        122607,
 
         // Blacksmithing - Draenic Steel
         153605,

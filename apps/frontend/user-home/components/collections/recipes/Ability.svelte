@@ -50,10 +50,12 @@
         .flex-wrapper {
             max-width: 20rem;
             min-width: 20rem;
-        }
 
-        .text-overflow {
-            min-width: 0;
+            :global(> a) {
+                display: block;
+                flex-grow: 1;
+                min-width: 0;
+            }
         }
     }
     .rank {
@@ -81,20 +83,18 @@
         </td>
         <td class="name text-overflow">
             <div class="flex-wrapper">
-                <span class="text-overflow">
-                    <WowheadLink
-                        id={spellId}
-                        type={"spell"}
-                    >
-                        <WowthingImage
-                            name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}
-                            size={20}
-                            border={1}
-                        />
+                <WowheadLink
+                    id={spellId}
+                    type={"spell"}
+                >
+                    <WowthingImage
+                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}
+                        size={20}
+                        border={1}
+                    />
 
-                        <ParsedText text={name} />
-                    </WowheadLink>
-                </span>
+                    <ParsedText text={name} />
+                </WowheadLink>
 
                 {#if rank > 0}
                     <div class="rank">

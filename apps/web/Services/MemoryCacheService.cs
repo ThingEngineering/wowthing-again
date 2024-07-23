@@ -152,6 +152,33 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
         );
     }
 
+    public async Task<Dictionary<int, Dictionary<int, int[]>>> GetProfessionRecipeItems()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ProfessionRecipeItems,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var recipeItems = await _context.WowProfessionRecipeItem
+                    .AsNoTracking()
+                    .ToArrayAsync();
+
+                return recipeItems
+                    .GroupBy(item => item.SkillLineId)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .GroupBy(item => item.SkillLineAbilityId)
+                            .ToDictionary(
+                                group2 => group2.Key,
+                                group2 => group2.Select(item => item.ItemId).ToArray()
+                            )
+                    );
+            }
+        );
+    }
+
     public async Task<Dictionary<string, string>> GetCachedHashes()
     {
         return await _memoryCache.GetOrCreateAsync(

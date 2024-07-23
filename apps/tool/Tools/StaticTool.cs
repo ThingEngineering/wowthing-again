@@ -604,6 +604,7 @@ public class StaticTool
         foreach (int categoryId in new[]
                  {
                      1314, // Blacksmithing
+                     1484, // Jewelcrafting
                      1472, // Leatherworking
                      1513, // Tailoring
                  })

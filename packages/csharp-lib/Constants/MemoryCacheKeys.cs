@@ -11,6 +11,7 @@ public static class MemoryCacheKeys
     public const string JournalInstanceMap = "journal-instance-map";
     public const string Periods = "periods";
     public const string PetIds = "petIds";
+    public const string ProfessionRecipeItems = "profession-recipe-items";
     public const string TrustedRole = "trusted-role";
     public const string User = "user:{0}";
     public const string UserModified = "user-modified:{0}";

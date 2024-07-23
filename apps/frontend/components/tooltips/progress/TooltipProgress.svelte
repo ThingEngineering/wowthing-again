@@ -1,7 +1,9 @@
 <script lang="ts">
     import { covenantFeatureCost } from '@/data/covenant'
+    import { Faction } from '@/enums/faction';
     import { ProgressDataType } from '@/enums/progress-data-type'
     import { achievementStore, userAchievementStore } from '@/stores'
+    import { getNameForFaction } from '@/utils/get-name-for-faction';
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
@@ -85,6 +87,10 @@
             dataChunks[dataChunks.length - 1].push([data, dataIndex])
         }
     }
+
+    $: groupName = group.lookup === 'faction'
+        ? `:${Faction[character.faction].toLocaleLowerCase()}: ${getNameForFaction(group.name, character.faction)}`
+        : group.name
 </script>
 
 <style lang="scss">
@@ -128,7 +134,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
     <h5>
-        <ParsedText cls={'drop-shadow'} text={group.name} />
+        <ParsedText cls={'drop-shadow'} text={groupName} />
     </h5>
 
     {#each dataChunks as dataChunk}

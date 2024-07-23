@@ -35,8 +35,8 @@
             .expansionSubProfession[expansionSlugMap[(parentEntries?.[0] || entry).slug].id]
 
         const stats = parentEntries.length > 0
-            ? characterProfession.subProfessions[staticSubProfession.id].traitStats
-            : characterProfession.subProfessions[staticSubProfession.id].stats
+            ? characterProfession.subProfessions[staticSubProfession.id]?.traitStats
+            : characterProfession.subProfessions[staticSubProfession.id]?.stats
         return stats ? stats.have / stats.total * 100 : 0
     }
 </script>

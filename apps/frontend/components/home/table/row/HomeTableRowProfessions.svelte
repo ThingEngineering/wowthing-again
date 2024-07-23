@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons'
     import { professionIdToSlug } from '@/data/professions'
     import { Region } from '@/enums/region'
@@ -11,7 +12,6 @@
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { Constants } from '@/data/constants';
 
     export let character: Character
     export let professionType = 0
@@ -27,22 +27,19 @@
             const profession: StaticDataProfession = $staticStore.professions[professionId]
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
-                    let found = false
+                    let best: [CharacterProfession, number]
                     for (const expansion of settingsStore.expansions) {
                         const subProfession = profession.expansionSubProfession[expansion.id]
                         const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
-                        if (characterSubProfession) {
-                            professions.push([
-                                profession,
-                                characterSubProfession,
-                                expansion.id === Constants.expansion
-                            ])
-                            found = true
-                            break
+                        if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
+                            best = [characterSubProfession, expansion.id]
                         }
                     }
 
-                    if (!found && professionType === 1) {
+                    if (best) {
+                        professions.push([profession, best[0], best[1] === Constants.expansion])
+                    }
+                    else if (professionType === 1) {
                         professions.push([
                             profession,
                             null,

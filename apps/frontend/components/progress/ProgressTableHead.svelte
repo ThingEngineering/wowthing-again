@@ -31,6 +31,17 @@
             covenantName = firstPart
         }
     }
+
+    let tooltipText: string
+    $: {
+        tooltipText = group.name;
+        if (group.lookup === 'faction') {
+            const parts = group.name.split('|');
+            if (parts.length === 2) {
+                tooltipText = `:alliance: ${parts[0]}<br>:horde: ${parts[1]}`
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -68,7 +79,7 @@
     use:componentTooltip={{
         component: Tooltip,
         props: {
-            content: group.name,
+            content: tooltipText,
         },
     }}
 >
