@@ -7,6 +7,7 @@ public enum ItemLocation : short
     Bank = 2,
     ReagentBank = 3,
     GuildBank = 4,
+    WarbandBank = 5,
     PetCollection = 10,
     Equipped = 100,
 }
