@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Npgsql;
+using NpgsqlTypes;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
@@ -745,7 +746,6 @@ WHERE   tc.appearance_source IS NULL
                 .ToArrayAsync();
             foreach (var characterProfession in characterProfessions)
             {
-                _logger.LogDebug("{0}", characterProfession.CharacterId);
                 foreach (var (rootId, subProfessions) in characterProfession.Professions)
                 {
                     if (form.ProfessionId > 0 && form.ProfessionId != rootId)
@@ -779,7 +779,6 @@ WHERE   tc.appearance_source IS NULL
             var accounts = await _context.PlayerAccount
                 .AsNoTracking()
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
                 .ToArrayAsync();
             int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
@@ -794,13 +793,18 @@ WHERE   tc.appearance_source IS NULL
         _logger.LogInformation("skillLineAbilityIds: {0}", string.Join(",", skillLineAbilityIds));
 
         // Missing recipes
-        var missingRecipeItemIds = await _context.Database
-            .SqlQuery<int>($@"
-SELECT  item_id
-FROM    wow_profession_recipe_item
-WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
-        AND NOT skill_line_ability_id = ANY({skillLineAbilityIds.ToArray()})
-").ToArrayAsync();
+        var recipeItems = await _memoryCacheService.GetProfessionRecipeItems();
+        var missingRecipeItemIds = new HashSet<int>();
+        foreach (int skillLineId in skillLineIds)
+        {
+            if (recipeItems.TryGetValue(skillLineId, out var abilities))
+            {
+                foreach (var kvp in abilities.Where(kvp => !skillLineIds.Contains(kvp.Key)))
+                {
+                    missingRecipeItemIds.UnionWith(kvp.Value);
+                }
+            }
+        }
 
         timer.AddPoint("MissingRecipes");
 
@@ -808,8 +812,8 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
         await using var connection = _context.GetConnection();
         await connection.OpenAsync();
 
-        _logger.LogInformation("connectedRealmIds: {0}", string.Join(",", connectedRealmIds));
-        _logger.LogInformation("missingRecipeItemIds: {0}", string.Join(",", missingRecipeItemIds));
+        // _logger.LogInformation("connectedRealmIds: {0}", string.Join(",", connectedRealmIds));
+        // _logger.LogInformation("missingRecipeItemIds: {0}", string.Join(",", missingRecipeItemIds));
 
         var auctions = new List<MissingRecipeQuery>();
         await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
@@ -817,7 +821,7 @@ WHERE   skill_line_id = ANY({skillLineIds.ToArray()})
                          Parameters =
                          {
                              new() { Value = connectedRealmIds },
-                             new() { Value = missingRecipeItemIds },
+                             new() { Value = missingRecipeItemIds.ToArray() },
                          },
                      })
         {
