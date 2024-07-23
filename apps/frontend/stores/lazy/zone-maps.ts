@@ -167,7 +167,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                 } else if (farm.reset === FarmResetType.Daily) {
                     expiredFunc = (characterId) => resetMap[characterId]?.daily < now;
                 } else if (farm.reset === FarmResetType.None) {
-                    expiredFunc = () => true;
+                    expiredFunc = () => false;
                 } else {
                     expiredFunc = () => false;
                 }
@@ -530,15 +530,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                         }
 
                         for (const character of dropCharacters) {
+                            const charQuests = stores.userQuestData.characters[character.id];
                             if (farm.type === FarmType.Quest) {
-                                if (
-                                    farm.questIds.every(
-                                        (q) =>
-                                            !stores.userQuestData.characters[
-                                                character.id
-                                            ]?.quests?.has(q),
-                                    )
-                                ) {
+                                if (farm.questIds.every((q) => !charQuests?.quests?.has(q))) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
                                     dropStatus.completedCharacterIds.push(character.id);
@@ -557,12 +551,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 dropStatus.need = dropStatus.characterIds.length > 0;
                             } else if (drop.type === RewardType.XpQuest) {
                                 if (
-                                    !stores.userQuestData.characters[
-                                        character.id
-                                    ]?.dailyQuests?.has(drop.id) &&
-                                    !stores.userQuestData.characters[character.id]?.quests?.has(
-                                        drop.id,
-                                    )
+                                    !charQuests?.dailyQuests?.has(drop.id) &&
+                                    !charQuests?.quests?.has(drop.id)
                                 ) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
@@ -583,9 +573,8 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     expiredFunc(character.id) ||
                                     farm.questIds.every(
                                         (q) =>
-                                            !stores.userQuestData.characters[
-                                                character.id
-                                            ]?.dailyQuests?.has(q) &&
+                                            !charQuests?.dailyQuests?.has(q) &&
+                                            !charQuests?.quests?.has(q) &&
                                             character.lockouts?.[`${questToLockout[q] || 0}-0`] ===
                                                 undefined,
                                     )
