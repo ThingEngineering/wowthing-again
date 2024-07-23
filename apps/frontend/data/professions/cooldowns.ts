@@ -187,6 +187,20 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Leatherworking,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'mopLeatherworkingHardened',
+        name: '[MoP] Hardened',
+        profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopLeatherworkingMagnificence',
+        name: '[MoP] Magnificence',
+        profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
 
     // Skinning
     {
