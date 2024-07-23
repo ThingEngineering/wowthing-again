@@ -21,6 +21,8 @@
         subProfessions = []
         for (const expansion of settingsStore.expansions) {
             const subProfession = profession.expansionSubProfession[expansion.id];
+            if (!subProfession) { continue; }
+            
             const subNames = subProfession.name.split('|');
             
             subProfessions.push([

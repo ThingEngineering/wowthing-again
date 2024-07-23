@@ -596,7 +596,9 @@ public class DumpsTool
     {
         var dbLanguageMap = await context.LanguageString
             .AsNoTracking()
-            .Where(ls => ls.Type == StringType.WowInventorySlot || ls.Type == StringType.WowInventoryType)
+            .Where(ls => ls.Type == StringType.WowExpansion ||
+                         ls.Type == StringType.WowInventorySlot ||
+                         ls.Type == StringType.WowInventoryType)
             .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
 
         foreach (var language in _languages)

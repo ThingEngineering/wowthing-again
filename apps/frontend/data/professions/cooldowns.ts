@@ -29,6 +29,27 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Blacksmithing,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'wodBlacksmithingTruesteel',
+        name: '[WoD] Truesteel',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopBlacksmithingTrillium',
+        name: '[MoP] Balanced Trillium',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopBlacksmithingLightning',
+        name: '[MoP] Lightning Steel',
+        profession: Profession.Blacksmithing,
+        cooldown: [[0]],
+    },
 
     // Enchanting
     {
@@ -143,12 +164,40 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'mopJewelcraftingResearch',
+        name: '[MoP] Research',
+        profession: Profession.Jewelcrafting,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopJewelcraftingSerpents',
+        name: "[MoP] Serpent's Heart",
+        profession: Profession.Jewelcrafting,
+        cooldown: [[0]],
+    },
 
     // Leatherworking
     {
         type: 'spell',
         key: 'wodLeatherworkingSecrets',
         name: '[WoD] Secrets',
+        profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopLeatherworkingHardened',
+        name: '[MoP] Hardened',
+        profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopLeatherworkingMagnificence',
+        name: '[MoP] Magnificence',
         profession: Profession.Leatherworking,
         cooldown: [[0]],
     },

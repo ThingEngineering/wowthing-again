@@ -1,6 +1,7 @@
 <script lang="ts">
     import { FarmIdType } from '@/enums/farm-id-type'
     import { FarmType } from '@/enums/farm-type'
+    import { settingsStore } from '@/shared/stores/settings';
     import { timeStore } from '@/shared/stores/time'
     import { journalStore, lazyStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
@@ -27,6 +28,7 @@
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             [status, drops] = getInstanceFarm(
+                $settingsStore,
                 $timeStore,
                 $journalStore,
                 $lazyStore,
