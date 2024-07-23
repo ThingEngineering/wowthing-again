@@ -206,7 +206,7 @@
                             </WowheadLink>
                         </td>
                         <td class="auctions">
-                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.BindOnAcquire) }
+                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.OnAcquire) }
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"
