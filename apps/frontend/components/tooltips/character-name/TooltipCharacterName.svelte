@@ -39,7 +39,15 @@
     <h4>{character.name} - {character.realm.name}</h4>
 
     {#if character.guildId && $settingsStore.characters.nameTooltipDisplay.includes('guild')}
-        <h5>&lt;{$userStore.guildMap[character.guildId]?.name || 'Unknown Guild'}&gt;</h5>
+        {@const guild = $userStore.guildMap[character.guildId]}
+        <h5>
+            {#if guild}
+                &lt;{guild.name || 'Unknown Guild'}&gt;
+                {guild.realm.name}
+            {:else}
+                &lt;Unknown Guild #{character.guildId}&gt;
+            {/if}
+        </h5>
     {/if}
 
     <table class="table-striped">
