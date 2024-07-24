@@ -248,6 +248,20 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Tailoring,
         cooldown: [[0]],
     },
+    {
+        type: 'spell',
+        key: 'mopTailoringCelestial',
+        name: '[MoP] Celestial',
+        profession: Profession.Tailoring,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'mopTailoringImperial',
+        name: '[MoP] Imperial',
+        profession: Profession.Tailoring,
+        cooldown: [[0]],
+    },
 ];
 
 export const professionWorkOrders: ProfessionCooldownSpell[] = [
