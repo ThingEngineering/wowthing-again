@@ -622,64 +622,78 @@ function doProfessionCooldowns(
                 });
             } else if (cooldownData.type === 'spell') {
                 const charCooldown = character.professionCooldowns?.[cooldownData.key];
-                if (!charCooldown) {
-                    continue;
-                }
-
-                let seconds = 0;
-                for (const [
-                    tierSeconds,
-                    tierSubProfessionId,
-                    tierTraitId,
-                    tierMinimum,
-                ] of cooldownData.cooldown) {
-                    if (seconds === 0) {
-                        seconds = tierSeconds;
-                    } else {
-                        const charTrait =
-                            character.professionTraits?.[tierSubProfessionId]?.[tierTraitId];
-                        if (charTrait && charTrait >= tierMinimum) {
+                if (charCooldown) {
+                    let seconds = 0;
+                    for (const [
+                        tierSeconds,
+                        tierSubProfessionId,
+                        tierTraitId,
+                        tierMinimum,
+                    ] of cooldownData.cooldown) {
+                        if (seconds === 0) {
                             seconds = tierSeconds;
+                        } else {
+                            const charTrait =
+                                character.professionTraits?.[tierSubProfessionId]?.[tierTraitId];
+                            if (charTrait && charTrait >= tierMinimum) {
+                                seconds = tierSeconds;
+                            }
                         }
                     }
-                }
 
-                const [charNext, , charMax] = charCooldown;
-                let [, charHave] = charCooldown;
-                let charFull: DateTime = undefined;
+                    const [charNext, , charMax] = charCooldown;
+                    let [, charHave] = charCooldown;
+                    let charFull: DateTime = undefined;
 
-                // if the next charge timestamp is in the past, add up to max charges and work
-                // out when this character will be full
-                if (charNext > 0) {
-                    charFull = DateTime.fromSeconds(charNext + (charMax - charHave - 1) * seconds);
-                    const diff = Math.floor(
-                        stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() / 1000,
-                    );
-                    if (diff > 0) {
-                        charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds));
+                    // if the next charge timestamp is in the past, add up to max charges and work
+                    // out when this character will be full
+                    if (charNext > 0) {
+                        charFull = DateTime.fromSeconds(
+                            charNext + (charMax - charHave - 1) * seconds,
+                        );
+                        const diff = Math.floor(
+                            stores.currentTime.diff(DateTime.fromSeconds(charNext)).toMillis() /
+                                1000,
+                        );
+                        if (diff > 0) {
+                            charHave = Math.min(charMax, charHave + 1 + Math.floor(diff / seconds));
+                        }
                     }
+
+                    ret.have += charHave;
+                    ret.total += charMax;
+
+                    const per = (charHave / charMax) * 100;
+                    if (per === 100) {
+                        ret.anyFull = true;
+                    } else if (per >= 50) {
+                        ret.anyHalf = true;
+                    }
+
+                    ret.cooldowns.push({
+                        data: cooldownData,
+                        have: charHave,
+                        max: charMax,
+                        full: charFull,
+                        seconds,
+                    });
+                } else {
+                    ret.have += 1;
+                    ret.total += 1;
+
+                    ret.cooldowns.push({
+                        data: cooldownData,
+                        have: -1,
+                        max: -1,
+                        full: undefined,
+                        seconds: -1,
+                    });
                 }
-
-                ret.have += charHave;
-                ret.total += charMax;
-
-                const per = (charHave / charMax) * 100;
-                if (per === 100) {
-                    ret.anyFull = true;
-                } else if (per >= 50) {
-                    ret.anyHalf = true;
-                }
-
-                ret.cooldowns.push({
-                    data: cooldownData,
-                    have: charHave,
-                    max: charMax,
-                    full: charFull,
-                    seconds,
-                });
             }
         }
     }
+
+    if (character.name === 'Wayuki') console.log(ret);
 
     return ret;
 }
