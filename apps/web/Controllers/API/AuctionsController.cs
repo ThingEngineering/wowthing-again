@@ -799,7 +799,7 @@ WHERE   tc.appearance_source IS NULL
         {
             if (recipeItems.TryGetValue(skillLineId, out var abilities))
             {
-                foreach (var kvp in abilities.Where(kvp => !skillLineIds.Contains(kvp.Key)))
+                foreach (var kvp in abilities.Where(kvp => !skillLineAbilityIds.Contains(kvp.Key)))
                 {
                     missingRecipeItemIds.UnionWith(kvp.Value);
                 }
