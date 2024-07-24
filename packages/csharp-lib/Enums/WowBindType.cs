@@ -3,10 +3,13 @@
 public enum WowBindType : short
 {
     NotBound = 0,
-    BindOnAcquire = 1,
-    BindOnEquip = 2,
-    BindOnUse = 3,
-    QuestItem = 4,
-    QuestItemMulti = 5,
-    Multi = 6,
+    OnAcquire = 1,
+    OnEquip = 2,
+    OnUse = 3,
+    Quest = 4,
+    Unused5 = 5,
+    Unused6 = 6,
+    ToGameAccount = 7,
+    ToBnetAccount = 8,
+    ToBnetAccountUntilEquipped = 9,
 }

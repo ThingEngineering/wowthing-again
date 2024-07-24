@@ -33,12 +33,6 @@
     }
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-    }
-</style>
-
 <Sidebar
     baseUrl={`/${route}`}
     items={categories}

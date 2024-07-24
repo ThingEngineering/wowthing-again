@@ -1222,7 +1222,7 @@ public class DumpsTool
                 foreach (int itemId in itemIds)
                 {
                     if (_itemMap.TryGetValue(itemId, out var item) &&
-                        item.BindType is WowBindType.NotBound or WowBindType.BindOnEquip or WowBindType.BindOnUse)
+                        item.BindType is WowBindType.NotBound or WowBindType.OnEquip or WowBindType.OnUse)
                     {
                         dbMount.ItemId = itemId;
                         break;

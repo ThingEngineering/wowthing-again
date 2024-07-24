@@ -50,5 +50,7 @@
         slug1={params.slug1}
         slug2={params.slug2}
         {sets}
-    />
+    >
+        <slot name="extra-options" slot="extra-options" />
+    </CollectibleSection>
 </div>

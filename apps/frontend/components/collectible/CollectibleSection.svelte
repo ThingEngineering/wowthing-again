@@ -76,6 +76,8 @@
                 bind:value={$collectibleState.showUncollected[countsKey]}
             >Missing</Checkbox>
         </button>
+
+        <slot name="extra-options" />
     </div>
 
     <div class="categories" bind:this={resizeableElement}>

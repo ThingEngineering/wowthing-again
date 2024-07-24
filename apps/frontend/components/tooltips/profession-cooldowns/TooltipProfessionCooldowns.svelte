@@ -37,8 +37,9 @@
         width: 1rem;
     }
     .slash {
+        color: #aaa;
         padding: 0;
-        width: 0.5rem;
+        width: 0.4rem;
     }
 </style>
 
@@ -68,21 +69,27 @@
                             ????
                         {/if}
                     </td>
-                    <td
-                        class="value"
-                        class:status-fail={per === 100}
-                        class:status-shrug={per >= 50 && per < 100}
-                    >
-                        {cooldown.have}
-                    </td>
-                    <td class="slash">/</td>
-                    <td
-                        class="value"
-                        class:status-fail={per === 100}
-                        class:status-shrug={per >= 50 && per < 100}
-                    >
-                        {cooldown.max}
-                    </td>
+                    {#if cooldown.have === -1 && cooldown.max === -1}
+                        <td class="status-fail" colspan="3">
+                            ???
+                        </td>
+                    {:else}
+                        <td
+                            class="value"
+                            class:status-fail={per === 100}
+                            class:status-shrug={per >= 50 && per < 100}
+                        >
+                            {cooldown.have}
+                        </td>
+                        <td class="slash">/</td>
+                        <td
+                            class="value"
+                            class:status-fail={per === 100}
+                            class:status-shrug={per >= 50 && per < 100}
+                        >
+                            {cooldown.max}
+                        </td>
+                    {/if}
                 </tr>
             {/each}
         </tbody>

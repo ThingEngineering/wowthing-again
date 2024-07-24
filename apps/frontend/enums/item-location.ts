@@ -5,6 +5,7 @@ export enum ItemLocation {
     Bank = 2,
     Reagent = 3,
     GuildBank = 4,
+    WarbandBank = 5,
     PetCollection = 10,
     Equipped = 100,
 }
