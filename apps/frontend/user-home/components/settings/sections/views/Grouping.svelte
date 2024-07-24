@@ -12,6 +12,7 @@
         {key: 'account', name: 'Account ID'},
         {key: 'enabled', name: 'Account status'},
         {key: 'faction', name: 'Faction'},
+        {key: 'guild', name: 'Guild'},
         {key: 'maxlevel', name: 'Max level'},
         {key: 'pinned', name: 'Pinned'},
         {key: 'realm', name: 'Connected realm'},

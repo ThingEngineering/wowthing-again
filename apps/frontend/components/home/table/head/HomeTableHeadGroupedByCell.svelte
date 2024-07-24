@@ -39,8 +39,10 @@
                     <FactionIcon faction={factionAsEnum}/>
                 {:else if groupBy === 'enabled'}
                     Account: {groupValue === 'a' ? 'Enabled' : 'Disabled'}
+                {:else if groupBy === 'guild'}
+                    {groupValue}
                 {:else if groupBy === 'maxlevel'}
-                    {groupValue === 'a' ? 'MAX Level' : 'Below MAX Level'}
+                    {groupValue === 'a' ? 'Max Level' : 'Low Level'}
                 {:else if groupBy === 'pinned'}
                     {groupValue === 'a' ? 'Pinned' : 'Not pinned'}
                 {:else if groupBy === 'realm'}
