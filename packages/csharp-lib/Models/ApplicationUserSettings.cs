@@ -33,6 +33,7 @@ public class ApplicationUserSettings
         "account",
         "enabled",
         "faction",
+        "guild",
         "maxlevel",
         "pinned",
         "realm",
