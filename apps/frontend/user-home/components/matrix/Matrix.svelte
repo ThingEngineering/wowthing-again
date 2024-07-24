@@ -11,21 +11,17 @@
     import { browserStore } from '@/shared/stores/browser'
     import { settingsStore } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
-    import { componentTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
     import { cartesianProduct } from '@/utils/cartesian-product'
-    import type { Character } from '@/types'
     import type { StaticDataRealm } from '@/shared/stores/static/types'
+    import type { Character } from '@/types'
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
-    import TooltipCharacter from '@/user-home/components/matrix/TooltipCharacter.svelte'
+    import Row from './Row.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
-    import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
     let matrix: Record<string, Character[]>
     let xCounts: Record<string, number>
@@ -199,7 +195,7 @@
                     xKeys.push(xKey)
                 }
 
-                const xEntry = xSplit.map((parts) => parts[1] || '')
+                const xEntry = xSplit.map((parts) => parts[1] || '').filter((x) => x !== '')
                 if (!xEntries.some((entry) => xor(entry, xEntry).length === 0)) {
                     xEntries.push(xEntry)
                 }
@@ -212,7 +208,7 @@
                     yKeys.push(yKey)
                 }
 
-                const yEntry = ySplit.map((parts) => parts[1] || '')
+                const yEntry = ySplit.map((parts) => parts[1] || '').filter((y) => y !== '')
                 if (!yEntries.some((entry) => xor(entry, yEntry).length === 0)) {
                     yEntries.push(yEntry)
                 }
@@ -324,44 +320,25 @@
     }
     table {
         --image-border-width: 1px;
-    }
-    td {
-        border: 1px solid $border-color;
-        padding: 0.3rem 0.6rem 0.4rem 0.6rem;
-        text-align: center;
 
-        :global(span) {
-            display: block;
-            margin-top: 0.1rem;
-        }
-        /*:global(img) {
-            transform: scale(1.2);
-        }*/
-    }
-    .y-axis {
-        @include cell-width(4rem, $maxWidth: 10rem);
-    }
-    .characters {
-        white-space: nowrap;
-        &.as-level {
-            @include cell-width(2.5rem);
-        }
-        &.as-name {
-            @include cell-width(6rem);
-        }
-        &.max-level {
-            background: mix($thing-background, $color-success, 90%);
-        }
-        &.no-characters {
-            background: mix($thing-background, $color-fail, 90%);
-        }
-    }
-    .character {
-        --image-margin-top: -4px;
+        :global(td) {
+            border-left: 1px solid $border-color;
+            padding: 0.3rem 0.6rem 0.4rem 0.6rem;
+            text-align: center;
 
-        a {
-            color: var(--colour-class, inherit);
+            :global(span) {
+                display: block;
+                margin-top: 0.1rem;
+            }
+            /*:global(img) {
+                transform: scale(1.2);
+            }*/
         }
+    }
+    .empty {
+        background: #{ $body-background };
+        border-right-width: 0 !important;
+        border-top-width: 0 !important;
     }
     .counts {
         color: #44ffff;
@@ -378,7 +355,9 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="x_{value}"
-                    disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0}
+                    disabled={$browserStore.matrix.yAxis.indexOf(value) >= 0 ||
+                        ($browserStore.matrix.xAxis.indexOf(value) === -1 &&
+                        $browserStore.matrix.xAxis.length >= 2)}
                     {value}
                     bind:bindGroup={$browserStore.matrix.xAxis}
                 >{label}</GroupedCheckbox>
@@ -391,7 +370,9 @@
             {#each axisOptions as [value, label]}
                 <GroupedCheckbox
                     name="y_{value}"
-                    disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0}
+                    disabled={$browserStore.matrix.xAxis.indexOf(value) >= 0 ||
+                        ($browserStore.matrix.yAxis.indexOf(value) === -1 &&
+                        $browserStore.matrix.yAxis.length >= 3)}
                     {value}
                     bind:bindGroup={$browserStore.matrix.yAxis}
                 >{label}</GroupedCheckbox>
@@ -420,15 +401,6 @@
                 ]}
             />
         </div>
-
-        <div class="options-container background-box">
-            <CheckboxInput
-                name="show_covenant"
-                bind:value={$browserStore.matrix.showCovenant}
-            >
-                Show Covenant
-            </CheckboxInput>
-        </div>
     </div>
 
     <table class="table table-striped">
@@ -442,61 +414,27 @@
                         {/each}
                     </td>
                 {/each}
+                <td class="empty"></td>
             </tr>
         </thead>
         <tbody>
             {#each yKeys as yKey, yIndex}
-                <tr>
-                    <td class="y-axis text-overflow">
-                        {#each yEntries[yIndex] as line}
-                            <ParsedText text={line} />
-                        {/each}
-                    </td>
-                    {#each xKeys as xKey}
-                        {@const keyCharacters = getCharacters(xKey, yKey)}
-                        <td
-                            class="characters as-{$browserStore.matrix.showCharacterAs}"
-                            class:max-level={keyCharacters.some((char) => char.level === Constants.characterMaxLevel)}
-                            class:no-characters={keyCharacters.length === 0}
-                        >
-                            {#each keyCharacters as character}
-                                <div
-                                    class="character"
-                                    use:componentTooltip={{
-                                        component: TooltipCharacter,
-                                        props: {
-                                            character,
-                                        },
-                                    }}
-                                >
-                                    {#if $browserStore.matrix.showCovenant && character.shadowlands?.covenantId}
-                                        <CovenantIcon covenantId={character.shadowlands.covenantId} />
-                                    {/if}
-                                    {#if $browserStore.matrix.showCharacterAs === 'level'}
-                                        {character.level}
-                                    {:else}
-                                        <a
-                                            class="class-{character.classId} drop-shadow"
-                                            href="#/characters/{Region[character.realm.region].toLocaleLowerCase()}-{character.realm.slug}/{character.name}"
-                                        >
-                                            {character.name}
-                                        </a>
-                                    {/if}
-                                </div>
-                            {:else}
-                                ---
-                            {/each}
-                        </td>
-                    {/each}
-                    <td class="counts">{yCounts[yKey]}</td>
-                </tr>
+                <Row
+                    count={yCounts[yKey]}
+                    {getCharacters}
+                    {xKeys}
+                    yEntries={yEntries[yIndex]}
+                    {yKey}
+                />
             {/each}
             <tr>
                 <td></td>
                 {#each xKeys as xKey}
                     <td class="counts">{xCounts[xKey]}</td>
                 {/each}
-                <td>{Object.values(xCounts).reduce((a, b) => a + b, 0)}</td>
+                <td>
+                    {Object.values(xCounts).reduce((a, b) => a + b, 0)}
+                </td>
             </tr>
         </tbody>
     </table>
