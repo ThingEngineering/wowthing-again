@@ -70,6 +70,30 @@
                         <td>Item level</td>
                         <ItemLevel {character} />
                     </tr>
+                
+                {:else if key === 'last'}
+                    <tr>
+                        <td>Addon seen</td>
+                        <td>
+                            {#if character.lastSeenAddon}
+                                {@const diff = $timeStore.diff(character.lastSeenAddon).toMillis()}
+                                <code>{toNiceDuration(diff, false)}</code> ago
+                            {:else}
+                                ???
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>API update</td>
+                        <td>
+                            {#if character.lastApiUpdate}
+                                {@const diff = $timeStore.diff(character.lastApiUpdate).toMillis()}
+                                <code>{toNiceDuration(diff, false)}</code> ago
+                            {:else}
+                                ???
+                            {/if}
+                        </td>
+                    </tr>
 
                 {:else if key === 'mythicPlusKeystone'}
                     <tr>

@@ -37,6 +37,7 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         writer.WriteNumberValue(character.Gold);
         writer.WriteStringValue(character.CurrentLocation);
         writer.WriteStringValue(character.HearthLocation);
+        writer.WriteNumberValue(character.LastApiModified.ToUnixTimeSeconds());
         writer.WriteNumberValue(character.LastSeenAddon.ToUnixTimeSeconds());
 
         JsonSerializer.Serialize(writer, character.Configuration, options);
