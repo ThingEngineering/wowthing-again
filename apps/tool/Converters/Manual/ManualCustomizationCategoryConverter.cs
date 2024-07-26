@@ -39,6 +39,7 @@ public class ManualCustomizationCategoryConverter : JsonConverter<ManualCustomiz
         writer.WriteNumberValue(thing.ItemId);
         writer.WriteNumberValue(thing.AchievementId);
         writer.WriteNumberValue(thing.QuestId);
+        writer.WriteNumberValue(thing.SpellId);
         writer.WriteNumberValue(thing.AppearanceModifier);
         writer.WriteStringValue(thing.Name);
 

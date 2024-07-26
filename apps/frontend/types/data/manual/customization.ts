@@ -36,6 +36,7 @@ export class ManualDataCustomizationThing {
         public itemId: number,
         public achievementId: number,
         public questId: number,
+        public spellId: number,
         public appearanceModifier: number,
         public name: string,
     ) {}
