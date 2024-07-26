@@ -20,6 +20,10 @@ public static partial class Hardcoded
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
+        34529, // Nether Chain Shirt
+        34530, // TBC Twisting Nether Chain Shirt
+        55186, // WotLK Chestplate of Conquest
+        55187, // WotLK Legplates of Conquest
         409224, // Reclaimed Gauntlet Chassis (temporary legendary craft)
 
         // Blacksmithing - MoP Spiritguard
@@ -121,6 +125,9 @@ public static partial class Hardcoded
         407170, // Inspired Order Recalibrator (temporary legendary craft)
 
         // Inscription
+        130407, // MoP Mystery of the Mists
+        176513, // WoD Draenor Merchant Order
+        178550, // WoD Borrow Draenic Mortar
         343687, // Shadowlands ??
         422337, // Lydaria's Binding Rune (temporary legendary craft)
 
@@ -139,6 +146,7 @@ public static partial class Hardcoded
         389458, // Draconium Seam
 
         // Tailoring
+        104115, // MoP Release Fire Spirit
         168851, // Miniature Flying Carpet (never implemented)
         169669, // Hexweave Cloth (dupe for max results?)
         173415, // WoD ??
