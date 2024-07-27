@@ -3,17 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterTransmog
+public class PlayerCharacterTransmog(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     public List<int> IllusionIds { get; set; }
     public List<int> TransmogIds { get; set; }
-
-    public PlayerCharacterTransmog(PlayerCharacter character)
-    {
-        CharacterId = character.Id;
-    }
 }

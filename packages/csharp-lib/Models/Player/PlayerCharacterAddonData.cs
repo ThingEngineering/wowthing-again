@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterAddonData
+public class PlayerCharacterAddonData(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     public short Level { get; set; }
@@ -55,11 +55,6 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
-
-    public PlayerCharacterAddonData(PlayerCharacter character)
-    {
-        CharacterId = character.Id;
-    }
 }
 
 public class PlayerCharacterAddonDataAura

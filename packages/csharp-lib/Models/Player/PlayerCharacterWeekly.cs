@@ -4,11 +4,12 @@ using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterWeekly
+public class PlayerCharacterWeekly(int characterId)
 {
     [Key, ForeignKey("Character")]
     [JsonIgnore]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     [JsonIgnore]
     public PlayerCharacter Character { get; set; }
 
@@ -22,11 +23,6 @@ public class PlayerCharacterWeekly
 
     [Column(TypeName = "jsonb")]
     public PlayerCharacterWeeklyVault Vault { get; set; } = new();
-
-    public PlayerCharacterWeekly(PlayerCharacter character)
-    {
-        CharacterId = character.Id;
-    }
 }
 
 public class PlayerCharacterWeeklyVault

@@ -45,10 +45,7 @@ public class CharacterTransmogsJob : JobBase
         var pcTransmog = await Context.PlayerCharacterTransmog.FindAsync(_query.CharacterId);
         if (pcTransmog == null)
         {
-            pcTransmog = new PlayerCharacterTransmog
-            {
-                CharacterId = _query.CharacterId,
-            };
+            pcTransmog = new PlayerCharacterTransmog(_query.CharacterId);
             Context.PlayerCharacterTransmog.Add(pcTransmog);
         }
 

@@ -305,56 +305,56 @@ public class UserUploadJob : JobBase
             bool saveNow = false;
             if (character.AddonData == null)
             {
-                character.AddonData = new PlayerCharacterAddonData(character);
+                character.AddonData = new PlayerCharacterAddonData(character.Id);
                 Context.PlayerCharacterAddonData.Add(character.AddonData);
                 saveNow = true;
             }
 
             if (character.AddonAchievements == null)
             {
-                character.AddonAchievements = new PlayerCharacterAddonAchievements(character);
+                character.AddonAchievements = new PlayerCharacterAddonAchievements(character.Id);
                 Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
                 saveNow = true;
             }
 
             if (character.AddonMounts == null)
             {
-                character.AddonMounts = new PlayerCharacterAddonMounts(character);
+                character.AddonMounts = new PlayerCharacterAddonMounts(character.Id);
                 Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
                 saveNow = true;
             }
 
             if (character.AddonQuests == null)
             {
-                character.AddonQuests = new PlayerCharacterAddonQuests(character);
+                character.AddonQuests = new PlayerCharacterAddonQuests(character.Id);
                 Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
                 saveNow = true;
             }
 
             if (character.Lockouts == null)
             {
-                character.Lockouts = new PlayerCharacterLockouts(character);
+                character.Lockouts = new PlayerCharacterLockouts(character.Id);
                 Context.PlayerCharacterLockouts.Add(character.Lockouts);
                 saveNow = true;
             }
 
             if (character.Shadowlands == null)
             {
-                character.Shadowlands = new PlayerCharacterShadowlands(character);
+                character.Shadowlands = new PlayerCharacterShadowlands(character.Id);
                 Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
                 saveNow = true;
             }
 
             if (character.Transmog == null)
             {
-                character.Transmog = new PlayerCharacterTransmog(character);
+                character.Transmog = new PlayerCharacterTransmog(character.Id);
                 Context.PlayerCharacterTransmog.Add(character.Transmog);
                 saveNow = true;
             }
 
             if (character.Weekly == null)
             {
-                character.Weekly = new PlayerCharacterWeekly(character);
+                character.Weekly = new PlayerCharacterWeekly(character.Id);
                 Context.PlayerCharacterWeekly.Add(character.Weekly);
                 saveNow = true;
             }
