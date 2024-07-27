@@ -11,9 +11,14 @@ public class PlayerCharacterAddonAchievements
     public PlayerCharacter Character { get; set; }
 
     public DateTime ScannedAt { get; set; } = MiscConstants.DefaultDateTime;
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonAchievementsAchievement> Achievements { get; set; }
+
+    public PlayerCharacterAddonAchievements(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterAddonAchievementsAchievement

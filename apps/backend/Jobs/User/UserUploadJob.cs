@@ -301,6 +301,79 @@ public class UserUploadJob : JobBase
                 continue;
             }
 
+            // Create any related objects now
+            bool saveNow = false;
+            if (character.AddonData == null)
+            {
+                character.AddonData = new PlayerCharacterAddonData(character);
+                Context.PlayerCharacterAddonData.Add(character.AddonData);
+                saveNow = true;
+            }
+
+            if (character.AddonAchievements == null)
+            {
+                character.AddonAchievements = new PlayerCharacterAddonAchievements(character);
+                Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
+                saveNow = true;
+            }
+
+            if (character.AddonMounts == null)
+            {
+                character.AddonMounts = new PlayerCharacterAddonMounts(character);
+                Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
+                saveNow = true;
+            }
+
+            if (character.AddonQuests == null)
+            {
+                character.AddonQuests = new PlayerCharacterAddonQuests(character);
+                Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
+                saveNow = true;
+            }
+
+            if (character.Lockouts == null)
+            {
+                character.Lockouts = new PlayerCharacterLockouts(character);
+                Context.PlayerCharacterLockouts.Add(character.Lockouts);
+                saveNow = true;
+            }
+
+            if (character.Shadowlands == null)
+            {
+                character.Shadowlands = new PlayerCharacterShadowlands(character);
+                Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
+                saveNow = true;
+            }
+
+            if (character.Transmog == null)
+            {
+                character.Transmog = new PlayerCharacterTransmog(character);
+                Context.PlayerCharacterTransmog.Add(character.Transmog);
+                saveNow = true;
+            }
+
+            if (character.Weekly == null)
+            {
+                character.Weekly = new PlayerCharacterWeekly(character);
+                Context.PlayerCharacterWeekly.Add(character.Weekly);
+                saveNow = true;
+            }
+
+            if (saveNow)
+            {
+                try
+                {
+                    await Context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "Save failed!");
+                    // This discards the changes for this character so that we can continue on
+                    Context.ChangeTracker.AcceptAllChanges();
+                    continue;
+                }
+            }
+
             //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
             accountId = character.AccountId!.Value;
             var lastSeen = characterData.LastSeen.AsUtcDateTime();
@@ -322,15 +395,6 @@ public class UserUploadJob : JobBase
                 {
                     character.GuildId = guild.Id;
                 }
-            }
-
-            if (character.AddonData == null)
-            {
-                character.AddonData = new PlayerCharacterAddonData
-                {
-                    CharacterId = character.Id,
-                };
-                Context.PlayerCharacterAddonData.Add(character.AddonData);
             }
 
             HandleAddonData(character, characterData);
@@ -358,7 +422,16 @@ public class UserUploadJob : JobBase
             }
 
             Logger.Warning("Saving character {id} {addonId}", character.Id, addonId);
-            await Context.SaveChangesAsync();
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Save failed!");
+                // This discards the changes for this character so that we can continue on
+                Context.ChangeTracker.AcceptAllChanges();
+            }
         }
 
         _timer.AddPoint("Characters");
@@ -917,15 +990,6 @@ public class UserUploadJob : JobBase
             return;
         }
 
-        if (character.AddonAchievements == null)
-        {
-            character.AddonAchievements = new PlayerCharacterAddonAchievements
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
-        }
-
         var scanTime = scanTimestamp.AsUtcDateTime();
         if (scanTime <= character.AddonAchievements.ScannedAt)
         {
@@ -962,15 +1026,6 @@ public class UserUploadJob : JobBase
 
     private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Shadowlands == null)
-        {
-            character.Shadowlands = new PlayerCharacterShadowlands()
-            {
-                CharacterId = character.Id,
-            };
-            Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
-        }
-
         if (characterData.ActiveCovenantId > 0)
         {
             character.Shadowlands.CovenantId = characterData.ActiveCovenantId;
@@ -1372,15 +1427,6 @@ public class UserUploadJob : JobBase
             return;
         }
 
-        if (character.Lockouts == null)
-        {
-            character.Lockouts = new PlayerCharacterLockouts
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterLockouts.Add(character.Lockouts);
-        }
-
         var scanTime = scanTimestamp.AsUtcDateTime();
         if (scanTime <= character.Lockouts.LastUpdated)
         {
@@ -1469,15 +1515,6 @@ public class UserUploadJob : JobBase
         }
         var scanTime = scanTimestamp.AsUtcDateTime();
 
-        if (character.AddonMounts == null)
-        {
-            character.AddonMounts = new PlayerCharacterAddonMounts
-            {
-                CharacterId = character.Id,
-            };
-            Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
-        }
-
         if (scanTime > character.AddonMounts.ScannedAt)
         {
             character.AddonMounts.ScannedAt = scanTime;
@@ -1562,15 +1599,6 @@ public class UserUploadJob : JobBase
         if (!hasCallings && !hasCompleted && !hasQuests && !hasWorldQuests)
         {
             return;
-        }
-
-        if (character.AddonQuests == null)
-        {
-            character.AddonQuests = new PlayerCharacterAddonQuests
-            {
-                CharacterId = character.Id,
-            };
-            Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
         }
 
         character.AddonQuests.CompletedQuests ??= new();
@@ -1853,15 +1881,6 @@ public class UserUploadJob : JobBase
 
     private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Transmog == null)
-        {
-            character.Transmog = new PlayerCharacterTransmog
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterTransmog.Add(character.Transmog);
-        }
-
         var illusions = characterData.Illusions
             .EmptyIfNullOrWhitespace()
             .Split(':', StringSplitOptions.RemoveEmptyEntries)
@@ -1899,15 +1918,6 @@ public class UserUploadJob : JobBase
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Weekly == null)
-        {
-            character.Weekly = new PlayerCharacterWeekly
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterWeekly.Add(character.Weekly);
-        }
-
         // Keystone
         if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
         {

@@ -14,6 +14,11 @@ public class PlayerCharacterLockouts
 
     [Column(TypeName = "jsonb")]
     public List<PlayerCharacterLockoutsLockout> Lockouts { get; set; }
+
+    public PlayerCharacterLockouts(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterLockoutsLockout

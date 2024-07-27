@@ -15,9 +15,14 @@ public class PlayerCharacterShadowlands
     public int SoulbindId { get; set; }
     public List<int> ConduitIds { get; set; }
     public List<int> ConduitRanks { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterShadowlandsCovenant> Covenants { get; set; }
+
+    public PlayerCharacterShadowlands(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterShadowlandsCovenant

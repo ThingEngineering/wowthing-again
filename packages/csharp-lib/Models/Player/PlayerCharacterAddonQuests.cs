@@ -24,6 +24,11 @@ public class PlayerCharacterAddonQuests
 
     [Column(TypeName = "jsonb")]
     public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
+
+    public PlayerCharacterAddonQuests(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterAddonQuestsProgress

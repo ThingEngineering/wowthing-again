@@ -22,6 +22,11 @@ public class PlayerCharacterWeekly
 
     [Column(TypeName = "jsonb")]
     public PlayerCharacterWeeklyVault Vault { get; set; } = new();
+
+    public PlayerCharacterWeekly(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterWeeklyVault

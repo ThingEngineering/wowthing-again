@@ -11,4 +11,9 @@ public class PlayerCharacterTransmog
 
     public List<int> IllusionIds { get; set; }
     public List<int> TransmogIds { get; set; }
+
+    public PlayerCharacterTransmog(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }

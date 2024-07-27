@@ -55,6 +55,11 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
+
+    public PlayerCharacterAddonData(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
 
 public class PlayerCharacterAddonDataAura

@@ -11,6 +11,11 @@ public class PlayerCharacterAddonMounts
     public PlayerCharacter Character { get; set; }
 
     public DateTime ScannedAt { get; set; } = MiscConstants.DefaultDateTime;
-        
+
     public List<int> Mounts { get; set; }
+
+    public PlayerCharacterAddonMounts(PlayerCharacter character)
+    {
+        CharacterId = character.Id;
+    }
 }
