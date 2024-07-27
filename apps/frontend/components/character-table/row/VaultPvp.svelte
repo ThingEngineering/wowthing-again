@@ -21,6 +21,7 @@
 <td>
     {#if pvpVault?.length > 0}
         <VaultShared
+            hasRewards={character.weekly?.vaultHasRewards}
             progresses={pvpVault}
             textFunc={(prog) => prog.progress >= prog.threshold
                 ? pvpVaultItemLevel[prog.level].toString()

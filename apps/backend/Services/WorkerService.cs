@@ -132,6 +132,7 @@ RETURNING *
 
             string jobTypeName = queuedJob.Type.ToString();
             Type classType = JobTypeMap[jobTypeName];
+            using var jobTokenSource = new CancellationTokenSource();
             using (LogContext.PushProperty("Task", jobTypeName))
             {
                 JobBase job = null;
@@ -140,13 +141,13 @@ RETURNING *
                 {
                     string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
-                    job = _jobFactory.Create(classType, _contextFactory, cancellationToken);
+                    job = _jobFactory.Create(classType, _contextFactory, jobTokenSource.Token);
                     job.Setup(data);
                     await job.Run(data);
 
                     await context.QueuedJob
                         .Where(qj => qj.Id == queuedJob.Id)
-                        .ExecuteDeleteAsync(cancellationToken);
+                        .ExecuteDeleteAsync(jobTokenSource.Token);
                 }
                 catch (Exception ex)
                 {
@@ -156,7 +157,7 @@ RETURNING *
                     {
                         await context.QueuedJob
                             .Where(qj => qj.Id == queuedJob.Id)
-                            .ExecuteDeleteAsync(cancellationToken);
+                            .ExecuteDeleteAsync(jobTokenSource.Token);
                     }
                     else
                     {
@@ -164,7 +165,7 @@ RETURNING *
                             .Where(qj => qj.Id == queuedJob.Id)
                             .ExecuteUpdateAsync(
                                 setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
-                                cancellationToken: cancellationToken
+                                cancellationToken: jobTokenSource.Token
                             );
                     }
                 }
@@ -178,5 +179,7 @@ RETURNING *
                 }
             }
         }
+
+        _logger.Warning("Service stopping!");
     }
 }

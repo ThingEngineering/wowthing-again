@@ -6,6 +6,7 @@ public class ManualCustomizationThing
     public int AppearanceModifier { get; set; } = -1;
     public int ItemId { get; set; }
     public int QuestId { get; set; }
+    public int SpellId { get; set; }
     public string Name { get; set; } = string.Empty;
 
     public ManualCustomizationThing()

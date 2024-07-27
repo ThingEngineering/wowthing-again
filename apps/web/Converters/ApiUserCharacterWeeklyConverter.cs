@@ -22,6 +22,7 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
         if (weekly.Vault != null)
         {
             JsonSerializer.Serialize(writer, weekly.Vault.ScannedAt, options);
+            writer.WriteBooleanValue(weekly.Vault.HasRewards);
 
             WriteVaultProgress(writer, weekly.Vault.MythicPlusProgress, options);
             WriteVaultProgress(writer, weekly.Vault.RaidProgress, options);
@@ -52,6 +53,14 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
             writer.WriteNumberValue(vaultProgress.Tier);
             writer.WriteNumberValue(vaultProgress.Progress);
             writer.WriteNumberValue(vaultProgress.Threshold);
+
+            writer.WriteStartArray();
+            foreach (var reward in vaultProgress.Rewards.EmptyIfNull())
+            {
+                JsonSerializer.Serialize(writer, reward, options);
+            }
+            writer.WriteEndArray();
+
             writer.WriteEndArray();
         }
 

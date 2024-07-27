@@ -1,14 +1,12 @@
 <script lang="ts">
-    import { some } from 'lodash'
-
-    import { difficultyMap } from '@/data/difficulty'
+    import { getDifficulties } from './get-difficulties';
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { itemStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { getItemUrl } from '@/utils/get-item-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
+    import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance, JournalDataInstance } from '@/types/data/journal'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
@@ -16,18 +14,12 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
+    export let instance: JournalDataInstance
     export let item: JournalDataEncounterItem
 
-    let classId: number
-    $: {
-        if (item.classMask in PlayableClassMask) {
-            classId = PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
-        }
-        else {
-            classId = 0
-        }
-    }
-
+    $: classId = item.classMask in PlayableClassMask
+        ? PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
+        : 0
     $: dataItem = $itemStore.items[item.id]
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
@@ -47,40 +39,6 @@
 
         const bonusId = bonusIds[appearance.difficulties[0]]
         return bonusId ? [bonusId] : []
-    }
-
-    const getDifficulties = function(appearance: JournalDataEncounterItemAppearance): [string[], string[]] {
-        if (!appearance.difficulties) {
-            return [[], []]
-        }
-
-        const ret: [string[], string[]] = [[], []]
-        // LFR Legacy, LFR Raid
-        if (some([7, 17], (id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[17].shortName)
-            ret[1].push(difficultyMap[17].name)
-        }
-        // Normal Dungeon, 10 Normal, 25 Normal, 40 Normal, Normal Raid
-        if (some([1, 3, 5, 9, 14], (id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[14].shortName)
-            ret[1].push(difficultyMap[14].name)
-        }
-        // Heroic Dungeon, 10 Heroic, 25 Heroic, Heroic Raid
-        if (some([2, 4, 6, 15], (id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[15].shortName)
-            ret[1].push(difficultyMap[15].name)
-        }
-        // Mythic Dungeon, Mythic Keystone, Mythic Raid
-        if (some([23, 8, 16], (id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[16].shortName)
-            ret[1].push(difficultyMap[16].name)
-        }
-        // Timewalking Dungeon, Timewalking Raid
-        if (some([24, 33], (id) => appearance.difficulties.indexOf(id) >= 0)) {
-            ret[0].push(difficultyMap[33].shortName)
-            ret[1].push(difficultyMap[33].name)
-        }
-        return ret
     }
 </script>
 
@@ -148,7 +106,7 @@
         ($journalState.showCollected && appearance.userHas) ||
         ($journalState.showUncollected && !appearance.userHas)
     }
-        {@const [diffShort, diffLong] = getDifficulties(appearance)}
+        {@const [diffShort, diffLong] = getDifficulties(instance, appearance)}
         <div
             class="journal-item quality{getQuality(appearance)}"
             class:missing={

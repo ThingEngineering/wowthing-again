@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterWeekly
+public class PlayerCharacterWeekly(int characterId)
 {
     [Key, ForeignKey("Character")]
     [JsonIgnore]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     [JsonIgnore]
     public PlayerCharacter Character { get; set; }
 
@@ -22,12 +22,13 @@ public class PlayerCharacterWeekly
     public Dictionary<string, int> Torghast { get; set; }
 
     [Column(TypeName = "jsonb")]
-    public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
+    public PlayerCharacterWeeklyVault Vault { get; set; } = new();
 }
 
 public class PlayerCharacterWeeklyVault
 {
     public DateTime ScannedAt { get; set; }
+    public bool HasRewards { get; set; }
 
     public List<List<int>> MythicPlusRuns { get; set; }
 
@@ -51,4 +52,6 @@ public class PlayerCharacterWeeklyVaultProgress
     public int Progress { get; set; }
     public int Threshold { get; set; }
     public int Tier { get; set; }
+
+    public List<PlayerCharacterItem> Rewards { get; set; } = new();
 }

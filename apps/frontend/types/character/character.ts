@@ -1,3 +1,5 @@
+import { DateTime } from 'luxon';
+
 import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
 import { Profession } from '@/enums/profession';
@@ -55,6 +57,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
     public calculatedItemLevel: string;
     public calculatedItemLevelQuality: number;
+    public lastApiUpdate: DateTime;
+    public lastSeenAddon: DateTime;
 
     public bags: Record<number, number> = {};
     public currencies: Record<number, CharacterCurrency> = {};
@@ -95,7 +99,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public gold: number,
         public currentLocation: string,
         public hearthLocation: string,
-        public lastSeenAddon: number,
+        lastApiUpdateUnix: number,
+        lastSeenAddonUnix: number,
 
         public configuration: CharacterConfiguration,
 
@@ -242,6 +247,14 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 const obj = new CharacterStatisticRating(...ratingArray);
                 this.statistics.rating[obj.type] = obj;
             }
+        }
+
+        if (lastApiUpdateUnix) {
+            this.lastApiUpdate = DateTime.fromSeconds(lastApiUpdateUnix);
+        }
+
+        if (lastSeenAddonUnix) {
+            this.lastSeenAddon = DateTime.fromSeconds(lastSeenAddonUnix);
         }
     }
 

@@ -3,10 +3,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterShadowlands
+public class PlayerCharacterShadowlands(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     // Covenants
@@ -15,7 +16,7 @@ public class PlayerCharacterShadowlands
     public int SoulbindId { get; set; }
     public List<int> ConduitIds { get; set; }
     public List<int> ConduitRanks { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterShadowlandsCovenant> Covenants { get; set; }
 }

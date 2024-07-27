@@ -43,10 +43,7 @@ public class CharacterSoulbindsJob : JobBase
         var shadowlands = await Context.PlayerCharacterShadowlands.FindAsync(_query.CharacterId);
         if (shadowlands == null)
         {
-            shadowlands = new PlayerCharacterShadowlands
-            {
-                CharacterId = _query.CharacterId,
-            };
+            shadowlands = new PlayerCharacterShadowlands(_query.CharacterId);
             Context.PlayerCharacterShadowlands.Add(shadowlands);
         }
 

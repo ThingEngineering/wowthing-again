@@ -29,6 +29,7 @@ public class ApiUserCharacter
     public string CurrentLocation { get; set; }
     public string HearthLocation { get; set; }
     public string Name { get; set; }
+    public DateTime LastApiModified { get; set; }
     public DateTime LastSeenAddon { get; set; }
     public WowFaction Faction { get; set; }
     public WowGender Gender { get; set; }
@@ -103,6 +104,7 @@ public class ApiUserCharacter
             Gold = character.Copper / 10000;
             IsResting = character.IsResting;
             IsWarMode = character.IsWarMode;
+            LastApiModified = character.LastApiModified;
             LastSeenAddon = character.LastSeenAddon;
             PlayedTotal = character.PlayedTotal;
             RestedExperience = character.RestedExperience;

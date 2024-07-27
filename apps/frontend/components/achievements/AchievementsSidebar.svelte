@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, lazyStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'

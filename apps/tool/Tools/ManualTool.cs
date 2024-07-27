@@ -11,6 +11,7 @@ using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Manual;
 using Wowthing.Tool.Models.Progress;
+using Wowthing.Tool.Models.Spells;
 using Wowthing.Tool.Models.Transmog;
 using Wowthing.Tool.Models.Vendors;
 using Wowthing.Tool.Models.ZoneMaps;
@@ -270,6 +271,8 @@ public class ManualTool
     {
         var customizationSets = DataUtilities.LoadData<DataCustomizationCategory>(
             "customizations", ToolContext.Logger);
+
+        var spellMap = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpSpell>("spell", spell => spell.ID, language);
 
         // Achievement garbage
         var achievementById = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpAchievement>(
@@ -579,10 +582,45 @@ public class ManualTool
                 }
                 else
                 {
-                    newCat.Groups.AddRange(category.Groups
-                        .EmptyIfNull()
-                        .Select(group => new ManualCustomizationGroup(group))
-                    );
+                    foreach (var group in category.Groups.EmptyIfNull())
+                    {
+                        if (group.TeachesSpells)
+                        {
+                            var newGroup = new ManualCustomizationGroup(group.Name);
+                            newCat.Groups.Add(newGroup);
+
+                            foreach (var thing in group.Things.EmptyIfNull())
+                            {
+                                if (_itemEffectMap.TryGetValue(thing.ItemId, out var itemEffect))
+                                {
+                                    foreach (var spellEffects in itemEffect.SpellEffects.Values)
+                                    {
+                                        foreach (var spellEffect in spellEffects.Values)
+                                        {
+                                            if (spellEffect.Effect == WowSpellEffectEffect.LearnSpell &&
+                                                spellEffect.Values[0] > 0)
+                                            {
+                                                int spellId = spellEffect.Values[0];
+                                                spellMap.TryGetValue(spellId, out var spell);
+
+                                                newGroup.Things.Add(new ManualCustomizationThing
+                                                {
+                                                    ItemId = thing.ItemId,
+                                                    SpellId = spellEffect.Values[0],
+                                                    Name = spell?.NameSubtext ?? $"Spell #{spellId}",
+                                                });
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            newCat.Groups.Add(new ManualCustomizationGroup(group));
+                        }
+                    }
                 }
 
                 newList.Add(newCat);
