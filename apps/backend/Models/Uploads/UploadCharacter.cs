@@ -5,6 +5,7 @@ public class UploadCharacter
 {
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
+    public bool VaultHasRewards { get; set; }
     public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
     public int KeystoneInstance { get; set; }

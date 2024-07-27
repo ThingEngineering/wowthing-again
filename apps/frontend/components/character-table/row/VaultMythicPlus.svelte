@@ -35,6 +35,7 @@
 {#if mythicPlus?.length > 0}
     <td use:componentTooltip={{component: TooltipMythicPlusVault, props: { character }}}>
         <VaultShared
+            hasRewards={character.weekly?.vaultHasRewards}
             progresses={mythicPlus}
             {qualityFunc}
             {textFunc}

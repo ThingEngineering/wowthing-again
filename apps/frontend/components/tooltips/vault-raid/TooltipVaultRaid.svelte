@@ -2,6 +2,7 @@
     import type { Character, CharacterWeeklyProgress } from '@/types'
 
     import Progress from './TooltipVaultRaidProgress.svelte'
+    import Rewards from './Rewards.svelte';
 
     export let character: Character
 
@@ -20,4 +21,8 @@
             {/each}
         </tbody>
     </table>
+
+    {#if character.weekly?.vaultHasRewards}
+        <Rewards {character} />
+    {/if}
 </div>

@@ -629,7 +629,7 @@ public class UserUploadJob : JobBase
         foreach ((string slotString, string itemString) in characterData.EquipmentV2.EmptyIfNull())
         {
             int slot = int.Parse(slotString[1..]);
-            var parts = itemString.Split(":");
+            string[] parts = itemString.Split(":");
             if (parts.Length != 10)
             {
                 Logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
@@ -1281,7 +1281,7 @@ public class UserUploadJob : JobBase
         return ItemLocation.Unknown;
     }
 
-    private void AddItemDetails(IPlayerItem item, string[] parts)
+    private static void AddItemDetails(IPlayerItem item, string[] parts)
     {
         if (parts[0] == "pet")
         {
@@ -1919,7 +1919,10 @@ public class UserUploadJob : JobBase
         // Vault
         if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
         {
+            character.Weekly.Vault ??= new();
+
             character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
+            character.Weekly.Vault.HasRewards = characterData.VaultHasRewards;
 
             character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
                 .EmptyIfNull()
@@ -1948,18 +1951,33 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] vault)
+    private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] tiers)
     {
-        return vault
-            .OrderBy(v => v.Threshold)
-            .Select(v => new PlayerCharacterWeeklyVaultProgress
+        var ret = new List<PlayerCharacterWeeklyVaultProgress>();
+
+        foreach (var tier in tiers.OrderBy(tier => tier.Threshold))
+        {
+            var progress = new PlayerCharacterWeeklyVaultProgress
             {
-                Level = v.Level,
-                Progress = v.Progress,
-                Threshold = v.Threshold,
-                Tier = v.Tier,
-            })
-            .ToList();
+                Level = tier.Level,
+                Progress = tier.Progress,
+                Threshold = tier.Threshold,
+                Tier = tier.Tier,
+            };
+
+            foreach (string itemString in tier.Rewards.EmptyIfNull())
+            {
+                Console.WriteLine("uhh {0}", itemString);
+                string[] parts = itemString.Split(':');
+                var item = new PlayerCharacterItem();
+                AddItemDetails(item, parts);
+                progress.Rewards.Add(item);
+            }
+
+            ret.Add(progress);
+        }
+
+        return ret;
     }
 
     public class EmissaryData

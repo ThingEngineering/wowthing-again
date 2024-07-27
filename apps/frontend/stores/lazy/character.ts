@@ -693,7 +693,5 @@ function doProfessionCooldowns(
         }
     }
 
-    if (character.name === 'Wayuki') console.log(ret);
-
     return ret;
 }

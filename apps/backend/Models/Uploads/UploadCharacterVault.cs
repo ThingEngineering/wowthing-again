@@ -6,4 +6,6 @@ public class UploadCharacterVault
     public int Progress { get; set; }
     public int Threshold { get; set; }
     public int Tier { get; set; }
+
+    public List<string> Rewards { get; set; }
 }
