@@ -178,5 +178,7 @@ RETURNING *
                 }
             }
         }
+
+        _logger.Warning("Service stopping!");
     }
 }
