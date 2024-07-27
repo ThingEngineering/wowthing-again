@@ -1423,14 +1423,12 @@ public class UserUploadJob : JobBase
         // Basic sanity checks
         if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
         {
-            Logger.Information("return 1");
             return;
         }
 
         var scanTime = scanTimestamp.AsUtcDateTime();
         if (scanTime <= character.Lockouts.LastUpdated)
         {
-            Logger.Information("return 2");
             return;
         }
 
