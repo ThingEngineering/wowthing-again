@@ -3,7 +3,7 @@
 
     import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
+    import type { JournalDataEncounterItem, JournalDataEncounterItemGroup, JournalDataInstance } from '@/types/data'
 
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
     import Item from './JournalItem.svelte'
@@ -11,6 +11,7 @@
     export let bonusIds: Record<number, number>
     export let group: JournalDataEncounterItemGroup
     export let groupKey: string
+    export let instance: JournalDataInstance
     export let useV2: boolean
 
     let element: HTMLElement
@@ -54,6 +55,7 @@
                     {#each items as item}
                         <Item
                             {bonusIds}
+                            {instance}
                             {item}
                         />
                     {/each}

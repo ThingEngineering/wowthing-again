@@ -17,10 +17,11 @@
     export let slug3: string
 
     let instance: JournalDataInstance
+    let tier: JournalDataTier
     let slugKey: string
     $: {
+        tier = find($journalStore.tiers, (tier) => tier?.slug === slug1)
         instance = undefined
-        const tier: JournalDataTier = find($journalStore.tiers, (tier) => tier?.slug === slug1)
         if (tier) {
             if (tier.subTiers) {
                 const subTier = find(tier.subTiers, (subTier) => subTier.slug === slug2)
@@ -88,6 +89,7 @@
                     {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
                         <Encounter
                             {encounter}
+                            {instance}
                             {slugKey}
                             bonusIds={instance.bonusIds}
                         />

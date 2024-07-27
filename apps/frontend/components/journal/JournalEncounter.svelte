@@ -1,6 +1,6 @@
 <script lang="ts">
     import { lazyStore } from '@/stores'
-    import type { JournalDataEncounter, JournalDataEncounterItemGroup } from '@/types/data'
+    import type { JournalDataEncounter, JournalDataEncounterItemGroup, JournalDataInstance } from '@/types/data'
     
     import EncounterStats from './JournalEncounterStats.svelte'
     import Group from './JournalGroup.svelte'
@@ -8,6 +8,7 @@
 
     export let bonusIds: Record<number, number> = undefined
     export let encounter: JournalDataEncounter
+    export let instance: JournalDataInstance
     export let slugKey: string
 
     $: statsKey = `${slugKey}--${encounter.name}`
@@ -51,6 +52,7 @@
             groupKey={`${slugKey}--${encounter.name}--${group.name}`}
             {bonusIds}
             {group}
+            {instance}
             {useV2}
         />
     {/each}
