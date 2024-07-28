@@ -8,6 +8,7 @@ public static partial class Hardcoded
         634, // WotLk/ToC/Grand Champions [shows raid difficulties]
         748, // Classic/Uldaman/Obsidian Sentinel [drops nothing useful]
         749, // Classic/Stratholme/Commander Malor [drops nothing useful]
+        833, // WotLK/The Nexus/Commander Kolurg [raid difficulties, dupes Commander Stoutbeard]
         858, // Yu'lon
         859, // Niu'zao
         860, // Xuen
