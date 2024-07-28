@@ -243,10 +243,11 @@ public class JournalTool
                 var legacyLoot = tier.ID <= 499; // Shadowlands
 
                 int lastInstanceType = -1;
-                foreach (var instanceId in tierToInstances[tier.ID])
+                foreach (int instanceId in tierToInstances[tier.ID])
                 {
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
+                    bool hasTimewalking = (instance.Flags & 0x1) == 0x1;
 
                     if (Hardcoded.JournalDungeonsOnly.Contains(tier.ID) && map.InstanceType != 1)
                     {
@@ -264,6 +265,14 @@ public class JournalTool
                     }
 
                     int[] mapDifficulties = difficultiesByMapId[instance.MapID];
+
+                    // If the instance does not have the Timewalking flag, remove it from the difficulties
+                    if (!hasTimewalking)
+                    {
+                        mapDifficulties = mapDifficulties
+                            .Where(difficulty => difficulty != 24 && difficulty != 33)
+                            .ToArray();
+                    }
 
                     // Current Season hack
                     if (tier.ID == 505)
@@ -460,6 +469,15 @@ public class JournalTool
                                 else if (difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
                                 {
                                     difficultiesOverridden = true;
+
+                                    // Timewalking hack
+                                    if (!hasTimewalking)
+                                    {
+                                        difficulties = difficulties
+                                            .Where(difficulty => difficulty != 24 && difficulty != 33)
+                                            .ToArray();
+                                    }
+
                                     // Current Season hack
                                     if (tier.ID == 505)
                                     {
@@ -470,6 +488,12 @@ public class JournalTool
                                         {
                                             continue;
                                         }
+                                    }
+
+                                    if (difficulties.Length == 0)
+                                    {
+                                        ToolContext.Logger.Warning("No valid difficulties for item ID {Id}", encounterItem.ID);
+                                        continue;
                                     }
                                 }
                                 else {
