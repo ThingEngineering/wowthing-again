@@ -36,8 +36,10 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         data.rawCriteria = null;
 
         // { characterId: { achievementId: data, ... } }
-        for (const characterAchievements of Object.values(data.addonAchievements)) {
-            for (const [achievementId, addonData] of getNumberKeyedEntries(characterAchievements)) {
+        for (const characterAchievements of Object.values(data.addonAchievements || {})) {
+            for (const [achievementId, addonData] of getNumberKeyedEntries(
+                characterAchievements || {},
+            )) {
                 if (addonData.earned) {
                     data.achievements[achievementId] = 1;
                 }
