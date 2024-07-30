@@ -16,7 +16,7 @@
 
     export let params: MultiSlugParams
 
-    let allKnown: Set<number>
+    // let allKnown: Set<number>
     let category: StaticDataProfessionCategory
     let subCategories: [StaticDataProfessionCategory, UserCount][]
     $: {
@@ -24,18 +24,8 @@
         const profession = $staticStore.professions[professionId]
         const expansionId = expansionSlugMap[params.slug2].id
         const subProfessionId = profession.expansionSubProfession[expansionId].id
+
         category = profession.expansionCategory[expansionId].children[0]
-        
-        allKnown = new Set<number>()
-        for (const character of $userStore.characters) {
-            const subProfession = character.professions?.[professionId]?.[subProfessionId]
-            if (!subProfession) { continue }
-
-            for (const recipeId of subProfession.knownRecipes || []) {
-                allKnown.add(recipeId)
-            }
-        }
-
         subCategories = []
         for (const subCategory of category.children) {
             if (subCategory.abilities.length === 0) { continue }
@@ -114,16 +104,14 @@
             <tbody>
                 {#each subCategory.abilities as ability}
                     <Ability
-                        rank={ability.extraRanks?.length > 0 ? 1 : 0}
+                        rank={1}
                         {ability}
-                        {allKnown}
                     />
 
                     {#each (ability.extraRanks || []) as _, rankIndex}
                         <Ability
                             rank={rankIndex + 2}
                             {ability}
-                            {allKnown}
                         />
                     {/each}
                 {/each}

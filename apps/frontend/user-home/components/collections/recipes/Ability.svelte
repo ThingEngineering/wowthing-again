@@ -1,5 +1,6 @@
 <script lang="ts">
     import { uiIcons } from '@/shared/icons';
+    import { lazyStore } from '@/stores';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
     import { recipesState } from './state'
@@ -11,24 +12,11 @@
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let ability: StaticDataProfessionAbility
-    export let allKnown: Set<number>
     export let rank: number
 
-    let name: string
-    let spellId: number
-    let userHas: boolean
-    $: {
-        if (rank > 1) {
-            spellId = ability.extraRanks[rank - 2][1]
-            userHas = ability.extraRanks.slice(rank - 2)
-                .some(([abilityId,]) => allKnown.has(abilityId))
-        } else {
-            spellId = ability.spellId
-            userHas = allKnown.has(ability.id) ||
-                (ability.extraRanks || []).some(([abilityId,]) => allKnown.has(abilityId))
-        }
-        name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`
-    }
+    $: name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`
+    $: spellId = $lazyStore.recipes.abilitySpells[ability.id][rank - 1]
+    $: userHas = $lazyStore.recipes.hasAbility[ability.id][rank - 1]
 </script>
 
 <style lang="scss">
@@ -96,7 +84,7 @@
                     <ParsedText text={name} />
                 </WowheadLink>
 
-                {#if rank > 0}
+                {#if ability.extraRanks?.length > 0}
                     <div class="rank">
                         {#each Array(ability.extraRanks.length + 1) as _, index}
                             <IconifyIcon
