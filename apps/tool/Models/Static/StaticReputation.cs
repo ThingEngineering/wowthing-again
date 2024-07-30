@@ -11,6 +11,7 @@ public class StaticReputation : WowReputation
 
     public StaticReputation(WowReputation reputation) : base(reputation.Id)
     {
+        AccountWide = reputation.AccountWide;
         Expansion = reputation.Expansion;
         ParagonId = reputation.ParagonId;
         ParentId = reputation.ParagonId;

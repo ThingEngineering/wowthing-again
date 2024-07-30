@@ -7,6 +7,7 @@ public class DumpFaction
 {
     public short ID { get; set; }
     public short Expansion { get; set; }
+    public int Flags { get; set; }
     public short FriendshipRepID { get; set; }
     public short ParagonFactionID { get; set; }
     public short ParentFactionID { get; set; }

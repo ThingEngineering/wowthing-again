@@ -566,6 +566,7 @@ public class DumpsTool
                 context.WowReputation.Add(dbReputation);
             }
 
+            dbReputation.AccountWide = (faction.Flags & 0x4) == 0x4;
             dbReputation.Expansion = faction.Expansion;
             dbReputation.ParagonId = faction.ParagonFactionID;
             dbReputation.ParentId = faction.ParentFactionID;
