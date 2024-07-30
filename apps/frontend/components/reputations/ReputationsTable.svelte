@@ -97,15 +97,19 @@
                     {#each reputationSets as reputationSet, reputationSetsIndex}
                         {#if isRenown(reputationSet)}
                             <TableRowRenown
-                                characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
-                                {character}
                                 reputation={reputationSet}
+                                {character}
+                                {slug}
+                                {reputationsIndex}
+                                {reputationSetsIndex}
                             />
                         {:else}
                             <TableRow
-                                characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
-                                {character}
                                 reputation={reputationSet}
+                                {character}
+                                {slug}
+                                {reputationsIndex}
+                                {reputationSetsIndex}
                             />
                         {/if}
                     {/each}
