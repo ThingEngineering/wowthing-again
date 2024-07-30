@@ -29,7 +29,7 @@ public class OutDbThing
         Note = dataThing.Note;
         TrackingQuestId = dataThing.TrackingQuestId;
 
-        ResetType = Enum.Parse<DbResetType>(string.IsNullOrEmpty(dataThing.Reset) ? "none" : dataThing.Reset, true);
+        ResetType = Enum.Parse<DbResetType>(dataThing.Reset.OrDefault("none"), true);
         Type = Enum.Parse<DbThingType>(dataThing.Type, true);
     }
 

@@ -9,20 +9,21 @@ public class StaticReputationConverter : JsonConverter<StaticReputation>
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, StaticReputation value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, StaticReputation rep, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        writer.WriteNumberValue(value.Id);
-        writer.WriteNumberValue(value.Expansion);
-        writer.WriteNumberValue(value.TierId);
-        writer.WriteNumberValue(value.ParentId);
-        writer.WriteNumberValue(value.ParagonId);
-        writer.WriteNumberValue(value.RenownCurrencyId);
-        writer.WriteStringValue(value.Name);
+        writer.WriteNumberValue(rep.Id);
+        writer.WriteNumberValue(rep.Expansion);
+        writer.WriteNumberValue(rep.TierId);
+        writer.WriteNumberValue(rep.ParentId);
+        writer.WriteNumberValue(rep.ParagonId);
+        writer.WriteNumberValue(rep.RenownCurrencyId);
+        writer.WriteBooleanValue(rep.AccountWide);
+        writer.WriteStringValue(rep.Name);
 
-        if (!string.IsNullOrWhiteSpace(value.Description))
+        if (!string.IsNullOrWhiteSpace(rep.Description))
         {
-            writer.WriteStringValue(value.Description);
+            writer.WriteStringValue(rep.Description);
         }
 
         writer.WriteEndArray();

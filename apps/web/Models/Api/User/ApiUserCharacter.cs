@@ -80,6 +80,7 @@ public class ApiUserCharacter
         Gender = character.Gender;
         GuildId = character.GuildId ?? 0;
         Id = character.Id;
+        LastApiModified = character.LastApiModified;
         Level = character.Level;
         RaceId = character.RaceId;
 
@@ -104,7 +105,6 @@ public class ApiUserCharacter
             Gold = character.Copper / 10000;
             IsResting = character.IsResting;
             IsWarMode = character.IsWarMode;
-            LastApiModified = character.LastApiModified;
             LastSeenAddon = character.LastSeenAddon;
             PlayedTotal = character.PlayedTotal;
             RestedExperience = character.RestedExperience;

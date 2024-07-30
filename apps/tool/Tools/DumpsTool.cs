@@ -566,6 +566,7 @@ public class DumpsTool
                 context.WowReputation.Add(dbReputation);
             }
 
+            dbReputation.AccountWide = (faction.Flags & 0x4) == 0x4;
             dbReputation.Expansion = faction.Expansion;
             dbReputation.ParagonId = faction.ParagonFactionID;
             dbReputation.ParentId = faction.ParentFactionID;
@@ -1430,7 +1431,8 @@ public class DumpsTool
                 context.WowTransmogSet.Add(dbSet);
             }
 
-            dbSet.ClassMask = transmogSet.ClassMask;
+            // Limit the class mask to valid classes to filter out weird stuff like 14/Adventurer
+            dbSet.ClassMask = transmogSet.ClassMask & 0b1_1111_1111_1111;
             dbSet.Flags = transmogSet.Flags;
             dbSet.GroupId = transmogSet.TransmogSetGroupID;
             dbSet.ItemNameDescriptionId = transmogSet.ItemNameDescriptionID;

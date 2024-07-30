@@ -23,6 +23,6 @@ public class OutDbThingContent
 
         Costs = dataContent.Costs.EmptyIfNull();
 
-        Type = Enum.Parse<DbThingContentType>(dataContent.Type, true);
+        Type = Enum.Parse<DbThingContentType>(dataContent.Type.OrDefault("item"), true);
     }
 }

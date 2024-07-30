@@ -1,23 +1,47 @@
 <script lang="ts">
+    import orderBy from 'lodash/orderBy'
+
     import { staticStore } from '@/shared/stores/static'
-    import findReputationTier from '@/utils/find-reputation-tier'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
+    import { userStore } from '@/stores';
+    import findReputationTier from '@/utils/find-reputation-tier'
     import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/shared/stores/static/types'
+    import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
     export let character: Character
-    export let characterRep: CharacterReputationReputation
     export let reputation: StaticDataReputationSet
+    export let reputationsIndex: number
+    export let reputationSetsIndex: number
+    export let slug: string
 
+    let characterRep: CharacterReputationReputation
     let cls: string
     let dataRep: StaticDataReputation
     let paragon: CharacterReputationParagon
     let repTier: ReputationTier
 
+    // characterRep={character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]}
+
     $: {
-        if (reputation !== undefined && characterRep.value !== -1) {
+        if (!reputation) { break $ }
+
+        characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
+        dataRep = $staticStore.reputations[characterRep.reputationId]
+
+        const actualCharacter = !dataRep.accountWide
+            ? character
+            : orderBy(
+                $userStore.activeCharacters
+                    .filter((char) => !!char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]),
+                (char) => -char.lastApiUpdate.toUnixInteger()
+            )[0];
+        
+        characterRep = actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
+
+
+        if (characterRep.value !== -1) {
             dataRep = $staticStore.reputations[characterRep.reputationId]
             if (dataRep) {
                 const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]

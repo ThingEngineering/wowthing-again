@@ -128,11 +128,13 @@ public class UserCharactersJob : JobBase
             .Where(orPredicate)
             .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
+        timer.AddPoint("Fetch");
+
         // Loop over API results
         foreach ((var region, var apiAccount) in apiAccounts)
         {
             int accountId = accountMap[(region, apiAccount.Id)].Id;
-            int added = 0;
+            int addedCharacters = 0;
 
             foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
             {
@@ -153,7 +155,7 @@ public class UserCharactersJob : JobBase
                             LastApiCheck = MiscConstants.DefaultDateTime,
                         };
                         Context.PlayerCharacter.Add(character);
-                        added++;
+                        addedCharacters++;
                     }
 
                     character.AccountId = accountId;
@@ -172,9 +174,9 @@ public class UserCharactersJob : JobBase
                 }
             }
 
-            if (added > 0)
+            if (addedCharacters > 0)
             {
-                Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region,
+                Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", addedCharacters, region,
                     apiAccount.Id);
             }
         }
@@ -218,7 +220,7 @@ public class UserCharactersJob : JobBase
             if (unlinkedCharacters > 0)
             {
                 Logger.Information("Unlinked {0} character(s) from account {1}/{2}",
-                    unlinkedCharacters, region, accountId);
+                    unlinkedCharacters, region, apiAccount.Id);
             }
         }
 

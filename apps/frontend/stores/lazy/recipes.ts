@@ -6,6 +6,7 @@ import type { UserData } from '@/types';
 import type { Settings } from '@/shared/stores/settings/types';
 
 export class LazyRecipes {
+    public abilitySpells: Record<number, number[]> = {};
     public hasAbility: Record<number, boolean[]> = {};
     public stats: Record<string, UserCount> = {};
 }
@@ -28,7 +29,11 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
         const professionData = (ret.stats[professionKey] = new UserCount());
 
         const allKnown = new Set<number>();
-        for (const character of stores.userData.characters) {
+        const collectorId = stores.settings.professions.collectingCharacters?.[profession.id];
+        const characters = collectorId
+            ? [stores.userData.characterMap[collectorId]]
+            : stores.userData.characters;
+        for (const character of characters) {
             for (const subProfession of Object.values(
                 character.professions?.[profession.id] || {},
             )) {
@@ -65,6 +70,10 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                     const abilityIds = [
                         ability.id,
                         ...(ability.extraRanks || []).map(([abilityId]) => abilityId),
+                    ];
+                    ret.abilitySpells[ability.id] = [
+                        ability.spellId,
+                        ...(ability.extraRanks || []).map(([, spellId]) => spellId),
                     ];
                     // a multi-rank ability is collected if you know that specific rank OR
                     // any higher rank
