@@ -25,6 +25,7 @@
 <style lang="scss">
     code {
         line-height: 1;
+        background:none;
     }
 </style>
 
