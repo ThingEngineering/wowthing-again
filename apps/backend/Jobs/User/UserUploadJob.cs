@@ -11,6 +11,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
+using Wowthing.Lib.Models.User;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
@@ -46,7 +47,17 @@ public class UserUploadJob : JobBase
         "強悍", // zhTW
     };
 
-    private static readonly HashSet<int> BankBags = new()
+    private static readonly HashSet<int> PlayerBags = new()
+    {
+        0, // Backpack
+        1, // Bag 1
+        2, // Bag 2
+        3, // Bag 3
+        4, // Bag 4
+        5, // Reagent bag
+    };
+
+    private static readonly HashSet<int> PlayerBankBags = new()
     {
         -3, // Reagent Bank
         -1, // Bank
@@ -57,16 +68,6 @@ public class UserUploadJob : JobBase
         10, // Bank bag 5
         11, // Bank bag 6
         12, // Bank bag 7
-    };
-
-    private static readonly HashSet<int> PlayerBags = new()
-    {
-        0, // Backpack
-        1, // Bag 1
-        2, // Bag 2
-        3, // Bag 3
-        4, // Bag 4
-        5, // Reagent bag
     };
 
     private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
@@ -203,6 +204,20 @@ public class UserUploadJob : JobBase
         //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
         var parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
+
+        // Create UserMetadata if it doesn't exist
+        var userMetadata = await Context.UserMetadata.SingleOrDefaultAsync(meta => meta.UserId == _userId);
+        if (userMetadata == null)
+        {
+            userMetadata = new UserMetadata(_userId);
+            Context.UserMetadata.Add(userMetadata);
+        }
+
+        // Deal with warbank data
+        if (parsed.Warbank?.Items != null)
+        {
+            await HandleWarbank(userMetadata, parsed.Warbank);
+        }
 
         // Fetch guild data
         var guildMap = await Context.PlayerGuild
@@ -1113,7 +1128,7 @@ public class UserUploadJob : JobBase
     {
         var itemMap = guild.Items
             .EmptyIfNull()
-            .ToGroupedDictionary(pgi => (pgi.TabId, pgi.Slot));
+            .ToGroupedDictionary(pgi => (pgi.ContainerId, pgi.Slot));
 
         var itemIds = new HashSet<long>(
             guild.Items
@@ -1144,7 +1159,7 @@ public class UserUploadJob : JobBase
                     item = new PlayerGuildItem
                     {
                         Guild = guild,
-                        TabId = tabId,
+                        ContainerId = tabId,
                         Slot = slot,
                     };
                     Context.PlayerGuildItem.Add(item);
@@ -1165,6 +1180,69 @@ public class UserUploadJob : JobBase
         if (deleteMe.Length > 0)
         {
             await Context.PlayerGuildItem
+                .Where(pgi => deleteMe.Contains(pgi.Id))
+                .ExecuteDeleteAsync();
+        }
+    }
+
+    private async Task HandleWarbank(UserMetadata userMetadata, UploadWarbank warbankData)
+    {
+        var scannedAt = warbankData.ScannedAt.AsUtcDateTime();
+        if (scannedAt <= userMetadata.WarbankUpdatedAt)
+        {
+            return;
+        }
+
+        userMetadata.WarbankUpdatedAt = scannedAt;
+
+        var itemMap = await Context.PlayerWarbankItem
+            .Where(item => item.UserId == _userId)
+            .ToDictionaryAsync(item => (item.ContainerId, item.Slot));
+
+        var existingIds = new HashSet<long>(itemMap.Values.Select(item => item.Id));
+        var seenIds = new HashSet<long>();
+
+        foreach ((string bagString, var contents) in warbankData.Items)
+        {
+            // Warbank is bags 13-17
+            short tabId = (short)(short.Parse(bagString[1..]) - 12);
+            foreach (var (slotString, itemString) in contents)
+            {
+                short slot = short.Parse(slotString[1..]);
+
+                string[] parts = itemString.Split(":");
+                if (parts.Length < 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                {
+                    Logger.Warning("Invalid warbank item string: {String}", itemString);
+                    continue;
+                }
+
+                var key = (tabId, slot);
+                if (!itemMap.TryGetValue(key, out var item))
+                {
+                    item = new PlayerWarbankItem
+                    {
+                        UserId = _userId,
+                        ContainerId = tabId,
+                        Slot = slot,
+                    };
+                    Context.PlayerWarbankItem.Add(item);
+                }
+                else
+                {
+                    seenIds.Add(item.Id);
+                }
+
+                AddItemDetails(item, parts);
+            }
+        }
+
+        long[] deleteMe = existingIds
+            .Except(seenIds)
+            .ToArray();
+        if (deleteMe.Length > 0)
+        {
+            await Context.PlayerWarbankItem
                 .Where(pgi => deleteMe.Contains(pgi.Id))
                 .ExecuteDeleteAsync();
         }
@@ -1200,15 +1278,15 @@ public class UserUploadJob : JobBase
         if (updateBank)
         {
             character.AddonData.BankScannedAt = bankScanned;
-            bagIds.AddRange(BankBags);
+            bagIds.AddRange(PlayerBankBags);
         }
 
         // Logger.Debug("bags={bags} bank={bank}", updateBags, updateBank);
 
         var itemMap = Context.PlayerCharacterItem
             .Where(pci => pci.CharacterId == character.Id)
-            .Where(pci => bagIds.Contains(pci.BagId))
-            .ToGroupedDictionary(item => (item.Location, item.BagId, item.Slot));
+            .Where(pci => bagIds.Contains(pci.ContainerId))
+            .ToGroupedDictionary(item => (item.Location, item.ContainerId, item.Slot));
 
         var itemIds = new HashSet<long>(itemMap.Values
             .SelectMany(items => items.Select(item => item.Id)));
@@ -1238,7 +1316,7 @@ public class UserUploadJob : JobBase
                 item = new PlayerCharacterItem
                 {
                     CharacterId = character.Id,
-                    BagId = bagId,
+                    ContainerId = bagId,
                     Location = locationType,
                     Slot = 0,
                 };
@@ -1289,7 +1367,7 @@ public class UserUploadJob : JobBase
                     item = new PlayerCharacterItem
                     {
                         CharacterId = character.Id,
-                        BagId = bagId,
+                        ContainerId = bagId,
                         Location = locationType,
                         Slot = slot,
                     };
@@ -1336,13 +1414,15 @@ public class UserUploadJob : JobBase
         return ItemLocation.Unknown;
     }
 
-    private static void AddItemDetails(IPlayerItem item, string[] parts)
+    private static void AddItemDetails(BasePlayerItem item, string[] parts)
     {
         if (parts[0] == "pet")
         {
+#pragma warning disable CA1806
             short.TryParse(parts[1], out short context);
             short.TryParse(parts[2], out short itemLevel);
             short.TryParse(parts[3], out short quality);
+#pragma warning restore CA1806
 
             // pet:speciesId:level:quality
             item.Count = 1;
@@ -1355,13 +1435,15 @@ public class UserUploadJob : JobBase
         }
         else
         {
+#pragma warning disable CA1806
             short.TryParse(parts[2].OrDefault("0"), out short context);
             short.TryParse(parts[3].OrDefault("0"), out short enchantId);
             short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
             short.TryParse(parts[5].OrDefault("0"), out short quality);
             short.TryParse(parts[6].OrDefault("0"), out short suffixId);
+#pragma warning restore CA1806
 
-            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+            // count:id:context:enchant:itemLevel:quality:suffix:bonusIDs:gems
             item.Count = int.Parse(parts[0]);
             item.ItemId = int.Parse(parts[1]);
             item.Context = context;

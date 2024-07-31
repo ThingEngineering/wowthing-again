@@ -26,4 +26,6 @@ public class Upload
     public Dictionary<string, bool> TransmogSources { get; set; }
 
     public Dictionary<string, string> TransmogSourcesSquish { get; set; }
+
+    public UploadWarbank Warbank { get; set; }
 }
