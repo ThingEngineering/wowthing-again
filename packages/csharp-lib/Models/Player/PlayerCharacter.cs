@@ -41,14 +41,13 @@ public class PlayerCharacter
     public int PlayedTotal { get; set; } = 0;
     public int RestedExperience { get; set; } = 0;
     public long Copper { get; set; } = 0;
-    public WowMountSkill MountSkill { get; set; } = 0;
 
     [ForeignKey("Guild")]
     public int? GuildId { get; set; }
     public PlayerGuild Guild { get; set; }
 
     // Bookkeeping
-    public int DelayHours { get; set; } = 0;
+    public bool? ShouldUpdate { get; set; } = true;
     public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime LastApiModified { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime LastSeenAddon { get; set; } = MiscConstants.DefaultDateTime;
@@ -69,6 +68,7 @@ public class PlayerCharacter
     public PlayerCharacterReputations Reputations { get; set; }
     public PlayerCharacterShadowlands Shadowlands { get; set; }
     public PlayerCharacterSpecializations Specializations { get; set; }
+    public PlayerCharacterStats Stats { get; set; }
     public PlayerCharacterTransmog Transmog { get; set; }
     public PlayerCharacterWeekly Weekly { get; set; }
 

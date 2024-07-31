@@ -3,6 +3,10 @@ import { writable } from 'svelte/store'
 
 export class CharactersState {
     public lastTab: string
+    
+    public professionsShowAlreadyCrafted = true
+    public professionsShowLearned = true
+    public professionsShowUnlearned = true
 }
 
 const key = 'state-characters'

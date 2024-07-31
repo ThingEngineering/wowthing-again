@@ -8,6 +8,10 @@ indent_size = 4
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.{js,ts,svelte}]
+max_line_length = 100
+quote_type = single
+
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false

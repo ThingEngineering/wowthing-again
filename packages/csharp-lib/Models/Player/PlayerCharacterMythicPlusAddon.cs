@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Wowthing.Lib.Models.Player;
 
@@ -11,9 +11,9 @@ public class PlayerCharacterMythicPlusAddon
     public int CharacterId { get; set; }
     [JsonIgnore]
     public PlayerCharacter Character { get; set; }
-        
+
     public int Season { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterMythicPlusAddonMap> Maps { get; set; }
 }

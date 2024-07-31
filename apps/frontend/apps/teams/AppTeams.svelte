@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
     import {
         error as teamError,
         loading as teamLoading,
@@ -14,10 +14,6 @@
     onMount(async () => await staticStore.fetch())
     onMount(async () => await fetchTeam())
 </script>
-
-<style lang="scss" global>
-    //@import "../../scss/global.scss";
-</style>
 
 <Sidebar />
 {#if $staticStore.error || $teamError}

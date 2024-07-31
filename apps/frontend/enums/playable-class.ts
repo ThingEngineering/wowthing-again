@@ -29,3 +29,7 @@ export enum PlayableClassMask {
     Warlock = 2 ** (PlayableClass.Warlock - 1),
     Warrior = 2 ** (PlayableClass.Warrior - 1),
 }
+
+export const playableClasses: [string, number][] = Object.entries(PlayableClassMask)
+    .filter(([a,]) => isNaN(parseInt(a)))
+    .map(([a, b]) => [a, <number>b])

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
 
     export let value: number
 

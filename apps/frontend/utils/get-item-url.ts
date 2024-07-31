@@ -1,12 +1,15 @@
 import { get } from 'svelte/store'
 
-import { data as settingsData } from '@/stores/settings'
-import { getWowheadDomain } from '@/utils/get-wowhead-domain'
-import type { CharacterEquippedItem } from '@/types'
+import { settingsStore } from '@/shared/stores/settings'
+import type { Character, CharacterEquippedItem } from '@/types'
 import type { ItemSearchResponseCommon } from '@/types/items'
 
-export function getItemUrl(item: Partial<CharacterEquippedItem>): string {
-    const settings = get(settingsData)
+export function getItemUrl(
+    item: Partial<CharacterEquippedItem>,
+    character?: Character,
+    tierPieces?: number[]
+): string {
+    const settings = get(settingsStore)
     const useWowdb = settings.general.useWowdb
 
     let url = ''
@@ -36,8 +39,13 @@ export function getItemUrl(item: Partial<CharacterEquippedItem>): string {
         if (item.gemIds?.length > 0) {
             params.push(`gems=${item.gemIds.join(':')}`)
         }
+        if (tierPieces?.indexOf(item.itemId) >= 0) {
+            params.push(`class=${character.classId}`)
+            params.push(`spec=${character.activeSpecId}`)
+            params.push(`pcs=${tierPieces.filter((itemId) => itemId > 0).join(':')}`)
+        }
 
-        url = `https://${getWowheadDomain(settings.general.language)}.wowhead.com/item=${item.itemId}`
+        url = `https://${settingsStore.wowheadBaseUrl}/item=${item.itemId}`
     }
 
     if (params.length > 0) {

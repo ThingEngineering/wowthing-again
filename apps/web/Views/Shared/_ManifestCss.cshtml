@@ -1,0 +1,10 @@
+﻿@using Microsoft.Extensions.Options
+@using Wowthing.Web.Models
+@model string
+@inject FrontendManifest FrontendManifest
+@inject IOptions<WowthingWebOptions> WebOptions
+
+@foreach (string cssFilename in FrontendManifest.Entrypoints[Model].Css)
+{
+    <link rel="stylesheet" href="https://@WebOptions.Value.Hostname/@cssFilename">
+}

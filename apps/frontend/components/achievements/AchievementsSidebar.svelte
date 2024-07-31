@@ -1,8 +1,9 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore } from '@/stores'
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     $: {
@@ -14,12 +15,12 @@
                 children: [],
             },
             null,
-            ...$achievementStore.data.categories,
+            ...$achievementStore.categories,
         ]
     }
 
     const percentFunc = function(entry: SidebarItem): number {
-        const cat = $userAchievementStore.data.achievementCategories[entry.id]
+        const cat = $userAchievementStore.achievementCategories[entry.id]
         return cat ? cat.have / cat.total * 100 : 0
     }
 </script>
@@ -30,6 +31,15 @@
 <Sidebar
     baseUrl="/achievements"
     items={categories}
+    scrollable={true}
     width="17rem"
     percentFunc={percentFunc}
-/>
+>
+    <div slot="before">
+        <ProgressBar
+            title="Overall"
+            have={$userAchievementStore.achievementCategories[0].havePoints}
+            total={$userAchievementStore.achievementCategories[0].totalPoints}
+        />
+    </div>
+</Sidebar>

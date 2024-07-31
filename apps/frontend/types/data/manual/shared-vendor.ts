@@ -1,19 +1,20 @@
-import every from 'lodash/every'
-
-import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
-import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
-import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
-import type { ManualData } from './store'
-import type { StaticData } from '@/types/data/static'
-import type { ItemData } from '../item'
-
+import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor';
+import { Faction } from '@/enums/faction';
+import { FarmIdType } from '@/enums/farm-id-type';
+import { FarmResetType } from '@/enums/farm-reset-type';
+import { FarmType } from '@/enums/farm-type';
+import { RewardType } from '@/enums/reward-type';
+import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map';
+import type { ManualData } from './store';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { ItemData } from '../item';
 
 export class ManualDataSharedVendor {
-    private drops: ManualDataZoneMapDrop[]
+    private drops: ManualDataZoneMapDrop[];
 
-    public faction: Faction
-    public sells: ManualDataVendorItem[]
-    public sets: ManualDataSharedVendorSet[]
+    public faction: Faction;
+    public sells: ManualDataVendorItem[];
+    public sets: ManualDataSharedVendorSet[];
 
     constructor(
         public id: number,
@@ -23,88 +24,81 @@ export class ManualDataSharedVendor {
         sells: ManualDataVendorItemArray[],
         sets: ManualDataSharedVendorSetArray[],
         public note?: string,
-        public zoneMapsGroupId?: number
-    )
-    {
-        this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray))
-        this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray))
-        
-        let faction = 0
+        public zoneMapsGroupId?: number,
+    ) {
+        this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray));
+        this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray));
+
+        let faction = 0;
         for (const locations of Object.values(this.locations)) {
             for (const location of locations) {
                 if (location[2] === 'alliance') {
-                    faction |= 1
-                }
-                else if (location[2] === 'horde') {
-                    faction |= 2
+                    faction |= 1;
+                } else if (location[2] === 'horde') {
+                    faction |= 2;
                 }
             }
         }
-        
+
         if (faction === 0 || faction === 3) {
-            this.faction = Faction.Both
-        }
-        else if (faction === 1) {
-            this.faction = Faction.Alliance
-        }
-        else if (faction === 2) {
-            this.faction = Faction.Horde
+            this.faction = Faction.Both;
+        } else if (faction === 1) {
+            this.faction = Faction.Alliance;
+        } else if (faction === 2) {
+            this.faction = Faction.Horde;
         }
     }
 
-    createFarmData(
-        itemData: ItemData,
-        manualData: ManualData,
-        staticData: StaticData
-    ) {
-        const seen: Record<number, boolean> = {}
-        const itemDrops: ManualDataZoneMapDrop[] = []
-        const setDrops: ManualDataZoneMapDrop[] = []
+    createFarmData(itemData: ItemData, manualData: ManualData, staticData: StaticData) {
+        const seen: Record<number, boolean> = {};
+        const itemDrops: ManualDataZoneMapDrop[] = [];
+        const setDrops: ManualDataZoneMapDrop[] = [];
 
-        const setItems: Record<number, boolean> = {}
+        const setItems: Record<number, boolean> = {};
 
         if (this.sets) {
             let setPosition = 0;
             for (const set of this.sets) {
-                const appearanceIds: number[][] = []
-                const costs: Record<number, number>[] = []
-                const vendorItems: ManualDataVendorItem[] = []
+                const appearanceIds: number[][] = [];
+                const costs: Record<number, number>[] = [];
+                const vendorItems: ManualDataVendorItem[] = [];
 
                 if (set.range[1] > 0) {
-                    setPosition = set.range[1]
+                    setPosition = set.range[1];
                 }
-                
-                let setEnd = setPosition + set.range[0]
+
+                let setEnd = setPosition + set.range[0];
                 if (set.range[0] === -1) {
-                    setEnd = this.sells.length
+                    setEnd = this.sells.length;
                 }
 
                 for (let sellIndex = setPosition; sellIndex < setEnd; sellIndex++) {
-                    setPosition++
+                    setPosition++;
 
-                    const item = this.sells[sellIndex]
+                    const item = this.sells[sellIndex];
                     if (!item) {
-                        console.error('Fell off the end at', sellIndex, set)
-                        break
+                        console.error('Fell off the end at', sellIndex, set);
+                        break;
                     }
 
-                    setItems[sellIndex] = true
+                    setItems[sellIndex] = true;
 
-                    costs.push(item.costs)
-                    vendorItems.push(item)
-                    
-                    const itemAppearanceIds = item.appearanceIds?.[0] > 0
-                        ? item.appearanceIds
-                        : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0]
-                    appearanceIds.push(itemAppearanceIds)
+                    costs.push(item.costs);
+                    vendorItems.push(item);
+
+                    const itemAppearanceIds =
+                        item.appearanceIds?.[0] > 0
+                            ? item.appearanceIds
+                            : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0];
+                    appearanceIds.push(itemAppearanceIds);
 
                     for (const appearanceId of itemAppearanceIds) {
                         if (appearanceId > 0) {
-                            seen[appearanceId] = true
+                            seen[appearanceId] = true;
                         }
                     }
                 }
-                
+
                 setDrops.push({
                     id: 0,
                     type: RewardType.SetSpecial,
@@ -114,20 +108,23 @@ export class ManualDataSharedVendor {
                     costs: costs,
                     limit: [set.name],
                     vendorItems,
-                })
+                });
             }
 
             for (let sellIndex = 0; sellIndex < this.sells.length; sellIndex++) {
                 if (setItems[sellIndex]) {
-                    continue
+                    continue;
                 }
 
-                const item = this.sells[sellIndex]
-                const appearanceIds = item.appearanceIds?.[0] > 0
-                    ? item.appearanceIds
-                    : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0]
-                
-                if (every(appearanceIds, (appearanceId) => appearanceId === 0 || !seen[appearanceId])) {
+                const item = this.sells[sellIndex];
+                const appearanceIds =
+                    item.appearanceIds?.[0] > 0
+                        ? item.appearanceIds
+                        : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0];
+
+                if (
+                    appearanceIds.every((appearanceId) => appearanceId === 0 || !seen[appearanceId])
+                ) {
                     itemDrops.push({
                         id: item.id,
                         type: item.type,
@@ -135,20 +132,18 @@ export class ManualDataSharedVendor {
                         classMask: item.classMask,
                         appearanceIds: [appearanceIds],
                         note: item.getNote(itemData, staticData),
-                    })
+                    });
                 }
             }
         }
 
-        this.drops = [...itemDrops, ...setDrops]
+        this.drops = [...itemDrops, ...setDrops];
     }
 
-    public asFarms(
-        mapName: string
-    ): ManualDataZoneMapFarm[] {
-        const ret: ManualDataZoneMapFarm[] = []
+    public asFarms(mapName: string): ManualDataZoneMapFarm[] {
+        const ret: ManualDataZoneMapFarm[] = [];
 
-        for (const location of (this.locations[mapName] || [])) {
+        for (const location of this.locations[mapName] || []) {
             ret.push(<ManualDataZoneMapFarm>{
                 faction: location[2],
                 groupId: this.zoneMapsGroupId,
@@ -161,21 +156,23 @@ export class ManualDataSharedVendor {
                 reset: FarmResetType.None,
                 type: FarmType.Vendor,
                 drops: this.drops,
-            })
+            });
         }
 
-        return ret        
+        return ret;
     }
 }
-export type ManualDataSharedVendorArray = ConstructorParameters<typeof ManualDataSharedVendor>
+export type ManualDataSharedVendorArray = ConstructorParameters<typeof ManualDataSharedVendor>;
 
 export class ManualDataSharedVendorSet {
     constructor(
         public name: string,
         public range: number[],
         public sortKey?: string,
-        public skipTooltip?: boolean
-    )
-    { }
+        public showNormalTag?: boolean,
+        public skipTooltip?: boolean,
+    ) {}
 }
-export type ManualDataSharedVendorSetArray = ConstructorParameters<typeof ManualDataSharedVendorSet>
+export type ManualDataSharedVendorSetArray = ConstructorParameters<
+    typeof ManualDataSharedVendorSet
+>;

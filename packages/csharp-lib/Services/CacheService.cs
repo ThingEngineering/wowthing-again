@@ -1,18 +1,19 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Http;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Lib.Services;
 
 public class CacheService
 {
-    private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(15);
 
     private readonly IConnectionMultiplexer _redis;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -26,24 +27,33 @@ public class CacheService
         _redis = redis;
     }
 
-    public async Task<DateTimeOffset> GetLastModified(string key, ApiUserResult apiUserResult)
-    {
-        var db = _redis.GetDatabase();
-        var redisKey = string.Format(key, apiUserResult.User.Id);
-        return await db.DateTimeOffsetGetAsync(redisKey);
-    }
-
-    public async Task<(bool, DateTimeOffset)> SetLastModified(string key, long userId)
+    public async Task<DateTimeOffset> GetLastModified(string key, long userId)
     {
         var db = _redis.GetDatabase();
         var redisKey = string.Format(key, userId);
+        return await db.DateTimeOffsetGetAsync(redisKey);
+    }
+
+    public async Task<DateTimeOffset> SetLastModified(string key, long userId)
+    {
+        var db = _redis.GetDatabase();
+        string redisKey = string.Format(key, userId);
         var now = DateTimeOffset.UtcNow;
-        return (await db.DateTimeOffsetSetAsync(redisKey, now), now);
+        await db.DateTimeOffsetSetAsync(redisKey, now);
+
+        if (key.Contains(":last_modified"))
+        {
+            await db.PublishAsync(RedisKeys.UserUpdatesChannel,
+                $"{userId}|{redisKey.Split(':').Last()}|{now.ToUnixTimeSeconds()}");
+        }
+
+        return now;
     }
 
     public async Task<(bool, DateTimeOffset)> CheckLastModified(
         string cacheKey,
-        HttpRequest request,
+        // HttpRequest request,
+        object idk,
         ApiUserResult apiUserResult
     )
     {
@@ -57,13 +67,33 @@ public class CacheService
             await db.DateTimeOffsetSetAsync(redisKey, lastModified, CommandFlags.FireAndForget);
         }
 
-        var headers = request?.GetTypedHeaders();
-        if (headers?.IfModifiedSince != null && lastModified <= headers.IfModifiedSince)
-        {
-            return (false, lastModified);
-        }
+        // var headers = request?.GetTypedHeaders();
+        // if (headers?.IfModifiedSince != null && lastModified <= headers.IfModifiedSince)
+        // {
+        //     return (false, lastModified);
+        // }
 
         return (true, lastModified);
+    }
+
+    public async Task ResetForBulkData(WowDbContext context, JankTimer timer, long userId)
+    {
+        var userCache = await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            return;
+        }
+
+        userCache.MountsUpdated = DateTimeOffset.MinValue;
+        userCache.ToysUpdated = DateTimeOffset.MinValue;
+        userCache.TransmogUpdated = DateTimeOffset.MinValue;
+
+        await context.SaveChangesAsync();
+
+        await SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
     }
 
     #region Achievements
@@ -176,40 +206,150 @@ public class CacheService
         timer.AddPoint("JSON", true);
 
         await db.CompressedStringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
+        var lastModified = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
 
         return (json, lastModified);
     }
+
+    public async Task DeleteAchievementCacheAsync(long userId, IDatabase db = null)
+    {
+        db ??= _redis.GetDatabase();
+        await db.KeyDeleteAsync(string.Format(RedisKeys.UserAchievements, userId));
+        await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
+    }
     #endregion
 
-    #region Quests
-    public async Task<(string, DateTimeOffset)> GetOrCreateQuestCacheAsync(
+    #region Mounts
+    public async Task<UserCache> CreateOrUpdateMountCacheAsync(
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset lastModified
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
+    )
+    {
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.MountsUpdated)
+        {
+            return userCache;
+        }
+
+        bool forceUpdate = userCache.MountsUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.MountsUpdated);
+        var now = DateTimeOffset.UtcNow;
+
+        // Mounts
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
+        var mounts = await context.MountQuery
+            .FromSqlRaw(MountQuery.UserQuery, userId)
+            .SingleAsync();
+
+        var allMountIds = new List<short>();
+        if (userBulk?.MountIds != null)
+        {
+            allMountIds.AddRange(userBulk.MountIds);
+        }
+        allMountIds.AddRange(mounts.AddonMounts.EmptyIfNull().Select(n => (short)n));
+        allMountIds.AddRange(mounts.Mounts.EmptyIfNull().Select(n => (short)n));
+
+        var sortedMountIds = allMountIds
+            .Distinct()
+            .Order()
+            .ToList();
+
+        timer.AddPoint("QueryMounts");
+
+        if (forceUpdate || userCache.MountIds == null || !sortedMountIds.SequenceEqual(userCache.MountIds))
+        {
+            userCache.MountsUpdated = now;
+            userCache.MountIds = sortedMountIds;
+
+            await context.SaveChangesAsync();
+            timer.AddPoint("SaveMounts");
+        }
+
+        return userCache;
+    }
+    #endregion
+
+    #region RaiderIO
+    public async Task<Dictionary<int, RedisRaiderIoScoreTiers>> GetRaiderIoTiers()
+    {
+        var db = _redis.GetDatabase();
+        var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, RedisRaiderIoScoreTiers>>("raider_io_tiers");
+        return raiderIoScoreTiers ?? new Dictionary<int, RedisRaiderIoScoreTiers>();
+    }
+    #endregion
+
+    #region Quests
+    public async Task<(string, DateTimeOffset)> CreateOrUpdateQuestCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
     )
     {
         var db = _redis.GetDatabase();
 
-        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
-        if (string.IsNullOrEmpty(json))
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        var cacheLastModified = await GetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+
+        string json;
+        if (userCache == null)
         {
-            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId);
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (cacheLastModified > DateTimeOffset.MinValue &&
+                 lastModified.HasValue &&
+                 lastModified <= cacheLastModified)
+        {
+            json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
+            if (!string.IsNullOrEmpty(json))
+            {
+                return (json, cacheLastModified);
+            }
         }
 
-        return (json, lastModified);
+        (json, cacheLastModified) = await CreateQuestCacheAsync(context, db, timer, userId, userCache);
+
+        return (json, cacheLastModified);
     }
 
     public async Task<(string, DateTimeOffset)> CreateQuestCacheAsync(
         WowDbContext context,
         IDatabase db,
         JankTimer timer,
-        long userId
+        long userId,
+        UserCache userCache = null
     )
     {
+        var accountAddonQuests = await context.PlayerAccountAddonData
+            .AsNoTracking()
+            .Where(ad => ad.Account.UserId == userId)
+            .Select(ad => ad.Quests)
+            .ToArrayAsync();
+
+        var accountQuests = accountAddonQuests
+            .SelectMany(ad => ad.EmptyIfNull())
+            .Distinct()
+            .ToArray();
+
         var characters = await context.PlayerCharacter
             .AsNoTracking()
             .Where(pc => pc.Account.UserId == userId)
@@ -225,17 +365,14 @@ public class CacheService
 
         var characterData = characters.ToDictionary(
             c => c.Id,
-            c => new ApiUserQuestsCharacter
-            {
-                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
-                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
-                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
-                    .Distinct()
-                    .ToList(),
-                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
-            }
+            c => new ApiUserQuestsCharacter(
+                c.AddonQuests,
+                SerializationUtilities.AsDiffedList(
+                    (c.Quests?.CompletedIds ?? [])
+                        .Union(c.AddonQuests?.OtherQuests ?? [])
+                        .Union(c.AddonQuests?.CompletedQuests ?? [])
+                )
+            )
         );
 
         timer.AddPoint("Database");
@@ -243,47 +380,153 @@ public class CacheService
         // Build response
         var data = new ApiUserQuests
         {
+            Account = accountQuests,
             Characters = characterData,
         };
-        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        var options = new JsonSerializerOptions(_jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonQuestsProgressConverter(),
+            },
+        };
+
+        string json = JsonSerializer.Serialize(data, options);
 
         timer.AddPoint("JSON");
 
         await db.CompressedStringSetAsync(string.Format(RedisKeys.UserQuests, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+        var lastModified = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
 
-        timer.AddPoint("Redis", true);
+        timer.AddPoint("Redis");
+
+        // Update user cache
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+
+        userCache.CompletedQuests = characters
+            .SelectMany(pc => pc.Quests?.CompletedIds ?? new List<int>())
+            .Distinct()
+            .Count();
+
+        await context.SaveChangesAsync();
+
+        timer.AddPoint("Cache", true);
 
         return (json, lastModified);
+    }
+
+    public async Task DeleteQuestCacheAsync(long userId, IDatabase db = null)
+    {
+        db ??= _redis.GetDatabase();
+        await db.KeyDeleteAsync(string.Format(RedisKeys.UserQuests, userId));
+        await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+    }
+#endregion
+
+    #region Toys
+    public async Task<UserCache> CreateOrUpdateToyCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
+    )
+    {
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
+
+        if (userCache == null)
+        {
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.ToysUpdated)
+        {
+            return userCache;
+        }
+
+        bool forceUpdate = userCache.ToysUpdated == DateTimeOffset.MinValue ||
+                           (lastModified.HasValue && lastModified > userCache.ToysUpdated);
+        var now = DateTimeOffset.UtcNow;
+
+        // Toys
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
+        var accountToys = await context.PlayerAccountToys
+            .Where(pat => pat.Account.UserId == userId)
+            .ToArrayAsync();
+
+        var allToyIds = new List<short>();
+        if (userBulk?.ToyIds != null)
+        {
+            allToyIds.AddRange(userBulk.ToyIds);
+        }
+        allToyIds.AddRange(
+            accountToys
+                .SelectMany(pat => pat.ToyIds.EmptyIfNull())
+                .Select(id => (short)id)
+        );
+
+        var sortedToyIds = allToyIds
+            .Distinct()
+            .Order()
+            .ToList();
+
+        timer.AddPoint("QueryToys");
+
+        if (forceUpdate || userCache.ToyIds == null || !sortedToyIds.SequenceEqual(userCache.ToyIds))
+        {
+            userCache.ToysUpdated = now;
+            userCache.ToyIds = sortedToyIds;
+
+            await context.SaveChangesAsync();
+
+            timer.AddPoint("SaveToys");
+        }
+
+        return userCache;
     }
     #endregion
 
     #region Transmog
-    public async Task<(string, DateTimeOffset)> GetOrCreateTransmogCacheAsync(
+    public async Task<UserCache> CreateOrUpdateTransmogCacheAsync(
         WowDbContext context,
         JankTimer timer,
         long userId,
-        DateTimeOffset lastModified
+        DateTimeOffset? lastModified = null,
+        UserCache userCache = null
     )
     {
-        var db = _redis.GetDatabase();
+        userCache ??= await context.UserCache
+            .Where(utc => utc.UserId == userId)
+            .SingleOrDefaultAsync();
 
-        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserTransmog, userId));
-        if (string.IsNullOrEmpty(json))
+        if (userCache == null)
         {
-            (json, lastModified) = await CreateTransmogCacheAsync(context, db, timer, userId);
+            userCache = new UserCache(userId);
+            context.UserCache.Add(userCache);
+        }
+        else if (lastModified.HasValue && lastModified <= userCache.TransmogUpdated)
+        {
+            return userCache;
         }
 
-        return (json, lastModified);
-    }
+        bool forceUpdate = userCache.TransmogUpdated == DateTimeOffset.MinValue ||
+                           lastModified.HasValue && lastModified > userCache.TransmogUpdated;
+        var now = DateTimeOffset.UtcNow;
 
-    public async Task<(string, DateTimeOffset)> CreateTransmogCacheAsync(
-        WowDbContext context,
-        IDatabase db,
-        JankTimer timer,
-        long userId
-    )
-    {
+        var userBulk = await context.UserBulkData.FindAsync(userId);
+
         var allTransmog = await context.AccountTransmogQuery
             .FromSqlRaw(AccountTransmogQuery.Sql, userId)
             .SingleAsync();
@@ -293,7 +536,7 @@ public class CacheService
             .Where(pats => pats.Account.UserId == userId)
             .ToArrayAsync();
 
-        timer.AddPoint("Database");
+        timer.AddPoint("Select");
 
         var allSources = new HashSet<string>();
         foreach (var sources in accountSources)
@@ -301,31 +544,71 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var json = JsonSerializer.Serialize(new ApiUserTransmog
+        var allAppearanceIds = new List<int>();
+        if (userBulk?.TransmogIds != null)
         {
-            Illusions = allTransmog.IllusionIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToArray(),
+            allAppearanceIds.AddRange(userBulk.TransmogIds);
+        }
+        allAppearanceIds.AddRange(allTransmog.TransmogIds);
 
-            Sources = allSources
-                .OrderBy(source => source)
-                .ToArray(),
+        var sortedAppearanceIds = allAppearanceIds
+            .Distinct()
+            .Order()
+            .ToList();
 
-            Transmog = allTransmog.TransmogIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToArray(),
-        }, _jsonSerializerOptions);
+        if (forceUpdate || userCache.AppearanceIds == null || !sortedAppearanceIds.SequenceEqual(userCache.AppearanceIds))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.AppearanceIds = sortedAppearanceIds;
+        }
 
-        timer.AddPoint("JSON");
+        var sortedAppearanceSources = allSources
+            .Select(source =>
+            {
+                string[] parts = source.Split('_');
+                return ((long.Parse(parts[0]) * 1000) + int.Parse(parts[1]), source);
+            })
+            .OrderBy(tup => tup.Item1)
+            .Select(tup => tup.Item2)
+            .ToList();
 
-        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json, CacheDuration);
-        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+        if (forceUpdate || userCache.AppearanceSources == null || !sortedAppearanceSources.SequenceEqual(userCache.AppearanceSources))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.AppearanceSources = sortedAppearanceSources;
+        }
 
-        timer.AddPoint("Redis", true);
+        var sortedIllusions = allTransmog.IllusionIds
+            .Distinct()
+            .Select(id => (short)id)
+            .Order()
+            .ToList();
 
-        return (json, lastModified);
+        if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.IllusionIds = sortedIllusions;
+        }
+
+        int updated = await context.SaveChangesAsync();
+
+        timer.AddPoint("Save");
+
+        if (updated > 0)
+        {
+            await SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+        }
+
+        return userCache;
+    }
+
+    public async Task DeleteTransmogCacheAsync(WowDbContext context, long userId)
+    {
+        await context.UserCache
+            .Where(uc => uc.UserId == userId)
+            .ExecuteUpdateAsync(s => s
+                .SetProperty(uc => uc.TransmogUpdated, uc => DateTimeOffset.MinValue)
+            );
     }
     #endregion
 }

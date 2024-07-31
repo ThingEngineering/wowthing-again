@@ -1,192 +1,266 @@
-import keys from 'lodash/keys'
-import some from 'lodash/some'
-import sortBy from 'lodash/sortBy'
-import uniq from 'lodash/uniq'
-import { get } from 'svelte/store'
+import sortBy from 'lodash/sortBy';
+import uniq from 'lodash/uniq';
+import { get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
-import { userModifiedStore } from './user-modified'
-import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
-import { seasonMap } from '@/data/dungeon'
-import { slotOrder } from '@/data/inventory-slot'
-import { manualStore, staticStore } from '@/stores'
+import { userModifiedStore } from './user-modified';
+import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty';
+import { seasonMap } from '@/data/dungeon';
+import { slotOrder } from '@/data/inventory-slot';
+import { InventorySlot } from '@/enums/inventory-slot';
+import { ItemBonusType } from '@/enums/item-bonus-type';
+import { TypedArray } from '@/enums/typed-array';
+import { itemStore } from '@/stores/item';
+import { staticStore } from '@/shared/stores/static';
 import {
-    CharacterCurrency,
+    Character,
     CharacterMythicPlusRunMember,
-    UserCount,
+    Guild,
+    UserDataCurrentPeriod,
     UserDataPet,
     WritableFancyStore,
-} from '@/types'
-import { InventorySlot, TypedArray } from '@/enums'
-import base64ToRecord from '@/utils/base64-to-record'
-import { getGenderedName } from '@/utils/get-gendered-name'
-import getItemLevelQuality from '@/utils/get-item-level-quality'
-import leftPad from '@/utils/left-pad'
-import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
+} from '@/types';
+import base64ToRecord from '@/utils/base64-to-record';
+import { leftPad } from '@/utils/formatting';
+import { getGenderedName } from '@/utils/get-gendered-name';
+import getItemLevelQuality from '@/utils/get-item-level-quality';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
 import type {
     Account,
-    Character,
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
-    Settings,
+    UserAchievementData,
     UserData,
-} from '@/types'
-import type { StaticData } from '@/types/data/static'
-import type { ManualDataSetCategory } from '@/types/data/manual'
-
+} from '@/types';
+import type { Settings } from '@/shared/stores/settings/types';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { ItemData, ItemDataItem } from '@/types/data/item';
+import type { ContainsItems, UserItem } from '@/types/shared';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
-        let url = document.getElementById('app')?.getAttribute('data-user')
+        let url = document.getElementById('app')?.getAttribute('data-user');
         if (url) {
-            const modified = get(userModifiedStore).data.general
-            url = url.replace('-0.json', `-${modified}.json`)
+            const modified = get(userModifiedStore).general;
+            url = url.replace('-0.json', `-${modified}.json`);
         }
-        return url
+        return url;
     }
 
     get useAccountTags(): boolean {
-        return some(get(this).data.accounts, (a: Account) => !!a.tag)
+        return Object.values(get(this).accounts).some((a: Account) => !!a.tag);
     }
 
     initialize(userData: UserData): void {
-        console.time('UserDataStore.initialize')
+        console.time('UserDataStore.initialize');
 
         // Background images
-        userData.backgroundList = sortBy(
-            Object.values(userData.backgrounds),
-            (bg) => -bg.id
-        )
+        userData.backgroundList = sortBy(Object.values(userData.backgrounds), (bg) => -bg.id);
+
+        // Periods
+        userData.currentPeriod = Object.fromEntries(
+            Object.entries(userData.currentPeriod).map(([region, cp]) => [
+                region,
+                Object.assign(new UserDataCurrentPeriod(), cp),
+            ]),
+        );
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {
-            userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked)
-            userData.mountsPacked = null
+            userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked);
+            userData.mountsPacked = null;
         }
 
         if (userData.toysPacked !== null) {
-            userData.hasToy = base64ToRecord(TypedArray.Int32, userData.toysPacked)
-            userData.toysPacked = null
+            userData.hasToyById = base64ToRecord(TypedArray.Uint16, userData.toysPacked);
+            userData.toysPacked = null;
         }
 
         if (userData.petsRaw !== null) {
-            userData.pets = {}
-            userData.hasPet = {}
+            userData.pets = {};
+            userData.hasPet = {};
             for (const petId in userData.petsRaw) {
-                userData.pets[petId] = userData.petsRaw[petId].map((petArray) => new UserDataPet(...petArray))
-                userData.hasPet[petId] = true
+                userData.pets[petId] = userData.petsRaw[petId].map(
+                    (petArray) => new UserDataPet(...petArray),
+                );
+                userData.hasPet[petId] = true;
             }
-            userData.petsRaw = null
+            userData.petsRaw = null;
         }
+
+        // Transmog
+        userData.hasIllusion = new Set<number>(userData.illusionIds || []);
+
+        userData.hasAppearance = new Set<number>();
+        let lastAppearanceId = 0;
+        for (const diffedAppearanceId of userData.rawAppearanceIds) {
+            const appearanceId = diffedAppearanceId + lastAppearanceId;
+            userData.hasAppearance.add(appearanceId);
+            lastAppearanceId = appearanceId;
+        }
+        userData.rawAppearanceIds = null;
+
+        userData.hasSource = new Set<string>();
+        for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
+            userData.rawAppearanceSources,
+        )) {
+            let lastItemId = 0;
+            for (const diffedItemId of diffedItemIds) {
+                const itemId = diffedItemId + lastItemId;
+                userData.hasSource.add(`${itemId}_${modifier}`);
+                lastItemId = itemId;
+            }
+        }
+        userData.rawAppearanceSources = null;
 
         // Characters
-        userData.characterMap = {}
-        for (const character of userData.characters) {
-            userData.characterMap[character.id] = character
+        userData.characterMap = {};
+        userData.charactersByConnectedRealm = {};
+        userData.charactersByRealm = {};
+        userData.characters = [];
+        for (const charArray of userData.charactersRaw || []) {
+            const character = new Character(...charArray);
+            userData.characters.push(character);
+            userData.characterMap[character.id] = character;
+        }
+        userData.charactersRaw = null;
 
-            if (character.currenciesRaw) {
-                character.currencies = {}
-                for (const rawCurrency of character.currenciesRaw) {
-                    const obj = new CharacterCurrency(...rawCurrency)
-                    character.currencies[obj.id] = obj
-                }
-                character.currenciesRaw = null
-            }
-
-            if (character.specializationsRaw) {
-                character.specializations = {}
-                for (const specializationId in character.specializationsRaw) {
-                    const specData: Record<number, number> = {}
-                    for (const [tierId, , spellId] of character.specializationsRaw[specializationId].talents) {
-                        specData[tierId] = spellId
-                    }
-                    character.specializations[specializationId] = specData
-                }
-                character.specializationsRaw = null
-            }
+        // Guilds
+        userData.guildMap = {};
+        for (const guildArray of userData.guildsRaw || []) {
+            const guild = new Guild(...guildArray);
+            userData.guildMap[guild.id] = guild;
         }
 
-        console.timeEnd('UserDataStore.initialize')
+        // Temporary until static data loads
+        userData.allRegions = [1, 2, 3, 4];
+
+        console.timeEnd('UserDataStore.initialize');
     }
 
     setup(
         settingsData: Settings,
-        userData: UserData
+        userData: UserData,
+        userAchievementData: UserAchievementData,
     ): void {
-        console.time('UserDataStore.setup')
+        console.time('UserDataStore.setup');
 
-        const manualData = get(manualStore).data
-        const staticData = get(staticStore).data
-        
+        const itemData = get(itemStore);
+        const staticData = get(staticStore);
+
+        this._itemCounts = {};
+        userData.itemsByAppearanceId = {};
+        userData.itemsByAppearanceSource = {};
+        userData.itemsById = {};
+
+        // Initialize guilds
+        for (const guild of Object.values(userData.guildMap)) {
+            this.initializeGuild(itemData, guild);
+
+            guild.realm = staticData.realms[guild.realmId] || staticData.realms[0];
+
+            for (const [appearanceId, items] of Object.entries(guild.itemsByAppearanceId)) {
+                (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= []).push([guild, items]);
+            }
+            for (const [appearanceSource, items] of Object.entries(guild.itemsByAppearanceSource)) {
+                (userData.itemsByAppearanceSource[appearanceSource] ||= []).push([guild, items]);
+            }
+            for (const [itemId, items] of Object.entries(guild.itemsById)) {
+                (userData.itemsById[parseInt(itemId)] ||= []).push([guild, items]);
+            }
+        }
+
         // Initialize characters
-        const allLockouts: Record<string, boolean> = {}
+        userData.charactersByConnectedRealm = {};
+        userData.charactersByRealm = {};
+        const allLockouts: Record<string, boolean> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(staticData, character)
+            this.initializeCharacter(itemData, staticData, character);
 
-            for (const key of keys(character.lockouts)) {
-                allLockouts[key] = true
+            for (const key of Object.keys(character.lockouts || {})) {
+                allLockouts[key] = true;
+            }
+
+            if (userData.public || character.account?.enabled === true) {
+                for (const [appearanceId, items] of Object.entries(character.itemsByAppearanceId)) {
+                    (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= []).push([
+                        character,
+                        items,
+                    ]);
+                }
+                for (const [appearanceSource, items] of Object.entries(
+                    character.itemsByAppearanceSource,
+                )) {
+                    (userData.itemsByAppearanceSource[appearanceSource] ||= []).push([
+                        character,
+                        items,
+                    ]);
+                }
+                for (const [itemId, items] of Object.entries(character.itemsById)) {
+                    (userData.itemsById[parseInt(itemId)] ||= []).push([character, items]);
+                }
             }
         }
 
         userData.allRegions = sortBy(
-            uniq(
-                userData.characters
-                    .map((char) => char.realm.region)
-            ),
-            (region) => region
-        )
+            uniq(userData.characters.map((char) => char.realm.region)),
+            (region) => region,
+        );
 
-        // Initialize guilds
-        for (const guild of Object.values(userData.guilds)) {
-            guild.realm = staticData.realms[guild.realmId] || staticData.realms[0]
+        // Accounts
+        userData.activeCharacters = [];
+        for (const character of userData.characters) {
+            if (userData.public || character.account?.enabled === true) {
+                userData.activeCharacters.push(character);
+            }
         }
 
         // Pre-calculate lockouts
-        userData.allLockouts = []
-        userData.allLockoutsMap = {}
-        for (const instanceDifficulty of keys(allLockouts)) {
-            const [instanceId, difficultyId] = instanceDifficulty.split('-')
-            const difficulty = difficultyMap[parseInt(difficultyId)]
+        userData.allLockouts = [];
+        userData.allLockoutsMap = {};
+        for (const instanceDifficulty of Object.keys(allLockouts)) {
+            const [instanceId, difficultyId] = instanceDifficulty.split('-');
+            const difficulty = difficultyMap[parseInt(difficultyId)];
 
             if (difficulty && instanceId) {
                 userData.allLockouts.push({
                     difficulty,
                     instanceId: parseInt(instanceId),
                     key: instanceDifficulty,
-                })
-                userData.allLockoutsMap[instanceDifficulty] = userData.allLockouts[userData.allLockouts.length - 1]
-            }
-            else {
-                console.log({instanceId, difficultyId, difficulty})
+                });
+                userData.allLockoutsMap[instanceDifficulty] =
+                    userData.allLockouts[userData.allLockouts.length - 1];
+            } else {
+                console.log({ instanceId, difficultyId, difficulty });
             }
         }
 
-        userData.allLockouts = sortBy(
-            userData.allLockouts,
-            (diff/*: InstanceDifficulty*/) => {
-                const instance = staticData.instances[diff.instanceId]
-                if (!diff.difficulty || !instance) {
-                    return 'z'
-                }
-
-                const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id)
-                return [
-                    leftPad(100 - instance.expansion, 2, '0'),
-                    leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
-                    instance.shortName,
-                    diff.difficulty.shortName,
-                ].join('|')
+        userData.allLockouts = sortBy(userData.allLockouts, (diff /*: InstanceDifficulty*/) => {
+            const instance = staticData.instances[diff.instanceId];
+            if (!diff.difficulty || !instance) {
+                return 'z';
             }
-        )
 
-        userData.homeLockouts = []
-        for (const instanceId of settingsData.layout.homeLockouts) {
-            let found = false
+            const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id);
+            return [
+                leftPad(100 - instance.expansion, 2, '0'),
+                leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
+                instance.shortName,
+                diff.difficulty.shortName,
+            ].join('|');
+        });
+
+        const instanceIds = uniq(settingsData.views.map((view) => view.homeLockouts).flat());
+        userData.homeLockouts = [];
+        for (const instanceId of instanceIds) {
+            let found = false;
             for (const difficulty of lockoutDifficultyOrder) {
-                const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`]
+                const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`];
                 if (id !== undefined) {
-                    userData.homeLockouts.push(id)
-                    found = true
+                    userData.homeLockouts.push(id);
+                    found = true;
                 }
             }
 
@@ -194,116 +268,133 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 userData.homeLockouts.push({
                     difficulty: null,
                     instanceId,
-                    key: `${instanceId}-`
-                })
+                    key: `${instanceId}-`,
+                });
             }
         }
 
-        // Generate set counts
-        const setCounts = {
-            mounts: {},
-            pets: {},
-            toys: {},
+        userData.hasToy = {};
+        for (const toyIdString of Object.keys(userData.hasToyById)) {
+            const toyId = parseInt(toyIdString);
+            const toy = staticData.toysById[toyId];
+            if (toy) {
+                userData.hasToy[toy.itemId] = true;
+            } else {
+                console.error('Missing toy id', toyId);
+            }
         }
 
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['mounts'],
-            manualData.mountSets,
-            userData.hasMount
-        )
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['pets'],
-            manualData.petSets,
-            userData.hasPet
-        )
-        UserDataStore.doSetCounts(
-            settingsData,
-            setCounts['toys'],
-            manualData.toySets,
-            userData.hasToy
-        )
+        // Transmog
+        userData.appearanceMask = new Map<number, number>();
+        for (const [appearanceIdString, items] of Object.entries(itemData.appearanceToItems)) {
+            const appearanceId = parseInt(appearanceIdString);
+            let mask = 0;
 
-        this.update(state => {
-            state.data.setCounts = setCounts
-            return state
-        })
+            for (const [itemId, modifier] of items) {
+                if (userData.hasSource.has(`${itemId}_${modifier}`)) {
+                    const item = itemData.items[itemId];
+                    mask |= item.classMask;
+                }
+            }
 
-        console.timeEnd('UserDataStore.setup')
+            userData.appearanceMask.set(appearanceId, mask);
+        }
+
+        // HACK: Warglaives of Azzinoth
+        if (userAchievementData.achievements[426]) {
+            userData.hasSource.add('32837_0');
+            userData.hasSource.add('32838_0');
+        }
+
+        console.timeEnd('UserDataStore.setup');
     }
 
-    private initializeCharacter(staticData: StaticData, character: Character): void {
+    private initializeCharacter(
+        itemData: ItemData,
+        staticData: StaticData,
+        character: Character,
+    ): void {
+        // account
+        character.account = this.value.accounts[character.accountId];
+
         // names
         character.className = getGenderedName(
             staticData.characterClasses[character.classId].name,
-            character.gender
-        )
+            character.gender,
+        );
         character.raceName = getGenderedName(
             staticData.characterRaces[character.raceId].name,
-            character.gender
-        )
+            character.gender,
+        );
         if (character.activeSpecId > 0) {
             character.specializationName = getGenderedName(
                 staticData.characterSpecializations[character.activeSpecId].name,
-                character.gender
-            )
+                character.gender,
+            );
         }
 
         // realm
-        character.realm = staticData.realms[character.realmId] || staticData.realms[0]
-        
+        character.realm = staticData.realms[character.realmId] || staticData.realms[0];
+        if (character.account?.enabled && character.realmId > 0 && character.realm) {
+            (this.value.charactersByRealm[character.realmId] ||= []).push(character);
+            (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
+                character,
+            );
+        }
+
+        // guild
+        character.guild = this.value.guildMap[character.guildId];
+
         // item levels
-        if (keys(character.equippedItems).length > 0) {
+        if (Object.keys(character.equippedItems).length > 0) {
             let count = 0,
-                itemLevels = 0
+                itemLevels = 0;
             for (let j = 0; j < slotOrder.length; j++) {
-                const slot = slotOrder[j]
-                const item = character.equippedItems[slot]
-                if (item !== undefined) {
-                    itemLevels += item.itemLevel
-                    count++
+                const slot = slotOrder[j];
+                const equippedItem = character.equippedItems[slot];
+                if (equippedItem !== undefined) {
+                    itemLevels += equippedItem.itemLevel;
+                    count++;
                     if (
                         slot === InventorySlot.MainHand &&
                         character.equippedItems[InventorySlot.OffHand] === undefined
                     ) {
-                        itemLevels += item.itemLevel
-                        count++
+                        itemLevels += equippedItem.itemLevel;
+                        count++;
                     }
                 }
             }
-    
-            const itemLevel = itemLevels / count
-            if (itemLevel - character.equippedItemLevel < 1) {
-                character.calculatedItemLevel = itemLevel.toFixed(1)
-            }
+
+            const itemLevel = itemLevels / count;
+            character.calculatedItemLevel = itemLevel.toFixed(1);
         }
-    
+
         if (character.calculatedItemLevel === undefined) {
-            character.calculatedItemLevel = character.equippedItemLevel.toFixed(1)
+            character.calculatedItemLevel = character.equippedItemLevel.toFixed(1);
         }
-    
+
         character.calculatedItemLevelQuality = getItemLevelQuality(
             parseFloat(character.calculatedItemLevel),
-        )
-    
+        );
+
         // mythic+ seasons
         if (character.mythicPlus?.seasons) {
             for (const seasonId in seasonMap) {
-                const season = seasonMap[seasonId]
+                const season = seasonMap[seasonId];
                 if (character.level >= season.minLevel) {
-                    const characterSeason = character.mythicPlus.seasons[seasonId]
+                    const characterSeason = character.mythicPlus.seasons[seasonId];
                     if (characterSeason !== undefined) {
                         for (let i = 0; i < season.orders.length; i++) {
                             for (let j = 0; j < season.orders[i].length; j++) {
-                                const dungeonId = season.orders[i][j]
-                                const runs = characterSeason[dungeonId] || []
+                                const dungeonId = season.orders[i][j];
+                                const runs = characterSeason[dungeonId] || [];
                                 for (let runIndex = 0; runIndex < runs.length; runIndex++) {
-                                    const run = runs[runIndex] as CharacterMythicPlusRun
+                                    const run = runs[runIndex] as CharacterMythicPlusRun;
 
                                     // Members are packed arrays, convert them to useful objects
-                                    run.memberObjects = (run.members || [])
-                                        .map(m => new CharacterMythicPlusRunMember(...m))
+                                    run.memberObjects = (run.members || []).map(
+                                        (m) => new CharacterMythicPlusRunMember(...m),
+                                    );
                                 }
                             }
                         }
@@ -312,139 +403,186 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        character.mythicPlusSeasonScores = {}
-        for (const seasonId in (character.mythicPlusSeasons ?? {})) {
-            let total = 0
+        character.mythicPlusSeasonScores = {};
+        for (const seasonId in character.mythicPlusSeasons ?? {}) {
+            let total = 0;
             for (const addonMap of Object.values(character.mythicPlusSeasons[seasonId])) {
-                const scores = getDungeonScores(addonMap)
-                total += scores.fortifiedFinal + scores.tyrannicalFinal
+                const scores = getDungeonScores(addonMap);
+                total += scores.fortifiedFinal + scores.tyrannicalFinal;
             }
 
-            const rioScore = character.raiderIo?.[seasonId]?.['all'] || 0
-            character.mythicPlusSeasonScores[seasonId] = Math.abs(total - rioScore) > 10 ? total : rioScore
+            const rioScore = character.raiderIo?.[seasonId]?.['all'] || 0;
+            character.mythicPlusSeasonScores[seasonId] =
+                Math.abs(total - rioScore) > 10 ? total : rioScore;
         }
-        
+
         // professions
         // - force Archaeology to 950 max skill
         if (character.professions?.[794] !== undefined) {
-            character.professions[794][794].maxSkill = 950
+            character.professions[794][794].maxSkill = 950;
         }
 
         // reputation sets
-        character.reputationData = {}
+        character.reputationData = {};
         for (const category of staticData.reputationSets) {
             if (category === null) {
-                continue
+                continue;
             }
-    
+
             const catData: CharacterReputation = {
                 sets: [],
-            }
-    
+            };
+
             for (const sets of category.reputations) {
-                const setsData: CharacterReputationReputation[] = []
-    
+                const setsData: CharacterReputationReputation[] = [];
+
                 for (const reputation of sets) {
-                    let repId: number
+                    let repId: number;
                     if (reputation.both) {
-                        repId = reputation.both.id
+                        repId = reputation.both.id;
+                    } else {
+                        repId =
+                            character.faction === 0
+                                ? reputation.alliance?.id
+                                : reputation.horde?.id;
                     }
-                    else {
-                        repId = character.faction === 0 ? reputation.alliance?.id : reputation.horde?.id
-                    }
-    
+
                     setsData.push({
                         reputationId: repId,
                         value: character.reputations?.[repId] ?? -1,
-                    })
+                    });
                 }
-    
-                catData.sets.push(setsData)
+
+                catData.sets.push(setsData);
             }
-    
-            character.reputationData[category.slug] = catData
+
+            character.reputationData[category.slug] = catData;
+        }
+
+        // item appearance data
+        character.itemsByAppearanceId = {};
+        character.itemsByAppearanceSource = {};
+        character.itemsById = {};
+        for (const characterItems of Object.values(character.itemsByLocation)) {
+            for (const characterItem of characterItems) {
+                (character.itemsById[characterItem.itemId] ||= []).push(characterItem);
+
+                const item = itemData.items[characterItem.itemId];
+                if (Object.values(item?.appearances || {}).length === 0) {
+                    continue;
+                }
+
+                this.setAppearanceData(itemData, character, characterItem, item);
+            }
+        }
+
+        // console.log(character.realm.name, character.name, character.itemsByAppearanceId, character.itemsByAppearanceSource)
+    }
+
+    private initializeGuild(itemData: ItemData, guild: Guild): void {
+        // item appearance data
+        guild.itemsByAppearanceId = {};
+        guild.itemsByAppearanceSource = {};
+        guild.itemsById = {};
+        for (const guildItem of guild.items) {
+            (guild.itemsById[guildItem.itemId] ||= []).push(guildItem);
+
+            const item = itemData.items[guildItem.itemId];
+            if (Object.values(item?.appearances || {}).length === 0) {
+                continue;
+            }
+
+            this.setAppearanceData(itemData, guild, guildItem, item);
         }
     }
 
-    private static doSetCounts(
-        settings: Settings,
-        setCounts: Record<string, UserCount>,
-        categories: ManualDataSetCategory[][],
-        userHas: Record<number, boolean>
+    private setAppearanceData(
+        itemData: ItemData,
+        userContainer: ContainsItems,
+        userItem: UserItem,
+        item: ItemDataItem,
     ): void {
-        const showUnavailable = !settings.collections.hideUnavailable
+        let modifier = 0;
+        let priority = 999;
+        if (userItem.bonusIds.length > 0) {
+            for (const bonusId of userItem.bonusIds) {
+                const itemBonus = itemData.itemBonuses[bonusId];
+                if (!(itemBonus?.bonuses?.length > 0)) {
+                    continue;
+                }
 
-        const overallData = setCounts['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
-
-        for (const category of categories) {
-            if (category === null) {
-                continue
-            }
-
-            const categoryData = setCounts[category[0].slug] = new UserCount()
-            const categoryUnavailable = category[0].slug === 'unavailable'
-
-            for (const set of category) {
-                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
-                const setUnavailable = set.slug === 'unavailable'
-
-                for (const group of set.groups) {
-                    const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
-                    const groupUnavailable = group.name.indexOf('Unavailable') >= 0
-
-                    for (const things of group.things) {
-                        const hasThing = some(things, (t) => userHas[t])
-                        const seenOverall = some(things, (t) => overallSeen[t])
-
-                        const doOverall = (
-                            !seenOverall &&
-                            (hasThing || (!categoryUnavailable && !setUnavailable && !groupUnavailable))
-                        )
-                        const doCategory = (
-                            (hasThing || (
-                                (!setUnavailable && !groupUnavailable) &&
-                                (showUnavailable || !categoryUnavailable)
-                            ))
-                        )
-                        const doSet = (
-                            hasThing ||
-                            showUnavailable ||
-                            (!groupUnavailable && !setUnavailable && !categoryUnavailable)
-                        )
-
-                        if (doOverall) {
-                            overallData.total++
-                        }
-                        if (doCategory) {
-                            categoryData.total++
-                        }
-                        if (doSet) {
-                            setData.total++
-                            groupData.total++
-                        }
-
-                        if (hasThing) {
-                            if (doOverall) {
-                                overallData.have++
-                            }
-                            if (doCategory) {
-                                categoryData.have++
-                            }
-                            if (doSet) {
-                                setData.have++
-                                groupData.have++
-                            }
-                        }
-
-                        for (const thing of things) {
-                            overallSeen[thing] = true
+                for (const [bonusType, ...bonusValues] of itemBonus.bonuses) {
+                    if (bonusType === ItemBonusType.SetItemAppearanceModifier) {
+                        const bonusPriority = bonusValues[1] || 0;
+                        if (bonusPriority < priority) {
+                            modifier = bonusValues[0];
+                            priority = bonusPriority;
                         }
                     }
                 }
             }
         }
+
+        userItem.appearanceId = item.appearances[modifier]?.appearanceId;
+        if (userItem.appearanceId === undefined && modifier > 0) {
+            modifier = 0;
+            userItem.appearanceId = item.appearances[modifier]?.appearanceId;
+        }
+        userItem.appearanceModifier = modifier;
+        userItem.appearanceSource = `${userItem.itemId}_${modifier}`;
+
+        if (userItem.appearanceId !== undefined) {
+            (userContainer.itemsByAppearanceId[userItem.appearanceId] ||= []).push(userItem);
+            (userContainer.itemsByAppearanceSource[userItem.appearanceSource] ||= []).push(
+                userItem,
+            );
+        }
+    }
+
+    public getCurrentPeriodForCharacter(
+        now: DateTime,
+        character: Character,
+    ): UserDataCurrentPeriod {
+        const regionId = character.realm?.region || 1;
+        const period = this.value.currentPeriod[regionId];
+
+        // Update the period if it's too old
+        while (period.endTime < now) {
+            period.id++;
+            period.startTime = period.startTime.plus({ days: 7 });
+            period.endTime = period.endTime.plus({ days: 7 });
+        }
+
+        return period;
+    }
+
+    public getPeriodForCharacter(now: DateTime, character: Character, desiredPeriodId: number) {
+        const period = Object.assign(
+            new UserDataCurrentPeriod(),
+            this.getCurrentPeriodForCharacter(now, character),
+        );
+
+        while (period.id < desiredPeriodId) {
+            period.id++;
+            period.startTime = period.startTime.plus({ days: 7 });
+            period.endTime = period.endTime.plus({ days: 7 });
+        }
+
+        while (period.id > desiredPeriodId) {
+            period.id--;
+            period.startTime = period.startTime.minus({ days: 7 });
+            period.endTime = period.endTime.minus({ days: 7 });
+        }
+
+        return period;
+    }
+
+    private _itemCounts: Record<number, number> = {};
+    public getItemCount(itemId: number): number {
+        return (this._itemCounts[itemId] ||= this.value.characters
+            .map((char) => char.getItemCount(itemId))
+            .reduce((a, b) => a + b, 0));
     }
 }
 
-export const userStore = new UserDataStore()
+export const userStore = new UserDataStore();

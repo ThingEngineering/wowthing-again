@@ -2,15 +2,15 @@
     import { iconStrings } from '@/data/icons'
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
     import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
-    import AchievementLink from '@/components/links/AchievementLink.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import AchievementLink from '@/shared/components/links/AchievementLink.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let achievementId: number
     export let alwaysShow = false
@@ -23,8 +23,10 @@
     let chain: number[]
     let faction: number
     $: {
-        achievement = $achievementStore.data.achievement[achievementId]
-        earned = $userAchievementStore.data.achievements[achievementId]
+        achievement = $achievementStore.achievement[achievementId]
+        if (!achievement) { break $ }
+
+        earned = $userAchievementStore.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
         show = true
@@ -50,19 +52,19 @@
 
         // Hack for some weird achievements that don't reference future ones properly
         if (achievement.supersededBy && (
-            $userAchievementStore.data.achievements[achievement.supersededBy] ||
-            $userAchievementStore.data.achievements[$achievementStore.data.achievement[achievement.supersededBy].supersededBy]
+            $userAchievementStore.achievements[achievement.supersededBy] ||
+            $userAchievementStore.achievements[$achievementStore.achievement[achievement.supersededBy].supersededBy]
         )) {
             show = false
         }
-        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.data.achievements[achievement.supersedes] === undefined) {
+        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.achievements[achievement.supersedes] === undefined) {
             show = false
         }
         else {
             let sigh = achievement
             while (sigh?.supersedes) {
                 chain.push(sigh.supersedes)
-                sigh = $achievementStore.data.achievement[sigh.supersedes]
+                sigh = $achievementStore.achievement[sigh.supersedes]
             }
             chain.reverse()
 
@@ -74,7 +76,7 @@
                 sigh = achievement
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy)
-                    sigh = $achievementStore.data.achievement[sigh.supersededBy]
+                    sigh = $achievementStore.achievement[sigh.supersededBy]
                 }
             }
         }
@@ -89,7 +91,7 @@
             ) {
                 show = false
             }
-            else if (!earned && $achievementStore.data.isHidden[achievementId]) {
+            else if (!earned && $achievementStore.isHidden[achievementId]) {
                 show = false
             }
             else if (kindaAlwaysShow) {
@@ -121,8 +123,8 @@
         width: 100%;
 
         &.completed {
-            background: mix($thing-background, $colour-success, 91%);
-            border-color: mix($border-color, $colour-success, 80%);
+            background: mix($thing-background, $color-success, 91%);
+            border-color: mix($border-color, $color-success, 80%);
 
             :global(.status-fail) {
                 --shadow-color: rgba(30, 30, 30, 0.5);
@@ -258,7 +260,7 @@
         {#if chain.length > 0}
             <div class="chain">
                 {#each chain as chainId}
-                    {@const chainEarned = $userAchievementStore.data.achievements[chainId] !== undefined}
+                    {@const chainEarned = $userAchievementStore.achievements[chainId] !== undefined}
                     <div
                         class="chain-icon"
                         class:completed={chainEarned}
@@ -270,9 +272,9 @@
                                 border={2} />
                         </AchievementLink>
 
-                        {#if $achievementStore.data.achievement[chainId]}
+                        {#if $achievementStore.achievement[chainId]}
                             <span class="pill abs-center">
-                                {$achievementStore.data.achievement[chainId].points}
+                                {$achievementStore.achievement[chainId].points}
                             </span>
                         {/if}
 
@@ -288,7 +290,7 @@
             </div>
         {/if}
 
-        {#if !earned || $settings.achievements.showCharactersIfCompleted}
+        {#if !earned || $settingsStore.achievements.showCharactersIfCompleted}
             {#if achievement.isAccountWide}
                 <AchievementCriteriaAccount
                     {achievement}

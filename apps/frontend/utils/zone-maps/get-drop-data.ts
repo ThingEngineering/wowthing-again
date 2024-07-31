@@ -1,8 +1,9 @@
-//import find from 'lodash/find'
 import { get } from 'svelte/store'
 
-import { /*achievementStore,*/ itemStore, staticStore } from '@/stores'
-import { ItemQuality, RewardType } from '@/enums'
+import { ItemQuality } from '@/enums/item-quality'
+import { RewardType } from '@/enums/reward-type'
+import { itemStore } from '@/stores'
+import { staticStore } from '@/shared/stores/static'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
@@ -14,9 +15,9 @@ export interface DropData {
 }
 
 export function getDropData(drop: ManualDataZoneMapDrop): DropData {
-    //const achievementData = get(achievementStore).data
-    const itemData = get(itemStore).data
-    const staticData = get(staticStore).data
+    //const achievementData = get(achievementStore)
+    const itemData = get(itemStore)
+    const staticData = get(staticStore)
 
     const ret = {
         linkId: 0,

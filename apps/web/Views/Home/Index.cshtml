@@ -2,6 +2,15 @@
     ViewData["Title"] = "Home";
 }
 
+@section head
+{
+    <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WoWthing" />
+    <meta property="og:description" content="A free online tool for keeping track of your World of Warcraft characters. Check your mount/pet/toy/transmog collections, see which characters are locked to specific content, and more!" />
+    <meta property="og:image" content="https://wowthing.org/img/home_20210704.webp" />
+}
+
 <div class="content fancy-page">
     <h1>WoWthing [insert cool logo here]</h1>
 

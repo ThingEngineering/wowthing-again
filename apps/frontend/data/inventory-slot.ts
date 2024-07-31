@@ -1,6 +1,6 @@
-import type {Character} from '@/types'
-import {InventorySlot} from '@/enums'
-//import {specializationMap} from '@/data/character-specialization'
+import { InventorySlot } from '@/enums/inventory-slot'
+import type { Character } from '@/types'
+
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,
@@ -27,50 +27,70 @@ export const heirloomSlots: Record<number, boolean> = Object.fromEntries([
     [InventorySlot.Shoulders],
     [InventorySlot.Back],
     [InventorySlot.Chest],
+    [InventorySlot.Legs],
     [InventorySlot.Ring1],
+    [InventorySlot.Ring2],
     [InventorySlot.Trinket1],
     [InventorySlot.Trinket2],
+    [InventorySlot.MainHand],
+    [InventorySlot.OffHand],
 ].map(n => [n, true]))
 
 export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
-        3368, // Rune of the Fallen Crusader
-        6195, // Infra-green Reflex Sight
-        6196, // Optical Target Embiggener
-        6223, // Lightless Force
-        6227, // Ascended Vigor
-        6228, // Sinful Revelation
-        6229, // Celestial Guidance
+        3368, // Rune of the Fallen Crusader [DK]
+        6243, // Rune of Hysteria [DK]
+        6527, // High Intensity Thermal Scanner 2 [Ranged]
+        6528, // High Intensity Thermal Scanner 3 [Ranged]
+        // 6641, // Sophic Devotion 1
+        6642, // Sophic Devotion 2
+        6643, // Sophic Devotion 3
+        // 6647, // Frozen Devotion 1
+        6648, // Frozen Devotion 2
+        6649, // Frozen Devotion 3
+        6826, // Shadowflame Wreathe 2
+        6827, // Shadowflame Wreathe 3
     ],
 
-    // TODO differentiate between off-hand items and weapons
-
     [InventorySlot.Back]: [
-        6202, // Fortified Speed
-        6203, // Fortified Avoidance
-        6204, // Fortified Leech
-        6208, // Soul Vitality
+        6592, // Graceful Avoidance 3
+        6598, // Regenerative Leech 3
     ],
 
     [InventorySlot.Chest]: [
-        6214, // Eternal Skirmish
-        6217, // Eternal Bounds
-        6230, // Eternal Stats
-        6265, // Eternal Insight
+        6621, // Sustained Strength 2
+        6622, // Sustained Strength 3
+        6625, // Waking Stats 3
+    ],
+
+    [InventorySlot.Wrist]: [
+        6573, // Devotion of Avoidance 2
+        6574, // Devotion of Avoidance 3
+        6579, // Devotion of Leech 2
+        6580, // Devotion of Leech 3
+    ],
+
+    [InventorySlot.Legs]: [
+        6489, // Fierce Armor Kit 2
+        6490, // Fierce Armor Kit 3
+        6540, // Frozen Spellthread 2
+        6541, // Frozen Spellthread 3
+        6829, // Lambent Armor Kit 2
+        6830, // Lambent Armor Kit 3
+    ],
+
+    [InventorySlot.Feet]: [
+        6606, // Plainsrunner's Breeze 2
+        6607, // Plainsrunner's Breeze 3
+        6612, // Watcher's Loam 2
+        6613, // Watcher's Loam 3
     ],
 
     [InventorySlot.Ring1]: [
-        6164, // Tenet of Critical Strike
-        6166, // Tenet of Haste
-        6168, // Tenet of Mastery
-        6170, // Tenet of Versatility
-    ],
-
-    [InventorySlot.Ring2]: [
-        6164, // Tenet of Critical Strike
-        6166, // Tenet of Haste
-        6168, // Tenet of Mastery
-        6170, // Tenet of Versatility
+        6550, // Critical Strike 3
+        6556, // Haste 3
+        6562, // Mastery 3
+        6568, // Versatility 3
     ],
 }
 
@@ -110,6 +130,10 @@ export const gemBonusIds: number[] = [
     6935, // SL legendary socket?
     7576, // ??
     7580, // SL Season 3?
+    7935, // DF ??
+    8780, // DF +1 item
+    8781, // DF +2 item
+    8782, // DF +3 item
 ]
 
 export const characterBagSlots: number[] = [

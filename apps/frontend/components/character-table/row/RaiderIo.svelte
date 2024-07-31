@@ -1,11 +1,11 @@
 <script lang="ts">
     import { seasonMap } from '@/data/dungeon'
-    import { staticStore } from '@/stores/static'
-    import { Region } from '@/enums'
+    import { Region } from '@/enums/region'
+    import { userStore } from '@/stores'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterRaiderIoSeason, MythicPlusSeason } from '@/types'
-    import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
+    import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
 
     import Tooltip from '@/components/tooltips/mythic-plus-score/TooltipMythicPlusScore.svelte'
 
@@ -16,14 +16,14 @@
     let overallScore: number
     let region: string
     let scores: CharacterRaiderIoSeason
-    let tiers: StaticDataRaiderIoScoreTiers
+    let tiers: UserDataRaiderIoScoreTiers
     $: {
         if (seasonId > 0) {
             season = seasonMap[seasonId]
         }
         if (season) {
             scores = character.raiderIo?.[season.id]
-            tiers = $staticStore.data.raiderIoScoreTiers[season.id]
+            tiers = $userStore.raiderIoScoreTiers?.[season.id]
 
             overallScore = character.mythicPlusSeasonScores?.[season.id] || scores?.['all'] || 0
         }
@@ -44,7 +44,7 @@
     <td
         class="score"
         style:--link-color={getRaiderIoColor(tiers, overallScore)}
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 seasonId: season.id,

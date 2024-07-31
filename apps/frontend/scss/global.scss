@@ -4,10 +4,9 @@
 @import "mixins";
 
 @import "character-table";
-@import "characters";
 @import "collections";
 @import "collections-v2";
-@import "colours";
+@import "colors";
 @import "core";
 @import "container";
 @import "error";
@@ -23,5 +22,9 @@
 @import "wow";
 @import "wowhead";
 
+@import "layout/auctions-table";
+@import "layout/search-table";
 @import "layout/split-icon";
+@import "layout/subnav";
 @import "layout/view";
+@import "layout/wrapper";

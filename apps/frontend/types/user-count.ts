@@ -4,4 +4,8 @@ export class UserCount {
         public total: number = 0,
     ) {
     }
+
+    get percent(): number {
+        return this.total > 0 ? this.have / this.total * 100 : 0
+    }
 }

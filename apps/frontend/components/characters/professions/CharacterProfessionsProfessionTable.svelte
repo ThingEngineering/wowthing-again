@@ -1,16 +1,103 @@
 <script lang="ts">
-    import type { StaticDataProfessionCategory } from '@/types/data/static'
+    import { professionSpecializationSpells } from '@/data/professions'
+    import { Faction } from '@/enums/faction'
+    import { uiIcons } from '@/shared/icons'
+    import { staticStore } from '@/shared/stores/static'
+    import { itemStore, userQuestStore } from '@/stores'
+    import { charactersState } from '@/stores/local-storage'
+    import type { StaticDataProfessionAbility, StaticDataProfessionCategory } from '@/shared/stores/static/types'
+    import type { Character, CharacterProfession } from '@/types'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CraftLevels from './CharacterProfessionsProfessionCraftLevels.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import SkillRanks from './CharacterProfessionsProfessionSkillRanks.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let knownRecipes: Set<number>
     export let category: StaticDataProfessionCategory
+    export let character: Character
+    export let charSubProfession: CharacterProfession
+    export let filteredCategories: Record<number, StaticDataProfessionAbility[]>
+    export let hasFirstCraft: boolean
+    export let knownRecipes: Set<number>
 
-    const getFixedName = function(name: string): string {
-        name = name.replace(/(- )?\|A:Professions-Icon-Quality-Tier\d-Small:20:20\|a/, ':starFull:')
-        return name
+    let abilities: [StaticDataProfessionAbility, boolean, number, number, number, number][]
+    let hasRanks: boolean
+    $: {
+        abilities = []
+        hasRanks = false
+        for (const ability of (filteredCategories[category.id] || [])) {
+            let requiredAbility = $staticStore.itemToRequiredAbility[ability.itemIds[0]]
+            if (!professionSpecializationSpells[requiredAbility]) {
+                requiredAbility = 0
+            }
+
+            let has = false
+            let spellId = ability.spellId
+            let currentRank = 1
+            let totalRanks = 1
+
+            if (ability.extraRanks) {
+                totalRanks = 1 + ability.extraRanks.length
+                for (let rankIndex = ability.extraRanks.length - 1; rankIndex >= 0; rankIndex--) {
+                    const [rankAbilityId, rankSpellId] = ability.extraRanks[rankIndex]
+                    if (knownRecipes.has(rankAbilityId)) {
+                        has = true
+                        hasRanks = true
+                        currentRank = rankIndex + 2
+                        spellId = rankSpellId
+                        break
+                    }
+                }
+                
+                if (!has && knownRecipes.has(ability.id)) {
+                    has = true
+                }
+                
+                if (totalRanks > 1) {
+                    if (currentRank === totalRanks && !$charactersState.professionsShowLearned) {
+                        continue
+                    }
+
+                    hasRanks = true
+                }
+            }
+            else {
+                if (knownRecipes.has(ability.id)) {
+                    if (!$charactersState.professionsShowLearned) {
+                        continue
+                    }
+
+                    if (ability.firstCraftQuestId &&
+                        userQuestStore.hasAny(character.id, ability.firstCraftQuestId) &&
+                        !$charactersState.professionsShowAlreadyCrafted)
+                    {
+                        continue
+                    }
+
+                    if (!ability.firstCraftQuestId && !$charactersState.professionsShowAlreadyCrafted) {
+                        continue
+                    }
+
+                    has = true
+                }
+            }
+
+            if ((!has || (hasRanks && currentRank === 0)) && !$charactersState.professionsShowUnlearned) {
+                continue
+            }
+
+            abilities.push([
+                ability,
+                has,
+                spellId,
+                currentRank,
+                totalRanks,
+                requiredAbility
+            ])
+        }
     }
 </script>
 
@@ -34,9 +121,14 @@
             }
         }
     }
+    .has-crafted {
+        padding-left: 0.3rem;
+        text-align: center;
+        width: 1.6rem;
+    }
     .ability-name {
         --image-border-width: 1px;
-        --image-margin-top: -2px;
+        --image-margin-top: -5px;
 
         width: 100%;
 
@@ -54,70 +146,89 @@
             color: rgb(255, 215, 0);
         }
     }
-    .trivial {
-        padding-left: 0;
-        text-align: right;
-        width: 2.2rem;
-    }
-    .trivial-low {
-        color: $colour-shrug;
-    }
-    .trivial-mid {
-        color: $colour-success;
-    }
-    .trivial-high {
-        color: #bbb;
-    }
 </style>
 
-{#if category.abilities.length > 0}
+{#if abilities.length > 0}
     <table class="table table-striped" data-category-id={category.id}>
         <thead>
             <tr>
                 <th class="category-name">{category.name}</th>
-                <th class="trivial"></th>
-                <th class="trivial"></th>
-                <th class="trivial"></th>
             </tr>
         </thead>
         <tbody>
-            {#each category.abilities as ability}
-                {@const userHas=knownRecipes.has(ability.id)}
-                {@const useLow=ability.trivialLow && ability.trivialLow < ability.trivialHigh}
+            {#each abilities as [ability, userHas, spellId, currentRank, totalRanks, requiredAbility]}
+                {@const name = ability.name || $itemStore.items[ability.itemIds[0]]?.name || `Spell #${spellId}`}
                 <tr data-ability-id={ability.id}>
                     <td
                         class="ability-name text-overflow"
                         class:status-success={userHas}
                         class:status-fail={!userHas}
-                        class:tier2={ability.name.includes('Tier2')}
-                        class:tier3={ability.name.includes('Tier3')}
+                        class:tier2={name.includes('Tier2')}
+                        class:tier3={name.includes('Tier3')}
                     >
-                        <WowheadLink
-                            id={ability.spellId}
-                            type={"spell"}
-                        >
-                            <WowthingImage
-                                name={ability.itemId ? `item/${ability.itemId}` : `spell/${ability.spellId}`}
-                                size={20}
-                                border={1}
-                            />
-                            <ParsedText text={getFixedName(ability.name)} />
-                        </WowheadLink>
-                    </td>
-                    <td class="trivial trivial-low">
-                        {#if useLow}
-                            {ability.trivialLow}
-                        {/if}
-                    </td>
-                    <td class="trivial trivial-mid">
-                        {#if useLow}
-                            {Math.floor((ability.trivialLow + ability.trivialHigh) / 2)}
-                        {/if}
-                    </td>
-                    <td class="trivial trivial-high">
-                        {#if ability.trivialHigh > 1}
-                            {ability.trivialHigh}
-                        {/if}
+                        <div class="flex-wrapper">
+                            <div class="item-info text-overflow">
+                                <WowheadLink
+                                    id={spellId}
+                                    type={"spell"}
+                                >
+                                    <WowthingImage
+                                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}
+                                        size={20}
+                                        border={1}
+                                    />
+
+                                    {#if ability.faction !== Faction.Neutral}
+                                        <FactionIcon
+                                            faction={ability.faction}
+                                        />
+                                    {/if}
+
+                                    {#if requiredAbility}
+                                        <WowthingImage
+                                            name={`spell/${requiredAbility}`}
+                                            size={20}
+                                            border={1}
+                                            tooltip={professionSpecializationSpells[requiredAbility]}
+                                        />
+                                    {/if}
+
+                                    <ParsedText text={name} />
+                                </WowheadLink>
+                            </div>
+
+                            <div class="extra-info flex-wrapper">
+                                {#if hasRanks}
+                                    <SkillRanks
+                                        {ability}
+                                        {currentRank}
+                                        {totalRanks}
+                                        {userHas}
+                                    />
+                                {:else}
+                                    <CraftLevels
+                                        currentSkill={charSubProfession?.currentSkill || 0}
+                                        {ability}
+                                    />
+
+                                    {#if hasFirstCraft}
+                                        <span class="has-crafted">
+                                            {#if ability.firstCraftQuestId}
+                                                {@const hasCrafted = userQuestStore.hasAny(character.id, ability.firstCraftQuestId)}
+                                                <IconifyIcon
+                                                    extraClass={hasCrafted ? 'status-success': 'status-fail' }
+                                                    icon={hasCrafted ? uiIcons.yes : uiIcons.no}
+                                                    tooltip={hasCrafted
+                                                        ? 'Learned and crafted'
+                                                        : (userHas ? 'Learned and not crafted' : 'Unlearned')
+                                                    }
+                                                />
+                                            {/if}
+                                        </span>
+                                    {/if}
+                                {/if}
+                            </div>
+                        </div>
                     </td>
                 </tr>
             {/each}

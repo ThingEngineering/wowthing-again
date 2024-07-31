@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Character;
+﻿namespace Wowthing.Backend.Models.API.Character;
 
 public class ApiCharacterPets
 {
@@ -18,7 +16,6 @@ public class ApiCharacterPet
 
 public class ApiCharacterPetStats
 {
-    [JsonProperty("breed_id")]
     [JsonPropertyName("breed_id")]
     public int BreedId { get; set; }
 }

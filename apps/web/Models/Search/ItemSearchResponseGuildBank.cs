@@ -10,13 +10,8 @@ public class ItemSearchResponseGuildBank
     public short ItemLevel { get; set; }
     public short Quality { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public short? Context { get; set; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public short? EnchantId { get; set; }
-
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public short? SuffixId { get; set; }
 
     public List<short> BonusIds { get; set; }

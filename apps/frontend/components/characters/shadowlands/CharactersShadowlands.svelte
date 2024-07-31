@@ -6,12 +6,12 @@
     import { covenantMap, covenantOrder, covenantSlugMap } from '@/data/covenant'
     import { garrisonTrees } from '@/data/garrison'
     import getPercentClass from '@/utils/get-percent-class'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character, MultiSlugParams } from '@/types'
 
     import Covenant from './CharactersShadowlandsCovenant.svelte'
     import GarrisonTree from '../garrison-tree/CharactersGarrisonTree.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let params: MultiSlugParams
@@ -24,16 +24,24 @@
             covenantSlugMap[params.slug4] === undefined &&
             params.slug4 !== 'cypher-research'
         ) {
-            replace(`${baseUrl}/${covenantMap[character.shadowlands?.covenantId ?? covenantOrder[0]].slug}`)
+            replace(`${baseUrl}/${covenantMap[character.shadowlands?.covenantId || covenantOrder[0]].slug}`)
         }
     }
 </script>
 
 <style lang="scss">
-
+    .subnav {
+        margin: 1rem 0 1rem 0;
+        width: 100%;
+    }
+    .end {
+        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+        flex-grow: 1;
+     }
 </style>
 
-<nav class="characters-subnav border">
+<nav class="subnav">
     {#each covenantOrder as covenantId}
         {@const renown = character.shadowlands?.covenants?.[covenantId]?.renown ?? 0}
         <a
@@ -64,6 +72,8 @@
         />
         Cypher Research
     </a>
+
+    <div class="end"></div>
 </nav>
 
 {#if params.slug4}

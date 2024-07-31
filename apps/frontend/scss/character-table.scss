@@ -40,20 +40,6 @@
                     --image-margin-top: 0;
                 }
             }
-
-            // Last row in a character grouping
-            &:last-child,
-            &.last-of-group {
-                td {
-                    &:first-child {
-                        border-bottom-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-bottom-right-radius: $border-radius;
-                    }
-                }
-            }
         }
 
         // Only if no thead is present
@@ -61,14 +47,6 @@
             tr:first-child {
                 td {
                     border-top: 1px solid $border-color;
-
-                    &:first-child {
-                        border-top-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-top-right-radius: $border-radius;
-                    }
                 }
             }
         }

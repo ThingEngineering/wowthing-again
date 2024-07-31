@@ -1,12 +1,17 @@
 <script lang="ts">
+    import maxBy from 'lodash/maxBy'
     import { getContext } from 'svelte'
-
-    import type {Character, CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun, CharacterMythicPlusRun} from '@/types'
-    import getMythicPlusRunQuality, { getMythicPlusRunQualityAffix } from '@/utils/get-mythic-plus-run-quality'
-    import { tippyComponent } from '@/utils/tippy'
+    
+    import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import type {
+        Character,
+        CharacterMythicPlusAddonMap,
+        CharacterMythicPlusAddonRun,
+        CharacterMythicPlusRun
+    } from '@/types'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
-    import { getWeeklyAffixes } from '@/utils/mythic-plus'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -16,12 +21,14 @@
 
     let addonMap: CharacterMythicPlusAddonMap
     let allRuns: CharacterMythicPlusAddonRun[]
+    let bestRun: CharacterMythicPlusRun
+    let hasPortal: boolean
     let isTyrannical: boolean
     let runs: CharacterMythicPlusRun[]
     let showBoth: boolean
     $: {
         const affixes = getWeeklyAffixes(character)
-        isTyrannical = affixes[0].name === 'Tyrannical'
+        isTyrannical = affixes[0]?.name === 'Tyrannical'
 
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it
@@ -37,9 +44,23 @@
             showBoth = seasonId >= 6
             if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
                 addonMap = tempMap
+                hasPortal = Math.max(
+                    tempMap.fortifiedScore?.overTime === false ? tempMap.fortifiedScore.level : 0,
+                    tempMap.tyrannicalScore?.overTime === false ? tempMap.tyrannicalScore.level : 0
+                ) >= 20
                 //allRuns = character.mythicPlusAddon[seasonId].runs
                 //    .filter((run) => run.mapId === dungeonId)
             }
+        }
+    }
+
+    $: {
+        bestRun = maxBy(
+            runs || [],
+            (run) => (run.keystoneLevel * 10) + (run.timed ? 0 : 1)
+        )
+        if (!addonMap) {
+            hasPortal = bestRun?.timed === true && bestRun.keystoneLevel >= 20
         }
     }
 </script>
@@ -70,9 +91,12 @@
                 background: var(--active-background);
             }
         }
+        &.portal {
+            box-shadow: inset 0 0 0 1px #{$quality5-border};
+        }
     }
     span {
-        width: 50%;
+        width: 2rem;
 
         &.failed {
             color: #888;
@@ -86,7 +110,8 @@
 <td
     class:fortified={!isTyrannical}
     class:tyrannical={isTyrannical}
-    use:tippyComponent={{
+    class:portal={hasPortal}
+    use:componentTooltip={{
         component: TooltipMythicPlusRuns,
         props: {
             addonMap,
@@ -101,7 +126,7 @@
         {#if showBoth}
             {#if addonMap?.fortifiedScore}
                 <span
-                    class="{getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}"
+                    class="{getRunQualityAffix(addonMap.fortifiedScore)}"
                 >{addonMap.fortifiedScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
@@ -109,16 +134,19 @@
 
             {#if addonMap?.tyrannicalScore}
                 <span
-                    class={getMythicPlusRunQualityAffix(addonMap.tyrannicalScore)}
+                    class={getRunQualityAffix(addonMap.tyrannicalScore)}
                 >{addonMap.tyrannicalScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
             {/if}
-        {:else}
-            {#each runs as run}
-                <span class={getMythicPlusRunQuality(run)}
-                    >{run.keystoneLevel}</span>
-            {/each}
+        {:else if bestRun}
+            <span class={getRunQuality(bestRun)}>
+                {bestRun.keystoneLevel}
+            </span>
+            
+            {#if runs.length > 1}
+                ({runs.length - 1})
+            {/if}
         {/if}
     </div>
 </td>

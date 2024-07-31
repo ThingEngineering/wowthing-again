@@ -1,0 +1,10 @@
+﻿@using Microsoft.Extensions.Options
+@using Wowthing.Web.Models
+@model string
+@inject FrontendManifest FrontendManifest
+@inject IOptions<WowthingWebOptions> WebOptions
+
+@foreach (string jsFilename in FrontendManifest.Entrypoints[Model].Js)
+{
+    <script type="module" src="https://@WebOptions.Value.Hostname/@jsFilename"></script>
+}

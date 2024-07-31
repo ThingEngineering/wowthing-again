@@ -2,9 +2,9 @@
     import { DateTime } from 'luxon'
 
     import { forcedReset } from '@/data/quests'
-    import { timeStore } from '@/stores'
-    import { QuestStatus } from '@/enums'
-    import { toNiceDuration } from '@/utils/to-nice'
+    import { timeStore } from '@/shared/stores/time'
+    import { QuestStatus } from '@/enums/quest-status'
+    import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress, UserQuestDataCharacterProgressObjective } from '@/types/data'
 
@@ -24,13 +24,21 @@
     }
 
     const objectiveStatus = function(objective: UserQuestDataCharacterProgressObjective): number {
-        if (objective.have === 0) {
-            return 0
-        }
-        else if (objective.have < objective.need) {
+        if (objective.have < objective.need) {
             return 1
         }
         return 2
+    }
+
+    const skipObjective = function(objectiveIndex: number): boolean {
+        if (
+            ([75859, 78446, 78447].indexOf(progressQuest.id) >= 0) &&
+            objectiveIndex === 0 &&
+            progressQuest.objectives[0].have === 1
+        ) {
+            return true
+        }
+        return false
     }
 </script>
 
@@ -41,33 +49,35 @@
         }
     }
     .status-0 {
-        color: $colour-fail;
+        color: $color-fail;
     }
     .status-1 {
-        color: $colour-shrug;
+        color: $color-shrug;
     }
     .status-2 {
-        color: $colour-success;
+        color: $color-success;
     }
 </style>
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
-    <h5>{progressQuest?.name ?? title}</h5>
+    <h5>{progressQuest?.name || title}</h5>
 
     <table class="table-striped">
         <tbody>
             {#if status === QuestStatus.InProgress && progressQuest.objectives?.length > 0}
-                {#each progressQuest.objectives as objective}
-                    <tr>
-                        <td class="progress status-{objectiveStatus(objective)}">
-                            {objective.text}
-                        </td>
-                    </tr>
+                {#each progressQuest.objectives as objective, objectiveIndex}
+                    {#if !skipObjective(objectiveIndex)}
+                        <tr>
+                            <td class="progress status-{objectiveStatus(objective)}">
+                                {objective.text}
+                            </td>
+                        </tr>
+                    {/if}
                 {/each}
             {:else}
                 <tr>
-                    <td class="progress status-0">
+                    <td class="progress status-{status === QuestStatus.Completed ? '2' : '0'}">
                         {#if status === QuestStatus.InProgress}
                             Update addon!
                         {:else if status === QuestStatus.NotStarted}

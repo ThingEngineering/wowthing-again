@@ -1,11 +1,15 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { achievementStore, staticStore, userAchievementStore } from '@/stores'
-    import { CriteriaTreeOperator, CriteriaType } from '@/enums'
+    import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
+    import { CriteriaType } from '@/enums/criteria-type'
+    import { Faction } from '@/enums/faction';
+    import { staticStore } from '@/shared/stores/static'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import { forceShowCriteriaTree } from '@/data/achievements';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
@@ -23,12 +27,12 @@
     let linkParams: Record<string, string>
     let linkType: string
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
-        criteria = $achievementStore.data.criteria[criteriaTree?.criteriaId]
+        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId]
+        criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
         description = criteriaTree.description
 
         if (characterId > 0) {
-            const charCriteria = ($userAchievementStore.data.criteria[criteriaTreeId] || [])
+            const charCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
                 .filter((crit) => crit[0] === characterId)
             have = (
                 charCriteria.length > 0 && (
@@ -39,16 +43,21 @@
         }
         else {
             have = (
-                (criteriaTree.amount > 0 && haveMap?.[criteriaTreeId] >= criteriaTree.amount) ||
-                (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
-            )
+                //(criteriaTree.amount > 0 &&)
+                haveMap?.[criteriaTreeId] > 0 &&
+                haveMap?.[criteriaTreeId] >= criteriaTree.amount
+                // (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
+            );
         }
+
+        if (rootCriteriaTree.id === 81150)
+        console.log({rootCriteriaTree, criteria, criteriaTree, description, have, haveMap})
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
-            const criteria = $achievementStore.data.criteria[criteriaTree.criteriaId]
+            const criteria = $achievementStore.criteria[criteriaTree.criteriaId]
             if (criteria?.type === CriteriaType.EarnAchievement) {
-                description = $achievementStore.data.achievement[criteria.asset]?.name ?? `Achievement #${criteria.asset}`
+                description = $achievementStore.achievement[criteria.asset]?.name ?? `Achievement #${criteria.asset}`
             }
             else if (criteria?.type === CriteriaType.CastSpell) {
                 description = `Cast spell #${criteria.asset}`
@@ -68,8 +77,11 @@
             else if (criteria?.type === CriteriaType.GainAura) {
                 description = `Gain aura #${criteria.asset}`
             }
+            else if (criteria?.type === CriteriaType.ReputationGained) {
+                description = `Gain reputation #${criteria.asset}`
+            }
             else {
-                //console.log('Unknown criteria', criteriaTree, criteria)
+                // console.log('Unknown criteria', criteriaTree, criteria)
             }
         }
 
@@ -86,7 +98,7 @@
                 linkType = 'achievement'
                 linkId = criteria.asset
                 
-                const earned = $userAchievementStore.data.achievements[criteria.asset]
+                const earned = $userAchievementStore.achievements[criteria.asset]
                 if (earned) {
                     linkParams['who'] = 'You'
                     linkParams['when'] = earned.toString() + '000'
@@ -100,7 +112,7 @@
                 criteria.type === CriteriaType.AccountKnowsPet ||
                 criteria.type === CriteriaType.ObtainPetThroughBattle
             ) {
-                const pet = $staticStore.data.petsByName[criteriaTree.description]
+                const pet = $staticStore.petsByName[criteriaTree.description]
                 if (pet) {
                     linkType = 'npc'
                     linkId = pet.creatureId
@@ -116,6 +128,8 @@
 
 <style lang="scss">
     div {
+        --image-margin-top: -4px;
+
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -128,12 +142,12 @@
         padding-left: 1.5rem;
     }
     .status-fail {
-        color: adjust-color($colour-fail, $lightness: +15%);
+        color: adjust-color($color-fail, $lightness: +15%);
     }
 </style>
 
 {#if criteriaTree &&
-    (criteriaTree.flags & 0x02) === 0 &&
+    (forceShowCriteriaTree.has(criteriaTree.id) || (criteriaTree.flags & 0x02) === 0) &&
     (description || criteriaTree.children.length > 0)
 }
     <div
@@ -149,7 +163,13 @@
                 id={linkId}
                 type={linkType}
             >
-                <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
+                <YesNoIcon state={have} />
+
+                {#if criteriaTree.isAllianceOnly}
+                    <FactionIcon faction={Faction.Alliance} />
+                {:else if criteriaTree.isHordeOnly}
+                    <FactionIcon faction={Faction.Horde} />
+                {/if}
 
                 {description}
             </WowheadLink>

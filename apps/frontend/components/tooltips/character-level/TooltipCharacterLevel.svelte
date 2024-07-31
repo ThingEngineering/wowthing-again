@@ -1,17 +1,17 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { experiencePerLevel } from '@/data/experience'
-    import { timeStore } from '@/stores'
-    import { getCharacterRested } from '@/utils/get-character-rested';
+    import { timeStore } from '@/shared/stores/time'
+    import { getCharacterLevel } from '@/utils/get-character-level'
+    import { getCharacterRested } from '@/utils/get-character-rested'
     import type { Character } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import { getCharacterLevel } from '@/utils/get-character-level';
 
     export let character: Character
 
     $: levelData = getCharacterLevel(character)
-    $: rested = getCharacterRested($timeStore, character)
+    $: [rested, restedRemaining] = getCharacterRested($timeStore, character)
 </script>
 
 <style lang="scss">
@@ -37,6 +37,10 @@
 
         {#if rested}
             <p>Rested: {rested}</p>
+
+            {#if restedRemaining}
+                <p>{@html restedRemaining}</p>
+            {/if}
         {/if}
     {/if}
 </div>

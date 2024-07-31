@@ -6,7 +6,7 @@ metadata:
   labels:
     app: wowthing-again-web
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: wowthing-again-web
@@ -48,6 +48,8 @@ spec:
           envFrom:
             - secretRef:
                 name: wowthing-again
+            - secretRef:
+                name: wowthing-web
           resources:
             requests:
               memory: "128Mi"

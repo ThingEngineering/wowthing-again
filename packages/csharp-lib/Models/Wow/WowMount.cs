@@ -11,4 +11,9 @@ public class WowMount
     public int ItemId { get; set; }
     public int SpellId { get; set; }
     public short SourceType { get; set; }
+
+    public WowMount(int id)
+    {
+        Id = id;
+    }
 }

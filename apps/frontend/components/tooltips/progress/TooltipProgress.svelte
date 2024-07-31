@@ -1,14 +1,14 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { covenantFeatureCost } from '@/data/covenant'
-    import { ProgressDataType } from '@/enums'
+    import { Faction } from '@/enums/faction';
+    import { ProgressDataType } from '@/enums/progress-data-type'
     import { achievementStore, userAchievementStore } from '@/stores'
+    import { getNameForFaction } from '@/utils/get-name-for-faction';
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let datas: ManualDataProgressData[]
@@ -20,8 +20,9 @@
     export let showCurrencies: number[] = []
 
     let cls: string
+    let dataChunks: [ManualDataProgressData, number][][]
     $: {
-        cls = some(datas, (data, i) => {
+        cls = datas.some((data, i) => {
             const desc = descriptionText[i] || data.description
             if (desc && desc.length > 20) {
                 return true
@@ -30,13 +31,13 @@
 
         // Special cases
         if (group.name === 'Valorous Appearances') {
-            const cheev = $achievementStore.data.achievement[datas[1].ids[0]]
-            const rootTree = $achievementStore.data.criteriaTree[cheev.criteriaTreeId]
-            const charCheev = $userAchievementStore.data.addonAchievements[character.id]?.[cheev.id]
+            const cheev = $achievementStore.achievement[datas[1].ids[0]]
+            const rootTree = $achievementStore.criteriaTree[cheev.criteriaTreeId]
+            const charCheev = $userAchievementStore.addonAchievements[character.id]?.[cheev.id]
             const newDesc = {...descriptionText}
             if (charCheev?.earned !== true) {
                 for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
-                    const childTree = $achievementStore.data.criteriaTree[rootTree.children[childIndex]]
+                    const childTree = $achievementStore.criteriaTree[rootTree.children[childIndex]]
                     newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`
                 }
             }
@@ -70,11 +71,39 @@
             haveIndexes = newHaveIndexes
             showCurrencies = [1810, 1813]
         }
+        else {
+            showCurrencies = group.currencies || []
+        }
+
+        // Split data
+        dataChunks = [[]]
+        for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
+            const data = datas[dataIndex]
+            if (data.name === 'separator') {
+                dataChunks.push([])
+                continue
+            }
+
+            dataChunks[dataChunks.length - 1].push([data, dataIndex])
+        }
     }
+
+    $: groupName = group.lookup === 'faction'
+        ? `:${Faction[character.faction].toLocaleLowerCase()}: ${getNameForFaction(group.name, character.faction)}`
+        : group.name
 </script>
 
 <style lang="scss">
+    table:not(:last-child) {
+        border-bottom: 1px solid $border-color;
+    }
+    table + table {
+        border-top: 1px solid $border-color;
+        margin-top: 1rem;
+    }
     .progress {
+        @include cell-width(1.2rem);
+
         padding-right: 0;
         vertical-align: top;
     }
@@ -104,42 +133,47 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name}</h4>
-    <h5>{group.name}</h5>
+    <h5>
+        <ParsedText cls={'drop-shadow'} text={groupName} />
+    </h5>
 
-    <table class="table-striped">
-        <tbody>
-            {#each datas as data, dataIndex}
-                {@const description = descriptionText[dataIndex] || data.description}
-                <tr>
-                    <td class="progress">
-                        {#if iconOverride}
-                            <WowthingImage
-                                name="{iconOverride}"
-                                size={20}
-                                border={1}
-                            />
-                        {:else}
-                            {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
-                        {/if}
-                    </td>
-                    <td class="name">
-                        <ParsedText text={nameOverride[dataIndex] || data.name} />
+    {#each dataChunks as dataChunk}
+        <table class="table-striped">
+            <tbody>
+                {#each dataChunk as [data, dataIndex]}
+                    {@const description = descriptionText[dataIndex] || data.description}
+                    <tr>
+                        <td class="progress">
+                            {#if iconOverride}
+                                <WowthingImage
+                                    name="{iconOverride}"
+                                    size={20}
+                                    border={1}
+                                />
+                            {:else}
+                                {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                            {/if}
+                        </td>
+                        <td class="name">
+                            <ParsedText text={nameOverride[dataIndex] || data.name} />
 
-                        {#if description && (
-                            haveIndexes.indexOf(dataIndex) === -1 ||
-                            datas[0].type === ProgressDataType.GarrisonTree
-                        )}
-                            {#if cls === 'short'}&ndash;{/if}
-                            <ParsedText
-                                cls="description-{cls}"
-                                text={description}
-                             />
-                        {/if}
-                    </td>
-                </tr>
-            {/each}
-        </tbody>
-    </table>
+                            {#if description && (
+                                haveIndexes.indexOf(dataIndex) === -1 ||
+                                group.type === 'dragon-racing' ||
+                                datas[0].type === ProgressDataType.GarrisonTree
+                            )}
+                                {#if cls === 'short'}&ndash;{/if}
+                                <ParsedText
+                                    cls="description-{cls}"
+                                    text={description}
+                                />
+                            {/if}
+                        </td>
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    {/each}
 
     {#if showCurrencies?.length > 0 && !(showCurrencies.length === 1 && showCurrencies[0] === 0)}
         <div class="bottom">
@@ -151,7 +185,7 @@
                             size={20}
                             border={1}
                         />
-                        {(character.currencyItems?.[currencyId - 1000000] ?? 0).toLocaleString()}
+                        {(character.getItemCount(currencyId - 1000000)).toLocaleString()}
                     {:else}
                         <WowthingImage
                             name="currency/{currencyId}"

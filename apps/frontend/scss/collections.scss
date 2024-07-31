@@ -1,23 +1,9 @@
 .collection {
     border: 1px solid $border-color;
-    border-radius: $border-radius;
 
     & + .collection {
         border-top-width: 0;
     }
-
-    /*h3 {
-        margin: 0;
-        padding: 0.25rem 0.5rem;
-        width: 100%;
-        background: $collection-background;
-        border-bottom: 1px solid $border-color;
-        color: #ddd;
-
-        &:nth-child(n+2) {
-            border-top: 1px solid $border-color;
-        }
-    }*/
 }
 
 .collection-section {
@@ -49,7 +35,7 @@
         position: relative;
 
         &.has-not {
-            --image-border-color: #{darken($colour-fail, 10%)};
+            --image-border-color: #{darken($color-fail, 10%)};
         }
 
         &.missing {
@@ -59,14 +45,6 @@
             img {
                 filter: grayscale(75%);
             }
-        }
-
-        .collected-icon {
-            color: $colour-success;
-            pointer-events: none;
-            position: absolute;
-            top: -4px;
-            right: -2px;
         }
     }
 }

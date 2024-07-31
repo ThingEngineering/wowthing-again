@@ -7,7 +7,7 @@ namespace Wowthing.Backend.Jobs.Misc;
 
 public class ImageJob : JobBase
 {
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         ImageType type = (ImageType)int.Parse(data[0]);
         int id = int.Parse(data[1]);
@@ -15,8 +15,8 @@ public class ImageJob : JobBase
         string url = data[3];
 
         var timer = new JankTimer();
-            
-        var result = await GetBytes(new Uri(url), useAuthorization: false, useLastModified: false, timer: timer);
+
+        var result = await GetUriAsBytesAsync(new Uri(url), useAuthorization: false, useLastModified: false, timer: timer);
         if (result.NotModified)
         {
             LogNotModified();
@@ -82,7 +82,7 @@ public class ImageJob : JobBase
         image.Sha256 = sha256;
 
         await Context.SaveChangesAsync();
-            
+
         timer.AddPoint("Save", true);
         Logger.Debug("{Timer}", timer.ToString());
     }

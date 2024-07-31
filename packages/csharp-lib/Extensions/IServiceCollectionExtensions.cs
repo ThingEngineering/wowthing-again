@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -14,9 +15,14 @@ public static class ServiceCollectionExtensions
     //      nicely with the `dotnet ef` CLI tool and Backend/Web
     public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
     {
+        var builder = new NpgsqlDataSourceBuilder(connectionString);
+        builder.EnableDynamicJson();
+
+        var dataSource = builder.Build();
+
         services.AddDbContext<WowDbContext>(options =>
         {
-            options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
+            options.UseNpgsql(dataSource, pgOptions => pgOptions.EnableRetryOnFailure());
 #if DEBUG
             options.EnableSensitiveDataLogging();
 #endif
@@ -24,7 +30,7 @@ public static class ServiceCollectionExtensions
 
         services.AddDbContextFactory<WowDbContext>(options =>
         {
-            options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
+            options.UseNpgsql(dataSource, pgOptions => pgOptions.EnableRetryOnFailure());
 #if DEBUG
             options.EnableSensitiveDataLogging();
 #endif
@@ -43,15 +49,16 @@ public static class ServiceCollectionExtensions
         return redis;
     }
 
-    public static IServiceCollection AddJsonOptions(this IServiceCollection services)
+    public static JsonSerializerOptions AddJsonOptions(this IServiceCollection services)
     {
-        services.AddSingleton(new JsonSerializerOptions
+        var options = new JsonSerializerOptions
         {
             AllowTrailingCommas = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
-        return services;
+        };
+        services.AddSingleton(options);
+        return options;
     }
 }

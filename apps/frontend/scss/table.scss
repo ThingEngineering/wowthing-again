@@ -1,34 +1,28 @@
 .table {
     background: $thing-background;
     //border-collapse: collapse;
-    border-radius: $border-radius;
     table-layout: fixed;
 
     thead {
         tr {
             &:first-child {
-                td, th {
+                td,
+                th {
                     border-top: 1px solid $border-color;
-
-                    &:first-child {
-                        border-top-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-top-right-radius: $border-radius;
-                    }
                 }
             }
 
             &:last-child {
-                td, th {
+                td,
+                th {
                     border-bottom: 1px solid $border-color;
                 }
             }
         }
     }
 
-    td, th {
+    td,
+    th {
         &:first-child {
             border-left: 1px solid $border-color;
         }
@@ -43,18 +37,6 @@
             td.alt {
                 background: $table-alt-bg;
             }
-
-            &:last-child {
-                td {
-                    &:first-child {
-                        border-bottom-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-bottom-right-radius: $border-radius;
-                    }
-                }
-            }
         }
     }
 
@@ -65,6 +47,20 @@
         border-top-width: 0 !important;
         min-width: 1rem;
         width: 1rem;
+    }
+
+    .spacer + td {
+        border-left: 1px solid $border-color;
+    }
+
+    .settings {
+        background: $body-background;
+        border-bottom-width: 0 !important;
+        border-left: 1px solid $border-color;
+        border-right-width: 0 !important;
+        border-top-width: 0 !important;
+        min-width: 3rem;
+        width: 3rem;
     }
 }
 
@@ -89,8 +85,8 @@
 
 .table-striped2 {
     tbody {
-        tr:nth-child(4n+1),
-        tr:nth-child(4n+2) {
+        tr:nth-child(4n + 1),
+        tr:nth-child(4n + 2) {
             background: $table-striped-bg;
         }
         tr:nth-child(2n):not(:last-child) {
@@ -102,8 +98,7 @@
 }
 
 .table-striped,
-.table-striped2
-{
+.table-striped2 {
     tr {
         td {
             border-bottom: 1px solid $border-color;
@@ -117,13 +112,5 @@
         border-top: 1px solid $border-color;
         font-size: 1.05rem;
         text-align: center;
-
-        &:first-child {
-            border-top-left-radius: $border-radius;
-        }
-
-        &:last-child {
-            border-top-right-radius: $border-radius;
-        }
     }
 }

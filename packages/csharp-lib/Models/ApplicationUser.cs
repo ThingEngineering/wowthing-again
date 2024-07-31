@@ -13,13 +13,13 @@ public class ApplicationUser : IdentityUser<long>
     public string ApiKey { get; set; }
     public DateTime LastVisit { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
-        
+
     [Column(TypeName = "jsonb")]
     public ApplicationUserSettings Settings { get; set; }
 
     public void GenerateApiKey()
     {
-        var bytes = RandomNumberGenerator.GetBytes(ApiKeyLength);   
+        var bytes = RandomNumberGenerator.GetBytes(ApiKeyLength);
         ApiKey = BitConverter.ToString(bytes).Replace("-", "");
     }
 }

@@ -1,6 +1,17 @@
 .view {
     align-items: flex-start;
     display: flex;
-    flex-wrap: wrap;
     width: 100%;
+}
+
+.resizer-view {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    width: 100%;
+
+    .collection-v2-section {
+        column-count: var(--column-count, 1);
+        column-gap: 30px;
+    }
 }

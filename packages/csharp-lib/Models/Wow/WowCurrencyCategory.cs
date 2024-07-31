@@ -9,4 +9,9 @@ public class WowCurrencyCategory
 
     public short Expansion { get; set; }
     public short Flags { get; set; }
+
+    public WowCurrencyCategory(short id)
+    {
+        Id = id;
+    }
 }

@@ -1,10 +1,7 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.NonBlizzard;
+﻿namespace Wowthing.Backend.Models.API.NonBlizzard;
 
 public class ApiCharacterRaiderIo
 {
-    [JsonProperty("mythic_plus_scores_by_season")]
     [JsonPropertyName("mythic_plus_scores_by_season")]
     public List<ApiCharacterRaiderIoSeason> ScoresBySeason { get; set; }
 }
@@ -22,6 +19,9 @@ public class ApiCharacterRaiderIoSeason
         { "season-sl-3", 7 },
         { "season-sl-4", 8 },
         { "season-df-1", 9 },
+        { "season-df-2", 10 },
+        { "season-df-3", 11 },
+        { "season-df-4", 12 },
     };
 
     public string Season { get; set; }

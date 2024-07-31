@@ -3,19 +3,19 @@
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState, exploreState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import CriteriaTree from './ExploreAchievementsCriteriaTree.svelte'
-    import FactionIcon from '@/components/images/FactionIcon.svelte'
-    import NumberInput from '@/components/forms/NumberInput.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     let achievement: AchievementDataAchievement
 
     // Fetch achievement data once when this component is mounted
     onMount(async () => await Promise.all([
-        achievementStore.fetch({ language: $settings.general.language }),
+        achievementStore.fetch({ language: $settingsStore.general.language }),
         //userAchievementStore.fetch(),
     ]))
 
@@ -29,7 +29,7 @@
         if (!error && loaded) {
             userAchievementStore.setup(
                 $achievementState,
-                $achievementStore.data
+                $achievementStore
             )
             ready = true
         }
@@ -37,7 +37,7 @@
 
     $: {
         if (ready) {
-            achievement = $achievementStore.data.achievement[$exploreState.achievementId]
+            achievement = $achievementStore.achievement[$exploreState.achievementId]
         }
     }
 </script>
@@ -68,7 +68,7 @@
 
 <div class="thing-container border">
     <NumberInput
-        name="general_RefreshInterval"
+        name="achievement_id"
         minValue={0}
         maxValue={999999}
         bind:value={$exploreState.achievementId}

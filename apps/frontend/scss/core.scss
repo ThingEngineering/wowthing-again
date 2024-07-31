@@ -36,7 +36,7 @@ footer {
                 margin-left: 3rem;
             }
 
-            & + li:not(.margin-left) {
+            &:not(:first-child) {
                 border-left: 1px solid #888;
                 margin-left: 0.4rem;
                 padding-left: 0.6rem;
@@ -163,6 +163,9 @@ div.content {
         drop-shadow( 2px -2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)))
         drop-shadow( 2px  2px 2px var(--shadow-color, rgba(0, 0, 0, 0.5)));
 }
+.drop-shadow-single {
+    filter: drop-shadow(0 0 2px var(--shadow-color, rgba(0, 0, 0, 0.5)));
+}
 
 .text-overlay {
     background-color: $highlight-background;
@@ -190,7 +193,9 @@ div.content {
     text-align: center;
     white-space: nowrap;
 }
-
+.center {
+    text-align: center;
+}
 .abs-center {
     left: 50%;
     position: absolute;
@@ -205,11 +210,16 @@ div.content {
 
 .border {
     border: 1px solid $border-color;
-    border-radius: $border-radius;
+}
+.border-bottom {
+    border-bottom: 1px solid $border-color;
 }
 .border-left {
     border-left: 1px solid $border-color;
 }
 .border-right {
     border-right: 1px solid $border-color;
+}
+.border-top {
+    border-top: 1px solid $border-color;
 }

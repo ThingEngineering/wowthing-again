@@ -9,14 +9,14 @@ public class DataMythicKeystonePeriodJob : JobBase
 {
     private const string ApiPath = "data/wow/mythic-keystone/period/{0}";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         var region = Enum.Parse<WowRegion>(data[0]);
         int periodId = int.Parse(data[1]);
 
         // Fetch API data
         var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(ApiPath, periodId));
-        var result = await GetJson<ApiDataMythicKeystonePeriod>(uri);
+        var result = await GetUriAsJsonAsync<ApiDataMythicKeystonePeriod>(uri);
         if (result.NotModified)
         {
             return;

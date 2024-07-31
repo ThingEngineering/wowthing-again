@@ -1,15 +1,17 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants';
     import { imageStrings } from '@/data/icons'
-    import { professionIdToString } from '@/data/professions'
-    import { Region } from '@/enums'
-    import { data as settings } from '@/stores/settings'
-    import { staticStore } from '@/stores/static'
-    import { tippyComponent } from '@/utils/tippy'
+    import { professionIdToSlug } from '@/data/professions'
+    import { Region } from '@/enums/region'
+    import { staticStore } from '@/shared/stores/static'
+    import { getProfessionSortKey } from '@/utils/professions'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character, CharacterProfession } from '@/types'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let professionType = 0
@@ -17,30 +19,29 @@
     let professions: [StaticDataProfession, CharacterProfession, boolean][]
     $: {
         professions = []
-        for (const professionId in $staticStore.data.professions) {
-            if (professionId === '794' && !$settings.layout.includeArchaeology) {
+        for (const professionId in $staticStore.professions) {
+            if (professionId === '794' && !$settingsStore.layout.includeArchaeology) {
                 continue
             }
 
-            const profession: StaticDataProfession = $staticStore.data.professions[professionId]
+            const profession: StaticDataProfession = $staticStore.professions[professionId]
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
-                    let found = false
-                    for (let i = profession.subProfessions.length; i > 0; i--) {
-                        const subProfession = profession.subProfessions[i - 1]
-                        const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
-                        if (characterSubProfession) {
-                            professions.push([
-                                profession,
-                                characterSubProfession,
-                                i === profession.subProfessions.length
-                            ])
-                            found = true
-                            break
+                    let best: [CharacterProfession, number]
+                    for (const expansion of settingsStore.expansions) {
+                        const subProfession = profession.expansionSubProfession[expansion.id]
+                        if (subProfession) {
+                            const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
+                            if (characterSubProfession && expansion.id >= (best?.[1] || 0)) {
+                                best = [characterSubProfession, expansion.id]
+                            }
                         }
                     }
 
-                    if (!found && professionType === 1) {
+                    if (best) {
+                        professions.push([profession, best[0], best[1] === Constants.expansion])
+                    }
+                    else if (professionType === 1) {
                         professions.push([
                             profession,
                             null,
@@ -58,7 +59,7 @@
                 }
             }
         }
-        professions.sort((a, b) => a[0].name.localeCompare(b[0].name))
+        professions.sort((a, b) => getProfessionSortKey(a[0]).localeCompare(getProfessionSortKey(b[0])))
     }
 </script>
 
@@ -101,7 +102,7 @@
                 <div
                     class="profession"
                     data-id="{profession.id}"
-                    use:tippyComponent={{
+                    use:componentTooltip={{
                         component: Tooltip,
                         props: {
                             character,
@@ -111,7 +112,7 @@
                 >
                     <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}/professions/{profession.slug}">
                         <WowthingImage
-                            name="{imageStrings[professionIdToString[profession.id]]}"
+                            name="{imageStrings[professionIdToSlug[profession.id]]}"
                             size={20}
                             border={1}
                         />

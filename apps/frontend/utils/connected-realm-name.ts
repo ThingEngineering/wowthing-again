@@ -1,11 +1,12 @@
 import { get } from 'svelte/store'
 
-import { staticStore, userStore } from '@/stores'
+import { userStore } from '@/stores'
+import { staticStore } from '@/shared/stores/static'
 
 
 export default function connectedRealmName(realmId: number): string {
-    const staticData = get(staticStore).data
-    const userData = get(userStore).data
+    const staticData = get(staticStore)
+    const userData = get(userStore)
 
     const realmNames: Record<string, boolean> = {}
     for (const character of userData.characters) {

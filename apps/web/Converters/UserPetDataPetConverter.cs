@@ -3,7 +3,7 @@ using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Converters;
 
-public class UserPetDataPetConverter : System.Text.Json.Serialization.JsonConverter<UserPetDataPet>
+public class UserPetDataPetConverter : JsonConverter<UserPetDataPet>
 {
     public override UserPetDataPet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

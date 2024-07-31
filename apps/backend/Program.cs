@@ -3,7 +3,6 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 using Polly;
 using Serilog;
 using Serilog.Templates;
@@ -38,13 +37,13 @@ public class Program
                 " {@m:lj}\n{@x}"))
             .CreateLogger();
 
-        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(),
-            },
-        };
+        // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        // {
+        //     ContractResolver = new DefaultContractResolver
+        //     {
+        //         NamingStrategy = new CamelCaseNamingStrategy(),
+        //     },
+        // };
 
         try
         {
@@ -78,8 +77,11 @@ public class Program
                 return !(string.IsNullOrWhiteSpace(config.ClientId) || string.IsNullOrWhiteSpace(config.ClientSecret));
             }, "BattleNet.ClientID and .ClientSecret must be set");
 
+        var backendConfig = Configuration.GetSection("WowthingBackend");
         var backendOptions = new WowthingBackendOptions();
-        Configuration.GetSection("WowthingBackend").Bind(backendOptions);
+        backendConfig.Bind(backendOptions);
+
+        services.Configure<WowthingBackendOptions>(backendConfig);
 
         // Memory cache
         services.AddMemoryCache();
@@ -100,7 +102,7 @@ public class Program
 
         services.AddHttpClient("limited", client =>
             {
-                client.Timeout = TimeSpan.FromSeconds(60);
+                client.Timeout = TimeSpan.FromSeconds(120);
             })
             .AddPolicyHandler(rateLimitPolicy)
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
@@ -118,6 +120,7 @@ public class Program
         services.AddHostedService<GoldSnapshotService>();
         services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();
+        services.AddHostedService<UserLeaderboardService>();
 
         for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
         {

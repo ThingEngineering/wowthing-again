@@ -10,6 +10,8 @@ public class WowItem
     public int Id { get; set; }
     public int ClassMask { get; set; }
     public long RaceMask { get; set; }
+    public int OppositeFactionId { get; set; }
+    public int RequiredAbility { get; set; }
     public int Stackable { get; set; }
     public short ClassId { get; set; }
     public short SubclassId { get; set; }
@@ -21,6 +23,17 @@ public class WowItem
     public short Expansion { get; set; }
     public short ItemLevel { get; set; }
     public short RequiredLevel { get; set; }
+    public WowBindType BindType { get; set; }
+    public short Unique { get; set; }
+    public short RequiredSkill { get; set; }
+    public short RequiredSkillRank { get; set; }
+    public short LimitCategory { get; set; }
+    public short CraftingQuality { get; set; }
+
+    public WowItem(int id)
+    {
+        Id = id;
+    }
 
     public int GetCalculatedClassMask(bool legacyLoot = false)
     {

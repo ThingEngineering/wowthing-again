@@ -1,16 +1,14 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import some from 'lodash/some'
 
-    import { Constants } from '@/data/constants'
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
-    import { manualStore, staticStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { manualStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { ManualDataProgressCategory} from '@/types/data/manual'
     import type { ProgressInfo } from '@/utils/get-progress'
@@ -29,30 +27,27 @@
     let categories: ManualDataProgressCategory[]
     let progress: Record<string, ProgressInfo>
     let filterFunc: (char: Character) => boolean
-    let slugKey: string
     let sorted: boolean
     let sortFunc: (char: Character) => string
 
-    $: {
-        slugKey = `${slug1}|${slug2}`
-    }
+    $: slugKey = `${slug1}|${slug2}`
 
     $: {
-        categories = find($manualStore.data.progressSets, (p) => p !== null && p[0].slug === slug1) || []
+        categories = find($manualStore.progressSets, (p) => p !== null && p[0].slug === slug1) || []
         if (categories.length === 0) {
             break $
         }
 
         const firstCategory = categories[0]
         if (slug2) {
-            categories = filter(categories, (s) => s !== null && s.slug === slug2)
+            categories = categories.filter((s) => s !== null && s.slug === slug2)
             if (categories.length === 0) {
                 break $
             }
         }
 
         const minimumLevels = [firstCategory, ...categories]
-            .map((cat) => cat.minimumLevel)
+            .map((cat) => cat?.minimumLevel || 0)
             .filter((ml) => (ml || 0) > 0)
         const minimumLevel = minimumLevels.length > 0 ? Math.min(...minimumLevels) : 0
 
@@ -61,37 +56,40 @@
             if (minimumLevel > 0 && char.level < minimumLevel) {
                 return false
             }
+
             if (requiredQuestIds.length > 0 &&
-                !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id))) {
+                !requiredQuestIds.some((id) => $userQuestStore.characters[char.id]?.quests?.has(id))) {
                 return false
             }
-            if (
-                (categories[0].name === 'Dungeons' || firstCategory.name === 'Dungeons') &&
-                char.level === Constants.characterMaxLevel
-            ) {
-                return false
+
+            if (categories[0]?.groups[0]?.type === 'dragon-racing' ||
+                categories[1]?.groups[0]?.type === 'dragon-racing') {
+                return categories.filter((cat) => !!cat).some(
+                    (cat) => cat.groups.filter((group) => !!group).some(
+                        (group) => group.data[0].some(
+                            (data) => char.currencies?.[data.ids[0]]?.quantity > 0
+                        )
+                    )
+                )
             }
+
             return true
         }
 
         const characters: Character[] = filterFunc ?
-            $userStore.data.characters.filter((char) => filterFunc(char)) :
-            $userStore.data.characters
+            $userStore.characters.filter((char) => filterFunc(char)) :
+            $userStore.characters
 
         progress = {}
-        for (const category of categories) {
-            if (category === null) {
-                continue
-            }
-
+        for (const category of categories.filter((cat) => cat !== null)) {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
                     const data = progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
-                        $staticStore.data,
-                        $userStore.data,
-                        $userAchievementStore.data,
-                        $userQuestStore.data,
+                        $staticStore,
+                        $userStore,
+                        $userAchievementStore,
+                        $userQuestStore,
                         character,
                         category,
                         group,
@@ -117,14 +115,14 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => {
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) => {
                 const data = progress[`${order}|${char.id}`]
                 return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
             })
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
 </script>
@@ -147,7 +145,7 @@
                 {#if category === null}
                     <th class="spacer"></th>
                 {:else}
-                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1]?.groups?.length > 0}
                         <th class="spacer"></th>
                     {/if}
 
@@ -180,7 +178,7 @@
                 {#if category === null}
                     <td class="spacer"></td>
                 {:else}
-                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1]?.groups?.length > 0}
                         <td class="spacer"></td>
                     {/if}
 

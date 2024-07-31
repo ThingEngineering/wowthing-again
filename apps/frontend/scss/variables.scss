@@ -3,7 +3,7 @@ $body-text:                #ffffff;
 $link-color:               #44ddff;
 $link-hover-color:         #88ffff;
 
-$border-color:             #58595a;
+$border-color:             #676b6f;
 $border-radius-large:      8px;
 $border-radius:            5px;
 $border-radius-small:      3px;
@@ -11,7 +11,7 @@ $border-radius-small:      3px;
 $header-footer-background: #2c2d2e;
 $thing-background:         #1a1b1c;
 $highlight-background:     #04080f;
-$active-background:        mix($thing-background, #0088ff, 80%);
+$active-background:        #003048;
 $collection-background:    $highlight-background;
 
 $tooltip-background:       #0a0b0c;
@@ -22,10 +22,10 @@ $tooltip-title-color:      $tooltip-color;
 $tooltip-padding-x:        7px;
 $tooltip-padding-y:        5px;
 
-$alliance-border:           #0044ff;
+$alliance-border:           #006aff;
 $alliance-border-dark:      darken($alliance-border, 20%);
 $alliance-background:       mix($thing-background, $alliance-border, 90%);
-$alliance-link:             lighten($alliance-border, 25%);
+$alliance-link:             lighten($alliance-border, 20%);
 $horde-border:              #cc0000;
 $horde-border-dark:         darken($horde-border, 20%);
 $horde-background:          mix($thing-background, $horde-border, 90%);
@@ -47,27 +47,32 @@ $tooltip-striped-bg:        $table-bg;
 $width-callings:            4.6rem;
 $width-covenant:            2.9rem;
 $width-covenant-all:        7.0rem;
-$width-currency:            3.4rem;
-$width-home-gear:           2.7rem;
+$width-currency:            2.3rem;
+$width-currency-max:        4.0rem;
+$width-home-gear:           2.0rem;
+$width-home-gear-max:       4.0rem;
 $width-gold:                4.0rem;
 $width-gold-max:            6.0rem;
+$width-guild:               6.0rem;
+$width-guild-max:           15.0rem;
 $width-icon:                26px;
 $width-item-count:          2.0rem;
 $width-item-level:          2.5rem;
-$width-item-location:       2.0rem;
-$width-keystone:            4.8rem;
+$width-item-location:       3.0rem;
+$width-keystone:            4.0rem;
 $width-keystone-level:      1.2rem;
 $width-level:               1.1rem;
 $width-level-partial:       2.6rem;
 $width-location:            5.0rem;
-$width-location-max:        10.0rem;
+$width-location-max:        16.0rem;
 $width-lockout:             3.5rem;
 $width-mount-speed:         3.4rem;
 $width-mplus-dungeon:       3.4rem;
 $width-mplus-upgrade:       2.1rem;
-$width-name:                3.0rem;
+$width-name:                6.0rem;
 $width-name-max:            12.0rem;
 $width-played:              5.2rem;
+$width-played-max:          8.0rem;
 $width-professions:         8.0rem;
 $width-professions-triple:  12.0rem;
 $width-progress:            2.0rem;
@@ -84,37 +89,23 @@ $width-vault:               6.5rem;
 
 $width-padding:             0.25rem;
 
-$settings-column-width:     50rem;
+$settings-column-width:     45rem;
 
 $inactive-opacity:          0.4;
 
-$colour-success:            #1eff00;
-$colour-shrug:              #efef00;
-$colour-fail:               #ff1e00;
+$color-success:            #1eff00;
+$color-shrug:              #efef00;
+$color-warn:               #ff8c7e;
+$color-fail:               #ff1e00;
 
-$button-success:            #0f2f0f;
-
-// class colours
-$colour-class-1:            #c69b6d; // Warrior
-$colour-class-2:            #f48cba; // Paladin
-$colour-class-3:            #aad372; // Hunter
-$colour-class-4:            #fff468; // Rogue
-$colour-class-5:            #ffffff; // Priest
-$colour-class-6:            #c41e3a; // Death Knight
-$colour-class-7:            #0070dd; // Shaman
-$colour-class-8:            #3fc7eb; // Mage
-$colour-class-9:            #8788ee; // Warlock
-$colour-class-10:           #00ff98; // Monk
-$colour-class-11:           #ff7c0a; // Druid
-$colour-class-12:           #a330c9; // Demon Hunter
-$colour-class-13:           #33937F; // Evoker
+$button-success:           #0f2f0f;
 
 // poor
 $quality0-color:           #9d9d9d;
 $quality0-border:          $quality0-color;
 
 // common
-$quality1-color:           #ddd; // #ffffff
+$quality1-color:           #eee; // #ffffff
 $quality1-border:          darken($quality1-color, 5%);
 
 // uncommon

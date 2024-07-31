@@ -17,6 +17,7 @@ public class PlayerCharacterEquippedItems
 public class PlayerCharacterEquippedItem
 {
     public int Context { get; set; }
+    public int CraftedQuality { get; set; }
     public int ItemId { get; set; }
     public int ItemLevel { get; set; }
     public WowQuality Quality { get; set; }
@@ -24,4 +25,5 @@ public class PlayerCharacterEquippedItem
     public List<int> BonusIds { get; set; }
     public List<int> EnchantmentIds { get; set; }
     public List<int> GemIds { get; set; }
+    public Dictionary<int, int> Modifiers { get; set; }
 }

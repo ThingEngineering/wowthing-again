@@ -1,143 +1,143 @@
 // Class colours
 .class-1,
 .class-warrior {
-    --colour-class: #{$colour-class-1};
+    --colour-class: #{$color-class-1};
     --image-border-color: #{colour-class-1};
-    color: $colour-class-1;
+    color: $color-class-1;
 
     > img {
-        border-color: #{$colour-class-1};
+        border-color: #{$color-class-1};
     }
 }
 
 .class-2,
 .class-paladin {
-    --colour-class: #{$colour-class-2};
+    --colour-class: #{$color-class-2};
     --image-border-color: #{colour-class-2};
-    color: $colour-class-2;
+    color: $color-class-2;
 
     > img {
-        border-color: #{$colour-class-2};
+        border-color: #{$color-class-2};
     }
 }
 
 .class-3,
 .class-hunter {
-    --colour-class: #{$colour-class-3};
+    --colour-class: #{$color-class-3};
     --image-border-color: #{colour-class-3};
-    color: $colour-class-3;
+    color: $color-class-3;
 
     > img {
-        border-color: #{$colour-class-3};
+        border-color: #{$color-class-3};
     }
 }
 
 .class-4,
 .class-rogue {
-    --colour-class: #{$colour-class-4};
+    --colour-class: #{$color-class-4};
     --image-border-color: #{colour-class-4};
-    color: $colour-class-4;
+    color: $color-class-4;
 
     > img {
-        border-color: #{$colour-class-4};
+        border-color: #{$color-class-4};
     }
 }
 
 .class-5,
 .class-priest {
-    --colour-class: #{$colour-class-5};
+    --colour-class: #{$color-class-5};
     --image-border-color: #{colour-class-5};
-    color: $colour-class-5;
+    color: $color-class-5;
 
     > img {
-        border-color: #{$colour-class-5};
+        border-color: #{$color-class-5};
     }
 }
 
 .class-6,
 .class-death-knight {
-    --colour-class: #{$colour-class-6};
+    --colour-class: #{$color-class-6};
     --image-border-color: #{colour-class-6};
-    color: $colour-class-6;
+    color: $color-class-6;
 
     > img {
-        border-color: #{$colour-class-6};
+        border-color: #{$color-class-6};
     }
 }
 
 .class-7,
 .class-shaman {
-    --colour-class: #{$colour-class-7};
+    --colour-class: #{$color-class-7};
     --image-border-color: #{colour-class-7};
-    color: $colour-class-7;
+    color: $color-class-7;
 
     > img {
-        border-color: #{$colour-class-7};
+        border-color: #{$color-class-7};
     }
 }
 
 .class-8,
 .class-mage {
-    --colour-class: #{$colour-class-8};
+    --colour-class: #{$color-class-8};
     --image-border-color: #{colour-class-8};
-    color: $colour-class-8;
+    color: $color-class-8;
 
     > img {
-        border-color: #{$colour-class-8};
+        border-color: #{$color-class-8};
     }
 }
 
 .class-9,
 .class-warlock {
-    --colour-class: #{$colour-class-9};
+    --colour-class: #{$color-class-9};
     --image-border-color: #{colour-class-9};
-    color: $colour-class-9;
+    color: $color-class-9;
 
     > img {
-        border-color: #{$colour-class-9};
+        border-color: #{$color-class-9};
     }
 }
 
 .class-10,
 .class-monk {
-    --colour-class: #{$colour-class-10};
+    --colour-class: #{$color-class-10};
     --image-border-color: #{colour-class-10};
-    color: $colour-class-10;
+    color: $color-class-10;
 
     > img {
-        border-color: #{$colour-class-10};
+        border-color: #{$color-class-10};
     }
 }
 
 .class-11,
 .class-druid {
-    --colour-class: #{$colour-class-11};
+    --colour-class: #{$color-class-11};
     --image-border-color: #{colour-class-11};
-    color: $colour-class-11;
+    color: $color-class-11;
 
     > img {
-        border-color: #{$colour-class-11};
+        border-color: #{$color-class-11};
     }
 }
 
 .class-12,
 .class-demon-hunter {
-    --colour-class: #{$colour-class-12};
+    --colour-class: #{$color-class-12};
     --image-border-color: #{colour-class-12};
-    color: $colour-class-12;
+    color: $color-class-12;
 
     > img {
-        border-color: #{$colour-class-12};
+        border-color: #{$color-class-12};
     }
 }
 .class-13,
 .class-evoker {
-    --colour-class: #{$colour-class-13};
+    --colour-class: #{$color-class-13};
     --image-border-color: #{colour-class-13};
-    color: $colour-class-13;
+    color: $color-class-13;
 
     > img {
-        border-color: #{$colour-class-13};
+        border-color: #{$color-class-13};
     }
 }
 
@@ -169,6 +169,8 @@ img.quality0 {
     }
 }
 .quality1-border {
+    --bar-border-color: #{$quality1-border};
+
     border-color: $quality1-border;
 }
 /*img.quality1 {
@@ -186,6 +188,8 @@ img.quality0 {
     }
 }
 .quality2-border {
+    --bar-border-color: #{$quality2-border};
+
     border-color: $quality2-border;
 }
 img.quality2 {
@@ -203,6 +207,8 @@ img.quality2 {
     }
 }
 .quality3-border {
+    --bar-border-color: #{$quality3-border};
+
     border-color: $quality3-border;
 }
 img.quality3 {
@@ -220,6 +226,8 @@ img.quality3 {
     }
 }
 .quality4-border {
+    --bar-border-color: #{$quality4-border};
+
     border-color: $quality4-border;
 }
 img.quality4 {
@@ -240,6 +248,8 @@ img.quality4 {
     }
 }
 .quality5-border {
+    --bar-border-color: #{$quality5-border};
+
     border-color: $quality5-border;
 }
 img.quality5 {
@@ -256,6 +266,12 @@ img.quality5 {
         border-color: $quality6-color;
     }
 }
+.quality6-border {
+    --bar-border-color: #{$quality6-border};
+
+    border-color: $quality6-border;
+}
+
 // Heirloom
 .quality7 {
     --image-border-color: #{$quality7-border};
@@ -265,4 +281,9 @@ img.quality5 {
     div,img {
         border-color: $quality7-color;
     }
+}
+.quality7-border {
+    --bar-border-color: #{$quality7-border};
+
+    border-color: $quality7-border;
 }

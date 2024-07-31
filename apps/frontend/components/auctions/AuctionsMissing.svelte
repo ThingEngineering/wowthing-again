@@ -1,35 +1,47 @@
 <script lang="ts">
+    import { DateTime } from 'luxon'
+    import { afterUpdate } from 'svelte'
+
     import { timeLeft } from '@/data/auctions'
-    import { staticStore, userAuctionMissingStore } from '@/stores'
+    import { euLocales } from '@/data/region';
+    import { Region } from '@/enums/region'
+    import { userAuctionMissingStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import tippy from '@/utils/tippy'
-    import { Region } from '@/enums'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
-    import Paginate from '@/components/common/Paginate.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Paginate from '@/shared/components/paginate/Paginate.svelte'
+    import RealmTooltip from './RealmTooltip.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
+    export let auctionsContainer: HTMLElement
     export let page: number
-    export let slug: string
+    export let slug1: string
 
     let searchType: string
     let thingType: string
     $: {
-        searchType = slug.replace('missing-', '')
-        if (slug === 'missing-mounts') {
+        searchType = slug1.replace('missing-', '')
+        if (slug1 === 'missing-mounts') {
             thingType = 'spell'
         }
-        else if (slug === 'missing-pets') {
+        else if (slug1 === 'missing-pets') {
             thingType = 'npc'
         }
-        else if (slug === 'missing-toys') {
+        else if (slug1 === 'missing-toys') {
             thingType = 'item'
         }
     }
 
-    const ignoreClick = function(id: number): void {
-        const ignored = $auctionState.ignored[slug] ||= {}
+    $: colspan = (slug1 === 'missing-pets' ? 3 : 2) + ($auctionState.includeBids ? 1 : 0);
+
+    const ignoreClick = function(id: string): void {
+        const ignored = $auctionState.ignored[slug1] ||= {}
         if (ignored[id]) {
             delete ignored[id]
         }
@@ -37,30 +49,29 @@
             ignored[id] = true
         }
     }
+
+    let debouncedResize: () => void
+    let wrapperDiv: HTMLElement
+    $: {
+        if (wrapperDiv) {
+            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'table')
+            debouncedResize()
+        }
+    }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
     .wrapper {
         column-count: 1;
-        width: 31rem;
-
-        @media screen and (min-width: 1430px) and (max-width: 1919px) {
-            column-count: 2;
-            gap: 1rem;
-            width: 63rem;
-        }
-        @media screen and (min-width: 1920px) {
-            column-count: 3;
-            gap: 1rem;
-            width: 95rem;
-        }
+        gap: 20px;
     }
     table {
         --padding: 2;
 
         display: inline-block;
         margin-bottom: 0.5rem;
-        width: 100%;
     }
     th {
         background-color: $highlight-background;
@@ -79,7 +90,7 @@
         text-align: right;
         white-space: nowrap;
 
-        span {
+        button {
             cursor: pointer;
 
             &:hover {
@@ -134,28 +145,33 @@
     }
 </style>
 
+<svelte:window on:resize={debouncedResize} />
+
 {#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then things}
+{:then [things, updated]}
     <Paginate
-        items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
-        perPage={$auctionState.allRealms ? 6 : 20}
+        items={(things || []).filter((thing) => $auctionState.hideIgnored
+            ? $auctionState.ignored[slug1]?.[parseInt(thing.id)] !== true
+            : true)}
+        perPage={$auctionState.allRealms && !$auctionState.limitToBestRealms ? 12 : 24}
         {page}
         let:paginated
     >
-        <div class="wrapper">
+        <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as item}
-                {@const ignored = $auctionState.ignored[slug]?.[item.id] === true}
+                {@const auctions = $auctionState.limitToBestRealms ? item.auctions.slice(0, 5) : item.auctions}
+                {@const ignored = $auctionState.ignored[slug1]?.[item.id] === true}
                 <table
                     class="table table-striped"
                     class:ignored
                 >
                     <thead>
                         <tr>
-                            <th class="item" colspan="{slug === 'missing-pets' ? 4 : 3}">
+                            <th class="item" colspan="{colspan}">
                                 <WowheadLink
                                     type={thingType}
-                                    id={item.id}
+                                    id={parseInt(item.id)}
                                 >
                                     <WowthingImage
                                         name="{thingType}/{item.id}"
@@ -166,43 +182,73 @@
                                 </WowheadLink>
                             </th>
                             <th class="ignore">
-                                <span
+                                <button
                                     on:click|preventDefault={() => ignoreClick(item.id)}
-                                    on:keypress|preventDefault={() => ignoreClick(item.id)}
                                 >
                                     {ignored ? 'Unignore' : 'Ignore'}
-                                </span>
+                                </button>
                             </th>
                         </tr>
                     </thead>
 
                     {#if !ignored}
                         <tbody>
-                            {#each item.auctions as auction}
-                                {@const connectedRealm = $staticStore.data.connectedRealms[auction.connectedRealmId]}
+                            {#each auctions as auction}
+                                {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const ageInMinutes = Math.floor(
+                                    $timeStore.diff(
+                                        DateTime.fromSeconds(updated[auction.connectedRealmId] || 1000)
+                                    ).toMillis() / 1000 / 60
+                                )}
                                 <tr>
                                     <td
                                         class="realm text-overflow"
-                                        use:tippy={connectedRealm.realmNames.join(' / ')}
+                                        use:componentTooltip={{
+                                            component: RealmTooltip,
+                                            props: {
+                                                ageInMinutes,
+                                                connectedRealm,
+                                                price: auction.buyoutPrice,
+                                            },
+                                        }}
                                     >
-                                        <code>[{Region[connectedRealm.region]}]</code>
-                                        {connectedRealmName(auction.connectedRealmId)}
+                                        {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
+                                            {@const { icon: countryIcon, name: countryName } = euLocales[connectedRealm.locale]}
+                                            <IconifyIcon
+                                                dropShadow={true}
+                                                icon={countryIcon}
+                                                tooltip={`EU: ${countryName}`}
+                                            />
+                                        {:else}
+                                            <code>[{Region[connectedRealm.region]}]</code>
+                                        {/if}
+
+                                        <span
+                                            class:auction-age-1={ageInMinutes < 20}
+                                            class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}
+                                            class:auction-age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                            class:auction-age-4={ageInMinutes >= 60}
+                                        >
+                                            {connectedRealmName(auction.connectedRealmId)}
+                                        </span>
                                     </td>
-                                    {#if slug === 'missing-pets'}
+                                    {#if slug1 === 'missing-pets'}
                                         <td class="level quality{auction.petQuality}">
                                             {auction.petLevel}
                                         </td>
                                     {/if}
-                                    <td
-                                        class="price"
-                                        class:no-bid={auction.bidPrice === 0}
-                                    >
-                                        {#if auction.bidPrice > 0}
-                                            {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                                        {:else}
-                                            &lt;no bid&gt;
-                                        {/if}
-                                    </td>
+                                    {#if $auctionState.includeBids}
+                                        <td
+                                            class="price"
+                                            class:no-bid={auction.bidPrice === 0}
+                                        >
+                                            {#if auction.bidPrice > 0}
+                                                {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                            {:else}
+                                                &lt;no bid&gt;
+                                            {/if}
+                                        </td>
+                                    {/if}
                                     <td
                                         class="price"
                                         class:no-bid={auction.bidPrice > 0 && auction.buyoutPrice === 0}

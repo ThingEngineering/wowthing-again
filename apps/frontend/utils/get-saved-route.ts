@@ -8,8 +8,8 @@ export default function getSavedRoute(
     sidebarId = 'sub-sidebar',
     lastChild = false
 ): void {
-    const key = `route-${route}`
-    if (slug1 === null) {
+    const key = `route-${route.replace('/', '--')}`
+    if (!slug1) {
         const saved = localStorage.getItem(key)
         const subSidebar = document.getElementById(sidebarId)
         if (subSidebar !== null) {
@@ -18,8 +18,12 @@ export default function getSavedRoute(
                 return
             }
 
-            const first = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
-            replace(first.getAttribute('href').replace('#', ''))
+            const link = subSidebar.querySelector(lastChild ? 'a:last-child' : 'a')
+            if (!link) {
+                console.warn(`no valid links on #${sidebarId}`)
+                return
+            }
+            replace(link.getAttribute('href').replace('#', ''))
         }
         else {
             console.log("couldn't find sidebar??", sidebarId)

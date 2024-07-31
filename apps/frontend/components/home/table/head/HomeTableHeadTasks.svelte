@@ -1,17 +1,23 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
     import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
-    import { getActiveHoliday } from '@/utils/get-active-holiday'
-    import { tippyComponent } from '@/utils/tippy'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
+    import { homeState } from '@/stores/local-storage'
+    import { activeView } from '@/shared/stores/settings'
+    import { getActiveHolidays } from '@/utils/get-active-holidays'
+    import { componentTooltip } from '@/shared/utils/tooltips'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
-    let activeHoliday: string
-    $: {
-        const firstRegion = $userStore.data.allRegions?.[0] || 1
-        activeHoliday = getActiveHoliday($userStore.data, firstRegion)
+    export let sortKey: string
+
+    $: activeHolidays = getActiveHolidays($timeStore, $activeView, ...$userStore.allRegions)
+
+    function setSorting(column: string) {
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
     }
 </script>
 
@@ -27,33 +33,27 @@
     }
 </style>
 
-{#each $settings.layout.homeTasks as taskName}
+{#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
-    {#if task}
-        {#if !taskName.startsWith('holiday') || taskName === activeHoliday}
-            <td
-                use:tippyComponent={{
-                    component: Tooltip,
-                    props: {
-                        taskName,
-                    },
-                }}
-            >
-                <ParsedText text={taskMap[taskName].shortName} />
-            </td>
-        {/if}
-
-        {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
-            <td
-                use:tippyComponent={{
-                    component: Tooltip,
-                    props: {
-                        taskName: 'timewalking',
-                    },
-                }}
-            >
-                <ParsedText text={taskMap['timewalking'].shortName} />
-            </td>
-        {/if}
+    {#if task && (
+        activeHolidays[taskName] ||
+        $staticStore.holidayIds[taskName] === undefined
+    )}
+        {@const sortField = `task:${taskName}`}
+        <td
+            class="sortable"
+            class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+            data-task="{taskName}"
+            on:click={() => setSorting(sortField)}
+            on:keypress={() => setSorting(sortField)}
+            use:componentTooltip={{
+                component: Tooltip,
+                props: {
+                    taskName,
+                },
+            }}
+        >
+            <ParsedText text={taskMap[taskName].shortName} />
+        </td>
     {/if}
 {/each}

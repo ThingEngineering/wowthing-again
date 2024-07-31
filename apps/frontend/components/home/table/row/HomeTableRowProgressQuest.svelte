@@ -1,130 +1,26 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
-
-    import { Constants } from '@/data/constants'
-    import { covenantMap } from '@/data/covenant'
-    import { forcedReset, progressQuestMap } from '@/data/quests'
-    import { taskMap } from '@/data/tasks'
-    import { timeStore, userQuestStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
+    import { taskMap } from '@/data/tasks';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { activeView } from '@/shared/stores/settings'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { lazyStore } from '@/stores'
     import type { Character } from '@/types'
-    import type { UserQuestDataCharacterProgress } from '@/types/data'
 
     import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte'
 
     export let character: Character
     export let quest: string
+    export let title: string
 
-    let actualQuest: string
-    let highlight: boolean
-    let progressQuest: UserQuestDataCharacterProgress
+    $: charTask = $lazyStore.characters[character.id].tasks[`${$activeView.id}|${quest}`]
+
     let status: string
-    let text: string
-    let title: string
-    let valid: boolean
     $: {
-        highlight = false
-        valid = false
-        const task = taskMap[quest]
-        if (
-            character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
-            (
-                !task?.requiredQuestId ||
-                $userQuestStore.data.characters[character.id]?.quests?.has(task.requiredQuestId)
-            )
-        ) {
-            actualQuest = quest
-            valid = true
-
-            if (quest === 'slAnima') {
-                const covenant = covenantMap[character.shadowlands?.covenantId]
-                if (covenant) {
-                    actualQuest = `${covenant.slug.replace('-fae', 'Fae')}Anima`
-                }
-            }
-            else {
-                actualQuest = progressQuestMap[quest] || quest
-            }
-
-            // Check other characters for a quest title
-            for (const characterId in $userQuestStore.data.characters) {
-                const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[actualQuest]
-                if (characterQuest) {
-                    if (actualQuest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
-                        continue
-                    }
-
-                    title = characterQuest.name
-                    break
-                }
-            }
-
-            // Use the fallback title
-            if (title === undefined) {
-                title = taskMap[actualQuest]?.name
-            }
-
-            progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[actualQuest]
-            if (progressQuest) {
-                const expires: DateTime = DateTime.fromSeconds(progressQuest.expires)
-
-                //const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
-                if (forcedReset[actualQuest]) {
-                    // quest always resets even if incomplete
-                    if (expires < $timeStore) {
-                        progressQuest.status = 0
-                    }
-                }
-                else {
-                    // quest was completed and it's a new week
-                    if (progressQuest.status === 2 && expires < $timeStore) {
-                        progressQuest.status = 0
-                    }
-                }
-
-                if (progressQuest.status === 2) {
-                    status = 'success'
-                    text = 'Done'
-                }
-                else if (progressQuest.status === 1) {
-                    status = 'shrug'
-
-                    if (progressQuest.objectives?.length === 1) {
-                        const objective = progressQuest.objectives[0]
-                        if (objective.type === 'progressbar') {
-                            text = `${objective.have} %`
-                        }
-                        else if (actualQuest === 'weeklyHoliday' || actualQuest === 'weeklyPvp') {
-                            text = `${objective.have} / ${objective.need}`
-                        }
-                        else {
-                            text = `${Math.floor(objective.have / objective.need * 100)} %`
-                        }
-
-                        if (objective.have === objective.need) {
-                            status = `${status} shrug-cycle`
-                        }
-                    }
-                    else {
-                        let have = 0
-                        let need = 0
-                        for (const objective of (progressQuest.objectives || [])) {
-                            have += objective.have
-                            need += objective.need
-                        }
-
-                        text = `${Math.floor(have / need * 100)} %`
-
-                        if (have === need) {
-                            status = `${status} shrug-cycle`
-                        }
-                    }
-                }
-            }
-
-            if (status === undefined) {
-                status = 'fail'
-                text = 'Get!'
+        status = charTask?.status
+        if (charTask?.quest?.status === QuestStatus.InProgress && charTask.text !== '100 %') {
+            const task = taskMap[quest]
+            if (task.isCurrentFunc?.(character, charTask.quest.id) === false) {
+                status = 'warn'
             }
         }
     }
@@ -140,44 +36,30 @@
         &.center {
             text-align: center !important;
         }
-
-        &.status-shrug {
+        &.status-shrug,
+        &.status-warn {
             text-align: right;
         }
-
-        &.shrug-cycle {
-            animation: 2s linear 0s infinite alternate shrug-success;
-        }
-
-        &.highlight {
-            background: darken($colour-shrug, 35%);
-        }
-    }
-
-    @keyframes shrug-success {
-        0% {
-            color: $colour-fail;
-        }
-        100% {
-            color: $colour-shrug;
+        &.status-turn-in {
+            color: rgb(255, 0, 255);
         }
     }
 </style>
 
-{#if valid}
+{#if charTask}
     <td
         class="status-{status}"
-        class:center={actualQuest === 'weeklyHoliday' || progressQuest?.status !== 1}
-        class:highlight
-        use:tippyComponent={{
+        class:center={!charTask.text?.endsWith('%')}
+        data-quest="{quest}"
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,
-                progressQuest,
+                progressQuest: charTask.quest,
                 title,
             }
         }}
-    >{text}</td>
+    >{charTask.text}</td>
 {:else}
     <td>&nbsp;</td>
 {/if}

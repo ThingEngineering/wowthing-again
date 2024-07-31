@@ -1,16 +1,16 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
 
-    import { iconStrings } from '@/data/icons'
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
-    import { timeStore, userQuestStore, userStore } from '@/stores'
+    import { userQuestStore, userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-    import { tippyComponent } from '@/utils/tippy'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/dailies/TooltipDailies.svelte'
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
     export let character: Character
     export let expansion: number
@@ -26,7 +26,7 @@
         resets.push(resets[0].plus({ days: 1 }))
         resets.push(resets[0].plus({ days: 2 }))
 
-        const globalDailies = $userStore.data.globalDailies[`${expansion}-${character.realm.region}`]
+        const globalDailies = $userStore.globalDailies[`${expansion}-${character.realm.region}`]
         if (globalDailies) {
             for (let questIndex = 0; questIndex < globalDailies.questIds.length; questIndex++) {
                 const questId = globalDailies.questIds?.[questIndex]
@@ -44,7 +44,7 @@
             }
         }
 
-        const dailies = $userQuestStore.data.characters[character.id]?.dailies?.[expansion]
+        const dailies = $userQuestStore.characters[character.id]?.dailies?.[expansion]
         if (dailies) {
             for (let i = 0; i < dailies[0].length; i++) {
                 if (dailies[0][i]) {
@@ -75,7 +75,7 @@
 
 {#if character.level >= dailyQuestLevel[expansion]}
     <td
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 callings,
@@ -87,9 +87,9 @@
     >
         <div class="flex-wrapper">
             {#each callings as [, , status]}
-                <IconifyIcon
+                <YesNoIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
-                    icon={status ? iconStrings.yes : iconStrings.no}
+                    state={status}
                 />
             {/each}
         </div>

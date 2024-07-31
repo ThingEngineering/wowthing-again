@@ -2,19 +2,19 @@
     import find from 'lodash/find'
 
     import { reputationState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
-    import { staticStore } from '@/stores/static'
+    import { staticStore } from '@/shared/stores/static'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataReputationCategory } from '@/types/data/static'
+    import type { StaticDataReputationCategory, StaticDataReputationSet } from '@/shared/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Error from '@/components/common/Error.svelte'
     import TableHead from './ReputationsTableHead.svelte'
     import TableRow from './ReputationsTableRow.svelte'
-    import TableRowMajor from './ReputationsTableRowMajor.svelte'
+    import TableRowRenown from './ReputationsTableRowRenown.svelte'
 
     export let slug: string
 
@@ -23,7 +23,7 @@
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => string
     $: {
-        category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
+        category = find($staticStore.reputationSets, (r) => r?.slug === slug)
         if (!category) {
             break $
         }
@@ -57,8 +57,15 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
+    }
+
+
+    function isRenown(reputationSet: StaticDataReputationSet) {
+        return reputationSet.both
+            ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
+            : $staticStore.reputations[reputationSet.alliance?.id || reputationSet.horde.id].renownCurrencyId > 0
     }
 </script>
 
@@ -84,21 +91,25 @@
 
         <svelte:fragment slot="rowExtra" let:character>
             {#key `reputations|${slug}`}
-                {#each category.reputations as reputationSet, reputationSetIndex}
+                {#each category.reputations as reputationSets, reputationsIndex}
                     <td class="spacer"></td>
 
-                    {#each reputationSet as reputation, reputationIndex}
-                        {#if reputation.major}
-                        <TableRowMajor
-                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                            {character}
-                            {reputation}
-                        />
+                    {#each reputationSets as reputationSet, reputationSetsIndex}
+                        {#if isRenown(reputationSet)}
+                            <TableRowRenown
+                                reputation={reputationSet}
+                                {character}
+                                {slug}
+                                {reputationsIndex}
+                                {reputationSetsIndex}
+                            />
                         {:else}
                             <TableRow
-                                characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                                reputation={reputationSet}
                                 {character}
-                                {reputation}
+                                {slug}
+                                {reputationsIndex}
+                                {reputationSetsIndex}
                             />
                         {/if}
                     {/each}

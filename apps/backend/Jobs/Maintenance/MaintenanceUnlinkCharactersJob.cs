@@ -27,11 +27,11 @@ WHERE   character_id IN (
             WHERE   last_api_check < (CURRENT_TIMESTAMP - '3 months'::interval)
         )
     )
-    LIMIT 10000
+    LIMIT 1000
 )
 ";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();

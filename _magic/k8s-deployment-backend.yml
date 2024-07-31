@@ -21,7 +21,7 @@ spec:
           whenUnsatisfiable: DoNotSchedule
           labelSelector:
             matchLabels:
-              app: wowthing-again-web
+              app: wowthing-again-backend
 
       containers:
         - name: wowthing-again-backend
@@ -37,5 +37,5 @@ spec:
                 name: wowthing-again
           resources:
             requests:
-              memory: "256Mi"
-              cpu: "100m"
+              memory: "1024Mi"
+              cpu: "1000m"

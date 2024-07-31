@@ -2,15 +2,15 @@
     import { setContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { Region } from '@/enums'
     import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { activeView } from '@/shared/stores/settings'
     import type { Character } from '@/types'
 
     import CharacterLevel from './row/CharacterLevel.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import CharacterName from './row/CharacterName.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import RaceIcon from '@/shared/components/images/RaceIcon.svelte'
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte'
     import TableIcon from '@/components/common/TableIcon.svelte'
 
     export let character: Character
@@ -18,14 +18,11 @@
 
     setContext('character', character)
 
-    let accountEnabled: boolean
     let element: HTMLElement
     let intersected = false
-    $: {
-        accountEnabled =
-            !character.accountId ||
-            $userStore.data.accounts[character.accountId]?.enabled
-    }
+
+    $: accountEnabled = !character.accountId || $userStore.accounts[character.accountId]?.enabled
+    $: commonFields = $activeView.commonFields
 </script>
 
 <style lang="scss">
@@ -48,11 +45,6 @@
 
         text-align: right;
     }
-    .name {
-        @include cell-width($width-name, $maxWidth: $width-name-max);
-
-        white-space: nowrap;
-    }
     .realm {
         @include cell-width($width-realm, $maxWidth: $width-realm-max);
 
@@ -69,9 +61,9 @@
         data-id="{character.id}"
     >
         {#if intersected}
-            {#each $settings.layout.commonFields as field}
+            {#each commonFields as field}
                 {#if field === 'accountTag' && userStore.useAccountTags}
-                    <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
+                    <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td>
 
                 {:else if field === 'characterIconClass'}
                     <TableIcon padLeft="0.1rem" padRight="0px">
@@ -92,11 +84,7 @@
                     <CharacterLevel {character} />
 
                 {:else if field === 'characterName'}
-                    <td class="name">
-                        <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}">
-                            {character.name}
-                        </a>
-                    </td>
+                    <CharacterName {character} />
 
                 {:else if field === 'realmName'}
                     <td class="realm">{character.realm.name}</td>

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import { toNiceNumber } from '@/utils/to-nice';
+    import { toNiceNumber } from '@/utils/formatting'
     import type { Character, ReputationTier } from '@/types'
-    import type { StaticDataReputationTier } from '@/types/data/static'
+    import type { StaticDataReputationTier } from '@/shared/stores/static/types'
 
     export let character: Character
     export let reputationId: number
@@ -11,8 +11,8 @@
     let tier: ReputationTier
     $: {
         const have = character.reputations?.[reputationId] ?? 0
-        const reputation = $staticStore.data.reputations[reputationId]
-        const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[reputation.tierId] || $staticStore.data.reputationTiers[0]
+        const reputation = $staticStore.reputations[reputationId]
+        const tiers: StaticDataReputationTier = $staticStore.reputationTiers[reputation.tierId] || $staticStore.reputationTiers[0]
         tier = findReputationTier(tiers, have)
     }
 </script>

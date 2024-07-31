@@ -119,11 +119,11 @@ public class UriService
 
         if (_httpContextAccessor != null)
         {
-
             return _linkGenerator.GetUriByAction(
                 _httpContextAccessor.HttpContext,
                 controller: "User",
                 action: "Index",
+                host: new HostString(_webOptions.Hostname),
                 values: new { username }
             );
         }

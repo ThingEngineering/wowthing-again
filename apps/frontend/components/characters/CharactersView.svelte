@@ -1,15 +1,17 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import type { SvelteComponent } from 'svelte'
+    import type { ComponentType } from 'svelte'
     import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
     import { userStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
-    import { Gender, Region } from '@/enums'
+    import { Gender } from '@/enums/gender'
+    import { Region } from '@/enums/region'
     import { splitOnce } from '@/utils/split-once'
     import type { Character, MultiSlugParams } from '@/types'
 
+    import Items from './items/CharactersItems.svelte'
     import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
     import Professions from './professions/CharacterProfessions.svelte'
     import Shadowlands from './shadowlands/CharactersShadowlands.svelte'
@@ -26,7 +28,7 @@
             const [region, realm] = splitOnce(params.slug1, '-')
 
             character = find(
-                $userStore.data.characters,
+                $userStore.characters,
                 (char: Character) => (
                     Region[char.realm.region].toLowerCase() === region &&
                     char.realm.slug === realm &&
@@ -45,7 +47,8 @@
         }
     }
 
-    const componentMap: Record<string, typeof SvelteComponent> = {
+    const componentMap: Record<string, ComponentType> = {
+        items: Items,
         paperdoll: Paperdoll,
         professions: Professions,
         shadowlands: Shadowlands,
@@ -56,7 +59,7 @@
 <style lang="scss">
     .thing-container {
         min-width: 1100px;
-        padding: 1rem;
+        position: relative;
         width: 1100px;
     }
 
@@ -74,12 +77,10 @@
     }
     nav {
         background: $highlight-background;
-        border-radius: 0;
+        border-bottom: 1px solid $border-color;
+        border-top: 1px solid $border-color;
         display: flex;
-        margin-bottom: 1rem;
-        margin-left: calc(-1rem + -1px);
         padding: 0;
-        width: calc(100% + 2rem + 2px);
 
         a {
             border-right: 1px solid $border-color;
@@ -92,42 +93,54 @@
             }
         }
     }
+    .character-info {
+        padding: 0.5rem;
+
+        p {
+            margin: 0;
+        }
+    }
 </style>
 
 {#if character}
     <div class="thing-container border">
-        <h2>
-            {character.name}
+        <div class="character-info">
+            <h2>
+                {character.name}
 
-            {#if character.guildId}
-                <span class="guild-name">&lt;{$userStore.data.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
-            {/if}
+                {#if character.guildId}
+                    <span class="guild-name">&lt;{$userStore.guildMap[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
+                {/if}
 
-            <span>{Region[character.realm.region]}-{character.realm.name}</span>
-        </h2>
+                <span>{Region[character.realm.region]}-{character.realm.name}</span>
+            </h2>
 
-        <p>
-            Level {character.level}
-            {Gender[character.gender]}
-            {character.raceName}
-            {character.specializationName}
-            {character.className}
-        </p>
+            <p>
+                Level {character.level}
+                {Gender[character.gender]}
+                {character.raceName}
+                {character.specializationName}
+                {character.className}
+            </p>
+        </div>
 
         {#key `${params.slug1}--${params.slug2}`}
-            <nav class="border">
+            <nav>
                 <a
                     href="#{baseUrl}/paperdoll"
                     use:active
                 >Paperdoll</a>
+                <a href="#{baseUrl}/items"
+                    use:active
+                >Items</a>
+                <!-- <a
+                    href="#{baseUrl}/specializations"
+                    use:active
+                >Specializations</a> -->
                 <a
                     href="#{baseUrl}/professions"
                     use:active={`${baseUrl}/professions/*`}
                 >Professions</a>
-                <a
-                    href="#{baseUrl}/specializations"
-                    use:active
-                >Specializations</a>
                 <a
                     href="#{baseUrl}/shadowlands"
                     use:active={`${baseUrl}/shadowlands/*`}

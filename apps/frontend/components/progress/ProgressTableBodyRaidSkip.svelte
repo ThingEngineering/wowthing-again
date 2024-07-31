@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { userQuestStore } from '@/stores'
-    import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte'
 
     export let character: Character
@@ -17,7 +17,7 @@
         progresses = []
         for (const difficulty of ['mythic', 'heroic', 'normal']) {
             const questKey = group.data[difficulty][0].name
-            const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[questKey]
+            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey]
 
             let cls: string
             if (progresses.length > 0 && progresses[progresses.length - 1].completed) {
@@ -67,7 +67,7 @@
 <td>
     <div
         class="flex-wrapper"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,
@@ -80,11 +80,11 @@
             <div class="{progress.cls}">
                 {#if progress.completed}
                     <IconifyIcon
-                        icon={iconStrings.yes}
+                        icon={uiIcons.yes}
                     />
                 {:else if progress.progressQuest === undefined}
                     <IconifyIcon
-                        icon={iconStrings.no}
+                        icon={uiIcons.no}
                     />
                 {:else}
                     {progress.progressQuest.objectives?.[0]?.have ?? 0}

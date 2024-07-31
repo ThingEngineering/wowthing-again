@@ -1,8 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
 using System.Web;
 using Polly.RateLimit;
 using Serilog;
@@ -15,7 +13,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Query;
-using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
@@ -38,6 +35,10 @@ public abstract class JobBase : IJob, IDisposable
     internal MemoryCacheService MemoryCacheService;
     internal StateService StateService;
 
+    internal long UserId;
+    internal int CharacterId;
+    internal IDisposable LogProperty;
+
     private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
     private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
@@ -54,58 +55,71 @@ public abstract class JobBase : IJob, IDisposable
     internal WowDbContext Context => _context ??= ContextFactory.CreateDbContext();
 
     #region IJob
-    public abstract Task Run(params string[] data);
+    public abstract Task Run(string[] data);
+
+    // This runs in the WorkerService context, logging context properties set here will persist into the exception handler
+    public virtual void Setup(string[] data)
+    { }
     #endregion
 
-    protected IDisposable AuctionLog(WowRealm realm)
+    protected void AuctionLog(WowRegion region, int connectedRealmId)
     {
-        var jobName = this.GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{jobName} {region.ToString()} {connectedRealmId}");
     }
 
-    protected IDisposable CharacterLog(SchedulerCharacterQuery query)
+    protected void CharacterLog(SchedulerCharacterQuery query)
     {
-        var jobName = this.GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
     }
 
-    protected IDisposable UserLog(string userId)
+    protected void UserLog(string userId)
     {
-        var jobName = this.GetType().Name[0..^3];
-        return LogContext.PushProperty("Task", $"{userId} {jobName}");
+        string jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{userId} {jobName}");
     }
 
-    protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
+    protected void UserLog(long userId) => UserLog(userId.ToString());
+
+    protected void QuestLog(int questId)
+    {
+        var jobName = GetType().Name[0..^3];
+        LogProperty = LogContext.PushProperty("Task", $"{jobName} {questId}");
+    }
 
     protected SchedulerCharacterQuery DeserializeCharacterQuery(string data)
     {
-        var query = System.Text.Json.JsonSerializer.Deserialize<SchedulerCharacterQuery>(data, JsonSerializerOptions);
+        var query = JsonSerializer.Deserialize<SchedulerCharacterQuery>(data, JsonSerializerOptions);
         if (query == null)
         {
             throw new InvalidJsonException(data);
         }
 
+        UserId = query.UserId;
+        CharacterId = query.CharacterId;
+
         return query;
     }
 
-    protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
+    protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path, string locale = null)
     {
         var builder = new UriBuilder(string.Format(ApiUrl, RegionToString[region], path));
         var query = HttpUtility.ParseQueryString(builder.Query);
-        query["locale"] = RegionToLocale[region];
+        query["locale"] = !string.IsNullOrEmpty(locale) ? locale : RegionToLocale[region];
         query["namespace"] = $"{ NamespaceToString[lamespace] }-{ RegionToString[region] }";
-        builder.Query = query.ToString();
+        builder.Query = query.ToString()!;
         return builder.Uri;
     }
 
     protected static Uri GenerateUri(SchedulerCharacterQuery query, string path, params string[] formatExtra)
     {
-        var formatParams = new[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
-        var filledPath = string.Format(path, formatParams);
+        object[] formatParams = new object[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
+        string filledPath = string.Format(path, formatParams);
         return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
     }
 
-    protected async Task<JobHttpResult<T>> GetJson<T>(
+    protected async Task<JobHttpResult<byte[]>> GetUriAsBytesAsync(
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
@@ -120,29 +134,54 @@ public abstract class JobBase : IJob, IDisposable
             timerOutput = true;
         }
 
-        var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
-        if (result.NotModified)
-        {
-            return new JobHttpResult<T> { NotModified = true };
-        }
-
-        //var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
-        var obj = System.Text.Json.JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(result.Data), JsonSerializerOptions);
-        timer.AddPoint("JSON");
+        var result = await MakeHttpRequest(ReadBytesAsync, uri, useAuthorization, useLastModified, lastModified, timer);
 
         if (timerOutput)
         {
             Logger.Debug("{0}", timer.ToString());
         }
 
-        return new JobHttpResult<T>
-        {
-            Data = obj,
-            LastModified = result.LastModified,
-        };
+        return result;
     }
 
-    protected async Task<JobHttpResult<byte[]>> GetBytes(
+    private async Task<byte[]> ReadBytesAsync(HttpResponseMessage response)
+    {
+        return await response.Content.ReadAsByteArrayAsync(CancellationToken);
+    }
+
+    protected async Task<JobHttpResult<T>> GetUriAsJsonAsync<T>(
+        Uri uri,
+        bool useAuthorization = true,
+        bool useLastModified = true,
+        DateTime? lastModified = null,
+        JankTimer timer = null
+    )
+    {
+        bool timerOutput = false;
+        if (timer == null)
+        {
+            timer = new JankTimer();
+            timerOutput = true;
+        }
+
+        var result = await MakeHttpRequest(ParseJsonAsync<T>, uri, useAuthorization, useLastModified, lastModified, timer);
+
+        if (timerOutput)
+        {
+            Logger.Debug("{0}", timer.ToString());
+        }
+
+        return result;
+    }
+
+    private async Task<T> ParseJsonAsync<T>(HttpResponseMessage response)
+    {
+        var contentStream = await response.Content.ReadAsStreamAsync(CancellationToken);
+        return await JsonSerializer.DeserializeAsync<T>(contentStream, JsonSerializerOptions, CancellationToken);
+    }
+
+    private async Task<JobHttpResult<T>> MakeHttpRequest<T>(
+        Func<HttpResponseMessage, Task<T>> resultFunc,
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
@@ -187,7 +226,7 @@ public abstract class JobBase : IJob, IDisposable
 
             try
             {
-                response = await Http.SendAsync(request, CancellationToken);
+                response = await Http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, CancellationToken);
                 break;
             }
             catch (RateLimitRejectedException ex)
@@ -201,16 +240,14 @@ public abstract class JobBase : IJob, IDisposable
                 {
                     throw ex.InnerException;
                 }
-                else
-                {
-                    throw new HttpRequestException("Operation canceled??");
-                }
+
+                throw new HttpRequestException("Operation canceled??");
             }
         }
 
         if (response.StatusCode == HttpStatusCode.NotModified)
         {
-            return new JobHttpResult<byte[]> { NotModified = true };
+            return new JobHttpResult<T> { NotModified = true };
         }
 
         if (!response.IsSuccessStatusCode)
@@ -219,8 +256,6 @@ public abstract class JobBase : IJob, IDisposable
             throw new HttpRequestException(((int)response.StatusCode).ToString());
         }
 
-        var bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
-
         timer.AddPoint("API");
 
         if (response.Content.Headers.LastModified.HasValue)
@@ -228,9 +263,11 @@ public abstract class JobBase : IJob, IDisposable
             lastModified = response.Content.Headers.LastModified.Value.UtcDateTime;
             if (useLastModified && !useProvidedLastModified)
             {
-                await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"));
+                await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"), flags: CommandFlags.FireAndForget);
             }
         }
+
+        var result = await resultFunc(response);
 
         response.Content.Dispose();
 
@@ -239,9 +276,9 @@ public abstract class JobBase : IJob, IDisposable
             Logger.Debug("{0}", timer.ToString());
         }
 
-        return new JobHttpResult<byte[]>
+        return new JobHttpResult<T>
         {
-            Data = bytes,
+            Data = result,
             LastModified = lastModified ?? MiscConstants.DefaultDateTime,
         };
     }
@@ -256,5 +293,28 @@ public abstract class JobBase : IJob, IDisposable
         Http?.Dispose();
         //Redis?.Dispose();
         _context?.Dispose();
+        LogProperty?.Dispose();
+
+        GC.SuppressFinalize(this);
+    }
+
+    public virtual Task Finally()
+    {
+        return Task.CompletedTask;
+    }
+
+    protected async Task DecrementCharacterJobs()
+    {
+        var db = Redis.GetDatabase();
+        string characterKey = string.Format(RedisKeys.CharacterJobCounter, CharacterId);
+        long value = await db.StringDecrementAsync(characterKey);
+
+        if (value <= 0)
+        {
+            Logger.Debug("Character {id} job count is {value}", CharacterId, value);
+
+            await db.KeyDeleteAsync(characterKey, CommandFlags.FireAndForget);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, UserId);
+        }
     }
 }

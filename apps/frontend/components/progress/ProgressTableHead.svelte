@@ -1,13 +1,14 @@
 <script lang="ts">
+    import { covenantNameMap } from '@/data/covenant'
     import { progressState } from '@/stores/local-storage'
-    import tippy from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
-    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
+    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { covenantNameMap } from '@/data/covenant';
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let group: ManualDataProgressGroup
     export let slugKey: string
@@ -28,6 +29,17 @@ import { covenantNameMap } from '@/data/covenant';
         const firstPart = group.name.startsWith('Night Fae') ? 'Night Fae' : group.name.split(' ')[0]
         if (covenantNameMap[firstPart]) {
             covenantName = firstPart
+        }
+    }
+
+    let tooltipText: string
+    $: {
+        tooltipText = group.name;
+        if (group.lookup === 'faction') {
+            const parts = group.name.split('|');
+            if (parts.length === 2) {
+                tooltipText = `:alliance: ${parts[0]}<br>:horde: ${parts[1]}`
+            }
         }
     }
 </script>
@@ -64,7 +76,12 @@ import { covenantNameMap } from '@/data/covenant';
 
 <th
     on:click={onClick}
-    use:tippy={group.name}
+    use:componentTooltip={{
+        component: Tooltip,
+        props: {
+            content: tooltipText,
+        },
+    }}
 >
     <div class="split-icon-{icons.length === 2 ? 'yes' : 'no'}">
         {#if icons.length === 2}

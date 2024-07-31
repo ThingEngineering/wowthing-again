@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { toNiceDuration } from '@/utils/to-nice'
+    import { toNiceDuration } from '@/utils/formatting'
 
     export let playedTotal: number
 
@@ -11,8 +11,9 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-played);
+        @include cell-width($width-played, $maxWidth: $width-played-max);
 
+        border-left: 1px solid $border-color;
         text-align: right;
     }
     code {

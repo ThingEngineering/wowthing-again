@@ -2,13 +2,12 @@
     import find from 'lodash/find'
 
     import { expansionMap } from '@/data/expansion'
-    import { appearanceStore } from '@/stores'
-    import { appearanceState } from '@/stores/local-storage'
+    import { lazyStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
+    import Options from './AppearancesOptions.svelte'
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import Set from './AppearancesSet.svelte'
 
     export let params: MultiSlugParams
@@ -24,7 +23,7 @@
             }
             else {
                 const element = document.getElementById('sub-sidebar')
-                    ?.querySelector(`a[href="#/appearances/${params.slug1}/${params.slug2}"] span`)
+                    ?.querySelector(`a[href$="/appearances/${params.slug1}/${params.slug2}"] span`)
                 if (element) {
                     name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${element.innerHTML}`
                 }
@@ -32,9 +31,9 @@
                     name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${params.slug2[0].toUpperCase()}${params.slug2.slice(1)}`
                 }
             }
-            dataSlug = `${params.slug1}--${params.slug2}`
 
-            sets = $appearanceStore.data.appearances[dataSlug]
+            dataSlug = `${params.slug1}--${params.slug2}`
+            sets = $lazyStore.appearances.appearances[dataSlug]
         }
     }
 </script>
@@ -46,35 +45,12 @@
 </style>
 
 <div class="wrapper">
-    <div class="options-container">
-        <button>
-            <Checkbox
-                name="highlight_missing"
-                bind:value={$appearanceState.highlightMissing}
-            >Highlight missing</Checkbox>
-        </button>
-
-        <span>Show:</span>
-
-        <button>
-            <Checkbox
-                name="show_collected"
-                bind:value={$appearanceState.showCollected}
-            >Collected</Checkbox>
-        </button>
-
-        <button>
-            <Checkbox
-                name="show_uncollected"
-                bind:value={$appearanceState.showUncollected}
-            >Missing</Checkbox>
-        </button>
-    </div>
+    <Options />
 
     {#if name && sets}
         <div class="collection thing-container">
             <SectionTitle
-                count={$appearanceStore.data.stats[dataSlug]}
+                count={$lazyStore.appearances.stats[dataSlug]}
                 title={name}
             />
             

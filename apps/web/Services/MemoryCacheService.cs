@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
@@ -32,6 +33,39 @@ public class MemoryCacheService
         _userManager = userManager;
     }
 
+    public async Task<Dictionary<int, long>> GetAuctionHouseUpdatedTimes()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.AuctionHouseUpdatedTimes,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+
+                string[] tableNames = await _context.Database
+                    .SqlQuery<string>($@"
+SELECT  pgc.relname
+FROM    pg_catalog.pg_inherits pgi
+INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
+WHERE   pgi.inhparent = 'wow_auction'::regclass
+").ToArrayAsync();
+
+                var ret = new Dictionary<int, long>();
+                foreach (string tableName in tableNames)
+                {
+                    string[] nameParts = tableName.Split('_');
+                    int realmId = int.Parse(nameParts[2]);
+                    long timestamp = ((DateTimeOffset)(DateTime.ParseExact(
+                            nameParts[3],
+                            "yyyyMMddHHmmss",
+                            CultureInfo.InvariantCulture
+                        ))).ToUnixTimeSeconds();
+                    ret[realmId] = timestamp;
+                }
+
+                return ret;
+            });
+    }
+
     public async Task<Dictionary<int, BackgroundImage>> GetBackgroundImages()
     {
         return await _memoryCache.GetOrCreateAsync(
@@ -41,6 +75,7 @@ public class MemoryCacheService
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 return _context.BackgroundImage
+                    .AsNoTracking()
                     .Where(bi => bi.Role == null)
                     .ToDictionaryAsync(bi => bi.Id);
             }
@@ -51,16 +86,16 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.Periods,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-                var currentPeriods = _context.WowPeriod
-                    .AsEnumerable()
+                var currentPeriods = await _context.WowPeriod
+                    .AsNoTracking()
                     .GroupBy(p => p.Region)
-                    .ToDictionary(
-                        grp => (int)grp.Key,
-                        grp => grp
+                    .ToDictionaryAsync(
+                        group => (int)group.Key,
+                        group => group
                             .OrderByDescending(p => p.Starts)
                             .First()
                     );
@@ -76,7 +111,70 @@ public class MemoryCacheService
                     }
                 }
 
-                return Task.FromResult(currentPeriods);
+                return currentPeriods;
+            }
+        );
+    }
+
+    public async Task<(Dictionary<short, WowItemClass>, Dictionary<short, WowItemSubclass>)> GetItemClasses()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemClasses,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var itemClassMap = await _context.WowItemClass
+                    .AsNoTracking()
+                    .ToDictionaryAsync(wic => wic.Id);
+                var itemSubclassMap = await _context.WowItemSubclass
+                    .AsNoTracking()
+                    .ToDictionaryAsync(wis => wis.Id);
+
+                return (itemClassMap, itemSubclassMap);
+            }
+        );
+    }
+
+    public async Task<Dictionary<int, int>> GetItemIdToPetId()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.PetIds,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                return await _context.WowPet
+                    .AsNoTracking()
+                    .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
+                    .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
+            }
+        );
+    }
+
+    public async Task<Dictionary<int, Dictionary<int, int[]>>> GetProfessionRecipeItems()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ProfessionRecipeItems,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var recipeItems = await _context.WowProfessionRecipeItem
+                    .AsNoTracking()
+                    .ToArrayAsync();
+
+                return recipeItems
+                    .GroupBy(item => item.SkillLineId)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .GroupBy(item => item.SkillLineAbilityId)
+                            .ToDictionary(
+                                group2 => group2.Key,
+                                group2 => group2.Select(item => item.ItemId).ToArray()
+                            )
+                    );
             }
         );
     }
@@ -85,7 +183,7 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.UserViewHashes,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
@@ -93,21 +191,27 @@ public class MemoryCacheService
 
                 var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
                 var appearanceHash = db.StringGetAsync("cache:appearance:hash");
+                var auctionHash = db.StringGetAsync("cache:auction-enUS:hash");
+                var dbHash = db.StringGetAsync("cache:db-enUS:hash");
                 var itemHash = db.StringGetAsync("cache:item-enUS:hash");
                 var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
                 var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
                 var staticHash = db.StringGetAsync("cache:static-enUS:hash");
-                Task.WaitAll(achievementHash, appearanceHash, itemHash, journalHash, manualHash, staticHash);
 
-                return Task.FromResult(new Dictionary<string, string>
+                await Task.WhenAll(achievementHash, appearanceHash, auctionHash, dbHash, itemHash, journalHash,
+                    manualHash, staticHash);
+
+                return new Dictionary<string, string>
                 {
                     { "Achievement", achievementHash.Result },
                     { "Appearance", appearanceHash.Result },
+                    { "Auction", auctionHash.Result },
+                    { "Db", dbHash.Result },
                     { "Item", itemHash.Result },
                     { "Journal", journalHash.Result },
                     { "Manual", manualHash.Result },
                     { "Static", staticHash.Result },
-                });
+                };
             }
         );
     }
@@ -121,10 +225,10 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()),
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
-                return _userManager.FindByNameAsync(username);
+                return await _userManager.FindByNameAsync(username);
             }
         );
     }
@@ -133,10 +237,10 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             string.Format(MemoryCacheKeys.UserModified, apiResult.User.NormalizedUserName),
-            cacheEntry =>
+            async cacheEntry =>
             {
-                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
-                return GetUserModifiedJsonTask(apiResult);
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
+                return await GetUserModifiedJsonTask(apiResult);
             }
         );
     }
@@ -148,15 +252,17 @@ public class MemoryCacheService
             ["achievements"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, null, apiResult),
             ["general"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, null, apiResult),
             ["quests"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, null, apiResult),
-            ["transmog"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, null, apiResult),
+            ["transmog"] = _context.UserCache
+                .Where(uc => uc.UserId == apiResult.User.Id)
+                .Select(uc => new Tuple<bool, DateTimeOffset>(true, uc.TransmogUpdated).ToValueTuple())
+                .FirstOrDefaultAsync(),
         };
         await Task.WhenAll(wait.Values.ToArray());
 
         var times = wait.ToDictionary(
             task => task.Key,
-            task => task.Value.Result.Item2.ToUnixTimeSeconds()
+            task => Math.Max(0, task.Value.Result.Item2.ToUnixTimeSeconds())
         );
-        string json = System.Text.Json.JsonSerializer.Serialize(times);
-        return json;
+        return JsonSerializer.Serialize(times);
     }
 }

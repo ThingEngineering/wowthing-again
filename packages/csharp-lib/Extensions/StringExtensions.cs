@@ -32,7 +32,9 @@ public static class StringExtensions
             return null;
         }
 
-        return IconStringRegex.Replace(s, "").ToSlug();
+        return IconStringRegex.Replace(s, "")
+            .Replace('-', ' ')
+            .ToSlug();
     }
 
     private static readonly string[] Splits = new[] { "\r\n", "\r", "\n" };

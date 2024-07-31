@@ -1,8 +1,8 @@
 <script lang="ts">
     import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 </script>
 
 <style lang="scss">
@@ -24,8 +24,8 @@
     }
 </style>
 
-<td class="{$settingsData.layout.covenantColumn}">
-    {#if $settingsData.layout.covenantColumn === 'current'}
+<td class="{$settingsStore.layout.covenantColumn}">
+    {#if $settingsStore.layout.covenantColumn === 'current'}
         Cov.
     {:else}
         <div class="flex-wrapper">

@@ -4,15 +4,19 @@ using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterAddonQuests
+public class PlayerCharacterAddonQuests(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     public DateTime CallingsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime CompletedQuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime QuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime WorldQuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
+    public List<int> CompletedQuests { get; set; }
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
 

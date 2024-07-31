@@ -13,7 +13,7 @@ export enum WeaponSubclass {
     //11: bear claws?
     //12: cat claws?
     Fist = 13,
-    //14: misc?
+    Miscellaneous = 14,
     Dagger = 15,
     Thrown = 16,
     //17: spear?
@@ -24,3 +24,29 @@ export enum WeaponSubclass {
     HeldInOffHand = 30,
     Shield = 31,
 }
+
+export const offHandWeaponSubclasses: Set<WeaponSubclass> = new Set<WeaponSubclass>([
+    WeaponSubclass.HeldInOffHand,
+    WeaponSubclass.Shield,
+]);
+
+export const oneHandWeaponSubclasses: Set<WeaponSubclass> = new Set<WeaponSubclass>([
+    WeaponSubclass.Dagger,
+    WeaponSubclass.Fist,
+    WeaponSubclass.OneHandedAxe,
+    WeaponSubclass.OneHandedMace,
+    WeaponSubclass.OneHandedSword,
+    WeaponSubclass.Wand,
+    WeaponSubclass.Warglaive,
+]);
+
+export const twoHandWeaponSubclasses: Set<WeaponSubclass> = new Set<WeaponSubclass>([
+    WeaponSubclass.Bow,
+    WeaponSubclass.Crossbow,
+    WeaponSubclass.Gun,
+    WeaponSubclass.Polearm,
+    WeaponSubclass.Stave,
+    WeaponSubclass.TwoHandedAxe,
+    WeaponSubclass.TwoHandedMace,
+    WeaponSubclass.TwoHandedSword,
+]);

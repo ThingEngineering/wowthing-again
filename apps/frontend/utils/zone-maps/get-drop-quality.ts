@@ -1,12 +1,12 @@
 import { get } from 'svelte/store'
 
 import { itemStore } from '@/stores'
-import { RewardType } from '@/enums'
+import { RewardType } from '@/enums/reward-type'
 import type { ManualDataZoneMapDrop } from '@/types/data/manual'
 
 
 export function getDropQuality(drop: ManualDataZoneMapDrop): number {
-    const itemData = get(itemStore).data
+    const itemData = get(itemStore)
     
     if (drop.type === RewardType.Item ||
         drop.type === RewardType.Toy ||

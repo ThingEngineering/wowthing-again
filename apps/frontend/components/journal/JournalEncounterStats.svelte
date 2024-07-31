@@ -1,34 +1,36 @@
 <script lang="ts">
-    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { farmTypeIcons } from '@/data/icons'
+    import sortBy from 'lodash/sortBy'
 
-    import { journalStore, userAchievementStore } from '@/stores'
-    import { FarmType } from '@/enums'
-    import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { classOrderMap } from '@/data/character-class'
+    import { difficultyMap, journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty'
+    import { PlayableClass, playableClasses } from '@/enums/playable-class'
+    import { lazyStore, userAchievementStore } from '@/stores'
+    import { UserCount } from '@/types'
+    import { leftPad } from '@/utils/formatting'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { JournalDataEncounter } from '@/types/data'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte'
 
     export let encounter: JournalDataEncounter = undefined
     export let statsKey: string
 
+    let classCounts: [number, keyof typeof PlayableClass][]
     let difficulties: [number, number, number, number][]
     $: {
         difficulties = []
         for (const difficulty of journalDifficultyOrder) {
-
             const difficultyKey = `${statsKey}--${difficulty}`
-            const difficultyStats = $journalStore.data.stats[difficultyKey]
+            const difficultyStats = $lazyStore.journal.stats[difficultyKey]
             if (difficultyStats) {
                 let kills = -1
 
                 for (const difficultyId of (difficultyUgh[difficulty] || [difficulty])) {
                     const statisticIds = encounter?.statistics?.[difficultyId] ?? []
                     if (statisticIds.length > 0) {
-                        console.log(statisticIds)
                         const newKills = statisticIds.reduce(
-                            (a, b) => a + ($userAchievementStore.data.statistics?.[b] || [])
+                            (a, b) => a + ($userAchievementStore.statistics?.[b] || [])
                                 .reduce((c, d) => c + d[1], 0)
                         , 0)
                         kills = kills === -1 ? newKills : kills + newKills
@@ -43,6 +45,58 @@
                 ])
             }
         }
+
+        // Fix weird old instances
+        const normalDifficulties = difficulties.filter((d) => d[0] === 3 || d[0] === 4)
+        const heroicDifficulties = difficulties.filter((d) => d[0] === 5 || d[0] === 6)
+        if (
+            normalDifficulties.length === 2 &&
+            normalDifficulties[0][1] === normalDifficulties[1][1] &&
+            normalDifficulties[0][2] === normalDifficulties[1][2] &&
+            heroicDifficulties.length === 2 &&
+            heroicDifficulties[0][1] === heroicDifficulties[1][1] &&
+            heroicDifficulties[0][2] === heroicDifficulties[1][2]
+        ) {
+            const newNormal = difficulties.filter((d) => d[0] === 14)[0]
+            if (newNormal) {
+                difficulties = difficulties.filter((d) => d[0] !== 3 && d[0] !== 4)
+                newNormal[1] += normalDifficulties[0][1]
+                newNormal[2] += normalDifficulties[0][2]
+            }
+            else {
+                difficulties = difficulties.filter((d) => d[0] !== 4)
+                normalDifficulties[0][0] = 14
+            }
+
+            const newHeroic = difficulties.filter((d) => d[0] === 15)[0]
+            if (newHeroic) {
+                difficulties = difficulties.filter((d) => d[0] !== 5 && d[0] !== 6)
+                newHeroic[1] += heroicDifficulties[0][1]
+                newHeroic[2] += heroicDifficulties[0][2]
+            }
+            else {
+                difficulties = difficulties.filter((d) => d[0] !== 6)
+                heroicDifficulties[0][0] = 15
+            }
+
+            difficulties.sort((a, b) => journalDifficultyMap[a[0]] - journalDifficultyMap[b[0]])
+        }
+
+        classCounts = []
+        for (const [className,] of playableClasses) {
+            const classKey = `${statsKey}--class:${className}`
+            const classStats = $lazyStore.journal.stats[classKey]
+            if (classStats) {
+                classCounts.push([classStats.total, className as keyof typeof PlayableClass])
+            }
+        }
+
+        classCounts = sortBy(
+            classCounts,
+            ([count, className]) => [
+                leftPad(1000 - count, 3, '0'),
+                leftPad(classOrderMap[PlayableClass[className]], 2, '0')
+            ])
     }
 
     const difficultyUgh: Record<number, number[]> = {
@@ -58,12 +112,26 @@
         //margin-left: auto;
         margin-left: 1rem;
     }
+    .classes {
+        --image-border-width: 1px;
+        --image-margin-top: 1px;
+
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-left: auto;
+    }
     .stats {
+        align-items: center;
         display: flex;
         white-space: nowrap;
 
         + .stats {
             margin-left: 0.4rem;
+        }
+        :global(img) {
+            margin-right: 0.2rem;
         }
     }
     .difficulty {
@@ -74,13 +142,11 @@
         margin: -1px 0;
         padding: 0 0.3rem;
     }
-    .counts {
-        font-size: 0.95rem;
-        margin-left: 0.3rem;
-    }
     .kills {
-        font-size: 0.95rem;
+        color: #aaa;
+        font-size: 90%;
         margin-left: 0.3rem;
+        word-spacing: -0.3ch;
     }
 </style>
 
@@ -90,24 +156,33 @@
             <div
                 class="stats"
                 data-id="{difficulty}"
-                use:tippy={difficultyMap[difficulty].name}
+                use:basicTooltip={`${difficultyMap[difficulty].name}${kills >= 0 ? ` - ${kills} kill(s)` : ''}`}
             >
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}
                 </span>
-                <span class="counts {getPercentClass(have / total * 100)}">
-                    <em>{have}</em> / <em>{total}</em>
-                </span>
+                <CollectibleCount counts={new UserCount(have, total)} />
                 
                 {#if kills >= 0}
                     <span class="kills">
-                        <IconifyIcon
-                            icon={farmTypeIcons[FarmType.Kill]}
-                            scale='0.81'
-                        />
-                        {kills.toLocaleString()}
+                        ( {kills.toLocaleString()} )
                     </span>
                 {/if}
+            </div>
+        {/each}
+    </div>
+{/if}
+
+{#if classCounts}
+    <div class="classes">
+        {#each classCounts as [count, className]}
+            <div class="stats">
+                <ClassIcon
+                    border={1}
+                    classId={PlayableClass[className]}
+                    size={16}
+                />
+                {count}
             </div>
         {/each}
     </div>

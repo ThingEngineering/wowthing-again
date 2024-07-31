@@ -3,7 +3,7 @@
 
     import type { Character, MultiSlugParams } from '@/types'
     import type { ProfessionData } from '@/utils/get-character-professions'
-    import type { StaticDataProfession } from '@/types/data/static'
+    import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     export let character: Character
     export let params: MultiSlugParams
@@ -18,10 +18,10 @@
 <style lang="scss">
     a {
         padding: 0.25rem 1rem;
-    }
-    code {
-        background: inherit;
-        word-spacing: -0.5ch;
+
+        &:not(.active) {
+            background: $highlight-background;
+        }
     }
 </style>
 
@@ -33,7 +33,7 @@
             use:active={`${url}/*`}
         >
             {getName(staticProfession)}
-            <code>{characterProfession.currentSkill} / {characterProfession.maxSkill}</code>
+            <!-- <code>{characterProfession.currentSkill} / {characterProfession.maxSkill}</code> -->
         </a>
     {/if}
 {/each}

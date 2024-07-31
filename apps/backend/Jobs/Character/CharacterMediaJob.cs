@@ -1,8 +1,8 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -10,17 +10,22 @@ public class CharacterMediaJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/character-media";
 
-    public override async Task Run(params string[] data)
-    {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+    private SchedulerCharacterQuery _query;
 
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
         // Fetch API data
         ApiCharacterMedia resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterMedia>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMedia>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -36,12 +41,12 @@ public class CharacterMediaJob : JobBase
         }
 
         // Fetch character data
-        var media = await Context.PlayerCharacterMedia.FindAsync(query.CharacterId);
+        var media = await Context.PlayerCharacterMedia.FindAsync(_query.CharacterId);
         if (media == null)
         {
             media = new PlayerCharacterMedia
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterMedia.Add(media);
         }
@@ -59,11 +64,7 @@ public class CharacterMediaJob : JobBase
         media.MainUrl = assetMap.GetValueOrDefault("main");
         media.MainRawUrl = assetMap.GetValueOrDefault("main-raw");
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
 
         /*if (!string.IsNullOrWhiteSpace(media.MainUrl))
         {
@@ -72,7 +73,12 @@ public class CharacterMediaJob : JobBase
 
         if (!string.IsNullOrWhiteSpace(media.MainRawUrl))
         {
-            await JobRepository.AddImageJobAsync(ImageType.Character, query.CharacterId, ImageFormat.WebP, media.MainRawUrl);
+            await JobRepository.AddImageJobAsync(ImageType.Character, _query.CharacterId, ImageFormat.WebP, media.MainRawUrl);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

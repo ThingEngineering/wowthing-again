@@ -60,8 +60,9 @@ services:
       - "55505:55505"
     volumes:
       - ./:/app/
-      - frontend-cache:/root/.npm
-      - frontend-nm:/app/node_modules/
+      - /root/.npm
+      - /app/node_modules/
+      - /app/apps/frontend/node_modules/
 
   postgres:
     build:
@@ -92,7 +93,5 @@ networks:
   wowthing:
 
 volumes:
-  frontend-cache:
-  frontend-nm:
   postgres:
   redis:

@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 RUN if [ `arch` = 'aarch64' ]; then apk add --no-cache python3; fi
 RUN if [ `arch` = 'aarch64' ]; then apk add --no-cache make; fi

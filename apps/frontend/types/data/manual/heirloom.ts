@@ -14,7 +14,6 @@ export type ManualDataHeirloomGroupArray = ConstructorParameters<typeof ManualDa
 export class ManualDataHeirloomItem {
     constructor(
         public itemId: number,
-        public maxUpgrade: number,
         public faction?: string
     )
     { }

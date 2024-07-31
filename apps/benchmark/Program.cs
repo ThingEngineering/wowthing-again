@@ -4,6 +4,8 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Wowthing.Lib.Utilities;
 
+namespace Wowthing.Benchmark;
+
 [MemoryDiagnoser]
 public class JsonConverterBench
 {
@@ -31,7 +33,7 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        var summary = BenchmarkSwitcher
+        BenchmarkSwitcher
             .FromAssembly(typeof(Program).Assembly)
             .Run(args);
     }

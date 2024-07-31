@@ -1,16 +1,16 @@
 <script lang="ts">
-    import { filter } from 'lodash'
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
     import { replace } from 'svelte-spa-router'
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -18,32 +18,42 @@
     let achievementIds: number[]
     let category: AchievementDataCategory
     $: {
-        category = find($achievementStore.data.categories, (c) => c !== null && c.slug === slug1)
+        category = find($achievementStore.categories, (c) => c !== null && c.slug === slug1)
+        if (!category) { break $ }
+
         if (slug2) {
             category = find(category.children, (c) => c !== null && c.slug === slug2)
+            if (!category) { break $ }
         }
         else if (category.achievementIds.length === 0 && category.children.length > 0) {
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = filter(
-            category.slug === 'back-from-the-beyond' ? category.achievementIds : sortBy(
+        achievementIds = category.id >= 200000
+            ? category.achievementIds
+            : sortBy(
                 category.achievementIds,
                 id => [
-                    $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
-                    leftPad($achievementStore.data.achievement[id].order, 4, '0'),
+                    $userAchievementStore.achievements[id] === undefined ? '1' : '0',
+                    leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
+                    leftPad($achievementStore.achievement[id].order, 4, '0'),
                     leftPad(100000 - id, 6, '0')
                 ].join('|')
-            ),
-            (id) => {
-                const faction = $achievementStore.data.achievement[id].faction
+            ).filter((id) => {
+                const cheev = $achievementStore.achievement[id]
+
+                // Don't show tracking achievements
+                if ((cheev.flags & 0x100_000) > 0) {
+                    return false
+                }
+
+                // Obey faction filters
                 return (
-                    (faction === -1) ||
-                    (faction === 1 && $achievementState.showAlliance) ||
-                    (faction === 0 && $achievementState.showHorde)
+                    (cheev.faction === -1) ||
+                    (cheev.faction === 1 && $achievementState.showAlliance) ||
+                    (cheev.faction === 0 && $achievementState.showHorde)
                 )
-            }
-        )
+            })
     }
 </script>
 
@@ -63,12 +73,17 @@
             //grid-template-columns: 1fr 1fr;
         }
     }
+    .new-group {
+        margin-left: 1rem;
+    }
     .faction0 {
         border-color: $alliance-border;
-        margin-left: 1rem;
     }
     .faction1 {
         border-color: $horde-border;
+    }
+    .progress-bar {
+        width: 15rem;
     }
 </style>
 
@@ -90,7 +105,7 @@
             >Incomplete</Checkbox>
         </button>
 
-        <button class="faction0">
+        <button class="faction0 new-group">
             <Checkbox
                 name="show_alliance"
                 bind:value={$achievementState.showAlliance}
@@ -103,13 +118,30 @@
                 bind:value={$achievementState.showHorde}
             >Horde</Checkbox>
         </button>
+
+        <button class="new-group">
+            <Checkbox
+                name="show_all_characters"
+                bind:value={$achievementState.showAllCharacters}
+            >All character progress</Checkbox>
+        </button>
+
+        {#if category && $userAchievementStore.achievementCategories[category.id].totalPoints}
+            <div class="progress-bar new-group">
+                <ProgressBar
+                    title="Points"
+                    have={$userAchievementStore.achievementCategories[category.id].havePoints}
+                    total={$userAchievementStore.achievementCategories[category.id].totalPoints}
+                />
+            </div>
+        {/if}
     </div>
 
     {#if category && achievementIds}
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
                 <AchievementsAchievement
-                    kindaAlwaysShow={category.slug === 'back-from-the-beyond'}
+                    kindaAlwaysShow={category.id >= 200000}
                     {achievementId}
                 />
             {/each}

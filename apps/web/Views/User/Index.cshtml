@@ -5,6 +5,15 @@
     ViewData["Title"] = Model.User.UserName;
 }
 
+@section head
+{
+    <meta property="og:url" content="@($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}")" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="WoWthing: @Model.User.UserName" />
+    <meta property="og:description" content="@(Model.User.UserName)'s WoWthing page. A free online tool for keeping track of your World of Warcraft characters." />
+    <meta property="og:image" content="https://wowthing.org/img/home_20210704.webp" />
+}
+
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions {
     private string GetAntiXsrfRequestToken()
@@ -13,27 +22,27 @@
     }
 }
 
-@section scripts
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"user-home/user-home.ts"' />
+    }
+}
+
+@section js
 {
     @if (HostEnv.EnvironmentName == "Development")
     {
-        <script type="module" src="http://localhost:55505/apps/home.ts"></script>
+        <script type="module" src="http://localhost:55505/user-home/user-home.ts"></script>
     }
     else
     {
-        <script type="module" asp-src-include="~/dist/vendor.*js"></script>
-        <script type="module" asp-src-include="~/dist/home.*js"></script>
+        <partial name="_ManifestJs.cshtml" model='"user-home/user-home.ts"' />
     }
 
-    @if (Model.Settings.General?.UseWowdb == true)
-    {
-        <script type="text/javascript" src="https://www.wowdb.com/current/js/syndication/tt.js" async></script>
-    }
-    else
-    {
-        <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>
-        <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js" async></script>
-    }
+    <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>
+    <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js" async></script>
 }
 
 <div id="app"
@@ -42,10 +51,11 @@
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("CachedJson", "CachedJson", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
      data-appearance="@Url.Action("CachedJson", "CachedJson", new { type = "appearance", languageCode = "zzZZ", hash = Model.AppearanceHash })"
+     data-db="@Url.Action("CachedJson", "CachedJson", new { type = "db", languageCode = "zzZZ", hash = Model.DbHash })"
      data-item="@Url.Action("CachedJson", "CachedJson", new { type = "item", languageCode = "zzZZ", hash = Model.ItemHash })"
      data-journal="@Url.Action("CachedJson", "CachedJson", new { type = "journal", languageCode = "zzZZ", hash = Model.JournalHash })"
      data-manual="@Url.Action("CachedJson", "CachedJson", new { type = "manual", languageCode = "zzZZ", hash = Model.ManualHash })"
      data-static="@Url.Action("CachedJson", "CachedJson", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName, access = Model.IsPrivate ? "private" : "public", modified="0" })"
-     data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
+     data-xsrf="@GetAntiXsrfRequestToken()"
 ></div>

@@ -11,6 +11,7 @@ public class UserViewModel
     public readonly string SettingsJson;
     public readonly string AchievementHash;
     public readonly string AppearanceHash;
+    public readonly string DbHash;
     public readonly string ItemHash;
     public readonly string JournalHash;
     public readonly string ManualHash;
@@ -33,6 +34,7 @@ public class UserViewModel
 
         AchievementHash = hashes["Achievement"];
         AppearanceHash = hashes["Appearance"];
+        DbHash = hashes["Db"];
         ItemHash = hashes["Item"];
         JournalHash = hashes["Journal"];
         ManualHash = hashes["Manual"];

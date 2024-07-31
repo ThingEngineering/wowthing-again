@@ -1,21 +1,26 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { manualStore } from '@/stores'
+    import { FarmAnchorPoint } from '@/enums/farm-anchor-point'
+    import { FarmType } from '@/enums/farm-type'
+    import { PlayableClass } from '@/enums/playable-class'
+    import { RewardType } from '@/enums/reward-type'
+    import { settingsStore } from '@/shared/stores/settings'
+    import { lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { FarmType, PlayableClass, RewardType } from '@/enums'
+    import { leftPad } from '@/utils/formatting'
+    import { toIndexRecord } from '@/utils/to-index-record'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import Counter from './ZoneMapsCounter.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Image from '@/components/images/Image.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import Image from '@/shared/components/images/Image.svelte'
     import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
 
@@ -36,20 +41,20 @@
     let slugKey: string
 
     $: {
-        categories = find($manualStore.data.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
+        categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
         if (slug2) {
-            categories = filter(categories, (s) => s?.slug === slug2)
+            categories = categories.filter((s) => s?.slug === slug2)
         }
         slugKey = slug2 ? `${slug1}--${slug2}` : slug1
 
         farms = []
         if (categories?.length > 0) {
             farms = [...categories[0].farms]
-            for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
-                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms(categories[0].mapName))
+            for (const vendorId of ($manualStore.shared.vendorsByMap[categories[0].mapName] || [])) {
+                farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName))
             }
 
-            farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]
+            farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey]
         }
 
         if ($zoneMapState.classFilters[slugKey] === undefined) {
@@ -73,7 +78,26 @@
 
         groups = Object.values(groupMap)
         for (const group of groups) {
-            group.children.sort((a, b) => a[0].name.localeCompare(b[0].name))
+            group.children.sort((a, b) => {
+                const aIndex = typeOrder[a[0].type] || -1
+                const aStatus = farmStatuses[a[1]]
+                const bIndex = typeOrder[b[0].type] || -1
+                const bStatus = farmStatuses[b[1]]
+
+                const aData = [
+                    aStatus.need ? '0' : '1',
+                    a[0].faction || 'zzz',
+                    leftPad(aIndex === -1 ? 999 : aIndex, 3, '0'),
+                    a[0].name
+                ].join('|')
+                const bData = [
+                    bStatus.need ? '0' : '1',
+                    b[0].faction || 'zzz',
+                    leftPad(bIndex === -1 ? 999 : bIndex, 3, '0'),
+                    b[0].name
+                ].join('|')
+                return aData.localeCompare(bData)
+            })
         }
     }
 
@@ -84,13 +108,20 @@
             for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
                 const farm = farms[farmIndex]
                 const farmStatus = farmStatuses[farmIndex]
-                if (farmStatus.need && lootFarmTypes.indexOf(farm.type) >= 0) {
+                if (farmStatus.need && lootFarmTypes[farm.type] >= 0) {
                     const needDrops: number[] = []
 
                     for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
                         const drop = farm.drops[dropIndex]
                         const dropStatus = farmStatus.drops[dropIndex]
-                        if (dropStatus.need && lootRewardTypes.indexOf(drop.type) >= 0) {
+                        if (dropStatus.need && lootRewardTypes[drop.type] >= 0) {
+                            if (drop.type === RewardType.Item && !(
+                                $manualStore.druidFormItemToQuest[drop.id] ||
+                                $manualStore.dragonridingItemToQuest[drop.id]
+                            )) {
+                                continue
+                            }
+                            
                             needDrops.push(dropIndex)
                         }
                     }
@@ -107,46 +138,88 @@
         [width, height] = $zoneMapMedia
     }
 
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem'
+
     const getGroupWidth = function(len: number): string {
-        if (len < 4) {
+        if (len < 3) {
             return null
         }
         const sqrt = Math.ceil(Math.sqrt(len))
-        console.log(sqrt)
-        return `calc(0.4rem + 1px + (24px * ${sqrt}) + (0.1rem * ${sqrt}))`
+        // border + padding + icons
+        return `calc(2px + 0.2rem + (24px * ${sqrt})`
     }
 
-    const lootFarmTypes: FarmType[] = [
+    const getAnchorX = function(farm: ManualDataZoneMapFarm): string {
+        if (!farm.anchorPoint) {
+            return '-50%'
+        }
+
+        if (
+            farm.anchorPoint === FarmAnchorPoint.TopLeft ||
+            farm.anchorPoint === FarmAnchorPoint.Left ||
+            farm.anchorPoint === FarmAnchorPoint.BottomLeft
+        ) {
+            return '-12px'
+        }
+    }
+
+    const getAnchorY = function(farm: ManualDataZoneMapFarm): string {
+        if (!farm.anchorPoint) {
+            return '-50%'
+        }
+
+        if (
+            farm.anchorPoint === FarmAnchorPoint.TopLeft ||
+            farm.anchorPoint === FarmAnchorPoint.Top ||
+            farm.anchorPoint === FarmAnchorPoint.TopRight
+        ) {
+            return '-12px'
+        }
+    }
+
+    const lootFarmTypes = toIndexRecord<number>([
         FarmType.Event,
         FarmType.EventBig,
         FarmType.Kill,
         FarmType.KillBig,
         FarmType.Treasure,
-    ]
-    const lootRewardTypes: RewardType[] = [
+    ])
+    const lootRewardTypes = toIndexRecord<number>([
         RewardType.Armor,
         RewardType.Cosmetic,
         RewardType.Illusion,
+        RewardType.Item,
         RewardType.Mount,
         RewardType.Pet,
         RewardType.Toy,
         RewardType.Weapon,
-    ]
+    ])
+    const typeOrder = toIndexRecord<number>([
+        FarmType.Vendor,
+        FarmType.Profession,
+        FarmType.Quest,
+        FarmType.Achievement,
+        FarmType.Kill,
+    ])
 </script>
 
 <style lang="scss">
     .overlay-box {
         background: $highlight-background;
         border: 1px solid $border-color;
-        border-radius: $border-radius;
         position: absolute;
         z-index: 10;
     }
     .zone-map {
-        --image-border-radius: #{$border-radius-large};
+        --image-border-radius: 0;
         --image-border-width: 2px;
 
         position: relative;
+
+        :global(> img) {
+            max-height: calc(100vh - var(--less-height, 6.4rem));
+            width: auto;
+        }
     }
     .toggles {
         display: flex;
@@ -236,9 +309,9 @@
         background: rgba(0, 0, 0, 0.4);
         display: flex;
         flex-wrap: wrap;
-        gap: 0.1rem;
-        padding: 0.1rem 0.2rem;
+        padding: 0.1rem;
         position: absolute;
+        transform: scale(0.9) translate(var(--translate-x, -50%), var(--translate-y, -50%));
 
         :global(.wrapper) {
             left: initial !important;
@@ -250,7 +323,10 @@
 </style>
 
 {#if categories?.length > 0}
-    <div class="zone-map">
+    <div
+        class="zone-map"
+        style:--less-height={lessHeight}
+    >
         <div class="toggles setting-toggles overlay-box">
             <div class="toggle-group">
                 <Checkbox
@@ -327,10 +403,9 @@
             </div>
         </div>
 
-        <div
+        <button
             class="toggles class-toggles overlay-box"
             on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
-            on:keypress={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
         >
             Class:
 
@@ -347,7 +422,7 @@
             <IconifyIcon
                 icon={iconStrings['chevron-' + ($zoneMapState.classExpanded[slugKey] ? 'down' : 'right')]}
             />
-        </div>
+        </button>
 
         {#if $zoneMapState.classExpanded[slugKey]}
             <div class="toggles class-list overlay-box">
@@ -390,6 +465,8 @@
                 style:left="{group.location[0]}%"
                 style:top="{group.location[1]}%"
                 style:width="{getGroupWidth(children.length)}"
+                style:--translate-x={getAnchorX(group)}
+                style:--translate-y={getAnchorY(group)}
             >
                 {#each children as [farm, farmIndex]}
                     <Thing
@@ -401,17 +478,16 @@
             </div>
         {/each}
 
-        <div
+        <button
             class="loot-list-toggle overlay-box"
             on:click={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
-            on:keypress={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
         >
             Loot list
 
             <IconifyIcon
                 icon={iconStrings['chevron-' + ($zoneMapState.lootExpanded[slugKey] ? 'up' : 'right')]}
             />
-        </div>
+        </button>
 
         {#if $zoneMapState.lootExpanded[slugKey] && loots?.length > 0}
             <div class="loot-list overlay-box">

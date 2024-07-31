@@ -5,8 +5,8 @@
     // import connectedRealmName from '@/utils/connected-realm-name'
 
     // import Paginate from '@/components/common/Paginate.svelte'
-    // import WowheadLink from '@/components/links/WowheadLink.svelte'
-    // import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    // import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    // import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     // export let page: number
     // export let slug: string

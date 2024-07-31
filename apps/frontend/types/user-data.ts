@@ -1,86 +1,142 @@
-import type { Account } from './account'
-import type { BackgroundImage } from './background-image'
-import type { Character } from './character'
-import type { InstanceDifficulty } from './dungeon'
-import type { ItemQuality } from '../enums'
-import type { Guild } from './guild'
-import type { UserCount } from './user-count'
+import { DateTime } from 'luxon';
 
+import parseApiTime from '@/utils/parse-api-time';
+
+import type { Account } from './account';
+import type { BackgroundImage } from './background-image';
+import type { Character, CharacterArray } from './character';
+import type { InstanceDifficulty } from './dungeon';
+import type { Guild, GuildArray } from './guild';
+import type { HasNameAndRealm, UserItem } from './shared';
+import type { UserCount } from './user-count';
+import type { ItemQuality } from '@/enums/item-quality';
 
 export interface UserData {
-    lastApiCheck: string
-    public: boolean
+    lastApiCheck: string;
+    public: boolean;
 
-    accounts: Record<number, Account>
-    characters: Character[]
-    guilds: Record<number, Guild>
-    goldHistoryRealms: number[]
-    heirlooms: Record<number, number>
+    accounts: Record<number, Account>;
+    charactersRaw: CharacterArray[];
+    goldHistoryRealms: number[];
+    guildsRaw: GuildArray[];
+    heirlooms: Record<number, number>;
+    illusionIds: number[];
+    raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>;
 
-    honorCurrent: number
-    honorLevel: number
-    honorMax: number
+    honorCurrent: number;
+    honorLevel: number;
+    honorMax: number;
 
-    backgrounds: Record<number, BackgroundImage>
-    currentPeriod: Record<number, UserDataCurrentPeriod>
-    globalDailies: Record<string, DailyQuests>
-    images: Record<string, string>
-
-    addonMounts: Record<number, boolean>
+    backgrounds: Record<number, BackgroundImage>;
+    currentPeriod: Record<number, UserDataCurrentPeriod>;
+    globalDailies: Record<string, DailyQuests>;
+    images: Record<string, string>;
 
     // Packed data
-    mountsPacked: string
-    toysPacked: string
+    mountsPacked: string;
+    toysPacked: string;
 
-    petsRaw: Record<number, UserDataPetArray[]>
+    petsRaw: Record<number, UserDataPetArray[]>;
+    rawAppearanceIds: number[];
+    rawAppearanceSources: Record<number, number[]>;
 
     // Calculated
-    allLockouts: InstanceDifficulty[]
-    allLockoutsMap: Record<string, InstanceDifficulty>
-    allRegions: number[]
-    backgroundList: BackgroundImage[]
-    characterMap: Record<number, Character>
-    homeLockouts: InstanceDifficulty[]
+    allLockouts: InstanceDifficulty[];
+    allLockoutsMap: Record<string, InstanceDifficulty>;
+    allRegions: number[];
+    backgroundList: BackgroundImage[];
+    homeLockouts: InstanceDifficulty[];
 
-    hasMount: Record<number, boolean>
-    hasPet: Record<number, boolean>
-    hasToy: Record<number, boolean>
+    activeCharacters: Character[];
+    characterMap: Record<number, Character>;
+    characters: Character[];
+    charactersByConnectedRealm: Record<number, Character[]>;
+    charactersByRealm: Record<number, Character[]>;
 
-    pets: Record<number, UserDataPet[]>
-    setCounts: Record<string, Record<string, UserCount>>
+    guildMap: Record<number, Guild>;
+
+    hasMount: Record<number, boolean>;
+    hasPet: Record<number, boolean>;
+    hasToy: Record<number, boolean>;
+    hasToyById: Record<number, boolean>;
+
+    itemsByAppearanceId: Record<number, [HasNameAndRealm, UserItem[]][]>;
+    itemsByAppearanceSource: Record<string, [HasNameAndRealm, UserItem[]][]>;
+    itemsById: Record<number, [HasNameAndRealm, UserItem[]][]>;
+
+    pets: Record<number, UserDataPet[]>;
+    setCounts: Record<string, Record<string, UserCount>>;
+
+    appearanceMask?: Map<number, number>;
+    hasAppearance?: Set<number>;
+    hasIllusion?: Set<number>;
+    hasSource?: Set<string>;
 }
 
-export interface UserDataCurrentPeriod {
-    id: number
-    region: number
-    starts: string
-    ends: string
-}
+export class UserDataCurrentPeriod {
+    public id: number;
+    public region: number;
+    public starts: string;
+    public ends: string;
 
+    private _startTime: DateTime;
+    get startTime(): DateTime {
+        if (!this._startTime) {
+            this._startTime = parseApiTime(this.starts);
+        }
+        return this._startTime;
+    }
+
+    set startTime(time: DateTime) {
+        this._startTime = time;
+    }
+
+    private _endTime: DateTime;
+    get endTime(): DateTime {
+        if (!this._endTime) {
+            if (this.ends) {
+                this._endTime = parseApiTime(this.ends);
+            } else {
+                this._endTime = DateTime.fromObject({
+                    year: 2099,
+                });
+            }
+        }
+        return this._endTime;
+    }
+
+    set endTime(time: DateTime) {
+        this._endTime = time;
+    }
+}
 
 export class UserDataPet {
     constructor(
         public level: number,
         public quality: number,
-        public breedId: number
-    )
-    {}
+        public breedId: number,
+    ) {}
 }
 
-export type UserDataPetArray = ConstructorParameters<typeof UserDataPet>
+export type UserDataPetArray = ConstructorParameters<typeof UserDataPet>;
+
+export interface UserDataRaiderIoScoreTiers {
+    score: number[];
+    rgbHex: string[];
+}
 
 export interface DailyQuests {
-    expansion: number
-    questExpires: number[]
-    questIds: number[]
-    questRewards: DailyQuestsReward[]
-    region: number
+    expansion: number;
+    questExpires: number[];
+    questIds: number[];
+    questRewards: DailyQuestsReward[];
+    region: number;
 }
 
 export interface DailyQuestsReward {
-    currencyId: number
-    itemId: number
-    money: number
-    quality: ItemQuality
-    quantity: number
+    currencyId: number;
+    itemId: number;
+    money: number;
+    quality: ItemQuality;
+    quantity: number;
 }

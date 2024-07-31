@@ -3,6 +3,7 @@ using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -10,17 +11,22 @@ public class CharacterMythicKeystoneProfileJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile";
 
-    public override async Task Run(params string[] data)
-    {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+    private SchedulerCharacterQuery _query;
 
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
         // Fetch API data
         ApiCharacterMythicKeystoneProfile resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -36,12 +42,12 @@ public class CharacterMythicKeystoneProfileJob : JobBase
         }
 
         // Fetch character data
-        var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
+        var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(_query.CharacterId);
         if (mythicPlus == null)
         {
             mythicPlus = new PlayerCharacterMythicPlus
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterMythicPlus.Add(mythicPlus);
         }
@@ -71,7 +77,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _query.UserId);
         }
 
         // Start jobs for all seasons
@@ -82,7 +88,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             .ToArray();
 
         var existingSeasonIds = await Context.PlayerCharacterMythicPlusSeason
-            .Where(mps => mps.CharacterId == query.CharacterId)
+            .Where(mps => mps.CharacterId == _query.CharacterId)
             .OrderByDescending(mps => mps.Season)
             .Select(mps => mps.Season)
             .ToArrayAsync();
@@ -93,14 +99,23 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             apiSeasons = new[] { apiSeasons[0] };
         }
 
-        foreach (var apiSeason in apiSeasons)
-        {
-            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
-        }
-
         if (apiSeasons.Length > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonConvert.SerializeObject(apiSeasons));
+            var db = Redis.GetDatabase();
+            await db.StringIncrementAsync(string.Format(RedisKeys.CharacterJobCounter, _query.CharacterId),
+                apiSeasons.Length + 1);
+
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonSerializer.Serialize(apiSeasons));
+
+            foreach (int apiSeason in apiSeasons)
+            {
+                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
+            }
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

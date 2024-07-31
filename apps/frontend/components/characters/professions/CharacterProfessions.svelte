@@ -8,15 +8,16 @@
     export let character: Character
     export let params: MultiSlugParams
 
-    import Profession from './CharacterProfessionsProfession.svelte'
-    import Sidebar from './CharacterProfessionsSidebar.svelte'
     import SubnavLinks from './CharacterProfessionsSubnavLinks.svelte'
+    import Options from './CharacterProfessionsOptions.svelte'
+    import View from './CharacterProfessionsView.svelte'
 
     let primaryProfessions: ProfessionData[]
     let secondaryProfessions: ProfessionData[]
     $: {
         primaryProfessions = getCharacterProfessions(character, 0)
         secondaryProfessions = getCharacterProfessions(character, 1)
+            .filter((prof) => prof[0].slug === 'cooking')
     }
 
     afterUpdate(() => {
@@ -31,7 +32,7 @@
             getSavedRoute(
                 `characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`,
                 params.slug5,
-                null,
+                params.slug6,
                 'character-professions-sidebar',
                 true
             )
@@ -40,8 +41,11 @@
 </script>
 
 <style lang="scss">
-    nav {
-        border: 1px solid $border-color;
+    .subnav {
+        background: transparent;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        width: calc(100%);
     }
     .profession-links {
         display: flex;
@@ -51,14 +55,9 @@
             margin-left: 1rem;
         }
     }
-    .professions {
-        align-items: start;
-        display: flex;
-        margin-left: calc(-1rem - 1px);
-    }
 </style>
 
-<nav class="characters-subnav" id="character-professions-subnav">
+<nav class="subnav" id="character-professions-subnav">
     {#if primaryProfessions.length > 0}
         <div class="profession-links">
             <SubnavLinks
@@ -78,21 +77,13 @@
             />
         </div>
     {/if}
+
+    <Options />
 </nav>
 
-{#if params.slug4}
-    {#key `${params.slug1}--${params.slug2}--${params.slug3}--${params.slug4}`}
-        <div class="professions">
-            <Sidebar
-                {params}
-            />
-
-            {#if params.slug5}
-                <Profession
-                    {character}
-                    {params}
-                />
-            {/if}
-        </div>
-    {/key}
+{#if params.slug4 && (primaryProfessions.length > 0 || secondaryProfessions.length > 0)}
+    <View
+        {character}
+        {params}
+    />
 {/if}

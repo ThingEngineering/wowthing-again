@@ -5,15 +5,14 @@ public class UploadCharacter
 {
     public bool IsResting { get; set; }
     public bool IsWarMode { get; set; }
+    public bool VaultHasRewards { get; set; }
+    public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
-    public int FlightSpeed { get; set; }
-    public int GroundSpeed { get; set; }
     public int KeystoneInstance { get; set; }
     public int KeystoneLevel { get; set; }
     public int LastSeen { get; set; }
     public short Level { get; set; }
     public int LevelXp { get; set; }
-    public int MountSkill { get; set; }
     public int PlayedTotal { get; set; }
     public int RestedXp { get; set; }
     public long Copper { get; set; }
@@ -21,17 +20,22 @@ public class UploadCharacter
     public string CurrentLocation { get; set; }
     public string GuildName { get; set; }
 
+    public string CompletedQuestsSquish { get; set; }
+    public string TransmogSquish { get; set; }
+
     public List<UploadCharacterAchievement> Achievements { get; set; }
     public List<int> Auras { get; set; }
+    public List<string> AurasV2 { get; set; }
     public Dictionary<string, int> Bags { get; set; }
     public List<UploadCharacterCalling> Callings { get; set; }
     public List<UploadCharacterCovenant> Covenants { get; set; }
     public Dictionary<short, string> Currencies { get; set; }
     public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
-    public Dictionary<int, string> Equipment { get; set; }
+    public Dictionary<string, string> EquipmentV2 { get; set; }
     public List<UploadCharacterGarrison> Garrisons { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
     public string Illusions { get; set; }
+    public List<UploadCharacterInstanceDone> InstanceDone { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
     public List<UploadCharacterLockout> Lockouts { get; set; }
     public List<int> Mounts { get; set; }
@@ -39,6 +43,10 @@ public class UploadCharacter
     public UploadCharacterMythicPlus MythicPlus { get; set; }
     public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
+    public List<UploadCharacterProfession> Professions { get; set; }
+    public List<string> ProfessionCooldowns { get; set; }
+    public List<string> ProfessionOrders { get; set; }
+    public List<string> ProfessionTraits { get; set; }
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
     public List<UploadCharacterTorghast> Torghast { get; set; }
@@ -48,6 +56,7 @@ public class UploadCharacter
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
+    public Dictionary<short, Dictionary<int, string[]>> WorldQuests { get; set; }
 }
 
 public class UploadCharacterAchievement
@@ -122,6 +131,13 @@ public class UploadCharacterGarrisonBuilding
     public string Name { get; set; }
 }
 
+public class UploadCharacterInstanceDone
+{
+    public bool Locked { get; set; }
+    public int ResetTime { get; set; }
+    public string Key { get; set; }
+}
+
 public class UploadCharacterLockout
 {
     public bool Locked { get; set; }
@@ -167,6 +183,14 @@ public class UploadCharacterMythicPlusMapScore
     public int Level { get; set; }
     public int Score { get; set; }
     public string Name { get; set; }
+}
+
+public class UploadCharacterProfession
+{
+    public int Id { get; set; }
+    public int CurrentSkill { get; set; }
+    public int MaxSkill { get; set; }
+    public List<int> KnownRecipes { get; set; }
 }
 
 public class UploadCharacterTorghast

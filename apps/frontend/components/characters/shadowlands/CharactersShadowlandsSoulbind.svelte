@@ -2,13 +2,13 @@
     import find from 'lodash/find'
 
     import { soulbindSockets } from '@/data/icons'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsSoulbind } from '@/types'
-    import type { StaticDataSoulbind } from '@/types/data/static'
+    import type { StaticDataSoulbind } from '@/shared/stores/static/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import SpellLink from '@/components/links/SpellLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import SpellLink from '@/shared/components/links/SpellLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let covenantId: number
@@ -51,11 +51,11 @@
         width: calc(2px + 3rem + (0.3rem * 2) + (52px * 3));
 
         &.inactive {
-            border-color: $colour-fail;
+            border-color: $color-fail;
             opacity: 0.5;
         }
         &.selected {
-            border-color: $colour-success;
+            border-color: $color-success;
         }
     }
     .soulbind-row {
@@ -64,10 +64,10 @@
         justify-content: space-between;
 
         &.none-chosen.unlocked {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
 
             .empty-socket {
-                border-color: $colour-fail;
+                border-color: $color-fail;
             }
         }
 
@@ -86,10 +86,10 @@
         width: 52px;
 
         &.selected {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
 
             .empty-socket {
-                border-color: $colour-fail;
+                border-color: $color-fail;
             }
         }
 
@@ -118,7 +118,7 @@
 >
     <h3
         class="text-overflow"
-        use:tippy={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
+        use:basicTooltip={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
     >{soulbind.name}</h3>
 
     {#each soulbind.rows as row, rowIndex}
@@ -163,7 +163,7 @@
                         {:else}
                             <div
                                 class="empty-socket"
-                                use:tippy={"Empty socket"}
+                                use:basicTooltip={"Empty socket"}
                             >
                                 <IconifyIcon
                                     dropShadow={true}

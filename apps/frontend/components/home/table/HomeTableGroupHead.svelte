@@ -2,54 +2,77 @@
     import sumBy from 'lodash/sumBy'
 
     import { iconStrings } from '@/data/icons'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
-    import { data as settings } from '@/stores/settings'
-    import tippy from '@/utils/tippy'
-    import type {Character} from '@/types'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
+    import type { Character } from '@/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
+    import HeadCurrencies from './head/HomeTableHeadCurrencies.svelte'
     import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
     import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
+    import HeadItems from './head/HomeTableHeadItems.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
-    import HeadMount from './head/HomeTableHeadMount.svelte'
-    import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
     import HeadTasks from './head/HomeTableHeadTasks.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
+    import type {GroupByContext} from "@/utils/get-character-group-func";
+    import HomeTableHeadGroupedByCell
+        from "@/components/home/table/head/HomeTableHeadGroupedByCell.svelte";
 
     export let group: Character[]
     export let groupIndex: number
+
+    export let groupByContext: GroupByContext;
+
+    $: sortKey = `${$activeView.id}|${groupIndex}`
 
     let commonSpan: number
     let gold: number
     let isPublic: boolean
     let playedTotal: number
     $: {
-        isPublic = $userStore.data.public
+        isPublic = $userStore.public
 
-        commonSpan = $settings.layout.commonFields
+        commonSpan = $activeView.commonFields
             .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))
             .length
 
         gold = sumBy(group, (c: Character) => c.gold)
         playedTotal = sumBy(group, (c: Character) => c.playedTotal)
     }
+
+    function setSorting(column: string) {
+        const current = $homeState.groupSort[sortKey]
+        $homeState.groupSort[sortKey] = current === column ? undefined : column
+    }
 </script>
 
 <style lang="scss">
     .only-weekly {
-        text-align: left;
+        padding: 0 $width-padding;
     }
     tr {
         --scale: 0.91;
-        
+
         :global(td:not(:first-child)) {
             border-left: 1px solid $border-color;
         }
+        :global(.sortable) {
+            cursor: pointer;
+        }
+        :global(.sorted-by) {
+            border: 1px solid #eee !important;
+        }
+    }
+    td {
+        text-align: center;
+    }
+    .mythic-plus-score {
+        @include cell-width($width-raider-io);
     }
 </style>
 
@@ -59,109 +82,155 @@
 
 <tr class="table-group-head">
     <td class="only-weekly" colspan="{commonSpan}">
-        <Checkbox
-            name="only_weekly"
-            bind:value={$homeState.onlyWeekly}
-        >Only weekly</Checkbox>
+       <HomeTableHeadGroupedByCell {groupByContext} {group}/>
     </td>
 
-    {#each $settings.layout.homeFields as field}
-        {#if field === 'callings'}
-            {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Shadowlands Callings"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
-                </td>
-            {/if}
-        
+    {#each $activeView.homeFields as field (field)}
+        {#if field === 'bestItemLevel'}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Best Item Level'}
+            >Best</td>
+
+        {:else if field === 'callings'}
+            <td use:basicTooltip={"Shadowlands Callings"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
+            </td>
+
         {:else if field === 'covenant'}
-            {#if !$homeState.onlyWeekly}
-                <HeadCovenant />
-            {/if}
-        
-            {:else if field === 'currentLocation'}
-            {#if !$homeState.onlyWeekly}
-                <HeadCurrentLocation />
-            {/if}
+            <HeadCovenant />
+
+        {:else if field === 'currencies'}
+            <HeadCurrencies {sortKey} />
+
+        {:else if field === 'currentLocation'}
+            <HeadCurrentLocation {sortKey} />
 
         {:else if field === 'emissariesBfa'}
-            {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Battle for Azeroth Emissaries"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
-                </td>
-            {/if}
+            <td use:basicTooltip={"Battle for Azeroth Emissaries"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
+            </td>
 
         {:else if field === 'emissariesLegion'}
-            {#if !$homeState.onlyWeekly}
-                <td use:tippy={"Legion Emissaries"}>
-                    <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
-                </td>
-            {/if}
-        
+            <td use:basicTooltip={"Legion Emissaries"}>
+                <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
+            </td>
+
         {:else if field === 'gear'}
-            {#if !$homeState.onlyWeekly}
-                <td>Gear</td>
-            {/if}
+            <td>Gear</td>
 
         {:else if field === 'gold'}
-            {#if !isPublic && !$homeState.onlyWeekly}
-                <RowGold {gold} />
+            {#if !isPublic}
+                <RowGold
+                    {gold}
+                    {sortKey}
+                    showSortable={true}
+                />
             {/if}
+
+        {:else if field === 'guild'}
+            <td>Guild</td>
 
         {:else if field === 'hearthLocation'}
-            {#if !$homeState.onlyWeekly}
-                <HeadHearthLocation />
-            {/if}
+            <HeadHearthLocation {sortKey} />
 
         {:else if field === 'itemLevel'}
-            {#if !$homeState.onlyWeekly}
-                <td use:tippy={'Item Level'}>ilvl</td>
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Equipped Item Level'}
+            >Equip</td>
+
+        {:else if field === 'items'}
+            {#if !isPublic}
+                <HeadItems {sortKey} />
             {/if}
 
         {:else if field === 'keystone'}
-            {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
-                <td>Keystone</td>
+            {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
+                {@const sortField = 'mythicPlusKeystone'}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+                    on:click={() => setSorting(sortField)}
+                    on:keypress={() => setSorting(sortField)}
+                >
+                    M+ Key
+                </td>
             {/if}
 
         {:else if field === 'lockouts'}
-            {#if !isPublic || $settings.privacy.publicLockouts}
-                <HeadLockouts />
-            {/if}
-
-        {:else if field === 'mountSpeed'}
-            {#if !$homeState.onlyWeekly}
-                <HeadMount />
+            {#if !isPublic || $settingsStore.privacy.publicLockouts}
+                <HeadLockouts {sortKey} />
             {/if}
 
         {:else if field === 'mythicPlusScore'}
-            {#if !$homeState.onlyWeekly}
-                <HeadMythicPlusScore />
-            {/if}
+            <td
+                class="mythic-plus-score sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >
+                M+
+            </td>
 
         {:else if field === 'playedTime'}
-            {#if !isPublic && !$homeState.onlyWeekly}
+            {#if !isPublic}
                 <RowPlayedTime {playedTotal} />
             {/if}
 
+        {:else if field === 'professionCooldowns'}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Profession Cooldowns'}
+            >CDs</td>
+
+        {:else if field === 'professionWorkOrders'}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+                use:basicTooltip={'Profession Work Orders'}
+            >WOs</td>
+
         {:else if field === 'professions'}
-            {#if !$homeState.onlyWeekly}
-                <td>Professions</td>
-            {/if}
-            
+            <td>Professions</td>
+
         {:else if field === 'professionsSecondary'}
-            {#if !$homeState.onlyWeekly}
-                <td>Secondary Profs</td>
-            {/if}
+            <td>Secondary Profs</td>
 
         {:else if field === 'restedExperience'}
-            {#if !isPublic && !$homeState.onlyWeekly}
-                <td>Rest</td>
+            {#if !isPublic}
+                {@const sortField = 'restedExperience'}
+                <td
+                    class="sortable"
+                    class:sorted-by={$homeState.groupSort[sortKey] === sortField}
+                    on:click={() => setSorting(sortField)}
+                    on:keypress={() => setSorting(sortField)}
+                >
+                    Rest
+                </td>
             {/if}
 
         {:else if field === 'tasks'}
-            <HeadTasks />
+            <HeadTasks {sortKey} />
 
         {:else if field === 'vaultMythicPlus'}
-            <td>M+ Vault</td>
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >Dungeon Vault</td>
 
         {:else if field === 'vaultPvp'}
             <td>PvP Vault</td>
@@ -170,10 +239,12 @@
             <td>Raid Vault</td>
 
         {:else}
-            {#if !$homeState.onlyWeekly}
-                <td>&nbsp;</td>
-            {/if}
+            <td>&nbsp;</td>
 
         {/if}
     {/each}
+
+    {#if !isPublic}
+        <td class="settings"></td>
+    {/if}
 </tr>

@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores'
-
     import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
+    import { userQuestStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings'
     import { UserCount, type Character } from '@/types'
 
-    import Count from '@/components/collections/CollectionCount.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
@@ -19,7 +19,7 @@
         for (const shapesArray of [soulshapes, crittershapes]) {
             const temp: [questId: number, icon: string, has: boolean][] = []
             for (const [questId, icon] of shapesArray) {
-                const has = $userQuestStore.data.characters[character.id]?.quests?.has(questId)
+                const has = $userQuestStore.characters[character.id]?.quests?.has(questId)
                 if (has) {
                     stats.have++
                 }
@@ -63,7 +63,7 @@
         margin-top: 0.5rem;
     }
     .collection-object {
-        --image-border-color: #{$colour-success};
+        --image-border-color: #{$color-success};
         --image-border-width: 1px;
 
         &.missing {
@@ -76,7 +76,7 @@
     <h3>
         Soulshapes
         <Count counts={stats} />
-        <a href="https://www.wowhead.com/guides/soulshapes-night-fae-covenant">Guide</a>
+        <a href="https://{settingsStore.wowheadBaseUrl}/guides/soulshapes-night-fae-covenant">Guide</a>
     </h3>
     <div class="collection-section">
         {#each allShapes as shapes}

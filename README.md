@@ -59,9 +59,12 @@ any help with getting started, I'm available most days.
 
 ### Local setup
 
-You're going to need API credentials:
+1. Install Docker and Docker Compose - [Windows install instructions](https://docs.docker.com/docker-for-windows/install/)
+
+1. Install the dotnet SDK, currently 8.x
 
 1. Log in or sign up for a [Battle.Net Developer](https://develop.battle.net) account
+
 1. Create an API client by visiting `API ACCESS` in the nav bar:
     - Client Name: something unique like "Steve's WoWthing"
     - Redirect URLs: `https://localhost:55501/signin-battlenet`
@@ -69,17 +72,68 @@ You're going to need API credentials:
     - Intended Use: I go with some variation of "A website for keeping track of multiple WoW
       characters"
     - Click `SAVE`
-1. Clone the repository using whatever Git client you feel like using, I like [Fork](https://git-fork.com/)
-1. Create a `.env` file in the root directory (at the same level than the `docker-compose.yml` file) with values from your Battle.Net API Client:
+
+1. Clone the repositories:
+
+    ```bash
+    mkdir ~/wowthing
+    cd ~/wowthing
+    git clone https://github.com/ThingEngineering/wowthing-again
+    git clone https://github.com/ThingEngineering/wowthing-data
+    git clone https://github.com/ThingEngineering/wow-dumps
+    ```
+
+1. Edit your `~/.profile` (or `.bashrc` or `.zshrc` or whatever) and add the following:
+
+    ```bash
+    export WOWTHING_DATA_PATH="~/wowthing/wowthing-data"
+    export WOWTHING_DUMP_PATH="~/wowthing/wow-dumps"
+    export WOWTHING_DATABASE="Host=localhost;Port=55532;Username=wowthing;Password=topsecret"
+    export WOWTHING_REDIS="localhost:55579"
+    ```
+
+1. Reload that file: `. ~/.profile`
+
+1. Create a `.env` file in the `wowthing-again` directory (at the same level as the `docker-compose.yml` file) with values from your Battle.Net API Client:
+
     ```
     BattleNet__ClientID=abcdefg
     BattleNet__ClientSecret=t0ps3cr3tk3y
     ```
-1. Install Docker and Docker Compose - [Windows install instructions](https://docs.docker.com/docker-for-windows/install/)
-1. Run `docker-compose up --build` in a terminal window to start everything. In future, you can run
-   `docker-compose up -d` and use something like [lazydocker](https://github.com/jesseduffield/lazydocker)
-   for easier monitoring.
+
+1. Build the docker images: `docker-compose build`
+
+1. Bring up `web` and dependencies manually first, this will create/migrate the database:
+
+    ```bash
+    docker-compose up -d postgres redis web
+    docker-compose logs -f web
+    ```
+
+1. Once that shows "Now listening on: http://0.0.0.0:5000", start the others:
+
+    ```bash
+    docker-compose up -d
+    ```
+
+1. Start the initial data import/build, this will take a while:
+
+    ```bash
+    cd app/tool/
+    dotnet run all
+    ```
+
 1. Visit https://localhost:55501 and accept the security warning (self-signed certificate)
+
+### Troubleshooting
+
+- If you have no realms ("Honkstrasza" is not a real realm), reset the timer on the realms job and run `dotnet run static` in the tool directory once `backend` finishes updating.
+
+    ```bash
+    $ docker-compose exec redis redis-cli
+    127.0.0.1:6379> del scheduled_job:DataRealmIndex_v3
+    127.0.0.1:6379> exit
+    ```
 
 ### Making database changes
 

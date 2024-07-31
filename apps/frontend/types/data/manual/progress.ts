@@ -1,4 +1,4 @@
-import type { ProgressDataType } from '@/enums'
+import type { ProgressDataType } from '@/enums/progress-data-type'
 
 
 export interface ManualDataProgressCategory {
@@ -17,6 +17,7 @@ export interface ManualDataProgressGroup {
     name: string
     requiredQuestIds?: number[]
     type: string
+    currencies?: number[]
     data: Record<string, ManualDataProgressData[]>
 }
 

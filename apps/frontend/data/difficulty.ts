@@ -1,5 +1,6 @@
+import { InstanceType } from '@/enums/instance-type'
 import { Difficulty } from '@/types'
-import { InstanceType } from '@/enums'
+
 
 export const difficultyMap: Record<number, Difficulty> = {
     0: new Difficulty(0, 'World Boss', 'WB', InstanceType.Raid, 1, 40),
@@ -9,7 +10,7 @@ export const difficultyMap: Record<number, Difficulty> = {
     2: new Difficulty(2, 'Heroic', 'H', InstanceType.Dungeon, 5, 5),
     8: new Difficulty(8, 'Mythic Keystone', 'M', InstanceType.Dungeon, 5, 5),
     23: new Difficulty(23, 'Mythic', 'M', InstanceType.Dungeon, 5, 5),
-    24: new Difficulty(24, 'Timewalking', 'TW', InstanceType.Dungeon, 5, 5),
+    24: new Difficulty(24, 'Timewalking', 'T', InstanceType.Dungeon, 5, 5),
 
     // Legacy Raids
     3: new Difficulty(3, '10 Normal', '10N', InstanceType.Raid, 10, 10),
@@ -25,7 +26,7 @@ export const difficultyMap: Record<number, Difficulty> = {
     16: new Difficulty(16, 'Mythic', 'M', InstanceType.Raid, 20, 20),
     17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
     18: new Difficulty(18, 'Event?', 'E', InstanceType.Raid, 40, 40),
-    33: new Difficulty(33, 'Timewalking', 'TW', InstanceType.Raid, 10, 30),
+    33: new Difficulty(33, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
 }
 
 export const dungeonDifficulties = Object.values(difficultyMap)

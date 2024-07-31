@@ -1,10 +1,16 @@
 ﻿using System.Net.Http;
+using System.Text.RegularExpressions;
 using Npgsql;
 using NpgsqlTypes;
+using StackExchange.Redis;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
+using Wowthing.Backend.Models.Cache;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 // NOTE this is how Npgsql says to do it: https://www.npgsql.org/doc/api/NpgsqlTypes.NpgsqlDbType.html
@@ -14,6 +20,12 @@ namespace Wowthing.Backend.Jobs.Data;
 public class DataAuctionsJob : JobBase
 {
     private const string ApiPath = "data/wow/connected-realm/{0}/auctions";
+    private const string CommoditiesPath = "data/wow/auctions/commodities";
+
+    private int _connectedRealmId;
+    private Dictionary<int, WowItemBonus> _itemAppearanceBonuses;
+    private ItemModifiedAppearanceCache _itemModifiedAppearances;
+    private WowRegion _region;
 
     private readonly Dictionary<string, WowAuctionTimeLeft> _timeLeftMap = new()
     {
@@ -22,6 +34,11 @@ public class DataAuctionsJob : JobBase
         { "LONG", WowAuctionTimeLeft.Long },
         { "VERY_LONG", WowAuctionTimeLeft.VeryLong },
     };
+
+    private static readonly Regex PartitionPendingRegex = new("""partition "(.*?)\" already pending detach""");
+
+    private static readonly double[] CommodityPercentBuckets = { 0.01, 0.02, 0.03, 0.04, 0.05, 0.10, 0.25, 0.25, 0.25 };
+    private static readonly double[] SmallPercentBuckets = { 0.10, 0.15, 0.25, 0.25 };
 
     private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
@@ -32,13 +49,14 @@ INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
 WHERE   pgi.inhparent = 'wow_auction'::regclass
 ";
 
-    private const string DetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0}";
+    private const string ConcurrentlyDetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} CONCURRENTLY";
+    private const string FinalizeDetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0} FINALIZE";
 
     private const string AttachPartition = "ALTER TABLE wow_auction ATTACH PARTITION {0} FOR VALUES IN ({1})";
 
     private const string DropTable = "DROP TABLE {0}";
 
-    private const string Copy = @"
+    private const string CopyAuctions = @"
 COPY {0} (
     connected_realm_id,
     auction_id,
@@ -52,28 +70,62 @@ COPY {0} (
     pet_level,
     pet_quality,
     pet_species_id,
+    appearance_id,
+    appearance_source,
+    group_key,
     bonus_ids,
     modifier_values,
     modifier_types
 ) FROM STDIN (FORMAT BINARY)
 ";
 
-    public override async Task Run(params string[] data)
+    private const string CopyCheapestByAppearanceId = @"
+COPY wow_auction_cheapest_by_appearance_id (
+    connected_realm_id,
+    appearance_id,
+    auction_id
+) FROM STDIN (FORMAT BINARY)
+";
+
+    private const string CopyCheapestByAppearanceSource = @"
+COPY wow_auction_cheapest_by_appearance_source (
+    connected_realm_id,
+    appearance_source,
+    auction_id
+) FROM STDIN (FORMAT BINARY)
+";
+
+    private const string CopyCommodityHourly = @"
+COPY wow_auction_commodity_hourly (
+    timestamp,
+    item_id,
+    listed,
+    region,
+    data
+) FROM STDIN (FORMAT BINARY)
+";
+
+    public override void Setup(string[] data)
+    {
+        _region = (WowRegion)int.Parse(data[0]);
+        _connectedRealmId = int.Parse(data[1]);
+
+        AuctionLog(_region, _connectedRealmId);
+    }
+
+    public override async Task Run(string[] data)
     {
         var timer = new JankTimer();
 
-        var realmId = int.Parse(data[0]);
-        var realm = await Context.WowRealm
-            .Where(realm => realm.ConnectedRealmId == realmId)
-            .FirstOrDefaultAsync();
+        var uri = GenerateUri(_region, ApiNamespace.Dynamic, _connectedRealmId > 100000
+            ? CommoditiesPath
+            : string.Format(ApiPath, _connectedRealmId)
+        );
 
-        using var shrug = AuctionLog(realm);
-
-        var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, realmId));
         JobHttpResult<ApiDataAuctions> result;
         try
         {
-            result = await GetJson<ApiDataAuctions>(uri, timer: timer);
+            result = await GetUriAsJsonAsync<ApiDataAuctions>(uri, timer: timer);
         }
         catch (HttpRequestException e)
         {
@@ -92,121 +144,428 @@ COPY {0} (
             return;
         }
 
-        var tableName = $"wow_auction_{realmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
-        await using (var connection = Context.GetConnection())
+        var itemBonuses = await MemoryCacheService.GetItemBonuses();
+        _itemAppearanceBonuses = itemBonuses.ByType[WowItemBonusType.SetItemAppearanceModifier];
+        _itemModifiedAppearances = await MemoryCacheService.GetItemModifiedAppearances();
+
+        await using var connection = Context.GetConnection();
+        await connection.OpenAsync();
+
+        await using var command = connection.CreateCommand();
+
+        // Create new table
+        string tableName = $"wow_auction_{_connectedRealmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
+        command.CommandText = string.Format(CreateTable, tableName);
+        await command.ExecuteNonQueryAsync();
+
+        timer.AddPoint("Create");
+
+        // Copy auction data
+        Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId;
+        Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource;
+        Dictionary<int, List<ApiDataAuctionsAuction>> commodities;
+        await using (var writer = await connection.BeginBinaryImportAsync(string.Format(CopyAuctions, tableName)))
         {
-            await connection.OpenAsync();
+            (auctionsByAppearanceId, auctionsByAppearanceSource, commodities) = await WriteAuctionData(writer, _connectedRealmId, result.Data.Auctions);
+        }
 
-            for (int retry = 0; retry < 5; retry++)
+        timer.AddPoint("Copy");
+
+        // Acquire the lock
+        string lockValue = Guid.NewGuid().ToString("N");
+        bool locked = false;
+        while (!locked)
+        {
+            locked = await JobRepository.AcquireLockAsync(RedisKeys.AuctionsLock, lockValue, TimeSpan.FromMinutes(1));
+            if (!locked)
             {
-                await using var transaction = await connection.BeginTransactionAsync();
-                await using var command = connection.CreateCommand();
-                command.Transaction = transaction;
+                await Task.Delay(100);
+            }
+        }
+        timer.AddPoint("Lock");
 
-                try
+        // Get current partitions
+        command.CommandText = GetPartitions;
+        string existing = null;
+        await using (var reader = await command.ExecuteReaderAsync())
+        {
+            while (await reader.ReadAsync())
+            {
+                string partition = reader.GetString(0);
+                if (partition.StartsWith($"wow_auction_{_connectedRealmId}_"))
                 {
-                    // Create new table
-                    command.CommandText = string.Format(CreateTable, tableName);
-                    await command.ExecuteNonQueryAsync();
-
-                    timer.AddPoint("Create");
-
-                    // Copy auction data
-                    await using (var writer = connection.BeginBinaryImport(string.Format(Copy, tableName)))
-                    {
-                        foreach (var auction in result.Data.Auctions)
-                        {
-                            await writer.StartRowAsync();
-                            await writer.WriteAsync(realmId, NpgsqlDbType.Integer);
-                            await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
-                            await writer.WriteAsync(auction.Bid, NpgsqlDbType.Bigint);
-                            await writer.WriteAsync(auction.UnitPrice > 0 ? auction.UnitPrice : auction.Buyout,
-                                NpgsqlDbType.Bigint);
-                            await writer.WriteAsync(auction.Item.Id, NpgsqlDbType.Integer);
-                            await writer.WriteAsync(auction.Quantity, NpgsqlDbType.Integer);
-                            await writer.WriteAsync((short)_timeLeftMap[auction.TimeLeft], NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.Context, NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.PetBreedId, NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.PetLevel, NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.PetQualityId, NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.PetSpeciesId, NpgsqlDbType.Smallint);
-                            await writer.WriteAsync(auction.Item.BonusLists.EmptyIfNull(),
-                                NpgsqlDbType.Array | NpgsqlDbType.Integer);
-                            await writer.WriteAsync(
-                                auction.Item.Modifiers
-                                    .EmptyIfNull()
-                                    .Select(m => m.Value)
-                                    .ToArray(),
-                                NpgsqlDbType.Array | NpgsqlDbType.Integer
-                            );
-                            await writer.WriteAsync(
-                                auction.Item.Modifiers
-                                    .EmptyIfNull()
-                                    .Select(m => m.Type)
-                                    .ToArray(),
-                                NpgsqlDbType.Array | NpgsqlDbType.Smallint
-                            );
-                        }
-
-                        await writer.CompleteAsync();
-                    }
-
-                    timer.AddPoint("Copy");
-
-                    command.CommandText = GetPartitions;
-                    string existing = null;
-                    await using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        while (reader.Read())
-                        {
-                            var partition = reader.GetString(0);
-                            if (partition.StartsWith($"wow_auction_{realmId}_"))
-                            {
-                                existing = partition;
-                            }
-                        }
-                    }
-
-                    // Detach old partition if it exists
-                    if (existing != null)
-                    {
-                        command.CommandText = string.Format(DetachPartition, existing);
-                        await command.ExecuteNonQueryAsync();
-                    }
-
-                    command.CommandText = string.Format(AttachPartition, tableName, realmId);
-                    await command.ExecuteNonQueryAsync();
-
-                    // Drop old partition if it exists
-                    if (existing != null)
-                    {
-                        command.CommandText = string.Format(DropTable, existing);
-                        await command.ExecuteNonQueryAsync();
-                    }
-
-                    await transaction.CommitAsync();
-                }
-                catch (PostgresException pe)
-                {
-                    if (pe.SqlState == PostgresErrorCodes.DeadlockDetected)
-                    {
-                        Logger.Warning("Deadlock detected, retry #{Retry}", retry + 1);
-                        await Task.Delay(retry * 500);
-                        await transaction.RollbackAsync();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                finally
-                {
-                    retry = 5;
-                    timer.AddPoint("Partition", true);
+                    existing = partition;
                 }
             }
         }
 
+        // Detach and drop old partition if it exists
+        if (existing != null)
+        {
+            string detachSql = string.Format(ConcurrentlyDetachPartition, existing);
+            command.CommandText = detachSql;
+
+            try
+            {
+                await command.ExecuteNonQueryAsync();
+            }
+            catch (PostgresException ex)
+            {
+                // Partition already pending detach, fix that first
+                if (ex.SqlState == PostgresErrorCodes.ObjectNotInPrerequisiteState)
+                {
+                    var m = PartitionPendingRegex.Match(ex.MessageText);
+                    if (m.Success)
+                    {
+                        string pendingPartition = m.Groups[1].ToString();
+                        Logger.Warning("Partition {p} pending detach, trying to finalize", pendingPartition);
+
+                        command.CommandText = string.Format(FinalizeDetachPartition, pendingPartition);
+                        // DETACH PARTITION ... FINALIZE acquires an ACCESS EXCLUSIVE lock and can take quite a long time
+                        command.CommandTimeout = 600;
+                        await command.ExecuteNonQueryAsync();
+                        command.CommandTimeout = 30;
+
+                        command.CommandText = detachSql;
+                        await command.ExecuteNonQueryAsync();
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            command.CommandText = string.Format(DropTable, existing);
+            await command.ExecuteNonQueryAsync();
+        }
+
+        // Attach new partition
+        command.CommandText = string.Format(AttachPartition, tableName, _connectedRealmId);
+        await command.ExecuteNonQueryAsync();
+
+        timer.AddPoint("Partition");
+
+        // Release the lock
+        await JobRepository.ReleaseLockAsync(RedisKeys.AuctionsLock, lockValue);
+
+        if (_connectedRealmId < 100000)
+        {
+            // Update WowAuctionCheapestByAppearanceId
+            await Context.WowAuctionCheapestByAppearanceId
+                .Where(cheapest => cheapest.ConnectedRealmId == _connectedRealmId)
+                .ExecuteDeleteAsync();
+
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceId))
+            {
+                await WriteCheapestByAppearanceIdData(writer, _connectedRealmId, auctionsByAppearanceId);
+            }
+
+            // Update WowAuctionCheapestByAppearanceSource
+            await Context.WowAuctionCheapestByAppearanceSource
+                .Where(cheapest => cheapest.ConnectedRealmId == _connectedRealmId)
+                .ExecuteDeleteAsync();
+
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCheapestByAppearanceSource))
+            {
+                await WriteCheapestByAppearanceSourceData(writer, _connectedRealmId, auctionsByAppearanceSource);
+            }
+
+            timer.AddPoint("Cheapest");
+        }
+        else
+        {
+            // Update WowAuctionCommodityHourly
+            await using (var writer = await connection.BeginBinaryImportAsync(CopyCommodityHourly))
+            {
+                await WriteCommodityHourly(writer, _region, commodities);
+            }
+
+            timer.AddPoint("Commodity");
+        }
+
+        // Update the last checked time
+        var db = Redis.GetDatabase();
+        await db.HashSetAsync(
+            RedisKeys.CheckedAuctions,
+            _connectedRealmId,
+            DateTime.UtcNow.ToUnixTimeSeconds(),
+            flags: CommandFlags.FireAndForget
+        );
+
+        timer.AddPoint("Redis", true);
+
         Logger.Information("{Timer}", timer.ToString());
+    }
+
+    private async Task<
+        (
+            Dictionary<int, List<ApiDataAuctionsAuction>> appearanceIds,
+            Dictionary<string, List<ApiDataAuctionsAuction>> appearanceSources,
+            Dictionary<int, List<ApiDataAuctionsAuction>> commodities
+        )
+    > WriteAuctionData(NpgsqlBinaryImporter writer, int connectedRealmId, List<ApiDataAuctionsAuction> dataAuctions)
+    {
+        var appearanceIds = new Dictionary<int, List<ApiDataAuctionsAuction>>();
+        var appearanceSources = new Dictionary<string, List<ApiDataAuctionsAuction>>();
+        var commodities = new Dictionary<int, List<ApiDataAuctionsAuction>>();
+
+        foreach (var auction in dataAuctions)
+        {
+            int? appearanceId = null;
+            string appearanceSource = null;
+
+            if (connectedRealmId < 100000)
+            {
+                short modifier = 0;
+                int priority = 999;
+                foreach (int bonusId in auction.Item.BonusLists.EmptyIfNull())
+                {
+                    if (!_itemAppearanceBonuses.TryGetValue(bonusId, out var itemBonus))
+                    {
+                        continue;
+                    }
+
+                    foreach (var bonus in itemBonus.Bonuses)
+                    {
+                        if (bonus[0] == (int)WowItemBonusType.SetItemAppearanceModifier)
+                        {
+                            int bonusPriority = bonus.Count >= 3 ? bonus[2] : 0;
+                            if (bonusPriority < priority)
+                            {
+                                modifier = (short)bonus[1];
+                                priority = bonusPriority;
+                            }
+                        }
+                    }
+                }
+
+                if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
+                {
+                    if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                            out int actualAppearanceId))
+                    {
+                        if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id,
+                                out short[] possibleModifiers))
+                        {
+                            modifier = possibleModifiers[0];
+                            actualAppearanceId =
+                                _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
+                        }
+                    }
+
+                    if (actualAppearanceId > 0)
+                    {
+                        appearanceId = actualAppearanceId;
+                        appearanceSource = $"{auction.Item.Id}_{modifier}";
+
+                        if (!appearanceIds.TryGetValue(actualAppearanceId, out var idAuctions))
+                        {
+                            idAuctions = appearanceIds[actualAppearanceId] = new();
+                        }
+
+                        idAuctions.Add(auction);
+
+                        if (!appearanceSources.TryGetValue(appearanceSource, out var sourceAuctions))
+                        {
+                            sourceAuctions = appearanceSources[appearanceSource] = new();
+                        }
+
+                        sourceAuctions.Add(auction);
+                    }
+                }
+            }
+            else
+            {
+                commodities.GetOrNew(auction.Item.Id).Add(auction);
+            }
+
+            string groupKey;
+            if (auction.Item.PetSpeciesId > 0)
+            {
+                groupKey = $"pet:{auction.Item.PetSpeciesId}";
+            }
+            else if (!string.IsNullOrWhiteSpace(appearanceSource))
+            {
+                groupKey = $"source:{appearanceSource}";
+            }
+            else
+            {
+                groupKey = $"item:{auction.Item.Id}";
+            }
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
+            await writer.WriteAsync(auction.Bid, NpgsqlDbType.Bigint);
+            await writer.WriteAsync(auction.UnitPrice > 0 ? auction.UnitPrice : auction.Buyout,
+                NpgsqlDbType.Bigint);
+            await writer.WriteAsync(auction.Item.Id, NpgsqlDbType.Integer);
+            await writer.WriteAsync(auction.Quantity, NpgsqlDbType.Integer);
+            await writer.WriteAsync((short)_timeLeftMap[auction.TimeLeft], NpgsqlDbType.Smallint);
+            await writer.WriteAsync(auction.Item.Context, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(auction.Item.PetBreedId, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(auction.Item.PetLevel, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(auction.Item.PetQualityId, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(auction.Item.PetSpeciesId, NpgsqlDbType.Smallint);
+
+            if (appearanceId.HasValue)
+            {
+                await writer.WriteAsync(appearanceId.Value, NpgsqlDbType.Integer);
+            }
+            else
+            {
+                await writer.WriteNullAsync();
+            }
+
+            if (appearanceSource != null)
+            {
+                await writer.WriteAsync(appearanceSource, NpgsqlDbType.Varchar);
+            }
+            else
+            {
+                await writer.WriteNullAsync();
+            }
+
+            await writer.WriteAsync(groupKey, NpgsqlDbType.Varchar);
+
+            await writer.WriteAsync(auction.Item.BonusLists.EmptyIfNull(),
+                NpgsqlDbType.Array | NpgsqlDbType.Integer);
+            await writer.WriteAsync(
+                auction.Item.Modifiers
+                    .EmptyIfNull()
+                    .Select(m => m.Value)
+                    .ToArray(),
+                NpgsqlDbType.Array | NpgsqlDbType.Integer
+            );
+            await writer.WriteAsync(
+                auction.Item.Modifiers
+                    .EmptyIfNull()
+                    .Select(m => m.Type)
+                    .ToArray(),
+                NpgsqlDbType.Array | NpgsqlDbType.Smallint
+            );
+        }
+
+        await writer.CompleteAsync();
+
+        return (appearanceIds, appearanceSources, commodities);
+    }
+
+    private async Task WriteCheapestByAppearanceIdData(
+        NpgsqlBinaryImporter writer,
+        int connectedRealmId,
+        Dictionary<int, List<ApiDataAuctionsAuction>> auctionsByAppearanceId
+    )
+    {
+        foreach (var (appearanceId, auctions) in auctionsByAppearanceId)
+        {
+            var auction = auctions
+                .Where(auction => auction.Buyout > 0)
+                .MinBy(auction => auction.Buyout);
+            if (auction == null)
+            {
+                continue;
+            }
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(appearanceId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
+        }
+
+        await writer.CompleteAsync();
+    }
+
+    private async Task WriteCheapestByAppearanceSourceData(
+        NpgsqlBinaryImporter writer,
+        int connectedRealmId,
+        Dictionary<string, List<ApiDataAuctionsAuction>> auctionsByAppearanceSource)
+    {
+        foreach (var (appearanceSource, auctions) in auctionsByAppearanceSource)
+        {
+            var auction = auctions
+                .Where(auction => auction.Buyout > 0)
+                .MinBy(auction => auction.Buyout);
+            if (auction == null)
+            {
+                continue;
+            }
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(connectedRealmId, NpgsqlDbType.Integer);
+            await writer.WriteAsync(appearanceSource, NpgsqlDbType.Varchar);
+            await writer.WriteAsync(auction.Id, NpgsqlDbType.Integer);
+        }
+
+        await writer.CompleteAsync();
+    }
+
+    private async Task WriteCommodityHourly(NpgsqlBinaryImporter writer,
+        WowRegion wowRegion,
+        Dictionary<int, List<ApiDataAuctionsAuction>> commodities)
+    {
+        var now = DateTime.UtcNow;
+
+        foreach (var (itemId, auctions) in commodities)
+        {
+            long totalListed = auctions.Select(auction => (long)auction.Quantity).Sum();
+
+            var bucketList = totalListed >= 100 ? CommodityPercentBuckets : SmallPercentBuckets;
+            var buckets = new List<Bucket>(bucketList.Length);
+            foreach (double targetPercent in bucketList)
+            {
+                buckets.Add(new Bucket((int)Math.Ceiling(totalListed * targetPercent)));
+            }
+
+            var sortedAuctions = auctions.OrderBy(auction => auction.UnitPrice);
+            foreach (var auction in sortedAuctions)
+            {
+                int auctionRemaining = auction.Quantity;
+
+                foreach (var bucket in buckets)
+                {
+                    int bucketRemaining = bucket.Remaining;
+                    if (bucketRemaining > 0)
+                    {
+                        int toAdd = Math.Min(auctionRemaining, bucketRemaining);
+                        auctionRemaining -= toAdd;
+                        bucket.Count += toAdd;
+                        bucket.Total += toAdd * (auction.UnitPrice / 100);
+                    }
+
+                    if (auctionRemaining == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            int[] dataPoints = buckets.Select(bucket => bucket.Average).ToArray();
+
+            await writer.StartRowAsync();
+            await writer.WriteAsync(now, NpgsqlDbType.TimestampTz);
+            await writer.WriteAsync(itemId, NpgsqlDbType.Integer);
+            await writer.WriteAsync((int)Math.Min(int.MaxValue, totalListed), NpgsqlDbType.Integer);
+            await writer.WriteAsync((short)wowRegion, NpgsqlDbType.Smallint);
+            await writer.WriteAsync(dataPoints, NpgsqlDbType.Array | NpgsqlDbType.Integer);
+        }
+
+        await writer.CompleteAsync();
+    }
+
+    private class Bucket
+    {
+        public int Count { get; set; }
+        public int Target { get; }
+        public long Total { get; set; }
+
+        public Bucket(int target)
+        {
+            Target = target;
+        }
+
+        public int Average => Count == 0 ? 0 : (int)Math.Round((decimal)Total / Count);
+        public int Remaining => Target - Count;
     }
 }

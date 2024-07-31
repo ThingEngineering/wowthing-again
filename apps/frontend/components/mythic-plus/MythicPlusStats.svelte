@@ -2,6 +2,7 @@
     import find from 'lodash/find'
 
     import { keyTiers, seasonMap } from '@/data/dungeon'
+    import { timeStore } from '@/shared/stores/time'
     import { userStore } from '@/stores'
     import { getRunCounts } from '@/utils/dungeon'
     import type { CharacterMythicPlusAddonRun } from '@/types'
@@ -12,15 +13,38 @@
     let totalRuns: number
     $: {
         const season = find(seasonMap, (season) => season.slug === slug)
-        if (season) {
-            const allRuns: CharacterMythicPlusAddonRun[] = []
-            for (const character of $userStore.data.characters) {
+        if (!season) {
+            break $
+        }
+
+        const allRuns: CharacterMythicPlusAddonRun[] = []
+        const characters = $userStore.characters.filter((char) => char.level >= season.minLevel)
+        if (season.id < 10) {
+            for (const character of characters) {
                 allRuns.push(...(character.mythicPlusAddon?.[season.id]?.runs || []))
             }
-
-            runCounts = getRunCounts(allRuns)
-            totalRuns = runCounts.reduce((a, b) => a + b, 0)
         }
+        else {
+            for (const character of characters) {
+                const startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[season.id].startPeriod)
+                    .startTime
+                    .toUnixInteger()
+
+                const endStamp = userStore.getCurrentPeriodForCharacter($timeStore, character)
+                    .endTime
+                    .toUnixInteger()
+
+                for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks || {})) {
+                    const weekStamp = parseInt(timestamp)
+                    if (weekStamp > startStamp && weekStamp <= endStamp) {
+                        allRuns.push(...weekRuns)
+                    }
+                }
+            }
+        }
+
+        runCounts = getRunCounts(allRuns)
+        totalRuns = runCounts.reduce((a, b) => a + b, 0)
     }
 </script>
 
@@ -47,7 +71,7 @@
 
         {#each runCounts as count, countIndex}
             <div
-                class="stats-box border quality{Math.min(5, countIndex + 1)}-border"
+                class="stats-box border quality{Math.min(6, countIndex + 1)}-border"
             >
                 {keyTiers[countIndex]}: {count}
             </div>

@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -9,16 +9,24 @@ public class CharacterMountsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/collections/mounts";
 
-    public override async Task Run(params string[] data)
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
+        var _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
 
         // Fetch API data
         ApiCharacterMounts resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try {
-            var result = await GetJson<ApiCharacterMounts>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMounts>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -34,12 +42,12 @@ public class CharacterMountsJob : JobBase
         }
 
         // Fetch character data
-        var pcMounts = await Context.PlayerCharacterMounts.FindAsync(query.CharacterId);
+        var pcMounts = await Context.PlayerCharacterMounts.FindAsync(_query.CharacterId);
         if (pcMounts == null)
         {
             pcMounts = new PlayerCharacterMounts
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterMounts.Add(pcMounts);
         }
@@ -54,10 +62,11 @@ public class CharacterMountsJob : JobBase
             pcMounts.Mounts = mounts;
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

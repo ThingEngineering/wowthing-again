@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
@@ -12,27 +12,27 @@ namespace Wowthing.Backend.Services;
 
 public sealed class SchedulerService : TimerService
 {
-    private const int TimerInterval = 10;
+    private const int TimerInterval = 5;
 
+    private readonly IConnectionMultiplexer _redis;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
-    private readonly StateService _stateService;
 
     private readonly List<ScheduledJob> _scheduledJobs = new();
 
     public SchedulerService(
+        IConnectionMultiplexer redis,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
-        JsonSerializerOptions jsonSerializerOptions,
-        StateService stateService
+        JsonSerializerOptions jsonSerializerOptions
     )
         : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
     {
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
+        _redis = redis;
         _serviceScopeFactory = serviceScopeFactory;
-        _stateService = stateService;
 
         // Schedule jobs for all IScheduledJob implementers
         var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -42,7 +42,10 @@ public sealed class SchedulerService : TimerService
         foreach (var jobType in jobTypes)
         {
             var fieldInfo = jobType.GetField("Schedule", BindingFlags.Public | BindingFlags.Static);
-            _scheduledJobs.Add((ScheduledJob)fieldInfo.GetValue(null));
+            if (fieldInfo != null)
+            {
+                _scheduledJobs.Add((ScheduledJob)fieldInfo.GetValue(null));
+            }
         }
     }
 
@@ -66,8 +69,8 @@ public sealed class SchedulerService : TimerService
             Logger.Error(ex, "Kaboom!");
         }
 
-        if (_stateService.JobQueueReaders[JobPriority.Low].Count < 5000)
-        {
+        // if (groups[0].Lag < 5000)
+        // {
             try
             {
                 using var scope = _serviceScopeFactory.CreateScope();
@@ -103,13 +106,14 @@ public sealed class SchedulerService : TimerService
                 // }
 
                 // Execute some sort of nasty database query to get characters that need an API check
+                var minimumCheckTime = DateTime.UtcNow.AddHours(-24);
                 var characterResults = await context.SchedulerCharacterQuery
-                    .FromSqlRaw(SchedulerCharacterQuery.SqlQuery)
+                    .FromSqlRaw(SchedulerCharacterQuery.SqlQuery, minimumCheckTime)
                     .ToArrayAsync();
                 if (characterResults.Length > 0)
                 {
                     var resultData = characterResults
-                        .Select(cr => System.Text.Json.JsonSerializer.Serialize(cr, _jsonSerializerOptions));
+                        .Select(cr => JsonSerializer.Serialize(cr, _jsonSerializerOptions));
 
                     // Queue character jobs
                     Logger.Information("Queueing {0} character job(s)", characterResults.Length);
@@ -128,9 +132,9 @@ public sealed class SchedulerService : TimerService
             {
                 Logger.Error(ex, "Kaboom!");
             }
-        }
-        else {
-            Logger.Warning("Low queue is too large!");
-        }
+        // }
+        // else {
+        //     Logger.Warning("Low queue is too large!");
+        // }
     }
 }

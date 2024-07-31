@@ -1,31 +1,35 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
     import { itemModifierMap } from '@/data/item-modifier'
-    import { userTransmogStore } from '@/stores'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { appearanceState } from '@/stores/local-storage'
-    import type { AppearanceDataAppearance } from '@/types/data/appearance'
+    import type { AppearanceDataModifiedAppearance } from '@/types/data/appearance'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let appearance: AppearanceDataAppearance
+    export let has: boolean
+    export let modifiedAppearance: AppearanceDataModifiedAppearance
 
+    let bonusId: number
     let difficulty: string
-    let has: boolean
+    let difficultyShort: string
     let imageName: string
     $: {
-        has = $userTransmogStore.data.userHas[appearance.appearanceId]
-
-        const mod = appearance.modifiedAppearances[0]
+        const mod = modifiedAppearance
 
         imageName = `item/${mod.itemId}`
         if (mod.modifier > 0) {
             imageName += `_${mod.modifier}`
         }
 
-        difficulty = itemModifierMap[mod.modifier]?.[1] || mod.modifier.toString()
+        if (itemModifierMap[mod.modifier]) {
+            [difficulty, difficultyShort, bonusId] = itemModifierMap[mod.modifier]
+        }
+        else {
+            const modifierString = mod.modifier.toString();
+            [difficulty, difficultyShort, bonusId] = [modifierString, modifierString, 0]
+        }
     }
 </script>
 
@@ -38,51 +42,45 @@
         }
     }
     .difficulty {
-        // background-color: $highlight-background;
-        // border: 1px solid;
-        // border-radius: $border-radius-small;
+        border-width: 2px;
         border-top-left-radius: 0;
         border-top-right-radius: 0;
         margin-top: -1px;
-        // padding: 0 2px 1px 2px;
-        // text-align: center;
-        // white-space: nowrap;
     }
 
 </style>
 
-{#if
-    (has && $appearanceState.showCollected) ||
-    (!has && $appearanceState.showUncollected)
-}
-    <div
-        class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
-        class:missing={
-            (has && $appearanceState.highlightMissing) ||
-            (!has && !$appearanceState.highlightMissing)
-        }
+<svelte:options immutable={true} />
+
+<div
+    class="appearance-item quality{modifiedAppearance.quality}"
+    class:missing={
+        (has && $appearanceState.highlightMissing) ||
+        (!has && !$appearanceState.highlightMissing)
+    }
+>
+    <WowheadLink
+        id={modifiedAppearance.itemId}
+        type="item"
+        extraParams={bonusId ? { 'bonus': bonusId.toString() } : null}
     >
-        <WowheadLink
-            id={appearance.modifiedAppearances[0].itemId}
-            type="item"
-        >
-            <WowthingImage
-                name={imageName}
-                size={48}
-                border={1}
-            />
+        <WowthingImage
+            name={imageName}
+            size={48}
+            border={1}
+        />
 
-            {#if has}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
-            {/if}
-        </WowheadLink>
-
-        {#if difficulty}
-            <div class="pill difficulty">
-                {difficulty}
-            </div>
+        {#if has}
+            <CollectedIcon />
         {/if}
-    </div>
-{/if}
+    </WowheadLink>
+
+    {#if difficulty}
+        <div
+            class="pill difficulty"
+            use:basicTooltip={difficulty}
+        >
+            {difficultyShort}
+        </div>
+    {/if}
+</div>

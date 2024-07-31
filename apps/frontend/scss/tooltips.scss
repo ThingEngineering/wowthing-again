@@ -1,4 +1,3 @@
-@import "tooltips/farm";
 @import "tooltips/lockout";
 @import "tooltips/mythic-plus";
 @import "tooltips/vault";
@@ -29,7 +28,7 @@
 
     > h5 {
         border-bottom: 1px solid $tooltip-border;
-        color: $colour-success;
+        color: $color-success;
         font-size: 1.0rem;
         margin-top: -0.2rem;
         padding: 0 0.5rem 0.2rem 0.5rem;
@@ -43,7 +42,7 @@
         text-align: center;
     }
 
-    > table {
+    table {
         width: 100%;
 
         tr {

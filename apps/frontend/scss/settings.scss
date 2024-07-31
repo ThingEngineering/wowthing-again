@@ -1,8 +1,10 @@
 .settings-container {
     border: 1px solid $border-color;
+    column-count: var(--column-count, 1);
+    column-gap: 30px;
     margin-bottom: 1rem;
     padding: 0.5rem 1.0rem;
-    width: $settings-column-width;
+    width: 100%;
 
     h2,
     h3 {
@@ -27,11 +29,19 @@
             margin-top: 1.5rem;
             padding-top: 0.5rem;
         }
+
+    }
+    h4 {
+        margin-top: 0.5rem;
     }
 
     fieldset {
         margin: 0.25rem 0.25rem 0.25rem 0;
 
+        code {
+            background: inherit;
+        }
+        
         label {
             display: block;
             width: 100%;
@@ -48,22 +58,37 @@
             padding-inline-start: 1.3rem;
         }
 
-        &[data-state="false"] {
-            background: rgba(255, 0, 0, 0.2);
-
-            & :global(code) {
-                background: none;
+        &.disabled {
+            label {
+                cursor: not-allowed !important;
+                opacity: 0.5;
             }
         }
+
+        &[data-state="true"] {
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        &[data-state="false"] {
+            background: rgba(255, 0, 0, 0.15);
+        }
+
     }
 
     .setting {
+        align-items: center;
         display: flex;
+
+        &.full-width {
+            fieldset {
+                flex-basis: 100%;
+            }
+        }
 
         fieldset {
             align-items: center;
             display: flex;
-            flex: 0 0 20rem;
+            flex: 0 0 15rem;
         }
 
         p {
@@ -79,7 +104,33 @@
 
     .setting-checkbox {
         fieldset {
-            flex: 1 0 20rem;
+            flex: 1 0 30rem;
+        }
+    }
+
+    .setting-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 1rem;
+
+        fieldset {
+            min-width: 0;
+            width: var(--fieldset-width, 14rem);
+        }
+    }
+}
+
+.settings-block {
+    break-inside: avoid;
+    overflow: hidden; /* Firefox fix */
+    width: $settings-column-width;
+
+    > h3 {
+        display: flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 1rem;
         }
     }
 }

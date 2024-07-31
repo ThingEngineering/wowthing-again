@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -9,17 +9,22 @@ public class CharacterSoulbindsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/soulbinds";
 
-    public override async Task Run(params string[] data)
-    {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+    private SchedulerCharacterQuery _query;
 
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
         // Fetch API data
         ApiCharacterSoulbinds resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterSoulbinds>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterSoulbinds>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -35,13 +40,10 @@ public class CharacterSoulbindsJob : JobBase
         }
 
         // Fetch character data
-        var shadowlands = await Context.PlayerCharacterShadowlands.FindAsync(query.CharacterId);
+        var shadowlands = await Context.PlayerCharacterShadowlands.FindAsync(_query.CharacterId);
         if (shadowlands == null)
         {
-            shadowlands = new PlayerCharacterShadowlands
-            {
-                CharacterId = query.CharacterId,
-            };
+            shadowlands = new PlayerCharacterShadowlands(_query.CharacterId);
             Context.PlayerCharacterShadowlands.Add(shadowlands);
         }
 
@@ -76,10 +78,11 @@ public class CharacterSoulbindsJob : JobBase
             shadowlands.ConduitRanks = new List<int>();
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

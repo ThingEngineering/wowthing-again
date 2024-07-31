@@ -2,18 +2,28 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
-    import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
+    import { expansionMap } from '@/data/expansion'
+    import { iconStrings, imageStrings } from '@/data/icons'
+    import { professionSlugToId } from '@/data/professions'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
-    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
-    import leftPad from '@/utils/left-pad'
-    import { getDropName } from '@/utils/zone-maps/get-drop-name'
+    import { ArmorType } from '@/enums/armor-type'
+    import { FarmIdType } from '@/enums/farm-id-type'
+    import { FarmResetType } from '@/enums/farm-reset-type'
+    import { FarmType } from '@/enums/farm-type'
+    import { LookupType } from '@/enums/lookup-type';
+    import { RewardType } from '@/enums/reward-type'
+    import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
+    import { staticStore } from '@/shared/stores/static'
+    import { leftPad } from '@/utils/formatting'
+    import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
+    import { getDropIcon, getDropName } from '@/utils/zone-maps'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm
@@ -31,7 +41,7 @@
         sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
 
         if (farm.statisticId > 0) {
-            statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
+            statistic = ($userAchievementStore.statistics?.[farm.statisticId] || [])
                 .reduce((a, b) => a + b[1], 0)
         }
     }
@@ -87,14 +97,18 @@
     .statistic {
         background: #232;
     }
-    .note {
-        color: #00ddff;
-        font-size: 0.95rem;
-    }
-    p.note {
-        border-bottom: 1px solid $border-color;
-        margin: 0;
-        padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    .wowthing-tooltip {
+        :global(.note) {
+            color: #00ddff;
+            font-size: 0.95rem;
+        }
+
+        :global(span.note) {
+            border-bottom: 1px solid $border-color;
+            display: block;
+            margin: 0;
+            padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+        }
     }
     td.note {
         padding-left: 0;
@@ -117,7 +131,6 @@
         text-align: left;
         white-space: nowrap;
         width: 5rem;
-        word-spacing: -0.2ch;
 
         :global(code) {
             color: $body-text;
@@ -162,15 +175,21 @@
             />
         {/if}
 
-        {farm.name}
+        <ParsedText text={farm.name} />
     </h4>
 
-    {#if farm.type !== FarmType.Vendor && farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
-        <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
+    {#if farm.type !== FarmType.Vendor}
+        <h5>
+            {#if farm.reset === FarmResetType.Never}
+                once per character
+            {:else if farm.reset !== FarmResetType.None}
+                {FarmResetType[farm.reset].toLowerCase()} reset
+            {/if}
+        </h5>
     {/if}
 
     {#if farm.note}
-        <p class="note">{farm.note}</p>
+        <ParsedText cls={'note'} text={farm.note} />
     {/if}
 
     <table class="table-tooltip-farm table-striped">
@@ -182,7 +201,7 @@
             {/if}
 
             {#if farm.idType == FarmIdType.Instance}
-                {@const stats = $journalStore.data.stats[status.link.replace('/', '--')]}
+                {@const stats = $lazyStore.journal.stats[status.link.replace('/', '--')]}
                 <tr>
                     <td colspan="3">
                         {stats.have} / {stats.total} unique drops
@@ -196,12 +215,15 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={isCriteria ? iconStrings['list'] : rewardTypeIcons[drop.type]} />
+                        <IconifyIcon icon={getDropIcon($itemStore, $manualStore, $staticStore, drop, isCriteria)} />
                     </td>
                     <td
                         class="name"
                         class:status-success={!dropStatus.need}
                     >
+                        {#if drop.amount > 0}
+                            {drop.amount}x
+                        {/if}
                         {getDropName(drop)}
                     </td>
                     <td class="limit">
@@ -209,18 +231,38 @@
                             cosmetic
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
+                            {#if drop.subType >= 1 && drop.subType <= 4}
+                                {$staticStore.inventoryTypes[$itemStore.items[drop.id]?.inventoryType].toLowerCase()}
+                            {/if}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.InstanceSpecial}
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}
                             <code>{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(dropStatus.setNeed, 2)}</code>
+                        {:else if drop.type === RewardType.XpQuest}
+                            quest
                         {:else if isCriteria}
                             criteria
                         {:else if drop.limit?.length > 0}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
-                                [ {drop.limit.slice(2).join(', ')} ]
+                                {#if drop.limit[0] === 'profession'}
+                                    {@const expansion = expansionMap[
+                                        $staticStore.professions[professionSlugToId[drop.limit[1]]]
+                                            .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
+                                    ]}
+                                    [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                {:else}
+                                    [{drop.limit.slice(2).join(', ')}]
+                                {/if}
+                            {/if}
+                        {:else if drop.type === RewardType.Item}
+                            {@const [lookupType,] = rewardToLookup($itemStore, $manualStore, $staticStore, drop.type, drop.id)}
+                            {#if lookupType !== LookupType.None}
+                                {LookupType[lookupType].toLowerCase()}
+                            {:else}
+                                item
                             {/if}
                         {:else}
                             {RewardType[drop.type].toLowerCase()}
@@ -238,9 +280,9 @@
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
                                         <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
-                                        {$achievementStore.data.achievement[drop.id].name}
+                                        {$achievementStore.achievement[drop.id].name}
                                     {:else}
-                                        {$achievementStore.data.achievement[drop.id].description}
+                                        {$achievementStore.achievement[drop.id].description}
                                     {/if}
                                 {:else if dropStatus.setNote}
                                     <ParsedText text={dropStatus.setNote} />
@@ -256,17 +298,21 @@
                                 <td class="characters" colspan="2">
                                     {#each sortBy(
                                         dropStatus.characterIds
-                                            .map(c => $userStore.data.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="class-{character.classId}">{character.name}</span>
+                                            .map(c => $userStore.characterMap[c]),
+                                        c => c.name
+                                    ) as character}
+                                        <span class="class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                     {#each sortBy(
                                         dropStatus.completedCharacterIds
-                                            .map(c => $userStore.data.characterMap[c]),
-                                        c => c.name)
-                                    as character}
-                                        <span class="completed class-{character.classId}">{character.name}</span>
+                                            .map(c => $userStore.characterMap[c]),
+                                        c => c.name
+                                    ) as character}
+                                        <span class="completed class-{character.classId}">
+                                            {character.name}
+                                        </span>
                                     {/each}
                                 </td>
                             </tr>

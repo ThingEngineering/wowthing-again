@@ -1,9 +1,7 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import type { Character } from '@/types'
 
-    const character: Character = getContext('character')
+    export let character: Character
 </script>
 
 <style lang="scss">
@@ -14,4 +12,6 @@
     }
 </style>
 
-<td class="border-left quality{character.calculatedItemLevelQuality}">{character.calculatedItemLevel}</td>
+<td class="border-left quality{character.calculatedItemLevelQuality}">
+    {character.calculatedItemLevel}
+</td>

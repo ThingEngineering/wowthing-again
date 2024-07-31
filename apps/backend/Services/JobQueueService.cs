@@ -1,8 +1,8 @@
-﻿using System.Text.Json;
-using System.Threading.Channels;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Core;
 using StackExchange.Redis;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 
@@ -10,47 +10,36 @@ namespace Wowthing.Backend.Services;
 
 public class JobQueueService : BackgroundService
 {
-    private readonly Dictionary<JobPriority, Channel<WorkerJob>> _channels = new();
+    private readonly IDbContextFactory<WowDbContext> _contextFactory;
     private readonly ILogger _logger;
 
     public JobQueueService(
-        IConnectionMultiplexer redis,
-        JsonSerializerOptions jsonSerializerOptions,
-        StateService stateService
+        IDbContextFactory<WowDbContext> contextFactory
     )
     {
+        _contextFactory = contextFactory;
+
         _logger = Log.ForContext("Service", $"JobQueue");
-
-        foreach (var priority in EnumUtilities.GetValues<JobPriority>())
-        {
-            _channels[priority] = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
-            {
-                SingleReader = false,
-                SingleWriter = false,
-            });
-            stateService.JobQueueReaders[priority] = _channels[priority].Reader;
-        }
-
-        redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
-        {
-            var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);
-            await _channels[job.Priority].Writer.WriteAsync(job);
-        });
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(10000, stoppingToken);
+            await Task.Delay(10000, cancellationToken);
 
-            foreach (var priority in EnumUtilities.GetValues<JobPriority>())
+            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+            // Reset any jobs that have been stuck for at least 5 minutes
+            int updated = await context.QueuedJob
+                .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddMinutes(-5))
+                .ExecuteUpdateAsync(
+                    s => s.SetProperty(job => job.StartedAt, job => null),
+                    cancellationToken
+                );
+            if (updated > 0)
             {
-                int count = _channels[priority].Reader.Count;
-                if (count > 1000)
-                {
-                    _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(), count);
-                }
+                _logger.Warning("Reset {count} incomplete job(s)", updated);
             }
         }
     }

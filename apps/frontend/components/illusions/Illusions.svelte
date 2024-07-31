@@ -1,59 +1,69 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
+    import { afterUpdate } from 'svelte'
 
-    import { manualStore, staticStore, userTransmogStore } from '@/stores'
+    import { manualStore, lazyStore, userStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import { illusionState } from '@/stores/local-storage'
-    //import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
+    import { settingsStore } from '@/shared/stores/settings'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
+    import getPercentClass from '@/utils/get-percent-class'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
+    import Count from '@/components/collectible/CollectibleCount.svelte'
+    import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     let sections: [string, ManualDataIllusionGroup[]][]
     $: {
         sections = [
-            ['Available', $manualStore.data.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
-            ['Unavailable', $manualStore.data.illusions.filter((group) => group.name.startsWith('Unavailable'))],
+            ['Available', $manualStore.illusions.filter((group) => !group.name.startsWith('Unavailable'))],
         ]
+
+        if (!$settingsStore.collections.hideUnavailable || $lazyStore.illusions['UNAVAILABLE'].have > 0) {
+            sections.push([
+                'Unavailable',
+                $manualStore.illusions.filter((group) => group.name.startsWith('Unavailable'))
+            ])
+        }
     }
+
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'collection-v2-group',
+                {
+                    columnCount: '--column-count',
+                    gap: 30,
+                    padding: '1.5rem'
+                }
+            )
+            debouncedResize()
+        }
+        else {
+            debouncedResize = null
+        }
+    }
+    
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
-    .wrapper {
-        width: 100%;
-    }
-    .collection-v2-section {
-        --column-count: 1;
-        --column-gap: 1rem;
-        --column-width: 18rem;
-
-        width: 18.75rem;
-        
-        @media screen and (min-width: 830px) {
-            --column-count: 2;
-            width: 37.75rem;
-        }
-        @media screen and (min-width: 1135px) {
-            --column-count: 3;
-            width: 56.75rem;
-        }
-        @media screen and (min-width: 1440px) {
-            --column-count: 4;
-            width: 75.75rem;
-        }
-        @media screen and (min-width: 1745) {
-            --column-count: 5;
-            width: 94.75rem;
-        }
+    .collection-v2-group {
+        width: 17.5rem;
     }
     .collection-object {
-        min-height: 52px;
-        width: 52px;
+        min-height: 44px;
+        width: 44px;
     }
     .pill {
         border-top-left-radius: 0;
@@ -75,7 +85,9 @@
 
 </style>
 
-<div class="wrapper">
+<svelte:window on:resize={debouncedResize} />
+
+<div class="resizer-view" bind:this={containerElement}>
     <div class="options-container">
         <button>
             <CheckboxInput
@@ -101,40 +113,40 @@
         </button> -->
     </div>
 
-    <div class="collection thing-container">
-        {#each sections as [name, groups]}
+    <div class="collection thing-container" bind:this={resizeableElement}>
+        {#each sections as [sectionName, groups]}
             <SectionTitle
-                count={null}
-                title={name}
+                count={$lazyStore.illusions[sectionName.toUpperCase()]}
+                title={sectionName}
             />
             <div class="collection-v2-section">
                 {#each groups as group}
+                    {@const groupCount = $lazyStore.illusions[group.name]}
                     <div class="collection-v2-group">
-                        <h4 class="drop-shadow">
+                        <h4 class="drop-shadow text-overflow {getPercentClass(groupCount.percent)}">
                             {group.name.replace('Unavailable - ', '')}
+                            <Count counts={groupCount} />
                         </h4>
                         <div class="collection-objects">
                             {#each group.items as item}
-                                {@const illusion = find($staticStore.data.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId] === true}
+                                {@const illusion = find($staticStore.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
+                                {@const have = $userStore.hasIllusion.has(illusion.enchantmentId)}
                                 <div
                                     class="collection-object"
                                     class:missing={
                                         ($illusionState.highlightMissing && have) ||
                                         (!$illusionState.highlightMissing && !have)
                                     }
-                                    use:tippy={illusion.name}
+                                    use:basicTooltip={illusion.name}
                                 >
                                     <WowthingImage
                                         name="enchantment/{item.enchantmentId}"
-                                        size={48}
+                                        size={40}
                                         border={2}
                                     />
 
                                     {#if have}
-                                        <div class="collected-icon drop-shadow">
-                                            <IconifyIcon icon={mdiCheckboxOutline} />
-                                        </div>
+                                        <CollectedIcon />
                                     {/if}
 
                                     {#each (item.classes || []) as classId}

@@ -1,4 +1,8 @@
-import type { FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
+import type { FarmAnchorPoint } from '@/enums/farm-anchor-point'
+import type { FarmIdType } from '@/enums/farm-id-type'
+import type { FarmResetType } from '@/enums/farm-reset-type'
+import type { FarmType } from '@/enums/farm-type'
+import type { RewardType } from '@/enums/reward-type'
 import type { ManualDataVendorItem } from './vendor'
 
 
@@ -36,9 +40,11 @@ export class ManualDataZoneMapFarm {
         public minimumLevel?: number,
         public statisticId?: number,
         public requiredQuestIds?: number[],
+        public criteriaId?: number,
         public note?: string,
         public faction?: string,
         public groupId?: number,
+        public anchorPoint?: FarmAnchorPoint,
     )
     {
         this.location = location.split(',')
@@ -60,7 +66,8 @@ export class ManualDataZoneMapDrop {
         public limit?: string[],
         public questIds?: number[],
         public requiredQuestId?: number,
-        public note?: string
+        public amount?: number,
+        public note?: string,
     )
     {}
 }

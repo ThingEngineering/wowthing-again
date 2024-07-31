@@ -1,8 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Net.Http;
-using System.Text.Json;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Context;
@@ -11,6 +9,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Services;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace Wowthing.Backend.Services;
 
@@ -18,34 +17,42 @@ public class WorkerService : BackgroundService
 {
     private static int _instanceCount;
     private static readonly Dictionary<Type, Func<object>> ConstructorMap = new();
-    private static readonly Dictionary<JobType, (Type, string)> JobTypeMap = new();
+    private static readonly Dictionary<string, Type> JobTypeMap = new();
 
     private readonly ILogger _logger;
-    private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobFactory _jobFactory;
-    private readonly JobPriority _priority;
     private readonly StateService _stateService;
+
+    private readonly string _name;
+    private readonly JobPriority _priority;
+    private readonly IDbContextFactory<WowDbContext> _contextFactory;
+
+    private const int InitialBackoff = 1000;
+    private const int MaxBackoff = 4000;
+    private const int MinimumIdleTime = 120 * 1000; // 2 minutes
 
     public WorkerService(
         JobPriority priority,
-        IConfiguration config,
         CacheService cacheService,
+        IConfiguration config,
+        IDbContextFactory<WowDbContext> contextFactory,
         IHttpClientFactory clientFactory,
-        IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
         StateService stateService
     )
     {
-        _priority = priority;
-        _serviceScopeFactory = serviceScopeFactory;
+        _contextFactory = contextFactory;
         _stateService = stateService;
 
-        var instanceId = Interlocked.Increment(ref _instanceCount);
-        _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]}");
+        _priority = priority;
+        _name = priority.ToString()[..1];
 
-        var redisConnectionString = config.GetConnectionString("Redis");
+        int instanceId = Interlocked.Increment(ref _instanceCount);
+        _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_name}");
+
+        string redisConnectionString = config.GetConnectionString("Redis");
         _jobFactory = new JobFactory(
             ConstructorMap,
             cacheService,
@@ -68,8 +75,7 @@ public class WorkerService : BackgroundService
             .ToArray();
         foreach (var jobType in jobTypes)
         {
-            var typeName = jobType.Name[0..^3];
-            JobTypeMap[Enum.Parse<JobType>(typeName)] = (jobType, typeName);
+            JobTypeMap[jobType.Name[..^3]] = jobType;
 
             var constructorExpression = Expression.New(jobType);
             var lambda = Expression.Lambda<Func<object>>(constructorExpression);
@@ -84,7 +90,8 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
-        await foreach (var result in _stateService.JobQueueReaders[_priority].ReadAllAsync(cancellationToken))
+        int backoffDelay = InitialBackoff;
+        while (!cancellationToken.IsCancellationRequested)
         {
             while (_stateService.AccessToken?.Valid != true)
             {
@@ -92,28 +99,87 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, cancellationToken);
             }
 
-            using var scope = _serviceScopeFactory.CreateScope();
-            var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
-            if (contextFactory == null)
+            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+            var queuedJobs = await context.QueuedJob
+                .FromSql($@"
+WITH job_ids AS (
+    SELECT  id
+    FROM    queued_job
+    WHERE   priority = {(short)_priority}
+            AND started_at IS NULL
+    ORDER BY id
+    FOR UPDATE SKIP LOCKED
+    LIMIT 1
+)
+UPDATE  queued_job
+SET     started_at = CURRENT_TIMESTAMP
+WHERE   id = ANY(SELECT id FROM job_ids)
+        AND started_at IS NULL
+RETURNING *
+")
+                .ToArrayAsync(cancellationToken);
+
+            if (queuedJobs.Length == 0)
             {
-                throw new NullReferenceException("contextFactory is null??");
+                backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
+                await Task.Delay(backoffDelay, cancellationToken);
+                continue;
             }
 
-            (Type classType, string jobName) = JobTypeMap[result.Type];
-            using (LogContext.PushProperty("Task", jobName))
+            backoffDelay = InitialBackoff;
+            var queuedJob = queuedJobs[0];
+
+            string jobTypeName = queuedJob.Type.ToString();
+            Type classType = JobTypeMap[jobTypeName];
+            using var jobTokenSource = new CancellationTokenSource();
+            using (LogContext.PushProperty("Task", jobTypeName))
             {
+                JobBase job = null;
+
                 try
                 {
-                    //await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
+                    string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
-                    using var job = _jobFactory.Create(classType, contextFactory, cancellationToken);
-                    await job.Run(result.Data);
+                    job = _jobFactory.Create(classType, _contextFactory, jobTokenSource.Token);
+                    job.Setup(data);
+                    await job.Run(data);
+
+                    await context.QueuedJob
+                        .Where(qj => qj.Id == queuedJob.Id)
+                        .ExecuteDeleteAsync(jobTokenSource.Token);
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Job failed");
+
+                    if (queuedJob.Failures >= 2)
+                    {
+                        await context.QueuedJob
+                            .Where(qj => qj.Id == queuedJob.Id)
+                            .ExecuteDeleteAsync(jobTokenSource.Token);
+                    }
+                    else
+                    {
+                        await context.QueuedJob
+                            .Where(qj => qj.Id == queuedJob.Id)
+                            .ExecuteUpdateAsync(
+                                setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
+                                cancellationToken: jobTokenSource.Token
+                            );
+                    }
+                }
+                finally
+                {
+                    if (job != null)
+                    {
+                        await job.Finally();
+                        job.Dispose();
+                    }
                 }
             }
         }
+
+        _logger.Warning("Service stopping!");
     }
 }

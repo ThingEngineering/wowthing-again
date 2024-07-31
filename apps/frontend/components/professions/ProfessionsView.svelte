@@ -1,34 +1,25 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import type { MultiSlugParams } from '@/types'
 
-    import { staticStore } from '@/stores'
+    import Equipment from './equipment/Equipment.svelte'
+    import DragonflightKnowledge from './dragonflight-knowledge/DragonflightKnowledge.svelte'
+    import Knowledge from './knowledge/Knowledge.svelte';
+    import Overview from './overview/ProfessionsOverview.svelte'
+    import Recipes from './recipes/ProfessionsRecipes.svelte'
 
-    import Table from './ProfessionsTable.svelte'
-
-    export let slug: string
-
-    const allProfessions = Object.values($staticStore.data.professions)
-    allProfessions.sort((a, b) => a.name.localeCompare(b.name))
-
+    export let params: MultiSlugParams
 </script>
 
-<style lang="scss">
-    .professions-wrapper {
-        :global(div + div) {
-            margin-top: 1rem;
-        }
-        :global(table > tbody > tr > td.name) {
-            width: 10rem;
-        }
-    }
-</style>
-
-<div class="professions-wrapper">
-    {#if slug === 'all'}
-        {#each allProfessions as profession}
-            <Table {profession} />
-        {/each}
-    {:else}
-        <Table profession={find(allProfessions, (prof) => prof.slug === slug)} />
+<div class="view">
+    {#if params.slug1 === 'dragonflight-knowledge'}
+        <DragonflightKnowledge />
+    {:else if params.slug1 === 'equipment'}
+        <Equipment slug={params.slug2} />
+    {:else if params.slug1 === 'knowledge'}
+        <Knowledge />
+    {:else if params.slug1 === 'overview'}
+        <Overview slug={params.slug2} />
+    {:else if params.slug1 === 'recipes'}
+        <Recipes slug1={params.slug2} slug2={params.slug3} />
     {/if}
 </div>

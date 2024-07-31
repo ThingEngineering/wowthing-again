@@ -1,7 +1,8 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Character;
@@ -10,19 +11,24 @@ public class CharacterAchievementsJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/achievements";
 
-    public override async Task Run(params string[] data)
-    {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+    private SchedulerCharacterQuery _query;
 
+    public override void Setup(string[] data)
+    {
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
         var timer = new JankTimer();
 
         // Fetch API data
         ApiCharacterAchievements resultData;
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
+            var result = await GetUriAsJsonAsync<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -38,12 +44,12 @@ public class CharacterAchievementsJob : JobBase
         }
 
         // Fetch character data
-        var pcAchievements = await Context.PlayerCharacterAchievements.FindAsync(query.CharacterId);
+        var pcAchievements = await Context.PlayerCharacterAchievements.FindAsync(_query.CharacterId);
         if (pcAchievements == null)
         {
             pcAchievements = new PlayerCharacterAchievements
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterAchievements.Add(pcAchievements);
         }
@@ -123,10 +129,11 @@ public class CharacterAchievementsJob : JobBase
 
         timer.AddPoint("Process");
 
-        var updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, query.UserId.ToString());
+            await CacheService.DeleteAchievementCacheAsync(_query.UserId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, _query.UserId);
         }
 
         timer.AddPoint("Update", true);
@@ -143,5 +150,10 @@ public class CharacterAchievementsJob : JobBase
             );
             RecurseCriteria(criteriaAmounts, child.ChildCriteria);
         }
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

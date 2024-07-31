@@ -1,13 +1,15 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-
-    import { expansionMap } from '@/data/expansion'
-    import { appearanceStore } from '@/stores'
-    import type { SidebarItem, UserCount } from '@/types'
+    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
+    import { lazyStore } from '@/stores'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
-    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte';
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import { settingsStore } from '@/shared/stores/settings';
+
+    export let basePath = ''
 
     let categories: SidebarItem[] = []
     let stats: UserCount
@@ -16,10 +18,7 @@
             {
                 name: 'Expansion',
                 slug: 'expansion',
-                children: sortBy(
-                    Object.values(expansionMap),
-                    (expansion) => expansion.id
-                ),
+                children: settingsStore.expansions,
             },
             null,
             {
@@ -49,7 +48,7 @@
                 children: weaponChildren,
             }
         ]
-        stats = $appearanceStore.data.stats['OVERALL']
+        stats = $lazyStore.appearances.stats.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
@@ -60,7 +59,7 @@
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $appearanceStore.data.stats[slug]
+        const hasData = $lazyStore.appearances.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 
@@ -106,24 +105,23 @@
         }))
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-    }
-</style>
-
 <Sidebar
-    baseUrl="/appearances"
+    baseUrl={basePath ? `/${basePath}/appearances` : '/appearances'}
     items={categories}
     noVisitRoot={true}
+    scrollable={true}
     width="16rem"
     {percentFunc}
 >
-    <div slot="before">
-        <ProgressBar
-            title="Overall"
-            have={stats.have}
-            total={stats.total}
-        />
-    </div>
+    <svelte:fragment slot="before">
+        <div>
+            <ProgressBar
+                title="Overall"
+                have={stats.have}
+                total={stats.total}
+            />
+        </div>
+
+        <Settings />
+    </svelte:fragment>
 </Sidebar>

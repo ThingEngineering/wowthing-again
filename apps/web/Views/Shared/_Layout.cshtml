@@ -14,8 +14,14 @@
     }
     else
     {
-        <link rel="stylesheet" asp-href-include="~/dist/vendor.*css">
-        <link rel="stylesheet" asp-href-include="~/dist/home.*css">
+        @if (IsSectionDefined("css"))
+        {
+            @await RenderSectionAsync("css")
+        }
+        else
+        {
+            <partial name="_ManifestCss.cshtml" model='"user-home/user-home.ts"' />
+        }
     }
 
     @await RenderSectionAsync("head", required: false)
@@ -24,30 +30,18 @@
     <header>
         <nav class="nav">
             <ul id="nav-left">
-                <!--<li class="header-title">
-                    <a href="@UriService.GetBaseAction("Home", "Index")">WoWthing</a>
-                </li>-->
                 @if (User.Identity?.IsAuthenticated == true)
                 {
                     <li>
                         <a href="@await UriService.GetUriForUser()">My Page</a>
                     </li>
                     <li>
-                        <a asp-controller="Upload" asp-action="Index">Upload Addon Data</a>
-                    </li>
-
-                    <li class="margin-left">
-                        <a href="https://discord.gg/4UkTT5y" target="_blank" rel="nofollow noopener noreferrer">
-                            <img src="/external/discord_blurple.png" height="24" width="24" alt="Discord logo"> Discord
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://ko-fi.com/thingengineering" target="_blank" rel="nofollow noopener noreferrer">
-                            <img src="/external/kofi_pixel_logo.png" height="20" width="30" alt="Ko-fi logo"> Buy me a coffee?
-                        </a>
+                        <a href="@UriService.GetBaseAction("Upload", "Index")">Upload Addon Data</a>
                     </li>
                 }
+                <li class="header-title">
+                    <a href="@UriService.GetBaseAction("Leaderboard", "Index")">Leaderboard</a>
+                </li>
             </ul>
 
             <ul id="nav-center">
@@ -70,6 +64,7 @@
             </ul>
         </nav>
     </header>
+    <div id="app-nav"></div>
     <main>
         @RenderBody()
 
@@ -101,6 +96,6 @@
         </footer>
     </main>
 
-    @await RenderSectionAsync("scripts", required: false)
+@await RenderSectionAsync("js", required: false)
 </body>
 </html>

@@ -1,13 +1,11 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
     import { reputationState } from '@/stores/local-storage'
-    import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataReputationSet } from '@/types/data/static'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import type { StaticDataReputationSet } from '@/shared/stores/static/types'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let reputation: StaticDataReputationSet
     export let slug: string
@@ -21,17 +19,12 @@
             reputation.alliance?.id ?? 0,
             reputation.horde?.id ?? 0,
         ]
-        sortingBy = some(
-            $reputationState.sortOrder[slug] || [],
+        sortingBy = ($reputationState.sortOrder[slug] || []).some(
             (repId) => repId > 0 && repIds.indexOf(repId) >= 0
         )
 
         onClick = function() {
-            $reputationState.sortOrder[slug] = sortingBy ? [] : [
-                reputation.both?.id ?? 0,
-                reputation.alliance?.id ?? 0,
-                reputation.horde?.id ?? 0,
-            ]
+            $reputationState.sortOrder[slug] = sortingBy ? [] : repIds
         }
     }
 </script>
@@ -52,8 +45,9 @@
 </style>
 
 <th
+    data-reputation-ids={repIds.filter((id) => id > 0).join(',')}
     on:click|preventDefault={onClick}
-    use:tippyComponent={{
+    use:componentTooltip={{
         component: Tooltip,
         props: {reputation},
     }}

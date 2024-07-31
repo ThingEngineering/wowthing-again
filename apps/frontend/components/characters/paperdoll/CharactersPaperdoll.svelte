@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { InventorySlot } from '@/enums'
+    import { InventorySlot } from '@/enums/inventory-slot'
     import { userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { BackgroundImage, Character } from '@/types'
 
     import Configure from './CharactersPaperdollConfigure.svelte'
     import Equipped from './CharactersPaperdollEquipped.svelte'
+    import Stats from './CharactersPaperdollStats.svelte'
 
     export let character: Character
 
@@ -15,8 +16,8 @@
     let characterImage: string
     let filter: string
     $: {
-        backgroundImage = $userStore.data.backgrounds[selected === -1 ? $settingsData.characters.defaultBackgroundId : selected]
-        characterImage = $userStore.data.images[`${character.id}-2`]
+        backgroundImage = $userStore.backgrounds[selected === -1 ? $settingsStore.characters.defaultBackgroundId : selected]
+        characterImage = $userStore.images[`${character.id}-2`]
 
         if (backgroundImage) {
             const filterParts: string[] = []
@@ -68,9 +69,8 @@
         border-bottom-left-radius: $border-radius;
         border-bottom-right-radius: $border-radius;
         height: 750px;
-        margin: -1rem;
         position: relative;
-        width: calc(100% + 2rem);
+        width: 100%;
 
         &::before {
             background-image: var(--background-image);
@@ -88,17 +88,10 @@
         }
 
         &.race-6,  // Tauren
-        &.race-28, // Highmountain Tauren
-        &.race-32  // Kul Tiran
-        {
-            --scale: 0.75;
-        }
-
-        &.race-2,  // Orc
-        &.race-36, // Mag'har Orc
         &.race-8,  // Troll
+        &.race-28, // Highmountain Tauren
         &.race-31, // Zandalari Troll
-        &.race-52  // Dracthyr
+        &.race-32  // Kul Tiran
         {
             --scale: 0.75;
         }
@@ -108,10 +101,16 @@
             --scale: 0.95;
         }
 
+        &.race-2,  // Orc
+        &.race-3,  // Dwarf
         &.race-4,  // Night Elf
         &.race-11, // Draenei
         &.race-27, // Nightborne
-        &.race-30  // Lightforged Draenei
+        &.race-30, // Lightforged Draenei
+        &.race-35, // Vulpera
+        &.race-36, // Mag'har Orc
+        &.race-52, // Dracthyr [A]
+        &.race-70  // Dracthyr [H]
         {
             --scale: 0.8;
         }
@@ -150,24 +149,28 @@
         gap: 0.8rem;
 
         &.left {
-            left: 2rem;
+            left: 1rem;
         }
         &.right {
-            right: 2rem;
+            right: 1rem;
         }
     }
-    .weapons {
+    .weapon {
+        bottom: 1rem;
         position: absolute;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 0.8rem;
+
+        &.left {
+            right: calc(50% + 0.5rem);
+        }
+        &.right {
+            left: calc(50% + 0.5rem);
+        }
     }
     .attribution {
         position: absolute;
-        bottom: -1px;
+        bottom: 0;
         right: -1px;
+        transform: translateY(100%);
         background: $thing-background;
         border-bottom-left-radius: 0;
         border-top-right-radius: 0;
@@ -177,7 +180,7 @@
 
 <div
     class="paperdoll race-{character.raceId}"
-    class:paperdoll-configurable={!$userStore.data.public}
+    class:paperdoll-configurable={!$userStore.public}
     style:--background-image={backgroundImage ? `url(https://img.wowthing.org/backgrounds/${backgroundImage.filename})` : undefined}
     style:--background-filter={filter}
 >
@@ -203,15 +206,20 @@
             <Equipped
                 {character}
                 {inventorySlot}
+                leftSide={true}
             />
         {/each}
     </div>
 
-    <div class="weapons">
+    <div class="weapon left">
         <Equipped
             inventorySlot={InventorySlot.MainHand}
             {character}
+            leftSide={true}
         />
+    </div>
+
+    <div class="weapon right">
         <Equipped
             inventorySlot={InventorySlot.OffHand}
             {character}
@@ -223,9 +231,11 @@
             {@html backgroundImage.attribution}
         </div>
     {/if}
+
+    <Stats {character} />
 </div>
 
-{#if !$userStore.data.public}
+{#if !$userStore.public}
     <Configure
         bind:backgroundBrightness={character.configuration.backgroundBrightness}
         bind:backgroundSaturation={character.configuration.backgroundSaturation}

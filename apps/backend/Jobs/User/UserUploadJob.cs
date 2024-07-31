@@ -4,25 +4,31 @@ using Wowthing.Lib.Comparers;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
+using Polly;
+using Polly.Retry;
+using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
 
 public class UserUploadJob : JobBase
 {
+    private bool _resetAchievementCache;
+    private bool _resetMountCache;
+    private bool _resetQuestCache;
+    private bool _resetTransmogCache;
+    private long _userId;
     private JankTimer _timer;
     private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
+    private Dictionary<short, Dictionary<(short Expansion, int ZoneId, int QuestId, short Faction, short Class), WorldQuestReport>> _worldQuestReportMap;
 
-    private bool _resetAchievementCache;
-    private bool _resetQuestCache;
-    private bool _resetTransmogCache;
-
-    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
+    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> AchievementComparer =
         new(new PlayerCharacterAddonAchievementsAchievementComparer());
 
     private readonly HashSet<string> _fortifiedNames = new()
@@ -40,13 +46,95 @@ public class UserUploadJob : JobBase
         "強悍", // zhTW
     };
 
-    public override async Task Run(params string[] data)
+    private static readonly HashSet<int> BankBags = new()
+    {
+        -3, // Reagent Bank
+        -1, // Bank
+        6, // Bank bag 1
+        7, // Bank bag 2
+        8, // Bank bag 3
+        9, // Bank bag 4
+        10, // Bank bag 5
+        11, // Bank bag 6
+        12, // Bank bag 7
+    };
+
+    private static readonly HashSet<int> PlayerBags = new()
+    {
+        0, // Backpack
+        1, // Bag 1
+        2, // Bag 2
+        3, // Bag 3
+        4, // Bag 4
+        5, // Reagent bag
+    };
+
+    private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
+        .HandleResult<bool>(r => r == false)
+        .WaitAndRetryAsync(
+            retryCount: 20,
+            _ => TimeSpan.FromMilliseconds(250)
+        );
+
+    public override void Setup(string[] data)
+    {
+        _userId = long.Parse(data[0]);
+        UserLog(_userId);
+    }
+
+    public override async Task Run(string[] data)
     {
         _timer = new JankTimer();
 
-        long userId = long.Parse(data[0]);
-        using var shrug = UserLog(userId);
+        Logger.Information("Processing {key}...", data[1]);
 
+        // Lock on the user ID to prevent simultaneous uploads
+        string lockKey = $"user_upload:{_userId}";
+        string lockValue = Guid.NewGuid().ToString("N");
+        try
+        {
+            var lockResult = await LockRetryPolicy.ExecuteAndCaptureAsync(
+                () => JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1))
+            );
+            if (lockResult.Outcome == OutcomeType.Failure)
+            {
+                Logger.Error("Failed to acquire lock!");
+                return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Kaboom!");
+            return;
+        }
+
+        _timer.AddPoint("Lock");
+
+        var db = Redis.GetDatabase();
+        string luaData = await db.CompressedStringGetAsync(data[1]);
+
+        _timer.AddPoint("Redis");
+
+        if (string.IsNullOrWhiteSpace(luaData))
+        {
+            Logger.Error("Lua data is empty!");
+            return;
+        }
+
+        try
+        {
+            await Process(luaData);
+            await db.KeyDeleteAsync(data[1]);
+        }
+        finally
+        {
+            await JobRepository.ReleaseLockAsync(lockKey, lockValue);
+        }
+
+        Logger.Information("{Timer}", _timer.ToString());
+    }
+
+    public async Task Process(string luaData) {
         _instanceNameToIdMap = (await MemoryCacheService.GetJournalInstanceMap())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
@@ -55,7 +143,7 @@ public class UserUploadJob : JobBase
 
         var trustedRole = await MemoryCacheService.GetTrustedRole();
         bool hasTrustedRole = await Context.UserRoles
-            .Where(ur => ur.UserId == userId && ur.RoleId == trustedRole)
+            .Where(ur => ur.UserId == _userId && ur.RoleId == trustedRole)
             .AnyAsync();
         if (hasTrustedRole)
         {
@@ -84,10 +172,27 @@ public class UserUploadJob : JobBase
             }
         }
 
-        Logger.Information("Processing upload...");
+        _worldQuestReportMap = (
+                await Context.WorldQuestReport
+                    .Where(wqr => wqr.UserId == _userId)
+                    .ToArrayAsync()
+            )
+            .GroupBy(wqr => wqr.Region)
+            .ToDictionary(
+                group => group.Key,
+                group => group.ToDictionary(wqr => (
+                    wqr.Expansion,
+                    wqr.ZoneId,
+                    wqr.QuestId,
+                    wqr.Faction,
+                    wqr.Class
+                ))
+            );
+
+        _timer.AddPoint("Load");
 
         var json = LuaToJsonConverter4
-            .Convert(data[1].Replace("WWTCSaved = ", ""))[1..^1];
+            .Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
         _timer.AddPoint("Convert");
 
 #if DEBUG
@@ -96,16 +201,17 @@ public class UserUploadJob : JobBase
 #endif
 
         //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
-        var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
+        var parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
 
         // Fetch guild data
         var guildMap = await Context.PlayerGuild
-            .Where(pg => pg.UserId == userId)
+            .Where(pg => pg.UserId == _userId)
             .Include(pg => pg.Items)
             .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
 
         // Deal with guild data
+        var guildItems = new List<(PlayerGuild, UploadGuild)>();
         foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
         {
             var (realm, guildName) = ParseAddonId(addonId);
@@ -118,17 +224,23 @@ public class UserUploadJob : JobBase
             {
                 guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
                 {
-                    UserId = userId,
+                    UserId = _userId,
                     RealmId = realm.Id,
                     Name = guildName,
                 };
                 Context.PlayerGuild.Add(guild);
             }
 
-            await HandleGuildItems(guild, guildData);
+            guildItems.Add((guild, guildData));
         }
 
+        // Save any new guilds now, EF likes to try to save the guild items first sometimes
         await Context.SaveChangesAsync();
+
+        foreach (var (guild, guildData) in guildItems)
+        {
+            await HandleGuildItems(guild, guildData);
+        }
 
         _timer.AddPoint("Guilds");
 
@@ -152,7 +264,7 @@ public class UserUploadJob : JobBase
 
         // Fetch character data
         var characterMap = await Context.PlayerCharacter
-            .Where(c => c.Account.UserId == userId)
+            .Where(c => c.Account.UserId == _userId)
             .Where(characterPredicate)
             .Include(c => c.AddonAchievements)
             .Include(c => c.AddonData)
@@ -189,6 +301,79 @@ public class UserUploadJob : JobBase
                 continue;
             }
 
+            // Create any related objects now
+            bool saveNow = false;
+            if (character.AddonData == null)
+            {
+                character.AddonData = new PlayerCharacterAddonData(character.Id);
+                Context.PlayerCharacterAddonData.Add(character.AddonData);
+                saveNow = true;
+            }
+
+            if (character.AddonAchievements == null)
+            {
+                character.AddonAchievements = new PlayerCharacterAddonAchievements(character.Id);
+                Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
+                saveNow = true;
+            }
+
+            if (character.AddonMounts == null)
+            {
+                character.AddonMounts = new PlayerCharacterAddonMounts(character.Id);
+                Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
+                saveNow = true;
+            }
+
+            if (character.AddonQuests == null)
+            {
+                character.AddonQuests = new PlayerCharacterAddonQuests(character.Id);
+                Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
+                saveNow = true;
+            }
+
+            if (character.Lockouts == null)
+            {
+                character.Lockouts = new PlayerCharacterLockouts(character.Id);
+                Context.PlayerCharacterLockouts.Add(character.Lockouts);
+                saveNow = true;
+            }
+
+            if (character.Shadowlands == null)
+            {
+                character.Shadowlands = new PlayerCharacterShadowlands(character.Id);
+                Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
+                saveNow = true;
+            }
+
+            if (character.Transmog == null)
+            {
+                character.Transmog = new PlayerCharacterTransmog(character.Id);
+                Context.PlayerCharacterTransmog.Add(character.Transmog);
+                saveNow = true;
+            }
+
+            if (character.Weekly == null)
+            {
+                character.Weekly = new PlayerCharacterWeekly(character.Id);
+                Context.PlayerCharacterWeekly.Add(character.Weekly);
+                saveNow = true;
+            }
+
+            if (saveNow)
+            {
+                try
+                {
+                    await Context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "Save failed!");
+                    // This discards the changes for this character so that we can continue on
+                    Context.ChangeTracker.AcceptAllChanges();
+                    continue;
+                }
+            }
+
             //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
             accountId = character.AccountId!.Value;
             var lastSeen = characterData.LastSeen.AsUtcDateTime();
@@ -199,7 +384,6 @@ public class UserUploadJob : JobBase
             character.Copper = characterData.Copper;
             character.IsResting = characterData.IsResting;
             character.IsWarMode = characterData.IsWarMode;
-            character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
             character.PlayedTotal = characterData.PlayedTotal;
             character.RestedExperience = characterData.RestedXp;
 
@@ -213,15 +397,6 @@ public class UserUploadJob : JobBase
                 }
             }
 
-            if (character.AddonData == null)
-            {
-                character.AddonData = new PlayerCharacterAddonData
-                {
-                    CharacterId = character.Id,
-                };
-                Context.PlayerCharacterAddonData.Add(character.AddonData);
-            }
-
             HandleAddonData(character, characterData);
 
             HandleAchievements(character, characterData);
@@ -231,6 +406,9 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
+            HandleProfessions(character, characterData);
+            HandleProfessionCooldowns(character, characterData);
+            HandleProfessionTraits(character, characterData);
             HandleQuests(character, characterData, realm.Region);
             HandleReputations(character, characterData);
             HandleTransmog(character, characterData);
@@ -239,11 +417,21 @@ public class UserUploadJob : JobBase
             if (lastSeen > character.LastApiCheck)
             {
                 character.LastApiCheck = MiscConstants.DefaultDateTime;
+                character.ShouldUpdate = true;
                 updatedCharacters++;
             }
 
-            Logger.Warning("Saving character {id}", addonId);
-            await Context.SaveChangesAsync();
+            Logger.Warning("Saving character {id} {addonId}", character.Id, addonId);
+            try
+            {
+                await Context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Save failed!");
+                // This discards the changes for this character so that we can continue on
+                Context.ChangeTracker.AcceptAllChanges();
+            }
         }
 
         _timer.AddPoint("Characters");
@@ -266,54 +454,64 @@ public class UserUploadJob : JobBase
             accountAddonData.HonorMax = parsed.HonorMax;
 
             // Heirlooms
-            if (accountAddonData.Heirlooms == null)
-            {
-                accountAddonData.Heirlooms = new();
-            }
+            // accountAddonData.Heirlooms ??= new();
+            //
+            // bool changedHeirlooms = false;
+            // foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
+            // {
+            //     var heirloomParts = heirloom.Split(':');
+            //     if (heirloomParts.Length == 3)
+            //     {
+            //         var itemId = int.Parse(heirloomParts[0]);
+            //         var userHas = heirloomParts[1] == "1";
+            //         var upgradeLevel = short.Parse(heirloomParts[2]);
+            //
+            //         if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
+            //         {
+            //             accountAddonData.Heirlooms[itemId] = upgradeLevel;
+            //             changedHeirlooms = true;
+            //         }
+            //     }
+            // }
+            //
+            // if (changedHeirlooms)
+            // {
+            //     // Change detection for this is obnoxious, just update it
+            //     Context.Entry(accountAddonData)
+            //         .Property(ad => ad.Heirlooms)
+            //         .IsModified = true;
+            // }
 
-            bool changedHeirlooms = false;
-            foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
-            {
-                var heirloomParts = heirloom.Split(':');
-                if (heirloomParts.Length == 3)
-                {
-                    var itemId = int.Parse(heirloomParts[0]);
-                    var userHas = heirloomParts[1] == "1";
-                    var upgradeLevel = short.Parse(heirloomParts[2]);
+            // Quests
+            List<int> questIds = parsed.QuestsV2?.Keys.ToList() ?? parsed.Quests.EmptyIfNull();
+            var newQuests = questIds
+                .EmptyIfNull()
+                .Order()
+                .ToList();
 
-                    if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
-                    {
-                        accountAddonData.Heirlooms[itemId] = upgradeLevel;
-                        changedHeirlooms = true;
-                    }
-                }
-            }
-
-            if (changedHeirlooms)
+            if (accountAddonData.Quests == null || !newQuests.SequenceEqual(accountAddonData.Quests))
             {
-                // Change detection for this is obnoxious, just update it
-                Context.Entry(accountAddonData)
-                    .Property(ad => ad.Heirlooms)
-                    .IsModified = true;
+                accountAddonData.Quests = newQuests;
+                _resetQuestCache = true;
             }
 
             // Toys
-            var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
-            if (accountToys == null)
-            {
-                accountToys = new PlayerAccountToys
-                {
-                    AccountId = accountId,
-                };
-                Context.PlayerAccountToys.Add(accountToys);
-            }
-
-            if (parsed.Toys?.Count > 0)
-            {
-                accountToys.ToyIds = parsed.Toys
-                    .OrderBy(toyId => toyId)
-                    .ToList();
-            }
+            // var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
+            // if (accountToys == null)
+            // {
+            //     accountToys = new PlayerAccountToys
+            //     {
+            //         AccountId = accountId,
+            //     };
+            //     Context.PlayerAccountToys.Add(accountToys);
+            // }
+            //
+            // if (parsed.Toys?.Count > 0)
+            // {
+            //     accountToys.ToyIds = parsed.Toys
+            //         .OrderBy(toyId => toyId)
+            //         .ToList();
+            // }
 
             // Transmog
             var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);
@@ -326,7 +524,23 @@ public class UserUploadJob : JobBase
                 Context.PlayerAccountTransmogSources.Add(accountTransmogSources);
             }
 
-            if (parsed.TransmogSources?.Count > 0)
+            if (parsed.TransmogSourcesSquish != null)
+            {
+                var sources = new List<string>();
+
+                foreach ((string key, string squished) in parsed.TransmogSourcesSquish)
+                {
+                    int modifier = int.Parse(key.Replace("m", ""));
+                    var itemIds = Unsquish(squished);
+                    foreach (int itemId in itemIds)
+                    {
+                        sources.Add($"{itemId}_{modifier}");
+                    }
+                }
+
+                accountTransmogSources.Sources = sources.Order().ToList();
+            }
+            else if (parsed.TransmogSources?.Count > 0)
             {
                 accountTransmogSources.Sources = parsed.TransmogSources
                     .Keys
@@ -345,30 +559,37 @@ public class UserUploadJob : JobBase
         if (updatedCharacters > 0)
         {
             Logger.Information("Updating {Count} character(s) immediately", updatedCharacters);
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _userId);
         }
 
         if (_resetAchievementCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, data[0]);
+            await CacheService.DeleteAchievementCacheAsync(_userId);
+            Logger.Debug("Reset achievement cache");
+        }
+
+        if (_resetMountCache)
+        {
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheMounts, _userId.ToString());
+            Logger.Debug("Regenerating mount cache");
         }
 
         if (_resetQuestCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, data[0]);
+            await CacheService.DeleteQuestCacheAsync(_userId);
+            Logger.Debug("Reset quest cache");
         }
 
         if (_resetTransmogCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, data[0]);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, _userId.ToString());
+            Logger.Debug("Regenerating transmog cache");
         }
 
         Logger.Warning("Trying to save");
 
         await Context.SaveChangesAsync();
         _timer.AddPoint("Save", true);
-
-        Logger.Information("{Timer}", _timer.ToString());
     }
 
     private (WowRealm, string) ParseAddonId(string addonId)
@@ -381,13 +602,38 @@ public class UserUploadJob : JobBase
         }
 
         var region = Enum.Parse<WowRegion>(parts[0]);
-        if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
+        if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm) &&
+            !_realmMap.TryGetValue((region, parts[1].Slugify()), out realm))
         {
             Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
             return (null, null);
         }
 
         return (realm, parts[2]);
+    }
+
+    private List<int> Unsquish(string squished)
+    {
+        var ret = new List<int>();
+
+        // questId(.deltas)|...
+        foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|'))
+        {
+            string[] questParts = part.Split('.', 2);
+            int questId = int.Parse(questParts[0]);
+            ret.Add(questId);
+
+            if (questParts.Length == 2)
+            {
+                foreach (char deltaChar in questParts[1].EmptyIfNullOrWhitespace())
+                {
+                    questId += MemoryCacheService.SquishedCharMap[deltaChar];
+                    ret.Add(questId);
+                }
+            }
+        }
+
+        return ret;
     }
 
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
@@ -397,18 +643,33 @@ public class UserUploadJob : JobBase
 
         if (!string.IsNullOrWhiteSpace(characterData.BindLocation))
         {
-            character.AddonData.BindLocation = characterData.BindLocation.Truncate(32);
+            character.AddonData.BindLocation = characterData.BindLocation.Truncate(64);
         }
 
         if (!string.IsNullOrWhiteSpace(characterData.CurrentLocation))
         {
-            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
+            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(64);
         }
 
-        character.AddonData.Auras = characterData.Auras.EmptyIfNull();
+        character.AddonData.Auras = new();
+        foreach (string auraString in characterData.AurasV2.EmptyIfNull())
+        {
+            string[] auraParts = auraString.Split(':');
+            if (auraParts.Length >= 2)
+            {
+                var aura = character.AddonData.Auras[int.Parse(auraParts[0])] = new();
+                aura.Expires = int.Parse(auraParts[1]);
+
+                if (auraParts.Length >= 4)
+                {
+                    aura.Stacks = int.Parse(auraParts[2]);
+                    aura.Duration = int.Parse(auraParts[3]);
+                }
+            }
+        }
 
         // Currencies
-        character.AddonData.Currencies ??= new();
+        character.AddonData.Currencies = new();
         foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
         {
             // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
@@ -438,12 +699,13 @@ public class UserUploadJob : JobBase
 
         // Equipment
         character.AddonData.EquippedItems = new();
-        foreach ((int slot, string itemString) in characterData.Equipment.EmptyIfNull())
+        foreach ((string slotString, string itemString) in characterData.EquipmentV2.EmptyIfNull())
         {
-            var parts = itemString.Split(":");
-            if (parts.Length != 9)
+            int slot = int.Parse(slotString[1..]);
+            string[] parts = itemString.Split(":");
+            if (parts.Length != 10)
             {
-                Logger.Warning("Invalid equipped item string: {String}", itemString);
+                Logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
                 continue;
             }
 
@@ -451,11 +713,11 @@ public class UserUploadJob : JobBase
             short.TryParse(parts[3].OrDefault("0"), out short enchantId);
             short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
             short.TryParse(parts[5].OrDefault("0"), out short quality);
-            short.TryParse(parts[6].OrDefault("0"), out short suffixId);
+            // short.TryParse(parts[6].OrDefault("0"), out short suffixId);
 
             var item = character.AddonData.EquippedItems[slot] = new();
 
-            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems:modifiers
             item.ItemId = int.Parse(parts[1]);
             item.Context = context;
             item.ItemLevel = itemLevel;
@@ -478,6 +740,11 @@ public class UserUploadJob : JobBase
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
+
+            if (parts.Length >= 10)
+            {
+                item.CraftedQuality = GetCraftedQuality(parts[9]);
+            }
         }
 
         // Garrisons
@@ -518,12 +785,8 @@ public class UserUploadJob : JobBase
             var scanTime = garrisonTreesTimestamp.AsUtcDateTime();
             if (scanTime > character.AddonData.GarrisonTreesScannedAt)
             {
+                character.AddonData.GarrisonTrees = new();
                 character.AddonData.GarrisonTreesScannedAt = scanTime;
-
-                if (character.AddonData.GarrisonTrees == null)
-                {
-                    character.AddonData.GarrisonTrees = new Dictionary<int, Dictionary<int, List<int>>>();
-                }
 
                 foreach (var (key, packedData) in characterData.GarrisonTrees)
                 {
@@ -688,26 +951,14 @@ public class UserUploadJob : JobBase
                     }
 
                     // Weeks
-                    if (character.AddonData.MythicPlusWeeks == null)
-                    {
-                        character.AddonData.MythicPlusWeeks = new();
-                    }
+                    character.AddonData.MythicPlusWeeks ??= new();
 
                     foreach (var (weekEnds, runStrings) in characterData.MythicPlusV2.Weeks.EmptyIfNull())
                     {
-                        if (!character.AddonData.MythicPlusWeeks.TryGetValue(weekEnds, out var week))
+                        var week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
+                        foreach (string runString in runStrings)
                         {
-                            week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
-                        }
-
-                        if (week.Count > runStrings.Count)
-                        {
-                            continue;
-                        }
-
-                        foreach (var runString in runStrings)
-                        {
-                            var runParts = runString.Split(':');
+                            string[] runParts = runString.Split(':');
                             week.Add(new PlayerCharacterAddonDataMythicPlusRun
                             {
                                 MapId = int.Parse(runParts[0]),
@@ -723,9 +974,11 @@ public class UserUploadJob : JobBase
 
         // Change detection for this is obnoxious, just update it
         var entry = Context.Entry(character.AddonData);
-        if (entry.State == EntityState.Unchanged)
+        if (entry.State != EntityState.Added)
         {
-            Context.Entry(character.AddonData).State = EntityState.Modified;
+            entry.Property(ad => ad.Garrisons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
+            entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
         }
     }
 
@@ -735,15 +988,6 @@ public class UserUploadJob : JobBase
         if (characterData.Achievements == null || !characterData.ScanTimes.TryGetValue("achievements", out int scanTimestamp))
         {
             return;
-        }
-
-        if (character.AddonAchievements == null)
-        {
-            character.AddonAchievements = new PlayerCharacterAddonAchievements
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
         }
 
         var scanTime = scanTimestamp.AsUtcDateTime();
@@ -763,7 +1007,7 @@ public class UserUploadJob : JobBase
                 }
             );
 
-        if (!_achievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
+        if (!AchievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
         {
             character.AddonAchievements.ScannedAt = scanTime;
             character.AddonAchievements.Achievements = characterData.Achievements
@@ -782,9 +1026,9 @@ public class UserUploadJob : JobBase
 
     private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Shadowlands == null)
+        if (characterData.ActiveCovenantId > 0)
         {
-            return;
+            character.Shadowlands.CovenantId = characterData.ActiveCovenantId;
         }
 
         character.Shadowlands.Covenants ??= new();
@@ -809,7 +1053,11 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
+        var entry = Context.Entry(character.Shadowlands);
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(cs => cs.Covenants).IsModified = true;
+        }
     }
 
     private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
@@ -883,7 +1131,7 @@ public class UserUploadJob : JobBase
                 var slot = short.Parse(slotString[1..]);
 
                 var parts = itemString.Split(":");
-                if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     Logger.Warning("Invalid item string: {String}", itemString);
                     continue;
@@ -924,17 +1172,49 @@ public class UserUploadJob : JobBase
 
     private async Task HandleItems(PlayerCharacter character, UploadCharacter characterData)
     {
-        var itemMap = character.Items
-            .EmptyIfNull()
+        characterData.ScanTimes.TryGetValue("bags", out int bagsTimestamp);
+        characterData.ScanTimes.TryGetValue("bank", out int bankTimestamp);
+        if (bagsTimestamp == 0 && bankTimestamp == 0)
+        {
+            Logger.Debug("Bags and bank not scanned");
+            return;
+        }
+
+        var bagsScanned = bagsTimestamp.AsUtcDateTime();
+        var bankScanned = bankTimestamp.AsUtcDateTime();
+        bool updateBags = bagsScanned > character.AddonData.BagsScannedAt;
+        bool updateBank = bankScanned > character.AddonData.BankScannedAt;
+
+        if (!updateBags && !updateBank)
+        {
+            Logger.Debug("Bags and bank not scanned since last time");
+            return;
+        }
+
+        List<int> bagIds = new();
+        if (updateBags)
+        {
+            character.AddonData.BagsScannedAt = bagsScanned;
+            bagIds.AddRange(PlayerBags);
+        }
+        if (updateBank)
+        {
+            character.AddonData.BankScannedAt = bankScanned;
+            bagIds.AddRange(BankBags);
+        }
+
+        // Logger.Debug("bags={bags} bank={bank}", updateBags, updateBank);
+
+        var itemMap = Context.PlayerCharacterItem
+            .Where(pci => pci.CharacterId == character.Id)
+            .Where(pci => bagIds.Contains(pci.BagId))
             .ToGroupedDictionary(item => (item.Location, item.BagId, item.Slot));
 
-        var itemIds = new HashSet<long>(
-            character.Items
-                .EmptyIfNull()
-                .Select(item => item.Id)
-        );
+        var itemIds = new HashSet<long>(itemMap.Values
+            .SelectMany(items => items.Select(item => item.Id)));
         var seenIds = new HashSet<long>();
 
+        // Bags
         foreach ((string location, int itemId) in characterData.Bags.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
@@ -944,6 +1224,11 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
+            if (!bagIds.Contains(bagId))
+            {
+                // Logger.Debug("Skipping bag {id}", bagId);
+                continue;
+            }
             var locationType = GetBagLocation(bagId);
 
             var key = (locationType, bagId, (short)0);
@@ -969,6 +1254,7 @@ public class UserUploadJob : JobBase
             item.ItemId = itemId;
         }
 
+        // Items
         foreach ((string location, var contents) in characterData.Items.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
@@ -978,6 +1264,11 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
+            if (!bagIds.Contains(bagId))
+            {
+                // Logger.Debug("Skipping item in bag {id}", bagId);
+                continue;
+            }
             var locationType = GetBagLocation(bagId);
 
             foreach ((string slotString, string itemString) in contents)
@@ -985,7 +1276,7 @@ public class UserUploadJob : JobBase
                 var slot = short.Parse(slotString[1..]);
                 // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
                 var parts = itemString.Split(":");
-                if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     Logger.Warning("Invalid item string: {String}", itemString);
                     continue;
@@ -1027,12 +1318,12 @@ public class UserUploadJob : JobBase
 
     private ItemLocation GetBagLocation(short bagId)
     {
-        if (bagId >= 0 && bagId <= 4)
+        if (bagId is >= 0 and <= 5)
         {
             return ItemLocation.Bags;
         }
 
-        if (bagId == -1 || (bagId >= 5 && bagId <= 11))
+        if (bagId is -1 or (>= 6 and <= 12))
         {
             return ItemLocation.Bank;
         }
@@ -1045,7 +1336,7 @@ public class UserUploadJob : JobBase
         return ItemLocation.Unknown;
     }
 
-    private void AddItemDetails(IPlayerItem item, string[] parts)
+    private static void AddItemDetails(IPlayerItem item, string[] parts)
     {
         if (parts[0] == "pet")
         {
@@ -1090,7 +1381,41 @@ public class UserUploadJob : JobBase
                 .Split(',', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
+
+            if (parts.Length >= 10)
+            {
+                item.CraftedQuality = GetCraftedQuality(parts[9]);
+                item.Modifiers = parts[9]
+                    .EmptyIfNullOrWhitespace()
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(value => value.Split('_'))
+                    .ToDictionary(key => int.Parse(key[0]), value => int.Parse(value[0]));
+            }
         }
+    }
+
+    private static short GetCraftedQuality(string packedModifiers)
+    {
+        var modifiers = packedModifiers
+            .EmptyIfNullOrWhitespace()
+            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+            .ToDictionary(
+                pair => int.Parse(pair.Split('_')[0]),
+                pair => int.Parse(pair.Split('_')[1])
+            );
+
+        // Crafted quality
+        if (modifiers.TryGetValue(38, out int craftedQuality))
+        {
+            return craftedQuality switch
+            {
+                <= 3 => (short)craftedQuality,
+                <= 8 => (short)(craftedQuality - 3),
+                _ => (short)(craftedQuality & 0x7FFF)
+            };
+        }
+
+        return 0;
     }
 
     private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
@@ -1099,15 +1424,6 @@ public class UserUploadJob : JobBase
         if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
         {
             return;
-        }
-
-        if (character.Lockouts == null)
-        {
-            character.Lockouts = new PlayerCharacterLockouts
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterLockouts.Add(character.Lockouts);
         }
 
         var scanTime = scanTimestamp.AsUtcDateTime();
@@ -1197,47 +1513,94 @@ public class UserUploadJob : JobBase
         }
         var scanTime = scanTimestamp.AsUtcDateTime();
 
-        if (character.AddonMounts == null)
-        {
-            character.AddonMounts = new PlayerCharacterAddonMounts
-            {
-                CharacterId = character.Id,
-            };
-            Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
-        }
-
         if (scanTime > character.AddonMounts.ScannedAt)
         {
             character.AddonMounts.ScannedAt = scanTime;
-            character.AddonMounts.Mounts = characterData.Mounts
+            var sortedMountIds = characterData.Mounts
                 .EmptyIfNull()
-                .OrderBy(mountId => mountId)
+                .Order()
                 .ToList();
+            if (character.AddonMounts.Mounts == null || !sortedMountIds.SequenceEqual(character.AddonMounts.Mounts))
+            {
+                _resetMountCache = true;
+                character.AddonMounts.Mounts = sortedMountIds;
+            }
+        }
+    }
+
+    private void HandleProfessions(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.Professions = new();
+
+        foreach (var profession in characterData.Professions.EmptyIfNull())
+        {
+            character.AddonData.Professions[profession.Id] = new PlayerCharacterProfessionTier()
+            {
+                CurrentSkill = profession.CurrentSkill,
+                MaxSkill = profession.MaxSkill,
+                KnownRecipes = profession.KnownRecipes,
+            };
+        }
+    }
+
+    private void HandleProfessionCooldowns(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.ProfessionCooldowns = new();
+
+        foreach (string cooldownString in characterData.ProfessionCooldowns.EmptyIfNull())
+        {
+            string[] cooldownParts = cooldownString.Split(':');
+            character.AddonData.ProfessionCooldowns[cooldownParts[0]] = cooldownParts
+                .Skip(1)
+                .Select(int.Parse)
+                .ToList();
+        }
+
+        foreach (string orderString in characterData.ProfessionOrders.EmptyIfNull())
+        {
+            // skill line, current, next
+            string[] orderParts = orderString.Split(':');
+            // next, current, max
+            character.AddonData.ProfessionCooldowns[$"orders{orderParts[0]}"] = new()
+            {
+                int.Parse(orderParts[2]),
+                int.Parse(orderParts[1]),
+                4,
+            };
+        }
+    }
+
+    private void HandleProfessionTraits(PlayerCharacter character, UploadCharacter characterData)
+    {
+        character.AddonData.ProfessionTraits = new();
+
+        foreach (string traitString in characterData.ProfessionTraits.EmptyIfNull())
+        {
+            string[] traitParts = traitString.Split('|');
+            character.AddonData.ProfessionTraits[int.Parse(traitParts[0])] = traitParts
+                .Skip(1)
+                .Select(part => part
+                    .Split(':')
+                    .Select(int.Parse)
+                    .ToArray()
+                )
+                .ToDictionary(pair => pair[0], pair => pair[1]);
         }
     }
 
     private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
     {
         bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
+        bool hasCompleted = characterData.ScanTimes.TryGetValue("completedQuests", out int completedScanTimestamp);
         bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
-        if (!hasCallings && !hasQuests)
+        bool hasWorldQuests = characterData.ScanTimes.TryGetValue("worldQuests", out int worldQuestsScanTimestamp);
+        if (!hasCallings && !hasCompleted && !hasQuests && !hasWorldQuests)
         {
             return;
         }
 
-        if (character.AddonQuests == null)
-        {
-            character.AddonQuests = new PlayerCharacterAddonQuests
-            {
-                CharacterId = character.Id,
-            };
-            Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
-        }
-
-        if (character.AddonQuests.Dailies == null)
-        {
-            character.AddonQuests.Dailies = new();
-        }
+        character.AddonQuests.CompletedQuests ??= new();
+        character.AddonQuests.Dailies ??= new();
 
         bool dailiesUpdated = false;
         if (callingsScanTimestamp > 0)
@@ -1295,8 +1658,22 @@ public class UserUploadJob : JobBase
             }
         }
 
+        if (completedScanTimestamp > 0)
+        {
+            _resetQuestCache = true;
+
+            var scanTime = completedScanTimestamp.AsUtcDateTime();
+            if (scanTime >= character.AddonQuests.CompletedQuestsScannedAt)
+            {
+                character.AddonQuests.CompletedQuestsScannedAt = scanTime;
+                character.AddonQuests.CompletedQuests = Unsquish(characterData.CompletedQuestsSquish);
+            }
+        }
+
         if (questsScanTimestamp > 0)
         {
+            _resetQuestCache = true;
+
             var scanTime = questsScanTimestamp.AsUtcDateTime();
             if (scanTime >= character.AddonQuests.QuestsScannedAt)
             {
@@ -1357,114 +1734,102 @@ public class UserUploadJob : JobBase
                     character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
                 }
 
-                if (characterData.Emissaries != null)
+                // Hacky workaround to make these into progress quests
+                foreach (var instanceDone in characterData.InstanceDone.EmptyIfNull())
                 {
-                    foreach (var (expansion, emissaries) in characterData.Emissaries)
+                    character.AddonQuests.ProgressQuests[instanceDone.Key] = new PlayerCharacterAddonQuestsProgress
                     {
-                        character.AddonQuests.Dailies[expansion] = new List<List<int>>
-                        {
-                            emissaries
-                                .Select(em => em.Completed ? 1 : 0)
-                                .ToList(),
-                            emissaries
-                                .Select(em => em.Expires)
-                                .ToList(),
-                        };
-
-                        // User is trusted, update global dailies from emissaries
-                        if (_globalDailiesMap != null)
-                        {
-                            var globalDailies = _globalDailiesMap[(region, expansion)];
-
-                            var questMap = new Dictionary<int, EmissaryData>();
-                            for (int i = 0; i < globalDailies.QuestIds.Count; i++)
-                            {
-                                questMap[globalDailies.QuestExpires[i]] = new EmissaryData
-                                {
-                                    QuestId = globalDailies.QuestIds[i],
-                                    OldReward = globalDailies.QuestRewards[i],
-                                };
-                            }
-
-                            foreach (var emissary in emissaries)
-                            {
-                                if (emissary.QuestID > 0)
-                                {
-                                    if (questMap.TryGetValue(emissary.Expires, out var existing))
-                                    {
-                                        existing.QuestId = Hardcoded.CallingQuestLookup
-                                            .GetValueOrDefault(emissary.QuestID, emissary.QuestID);
-                                        existing.NewReward = emissary.Reward;
-                                    }
-                                    else
-                                    {
-                                        questMap[emissary.Expires] = new EmissaryData
-                                        {
-                                            QuestId = Hardcoded.CallingQuestLookup
-                                                .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
-                                            NewReward = emissary.Reward,
-                                        };
-                                    }
-                                }
-                            }
-
-                            var questPairs = questMap
-                                .OrderBy(kvp => kvp.Key)
-                                .TakeLast(3)
-                                .ToList();
-
-                            globalDailies.QuestExpires = questPairs
-                                .Select(kvp => kvp.Key)
-                                .ToList();
-
-                            globalDailies.QuestIds = questPairs
-                                .Select(kvp => kvp.Value.QuestId)
-                                .ToList();
-
-                            var rewards = new List<GlobalDailiesReward>();
-                            foreach (var (_, emissaryData) in questPairs)
-                            {
-                                var gdReward = new GlobalDailiesReward
-                                {
-                                    CurrencyId = emissaryData.NewReward?.CurrencyID ?? 0,
-                                    ItemId = emissaryData.NewReward?.ItemID ?? 0,
-                                    Money = emissaryData.NewReward?.Money ?? 0,
-                                    Quality = emissaryData.NewReward?.Quality ?? 0,
-                                    Quantity = emissaryData.NewReward?.Quantity ?? 0,
-                                };
-
-                                if (emissaryData.OldReward == null ||
-                                    gdReward.CurrencyId > emissaryData.OldReward.CurrencyId ||
-                                    gdReward.ItemId > emissaryData.OldReward.ItemId ||
-                                    gdReward.Money > emissaryData.OldReward.Money ||
-                                    gdReward.Quality > emissaryData.OldReward.Quality ||
-                                    gdReward.Quantity > emissaryData.OldReward.Quantity
-                                )
-                                {
-                                    rewards.Add(gdReward);
-                                }
-                                else
-                                {
-                                    rewards.Add(emissaryData.OldReward);
-                                }
-                            }
-
-                            globalDailies.QuestRewards = rewards;
-                        }
-                    }
-
-                    dailiesUpdated = true;
+                        Id = 0,
+                        Name = "Hack",
+                        Status = instanceDone.Locked ? 2 : 0,
+                        Expires = instanceDone.ResetTime,
+                    };
                 }
+            }
+        }
 
-                _resetQuestCache = true;
+        if (worldQuestsScanTimestamp > 0)
+        {
+            var scanTime = worldQuestsScanTimestamp.AsUtcDateTime();
+            if (scanTime >= character.AddonQuests.WorldQuestsScannedAt)
+            {
+                character.AddonQuests.WorldQuestsScannedAt = scanTime;
+                HandleQuestsWorld(character, characterData, region);
             }
         }
 
         if (dailiesUpdated)
         {
-            Context.Entry(character.AddonQuests)
-                .Property(caq => caq.Dailies)
-                .IsModified = true;
+            var entry = Context.Entry(character.AddonQuests);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(caq => caq.Dailies).IsModified = true;
+            }
+        }
+    }
+
+    private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
+    {
+        if (!_worldQuestReportMap.TryGetValue((short)region, out var reportMap))
+        {
+            _worldQuestReportMap[(short)region] = reportMap = new();
+        }
+
+        foreach ((short expansion, var zones) in characterData.WorldQuests.EmptyIfNull())
+        {
+            foreach ((int zoneId, string[] questStrings) in zones)
+            {
+                foreach (string questString in questStrings)
+                {
+                    var parts = questString.Split(':');
+                    if (parts.Length != 5)
+                    {
+                        Logger.Warning("Invalid quest string: {s}", questString);
+                        continue;
+                    }
+
+                    int questId = int.Parse(parts[0]);
+
+                    var reportKey = (
+                        expansion,
+                        zoneId,
+                        questId,
+                        (short)character.Faction,
+                        (short)character.ClassId
+                    );
+                    if (!reportMap.TryGetValue(reportKey, out var reportQuest))
+                    {
+                        reportMap[reportKey] = reportQuest = new WorldQuestReport()
+                        {
+                            UserId = _userId,
+                            Region = (short)region,
+                            Expansion = expansion,
+                            ZoneId = zoneId,
+                            QuestId = questId,
+                            Faction = (short)character.Faction,
+                            Class = (short)character.ClassId,
+                            ReportedAt = DateTime.UtcNow,
+                        };
+                        Context.WorldQuestReport.Add(reportQuest);
+                    }
+
+                    reportQuest.ExpiresAt = int.Parse(parts[1]).AsUtcDateTime();
+                    reportQuest.Location = $"{parts[2]} {parts[3]}";
+
+                    // Fix wonky data, remove later
+                    if (reportQuest.ReportedAt <= MiscConstants.DefaultDateTime)
+                    {
+                        reportQuest.ReportedAt = DateTime.UtcNow;
+                    }
+
+                    // type:id:amount
+                    reportQuest.Rewards = new();
+                    foreach (string rewardString in parts[4].Split('|'))
+                    {
+                        reportQuest.Rewards.Add(rewardString.Split('-').Select(int.Parse).ToArray());
+                    }
+                }
+            }
         }
     }
 
@@ -1514,15 +1879,6 @@ public class UserUploadJob : JobBase
 
     private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Transmog == null)
-        {
-            character.Transmog = new PlayerCharacterTransmog
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterTransmog.Add(character.Transmog);
-        }
-
         var illusions = characterData.Illusions
             .EmptyIfNullOrWhitespace()
             .Split(':', StringSplitOptions.RemoveEmptyEntries)
@@ -1535,12 +1891,23 @@ public class UserUploadJob : JobBase
             _resetTransmogCache = true;
         }
 
-        var transmog = characterData.Transmog
-            .EmptyIfNullOrWhitespace()
-            .Split(':', StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse)
-            .ToList();
-        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null || !transmog.SequenceEqual(character.Transmog.TransmogIds)))
+        List<int> transmog;
+        if (characterData.TransmogSquish != null)
+        {
+            transmog = Unsquish(characterData.TransmogSquish);
+        }
+        else
+        {
+            transmog = characterData.Transmog
+                .EmptyIfNullOrWhitespace()
+                .Split(':', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .Order()
+                .ToList();
+        }
+
+        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
+                                   !transmog.SequenceEqual(character.Transmog.TransmogIds)))
         {
             character.Transmog.TransmogIds = transmog;
             _resetTransmogCache = true;
@@ -1549,15 +1916,6 @@ public class UserUploadJob : JobBase
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
     {
-        if (character.Weekly == null)
-        {
-            character.Weekly = new PlayerCharacterWeekly
-            {
-                Character = character,
-            };
-            Context.PlayerCharacterWeekly.Add(character.Weekly);
-        }
-
         // Keystone
         if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
         {
@@ -1569,7 +1927,10 @@ public class UserUploadJob : JobBase
         // Vault
         if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
         {
+            character.Weekly.Vault ??= new();
+
             character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
+            character.Weekly.Vault.HasRewards = characterData.VaultHasRewards;
 
             character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
                 .EmptyIfNull()
@@ -1590,21 +1951,41 @@ public class UserUploadJob : JobBase
                 character.Weekly.Vault.RaidProgress = null;
             }
 
-            Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+            var entry = Context.Entry(character.Weekly);
+            if (entry.State != EntityState.Added)
+            {
+                entry.Property(e => e.Vault).IsModified = true;
+            }
         }
     }
 
-    private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] vault)
+    private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] tiers)
     {
-        return vault
-            .OrderBy(v => v.Threshold)
-            .Select(v => new PlayerCharacterWeeklyVaultProgress
+        var ret = new List<PlayerCharacterWeeklyVaultProgress>();
+
+        foreach (var tier in tiers.OrderBy(tier => tier.Threshold))
+        {
+            var progress = new PlayerCharacterWeeklyVaultProgress
             {
-                Level = v.Level,
-                Progress = v.Progress,
-                Threshold = v.Threshold,
-            })
-            .ToList();
+                Level = tier.Level,
+                Progress = tier.Progress,
+                Threshold = tier.Threshold,
+                Tier = tier.Tier,
+            };
+
+            foreach (string itemString in tier.Rewards.EmptyIfNull())
+            {
+                Console.WriteLine("uhh {0}", itemString);
+                string[] parts = itemString.Split(':');
+                var item = new PlayerCharacterItem();
+                AddItemDetails(item, parts);
+                progress.Rewards.Add(item);
+            }
+
+            ret.Add(progress);
+        }
+
+        return ret;
     }
 
     public class EmissaryData

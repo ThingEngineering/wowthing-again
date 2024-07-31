@@ -1,34 +1,45 @@
-import userHasDrop from './user-has-drop'
-import type { UserData } from '@/types'
-import type { UserTransmogData } from '@/types/data'
-import type { ItemData } from '@/types/data/item'
-import type { ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { Settings } from '@/shared/stores/settings/types/settings';
+import type { StaticData } from '@/shared/stores/static/types';
+import type { LazyTransmog } from '@/stores/lazy/transmog';
+import type { UserData } from '@/types';
+import type { UserQuestData } from '@/types/data';
+import type { ItemData } from '@/types/data/item';
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual';
 
+import userHasDrop from './user-has-drop';
 
 export function getVendorDropStats(
+    settings: Settings,
     itemData: ItemData,
+    manualData: ManualData,
+    staticData: StaticData,
     userData: UserData,
-    userTransmogData: UserTransmogData,
+    userQuestData: UserQuestData,
+    lazyTransmog: LazyTransmog,
     masochist: boolean,
-    drop: ManualDataZoneMapDrop
+    drop: ManualDataZoneMapDrop,
 ): [number, number] {
-    let have = 0
-    let total = 0
+    let have = 0;
+    let total = 0;
     //const seen: Record<number, boolean> = {}
 
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
+            settings,
             itemData,
+            manualData,
+            staticData,
             userData,
-            userTransmogData,
+            userQuestData,
+            lazyTransmog,
             vendorItem.type,
             vendorItem.id,
-            vendorItem.appearanceIds
-        )
-        
-        total++
+            vendorItem.appearanceIds,
+        );
+
+        total++;
         if (hasDrop) {
-            have++
+            have++;
         }
     }
 
@@ -42,12 +53,12 @@ export function getVendorDropStats(
             }
         }
 
-        if (every(appearanceIds, (appearanceId) => userTransmogData.userHas[appearanceId])) {
+        if (every(appearanceIds, (appearanceId) => userData.userHas[appearanceId])) {
             have++
         }
 
         total++
     }*/
 
-    return [have, total]
+    return [have, total];
 }

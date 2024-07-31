@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import type { Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/types/data/static'
+    import type { StaticDataInstance } from '@/shared/stores/static/types'
 
     export let difficulty: Difficulty
     export let instanceId: number
@@ -10,12 +11,12 @@
     let instance: StaticDataInstance
     $: {
         count = 0
-        instance = $staticStore.data.instances[instanceId]
+        instance = $staticStore.instances[instanceId]
 
         if (difficulty && instance) {
             const difficultyKey = `${instance.id}-${difficulty.id}`
 
-            for (const character of $userStore.data.characters) {
+            for (const character of $userStore.characters) {
                 const lockout = character.lockouts?.[difficultyKey]
                 if (lockout) {
                     count++
@@ -35,7 +36,13 @@
     <table class="table-tooltip-lockout table-striped">
         <tbody>
             <tr>
-                <td>{count} character{count === 1 ? '' : 's'} have lockouts</td>
+                <td>
+                    {#if count === 1}
+                        1 character has a lockout
+                    {:else}
+                        {count} characters have lockouts
+                    {/if}
+                </td>
             </tr>
         </tbody>
     </table>

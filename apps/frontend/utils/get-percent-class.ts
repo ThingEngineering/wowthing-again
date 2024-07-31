@@ -2,6 +2,10 @@ import type { UserCount } from '@/types'
 
 
 export default function getPercentClass(percent: number | UserCount): string {
+    if (percent === undefined) {
+        return 'quality1'
+    }
+
     let per: number
     if (typeof percent === 'number') {
         per = percent

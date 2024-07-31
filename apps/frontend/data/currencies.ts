@@ -1,19 +1,112 @@
+import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
+
 export const categoryOrder: number[] = [
-    23, // Burning Crusade
-    21, // Wrath of the Lich King
-    81, // Cataclysm
-    133, // Mists of Pandaria
-    137, // Warlords of Draenor
-    141, // Legion
-    143, // Battle for Azeroth
-    245, // Shadowlands
     250, // Dragonflight
+    245, // Shadowlands
+    143, // Battle for Azeroth
+    141, // Legion
+    137, // Warlords of Draenor
+    133, // Mists of Pandaria
+    81, // Cataclysm
+    21, // Wrath of the Lich King
+    23, // Burning Crusade
     //4, // Classic
-    0,
+    0, // separator
     22, // Dungeon and Raid
     1, // Miscellaneous
     2, // Player vs. Player
-]
+];
+
+export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
+    // Miscellaneous
+    1: [
+        {
+            id: 100101,
+            name: 'World Events',
+            slug: 'world-events',
+        },
+    ],
+
+    // Dragonflight
+    250: [
+        {
+            id: 125001,
+            name: 'Crafting Knowledge',
+            slug: 'crafting-knowledge',
+        },
+        {
+            id: 125002,
+            name: 'Crafting Materials',
+            slug: 'crafting-materials',
+        },
+        {
+            id: 125011,
+            name: 'Season 1',
+            slug: 'season-1',
+        },
+        {
+            id: 125012,
+            name: 'Season 2',
+            slug: 'season-2',
+        },
+        {
+            id: 125013,
+            name: 'Season 3',
+            slug: 'season-3',
+        },
+        {
+            id: 125014,
+            name: 'Season 4',
+            slug: 'season-4',
+        },
+    ],
+};
+
+export const currencyExtra: Record<number, number[]> = {
+    // Dragonflight
+    250: [
+        // 1191, // Valor
+        // 2167, // Catalyst Charges
+    ],
+    // Dragonflight - Crafting Knowledge
+    125001: [
+        2024, // Alchemy Knowledge
+        2023, // Blacksmithing Knowledge
+        2030, // Enchanting Knowledge
+        2027, // Engineering Knowledge
+        2028, // Inscription Knowledge
+        2029, // Jewelcrafting Knowledge
+        2025, // Leatherworking Knowledge
+        2026, // Tailoring Knowledge
+        2034, // Herbalism Knowledge
+        2035, // Mining Knowledge
+        2033, // Skinning Knowledge
+    ],
+    // Dragonflight - Season 2
+    125012: [
+        2533, // Renascent Shadowflame
+    ],
+    // Dragonflight - Season 3
+    125013: [
+        2796, // Renascent Dream
+        2797, // Trophy of Strife
+        null,
+        2706, // Whelpling's Dreaming Crests
+        2707, // Drake's Dreaming Crests
+        2708, // Wyrm's Dreaming Crests
+        2709, // Aspect's Dreaming Crests
+    ],
+    // Dragonflight - Season 4
+    125014: [
+        2245, // Flightstones
+        2912, // Renascent Awakening
+        null,
+        2806, // Whelpling's Awakened Crest
+        2807, // Drake's Awakened Crest
+        2809, // Wyrm's Awakened Crest
+        2812, // Aspect's Awakened Crest
+    ],
+};
 
 export const currencyItems: Record<number, number[]> = {
     // Burning Crusade
@@ -21,58 +114,155 @@ export const currencyItems: Record<number, number[]> = {
         26045, // Halaa Battle Token
         26044, // Halaa Research Token
     ],
+
     // Warlords of Draenor
     137: [
         124099, // Blackfang Claw
     ],
+
     // Legion
     141: [
         124124, // Blood of Sargeras
         146963, // Desecrated Seaweed
         153021, // Intact Demon Eye
     ],
+
     // Battle for Azeroth
     143: [
         152668, // Expulsom
         162460, // Hydrocore
+        165948, // Tidalcore
         168802, // Nazjatar Battle Commendation
     ],
+
     // Shadowlands
     245: [
-        199202, // Attendant's Token of Merit [S4]
         188957, // Genesis Mote
         190189, // Sandworn Relic
     ],
+
     // Dragonflight
     250: [
-        190456, // Artisan's Mettle [DF]
-        191784, // Dragon Shard of Knowledge [DF]
-        190454, // Primal Chaos [DF]
-        190453, // Spark of Ingenuity [DF]
-        198048, // Titan Training Matrix I [DF]
-        198056, // Titan Training Matrix II [DF]
-        198058, // Titan Training Matrix III [DF]
-        198059, // Titan Training Matrix IV [DF]
+        211376, // Seedbloom
+        208066, // Small Dreamseed
+        208067, // Plump Dreamseed
+        208047, // Gigantic Dreamseed
+        null,
+        207026, // Dreamsurge Coalescence
+        210254, // Dreamsurge Cocoon
+        null,
+        209856, // Dilated Time Pod
+        207002, // Encapsulated Destiny
+        null,
+        204715, // Unearthed Fragrant Coin
+        204727, // Coveted Bauble
+        204985, // Barter Brick
+        205188, // Barter Boulder
+        null,
+        204276, // Untapped Forbidden Knowledge
+        202196, // Zskera Vault Key
     ],
+    // Dragonflight > Crafting Knowledge
+    125001: [
+        191784, // Dragon Shard of Knowledge [DF]
+    ],
+    // Dragonflight > Crafting Materials
+    125002: [
+        190456, // Artisan's Mettle
+        198048, // Titan Training Matrix I
+        198056, // Titan Training Matrix II
+        198058, // Titan Training Matrix III
+        198059, // Titan Training Matrix IV
+        204673, // Titan Training Matrix V
+    ],
+    // Dragonflight > Season 1
+    125011: [
+        201836, // Aspects' Token of Merit
+        199197, // Bottled Essence
+        190453, // Spark of Ingenuity
+        null,
+        200686, // Primal Focus
+        197921, // Primal Infusion
+        190455, // Concentrated Primal Focus
+        198046, // Concentrated Primal Infusion
+    ],
+    // Dragonflight > Season 2
+    125012: [
+        204717, // Splintered Spark of Shadowflame
+        204440, // Spark of Shadowflame
+        205225, // Aspects' Token of Merit
+        null,
+        204075, // Whelpling's Shadowflame Crest Fragment
+        204193, // Whelpling's Shadowflame Crest
+        204076, // Drake's Shadowflame Crest Fragment
+        204195, // Drake's Shadowflame Crest
+        204077, // Wyrm's Shadowflame Crest Fragment
+        204196, // Wyrm's Shadowflame Crest
+        204078, // Aspect's Shadowflame Crest Fragment
+        204194, // Aspect's Shadowflame Crest
+        null,
+        204681, // Enchanted Whelpling's Shadowflame Crest
+        204682, // Enchanted Wyrm's Shadowflame Crest
+        204697, // Enchanted Aspect's Shadowflame Crest
+    ],
+    // Dragonflight > Season 3
+    125013: [
+        208396, // Splintered Spark of Dreams
+        206959, // Spark of Dreams
+    ],
+    // Dragonflight > Season 4
+    125014: [
+        211515, // Splintered Spark of Awakening
+        211516, // Spark of Awakening
+        217409, // Aspects' Token of Merit
+        213089, // Antique Bronze Bullion
+    ],
+
     // Player vs Player
     2: [
         137642, // Mark of Honor
     ],
+
     // Miscellaneous
     1: [
         163036, // Polished Pet Charm
         116415, // Shiny Pet Charm
+        null,
+        224461, // Bones of Mannoroth
+    ],
+
+    // Miscellaneous > World Events
+    100101: [
         37829, // Brewfest Prize Token
         23247, // Burning Blossom
         21100, // Coin of Ancestry
         49927, // Love Token
         44791, // Noblegarden Chocolate
         33226, // Tricky Treat
-        199211, // Primeval Essence [DF invasion event]
     ],
-}
+};
+
+export const currencyItemCurrencies: Record<number, number> = {
+    204075: 2409, // Whelpling Crest Fragment
+    204076: 2410, // Drake Crest Fragment
+    204077: 2411, // Wyrm Crest Fragment
+    204078: 2412, // Aspect Crest Fragment
+
+    213089: 3010, // Antique Bronze Bullion
+};
 
 const skipCurrencies: number[] = [
+    // Dragonflight
+    2651, // Seedbloom
+    2706, // Whelpling's Dreaming Crests
+    2707, // Drake's Dreaming Crests
+    2708, // Wyrm's Dreaming Crests
+    2709, // Aspect's Dreaming Crests
+    2806, // Whelpling's Awakened Crest
+    2807, // Drake's Awakened Crest
+    2809, // Wyrm's Awakened Crest
+    2812, // Aspect's Awakened Crest
+
     // Warlords of Draenor
     897, // UNUSED
 
@@ -112,6 +302,7 @@ const skipCurrencies: number[] = [
     1874, // Sanctum Anima Weaver-Necrolord
 
     // Dragonflight
+    2045, // Dragon Glyph Embers
     2073, // [AC] Major Faction Test Currency
 
     // Miscellaneous
@@ -124,10 +315,12 @@ const skipCurrencies: number[] = [
     1836, // Linked Currency Test (Dst) - PTH
     2005, // Druid Talent Points (DNT)
     2006, // Restoration Talent Points (DNT)
+    2011, // Effigy Adornments
     2012, // Death Knight Talent Points (DNT)
     2013, // Frost Talent Points (DNT)
     2014, // Unholy Talent Points (DNT)
     2015, // Blood Talent Points (DNT)
+    2032, // Trader's Tender
 
     // Player vs. Player
     103, // Arena Points
@@ -135,8 +328,8 @@ const skipCurrencies: number[] = [
     161, // Stone Keeper's Shard
     181, // Honor Points DEPRECATED2
     201, // Venture Coin
-]
+];
 
 export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(
-    skipCurrencies.map((currencyId) => [currencyId, true])
-)
+    skipCurrencies.map((currencyId) => [currencyId, true]),
+);

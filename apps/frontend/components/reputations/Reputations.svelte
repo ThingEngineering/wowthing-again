@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate} from 'svelte'
+    import { afterUpdate } from 'svelte'
 
     import getSavedRoute from '@/utils/get-saved-route'
 
@@ -11,15 +11,7 @@
     afterUpdate(() => getSavedRoute('reputations', params.slug))
 </script>
 
-<style lang="scss">
-    div {
-        align-items: flex-start;
-        display: flex;
-        width: 100%;
-    }
-</style>
-
-<div>
+<div class="view">
     <ReputationsSidebar />
     {#if params.slug}
         <ReputationsTable slug={params.slug} />

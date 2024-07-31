@@ -1,35 +1,25 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
-    import { onMount } from 'svelte'
-    import { location, querystring, replace } from 'svelte-spa-router'
+    import { afterUpdate, onMount } from 'svelte'
+    import { replace } from 'svelte-spa-router'
 
-    import { itemSearchState, itemStore, userStore } from '@/stores'
-    import { ItemLocation } from '@/enums'
-    import tippy from '@/utils/tippy'
-    import { toNiceNumber } from '@/utils/to-nice'
+    import { ItemLocation } from '@/enums/item-location'
+    import { ItemQuality } from '@/enums/item-quality'
+    import { itemSearchState, userStore } from '@/stores'
+    import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { ItemSearchResponseItem } from '@/types/items'
 
-    import Row from './ItemsSearchRow.svelte'
-    import Select from '@/components/forms/Select.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CharacterTable from './ItemsSearchCharacterTable.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
+    import ItemTable from './ItemsSearchItemTable.svelte'
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
+    import Select from '@/shared/components/forms/Select.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
-    let formValid: boolean
     let response: ItemSearchResponseItem[]
 
-    $: {
-        // Parse query string
-        const parsed = new URLSearchParams($querystring)
-        itemSearchState.update(state => {
-            state.searchTerms = parsed.get('terms') || ''
-            state.location = parseInt(parsed.get('location')) || 0
-            return state
-        })
-    }
-
-    $: {
-        formValid = $itemSearchState.isValid
-    }
+    $: formValid = $itemSearchState.isValid
+    $: if ($userStore.public) { replace('/items/bags') }
 
     onMount(() => {
         if (formValid) {
@@ -44,57 +34,65 @@
                 item.characters,
                 (char) => [
                     1000000000 - char.count,
-                    $userStore.data.characterMap[char.characterId].name
+                    $userStore.characterMap[char.characterId].name
                 ]
             )
         }
+    }
 
-        // Update query string
-        const queryParts = []
-        if ($itemSearchState.isValid) {
-            if ($itemSearchState.searchTerms !== '') {
-                queryParts.push(`terms=${$itemSearchState.searchTerms}`)
-            }
-            if ($itemSearchState.location != ItemLocation.Any) {
-                queryParts.push(`location=${$itemSearchState.location}`)
-            }
+    let containerElement: HTMLElement
+    let resizeableElement: HTMLElement
+    let debouncedResize: () => void
+    $: {
+        if (resizeableElement) {
+            debouncedResize = getColumnResizer(
+                containerElement,
+                resizeableElement,
+                'search-table',
+                {
+                    columnCount: '--column-count',
+                    gap: 20,
+                    minColumns: 2,
+                    padding: '0.75rem'
+                }
+            )
+            debouncedResize()
         }
-
-        const qs = queryParts.join('&')
-        if (qs !== $querystring) {
-            replace($location + (qs ? '?' + qs : ''))
+        else {
+            debouncedResize = null
         }
     }
+
+    afterUpdate(() => debouncedResize?.())
 </script>
 
 <style lang="scss">
     .thing-container {
         border: 1px solid $border-color;
         padding: 1rem 0.75rem;
-        width: 100%;
-    }
-    table {
-        width: 100%;
     }
     form {
+        align-items: center;
         display: flex;
         gap: 0.5rem;
     }
     .results-container {
-        column-count: 1;
+        column-count: max(2, var(--column-count, 1));
+        column-gap: 20px;
         margin-top: 1rem;
-        width: 29.5rem;
 
-        @media screen and (min-width: 1350px) {
-            column-count: 2;
-            width: 60rem;
-        }
-        @media screen and (min-width: 1830px) {
-            column-count: 3;
-            width: 90.5rem;
+        :global(table) {
+            --padding: 2;
+
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            width: 29.5rem;
         }
     }
 
+    button {
+        cursor: pointer;
+    }
     .state-valid {
         background: #0f4f0f;
         color: $body-text;
@@ -103,121 +101,83 @@
         background: #4f0f0f;
         color: #bbb;
     }
-
-    table {
-        display: inline-block;
-        margin-bottom: 0.5rem;
-
-        --padding: 2;
-    }
-    .item-row {
-        th {
-            background-color: $highlight-background;
-            font-weight: normal;
-        }
-    }
-    .item {
-        --image-border-width: 1px;
-        --image-margin-top: -4px;
-
-        padding: 0.2rem $width-padding;
-        text-align: left;
-        width: 100%;
-    }
-    .count {
-        @include cell-width($width-item-count);
-
-        text-align: right;
-        white-space: nowrap;
-    }
-    .item-level {
-        @include cell-width($width-item-level);
-
-        text-align: right;
-    }
 </style>
 
-<div class="thing-container">
-    <form
-        on:submit|preventDefault={onSubmit}
-    >
-        <TextInput
-            name="terms"
-            maxlength={20}
-            placeholder="Search terms"
-            bind:value={$itemSearchState.searchTerms}
-        />
+<svelte:window on:resize={debouncedResize} />
 
-        <span>in</span>
+<div class="wrapper-column" bind:this={containerElement}>
+    <div class="thing-container" bind:this={resizeableElement}>
+        <form
+            on:submit|preventDefault={onSubmit}
+        >
+            <TextInput
+                name="terms"
+                maxlength={20}
+                placeholder="Search terms"
+                bind:value={$itemSearchState.searchTerms}
+            />
 
-        <Select
-            name="location"
-            bind:selected={$itemSearchState.location}
-            options={[
-                [ItemLocation.Any, '-Any-'],
-                [ItemLocation.Bags, 'Bags'],
-                [ItemLocation.Bank, 'Bank'],
-                [ItemLocation.Reagent, 'Reagent Bank'],
-                [ItemLocation.GuildBank, 'Guild Bank'],
-            ]}
-        />
+            <span>in</span>
 
-        <button
-            id="item-search-submit"
-            class:state-valid={formValid}
-            class:state-invalid={!formValid}
-            disabled={!formValid}
-        >Search!</button>
-    </form>
+            <Select
+                name="location"
+                bind:selected={$itemSearchState.location}
+                options={[
+                    [ItemLocation.Any, '-Any-'],
+                    [ItemLocation.Bags, 'Bags'],
+                    [ItemLocation.Bank, 'Bank'],
+                    [ItemLocation.Reagent, 'Reagent Bank'],
+                    [ItemLocation.GuildBank, 'Guild Bank'],
+                ]}
+            />
 
-    {#if response !== undefined}
-        <div class="results-container">
-            {#each response as item}
-                {@const itemCount = item.characters.reduce((a, b) => a + b.count, 0) + 
-                    item.guildBanks.reduce((a, b) => a + b.count, 0)}
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="item-row">
-                            <th
-                                class="item quality{$itemStore.data.items[item.itemId].quality}"
-                                colspan="{userStore.useAccountTags ? 4 : 3}"
-                            >
-                                <WowthingImage name="item/{item.itemId}" size={20} border={1} />
-                                {item.itemName}
-                            </th>
-                            <th
-                                class="count"
-                                use:tippy={itemCount.toLocaleString()}
-                            >
-                                {toNiceNumber(itemCount)}
-                            </th>
-                            <th class="item-level">ILvl</th>
-                        </tr>
-                    </thead>
+            <span>group by</span>
 
-                    <tbody>
-                        {#each (item.characters || []) as characterItem}
-                            <Row
-                                itemId={item.itemId}
-                                {characterItem}
-                            />
-                        {/each}
+            <RadioGroup
+                bind:value={$itemSearchState.groupBy}
+                name="sort_by"
+                options={[
+                    ['character', 'Character'],
+                    ['item', 'Item'],
+                ]}
+            />
 
-                        {#each (item.guildBanks || []) as guildBankItem}
-                            <Row
-                                itemId={item.itemId}
-                                {guildBankItem}
-                            />
-                        {/each}
-                    </tbody>
-                </table>
+            <Checkbox
+                    name="include_equipped"
+                    bind:value={$itemSearchState.includeEquipped}
+            >Include equipped</Checkbox>
 
-            {:else}
-                <tr>
-                    <td>No items found.</td>
-                </tr>
+            <Select
+                name="minimum_quality"
+                bind:selected={$itemSearchState.minimumQuality}
+                options={[
+                    [ItemQuality.Poor, 'Poor'],
+                    [ItemQuality.Common, 'Common'],
+                    [ItemQuality.Uncommon, 'Uncommon'],
+                    [ItemQuality.Rare, 'Rare'],
+                    [ItemQuality.Epic, 'Epic'],
+                    [ItemQuality.Legendary, 'Legendary'],
+               ]}
+            />
 
-            {/each}
-        </div>
-    {/if}
+            <button
+                id="item-search-submit"
+                class="border"
+                class:state-valid={formValid}
+                class:state-invalid={!formValid}
+                disabled={!formValid}
+                type="submit"
+            >Search!</button>
+        </form>
+
+        {#if response !== undefined}
+            <div class="results-container">
+                {#if $itemSearchState.groupBy === 'character'}
+                    <CharacterTable {response} />
+                {:else}
+                    <ItemTable {response} />
+                {/if}
+            </div>
+        {/if}
+    </div>
 </div>

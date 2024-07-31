@@ -1,7 +1,7 @@
 <script lang="ts">
-    import mdiDown from '@iconify/icons-mdi/arrow-down-bold-circle-outline'
+    import { iconLibrary } from '@/shared/icons'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 </script>
 
 <style lang="scss">
@@ -11,7 +11,7 @@
         top: 50%;
         transform: translate(-50%, -50%);
 
-        color: $colour-success;
+        color: $color-success;
         pointer-events: none;
 
         & :global(svg) {
@@ -21,5 +21,5 @@
 </style>
 
 <div class="sorted-by drop-shadow">
-    <IconifyIcon icon={mdiDown} />
+    <IconifyIcon icon={iconLibrary.mdiArrowDownBoldCircleOutline} />
 </div>

@@ -1,8 +1,9 @@
 import sortBy from 'lodash/sortBy'
 import { get, writable } from 'svelte/store'
 
-import { userStore } from '@/stores'
-import { ItemLocation } from '@/enums'
+import { ItemLocation } from '@/enums/item-location'
+import { ItemQuality } from '@/enums/item-quality'
+import { userStore } from '@/stores/user'
 import type {
     ItemSearchResponseCharacter,
     ItemSearchResponseGuildBank,
@@ -10,9 +11,16 @@ import type {
 } from '@/types/items'
 
 
+type ItemSearchGroupBy =
+    | 'character'
+    | 'item'
+
 export class ItemSearchState {
-    public searchTerms = ''
+    public groupBy: ItemSearchGroupBy = 'item'
+    public includeEquipped = false
     public location = ItemLocation.Any
+    public minimumQuality = ItemQuality.Uncommon
+    public searchTerms = ''
 
     private static minimumTermsLength = 3
     private static url = '/api/item-search'
@@ -37,7 +45,7 @@ export class ItemSearchState {
 
         if (response.ok) {
             const result = await response.json() as ItemSearchResponseItem[]
-            const userData = get(userStore).data
+            const userData = get(userStore)
 
             for (const item of result) {
                 // Combine character items into a single stack
@@ -95,9 +103,9 @@ export class ItemSearchState {
                 item.guildBanks = sortBy(
                     newGuildBanks,
                     (guild) => [
-                        userData.guilds[guild.guildId].realm.region,
-                        userData.guilds[guild.guildId].realm.name,
-                        userData.guilds[guild.guildId].name,
+                        userData.guildMap[guild.guildId].realm.region,
+                        userData.guildMap[guild.guildId].realm.name,
+                        userData.guildMap[guild.guildId].name,
                         guild.tab,
                         guild.slot,
                     ]
@@ -114,4 +122,10 @@ export class ItemSearchState {
 }
 
 
-export const itemSearchState = writable<ItemSearchState>(new ItemSearchState())
+const key = 'state-item-search'
+const initialState = new ItemSearchState()
+Object.assign(initialState, JSON.parse(localStorage.getItem(key) ?? '{}'))
+
+export const itemSearchState = writable<ItemSearchState>(initialState)
+
+itemSearchState.subscribe(state => localStorage.setItem(key, JSON.stringify(state)))

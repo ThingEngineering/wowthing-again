@@ -1,19 +1,19 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
-    import SpellLink from '@/components/links/SpellLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import SpellLink from '@/shared/components/links/SpellLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let specializationId: number
 
     let selectedTalent: number[]
     $: {
-        selectedTalent = $staticStore.data.talents[specializationId]
+        selectedTalent = $staticStore.talents[specializationId]
             .map((spellIds, tier) => find(
                 spellIds,
                 (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
@@ -33,7 +33,7 @@
         padding: 0.5rem 1rem;
 
         &.selected {
-            border-color: #{$colour-success};
+            border-color: #{$color-success};
         }
     }
     .tier {
@@ -41,7 +41,7 @@
         gap: 0.3rem;
 
         &.none-chosen {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
         }
         &:not(.none-chosen) {
             .talent:not(.selected) {
@@ -53,7 +53,7 @@
         --image-border-width: 2px;
 
         &.selected {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
         }
     }
 </style>
@@ -62,9 +62,9 @@
     class="specialization border"
     class:selected={character.activeSpecId === specializationId}
 >
-    <h3>{getGenderedName($staticStore.data.characterSpecializations[specializationId].name, character.gender)}</h3>
+    <h3>{getGenderedName($staticStore.characterSpecializations[specializationId].name, character.gender)}</h3>
 
-    {#each $staticStore.data.talents[specializationId] as tier, tierIndex}
+    {#each $staticStore.talents[specializationId] as tier, tierIndex}
         <div
             class="tier"
             class:none-chosen={selectedTalent[tierIndex] === undefined}

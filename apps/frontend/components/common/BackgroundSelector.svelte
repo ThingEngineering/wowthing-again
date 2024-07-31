@@ -1,8 +1,8 @@
 <script lang="ts">
     import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import backgroundThumbUrl from '@/utils/background-thumb-url'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
     export let selected: number
     export let showDefault = false
@@ -31,7 +31,7 @@
         width: 162px;
 
         &.selected {
-            border-color: $colour-success;
+            border-color: $color-success;
         }
         code {
             border-bottom-width: 0;
@@ -50,35 +50,33 @@
 </style>
 
 <div class="backgrounds">
-    {#each $userStore.data.backgroundList as background}
-        <div
+    {#each $userStore.backgroundList as background}
+        <button
             class="background border"
             class:selected={selected === background.id}
-        >
+            data-id={background.id}
+            on:click={onClick}
+            use:basicTooltip={background.description}
+            >
             <img
                 src="{backgroundThumbUrl(background)}"
                 alt="{background.description}"
-                data-id={background.id}
-                on:click={onClick}
-                on:keypress={onClick}
-                use:tippy={background.description}
             >
 
-            {#if showDefault && background.id === $settings.characters.defaultBackgroundId}
+            {#if showDefault && background.id === $settingsStore.characters.defaultBackgroundId}
                 <code class="pill abs-center">DEFAULT</code>
             {/if}
-        </div>
+        </button>
     {/each}
 
     {#if showDefault}
-        <div
+        <button
             class="background border"
             class:selected={selected === -1}
             data-id={-1}
             on:click={onClick}
-            on:keypress={onClick}
         >
             <code>DEFAULT</code>
-        </div>
+        </button>
     {/if}
 </div>

@@ -1,18 +1,26 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import groupBy from 'lodash/groupBy'
-    import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
+    import { location } from 'svelte-spa-router'
 
-    import { data as settingsData } from '@/stores/settings'
-    import { staticStore, userStore } from '@/stores'
-    import type {Character} from '@/types'
-    import getCharacterGroupFunc from '@/utils/get-character-group-func'
+    import { lazyStore, userQuestStore, userStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
+    import { homeState, newNavState } from '@/stores/local-storage'
+    import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { useCharacterFilter } from '@/utils/characters'
+    import { homeSort } from '@/utils/home'
+    import {
+        getCharacterGroupContext,
+        type GroupByContext
+    } from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import type { Character } from '@/types'
 
     import CharacterRow from './CharacterTableRow.svelte'
 
     export let characterLimit = 0
+    export let isHome = false
     export let skipGrouping = false
     export let skipIgnored = false
     export let filterFunc: (char: Character) => boolean = undefined
@@ -22,30 +30,48 @@
 
     let characters: Character[]
     let groups: Character[][]
-    let groupFunc: (char: Character) => string
+    let groupByContext: GroupByContext;
 
     $: {
         if (!filterFunc) {
             filterFunc = () => true
         }
+
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
+            sortFunc = getCharacterSortFunc(
+                $settingsStore,
+                $staticStore,
+                undefined,
+                $activeView.sortBy
+            )
         }
 
-        groupFunc = getCharacterGroupFunc($settingsData)
+        groupByContext = getCharacterGroupContext(
+            $settingsStore,
+            $activeView.groupBy,
+            $activeView.sortBy,
+        )
     }
 
     $: {
-        characters = filter(
-            $userStore.data.characters,
-            (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1 &&
-                (!skipIgnored || $settingsData.characters.ignoredCharacters.indexOf(c.id) === -1) &&
+        characters = $userStore.characters.filter(
+            (c) => $settingsStore.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                (!skipIgnored || $settingsStore.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (
-                    $settingsData.characters.hideDisabledAccounts === false ||
-                    $userStore.data.accounts?.[c.accountId]?.enabled !== false
+                    $settingsStore.characters.hideDisabledAccounts === false ||
+                    $userStore.accounts?.[c.accountId]?.enabled !== false
                 )
         )
-        characters = filter(characters, filterFunc)
+
+        characters = characters.filter((char) => useCharacterFilter(
+            $lazyStore,
+            $settingsStore,
+            $userQuestStore,
+            filterFunc,
+            char,
+            $newNavState.characterFilter ||
+                ($location === '/' ? $activeView.characterFilter : '')
+        ))
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)
@@ -58,16 +84,40 @@
             }
         }
         else {
-            grouped = groupBy(characters, groupFunc)
+            grouped = groupBy(characters, groupByContext.groupByFn)
         }
 
+        const groupKeys = Object.keys(grouped)
+        groupKeys.sort()
+
         const pairs: [string, Character[]][] = []
-        for (const key of Object.keys(grouped)) {
-            pairs.push([key, sortBy(grouped[key], sortFunc)])
+        for (let keyIndex = 0; keyIndex < groupKeys.length; keyIndex++) {
+            const key = groupKeys[keyIndex]
+            const sortKey = `${$activeView.id}|${keyIndex}`
+            const keySort = (isHome && $homeState.groupSort[sortKey])
+                ? getCharacterSortFunc(
+                    $settingsStore,
+                    $staticStore,
+                    (char) => homeSort(
+                        $activeView,
+                        $lazyStore,
+                        $timeStore,
+                        $homeState.groupSort[sortKey],
+                        char
+                    )
+                )
+                : sortFunc
+            pairs.push([
+                key,
+                sortBy(grouped[key], keySort)
+            ])
         }
 
         pairs.sort()
-        groups = map(pairs, (pair) => pair[1])
+        groups = pairs.map(([, group]) => group)
+        if (groups.length === 1 && groups[0].length === 0) {
+            groups = []
+        }
     }
 
     const paddingMap: Record<string, number> = {
@@ -87,20 +137,23 @@
     }
 </style>
 
-<div class="thing-container">
+<div>
     <slot name="preTable" />
 
     <table
         class="table table-striped character-table"
-        style="--padding: {paddingMap[$settingsData.layout.padding] || 1};"
+        style="--padding: {paddingMap[$settingsStore.layout.padding] || 1};"
     >
         <slot name="head" />
         <tbody>
             {#each groups as group, groupIndex}
-                <slot name="groupHead" {group} {groupIndex} />
+                <slot name="groupHead" {group} {groupIndex} {groupByContext} />
 
                 {#each group as character, characterIndex (character.id)}
-                    <CharacterRow {character} last={characterIndex === (group.length - 1)}>
+                    <CharacterRow
+                        {character}
+                        last={characterIndex === (group.length - 1)}
+                    >
                         <slot slot="rowExtra" name="rowExtra" {character} />
                     </CharacterRow>
                 {/each}
@@ -108,22 +161,28 @@
                 <slot name="emptyRow">
                     <tr>
                         <td class="uhoh">
-                            It looks like you have no valid characters. If this is a new account,
-                            check again in a minute or so. If you still have no characters, try:
-                            
-                            <ul>
-                                <li>Log out and back in on this site to trigger an account update.</li>
-                                <li>If that didn't work, reset WoWthing's permissions on Battle.net:
-                                    go to your <a href="https://account.battle.net/connections#connected-accounts">Battle.net Connections page</a>,
-                                    find "WoWthing Live" and click <code>X REMOVE</code>. Then log out and back in
-                                    on this site. DO NOT UNTICK THE BOX WHEN BATTLE.NET ASKS!</li>
-                                <li>If that still didn't work, drop by <a href="https://discord.gg/4UkTT5y">the Discord</a> and
-                                    ask for help.</li>
-                            </ul>
+                            {#if $userStore.characters.length > 0}
+                                It looks like you have characters but none match your current character filter,
+                                try clearing that (end of the navigation)!
+                            {:else}
+                                It looks like you have no valid characters. If this is a new account,
+                                check again in a minute or so. If you still have no characters, try:
+
+                                <ul>
+                                    <li>Log out and back in on this site to trigger an account update.</li>
+                                    <li>If that didn't work, reset WoWthing's permissions on Battle.net:
+                                        go to your <a href="https://account.battle.net/connections#connected-accounts">Battle.net Connections page</a>,
+                                        find "WoWthing Live" and click <code>X REMOVE</code>. Then log out and back in
+                                        on this site. DO NOT UNTICK THE BOX WHEN BATTLE.NET ASKS!</li>
+                                    <li>If that still didn't work, drop by <a href="https://discord.gg/4UkTT5y">the Discord</a> and
+                                        ask for help.</li>
+                                </ul>
+                            {/if}
                         </td>
                     </tr>
                 </slot>
             {/each}
         </tbody>
+        <slot name="foot" />
     </table>
 </div>

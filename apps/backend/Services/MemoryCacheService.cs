@@ -1,9 +1,13 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Serilog;
+using Wowthing.Backend.Models;
+using Wowthing.Backend.Models.Cache;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Services;
@@ -13,33 +17,146 @@ public class MemoryCacheService
     private readonly ILogger _logger;
     private readonly IMemoryCache _memoryCache;
     private readonly IServiceScopeFactory _serviceScopeFactory;
+    private readonly WowthingBackendOptions _backendOptions;
 
     public MemoryCacheService(
         IMemoryCache memoryCache,
+        IOptions<WowthingBackendOptions> backendOptions,
         IServiceScopeFactory serviceScopeFactory
     )
     {
         _memoryCache = memoryCache;
+        _backendOptions = backendOptions.Value;
         _serviceScopeFactory = serviceScopeFactory;
 
         _logger = Log.ForContext("Service", $"MemoryCache");
+    }
+
+    // This probably doesn't really belong here, but adding an entire new service for it seemed silly
+    private const string CharValues =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789`~!@#$%^&*()-_=+[{]};:,<.>/?";
+
+    private Dictionary<char, int> _squishedCharMap;
+    public Dictionary<char, int> SquishedCharMap
+    {
+        get
+        {
+            _squishedCharMap ??= CharValues.Select((chr, index) => (chr, index))
+                .ToDictionary(tup => tup.chr, tup => tup.index + 1);
+            return _squishedCharMap;
+        }
+    }
+
+    public async Task<ActiveConnectedRealmQuery[]> GetAuctionConnectedRealms()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.AuctionConnectedRealms,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var activeRealms = await contextWrapper.Context
+                    .ActiveConnectedRealmQuery
+                    .FromSqlRaw(ActiveConnectedRealmQuery.Sql)
+                    .ToListAsync();
+
+                var byRegion = activeRealms
+                    .GroupBy(realm => realm.Region)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group.ToList()
+                    );
+
+                foreach (string regionString in _backendOptions.AllAuctionRegions.EmptyIfNull())
+                {
+                    var region = Enum.Parse<WowRegion>(regionString);
+                    var regionRealms = await contextWrapper.Context
+                        .WowRealm
+                        .Where(realm => realm.Region == region)
+                        .ToArrayAsync();
+
+                    byRegion[region] = regionRealms
+                        .DistinctBy(realm => realm.ConnectedRealmId)
+                        .Select(realm => new ActiveConnectedRealmQuery
+                        {
+                            ConnectedRealmId = realm.ConnectedRealmId,
+                            Region = region,
+                        })
+                        .ToList();
+                }
+
+                // Add fake commodities realms
+                foreach (var (region, realms) in byRegion)
+                {
+                    realms.Add(new ActiveConnectedRealmQuery
+                    {
+                        ConnectedRealmId = 100_000 + (int)region,
+                        Region = region,
+                    });
+                }
+
+                return byRegion
+                    .SelectMany(kvp => kvp.Value)
+                    .ToArray();
+            }
+        );
+    }
+
+    public async Task<ItemBonusCache> GetItemBonuses()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemBonuses,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var itemBonuses = await contextWrapper.Context.WowItemBonus
+                    .AsNoTracking()
+                    .ToArrayAsync();
+
+                return new ItemBonusCache(itemBonuses);
+            }
+        );
+    }
+
+    public async Task<ItemModifiedAppearanceCache> GetItemModifiedAppearances()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.ItemModifiedAppearances,
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(15);
+
+                using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
+
+                var itemModifiedAppearances = await contextWrapper.Context.WowItemModifiedAppearance
+                    .AsNoTracking()
+                    .ToArrayAsync();
+
+                return new ItemModifiedAppearanceCache(itemModifiedAppearances);
+            }
+        );
     }
 
     public async Task<Dictionary<string, int>> GetJournalInstanceMap()
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.JournalInstanceMap,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
                 // Fetch instance data for lockouts
-                var instances = contextWrapper.Context.LanguageString
+                var instances = await contextWrapper.Context.LanguageString
                     .AsNoTracking()
                     .Where(ls => ls.Type == StringType.WowJournalInstanceMapName)
-                    .ToArray();
+                    .ToArrayAsync();
 
                 var ret = new Dictionary<string, int>();
                 foreach (var instance in instances)
@@ -47,7 +164,7 @@ public class MemoryCacheService
                     ret[instance.String] = instance.Id;
                 }
 
-                return Task.FromResult(ret);
+                return ret;
             }
         );
     }
@@ -56,26 +173,30 @@ public class MemoryCacheService
     {
         return await _memoryCache.GetOrCreateAsync(
             MemoryCacheKeys.WowRealmMap,
-            cacheEntry =>
+            async cacheEntry =>
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
                 using var contextWrapper = new ContextWrapper(_serviceScopeFactory);
 
-                var realmMap = contextWrapper.Context.WowRealm
+                var realmMap = await contextWrapper.Context.WowRealm
                     .AsNoTracking()
-                    .ToDictionary(wr => (wr.Region, wr.Name));
+                    .Where(realm => realm.Name != null)
+                    .ToDictionaryAsync(wr => (wr.Region, wr.Name));
 
-                // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
-                foreach (var (region, realmName) in realmMap.Keys.ToArray())
+                foreach (var ((region, realmName), realm) in realmMap.ToArray())
                 {
+                    // Index by slug too
+                    realmMap[(region, realm.Slug)] = realm;
+
+                    // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
                     if (realmName.Contains(' '))
                     {
                         realmMap[(region, realmName.Replace(" ", ""))] = realmMap[(region, realmName)];
                     }
                 }
 
-                return Task.FromResult(realmMap);
+                return realmMap;
             }
         );
     }

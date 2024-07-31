@@ -1,9 +1,9 @@
 <script lang="ts">
     import { covenantMap } from '@/data/covenant'
     import type { Character } from '@/types'
-    import tippy from '@/utils/tippy'
+    import { basicTooltip } from '@/shared/utils/tooltips'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
@@ -22,7 +22,7 @@
 {#if covenant !== undefined}
     <div
         class={'covenant' + character.shadowlands.covenantId}
-        use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}
+        use:basicTooltip={covenant.getTooltip(character.shadowlands.renownLevel)}
     >
         <WowthingImage
             name={covenant.icon}

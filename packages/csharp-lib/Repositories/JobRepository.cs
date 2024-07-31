@@ -1,48 +1,47 @@
 ﻿using System.Text.Json;
 using StackExchange.Redis;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Repositories;
 
-public class JobRepository
+public class JobRepository(
+    IConnectionMultiplexer redis,
+    JsonSerializerOptions jsonSerializerOptions,
+    IDbContextFactory<WowDbContext> contextFactory
+)
 {
-    private readonly IConnectionMultiplexer _redis;
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private static readonly Dictionary<JobPriority, string> PriorityToStream;
 
-    public JobRepository(
-        IConnectionMultiplexer redis,
-        JsonSerializerOptions jsonSerializerOptions
-    )
+    static JobRepository()
     {
-        _jsonSerializerOptions = jsonSerializerOptions;
-        _redis = redis;
+        PriorityToStream = new();
+        foreach (var priority in Enum.GetValues<JobPriority>())
+        {
+            PriorityToStream[priority] = $"stream:{priority.ToString().ToLowerInvariant()}";
+        }
     }
 
     public async Task AddJobAsync(JobPriority priority, JobType type, params string[] data)
     {
-        var sub = _redis.GetSubscriber();
-        var job = new WorkerJob
+        await using var context = await contextFactory.CreateDbContextAsync();
+
+        context.QueuedJob.Add(new QueuedJob
         {
             Priority = priority,
             Type = type,
-            Data = data,
-        };
-        await sub.PublishAsync("jobs", JsonSerializer.Serialize(job, _jsonSerializerOptions));
+            Data = JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions)
+        });
+        await context.SaveChangesAsync();
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
     {
-        var sub = _redis.GetSubscriber();
         foreach (var data in datas)
         {
-            var job = new WorkerJob
-            {
-                Priority = priority,
-                Type = type,
-                Data = data,
-            };
-            await sub.PublishAsync("jobs", JsonSerializer.Serialize(job, _jsonSerializerOptions));
+            await AddJobAsync(priority, type, data);
         }
     }
 
@@ -65,7 +64,7 @@ public class JobRepository
 
     public async Task<bool> CheckLastTime(string prefix, string suffix, TimeSpan maximumAge)
     {
-        var db = _redis.GetDatabase();
+        var db = redis.GetDatabase();
         string key = $"{prefix}:{suffix}";
         bool set;
 
@@ -89,7 +88,7 @@ public class JobRepository
 
     public async Task<bool> AcquireLockAsync(string key, string value, TimeSpan expiry)
     {
-        var db = _redis.GetDatabase();
+        var db = redis.GetDatabase();
         return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
     }
 
@@ -103,7 +102,7 @@ end
 
     public async Task ReleaseLockAsync(string key, string value)
     {
-        var db = _redis.GetDatabase();
+        var db = redis.GetDatabase();
         var script = LuaScript.Prepare(ReleaseScript);
         await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
     }

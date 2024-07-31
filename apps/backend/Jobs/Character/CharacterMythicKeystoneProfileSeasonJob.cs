@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -9,18 +9,24 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}";
 
-    public override async Task Run(params string[] data)
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        var seasonId = int.Parse(data[1]);
-        using var shrug = CharacterLog(query);
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
+
+    public override async Task Run(string[] data)
+    {
+        int seasonId = int.Parse(data[1]);
 
         // Fetch API data
         ApiCharacterMythicKeystoneProfileSeason resultData;
-        var uri = GenerateUri(query, ApiPath, data[1]);
+        var uri = GenerateUri(_query, ApiPath, data[1]);
         try
         {
-            var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -37,7 +43,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
 
         // Fetch character data
         var seasonMap = await Context.PlayerCharacterMythicPlusSeason
-            .Where(mps => mps.CharacterId == query.CharacterId)
+            .Where(mps => mps.CharacterId == _query.CharacterId)
             .ToDictionaryAsync(k => k.Season);
 
         if (resultData.BestRuns != null)
@@ -46,7 +52,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
             {
                 season = new PlayerCharacterMythicPlusSeason
                 {
-                    CharacterId = query.CharacterId,
+                    CharacterId = _query.CharacterId,
                     Season = seasonId,
                 };
                 Context.PlayerCharacterMythicPlusSeason.Add(season);
@@ -73,10 +79,11 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
                 .ToList();
         }
 
-        int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
+        await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

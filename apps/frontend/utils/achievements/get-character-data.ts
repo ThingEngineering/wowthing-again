@@ -1,42 +1,49 @@
-import sortBy from 'lodash/sortBy'
+import sortBy from 'lodash/sortBy';
 
-import { addonAchievements } from '@/data/achievements'
-import { CriteriaTreeOperator, CriteriaType } from '@/enums'
+import { addonAchievements } from '@/data/achievements';
+import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator';
+import { CriteriaType } from '@/enums/criteria-type';
 import type {
     AchievementData,
     AchievementDataAchievement,
     AchievementDataCriteriaTree,
     UserAchievementData,
     UserData,
-} from '@/types'
-import type { UserQuestData } from '@/types/data'
+} from '@/types';
+import type { UserQuestData } from '@/types/data';
 
-
-const debugId = 12429
+const debugId = 12429;
 
 export function getCharacterData(
     achievementData: AchievementData,
     userAchievementData: UserAchievementData,
     userData: UserData,
     userQuestData: UserQuestData,
-    achievement: AchievementDataAchievement
+    achievement: AchievementDataAchievement,
 ): AchievementDataCharacter {
     const ret: AchievementDataCharacter = {
         characters: [],
         criteriaTrees: [],
-        total: 0
-    }
+        total: 0,
+    };
 
-    const characterCounts: Record<number, number> = {}
-    const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId]
+    const characterCounts: Record<number, number> = {};
+    const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
 
-    const characters = userData.characters
-        .filter((char) => (
-            (achievement.faction === 0 && char.faction === 1) ||
-            (achievement.faction === 1 && char.faction === 0) ||
-            (achievement.faction === -1)
-        ))
-    const characterIds = characters.map((char) => char.id)
+    const remixCategory = achievementData.categories.find((cat) => cat.id === 15509);
+    const isRemix =
+        remixCategory.id === achievement.categoryId ||
+        remixCategory.children.some((child) => child.id === achievement.categoryId);
+
+    const characters = userData.characters.filter(
+        (char) =>
+            ((achievement.faction === 0 && char.faction === 1) ||
+                (achievement.faction === 1 && char.faction === 0) ||
+                achievement.faction === -1) &&
+            (!isRemix || char.isRemix),
+    );
+
+    const characterIds = characters.map((char) => char.id);
 
     function recurse(
         parentCriteriaTree: AchievementDataCriteriaTree,
@@ -45,129 +52,126 @@ export function getCharacterData(
         first = false,
     ) {
         if (!criteriaTree) {
-            return
+            return;
         }
 
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
-        const criteria = achievementData.criteria[criteriaTree.criteriaId]
+        const criteria = achievementData.criteria[criteriaTree.criteriaId];
 
-        if (addStuff &&
+        if (
+            addStuff &&
             criteriaTree.amount > 0 &&
-            (
-                criteriaTree.operator !== CriteriaTreeOperator.All &&
-                criteriaTree.operator !== CriteriaTreeOperator.Any &&
-                parentCriteriaTree?.operator !== CriteriaTreeOperator.SumChildren
-            )
+            criteriaTree.operator !== CriteriaTreeOperator.All &&
+            criteriaTree.operator !== CriteriaTreeOperator.Any &&
+            parentCriteriaTree?.operator !== CriteriaTreeOperator.SumChildren
         ) {
-            ret.total += criteriaTree.amount
-        }
-        else if (
+            ret.total += criteriaTree.amount;
+        } else if (
             addStuff &&
             criteriaTree.id !== rootCriteriaTree.id &&
             rootCriteriaTree.operator === CriteriaTreeOperator.All
         ) {
-            ret.total += Math.max(1, criteriaTree.amount)
+            ret.total += Math.max(1, criteriaTree.amount);
         }
 
         if (!first) {
-            ret.criteriaTrees.push([criteriaTree])
+            ret.criteriaTrees.push([criteriaTree]);
         }
 
         if (achievement.id === debugId) {
-            console.log('-', criteriaTree, criteriaTree.criteriaId, criteria, addStuff)
-            console.log('--', userAchievementData.criteria[criteriaTree.id] ?? [])
+            console.log('-', criteriaTree, criteriaTree.criteriaId, criteria, addStuff);
+            console.log('--', userAchievementData.criteria[criteriaTree.id] ?? []);
         }
 
         if (addonAchievements[achievement.id]) {
             for (const characterId in userAchievementData.addonAchievements) {
-                const charData = userAchievementData.addonAchievements[characterId][achievement.id]
-                characterCounts[characterId] = (charData?.criteria ?? [0])[0]
+                const charData = userAchievementData.addonAchievements[characterId][achievement.id];
+                characterCounts[characterId] = (charData?.criteria ?? [0])[0];
             }
-        }
-        else {
+        } else {
             if (criteria?.type === CriteriaType.CompleteQuest) {
                 for (const character of characters) {
                     if (userQuestData.characters[character.id]?.quests?.has(criteria.asset)) {
-                        characterCounts[character.id] = (characterCounts[character.id] || 0) + 1
+                        characterCounts[character.id] = (characterCounts[character.id] || 0) + 1;
                     }
                 }
-            }
-            else if (criteria?.type === CriteriaType.RaiseSkillLine) {
+            } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of characters) {
                     for (const subProfessions of Object.values(character.professions || {})) {
-                        const subProfession = subProfessions[criteria.asset]
+                        const subProfession = subProfessions[criteria.asset];
                         if (subProfession) {
-                            characterCounts[character.id] = (characterCounts[character.id] || 0) +
-                                subProfession.currentSkill
-                            break
+                            characterCounts[character.id] =
+                                (characterCounts[character.id] || 0) + subProfession.currentSkill;
+                            break;
                         }
                     }
                 }
-            }
-            else if (criteria?.type === CriteriaType.ReputationGained) {
+            } else if (criteria?.type === CriteriaType.ReputationGained) {
                 for (const character of characters) {
-                    const reputation = character.reputations?.[criteria.asset] || 0
+                    const reputation = character.reputations?.[criteria.asset] || 0;
                     if (reputation > 0) {
-                        characterCounts[character.id] = (characterCounts[character.id] || 0) +
-                            reputation
+                        characterCounts[character.id] =
+                            (characterCounts[character.id] || 0) + reputation;
                     }
                 }
-            }
-            else {
-                for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
+            } else {
+                for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ??
+                    []) {
                     if (characterIds.indexOf(characterId) < 0) {
-                        continue
+                        continue;
                     }
 
                     if (achievement.id === debugId) {
-                        console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
+                        console.log(
+                            characterId,
+                            userData.characterMap[characterId].name,
+                            count,
+                            addStuff,
+                        );
                     }
 
                     // && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)
                     if (addStuff) {
-                        characterCounts[characterId] = (characterCounts[characterId] || 0) + (
-                            parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren
+                        characterCounts[characterId] =
+                            (characterCounts[characterId] || 0) +
+                            (parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren
                                 ? count
-                                : Math.min(Math.max(1, criteriaTree.amount), count)
-                        )
+                                : Math.min(Math.max(1, criteriaTree.amount), count));
                     }
                 }
             }
         }
-        
+
         if (parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren) {
-            addStuff = false
+            addStuff = false;
         }
 
         if (addStuff && criteriaTree.id !== rootCriteriaTree.id && criteriaTree.amount > 0) {
-            addStuff = false
+            addStuff = false;
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
-            recurse(criteriaTree, achievementData.criteriaTree[criteriaTreeId], addStuff)
+            recurse(criteriaTree, achievementData.criteriaTree[criteriaTreeId], addStuff);
         }
     }
 
-    recurse(null, rootCriteriaTree, true, true)
+    recurse(null, rootCriteriaTree, true, true);
 
     ret.characters = sortBy(
-        Object.entries(characterCounts)
-            .filter(([, count]) => count > 0),
-        ([characterId, count]) => [10000000 - count, characterId]
-    )
-        .slice(0, 3)
-        .map(([characterId, count]) => [parseInt(characterId), count])
+        Object.entries(characterCounts).filter(([, count]) => count > 0),
+        ([characterId, count]) => [10000000 - count, characterId],
+    ).map(([characterId, count]) => [parseInt(characterId), count]);
 
     if (achievement.id === debugId) {
-        console.log(characterCounts)
-        console.log(ret)
+        console.log(characterCounts);
+        console.log(ret);
     }
 
-    return ret
+    return ret;
 }
 
 export interface AchievementDataCharacter {
-    characters: [number, number][]
-    criteriaTrees: AchievementDataCriteriaTree[][]
-    total: number
+    characters: [number, number][];
+    criteriaTrees: AchievementDataCriteriaTree[][];
+    total: number;
 }

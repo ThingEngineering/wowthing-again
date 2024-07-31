@@ -22,11 +22,11 @@ WHERE   character_id IN (
         FROM    player_character pc
         WHERE   account_id IS NULL
     )
-    LIMIT 10000
+    LIMIT 1000
 )
 ";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();

@@ -7,27 +7,27 @@
         type EmberCourtFeature,
         type EmberCourtFeatureType
     } from '@/data/covenant'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { userQuestStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import tippy, { tippyComponent } from '@/utils/tippy'
+    import { basicTooltip,  componentTooltip } from '@/shared/utils/tooltips'
     import type { Character, ReputationTier } from '@/types'
 
     export let character: Character
 
     import ReputationText from '@/components/common/ReputationText.svelte'
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    let quests: Map<number, boolean>
+    let quests: Set<number>
     let tier: ReputationTier
     $: {
         tier = findReputationTier(
-            $staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId],
+            $staticStore.reputationTiers[$staticStore.reputations[2445].tierId],
             character.reputations?.[2445] ?? 0
         )
-        console.log($staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId])
 
-        quests = $userQuestStore.data.characters[character.id]?.quests
+        quests = $userQuestStore.characters[character.id]?.quests
     }
 
     const thingSets: [EmberCourtFeature[], number][] = [
@@ -39,7 +39,7 @@
     const getTooltip = function(type: EmberCourtFeatureType): string {
         let ret = type.name
         if (type.unlockReputation > 0) {
-            const tierName = $staticStore.data.reputationTiers[0].names[8 - type.unlockReputation]
+            const tierName = $staticStore.reputationTiers[0].names[8 - type.unlockReputation]
             ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`
         }
         return ret
@@ -92,8 +92,8 @@
         }
     }
     .bff {
-        //background: mix($thing-background, $colour-success, 90%);
-        color: lighten($colour-success, 20%);
+        //background: mix($thing-background, $color-success, 90%);
+        color: lighten($color-success, 20%);
     }
     .feature {
         --image-border-width: 2px;
@@ -119,10 +119,10 @@
             filter: grayscale(100%);
         }
         &.available {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
         }
         &.unlocked {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
         }
     }
 </style>
@@ -135,13 +135,13 @@
                 {@const rsvp = quests?.has(friend.rsvpQuestId)}
                 <div
                     class="friend"
-                    use:tippyComponent={{
+                    use:componentTooltip={{
                         component: Tooltip,
                         props: {
                             bottom: bff ? `<span class="status-success">Friend of a Friend!</span>` : undefined,
                             character,
                             characterRep: character.reputations?.[friend.reputationId] ?? 0,
-                            dataRep: $staticStore.data.reputations[friend.reputationId],
+                            dataRep: $staticStore.reputations[friend.reputationId],
                         },
                     }}
                 >
@@ -181,7 +181,7 @@
                         class:locked={!typeUnlocked && tier?.tier > typeReputation}
                         class:available={!typeUnlocked && tier?.tier <= typeReputation}
                         class:unlocked={typeUnlocked}
-                        use:tippy={{
+                        use:basicTooltip={{
                             allowHTML: true,
                             content: getTooltip(type),
                         }}

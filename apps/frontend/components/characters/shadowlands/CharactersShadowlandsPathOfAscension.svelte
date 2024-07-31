@@ -1,21 +1,18 @@
 <script lang="ts">
     import { ascensionFightOrder, ascensionFights, ascensionItems } from '@/data/covenant'
-    import { iconStrings } from '@/data/icons'
+    import { uiIcons } from '@/shared/icons'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import { userQuestStore } from '@/stores'
-    import tippy from '@/utils/tippy'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let feature: CharacterShadowlandsCovenantFeature
 
-    let quests: Map<number, boolean>
-    $: {
-        quests = $userQuestStore.data.characters[character.id]?.quests
-    }
+    $: quests = $userQuestStore.characters[character.id]?.quests
 </script>
 
 <style lang="scss">
@@ -60,7 +57,7 @@
     <div class="collection-section">
         <div class="collection-objects">
             {#each ascensionItems as [itemId, questId]}
-                {@const characterHas = $userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+                {@const characterHas = $userQuestStore.characters[character.id]?.quests?.has(questId)}
                 <div
                     class="quality3"
                     class:missing={!characterHas}
@@ -85,13 +82,13 @@
     <thead>
         <tr>
             <th></th>
-            <th class="border-left" use:tippy={ascensionFightOrder[0]}>C</th>
-            <th use:tippy={ascensionFightOrder[1]}>L</th>
-            <th use:tippy={ascensionFightOrder[2]}>W</th>
-            <th class="border-left" use:tippy={ascensionFightOrder[3]}>P</th>
-            <th use:tippy={ascensionFightOrder[4]}>K</th>
-            <th use:tippy={ascensionFightOrder[5]}>M</th>
-            <th use:tippy={ascensionFightOrder[6]}>H</th>
+            <th class="border-left" use:basicTooltip={ascensionFightOrder[0]}>C</th>
+            <th use:basicTooltip={ascensionFightOrder[1]}>L</th>
+            <th use:basicTooltip={ascensionFightOrder[2]}>W</th>
+            <th class="border-left" use:basicTooltip={ascensionFightOrder[3]}>P</th>
+            <th use:basicTooltip={ascensionFightOrder[4]}>K</th>
+            <th use:basicTooltip={ascensionFightOrder[5]}>M</th>
+            <th use:basicTooltip={ascensionFightOrder[6]}>H</th>
         </tr>
     </thead>
     <tbody>
@@ -99,7 +96,7 @@
             <tr>
                 <td
                     class="name text-overflow"
-                    use:tippy={fight.name}
+                    use:basicTooltip={fight.name}
                 >
                     {fight.name}
                 </td>
@@ -110,15 +107,15 @@
                         class:border-left={questIndex === 0 || questIndex === 3}
                         class:status-success={characterHas}
                         class:status-fail={!characterHas}
-                        use:tippy={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
+                        use:basicTooltip={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
                     >
                         {#if characterHas}
                             <IconifyIcon
-                                icon={iconStrings.starFull}
+                                icon={uiIcons.starFull}
                             />
                         {:else if feature?.rank < fight.unlockRanks[questIndex]}
                             <IconifyIcon
-                                icon={iconStrings.lock}
+                                icon={uiIcons.lock}
                                 extraClass="unavailable"
                             />
                         {:else if (
@@ -126,12 +123,12 @@
                             (!quests?.has(fight.unlockQuestId))
                         )}
                             <IconifyIcon
-                                icon={iconStrings.lock}
+                                icon={uiIcons.lock}
                             />
                         {:else}
                             <IconifyIcon
                                 extraClass="status-shrug"
-                                icon={iconStrings.starEmpty}
+                                icon={uiIcons.starEmpty}
                             />
                         {/if}
                     </td>

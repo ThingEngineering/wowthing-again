@@ -14,12 +14,12 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         Type = JobType.DataRealmIndex,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromDays(1),
-        Version = 2,
+        Version = 3,
     };
 
     private const string ApiPath = "data/wow/realm/index";
 
-    public override async Task Run(params string[] data)
+    public override async Task Run(string[] data)
     {
         // Fetch existing data
         var realmMap = await Context.WowRealm.ToDictionaryAsync(k => k.Id);
@@ -27,14 +27,14 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
             // Fetch API data
-            var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-            var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
+            var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, region == WowRegion.EU ? "ru_RU" : null);
+            var result = await GetUriAsJsonAsync<ApiDataRealmIndex>(uri, useLastModified: false);
 
             foreach (var apiRealm in result.Data.Realms)
             {
                 if (!realmMap.TryGetValue(apiRealm.Id, out WowRealm realm))
                 {
-                    realm = new WowRealm
+                    realm = realmMap[apiRealm.Id] = new WowRealm
                     {
                         Id = apiRealm.Id,
                     };
@@ -45,10 +45,26 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
                 realm.Name = apiRealm.Name;
                 realm.Slug = apiRealm.Slug;
             }
+
+            // In non-US regions, fetch data again for English names
+            if (region != WowRegion.US)
+            {
+                uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath, "en_US");
+                result = await GetUriAsJsonAsync<ApiDataRealmIndex>(uri, useLastModified: false);
+
+                foreach (var apiRealm in result.Data.Realms)
+                {
+                    var realm = realmMap[apiRealm.Id];
+                    if (realm.Name != apiRealm.Name)
+                    {
+                        realm.EnglishName = apiRealm.Name;
+                    }
+                }
+            }
         }
 
         await Context.SaveChangesAsync();
-            
+
         await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
     }
 }

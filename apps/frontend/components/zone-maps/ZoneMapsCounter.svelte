@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { manualStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
+    import type { RewardType } from '@/enums/reward-type'
     import type { UserCount } from '@/types'
-    import type { RewardType } from '@/enums'
 
     export let key: string
     export let type: RewardType
 
     let counts: UserCount
     $: {
-        counts = $manualStore.data.zoneMaps.typeCounts[key]?.[type]
+        counts = $lazyStore.zoneMaps.typeCounts[key]?.[type]
     }
 </script>
 

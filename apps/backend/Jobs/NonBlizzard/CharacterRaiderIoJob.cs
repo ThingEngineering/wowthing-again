@@ -1,20 +1,29 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.NonBlizzard;
 
 public class CharacterRaiderIoJob : JobBase
 {
     private const string ApiUrl = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season:{3}";
+    private int _characterId;
+    private long _userId;
 
-    public override async Task Run(params string[] data)
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);        using var shrug = CharacterLog(query);
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
 
+    public override async Task Run(string[] data)
+    {
         // Fetch seasons
-        var seasonIds = JsonConvert
-            .DeserializeObject<int[]>(data[1])
+        var seasonIds = JsonSerializer
+            .Deserialize<int[]>(data[1])
             .EmptyIfNull();
 
         var oofParts = new List<string>();
@@ -38,12 +47,12 @@ public class CharacterRaiderIoJob : JobBase
         var oof = string.Join(":", oofParts);
 
         // Fetch API data
-        var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName, oof));
+        var uri = new Uri(string.Format(ApiUrl, _query.Region.ToString().ToLowerInvariant(), _query.RealmSlug, _query.CharacterName, oof));
 
         ApiCharacterRaiderIo resultData;
         try
         {
-            var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
             resultData = result.Data;
         }
         catch (HttpRequestException e)
@@ -53,12 +62,12 @@ public class CharacterRaiderIoJob : JobBase
         }
 
         // Fetch character data
-        var raiderIo = await Context.PlayerCharacterRaiderIo.FindAsync(query.CharacterId);
+        var raiderIo = await Context.PlayerCharacterRaiderIo.FindAsync(_query.CharacterId);
         if (raiderIo == null)
         {
             raiderIo = new PlayerCharacterRaiderIo
             {
-                CharacterId = query.CharacterId,
+                CharacterId = _query.CharacterId,
             };
             Context.PlayerCharacterRaiderIo.Add(raiderIo);
         }
@@ -82,5 +91,10 @@ public class CharacterRaiderIoJob : JobBase
         raiderIo.Seasons = seasons;
 
         await Context.SaveChangesAsync();
+    }
+
+    public override async Task Finally()
+    {
+        await DecrementCharacterJobs();
     }
 }

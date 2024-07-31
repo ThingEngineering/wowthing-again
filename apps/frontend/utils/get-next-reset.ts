@@ -1,7 +1,7 @@
-import type {DateTime} from 'luxon'
+import type { DateTime } from 'luxon'
 
-import {resetTimes} from '@/data/region'
-import type {Region} from '@/enums'
+import { resetTimes } from '@/data/region'
+import type { Region } from '@/enums/region'
 import parseApiTime from '@/utils/parse-api-time'
 
 
@@ -58,6 +58,10 @@ export function getNextWeeklyReset(timeString: string, region: Region): DateTime
         return time.plus({minutes: 1})
     }
 
+    return getNextWeeklyResetFromTime(time, region)
+}
+
+export function getNextWeeklyResetFromTime(time: DateTime, region: Region): DateTime {
     const resetDay = resetTimes[region].weeklyResetDay
     const [resetHour, resetMin] = resetTimes[region].weeklyResetTime
 

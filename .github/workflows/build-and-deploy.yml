@@ -26,7 +26,6 @@ jobs:
             backend:
               - 'apps/backend/**'
               - 'packages/csharp-lib/**'
-              - 'data/**'
               - 'Directory.Build.props'
 
             web:
@@ -102,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: azure/setup-kubectl@v1
+      - uses: azure/setup-kubectl@v3
 
       - name: Setup kubectl
         run: |

@@ -6,11 +6,11 @@ namespace Wowthing.Web.Models;
 
 public class UserAuctionData
 {
-    public Dictionary<int, List<WowAuction>> Auctions { get; set; }
+    public Dictionary<int, List<WowAuction>> RawAuctions { get; set; }
     public Dictionary<int, string> Names { get; set; }
-        
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-    public Dictionary<int, UserAuctionDataPet[]> Pets { get; set; }
+    public Dictionary<int, long> Updated { get; set; }
+
+    public Dictionary<short, UserAuctionDataPet[]> Pets { get; set; }
 }
 
 public class UserAuctionDataPet
@@ -19,8 +19,7 @@ public class UserAuctionDataPet
     public int Level { get; set; }
     public ItemLocation Location { get; set; }
     public WowQuality Quality { get; set; }
-        
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+
     public int? LocationId { get; set; }
 
     public UserAuctionDataPet(PlayerAccountPetsPet pet)

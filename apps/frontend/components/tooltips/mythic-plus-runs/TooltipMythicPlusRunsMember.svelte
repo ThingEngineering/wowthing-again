@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
     import getRealmName from '@/utils/get-realm-name'
     import type { CharacterMythicPlusRunMember } from '@/types'
-    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/types/data/static/character'
+    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/shared/stores/static/types/character'
 
-    import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte'
 
     export let member: CharacterMythicPlusRunMember
 
     let cls: StaticDataCharacterClass
     let spec: StaticDataCharacterSpecialization
     $: {
-        spec = $staticStore.data.characterSpecializations[member.specializationId]
-        cls = $staticStore.data.characterClasses[spec.classId]
+        spec = $staticStore.characterSpecializations[member.specializationId]
+        cls = $staticStore.characterClasses[spec.classId]
     }
 </script>
 

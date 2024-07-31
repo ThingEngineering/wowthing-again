@@ -1,0 +1,49 @@
+.auctions-table {
+    td, th {
+        padding: 0.1rem 0.4rem;
+    }
+    .next-selected {
+        td {
+            border-bottom-width: 0;
+        }
+    }
+    .selected {
+        td {
+            background: $highlight-background;
+            border-color: #fff !important;
+            border-top: 1px solid #fff;
+        }
+    }
+    .icon {
+        --image-border-width: 1px;
+        --image-margin-top: -4px;
+
+        padding-right: 0;
+        width: 1.7rem;
+    }
+    .name {
+        max-width: 25rem;
+        width: 25rem;
+    }
+    .item-level {
+        text-align: right;
+        white-space: nowrap;
+        width: 2.6rem;
+    }
+    .quantity {
+        text-align: right;
+        width: 5.5rem;
+    }
+    .price {
+        text-align: right;
+        width: 9.5rem;
+    }
+    a {
+        display: block;
+        width: 100%;
+    }
+    code {
+        background: transparent;
+        color: $body-text;
+    }
+}

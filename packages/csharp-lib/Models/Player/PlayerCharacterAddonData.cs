@@ -2,14 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Converters;
-using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterAddonData
+public class PlayerCharacterAddonData(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     public short Level { get; set; }
@@ -18,10 +18,13 @@ public class PlayerCharacterAddonData
     public string BindLocation { get; set; }
     public string CurrentLocation { get; set; }
 
+    public DateTime BagsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime BankScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
-    public List<int> Auras { get; set; } = new();
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterAddonDataAura> Auras { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataCurrency> Currencies { get; set; } = new();
@@ -43,9 +46,25 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterProfessionTier> Professions { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<string, List<int>> ProfessionCooldowns { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, Dictionary<int, int>> ProfessionTraits { get; set; } = new();
 }
 
-[System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
+public class PlayerCharacterAddonDataAura
+{
+    public int Duration { get; set; }
+    public int Expires { get; set; }
+    public int Stacks { get; set; }
+}
+
+[JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
 public class PlayerCharacterAddonDataCurrency
 {
     public int Quantity { get; set; }

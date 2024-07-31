@@ -1,14 +1,16 @@
 <script lang="ts">
     import type { DateTime } from 'luxon'
 
-    import { iconStrings } from '@/data/icons'
-    import { itemStore, staticStore, timeStore } from '@/stores'
-    import { toNiceDuration } from '@/utils/to-nice'
+    import { uiIcons } from '@/shared/icons'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
+    import { itemStore } from '@/stores'
+    import { toNiceDuration } from '@/utils/formatting'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][]
     export let character: Character
@@ -64,7 +66,7 @@
                     <td class="status">
                         <IconifyIcon
                             extraClass="{status ? 'status-success' : 'status-fail'}"
-                            icon={status ? iconStrings.yes : iconStrings.no}
+                            icon={status ? uiIcons.yes : uiIcons.no}
                             scale="0.91"
                         />
                     </td>
@@ -91,7 +93,7 @@
                                     border={1}
                                 />
 
-                                {@const itemName = $itemStore.data.items[rewards.itemId]?.name}
+                                {@const itemName = $itemStore.items[rewards.itemId]?.name}
                                 <span class="quality{rewards.quality}">{itemName || `Item ${rewards.itemId}`}</span>
 
                                 {#if rewards.quantity > 1}
@@ -99,7 +101,7 @@
                                 {/if}
 
                             {:else if rewards.currencyId > 0}
-                                {@const currency = $staticStore.data.currencies[rewards.currencyId]}
+                                {@const currency = $staticStore.currencies[rewards.currencyId]}
 
                                 <WowthingImage
                                     name="currency/{rewards.currencyId}"

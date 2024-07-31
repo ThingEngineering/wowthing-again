@@ -1,12 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { data as settingsData } from '@/stores/settings'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { settingsStore } from '@/shared/stores/settings'
     import type { Character, CharacterShadowlandsCovenant, Covenant } from '@/types'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character = undefined
 
@@ -45,7 +45,7 @@
                     }
 
                     &.active {
-                        border: 1px solid $colour-shrug;
+                        border: 1px solid $color-shrug;
                         border-radius: $border-radius;
                         line-height: 1.3;
                     }
@@ -56,34 +56,32 @@
 </style>
 
 <td
-    class="{$settingsData.layout.covenantColumn}"
-    use:tippyComponent={{
+    class="{$settingsStore.layout.covenantColumn}"
+    use:componentTooltip={{
         component: Tooltip,
         props: { character },
     }}
 >
-    {#if covenant !== undefined}
-        <div class="flex-wrapper">
-            {#if $settingsData.layout.covenantColumn === 'current'}
+    <div class="flex-wrapper">
+        {#if $settingsStore.layout.covenantColumn === 'current'}
+            {#if covenant !== undefined}
                 <WowthingImage name={covenant.icon} size={20} border={1} />
                 <span
                     class:status-success={character.shadowlands.renownLevel >= Constants.maxRenown}
                 >{character.shadowlands.renownLevel}</span>
-            {:else}
-                {#each covenantOrder as covenantId}
-                    {#if characterCovenants[covenantId]}
-                        <a
-                            href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
-                            class:active={covenantId === character.shadowlands?.covenantId}
-                            class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
-                        >{characterCovenants[covenantId].renown}</a>
-                    {:else}
-                        <span class="status-fail">---</span>
-                    {/if}
-                {/each}
             {/if}
-        </div>
-    {:else}
-        &nbsp;
-    {/if}
+        {:else}
+            {#each covenantOrder as covenantId}
+                {#if characterCovenants[covenantId]}
+                    <a
+                        href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
+                        class:active={covenantId === character.shadowlands?.covenantId}
+                        class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
+                    >{characterCovenants[covenantId].renown}</a>
+                {:else}
+                    <span class="status-fail">---</span>
+                {/if}
+            {/each}
+        {/if}
+    </div>
 </td>

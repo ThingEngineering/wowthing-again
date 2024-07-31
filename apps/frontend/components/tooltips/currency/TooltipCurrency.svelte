@@ -2,25 +2,26 @@
     import sortBy from 'lodash/sortBy'
 
     import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { getFilteredCharacters } from '@/utils/get-filtered-characters'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
     import type { ItemDataItem } from '@/types/data/item'
-    import type { StaticDataCurrency } from '@/types/data/static'
+    import type { StaticDataCurrency } from '@/shared/stores/static/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let currency: StaticDataCurrency
-    export let item: ItemDataItem
+    export let currency: StaticDataCurrency = undefined
+    export let item: ItemDataItem = undefined
+    export let itemId: number = undefined
 
     let currencies: [Character, number][]
     let currencyName: string
     let iconName: string
     $: {
         currencies = []
-        for (const character of getFilteredCharacters($settings, $userStore.data)) {
+        for (const character of getFilteredCharacters($settingsStore, $userStore)) {
             let quantity = 0
             if (currency) {
                 currencyName = currency.name
@@ -30,7 +31,12 @@
             else if (item) {
                 currencyName = item.name
                 iconName = `item/${item.id}`
-                quantity = character.currencyItems[item.id] || 0
+                quantity = character.getItemCount(item.id)
+            }
+            else if (itemId) {
+                currencyName = `Item #${itemId}`
+                iconName = `item/${itemId}`
+                quantity = character.getItemCount(itemId)
             }
             else {
                 currencyName = 'Gold'

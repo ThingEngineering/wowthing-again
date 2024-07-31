@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Converters;
 
-public class WowRealmConverter : System.Text.Json.Serialization.JsonConverter<WowRealm>
+public class WowRealmConverter : JsonConverter<WowRealm>
 {
     public override WowRealm Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
@@ -18,6 +19,14 @@ public class WowRealmConverter : System.Text.Json.Serialization.JsonConverter<Wo
         writer.WriteNumberValue(value.ConnectedRealmId);
         writer.WriteStringValue(value.Name);
         writer.WriteStringValue(value.Slug);
+
+        writer.WriteStringValue(value.Locale);
+
+        if (value.EnglishName != null)
+        {
+            writer.WriteStringValue(value.EnglishName);
+        }
+
         writer.WriteEndArray();
     }
 }

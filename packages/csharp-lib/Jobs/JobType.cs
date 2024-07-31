@@ -1,8 +1,9 @@
 ﻿namespace Wowthing.Lib.Jobs;
 
-public enum JobType
+public enum JobType : short
 {
     UserCharacters = 0,
+    UserBulkData,
 
     Character = 100,
     CharacterAchievements,
@@ -17,48 +18,42 @@ public enum JobType
     CharacterSoulbinds,
     CharacterMedia,
     CharacterSpecializations,
-    CharacterStatistics,
+    CharacterAchievementStatistics,
+    CharacterToys,
+    CharacterHeirlooms,
+    CharacterStats,
+    CharacterTransmogs,
 
-    DataPlayableClass = 200,
-    DataReputationFaction,
-    DataReputationTiers,
-    DataTitle,
-    DataConnectedRealmIndex,
-    DataConnectedRealm,
+    DataConnectedRealmIndex = 204,
+    DataConnectedRealm = 205,
 
     // Non-Blizzard jobs
     CharacterRaiderIo = 500,
 
     // Internal jobs
     UserUpload = 900,
-    Image,
-    UserCacheAchievements,
-    UserCacheTransmog,
-    UserCacheQuests,
+    Image = 901,
+    UserCacheAchievements = 902,
+    UserCacheTransmog = 903,
+    UserCacheQuests = 904,
+    UserCacheMounts = 905,
 
     // Scheduled jobs
-    CacheStatic = 1000,
-    DataMythicKeystonePeriod,
-    DataMythicKeystonePeriodIndex,
-    DataMythicKeystoneSeasonIndex,
-    DataPlayableRaceIndex,
-    DataPlayableClassIndex,
-    DataRaiderIoScoreTiers,
-    DataRealmIndex,
-    DataReputationFactionIndex,
-    DataReputationTiersIndex,
-    DataTitleIndex,
-    CacheTransmog,
-    //CacheZoneMaps,
-    ImportDumps = 1013,
-    CacheJournal,
-    DataAuctionsStart,
-    DataAuctions,
-    CacheManual,
-    CacheAchievements,
-    CacheAppearances,
-    CacheItems,
+    DataMythicKeystonePeriod = 1001,
+    DataMythicKeystonePeriodIndex = 1002,
+    DataMythicKeystoneSeasonIndex = 1003,
+    DataRaiderIoScoreTiers = 1006,
+    DataRealmIndex = 1007,
+    DataAuctionsStart = 1015,
+    DataAuctions = 1016,
+    DataQuestsStart = 1021,
+    DataQuest = 1022,
+
+    MagicAggregateWorldQuests = 1100,
 
     MaintenanceUnlinkCharacters = 2000,
-    MaintenanceDeleteAchievements,
+    MaintenanceDeleteAchievements = 2001,
+    MaintenanceDeleteWorldQuestReports = 2002,
+    MaintenanceDeleteOldAuctionTables = 2003,
+    MaintenanceBackfillUserCache = 2004,
 }

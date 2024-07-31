@@ -1,10 +1,12 @@
-import type { ItemLocation, ItemQuality } from '@/enums'
+import type { ItemLocation } from '@/enums/item-location'
+import type { ItemQuality } from '@/enums/item-quality'
 
 
 export interface ItemSearchResponseItem {
     itemId: number
     itemName: string
     characters: ItemSearchResponseCharacter[]
+    equipped: ItemSearchResponseCharacter[]
     guildBanks: ItemSearchResponseGuildBank[]
 }
 

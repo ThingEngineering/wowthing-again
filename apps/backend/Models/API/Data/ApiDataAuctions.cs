@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Backend.Models.API.Data;
+﻿namespace Wowthing.Backend.Models.API.Data;
 
 public class ApiDataAuctions
 {
@@ -14,11 +12,9 @@ public class ApiDataAuctionsAuction
     public long Buyout { get; set; }
     public long Bid { get; set; }
 
-    [JsonProperty("unit_price")]
     [JsonPropertyName("unit_price")]
     public long UnitPrice { get; set; }
 
-    [JsonProperty("time_left")]
     [JsonPropertyName("time_left")]
     public string TimeLeft { get; set; }
 
@@ -32,23 +28,18 @@ public class ApiDataAuctionsAuctionItem
 
     public short Context { get; set; }
 
-    [JsonProperty("pet_breed_id")]
     [JsonPropertyName("pet_breed_id")]
     public short PetBreedId { get; set; }
 
-    [JsonProperty("pet_level")]
     [JsonPropertyName("pet_level")]
     public short PetLevel { get; set; }
 
-    [JsonProperty("pet_quality_id")]
     [JsonPropertyName("pet_quality_id")]
     public short PetQualityId { get; set; }
 
-    [JsonProperty("pet_species_id")]
     [JsonPropertyName("pet_species_id")]
     public short PetSpeciesId { get; set; }
 
-    [JsonProperty("bonus_lists")]
     [JsonPropertyName("bonus_lists")]
     public List<int> BonusLists { get; set; }
 

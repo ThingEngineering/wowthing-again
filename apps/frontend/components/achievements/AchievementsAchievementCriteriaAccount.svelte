@@ -1,8 +1,8 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements'
-    import { achievementStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
+    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -13,17 +13,18 @@
     let data: AchievementDataAccount
     let progressBar: boolean
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
+        criteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
         data = getAccountData(
-            $achievementStore.data,
-            $userAchievementStore.data,
-            $userStore.data,
+            $achievementStore,
+            $userAchievementStore,
+            $userStore,
+            $userQuestStore,
             achievement
         )
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 12909) {
+        if (achievement.id === 13764) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
@@ -52,8 +53,8 @@
         {#if honorAchievements[achievement.id]}
             <ProgressBar
                 title="Honor Level"
-                have={$userStore.data.honorLevel || 0}
-                total={$achievementStore.data.criteria[data.criteria[0].criteriaId].asset}
+                have={$userStore.honorLevel || 0}
+                total={$achievementStore.criteria[data.criteria[0].criteriaId].asset}
             />
         {:else if progressBar}
             <ProgressBar

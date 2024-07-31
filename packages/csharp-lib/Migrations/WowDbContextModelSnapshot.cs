@@ -10,6 +10,7 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Wow;
 
 #nullable disable
 
@@ -22,7 +23,7 @@ namespace Wowthing.Lib.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -284,6 +285,10 @@ namespace Wowthing.Lib.Migrations
                     b.HasKey("Id")
                         .HasName("pk_asp_net_users");
 
+                    b.HasIndex("ApiKey")
+                        .IsUnique()
+                        .HasDatabaseName("ix_asp_net_users_api_key");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -292,6 +297,33 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("asp_net_users", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.AuditLog", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Action")
+                        .HasColumnType("text")
+                        .HasColumnName("action");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timestamp");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_audit_log");
+
+                    b.ToTable("audit_log", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.BackgroundImage", b =>
@@ -453,7 +485,7 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("text")
                         .HasColumnName("tag");
 
-                    b.Property<long>("UserId")
+                    b.Property<long?>("UserId")
                         .HasColumnType("bigint")
                         .HasColumnName("user_id");
 
@@ -491,6 +523,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("HonorMax")
                         .HasColumnType("smallint")
                         .HasColumnName("honor_max");
+
+                    b.Property<List<int>>("Quests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("quests");
 
                     b.HasKey("AccountId")
                         .HasName("pk_player_account_addon_data");
@@ -530,6 +566,22 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_player_account_gold_snapshot_account_id");
 
                     b.ToTable("player_account_gold_snapshot", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountHeirlooms", b =>
+                {
+                    b.Property<int>("AccountId")
+                        .HasColumnType("integer")
+                        .HasColumnName("account_id");
+
+                    b.Property<Dictionary<int, int>>("Heirlooms")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("heirlooms");
+
+                    b.HasKey("AccountId")
+                        .HasName("pk_player_account_heirlooms");
+
+                    b.ToTable("player_account_heirlooms", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountPets", b =>
@@ -625,10 +677,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("copper");
 
-                    b.Property<int>("DelayHours")
-                        .HasColumnType("integer")
-                        .HasColumnName("delay_hours");
-
                     b.Property<int>("EquippedItemLevel")
                         .HasColumnType("integer")
                         .HasColumnName("equipped_item_level");
@@ -673,10 +721,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("level");
 
-                    b.Property<int>("MountSkill")
-                        .HasColumnType("integer")
-                        .HasColumnName("mount_skill");
-
                     b.Property<string>("Name")
                         .HasColumnType("text")
                         .HasColumnName("name");
@@ -697,6 +741,12 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("rested_experience");
 
+                    b.Property<bool?>("ShouldUpdate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true)
+                        .HasColumnName("should_update");
+
                     b.HasKey("Id")
                         .HasName("pk_player_character");
 
@@ -707,7 +757,10 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_player_character_guild_id");
 
                     b.HasIndex("LastApiCheck")
-                        .HasDatabaseName("ix_player_character_last_api_check");
+                        .HasDatabaseName("ix_player_character_last_api_check")
+                        .HasFilter("should_update = true AND account_id IS NOT NULL");
+
+                    NpgsqlIndexBuilderExtensions.IncludeProperties(b.HasIndex("LastApiCheck"), new[] { "Id", "AccountId", "Name", "LastApiModified" });
 
                     b.HasIndex("RealmId", "Name")
                         .IsUnique()
@@ -774,9 +827,17 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
-                    b.Property<List<int>>("Auras")
-                        .HasColumnType("integer[]")
+                    b.Property<Dictionary<int, PlayerCharacterAddonDataAura>>("Auras")
+                        .HasColumnType("jsonb")
                         .HasColumnName("auras");
+
+                    b.Property<DateTime>("BagsScannedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("bags_scanned_at");
+
+                    b.Property<DateTime>("BankScannedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("bank_scanned_at");
 
                     b.Property<string>("BindLocation")
                         .HasColumnType("text")
@@ -830,6 +891,18 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("jsonb")
                         .HasColumnName("mythic_plus_weeks");
 
+                    b.Property<Dictionary<string, List<int>>>("ProfessionCooldowns")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("profession_cooldowns");
+
+                    b.Property<Dictionary<int, Dictionary<int, int>>>("ProfessionTraits")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("profession_traits");
+
+                    b.Property<Dictionary<int, PlayerCharacterProfessionTier>>("Professions")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("professions");
+
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_addon_data");
 
@@ -866,6 +939,14 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("callings_scanned_at");
 
+                    b.Property<List<int>>("CompletedQuests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("completed_quests");
+
+                    b.Property<DateTime>("CompletedQuestsScannedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("completed_quests_scanned_at");
+
                     b.Property<Dictionary<int, List<List<int>>>>("Dailies")
                         .HasColumnType("jsonb")
                         .HasColumnName("dailies");
@@ -885,6 +966,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<DateTime>("QuestsScannedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("quests_scanned_at");
+
+                    b.Property<DateTime>("WorldQuestsScannedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("world_quests_scanned_at");
 
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_addon_quests");
@@ -961,6 +1046,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("count");
 
+                    b.Property<short>("CraftedQuality")
+                        .HasColumnType("smallint")
+                        .HasColumnName("crafted_quality");
+
                     b.Property<short>("EnchantId")
                         .HasColumnType("smallint")
                         .HasColumnName("enchant_id");
@@ -980,6 +1069,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("Location")
                         .HasColumnType("smallint")
                         .HasColumnName("location");
+
+                    b.Property<Dictionary<int, int>>("Modifiers")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("modifiers");
 
                     b.Property<short>("Quality")
                         .HasColumnType("smallint")
@@ -1135,6 +1228,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
+                    b.Property<Dictionary<int, string>>("ProfessionSpecializations")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("profession_specializations");
+
                     b.Property<Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>>>("Professions")
                         .HasColumnType("jsonb")
                         .HasColumnName("professions");
@@ -1285,6 +1382,30 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_statistics", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterStats", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<Dictionary<WowItemStatType, PlayerCharacterStatsBasic>>("Basic")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("basic");
+
+                    b.Property<Dictionary<WowItemStatType, int>>("Misc")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("misc");
+
+                    b.Property<Dictionary<WowItemStatType, PlayerCharacterStatsRating>>("Rating")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("rating");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_stats");
+
+                    b.ToTable("player_character_stats", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterTransmog", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -1393,6 +1514,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("count");
 
+                    b.Property<short>("CraftedQuality")
+                        .HasColumnType("smallint")
+                        .HasColumnName("crafted_quality");
+
                     b.Property<short>("EnchantId")
                         .HasColumnType("smallint")
                         .HasColumnName("enchant_id");
@@ -1412,6 +1537,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("ItemLevel")
                         .HasColumnType("smallint")
                         .HasColumnName("item_level");
+
+                    b.Property<Dictionary<int, int>>("Modifiers")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("modifiers");
 
                     b.Property<short>("Quality")
                         .HasColumnType("smallint")
@@ -1469,6 +1598,42 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("criteria_id");
 
                     b.ToTable("AchievementCriteriaQuery", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.ActiveConnectedRealmQuery", b =>
+                {
+                    b.Property<int>("ConnectedRealmId")
+                        .HasColumnType("integer")
+                        .HasColumnName("connected_realm_id");
+
+                    b.Property<int>("Region")
+                        .HasColumnType("integer")
+                        .HasColumnName("region");
+
+                    b.ToTable("ActiveConnectedRealmQuery", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.AuctionBrowseQuery", b =>
+                {
+                    b.Property<string>("GroupKey")
+                        .HasColumnType("text")
+                        .HasColumnName("group_key");
+
+                    b.Property<long>("LowestBuyoutPrice")
+                        .HasColumnType("bigint")
+                        .HasColumnName("lowest_buyout_price");
+
+                    b.Property<long>("TotalQuantity")
+                        .HasColumnType("bigint")
+                        .HasColumnName("total_quantity");
+
+                    b.ToTable("AuctionBrowseQuery", null, t =>
                         {
                             t.ExcludeFromMigrations();
                         });
@@ -1622,6 +1787,81 @@ namespace Wowthing.Lib.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.UserLeaderboardQuery", b =>
+                {
+                    b.Property<int>("AppearanceIdCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_id_count");
+
+                    b.Property<int>("AppearanceSourceCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_source_count");
+
+                    b.Property<int>("CompletedQuestCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("completed_quest_count");
+
+                    b.Property<short>("IllusionCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("illusion_count");
+
+                    b.Property<short>("MountCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("mount_count");
+
+                    b.Property<short>("ToyCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("toy_count");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.ToTable("UserLeaderboardQuery", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.QueuedJob", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Data")
+                        .HasColumnType("text")
+                        .HasColumnName("data");
+
+                    b.Property<short>("Failures")
+                        .HasColumnType("smallint")
+                        .HasColumnName("failures");
+
+                    b.Property<short>("Priority")
+                        .HasColumnType("smallint")
+                        .HasColumnName("priority");
+
+                    b.Property<DateTime?>("StartedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("started_at");
+
+                    b.Property<short>("Type")
+                        .HasColumnType("smallint")
+                        .HasColumnName("type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_queued_job");
+
+                    b.HasIndex("Priority")
+                        .HasDatabaseName("ix_queued_job_priority")
+                        .HasFilter("started_at IS NULL");
+
+                    b.ToTable("queued_job", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>
                 {
                     b.Property<int>("Id")
@@ -1713,6 +1953,276 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("team_character", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserBulkData", b =>
+                {
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.Property<Dictionary<int, int>>("Heirlooms")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("heirlooms");
+
+                    b.Property<DateTime>("HeirloomsUpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("heirlooms_updated_at");
+
+                    b.Property<List<short>>("MountIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("mount_ids");
+
+                    b.Property<DateTime>("MountsUpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("mounts_updated_at");
+
+                    b.Property<Dictionary<long, PlayerAccountPetsPet>>("Pets")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("pets");
+
+                    b.Property<DateTime>("PetsUpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("pets_updated_at");
+
+                    b.Property<List<short>>("ToyIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("toy_ids");
+
+                    b.Property<DateTime>("ToysUpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("toys_updated_at");
+
+                    b.Property<List<int>>("TransmogIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("transmog_ids");
+
+                    b.Property<DateTime>("TransmogsUpdatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("transmogs_updated_at");
+
+                    b.HasKey("UserId")
+                        .HasName("pk_user_bulk_data");
+
+                    b.ToTable("user_bulk_data", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserCache", b =>
+                {
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.Property<List<int>>("AppearanceIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("appearance_ids");
+
+                    b.Property<List<string>>("AppearanceSources")
+                        .HasColumnType("text[]")
+                        .HasColumnName("appearance_sources");
+
+                    b.Property<int>("CompletedQuests")
+                        .HasColumnType("integer")
+                        .HasColumnName("completed_quests");
+
+                    b.Property<List<short>>("IllusionIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("illusion_ids");
+
+                    b.Property<List<short>>("MountIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("mount_ids");
+
+                    b.Property<DateTimeOffset>("MountsUpdated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("mounts_updated");
+
+                    b.Property<List<short>>("ToyIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("toy_ids");
+
+                    b.Property<DateTimeOffset>("ToysUpdated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("toys_updated");
+
+                    b.Property<DateTimeOffset>("TransmogUpdated")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("transmog_updated");
+
+                    b.HasKey("UserId")
+                        .HasName("pk_user_cache");
+
+                    b.ToTable("user_cache", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserLeaderboardSnapshot", b =>
+                {
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date")
+                        .HasColumnName("date");
+
+                    b.Property<int>("AchievementPointsAlliance")
+                        .HasColumnType("integer")
+                        .HasColumnName("achievement_points_alliance");
+
+                    b.Property<int>("AchievementPointsHorde")
+                        .HasColumnType("integer")
+                        .HasColumnName("achievement_points_horde");
+
+                    b.Property<int>("AchievementPointsOverall")
+                        .HasColumnType("integer")
+                        .HasColumnName("achievement_points_overall");
+
+                    b.Property<int>("AppearanceIdCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_id_count");
+
+                    b.Property<int>("AppearanceSourceCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_source_count");
+
+                    b.Property<int>("CompletedQuestCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("completed_quest_count");
+
+                    b.Property<short>("HeirloomCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("heirloom_count");
+
+                    b.Property<short>("HeirloomLevels")
+                        .HasColumnType("smallint")
+                        .HasColumnName("heirloom_levels");
+
+                    b.Property<short>("IllusionCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("illusion_count");
+
+                    b.Property<short>("MountCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("mount_count");
+
+                    b.Property<short>("PetCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("pet_count");
+
+                    b.Property<short>("RecipeCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("recipe_count");
+
+                    b.Property<short>("ReputationCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("reputation_count");
+
+                    b.Property<short>("TitleCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("title_count");
+
+                    b.Property<short>("ToyCount")
+                        .HasColumnType("smallint")
+                        .HasColumnName("toy_count");
+
+                    b.HasKey("UserId", "Date")
+                        .HasName("pk_user_leaderboard_snapshot");
+
+                    b.HasIndex("UserId", "Date")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_user_leaderboard_snapshot_user_id_date");
+
+                    b.ToTable("user_leaderboard_snapshot", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.WorldQuestAggregate", b =>
+                {
+                    b.Property<short>("Region")
+                        .HasColumnType("smallint")
+                        .HasColumnName("region");
+
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("integer")
+                        .HasColumnName("zone_id");
+
+                    b.Property<int>("QuestId")
+                        .HasColumnType("integer")
+                        .HasColumnName("quest_id");
+
+                    b.Property<string>("JsonData")
+                        .HasColumnType("text")
+                        .HasColumnName("json_data");
+
+                    b.HasKey("Region", "ZoneId", "QuestId")
+                        .HasName("pk_world_quest_aggregate");
+
+                    b.ToTable("world_quest_aggregate", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.WorldQuestReport", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<short>("Class")
+                        .HasColumnType("smallint")
+                        .HasColumnName("class");
+
+                    b.Property<short>("Expansion")
+                        .HasColumnType("smallint")
+                        .HasColumnName("expansion");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("expires_at");
+
+                    b.Property<short>("Faction")
+                        .HasColumnType("smallint")
+                        .HasColumnName("faction");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("text")
+                        .HasColumnName("location");
+
+                    b.Property<int>("QuestId")
+                        .HasColumnType("integer")
+                        .HasColumnName("quest_id");
+
+                    b.Property<short>("Region")
+                        .HasColumnType("smallint")
+                        .HasColumnName("region");
+
+                    b.Property<DateTime>("ReportedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("reported_at");
+
+                    b.Property<List<int[]>>("Rewards")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("rewards");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.Property<int>("ZoneId")
+                        .HasColumnType("integer")
+                        .HasColumnName("zone_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_world_quest_report");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_world_quest_report_user_id");
+
+                    b.HasIndex("Region", "ExpiresAt")
+                        .IsDescending(false, true)
+                        .HasDatabaseName("ix_world_quest_report_region_expires_at");
+
+                    b.ToTable("world_quest_report", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuction", b =>
                 {
                     b.Property<int>("ConnectedRealmId")
@@ -1722,6 +2232,14 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("integer")
                         .HasColumnName("auction_id");
+
+                    b.Property<int?>("AppearanceId")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_id");
+
+                    b.Property<string>("AppearanceSource")
+                        .HasColumnType("text")
+                        .HasColumnName("appearance_source");
 
                     b.Property<long>("BidPrice")
                         .HasColumnType("bigint")
@@ -1738,6 +2256,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("Context")
                         .HasColumnType("smallint")
                         .HasColumnName("context");
+
+                    b.Property<string>("GroupKey")
+                        .HasColumnType("text")
+                        .HasColumnName("group_key");
 
                     b.Property<int>("ItemId")
                         .HasColumnType("integer")
@@ -1784,7 +2306,83 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("PetSpeciesId")
                         .HasDatabaseName("ix_wow_auction_pet_species_id");
 
+                    b.HasIndex("AppearanceId", "BuyoutPrice")
+                        .HasDatabaseName("ix_wow_auction_appearance_id_buyout_price")
+                        .HasFilter("appearance_id IS NOT NULL");
+
+                    b.HasIndex("AppearanceSource", "BuyoutPrice")
+                        .HasDatabaseName("ix_wow_auction_appearance_source_buyout_price")
+                        .HasFilter("appearance_source IS NOT NULL");
+
                     b.ToTable("wow_auction", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuctionCheapestByAppearanceId", b =>
+                {
+                    b.Property<int>("ConnectedRealmId")
+                        .HasColumnType("integer")
+                        .HasColumnName("connected_realm_id");
+
+                    b.Property<int>("AppearanceId")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_id");
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("auction_id");
+
+                    b.HasKey("ConnectedRealmId", "AppearanceId")
+                        .HasName("pk_wow_auction_cheapest_by_appearance_id");
+
+                    b.ToTable("wow_auction_cheapest_by_appearance_id", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuctionCheapestByAppearanceSource", b =>
+                {
+                    b.Property<int>("ConnectedRealmId")
+                        .HasColumnType("integer")
+                        .HasColumnName("connected_realm_id");
+
+                    b.Property<string>("AppearanceSource")
+                        .HasColumnType("text")
+                        .HasColumnName("appearance_source");
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("auction_id");
+
+                    b.HasKey("ConnectedRealmId", "AppearanceSource")
+                        .HasName("pk_wow_auction_cheapest_by_appearance_source");
+
+                    b.ToTable("wow_auction_cheapest_by_appearance_source", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuctionCommodityHourly", b =>
+                {
+                    b.Property<short>("Region")
+                        .HasColumnType("smallint")
+                        .HasColumnName("region");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("timestamp");
+
+                    b.Property<List<int>>("Data")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("data");
+
+                    b.Property<int>("Listed")
+                        .HasColumnType("integer")
+                        .HasColumnName("listed");
+
+                    b.HasKey("Region", "ItemId", "Timestamp")
+                        .HasName("pk_wow_auction_commodity_hourly");
+
+                    b.ToTable("wow_auction_commodity_hourly", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowCharacterClass", b =>
@@ -1822,6 +2420,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<short>("Bit")
+                        .HasColumnType("smallint")
+                        .HasColumnName("bit");
 
                     b.Property<short>("Faction")
                         .HasColumnType("smallint")
@@ -1914,6 +2516,49 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("wow_currency_category", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowHoliday", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<List<short>>("Durations")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("durations");
+
+                    b.Property<short>("FilterType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("filter_type");
+
+                    b.Property<short>("Flags")
+                        .HasColumnType("smallint")
+                        .HasColumnName("flags");
+
+                    b.Property<short>("Looping")
+                        .HasColumnType("smallint")
+                        .HasColumnName("looping");
+
+                    b.Property<short>("Priority")
+                        .HasColumnType("smallint")
+                        .HasColumnName("priority");
+
+                    b.Property<short>("Region")
+                        .HasColumnType("smallint")
+                        .HasColumnName("region");
+
+                    b.Property<List<DateTime>>("StartDates")
+                        .HasColumnType("timestamp with time zone[]")
+                        .HasColumnName("start_dates");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_holiday");
+
+                    b.ToTable("wow_holiday", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItem", b =>
                 {
                     b.Property<int>("Id")
@@ -1922,6 +2567,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<short>("BindType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("bind_type");
 
                     b.Property<short>("ClassId")
                         .HasColumnType("smallint")
@@ -1934,6 +2583,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("ContainerSlots")
                         .HasColumnType("smallint")
                         .HasColumnName("container_slots");
+
+                    b.Property<short>("CraftingQuality")
+                        .HasColumnType("smallint")
+                        .HasColumnName("crafting_quality");
 
                     b.Property<short>("Expansion")
                         .HasColumnType("smallint")
@@ -1951,6 +2604,14 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("item_level");
 
+                    b.Property<short>("LimitCategory")
+                        .HasColumnType("smallint")
+                        .HasColumnName("limit_category");
+
+                    b.Property<int>("OppositeFactionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("opposite_faction_id");
+
                     b.Property<short>("PrimaryStat")
                         .HasColumnType("smallint")
                         .HasColumnName("primary_stat");
@@ -1963,9 +2624,21 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("race_mask");
 
+                    b.Property<int>("RequiredAbility")
+                        .HasColumnType("integer")
+                        .HasColumnName("required_ability");
+
                     b.Property<short>("RequiredLevel")
                         .HasColumnType("smallint")
                         .HasColumnName("required_level");
+
+                    b.Property<short>("RequiredSkill")
+                        .HasColumnType("smallint")
+                        .HasColumnName("required_skill");
+
+                    b.Property<short>("RequiredSkillRank")
+                        .HasColumnType("smallint")
+                        .HasColumnName("required_skill_rank");
 
                     b.Property<int>("Stackable")
                         .HasColumnType("integer")
@@ -1975,10 +2648,56 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("subclass_id");
 
+                    b.Property<short>("Unique")
+                        .HasColumnType("smallint")
+                        .HasColumnName("unique");
+
                     b.HasKey("Id")
                         .HasName("pk_wow_item");
 
                     b.ToTable("wow_item", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemBonus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<long>("BonusTypeFlags")
+                        .HasColumnType("bigint")
+                        .HasColumnName("bonus_type_flags");
+
+                    b.Property<List<List<int>>>("Bonuses")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("bonuses");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_item_bonus");
+
+                    b.ToTable("wow_item_bonus", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemClass", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<short>("ClassId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("class_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_item_class");
+
+                    b.ToTable("wow_item_class", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemEffect", b =>
@@ -2006,6 +2725,29 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_item_effect");
 
                     b.ToTable("wow_item_effect", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemEffectV2", b =>
+                {
+                    b.Property<int>("ItemId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ItemId"));
+
+                    b.Property<List<int>>("ItemEffectIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("item_effect_ids");
+
+                    b.Property<Dictionary<int, Dictionary<int, WowItemEffectV2SpellEffect>>>("SpellEffects")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("spell_effects");
+
+                    b.HasKey("ItemId")
+                        .HasName("pk_wow_item_effect_v2");
+
+                    b.ToTable("wow_item_effect_v2", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemModifiedAppearance", b =>
@@ -2041,6 +2783,33 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_item_modified_appearance");
 
                     b.ToTable("wow_item_modified_appearance", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemSubclass", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<short>("AuctionHouseSortOrder")
+                        .HasColumnType("smallint")
+                        .HasColumnName("auction_house_sort_order");
+
+                    b.Property<short>("ClassId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("class_id");
+
+                    b.Property<short>("SubclassId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("subclass_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_item_subclass");
+
+                    b.ToTable("wow_item_subclass", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowMount", b =>
@@ -2153,6 +2922,45 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("wow_pet", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowProfessionRecipeItem", b =>
+                {
+                    b.Property<int>("SkillLineAbilityId")
+                        .HasColumnType("integer")
+                        .HasColumnName("skill_line_ability_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<int>("SkillLineId")
+                        .HasColumnType("integer")
+                        .HasColumnName("skill_line_id");
+
+                    b.HasKey("SkillLineAbilityId", "ItemId")
+                        .HasName("pk_wow_profession_recipe_item");
+
+                    b.ToTable("wow_profession_recipe_item", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowQuest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("LastApiCheck")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("last_api_check");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_quest");
+
+                    b.ToTable("wow_quest", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowRealm", b =>
                 {
                     b.Property<int>("Id")
@@ -2162,6 +2970,14 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("ConnectedRealmId")
                         .HasColumnType("integer")
                         .HasColumnName("connected_realm_id");
+
+                    b.Property<string>("EnglishName")
+                        .HasColumnType("text")
+                        .HasColumnName("english_name");
+
+                    b.Property<string>("Locale")
+                        .HasColumnType("text")
+                        .HasColumnName("locale");
 
                     b.Property<string>("Name")
                         .HasColumnType("text")
@@ -2190,6 +3006,10 @@ namespace Wowthing.Lib.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
+                    b.Property<bool>("AccountWide")
+                        .HasColumnType("boolean")
+                        .HasColumnName("account_wide");
+
                     b.Property<short>("Expansion")
                         .HasColumnType("smallint")
                         .HasColumnName("expansion");
@@ -2201,6 +3021,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("ParentId")
                         .HasColumnType("smallint")
                         .HasColumnName("parent_id");
+
+                    b.Property<short>("RenownCurrencyId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("renown_currency_id");
 
                     b.Property<short>("TierId")
                         .HasColumnType("smallint")
@@ -2218,49 +3042,14 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("id");
 
-                    b.Property<int[]>("MaxValues")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("max_values");
-
                     b.Property<int[]>("MinValues")
                         .HasColumnType("integer[]")
                         .HasColumnName("min_values");
-
-                    b.Property<string[]>("Names")
-                        .HasColumnType("text[]")
-                        .HasColumnName("names");
 
                     b.HasKey("Id")
                         .HasName("pk_wow_reputation_tier");
 
                     b.ToTable("wow_reputation_tier", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowTitle", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<string>("TitleFemale")
-                        .HasColumnType("text")
-                        .HasColumnName("title_female");
-
-                    b.Property<string>("TitleMale")
-                        .HasColumnType("text")
-                        .HasColumnName("title_male");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_title");
-
-                    b.ToTable("wow_title", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowToy", b =>
@@ -2288,6 +3077,81 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_toy");
 
                     b.ToTable("wow_toy", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowTransmogSet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClassMask")
+                        .HasColumnType("integer")
+                        .HasColumnName("class_mask");
+
+                    b.Property<short>("Flags")
+                        .HasColumnType("smallint")
+                        .HasColumnName("flags");
+
+                    b.Property<short>("GroupId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("group_id");
+
+                    b.Property<List<int>>("ItemModifiedAppearanceIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("item_modified_appearance_ids");
+
+                    b.Property<int>("ItemNameDescriptionId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_name_description_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_transmog_set");
+
+                    b.ToTable("wow_transmog_set", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowWorldQuest", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<short>("Expansion")
+                        .HasColumnType("smallint")
+                        .HasColumnName("expansion");
+
+                    b.Property<short>("Faction")
+                        .HasColumnType("smallint")
+                        .HasColumnName("faction");
+
+                    b.Property<short>("MaxLevel")
+                        .HasColumnType("smallint")
+                        .HasColumnName("max_level");
+
+                    b.Property<short>("MinLevel")
+                        .HasColumnType("smallint")
+                        .HasColumnName("min_level");
+
+                    b.Property<List<int>>("NeedQuestIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("need_quest_ids");
+
+                    b.Property<short>("QuestInfoId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("quest_info_id");
+
+                    b.Property<List<int>>("SkipQuestIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("skip_quest_ids");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_world_quest");
+
+                    b.ToTable("wow_world_quest", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -2362,8 +3226,6 @@ namespace Wowthing.Lib.Migrations
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_player_account_application_user_user_id");
 
                     b.Navigation("User");
@@ -2389,6 +3251,18 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_player_account_gold_snapshot_player_account_account_id");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountHeirlooms", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
+                        .WithOne("Heirlooms")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerAccountHeirlooms", "AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_player_account_heirlooms_player_account_account_id");
 
                     b.Navigation("Account");
                 });
@@ -2699,6 +3573,18 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterStats", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
+                        .WithOne("Stats")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterStats", "CharacterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_player_character_stats_player_character_character_id");
+
+                    b.Navigation("Character");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterTransmog", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -2780,11 +3666,61 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserBulkData", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_bulk_data_application_user_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserCache", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_cache_application_user_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.User.UserLeaderboardSnapshot", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_user_leaderboard_snapshot_application_user_user_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.WorldQuestReport", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_world_quest_report_application_user_user_id");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccount", b =>
                 {
                     b.Navigation("AddonData");
 
                     b.Navigation("Characters");
+
+                    b.Navigation("Heirlooms");
 
                     b.Navigation("Pets");
 
@@ -2834,6 +3770,8 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Shadowlands");
 
                     b.Navigation("Specializations");
+
+                    b.Navigation("Stats");
 
                     b.Navigation("Transmog");
 

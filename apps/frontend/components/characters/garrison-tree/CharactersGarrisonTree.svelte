@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { Character, GarrisonTree } from '@/types'
 
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let tree: GarrisonTree
@@ -10,7 +10,6 @@
     let status: Record<number, number[]>
     $: {
         status = character.garrisonTrees?.[tree.id]
-        console.log({tree, status})
     }
 </script>
 
@@ -37,17 +36,17 @@
             padding: 0;
         }
         &.done {
-            --image-border-color: #{$colour-shrug};
+            --image-border-color: #{$color-shrug};
 
-            color: $colour-shrug;
+            color: $color-shrug;
         }
         &.partial {
-            --image-border-color: #{$colour-success};
+            --image-border-color: #{$color-success};
 
-            color: $colour-success;
+            color: $color-success;
         }
         &.prereq {
-            --image-border-color: #{$colour-fail};
+            --image-border-color: #{$color-fail};
 
             filter: opacity(70%);
         }

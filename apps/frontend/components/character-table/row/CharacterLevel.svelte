@@ -1,9 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { data as settings } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import { getCharacterLevel } from '@/utils/get-character-level'
-    import leftPad from '@/utils/left-pad'
-    import { tippyComponent } from '@/utils/tippy'
+    import { leftPad } from '@/utils/formatting'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
     import Tooltip from '@/components/tooltips/character-level/TooltipCharacterLevel.svelte'
@@ -22,10 +22,16 @@
     }
 </script>
 
-{#if $settings.layout.showPartialLevel}
+<style lang="scss">
+    code {
+        line-height: 1;
+    }
+</style>
+
+{#if $settingsStore.layout.showPartialLevel}
     <td
         class="level-partial"
-        use:tippyComponent={{
+        use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,

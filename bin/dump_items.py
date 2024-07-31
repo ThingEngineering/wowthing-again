@@ -64,10 +64,12 @@ SLOT_ORDER = [
 
 
 def main():
+    dumps_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'dumps')
+
     inds = set()
     if len(sys.argv) == 3:
         ind = sys.argv[2].lower()
-        with open(glob.glob('dumps/enUS/itemnamedescription-*.csv')[0]) as csv_file:
+        with open(glob.glob(os.path.join(dumps_path, 'enUS', 'itemnamedescription-*.csv'))[0]) as csv_file:
             for row in csv.DictReader(csv_file):
                 if row['Description_lang'].lower() == ind:
                     inds.add(int(row['ID']))
@@ -75,7 +77,7 @@ def main():
 
     items = []
     item_prefix = sys.argv[1].lower()
-    with open(glob.glob('dumps/enUS/itemsparse-*.csv')[0]) as csv_file:
+    with open(glob.glob(os.path.join(dumps_path, 'enUS', 'itemsparse-*.csv'))[0]) as csv_file:
         # ID,AllowableRace,Description_lang,Display3_lang,Display2_lang,Display1_lang,Display_lang,
         # ExpansionID,DmgVariance,LimitCategory,DurationInInventory,QualityModifier,BagFamily,
         # StartQuestID,LanguageID,ItemRange,StatPercentageOfSocket[0-9],StatPercentEditor[0-9],

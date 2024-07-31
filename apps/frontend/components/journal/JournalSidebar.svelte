@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { journalStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
-    import type { SidebarItem, UserCount } from '@/types'
+    import { journalStore, lazyStore } from '@/stores'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Settings from '@/components/common/SidebarCollectingSettings.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
     let overall: UserCount
     $: {
-        categories = $journalStore.data.tiers.map((tier: JournalDataTier) => tier === null ? null : ({
+        categories = $journalStore.tiers.map((tier: JournalDataTier) => tier === null ? null : ({
             children: tier.subTiers
                 ? tier.subTiers
                     .filter((subTier) => subTier.instances.length > 0)
@@ -23,45 +23,35 @@
             ...tier,
         }))
 
-        overall = $journalStore.data.stats['OVERALL']
+        overall = $lazyStore.journal.stats.OVERALL
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $journalStore.data.stats[slug]
+        const hasData = $lazyStore.journal.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>
 
-<style lang="scss">
-    div {
-        margin-bottom: 0.75rem;
-
-        :global(fieldset) {
-            margin-top: 0.5rem;
-        }
-    }
-</style>
-
 <Sidebar
     baseUrl="/journal"
     items={categories}
-    width="16rem"
     noVisitRoot={true}
+    scrollable={true}
+    width="16rem"
     {percentFunc}
 >
-    <div slot="before">
-        <ProgressBar
-            title="Overall"
-            have={overall.have}
-            total={overall.total}
-        />
+    <svelte:fragment slot="before">
+        <div>
+            <ProgressBar
+                title="Overall"
+                have={overall.have}
+                total={overall.total}
+            />
+        </div>
         
-        <Checkbox
-            name="transmog_completionistMode"
-            bind:value={$settingsData.transmog.completionistMode}
-        >Completionist Mode</Checkbox>
-    </div>
+        <Settings />
+    </svelte:fragment>
 </Sidebar>

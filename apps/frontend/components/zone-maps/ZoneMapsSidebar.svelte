@@ -1,26 +1,26 @@
 <script lang="ts">
-    import { manualStore } from '@/stores'
-    import type { SidebarItem, UserCount } from '@/types'
+    import { lazyStore, manualStore } from '@/stores'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     let overall: UserCount
     $: {
-        categories = $manualStore.data.zoneMaps.sets.map((set) => set === null ? null : ({
+        categories = $manualStore.zoneMaps.sets.map((set) => set === null ? null : ({
             children: set.slice(1),
             ...set[0],
         }))
-        overall = $manualStore.data.zoneMaps.counts['OVERALL']
+        overall = $lazyStore.zoneMaps.counts['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
         const slug = [...parentEntries, entry].slice(-2)
             .map((entry) => entry.slug)
             .join('--')
-        const hasData = $manualStore.data.zoneMaps.counts[slug]
-        return hasData.have / hasData.total * 100
+        return $lazyStore.zoneMaps.counts[slug].percent
     }
 </script>
 

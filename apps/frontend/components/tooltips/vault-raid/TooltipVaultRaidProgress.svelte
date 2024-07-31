@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {difficultyMap} from '@/data/difficulty'
-    import type {CharacterWeeklyProgress} from '@/types'
+    import { difficultyMap } from '@/data/difficulty'
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
+    import type { CharacterWeeklyProgress } from '@/types'
 
     export let progress: CharacterWeeklyProgress
 
@@ -13,7 +13,7 @@
         if (progress.progress >= progress.threshold) {
             cls = 'vault-reward'
             dungeonName = difficultyMap[progress.level].name
-            itemLevel = getRaidVaultItemLevel(progress)
+            itemLevel = getRaidVaultItemLevel(progress)[0]
         }
         else {
             const more = progress.threshold - progress.progress

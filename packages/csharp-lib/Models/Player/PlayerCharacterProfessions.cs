@@ -11,6 +11,9 @@ public class PlayerCharacterProfessions
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; set; }
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, string> ProfessionSpecializations { get; set; }
 }
 
 public class PlayerCharacterProfessionTier

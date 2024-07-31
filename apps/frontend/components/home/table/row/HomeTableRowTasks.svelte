@@ -1,40 +1,36 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
     import { userStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
-    import { getActiveHoliday } from '@/utils/get-active-holiday'
+    import { staticStore } from '@/shared/stores/static'
+    import { activeView } from '@/shared/stores/settings'
+    import { timeStore } from '@/shared/stores/time'
+    import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
-    import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte'
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte'
     import RowTaskChores from './HomeTableRowTaskChores.svelte'
 
     export let character: Character
 
-    $: activeHoliday = getActiveHoliday($userStore.data, character.realm.region)
+    $: activeHolidays = getActiveHolidays($timeStore, $activeView, ...$userStore.allRegions)
 </script>
 
-{#each $settings.layout.homeTasks as taskName}
+{#each $activeView.homeTasks as taskName}
     {@const task = taskMap[taskName]}
-    {#if task}
-        {#if taskName === 'dmfProfessions'}
-            <RowDmfProfessions {character} />
-        {:else if taskMap[taskName]?.type === 'multi'}
+    {#if task && (
+        activeHolidays[taskName] ||
+        $staticStore.holidayIds[taskName] === undefined
+    )}
+        {#if taskMap[taskName]?.type === 'multi'}
             <RowTaskChores
                 {character}
                 {taskName}
             />
-        {:else if !taskName.startsWith('holiday') || taskName === activeHoliday}
+        {:else}
             <RowProgressQuest
                 {character}
                 quest={taskName}
-            />
-        {/if}
-
-        {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
-            <RowProgressQuest
-                {character}
-                quest={'timewalking'}
+                title={activeHolidays[taskName]?.name || taskMap[taskName]?.name}
             />
         {/if}
     {/if}

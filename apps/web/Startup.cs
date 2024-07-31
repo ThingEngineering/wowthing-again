@@ -1,3 +1,4 @@
+using AspNet.Security.OAuth.BattleNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -11,22 +12,16 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
-using Newtonsoft.Json.Serialization;
 using Wowthing.Lib.Services;
+using Wowthing.Web.Hubs;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web;
 
-public class Startup
+public class Startup(IConfiguration configuration, IWebHostEnvironment env)
 {
-    public Startup(IConfiguration configuration, IWebHostEnvironment env)
-    {
-        Configuration = configuration;
-        Env = env;
-    }
-
-    public IConfiguration Configuration { get; }
-    public IWebHostEnvironment Env { get; }
+    public IConfiguration Configuration { get; } = configuration;
+    public IWebHostEnvironment Env { get; } = env;
 
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
@@ -43,8 +38,7 @@ public class Startup
 
         services.AddRequestDecompression();
 
-        services.AddControllersWithViews()
-            .AddNewtonsoftJson();
+        services.AddControllersWithViews();
 
         services.AddRouting(options =>
         {
@@ -69,6 +63,19 @@ public class Startup
                 options.ClientSecret = Configuration["BattleNet:ClientSecret"];
                 options.SaveTokens = true;
                 options.Scope.Add("wow.profile");
+
+                string oauthHost = Configuration["BattleNet:OAuthHost"];
+                if (oauthHost != null)
+                {
+                    options.Region = BattleNetAuthenticationRegion.Custom;
+                    
+                    options.AuthorizationEndpoint = BattleNetAuthenticationDefaults.Unified.AuthorizationEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
+                    options.TokenEndpoint = BattleNetAuthenticationDefaults.Unified.TokenEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
+                    options.UserInformationEndpoint = BattleNetAuthenticationDefaults.Unified.UserInformationEndpoint
+                        .Replace("oauth.battle.net", oauthHost);
+                }
             });
 
         services.ConfigureApplicationCookie(options =>
@@ -119,9 +126,9 @@ public class Startup
             services.Configure<ForwardedHeadersOptions>(options =>
             {
                 options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("172.16.0.0"), 12));
-                options.KnownNetworks.Add(new IPNetwork(IPAddress.Parse("192.168.0.0"), 16));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("10.0.0.0"), 8));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("172.16.0.0"), 12));
+                options.KnownNetworks.Add(new Microsoft.AspNetCore.HttpOverrides.IPNetwork(IPAddress.Parse("192.168.0.0"), 16));
                 //options.ForwardedForHeaderName = "CF-Connecting-IP";
             });
         }
@@ -140,10 +147,16 @@ public class Startup
             );
         });
 
-        // JSON options
-        services.AddJsonOptions();
+        services.AddSignalR();
+
+        // Options
+        var jsonOptions = services.AddJsonOptions();
+        services.AddManifest(jsonOptions);
 
         // Our services
+        services.AddHostedService<PubSubService>();
+
+        services.AddScoped<AuctionService>();
         services.AddScoped<CacheService>();
         services.AddScoped<UploadService>();
         services.AddScoped<UriService>();
@@ -155,16 +168,20 @@ public class Startup
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, WowDbContext dbContext)
     {
-        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-        {
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy(),
-            },
-            DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
-        };
+        // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        // {
+        //     ContractResolver = new DefaultContractResolver
+        //     {
+        //         NamingStrategy = new CamelCaseNamingStrategy(),
+        //     },
+        //     DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
+        // };
 
         dbContext.Database.Migrate();
+
+        app.UseRouting();
+
+        app.UseCors("WowthingCorsPolicy");
 
         if (Env.IsDevelopment())
         {
@@ -181,10 +198,6 @@ public class Startup
 
         app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 
-        app.UseRouting();
-
-        app.UseCors("WowthingCorsPolicy");
-
         app.UseResponseCaching();
         app.UseRequestDecompression();
 
@@ -193,6 +206,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapHub<UserUpdateHub>("/userUpdate");
             endpoints.MapControllers();
         });
 

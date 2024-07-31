@@ -1,0 +1,45 @@
+﻿@model AuctionsViewModel
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+@inject UriService UriService
+
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    private string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+@{
+    ViewData["Title"] = "Auctions";
+}
+
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"auctions/auctions.ts"' />
+    }
+}
+
+@section js
+{
+    @if (HostEnv.EnvironmentName == "Development")
+    {
+        <script type="module" src="http://localhost:55505/auctions/auctions.ts"></script>
+    }
+    else
+    {
+        <partial name="_ManifestJs.cshtml" model='"auctions/auctions.ts"'/>
+    }
+}
+
+<div
+    id="app"
+    data-base-uri="@UriService.BaseUri"
+    data-xsrf="@GetAntiXsrfRequestToken()"
+    data-auction="@Url.Action("CachedJson", "CachedJson", new { type = "auction", languageCode = "zzZZ", hash = Model.AuctionHash })"
+    data-item="@Url.Action("CachedJson", "CachedJson", new { type = "item", languageCode = "zzZZ", hash = Model.ItemHash })"
+    data-static="@Url.Action("CachedJson", "CachedJson", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
+>
+</div>

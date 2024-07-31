@@ -1,9 +1,8 @@
 <script lang="ts">
-    import some from 'lodash/some'
-
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import { lockoutState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
 
@@ -20,8 +19,7 @@
         return Object.keys(char.lockouts || {}).length > 0 ? 'b' : 'z'
     }
     const hasSortedLockout = function(char: Character): string {
-        return some(
-            Object.keys(char.lockouts || {}),
+        return Object.keys(char.lockouts || {}).some(
             (key) => key.startsWith(`${$lockoutState.sortBy}-`)
         ) ? 'a' : anyLockouts(char)
     }
@@ -31,7 +29,7 @@
 
     $: {
         sorted = $lockoutState.sortBy > 0
-        sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, sorted ? hasSortedLockout : anyLockouts)
+        sortFunc = getCharacterSortFunc($settingsStore, $staticStore, sorted ? hasSortedLockout : anyLockouts)
     }
 </script>
 
@@ -42,13 +40,13 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each $userStore.allLockouts as instanceDifficulty}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each $userStore.allLockouts as instanceDifficulty}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

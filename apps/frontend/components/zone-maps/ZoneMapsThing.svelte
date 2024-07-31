@@ -1,15 +1,18 @@
 <script lang="ts">
-    import { farmTypeIcons } from '@/data/icons'
-    import { journalStore, staticStore, timeStore, userStore } from '@/stores'
+    import { FarmIdType } from '@/enums/farm-id-type'
+    import { FarmType } from '@/enums/farm-type'
+    import { settingsStore } from '@/shared/stores/settings';
+    import { timeStore } from '@/shared/stores/time'
+    import { journalStore, lazyStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { FarmIdType, FarmType } from '@/enums'
-    import { tippyComponent } from '@/utils/tippy'
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
+    import { getFarmIcon } from '@/utils/zone-maps'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ManualDataZoneMapFarm
@@ -25,10 +28,11 @@
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             [status, drops] = getInstanceFarm(
+                $settingsStore,
                 $timeStore,
-                $journalStore.data,
-                $staticStore.data,
-                $userStore.data,
+                $journalStore,
+                $lazyStore,
+                $userStore,
                 farm
             )
             //big = farm.type === FarmType.Raid
@@ -121,25 +125,26 @@
         display: block;
         font-size: 0.9rem;
         line-height: 1;
-        margin-top: -4px;
+        margin-top: -1px;
         padding: 0 2px 1px 2px;
         pointer-events: none;
         word-spacing: -0.2ch;
         z-index: 6;
 
         &.big {
-            margin-top: -2px;
+            margin-top: 2px;
         }
     }
 </style>
 
 {#if show}
+    {@const [icon, scale] = getFarmIcon(farm)}
     {#each locations as [xPos, yPos]}
         <div
             class="wrapper"
             class:active={status.need}
             style="--left: {xPos}%; --top: {yPos}%; --top-offset: {topOffset};"
-            use:tippyComponent={{
+            use:componentTooltip={{
                 component: Tooltip,
                 props: {
                     drops,
@@ -153,7 +158,7 @@
                 <a href="#/journal/{status.link}">
                     <div class="{classes.join(' ')}">
                         <IconifyIcon
-                            icon={farmTypeIcons[farm.type]}
+                            {icon}
                             scale={'1'}
                         />
                     </div>
@@ -167,8 +172,8 @@
                 >
                     <div class="{classes.join(' ')}">
                         <IconifyIcon
-                            icon={farmTypeIcons[farm.type]}
-                            scale={big ? '1.25' : '1'}
+                            {icon}
+                            scale={big ? '1.25' : scale}
                         />
                     </div>
 

@@ -1,0 +1,32 @@
+﻿@model LeaderboardViewModel
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+
+@{
+    ViewData["Title"] = "Leaderboard";
+}
+
+@if (HostEnv.EnvironmentName != "Development")
+{
+    @section css
+    {
+        <partial name="_ManifestCss.cshtml" model='"leaderboards/leaderboards.ts"' />
+    }
+}
+
+@section js
+{
+    @if (HostEnv.EnvironmentName == "Development")
+    {
+        <script type="module" src="http://localhost:55505/leaderboards/leaderboards.ts"></script>
+    }
+    else
+    {
+        <partial name="_ManifestJs.cshtml" model='"leaderboards/leaderboards.ts"'/>
+    }
+}
+
+<div
+    id="app"
+    data-leaderboard="@Model.LeaderboardJson"
+    data-settings="@Model.SettingsJson"
+></div>

@@ -4,46 +4,46 @@ using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
 public class CharacterJob : JobBase
 {
     private const string ApiPath = "profile/wow/character/{0}/{1}";
-    private readonly Regex _numberRegex = new Regex(@"\d", RegexOptions.Compiled);
+    private readonly Regex _numberRegex = new(@"\d", RegexOptions.Compiled);
 
-    public override async Task Run(params string[] data)
+    private SchedulerCharacterQuery _query;
+
+    public override void Setup(string[] data)
     {
-        var query = DeserializeCharacterQuery(data[0]);
-        using var shrug = CharacterLog(query);
+        _query = DeserializeCharacterQuery(data[0]);
+        CharacterLog(_query);
+    }
 
+    public override async Task Run(string[] data)
+    {
         // Skip invalid character names
-        if (_numberRegex.IsMatch(query.CharacterName))
+        if (_numberRegex.IsMatch(_query.CharacterName))
         {
             await Context.PlayerCharacter
-                .Where(c => c.Id == query.CharacterId)
+                .Where(c => c.Id == _query.CharacterId)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.DelayHours, pc => 1000)
+                    .SetProperty(pc => pc.ShouldUpdate, pc => false)
                 );
             return;
         }
 
         // Get character from API
-        var uri = GenerateUri(query, ApiPath);
+        var uri = GenerateUri(_query, ApiPath);
         ApiCharacter apiCharacter;
         DateTime lastModified;
         try
         {
-            var result = await GetJson<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
+            var result = await GetUriAsJsonAsync<ApiCharacter>(uri, useLastModified: true, lastModified: _query.LastApiModified);
             if (result.NotModified)
             {
                 LogNotModified();
-
-                await Context.PlayerCharacter
-                    .Where(pc => pc.Id == query.CharacterId)
-                    .ExecuteUpdateAsync(s => s
-                        .SetProperty(pc => pc.DelayHours, pc => 0)
-                    );
                 return;
             }
 
@@ -54,29 +54,22 @@ public class CharacterJob : JobBase
         {
             Logger.Error("HTTP {0}", e.Message);
 
-            int delayHoursIncrement;
-            if (e.Message == "403")
+            // Forbidden and NotFound are both treated as "ignore this character until the user
+            // refreshes their character list"
+            if (e.Message is "403" or "404")
             {
-                // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
-                delayHoursIncrement = 24;
-            }
-            else
-            {
-                // Treat every other error as relatively minor, try again later
-                // 404s are weird, can just mean "character hasn't logged in for a while"
-                delayHoursIncrement = 4;
+                await Context.PlayerCharacter
+                    .Where(c => c.Id == _query.CharacterId)
+                    .ExecuteUpdateAsync(s => s
+                        .SetProperty(pc => pc.ShouldUpdate, pc => false)
+                    );
             }
 
-            await Context.PlayerCharacter
-                .Where(c => c.Id == query.CharacterId)
-                .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.DelayHours, pc => pc.DelayHours + delayHoursIncrement)
-                );
             return;
         }
 
         // Get character from database
-        var character = await Context.PlayerCharacter.FindAsync(query.CharacterId);
+        var character = await Context.PlayerCharacter.FindAsync(_query.CharacterId);
         if (character == null)
         {
             // This shouldn't be possible
@@ -96,14 +89,10 @@ public class CharacterJob : JobBase
         character.RaceId = apiCharacter.Race.Id;
         character.RealmId = apiCharacter.Realm.Id;
 
-        character.DelayHours = 0;
         character.LastApiModified = lastModified;
+        character.ShouldUpdate = true;
 
         int updated = await Context.SaveChangesAsync();
-        if (updated > 0)
-        {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-        }
 
         // Character changed, queue some more stuff
         var jobs = new List<JobType>();
@@ -111,7 +100,7 @@ public class CharacterJob : JobBase
         if (apiCharacter.AchievementsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterAchievements);
-            jobs.Add(JobType.CharacterStatistics);
+            jobs.Add(JobType.CharacterAchievementStatistics);
         }
 
         if (apiCharacter.CollectionsLink?.Href != null)
@@ -119,6 +108,7 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterMounts);
         }
 
+        // Replaced with addon data but use as fallback/initial load
         if (apiCharacter.EquipmentLink?.Href != null)
         {
             jobs.Add(JobType.CharacterEquipment);
@@ -150,10 +140,17 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterReputations);
         }
 
+        if (apiCharacter.StatisticsLink?.Href != null)
+        {
+            jobs.Add(JobType.CharacterStats);
+        }
+
         if (apiCharacter.SpecializationsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterSpecializations);
         }
+
+        // jobs.Add(JobType.CharacterTransmogs);
 
         // Shadowlands specific
         if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
@@ -161,11 +158,17 @@ public class CharacterJob : JobBase
             jobs.Add(JobType.CharacterSoulbinds);
         }
 
-        // Pets
-        if (query.AccountId.HasValue)
+        // Account stuff
+        if (_query.AccountId.HasValue)
         {
+            jobs.Add(JobType.CharacterHeirlooms);
             jobs.Add(JobType.CharacterPets);
+            jobs.Add(JobType.CharacterToys);
         }
+
+        var db = Redis.GetDatabase();
+        await db.StringSetAsync(string.Format(RedisKeys.CharacterJobCounter, character.Id), jobs.Count);
+        Logger.Debug("Character {id} job count is {value}", CharacterId, jobs.Count);
 
         foreach (var jobType in jobs)
         {

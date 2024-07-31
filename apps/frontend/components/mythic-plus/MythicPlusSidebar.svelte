@@ -1,10 +1,11 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import type {MythicPlusSeason, SidebarItem} from '@/types'
     import { seasonMap } from '@/data/dungeon'
+    import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { MythicPlusSeason } from '@/types'
 
-    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     const seasons: MythicPlusSeason[] = sortBy(seasonMap, (s) => -s.id)
     let categories: SidebarItem[]

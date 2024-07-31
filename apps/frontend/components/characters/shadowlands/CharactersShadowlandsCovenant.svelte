@@ -3,10 +3,11 @@
 
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
-    import { staticStore, timeStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
+    import { timeStore } from '@/shared/stores/time'
     import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
-    import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
+    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
 
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
@@ -14,8 +15,8 @@
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
-    import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
+    import Stitchyard from './necrolord/Stitchyard.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let covenantId: number
@@ -82,6 +83,7 @@
     .covenant {
         display: flex;
         justify-content: space-between;
+        padding: 0 1rem;
     }
     .left {
         display: flex;
@@ -142,7 +144,7 @@
     <div class="left">
         <div class="info">
             <div class="info-row large info-icons">
-                <div class="info-icon" use:tippy={`${renown} Renown`}>
+                <div class="info-icon" use:basicTooltip={`${renown} Renown`}>
                     <WowthingImage
                         name="spell/370359"
                         size={40}
@@ -155,7 +157,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${progress.toLocaleString()} Adventure Campaign Progress`}
+                    use:basicTooltip={`${progress.toLocaleString()} Adventure Campaign Progress`}
                 >
                     <WowthingImage
                         name="currency/1889"
@@ -169,7 +171,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${souls.toLocaleString()} Redeemed Souls`}
+                    use:basicTooltip={`${souls.toLocaleString()} Redeemed Souls`}
                 >
                     <WowthingImage
                         name="currency/1810"
@@ -183,7 +185,7 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${anima.toLocaleString()} Reservoir Anima`}
+                    use:basicTooltip={`${anima.toLocaleString()} Reservoir Anima`}
                 >
                     <WowthingImage
                         name="currency/1813"
@@ -249,7 +251,7 @@
     </div>
 
     <div class="soulbinds">
-        {#each $staticStore.data.soulbinds[covenantId] as soulbind}
+        {#each $staticStore.soulbinds[covenantId] as soulbind}
             <Soulbind
                 {character}
                 {covenantId}

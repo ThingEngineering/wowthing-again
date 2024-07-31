@@ -1,17 +1,13 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import { pvpVaultItemLevel } from '@/data/pvp'
-    import { toNiceNumber } from '@/utils/to-nice'
-    import type { Character, CharacterWeeklyProgress } from '@/types'
+    import { toNiceNumber } from '@/utils/formatting'
+    import type { Character } from '@/types'
+
+    import VaultShared from './VaultShared.svelte'
 
     export let character: Character
 
-    let pvpVault: CharacterWeeklyProgress[]
-    $: {
-        if (character.level === Constants.characterMaxLevel) {
-            pvpVault = character.weekly?.vault?.rankedPvpProgress
-        }
-    }
+    $: pvpVault = character.isMaxLevel ? character.weekly?.vault?.rankedPvpProgress : []
 </script>
 
 <style lang="scss">
@@ -20,26 +16,18 @@
 
         border-left: 1px solid $border-color;
     }
-    span {
-        display: inline-block;
-        text-align: center;
-        width: calc(#{$width-vault} / 3 - 0.2rem);
-        word-spacing: -0.2ch;
-    }
 </style>
 
-{#if pvpVault}
-    <td>
-        <div class="flex-wrapper">
-            {#each pvpVault as progress}
-                {#if progress.progress >= progress.threshold}
-                    <span class="quality4">{pvpVaultItemLevel[progress.level]}</span>
-                {:else}
-                    <span>{toNiceNumber(progress.threshold - progress.progress)}</span>
-                {/if}
-            {/each}
-        </div>
-    </td>
-{:else}
-    <td>&nbsp;</td>
-{/if}
+<td>
+    {#if pvpVault?.length > 0}
+        <VaultShared
+            hasRewards={character.weekly?.vaultHasRewards}
+            progresses={pvpVault}
+            textFunc={(prog) => prog.progress >= prog.threshold
+                ? pvpVaultItemLevel[prog.level].toString()
+                : toNiceNumber(prog.threshold - prog.progress)}
+        />
+    {:else}
+        &nbsp;
+    {/if}
+</td>

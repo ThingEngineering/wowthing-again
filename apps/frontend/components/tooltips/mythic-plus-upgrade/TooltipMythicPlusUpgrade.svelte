@@ -1,20 +1,18 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { ratingItemLevelUpgrade } from '@/data/dungeon'
-    import { staticStore } from '@/stores'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character, CharacterCurrency } from '@/types'
 
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let score: number
 
-    const ratings = ratingItemLevelUpgrade.slice()
-    ratings.reverse()
+    const ratings: [number, number][] = []
 
     let valor: CharacterCurrency
     $: {
-        valor = character.currencies?.[Constants.valorCurrencyId]
+        valor = character.currencies?.[Constants.currencies.valor]
     }
 </script>
 
@@ -38,6 +36,9 @@
     }
     .bottom {
         --image-border-width: 1px;
+    }
+    .valor-max {
+        margin-top: 0.5rem;
     }
 </style>
 
@@ -66,13 +67,22 @@
 
     {#if valor}
         <div class="bottom">
-            <WowthingImage
-                name="currency/{Constants.valorCurrencyId}"
-                size={20}
-                border={1}
-            />
-            {valor.quantity.toLocaleString()}
-            {$staticStore.data.currencies?.[Constants.valorCurrencyId]?.name}
+            <div>
+                <WowthingImage
+                    name="currency/{Constants.currencies.valor}"
+                    size={20}
+                    border={1}
+                />
+                {valor.quantity.toLocaleString()}
+                {$staticStore.currencies?.[Constants.currencies.valor]?.name}
+            </div>
+
+            {#if valor.max > 0}
+                <div class="valor-max">
+                    {(valor.max - valor.totalQuantity).toLocaleString()}
+                    to cap
+                </div>
+            {/if}
         </div>
     {/if}
 </div>

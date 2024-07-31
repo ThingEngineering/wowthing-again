@@ -4,10 +4,11 @@ using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player;
 
-public class PlayerCharacterLockouts
+public class PlayerCharacterLockouts(int characterId)
 {
     [Key, ForeignKey("Character")]
-    public int CharacterId { get; set; }
+    public int CharacterId { get; set; } = characterId;
+
     public PlayerCharacter Character { get; set; }
 
     public DateTime LastUpdated { get; set; } = MiscConstants.DefaultDateTime;

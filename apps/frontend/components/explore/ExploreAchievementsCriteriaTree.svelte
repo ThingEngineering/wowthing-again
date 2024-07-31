@@ -1,8 +1,9 @@
 <script lang="ts">
     import { achievementStore } from '@/stores'
-    import { CriteriaTreeOperator, CriteriaType } from '@/enums'
-    import leftPad from '@/utils/left-pad'
-    import tippy from '@/utils/tippy'
+    import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
+    import { CriteriaType } from '@/enums/criteria-type'
+    import { leftPad } from '@/utils/formatting'
+    import { basicTooltip } from '@/shared/utils/tooltips'
     import type {
         AchievementDataAchievement,
         AchievementDataCriteria,
@@ -16,8 +17,8 @@
     let criteria: AchievementDataCriteria
     let criteriaTree: AchievementDataCriteriaTree
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
-        criteria = $achievementStore.data.criteria[criteriaTree?.criteriaId]
+        criteriaTree = $achievementStore.criteriaTree[criteriaTreeId]
+        criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
     }
 </script>
 
@@ -61,7 +62,7 @@
             <code>[{criteriaTreeId}]</code>
             <span
                 class="text-overflow"
-                use:tippy={criteriaTree.description}
+                use:basicTooltip={criteriaTree.description}
             >{criteriaTree.description || 'BLANK'}</span>
         </div>
 

@@ -2,8 +2,8 @@
     import { iconStrings } from '@/data/icons'
     import { journalState, type JournalState } from '@/stores/local-storage'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
 
     function getFilters(state: JournalState): string {
@@ -281,5 +281,19 @@
             name="show_raid_timewalking"
             bind:value={$journalState.showRaidTimewalking}
         >Timewalking</CheckboxInput>
+    </button>
+    
+    <button class="margin-left">
+        <CheckboxInput
+            name="show_raid_10"
+            bind:value={$journalState.showRaid10}
+        >10 Player</CheckboxInput>
+    </button>
+    
+    <button>
+        <CheckboxInput
+            name="show_raid_25"
+            bind:value={$journalState.showRaid25}
+        >25 Player</CheckboxInput>
     </button>
 </div>

@@ -4,11 +4,24 @@ input[type='checkbox'] {
     padding: 0.3rem;
 }
 
-.fancy-checkbox {
-    &.disabled {
-        color: $colour-fail;
-    }
+input[type='file'] {
+    padding: 0;
+}
 
+input[type='submit'] {
+    background: mix($color-success, $thing-background, 10%);
+    border: 1px solid mix($color-success, $border-color, 50%) !important;;
+    border-radius: $border-radius;
+    margin-top: 1rem;
+    padding: 0.3rem 0.5rem;
+}
+
+input.disabled {
+    @extend .border-fail;
+    opacity: 0.5;
+}
+
+.fancy-checkbox {
     label {
         cursor: pointer;
         position: relative;
@@ -21,4 +34,8 @@ input[type='checkbox'] {
         position: absolute;
         width: 0;
     }
+}
+
+fieldset.disabled {
+    opacity: 0.5;
 }

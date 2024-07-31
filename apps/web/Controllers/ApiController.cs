@@ -5,15 +5,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Converters;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
+using Wowthing.Web.Models.Api.User;
 using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
 
@@ -42,11 +44,23 @@ public class ApiController : Controller
     {
         _cacheService = cacheService;
         _logger = logger;
-        _jsonSerializerOptions = jsonSerializerOptions;
         _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _userService = userService;
         _context = context;
+
+        // Custom converters for database model objects, we register them here instead of as a class attribute to avoid
+        // writing squished data to the database
+        _jsonSerializerOptions = new JsonSerializerOptions(jsonSerializerOptions)
+        {
+            Converters =
+            {
+                new PlayerCharacterAddonDataMythicPlusMapConverter(),
+                new PlayerCharacterAddonDataMythicPlusRunConverter(),
+                new PlayerCharacterMythicPlusRunConverter(),
+            },
+        };
+
     }
 
     [HttpGet("api-key-get")]
@@ -106,12 +120,15 @@ public class ApiController : Controller
             .Where(pa => pa.UserId == user.Id)
             .ToDictionaryAsync(pa => pa.Id);
 
-        foreach (var (accountId, accountData) in form.Accounts)
+        if (form.Accounts != null)
         {
-            if (accountMap.TryGetValue(accountId, out var account))
+            foreach (var (accountId, accountData) in form.Accounts)
             {
-                account.Enabled = accountData.Enabled;
-                account.Tag = accountData.Tag.Truncate(4);
+                if (accountMap.TryGetValue(accountId, out var account))
+                {
+                    account.Enabled = accountData.Enabled;
+                    account.Tag = accountData.Tag.Truncate(4);
+                }
             }
         }
 
@@ -122,11 +139,13 @@ public class ApiController : Controller
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, user.Id);
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, user.Id);
         await _cacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, user.Id);
-        await _cacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, user.Id);
+        //await _cacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, user.Id);
 
         return Json(new
         {
-            Accounts = accountMap.Values.ToList(),
+            Accounts = accountMap.Values
+                .Select(account => new ApiUserAccount(account))
+                .ToArray(),
             Settings = form.Settings,
         });
     }
@@ -183,11 +202,14 @@ public class ApiController : Controller
         timer.AddPoint("LastModified");
 
         // Update user last visit
-        // if (!apiResult.Public)
-        // {
-        //     apiResult.User.LastVisit = DateTime.UtcNow;
-        //     await _userManager.UpdateAsync(apiResult.User);
-        // }
+        if (!apiResult.Public)
+        {
+            await _context.Users
+                .Where(au => au.Id == apiResult.User.Id)
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(au => au.LastVisit, au => DateTime.UtcNow)
+                );
+        }
 
         // Retrieve data
         var accounts = new List<PlayerAccount>();
@@ -195,8 +217,8 @@ public class ApiController : Controller
             .AsNoTracking()
             .Where(a => a.UserId == apiResult.User.Id)
             .Include(pa => pa.AddonData)
+            .Include(pa => pa.Heirlooms)
             .Include(pa => pa.Pets)
-            .Include(pa => pa.Toys)
             .ToListAsync();
 
         if (!apiResult.Public || apiResult.Privacy.PublicAccounts)
@@ -209,6 +231,17 @@ public class ApiController : Controller
         var guilds = await _context.PlayerGuild
             .Where(pg => pg.UserId == apiResult.User.Id)
             .ToArrayAsync();
+
+        Dictionary<int, PlayerGuildItem[]> guildItemsMap = new();
+        if (!apiResult.Public)
+        {
+            int[] guildIds = guilds.Select(g => g.Id).ToArray();
+            var guildItems = await _context.PlayerGuildItem
+                .Where(pgi => guildIds.Contains(pgi.GuildId))
+                .ToArrayAsync();
+            guildItemsMap = guildItems
+                .ToGroupedDictionary(pgi => pgi.GuildId);
+        }
 
         timer.AddPoint("Guilds");
 
@@ -229,6 +262,7 @@ public class ApiController : Controller
             .Include(c => c.Reputations)
             .Include(c => c.Shadowlands)
             .Include(c => c.Specializations)
+            .Include(c => c.Stats)
             .Include(c => c.Weekly);
 
         if (!apiResult.Public || apiResult.Privacy.PublicLockouts)
@@ -262,36 +296,20 @@ public class ApiController : Controller
 
         timer.AddPoint("Characters");
 
-        // Bags
-        var bagItems = new Dictionary<int, PlayerCharacterItem[]>();
-        if (!apiResult.Public)
+        var itemQuery = _context.PlayerCharacterItem
+            .AsNoTracking()
+            .Where(pci => characterIds.Contains(pci.CharacterId));
+
+        if (apiResult.Public)
         {
-            bagItems = (
-                    await _context.PlayerCharacterItem
-                        .AsNoTracking()
-                        .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
-                        .ToArrayAsync()
-                )
-                .ToGroupedDictionary(pci => pci.CharacterId);
+            itemQuery = itemQuery.Where(pci =>
+                pci.Slot == 0
+                || Hardcoded.CurrencyItemIds.Contains(pci.ItemId)
+                || Hardcoded.ProgressItemIds.Contains(pci.ItemId)
+            );
         }
 
-        // Progress items
-        var progressItems = (
-                await _context.PlayerCharacterItem
-                    .AsNoTracking()
-                    .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
-                    .ToArrayAsync()
-            )
-            .ToGroupedDictionary(pci => pci.CharacterId);
-
-        // Currency items
-        var currencyItems = (
-                await _context.PlayerCharacterItem
-                    .AsNoTracking()
-                    .Where(pci =>
-                        characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
-                    .ToArrayAsync()
-            )
+        var characterItemsMap = (await itemQuery.ToArrayAsync())
             .ToGroupedDictionary(pci => pci.CharacterId);
 
         timer.AddPoint("Items");
@@ -327,28 +345,29 @@ public class ApiController : Controller
         timer.AddPoint("Periods");
 
         // Heirlooms
-        var heirlooms = new Dictionary<int, short>();
-        foreach (var account in tempAccounts.Where(pa => pa.AddonData?.Heirlooms != null))
+        var heirlooms = new Dictionary<int, int>();
+        foreach (var account in tempAccounts.Where(pa => pa.Heirlooms != null))
         {
-            foreach (var (itemId, upgradeLevel) in account.AddonData.Heirlooms)
+            foreach ((int heirloomId, int upgradeLevel) in account.Heirlooms.Heirlooms)
             {
-                heirlooms[itemId] = upgradeLevel;
+                heirlooms[heirloomId] = Math.Max(heirlooms.GetValueOrDefault(heirloomId), upgradeLevel);
             }
         }
+
+        timer.AddPoint("Heirlooms");
 
         // Honor
         var maxHonorAccount = tempAccounts.MaxBy(pa => pa.AddonData?.HonorLevel);
 
         // Mounts
-        var mounts = await _context.MountQuery
-            .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
-            .SingleAsync();
+        var userCache = await _cacheService.CreateOrUpdateMountCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified);
 
         timer.AddPoint("Mounts");
 
         // Pets
         var accountPets = tempAccounts
-            .Where(pa => pa.Pets != null)
+            .Where(pa => pa.Enabled && pa.Pets != null)
             .Select(pa => pa.Pets)
             .OrderByDescending(pap => pap.UpdatedAt)
             .ToArray();
@@ -365,12 +384,44 @@ public class ApiController : Controller
         timer.AddPoint("Pets");
 
         // Toys
-        var toyIds = tempAccounts
-            .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
-            .Distinct()
-            .ToArray();
+        await _cacheService.CreateOrUpdateToyCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified, userCache);
 
         timer.AddPoint("Toys");
+
+        // Transmog
+        await _cacheService.CreateOrUpdateTransmogCacheAsync(
+            _context, timer, apiResult.User.Id, lastModified, userCache);
+
+        var diffedAppearanceIds = new List<int>();
+        int lastAppearanceId = 0;
+        foreach (int appearanceId in userCache.AppearanceIds.EmptyIfNull())
+        {
+            diffedAppearanceIds.Add(appearanceId - lastAppearanceId);
+            lastAppearanceId = appearanceId;
+        }
+
+        var splitSources = userCache.AppearanceSources
+            .Select(source => source.Split('_').Select(int.Parse).ToArray())
+            .GroupBy(parts => parts[1])
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(g => g[0]).ToArray()
+            );
+
+        var diffedSources = new Dictionary<int, List<int>>();
+        foreach ((int modifier, int[] itemIds) in splitSources)
+        {
+            var modifierItemIds = diffedSources[modifier] = [];
+            int lastItemId = 0;
+            foreach (int itemId in itemIds.Order())
+            {
+                modifierItemIds.Add(itemId - lastItemId);
+                lastItemId = itemId;
+            }
+        }
+
+        timer.AddPoint("Transmog");
 
         List<int> goldHistoryRealms = null;
         if (!apiResult.Public)
@@ -383,20 +434,30 @@ public class ApiController : Controller
             timer.AddPoint("GoldHistory");
         }
 
+        // RaiderIO
+        var raiderIoScoreTiers = await _cacheService.GetRaiderIoTiers();
+        timer.AddPoint("RaiderIO");
+
         // Objects
+        var accountMap = accounts.ToDictionary(k => k.Id, v => new ApiUserAccount(v));
+
         var characterObjects = characters
-            .Select(character => new UserApiCharacter(
+            .Select(character => new ApiUserCharacter(
                 character,
-                bagItems.GetValueOrDefault(character.Id),
-                currencyItems.GetValueOrDefault(character.Id),
-                progressItems.GetValueOrDefault(character.Id),
+                characterItemsMap.GetValueOrDefault(character.Id),
                 apiResult.Public,
-                apiResult.Privacy))
+                apiResult.Privacy
+            ))
             .ToList();
 
         var guildObjects = guilds
-            .Select(guild => new UserApiGuild(guild, apiResult.Public, apiResult.Privacy))
-            .ToDictionary(guild => guild.Id);
+            .Select(guild => new ApiUserGuild(
+                guild,
+                guildItemsMap.GetValueOrDefault(guild.Id),
+                apiResult.Public,
+                apiResult.Privacy
+            ))
+            .ToList();
 
         var petObjects = allPets
             .Values
@@ -410,12 +471,24 @@ public class ApiController : Controller
                     .ToList()
             );
 
+        var mountsPacked = SerializationUtilities.SerializeUInt16Array(userCache.MountIds
+            .EmptyIfNull()
+            .Select(id => (ushort)id)
+            .ToArray()
+        );
+
+        var toysPacked = SerializationUtilities.SerializeUInt16Array(userCache.ToyIds
+            .EmptyIfNull()
+            .Select(id => (ushort)id)
+            .ToArray()
+        );
+
         timer.AddPoint("Objects");
 
         // Build response
-        var apiData = new UserApi
+        var apiData = new ApiUser
         {
-            Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
+            Accounts = accountMap,
             Characters = characterObjects,
             Guilds = guildObjects,
 
@@ -431,23 +504,21 @@ public class ApiController : Controller
             HonorMax = maxHonorAccount?.AddonData?.HonorMax ?? 0,
             Images = images,
             Public = apiResult.Public,
-
-            AddonMounts = mounts.AddonMounts
-                .EmptyIfNull()
-                .ToDictionary(m => m, _ => true),
-
-            MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
-                .EmptyIfNull()
-                .Select(m => (ushort)m).ToArray()),
+            RaiderIoScoreTiers = raiderIoScoreTiers,
 
             PetsRaw = petObjects,
 
-            ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
-        };
-        //var json = JsonConvert.SerializeObject(apiData);
-        var json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
+            MountsPacked = mountsPacked,
+            ToysPacked = toysPacked,
 
+            IllusionIds = userCache.IllusionIds,
+            RawAppearanceIds = diffedAppearanceIds,
+            RawAppearanceSources = diffedSources,
+        };
+
+        string json = JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
         timer.AddPoint("Build", true);
+
         _logger.LogInformation("{userId} | {userName} | {total} | {timer}",
             apiResult.User.Id, apiResult.User.UserName, timer.TotalDuration, timer);
 

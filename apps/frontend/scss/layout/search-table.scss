@@ -1,0 +1,67 @@
+.search-table {
+    width: 100%;
+
+    .item-row {
+        th {
+            background-color: $highlight-background;
+            font-weight: normal;
+        }
+        .realm {
+            text-align: right;
+        }
+    }
+
+    .item {
+        @include cell-width(17.2rem);
+
+        --image-border-width: 1px;
+        --image-margin-top: -4px;
+
+        padding: 0.2rem $width-padding;
+        text-align: left;
+    }
+    .count {
+        @include cell-width($width-item-count);
+
+        text-align: right;
+        white-space: nowrap;
+    }
+    .item-level {
+        @include cell-width(1.8rem);
+
+        text-align: right;
+    }
+    .tag {
+        @include cell-width(0.5rem);
+
+        background: $highlight-background;
+        border-right: 1px solid $border-color;
+        text-align: center;
+    }
+    .name, .guild-name {
+        a {
+            text-decoration: underline;
+        }
+    }
+    .name {
+        @include cell-width(10.5rem);
+    }
+    .guild-name {
+        @include cell-width(12rem);
+    }
+    .realm {
+        @include cell-width(5.7rem);
+
+        white-space: nowrap;
+    }
+    .location {
+        @include cell-width($width-item-location);
+
+        white-space: nowrap;
+    }
+    .count {
+        @include cell-width($width-item-count);
+
+        text-align: right;
+    }
+}

@@ -2,19 +2,23 @@
 using Wowthing.Web.Misc;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
+using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers;
 
 public class HomeController : Controller
 {
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly UserService _userService;
     private readonly WowthingWebOptions _webOptions;
 
     public HomeController(
-        IOptions<WowthingWebOptions> webOptions,
-        UserService userService
+        MemoryCacheService memoryCacheService,
+        UserService userService,
+        IOptions<WowthingWebOptions> webOptions
     )
     {
+        _memoryCacheService = memoryCacheService;
         _userService = userService;
         _webOptions = webOptions.Value;
     }
@@ -22,11 +26,16 @@ public class HomeController : Controller
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
-        var host = HttpContext.Request.Host.ToString();
-        if (host != _webOptions.Hostname && host.EndsWith($".{_webOptions.Hostname}"))
+        string requestHost = HttpContext.Request.Host.ToString();
+        if (requestHost == $"auctions.{_webOptions.Hostname}")
         {
-            var index = host.LastIndexOf(_webOptions.Hostname, StringComparison.Ordinal);
-            var username = host[0 .. (index - 1)];
+            var hashes = await _memoryCacheService.GetCachedHashes();
+            return View("~/Views/Auctions/Index.cshtml", new AuctionsViewModel(hashes));
+        }
+        else if (requestHost != _webOptions.Hostname && requestHost.EndsWith($".{_webOptions.Hostname}"))
+        {
+            var index = requestHost.LastIndexOf(_webOptions.Hostname, StringComparison.Ordinal);
+            var username = requestHost[0 .. (index - 1)];
             if (!UsernameRouteConstraint.Regex.IsMatch(username))
             {
                 return NotFound();

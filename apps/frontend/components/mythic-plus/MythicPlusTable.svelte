@@ -4,13 +4,16 @@
     import { replace } from 'svelte-spa-router'
 
     import { Constants } from '@/data/constants'
-    import { seasonMap, weeklyAffixes } from '@/data/dungeon'
-    import { staticStore, userStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
-    import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
+    import { seasonMap } from '@/data/dungeon'
+    import { userStore } from '@/stores'
+    import { timeStore } from '@/shared/stores/time'
+    import { staticStore } from '@/shared/stores/static'
+    import { settingsStore } from '@/shared/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
-    import leftPad from '@/utils/left-pad'
+    import { leftPad } from '@/utils/formatting'
+    import { getWeeklyAffixes } from '@/utils/mythic-plus'
+    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
+    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -18,38 +21,52 @@
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
-    import HeadUpgrade from './MythicPlusTableHeadUpgrade.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
     import RowDungeon from './MythicPlusTableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
-    import RowUpgrade from './MythicPlusTableRowUpgrade.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import TableFoot from './TableFoot.svelte'
 
     export let slug: string
 
-    let affixes: MythicPlusAffix[]
+    let affixes: StaticDataKeystoneAffix[]
     let isCurrentSeason: boolean
     let isThisWeek: boolean
-    let filterFunc: (char: Character) => boolean
-    let sortFunc: (char: Character) => string
-    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
+    let sortFunc: (char: Character) => string
 
     $: {
         if (slug === 'this-week') {
             isThisWeek = true
             season = seasonMap[Constants.mythicPlusSeason]
             runsFunc = (char, dungeonId) => {
-                const currentPeriod = getCurrentPeriodForCharacter(char)
-                if (currentPeriod && char.mythicPlus?.currentPeriodId === currentPeriod.id) {
-                    return char.mythicPlus?.periodRuns?.[dungeonId] || []
-                } else {
-                    return []
+                const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char)
+                const startStamp = currentPeriod.startTime.toUnixInteger()
+                const endStamp = currentPeriod.endTime.toUnixInteger()
+
+                for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks || {})) {
+                    const weekStamp = parseInt(timestamp)
+                    if (weekStamp > startStamp && weekStamp <= endStamp) {
+                        return runs
+                            .filter((run) => run.mapId === dungeonId)
+                            .map((run) => ({
+                                completed: '???',
+                                dungeonId: run.mapId,
+                                keystoneLevel: run.level,
+
+                                affixes: [],
+                                duration: 0,
+                                members: [],
+                                memberObjects: [],
+                                timed: true,
+                            }))
+                    }
                 }
+                return []
             }
-            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         }
         else {
             isThisWeek = false
@@ -64,35 +81,51 @@
             }
 
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
-            sortFunc = getCharacterSortFunc(
-                $settingsData,
-                $staticStore.data,
+        }
+
+        sortFunc = getCharacterSortFunc(
+                $settingsStore,
+                $staticStore,
                 (char) => leftPad(
-                    100000 - Math.floor(char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0),
+                    100000 - Math.floor((char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0) * 10),
                     6,
                     '0'
                 )
             )
-        }
 
         isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
-            const week = ($userStore.data.currentPeriod[1].id - 809) % weeklyAffixes.length
-            affixes = weeklyAffixes[week]
+            affixes = getWeeklyAffixes()
         }
+    }
 
-        filterFunc = (char: Character) => char.level >= season.minLevel
+    const filterFunc = (char: Character) => {
+        const meetsLevelReq = char.level >= season.minLevel
+        const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0
+        return meetsLevelReq && score > 0
     }
 </script>
 
+<style lang="scss">
+    .no-characters {
+        background: $horde-background;
+        padding: 0.3rem 0.5rem;
+        white-space: normal;
+    }
+</style>
+
 <CharacterTable
-    skipGrouping={slug !== 'this-week'}
+    skipGrouping={!isThisWeek}
     skipIgnored={true}
     {filterFunc}
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        <HeadItemLevel />
+        {#if isCurrentSeason}
+            <HeadItemLevel />
+        {/if}
+
+        <HeadRaiderIo />
 
         {#if isCurrentSeason}
             <HeadKeystone {affixes} />
@@ -100,12 +133,6 @@
 
         {#if isThisWeek}
             <HeadVault vaultType={'M+'} />
-        {:else}
-            <HeadRaiderIo />
-        {/if}
-
-        {#if isCurrentSeason && !isThisWeek}
-            <HeadUpgrade />
         {/if}
 
         {#key season.id}
@@ -118,20 +145,19 @@
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        <RowItemLevel />
         {#key slug}
+            {#if isCurrentSeason}
+                <RowItemLevel {character} />
+            {/if}
+
+            <RowRaiderIo {character} {season} />
+
             {#if isCurrentSeason}
                 <RowKeystone {character} />
             {/if}
 
             {#if isThisWeek}
                 <RowVaultMythicPlus {character} />
-            {:else}
-                <RowRaiderIo {character} {season} />
-            {/if}
-
-            {#if isCurrentSeason && !isThisWeek}
-                <RowUpgrade {character} {season} />
             {/if}
 
             {#each season.orders as order}
@@ -144,5 +170,20 @@
                 {/each}
             {/each}
         {/key}
+    </svelte:fragment>
+
+    <TableFoot
+        slot="foot"
+        extraColSpan={(isCurrentSeason ? 2 : 0) + 1 + (isThisWeek ? 1 : 0)}
+        {isThisWeek}
+        {season}
+    />
+
+    <svelte:fragment slot="emptyRow">
+        <tr>
+            <td class="no-characters" colspan="99">
+                You have no characters with an M+ score from this season.
+            </td>
+        </tr>
     </svelte:fragment>
 </CharacterTable>

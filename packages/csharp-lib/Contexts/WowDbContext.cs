@@ -8,6 +8,7 @@ using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Team;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Contexts;
@@ -15,35 +16,50 @@ namespace Wowthing.Lib.Contexts;
 public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
 {
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
+    public DbSet<AuditLog> AuditLog { get; set; }
+    public DbSet<QueuedJob> QueuedJob { get; set; }
 
     public DbSet<BackgroundImage> BackgroundImage { get; set; }
     public DbSet<Image> Image { get; set; }
     public DbSet<LanguageString> LanguageString { get; set; }
 
     public DbSet<WowAuction> WowAuction { get; set; }
+    public DbSet<WowAuctionCheapestByAppearanceId> WowAuctionCheapestByAppearanceId { get; set; }
+    public DbSet<WowAuctionCheapestByAppearanceSource> WowAuctionCheapestByAppearanceSource { get; set; }
+    // public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
+    public DbSet<WowAuctionCommodityHourly> WowAuctionCommodityHourly { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
     public DbSet<WowCurrency> WowCurrency { get; set; }
     public DbSet<WowCurrencyCategory> WowCurrencyCategory { get; set; }
+    public DbSet<WowHoliday> WowHoliday { get; set; }
     public DbSet<WowItem> WowItem { get; set; }
+    public DbSet<WowItemBonus> WowItemBonus { get; set; }
+    public DbSet<WowItemClass> WowItemClass { get; set; }
     public DbSet<WowItemEffect> WowItemEffect { get; set; }
+    public DbSet<WowItemEffectV2> WowItemEffectV2 { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
+    public DbSet<WowItemSubclass> WowItemSubclass { get; set; }
     public DbSet<WowMount> WowMount { get; set; }
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
     public DbSet<WowPet> WowPet { get; set; }
+    public DbSet<WowProfessionRecipeItem> WowProfessionRecipeItem { get; set; }
+    public DbSet<WowQuest> WowQuest { get; set; }
     public DbSet<WowRealm> WowRealm { get; set; }
     public DbSet<WowReputation> WowReputation { get; set; }
     public DbSet<WowReputationTier> WowReputationTier { get; set; }
-    public DbSet<WowTitle> WowTitle { get; set; }
     public DbSet<WowToy> WowToy { get; set; }
+    public DbSet<WowTransmogSet> WowTransmogSet { get; set; }
+    public DbSet<WowWorldQuest> WowWorldQuest { get; set; }
 
     public DbSet<GlobalDailies> GlobalDailies { get; set; }
 
     public DbSet<PlayerAccount> PlayerAccount { get; set; }
     public DbSet<PlayerAccountAddonData> PlayerAccountAddonData { get; set; }
     public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
+    public DbSet<PlayerAccountHeirlooms> PlayerAccountHeirlooms { get; set; }
     public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
     public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
     public DbSet<PlayerAccountTransmogSources> PlayerAccountTransmogSources { get; set; }
@@ -67,6 +83,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
     public DbSet<PlayerCharacterSpecializations> PlayerCharacterSpecializations { get; set; }
     public DbSet<PlayerCharacterStatistics> PlayerCharacterStatistics { get; set; }
+    public DbSet<PlayerCharacterStats> PlayerCharacterStats { get; set; }
     public DbSet<PlayerCharacterTransmog> PlayerCharacterTransmog { get; set; }
     public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 
@@ -80,9 +97,18 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
+    public DbSet<UserBulkData> UserBulkData { get; set; }
+    public DbSet<UserCache> UserCache { get; set; }
+    public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
+
+    public DbSet<WorldQuestAggregate> WorldQuestAggregate { get; set; }
+    public DbSet<WorldQuestReport> WorldQuestReport { get; set; }
+
     // Garbage query types
     public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
     public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }
+    public DbSet<ActiveConnectedRealmQuery> ActiveConnectedRealmQuery { get; set; }
+    public DbSet<AuctionBrowseQuery> AuctionBrowseQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
     public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
@@ -90,6 +116,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
     public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
     public DbSet<StatisticsQuery> StatisticsQuery { get; set; }
+    public DbSet<UserLeaderboardQuery> UserLeaderboardQuery { get; set; }
 
     /*public WowDbContext(string connectionString)
     {
@@ -119,6 +146,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     {
         base.OnModelCreating(builder);
 
+        // Override ASP.NET table names
         builder.Entity<ApplicationUser>().ToTable("asp_net_users");
         builder.Entity<IdentityUserToken<long>>().ToTable("asp_net_user_tokens");
         builder.Entity<IdentityUserLogin<long>>().ToTable("asp_net_user_logins");
@@ -140,16 +168,46 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasKey(mps => new { mps.CharacterId, mps.Season });
 
+        builder.Entity<UserLeaderboardSnapshot>()
+            .HasKey(uls => new { uls.UserId, uls.Date });
+
+        builder.Entity<WorldQuestAggregate>()
+            .HasKey(wqa => new { wqa.Region, wqa.ZoneId, wqa.QuestId });
+
         builder.Entity<WowAuction>()
             .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
 
-        builder.Entity<WowPeriod>()
-            .HasKey(p => new { p.Region, p.Id });
+        builder.Entity<WowAuctionCheapestByAppearanceId>()
+            .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceId });
+
+        builder.Entity<WowAuctionCheapestByAppearanceSource>()
+            .HasKey(cheapest => new { cheapest.ConnectedRealmId, cheapest.AppearanceSource });
+
+        // builder.Entity<WowAuctionCommodityDaily>()
+        //     .HasKey(daily => new { daily.Region, daily.ItemId, daily.Date });
+
+        builder.Entity<WowAuctionCommodityHourly>()
+            .HasKey(hourly => new { hourly.Region, hourly.ItemId, hourly.Timestamp });
 
         builder.Entity<WowMythicPlusSeason>()
             .HasKey(s => new { s.Region, s.Id });
 
+        builder.Entity<WowPeriod>()
+            .HasKey(p => new { p.Region, p.Id });
+
+        builder.Entity<WowProfessionRecipeItem>()
+            .HasKey(wpri => new { wpri.SkillLineAbilityId, wpri.ItemId });
+
+        // Defaults
+        builder.Entity<PlayerCharacter>()
+            .Property(pc => pc.ShouldUpdate)
+            .HasDefaultValue(true);
+
         // Unique indexes
+        builder.Entity<ApplicationUser>()
+            .HasIndex(au => au.ApiKey)
+            .IsUnique();
+
         builder.Entity<PlayerAccount>()
             .HasIndex(pa => new { pa.Region, pa.AccountId })
             .IsUnique();
@@ -175,6 +233,23 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasMethod("gin")
             .HasOperators("gin_trgm_ops");
 
+        builder.Entity<PlayerCharacter>()
+            .HasIndex(pc => pc.LastApiCheck)
+            .IncludeProperties(pc => new { pc.Id, pc.AccountId, pc.Name, pc.LastApiModified })
+            .HasFilter("should_update = true AND account_id IS NOT NULL");
+
+        builder.Entity<QueuedJob>()
+            .HasIndex(qj => qj.Priority)
+            .HasFilter("started_at IS NULL");
+
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceId, wa.BuyoutPrice })
+            .HasFilter("appearance_id IS NOT NULL");
+
+        builder.Entity<WowAuction>()
+            .HasIndex(wa => new { wa.AppearanceSource, wa.BuyoutPrice })
+            .HasFilter("appearance_source IS NOT NULL");
+
         // Relationships
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasOne(s => s.Character)
@@ -192,6 +267,12 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<AchievementCriteriaQuery>()
             .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<ActiveConnectedRealmQuery>()
+            .ToTable("ActiveConnectedRealmQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<AuctionBrowseQuery>()
+            .ToTable("AuctionBrowseQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
@@ -213,6 +294,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<StatisticsQuery>()
             .ToTable("StatisticsQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<UserLeaderboardQuery>()
+            .ToTable("UserLeaderboardQuery", t => t.ExcludeFromMigrations());
     }
 
     public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();

@@ -1,7 +1,0 @@
-name: Instances
-groups:
-
-- name: Raids
-  things:
-  - 613 # Ironhoof Destroyer (BRF)
-  - 751 # Felsteel Annihilator (HFC)

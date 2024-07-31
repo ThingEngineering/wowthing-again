@@ -1,13 +1,15 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { rewardTypeIcons } from '@/data/icons'
-    import { itemStore, staticStore, userStore, userTransmogStore } from '@/stores'
-    import { Faction, RewardType } from '@/enums'
+    import { Faction } from '@/enums/faction'
+    import { RewardType } from '@/enums/reward-type'
+    import { itemStore, userStore } from '@/stores'
+    import { rewardTypeIcons } from '@/shared/icons/mappings'
+    import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
-    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
+    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let faction: Faction = Faction.Neutral
     export let reputation: StaticDataReputationReputation
@@ -23,7 +25,7 @@
     $: {
         rewards = []
         if (set.paragon) {
-            totalParagon = $userStore.data.characters
+            totalParagon = $userStore.characters
                 .reduce(
                     (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
                     0
@@ -34,23 +36,23 @@
                     let have = false
                     let name: string
                     if (reward.type === RewardType.Mount) {
-                        have = $userStore.data.hasMount[reward.id] === true
-                        const mount = $staticStore.data.mounts[reward.id]
+                        have = $userStore.hasMount[reward.id] === true
+                        const mount = $staticStore.mounts[reward.id]
                         name = mount ? mount.name : `Mount #${reward.id}`
                     }
                     else if (reward.type === RewardType.Pet) {
-                        have = $userStore.data.hasPet[reward.id] === true
-                        const pet = $staticStore.data.pets[reward.id]
+                        have = $userStore.hasPet[reward.id] === true
+                        const pet = $staticStore.pets[reward.id]
                         name = pet ? pet.name : `Pet #${reward.id}`
                     }
                     else if (reward.type === RewardType.Toy) {
-                        have = $userStore.data.hasToy[reward.id] === true
-                        const toy = $staticStore.data.toys[reward.id]
+                        have = $userStore.hasToy[reward.id] === true
+                        const toy = $staticStore.toys[reward.id]
                         name = toy ? toy.name : `Toy #${reward.id}`
                     }
                     else if (reward.type === RewardType.Transmog) {
-                        const item = $itemStore.data.items[reward.id]
-                        have = $userTransmogStore.data.userHas[item?.appearances[0]?.appearanceId || 0]
+                        const item = $itemStore.items[reward.id]
+                        have = $userStore.hasAppearance.has(item?.appearances[0]?.appearanceId || 0)
                         name = item?.name || `Item #${reward.id}`
                     }
 
@@ -99,7 +101,7 @@
                         size={20}
                     />
                 {/if}
-                {$staticStore.data.reputations[reputation.id].name}
+                {$staticStore.reputations[reputation.id].name}
             </td>
         </tr>
 

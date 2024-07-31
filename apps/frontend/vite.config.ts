@@ -8,7 +8,7 @@
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
-import { defineConfig, splitVendorChunkPlugin, type UserConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin, type Alias, type UserConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import path from 'path'
 import sveltePreprocess from 'svelte-preprocess'
@@ -33,17 +33,25 @@ const config = <UserConfig> defineConfig({
 			compilerOptions: {
 				dev: !production,
 			},
-			experimental: {
-				prebundleSvelteLibraries: true,
-			},
 
 			hot: !production,
+			prebundleSvelteLibraries: true,
 		}),
 	],
 	build: {
 		manifest: true,
 		rollupOptions: {
-			input: 'apps/home.ts',
+			input: {
+				admin: 'admin/admin.ts',
+				auctions: 'auctions/auctions.ts',
+				leaderboards: 'leaderboards/leaderboards.ts',
+				'user-home': 'user-home/user-home.ts',
+			},
+			output: {
+				assetFileNames: 'dist/assets/[name]-[hash][extname]',
+				chunkFileNames: 'dist/assets/[name]-[hash].js',
+				entryFileNames: 'dist/assets/[name]-[hash].js',
+			},
 		},
 		sourcemap: sourceMapsInProduction,
 	},
@@ -78,6 +86,7 @@ const config = <UserConfig> defineConfig({
 // Load path aliases from the tsconfig.json file
 const aliases = tsconfig.compilerOptions.paths as Record<string, string[]>
 
+const newAliases: Alias[] = []
 for (const alias in aliases) {
 	const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p))
 
@@ -88,11 +97,13 @@ for (const alias in aliases) {
 	const wpPaths = paths.map((p: string) => p.replace(/(\\|\/)\*$/, ''))
 
 	if (!config.resolve) config.resolve = {}
-	if (!config.resolve.alias) config.resolve.alias = {}
+	if (!config.resolve.alias) config.resolve.alias = []
 
 	if (config.resolve && config.resolve.alias && !(wpAlias in config.resolve.alias)) {
-		config.resolve.alias[wpAlias] = wpPaths.length > 1 ? wpPaths : wpPaths[0]
+		newAliases.push({ find: wpAlias, replacement: wpPaths[0] })
 	}
 }
+
+config.resolve.alias = newAliases
 
 export default config
