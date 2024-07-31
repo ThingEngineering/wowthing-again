@@ -68,6 +68,15 @@ export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
     .flat();
 
 export const taskList: Task[] = [
+    // TWW prepatch
+    {
+        key: 'radiantEchoes',
+        minimumLevel: 10,
+        name: '[TWW] Radiant Echoes',
+        shortName: 'RE',
+        type: 'multi',
+    },
+
     // Events/Holidays/idk
     {
         key: 'holidayDarkmoonFaire',
@@ -337,6 +346,23 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    radiantEchoes: [
+        {
+            minimumLevel: 10,
+            taskKey: 'radiantDragonblight',
+            taskName: 'Dragonblight',
+        },
+        {
+            minimumLevel: 10,
+            taskKey: 'radiantDustwallow',
+            taskName: 'Dustwallow Marsh',
+        },
+        {
+            minimumLevel: 10,
+            taskKey: 'radiantSearing',
+            taskName: 'Searing Gorge',
+        },
+    ],
     holidayDarkmoonFaire: [
         {
             minimumLevel: 1,
