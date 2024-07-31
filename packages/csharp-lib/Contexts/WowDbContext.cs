@@ -94,6 +94,8 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerGuild> PlayerGuild { get; set; }
     public DbSet<PlayerGuildItem> PlayerGuildItem { get; set; }
 
+    public DbSet<PlayerWarbankItem> PlayerWarbankItem { get; set; }
+
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 

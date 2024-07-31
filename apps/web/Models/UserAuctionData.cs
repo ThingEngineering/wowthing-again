@@ -44,7 +44,17 @@ public class UserAuctionDataPet
     {
         BreedId = 0;
         Location = ItemLocation.GuildBank;
-        LocationId = item.TabId;
+        LocationId = item.ContainerId;
+        Quality = (WowQuality)item.Quality;
+
+        Level = caged ? item.ItemLevel : 1;
+    }
+
+    public UserAuctionDataPet(PlayerWarbankItem item, bool caged = false)
+    {
+        BreedId = 0;
+        Location = ItemLocation.GuildBank;
+        LocationId = item.ContainerId;
         Quality = (WowQuality)item.Quality;
 
         Level = caged ? item.ItemLevel : 1;

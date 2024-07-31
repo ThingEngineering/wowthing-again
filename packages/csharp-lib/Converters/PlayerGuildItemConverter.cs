@@ -15,26 +15,7 @@ public class PlayerGuildItemConverter : JsonConverter<PlayerGuildItem>
     {
         writer.WriteStartArray();
 
-        writer.WriteNumberValue(item.TabId);
-        writer.WriteNumberValue(item.Slot);
-        writer.WriteNumberValue(item.ItemId);
-        writer.WriteNumberValue(item.Count);
-        writer.WriteNumberValue(item.Context);
-        writer.WriteNumberValue(item.CraftedQuality);
-        writer.WriteNumberValue(item.EnchantId);
-        writer.WriteNumberValue(item.ItemLevel);
-        writer.WriteNumberValue(item.Quality);
-        writer.WriteNumberValue(item.SuffixId);
-
-        if (item.Gems?.Count > 0 || item.BonusIds?.Count > 0)
-        {
-            writer.WriteNumberArray(item.BonusIds.EmptyIfNull().Select(id => (int)id));
-        }
-
-        if (item.Gems?.Count > 0)
-        {
-            writer.WriteNumberArray(item.Gems);
-        }
+        options.GetTypedConverter<BasePlayerItem>().Write(writer, item, options);
 
         writer.WriteEndArray();
     }

@@ -14,7 +14,7 @@ public class PlayerCharacterItemConverter : JsonConverter<PlayerCharacterItem>
 
         var item = new PlayerCharacterItem();
         item.Location = (ItemLocation)reader.ReadInt32();
-        item.BagId = reader.ReadInt16();
+        item.ContainerId = reader.ReadInt16();
         item.Slot = reader.ReadInt16();
         item.ItemId = reader.ReadInt32();
         item.Count = reader.ReadInt32();
@@ -61,26 +61,8 @@ public class PlayerCharacterItemConverter : JsonConverter<PlayerCharacterItem>
         writer.WriteStartArray();
 
         writer.WriteNumberValue((int)item.Location);
-        writer.WriteNumberValue(item.BagId);
-        writer.WriteNumberValue(item.Slot);
-        writer.WriteNumberValue(item.ItemId);
-        writer.WriteNumberValue(item.Count);
-        writer.WriteNumberValue(item.Context);
-        writer.WriteNumberValue(item.CraftedQuality);
-        writer.WriteNumberValue(item.EnchantId);
-        writer.WriteNumberValue(item.ItemLevel);
-        writer.WriteNumberValue(item.Quality);
-        writer.WriteNumberValue(item.SuffixId);
 
-        if (item.Gems?.Count > 0 || item.BonusIds?.Count > 0)
-        {
-            writer.WriteNumberArray(item.BonusIds.EmptyIfNull().Select(id => (int)id));
-        }
-
-        if (item.Gems?.Count > 0)
-        {
-            writer.WriteNumberArray(item.Gems);
-        }
+        options.GetTypedConverter<BasePlayerItem>().Write(writer, item, options);
 
         writer.WriteEndArray();
     }

@@ -178,7 +178,7 @@ public class ItemSearchController : Controller
                 item.GuildBanks = guildResults.Select(result => new ItemSearchResponseGuildBank
                 {
                     GuildId = result.GuildId,
-                    Tab = result.TabId,
+                    Tab = result.ContainerId,
                     Slot = result.Slot,
                     Count = result.Count,
                     ItemLevel = result.ItemLevel,
