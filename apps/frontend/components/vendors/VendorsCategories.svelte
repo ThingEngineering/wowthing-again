@@ -64,7 +64,7 @@
                 {
                     columnCount: '--column-count',
                     gap: 30,
-                    padding: '1.5rem'
+                    padding: '0.75rem'
                 }
             )
             debouncedResize()
