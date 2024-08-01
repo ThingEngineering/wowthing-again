@@ -123,11 +123,23 @@ public class ItemSearchController : Controller
         var guildGrouped = guildItems
             .ToGroupedDictionary(pgi => pgi.ItemId);
 
+        // Warbank items
+        var warbankItems = await _context.PlayerWarbankItem
+            .Where(item => item.UserId == user.Id)
+            .Where(item => itemIds.Contains(item.ItemId))
+            .ToArrayAsync();
+
+        var warbankGrouped = warbankItems
+            .ToGroupedDictionary(item => item.ItemId);
+
+        // Group them all up
+
         var foundItemIds = characterGrouped.Keys
             .Union(equippedGrouped.Keys)
             .Union(guildGrouped.Keys)
+            .Union(warbankGrouped.Keys)
             .Distinct()
-            .OrderBy(id => id)
+            .Order()
             .ToArray();
 
         var results = new List<ItemSearchResponseItem>();
@@ -141,19 +153,15 @@ public class ItemSearchController : Controller
 
             if (characterGrouped.TryGetValue(itemId, out var characterResults))
             {
-                item.Characters = characterResults.Select(result => new ItemSearchResponseCharacter
+                item.Characters = characterResults.Select(result => new ItemSearchResponseCharacter(result)
                 {
                     CharacterId = result.CharacterId,
-                    Count = result.Count,
-                    Location = result.Location,
-                    ItemLevel = result.ItemLevel,
-                    Quality = result.Quality,
-                    Context = result.Context,
-                    EnchantId = result.EnchantId,
-                    SuffixId = result.SuffixId,
-                    BonusIds = result.BonusIds,
-                    Gems = result.Gems,
                 }).ToList();
+            }
+
+            if (warbankGrouped.TryGetValue(itemId, out var warbankResults))
+            {
+                item.Warbank = warbankResults.Select(result => new ItemSearchResponseWarbank(result)).ToList();
             }
 
             if (equippedGrouped.TryGetValue(itemId, out var equippedResults))

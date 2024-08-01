@@ -3,11 +3,12 @@ using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Web.Models.Search;
 
-public class ItemSearchResponseCharacter
+public class ItemSearchResponseWarbank
 {
-    public ItemLocation Location { get; set; }
+    public WowRegion Region { get; set; }
 
-    public int CharacterId { get; set; }
+    public short Tab { get; set; }
+    public short Slot { get; set; }
     public int Count { get; set; }
     public short Context { get; set; }
     public short EnchantId { get; set; }
@@ -17,12 +18,12 @@ public class ItemSearchResponseCharacter
     public List<short> BonusIds { get; set; }
     public List<int> Gems { get; set; }
 
-    public ItemSearchResponseCharacter()
+    public ItemSearchResponseWarbank(PlayerWarbankItem item)
     {
-    }
+        Region = item.Region;
 
-    public ItemSearchResponseCharacter(BasePlayerItem item)
-    {
+        Tab = item.ContainerId;
+        Slot = item.Slot;
         Count = item.Count;
         Context = item.Context;
         EnchantId = item.EnchantId;
@@ -31,7 +32,5 @@ public class ItemSearchResponseCharacter
         SuffixId = item.SuffixId;
         BonusIds = item.BonusIds;
         Gems = item.Gems;
-
-        Location = item.Location;
     }
 }
