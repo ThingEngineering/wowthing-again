@@ -44,7 +44,7 @@ export interface UserData {
     rawWarbankItems: WarbankItemArray[];
 
     // Calculated
-    allLockouts: InstanceDifficulty[];
+    allLockouts: (InstanceDifficulty & { characters: Character[] })[];
     allLockoutsMap: Record<string, InstanceDifficulty>;
     allRegions: number[];
     backgroundList: BackgroundImage[];

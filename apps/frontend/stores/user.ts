@@ -185,12 +185,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Initialize characters
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
-        const allLockouts: Record<string, boolean> = {};
+        const allLockouts: Record<string, Character[]> = {};
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, staticData, character);
 
             for (const key of Object.keys(character.lockouts || {})) {
-                allLockouts[key] = true;
+                (allLockouts[key] ||= []).push(character);
             }
 
             if (userData.public || character.account?.enabled === true) {
@@ -230,12 +230,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // Pre-calculate lockouts
         userData.allLockouts = [];
         userData.allLockoutsMap = {};
-        for (const instanceDifficulty of Object.keys(allLockouts)) {
+        for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
             const [instanceId, difficultyId] = instanceDifficulty.split('-');
             const difficulty = difficultyMap[parseInt(difficultyId)];
 
             if (difficulty && instanceId) {
                 userData.allLockouts.push({
+                    characters,
                     difficulty,
                     instanceId: parseInt(instanceId),
                     key: instanceDifficulty,

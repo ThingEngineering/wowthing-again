@@ -135,6 +135,13 @@
         >Missing</CheckboxInput>
     </button>
 
+    <button>
+        <CheckboxInput
+            name="show_lockouts"
+            bind:value={$journalState.showLockouts}
+        >Lockouts</CheckboxInput>
+    </button>
+
     <button class="filters-toggle"
         on:click={() => $journalState.filtersExpanded = !$journalState.filtersExpanded}
     >
