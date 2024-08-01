@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731175110_Add_PlayerWarbankItem")]
+    partial class Add_PlayerWarbankItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1620,10 +1623,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("smallint")
                         .HasColumnName("quality");
 
-                    b.Property<int>("Region")
-                        .HasColumnType("integer")
-                        .HasColumnName("region");
-
                     b.Property<short>("Slot")
                         .HasColumnType("smallint")
                         .HasColumnName("slot");
@@ -2209,22 +2208,6 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_user_leaderboard_snapshot_user_id_date");
 
                     b.ToTable("user_leaderboard_snapshot", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserMetadata", b =>
-                {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.Property<DateTimeOffset>("WarbankUpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("warbank_updated_at");
-
-                    b.HasKey("UserId")
-                        .HasName("pk_user_metadata");
-
-                    b.ToTable("user_metadata", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.WorldQuestAggregate", b =>
@@ -3804,18 +3787,6 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_leaderboard_snapshot_application_user_user_id");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserMetadata", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_metadata_application_user_user_id");
 
                     b.Navigation("User");
                 });

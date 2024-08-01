@@ -1,18 +1,39 @@
 <script lang="ts">
-    import { itemStore, userStore } from '@/stores'
+    import { itemSearchState, itemStore, userStore } from '@/stores'
     import { toNiceNumber } from '@/utils/formatting'
     import { basicTooltip } from '@/shared/utils/tooltips'
-    import type { ItemSearchResponseItem } from '@/types/items'
+    import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
     import Row from './ItemsSearchItemRow.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let response: ItemSearchResponseItem[]
+
+    type Sigh = {
+        characterItems: ItemSearchResponseCharacter[];
+        itemCount: number;
+    }
+    const getCombinedItems = (item: ItemSearchResponseItem): Sigh => {
+        const ret: Sigh = {
+            characterItems: [],
+            itemCount: 0,
+        };
+        
+        ret.characterItems = [...(item.characters || [])];
+        if ($itemSearchState.includeEquipped) {
+            ret.characterItems.push(...(item.equipped || []));
+        }
+
+        ret.itemCount = ret.characterItems.reduce((a, b) => a + b.count, 0) +
+            (item.guildBanks?.reduce((a, b) => a + b.count, 0) || 0) +
+            (item.warbank?.reduce((a, b) => a + b.count, 0) || 0);
+
+        return ret;
+    }
 </script>
 
 {#each response as item}
-    {@const itemCount = item.characters.reduce((a, b) => a + b.count, 0) + 
-        item.guildBanks.reduce((a, b) => a + b.count, 0)}
+    {@const { characterItems, itemCount } = getCombinedItems(item)}
     <table class="table table-striped search-table">
         <thead>
             <tr class="item-row">
@@ -34,7 +55,7 @@
         </thead>
 
         <tbody>
-            {#each (item.characters || []) as characterItem}
+            {#each characterItems as characterItem}
                 <Row
                     itemId={item.itemId}
                     {characterItem}
@@ -45,6 +66,13 @@
                 <Row
                     itemId={item.itemId}
                     {guildBankItem}
+                />
+            {/each}
+
+            {#each (item.warbank || []) as warbankItem}
+                <Row
+                    itemId={item.itemId}
+                    {warbankItem}
                 />
             {/each}
         </tbody>

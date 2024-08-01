@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731155645_Rename_ItemContainers")]
+    partial class Rename_ItemContainers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1567,84 +1570,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_guild_item", (string)null);
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerWarbankItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<List<short>>("BonusIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("bonus_ids");
-
-                    b.Property<short>("ContainerId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("container_id");
-
-                    b.Property<short>("Context")
-                        .HasColumnType("smallint")
-                        .HasColumnName("context");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("integer")
-                        .HasColumnName("count");
-
-                    b.Property<short>("CraftedQuality")
-                        .HasColumnType("smallint")
-                        .HasColumnName("crafted_quality");
-
-                    b.Property<short>("EnchantId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("enchant_id");
-
-                    b.Property<List<int>>("Gems")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("gems");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id");
-
-                    b.Property<short>("ItemLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("item_level");
-
-                    b.Property<Dictionary<int, int>>("Modifiers")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("modifiers");
-
-                    b.Property<short>("Quality")
-                        .HasColumnType("smallint")
-                        .HasColumnName("quality");
-
-                    b.Property<int>("Region")
-                        .HasColumnType("integer")
-                        .HasColumnName("region");
-
-                    b.Property<short>("Slot")
-                        .HasColumnType("smallint")
-                        .HasColumnName("slot");
-
-                    b.Property<short>("SuffixId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("suffix_id");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_player_warbank_item");
-
-                    b.HasIndex("UserId", "ItemId")
-                        .HasDatabaseName("ix_player_warbank_item_user_id_item_id");
-
-                    b.ToTable("player_warbank_item", (string)null);
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Query.AccountTransmogQuery", b =>
                 {
                     b.Property<List<int>>("IllusionIds")
@@ -2209,22 +2134,6 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_user_leaderboard_snapshot_user_id_date");
 
                     b.ToTable("user_leaderboard_snapshot", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserMetadata", b =>
-                {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.Property<DateTimeOffset>("WarbankUpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("warbank_updated_at");
-
-                    b.HasKey("UserId")
-                        .HasName("pk_user_metadata");
-
-                    b.ToTable("user_metadata", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.WorldQuestAggregate", b =>
@@ -3727,18 +3636,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Guild");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerWarbankItem", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_player_warbank_item_application_user_user_id");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
@@ -3804,18 +3701,6 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_leaderboard_snapshot_application_user_user_id");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserMetadata", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_metadata_application_user_user_id");
 
                     b.Navigation("User");
                 });
