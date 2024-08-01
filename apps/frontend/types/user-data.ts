@@ -10,6 +10,7 @@ import type { Guild, GuildArray } from './guild';
 import type { HasNameAndRealm, UserItem } from './shared';
 import type { UserCount } from './user-count';
 import type { ItemQuality } from '@/enums/item-quality';
+import type { WarbankItem, WarbankItemArray } from './items/warbank';
 
 export interface UserData {
     lastApiCheck: string;
@@ -22,6 +23,7 @@ export interface UserData {
     heirlooms: Record<number, number>;
     illusionIds: number[];
     raiderIoScoreTiers: Record<number, UserDataRaiderIoScoreTiers>;
+    warbankItems: WarbankItem[];
 
     honorCurrent: number;
     honorLevel: number;
@@ -39,6 +41,7 @@ export interface UserData {
     petsRaw: Record<number, UserDataPetArray[]>;
     rawAppearanceIds: number[];
     rawAppearanceSources: Record<number, number[]>;
+    rawWarbankItems: WarbankItemArray[];
 
     // Calculated
     allLockouts: InstanceDifficulty[];

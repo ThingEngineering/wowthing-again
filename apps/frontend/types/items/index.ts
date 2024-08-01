@@ -1,1 +1,2 @@
-export * from './search'
+export * from './search';
+export * from './warbank';

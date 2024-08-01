@@ -38,6 +38,7 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, UserItem } from '@/types/shared';
+import { WarbankItem } from '@/types/items';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -133,6 +134,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             const guild = new Guild(...guildArray);
             userData.guildMap[guild.id] = guild;
         }
+        userData.guildsRaw = null;
+
+        // Warbanks
+        userData.warbankItems = [];
+        for (const warbankItemArray of userData.rawWarbankItems || []) {
+            const warbankItem = new WarbankItem(...warbankItemArray);
+            userData.warbankItems.push(warbankItem);
+        }
+        userData.rawWarbankItems = null;
 
         // Temporary until static data loads
         userData.allRegions = [1, 2, 3, 4];
