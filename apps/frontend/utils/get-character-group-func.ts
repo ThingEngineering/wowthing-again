@@ -23,8 +23,6 @@ export function getCharacterGroupContext(
     const sortBy = viewSortBy || settingsData.views[0].sortBy || [];
     const minusFaction = sortBy.indexOf('-faction') >= 0;
 
-    console.log(groupBy);
-
     return {
         groupBy,
         sortBy,
