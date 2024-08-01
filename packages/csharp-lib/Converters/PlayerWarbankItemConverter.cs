@@ -13,6 +13,8 @@ public class PlayerWarbankItemConverter : JsonConverter<PlayerWarbankItem>
     {
         writer.WriteStartArray();
 
+        writer.WriteNumberValue((int)item.Region);
+
         JsonSerializer.Serialize(writer, item as BasePlayerItem, options);
 
         writer.WriteEndArray();

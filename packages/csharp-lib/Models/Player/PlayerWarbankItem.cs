@@ -16,6 +16,8 @@ public class PlayerWarbankItem : BasePlayerItem
     public long UserId { get; set; }
     public ApplicationUser User { get; set; }
 
+    public WowRegion Region { get; set; }
+
     // Can't be specified as NotMapped in the base class as there's no way to remove it
     [NotMapped]
     public override ItemLocation Location => ItemLocation.WarbandBank;

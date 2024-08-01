@@ -135,16 +135,16 @@ public class UserUploadJob : JobBase
         Logger.Information("{Timer}", _timer.ToString());
     }
 
-    public async Task Process(string luaData) {
+    private async Task Process(string luaData) {
         _instanceNameToIdMap = (await MemoryCacheService.GetJournalInstanceMap())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
         _realmMap = (await MemoryCacheService.GetRealmMap())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-        var trustedRole = await MemoryCacheService.GetTrustedRole();
+        long trustedRoleId = await MemoryCacheService.GetTrustedRole();
         bool hasTrustedRole = await Context.UserRoles
-            .Where(ur => ur.UserId == _userId && ur.RoleId == trustedRole)
+            .Where(ur => ur.UserId == _userId && ur.RoleId == trustedRoleId)
             .AnyAsync();
         if (hasTrustedRole)
         {
@@ -192,8 +192,8 @@ public class UserUploadJob : JobBase
 
         _timer.AddPoint("Load");
 
-        var json = LuaToJsonConverter4
-            .Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
+        string json = LuaToJsonConverter4.Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
+
         _timer.AddPoint("Convert");
 
 #if DEBUG
@@ -201,9 +201,10 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Write");
 #endif
 
-        //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
         var parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
+
+        WowRegion? accountRegion = null;
 
         // Create UserMetadata if it doesn't exist
         var userMetadata = await Context.UserMetadata.SingleOrDefaultAsync(meta => meta.UserId == _userId);
@@ -211,12 +212,6 @@ public class UserUploadJob : JobBase
         {
             userMetadata = new UserMetadata(_userId);
             Context.UserMetadata.Add(userMetadata);
-        }
-
-        // Deal with warbank data
-        if (parsed.Warbank?.Items != null)
-        {
-            await HandleWarbank(userMetadata, parsed.Warbank);
         }
 
         // Fetch guild data
@@ -234,6 +229,8 @@ public class UserUploadJob : JobBase
             {
                 continue;
             }
+
+            accountRegion ??= realm.Region;
 
             if (!guildMap.TryGetValue((realm.Id, guildName), out var guild))
             {
@@ -315,6 +312,8 @@ public class UserUploadJob : JobBase
                 //Logger.Warning("Invalid character: {AddonId}", addonId);
                 continue;
             }
+
+            accountRegion ??= realm.Region;
 
             // Create any related objects now
             bool saveNow = false;
@@ -564,7 +563,16 @@ public class UserUploadJob : JobBase
             }
 
         }
+
         _timer.AddPoint("Account");
+
+        // Deal with warbank data last, we need to know the region
+        if (accountRegion != null && parsed.Warbank?.Items != null)
+        {
+            await HandleWarbank(accountRegion.Value, userMetadata, parsed.Warbank);
+        }
+
+        _timer.AddPoint("Warbank");
 
 #if DEBUG
         //Context.ChangeTracker.DetectChanges();
@@ -1185,7 +1193,7 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private async Task HandleWarbank(UserMetadata userMetadata, UploadWarbank warbankData)
+    private async Task HandleWarbank(WowRegion accountRegion, UserMetadata userMetadata, UploadWarbank warbankData)
     {
         var scannedAt = warbankData.ScannedAt.AsUtcDateTime();
         if (scannedAt <= userMetadata.WarbankUpdatedAt)
@@ -1223,6 +1231,7 @@ public class UserUploadJob : JobBase
                     item = new PlayerWarbankItem
                     {
                         UserId = _userId,
+                        Region = accountRegion,
                         ContainerId = tabId,
                         Slot = slot,
                     };
