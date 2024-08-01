@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player;
 
 [Index(nameof(UserId), nameof(ItemId))]
+[JsonConverter(typeof(PlayerWarbankItemConverter))]
 public class PlayerWarbankItem : BasePlayerItem
 {
     [Key]

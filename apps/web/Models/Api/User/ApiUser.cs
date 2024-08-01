@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Global;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Web.Models.Api.User;
@@ -30,6 +31,7 @@ public class ApiUser
     public Dictionary<int, int> Heirlooms { get; set; }
     public Dictionary<string, string> Images { get; set; }
     public Dictionary<int, RedisRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
+    public PlayerWarbankItem[] RawWarbankItems { get; set; }
 
     public Dictionary<int, List<UserPetDataPet>> PetsRaw { get; set; }
 

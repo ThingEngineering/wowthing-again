@@ -228,6 +228,16 @@ public class ApiController : Controller
 
         timer.AddPoint("Accounts");
 
+        PlayerWarbankItem[] warbankItems = [];
+        if (!apiResult.Public)
+        {
+            warbankItems = await _context.PlayerWarbankItem
+                .Where(item => item.UserId == apiResult.User.Id)
+                .ToArrayAsync();
+        }
+
+        timer.AddPoint("Warbank");
+
         var guilds = await _context.PlayerGuild
             .Where(pg => pg.UserId == apiResult.User.Id)
             .ToArrayAsync();
@@ -303,7 +313,7 @@ public class ApiController : Controller
         if (apiResult.Public)
         {
             itemQuery = itemQuery.Where(pci =>
-                pci.Slot == 0
+                pci.Slot == 0 // bag items
                 || Hardcoded.CurrencyItemIds.Contains(pci.ItemId)
                 || Hardcoded.ProgressItemIds.Contains(pci.ItemId)
             );
@@ -505,6 +515,8 @@ public class ApiController : Controller
             Images = images,
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
+
+            RawWarbankItems = warbankItems,
 
             PetsRaw = petObjects,
 

@@ -62,7 +62,7 @@ public class PlayerCharacterItemConverter : JsonConverter<PlayerCharacterItem>
 
         writer.WriteNumberValue((int)item.Location);
 
-        options.GetTypedConverter<BasePlayerItem>().Write(writer, item, options);
+        JsonSerializer.Serialize(writer, item as BasePlayerItem, options);
 
         writer.WriteEndArray();
     }

@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player;
 
+[JsonConverter(typeof(BasePlayerItemConverter))]
 public abstract class BasePlayerItem
 {
     public int ItemId { get; set; }

@@ -15,7 +15,7 @@ public class PlayerGuildItemConverter : JsonConverter<PlayerGuildItem>
     {
         writer.WriteStartArray();
 
-        options.GetTypedConverter<BasePlayerItem>().Write(writer, item, options);
+        JsonSerializer.Serialize(writer, item as BasePlayerItem, options);
 
         writer.WriteEndArray();
     }
