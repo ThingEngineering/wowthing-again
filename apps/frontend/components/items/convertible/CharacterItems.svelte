@@ -7,6 +7,7 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { WarbankItem } from '@/types/items';
 
     export let data: LazyConvertibleCharacterItem[]
 </script>
@@ -34,12 +35,10 @@
     .sadness {
         color: #aaa;
     }
-    .item-level {
+    .icon-info {
         background-color: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius-small;
-        bottom: 4px;
-        //color: #ffffff;
         font-size: 0.9rem;
         line-height: 1;
         padding: 0 2px 1px 2px;
@@ -48,6 +47,13 @@
         left: 50%;
         transform: translateX(-50%);
         white-space: nowrap;
+    }
+    .warbank {
+        top: -4px;
+    }
+    .item-level {
+        bottom: 4px;
+        //color: #ffffff;
     }
     .icons-left, .icons-right {
         display: flex;
@@ -99,7 +105,11 @@
                     border={2}
                 />
                 
-                <span class="item-level">{slotData.equippedItem.itemLevel}</span>
+                {#if slotData.equippedItem instanceof WarbankItem}
+                    <span class="icon-info warbank">WB</span>
+                {/if}
+
+                <span class="icon-info item-level">{slotData.equippedItem.itemLevel}</span>
             </a>
 
             <span class="icons-right status-shrug drop-shadow">

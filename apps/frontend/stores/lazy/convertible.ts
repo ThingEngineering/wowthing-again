@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+
 import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data';
 import { classIdToArmorType, classOrder } from '@/data/character-class';
 import { InventoryType } from '@/enums/inventory-type';
@@ -11,10 +13,12 @@ import {
     type CharacterItem,
     type UserData,
 } from '@/types';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
-import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { fixedInventoryType } from '@/utils/fixed-inventory-type';
+import type { WarbankItem } from '@/types/items';
 
 interface LazyStores {
     itemData: ItemData;
@@ -30,7 +34,7 @@ export class LazyConvertibleCharacterItem {
     public isPurchased = false;
 
     constructor(
-        public equippedItem: CharacterEquippedItem | CharacterItem,
+        public equippedItem: CharacterEquippedItem | CharacterItem | WarbankItem,
         public currentTier: number,
         public currentUpgrade: number,
         public isConvertible: boolean,
@@ -60,7 +64,7 @@ export interface LazyConvertible {
 }
 
 type SeasonData = Record<number, Record<number, LazyConvertibleSlot>>;
-type WhateverItem = CharacterEquippedItem | CharacterItem;
+type WhateverItem = CharacterEquippedItem | CharacterItem | WarbankItem;
 
 export function doConvertible(stores: LazyStores): LazyConvertible {
     console.time('doConvertible');
@@ -71,6 +75,15 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
             PlayableClass[name as keyof typeof PlayableClass],
         ]),
     );
+
+    const warbankItems: [WarbankItem, ItemDataItem][] = (stores.userData.warbankItems || []).map(
+        (warbankItem) => [warbankItem, stores.itemData.items[warbankItem.itemId]],
+    );
+    const warbankByType = groupBy(
+        warbankItems.filter(([, item]) => item.inventoryType > 0),
+        ([, item]) => fixedInventoryType(item.inventoryType),
+    );
+    console.log(warbankByType);
 
     const itemCounts: Record<number, number> = {};
     const ret: LazyConvertible = {
@@ -89,10 +102,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
         for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id]) {
             const setItem = stores.itemData.items[setItemId];
             const classId = maskToClass[setItem.classMask];
-            const setItemInventoryType =
-                setItem.inventoryType === InventoryType.Chest2
-                    ? InventoryType.Chest
-                    : setItem.inventoryType;
+            const setItemInventoryType = fixedInventoryType(setItem.inventoryType);
 
             seasonData[classId] ||= {};
             const slotData = (seasonData[classId][setItemInventoryType] = new LazyConvertibleSlot(
@@ -109,7 +119,13 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     [
                         ...(char.itemsByLocation?.[ItemLocation.Bags] || []),
                         ...Object.values(char.equippedItems),
-                    ],
+                        ...(warbankByType[setItemInventoryType] || []).map(([wbi]) => wbi),
+                    ].filter(
+                        (item) =>
+                            ((stores.itemData.items[item.itemId]?.classMask || 0) &
+                                setItem.classMask) ===
+                            setItem.classMask,
+                    ),
                 ],
             );
 
@@ -146,10 +162,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         }
 
                         const item = stores.itemData.items[charItem.itemId];
-                        const charItemInventoryType =
-                            item.inventoryType === InventoryType.Chest2
-                                ? InventoryType.Chest
-                                : item.inventoryType;
+                        const charItemInventoryType = fixedInventoryType(item.inventoryType);
                         if (charItemInventoryType !== setItemInventoryType) {
                             continue;
                         }
