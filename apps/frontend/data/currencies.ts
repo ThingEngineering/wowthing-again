@@ -1,6 +1,7 @@
 import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 
 export const categoryOrder: number[] = [
+    260, // War Within
     250, // Dragonflight
     245, // Shadowlands
     143, // Battle for Azeroth
