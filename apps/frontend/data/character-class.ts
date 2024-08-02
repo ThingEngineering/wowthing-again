@@ -1,5 +1,5 @@
 import { ArmorType } from '@/enums/armor-type';
-import { PlayableClass } from '@/enums/playable-class';
+import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { toIndexRecord } from '@/utils/to-index-record';
 
 export const characterClassBySlug: Record<string, PlayableClass> = {
@@ -37,7 +37,27 @@ export const classOrder: number[] = [
     PlayableClass.Warrior,
 ];
 
+export const classMaskOrder: number[] = [
+    PlayableClassMask.Mage,
+    PlayableClassMask.Priest,
+    PlayableClassMask.Warlock,
+
+    PlayableClassMask.DemonHunter,
+    PlayableClassMask.Druid,
+    PlayableClassMask.Monk,
+    PlayableClassMask.Rogue,
+
+    PlayableClassMask.Evoker,
+    PlayableClassMask.Hunter,
+    PlayableClassMask.Shaman,
+
+    PlayableClassMask.DeathKnight,
+    PlayableClassMask.Paladin,
+    PlayableClassMask.Warrior,
+];
+
 export const classOrderMap = toIndexRecord(classOrder);
+export const classMaskOrderMap = toIndexRecord(classMaskOrder);
 
 export const classByArmorType: Record<number, PlayableClass[]> = {
     [ArmorType.Cloth]: [PlayableClass.Mage, PlayableClass.Priest, PlayableClass.Warlock],

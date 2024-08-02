@@ -1,8 +1,10 @@
 import sortBy from 'lodash/sortBy';
 
+import { classMaskOrderMap } from '@/data/character-class';
 import { journalDifficultyMap } from '@/data/difficulty';
+import { slotOrderMap } from '@/data/inventory-slot';
 import { RewardType } from '@/enums/reward-type';
-import { playableClasses } from '@/enums/playable-class';
+import { playableClasses, PlayableClassMask } from '@/enums/playable-class';
 import { UserCount, type UserData } from '@/types';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
@@ -44,33 +46,23 @@ export function doJournal(stores: LazyStores): LazyJournal {
     const overallSeen = new Set<string>();
 
     for (const tier of stores.journalData.tiers.filter(
-        (tier) =>
-            tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids',
+        (tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids',
     )) {
         const tierStats = (ret.stats[tier.slug] = new UserCount());
         const tierSeen = new Set<string>();
 
-        const tierDungeonStats = (ret.stats[`dungeons--${tier.slug}`] =
-            new UserCount());
-        const tierRaidStats = (ret.stats[`raids--${tier.slug}`] =
-            new UserCount());
+        const tierDungeonStats = (ret.stats[`dungeons--${tier.slug}`] = new UserCount());
+        const tierRaidStats = (ret.stats[`raids--${tier.slug}`] = new UserCount());
 
-        for (const instance of tier.instances.filter(
-            (instance) => instance !== null,
-        )) {
-            const overallStats2 = instance.isRaid
-                ? overallRaidStats
-                : overallDungeonStats;
-            const tierStats2 = instance.isRaid
-                ? tierRaidStats
-                : tierDungeonStats;
+        for (const instance of tier.instances.filter((instance) => instance !== null)) {
+            const overallStats2 = instance.isRaid ? overallRaidStats : overallDungeonStats;
+            const tierStats2 = instance.isRaid ? tierRaidStats : tierDungeonStats;
 
             const instanceKey = `${tier.slug}--${instance.slug}`;
             const instanceStats = (ret.stats[instanceKey] = new UserCount());
             const instanceSeen = new Set<string>();
 
-            const instanceExpansion =
-                stores.staticData.instances[instance.id]?.expansion ?? 0;
+            const instanceExpansion = stores.staticData.instances[instance.id]?.expansion ?? 0;
 
             for (const encounter of instance.encounters) {
                 // Chi-Ji, The Red Crane -> The August Celestials
@@ -79,14 +71,10 @@ export function doJournal(stores: LazyStores): LazyJournal {
                 }
 
                 const encounterKey = `${instanceKey}--${encounter.name}`;
-                const encounterStats = (ret.stats[encounterKey] =
-                    new UserCount());
+                const encounterStats = (ret.stats[encounterKey] = new UserCount());
                 const encounterSeen = new Set<string>();
 
-                if (
-                    !stores.journalState.showTrash &&
-                    encounter.name === 'Trash Drops'
-                ) {
+                if (!stores.journalState.showTrash && encounter.name === 'Trash Drops') {
                     continue;
                 }
 
@@ -106,15 +94,11 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         const keepItems: JournalDataEncounterItem[] = [];
 
                         // Group items by appearanceId
-                        const appearanceMap: Record<
-                            number,
-                            JournalDataEncounterItem[]
-                        > = {};
+                        const appearanceMap: Record<number, JournalDataEncounterItem[]> = {};
                         for (const item of filteredItems) {
                             if (item.type === RewardType.Item) {
                                 for (const appearance of item.appearances) {
-                                    (appearanceMap[appearance.appearanceId] ||=
-                                        []).push(item);
+                                    (appearanceMap[appearance.appearanceId] ||= []).push(item);
                                 }
                             } else {
                                 keepItems.push(item);
@@ -122,19 +106,16 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         }
 
                         const usedItems = new Set<number>();
-                        for (const [
-                            appearanceIdStr,
-                            appearanceItems,
-                        ] of Object.entries(appearanceMap)) {
+                        for (const [appearanceIdStr, appearanceItems] of Object.entries(
+                            appearanceMap,
+                        )) {
                             const appearanceId = parseInt(appearanceIdStr);
 
                             const difficulties = new Set<number>();
                             let itemId = 0;
                             for (const item of appearanceItems) {
                                 for (const appearance of item.appearances) {
-                                    if (
-                                        appearance.appearanceId === appearanceId
-                                    ) {
+                                    if (appearance.appearanceId === appearanceId) {
                                         for (const difficulty of appearance.difficulties) {
                                             difficulties.add(difficulty);
                                         }
@@ -151,28 +132,19 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             const item = new JournalDataEncounterItem(
                                 appearanceItems[0].type,
                                 itemId || appearanceItems[0].id,
-                                Math.max(
-                                    ...appearanceItems.map(
-                                        (item) => item.quality,
-                                    ),
-                                ),
+                                Math.max(...appearanceItems.map((item) => item.quality)),
                                 appearanceItems[0].classId,
                                 appearanceItems[0].subclassId,
-                                appearanceItems.reduce(
-                                    (a, b) => a | b.classMask,
-                                    0,
-                                ),
+                                appearanceItems.reduce((a, b) => a | b.classMask, 0),
                                 [
                                     [
                                         appearanceId,
                                         appearanceItems[0].appearances.filter(
-                                            (a) =>
-                                                a.appearanceId === appearanceId,
+                                            (a) => a.appearanceId === appearanceId,
                                         )[0].modifierId,
                                         sortBy(
                                             Array.from(difficulties.values()),
-                                            (diff) =>
-                                                journalDifficultyMap[diff],
+                                            (diff) => journalDifficultyMap[diff],
                                         ),
                                     ],
                                 ],
@@ -189,11 +161,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             groupItemIndex++
                         ) {
                             const groupItem = group.items[groupItemIndex];
-                            groupIndices[groupItem.id] ||= leftPad(
-                                groupItemIndex,
-                                3,
-                                '0',
-                            );
+                            groupIndices[groupItem.id] ||= leftPad(groupItemIndex, 3, '0');
                         }
 
                         filteredItems =
@@ -215,17 +183,12 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             if (item.type === RewardType.Item) {
                                 // Check for source first, we're done if they have it
                                 appearanceKey = `${item.id}_${appearance.modifierId}`;
-                                appearance.userHas =
-                                    stores.userData.hasSource.has(
-                                        appearanceKey,
-                                    );
+                                appearance.userHas = stores.userData.hasSource.has(appearanceKey);
 
                                 if (
                                     !masochist &&
                                     !appearance.userHas &&
-                                    stores.userData.hasAppearance.has(
-                                        appearance.appearanceId,
-                                    )
+                                    stores.userData.hasAppearance.has(appearance.appearanceId)
                                 ) {
                                     // Make sure that the class mask of this item is actually collected
                                     appearance.userHas =
@@ -236,8 +199,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                             item.classMask) ===
                                             item.classMask;
 
-                                    appearanceKey =
-                                        appearance.appearanceId.toString();
+                                    appearanceKey = appearance.appearanceId.toString();
                                 }
                             } else {
                                 appearanceKey = `z-${item.type}-${item.id}`;
@@ -248,18 +210,13 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                             item.appearances[0].appearanceId
                                         ].enchantmentId;
                                     appearance.userHas =
-                                        stores.userData.hasIllusion.has(
-                                            enchantmentId,
-                                        );
+                                        stores.userData.hasIllusion.has(enchantmentId);
                                 } else if (item.type === RewardType.Mount) {
-                                    appearance.userHas =
-                                        stores.userData.hasMount[item.classId];
+                                    appearance.userHas = stores.userData.hasMount[item.classId];
                                 } else if (item.type === RewardType.Pet) {
-                                    appearance.userHas =
-                                        stores.userData.hasPet[item.classId];
+                                    appearance.userHas = stores.userData.hasPet[item.classId];
                                 } else if (item.type === RewardType.Toy) {
-                                    appearance.userHas =
-                                        stores.userData.hasToy[item.id];
+                                    appearance.userHas = stores.userData.hasToy[item.id];
                                 }
                             }
 
@@ -267,13 +224,10 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 allCollected = false;
                             }
 
-                            const overallSeenHas =
-                                overallSeen.has(appearanceKey);
+                            const overallSeenHas = overallSeen.has(appearanceKey);
                             const tierSeenHas = tierSeen.has(appearanceKey);
-                            const instanceSeenHas =
-                                instanceSeen.has(appearanceKey);
-                            const encounterSeenHas =
-                                encounterSeen.has(appearanceKey);
+                            const instanceSeenHas = instanceSeen.has(appearanceKey);
+                            const encounterSeenHas = encounterSeen.has(appearanceKey);
                             const groupSeenHas = groupSeen.has(appearanceKey);
 
                             if (!overallSeenHas) {
@@ -351,37 +305,75 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         }
 
                         if (!allCollected) {
-                            for (const [
-                                className,
-                                classMask,
-                            ] of playableClasses) {
-                                if (
-                                    item.classMask === 0 ||
-                                    (item.classMask & classMask) > 0
-                                ) {
+                            for (const [className, classMask] of playableClasses) {
+                                if (item.classMask === 0 || (item.classMask & classMask) > 0) {
                                     const classInstanceKey = `${instanceKey}--class:${className}`;
-                                    const classInstanceStats = (ret.stats[
-                                        classInstanceKey
-                                    ] ||= new UserCount());
+                                    const classInstanceStats = (ret.stats[classInstanceKey] ||=
+                                        new UserCount());
                                     classInstanceStats.total++;
 
                                     const classEncounterKey = `${instanceKey}--${encounter.name}--class:${className}`;
-                                    const classEncounterStats = (ret.stats[
-                                        classEncounterKey
-                                    ] ||= new UserCount());
+                                    const classEncounterStats = (ret.stats[classEncounterKey] ||=
+                                        new UserCount());
                                     classEncounterStats.total++;
                                 }
                             }
                         }
 
                         if (
-                            (stores.journalState.showUncollected &&
-                                !allCollected) ||
+                            (stores.journalState.showUncollected && !allCollected) ||
                             (stores.journalState.showCollected && allCollected)
                         ) {
                             item.show = true;
                         }
                     } // item of filteredItems
+
+                    filteredItems.sort((a, b) => {
+                        // If the final class mask is exactly one character, sort those last
+                        const aClassSpecific = a.classMask in PlayableClassMask;
+                        const bClassSpecific = b.classMask in PlayableClassMask;
+                        if (aClassSpecific && !bClassSpecific) {
+                            return 1;
+                        } else if (!aClassSpecific && bClassSpecific) {
+                            return -1;
+                        } else if (aClassSpecific && bClassSpecific) {
+                            const diff =
+                                classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
+                            if (diff !== 0) {
+                                return diff;
+                            }
+                        }
+
+                        // Sort by item slot
+                        const aItem = stores.itemData.items[a.id];
+                        const bItem = stores.itemData.items[b.id];
+                        const aSlotOrder = slotOrderMap[aItem.inventoryType] || 999;
+                        const bSlotOrder = slotOrderMap[bItem.inventoryType] || 999;
+                        if (aSlotOrder !== bSlotOrder) {
+                            return aSlotOrder - bSlotOrder;
+                        }
+
+                        // Sort by faction
+                        const aFaction = aItem.allianceOnly ? 1 : aItem.hordeOnly ? 2 : 0;
+                        const bFaction = bItem.allianceOnly ? 1 : bItem.hordeOnly ? 2 : 0;
+                        if (aFaction != bFaction) {
+                            return aFaction - bFaction;
+                        }
+
+                        // Sort by the difficulty if exactly one appearance
+                        if (a.appearances?.length === 1 && b.appearances?.length === 1) {
+                            const aDiffs = a.appearances[0].difficulties;
+                            const bDiffs = b.appearances[0].difficulties;
+
+                            if (aDiffs.length === 1 && bDiffs.length === 1) {
+                                const aValue = uhh[aDiffs[0]] || 999;
+                                const bValue = uhh[bDiffs[0]] || 999;
+                                return aValue - bValue;
+                            }
+                        }
+
+                        return 0;
+                    });
 
                     ret.filteredItems[groupKey] = filteredItems;
                     //group.filteredItems = filteredItems
@@ -394,3 +386,10 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
     return ret;
 }
+
+const uhh: Record<number, number> = {
+    3: 1,
+    5: 2,
+    4: 3,
+    6: 4,
+};

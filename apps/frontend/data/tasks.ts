@@ -349,15 +349,24 @@ export const multiTaskMap: Record<string, Chore[]> = {
     radiantEchoes: [
         {
             minimumLevel: 10,
+            noProgress: true,
+            taskKey: 'radiantFirstKill',
+            taskName: 'First boss kill',
+        },
+        {
+            accountWide: true,
+            minimumLevel: 10,
             taskKey: 'radiantDragonblight',
             taskName: 'Dragonblight',
         },
         {
+            accountWide: true,
             minimumLevel: 10,
             taskKey: 'radiantDustwallow',
             taskName: 'Dustwallow Marsh',
         },
         {
+            accountWide: true,
             minimumLevel: 10,
             taskKey: 'radiantSearing',
             taskName: 'Searing Gorge',

@@ -1,6 +1,5 @@
-import { InventorySlot } from '@/enums/inventory-slot'
-import type { Character } from '@/types'
-
+import { InventorySlot } from '@/enums/inventory-slot';
+import type { Character } from '@/types';
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,
@@ -19,22 +18,26 @@ export const slotOrder: InventorySlot[] = [
     InventorySlot.Ring2,
     InventorySlot.Trinket1,
     InventorySlot.Trinket2,
-]
+];
 
-export const heirloomSlots: Record<number, boolean> = Object.fromEntries([
-    [InventorySlot.Head],
-    [InventorySlot.Neck],
-    [InventorySlot.Shoulders],
-    [InventorySlot.Back],
-    [InventorySlot.Chest],
-    [InventorySlot.Legs],
-    [InventorySlot.Ring1],
-    [InventorySlot.Ring2],
-    [InventorySlot.Trinket1],
-    [InventorySlot.Trinket2],
-    [InventorySlot.MainHand],
-    [InventorySlot.OffHand],
-].map(n => [n, true]))
+export const slotOrderMap = Object.fromEntries(slotOrder.map((slot, index) => [slot, index]));
+
+export const heirloomSlots: Record<number, boolean> = Object.fromEntries(
+    [
+        [InventorySlot.Head],
+        [InventorySlot.Neck],
+        [InventorySlot.Shoulders],
+        [InventorySlot.Back],
+        [InventorySlot.Chest],
+        [InventorySlot.Legs],
+        [InventorySlot.Ring1],
+        [InventorySlot.Ring2],
+        [InventorySlot.Trinket1],
+        [InventorySlot.Trinket2],
+        [InventorySlot.MainHand],
+        [InventorySlot.OffHand],
+    ].map((n) => [n, true]),
+);
 
 export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
@@ -92,7 +95,7 @@ export const validEnchants: Record<number, number[]> = {
         6562, // Mastery 3
         6568, // Versatility 3
     ],
-}
+};
 
 export const specialValidEnchants: Record<number, SpecialValidEnchant> = {
     // FIXME
@@ -119,11 +122,11 @@ export const specialValidEnchants: Record<number, SpecialValidEnchant> = {
         checkFunc: (character: Character) =>
             specializationMap[character.activeSpecId]?.mainStat === PrimaryStat.Agility
     },*/
-}
+};
 
 interface SpecialValidEnchant {
-    enchants: number[]
-    checkFunc: (character: Character) => boolean
+    enchants: number[];
+    checkFunc: (character: Character) => boolean;
 }
 
 export const gemBonusIds: number[] = [
@@ -134,7 +137,7 @@ export const gemBonusIds: number[] = [
     8780, // DF +1 item
     8781, // DF +2 item
     8782, // DF +3 item
-]
+];
 
 export const characterBagSlots: number[] = [
     1,
@@ -142,14 +145,6 @@ export const characterBagSlots: number[] = [
     3,
     4,
     5, // Reagent bag
-]
+];
 
-export const bankBagSlots: number[] = [
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-]
+export const bankBagSlots: number[] = [6, 7, 8, 9, 10, 11, 12];

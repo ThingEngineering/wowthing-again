@@ -9,6 +9,7 @@
 
     import Encounter from './JournalEncounter.svelte'
     import EncounterStats from './JournalEncounterStats.svelte'
+    import Lockouts from './Lockouts.svelte';
     import Options from './JournalOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
 
@@ -84,6 +85,10 @@
                         statsKey={slugKey}
                     />
                 </SectionTitle>
+
+                {#if $journalState.showLockouts}
+                    <Lockouts {instance} />
+                {/if}
 
                 {#each instance.encounters as encounter}
                     {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}

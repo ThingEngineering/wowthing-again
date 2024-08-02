@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy';
 import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
@@ -284,11 +285,23 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         choreTask.taskKey = choreTask.taskKey.slice(0, -5);
                     }
 
-                    const charTask = new LazyCharacterChoreTask(
-                        stores.userQuestData.characters[character.id]?.progressQuests?.[
-                            choreTask.taskKey
-                        ],
-                    );
+                    let charTask: LazyCharacterChoreTask;
+                    if (choreTask.accountWide) {
+                        charTask = new LazyCharacterChoreTask(
+                            sortBy(
+                                Object.values(stores.userQuestData.characters).filter(
+                                    (char) => char.progressQuests?.[choreTask.taskKey],
+                                ),
+                                (char) => char.scannedAt,
+                            ).at(-1)?.progressQuests?.[choreTask.taskKey],
+                        );
+                    } else {
+                        charTask = new LazyCharacterChoreTask(
+                            stores.userQuestData.characters[character.id]?.progressQuests?.[
+                                choreTask.taskKey
+                            ],
+                        );
+                    }
 
                     if (
                         disabledChores.indexOf(choreTask.taskKey) >= 0 &&
