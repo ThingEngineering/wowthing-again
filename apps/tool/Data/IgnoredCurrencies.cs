@@ -43,5 +43,13 @@ public static partial class Hardcoded
         // Dragonflight
         2134, // Cobalt Assembly
         2105, // Purified Arcane Energy
+
+        // DF category but seem like TWW?
+        2592, // 11.0 Delves - Reputation Score
+        2591, // 11.0 Delves - Score Inside
+        2531, // zzOLD Delving Gems
+
+        // The War Within
+        2839, // [DNT] Awakening Currency
     };
 }
