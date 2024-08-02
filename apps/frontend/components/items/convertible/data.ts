@@ -64,6 +64,23 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 itemLevel: 480,
             },
         ],
+        purchases: [
+            {
+                costId: 3089, // Residual Memories
+                costAmount: {
+                    [InventoryType.Head]: 5000,
+                    [InventoryType.Shoulders]: 3500,
+                    [InventoryType.Back]: 2000,
+                    [InventoryType.Chest]: 5000,
+                    [InventoryType.Wrist]: 2000,
+                    [InventoryType.Hands]: 3500,
+                    [InventoryType.Waist]: 3500,
+                    [InventoryType.Legs]: 5000,
+                    [InventoryType.Feet]: 3500,
+                },
+                upgradeTier: 1,
+            },
+        ],
     },
     {
         id: 7,
