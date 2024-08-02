@@ -15,6 +15,7 @@ export type Task = {
 };
 
 export type Chore = {
+    accountWide?: boolean;
     noProgress?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
