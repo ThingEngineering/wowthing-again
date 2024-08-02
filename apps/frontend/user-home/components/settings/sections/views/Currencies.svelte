@@ -17,8 +17,9 @@
     let currencyFilter: string
 
     const categoryPrefix: Record<number, string> = {
-        250: '[DF]',
-        245: '[SL]',
+        260: '[TWW]', // The War Within
+        250: '[DF]', // Dragonflight
+        245: '[SL]', // Shadowlands
         143: '[BfA]', // Battle for Azeroth
         141: '[Leg]', // Legion
         137: '[WoD]', // Warlords of Draenor
