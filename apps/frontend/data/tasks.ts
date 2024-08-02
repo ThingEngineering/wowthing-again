@@ -349,6 +349,11 @@ export const multiTaskMap: Record<string, Chore[]> = {
     radiantEchoes: [
         {
             minimumLevel: 10,
+            taskKey: 'radiantFirstKill',
+            taskName: 'First boss kill',
+        },
+        {
+            minimumLevel: 10,
             taskKey: 'radiantDragonblight',
             taskName: 'Dragonblight',
         },
