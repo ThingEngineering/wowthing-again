@@ -189,6 +189,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, staticData, character);
 
+            character.hidden = settingsData.characters.hiddenCharacters?.includes(character.id);
+            character.ignored =
+                (character.hidden ||
+                    settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
+
             for (const key of Object.keys(character.lockouts || {})) {
                 (allLockouts[key] ||= []).push(character);
             }
