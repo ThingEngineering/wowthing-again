@@ -47,6 +47,9 @@ import type { ItemData } from '../data/item';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
+    public hidden: boolean;
+    public ignored: boolean;
+
     public account: Account;
     public guild: Guild;
     public realm: StaticDataRealm;
