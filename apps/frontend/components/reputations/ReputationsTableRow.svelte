@@ -30,6 +30,8 @@
         characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
         dataRep = $staticStore.reputations[characterRep.reputationId]
 
+        if (!dataRep) { break $ }
+
         const actualCharacter = !dataRep.accountWide
             ? character
             : orderBy(
