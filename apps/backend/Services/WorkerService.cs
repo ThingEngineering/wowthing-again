@@ -99,10 +99,13 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, cancellationToken);
             }
 
-            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+            // Something is crashing workers, the outer try/catch is to work out what on earth is going on
+            try
+            {
+                await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            var queuedJobs = await context.QueuedJob
-                .FromSql($@"
+                var queuedJobs = await context.QueuedJob
+                    .FromSql($@"
 WITH job_ids AS (
     SELECT  id
     FROM    queued_job
@@ -118,68 +121,73 @@ WHERE   id = ANY(SELECT id FROM job_ids)
         AND started_at IS NULL
 RETURNING *
 ")
-                .ToArrayAsync(cancellationToken);
+                    .ToArrayAsync(cancellationToken);
 
-            if (queuedJobs.Length == 0)
-            {
-                backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
-                await Task.Delay(backoffDelay, cancellationToken);
-                continue;
-            }
-
-            backoffDelay = InitialBackoff;
-            var queuedJob = queuedJobs[0];
-
-            string jobTypeName = queuedJob.Type.ToString();
-            Type classType = JobTypeMap[jobTypeName];
-            using var jobTokenSource = new CancellationTokenSource();
-            using (LogContext.PushProperty("Task", jobTypeName))
-            {
-                JobBase job = null;
-
-                try
+                if (queuedJobs.Length == 0)
                 {
-                    string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
-
-                    job = _jobFactory.Create(classType, _contextFactory, jobTokenSource.Token);
-                    job.Setup(data);
-                    await job.Run(data);
-
-                    await context.QueuedJob
-                        .Where(qj => qj.Id == queuedJob.Id)
-                        .ExecuteDeleteAsync(jobTokenSource.Token);
+                    backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
+                    await Task.Delay(backoffDelay, cancellationToken);
+                    continue;
                 }
-                catch (Exception ex)
-                {
-                    _logger.Error(ex, "Job failed");
 
-                    if (queuedJob.Failures >= 2)
+                backoffDelay = InitialBackoff;
+                var queuedJob = queuedJobs[0];
+
+                string jobTypeName = queuedJob.Type.ToString();
+                Type classType = JobTypeMap[jobTypeName];
+                using var jobTokenSource = new CancellationTokenSource();
+                using (LogContext.PushProperty("Task", jobTypeName))
+                {
+                    JobBase job = null;
+
+                    try
                     {
+                        string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
+
+                        job = _jobFactory.Create(classType, _contextFactory, jobTokenSource.Token);
+                        job.Setup(data);
+                        await job.Run(data);
+
                         await context.QueuedJob
                             .Where(qj => qj.Id == queuedJob.Id)
                             .ExecuteDeleteAsync(jobTokenSource.Token);
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        await context.QueuedJob
-                            .Where(qj => qj.Id == queuedJob.Id)
-                            .ExecuteUpdateAsync(
-                                setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
-                                cancellationToken: jobTokenSource.Token
-                            );
+                        _logger.Error(ex, "Job failed");
+
+                        if (queuedJob.Failures >= 2)
+                        {
+                            await context.QueuedJob
+                                .Where(qj => qj.Id == queuedJob.Id)
+                                .ExecuteDeleteAsync(jobTokenSource.Token);
+                        }
+                        else
+                        {
+                            await context.QueuedJob
+                                .Where(qj => qj.Id == queuedJob.Id)
+                                .ExecuteUpdateAsync(
+                                    setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
+                                    cancellationToken: jobTokenSource.Token
+                                );
+                        }
                     }
-                }
-                finally
-                {
-                    if (job != null)
+                    finally
                     {
-                        await job.Finally();
-                        job.Dispose();
+                        if (job != null)
+                        {
+                            await job.Finally();
+                            job.Dispose();
+                        }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "WORKER FAILED THIS IS BAD");
+            }
         }
 
-        _logger.Warning("Service stopping!");
+        _logger.Warning("Service stopping?!");
     }
 }
