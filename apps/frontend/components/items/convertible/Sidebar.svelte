@@ -10,6 +10,7 @@
 
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
     import SubSidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import type { LazyConvertible } from '@/stores/lazy/convertible';
 
     const children = [
         ...classOrder.map((classId) => {
@@ -41,19 +42,19 @@
     ]
     const categories = convertibleCategories.map((cc) => ({ ...cc, children }))
 
-    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]): number {
+    const percentFunc = function(lazyConvertible: LazyConvertible, entry: SidebarItem, parentEntries?: SidebarItem[]): number {
         const seasonId = parentEntries[0]?.id || entry.id
 
         if (parentEntries.length > 0) {
             if (entry.name.includes(':class')) {
-                return $lazyStore.convertible.stats[`${seasonId}--c${entry.id}`].percent
+                return lazyConvertible.stats[`${seasonId}--c${entry.id}`].percent
             }
             else {
-                return $lazyStore.convertible.stats[`${seasonId}--m${entry.id}`].percent
+                return lazyConvertible.stats[`${seasonId}--m${entry.id}`].percent
             }
         }
         else {
-            return $lazyStore.convertible.stats[`${seasonId}`].percent
+            return lazyConvertible.stats[`${seasonId}`].percent
         }
     }
 </script>
@@ -64,7 +65,7 @@
     noVisitRoot={true}
     scrollable={true}
     width={'15rem'}
-    {percentFunc}
+    percentFunc={(entry, parentEntries) => percentFunc($lazyStore.convertible, entry, parentEntries)}
 >
     <svelte:fragment slot="before">
         <Settings />
