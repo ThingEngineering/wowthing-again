@@ -274,6 +274,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
                     if (
+                        character.ignored ||
                         character.level < (choreTask.minimumLevel || Constants.characterMaxLevel) ||
                         character.level > (choreTask.maximumLevel || Constants.characterMaxLevel) ||
                         choreTask.couldGetFunc?.(character) === false
