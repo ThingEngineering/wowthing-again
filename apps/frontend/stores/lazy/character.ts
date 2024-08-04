@@ -261,8 +261,10 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             const task = taskMap[taskName];
             if (
                 !task ||
+                character.ignored ||
                 character.level < (task.minimumLevel || Constants.characterMaxLevel) ||
-                character.level > (task.maximumLevel || Constants.characterMaxLevel)
+                character.level > (task.maximumLevel || Constants.characterMaxLevel) ||
+                (character.isRemix && !taskName.includes('Remix'))
             ) {
                 continue;
             }
@@ -274,7 +276,6 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
                     if (
-                        character.ignored ||
                         character.level < (choreTask.minimumLevel || Constants.characterMaxLevel) ||
                         character.level > (choreTask.maximumLevel || Constants.characterMaxLevel) ||
                         choreTask.couldGetFunc?.(character) === false

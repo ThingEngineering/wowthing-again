@@ -223,6 +223,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasIndex(pg => new { pg.UserId, pg.RealmId, pg.Name })
             .IsUnique();
 
+        builder.Entity<QueuedJob>()
+            .HasIndex(job => new { job.Priority, job.Type, job.DataHash })
+            .IsUnique();
+
         builder.Entity<Team>()
             .HasIndex(t => new { t.Guid })
             .IsUnique();

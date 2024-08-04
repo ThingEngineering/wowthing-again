@@ -15,6 +15,8 @@ public class JobRepository(
 {
     private static readonly Dictionary<JobPriority, string> PriorityToStream;
 
+    private const string QueuedJobUniqueConstraint = "ix_queued_job_priority_type_data_hash";
+
     static JobRepository()
     {
         PriorityToStream = new();
@@ -28,13 +30,13 @@ public class JobRepository(
     {
         await using var context = await contextFactory.CreateDbContextAsync();
 
-        context.QueuedJob.Add(new QueuedJob
-        {
-            Priority = priority,
-            Type = type,
-            Data = JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions)
-        });
-        await context.SaveChangesAsync();
+        string json = JsonSerializer.Serialize(data.EmptyIfNull(), jsonSerializerOptions);
+        string jsonHash = json.Sha256();
+
+        await context.Database.ExecuteSqlInterpolatedAsync($@"
+INSERT INTO queued_job (priority, type, data, data_hash)
+VALUES ({priority}, {type}, {json}, {jsonHash})
+ON CONFLICT DO NOTHING");
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)

@@ -7,6 +7,7 @@ using Serilog.Context;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Services;
 using JsonSerializer = System.Text.Json.JsonSerializer;
@@ -99,31 +100,13 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, cancellationToken);
             }
 
+            using var jobTokenSource = new CancellationTokenSource();
+
             // Something is crashing workers, the outer try/catch is to work out what on earth is going on
             try
             {
-                await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
-
-                var queuedJobs = await context.QueuedJob
-                    .FromSql($@"
-WITH job_ids AS (
-    SELECT  id
-    FROM    queued_job
-    WHERE   priority = {(short)_priority}
-            AND started_at IS NULL
-    ORDER BY id
-    FOR UPDATE SKIP LOCKED
-    LIMIT 1
-)
-UPDATE  queued_job
-SET     started_at = CURRENT_TIMESTAMP
-WHERE   id = ANY(SELECT id FROM job_ids)
-        AND started_at IS NULL
-RETURNING *
-")
-                    .ToArrayAsync(cancellationToken);
-
-                if (queuedJobs.Length == 0)
+                var queuedJob = await GetQueuedJob(jobTokenSource.Token);
+                if (queuedJob == null)
                 {
                     backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
                     await Task.Delay(backoffDelay, cancellationToken);
@@ -131,11 +114,9 @@ RETURNING *
                 }
 
                 backoffDelay = InitialBackoff;
-                var queuedJob = queuedJobs[0];
 
                 string jobTypeName = queuedJob.Type.ToString();
                 Type classType = JobTypeMap[jobTypeName];
-                using var jobTokenSource = new CancellationTokenSource();
                 using (LogContext.PushProperty("Task", jobTypeName))
                 {
                     JobBase job = null;
@@ -148,6 +129,7 @@ RETURNING *
                         job.Setup(data);
                         await job.Run(data);
 
+                        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
                         await context.QueuedJob
                             .Where(qj => qj.Id == queuedJob.Id)
                             .ExecuteDeleteAsync(jobTokenSource.Token);
@@ -156,6 +138,7 @@ RETURNING *
                     {
                         _logger.Error(ex, "Job failed");
 
+                        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
                         if (queuedJob.Failures >= 2)
                         {
                             await context.QueuedJob
@@ -189,5 +172,37 @@ RETURNING *
         }
 
         _logger.Warning("Service stopping?!");
+    }
+
+    private async Task<QueuedJob> GetQueuedJob(CancellationToken cancellationToken)
+    {
+        try
+        {
+            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+            var queuedJobs = await context.QueuedJob
+                .FromSql($@"
+WITH job_ids AS (
+    SELECT  id
+    FROM    queued_job
+    WHERE   priority = {(short)_priority}
+            AND started_at IS NULL
+    ORDER BY id
+    FOR UPDATE SKIP LOCKED
+    LIMIT 1
+)
+UPDATE  queued_job
+SET     started_at = CURRENT_TIMESTAMP
+WHERE   id = ANY(SELECT id FROM job_ids)
+        AND started_at IS NULL
+RETURNING *
+")
+                .ToArrayAsync(cancellationToken);
+            return queuedJobs.FirstOrDefault();
+        }
+        catch
+        {
+            return null;
+        }
     }
 }
