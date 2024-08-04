@@ -13,7 +13,8 @@ import type { ItemData } from '@/types/data/item';
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
 
 // [hasAny, [hasItem, itemId, modifier, appearanceId]]
-export type TransmogSlotData = Record<number, [boolean, [boolean, number, number, number][]?]>;
+export type TransmogSlot = [boolean, number, number, number];
+export type TransmogSlotData = Record<number, [boolean, TransmogSlot[]?]>;
 
 export interface LazyTransmog {
     filteredCategories: ManualDataTransmogCategory[][];
