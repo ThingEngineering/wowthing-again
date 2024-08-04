@@ -116,6 +116,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
+                        let manualItems = false;
                         if (groupSigh.transmogSetId) {
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
 
@@ -159,6 +160,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             }
                         } else if (groupSigh.itemsV2.length > 0) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
+                            manualItems = true;
                         } else {
                             for (const appearanceIds of Object.values(groupSigh.items)) {
                                 for (const appearanceId of appearanceIds) {
@@ -186,9 +188,12 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     actualSlot = fixedInventoryType(item.inventoryType);
                                 }
 
+                                const appearanceId = item.appearances[modifier]?.appearanceId || 0;
                                 const hasSource =
                                     overrideHas ||
-                                    stores.userData.hasSource.has(`${itemId}_${modifier}`);
+                                    (manualItems && !completionistMode
+                                        ? stores.userData.hasAppearance.has(appearanceId)
+                                        : stores.userData.hasSource.has(`${itemId}_${modifier}`));
 
                                 slotData[actualSlot] ||= [false, []];
                                 slotData[actualSlot][0] ||= hasSource;
@@ -196,7 +201,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     hasSource,
                                     itemId,
                                     modifier,
-                                    item.appearances[modifier]?.appearanceId || 0,
+                                    appearanceId,
                                 ]);
                             }
 
