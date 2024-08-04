@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
@@ -10,7 +12,8 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
 
-export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>;
+// [hasAny, [hasItem, itemId, modifier, appearanceId]]
+export type TransmogSlotData = Record<number, [boolean, [boolean, number, number, number][]?]>;
 
 export interface LazyTransmog {
     filteredCategories: ManualDataTransmogCategory[][];
@@ -189,7 +192,12 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                                 slotData[actualSlot] ||= [false, []];
                                 slotData[actualSlot][0] ||= hasSource;
-                                slotData[actualSlot][1].push([hasSource, itemId, modifier]);
+                                slotData[actualSlot][1].push([
+                                    hasSource,
+                                    itemId,
+                                    modifier,
+                                    item.appearances[modifier]?.appearanceId || 0,
+                                ]);
                             }
 
                             if (completionistSets) {
@@ -235,9 +243,14 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     }
                                 }
                             } else {
-                                setDataStats.total = Object.values(slotData).length;
-                                setDataStats.have = Object.values(slotData).filter(
-                                    (has) => has[0] === true,
+                                const byAppearanceId = groupBy(
+                                    Object.values(slotData).flatMap(([, items]) => items),
+                                    (slot) => slot[3],
+                                );
+
+                                setDataStats.total = Object.keys(byAppearanceId).length;
+                                setDataStats.have = Object.values(byAppearanceId).filter((combos) =>
+                                    combos.some(([has]) => has),
                                 ).length;
 
                                 catStats.have += setDataStats.have;
@@ -327,7 +340,12 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             slotData[actualSlot] ||= [false, []];
 
             slotData[actualSlot][0] ||= hasSource;
-            slotData[actualSlot][1].push([hasSource, itemId, modifier]);
+            slotData[actualSlot][1].push([
+                hasSource,
+                itemId,
+                modifier,
+                item.appearances[modifier]?.appearanceId || 0,
+            ]);
         }
 
         if (completionistSets) {
