@@ -91,6 +91,7 @@
     .filters-toggle {
         margin-left: auto;
         margin-right: 0;
+        padding-left: 0.5rem;
  
         :global(svg) {
             margin-top: -4px;
@@ -217,6 +218,13 @@
                 name="show_pets"
                 bind:value={$vendorState.showPets}
             >Pets</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_recipes"
+                bind:value={$vendorState.showRecipes}
+            >Recipes</CheckboxInput>
         </button>
 
         <button>

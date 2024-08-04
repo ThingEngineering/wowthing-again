@@ -364,6 +364,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         (!stores.vendorState.showIllusions && lookupType === LookupType.Illusion) ||
                         (!stores.vendorState.showMounts && lookupType === LookupType.Mount) ||
                         (!stores.vendorState.showPets && lookupType === LookupType.Pet) ||
+                        (!stores.vendorState.showRecipes && lookupType === LookupType.Recipe) ||
                         (!stores.vendorState.showToys && lookupType === LookupType.Toy) ||
                         (item.type === RewardType.Armor &&
                             ((item.subType === 1 && !stores.vendorState.showCloth) ||

@@ -2,13 +2,13 @@ import { get } from 'svelte/store';
 
 import { Profession } from '@/enums/profession';
 import { staticStore } from '@/shared/stores/static';
+import { timeStore } from '@/shared/stores/time';
 import { userQuestStore, userStore } from '@/stores';
 import type { Character } from '@/types';
 import type { Chore, Task } from '@/types/tasks';
 
 import { Constants } from './constants';
 import { dragonflightProfessions, isGatheringProfession } from './professions';
-import { timeStore } from '@/shared/stores/time';
 
 export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
     .map((profession) => {
@@ -20,7 +20,7 @@ export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
             taskName: `${name}: Provide`,
             minimumLevel: 60,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-            canGetFunc: (char) => getLatestSkill(char, profession.id, 45),
+            canGetFunc: (char) => getExpansionSkill(char, profession.id, Constants.expansion, 45),
         });
 
         if (profession.hasTask === true) {
@@ -30,9 +30,10 @@ export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
-                    getLatestSkill(
+                    getExpansionSkill(
                         char,
                         profession.id,
+                        Constants.expansion,
                         isGatheringProfession[profession.id] ? 45 : 25,
                     ),
             });
@@ -52,7 +53,8 @@ export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
                 taskName: `${name}: Orders`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-                canGetFunc: (char) => getLatestSkill(char, profession.id, 25),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, profession.id, Constants.expansion, 25),
             });
         }
 
@@ -1072,13 +1074,16 @@ function isCurrentLastHurrah(char: Character, questId: number) {
     );
 }
 
-function getLatestSkill(char: Character, professionId: number, minSkill: number): string {
+function getExpansionSkill(
+    char: Character,
+    professionId: number,
+    expansion: number,
+    minSkill: number,
+): string {
     const staticData = get(staticStore);
-
-    const subProfessions = staticData.professions[professionId].subProfessions;
-    const skill =
-        char.professions[professionId][subProfessions[subProfessions.length - 1].id]
-            ?.currentSkill ?? 0;
+    const currentSubProfession =
+        staticData.professions[professionId].expansionSubProfession[expansion];
+    const skill = char.professions[professionId][currentSubProfession?.id]?.currentSkill ?? 0;
 
     return skill < minSkill ? `Need ${minSkill} skill` : '';
 }

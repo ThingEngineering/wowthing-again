@@ -86,9 +86,8 @@
 <svelte:window on:resize={debouncedResize} />
 
 <div class="resizer-view" bind:this={containerElement}>
+    <Options />
     <div bind:this={resizeableElement}>
-        <Options />
-
         {#if categories}
             <div class="collection thing-container" bind:this={resizeableElement}>
                 {#if firstCategory && !slug2}
