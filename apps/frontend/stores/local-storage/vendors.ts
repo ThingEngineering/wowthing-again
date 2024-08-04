@@ -18,6 +18,7 @@ export class VendorState {
     public showIllusions = true;
     public showMounts = true;
     public showPets = true;
+    public showRecipes = true;
     public showToys = true;
 
     public showPvp = true;

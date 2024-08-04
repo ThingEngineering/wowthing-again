@@ -221,6 +221,13 @@
 
         <button>
             <CheckboxInput
+                name="show_recipes"
+                bind:value={$vendorState.showRecipes}
+            >Recipes</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
                 name="show_toys"
                 bind:value={$vendorState.showToys}
             >Toys</CheckboxInput>
