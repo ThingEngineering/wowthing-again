@@ -2,6 +2,7 @@
     import { itemModifierMap } from '@/data/item-modifier';
     import { itemStore } from '@/stores';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
+    import type { TransmogSlot } from '@/stores/lazy/transmog';
     import type { ItemDataItem } from '@/types/data/item';
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
@@ -9,7 +10,7 @@
 
     export let dedupe: boolean = true
     // isCollected, itemId, modifier
-    export let items: [boolean, number, number][]
+    export let items: TransmogSlot[]
 
     let itemData: [boolean, ItemDataItem, number?][]
     $: {

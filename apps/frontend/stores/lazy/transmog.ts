@@ -1,3 +1,5 @@
+import groupBy from 'lodash/groupBy';
+
 import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
@@ -10,7 +12,9 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData, ManualDataTransmogCategory } from '@/types/data/manual';
 
-export type TransmogSlotData = Record<number, [boolean, [boolean, number, number][]?]>;
+// [hasAny, [hasItem, itemId, modifier, appearanceId]]
+export type TransmogSlot = [boolean, number, number, number];
+export type TransmogSlotData = Record<number, [boolean, TransmogSlot[]?]>;
 
 export interface LazyTransmog {
     filteredCategories: ManualDataTransmogCategory[][];
@@ -113,6 +117,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
+                        let manualItems = false;
                         if (groupSigh.transmogSetId) {
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
 
@@ -156,6 +161,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             }
                         } else if (groupSigh.itemsV2.length > 0) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
+                            manualItems = true;
                         } else {
                             for (const appearanceIds of Object.values(groupSigh.items)) {
                                 for (const appearanceId of appearanceIds) {
@@ -183,13 +189,21 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     actualSlot = fixedInventoryType(item.inventoryType);
                                 }
 
+                                const appearanceId = item.appearances[modifier]?.appearanceId || 0;
                                 const hasSource =
                                     overrideHas ||
-                                    stores.userData.hasSource.has(`${itemId}_${modifier}`);
+                                    (manualItems && !completionistMode
+                                        ? stores.userData.hasAppearance.has(appearanceId)
+                                        : stores.userData.hasSource.has(`${itemId}_${modifier}`));
 
                                 slotData[actualSlot] ||= [false, []];
                                 slotData[actualSlot][0] ||= hasSource;
-                                slotData[actualSlot][1].push([hasSource, itemId, modifier]);
+                                slotData[actualSlot][1].push([
+                                    hasSource,
+                                    itemId,
+                                    modifier,
+                                    appearanceId,
+                                ]);
                             }
 
                             if (completionistSets) {
@@ -235,9 +249,14 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     }
                                 }
                             } else {
-                                setDataStats.total = Object.values(slotData).length;
-                                setDataStats.have = Object.values(slotData).filter(
-                                    (has) => has[0] === true,
+                                const byAppearanceId = groupBy(
+                                    Object.values(slotData).flatMap(([, items]) => items),
+                                    (slot) => slot[3],
+                                );
+
+                                setDataStats.total = Object.keys(byAppearanceId).length;
+                                setDataStats.have = Object.values(byAppearanceId).filter((combos) =>
+                                    combos.some(([has]) => has),
                                 ).length;
 
                                 catStats.have += setDataStats.have;
@@ -327,7 +346,12 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             slotData[actualSlot] ||= [false, []];
 
             slotData[actualSlot][0] ||= hasSource;
-            slotData[actualSlot][1].push([hasSource, itemId, modifier]);
+            slotData[actualSlot][1].push([
+                hasSource,
+                itemId,
+                modifier,
+                item.appearances[modifier]?.appearanceId || 0,
+            ]);
         }
 
         if (completionistSets) {

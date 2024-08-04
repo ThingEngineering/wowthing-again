@@ -207,7 +207,7 @@ public class UserUploadJob : JobBase
         WowRegion? accountRegion = null;
 
         // Create UserMetadata if it doesn't exist
-        var userMetadata = await Context.UserMetadata.SingleOrDefaultAsync(meta => meta.UserId == _userId);
+        var userMetadata = await Context.UserMetadata.FindAsync(_userId);
         if (userMetadata == null)
         {
             userMetadata = new UserMetadata(_userId);
