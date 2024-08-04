@@ -10,4 +10,5 @@ public class QueuedJob
     public JobType Type { get; set; }
     public short Failures { get; set; } = 0;
     public string Data { get; set; }
+    public string DataHash { get; set; }
 }
