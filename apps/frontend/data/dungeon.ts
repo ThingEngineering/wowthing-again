@@ -19,6 +19,7 @@ export const dungeons: Dungeon[] = [
     // Cataclysm
     new Dungeon(438, 'The Vortex Pinnacle', 'VP', 'achievement/4847', 1800 / 60),
     new Dungeon(456, 'Throne of the Tides', 'ToT', 'achievement/4839', 2040 / 60),
+    new Dungeon(507, 'Grim Batol', 'GB', 'achievement/4840', 30),
 
     // Mists of Pandaria
     new Dungeon(2, 'Temple of the Jade Serpent', 'TJS', 'achievement/6757', 30),
@@ -99,6 +100,16 @@ export const dungeons: Dungeon[] = [
         'achievement/6150',
         2280 / 60,
     ),
+
+    // The War Within
+    new Dungeon(499, 'Priory of the Sacred Flame', 'PSF', 'achievement/40596', 30),
+    new Dungeon(500, 'The Rookery', 'TR', 'achievement/40642', 30),
+    new Dungeon(501, 'The Stonevault', 'SV', 'achievement/40648', 30),
+    new Dungeon(502, 'City of Threads', 'CoT', 'achievement/40379', 30),
+    new Dungeon(503, 'Ara-Kara, City of Echoes', 'ACE', 'achievement/40375', 30),
+    new Dungeon(504, 'Darkflame Cleft', 'DC', 'achievement/40429', 30),
+    new Dungeon(505, 'The Dawnbreaker', 'TDB', 'achievement/40604', 30),
+    new Dungeon(506, 'Cinderbrew Meadery', 'CM', 'achievement/40366', 30),
 ];
 
 export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
@@ -196,8 +207,27 @@ const orderDragonflightS4: number[] = [
     403, // Uldaman: Legacy of Tyr
 ];
 
+const orderWarWithinS1: number[] = [
+    503, // Ara-Kara, City of Echoes
+    502, // City of Threads
+    501, // The Stonevault
+    505, // The Dawnbreaker
+    375, // Mists of Tirna Scithe
+    376, // The Necrotic Wake
+    353, // Siege of Boralus
+    507, // Grim Batol
+];
+
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
+        new MythicPlusSeason(
+            13,
+            '[TWW] Season 1',
+            'war-within-1',
+            80,
+            [orderWarWithinS1],
+            977, // 2024-09-17
+        ),
         new MythicPlusSeason(
             12,
             '[DF] Season 4',
