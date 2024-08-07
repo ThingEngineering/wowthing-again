@@ -53,7 +53,7 @@
 </style>
 
 <Sidebar>
-    {#each filteredNavItems as navItem}
+    {#each filteredNavItems as navItem, navItemIndex}
         {#if navItem !== null}
             {#if !navItem.privateOnly
                 || (navItem.privateOnly && navItem.text === 'Currencies' && $settingsStore.privacy.publicCurrencies)
@@ -83,7 +83,7 @@
                     {/if}
                 </li>
             {/if}
-        {:else}
+        {:else if filteredNavItems[navItemIndex + 1]}
             <li class="separator"></li>
         {/if}
     {/each}

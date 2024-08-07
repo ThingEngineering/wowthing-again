@@ -1,21 +1,20 @@
-import type { Settings } from '@/shared/stores/settings/types'
-import type { LazyStore } from '@/stores'
-
+import type { Settings } from '@/shared/stores/settings/types';
+import type { LazyStore } from '@/stores';
 
 type NavItem = {
-    path: string,
-    text: string,
-    icon: string,
-    privateOnly?: boolean,
-    showFunc?: (settings: Settings) => boolean
-    percentFunc?: (lazyStore: LazyStore) => number
-}
+    path: string;
+    text: string;
+    icon: string;
+    privateOnly?: boolean;
+    showFunc?: (settings: Settings) => boolean;
+    percentFunc?: (lazyStore: LazyStore) => number;
+};
 
 export const navItems: NavItem[] = [
     {
         path: '',
         text: 'Home',
-        icon: 'mdiHomeOutline'
+        icon: 'mdiHomeOutline',
     },
     null,
     {
@@ -60,7 +59,7 @@ export const navItems: NavItem[] = [
         icon: 'mdiAccountStarOutline',
     },
     null,
-        {
+    {
         path: 'collections/',
         text: 'Collections',
         icon: 'gameCompanionCube',
@@ -70,35 +69,35 @@ export const navItems: NavItem[] = [
         text: 'Appearances',
         icon: 'gameClothes',
         showFunc: (settings) => settings.layout.navigationAppearances,
-        percentFunc: (lazyStore) => lazyStore.appearances?.stats.OVERALL?.percent || 0
+        percentFunc: (lazyStore) => lazyStore.appearances?.stats.OVERALL?.percent || 0,
     },
     {
         path: 'customizations/',
         text: 'Customizations',
         icon: 'gameTotemHead',
         showFunc: (settings) => settings.layout.navigationCustomizations,
-        percentFunc: (lazyStore) => lazyStore.customizations?.OVERALL?.percent || 0
+        percentFunc: (lazyStore) => lazyStore.customizations?.OVERALL?.percent || 0,
     },
     {
         path: 'mounts/',
         text: 'Mounts',
         icon: 'mdiUnicorn',
         showFunc: (settings) => settings.layout.navigationMounts,
-        percentFunc: (lazyStore) => lazyStore.mounts?.stats?.OVERALL?.percent || 0
+        percentFunc: (lazyStore) => lazyStore.mounts?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'pets/',
         text: 'Pets',
         icon: 'mdiDuck',
         showFunc: (settings) => settings.layout.navigationPets,
-        percentFunc: (lazyStore) => lazyStore.pets?.stats?.OVERALL?.percent || 0
+        percentFunc: (lazyStore) => lazyStore.pets?.stats?.OVERALL?.percent || 0,
     },
     {
         path: 'toys/',
         text: 'Toys',
         icon: 'mdiDiceMultiple',
         showFunc: (settings) => settings.layout.navigationToys,
-        percentFunc: (lazyStore) => lazyStore.toys?.stats?.OVERALL?.percent || 0
+        percentFunc: (lazyStore) => lazyStore.toys?.stats?.OVERALL?.percent || 0,
     },
     null,
     {
@@ -157,5 +156,4 @@ export const navItems: NavItem[] = [
         icon: 'mdiCogOutline',
         privateOnly: true,
     },
-
-]
+];
