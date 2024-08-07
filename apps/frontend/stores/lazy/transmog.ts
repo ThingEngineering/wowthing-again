@@ -249,15 +249,28 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     }
                                 }
                             } else {
-                                const byAppearanceId = groupBy(
-                                    Object.values(slotData).flatMap(([, items]) => items),
+                                const armor = Object.fromEntries(
+                                    Object.entries(slotData).filter(([a]) => parseInt(a) < 100),
+                                );
+
+                                const weapons = Object.entries(slotData)
+                                    .filter(([a]) => parseInt(a) >= 100)
+                                    .map(([, b]) => b);
+                                const weaponsByAppearanceId = groupBy(
+                                    weapons.flatMap(([, items]) => items),
                                     (slot) => slot[3],
                                 );
 
-                                setDataStats.total = Object.keys(byAppearanceId).length;
-                                setDataStats.have = Object.values(byAppearanceId).filter((combos) =>
-                                    combos.some(([has]) => has),
-                                ).length;
+                                setDataStats.total =
+                                    Object.values(armor).length +
+                                    Object.keys(weaponsByAppearanceId).length;
+
+                                setDataStats.have =
+                                    Object.values(slotData).filter((has) => has[0] === true)
+                                        .length +
+                                    Object.values(weaponsByAppearanceId).filter((combos) =>
+                                        combos.some(([has]) => has),
+                                    ).length;
 
                                 catStats.have += setDataStats.have;
                                 groupStats.have += setDataStats.have;
