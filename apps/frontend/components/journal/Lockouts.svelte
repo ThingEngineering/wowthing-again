@@ -15,7 +15,11 @@
     }
     .lockout {
         display: flex;
+        flex-wrap: wrap;
         gap: 0.4rem;
+    }
+    .character {
+        white-space: nowrap;
     }
 </style>
 
@@ -25,7 +29,7 @@
             <div class="lockout">
                 <span>{lockout.difficulty.shortName}:</span>
                 {#each sortBy(lockout.characters, (char) => char.name) as character}
-                    <span class="class-{character.classId}">
+                    <span class="character class-{character.classId}">
                         {character.name}
                     </span>
                 {/each}
