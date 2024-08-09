@@ -2,13 +2,13 @@
     import { recipesState } from './state'
     import { lazyStore } from '@/stores';
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types';
-    import type { MultiSlugParams } from '@/types';
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte';
 
     export let category: StaticDataProfessionCategory
-    export let params: MultiSlugParams
+    export let expansionSlug: string
+    export let professionSlug: string
 </script>
 
 <style lang="scss">
@@ -45,7 +45,7 @@
     </button>
 
     {#if category}
-        {@const stats = $lazyStore.recipes.stats[`${params.slug1}--${params.slug2}`]}
+        {@const stats = $lazyStore.recipes.stats[`${professionSlug}--${expansionSlug}`]}
         <div class="progress-bar">
             <ProgressBar
                 title="Recipes"

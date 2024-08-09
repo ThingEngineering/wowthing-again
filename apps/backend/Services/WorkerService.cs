@@ -28,9 +28,8 @@ public class WorkerService : BackgroundService
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
 
-    private const int InitialBackoff = 1000;
-    private const int MaxBackoff = 4000;
-    private const int MinimumIdleTime = 120 * 1000; // 2 minutes
+    private const int InitialBackoff = 250;
+    private const int MaxBackoff = 2000;
 
     public WorkerService(
         JobPriority priority,
@@ -94,13 +93,13 @@ public class WorkerService : BackgroundService
         int backoffDelay = InitialBackoff;
         while (!cancellationToken.IsCancellationRequested)
         {
+            using var jobTokenSource = new CancellationTokenSource();
+
             while (_stateService.AccessToken?.Valid != true)
             {
                 _logger.Warning("Waiting for auth service to be ready");
-                await Task.Delay(1000, cancellationToken);
+                await Task.Delay(1000, jobTokenSource.Token);
             }
-
-            using var jobTokenSource = new CancellationTokenSource();
 
             // Something is crashing workers, the outer try/catch is to work out what on earth is going on
             try
@@ -109,7 +108,7 @@ public class WorkerService : BackgroundService
                 if (queuedJob == null)
                 {
                     backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
-                    await Task.Delay(backoffDelay, cancellationToken);
+                    await Task.Delay(backoffDelay, jobTokenSource.Token);
                     continue;
                 }
 
@@ -129,7 +128,7 @@ public class WorkerService : BackgroundService
                         job.Setup(data);
                         await job.Run(data);
 
-                        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+                        await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
                         await context.QueuedJob
                             .Where(qj => qj.Id == queuedJob.Id)
                             .ExecuteDeleteAsync(jobTokenSource.Token);
@@ -138,7 +137,7 @@ public class WorkerService : BackgroundService
                     {
                         _logger.Error(ex, "Job failed");
 
-                        await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+                        await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
                         if (queuedJob.Failures >= 2)
                         {
                             await context.QueuedJob

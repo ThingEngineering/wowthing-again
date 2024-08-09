@@ -16,6 +16,7 @@
     import type { StaticDataRealm } from '@/shared/stores/static/types'
     import type { Character } from '@/types'
 
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
     import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/shared/components/forms/NumberInput.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
@@ -401,6 +402,15 @@
                 ]}
             />
         </div>
+
+        <div class="options-container background-box">
+            <CheckboxInput
+                name="show_empty_rows"
+                bind:value={$browserStore.matrix.showEmptyRows}
+            >
+                Show empty rows
+            </CheckboxInput>
+        </div>
     </div>
 
     <table class="table table-striped">
@@ -419,13 +429,15 @@
         </thead>
         <tbody>
             {#each yKeys as yKey, yIndex}
-                <Row
-                    count={yCounts[yKey]}
-                    {getCharacters}
-                    {xKeys}
-                    yEntries={yEntries[yIndex]}
-                    {yKey}
-                />
+                {#if $browserStore.matrix.showEmptyRows || yCounts[yKey] > 0}
+                    <Row
+                        count={yCounts[yKey]}
+                        {getCharacters}
+                        {xKeys}
+                        yEntries={yEntries[yIndex]}
+                        {yKey}
+                    />
+                {/if}
             {/each}
             <tr>
                 <td></td>
