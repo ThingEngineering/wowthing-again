@@ -28,9 +28,8 @@ public class WorkerService : BackgroundService
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
 
-    private const int InitialBackoff = 1000;
-    private const int MaxBackoff = 4000;
-    private const int MinimumIdleTime = 120 * 1000; // 2 minutes
+    private const int InitialBackoff = 250;
+    private const int MaxBackoff = 2000;
 
     public WorkerService(
         JobPriority priority,
