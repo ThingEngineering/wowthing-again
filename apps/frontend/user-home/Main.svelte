@@ -68,6 +68,8 @@
                 $userAchievementStore
             )
 
+            userQuestStore.setup($timeStore)
+
             if (!$userStore.public) {
                 userUpdateHubStore.connect()
             }
