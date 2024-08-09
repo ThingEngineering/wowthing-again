@@ -4,8 +4,8 @@
     import { staticStore } from '@/shared/stores/static'
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { lazyStore, userStore } from '@/stores'
+    import { UserCount } from '@/types'
     import getPercentClass from '@/utils/get-percent-class';
-    import { UserCount, type MultiSlugParams } from '@/types'
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types'
 
     import { recipesState } from './state'
@@ -14,15 +14,17 @@
     import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import Options from './Options.svelte'
 
-    export let params: MultiSlugParams
+    export let expansionSlug: string
+    export let professionSlug: string
 
     // let allKnown: Set<number>
     let category: StaticDataProfessionCategory
     let subCategories: [StaticDataProfessionCategory, UserCount][]
     $: {
-        const professionId = professionSlugToId[params.slug1]
+        const expansionId = expansionSlugMap[expansionSlug].id;
+        const professionId = professionSlugToId[professionSlug];
+
         const profession = $staticStore.professions[professionId]
-        const expansionId = expansionSlugMap[params.slug2].id
         const subProfessionId = profession.expansionSubProfession[expansionId].id
 
         category = profession.expansionCategory[expansionId].children[0]
@@ -30,7 +32,7 @@
         for (const subCategory of category.children) {
             if (subCategory.abilities.length === 0) { continue }
 
-            const subStats = $lazyStore.recipes.stats[`${params.slug1}--${params.slug2}--${subCategory.id}`]
+            const subStats = $lazyStore.recipes.stats[`${professionSlug}--${expansionSlug}--${subCategory.id}`]
 
             let anyShown = false
             for (const ability of subCategory.abilities) {
@@ -77,7 +79,7 @@
     }
 </style>
 
-<Options {category} {params} />
+<Options {category} {expansionSlug} {professionSlug} />
 
 <div class="wrapper">
     {#each subCategories as [subCategory, subStats]}
