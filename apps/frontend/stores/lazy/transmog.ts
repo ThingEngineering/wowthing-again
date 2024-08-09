@@ -266,8 +266,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     Object.keys(weaponsByAppearanceId).length;
 
                                 setDataStats.have =
-                                    Object.values(slotData).filter((has) => has[0] === true)
-                                        .length +
+                                    Object.values(armor).filter((has) => has[0] === true).length +
                                     Object.values(weaponsByAppearanceId).filter((combos) =>
                                         combos.some(([has]) => has),
                                     ).length;
