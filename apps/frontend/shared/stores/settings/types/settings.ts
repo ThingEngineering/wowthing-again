@@ -30,7 +30,7 @@ export interface Settings {
         hiddenCharacters: number[];
         ignoredCharacters: number[];
         pinnedCharacters: number[];
-        nameTooltipDisplay: string[];
+        disabledNameTooltip: string[];
     };
 
     collections: {
