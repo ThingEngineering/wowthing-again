@@ -3,7 +3,7 @@
     import { professionSlugToId } from '@/data/professions'
     import { staticStore } from '@/shared/stores/static'
     import { basicTooltip } from '@/shared/utils/tooltips';
-    import { lazyStore, userStore } from '@/stores'
+    import { lazyStore } from '@/stores'
     import { UserCount } from '@/types'
     import getPercentClass from '@/utils/get-percent-class';
     import type { StaticDataProfessionCategory } from '@/shared/stores/static/types'
@@ -25,7 +25,6 @@
         const professionId = professionSlugToId[professionSlug];
 
         const profession = $staticStore.professions[professionId]
-        const subProfessionId = profession.expansionSubProfession[expansionId].id
 
         category = profession.expansionCategory[expansionId].children[0]
         subCategories = []

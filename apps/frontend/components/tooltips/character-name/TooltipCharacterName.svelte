@@ -11,8 +11,12 @@
     import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
     import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import Keystone from '@/components/character-table/row/Keystone.svelte'
+    import { characterNameTooltipChoices } from '@/data/settings';
 
     export let character: Character
+
+    $: enabledChoices = characterNameTooltipChoices
+        .filter((choice) => !$settingsStore.characters.disabledNameTooltip.includes(choice.key));
 </script>
 
 <style lang="scss">
@@ -38,7 +42,7 @@
 <div class="wowthing-tooltip">
     <h4>{character.name} - {character.realm.name}</h4>
 
-    {#if character.guildId && $settingsStore.characters.nameTooltipDisplay.includes('guild')}
+    {#if character.guildId && !$settingsStore.characters.disabledNameTooltip.includes('guild')}
         {@const guild = $userStore.guildMap[character.guildId]}
         <h5>
             {#if guild}
@@ -52,7 +56,7 @@
 
     <table class="table-striped">
         <tbody>
-            {#each $settingsStore.characters.nameTooltipDisplay as key}
+            {#each enabledChoices as { key }}
                 {#if key === 'currentLocation'}
                     <tr>
                         <td>Current loc.</td>

@@ -2,7 +2,6 @@ import groupBy from 'lodash/groupBy';
 
 import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data';
 import { classIdToArmorType, classOrder } from '@/data/character-class';
-import { InventoryType } from '@/enums/inventory-type';
 import { ItemLocation } from '@/enums/item-location';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
