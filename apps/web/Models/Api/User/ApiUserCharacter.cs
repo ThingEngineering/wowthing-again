@@ -14,8 +14,7 @@ public class ApiUserCharacter
     public bool IsWarMode { get; set; }
     public int AccountId { get; set; }
     public int ActiveSpecId { get; }
-    public int AddonLevel { get; set; }
-    public int AddonLevelXp { get; set; }
+    public int LevelXp { get; set; }
     public int ChromieTime { get; set; }
     public int ClassId { get; set; }
     public int EquippedItemLevel { get; set; }
@@ -72,8 +71,6 @@ public class ApiUserCharacter
     )
     {
         ActiveSpecId = character.ActiveSpecId;
-        AddonLevel = character.AddonData?.Level ?? 0;
-        AddonLevelXp = character.AddonData?.LevelXp ?? 0;
         ClassId = character.ClassId;
         EquippedItemLevel = character.EquippedItemLevel;
         Faction = character.Faction;
@@ -81,7 +78,8 @@ public class ApiUserCharacter
         GuildId = character.GuildId ?? 0;
         Id = character.Id;
         LastApiModified = character.LastApiModified;
-        Level = character.Level;
+        Level = Math.Max(character.Level, character.AddonData?.Level ?? 0);
+        LevelXp = character.AddonData?.LevelXp ?? 0;
         RaceId = character.RaceId;
 
         if (pub && privacy?.Anonymized == true)

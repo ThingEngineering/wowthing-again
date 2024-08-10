@@ -21,15 +21,14 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         writer.WriteNumberValue(character.IsWarMode ? 1 : 0);
         writer.WriteNumberValue(character.AccountId);
         writer.WriteNumberValue(character.ActiveSpecId);
-        writer.WriteNumberValue(character.AddonLevel);
-        writer.WriteNumberValue(character.AddonLevelXp);
+        writer.WriteNumberValue(character.Level);
+        writer.WriteNumberValue(character.LevelXp);
         writer.WriteNumberValue(character.ChromieTime);
         writer.WriteNumberValue(character.ClassId);
         writer.WriteNumberValue(character.EquippedItemLevel);
         writer.WriteNumberValue((int)character.Faction);
         writer.WriteNumberValue((int)character.Gender);
         writer.WriteNumberValue(character.GuildId);
-        writer.WriteNumberValue(character.Level);
         writer.WriteNumberValue(character.PlayedTotal);
         writer.WriteNumberValue(character.RaceId);
         writer.WriteNumberValue(character.RealmId);

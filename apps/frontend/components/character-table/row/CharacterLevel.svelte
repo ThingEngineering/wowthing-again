@@ -13,7 +13,7 @@
     let fancyLevel: string
     $: {
         const levelData = getCharacterLevel(character)
-        if (levelData.level < Constants.characterMaxLevel) {
+        if ($settingsStore.layout.showPartialLevel && levelData.level < Constants.characterMaxLevel) {
             fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}.${levelData.partial}`
         }
         else {
@@ -29,20 +29,14 @@
     }
 </style>
 
-{#if $settingsStore.layout.showPartialLevel}
-    <td
-        class="level-partial"
-        use:componentTooltip={{
-            component: Tooltip,
-            props: {
-                character,
-            },
-        }}
-    >
-        <code>{@html fancyLevel}</code>
-    </td>
-{:else}
-    <td class="level">
-        {Math.max(character.level, character.addonLevel)}
-    </td>
-{/if}
+<td
+    class="level-partial"
+    use:componentTooltip={{
+        component: Tooltip,
+        props: {
+            character,
+        },
+    }}
+>
+    <code>{@html fancyLevel}</code>
+</td>
