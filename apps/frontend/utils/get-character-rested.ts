@@ -39,7 +39,7 @@ export function getCharacterRested(now: DateTime, character: Character): [string
     }
 
     return [
-        `${Math.floor(restedPercent)} %`,
+        `${Math.floor(Math.max(0, restedPercent))} %`,
         timeUntilMaxed ? `<code>${timeUntilMaxed}</code> to max` : '',
     ];
 }
