@@ -17,7 +17,10 @@ export function getCharacterLevel(character: Character): CharacterLevel {
 
     if (ret.level < Constants.characterMaxLevel) {
         ret.xp = character.levelXp || 0;
-        ret.partial = Math.floor((ret.xp / experiencePerLevel[ret.level]) * 10);
+        ret.partial = Math.max(
+            0,
+            Math.min(9, Math.floor((ret.xp / experiencePerLevel[ret.level]) * 10)),
+        );
     }
 
     return ret;
