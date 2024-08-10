@@ -67,7 +67,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         const now = currentTime.toUnixInteger();
         for (const characterData of Object.values(this.value.characters)) {
             for (const [key, progressQuest] of Object.entries(characterData.progressQuests || {})) {
-                if (progressQuest.expires < now) {
+                if (progressQuest.expires > 0 && progressQuest.expires < now) {
                     delete characterData.progressQuests[key];
                 }
             }
