@@ -85,7 +85,7 @@ public sealed class SchedulerService : TimerService
 
                 await using var context = await contextFactory.CreateDbContextAsync();
 
-                int lowQueueSize = await context.QueuedJob.Where(job => job.Priority == JobPriority.Low).CountAsync()
+                int lowQueueSize = await context.QueuedJob.Where(job => job.Priority == JobPriority.Low).CountAsync();
                 if (lowQueueSize > LowQueueLimit)
                 {
                     Logger.Warning("Low queue has {0} entries, refusing to queue!", lowQueueSize);
