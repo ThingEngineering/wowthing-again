@@ -263,7 +263,7 @@ public class AuctionsController : Controller
                 .ToArrayAsync();
 
             data.RawAuctions = DoAuctionStuff(
-                mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]),
+                mountAuctions.GroupBy(auction => mountSpellMap.GetValueOrDefault(auction.ItemId)),
                 form.IncludeBids
             );
 
@@ -338,8 +338,9 @@ public class AuctionsController : Controller
 
             data.RawAuctions = DoAuctionStuff(
                 petAuctions.GroupBy(auction => auction.PetSpeciesId > 0
-                    ? petSpeciesMap[auction.PetSpeciesId]
-                    : petItemMap[auction.ItemId]),
+                    ? petSpeciesMap.GetValueOrDefault(auction.PetSpeciesId)
+                    : petItemMap.GetValueOrDefault(auction.ItemId)
+                ),
                 form.IncludeBids
             );
 
@@ -953,6 +954,7 @@ WHERE   tc.appearance_source IS NULL
     )
     {
         var groupedThings = groupedAuctions
+            .Where(group => group.Key > 0)
             .ToDictionary(
                 group => group.Key,
                 group => group
@@ -965,31 +967,31 @@ WHERE   tc.appearance_source IS NULL
             ret[thingId] = new List<WowAuction>();
             foreach (var (_, realmAuctions) in itemRealms)
             {
-                var lowestBid = !includeLowBid ? null : realmAuctions
-                    .Where(auction => auction.BidPrice > 0)
-                    .MinBy(auction => auction.BidPrice);
                 var lowestBuyout = realmAuctions
                     .Where(auction => auction.BuyoutPrice > 0)
                     .MinBy(auction => auction.BuyoutPrice);
 
-                if (lowestBid == null)
+                if (includeLowBid)
                 {
-                    ret[thingId].Add(lowestBuyout);
-                }
-                else if (lowestBuyout == null)
-                {
-                    ret[thingId].Add(lowestBid);
-                }
-                else if (lowestBid.AuctionId == lowestBuyout.AuctionId)
-                {
-                    ret[thingId].Add(lowestBid);
-                }
-                else
-                {
-                    if (includeLowBid && lowestBid.BidPrice < lowestBuyout.BuyoutPrice)
+                    var lowestBid = realmAuctions
+                        .Where(auction => auction.BidPrice > 0)
+                        .MinBy(auction => auction.BidPrice);
+
+                    if (lowestBid != null && lowestBuyout != null)
+                    {
+                        ret[thingId].Add(lowestBuyout.BuyoutPrice <= lowestBid.BidPrice ? lowestBuyout : lowestBid);
+                    }
+                    else if (lowestBid != null)
                     {
                         ret[thingId].Add(lowestBid);
                     }
+                    else if (lowestBuyout != null)
+                    {
+                        ret[thingId].Add(lowestBuyout);
+                    }
+                }
+                else if (lowestBuyout != null)
+                {
                     ret[thingId].Add(lowestBuyout);
                 }
             }
