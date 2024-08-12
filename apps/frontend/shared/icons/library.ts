@@ -60,6 +60,7 @@ export { default as gameShurikenAperture } from '@iconify/icons-game-icons/shuri
 export { default as gameSpellBook } from '@iconify/icons-game-icons/spell-book';
 export { default as gameSpikedDragonHead } from '@iconify/icons-game-icons/spiked-dragon-head';
 export { default as gameStaryu } from '@iconify/icons-game-icons/staryu';
+export { default as gameStrongbox } from '@iconify/icons-game-icons/strongbox';
 export { default as gameThorHammer } from '@iconify/icons-game-icons/thor-hammer';
 export { default as gameThumbUp } from '@iconify/icons-game-icons/thumb-up';
 export { default as gameTotemHead } from '@iconify/icons-game-icons/totem-head';

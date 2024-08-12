@@ -1,7 +1,8 @@
+import groupBy from 'lodash/groupBy';
 import sortBy from 'lodash/sortBy';
 import uniq from 'lodash/uniq';
-import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
+import { get } from 'svelte/store';
 
 import { userModifiedStore } from './user-modified';
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty';
@@ -165,24 +166,35 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.itemsByAppearanceSource = {};
         userData.itemsById = {};
 
+        // Initialize warbanks
+        console.time('warbanks');
+        const warbankByItemId = groupBy(userData.warbankItems, (item) => item.itemId);
+        for (const [itemId, items] of getNumberKeyedEntries(warbankByItemId)) {
+            (userData.itemsById[itemId] ||= []).push([null, items]);
+        }
+        console.timeEnd('warbanks');
+
         // Initialize guilds
+        console.time('guilds');
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(itemData, guild);
 
             guild.realm = staticData.realms[guild.realmId] || staticData.realms[0];
 
-            for (const [appearanceId, items] of Object.entries(guild.itemsByAppearanceId)) {
-                (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= []).push([guild, items]);
+            for (const [appearanceId, items] of getNumberKeyedEntries(guild.itemsByAppearanceId)) {
+                (userData.itemsByAppearanceId[appearanceId] ||= []).push([guild, items]);
             }
             for (const [appearanceSource, items] of Object.entries(guild.itemsByAppearanceSource)) {
                 (userData.itemsByAppearanceSource[appearanceSource] ||= []).push([guild, items]);
             }
-            for (const [itemId, items] of Object.entries(guild.itemsById)) {
-                (userData.itemsById[parseInt(itemId)] ||= []).push([guild, items]);
+            for (const [itemId, items] of getNumberKeyedEntries(guild.itemsById)) {
+                (userData.itemsById[itemId] ||= []).push([guild, items]);
             }
         }
+        console.timeEnd('guilds');
 
         // Initialize characters
+        console.time('characters');
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
         const allLockouts: Record<string, Character[]> = {};
@@ -199,11 +211,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             if (userData.public || character.account?.enabled === true) {
-                for (const [appearanceId, items] of Object.entries(character.itemsByAppearanceId)) {
-                    (userData.itemsByAppearanceId[parseInt(appearanceId)] ||= []).push([
-                        character,
-                        items,
-                    ]);
+                for (const [appearanceId, items] of getNumberKeyedEntries(
+                    character.itemsByAppearanceId,
+                )) {
+                    (userData.itemsByAppearanceId[appearanceId] ||= []).push([character, items]);
                 }
                 for (const [appearanceSource, items] of Object.entries(
                     character.itemsByAppearanceSource,
@@ -213,8 +224,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                         items,
                     ]);
                 }
-                for (const [itemId, items] of Object.entries(character.itemsById)) {
-                    (userData.itemsById[parseInt(itemId)] ||= []).push([character, items]);
+                for (const [itemId, items] of getNumberKeyedEntries(character.itemsById)) {
+                    (userData.itemsById[itemId] ||= []).push([character, items]);
                 }
             }
         }
@@ -223,16 +234,20 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             uniq(userData.characters.map((char) => char.realm.region)),
             (region) => region,
         );
+        console.timeEnd('characters');
 
         // Accounts
+        console.time('accounts');
         userData.activeCharacters = [];
         for (const character of userData.characters) {
             if (userData.public || character.account?.enabled === true) {
                 userData.activeCharacters.push(character);
             }
         }
+        console.timeEnd('accounts');
 
         // Pre-calculate lockouts
+        console.time('lockouts');
         userData.allLockouts = [];
         userData.allLockoutsMap = {};
         for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
@@ -288,7 +303,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 });
             }
         }
+        console.timeEnd('lockouts');
 
+        // Toys
+        console.time('toys');
         userData.hasToy = {};
         for (const toyIdString of Object.keys(userData.hasToyById)) {
             const toyId = parseInt(toyIdString);
@@ -299,8 +317,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 console.error('Missing toy id', toyId);
             }
         }
+        console.timeEnd('toys');
 
         // Transmog
+        console.time('transmog');
         userData.appearanceMask = new Map<number, number>();
         for (const [appearanceIdString, items] of Object.entries(itemData.appearanceToItems)) {
             const appearanceId = parseInt(appearanceIdString);
@@ -315,6 +335,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
             userData.appearanceMask.set(appearanceId, mask);
         }
+        console.timeEnd('transmog');
 
         // HACK: Warglaives of Azzinoth
         if (userAchievementData.achievements[426]) {
