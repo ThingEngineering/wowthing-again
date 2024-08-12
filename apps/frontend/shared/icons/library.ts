@@ -34,6 +34,7 @@ export { default as gameCurvyKnife } from '@iconify/icons-game-icons/curvy-knife
 export { default as gameDeathSkull } from '@iconify/icons-game-icons/death-skull';
 export { default as gameDorsalScales } from '@iconify/icons-game-icons/dorsal-scales';
 export { default as gameEmerald } from '@iconify/icons-game-icons/emerald';
+export { default as gameClockwork } from '@iconify/icons-game-icons/stopwatch';
 export { default as gameFairyWand } from '@iconify/icons-game-icons/fairy-wand';
 export { default as gameFizzingFlask } from '@iconify/icons-game-icons/fizzing-flask';
 export { default as gameFrog } from '@iconify/icons-game-icons/frog';

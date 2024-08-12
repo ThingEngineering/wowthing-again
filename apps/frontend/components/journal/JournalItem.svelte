@@ -2,7 +2,7 @@
     import { getDifficulties } from './get-difficulties';
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
-    import { itemStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { getItemUrl } from '@/utils/get-item-url'
     import { basicTooltip } from '@/shared/utils/tooltips'
@@ -126,6 +126,7 @@
             </a>
 
             {#if classId > 0}
+                {@const hasSoon = !appearance.userHas && $userStore.itemsByAppearanceSource[`${item.id}_${appearance.modifierId}`]}
                 <div class="player-class class-{classId} drop-shadow-single">
                     <ClassIcon
                         border={2}
@@ -133,6 +134,10 @@
                         {classId}
                     />
                 </div>
+
+                {#if hasSoon}
+                    <CollectedIcon soon={true} />
+                {/if}
             {/if}
             
             {#if item.extraAppearances > 0}
