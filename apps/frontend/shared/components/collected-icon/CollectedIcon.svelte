@@ -2,11 +2,12 @@
     import IconifyIcon from '../images/IconifyIcon.svelte'
 
     import { iconLibrary } from '@/shared/icons'
+
+    export let soon = false
 </script>
 
 <style lang="scss">
     .collected-icon {
-        color: $color-success;
         pointer-events: none;
         position: absolute;
         top: var(--collected-top, -4px);
@@ -14,6 +15,10 @@
     }
 </style>
 
-<div class="collected-icon drop-shadow">
-    <IconifyIcon icon={iconLibrary.mdiCheckboxOutline} />
+<div
+    class="collected-icon drop-shadow2"
+    class:status-success={!soon}
+    class:status-shrug={soon}
+>
+    <IconifyIcon icon={soon ? iconLibrary.gameClockwork : iconLibrary.mdiCheckboxOutline} />
 </div>
