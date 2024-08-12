@@ -366,6 +366,9 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         (!stores.vendorState.showPets && lookupType === LookupType.Pet) ||
                         (!stores.vendorState.showRecipes && lookupType === LookupType.Recipe) ||
                         (!stores.vendorState.showToys && lookupType === LookupType.Toy) ||
+                        (!stores.vendorState.showCosmetics && item.type === RewardType.Cosmetic) ||
+                        (!stores.vendorState.showDragonriding &&
+                            stores.manualData.dragonridingItemToQuest[item.id]) ||
                         (item.type === RewardType.Armor &&
                             ((item.subType === 1 && !stores.vendorState.showCloth) ||
                                 (item.subType === 2 && !stores.vendorState.showLeather) ||

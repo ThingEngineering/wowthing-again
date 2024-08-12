@@ -13,8 +13,10 @@ export class VendorState {
     public showPlate = true;
 
     public showCloaks = true;
+    public showCosmetics = true;
     public showWeapons = true;
 
+    public showDragonriding = true;
     public showIllusions = true;
     public showMounts = true;
     public showPets = true;

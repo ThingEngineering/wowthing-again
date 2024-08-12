@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Net.Http;
+using System.Threading.Channels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -27,9 +28,7 @@ public class WorkerService : BackgroundService
     private readonly string _name;
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
-
-    private const int InitialBackoff = 250;
-    private const int MaxBackoff = 2000;
+    private readonly ChannelReader<QueuedJob> _reader;
 
     public WorkerService(
         JobPriority priority,
@@ -48,6 +47,7 @@ public class WorkerService : BackgroundService
 
         _priority = priority;
         _name = priority.ToString()[..1];
+        _reader = _stateService.JobPriorityChannels[_priority].Reader;
 
         int instanceId = Interlocked.Increment(ref _instanceCount);
         _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_name}");
@@ -90,7 +90,6 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
-        int backoffDelay = InitialBackoff;
         while (!cancellationToken.IsCancellationRequested)
         {
             using var jobTokenSource = new CancellationTokenSource();
@@ -101,19 +100,8 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, jobTokenSource.Token);
             }
 
-            // Something is crashing workers, the outer try/catch is to work out what on earth is going on
-            try
+            await foreach (var queuedJob in _reader.ReadAllAsync(jobTokenSource.Token))
             {
-                var queuedJob = await GetQueuedJob(jobTokenSource.Token);
-                if (queuedJob == null)
-                {
-                    backoffDelay = Math.Min(MaxBackoff, backoffDelay * 2);
-                    await Task.Delay(backoffDelay, jobTokenSource.Token);
-                    continue;
-                }
-
-                backoffDelay = InitialBackoff;
-
                 string jobTypeName = queuedJob.Type.ToString();
                 Type classType = JobTypeMap[jobTypeName];
                 using (LogContext.PushProperty("Task", jobTypeName))
@@ -128,31 +116,13 @@ public class WorkerService : BackgroundService
                         job.Setup(data);
                         await job.Run(data);
 
-                        await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
-                        await context.QueuedJob
-                            .Where(qj => qj.Id == queuedJob.Id)
-                            .ExecuteDeleteAsync(jobTokenSource.Token);
+                        await _stateService.SuccessfulQueuedJobs.Writer.WriteAsync(queuedJob.Id, jobTokenSource.Token);
                     }
                     catch (Exception ex)
                     {
                         _logger.Error(ex, "Job failed");
 
-                        await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
-                        if (queuedJob.Failures >= 2)
-                        {
-                            await context.QueuedJob
-                                .Where(qj => qj.Id == queuedJob.Id)
-                                .ExecuteDeleteAsync(jobTokenSource.Token);
-                        }
-                        else
-                        {
-                            await context.QueuedJob
-                                .Where(qj => qj.Id == queuedJob.Id)
-                                .ExecuteUpdateAsync(
-                                    setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
-                                    cancellationToken: jobTokenSource.Token
-                                );
-                        }
+                        await _stateService.FailedQueuedJobs.Writer.WriteAsync(queuedJob.Id, jobTokenSource.Token);
                     }
                     finally
                     {
@@ -163,10 +133,6 @@ public class WorkerService : BackgroundService
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "WORKER FAILED THIS IS BAD");
             }
         }
 

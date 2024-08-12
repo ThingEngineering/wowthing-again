@@ -21,6 +21,8 @@ public sealed class SchedulerService : TimerService
 
     private readonly List<ScheduledJob> _scheduledJobs = new();
 
+    private const int LowQueueLimit = 10000;
+
     public SchedulerService(
         IConnectionMultiplexer redis,
         IServiceScopeFactory serviceScopeFactory,
@@ -82,6 +84,13 @@ public sealed class SchedulerService : TimerService
                 }
 
                 await using var context = await contextFactory.CreateDbContextAsync();
+
+                int lowQueueSize = await context.QueuedJob.Where(job => job.Priority == JobPriority.Low).CountAsync()
+                if (lowQueueSize > LowQueueLimit)
+                {
+                    Logger.Warning("Low queue has {0} entries, refusing to queue!", lowQueueSize);
+                    return;
+                }
 
                 // Execute some sort of nasty database query to get users that need an API check
                 // var userResults = await context.SchedulerUserQuery

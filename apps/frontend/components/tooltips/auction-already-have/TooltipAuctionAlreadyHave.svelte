@@ -1,5 +1,6 @@
 <script lang="ts">
     import { itemLocationIcons } from '@/shared/icons/mappings'
+    import { WarbankItem } from '@/types/items';
     import type { HasNameAndRealm, UserItem } from '@/types/shared'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -53,8 +54,12 @@
                         </td>
                         <td class="bag">{item.containerName}</td>
                         <td class="slot">Slot {item.slot}</td>
-                        <td class="character-name">{owner.name}</td>
-                        <td class="realm-name">{owner.realm.name}</td>
+                        {#if item instanceof WarbankItem}
+                            <td class="character-name" colspan="2">Warband Bank</td>
+                        {:else}
+                            <td class="character-name">{owner.name}</td>
+                            <td class="realm-name">{owner.realm.name}</td>
+                        {/if}
                     </tr>
                 {/each}
             {/each}

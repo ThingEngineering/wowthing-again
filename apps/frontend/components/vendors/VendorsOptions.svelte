@@ -35,6 +35,9 @@
         if (state.showCloaks) {
             byType2.push('C')
         }
+        if (state.showCosmetics) {
+            byType2.push('O')
+        }
         if (state.showWeapons) {
             byType2.push('W')
         }
@@ -42,10 +45,13 @@
         if (byType2.length === 0) {
             byType2 = ['---']
         }
-        else if (byType2.length === 2) {
+        else if (byType2.length === 3) {
             byType2 = ['ALL']
         }
 
+        if (state.showDragonriding) {
+            byThing.push('D');
+        }
         if (state.showIllusions) {
             byThing.push('I')
         }
@@ -55,6 +61,9 @@
         if (state.showPets) {
             byThing.push('P')
         }
+        if (state.showRecipes) {
+            byThing.push('R')
+        }
         if (state.showToys) {
             byThing.push('T')
         }
@@ -62,7 +71,7 @@
         if (byThing.length === 0) {
             byThing = ['---']
         }
-        else if (byThing.length === 4) {
+        else if (byThing.length === 6) {
             byThing = ['ALL']
         }
 
@@ -190,6 +199,12 @@
         </button>
         <button>
             <CheckboxInput
+                name="show_cosmetics"
+                bind:value={$vendorState.showCosmetics}
+            >Cosmetics</CheckboxInput>
+        </button>
+        <button>
+            <CheckboxInput
                 name="show_weapons"
                 bind:value={$vendorState.showWeapons}
             >Weapons</CheckboxInput>
@@ -198,6 +213,13 @@
 
     <div class="options-container filters-container">
         <span>Things:</span>
+
+        <button>
+            <CheckboxInput
+                name="show_dragonriding"
+                bind:value={$vendorState.showDragonriding}
+            >Dragonriding</CheckboxInput>
+        </button>
 
         <button>
             <CheckboxInput
