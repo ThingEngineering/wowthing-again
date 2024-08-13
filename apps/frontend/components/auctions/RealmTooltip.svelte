@@ -19,6 +19,18 @@
     .wowthing-tooltip {
         max-width: 25rem;
     }
+    h4 {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem;
+    }
+    .realm {
+        white-space: nowrap;
+    }
+    .realm-separator {
+        color: #999 !important;
+        padding-left: 0.2rem;
+    }
     .tag {
         background: $highlight-background;
         border-right: 1px solid $border-color;
@@ -38,8 +50,13 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4 class="text-overflow">
-        {connectedRealm.realmNames.join(' / ')}
+    <h4>
+        {#each connectedRealm.realmNames as realmName, nameIndex}
+            <span class="realm">
+                {realmName}{#if nameIndex < (connectedRealm.realmNames.length - 1)
+                    }<span class="realm-separator">/</span>{/if}
+            </span>
+        {/each}
     </h4>
     {#if goldPrice > 0}
         <h5>
