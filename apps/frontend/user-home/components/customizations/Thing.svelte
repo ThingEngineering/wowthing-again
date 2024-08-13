@@ -12,8 +12,9 @@
     $: have = (
         (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
         (thing.questId > 0 && $userQuestStore.accountHas.has(thing.questId)) ||
-        (thing.appearanceModifier >= 0 && $userStore.hasSource.has(`${thing.itemId}_${thing.appearanceModifier}`))
-    )
+        (thing.appearanceModifier >= 0 &&
+            $userStore.hasSourceV2.get(thing.appearanceModifier).has(thing.itemId))
+    );
 </script>
 
 <style lang="scss">

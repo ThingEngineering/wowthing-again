@@ -73,16 +73,16 @@
         if (slug1.startsWith('missing-appearance-')) {
             // source
             if (result.id.includes('_')) {
-                const modifier = parseInt(result.id.split('_')[1]);
+                const [itemId, modifier] = result.id.split('_', 2).map((s) => parseInt(s));
                 const appearance = item.appearances?.[modifier];
                 needAppearance = (!!appearance && !$userStore.hasAppearance.has(appearance.appearanceId));
-                needSource = !$userStore.hasSource.has(result.id);
+                needSource = !$userStore.hasSourceV2.get(modifier).has(itemId);
             } else {
                 const appearanceId = parseInt(result.id);
                 needAppearance = !$userStore.hasAppearance.has(appearanceId);
                 for (const appearance of Object.values(item.appearances)) {
                     if (appearance.appearanceId === appearanceId) {
-                        needSource = !$userStore.hasSource.has(`${result.id}_${appearance.modifier}`);
+                        needSource = !$userStore.hasSourceV2.get(appearance.modifier).has(item.id);
                         break;
                     }
                 }

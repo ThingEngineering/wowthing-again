@@ -24,7 +24,7 @@
         if (abomination.itemIds) {
             const itemIndex = classIdToArmorType[character.classId] - 1
             questItemId = abomination.itemIds[itemIndex]
-            userHasQuestItem = $userStore.hasSource.has(`${questItemId}_0`)
+            userHasQuestItem = $userStore.hasSourceV2.get(0).has(questItemId);
         }
     }
 </script>

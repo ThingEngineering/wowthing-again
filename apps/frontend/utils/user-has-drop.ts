@@ -97,7 +97,7 @@ export default function userHasDrop(
             const modifier = parseInt(keys.length === 1 ? keys[0] : '0');
 
             if (completionist) {
-                return userData.hasSource.has(`${id}_${modifier}`);
+                return userData.hasSourceV2.get(modifier).has(id);
             } else {
                 const appearanceId = item.appearances?.[modifier]?.appearanceId || 0;
                 return userData.hasAppearance.has(appearanceId);

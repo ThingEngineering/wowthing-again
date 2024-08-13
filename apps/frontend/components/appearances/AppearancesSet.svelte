@@ -41,7 +41,7 @@
                         {@const modifiedAppearances = appearance.modifiedAppearances.slice(0, masochist ? 9999 : 1)}
                         {#each modifiedAppearances as modifiedAppearance}
                             {@const has = masochist
-                                ? $userStore.hasSource.has(`${modifiedAppearance.itemId}_${modifiedAppearance.modifier}`)
+                                ? $userStore.hasSourceV2.get(modifiedAppearance.modifier).has(modifiedAppearance.itemId)
                                 : $userStore.hasAppearance.has(appearance.appearanceId)}
                             {@const show = (
                                 ((has && $appearanceState.showCollected) || (!has && $appearanceState.showUncollected))
