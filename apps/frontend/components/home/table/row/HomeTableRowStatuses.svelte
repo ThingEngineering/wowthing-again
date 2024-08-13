@@ -100,10 +100,6 @@
                 ])
             }
         }
-
-        if (character.currencies?.[Constants.currencies.dragonridingPassengers]?.quantity > 0) {
-            images.push([Constants.icons.dragonridingPassengers, 'Dragonriding Passengers'])
-        }
     }
 </script>
 
