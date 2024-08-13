@@ -132,9 +132,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                 const modifierData = (slotData.modifiers[modifier] = new LazyConvertibleModifier());
 
                 if (stores.settings.transmog.completionistMode) {
-                    modifierData.userHas = stores.userData.hasSource.has(
-                        `${setItemId}_${modifier}`,
-                    );
+                    modifierData.userHas = stores.userData.hasSourceV2.get(modifier).has(setItemId);
                 } else {
                     modifierData.userHas = stores.userData.hasAppearance.has(
                         setItem.appearances[modifier]?.appearanceId ?? -1,

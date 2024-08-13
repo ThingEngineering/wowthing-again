@@ -105,6 +105,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.rawAppearanceIds = null;
 
         userData.hasSource = new Set<string>();
+        userData.hasSourceV2 = new Map();
+        for (let modifier = 0; modifier < 256; modifier++) {
+            userData.hasSourceV2.set(modifier, new Set());
+        }
+
         for (const [modifier, diffedItemIds] of getNumberKeyedEntries(
             userData.rawAppearanceSources,
         )) {
@@ -112,6 +117,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             for (const diffedItemId of diffedItemIds) {
                 const itemId = diffedItemId + lastItemId;
                 userData.hasSource.add(`${itemId}_${modifier}`);
+                userData.hasSourceV2.get(modifier).add(itemId);
                 lastItemId = itemId;
             }
         }
@@ -167,15 +173,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.itemsById = {};
 
         // Initialize warbanks
-        console.time('warbanks');
         const warbankByItemId = groupBy(userData.warbankItems, (item) => item.itemId);
         for (const [itemId, items] of getNumberKeyedEntries(warbankByItemId)) {
             (userData.itemsById[itemId] ||= []).push([null, items]);
         }
-        console.timeEnd('warbanks');
 
         // Initialize guilds
-        console.time('guilds');
         for (const guild of Object.values(userData.guildMap)) {
             this.initializeGuild(itemData, guild);
 
@@ -191,7 +194,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (userData.itemsById[itemId] ||= []).push([guild, items]);
             }
         }
-        console.timeEnd('guilds');
 
         // Initialize characters
         console.time('characters');
@@ -237,17 +239,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.timeEnd('characters');
 
         // Accounts
-        console.time('accounts');
         userData.activeCharacters = [];
         for (const character of userData.characters) {
             if (userData.public || character.account?.enabled === true) {
                 userData.activeCharacters.push(character);
             }
         }
-        console.timeEnd('accounts');
 
         // Pre-calculate lockouts
-        console.time('lockouts');
         userData.allLockouts = [];
         userData.allLockoutsMap = {};
         for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
@@ -303,10 +302,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 });
             }
         }
-        console.timeEnd('lockouts');
 
         // Toys
-        console.time('toys');
         userData.hasToy = {};
         for (const toyIdString of Object.keys(userData.hasToyById)) {
             const toyId = parseInt(toyIdString);
@@ -317,7 +314,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 console.error('Missing toy id', toyId);
             }
         }
-        console.timeEnd('toys');
 
         // Transmog
         console.time('transmog');
@@ -327,7 +323,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             let mask = 0;
 
             for (const [itemId, modifier] of items) {
-                if (userData.hasSource.has(`${itemId}_${modifier}`)) {
+                // if (userData.hasSource.has(`${itemId}_${modifier}`)) {
+                if (userData.hasSourceV2.get(modifier).has(itemId)) {
                     const item = itemData.items[itemId];
                     mask |= item.classMask;
                 }

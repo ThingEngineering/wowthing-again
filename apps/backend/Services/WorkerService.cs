@@ -100,8 +100,11 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, jobTokenSource.Token);
             }
 
+            var sleptAt = DateTime.UtcNow;
             await foreach (var queuedJob in _reader.ReadAllAsync(jobTokenSource.Token))
             {
+                _logger.Information("Slept for {time}", DateTime.UtcNow - sleptAt);
+
                 string jobTypeName = queuedJob.Type.ToString();
                 Type classType = JobTypeMap[jobTypeName];
                 using (LogContext.PushProperty("Task", jobTypeName))
@@ -131,43 +134,13 @@ public class WorkerService : BackgroundService
                             await job.Finally();
                             job.Dispose();
                         }
+
+                        sleptAt = DateTime.UtcNow;
                     }
                 }
             }
         }
 
         _logger.Warning("Service stopping?!");
-    }
-
-    private async Task<QueuedJob> GetQueuedJob(CancellationToken cancellationToken)
-    {
-        try
-        {
-            await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
-
-            var queuedJobs = await context.QueuedJob
-                .FromSql($@"
-WITH job_ids AS (
-    SELECT  id
-    FROM    queued_job
-    WHERE   priority = {(short)_priority}
-            AND started_at IS NULL
-    ORDER BY id
-    FOR UPDATE SKIP LOCKED
-    LIMIT 1
-)
-UPDATE  queued_job
-SET     started_at = CURRENT_TIMESTAMP
-WHERE   id = ANY(SELECT id FROM job_ids)
-        AND started_at IS NULL
-RETURNING *
-")
-                .ToArrayAsync(cancellationToken);
-            return queuedJobs.FirstOrDefault();
-        }
-        catch
-        {
-            return null;
-        }
     }
 }

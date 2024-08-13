@@ -194,7 +194,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     overrideHas ||
                                     (manualItems && !completionistMode
                                         ? stores.userData.hasAppearance.has(appearanceId)
-                                        : stores.userData.hasSource.has(`${itemId}_${modifier}`));
+                                        : stores.userData.hasSourceV2.get(modifier).has(itemId));
 
                                 slotData[actualSlot] ||= [false, []];
                                 slotData[actualSlot][0] ||= hasSource;
@@ -353,7 +353,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             }
 
             // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
-            const hasSource = stores.userData.hasSource.has(`${itemId}_${modifier}`);
+            const hasSource = stores.userData.hasSourceV2.get(modifier).has(itemId);
 
             slotData[actualSlot] ||= [false, []];
 

@@ -535,9 +535,9 @@ export class LazyStore implements LazyUgh {
                             (thing.questId > 0 &&
                                 this.userQuestData.accountHas.has(thing.questId)) ||
                             (thing.appearanceModifier >= 0 &&
-                                this.userData.hasSource.has(
-                                    `${thing.itemId}_${thing.appearanceModifier}`,
-                                ))
+                                this.userData.hasSourceV2
+                                    .get(thing.appearanceModifier)
+                                    .has(thing.itemId))
                         ) {
                             overallData.have++;
                             sectionData.have++;

@@ -74,6 +74,7 @@ export interface UserData {
     hasAppearance?: Set<number>;
     hasIllusion?: Set<number>;
     hasSource?: Set<string>;
+    hasSourceV2?: Map<number, Set<number>>;
 }
 
 export class UserDataCurrentPeriod {
