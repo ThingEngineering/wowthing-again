@@ -1,7 +1,9 @@
 ﻿using System.Threading.Channels;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Serilog;
 using Wowthing.Backend.Extensions;
+using Wowthing.Backend.Models;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
@@ -15,16 +17,19 @@ public class JobQueueService : BackgroundService
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
     private readonly ILogger _logger;
     private readonly StateService _stateService;
+    private readonly WowthingBackendOptions _backendOptions;
 
     public JobQueueService(
         IDbContextFactory<WowDbContext> contextFactory,
+        IOptions<WowthingBackendOptions> backendOptions,
         StateService stateService
     )
     {
         _contextFactory = contextFactory;
+        _backendOptions = backendOptions.Value;
         _stateService = stateService;
 
-        _logger = Log.ForContext("Service", $"JobQueue");
+        _logger = Log.ForContext("Service", "JobQueue");
 
         foreach (var priority in EnumUtilities.GetValues<JobPriority>())
         {
@@ -39,11 +44,16 @@ public class JobQueueService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
+        // Assume a max of 10 jobs per second per worker
+        int jobLimit = _backendOptions.WorkerCountLow * 10 * 5;
+
         while (!cancellationToken.IsCancellationRequested)
         {
             await Task.Delay(5000, cancellationToken);
 
             await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
+
+            int querySize = Math.Max(1, jobLimit - _channels[JobPriority.Low].Reader.Count);
 
             var queuedJobs = await context.QueuedJob
                 .FromSql($@"
@@ -53,7 +63,7 @@ WITH job_ids AS (
     WHERE   started_at IS NULL
     ORDER BY id
     FOR UPDATE SKIP LOCKED
-    LIMIT 100
+    LIMIT {querySize}
 )
 UPDATE  queued_job
 SET     started_at = CURRENT_TIMESTAMP
@@ -65,6 +75,11 @@ RETURNING *
             foreach (var queuedJob in queuedJobs)
             {
                 await _channels[queuedJob.Priority].Writer.WriteAsync(queuedJob, cancellationToken);
+            }
+
+            if (queuedJobs.Length > 0)
+            {
+                _logger.Information("Could queue {0}, actually queued {1}", querySize, queuedJobs.Length);
             }
 
             var successfulIds = _stateService.SuccessfulQueuedJobs.Reader.Flush();
