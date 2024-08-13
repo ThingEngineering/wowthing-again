@@ -44,10 +44,6 @@
     }
     .character {
         --image-margin-top: -4px;
-
-        a {
-            color: var(--colour-class, inherit);
-        }
     }
     .counts {
         color: #44ffff;

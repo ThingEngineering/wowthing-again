@@ -15,9 +15,6 @@
 
         white-space: nowrap;
     }
-    a {
-        color: var(--colour-class, var(--link-color));
-    }
 </style>
 
 <td

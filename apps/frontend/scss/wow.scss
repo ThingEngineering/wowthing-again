@@ -1,144 +1,105 @@
 // Class colours
 .class-1,
 .class-warrior {
-    --colour-class: #{$color-class-1};
-    --image-border-color: #{colour-class-1};
-    color: $color-class-1;
+    --image-border-color: #{color-class-1};
+    --link-color: #{$color-class-1};
 
-    > img {
-        border-color: #{$color-class-1};
-    }
+    color: $color-class-1;
 }
 
 .class-2,
 .class-paladin {
-    --colour-class: #{$color-class-2};
-    --image-border-color: #{colour-class-2};
-    color: $color-class-2;
+    --image-border-color: #{color-class-2};
+    --link-color: #{$color-class-2};
 
-    > img {
-        border-color: #{$color-class-2};
-    }
+    color: $color-class-2;
 }
 
 .class-3,
 .class-hunter {
-    --colour-class: #{$color-class-3};
-    --image-border-color: #{colour-class-3};
-    color: $color-class-3;
+    --image-border-color: #{color-class-3};
+    --link-color: #{$color-class-3};
 
-    > img {
-        border-color: #{$color-class-3};
-    }
+    color: $color-class-3;
 }
 
 .class-4,
 .class-rogue {
-    --colour-class: #{$color-class-4};
-    --image-border-color: #{colour-class-4};
-    color: $color-class-4;
+    --image-border-color: #{color-class-4};
+    --link-color: #{$color-class-4};
 
-    > img {
-        border-color: #{$color-class-4};
-    }
+    color: $color-class-4;
 }
 
 .class-5,
 .class-priest {
-    --colour-class: #{$color-class-5};
-    --image-border-color: #{colour-class-5};
-    color: $color-class-5;
+    --image-border-color: #{color-class-5};
+    --link-color: #{$color-class-5};
 
-    > img {
-        border-color: #{$color-class-5};
-    }
+    color: $color-class-5;
 }
 
 .class-6,
 .class-death-knight {
-    --colour-class: #{$color-class-6};
-    --image-border-color: #{colour-class-6};
-    color: $color-class-6;
+    --image-border-color: #{color-class-6};
+    --link-color: #{$color-class-6};
 
-    > img {
-        border-color: #{$color-class-6};
-    }
+    color: $color-class-6;
 }
 
 .class-7,
 .class-shaman {
-    --colour-class: #{$color-class-7};
-    --image-border-color: #{colour-class-7};
-    color: $color-class-7;
+    --image-border-color: #{color-class-7};
+    --link-color: #{$color-class-7};
 
-    > img {
-        border-color: #{$color-class-7};
-    }
+    color: $color-class-7;
 }
 
 .class-8,
 .class-mage {
-    --colour-class: #{$color-class-8};
-    --image-border-color: #{colour-class-8};
-    color: $color-class-8;
+    --image-border-color: #{color-class-8};
+    --link-color: #{$color-class-8};
 
-    > img {
-        border-color: #{$color-class-8};
-    }
+    color: $color-class-8;
 }
 
 .class-9,
 .class-warlock {
-    --colour-class: #{$color-class-9};
-    --image-border-color: #{colour-class-9};
-    color: $color-class-9;
+    --image-border-color: #{color-class-9};
+    --link-color: #{$color-class-9};
 
-    > img {
-        border-color: #{$color-class-9};
-    }
+    color: $color-class-9;
 }
 
 .class-10,
 .class-monk {
-    --colour-class: #{$color-class-10};
-    --image-border-color: #{colour-class-10};
-    color: $color-class-10;
+    --image-border-color: #{color-class-10};
+    --link-color: #{$color-class-10};
 
-    > img {
-        border-color: #{$color-class-10};
-    }
+    color: $color-class-10;
 }
 
 .class-11,
 .class-druid {
-    --colour-class: #{$color-class-11};
-    --image-border-color: #{colour-class-11};
-    color: $color-class-11;
+    --image-border-color: #{color-class-11};
+    --link-color: #{$color-class-11};
 
-    > img {
-        border-color: #{$color-class-11};
-    }
+    color: $color-class-11;
 }
 
 .class-12,
 .class-demon-hunter {
-    --colour-class: #{$color-class-12};
-    --image-border-color: #{colour-class-12};
-    color: $color-class-12;
+    --image-border-color: #{color-class-12};
+    --link-color: #{$color-class-12};
 
-    > img {
-        border-color: #{$color-class-12};
-    }
+    color: $color-class-12;
 }
 .class-13,
 .class-evoker {
-    --colour-class: #{$color-class-13};
-    --image-border-color: #{colour-class-13};
-    color: $color-class-13;
+    --image-border-color: #{color-class-13};
+    --link-color: #{$color-class-13};
 
-    > img {
-        border-color: #{$color-class-13};
-    }
+    color: $color-class-13;
 }
 
 // Junk
