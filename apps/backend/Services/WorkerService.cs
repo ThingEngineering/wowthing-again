@@ -100,11 +100,8 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, jobTokenSource.Token);
             }
 
-            var sleptAt = DateTime.UtcNow;
             await foreach (var queuedJob in _reader.ReadAllAsync(jobTokenSource.Token))
             {
-                _logger.Information("Slept for {time}", DateTime.UtcNow - sleptAt);
-
                 string jobTypeName = queuedJob.Type.ToString();
                 Type classType = JobTypeMap[jobTypeName];
                 using (LogContext.PushProperty("Task", jobTypeName))
@@ -134,8 +131,6 @@ public class WorkerService : BackgroundService
                             await job.Finally();
                             job.Dispose();
                         }
-
-                        sleptAt = DateTime.UtcNow;
                     }
                 }
             }
