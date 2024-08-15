@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Channels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Sentry;
 using Serilog;
 using Serilog.Context;
 using Wowthing.Backend.Jobs;
@@ -108,6 +109,9 @@ public class WorkerService : BackgroundService
                 {
                     JobBase job = null;
 
+                    var sentryTransaction = SentrySdk.StartTransaction($"worker: {jobTypeName}", "execute");
+                    SentrySdk.ConfigureScope(scope => scope.Transaction = sentryTransaction);
+
                     try
                     {
                         string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
@@ -123,6 +127,8 @@ public class WorkerService : BackgroundService
                         _logger.Error(ex, "Job failed");
 
                         await _stateService.FailedQueuedJobs.Writer.WriteAsync(queuedJob.Id, jobTokenSource.Token);
+
+                        SentrySdk.CaptureException(ex);
                     }
                     finally
                     {
@@ -131,6 +137,8 @@ public class WorkerService : BackgroundService
                             await job.Finally();
                             job.Dispose();
                         }
+
+                        sentryTransaction.Finish();
                     }
                 }
             }
