@@ -18,7 +18,6 @@
 
     $: characters = sortBy(getNumberKeyedEntries(modifier.characters),
         ([id,]) => $userStore.characterMap[id].realm.name + '|' + $userStore.characterMap[id].name)
-    $: console.log(characters)
 </script>
 
 <style lang="scss">

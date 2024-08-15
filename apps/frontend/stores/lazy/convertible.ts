@@ -82,7 +82,6 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
         warbankItems.filter(([, item]) => item.inventoryType > 0),
         ([, item]) => fixedInventoryType(item.inventoryType),
     );
-    console.log(warbankByType);
 
     const itemCounts: Record<number, number> = {};
     const ret: LazyConvertible = {
