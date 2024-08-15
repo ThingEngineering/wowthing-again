@@ -91,7 +91,7 @@ public class CharacterProfessionsJob : JobBase
             }
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()

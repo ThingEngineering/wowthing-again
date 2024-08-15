@@ -78,7 +78,7 @@ public class CharacterSoulbindsJob : JobBase
             shadowlands.ConduitRanks = new List<int>();
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()

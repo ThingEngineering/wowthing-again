@@ -31,6 +31,6 @@ public class DataConnectedRealmJob : JobBase
             dbRealm.Locale = apiRealm.Locale;
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 }

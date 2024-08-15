@@ -62,7 +62,7 @@ public class CharacterQuestsCompletedJob : JobBase
             pcQuests.CompletedIds = completedIds;
         }
 
-        int updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync(CancellationToken);
         if (updated > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, _query.UserId);

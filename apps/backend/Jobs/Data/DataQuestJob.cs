@@ -91,6 +91,6 @@ public class DataQuestJob : JobBase
             }
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 }

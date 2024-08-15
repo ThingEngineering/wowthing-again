@@ -61,7 +61,7 @@ public class UserCharactersJob : JobBase
                     .ToArray();
                 var accounts = await Context.PlayerAccount
                     .Where(pa => pa.Region == region && accountIds.Contains(pa.AccountId))
-                    .ToArrayAsync();
+                    .ToArrayAsync(CancellationToken);
 
                 foreach (var account in accounts)
                 {
@@ -108,7 +108,7 @@ public class UserCharactersJob : JobBase
             }
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         timer.AddPoint("API");
 
@@ -126,7 +126,7 @@ public class UserCharactersJob : JobBase
 
         var characterMap = await Context.PlayerCharacter
             .Where(orPredicate)
-            .ToDictionaryAsync(k => (k.RealmId, k.Name));
+            .ToDictionaryAsync(k => (k.RealmId, k.Name), CancellationToken);
 
         timer.AddPoint("Fetch");
 
@@ -183,7 +183,7 @@ public class UserCharactersJob : JobBase
 
         timer.AddPoint("Characters");
 
-        int written = await Context.SaveChangesAsync();
+        int written = await Context.SaveChangesAsync(CancellationToken);
         if (written > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _userId);
@@ -214,7 +214,8 @@ public class UserCharactersJob : JobBase
             int unlinkedCharacters = await Context.PlayerCharacter
                 .Where(pc => pc.AccountId == accountId && !characterIds.Contains(pc.Id))
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.AccountId, pc => null)
+                    .SetProperty(pc => pc.AccountId, pc => null),
+                    CancellationToken
                 );
 
             if (unlinkedCharacters > 0)
@@ -227,7 +228,7 @@ public class UserCharactersJob : JobBase
         // Unlink accounts that weren't in the response
         var otherAccounts = await Context.PlayerAccount
             .Where(pa => pa.UserId == _userId && !seenAccountIds.Contains(pa.Id))
-            .ToArrayAsync();
+            .ToArrayAsync(CancellationToken);
         if (otherAccounts.Length > 0)
         {
             foreach (var otherAccount in otherAccounts)
@@ -239,7 +240,7 @@ public class UserCharactersJob : JobBase
                 }
             }
 
-            await Context.SaveChangesAsync();
+            await Context.SaveChangesAsync(CancellationToken);
         }
 
         timer.AddPoint("Unlink", true);

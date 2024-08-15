@@ -42,6 +42,6 @@ public class DataMythicKeystoneSeasonIndexJob : JobBase, IScheduledJob
             }
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 }

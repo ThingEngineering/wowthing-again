@@ -90,7 +90,7 @@ public class CharacterRaiderIoJob : JobBase
 
         raiderIo.Seasons = seasons;
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()

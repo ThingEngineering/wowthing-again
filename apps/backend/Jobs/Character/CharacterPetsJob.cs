@@ -89,7 +89,7 @@ public class CharacterPetsJob : JobBase
 
         pets.UpdatedAt = DateTime.UtcNow;
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }

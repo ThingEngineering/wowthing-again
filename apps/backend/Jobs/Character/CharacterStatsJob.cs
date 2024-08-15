@@ -149,7 +149,7 @@ public class CharacterStatsJob : JobBase
 
         timer.AddPoint("Process");
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         timer.AddPoint("Update", true);
         Logger.Debug("{Timer}", timer.ToString());

@@ -29,7 +29,8 @@ public class CharacterJob : JobBase
             await Context.PlayerCharacter
                 .Where(c => c.Id == _query.CharacterId)
                 .ExecuteUpdateAsync(s => s
-                    .SetProperty(pc => pc.ShouldUpdate, pc => false)
+                    .SetProperty(pc => pc.ShouldUpdate, pc => false),
+                    CancellationToken
                 );
             return;
         }
@@ -61,7 +62,8 @@ public class CharacterJob : JobBase
                 await Context.PlayerCharacter
                     .Where(c => c.Id == _query.CharacterId)
                     .ExecuteUpdateAsync(s => s
-                        .SetProperty(pc => pc.ShouldUpdate, pc => false)
+                        .SetProperty(pc => pc.ShouldUpdate, pc => false),
+                        CancellationToken
                     );
             }
 
@@ -85,14 +87,15 @@ public class CharacterJob : JobBase
         character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
         character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
         character.Level = apiCharacter.Level;
-        character.Name = apiCharacter.Name;
+        // Don't update the name, we just requested them by name and this can break things on Russian realms somehow
+        // character.Name = apiCharacter.Name;
         character.RaceId = apiCharacter.Race.Id;
         character.RealmId = apiCharacter.Realm.Id;
 
         character.LastApiModified = lastModified;
         character.ShouldUpdate = true;
 
-        int updated = await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         // Character changed, queue some more stuff
         var jobs = new List<JobType>();

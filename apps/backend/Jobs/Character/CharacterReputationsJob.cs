@@ -70,7 +70,7 @@ public class CharacterReputationsJob : JobBase
             pcReputations.ReputationValues = reputationValues;
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()

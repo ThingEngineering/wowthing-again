@@ -81,7 +81,7 @@ public class ImageJob : JobBase
 
         image.Sha256 = sha256;
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         timer.AddPoint("Save", true);
         Logger.Debug("{Timer}", timer.ToString());

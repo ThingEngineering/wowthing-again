@@ -44,7 +44,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
         // Fetch character data
         var seasonMap = await Context.PlayerCharacterMythicPlusSeason
             .Where(mps => mps.CharacterId == _query.CharacterId)
-            .ToDictionaryAsync(k => k.Season);
+            .ToDictionaryAsync(k => k.Season, CancellationToken);
 
         if (resultData.BestRuns != null)
         {
@@ -79,7 +79,7 @@ public class CharacterMythicKeystoneProfileSeasonJob : JobBase
                 .ToList();
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()

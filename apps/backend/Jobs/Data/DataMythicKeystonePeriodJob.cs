@@ -38,6 +38,6 @@ public class DataMythicKeystonePeriodJob : JobBase
         period.Starts = result.Data.StartTimestamp.AsUtcTimestamp();
         period.Ends = result.Data.EndTimestamp.AsUtcTimestamp();
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 }

@@ -95,7 +95,7 @@ public class CharacterAchievementStatisticsJob : JobBase
 
         timer.AddPoint("Process");
 
-        int updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync(CancellationToken);
         if (updated > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, _query.UserId);
