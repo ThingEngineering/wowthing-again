@@ -8,7 +8,6 @@ export abstract class Constants {
 
     static readonly currencies = {
         catalyst: 2912, // Renascent Awakening
-        dragonridingPassengers: 2133,
         itemUpgrade: 2245,
     };
 
@@ -35,7 +34,6 @@ export abstract class Constants {
 
         anniversary: 'item/71134', // Celebration Package
         chromieTime: 'spell/96794', // Time Warp
-        dragonridingPassengers: 'spell/372610', // Skyward Ascent
         enchant: 'spell/7411', // Enchanting
         gem: 'item/12361', // Blue Sapphire
         heirloom: 'item/122338', // Ancient Heirloom Armor Casing

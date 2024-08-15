@@ -11,6 +11,7 @@ services:
     environment:
       BattleNet__ClientID: $BattleNet__ClientID
       BattleNet__ClientSecret: $BattleNet__ClientSecret
+      SENTRY_DSN: ${SENTRY_DSN-}
     logging:
       options:
         max-size: "1m"

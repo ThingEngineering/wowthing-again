@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
+using Sentry;
 using Serilog;
 using Serilog.Templates;
 using Wowthing.Backend.Extensions;
@@ -44,6 +45,27 @@ public class Program
         //         NamingStrategy = new CamelCaseNamingStrategy(),
         //     },
         // };
+
+        if (Environment.GetEnvironmentVariable("SENTRY_DSN") != null)
+        {
+            Log.Warning("Initializing Sentry");
+
+            SentrySdk.Init(options =>
+            {
+                options.AutoSessionTracking = true;
+
+#if DEBUG
+                options.Environment = "development";
+                options.ProfilesSampleRate = 1.0;
+                options.TracesSampleRate = 1.0;
+#else
+                options.Environment = "production";
+                options.ProfilesSampleRate = 0.1;
+                options.TracesSampleRate = 0.1;
+#endif
+                // ??
+            });
+        }
 
         try
         {

@@ -69,7 +69,7 @@ public class UserBulkDataJob : JobBase
         await FetchTransmogs();
         _timer.AddPoint("Transmogs");
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         _timer.AddPoint("Save", true);
 

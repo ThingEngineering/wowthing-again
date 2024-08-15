@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Channels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Sentry;
 using Serilog;
 using Serilog.Context;
 using Wowthing.Backend.Jobs;
@@ -29,6 +30,8 @@ public class WorkerService : BackgroundService
     private readonly JobPriority _priority;
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
     private readonly ChannelReader<QueuedJob> _reader;
+
+    private const int JobTimeout = 180_000; // HttpClient timeout is set to 120 seconds, 180 sounds reasonable
 
     public WorkerService(
         JobPriority priority,
@@ -92,18 +95,19 @@ public class WorkerService : BackgroundService
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            using var jobTokenSource = new CancellationTokenSource();
-
             while (_stateService.AccessToken?.Valid != true)
             {
                 _logger.Warning("Waiting for auth service to be ready");
-                await Task.Delay(1000, jobTokenSource.Token);
+                await Task.Delay(1000, cancellationToken);
             }
 
-            var sleptAt = DateTime.UtcNow;
-            await foreach (var queuedJob in _reader.ReadAllAsync(jobTokenSource.Token))
+            await foreach (var queuedJob in _reader.ReadAllAsync(cancellationToken))
             {
-                _logger.Information("Slept for {time}", DateTime.UtcNow - sleptAt);
+                using var jobTokenSource = new CancellationTokenSource();
+                jobTokenSource.CancelAfter(JobTimeout);
+
+                using var linkedToken =
+                    CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, jobTokenSource.Token);
 
                 string jobTypeName = queuedJob.Type.ToString();
                 Type classType = JobTypeMap[jobTypeName];
@@ -111,21 +115,43 @@ public class WorkerService : BackgroundService
                 {
                     JobBase job = null;
 
+                    var sentryTransaction = SentrySdk.StartTransaction($"worker: {jobTypeName}", "execute");
+                    SentrySdk.ConfigureScope(scope => scope.Transaction = sentryTransaction);
+
                     try
                     {
                         string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
-                        job = _jobFactory.Create(classType, _contextFactory, jobTokenSource.Token);
+                        job = _jobFactory.Create(classType, _contextFactory, linkedToken.Token);
                         job.Setup(data);
                         await job.Run(data);
 
-                        await _stateService.SuccessfulQueuedJobs.Writer.WriteAsync(queuedJob.Id, jobTokenSource.Token);
+                        await _stateService.SuccessfulQueuedJobs.Writer.WriteAsync(queuedJob.Id, linkedToken.Token);
+                    }
+                    catch (OperationCanceledException ex)
+                    {
+                        // If the outer token is cancelling we're likely shutting down, bail
+                        if (cancellationToken.IsCancellationRequested)
+                        {
+                            break;
+                        }
+
+                        if (jobTokenSource.IsCancellationRequested)
+                        {
+                            _logger.Error(ex, "Job timed out");
+
+                            await _stateService.FailedQueuedJobs.Writer.WriteAsync(queuedJob.Id, cancellationToken);
+
+                            SentrySdk.CaptureException(ex);
+                        }
                     }
                     catch (Exception ex)
                     {
                         _logger.Error(ex, "Job failed");
 
-                        await _stateService.FailedQueuedJobs.Writer.WriteAsync(queuedJob.Id, jobTokenSource.Token);
+                        await _stateService.FailedQueuedJobs.Writer.WriteAsync(queuedJob.Id, cancellationToken);
+
+                        SentrySdk.CaptureException(ex);
                     }
                     finally
                     {
@@ -135,7 +161,7 @@ public class WorkerService : BackgroundService
                             job.Dispose();
                         }
 
-                        sleptAt = DateTime.UtcNow;
+                        sentryTransaction.Finish();
                     }
                 }
             }

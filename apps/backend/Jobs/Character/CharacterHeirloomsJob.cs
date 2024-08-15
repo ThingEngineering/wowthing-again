@@ -80,7 +80,7 @@ public class CharacterHeirloomsJob : JobBase
                 heirloom => heirloom.Upgrade.Level
             );
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }

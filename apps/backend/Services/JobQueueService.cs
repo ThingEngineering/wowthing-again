@@ -77,11 +77,6 @@ RETURNING *
                 await _channels[queuedJob.Priority].Writer.WriteAsync(queuedJob, cancellationToken);
             }
 
-            if (queuedJobs.Length > 0)
-            {
-                _logger.Information("Could queue {0}, actually queued {1}", querySize, queuedJobs.Length);
-            }
-
             var successfulIds = _stateService.SuccessfulQueuedJobs.Reader.Flush();
             if (successfulIds.Count > 0)
             {

@@ -129,7 +129,7 @@ public class CharacterAchievementsJob : JobBase
 
         timer.AddPoint("Process");
 
-        int updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync(CancellationToken);
         if (updated > 0)
         {
             await CacheService.DeleteAchievementCacheAsync(_query.UserId);

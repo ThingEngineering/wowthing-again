@@ -63,7 +63,7 @@ public class DataRealmIndexJob : JobBase, IScheduledJob
             }
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
     }

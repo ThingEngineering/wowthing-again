@@ -64,6 +64,6 @@ public class CharacterTransmogsJob : JobBase
             Logger.Debug("Regenerating transmog cache");
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 }

@@ -64,7 +64,7 @@ public class CharacterMediaJob : JobBase
         media.MainUrl = assetMap.GetValueOrDefault("main");
         media.MainRawUrl = assetMap.GetValueOrDefault("main-raw");
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
 
         /*if (!string.IsNullOrWhiteSpace(media.MainUrl))
         {

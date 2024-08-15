@@ -74,7 +74,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             })
             .ToList();
 
-        int updated = await Context.SaveChangesAsync();
+        int updated = await Context.SaveChangesAsync(CancellationToken);
         if (updated > 0)
         {
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, _query.UserId);
@@ -91,7 +91,7 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             .Where(mps => mps.CharacterId == _query.CharacterId)
             .OrderByDescending(mps => mps.Season)
             .Select(mps => mps.Season)
-            .ToArrayAsync();
+            .ToArrayAsync(CancellationToken);
 
         // If we've already visited every season for this character, just grab the latest
         if (apiSeasons.Length > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))

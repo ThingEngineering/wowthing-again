@@ -18,7 +18,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
             .WowQuest
             .Where(wq => wq.LastApiCheck < DateTime.UtcNow.AddDays(-30))
             .Select(wq => wq.Id)
-            .ToArrayAsync();
+            .ToArrayAsync(CancellationToken);
 
         foreach (var questId in questIds)
         {
@@ -28,7 +28,8 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
         await Context.WowQuest
             .Where(wq => questIds.Contains(wq.Id))
             .ExecuteUpdateAsync(s => s
-                .SetProperty(wq => wq.LastApiCheck, wq => DateTime.UtcNow)
+                .SetProperty(wq => wq.LastApiCheck, wq => DateTime.UtcNow),
+                CancellationToken
             );
     }
 }

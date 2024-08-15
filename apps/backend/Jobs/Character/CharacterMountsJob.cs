@@ -19,9 +19,6 @@ public class CharacterMountsJob : JobBase
 
     public override async Task Run(string[] data)
     {
-        var _query = DeserializeCharacterQuery(data[0]);
-        CharacterLog(_query);
-
         // Fetch API data
         ApiCharacterMounts resultData;
         var uri = GenerateUri(_query, ApiPath);
@@ -62,7 +59,7 @@ public class CharacterMountsJob : JobBase
             pcMounts.Mounts = mounts;
         }
 
-        await Context.SaveChangesAsync();
+        await Context.SaveChangesAsync(CancellationToken);
     }
 
     public override async Task Finally()
