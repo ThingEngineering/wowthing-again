@@ -91,7 +91,7 @@ ON CONFLICT DO NOTHING");
     public async Task<bool> AcquireLockAsync(string key, string value, TimeSpan expiry)
     {
         var db = redis.GetDatabase();
-        return await db.LockTakeAsync("lock:{key}", value, expiry);
+        return await db.LockTakeAsync($"lock:{key}", value, expiry);
         // return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
     }
 
@@ -106,7 +106,7 @@ end
     public async Task ReleaseLockAsync(string key, string value)
     {
         var db = redis.GetDatabase();
-        await db.LockReleaseAsync("lock:{key}", value);
+        await db.LockReleaseAsync($"lock:{key}", value);
         // var script = LuaScript.Prepare(ReleaseScript);
         // await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
     }
