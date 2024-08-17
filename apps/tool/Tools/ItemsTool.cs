@@ -183,6 +183,7 @@ public class ItemsTool
             ItemBonusListGroups = listGroups,
             ItemConversionEntries = await LoadItemConversionEntries(),
             LimitCategories = await LoadLimitCategories(),
+            SpecOverrides = await LoadSpecOverrides(),
             TeachesSpell = teachesSpellMap,
             TeachesTransmog = teachesTransmogMap,
 
@@ -471,6 +472,16 @@ public class ItemsTool
             .Where(set => set.ItemIDs.Length > 0)
             .Select(set => new RedisItemSet(set))
             .ToArray();
+    }
+
+    private async Task<Dictionary<int, int[]>> LoadSpecOverrides()
+    {
+        var itemSpecOverrides = await DataUtilities.LoadDumpCsvAsync<DumpItemSpecOverride>("itemspecoverride");
+        var grouped = itemSpecOverrides.ToGroupedDictionary(
+            iso => iso.ItemID,
+            iso => iso.SpecID
+        );
+        return grouped;
     }
 
     private Dictionary<string, int> _names = new();
