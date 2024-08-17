@@ -3,6 +3,7 @@
 
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons } from '@/shared/icons/mappings';
+    import { browserStore } from '@/shared/stores/browser';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { itemStore, journalStore, userStore } from '@/stores';
 
@@ -37,17 +38,18 @@
     .collection-object {
         height: 52px;
         width: 52px;
+
+        :global(a > *) {
+            z-index: 5;
+        }
     }
     .slot {
         background: rgba(0, 0, 0, 0.8);
-        border-bottom: 1px solid $border-color;
-        border-right: 1px solid $border-color;
-        border-radius: $border-radius;
         color: #ddd;
         left: 0px;
         position: absolute;
         top: 0px;
-        transform: scale(80%);
+        transform: scale(0.75);
     }
     .specializations {
         --image-border-width: 1px;
@@ -85,48 +87,54 @@
                 {@const hasSource = $userStore.hasSourceV2.get(appearance.modifier).has(expandedItemId)}
                 {@const classId = playableClassFromMask(expandedItem.classMask)}
                 {@const specIds = $itemStore.specOverrides[expandedItemId]}
-                <div
-                    class="collection-object class-{classId}"
-                    class:faded={hasSource}
-                >
-                    {#if intersected}
-                        <WowheadLink id={expandedItemId} type="item">
-                            <span class="slot drop-shadow">
-                                <IconifyIcon
-                                    dropShadow={true}
-                                    icon={inventoryTypeIcons[fixedInventoryType(expandedItem?.inventoryType)]}
-                                />
-                            </span>
+                {#if ($browserStore.tokens.showCollected && hasSource) ||
+                    ($browserStore.tokens.showUncollected && !hasSource)}
+                    <div
+                        class="collection-object class-{classId}"
+                        class:missing={
+                            (!$browserStore.tokens.highlightMissing && !hasSource) ||
+                            ($browserStore.tokens.highlightMissing && hasSource)
+                        }
+                    >
+                        {#if intersected}
+                            <WowheadLink id={expandedItemId} type="item">
+                                <span class="slot drop-shadow">
+                                    <IconifyIcon
+                                        dropShadow={true}
+                                        icon={inventoryTypeIcons[fixedInventoryType(expandedItem?.inventoryType)]}
+                                    />
+                                </span>
 
-                            {#if hasSource}
-                                <CollectedIcon />
-                            {/if}
-
-                            {#if specIds?.length === 1}
-                                <SpecializationIcon
-                                    specId={specIds[0]}
-                                    border={2}
-                                    size={48}
-                                />
-                            {:else if classId}
-                                <ClassIcon
-                                    {classId}
-                                    size={48}
-                                    border={2}
-                                />
-                                {#if specIds?.length > 0 && specIds.length < 3}
-                                    <span class="specializations drop-shadow">
-                                        {#each specIds as specId}
-                                            <SpecializationIcon {specId} size={16} />
-                                        {/each}
-                                    </span>
+                                {#if hasSource}
+                                    <CollectedIcon />
                                 {/if}
-                            {:else}
-                                uhh
-                            {/if}
-                        </WowheadLink>
-                    {/if}
-                </div>
+
+                                {#if specIds?.length === 1}
+                                    <SpecializationIcon
+                                        specId={specIds[0]}
+                                        border={2}
+                                        size={48}
+                                    />
+                                {:else if classId}
+                                    <ClassIcon
+                                        {classId}
+                                        size={48}
+                                        border={2}
+                                    />
+                                    {#if specIds?.length > 0 && specIds.length < 3}
+                                        <span class="specializations drop-shadow">
+                                            {#each specIds as specId}
+                                                <SpecializationIcon {specId} size={16} />
+                                            {/each}
+                                        </span>
+                                    {/if}
+                                {:else}
+                                    uhh
+                                {/if}
+                            </WowheadLink>
+                        {/if}
+                    </div>
+                {/if}
             {/each}
         </div>
     </div>

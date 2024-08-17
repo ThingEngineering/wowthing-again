@@ -6,6 +6,7 @@
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
+    import Options from './Options.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
     type InstanceData = [JournalDataInstance, Set<number>][];
@@ -82,7 +83,7 @@
 <UnderConstruction />
 
 <div class="resizer-view" bind:this={containerElement}>
-    options
+    <Options />
 
     <div class="collection thing-container" bind:this={resizeableElement}>
         {#each tiers as [tier, instances]}
