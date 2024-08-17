@@ -574,6 +574,13 @@ public class UserUploadJob : JobBase
 
         _timer.AddPoint("Warbank");
 
+        if (parsed.BattlePets != null)
+        {
+            await HandleBattlePets(accountId, parsed.BattlePets);
+        }
+
+        _timer.AddPoint("BattlePets");
+
 #if DEBUG
         //Context.ChangeTracker.DetectChanges();
         //Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
@@ -1045,6 +1052,57 @@ public class UserUploadJob : JobBase
 
             _resetAchievementCache = true;
         }
+    }
+
+    private async Task HandleBattlePets(int accountId, Dictionary<long, string> parsedBattlePets)
+    {
+        string lockKey = $"character_pets:{accountId}";
+        string lockValue = Guid.NewGuid().ToString("N");
+        bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
+        if (!lockSuccess)
+        {
+            Logger.Information("Skipping pets, lock failed");
+            return;
+        }
+
+        var accountPets = await Context.PlayerAccountPets.FindAsync(accountId);
+        if (accountPets == null)
+        {
+            // Don't want to deal with this here, the job will create it
+            return;
+        }
+
+        var seenIds = new HashSet<long>();
+        foreach ((long petId, string petString) in parsedBattlePets)
+        {
+            // species:level:quality
+            string[] parts = petString.Split(':');
+            int.TryParse(parts[0], out int speciesId);
+            int.TryParse(parts[1], out int level);
+            short.TryParse(parts[2], out short quality);
+
+            if (!accountPets.Pets.TryGetValue(petId, out var pet))
+            {
+                accountPets.Pets.Add(petId, new PlayerAccountPetsPet
+                {
+                    BreedId = 0, // getting this out of the game sucks and I don't want to deal with it
+                    Level = level,
+                    Quality = (WowQuality)quality,
+                    SpeciesId = speciesId,
+                });
+            }
+            else
+            {
+                pet.Level = Math.Max(pet.Level, level);
+                pet.Quality = (WowQuality)quality;
+            }
+        }
+
+        // Change detection for this is obnoxious, just update it
+        var entry = Context.Entry(accountPets);
+        entry.Property(caq => caq.Pets).IsModified = true;
+
+        await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 
     private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
