@@ -3,9 +3,11 @@ import without from 'lodash/without';
 
 import { raidDifficulties } from '@/data/difficulty';
 import { worldBossInstanceIds } from '@/data/dungeon';
+import { extraTiers } from '@/data/journal';
 import { JournalDataEncounter } from '@/types/data';
 import { WritableFancyStore } from '@/types/fancy-store';
-import type { JournalData, JournalDataTier } from '@/types/data';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import type { JournalData } from '@/types/data';
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
     get dataUrl(): string {
@@ -15,28 +17,13 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     initialize(data: JournalData): void {
         console.time('JournalDataStore.initialize');
 
-        const extraTiers: JournalDataTier[] = [
-            {
-                id: 1000001,
-                name: 'Dungeons',
-                slug: 'dungeons',
-                instances: [],
-                subTiers: [],
-            },
-            {
-                id: 1000002,
-                name: 'Raids',
-                slug: 'raids',
-                instances: [],
-                subTiers: [],
-            },
-            {
-                id: 1000099,
-                name: 'World Bosses',
-                slug: 'world-bosses',
-                instances: [],
-            },
-        ];
+        data.expandedItem = {};
+        for (const [tokenId, itemIds] of getNumberKeyedEntries(data.itemExpansion)) {
+            for (const itemId of itemIds) {
+                (data.expandedItem[itemId] ||= []).push(tokenId);
+            }
+        }
+        console.log(data.expandedItem);
 
         for (const tier of data.tiers.filter((tier) => tier !== null)) {
             for (const extraTier of extraTiers) {

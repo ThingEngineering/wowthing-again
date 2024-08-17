@@ -229,7 +229,10 @@ public class JournalTool
         {
             ToolContext.Logger.Debug("Generating {Lang}", language);
 
-            var cacheData = new RedisJournalData();
+            var cacheData = new RedisJournalData
+            {
+                ItemExpansion = itemExpansions,
+            };
 
             foreach (var tier in tiers)
             {
@@ -395,7 +398,7 @@ public class JournalTool
                             {
                                 if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                 {
-                                    //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
+                                    // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
                                     foreach (int itemId in expandedItems)
                                     {
                                         if (!fakeItems.ContainsKey(itemId))
@@ -411,6 +414,10 @@ public class JournalTool
                                             };
                                         }
                                     }
+
+                                    cacheData.TokenEncounters.Add($"{tier.ID}");
+                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}");
+                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}|{encounter.ID}");
                                 }
                                 else
                                 {
@@ -492,7 +499,7 @@ public class JournalTool
 
                                     if (difficulties.Length == 0)
                                     {
-                                        ToolContext.Logger.Warning("No valid difficulties for item ID {Id}", encounterItem.ID);
+                                        // ToolContext.Logger.Warning("No valid difficulties for item ID {Id}", encounterItem.ID);
                                         continue;
                                     }
                                 }
