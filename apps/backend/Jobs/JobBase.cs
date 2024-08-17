@@ -54,6 +54,8 @@ public abstract class JobBase : IJob, IDisposable
     private WowDbContext _context;
     internal WowDbContext Context => _context ??= ContextFactory.CreateDbContext();
 
+    internal Task<WowDbContext> NewContext() => ContextFactory.CreateDbContextAsync(CancellationToken);
+
     #region IJob
     public abstract Task Run(string[] data);
 

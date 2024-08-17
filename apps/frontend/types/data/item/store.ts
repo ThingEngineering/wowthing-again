@@ -16,6 +16,7 @@ export interface ItemData {
     limitCategories: Record<number, number>;
     limitCategoryItems: Record<number, number[]>;
     oppositeFactionAppearance: Record<number, number[]>;
+    specOverrides: Record<number, number[]>;
     teachesSpell: Record<number, number>;
     teachesTransmog: Record<number, number>;
 

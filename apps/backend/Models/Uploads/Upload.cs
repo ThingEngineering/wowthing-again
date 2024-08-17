@@ -9,6 +9,8 @@ public class Upload
     public short HonorLevel { get; set; }
     public short HonorMax { get; set; }
 
+    public Dictionary<long, string> BattlePets { get; set; }
+
     [JsonPropertyName("chars")]
     public Dictionary<string, UploadCharacter> Characters { get; set; }
 
