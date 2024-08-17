@@ -15,6 +15,7 @@
     import RowItems from './ItemsTableRowItems.svelte'
     import RowUpgrades from './ItemsTableRowUpgrades.svelte'
     import Search from './ItemsSearch.svelte'
+    import Tokens from './tokens/Tokens.svelte'
 
     export let params: MultiSlugParams
 
@@ -36,6 +37,7 @@
         <a href="#/items/equipped" use:active>Equipped</a>
 
         <a href="#/items/convertible" use:active={{path: /^\/items\/convertible/}}>Convertible</a>
+        <a href="#/items/tokens" use:active={{path: /^\/items\/tokens/}}>Tokens</a>
         {#if !$userStore.public}
             <a href="#/items/search" use:active={{path: /^\/items\/search/}}>Search</a>
         {/if}
@@ -43,6 +45,11 @@
 
     {#if params.slug1 === 'convertible'}
         <Convertible
+            slug1={params.slug2}
+            slug2={params.slug3}
+        />
+    {:else if params.slug1 === 'tokens'}
+        <Tokens
             slug1={params.slug2}
             slug2={params.slug3}
         />
