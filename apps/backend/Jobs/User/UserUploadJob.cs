@@ -1065,7 +1065,9 @@ public class UserUploadJob : JobBase
             return;
         }
 
-        var accountPets = await Context.PlayerAccountPets.FindAsync(accountId);
+        await using var localContext = await NewContext();
+
+        var accountPets = await localContext.PlayerAccountPets.FindAsync(accountId);
         if (accountPets == null)
         {
             // Don't want to deal with this here, the job will create it
@@ -1092,14 +1094,14 @@ public class UserUploadJob : JobBase
                 accountPets.Pets.Add(petId, new PlayerAccountPetsPet
                 {
                     BreedId = 0, // getting this out of the game sucks and I don't want to deal with it
-                    Level = level,
+                    Level = Math.Min(25, level),
                     Quality = (WowQuality)quality,
                     SpeciesId = speciesId,
                 });
             }
             else
             {
-                pet.Level = Math.Max(pet.Level, level);
+                pet.Level = Math.Min(25, Math.Max(pet.Level, level));
                 pet.Quality = (WowQuality)quality;
             }
 
@@ -1113,8 +1115,10 @@ public class UserUploadJob : JobBase
         }
 
         // Change detection for this is obnoxious, just update it
-        var entry = Context.Entry(accountPets);
+        var entry = localContext.Entry(accountPets);
         entry.Property(caq => caq.Pets).IsModified = true;
+
+        await localContext.SaveChangesAsync(CancellationToken);
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
