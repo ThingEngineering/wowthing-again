@@ -1077,6 +1077,12 @@ public class UserUploadJob : JobBase
         {
             // species:level:quality
             string[] parts = petString.Split(':');
+            if (parts.Length != 3)
+            {
+                Logger.Warning("Invalid pet string: {s}", petString);
+                continue;
+            }
+
             int.TryParse(parts[0], out int speciesId);
             int.TryParse(parts[1], out int level);
             short.TryParse(parts[2], out short quality);
@@ -1096,6 +1102,14 @@ public class UserUploadJob : JobBase
                 pet.Level = Math.Max(pet.Level, level);
                 pet.Quality = (WowQuality)quality;
             }
+
+            seenIds.Add(petId);
+        }
+
+        // Remove any pets that we didn't see, assume they've been caged
+        foreach (long petId in accountPets.Pets.Keys.Except(seenIds))
+        {
+            accountPets.Pets.Remove(petId);
         }
 
         // Change detection for this is obnoxious, just update it
