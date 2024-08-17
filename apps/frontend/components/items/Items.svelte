@@ -49,10 +49,7 @@
             slug2={params.slug3}
         />
     {:else if params.slug1 === 'tokens'}
-        <Tokens
-            slug1={params.slug2}
-            slug2={params.slug3}
-        />
+        <Tokens />
     {:else if params.slug1 === 'search'}
         <Search />
     {:else}

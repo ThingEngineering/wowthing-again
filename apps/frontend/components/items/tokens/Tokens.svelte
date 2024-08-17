@@ -13,9 +13,6 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    export let slug1: string;
-    export let slug2: string;
-
     type InstanceData = [JournalDataInstance, Set<number>][];
     type TierData = [JournalDataTier, InstanceData][];
     let tiers: TierData;
