@@ -43,6 +43,8 @@
     <h3 class="{getPercentClass(percent)}">
         <ParsedText text={title} />
     </h3>
-    <Count counts={count} />
+    {#if count}
+        <Count counts={count} />
+    {/if}
     <slot />
 </div>

@@ -3,4 +3,5 @@ export enum ItemFlags {
     CannotTransmogToThisItem = 0x2,
     AllianceOnly = 0x4,
     HordeOnly = 0x8,
+    HeroicDifficulty = 0x20,
 }

@@ -46,8 +46,8 @@ export const journalDifficultyOrder: number[] = [
 
     7, // Legacy LFR
     3, // Legacy 10 Normal
-    4, // Legacy 25 Normal
     5, // Legacy 10 Heroic
+    4, // Legacy 25 Normal
     6, // Legacy 25 Heroic
     9, // Legacy 40 Player
 

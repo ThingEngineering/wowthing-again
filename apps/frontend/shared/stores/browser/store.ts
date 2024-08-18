@@ -7,6 +7,7 @@ const storageKey = 'browserStore';
 class BrowserState {
     home = new BrowserStateHome();
     matrix = new BrowserStateMatrix();
+    tokens = new BrowserStateTokens();
 }
 
 class BrowserStateHome {
@@ -20,6 +21,12 @@ class BrowserStateMatrix {
     showEmptyRows = false;
     xAxis: string[] = [];
     yAxis: string[] = [];
+}
+
+class BrowserStateTokens {
+    highlightMissing = true;
+    showCollected = true;
+    showUncollected = true;
 }
 
 const initialState = new BrowserState();

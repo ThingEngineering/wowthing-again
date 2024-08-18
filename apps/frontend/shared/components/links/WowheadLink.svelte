@@ -3,6 +3,7 @@
     import { settingsStore } from '@/shared/stores/settings'
 
     export let extraParams: Record<string, string> = {}
+    export let extraClass: string = undefined
     export let id: number
     export let noTooltip = false
     export let rename = false
@@ -42,7 +43,7 @@
 
 {#if id > 0}
     <a
-        class="text-overflow"
+        class="text-overflow{extraClass ? ` ${extraClass}` : ''}"
         href="{url}"
         rel="noopener"
         target="_blank"
