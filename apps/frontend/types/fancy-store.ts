@@ -1,3 +1,4 @@
+import { DateTime } from 'luxon'
 import { writable } from 'svelte/store';
 import type { Invalidator, Subscriber, Unsubscriber, Updater, Writable } from 'svelte/store';
 
@@ -23,6 +24,7 @@ export type FancyStoreType<T> = T & {
 // }
 
 export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T>> {
+    protected _id: number;
     protected _language: Language;
     protected value: FancyStoreType<T>;
 
@@ -50,6 +52,10 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
         this.update = (stateFunc: (originalValue: FancyStoreType<T>) => FancyStoreType<T>) => {
             original.update((oldValue: FancyStoreType<T>) => (this.value = stateFunc(oldValue)));
         };
+    }
+
+    get id(): number {
+        return this._id;
     }
 
     get dataUrl(): string {
@@ -123,6 +129,8 @@ export abstract class WritableFancyStore<T> implements Writable<FancyStoreType<T
             });
             return false;
         }
+
+        this._id = DateTime.now().toUnixInteger();
 
         this.initialize?.(data);
 
