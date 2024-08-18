@@ -281,6 +281,29 @@ public class ItemsTool
                 .Select(kvp => kvp.Key)
                 .ToArray();
 
+            // if (language == Language.enUS)
+            // {
+            //     var wordCounts = new Dictionary<string, int>();
+            //     foreach (string name in _names.Keys)
+            //     {
+            //         foreach (string part in name.Split(' ').Where(word => word.Length > 3))
+            //         {
+            //             wordCounts[part] = wordCounts.GetValueOrDefault(part, 0) + 1;
+            //         }
+            //     }
+            //
+            //     int total = 0;
+            //     foreach ((string word, int count) in wordCounts.OrderByDescending(kvp => (kvp.Key.Length - 1) * kvp.Value).Take(63))
+            //     {
+            //         int saved = (word.Length - 1) * count;
+            //         total += saved;
+            //         Console.WriteLine("{0}x {1} => {2} bytes", count, word, saved);
+            //     }
+            //     Console.WriteLine("-- TOTAL = {0} bytes", total);
+            //
+            //     break;
+            // }
+
             string cacheJson = ToolContext.SerializeJson(cacheData);
             // This ends up being the MD5 of enUS, close enough
             cacheHash ??= cacheJson.Md5();
@@ -481,6 +504,12 @@ public class ItemsTool
             iso => iso.ItemID,
             iso => iso.SpecID
         );
+
+        foreach ((int itemId, int[] specIds) in Hardcoded.ItemSpecOverrides)
+        {
+            grouped[itemId] = specIds;
+        }
+
         return grouped;
     }
 

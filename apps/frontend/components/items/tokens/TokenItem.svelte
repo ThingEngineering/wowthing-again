@@ -13,6 +13,9 @@
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { ItemFlags } from '@/enums/item-flags';
+    import { collectingSettingsState } from '@/stores/local-storage';
+    import { settingsStore } from '@/shared/stores/settings';
 
     export let itemId: number
 
@@ -62,6 +65,10 @@
         position: absolute;
         width: 100%;
     }
+    .pill {
+        // font-size: 90%;
+        font-variant: small-caps;
+    }
 </style>
 
 <IntersectionObserver
@@ -73,6 +80,9 @@
         <div class="title">
             <h4 class="text-overflow">
                 {haveCount}x
+                {#if (item.flags & ItemFlags.HeroicDifficulty) > 0}
+                    <code>[H]</code>
+                {/if}
                 <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">
                     <WowthingImage name="item/{itemId}" size={20} />
                     {item.name}
@@ -84,16 +94,19 @@
             {#each expandsTo as expandedItemId}
                 {@const expandedItem = $itemStore.items[expandedItemId]}
                 {@const appearance = expandedItem.appearances[0]}
-                {@const hasSource = $userStore.hasSourceV2.get(appearance.modifier).has(expandedItemId)}
+                {@const hasItem = $settingsStore.transmog.completionistMode
+                    ? $userStore.hasSourceV2.get(appearance.modifier).has(expandedItemId)
+                    : $userStore.hasAppearance.has(appearance.appearanceId)
+                }
                 {@const classId = playableClassFromMask(expandedItem.classMask)}
                 {@const specIds = $itemStore.specOverrides[expandedItemId]}
-                {#if ($browserStore.tokens.showCollected && hasSource) ||
-                    ($browserStore.tokens.showUncollected && !hasSource)}
+                {#if ($browserStore.tokens.showCollected && hasItem) ||
+                    ($browserStore.tokens.showUncollected && !hasItem)}
                     <div
                         class="collection-object class-{classId}"
                         class:missing={
-                            (!$browserStore.tokens.highlightMissing && !hasSource) ||
-                            ($browserStore.tokens.highlightMissing && hasSource)
+                            (!$browserStore.tokens.highlightMissing && !hasItem) ||
+                            ($browserStore.tokens.highlightMissing && hasItem)
                         }
                     >
                         {#if intersected}
@@ -105,33 +118,25 @@
                                     />
                                 </span>
 
-                                {#if hasSource}
+                                {#if hasItem}
                                     <CollectedIcon />
                                 {/if}
 
-                                {#if specIds?.length === 1}
-                                    <SpecializationIcon
-                                        specId={specIds[0]}
-                                        border={2}
-                                        size={48}
-                                    />
-                                {:else if classId}
-                                    <ClassIcon
-                                        {classId}
-                                        size={48}
-                                        border={2}
-                                    />
+                                <ClassIcon
+                                    {classId}
+                                    size={48}
+                                    border={2}
+                                />
+                                <span class="specializations drop-shadow2">
                                     {#if specIds?.length > 0 && specIds.length < 3}
-                                        <span class="specializations drop-shadow">
-                                            {#each specIds as specId}
-                                                <SpecializationIcon {specId} size={16} />
-                                            {/each}
-                                        </span>
+                                        {#each specIds as specId}
+                                            <SpecializationIcon {specId} size={20} />
+                                        {/each}
+                                    {:else}
+                                        <span class="pill">All</span>
                                     {/if}
-                                {:else}
-                                    uhh
-                                {/if}
-                            </WowheadLink>
+                                </span>
+                        </WowheadLink>
                         {/if}
                     </div>
                 {/if}

@@ -781,6 +781,11 @@ public class DumpsTool
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             // Flags
+            if (itemSparse.Flags1.HasFlag(WowItemFlags1.HeroicTooltip) ||
+                itemSparse.ItemNameDescriptionID == 2015)
+            {
+                dbItem.Flags |= WowItemFlags.HeroicDifficulty;
+            }
             if (itemSparse.Flags2.HasFlag(WowItemFlags2.AllianceOnly))
             {
                 dbItem.Flags |= WowItemFlags.AllianceOnly;

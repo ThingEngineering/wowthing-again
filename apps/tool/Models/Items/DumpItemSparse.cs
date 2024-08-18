@@ -25,6 +25,9 @@ public class DumpItemSparse
     public short RequiredSkillRank { get; set; }
     public int Stackable { get; set; }
 
+    [Name("Flags[0]")]
+    public WowItemFlags1 Flags1 { get; set; }
+
     [Name("Flags[1]")]
     public WowItemFlags2 Flags2 { get; set; }
 
