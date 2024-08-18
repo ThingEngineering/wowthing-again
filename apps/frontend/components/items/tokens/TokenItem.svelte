@@ -14,7 +14,6 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { ItemFlags } from '@/enums/item-flags';
-    import { collectingSettingsState } from '@/stores/local-storage';
     import { settingsStore } from '@/shared/stores/settings';
 
     export let itemId: number
@@ -35,6 +34,9 @@
 </script>
 
 <style lang="scss">
+    h4 {
+        --image-margin-top: -4px;
+    }
     .collection-v2-group {
         width: calc((52px * 7) + (0.3rem * 6));
     }
@@ -50,6 +52,7 @@
         background: rgba(0, 0, 0, 0.8);
         color: #ddd;
         left: 0px;
+        pointer-events: none;
         position: absolute;
         top: 0px;
         transform: scale(0.75);
@@ -57,13 +60,19 @@
     .specializations {
         --image-border-width: 1px;
 
-        justify-content: center;
         bottom: 2px;
         display: flex;
         gap: 2px;
-        left: 0;
+        justify-content: center;
+        left: 50%;
         position: absolute;
+        transform: translateX(-50%);
         width: 100%;
+
+        > span {
+            border: 2px solid rgba(0, 0, 0, 0.8);
+            border-radius: $border-radius;
+        }
     }
     .pill {
         // font-size: 90%;
@@ -77,18 +86,16 @@
     bind:intersecting={intersected}
 >
     <div class="collection-v2-group" bind:this={element}>
-        <div class="title">
-            <h4 class="text-overflow">
-                {haveCount}x
-                {#if (item.flags & ItemFlags.HeroicDifficulty) > 0}
-                    <code>[H]</code>
-                {/if}
-                <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">
-                    <WowthingImage name="item/{itemId}" size={20} />
-                    {item.name}
-                </WowheadLink>
-            </h4>
-        </div>
+        <h4 class="text-overflow">
+            {haveCount}x
+            {#if (item.flags & ItemFlags.HeroicDifficulty) > 0}
+                <code>[H]</code>
+            {/if}
+            <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">
+                <WowthingImage name="item/{itemId}" size={20} />
+                {item.name}
+            </WowheadLink>
+        </h4>
         
         <div class="collection-objects">
             {#each expandsTo as expandedItemId}
@@ -111,7 +118,7 @@
                     >
                         {#if intersected}
                             <WowheadLink id={expandedItemId} type="item">
-                                <span class="slot drop-shadow">
+                                <span class="slot">
                                     <IconifyIcon
                                         dropShadow={true}
                                         icon={inventoryTypeIcons[fixedInventoryType(expandedItem?.inventoryType)]}
@@ -127,16 +134,18 @@
                                     size={48}
                                     border={2}
                                 />
-                                <span class="specializations drop-shadow2">
+                                <span class="specializations">
                                     {#if specIds?.length > 0 && specIds.length < 3}
                                         {#each specIds as specId}
-                                            <SpecializationIcon {specId} size={20} />
+                                            <span style="line-height: 1;">
+                                                <SpecializationIcon {specId} size={20} />
+                                            </span>
                                         {/each}
                                     {:else}
                                         <span class="pill">All</span>
                                     {/if}
                                 </span>
-                        </WowheadLink>
+                            </WowheadLink>
                         {/if}
                     </div>
                 {/if}
