@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace Wowthing.Lib.Jobs;
+﻿namespace Wowthing.Lib.Jobs;
 
 public class WorkerJob
 {

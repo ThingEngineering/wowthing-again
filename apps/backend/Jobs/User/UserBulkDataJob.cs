@@ -2,7 +2,6 @@
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.User;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;

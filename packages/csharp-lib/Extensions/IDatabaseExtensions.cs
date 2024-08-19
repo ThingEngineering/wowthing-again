@@ -1,6 +1,4 @@
 ﻿using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using K4os.Compression.LZ4;
 using StackExchange.Redis;
 

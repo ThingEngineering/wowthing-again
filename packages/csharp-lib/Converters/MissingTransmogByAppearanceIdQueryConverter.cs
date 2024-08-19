@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-using Wowthing.Lib.Models.Query;
+﻿using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Lib.Converters;
 

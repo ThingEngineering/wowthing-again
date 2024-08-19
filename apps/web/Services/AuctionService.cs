@@ -1,11 +1,9 @@
-﻿using StackExchange.Redis;
-using Wowthing.Lib.Contexts;
+﻿using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
-using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Api;
@@ -14,22 +12,16 @@ namespace Wowthing.Web.Services;
 
 public class AuctionService
 {
-    private readonly CacheService _cacheService;
-    private readonly IConnectionMultiplexer _redis;
     private readonly MemoryCacheService _memoryCacheService;
     private readonly WowDbContext _context;
 
     public AuctionService(
-        CacheService cacheService,
-        IConnectionMultiplexer redis,
         MemoryCacheService memoryCacheService,
         WowDbContext context
     )
     {
-        _cacheService = cacheService;
         _context = context;
         _memoryCacheService = memoryCacheService;
-        _redis = redis;
     }
 
     public async Task<AuctionBrowseQuery[]> Browse(WowRegion region, short defaultFilter, short inventoryType,
