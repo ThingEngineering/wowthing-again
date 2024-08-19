@@ -173,6 +173,30 @@ public class UserUploadJob : JobBase
             }
         }
 
+        _timer.AddPoint("Load");
+
+        string json = LuaToJsonConverter4.Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
+
+        _timer.AddPoint("Convert");
+
+#if DEBUG
+        await File.WriteAllTextAsync(Path.Join("..", "..", "lua.json"), json);
+        _timer.AddPoint("Write");
+#endif
+
+        Upload parsed;
+        try
+        {
+            parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
+        }
+        catch (JsonException ex)
+        {
+            Logger.Error(ex, "Failed to deserialize upload!");
+            return;
+        }
+
+        _timer.AddPoint("Parse");
+
         _worldQuestReportMap = (
                 await Context.WorldQuestReport
                     .Where(wqr => wqr.UserId == _userId)
@@ -189,20 +213,6 @@ public class UserUploadJob : JobBase
                     wqr.Class
                 ))
             );
-
-        _timer.AddPoint("Load");
-
-        string json = LuaToJsonConverter4.Convert(luaData.Replace("WWTCSaved = ", ""))[1..^1];
-
-        _timer.AddPoint("Convert");
-
-#if DEBUG
-        await File.WriteAllTextAsync(Path.Join("..", "..", "lua.json"), json);
-        _timer.AddPoint("Write");
-#endif
-
-        var parsed = JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
-        _timer.AddPoint("Parse");
 
         WowRegion? accountRegion = null;
 
