@@ -6,11 +6,10 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { staticStore } from '@/shared/stores/static'
-    import { itemStore, lazyStore, userStore } from '@/stores'
+    import { itemStore, lazyStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
-    import type { UserCount } from '@/types'
     import type { ManualDataVendorGroup } from '@/types/data/manual'
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
@@ -20,10 +19,9 @@
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import GroupedCheckboxInput from '@/shared/components/forms/GroupedCheckboxInput.svelte';
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
 
     export let group: ManualDataVendorGroup
     export let useV2: boolean

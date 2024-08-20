@@ -1,5 +1,4 @@
 <script lang="ts">
-    import find from 'lodash/find'
     import { afterUpdate } from 'svelte'
 
     import { lazyStore, manualStore } from '@/stores'

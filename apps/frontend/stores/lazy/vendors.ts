@@ -26,7 +26,6 @@ import type { UserQuestData } from '@/types/data';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
-import { leftPad } from '@/utils/formatting';
 
 const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
