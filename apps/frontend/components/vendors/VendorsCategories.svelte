@@ -19,7 +19,8 @@
     let totalCosts: Record<string, Record<number, number>>
     $: {
         firstCategory = $manualStore.vendors.sets.find((cat) => cat?.slug === params.slug1)
-        
+        if (!firstCategory) { break $; }
+
         categories = firstCategory.children.filter((cat) => cat?.groups?.length > 0)
 
         if (params.slug2) {

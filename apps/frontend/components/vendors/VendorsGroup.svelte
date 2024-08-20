@@ -259,7 +259,7 @@
                                             size={20}
                                             specId={specIds[0]}
                                         />
-                                    {:else}
+                                    {:else if thing.classId}
                                         <ClassIcon
                                             border={2}
                                             size={20}
