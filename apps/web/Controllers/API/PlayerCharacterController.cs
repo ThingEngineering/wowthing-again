@@ -7,7 +7,6 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Services;
 using Wowthing.Web.Forms;
-using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
 
@@ -16,21 +15,18 @@ public class PlayerCharacterController : Controller
 {
     private readonly CacheService _cacheService;
     private readonly ILogger<PlayerCharacterController> _logger;
-    private readonly MemoryCacheService _memoryCacheService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
     public PlayerCharacterController(
         CacheService cacheService,
         ILogger<PlayerCharacterController> logger,
-        MemoryCacheService memoryCacheService,
         UserManager<ApplicationUser> userManager,
         WowDbContext context
     )
     {
         _cacheService = cacheService;
         _logger = logger;
-        _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _context = context;
     }

@@ -176,6 +176,115 @@ public static class DataUtilities
         return categories;
     }
 
+    public static List<TCategory?> LoadDataNested<TCategory>(string basePath, ILogger? logger = null)
+        where TCategory : class, ICloneable, IDataCategoryNested<TCategory>
+    {
+        var categories = new List<TCategory?>();
+        var cache = new Dictionary<string, TCategory>();
+
+        basePath = Path.Join(DataPath, basePath);
+        var orderFile = Path.Join(basePath, "_order");
+        logger?.Debug("Loading {0}", orderFile);
+
+        bool inGlobal = false;
+        List<string> globalFiles = new();
+        TCategory? rootThing = null;
+        foreach (var line in File.ReadLines(orderFile))
+        {
+            if (line.StartsWith('#'))
+            {
+                continue;
+            }
+
+            if (line == "*")
+            {
+                inGlobal = true;
+                continue;
+            }
+
+            if (line.Trim() == "")
+            {
+                inGlobal = false;
+                continue;
+            }
+
+            if (inGlobal)
+            {
+                globalFiles.Add(line.Trim());
+                continue;
+            }
+
+            // Separator
+            if (line == "-")
+            {
+                if (rootThing != null)
+                {
+                    categories.Add(rootThing);
+                    rootThing = null;
+                }
+                categories.Add(null!);
+            }
+            else if (line.StartsWith("        "))
+            {
+                Debug.Assert(rootThing != null);
+
+                string trimmed = line.Trim();
+                rootThing.Children.Last().Children.Add(LoadFile(basePath, trimmed, cache));
+            }
+            else if (line.StartsWith("    "))
+            {
+                Debug.Assert(rootThing != null);
+
+                string trimmed = line.Trim();
+                if (trimmed == "-")
+                {
+                    rootThing.Children.Add(null!);
+                }
+                else
+                {
+                    // Subgroup
+                    logger?.Debug("Loading subgroup: {0}", trimmed);
+                    rootThing.Children.Add(LoadFile(basePath, trimmed, cache));
+                }
+            }
+            else
+            {
+                // Group
+                if (rootThing != null)
+                {
+                    categories.Add(rootThing);
+                }
+
+                logger?.Debug("Loading group: {0}", line.Trim());
+                rootThing = LoadFile(basePath, line, cache);
+
+                if (line.Contains('/'))
+                {
+                    string linePath = line.Split("/")[0];
+                    foreach (var globalFile in globalFiles)
+                    {
+                        string globalFilePath = Path.Join(linePath, globalFile);
+                        if (File.Exists(Path.Join(basePath, globalFilePath)))
+                        {
+                            logger?.Debug("Loading autogroup: {0}", globalFilePath);
+                            rootThing.Children.Add(LoadFile(basePath, globalFilePath, cache));
+
+                            var lastThing = rootThing.Children.Last();
+                            lastThing.Name = ">" + lastThing.Name;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (rootThing != null)
+        {
+            categories.Add(rootThing);
+        }
+
+        return categories;
+    }
+
     private static TCategory LoadFile<TCategory>(string basePath, string line,
         Dictionary<string, TCategory> categoryCache)
         where TCategory : ICloneable, IDataCategory

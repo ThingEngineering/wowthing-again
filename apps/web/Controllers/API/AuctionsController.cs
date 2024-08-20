@@ -1,10 +1,8 @@
 ﻿using System.Net.Mime;
-using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Npgsql;
-using NpgsqlTypes;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
@@ -484,15 +482,10 @@ WHERE   tc.appearance_id IS NULL
         await connection.OpenAsync();
 
         var auctions = new List<MissingTransmogByAppearanceIdQuery>();
-        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceIdQuery.Sql, connection)
-                     {
-                         Parameters =
-                         {
-                             new() { Value = connectedRealmIds },
-                             new() { Value = missingAppearanceIds },
-                         }
-                     })
+        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceIdQuery.Sql, connection))
         {
+            command.Parameters.Add(new() { Value = connectedRealmIds });
+            command.Parameters.Add(new() { Value = missingAppearanceIds });
             await using var reader = await command.ExecuteReaderAsync();
             while (await reader.ReadAsync())
             {
@@ -614,15 +607,10 @@ WHERE   tc.appearance_source IS NULL
         await connection.OpenAsync();
 
         var auctions = new List<MissingTransmogByAppearanceSourceQuery>();
-        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceSourceQuery.Sql, connection)
-                     {
-                         Parameters =
-                         {
-                             new() { Value = connectedRealmIds },
-                             new() { Value = missingAppearanceSources },
-                         }
-                     })
+        await using (var command = new NpgsqlCommand(MissingTransmogByAppearanceSourceQuery.Sql, connection))
         {
+            command.Parameters.Add(new() { Value = connectedRealmIds });
+            command.Parameters.Add(new() { Value = missingAppearanceSources });
             await using var reader = await command.ExecuteReaderAsync();
 
             timer.AddPoint("Query");
@@ -817,15 +805,10 @@ WHERE   tc.appearance_source IS NULL
         // _logger.LogInformation("missingRecipeItemIds: {0}", string.Join(",", missingRecipeItemIds));
 
         var auctions = new List<MissingRecipeQuery>();
-        await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection)
-                     {
-                         Parameters =
-                         {
-                             new() { Value = connectedRealmIds },
-                             new() { Value = missingRecipeItemIds.ToArray() },
-                         },
-                     })
+        await using (var command = new NpgsqlCommand(MissingRecipeQuery.Sql, connection))
         {
+            command.Parameters.Add(new() { Value = connectedRealmIds });
+            command.Parameters.Add(new() { Value = missingRecipeItemIds.ToArray() });
             await using var reader = await command.ExecuteReaderAsync();
             timer.AddPoint("Query");
 
@@ -927,10 +910,6 @@ WHERE   tc.appearance_source IS NULL
 
         auctionQuery = auctionQuery
             .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
-
-        var languageQuery = _context.LanguageString
-            .AsNoTracking()
-            .Where(ls => ls.Language == user.Settings.General.Language);
 
         var data = new UserAuctionData();
 

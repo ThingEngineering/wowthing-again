@@ -497,6 +497,11 @@ public class ItemsTool
             .ToArray();
     }
 
+    private static HashSet<int> GarbageSpecializationIds =
+    [
+        1444, 1446, 1447, 1448, 1449, 1450, 1451, 1452, 1453, 1454, 1455, 1456, 1465,
+    ];
+
     private async Task<Dictionary<int, int[]>> LoadSpecOverrides()
     {
         var itemSpecOverrides = await DataUtilities.LoadDumpCsvAsync<DumpItemSpecOverride>("itemspecoverride");
@@ -510,7 +515,11 @@ public class ItemsTool
             grouped[itemId] = specIds;
         }
 
-        return grouped;
+        return grouped
+            .ToDictionary(
+                kvp => kvp.Key,
+                kvp => kvp.Value.Where(id => !GarbageSpecializationIds.Contains(id)).Order().ToArray()
+            );
     }
 
     private Dictionary<string, int> _names = new();

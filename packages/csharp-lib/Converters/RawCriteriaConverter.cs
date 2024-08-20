@@ -1,7 +1,4 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-
-namespace Wowthing.Lib.Converters;
+﻿namespace Wowthing.Lib.Converters;
 
 public class RawCriteriaConverter: JsonConverter<Dictionary<int, Dictionary<int, List<int>>>>
 {

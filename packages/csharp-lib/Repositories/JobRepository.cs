@@ -1,9 +1,7 @@
-﻿using System.Text.Json;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Repositories;
 
@@ -13,19 +11,6 @@ public class JobRepository(
     IDbContextFactory<WowDbContext> contextFactory
 )
 {
-    private static readonly Dictionary<JobPriority, string> PriorityToStream;
-
-    private const string QueuedJobUniqueConstraint = "ix_queued_job_priority_type_data_hash";
-
-    static JobRepository()
-    {
-        PriorityToStream = new();
-        foreach (var priority in Enum.GetValues<JobPriority>())
-        {
-            PriorityToStream[priority] = $"stream:{priority.ToString().ToLowerInvariant()}";
-        }
-    }
-
     public async Task AddJobAsync(JobPriority priority, JobType type, params string[] data)
     {
         await using var context = await contextFactory.CreateDbContextAsync();
@@ -92,22 +77,11 @@ ON CONFLICT DO NOTHING");
     {
         var db = redis.GetDatabase();
         return await db.LockTakeAsync($"lock:{key}", value, expiry);
-        // return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
     }
-
-    private const string ReleaseScript = @"
-if redis.call(""GET"", @key) == @value then
-    return redis.call(""DEL"", @key)
-else
-    return 0
-end
-";
 
     public async Task ReleaseLockAsync(string key, string value)
     {
         var db = redis.GetDatabase();
         await db.LockReleaseAsync($"lock:{key}", value);
-        // var script = LuaScript.Prepare(ReleaseScript);
-        // await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
     }
 }

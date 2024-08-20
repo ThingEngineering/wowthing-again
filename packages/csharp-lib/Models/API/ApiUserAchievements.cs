@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Wowthing.Lib.Converters;
+﻿using Wowthing.Lib.Converters;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 

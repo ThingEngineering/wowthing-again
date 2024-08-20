@@ -23,7 +23,6 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 (data.expandedItem[itemId] ||= []).push(tokenId);
             }
         }
-        console.log(data.expandedItem);
 
         for (const tier of data.tiers.filter((tier) => tier !== null)) {
             for (const extraTier of extraTiers) {

@@ -59,7 +59,7 @@
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
-        '/vendors/:slug1?/:slug2?': Vendors,
+        '/vendors/:slug1?/:slug2?/:slug3?': Vendors,
         '/world-quests/:slug1?/:slug2?': WorldQuests,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 

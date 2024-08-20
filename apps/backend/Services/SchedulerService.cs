@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
@@ -14,7 +13,6 @@ public sealed class SchedulerService : TimerService
 {
     private const int TimerInterval = 5;
 
-    private readonly IConnectionMultiplexer _redis;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
@@ -24,7 +22,6 @@ public sealed class SchedulerService : TimerService
     private const int LowQueueLimit = 10000;
 
     public SchedulerService(
-        IConnectionMultiplexer redis,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions
@@ -33,7 +30,6 @@ public sealed class SchedulerService : TimerService
     {
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
-        _redis = redis;
         _serviceScopeFactory = serviceScopeFactory;
 
         // Schedule jobs for all IScheduledJob implementers

@@ -147,9 +147,12 @@ export class LazyStore implements LazyUgh {
     private manualData: ManualData;
     private staticData: StaticData;
 
-    private userAchievementData: UserAchievementData;
-    private userData: UserData;
-    private userQuestData: UserQuestData;
+    // private userAchievementData: UserAchievementData;
+    // private userData: UserData;
+    // private userQuestData: UserQuestData;
+    private userAchievementDataId: number;
+    private userDataId: number;
+    private userQuestDataId: number;
 
     private customizationsFunc: () => UserCounts;
     private heirloomsFunc: () => UserCounts;
@@ -204,9 +207,9 @@ export class LazyStore implements LazyUgh {
         );
 
         const changedData = {
-            userData: this.userData !== userData,
-            userAchievementData: this.userAchievementData !== userAchievementData,
-            userQuestData: this.userQuestData !== userQuestData,
+            userData: this.userDataId !== userStore.id,
+            userAchievementData: this.userAchievementDataId !== userAchievementStore.id,
+            userQuestData: this.userQuestDataId !== userQuestStore.id,
         };
 
         if (
@@ -228,9 +231,9 @@ export class LazyStore implements LazyUgh {
 
         this.settings = settings;
 
-        this.userData = userData;
-        this.userAchievementData = userAchievementData;
-        this.userQuestData = userQuestData;
+        this.userDataId = userStore.id;
+        this.userAchievementDataId = userAchievementStore.id;
+        this.userQuestDataId = userQuestStore.id;
 
         if (
             changedData.userAchievementData ||
@@ -257,9 +260,9 @@ export class LazyStore implements LazyUgh {
             this.appearancesFunc = once(() =>
                 doAppearances({
                     appearanceState,
-                    settings,
-                    itemData,
-                    staticData,
+                    settings: this.settings,
+                    itemData: this.itemData,
+                    staticData: this.staticData,
                     userData,
                 }),
             );
@@ -277,8 +280,8 @@ export class LazyStore implements LazyUgh {
                     currentTime,
                     settings: this.settings,
                     staticData: this.staticData,
-                    userData: this.userData,
-                    userQuestData: this.userQuestData,
+                    userData,
+                    userQuestData,
                 }),
             );
         }
@@ -288,8 +291,8 @@ export class LazyStore implements LazyUgh {
                 doConvertible({
                     itemData: this.itemData,
                     settings: this.settings,
-                    userData: this.userData,
-                    userQuestData: this.userQuestData,
+                    userData: userData,
+                    userQuestData: userQuestData,
                 }),
             );
         }
@@ -309,7 +312,7 @@ export class LazyStore implements LazyUgh {
                     collectibleStores,
                     'mounts',
                     this.manualData.mountSets,
-                    this.userData.hasMount,
+                    userData.hasMount,
                 ),
             );
             this.petsFunc = once(() =>
@@ -317,7 +320,7 @@ export class LazyStore implements LazyUgh {
                     collectibleStores,
                     'pets',
                     this.manualData.petSets,
-                    this.userData.hasPet,
+                    userData.hasPet,
                 ),
             );
             this.toysFunc = once(() =>
@@ -325,21 +328,25 @@ export class LazyStore implements LazyUgh {
                     collectibleStores,
                     'toys',
                     this.manualData.toySets,
-                    this.userData.hasToy,
+                    userData.hasToy,
                 ),
             );
         }
 
         if (changedData.userQuestData) {
-            this.customizationsFunc = once(() => this.doCustomizations());
+            this.customizationsFunc = once(() => this.doCustomizations(
+                userAchievementData,
+                userData,
+                userQuestData,
+            ));
         }
 
         if (changedData.userData || changedHashes.settingsCollections) {
-            this.heirloomsFunc = once(() => this.doHeirlooms());
+            this.heirloomsFunc = once(() => this.doHeirlooms(userData));
         }
 
         if (changedData.userData || changedHashes.settingsCollections) {
-            this.illusionsFunc = once(() => this.doIllusions());
+            this.illusionsFunc = once(() => this.doIllusions(userData));
         }
 
         if (changedData.userData || changedHashes.journalState || changedHashes.settingsTransmog) {
@@ -508,7 +515,11 @@ export class LazyStore implements LazyUgh {
         return counts;
     }
 
-    private doCustomizations(): UserCounts {
+    private doCustomizations(
+        userAchievementData: UserAchievementData,
+        userData: UserData,
+        userQuestData: UserQuestData
+    ): UserCounts {
         const counts: UserCounts = {};
         const overallData = (counts['OVERALL'] = new UserCount());
 
@@ -531,11 +542,11 @@ export class LazyStore implements LazyUgh {
 
                         if (
                             (thing.achievementId > 0 &&
-                                !!this.userAchievementData.achievements[thing.achievementId]) ||
+                                !!userAchievementData.achievements[thing.achievementId]) ||
                             (thing.questId > 0 &&
-                                this.userQuestData.accountHas.has(thing.questId)) ||
+                                userQuestData.accountHas.has(thing.questId)) ||
                             (thing.appearanceModifier >= 0 &&
-                                this.userData.hasSourceV2
+                                userData.hasSourceV2
                                     .get(thing.appearanceModifier)
                                     .has(thing.itemId))
                         ) {
@@ -552,29 +563,29 @@ export class LazyStore implements LazyUgh {
         return counts;
     }
 
-    private doHeirlooms(): UserCounts {
+    private doHeirlooms(userData: UserData): UserCounts {
         return this.doGeneric({
             categories: this.manualData.heirlooms,
             includeUnavailable: !this.settings.collections.hideUnavailable,
             haveFunc: (heirloom: ManualDataHeirloomItem) =>
-                this.userData.heirlooms?.[this.staticData.heirloomsByItemId[heirloom.itemId].id] !==
+                userData.heirlooms?.[this.staticData.heirloomsByItemId[heirloom.itemId].id] !==
                 undefined,
             totalCountFunc: (heirloom: ManualDataHeirloomItem) =>
                 this.staticData.heirloomsByItemId[heirloom.itemId].upgradeBonusIds.length + 1,
             haveCountFunc: (heirloom: ManualDataHeirloomItem) => {
                 const staticHeirloom = this.staticData.heirloomsByItemId[heirloom.itemId];
-                const userCount = this.userData.heirlooms?.[staticHeirloom.id];
+                const userCount = userData.heirlooms?.[staticHeirloom.id];
                 return userCount !== undefined ? userCount + 1 : 0;
             },
         });
     }
 
-    private doIllusions(): UserCounts {
+    private doIllusions(userData: UserData): UserCounts {
         return this.doGeneric({
             categories: this.manualData.illusions,
             includeUnavailable: !this.settings.collections.hideUnavailable,
             haveFunc: (illusion: ManualDataIllusionItem) =>
-                this.userData.hasIllusion.has(
+                userData.hasIllusion.has(
                     find(
                         this.staticData.illusions,
                         (staticIllusion) => staticIllusion.enchantmentId === illusion.enchantmentId,

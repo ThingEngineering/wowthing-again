@@ -1,6 +1,4 @@
-﻿using System.Text.Json;
-
-namespace Wowthing.Lib.Extensions;
+﻿namespace Wowthing.Lib.Extensions;
 
 public static class Utf8JsonWriterExtensions
 {

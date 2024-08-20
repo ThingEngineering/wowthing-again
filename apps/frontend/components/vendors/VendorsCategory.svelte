@@ -29,10 +29,9 @@
 </SectionTitle>
 
 <div class="collection{useV2 ? '-v2' : ''}-section">
-    {#each category.groups as group, groupIndex}
+    {#each category.groups as group}
         {#if group.sellsFiltered.length > 0}
             <Group
-                stats={$lazyStore.vendors.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                 {group}
                 {useV2}
             />
