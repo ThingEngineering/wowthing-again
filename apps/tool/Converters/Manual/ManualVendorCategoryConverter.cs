@@ -20,7 +20,15 @@ public class ManualVendorCategoryConverter : JsonConverter<ManualVendorCategory>
         writer.WriteObjectArray(category.Groups, WriteGroupArray);
 
         writer.WriteStringArray(category.VendorMaps);
+        writer.WriteStringArray(category.VendorSets);
         writer.WriteStringArray(category.VendorTags);
+
+        writer.WriteStartArray();
+        foreach (var child in category.Children)
+        {
+            JsonSerializer.Serialize(writer, child, options);
+        }
+        writer.WriteEndArray();
 
         writer.WriteEndArray();
     }

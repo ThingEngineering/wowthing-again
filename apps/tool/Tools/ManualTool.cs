@@ -770,41 +770,44 @@ public class ManualTool
         return ret;
     }
 
-    private List<List<ManualVendorCategory>> LoadVendors()
+    private List<ManualVendorCategory?> LoadVendors()
     {
-        var vendorSets = DataUtilities.LoadData<DataVendorCategory>("vendors", ToolContext.Logger);
+        var vendorSets = DataUtilities.LoadDataNested<DataVendorCategory>("vendors", ToolContext.Logger);
 
-        var ret = new List<List<ManualVendorCategory>>(vendorSets.Count);
-        foreach (var catList in vendorSets)
+        var ret = new List<ManualVendorCategory?>(vendorSets.Count);
+        foreach (var category in vendorSets)
         {
-            if (catList == null)
-            {
-                ret.Add(null);
-            }
-            else
-            {
-                ret.Add(catList
-                    .Select(cat => cat == null ? null : new ManualVendorCategory(cat))
-                    .ToList()
-                );
-            }
+            ret.Add(category == null ? null : new ManualVendorCategory(category));
         }
 
-        foreach (var categories in ret.Where(cats => cats != null))
+        foreach (var category in ret)
         {
-            foreach (var category in categories.Where(cat => cat != null))
+            if (category != null)
             {
-                foreach (var group in category.Groups)
-                {
-                    foreach (var item in group.Things)
-                    {
-                        DoCommonItemStuff(item);
-                    }
-                }
+                DoVendorItems(category);
             }
         }
 
         return ret;
+    }
+
+    private void DoVendorItems(ManualVendorCategory category)
+    {
+        foreach (var group in category.Groups)
+        {
+            foreach (var item in group.Things)
+            {
+                DoCommonItemStuff(item);
+            }
+        }
+
+        foreach (var child in category.Children)
+        {
+            if (child != null)
+            {
+                DoVendorItems(child);
+            }
+        }
     }
 
     private void DoCommonItemStuff(ManualVendorItem item)

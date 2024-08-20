@@ -2,25 +2,15 @@
     import { manualStore } from '@/stores'
     import { lazyStore } from '@/stores'
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
-    import type { UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Settings from '@/components/common/SidebarCollectingSettings.svelte'
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
-    let categories: SidebarItem[] = []
-    let overall: UserCount
-    $: {
-        categories = $manualStore.vendors.sets.map((cat) => cat === null ? null : ({
-            children: cat.slice(1),
-            ...cat[0],
-        }))
-
-        overall = $lazyStore.vendors.stats['OVERALL']
-    }
+    $: overall = $lazyStore.vendors.stats['OVERALL']
 
     const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
-        const slug = [...parentEntries, entry].slice(-2)
+        const slug = [...parentEntries, entry]
             .map((entry) => entry.slug)
             .join('--')
         const hasData = $lazyStore.vendors.stats[slug]
@@ -30,7 +20,7 @@
 
 <Sidebar
     baseUrl="/vendors"
-    items={categories}
+    items={$manualStore.vendors.sets}
     scrollable={true}
     width="16rem"
     {percentFunc}

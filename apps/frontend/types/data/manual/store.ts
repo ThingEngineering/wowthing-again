@@ -24,7 +24,7 @@ export interface ManualData {
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawIllusionGroups: ManualDataIllusionGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
-    rawVendorSets: ManualDataVendorCategoryArray[][]
+    rawVendorSets: ManualDataVendorCategoryArray[]
     rawZoneMapSets: ManualDataZoneMapCategoryArray[][]
 
     rawTags: [number, string][]
@@ -59,7 +59,7 @@ export interface ManualDataTransmog {
 }
 
 export interface ManualDataVendors {
-    sets: ManualDataVendorCategory[][]
+    sets: ManualDataVendorCategory[]
 }
 
 export interface ManualDataZoneMaps {

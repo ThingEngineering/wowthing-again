@@ -32,7 +32,6 @@
     {#each category.groups as group, groupIndex}
         {#if group.sellsFiltered.length > 0}
             <Group
-                stats={$lazyStore.vendors.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                 {group}
                 {useV2}
             />

@@ -88,13 +88,12 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         );
         data.rawTransmogSets = null;
 
-        data.vendors.sets = data.rawVendorSets.map((categories) =>
-            categories === null
+        data.vendors.sets = data.rawVendorSets.map((catArray) =>
+            catArray === null
                 ? null
-                : categories.map((catArray) =>
-                      catArray === null ? null : new ManualDataVendorCategory(...catArray),
-                  ),
+                : new ManualDataVendorCategory(...catArray),
         );
+        console.log(data.vendors.sets);
         data.rawVendorSets = null;
 
         data.zoneMaps.sets = data.rawZoneMapSets.map((categories) =>

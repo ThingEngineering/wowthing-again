@@ -6,7 +6,18 @@ import type { StaticData } from '@/shared/stores/static/types/store';
 import type { UserCount } from '@/types';
 import type { ItemData } from '@/types/data/item';
 
+export type ManualDataVendorCategoryArray = [
+    name: string,
+    slug: string,
+    groupArrays: ManualDataVendorGroupArray[],
+    vendorMaps: string[],
+    vendorSets: string[],
+    vendorTags: string[],
+    childArrays: ManualDataVendorCategoryArray[],
+];
+
 export class ManualDataVendorCategory {
+    public children: ManualDataVendorCategory[];
     public groups: ManualDataVendorGroup[];
 
     constructor(
@@ -14,12 +25,18 @@ export class ManualDataVendorCategory {
         public slug: string,
         groupArrays: ManualDataVendorGroupArray[],
         public vendorMaps: string[],
+        public vendorSets: string[],
         public vendorTags: string[],
+        childArrays: ManualDataVendorCategoryArray[],
     ) {
         this.groups = groupArrays.map((groupArray) => new ManualDataVendorGroup(...groupArray));
+        this.children = childArrays.map((childArray) =>
+            childArray === null ? null : new ManualDataVendorCategory(...childArray),
+        );
     }
 }
-export type ManualDataVendorCategoryArray = ConstructorParameters<typeof ManualDataVendorCategory>;
+// Can't use this and have it reference itself, alas
+// export type ManualDataVendorCategoryArray = ConstructorParameters<typeof ManualDataVendorCategory>;
 
 export class ManualDataVendorGroup {
     public sells: ManualDataVendorItem[];

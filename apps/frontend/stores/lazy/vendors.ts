@@ -16,12 +16,17 @@ import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
 import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
-import type { ManualData, ManualDataVendorItem } from '@/types/data/manual';
+import type {
+    ManualData,
+    ManualDataVendorCategory,
+    ManualDataVendorItem,
+} from '@/types/data/manual';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
+import { leftPad } from '@/utils/formatting';
 
 const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
@@ -49,15 +54,18 @@ export function doVendors(stores: LazyStores): LazyVendors {
         vendor.createFarmData(stores.itemData, stores.manualData, stores.staticData);
     }
 
-    for (const categories of stores.manualData.vendors.sets) {
-        if (categories === null) {
-            continue;
+    const visitCategory = (category: ManualDataVendorCategory) => {
+        if (category === null) {
+            return;
         }
 
-        for (const category of categories) {
+        for (const childCategory of category.children) {
+            const hasVendorSets = childCategory?.vendorSets?.length > 0;
             if (
-                category === null ||
-                (category.vendorMaps.length === 0 && category.vendorTags.length === 0)
+                childCategory === null ||
+                (childCategory.vendorMaps.length === 0 &&
+                    childCategory.vendorTags.length === 0 &&
+                    !hasVendorSets)
             ) {
                 continue;
             }
@@ -65,15 +73,26 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const autoSeen: Record<string, ManualDataVendorItem> = {};
 
             // Remove any auto groups
-            category.groups = category.groups.filter((group) => group.auto !== true);
+            childCategory.groups = childCategory.groups.filter((group) => group.auto !== true);
 
             // Find useful vendors
             const vendorIds: number[] = [];
-            for (const mapName of category.vendorMaps) {
+            for (const mapName of childCategory.vendorMaps) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
             }
-            for (const tagName of category.vendorTags) {
+            for (const tagName of childCategory.vendorTags) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
+            }
+
+            for (const setString of childCategory.vendorSets) {
+                for (const vendor of Object.values(stores.manualData.shared.vendors)) {
+                    for (const set of vendor.sets) {
+                        if (set.name.includes(setString)) {
+                            vendorIds.push(vendor.id);
+                            break;
+                        }
+                    }
+                }
             }
 
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
@@ -82,6 +101,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 const vendor = stores.manualData.shared.vendors[vendorId];
 
                 let setPosition = 0;
+                const coveredBySets = new Set<number>();
                 for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
                     const set = vendor.sets[setIndex];
                     const groupKey = `${set.sortKey ? '09' + set.sortKey : 10 + setIndex}${set.name}`;
@@ -95,6 +115,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         setEnd = vendor.sells.length;
                     }
 
+                    if (
+                        hasVendorSets &&
+                        !childCategory.vendorSets.some((setString) => set.name.includes(setString))
+                    ) {
+                        setPosition = setEnd;
+                        continue;
+                    }
+
                     const autoGroup = (autoGroups[groupKey] ||= new ManualDataVendorGroup(
                         set.name,
                         [],
@@ -102,6 +130,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         set.showNormalTag,
                     ));
                     for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
+                        coveredBySets.add(itemIndex);
                         setPosition++;
 
                         const item = vendor.sells[itemIndex];
@@ -119,7 +148,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
                 }
 
-                for (const item of vendor.sells) {
+                for (let itemIndex = 0; itemIndex < vendor.sells.length; itemIndex++) {
+                    if (hasVendorSets && !coveredBySets.has(itemIndex)) {
+                        continue;
+                    }
+
+                    const item = vendor.sells[itemIndex];
                     let groupKey: string;
                     let groupName: string;
 
@@ -164,6 +198,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     item.faction = vendor.faction;
+
                     item.sortedCosts = getCurrencyCosts(
                         stores.itemData,
                         stores.staticData,
@@ -194,8 +229,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
             const groups = Object.entries(autoGroups);
             groups.sort();
-            category.groups = groups.map(([, group]) => group);
+            childCategory.groups = groups.map(([, group]) => group);
+
+            visitCategory(childCategory);
         }
+    };
+
+    for (const category of stores.manualData.vendors.sets) {
+        visitCategory(category);
     }
 
     // stats
@@ -234,19 +275,21 @@ export function doVendors(stores: LazyStores): LazyVendors {
         }
     }
 
-    for (const categories of stores.manualData.vendors.sets) {
-        if (categories === null) {
+    for (const rootCategory of stores.manualData.vendors.sets) {
+        if (rootCategory === null) {
             continue;
         }
 
-        const baseStats = (stats[categories[0].slug] = new UserCount());
-
-        for (const category of categories.slice(1)) {
+        const buildCategoryStats = (
+            category: ManualDataVendorCategory,
+            baseSlug: string,
+            parentStats: UserCount[],
+        ) => {
             if (category === null) {
-                continue;
+                return;
             }
 
-            const catKey = `${categories[0].slug}--${category.slug}`;
+            const catKey = baseSlug ? `${baseSlug}--${category.slug}` : category.slug;
             const catStats = (stats[catKey] = new UserCount());
 
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
@@ -323,6 +366,14 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     }
 
                     const sharedItem = stores.itemData.items[item.id];
+
+                    if (sharedItem && transmogTypes.has(item.type)) {
+                        if (sharedItem.allianceOnly) {
+                            item.faction = Faction.Alliance;
+                        } else if (sharedItem.hordeOnly) {
+                            item.faction = Faction.Horde;
+                        }
+                    }
 
                     if (masochist) {
                         item.extraAppearances = 0;
@@ -409,7 +460,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     if (!seen[thingKey]) {
                         overallStats.total++;
                     }
-                    baseStats.total++;
+
+                    for (const parentStat of parentStats) {
+                        parentStat.total++;
+                    }
+
                     catStats.total++;
                     groupStats.total++;
 
@@ -417,7 +472,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         if (!seen[thingKey]) {
                             overallStats.have++;
                         }
-                        baseStats.have++;
+
+                        for (const parentStat of parentStats) {
+                            parentStat.have++;
+                        }
+
                         catStats.have++;
                         groupStats.have++;
 
@@ -436,10 +495,42 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     group.sellsFiltered.push(item);
                 } // item of group.sells
 
+                group.sellsFiltered.sort((a, b) => {
+                    if (a.classMask in PlayableClassMask && b.classMask in PlayableClassMask) {
+                        const aSpecs = stores.itemData.specOverrides[a.id];
+                        const bSpecs = stores.itemData.specOverrides[b.id];
+                        if (aSpecs?.length > 0 && bSpecs?.length > 0) {
+                            const aSpecString = aSpecs
+                                .map((id) => stores.staticData.characterSpecializations[id].order)
+                                .join('-');
+                            const bSpecString = bSpecs
+                                .map((id) => stores.staticData.characterSpecializations[id].order)
+                                .join('-');
+                            if (group.name === 'Armor - T10 Druid')
+                                console.log(a.id, aSpecs, aSpecString, b.id, bSpecs, bSpecString);
+                            return aSpecString.localeCompare(bSpecString);
+                        } else {
+                            if (group.name === 'Armor - T10 Druid')
+                                console.log(a.id, aSpecs, b.id, bSpecs);
+                        }
+                    }
+
+                    return 0;
+                });
+                if (group.name === 'Armor - T10 Druid') console.log(group, group.sellsFiltered);
+
                 group.stats = groupStats;
             } // group of category.groups
-        }
+
+            for (const childCategory of category.children) {
+                buildCategoryStats(childCategory, catKey, [...parentStats, catStats]);
+            }
+        };
+
+        buildCategoryStats(rootCategory, '', []);
     }
+
+    console.log(stats);
 
     console.timeEnd('LazyStore.doVendors');
 

@@ -24,7 +24,7 @@ public class ManualCache
 
     public List<List<OutCollectionCategory>> RawToySets { get; set; }
     public List<List<ManualTransmogCategory>> RawTransmogSets { get; set; }
-    public List<List<ManualVendorCategory>> RawVendorSets { get; set; }
+    public List<ManualVendorCategory?> RawVendorSets { get; set; }
     public List<List<ManualZoneMapCategory>> RawZoneMapSets { get; set; }
 
     // Shared

@@ -6,7 +6,7 @@
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
     import { staticStore } from '@/shared/stores/static'
-    import { itemStore, lazyStore } from '@/stores'
+    import { itemStore, lazyStore, userStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
@@ -22,9 +22,10 @@
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import GroupedCheckboxInput from '@/shared/components/forms/GroupedCheckboxInput.svelte';
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
 
     export let group: ManualDataVendorGroup
-    export let stats: UserCount
     export let useV2: boolean
 
     let element: HTMLElement
@@ -86,7 +87,10 @@
             }
         }
 
-        percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
+        percent = Math.floor((group.stats?.have ?? 0) / (group.stats?.total ?? 1) * 100)
+
+        // if (group.name === 'Armor - T10 Warlock')
+        //     console.log(group, things, percent, $userStore)
     }
 </script>
 
@@ -149,11 +153,15 @@
         position: absolute;
     }
     .icon-class {
-        left: -1px;
+        left: -2px;
         top: -1px;
     }
+    .icon-class2 {
+        left: 15px;
+        top: -2px;
+    }
     .icon-faction {
-        left: -1px;
+        left: -2px;
         top: 29px;
     }
     .title {
@@ -196,7 +204,7 @@
                 <h4 class="drop-shadow text-overflow {getPercentClass(percent)}">
                     <ParsedText text={group.name} />
                 </h4>
-                <CollectibleCount counts={stats} />
+                <CollectibleCount counts={group.stats} />
             </div>
 
             <div class="collection-objects">
@@ -212,6 +220,7 @@
                         {#if intersected}
                             {@const teachesTransmog = $itemStore.teachesTransmog[thing.item.id]}
                             {@const professionAbility = $staticStore.professionAbilityByItemId[thing.item.id]}
+                            {@const specIds = $itemStore.specOverrides[thing.item.id]}
                             <WowheadLink
                                 id={thing.linkId}
                                 type={thing.linkType}
@@ -242,15 +251,33 @@
                                 </div>
                             {/if}
 
-                            {#if thing.classId > 0}
+                            {#if specIds?.length > 0 || thing.classId > 0}
                                 <div class="icon icon-class class-{thing.classId} drop-shadow">
-                                    <ClassIcon
-                                        border={2}
-                                        size={20}
-                                        classId={thing.classId}
-                                        useTooltip={false}
-                                    />
+                                    {#if specIds?.length <= 2}
+                                        <SpecializationIcon
+                                            border={2}
+                                            size={20}
+                                            specId={specIds[0]}
+                                        />
+                                    {:else}
+                                        <ClassIcon
+                                            border={2}
+                                            size={20}
+                                            classId={thing.classId}
+                                            useTooltip={false}
+                                        />
+                                    {/if}
                                 </div>
+
+                                {#if specIds?.length === 2}
+                                    <div class="icon icon-class2 class-{thing.classId} drop-shadow">
+                                        <SpecializationIcon
+                                            border={2}
+                                            size={20}
+                                            specId={specIds[1]}
+                                        />
+                                    </div>
+                                {/if}
                             {/if}
 
                             {#if teachesTransmog}

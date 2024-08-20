@@ -4,6 +4,7 @@
 
     import { lazyStore, manualStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
+    import type { MultiSlugParams } from '@/types'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
     import Category from './VendorsCategory.svelte'
@@ -11,29 +12,21 @@
     import Options from './VendorsOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
 
-    export let slug1: string
-    export let slug2: string
+    export let params: MultiSlugParams
 
     let categories: ManualDataVendorCategory[]
     let firstCategory: ManualDataVendorCategory
     let totalCosts: Record<string, Record<number, number>>
     $: {
-        categories = find(
-            $manualStore.vendors.sets,
-            (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
-        ) || []
-        if (categories) {
-            firstCategory = categories[0]
-        }
+        firstCategory = $manualStore.vendors.sets.find((cat) => cat?.slug === params.slug1)
         
-        categories = categories.filter(
-            (cat: ManualDataVendorCategory) => cat?.groups?.length > 0
-        )
+        categories = firstCategory.children.filter((cat) => cat?.groups?.length > 0)
 
-        if (slug2) {
-            categories = categories.filter(
-                (cat: ManualDataVendorCategory) => cat.slug === slug2
-            )
+        if (params.slug2) {
+            categories = categories.filter((cat) => cat.slug === params.slug2)
+        }
+        if (params.slug3) {
+            categories = categories[0].children.filter((cat) => cat.slug === params.slug3)
         }
 
         totalCosts = {'OVERALL': {}}
@@ -90,10 +83,10 @@
     <div bind:this={resizeableElement}>
         {#if categories}
             <div class="collection thing-container" bind:this={resizeableElement}>
-                {#if firstCategory && !slug2}
+                {#if firstCategory && !params.slug2}
                     <SectionTitle
                         title={firstCategory.name}
-                        count={$lazyStore.vendors.stats[`${slug1}`]}
+                        count={$lazyStore.vendors.stats[`${params.slug1}`]}
                     >
                         <Costs costs={totalCosts.OVERALL} />
                     </SectionTitle>
@@ -103,7 +96,7 @@
                 {#each categories as category}
                     <Category
                         {category}
-                        slug1={slug1}
+                        slug1={params.slug1}
                         costs={totalCosts[category.slug]}
                     />
                 {/each}
