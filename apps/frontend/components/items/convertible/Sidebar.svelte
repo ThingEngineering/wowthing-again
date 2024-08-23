@@ -42,6 +42,7 @@
     ]
     const categories = convertibleCategories.map((cc) => ({ ...cc, children }))
 
+    // Svelte 4 workaround - it can't see the store access inside the function so pass it in
     const percentFunc = function(lazyConvertible: LazyConvertible, entry: SidebarItem, parentEntries?: SidebarItem[]): number {
         const seasonId = parentEntries[0]?.id || entry.id
 
