@@ -13,54 +13,58 @@ namespace Wowthing.Backend.Services;
 
 public class JobQueueService : BackgroundService
 {
-    private readonly Dictionary<JobPriority, Channel<QueuedJob>> _channels = new();
     private readonly IDbContextFactory<WowDbContext> _contextFactory;
     private readonly ILogger _logger;
     private readonly StateService _stateService;
+
     private readonly WowthingBackendOptions _backendOptions;
+    private readonly JobPriority _priority;
+
+    private const int SleepInterval = 5000;
 
     public JobQueueService(
+        JobPriority priority,
         IDbContextFactory<WowDbContext> contextFactory,
         IOptions<WowthingBackendOptions> backendOptions,
         StateService stateService
     )
     {
+        _priority = priority;
         _contextFactory = contextFactory;
         _backendOptions = backendOptions.Value;
         _stateService = stateService;
 
-        _logger = Log.ForContext("Service", "JobQueue");
-
-        foreach (var priority in EnumUtilities.GetValues<JobPriority>())
-        {
-            var channel = _channels[priority] = Channel.CreateUnbounded<QueuedJob>(new UnboundedChannelOptions()
-            {
-                SingleReader = false,
-                SingleWriter = true,
-            });
-            stateService.JobPriorityChannels[priority] = channel;
-        }
+        _logger = Log.ForContext("Service", $"Queue {_priority.ToString()[..Math.Min(4, _priority.ToString().Length)]}");
     }
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        // Assume a max of 10 jobs per second per worker
-        int jobLimit = _backendOptions.WorkerCountLow * 10 * 5;
+        int jobLimit = _priority switch
+        {
+            JobPriority.Auction => _backendOptions.WorkerCountAuction * 5 * SleepInterval / 1000,
+            JobPriority.High => _backendOptions.WorkerCountHigh * 5 * SleepInterval / 1000,
+            JobPriority.Low => _backendOptions.WorkerCountLow * 10 * SleepInterval / 1000,
+            _ => throw new NotImplementedException(),
+        };
 
+        _logger.Information("Service starting with job limit {limit}", jobLimit);
+
+        var channel = _stateService.JobPriorityChannels[_priority];
         while (!cancellationToken.IsCancellationRequested)
         {
-            await Task.Delay(5000, cancellationToken);
+            await Task.Delay(SleepInterval, cancellationToken);
 
             await using var context = await _contextFactory.CreateDbContextAsync(cancellationToken);
 
-            int querySize = Math.Max(1, jobLimit - _channels[JobPriority.Low].Reader.Count);
+            int querySize = Math.Max(1, jobLimit - channel.Reader.Count);
 
             var queuedJobs = await context.QueuedJob
                 .FromSql($@"
 WITH job_ids AS (
     SELECT  id
     FROM    queued_job
-    WHERE   started_at IS NULL
+    WHERE   priority = {_priority}
+            AND started_at IS NULL
     ORDER BY id
     FOR UPDATE SKIP LOCKED
     LIMIT {querySize}
@@ -74,57 +78,46 @@ RETURNING *
                 .ToArrayAsync(cancellationToken);
             foreach (var queuedJob in queuedJobs)
             {
-                await _channels[queuedJob.Priority].Writer.WriteAsync(queuedJob, cancellationToken);
+                await channel.Writer.WriteAsync(queuedJob, cancellationToken);
             }
 
-            var successfulIds = _stateService.SuccessfulQueuedJobs.Reader.Flush();
-            if (successfulIds.Count > 0)
+            if (_priority == JobPriority.High)
             {
+                var successfulIds = _stateService.SuccessfulQueuedJobs.Reader.Flush();
+                if (successfulIds.Count > 0)
+                {
+                    await context.QueuedJob
+                        .Where(qj => successfulIds.Contains(qj.Id))
+                        .ExecuteDeleteAsync(cancellationToken);
+                }
+
+                var failedIds = _stateService.FailedQueuedJobs.Reader.Flush();
+                if (failedIds.Count > 0)
+                {
+                    await context.QueuedJob
+                        .Where(qj => failedIds.Contains(qj.Id))
+                        .ExecuteUpdateAsync(
+                            setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
+                            cancellationToken
+                        );
+                }
+
+                // Delete any jobs with too many failures
                 await context.QueuedJob
-                    .Where(qj => successfulIds.Contains(qj.Id))
+                    .Where(qj => qj.Failures >= 3)
                     .ExecuteDeleteAsync(cancellationToken);
-            }
 
-            var failedIds = _stateService.FailedQueuedJobs.Reader.Flush();
-            if (failedIds.Count > 0)
-            {
-                await context.QueuedJob
-                    .Where(qj => failedIds.Contains(qj.Id))
+                // Reset any jobs that have been stuck for at least 4 hours
+                int updated = await context.QueuedJob
+                    .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddHours(-4))
                     .ExecuteUpdateAsync(
-                        setters => setters.SetProperty(qj => qj.Failures, qj => qj.Failures + 1),
+                        s => s.SetProperty(job => job.StartedAt, job => null),
                         cancellationToken
                     );
-            }
-
-            // await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
-            // await context.QueuedJob
-            //     .Where(qj => qj.Id == queuedJob.Id)
-            //     .ExecuteDeleteAsync(jobTokenSource.Token);
-
-
-            // await using var context = await _contextFactory.CreateDbContextAsync(jobTokenSource.Token);
-            // if (queuedJob.Failures >= 2)
-            // {
-            //     await context.QueuedJob
-            //         .Where(qj => qj.Id == queuedJob.Id)
-            //         .ExecuteDeleteAsync(jobTokenSource.Token);
-            // }
-
-            // Delete any jobs with too many failures
-            await context.QueuedJob
-                .Where(qj => qj.Failures >= 3)
-                .ExecuteDeleteAsync(cancellationToken);
-
-            // Reset any jobs that have been stuck for at least 4 hours
-            int updated = await context.QueuedJob
-                .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddHours(-4))
-                .ExecuteUpdateAsync(
-                    s => s.SetProperty(job => job.StartedAt, job => null),
-                    cancellationToken
-                );
-            if (updated > 0)
-            {
-                _logger.Warning("Reset {count} incomplete job(s)", updated);
+                if (updated > 0)
+                {
+                    _logger.Warning("Reset {count} incomplete job(s)", updated);
+                }
             }
         }
     }
