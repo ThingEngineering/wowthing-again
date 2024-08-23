@@ -12,6 +12,7 @@ using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Services;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend;
 
@@ -140,9 +141,13 @@ public class Program
         services.AddHostedService<AuthorizationService>();
         services.AddHostedService<GarbageService>();
         services.AddHostedService<GoldSnapshotService>();
-        services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();
         services.AddHostedService<UserLeaderboardService>();
+
+        foreach (var priority in EnumUtilities.GetValues<JobPriority>())
+        {
+            services.AddSingleton<IHostedService>(sp => ActivatorUtilities.CreateInstance<JobQueueService>(sp, priority));
+        }
 
         for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
         {
