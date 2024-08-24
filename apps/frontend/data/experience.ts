@@ -70,10 +70,6 @@ export const experiencePerLevel = [
     73400,
     76125,
     78895,
-    0, //70
-
-    // TODO: TWW release
-    /*
     225105, //70
     247375,
     270190,
@@ -85,5 +81,4 @@ export const experiencePerLevel = [
     418405,
     445000,
     0, //80
-    */
 ];
