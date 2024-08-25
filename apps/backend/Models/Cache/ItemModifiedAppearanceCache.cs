@@ -4,8 +4,9 @@ namespace Wowthing.Backend.Models.Cache;
 
 public class ItemModifiedAppearanceCache
 {
+    public readonly Dictionary<int, (int, short)> ById = new();
     public readonly Dictionary<(int, short), int> ByItemIdAndModifier = new();
-    public readonly Dictionary<int, short[]> ModifiersByItemId = new();
+    public readonly Dictionary<int, short[]> ModifiersByItemId;
 
     public ItemModifiedAppearanceCache(WowItemModifiedAppearance[] itemModifiedAppearances)
     {
@@ -13,11 +14,12 @@ public class ItemModifiedAppearanceCache
 
         foreach (var ima in itemModifiedAppearances)
         {
+            ById[ima.Id] = (ima.ItemId, ima.Modifier);
             ByItemIdAndModifier[(ima.ItemId, ima.Modifier)] = ima.AppearanceId;
 
             if (!tempModifiers.TryGetValue(ima.ItemId, out var modifiers))
             {
-                modifiers = tempModifiers[ima.ItemId] = new();
+                modifiers = tempModifiers[ima.ItemId] = [];
             }
 
             modifiers.Add(ima.Modifier);
