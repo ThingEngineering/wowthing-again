@@ -548,7 +548,29 @@ public class UserUploadJob : JobBase
                 Context.PlayerAccountTransmogSources.Add(accountTransmogSources);
             }
 
-            if (parsed.TransmogSourcesSquish != null)
+            if (parsed.TransmogSourcesSquishV2 != null)
+            {
+                var imaCache = await MemoryCacheService.GetItemModifiedAppearances();
+                var sources = new List<string>();
+
+                var itemModifiedAppearanceIds = Unsquish(parsed.TransmogSourcesSquishV2);
+                foreach (int itemModifiedAppearanceId in itemModifiedAppearanceIds)
+                {
+                    if (imaCache.ById.TryGetValue(itemModifiedAppearanceId, out var itemIdAndModifier))
+                    {
+                        sources.Add($"{itemIdAndModifier.Item1}_{itemIdAndModifier.Item2}");
+                    }
+                    else
+                    {
+                        Logger.Warning("ItemModifiedAppearance {id} doesn't exist!", itemModifiedAppearanceId);
+                    }
+                }
+
+                accountTransmogSources.Sources = sources
+                    .OrderBy(source => int.Parse(source.Split('_').First()))
+                    .ToList();
+            }
+            else if (parsed.TransmogSourcesSquish != null)
             {
                 var sources = new List<string>();
 
@@ -562,7 +584,9 @@ public class UserUploadJob : JobBase
                     }
                 }
 
-                accountTransmogSources.Sources = sources.Order().ToList();
+                accountTransmogSources.Sources = sources
+                    .OrderBy(source => int.Parse(source.Split('_').First()))
+                    .ToList();
             }
             else if (parsed.TransmogSources?.Count > 0)
             {
