@@ -684,7 +684,12 @@ public class UserUploadJob : JobBase
         foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|'))
         {
             string[] questParts = part.Split('.', 2);
-            int questId = int.Parse(questParts[0]);
+            if (!int.TryParse(questParts[0], out int questId))
+            {
+                Logger.Warning("Invalid squished section: '{section}'", part);
+                continue;
+            }
+
             ret.Add(questId);
 
             if (questParts.Length == 2)
