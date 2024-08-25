@@ -79,7 +79,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
         (warbankItem) => [warbankItem, stores.itemData.items[warbankItem.itemId]],
     );
     const warbankByType = groupBy(
-        warbankItems.filter(([, item]) => item.inventoryType > 0),
+        warbankItems.filter(([, item]) => item?.inventoryType > 0),
         ([, item]) => fixedInventoryType(item.inventoryType),
     );
 
