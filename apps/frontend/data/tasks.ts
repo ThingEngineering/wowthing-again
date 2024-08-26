@@ -311,28 +311,16 @@ export const taskList: Task[] = [
         minimumLevel: 60,
     },
 
+    // The War Within
+    {
+        key: 'twwChores11_0',
+        name: '[TWW] 11.0.x',
+        shortName: '11.0',
+        minimumLevel: 80,
+        type: 'multi',
+    },
+
     // Misc
-    {
-        key: 'mopRemixChores',
-        name: '[MoP Remix] Chores',
-        shortName: '🐼Cho',
-        type: 'multi',
-        minimumLevel: 10,
-    },
-    {
-        key: 'mopRemixLookingForRaid',
-        name: '[MoP Remix] Looking For Raid',
-        shortName: '🐼LFR',
-        type: 'multi',
-        minimumLevel: 10,
-    },
-    {
-        key: 'mopRemixWorldBosses',
-        name: '[MoP Remix] World Bosses',
-        shortName: '🐼WB',
-        type: 'multi',
-        minimumLevel: 10,
-    },
 ];
 
 export const taskMap: Record<string, Task> = Object.fromEntries(
@@ -784,6 +772,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
+    twwChores11_0: [],
     pvpBrawl: [
         {
             taskKey: 'arathiBlizzard',
