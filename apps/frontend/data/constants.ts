@@ -4,7 +4,7 @@ export abstract class Constants {
     static readonly maxRenown: number = 80;
     static readonly restedDuration: number = 10 * 24 * 60 * 60; // 10 days
 
-    static readonly mythicPlusSeason: number = 12;
+    static readonly mythicPlusSeason: number = 13;
 
     static readonly currencies = {
         catalyst: 2912, // Renascent Awakening

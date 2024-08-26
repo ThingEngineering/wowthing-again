@@ -28,8 +28,8 @@
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTasks from './table/row/HomeTableRowTasks.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
-    import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+    import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte'
     import ViewSwitcher from './table/ViewSwitcher.svelte'
 
     export let characterLimit = 0
@@ -159,11 +159,11 @@
                 {:else if field === 'vaultMythicPlus'}
                     <RowVaultMythicPlus {character} />
 
-                {:else if field === 'vaultPvp'}
-                    <RowVaultPvp {character} />
-
                 {:else if field === 'vaultRaid'}
                     <RowVaultRaid {character} />
+
+                {:else if field === 'vaultWorld'}
+                    <RowVaultWorld {character} />
 
                 {:else}
                     <td>&nbsp;</td>

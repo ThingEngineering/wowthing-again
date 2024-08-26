@@ -104,8 +104,8 @@ public class ApplicationUserSettings
         "statusIcons",
         "tasks",
         "vaultMythicPlus",
-        "vaultPvp",
         "vaultRaid",
+        "vaultWorld",
     };
 
     public void Migrate()

@@ -104,12 +104,12 @@ RETURNING *
 
                 // Delete any jobs with too many failures
                 await context.QueuedJob
-                    .Where(qj => qj.Failures >= 3)
+                    .Where(qj => qj.Failures >= 3 || (qj.Failures >= 1 && qj.Priority == JobPriority.Low))
                     .ExecuteDeleteAsync(cancellationToken);
 
-                // Reset any jobs that have been stuck for at least 4 hours
+                // Reset any jobs that have been stuck for at least 10 minutes
                 int updated = await context.QueuedJob
-                    .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddHours(-4))
+                    .Where(job => job.StartedAt.HasValue && job.StartedAt < DateTime.UtcNow.AddMinutes(-10))
                     .ExecuteUpdateAsync(
                         s => s.SetProperty(job => job.StartedAt, job => null),
                         cancellationToken

@@ -36,6 +36,6 @@ export const homeChoices: SettingsChoice[] = [
     { key: 'statusIcons', name: 'Status icons' },
     { key: 'tasks', name: 'Tasks' },
     { key: 'vaultMythicPlus', name: 'Vault - Dungeon' },
-    { key: 'vaultPvp', name: 'Vault - PvP' },
     { key: 'vaultRaid', name: 'Vault - Raid' },
+    { key: 'vaultWorld', name: 'Vault - World' },
 ];

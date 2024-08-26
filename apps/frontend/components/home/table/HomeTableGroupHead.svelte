@@ -232,11 +232,21 @@
                 on:keypress={() => setSorting(field)}
             >Dungeon Vault</td>
 
-        {:else if field === 'vaultPvp'}
-            <td>PvP Vault</td>
-
         {:else if field === 'vaultRaid'}
-            <td>Raid Vault</td>
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >Raid Vault</td>
+
+        {:else if field === 'vaultWorld'}
+            <td
+                class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >World Vault</td>
 
         {:else}
             <td>&nbsp;</td>

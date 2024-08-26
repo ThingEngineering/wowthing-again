@@ -838,8 +838,20 @@ public class StaticTool
                 var roots = new List<OutProfessionCategory>();
                 foreach (var category in professionCategories)
                 {
+                    // Skip the weird Khaz Algar Herbalism categories
+                    if (category.ID is 1909 or 1910)
+                    {
+                        continue;
+                    }
+
                     if (category.ParentTradeSkillCategoryID > 0)
                     {
+                        // Fix the weird Khaz Algar Herbalism category references
+                        if (category.ParentTradeSkillCategoryID is 1909 or 1910)
+                        {
+                            category.ParentTradeSkillCategoryID += 90;
+                        }
+
                         if (!categoryMap.TryGetValue(category.ParentTradeSkillCategoryID, out var parent))
                         {
                             ToolContext.Logger.Warning("No category? category={category} parent={parent}", category.ID, category.ParentTradeSkillCategoryID);
