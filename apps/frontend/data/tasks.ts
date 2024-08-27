@@ -772,7 +772,16 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
-    twwChores11_0: [],
+    twwChores11_0: [
+        {
+            taskKey: 'twwDungeon',
+            taskName: 'Dungeon',
+        },
+        {
+            taskKey: 'twwWorldsoul',
+            taskName: 'Worldsoul',
+        },
+    ],
     pvpBrawl: [
         {
             taskKey: 'arathiBlizzard',
