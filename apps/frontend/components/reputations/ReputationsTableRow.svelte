@@ -37,7 +37,7 @@
             : orderBy(
                 $userStore.activeCharacters
                     .filter((char) => !!char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]),
-                (char) => -char.lastApiUpdate.toUnixInteger()
+                (char) => -char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value
             )[0];
         
         characterRep = actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
