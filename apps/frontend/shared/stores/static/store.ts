@@ -11,7 +11,6 @@ import {
     StaticDataProfessionCategory,
     StaticDataRealm,
     StaticDataReputation,
-    StaticDataReputationCategory,
     StaticDataToy,
     StaticDataTransmogSet,
     StaticDataWorldQuest,
@@ -208,18 +207,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 StaticDataReputation,
             );
             data.rawReputations = null;
-        }
-
-        if (data.rawReputationSets !== null) {
-            data.reputationSets = [];
-            for (const repArray of data.rawReputationSets) {
-                if (repArray === null) {
-                    data.reputationSets.push(null);
-                } else {
-                    data.reputationSets.push(new StaticDataReputationCategory(...repArray));
-                }
-            }
-            data.rawReputationSets = null;
         }
 
         if (data.rawMounts !== null) {

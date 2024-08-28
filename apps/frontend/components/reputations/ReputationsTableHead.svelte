@@ -1,13 +1,13 @@
 <script lang="ts">
     import { reputationState } from '@/stores/local-storage'
     import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
-    export let reputation: StaticDataReputationSet
+    export let reputation: ManualDataReputationSet
     export let slug: string
 
     let onClick: (event: Event) => void

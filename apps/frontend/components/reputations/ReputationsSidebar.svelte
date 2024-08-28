@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { staticStore } from '@/shared/stores/static'
+    import { manualStore } from '@/stores';
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
     $: {
-        categories = $staticStore.reputationSets.map((set) => set === null ? null : ({
+        categories = $manualStore.reputationSets.map((set) => set === null ? null : ({
             children: [],
             ...set,
         }))

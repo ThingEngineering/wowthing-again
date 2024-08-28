@@ -1,10 +1,10 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction'
-    import type { StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import Entry from './TooltipReputationHeaderEntry.svelte'
 
-    export let reputation: StaticDataReputationSet
+    export let reputation: ManualDataReputationSet
 </script>
 
 <style lang="scss">

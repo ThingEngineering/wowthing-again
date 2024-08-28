@@ -292,7 +292,6 @@ public class StaticTool
             .OrderBy(rep => rep.Id)
             .ToArrayAsync();
 
-        cacheData.RawReputationSets = LoadReputationSets();
         _timer.AddPoint("Reputations");
 
         // Soulbinds
@@ -496,27 +495,6 @@ public class StaticTool
         }
 
         return languageName;
-    }
-
-    private List<StaticReputationCategory> LoadReputationSets()
-    {
-        var categories = new List<StaticReputationCategory>();
-
-        var basePath = Path.Join(DataUtilities.DataPath, "reputations");
-        foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
-        {
-            if (line == "-")
-            {
-                categories.Add(null);
-            }
-            else
-            {
-                var filePath = Path.Join(basePath, line);
-                categories.Add(DataUtilities.YamlDeserializer.Deserialize<StaticReputationCategory>(File.OpenText(filePath)));
-            }
-        }
-
-        return categories;
     }
 
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions(

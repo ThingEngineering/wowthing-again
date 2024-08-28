@@ -40,6 +40,8 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, UserItem } from '@/types/shared';
 import { WarbankItem } from '@/types/items';
+import { manualStore } from './manual'
+import type { ManualData } from '@/types/data/manual'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -165,6 +167,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('UserDataStore.setup');
 
         const itemData = get(itemStore);
+        const manualData = get(manualStore);
         const staticData = get(staticStore);
 
         this._itemCounts = {};
@@ -201,7 +204,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.charactersByRealm = {};
         const allLockouts: Record<string, Character[]> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(itemData, staticData, character);
+            this.initializeCharacter(itemData, manualData, staticData, character);
 
             character.hidden = settingsData.characters.hiddenCharacters?.includes(character.id);
             character.ignored =
@@ -345,6 +348,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     private initializeCharacter(
         itemData: ItemData,
+        manualData: ManualData,
         staticData: StaticData,
         character: Character,
     ): void {
@@ -458,7 +462,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // reputation sets
         character.reputationData = {};
-        for (const category of staticData.reputationSets) {
+        for (const category of manualData.reputationSets) {
             if (category === null) {
                 continue;
             }

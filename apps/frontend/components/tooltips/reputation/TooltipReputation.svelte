@@ -2,8 +2,9 @@
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/shared/stores/static'
     import { toNiceNumber } from '@/utils/formatting'
+    import type { StaticDataReputation, StaticDataReputationTier } from '@/shared/stores/static/types'
     import type { Character, CharacterReputationParagon } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/shared/stores/static/types'
+    import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -12,7 +13,7 @@
     export let characterRep: number
     export let dataRep: StaticDataReputation
     export let paragon: CharacterReputationParagon = undefined
-    export let reputation: StaticDataReputationSet = undefined
+    export let reputation: ManualDataReputationSet = undefined
 
     let reps: {
         cls: string

@@ -6,14 +6,14 @@
     import { rewardTypeIcons } from '@/shared/icons/mappings'
     import { staticStore } from '@/shared/stores/static'
     import type { Character } from '@/types'
-    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { ManualDataReputationReputation, ManualDataReputationSet } from '@/types/data/manual';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let faction: Faction = Faction.Neutral
-    export let reputation: StaticDataReputationReputation
-    export let set: StaticDataReputationSet
+    export let reputation: ManualDataReputationReputation
+    export let set: ManualDataReputationSet
 
     let rewards: {
         id: number,

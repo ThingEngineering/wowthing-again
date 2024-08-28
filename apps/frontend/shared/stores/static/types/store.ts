@@ -27,8 +27,6 @@ import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } 
 import type {
     StaticDataReputation,
     StaticDataReputationArray,
-    StaticDataReputationCategory,
-    StaticDataReputationCategoryArray,
     StaticDataReputationTier,
 } from './reputation';
 import type { StaticDataSoulbind } from './soulbind';
@@ -108,9 +106,6 @@ export interface StaticData {
 
     reputations: Record<number, StaticDataReputation>;
     rawReputations: StaticDataReputationArray[];
-
-    reputationSets: StaticDataReputationCategory[];
-    rawReputationSets: StaticDataReputationCategoryArray[];
 
     reputationTiers: Record<number, StaticDataReputationTier>;
 
