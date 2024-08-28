@@ -1,13 +1,14 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { reputationState } from '@/stores/local-storage'
-    import { staticStore } from '@/shared/stores/static'
     import { settingsStore } from '@/shared/stores/settings'
+    import { staticStore } from '@/shared/stores/static'
+    import { manualStore } from '@/stores';
+    import { reputationState } from '@/stores/local-storage'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
     import type { Character } from '@/types'
-    import type { StaticDataReputationCategory, StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { ManualDataReputationCategory, ManualDataReputationSet } from '@/types/data/manual';
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -18,12 +19,12 @@
 
     export let slug: string
 
-    let category: StaticDataReputationCategory
+    let category: ManualDataReputationCategory
     let sorted: boolean
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => string
     $: {
-        category = find($staticStore.reputationSets, (r) => r?.slug === slug)
+        category = find($manualStore.reputationSets, (r) => r?.slug === slug)
         if (!category) {
             break $
         }
@@ -62,7 +63,7 @@
     }
 
 
-    function isRenown(reputationSet: StaticDataReputationSet) {
+    function isRenown(reputationSet: ManualDataReputationSet) {
         return reputationSet.both
             ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
             : $staticStore.reputations[reputationSet.alliance?.id || reputationSet.horde.id].renownCurrencyId > 0

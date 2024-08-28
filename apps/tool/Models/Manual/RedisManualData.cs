@@ -4,6 +4,7 @@ using Wowthing.Tool.Models.Dragonriding;
 using Wowthing.Tool.Models.Heirlooms;
 using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Progress;
+using Wowthing.Tool.Models.Reputations;
 using Wowthing.Tool.Models.Transmog;
 using Wowthing.Tool.Models.Vendors;
 using Wowthing.Tool.Models.ZoneMaps;
@@ -22,6 +23,7 @@ public class ManualCache
     //[JsonProperty("rawProgressSets")]
     public List<List<OutProgress>> ProgressSets { get; set; }
 
+    public List<ManualReputationCategory> RawReputationSets { get; set; }
     public List<List<OutCollectionCategory>> RawToySets { get; set; }
     public List<List<ManualTransmogCategory>> RawTransmogSets { get; set; }
     public List<ManualVendorCategory?> RawVendorSets { get; set; }

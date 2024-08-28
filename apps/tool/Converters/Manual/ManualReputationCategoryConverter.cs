@@ -1,15 +1,15 @@
-﻿using Wowthing.Tool.Models.Static;
+﻿using Wowthing.Tool.Models.Reputations;
 
-namespace Wowthing.Tool.Converters.Static;
+namespace Wowthing.Tool.Converters.Manual;
 
-public class StaticReputationCategoryConverter : JsonConverter<StaticReputationCategory>
+public class ManualReputationCategoryConverter : JsonConverter<ManualReputationCategory>
 {
-    public override StaticReputationCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override ManualReputationCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, StaticReputationCategory value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, ManualReputationCategory value, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
         writer.WriteStringValue(value.Name);
@@ -62,7 +62,7 @@ public class StaticReputationCategoryConverter : JsonConverter<StaticReputationC
         writer.WriteEndArray();
     }
 
-    private void WriteReputationArray(Utf8JsonWriter writer, string key, StaticReputationCategoryReputation reputation)
+    private void WriteReputationArray(Utf8JsonWriter writer, string key, ManualReputationCategoryReputation reputation)
     {
         writer.WriteStartArray();
         writer.WriteStringValue(key);

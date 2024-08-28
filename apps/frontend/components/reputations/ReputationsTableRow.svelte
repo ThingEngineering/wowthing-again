@@ -5,13 +5,14 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores';
     import findReputationTier from '@/utils/find-reputation-tier'
-    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/shared/stores/static/types'
+    import type { StaticDataReputation, StaticDataReputationTier } from '@/shared/stores/static/types'
     import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
+    import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
     export let character: Character
-    export let reputation: StaticDataReputationSet
+    export let reputation: ManualDataReputationSet
     export let reputationsIndex: number
     export let reputationSetsIndex: number
     export let slug: string
@@ -37,7 +38,7 @@
             : orderBy(
                 $userStore.activeCharacters
                     .filter((char) => !!char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]),
-                (char) => -char.lastApiUpdate.toUnixInteger()
+                (char) => -char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value
             )[0];
         
         characterRep = actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];

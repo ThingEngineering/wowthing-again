@@ -1,8 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { staticStore } from '@/shared/stores/static'
-    import type { StaticDataReputation, StaticDataReputationSet } from '@/shared/stores/static/types'
+    import type { StaticDataReputation } from '@/shared/stores/static/types'
     import type { Character, CharacterReputationParagon } from '@/types'
+    import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
@@ -11,7 +12,7 @@
     export let characterParagon: CharacterReputationParagon
     export let characterRep: number
     export let dataRep: StaticDataReputation
-    export let reputation: StaticDataReputationSet = undefined
+    export let reputation: ManualDataReputationSet = undefined
 
     let progress: number
     let tier: number

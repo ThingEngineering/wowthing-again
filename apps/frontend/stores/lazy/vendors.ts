@@ -355,9 +355,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                                 allClassMask = false;
                             }
                         });
+
                         if (
                             !allClassMask ||
-                            (allArmor && (transmogSet.classMask & armorClassMask) === 0) ||
+                            (allArmor &&
+                                transmogSet.classMask > 0 &&
+                                (transmogSet.classMask & armorClassMask) === 0) ||
                             (allWeapon && !stores.vendorState.showWeapons)
                         ) {
                             continue;
@@ -505,18 +508,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             const bSpecString = bSpecs
                                 .map((id) => stores.staticData.characterSpecializations[id].order)
                                 .join('-');
-                            if (group.name === 'Armor - T10 Druid')
-                                console.log(a.id, aSpecs, aSpecString, b.id, bSpecs, bSpecString);
                             return aSpecString.localeCompare(bSpecString);
-                        } else {
-                            if (group.name === 'Armor - T10 Druid')
-                                console.log(a.id, aSpecs, b.id, bSpecs);
                         }
                     }
 
                     return 0;
                 });
-                if (group.name === 'Armor - T10 Druid') console.log(group, group.sellsFiltered);
 
                 group.stats = groupStats;
             } // group of category.groups

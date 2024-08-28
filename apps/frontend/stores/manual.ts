@@ -5,6 +5,7 @@ import {
     ManualDataCustomizationCategory,
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,
+    ManualDataReputationCategory,
     ManualDataSetCategory,
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
@@ -79,6 +80,16 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         );
         data.rawIllusionGroups = null;
 
+        data.reputationSets = [];
+        for (const repArray of data.rawReputationSets) {
+            if (repArray === null) {
+                data.reputationSets.push(null);
+            } else {
+                data.reputationSets.push(new ManualDataReputationCategory(...repArray));
+            }
+        }
+        data.rawReputationSets = null;
+
         data.transmog.sets = data.rawTransmogSets.map((categories) =>
             categories === null
                 ? null
@@ -89,9 +100,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawTransmogSets = null;
 
         data.vendors.sets = data.rawVendorSets.map((catArray) =>
-            catArray === null
-                ? null
-                : new ManualDataVendorCategory(...catArray),
+            catArray === null ? null : new ManualDataVendorCategory(...catArray),
         );
         console.log(data.vendors.sets);
         data.rawVendorSets = null;

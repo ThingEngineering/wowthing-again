@@ -11,7 +11,9 @@ using Wowthing.Tool.Models.Illusions;
 using Wowthing.Tool.Models.Items;
 using Wowthing.Tool.Models.Manual;
 using Wowthing.Tool.Models.Progress;
+using Wowthing.Tool.Models.Reputations;
 using Wowthing.Tool.Models.Spells;
+using Wowthing.Tool.Models.Static;
 using Wowthing.Tool.Models.Transmog;
 using Wowthing.Tool.Models.Vendors;
 using Wowthing.Tool.Models.ZoneMaps;
@@ -213,6 +215,8 @@ public class ManualTool
 
         cacheData.ProgressSets = LoadProgress();
         _timer.AddPoint("Progress");
+
+        cacheData.RawReputationSets = LoadReputationSets();
 
         cacheData.RawTransmogSets = LoadTransmog();
         _timer.AddPoint("Transmog");
@@ -743,6 +747,27 @@ public class ManualTool
         return ret
             .OrderBy(vendor => vendor.Id)
             .ToList();
+    }
+
+    private List<ManualReputationCategory> LoadReputationSets()
+    {
+        var categories = new List<ManualReputationCategory>();
+
+        var basePath = Path.Join(DataUtilities.DataPath, "reputations");
+        foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
+        {
+            if (line == "-")
+            {
+                categories.Add(null);
+            }
+            else
+            {
+                var filePath = Path.Join(basePath, line);
+                categories.Add(DataUtilities.YamlDeserializer.Deserialize<ManualReputationCategory>(File.OpenText(filePath)));
+            }
+        }
+
+        return categories;
     }
 
     // Generate and cache output
