@@ -40,7 +40,7 @@
             ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
 
             for (let i = 0; i < multiStats.length; i++) {
-                multiMap[multiStats[i][1]] = i
+                multiMap[multiStats[i][0]] = i
             }
         }
 
@@ -73,7 +73,7 @@
 
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of (taskChores?.tasks || [])) {
-                            multiStats[multiMap[choreTask.name]][2][choreTask.status]++
+                            multiStats[multiMap[choreTask.key]][2][choreTask.status]++
                         }
                     }
 

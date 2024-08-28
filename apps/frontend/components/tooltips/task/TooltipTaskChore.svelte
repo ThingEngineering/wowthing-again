@@ -130,7 +130,7 @@
                             class:status-shrug={charTask.status === QuestStatus.Error}
                         >
                             <ParsedText
-                                text={taskName.startsWith('mopRemix')
+                                text={taskName.startsWith('tww')
                                     ? charTask.name
                                     : charTask.name.replace(/^\[.*?\] /, '')}
                             />
