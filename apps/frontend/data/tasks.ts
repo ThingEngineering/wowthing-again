@@ -316,7 +316,7 @@ export const taskList: Task[] = [
         key: 'twwChores11_0',
         name: '[TWW] 11.0.x',
         shortName: '11.0',
-        minimumLevel: 80,
+        minimumLevel: 70,
         type: 'multi',
     },
 
@@ -775,11 +775,51 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_0: [
         {
             taskKey: 'twwDungeon',
-            taskName: 'Dungeon',
+            taskName: '[Dor] Dungeon',
+            minimumLevel: 80,
         },
         {
             taskKey: 'twwWorldsoul',
-            taskName: 'Worldsoul',
+            taskName: '[Dor] Worldsoul',
+            minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwTheaterTroupe',
+            taskName: '[IoD] Theater Troupe',
+            minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwAwakeningTheMachine',
+            taskName: '[RD ] Awakening the Machine',
+            minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwSpreadingTheLight',
+            taskName: '[Hal] Spreading the Light',
+            minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwSpiderPact',
+            taskName: '[AK ] Spider Pact',
+            minimumLevel: 70,
+            accountWide: true,
+        },
+        {
+            taskKey: 'twwSpiderWeekly',
+            taskName: '[AK ] Spider Weekly',
+            minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwSpecialAssignment1',
+            taskName: 'Special Assignment 1',
+            minimumLevel: 70,
+            showQuestName: true,
+        },
+        {
+            taskKey: 'twwSpecialAssignment2',
+            taskName: 'Special Assignment 2',
+            minimumLevel: 70,
+            showQuestName: true,
         },
     ],
     pvpBrawl: [
