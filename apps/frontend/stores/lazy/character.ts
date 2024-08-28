@@ -55,7 +55,10 @@ export class LazyCharacterChoreTask {
     status: QuestStatus = QuestStatus.NotStarted;
     statusTexts: string[] = [];
 
-    constructor(public quest: UserQuestDataCharacterProgress) {}
+    constructor(
+        public key: string,
+        public quest: UserQuestDataCharacterProgress,
+    ) {}
 }
 export interface LazyCharacterTask {
     quest: UserQuestDataCharacterProgress;
@@ -290,6 +293,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     let charTask: LazyCharacterChoreTask;
                     if (choreTask.accountWide) {
                         charTask = new LazyCharacterChoreTask(
+                            choreTask.taskKey,
                             sortBy(
                                 Object.values(stores.userQuestData.characters).filter(
                                     (char) => char.progressQuests?.[choreTask.taskKey],
@@ -299,6 +303,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         );
                     } else {
                         charTask = new LazyCharacterChoreTask(
+                            choreTask.taskKey,
                             stores.userQuestData.characters[character.id]?.progressQuests?.[
                                 choreTask.taskKey
                             ],
@@ -488,11 +493,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         }
                     }
 
-                    charTask.name =
-                        taskName === 'dfDungeonWeeklies'
-                            ? stores.userQuestData.questNames[choreTask.taskKey] ||
-                              choreTask.taskName
-                            : choreTask.taskName;
+                    charTask.name = choreTask.showQuestName
+                        ? charTask.quest?.name || choreTask.taskName
+                        : choreTask.taskName;
 
                     if (!charTask.skipped) {
                         if (charTask.status === QuestStatus.Completed) {
