@@ -5,69 +5,90 @@ import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
 import { userQuestStore, userStore } from '@/stores';
 import type { Character } from '@/types';
+import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
 
 import { Constants } from './constants';
-import { dragonflightProfessions, isGatheringProfession } from './professions';
+import {
+    dragonflightProfessions,
+    isGatheringProfession,
+    warWithinProfessions,
+} from './professions';
 
-export const dragonflightProfessionTasks: Chore[] = dragonflightProfessions
-    .map((profession) => {
+function buildProfessionTasks(
+    professions: TaskProfession[],
+    expansion: number,
+    prefix: string,
+    minimumLevel: number,
+): Chore[] {
+    return professions.flatMap((profession) => {
         const name = Profession[profession.id];
         const tasks: Chore[] = [];
 
-        tasks.push({
-            taskKey: `dfProfession${name}Provide`,
-            taskName: `${name}: Provide`,
-            minimumLevel: 60,
-            couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
-            canGetFunc: (char) => getExpansionSkill(char, profession.id, Constants.expansion, 45),
-        });
+        if (prefix === 'df') {
+            tasks.push({
+                taskKey: `${prefix}Profession${name}Provide`,
+                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Provide`,
+                minimumLevel,
+                couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
+                canGetFunc: (char) =>
+                    getExpansionSkill(char, profession.id, Constants.expansion, 45),
+            });
+        }
 
         if (profession.hasTask === true) {
             tasks.push({
-                taskKey: `dfProfession${name}Task`,
-                taskName: `${name}: Task`,
+                taskKey: `${prefix}Profession${name}Task`,
+                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Task`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
                     getExpansionSkill(
                         char,
                         profession.id,
-                        Constants.expansion,
+                        expansion,
                         isGatheringProfession[profession.id] ? 45 : 25,
                     ),
             });
         }
 
         tasks.push({
-            taskKey: `dfProfession${name}Drop#`,
-            taskName: `${name}: Drops`,
-            minimumLevel: 60,
+            taskKey: `${prefix}Profession${name}Drop#`,
+            taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Drops`,
+            minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
         });
 
         if (profession.hasOrders === true) {
             tasks.push({
-                taskKey: `dfProfession${name}Orders`,
-                taskName: `${name}: Orders`,
-                minimumLevel: 60,
+                taskKey: `${prefix}Profession${name}Orders`,
+                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Orders`,
+                minimumLevel,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
-                    getExpansionSkill(char, profession.id, Constants.expansion, 25),
+                    getExpansionSkill(char, profession.id, expansion, expansion === 9 ? 25 : 1),
             });
         }
 
         tasks.push({
-            taskKey: `dfProfession${name}Treatise`,
-            taskName: `${name}: Treatise`,
-            minimumLevel: 60,
+            taskKey: `${prefix}Profession${name}Treatise`,
+            taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Treatise`,
+            minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
         });
 
         return tasks;
-    })
-    .flat();
+    });
+}
+
+export const dragonflightProfessionTasks = buildProfessionTasks(
+    dragonflightProfessions,
+    9,
+    'df',
+    60,
+);
+export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfessions, 10, 'tww', 60);
 
 export const taskList: Task[] = [
     // TWW prepatch
@@ -294,7 +315,7 @@ export const taskList: Task[] = [
     {
         key: 'dfProfessionWeeklies',
         name: '[DF] Profession Weeklies',
-        shortName: 'Pro',
+        shortName: 'DFP',
         type: 'multi',
         minimumLevel: 60,
     },
@@ -318,6 +339,13 @@ export const taskList: Task[] = [
         shortName: '11.0',
         minimumLevel: 70,
         type: 'multi',
+    },
+    {
+        key: 'twwProfessionWeeklies',
+        name: '[TWW] Profession Weeklies',
+        shortName: 'Pro',
+        type: 'multi',
+        minimumLevel: 70,
     },
 
     // Misc
@@ -822,6 +850,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             showQuestName: true,
         },
     ],
+    twwProfessionWeeklies: [...warWithinProfessionTasks],
     pvpBrawl: [
         {
             taskKey: 'arathiBlizzard',

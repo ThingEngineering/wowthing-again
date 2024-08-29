@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinInscription: TaskProfession = {
+    id: Profession.Inscription,
+    subProfessionId: 2878,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225226, // Striated Inkstone
+            questId: 83264,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225227, // Wax-Sealed Records
+            questId: 83262,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightInscription: DragonflightProfession = {
+export const dragonflightInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2828,
     hasTask: true,
@@ -158,5 +177,5 @@ export const dragonflightInscription: DragonflightProfession = {
             questId: 78411,
             source: 'ED',
         },
-    ]
-}
+    ],
+};

@@ -1,8 +1,56 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinEnchanting: TaskProfession = {
+    id: Profession.Enchanting,
+    subProfessionId: 2874,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225230, // Crystalline Repository
+            questId: 83259,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225231, // Powdered Fulgurance
+            questId: 83258,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84290,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84291,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84292,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84293,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227659, // Fleeting Arcane Manifestation
+            questId: 84294,
+            source: 'Disenchanting',
+        },
+        {
+            itemId: 227661, // Gleaming Telluric Crystal
+            questId: 84295,
+            source: 'Disenchanting',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightEnchanting: DragonflightProfession = {
+export const dragonflightEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2825,
     hasTask: true,
@@ -158,4 +206,4 @@ export const dragonflightEnchanting: DragonflightProfession = {
             source: 'ED',
         },
     ],
-}
+};

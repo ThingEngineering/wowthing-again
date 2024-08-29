@@ -1,7 +1,15 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
-export const dragonflightHerbalism: DragonflightProfession = {
+export const warWithinHerbalism: TaskProfession = {
+    id: Profession.Herbalism,
+    subProfessionId: 2877,
+    bookQuests: [],
+    dropQuests: [],
+    treasureQuests: [],
+};
+
+export const dragonflightHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2832,
     masterQuestId: 70253,
@@ -59,4 +67,4 @@ export const dragonflightHerbalism: DragonflightProfession = {
             source: 'ZCB',
         },
     ],
-}
+};

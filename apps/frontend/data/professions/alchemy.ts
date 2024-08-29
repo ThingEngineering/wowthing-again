@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinAlchemy: TaskProfession = {
+    id: Profession.Alchemy,
+    subProfessionId: 2871,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225234, // Alchemical Sediment
+            questId: 83253,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225235, // Deepstone Crucible
+            questId: 83255,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightAlchemy: DragonflightProfession = {
+export const dragonflightAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2823,
     hasTask: true,
@@ -153,4 +172,4 @@ export const dragonflightAlchemy: DragonflightProfession = {
             source: 'ED',
         },
     ],
-}
+};

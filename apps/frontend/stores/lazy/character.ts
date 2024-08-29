@@ -7,6 +7,7 @@ import {
     dragonflightProfessionMap,
     professionSlugToId,
     professionSpecializationSpells,
+    warWithinProfessionMap,
 } from '@/data/professions';
 import { professionCooldowns, professionWorkOrders } from '@/data/professions/cooldowns';
 import { forcedReset, progressQuestMap } from '@/data/quests';
@@ -32,7 +33,7 @@ import type {
     StaticDataProfessionCategory,
     StaticDataSubProfessionTraitNode,
 } from '@/shared/stores/static/types';
-import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data';
+import type { TaskProfession, UserQuestData, UserQuestDataCharacterProgress } from '@/types/data';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -377,13 +378,15 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         let haveCount = 0;
                         let needCount = 0;
 
-                        if (taskName === 'dfProfessionWeeklies') {
+                        if (taskName.endsWith('ProfessionWeeklies')) {
                             const professionName = choreTask.taskKey
-                                .replace('dfProfession', '')
+                                .replace(/^\w+Profession/, '')
                                 .replace('Drop#', '');
                             const profession =
                                 Profession[professionName as keyof typeof Profession];
-                            const professionData = dragonflightProfessionMap[profession];
+                            const professionData: TaskProfession = taskName.startsWith('df')
+                                ? dragonflightProfessionMap[profession]
+                                : warWithinProfessionMap[profession];
 
                             if (professionData.dropQuests?.length > 0) {
                                 needCount = professionData.dropQuests.length;
@@ -420,7 +423,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         }
 
                         if (charTask.statusTexts.length === 0) {
-                            needCount = choreTask.taskName.match(/^(Herbalism|Mining|Skinning):/)
+                            needCount = choreTask.taskName.match(
+                                /^\[\w+\] (Herbalism|Mining|Skinning):/,
+                            )
                                 ? 6
                                 : 4;
                             for (let dropIndex = 0; dropIndex < needCount; dropIndex++) {

@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinLeatherworking: TaskProfession = {
+    id: Profession.Leatherworking,
+    subProfessionId: 2880,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225222, // Stone-Leather Swatch
+            questId: 83268,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225223, // Sturdy Nerubian Carapace
+            questId: 83267,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightLeatherworking: DragonflightProfession = {
+export const dragonflightLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2830,
     hasTask: true,
@@ -153,5 +172,5 @@ export const dragonflightLeatherworking: DragonflightProfession = {
             questId: 78298,
             source: 'ED',
         },
-    ]
-}
+    ],
+};

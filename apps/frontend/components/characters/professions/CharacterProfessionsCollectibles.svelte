@@ -9,7 +9,7 @@
     import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
     import type { Character } from '@/types'
-    import type { DragonflightProfession } from '@/types/data'
+    import type { TaskProfession } from '@/types/data'
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
@@ -20,7 +20,7 @@
     export let expansionSlug: string
     export let staticProfession: StaticDataProfession
 
-    let dfData: DragonflightProfession
+    let dfData: TaskProfession
     $: {
         dfData = undefined
 

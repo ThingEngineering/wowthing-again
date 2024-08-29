@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinTailoring: TaskProfession = {
+    id: Profession.Tailoring,
+    subProfessionId: 2883,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225220, // Chitin Needle
+            questId: 83270,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225221, // Spool of Webweave
+            questId: 83269,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightTailoring: DragonflightProfession = {
+export const dragonflightTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2831,
     hasTask: true,
@@ -158,5 +177,5 @@ export const dragonflightTailoring: DragonflightProfession = {
             questId: 78416,
             source: 'ED',
         },
-    ]
-}
+    ],
+};
