@@ -254,7 +254,11 @@ public class ApiUserCharacter
                 .Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
                 .Zip(character.Reputations.ReputationValues.Concat(character.Reputations.ExtraReputationValues
                     .EmptyIfNull()))
-                .ToDictionary(k => k.First, v => v.Second);
+                .GroupBy(k => k.First)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.OrderByDescending(k => k.Second).First().Second
+                );
         }
 
         // Shadowlands
