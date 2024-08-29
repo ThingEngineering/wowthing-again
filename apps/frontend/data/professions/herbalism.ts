@@ -5,7 +5,38 @@ export const warWithinHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2877,
     bookQuests: [],
-    dropQuests: [],
+    dropQuests: [
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81416,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81417,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81418,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81419,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224264, // Deepgrove Rose Petal
+            questId: 81420,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224265, // Deepgrove Rose
+            questId: 81421,
+            source: 'Gathering',
+        },
+    ],
     treasureQuests: [],
 };
 

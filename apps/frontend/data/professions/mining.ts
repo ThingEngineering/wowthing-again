@@ -5,7 +5,38 @@ export const warWithinMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2881,
     bookQuests: [],
-    dropQuests: [],
+    dropQuests: [
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83054,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83053,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83052,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83051,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224583, // Slab of Slate
+            questId: 83050,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224584, // Erosion Polished Slate
+            questId: 83049,
+            source: 'Gathering',
+        },
+    ],
     treasureQuests: [],
 };
 
