@@ -1,8 +1,28 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinEngineering: TaskProfession = {
+    id: Profession.Engineering,
+    subProfessionId: 2875,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225229, // Earthen Induction Coil
+            questId: 83261,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225228, // Rust-Locked Mechanism
+            questId: 83260,
+            source: 'Mobs/Treasures',
+        },
+    ],
 
-export const dragonflightEngineering: DragonflightProfession = {
+    treasureQuests: [],
+};
+
+export const dragonflightEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2827,
     hasTask: true,
@@ -137,7 +157,7 @@ export const dragonflightEngineering: DragonflightProfession = {
             itemId: 204855, // Overclocked Determination Core
             questId: 75433,
             source: 'ZC',
-        },        
+        },
         {
             itemId: 210193, // Experimental Dreamcatcher
             questId: 78278,
@@ -153,5 +173,5 @@ export const dragonflightEngineering: DragonflightProfession = {
             questId: 78281,
             source: 'ED',
         },
-    ]
-}
+    ],
+};

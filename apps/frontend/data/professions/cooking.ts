@@ -1,8 +1,7 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
-
-export const dragonflightCooking: DragonflightProfession = {
+export const dragonflightCooking: TaskProfession = {
     id: Profession.Cooking,
     subProfessionId: 2824,
-}
+};

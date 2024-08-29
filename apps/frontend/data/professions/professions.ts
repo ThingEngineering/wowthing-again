@@ -1,22 +1,21 @@
-import sortBy from 'lodash/sortBy'
+import sortBy from 'lodash/sortBy';
 
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
-import { dragonflightAlchemy } from './alchemy'
-import { dragonflightBlacksmithing } from './blacksmithing'
-import { dragonflightCooking } from './cooking'
-import { dragonflightEnchanting } from './enchanting'
-import { dragonflightEngineering } from './engineering'
-import { dragonflightFishing } from './fishing'
-import { dragonflightHerbalism } from './herbalism'
-import { dragonflightInscription } from './inscription'
-import { dragonflightJewelcrafting } from './jewelcrafting'
-import { dragonflightLeatherworking } from './leatherworking'
-import { dragonflightMining } from './mining'
-import { dragonflightSkinning } from './skinning'
-import { dragonflightTailoring } from './tailoring'
-
+import { dragonflightAlchemy, warWithinAlchemy } from './alchemy';
+import { dragonflightBlacksmithing, warWithinBlacksmithing } from './blacksmithing';
+import { dragonflightCooking } from './cooking';
+import { dragonflightEnchanting, warWithinEnchanting } from './enchanting';
+import { dragonflightEngineering, warWithinEngineering } from './engineering';
+import { dragonflightFishing } from './fishing';
+import { dragonflightHerbalism, warWithinHerbalism } from './herbalism';
+import { dragonflightInscription, warWithinInscription } from './inscription';
+import { dragonflightJewelcrafting, warWithinJewelcrafting } from './jewelcrafting';
+import { dragonflightLeatherworking, warWithinLeatherworking } from './leatherworking';
+import { dragonflightMining, warWithinMining } from './mining';
+import { dragonflightSkinning, warWithinSkinning } from './skinning';
+import { dragonflightTailoring, warWithinTailoring } from './tailoring';
 
 export const professionIdToSlug: Record<number, string> = {
     [Profession.Alchemy]: 'alchemy',
@@ -34,48 +33,47 @@ export const professionIdToSlug: Record<number, string> = {
     [Profession.Archaeology]: 'archaeology',
     [Profession.Cooking]: 'cooking',
     [Profession.Fishing]: 'fishing',
-}
+};
 
 export const professionSlugToId: Record<string, number> = Object.fromEntries(
-    Object.entries(professionIdToSlug)
-        .map(([id, slug]) => [slug, parseInt(id)])
-)
+    Object.entries(professionIdToSlug).map(([id, slug]) => [slug, parseInt(id)]),
+);
 
 export const isGatheringProfession: Record<number, boolean> = {
     182: true, // Herbalism
     186: true, // Mining
     393: true, // Skinning
-}
+};
 export const isSecondaryProfession: Record<number, boolean> = {
     794: true, // Archaeology
     185: true, // Cooking
     356: true, // Fishing
-}
+};
 export const isCraftingProfession: Record<number, boolean> = Object.fromEntries(
     Object.keys(professionIdToSlug)
         .map((id) => parseInt(id))
         .filter((id) => !isGatheringProfession[id] && !isSecondaryProfession[id])
-        .map((id) => [id, true])
-)
+        .map((id) => [id, true]),
+);
 // I hate that object keys are always strings, ugh
-export const professionOrder: number[] = sortBy(
-    Object.entries(professionIdToSlug),
-    ([id, slug]) => [
-        isSecondaryProfession[parseInt(id)] ? 2 : (isGatheringProfession[parseInt(id)] ? 1 : 0),
-        slug
-    ].join('|')
-)
-.map(([id,]) => parseInt(id))
+export const professionOrder: number[] = sortBy(Object.entries(professionIdToSlug), ([id, slug]) =>
+    [
+        isSecondaryProfession[parseInt(id)] ? 2 : isGatheringProfession[parseInt(id)] ? 1 : 0,
+        slug,
+    ].join('|'),
+).map(([id]) => parseInt(id));
 
 export const professionSpecializationToSpell: Record<string, number> = {
     'Gnomish Engineer': 20219,
     'Goblin Engineer': 20222,
-}
+};
 
 export const professionSpecializationSpells: Record<number, string> = Object.fromEntries(
-    Object.entries(professionSpecializationToSpell)
-        .map(([spellName, spellId]) => [spellId, spellName])
-)
+    Object.entries(professionSpecializationToSpell).map(([spellName, spellId]) => [
+        spellId,
+        spellName,
+    ]),
+);
 
 export const darkmoonFaireProfessionQuests: Record<number, number> = {
     171: 29506, // Alchemy - A Fizzy Fusion
@@ -93,9 +91,9 @@ export const darkmoonFaireProfessionQuests: Record<number, number> = {
     794: 29507, // Archaeology - Fun for the Little Ones
     185: 29509, // Cooking - Putting the Crunch in the Frog
     356: 29513, // Fishing - Spoilin' for Salty Sea Dogs
-}
+};
 
-export const dragonflightProfessions: DragonflightProfession[] = [
+export const dragonflightProfessions: TaskProfession[] = [
     dragonflightAlchemy,
     dragonflightBlacksmithing,
     dragonflightEnchanting,
@@ -111,12 +109,27 @@ export const dragonflightProfessions: DragonflightProfession[] = [
 
     dragonflightCooking,
     dragonflightFishing,
-]
+];
 
-export const dragonflightProfessionMap: Record<number, DragonflightProfession> = Object.fromEntries(
-    dragonflightProfessions
-        .map((profession) => [
-            profession.id,
-            profession,
-        ])
-)
+export const dragonflightProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
+    dragonflightProfessions.map((profession) => [profession.id, profession]),
+);
+
+export const warWithinProfessions: TaskProfession[] = [
+    warWithinAlchemy,
+    warWithinBlacksmithing,
+    warWithinEnchanting,
+    warWithinEngineering,
+    warWithinInscription,
+    warWithinJewelcrafting,
+    warWithinLeatherworking,
+    warWithinTailoring,
+
+    warWithinHerbalism,
+    warWithinMining,
+    warWithinSkinning,
+];
+
+export const warWithinProfessionMap: Record<number, TaskProfession> = Object.fromEntries(
+    warWithinProfessions.map((profession) => [profession.id, profession]),
+);

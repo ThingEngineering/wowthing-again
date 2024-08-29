@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinBlacksmithing: TaskProfession = {
+    id: Profession.Blacksmithing,
+    subProfessionId: 2872,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225232, // Coreway Billet
+            questId: 83257,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225233, // Dense Bladestone
+            questId: 83256,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightBlacksmithing: DragonflightProfession = {
+export const dragonflightBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2822,
     hasTask: true,
@@ -164,4 +183,4 @@ export const dragonflightBlacksmithing: DragonflightProfession = {
             source: 'ED',
         },
     ],
-}
+};

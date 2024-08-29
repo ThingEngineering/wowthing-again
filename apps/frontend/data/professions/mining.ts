@@ -1,7 +1,15 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
-export const dragonflightMining: DragonflightProfession = {
+export const warWithinMining: TaskProfession = {
+    id: Profession.Mining,
+    subProfessionId: 2881,
+    bookQuests: [],
+    dropQuests: [],
+    treasureQuests: [],
+};
+
+export const dragonflightMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2833,
     masterQuestId: 70258,
@@ -59,4 +67,4 @@ export const dragonflightMining: DragonflightProfession = {
             source: 'ZCB',
         },
     ],
-}
+};

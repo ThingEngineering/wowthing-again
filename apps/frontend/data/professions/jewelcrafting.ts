@@ -1,8 +1,27 @@
-import { Profession } from '@/enums/profession'
-import type { DragonflightProfession } from '@/types/data'
+import { Profession } from '@/enums/profession';
+import type { TaskProfession } from '@/types/data';
 
+export const warWithinJewelcrafting: TaskProfession = {
+    id: Profession.Jewelcrafting,
+    subProfessionId: 2879,
+    hasOrders: true,
+    bookQuests: [],
+    dropQuests: [
+        {
+            itemId: 225225, // Deepstone Fragment
+            questId: 83266,
+            source: 'Mobs/Treasures',
+        },
+        {
+            itemId: 225224, // Diaphanous Gem Shards
+            questId: 83265,
+            source: 'Mobs/Treasures',
+        },
+    ],
+    treasureQuests: [],
+};
 
-export const dragonflightJewelcrafting: DragonflightProfession = {
+export const dragonflightJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2829,
     hasTask: true,
@@ -64,7 +83,7 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
         {
             itemId: 193909, // Ancient Gem Fragments
             questId: 66388,
-            source: 'Treasures', // 
+            source: 'Treasures', //
         },
         {
             itemId: 193907, // Chipped Tyrstone
@@ -159,4 +178,4 @@ export const dragonflightJewelcrafting: DragonflightProfession = {
             source: 'ED',
         },
     ],
-}
+};
