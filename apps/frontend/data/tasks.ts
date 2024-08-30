@@ -36,7 +36,7 @@ function buildProfessionTasks(
             });
         }
 
-        if (profession.hasTask === true) {
+        if (profession.hasTasks === true) {
             tasks.push({
                 taskKey: `${prefix}Profession${name}Task`,
                 taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Task`,

@@ -4,6 +4,7 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2877,
+    hasTasks: true,
     bookQuests: [],
     dropQuests: [
         {

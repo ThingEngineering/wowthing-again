@@ -24,7 +24,7 @@ export const warWithinLeatherworking: TaskProfession = {
 export const dragonflightLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2830,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70256,
     bookQuests: [

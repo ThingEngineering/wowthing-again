@@ -4,6 +4,7 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2882,
+    hasTasks: true,
     bookQuests: [],
     dropQuests: [
         {

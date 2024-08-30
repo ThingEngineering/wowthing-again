@@ -24,7 +24,7 @@ export const warWithinAlchemy: TaskProfession = {
 export const dragonflightAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2823,
-    hasTask: true,
+    hasTasks: true,
     masterQuestId: 70247,
     bookQuests: [
         {

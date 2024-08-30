@@ -24,7 +24,7 @@ export const warWithinInscription: TaskProfession = {
 export const dragonflightInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2828,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70254,
     bookQuests: [

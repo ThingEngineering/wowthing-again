@@ -24,7 +24,7 @@ export const warWithinTailoring: TaskProfession = {
 export const dragonflightTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2831,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70260,
     bookQuests: [
