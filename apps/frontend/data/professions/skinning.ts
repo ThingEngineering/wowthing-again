@@ -5,7 +5,23 @@ export const warWithinSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2882,
     hasTasks: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227417, // Faded Skinner's Notes
+            questId: 84232,
+            source: 'AC',
+        },
+        {
+            itemId: 227428, // Exceptional Skinner's Notes
+            questId: 84233,
+            source: 'AC',
+        },
+        {
+            itemId: 227439, // Pristine Skinner's Notes
+            questId: 84234,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 224780, // Toughened Tempest Pelt

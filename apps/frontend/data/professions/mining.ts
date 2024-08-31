@@ -5,7 +5,23 @@ export const warWithinMining: TaskProfession = {
     id: Profession.Mining,
     subProfessionId: 2881,
     hasTasks: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227416, // Faded Miner's Notes
+            questId: 81390,
+            source: 'AC',
+        },
+        {
+            itemId: 227427, // Exceptional Miner's Notes
+            questId: 81391,
+            source: 'AC',
+        },
+        {
+            itemId: 227438, // Pristine Miner's Notes
+            questId: 81392,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 224583, // Slab of Slate

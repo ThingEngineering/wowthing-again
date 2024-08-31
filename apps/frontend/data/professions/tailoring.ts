@@ -5,7 +5,23 @@ export const warWithinTailoring: TaskProfession = {
     id: Profession.Tailoring,
     subProfessionId: 2883,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227410, // Faded Tailor's Diagrams
+            questId: 80871,
+            source: 'AC',
+        },
+        {
+            itemId: 227421, // Exceptional Tailor's Diagrams
+            questId: 80872,
+            source: 'AC',
+        },
+        {
+            itemId: 227432, // Pristine Tailor's Diagrams
+            questId: 80873,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225220, // Chitin Needle

@@ -5,7 +5,23 @@ export const warWithinInscription: TaskProfession = {
     id: Profession.Inscription,
     subProfessionId: 2878,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227408, // Faded Scribe's Runic Drawings
+            questId: 80749,
+            source: 'AC',
+        },
+        {
+            itemId: 227419, // Exceptional Scribe's Runic Drawings
+            questId: 80750,
+            source: 'AC',
+        },
+        {
+            itemId: 227430, // Pristine Scribe's Runic Drawings
+            questId: 80751,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225226, // Striated Inkstone
