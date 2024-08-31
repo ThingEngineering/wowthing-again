@@ -14,6 +14,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
+    export let expansionSlug: string
     export let profession: number
 
     let professions: [StaticDataProfession, Record<number, CharacterProfession>][]
@@ -37,7 +38,7 @@
 <td>
     {#if professions[profession]}
         {@const [staticProfession,] = professions[profession]}
-        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap['dragonflight'].id]}
+        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap[expansionSlug].id]}
         {@const lazyData = $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
         {@const charStats = lazyData.subProfessions[staticSubProfession.id]?.traitStats}
         <div class="flex-wrapper">
