@@ -59,6 +59,8 @@ export function getDropIcon(
         icon = iconLibrary['gameThumbUp'];
     } else if (drop.type === RewardType.Weapon) {
         icon = weaponSubclassIcons[<WeaponSubclass>drop.subType];
+    } else if (drop.limit?.[0] === 'profession') {
+        icon = professionSlugIcons[drop.limit[1]];
     }
 
     return icon || rewardTypeIcons[drop.type];

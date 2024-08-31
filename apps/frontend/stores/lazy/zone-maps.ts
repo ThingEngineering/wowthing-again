@@ -265,6 +265,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             break;
 
                         case RewardType.Quest:
+                        case RewardType.CharacterTrackingQuest:
                             if (
                                 !Object.values(stores.userQuestData.characters).every((char) =>
                                     char?.quests?.has(drop.id),
@@ -366,7 +367,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             !stores.zoneMapState.trackAchievements) ||
                         (drop.type === RewardType.Mount && !stores.zoneMapState.trackMounts) ||
                         (drop.type === RewardType.Pet && !stores.zoneMapState.trackPets) ||
-                        ((drop.type === RewardType.Quest || drop.type === RewardType.XpQuest) &&
+                        ((drop.type === RewardType.Quest ||
+                            drop.type === RewardType.XpQuest ||
+                            drop.type === RewardType.CharacterTrackingQuest) &&
                             !stores.zoneMapState.trackQuests) ||
                         (drop.type === RewardType.Toy && !stores.zoneMapState.trackToys) ||
                         (transmogTypes.has(drop.type) && !stores.zoneMapState.trackTransmog);
@@ -533,6 +536,12 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             const charQuests = stores.userQuestData.characters[character.id];
                             if (farm.type === FarmType.Quest) {
                                 if (farm.questIds.every((q) => !charQuests?.quests?.has(q))) {
+                                    dropStatus.characterIds.push(character.id);
+                                } else {
+                                    dropStatus.completedCharacterIds.push(character.id);
+                                }
+                            } else if (drop.type === RewardType.CharacterTrackingQuest) {
+                                if (!charQuests?.quests?.has(drop.id)) {
                                     dropStatus.characterIds.push(character.id);
                                 } else {
                                     dropStatus.completedCharacterIds.push(character.id);
