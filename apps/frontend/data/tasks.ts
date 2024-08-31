@@ -47,7 +47,7 @@ function buildProfessionTasks(
                         char,
                         profession.id,
                         expansion,
-                        isGatheringProfession[profession.id] ? 45 : 25,
+                        expansion === 9 && isGatheringProfession[profession.id] ? 45 : 25,
                     ),
             });
         }
@@ -820,11 +820,13 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'twwAwakeningTheMachine',
             taskName: '[RD ] Awakening the Machine',
             minimumLevel: 70,
+            noProgress: true,
         },
         {
             taskKey: 'twwSpreadingTheLight',
             taskName: '[Hal] Spreading the Light',
             minimumLevel: 70,
+            noProgress: true,
         },
         {
             taskKey: 'twwSpiderPact',
@@ -841,12 +843,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'twwSpecialAssignment1',
             taskName: 'Special Assignment 1',
             minimumLevel: 70,
+            noProgress: true,
             showQuestName: true,
         },
         {
             taskKey: 'twwSpecialAssignment2',
             taskName: 'Special Assignment 2',
             minimumLevel: 70,
+            noProgress: true,
             showQuestName: true,
         },
     ],
