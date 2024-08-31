@@ -63,12 +63,17 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Engineering
     {
         type: 'spell',
+        key: 'twwBoxOBooms',
+        name: "[TWW] Box o' Booms",
+        profession: Profession.Engineering,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
         key: 'twwInvent',
         name: '[TWW] Invent',
         profession: Profession.Engineering,
-        cooldown: [
-            [86400], // 24h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
@@ -106,6 +111,51 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     },
 
     // Jewelcrafting
+    {
+        type: 'spell',
+        key: 'twwAlgariAmberPrism',
+        name: '[TWW] Algari Amber Prism',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'twwAlgariEmeraldPrism',
+        name: '[TWW] Algari Emerald Prism',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'twwAlgariOnyxPrism',
+        name: '[TWW] Algari Onyx Prism',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'twwAlgariRubyPrism',
+        name: '[TWW] Algari Ruby Prism',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'twwAlgariSapphirePrism',
+        name: '[TWW] Algari Sapphire Prism',
+        profession: Profession.Jewelcrafting,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
     {
         type: 'spell',
         key: 'dfJeweledDragonsHeart',
@@ -228,6 +278,24 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     },
 
     // Tailoring
+    {
+        type: 'spell',
+        key: 'twwDawnweave',
+        name: '[TWW] Dawnweave',
+        profession: Profession.Tailoring,
+        cooldown: [
+            [60480], // 16h48m
+        ],
+    },
+    {
+        type: 'spell',
+        key: 'twwDuskweave',
+        name: '[TWW] Duskweave',
+        profession: Profession.Tailoring,
+        cooldown: [
+            [60480], // 16h48m
+        ],
+    },
     {
         type: 'spell',
         key: 'dfAzureweave',
