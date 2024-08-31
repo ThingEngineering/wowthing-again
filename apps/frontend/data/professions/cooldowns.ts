@@ -63,6 +63,15 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Engineering
     {
         type: 'spell',
+        key: 'twwInvent',
+        name: '[TWW] Invent',
+        profession: Profession.Engineering,
+        cooldown: [
+            [86400], // 24h
+        ],
+    },
+    {
+        type: 'spell',
         key: 'dfSuspiciouslySilent',
         name: '[DF] Suspiciously Silent',
         profession: Profession.Engineering,
