@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Data;
+﻿using System.Text.RegularExpressions;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Comparers;
 using Wowthing.Lib.Constants;
@@ -31,6 +32,8 @@ public class UserUploadJob : JobBase
 
     private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> AchievementComparer =
         new(new PlayerCharacterAddonAchievementsAchievementComparer());
+
+    private static readonly Regex PlayerGuidRegex = new(@"^Player-\d+-([0-9A-Fa-f]+)$", RegexOptions.Compiled);
 
     private readonly HashSet<string> _fortifiedNames = new()
     {
@@ -267,21 +270,47 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Guilds");
 
         // Build a fancy set of character ORs
+        var characterToRealmAndName = new Dictionary<UploadCharacter, (WowRealm, string)>();
         var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
-            var (realm, characterName) = ParseAddonId(addonId);
-            if (realm == null)
-            {
-                continue;
-            }
-
             var lastSeen = characterData.LastSeen.AsUtcDateTime();
-            characterPredicate = characterPredicate.Or(pc =>
-                pc.RealmId == realm.Id &&
-                pc.Name == characterName &&
-                pc.LastSeenAddon < lastSeen
-            );
+
+            // TODO: remove this once GUID-enabled addon has been out for a while
+            var match = PlayerGuidRegex.Match(addonId);
+            if (match.Success)
+            {
+                var (realm, characterName) = ParseAddonId(characterData.Name);
+                if (realm == null)
+                {
+                    continue;
+                }
+
+                characterToRealmAndName[characterData] = (realm, characterName);
+
+                // Player-[realm id]-[hex character id]
+                characterPredicate = characterPredicate.Or(pc =>
+                    pc.CharacterId == Convert.ToInt64(match.Groups[1].Value, 16) &&
+                    pc.LastSeenAddon < lastSeen
+                );
+            }
+            else
+            {
+                // [region]/[realm name]/[character name]
+                var (realm, characterName) = ParseAddonId(addonId);
+                if (realm == null)
+                {
+                    continue;
+                }
+
+                characterToRealmAndName[characterData] = (realm, characterName);
+
+                characterPredicate = characterPredicate.Or(pc =>
+                    pc.RealmId == realm.Id &&
+                    pc.Name == characterName &&
+                    pc.LastSeenAddon < lastSeen
+                );
+            }
         }
 
         // Fetch character data
@@ -310,13 +339,12 @@ public class UserUploadJob : JobBase
         int updatedCharacters = 0;
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
-            // US/Mal'Ganis/Fakenamehere
-            var (realm, characterName) = ParseAddonId(addonId);
-            if (realm == null)
+            if (!characterToRealmAndName.TryGetValue(characterData, out var realmNameTuple))
             {
                 continue;
             }
 
+            var (realm, characterName) = realmNameTuple;
             if (!characterMap.TryGetValue((realm.Id, characterName), out PlayerCharacter character))
             {
                 //Logger.Warning("Invalid character: {AddonId}", addonId);
@@ -661,7 +689,7 @@ public class UserUploadJob : JobBase
         var parts = addonId.Split("/");
         if (parts.Length != 3)
         {
-            Logger.Warning("Invalid guild key: {String}", addonId);
+            Logger.Warning("Invalid addon id: {String}", addonId);
             return (null, null);
         }
 
