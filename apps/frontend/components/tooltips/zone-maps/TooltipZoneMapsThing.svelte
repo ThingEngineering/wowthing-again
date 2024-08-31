@@ -126,7 +126,7 @@
         white-space: nowrap;
     }
     .limit {
-        max-width: 10rem;
+        max-width: 12rem;
         min-width: 5rem;
         text-align: left;
         white-space: nowrap;
@@ -271,7 +271,11 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if sortedDrops.length < 10 && (drop.note || drop.type === RewardType.Achievement || dropStatus.setNote)}
+                    {#if sortedDrops.length < 10 && (
+                        (drop.note && drop.type !== RewardType.CharacterTrackingQuest) ||
+                        drop.type === RewardType.Achievement ||
+                        dropStatus.setNote
+                    )}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
