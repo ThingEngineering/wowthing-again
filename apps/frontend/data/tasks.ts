@@ -823,6 +823,11 @@ export const multiTaskMap: Record<string, Chore[]> = {
             noProgress: true,
         },
         {
+            taskKey: 'twwRollinDown',
+            taskName: "[RD ] Rollin' Down in the Deeps",
+            minimumLevel: 80,
+        },
+        {
             taskKey: 'twwSpreadingTheLight',
             taskName: '[Hal] Spreading the Light',
             minimumLevel: 70,
