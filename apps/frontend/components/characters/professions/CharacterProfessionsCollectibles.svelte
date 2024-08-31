@@ -4,7 +4,7 @@
 
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
-    import { dragonflightProfessionMap } from '@/data/professions'
+    import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions'
     import { itemStore, userQuestStore, userStore } from '@/stores'
     import { staticStore } from '@/shared/stores/static'
     import findReputationTier from '@/utils/find-reputation-tier'
@@ -20,12 +20,12 @@
     export let expansionSlug: string
     export let staticProfession: StaticDataProfession
 
-    let dfData: TaskProfession
+    let taskProfession: TaskProfession
     $: {
-        dfData = undefined
+        taskProfession = undefined
 
         const expansion = expansionSlugMap[expansionSlug]
-        if (!expansion || expansionSlug !== 'dragonflight') {
+        if (!expansion || expansion.id < 9) {
             break $
         }
         
@@ -35,7 +35,9 @@
             break $
         }
         
-        dfData = dragonflightProfessionMap[staticProfession.id]
+        taskProfession = expansion.id === 9
+            ? dragonflightProfessionMap[staticProfession.id]
+            : warWithinProfessionMap[staticProfession.id];
     }
 
     $: acRepTier = findReputationTier(
@@ -66,12 +68,12 @@
     }
 </style>
 
-{#if dfData}
+{#if taskProfession}
     <div class="profession-collectibles">
-        {#if dfData.masterQuestId || dfData?.bookQuests?.length > 0}
+        {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0}
             <div class="collection-objects">
-                {#if dfData.masterQuestId}
-                    {@const userHas = userQuestStore.hasAny(character.id, dfData.masterQuestId)}
+                {#if taskProfession.masterQuestId}
+                    {@const userHas = userQuestStore.hasAny(character.id, taskProfession.masterQuestId)}
                     <div
                         class="quality5"
                         class:missing={userHas}
@@ -89,9 +91,9 @@
                     </div>
                 {/if}
 
-                {#each (dfData.bookQuests || []) as bookQuest, questIndex}
+                {#each (taskProfession.bookQuests || []) as bookQuest, questIndex}
                     {@const userHas = userQuestStore.hasAny(character.id, bookQuest.questId)}
-                    {#if bookQuest.source.startsWith('AC')}
+                    {#if bookQuest.source.startsWith('AC ')}
                         {@const repRank = [2, 4, 5][questIndex]}
                         <Collectible
                             disabled={acRepTier.tier > (6 - repRank)}
@@ -117,9 +119,9 @@
             </div>
         {/if}
 
-        {#if dfData.treasureQuests?.length > 0}
+        {#if taskProfession.treasureQuests?.length > 0}
             <div class="collection-objects">
-                {#each sortBy(dfData.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]]) as treasureQuest}
+                {#each sortBy(taskProfession.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]]) as treasureQuest}
                     <Collectible
                         itemId={treasureQuest.itemId}
                         text={treasureQuest.source}
