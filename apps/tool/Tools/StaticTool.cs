@@ -912,7 +912,7 @@ public class StaticTool
 
         foreach (int[] chunk in questIds.Chunk(12))
         {
-            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+            outFile.WriteLine("{0},", string.Join(",", chunk));
         }
 
         outFile.WriteLine("}");

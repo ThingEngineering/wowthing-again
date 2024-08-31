@@ -53,7 +53,7 @@ export const warWithinEnchanting: TaskProfession = {
 export const dragonflightEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2825,
-    hasTask: true,
+    hasTasks: true,
     masterQuestId: 70251,
     bookQuests: [
         {

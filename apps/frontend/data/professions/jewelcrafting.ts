@@ -24,7 +24,7 @@ export const warWithinJewelcrafting: TaskProfession = {
 export const dragonflightJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2829,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70255,
     bookQuests: [

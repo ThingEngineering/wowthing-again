@@ -49,10 +49,11 @@ public class UserCharactersJob : JobBase
             var uri = GenerateUri(region, ApiNamespace.Profile, path);
             try
             {
-                var result = await GetUriAsJsonAsync<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
+                var result = await GetUriAsJsonAsync<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false, timer: timer);
                 var profile = result.Data;
                 if (profile?.Accounts == null)
                 {
+                    Logger.Information("[{region}] No accounts!", region);
                     continue;
                 }
 
@@ -65,7 +66,7 @@ public class UserCharactersJob : JobBase
 
                 foreach (var account in accounts)
                 {
-                    Logger.Information("Found existing account {0}/{1}", region, account.AccountId);
+                    Logger.Information("[{region}] Found existing account {id}", region, account.AccountId);
                     accountMap[(region, account.AccountId)] = account;
                 }
 
@@ -81,11 +82,11 @@ public class UserCharactersJob : JobBase
                             Region = region,
                         };
                         Context.PlayerAccount.Add(playerAccount);
-                        Logger.Information("Added new account {0}/{1}", region, apiAccount.Id);
+                        Logger.Information("[{region}] Added new account {id}", region, apiAccount.Id);
                     }
                     else if (playerAccount.UserId != _userId)
                     {
-                        Logger.Warning("Changed owner of account {region} {id} from {user1} to {user2}",
+                        Logger.Warning("[{region}] Changed owner of account {id} from {user1} to {user2}",
                             region, playerAccount.AccountId, playerAccount.UserId, _userId);
                         playerAccount.Enabled = true;
                     }
@@ -95,15 +96,19 @@ public class UserCharactersJob : JobBase
             }
             catch (HttpRequestException e)
             {
-                if (e.Message != "404")
+                if (e.Message == "404")
                 {
-                    Logger.Error("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
+                    Logger.Information("[{region}] HTTP {0}", region, e.Message);
                 }
+                else {
+                    Logger.Error("[{region}] HTTP {0}", region, e.Message);
+                }
+
                 failedRegions.Add(region);
             }
             catch (Exception ex) when (ex is TimeoutException or TaskCanceledException)
             {
-                Logger.Error("HTTP request timed out: {region} {msg}", region, ex.Message);
+                Logger.Error("[{region}] HTTP request timed out: {msg}", region, ex.Message);
                 failedRegions.Add(region);
             }
         }
@@ -176,7 +181,7 @@ public class UserCharactersJob : JobBase
 
             if (addedCharacters > 0)
             {
-                Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", addedCharacters, region,
+                Logger.Information("[{region}] Added {count} character(s) to account {id}", region, addedCharacters,
                     apiAccount.Id);
             }
         }
@@ -220,8 +225,8 @@ public class UserCharactersJob : JobBase
 
             if (unlinkedCharacters > 0)
             {
-                Logger.Information("Unlinked {0} character(s) from account {1}/{2}",
-                    unlinkedCharacters, region, apiAccount.Id);
+                Logger.Information("[{region}] Unlinked {count} character(s) from account {id}",
+                    region, unlinkedCharacters, apiAccount.Id);
             }
         }
 
@@ -236,7 +241,7 @@ public class UserCharactersJob : JobBase
                 if (!failedRegions.Contains(otherAccount.Region))
                 {
                     otherAccount.UserId = null;
-                    Logger.Information("Unlinked account {0}/{1}", otherAccount.Region, otherAccount.Id);
+                    Logger.Information("[{region}] Unlinked account {id}", otherAccount.Region, otherAccount.Id);
                 }
             }
 

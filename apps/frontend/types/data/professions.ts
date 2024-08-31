@@ -11,7 +11,7 @@ export type TaskProfession = {
     id: Profession;
     subProfessionId: number;
     hasOrders?: boolean;
-    hasTask?: boolean;
+    hasTasks?: boolean;
     masterQuestId?: number;
 
     bookQuests?: TaskProfessionQuest[];

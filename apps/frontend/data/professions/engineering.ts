@@ -25,7 +25,7 @@ export const warWithinEngineering: TaskProfession = {
 export const dragonflightEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2827,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70252,
     bookQuests: [

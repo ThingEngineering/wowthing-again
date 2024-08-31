@@ -4,8 +4,40 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinSkinning: TaskProfession = {
     id: Profession.Skinning,
     subProfessionId: 2882,
+    hasTasks: true,
     bookQuests: [],
-    dropQuests: [],
+    dropQuests: [
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81459,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81460,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81461,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81462,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224780, // Toughened Tempest Pelt
+            questId: 81463,
+            source: 'Gathering',
+        },
+        {
+            itemId: 224781, // Abyssal Fur
+            questId: 81464,
+            source: 'Gathering',
+        },
+    ],
     treasureQuests: [],
 };
 

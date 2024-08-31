@@ -1048,7 +1048,7 @@ public class ManualTool
         outFile.WriteLine("    -- This data is overwritten by the *manual* tool, don't edit by hand");
         foreach (int[] chunk in seenQuestIds.OrderBy(id => id).Chunk(12))
         {
-            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+            outFile.WriteLine("{0},", string.Join(",", chunk));
         }
     }
 
@@ -1104,7 +1104,7 @@ public class ManualTool
         outFile.WriteLine("Module.db.auto.zoneMaps = {");
         foreach (int[] chunk in seenQuestIds.OrderBy(id => id).Chunk(12))
         {
-            outFile.WriteLine("    {0},", string.Join(", ", chunk));
+            outFile.WriteLine("{0},", string.Join(",", chunk));
         }
         outFile.WriteLine("}");
     }

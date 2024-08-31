@@ -24,7 +24,7 @@ export const warWithinBlacksmithing: TaskProfession = {
 export const dragonflightBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2822,
-    hasTask: true,
+    hasTasks: true,
     hasOrders: true,
     masterQuestId: 70250,
     bookQuests: [
