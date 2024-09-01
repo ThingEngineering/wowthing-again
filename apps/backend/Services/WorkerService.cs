@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading.Channels;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +8,7 @@ using Sentry;
 using Serilog;
 using Serilog.Context;
 using Wowthing.Backend.Jobs;
+using Wowthing.Backend.Metrics;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
@@ -24,6 +26,7 @@ public class WorkerService : BackgroundService
 
     private readonly ILogger _logger;
     private readonly JobFactory _jobFactory;
+    private readonly JobMetrics _jobMetrics;
     private readonly StateService _stateService;
 
     private readonly string _name;
@@ -42,7 +45,8 @@ public class WorkerService : BackgroundService
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
-        StateService stateService
+        StateService stateService,
+        JobMetrics jobMetrics
     )
     {
         _contextFactory = contextFactory;
@@ -51,6 +55,7 @@ public class WorkerService : BackgroundService
         _priority = priority;
         _name = priority.ToString()[..1];
         _reader = _stateService.JobPriorityChannels[_priority].Reader;
+        _jobMetrics = jobMetrics;
 
         int instanceId = Interlocked.Increment(ref _instanceCount);
         _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_name}");
@@ -122,9 +127,16 @@ public class WorkerService : BackgroundService
                     {
                         string[] data = JsonSerializer.Deserialize<string[]>(queuedJob.Data.OrDefault("[]"));
 
+                        _jobMetrics.Started();
+                        var stopwatch = Stopwatch.StartNew();
+
                         job = _jobFactory.Create(classType, _contextFactory, linkedToken.Token);
                         job.Setup(data);
                         await job.Run(data);
+
+                        stopwatch.Stop();
+                        _jobMetrics.Succeeded();
+                        _jobMetrics.Duration(stopwatch.ElapsedMilliseconds);
 
                         await _stateService.SuccessfulQueuedJobs.Writer.WriteAsync(queuedJob.Id, linkedToken.Token);
                     }
@@ -135,6 +147,8 @@ public class WorkerService : BackgroundService
                         {
                             break;
                         }
+
+                        _jobMetrics.Failed();
 
                         if (jobTokenSource.IsCancellationRequested)
                         {
