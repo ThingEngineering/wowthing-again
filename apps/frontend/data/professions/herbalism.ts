@@ -5,7 +5,23 @@ export const warWithinHerbalism: TaskProfession = {
     id: Profession.Herbalism,
     subProfessionId: 2877,
     hasTasks: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227415, // Faded Herbalist's Notes
+            questId: 81422,
+            source: 'AC',
+        },
+        {
+            itemId: 227426, // Exceptional Herbalist's Notes
+            questId: 81423,
+            source: 'AC',
+        },
+        {
+            itemId: 227437, // Pristine Herbalist's Notes
+            questId: 81424,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 224264, // Deepgrove Rose Petal

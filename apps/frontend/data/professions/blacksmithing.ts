@@ -5,7 +5,23 @@ export const warWithinBlacksmithing: TaskProfession = {
     id: Profession.Blacksmithing,
     subProfessionId: 2872,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227407, // Faded Blacksmith's Diagrams
+            questId: 84226,
+            source: 'AC',
+        },
+        {
+            itemId: 227418, // Exceptional Blacksmith's Diagrams
+            questId: 84227,
+            source: 'AC',
+        },
+        {
+            itemId: 227429, // Pristine Blacksmith's Diagrams
+            questId: 84228,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225232, // Coreway Billet

@@ -4,7 +4,23 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2874,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227411, // Faded Enchanter's Research
+            questId: 81076,
+            source: 'AC',
+        },
+        {
+            itemId: 227422, // Exceptional Enchanter's Research
+            questId: 81077,
+            source: 'AC',
+        },
+        {
+            itemId: 227433, // Pristine Enchanter's Research
+            questId: 81078,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225230, // Crystalline Repository

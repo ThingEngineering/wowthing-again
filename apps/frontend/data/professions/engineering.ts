@@ -5,7 +5,23 @@ export const warWithinEngineering: TaskProfession = {
     id: Profession.Engineering,
     subProfessionId: 2875,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227412, // Faded Engineer's Scribblings
+            questId: 84229,
+            source: 'AC',
+        },
+        {
+            itemId: 227423, // Exceptional Engineer's Scribblings
+            questId: 84230,
+            source: 'AC',
+        },
+        {
+            itemId: 227434, // Pristine Engineer's Scribblings
+            questId: 84231,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225229, // Earthen Induction Coil

@@ -5,7 +5,23 @@ export const warWithinJewelcrafting: TaskProfession = {
     id: Profession.Jewelcrafting,
     subProfessionId: 2879,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227413, // Faded Jeweler's Illustrations
+            questId: 81259,
+            source: 'AC',
+        },
+        {
+            itemId: 227424, // Exceptional Jeweler's Illustrations
+            questId: 81260,
+            source: 'AC',
+        },
+        {
+            itemId: 227435, // Pristine Jeweler's Illustrations
+            questId: 81261,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225225, // Deepstone Fragment

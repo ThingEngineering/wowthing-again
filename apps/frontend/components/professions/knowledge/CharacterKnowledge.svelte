@@ -14,6 +14,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
+    export let expansionSlug: string
     export let profession: number
 
     let professions: [StaticDataProfession, Record<number, CharacterProfession>][]
@@ -37,20 +38,20 @@
 <td>
     {#if professions[profession]}
         {@const [staticProfession,] = professions[profession]}
-        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap['dragonflight'].id]}
+        {@const staticSubProfession = staticProfession.expansionSubProfession[expansionSlugMap[expansionSlug].id]}
         {@const lazyData = $lazyStore.characters[character.id].professions.professions[staticProfession.id]}
         {@const charStats = lazyData.subProfessions[staticSubProfession.id]?.traitStats}
-        <div class="flex-wrapper">
+        <div
+            class="flex-wrapper"
+            use:basicTooltip={`${charStats.have} / ${charStats.total} knowledge`}
+        >
             <WowthingImage 
                 name="{imageStrings[professionIdToSlug[staticProfession.id]]}"
                 size={20}
                 border={1}
             />
             {#if charStats}
-                <span
-                    class="{getPercentClass(charStats.percent)}"
-                    use:basicTooltip={`${charStats.have} / ${charStats.total} knowledge`}
-                >
+                <span class="{getPercentClass(charStats.percent)}">
                     {Math.floor(charStats.percent)} %
                 </span>
             {:else}

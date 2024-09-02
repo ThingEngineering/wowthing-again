@@ -245,6 +245,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .IncludeProperties(pc => new { pc.Id, pc.AccountId, pc.Name, pc.LastApiModified })
             .HasFilter("should_update = true AND account_id IS NOT NULL");
 
+        builder.Entity<PlayerCharacter>()
+            .HasIndex(pc => new { pc.CharacterId, pc.LastSeenAddon })
+            .HasFilter("account_id IS NOT NULL");
+
         builder.Entity<QueuedJob>()
             .HasIndex(qj => qj.Priority)
             .HasFilter("started_at IS NULL");

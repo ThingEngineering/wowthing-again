@@ -5,7 +5,23 @@ export const warWithinLeatherworking: TaskProfession = {
     id: Profession.Leatherworking,
     subProfessionId: 2880,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227414, // Faded Leatherworker's Diagrams
+            questId: 80978,
+            source: 'AC',
+        },
+        {
+            itemId: 227425, // Exceptional Leatherworker's Diagrams
+            questId: 80979,
+            source: 'AC',
+        },
+        {
+            itemId: 227436, // Pristine Leatherworker's Diagrams
+            questId: 80980,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225222, // Stone-Leather Swatch

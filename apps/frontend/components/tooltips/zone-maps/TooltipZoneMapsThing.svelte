@@ -212,9 +212,10 @@
             {#each sortedDrops.slice(0, 22) as [drop, dropStatus], sortedIndex}
                 {@const isCriteria = drop.type === RewardType.Achievement && drop.subType > 0}
                 <tr
-                    class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
+                    class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip ||
+                        (dropStatus.need && dropStatus.characterIds.length === 0)}
                 >
-                    <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
+                    <td class="type status-{dropStatus.need && dropStatus.characterIds.length > 0 ? 'fail' : 'success'}">
                         <IconifyIcon icon={getDropIcon($itemStore, $manualStore, $staticStore, drop, isCriteria)} />
                     </td>
                     <td

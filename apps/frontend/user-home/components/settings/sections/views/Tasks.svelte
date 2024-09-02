@@ -56,7 +56,7 @@
 </div>
 
 {#each multiTasks as taskKey}
-    {#if view.homeTasks.indexOf(taskKey) >= 0}
+    {#if taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
         <div class="settings-block">
             <div>
                 <h3>{taskMap[taskKey].name}</h3>

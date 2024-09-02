@@ -20,11 +20,16 @@
     <CharacterTableHead slot="head">
         <th class="spacer"></th>
         <th class="expansion" colspan="2">Dragonflight</th>
+        <th class="spacer"></th>
+        <th class="expansion" colspan="2">The War Within</th>
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
         <td class="spacer"></td>
-        <CharacterKnowledge {character} profession={0} />
-        <CharacterKnowledge {character} profession={1} />
+        <CharacterKnowledge {character} expansionSlug={'dragonflight'} profession={0} />
+        <CharacterKnowledge {character} expansionSlug={'dragonflight'} profession={1} />
+        <td class="spacer"></td>
+        <CharacterKnowledge {character} expansionSlug={'war-within'} profession={0} />
+        <CharacterKnowledge {character} expansionSlug={'war-within'} profession={1} />
     </svelte:fragment>
 </CharacterTable>

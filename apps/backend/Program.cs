@@ -8,6 +8,7 @@ using Sentry;
 using Serilog;
 using Serilog.Templates;
 using Wowthing.Backend.Extensions;
+using Wowthing.Backend.Metrics;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Jobs;
@@ -132,6 +133,8 @@ public class Program
 
         // JSON options
         services.AddJsonOptions();
+
+        services.AddSingleton<JobMetrics>();
 
         // Services
         services.AddSingleton<CacheService>();

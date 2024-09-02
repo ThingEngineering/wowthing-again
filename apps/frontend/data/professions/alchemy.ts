@@ -5,7 +5,23 @@ export const warWithinAlchemy: TaskProfession = {
     id: Profession.Alchemy,
     subProfessionId: 2871,
     hasOrders: true,
-    bookQuests: [],
+    bookQuests: [
+        {
+            itemId: 227409, // Faded Alchemist's Research
+            questId: 81146,
+            source: 'AC',
+        },
+        {
+            itemId: 227420, // Exceptional Alchemist's Research
+            questId: 81147,
+            source: 'AC',
+        },
+        {
+            itemId: 227431, // Pristine Alchemist's Research
+            questId: 81148,
+            source: 'AC',
+        },
+    ],
     dropQuests: [
         {
             itemId: 225234, // Alchemical Sediment
