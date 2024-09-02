@@ -23,7 +23,6 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="7.0.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-    <PackageReference Include="SharpAbp.Abp.OpenTelemetry.Exporter.Prometheus.HttpListener" Version="3.4.3" />
     <PackageReference Include="StackExchange.Redis" Version="2.7.17" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
     <PackageReference Include="YamlDotNet" Version="13.7.1" />
