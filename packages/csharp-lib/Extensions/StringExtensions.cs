@@ -44,7 +44,7 @@ public static class StringExtensions
         return s.Split(Splits, removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
     }
 
-    public static string Truncate(this string s, int maxLength)
+    public static string WowthingTruncate(this string s, int maxLength)
     {
         return string.IsNullOrWhiteSpace(s) ? "" : s[..Math.Min(s.Length, maxLength)];
     }

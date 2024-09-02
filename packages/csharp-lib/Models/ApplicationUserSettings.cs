@@ -159,7 +159,7 @@ public class ApplicationUserSettings
         // General
         General.DesiredAccountName = FixDesiredAccountNameRegex
             .Replace(General.DesiredAccountName.EmptyIfNullOrWhitespace(), "")
-            .Truncate(32);
+            .WowthingTruncate(32);
 
         // Layout
         if (!_validCovenantColumn.Contains(Layout.CovenantColumn))

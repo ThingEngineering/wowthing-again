@@ -3,6 +3,8 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenTelemetry;
+using OpenTelemetry.Metrics;
 using Polly;
 using Sentry;
 using Serilog;
@@ -39,6 +41,11 @@ public class Program
                 "{#if Task is not null} {Task} -{#end}" +
                 " {@m:lj}\n{@x}"))
             .CreateLogger();
+
+        using var meterProvider = Sdk.CreateMeterProviderBuilder()
+            .AddMeter("WoWthing.Backend.Jobs")
+            .AddPrometheusHttpListener()
+            .Build();
 
         // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         // {

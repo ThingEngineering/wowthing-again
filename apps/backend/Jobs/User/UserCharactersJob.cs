@@ -6,6 +6,7 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
+using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
 namespace Wowthing.Backend.Jobs.User;
 
@@ -126,7 +127,7 @@ public class UserCharactersJob : JobBase
         var orPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach ((int realmId, string name) in characterPairs)
         {
-            orPredicate = orPredicate.Or(c => c.RealmId == realmId && c.Name == name);
+            orPredicate = orPredicate.WowthingOr(c => c.RealmId == realmId && c.Name == name);
         }
 
         var characterMap = await Context.PlayerCharacter
