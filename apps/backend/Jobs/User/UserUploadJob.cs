@@ -289,7 +289,7 @@ public class UserUploadJob : JobBase
                 characterToRealmAndName[characterData] = (realm, characterName);
 
                 // Player-[realm id]-[hex character id]
-                characterPredicate = characterPredicate.Or(pc =>
+                characterPredicate = characterPredicate.WowthingOr(pc =>
                     pc.CharacterId == Convert.ToInt64(match.Groups[1].Value, 16) &&
                     pc.LastSeenAddon < lastSeen
                 );
@@ -305,7 +305,7 @@ public class UserUploadJob : JobBase
 
                 characterToRealmAndName[characterData] = (realm, characterName);
 
-                characterPredicate = characterPredicate.Or(pc =>
+                characterPredicate = characterPredicate.WowthingOr(pc =>
                     pc.RealmId == realm.Id &&
                     pc.Name == characterName &&
                     pc.LastSeenAddon < lastSeen

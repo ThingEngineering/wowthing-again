@@ -126,7 +126,7 @@ public class ApiController : Controller
                 if (accountMap.TryGetValue(accountId, out var account))
                 {
                     account.Enabled = accountData.Enabled;
-                    account.Tag = accountData.Tag.Truncate(4);
+                    account.Tag = accountData.Tag.WowthingTruncate(4);
                 }
             }
         }

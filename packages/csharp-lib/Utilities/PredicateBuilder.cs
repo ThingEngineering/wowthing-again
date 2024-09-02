@@ -17,7 +17,7 @@ public static class PredicateBuilder
         return f => false;
     }
 
-    public static Expression<Func<T, bool>> Or<T>(
+    public static Expression<Func<T, bool>> WowthingOr<T>(
         this Expression<Func<T, bool>> expr1,
         Expression<Func<T, bool>> expr2)
     {
