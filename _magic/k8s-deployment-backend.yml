@@ -27,6 +27,9 @@ spec:
         - name: wowthing-again-backend
           image: 'ghcr.io/thingengineering/wowthing-again/backend:_VERSION_'
           imagePullPolicy: Always
+          ports:
+            - name: prometheus
+              containerPort: 9464
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
