@@ -44,7 +44,7 @@ public class Program
 
         using var meterProvider = Sdk.CreateMeterProviderBuilder()
             .AddMeter("WoWthing.Backend.Jobs")
-            .AddPrometheusHttpListener()
+            .AddPrometheusHttpListener(options => options.UriPrefixes = ["http://0:9464"])
             .Build();
 
         // JsonConvert.DefaultSettings = () => new JsonSerializerSettings
