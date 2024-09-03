@@ -29,6 +29,20 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
         },
     ],
 
+    // The War Within
+    260: [
+        {
+            id: 126001,
+            name: 'Crafting Concentration',
+            slug: 'crafting-concentration',
+        },
+        {
+            id: 126002,
+            name: 'Crafting Knowledge',
+            slug: 'crafting-knowledge',
+        },
+    ],
+
     // Dragonflight
     250: [
         {
@@ -70,19 +84,44 @@ export const currencyExtra: Record<number, number[]> = {
         // 1191, // Valor
         // 2167, // Catalyst Charges
     ],
+    // The War Within - Crafting Concentration
+    126001: [
+        3045, // Alchemy
+        3040, // Blacksmithing
+        3046, // Enchanting
+        3044, // Engineering
+        3043, // Inscription
+        3013, // Jewelcrafting
+        3042, // Leatherworking
+        3041, // Tailoring
+    ],
+    // The War Within - Crafting Knowledge
+    126002: [
+        2785, // Alchemy Knowledge
+        2786, // Blacksmithing Knowledge
+        2787, // Enchanting Knowledge
+        2788, // Engineering Knowledge
+        2789, // Herbalism Knowledge
+        2790, // Inscription Knowledge
+        2791, // Jewelcrafting Knowledge
+        2792, // Leatherworking Knowledge
+        2793, // Mining Knowledge
+        2794, // Skinning Knowledge
+        2795, // Tailoring Knowledge
+    ],
     // Dragonflight - Crafting Knowledge
     125001: [
         2024, // Alchemy Knowledge
         2023, // Blacksmithing Knowledge
         2030, // Enchanting Knowledge
         2027, // Engineering Knowledge
+        2034, // Herbalism Knowledge
         2028, // Inscription Knowledge
         2029, // Jewelcrafting Knowledge
         2025, // Leatherworking Knowledge
-        2026, // Tailoring Knowledge
-        2034, // Herbalism Knowledge
         2035, // Mining Knowledge
         2033, // Skinning Knowledge
+        2026, // Tailoring Knowledge
     ],
     // Dragonflight - Season 2
     125012: [
