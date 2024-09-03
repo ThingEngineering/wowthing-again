@@ -5,6 +5,15 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Alchemy
     {
         type: 'spell',
+        key: 'twwAlchemyMeticulous',
+        name: '[TWW] Meticulous Experimentation',
+        profession: Profession.Alchemy,
+        cooldown: [
+            [72000], // 20h
+        ],
+    },
+    {
+        type: 'spell',
         key: 'dfTransmute',
         name: '[DF] Transmute',
         profession: Profession.Alchemy,
