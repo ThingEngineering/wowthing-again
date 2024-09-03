@@ -1,3 +1,4 @@
+import { imageStrings } from './icons';
 import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 
 export const categoryOrder: number[] = [
@@ -250,6 +251,18 @@ export const currencyItemCurrencies: Record<number, number> = {
     204078: 2412, // Aspect Crest Fragment
 
     213089: 3010, // Antique Bronze Bullion
+};
+
+export const currencyIconOverride: Record<number, string> = {
+    // The War Within - Concentration
+    3045: imageStrings['alchemy'],
+    3040: imageStrings['blacksmithing'],
+    3046: imageStrings['enchanting'],
+    3044: imageStrings['engineering'],
+    3043: imageStrings['inscription'],
+    3013: imageStrings['jewelcrafting'],
+    3042: imageStrings['leatherworking'],
+    3041: imageStrings['tailoring'],
 };
 
 const skipCurrencies: number[] = [

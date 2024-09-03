@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { currencyIconOverride } from '@/data/currencies';
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
@@ -62,7 +63,7 @@
         noTooltip={true}
     >
         <WowthingImage
-            name={itemId ? `item/${itemId}` : `currency/${currency.id}`}
+            name={currencyIconOverride[itemId || currency.id] || (itemId ? `item/${itemId}` : `currency/${currency.id}`)}
             size={40}
             border={2}
         />
