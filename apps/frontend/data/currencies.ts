@@ -1,3 +1,4 @@
+import { imageStrings } from './icons';
 import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 
 export const categoryOrder: number[] = [
@@ -25,6 +26,20 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             id: 100101,
             name: 'World Events',
             slug: 'world-events',
+        },
+    ],
+
+    // The War Within
+    260: [
+        {
+            id: 126001,
+            name: 'Crafting Concentration',
+            slug: 'crafting-concentration',
+        },
+        {
+            id: 126002,
+            name: 'Crafting Knowledge',
+            slug: 'crafting-knowledge',
         },
     ],
 
@@ -69,19 +84,44 @@ export const currencyExtra: Record<number, number[]> = {
         // 1191, // Valor
         // 2167, // Catalyst Charges
     ],
+    // The War Within - Crafting Concentration
+    126001: [
+        3045, // Alchemy
+        3040, // Blacksmithing
+        3046, // Enchanting
+        3044, // Engineering
+        3043, // Inscription
+        3013, // Jewelcrafting
+        3042, // Leatherworking
+        3041, // Tailoring
+    ],
+    // The War Within - Crafting Knowledge
+    126002: [
+        2785, // Alchemy Knowledge
+        2786, // Blacksmithing Knowledge
+        2787, // Enchanting Knowledge
+        2788, // Engineering Knowledge
+        2789, // Herbalism Knowledge
+        2790, // Inscription Knowledge
+        2791, // Jewelcrafting Knowledge
+        2792, // Leatherworking Knowledge
+        2793, // Mining Knowledge
+        2794, // Skinning Knowledge
+        2795, // Tailoring Knowledge
+    ],
     // Dragonflight - Crafting Knowledge
     125001: [
         2024, // Alchemy Knowledge
         2023, // Blacksmithing Knowledge
         2030, // Enchanting Knowledge
         2027, // Engineering Knowledge
+        2034, // Herbalism Knowledge
         2028, // Inscription Knowledge
         2029, // Jewelcrafting Knowledge
         2025, // Leatherworking Knowledge
-        2026, // Tailoring Knowledge
-        2034, // Herbalism Knowledge
         2035, // Mining Knowledge
         2033, // Skinning Knowledge
+        2026, // Tailoring Knowledge
     ],
     // Dragonflight - Season 2
     125012: [
@@ -250,6 +290,18 @@ export const currencyItemCurrencies: Record<number, number> = {
     204078: 2412, // Aspect Crest Fragment
 
     213089: 3010, // Antique Bronze Bullion
+};
+
+export const currencyIconOverride: Record<number, string> = {
+    // The War Within - Concentration
+    3045: imageStrings['alchemy'],
+    3040: imageStrings['blacksmithing'],
+    3046: imageStrings['enchanting'],
+    3044: imageStrings['engineering'],
+    3043: imageStrings['inscription'],
+    3013: imageStrings['jewelcrafting'],
+    3042: imageStrings['leatherworking'],
+    3041: imageStrings['tailoring'],
 };
 
 const skipCurrencies: number[] = [

@@ -2125,27 +2125,27 @@ public class UserUploadJob : JobBase
             _resetTransmogCache = true;
         }
 
-        List<int> transmog;
-        if (characterData.TransmogSquish != null)
-        {
-            transmog = Unsquish(characterData.TransmogSquish);
-        }
-        else
-        {
-            transmog = characterData.Transmog
-                .EmptyIfNullOrWhitespace()
-                .Split(':', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .Order()
-                .ToList();
-        }
-
-        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
-                                   !transmog.SequenceEqual(character.Transmog.TransmogIds)))
-        {
-            character.Transmog.TransmogIds = transmog;
-            _resetTransmogCache = true;
-        }
+        // List<int> transmog;
+        // if (characterData.TransmogSquish != null)
+        // {
+        //     transmog = Unsquish(characterData.TransmogSquish);
+        // }
+        // else
+        // {
+        //     transmog = characterData.Transmog
+        //         .EmptyIfNullOrWhitespace()
+        //         .Split(':', StringSplitOptions.RemoveEmptyEntries)
+        //         .Select(int.Parse)
+        //         .Order()
+        //         .ToList();
+        // }
+        //
+        // if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
+        //                            !transmog.SequenceEqual(character.Transmog.TransmogIds)))
+        // {
+        //     character.Transmog.TransmogIds = transmog;
+        //     _resetTransmogCache = true;
+        // }
     }
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
