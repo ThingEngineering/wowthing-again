@@ -16,6 +16,9 @@ public class StaticCurrencyConverter : JsonConverter<StaticCurrency>
         writer.WriteNumberValue(value.CategoryId);
         writer.WriteNumberValue(value.MaxPerWeek);
         writer.WriteNumberValue(value.MaxTotal);
+        writer.WriteNumberValue(value.RechargeAmount);
+        writer.WriteNumberValue(value.RechargeInterval);
+        writer.WriteNumberValue(value.TransferPercent);
         writer.WriteStringValue(value.Name);
         writer.WriteEndArray();
     }

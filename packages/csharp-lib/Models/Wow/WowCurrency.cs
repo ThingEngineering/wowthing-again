@@ -8,8 +8,11 @@ public class WowCurrency
     public short Id { get; set; }
 
     public short CategoryId { get; set; }
+    public short RechargeAmount { get; set; }
+    public short TransferPercent { get; set; }
     public int MaxPerWeek { get; set; }
     public int MaxTotal { get; set; }
+    public long RechargeInterval { get; set; }
 
     public WowCurrency(short id)
     {
