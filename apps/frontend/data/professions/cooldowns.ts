@@ -1,6 +1,7 @@
 import { Profession } from '@/enums/profession';
 import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
 
+// cooldown of 0 = "use the addon data"
 export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownSpell)[] = [
     // Alchemy
     {
@@ -8,9 +9,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwAlchemyMeticulous',
         name: '[TWW] Meticulous Experimentation',
         profession: Profession.Alchemy,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
@@ -102,18 +101,14 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'dfSuspiciouslySilent',
         name: '[DF] Suspiciously Silent',
         profession: Profession.Engineering,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'dfSuspiciouslyTicking',
         name: '[DF] Suspiciously Ticking',
         profession: Profession.Engineering,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
@@ -138,45 +133,35 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwAlgariAmberPrism',
         name: '[TWW] Algari Amber Prism',
         profession: Profession.Jewelcrafting,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'twwAlgariEmeraldPrism',
         name: '[TWW] Algari Emerald Prism',
         profession: Profession.Jewelcrafting,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'twwAlgariOnyxPrism',
         name: '[TWW] Algari Onyx Prism',
         profession: Profession.Jewelcrafting,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'twwAlgariRubyPrism',
         name: '[TWW] Algari Ruby Prism',
         profession: Profession.Jewelcrafting,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'twwAlgariSapphirePrism',
         name: '[TWW] Algari Sapphire Prism',
         profession: Profession.Jewelcrafting,
-        cooldown: [
-            [72000], // 20h
-        ],
+        cooldown: [[0]],
     },
     {
         type: 'spell',
