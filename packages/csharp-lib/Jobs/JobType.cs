@@ -56,4 +56,5 @@ public enum JobType : short
     MaintenanceDeleteWorldQuestReports = 2002,
     MaintenanceDeleteOldAuctionTables = 2003,
     MaintenanceBackfillUserCache = 2004,
+    MaintenanceDeleteCharacters = 2005,
 }
