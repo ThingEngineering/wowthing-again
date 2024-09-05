@@ -700,7 +700,7 @@ function doProfessionCooldowns(
                         full: charFull,
                         seconds,
                     });
-                } else {
+                } /*else {
                     ret.have += 1;
                     ret.total += 1;
 
@@ -711,7 +711,7 @@ function doProfessionCooldowns(
                         full: undefined,
                         seconds: -1,
                     });
-                }
+                }*/
             }
         }
     }
