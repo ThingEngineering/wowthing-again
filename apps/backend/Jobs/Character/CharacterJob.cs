@@ -81,6 +81,7 @@ public class CharacterJob : JobBase
         character.ActiveSpecId = apiCharacter.ActiveSpec?.Id ?? 0;
         character.ActiveTitleId = apiCharacter.ActiveTitle?.Id ?? 0;
         character.AverageItemLevel = apiCharacter.AverageItemLevel;
+        character.CharacterId = apiCharacter.Id;
         character.ClassId = apiCharacter.Class.Id;
         character.EquippedItemLevel = apiCharacter.EquippedItemLevel;
         character.Experience = apiCharacter.Experience;
