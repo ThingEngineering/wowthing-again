@@ -52,7 +52,7 @@ public enum JobType : short
     MagicAggregateWorldQuests = 1100,
 
     MaintenanceUnlinkCharacters = 2000,
-    MaintenanceDeleteAchievements = 2001,
+    // MaintenanceDeleteAchievements = 2001,
     MaintenanceDeleteWorldQuestReports = 2002,
     MaintenanceDeleteOldAuctionTables = 2003,
     MaintenanceBackfillUserCache = 2004,
