@@ -9,7 +9,7 @@ public class MaintenanceDeleteCharactersJob : JobBase, IScheduledJob
     {
         Type = JobType.MaintenanceDeleteCharacters,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromHours(1),
+        Interval = TimeSpan.FromMinutes(10),
         Version = 1,
     };
 
