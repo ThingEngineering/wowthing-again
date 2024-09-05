@@ -63,7 +63,6 @@ export default function getCharacterGear(state: GearState, character: Character)
         }
 
         if (
-            character.level === Constants.characterMaxLevel &&
             state.highlightItemLevel &&
             gear.equipped.itemLevel < state.minimumItemLevel
         ) {
