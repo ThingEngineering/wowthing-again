@@ -169,7 +169,8 @@ public class UserCharactersJob : JobBase
                         character = characterMap[key] = new PlayerCharacter
                         {
                             CharacterId = apiCharacter.Id,
-                            LastApiCheck = MiscConstants.DefaultDateTime,
+                            // Set this to 2 weeks ago to be at the top of the queue
+                            LastApiCheck = DateTime.UtcNow.AddDays(-14),
                         };
                         Context.PlayerCharacter.Add(character);
                         addedCharacters++;
