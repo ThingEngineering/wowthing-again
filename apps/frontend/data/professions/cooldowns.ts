@@ -33,6 +33,19 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Blacksmithing
     {
         type: 'spell',
+        key: 'twwBlacksmithingEverburning',
+        name: '[TWW] Everburning Ignition',
+        profession: Profession.Blacksmithing,
+        cooldown: [
+            [7200], // 2h
+            [6300, 2872, 99267, 6], // 25% @ 5 points in Everburning Forge
+            [5400, 2872, 99267, 16], // 50% @ 15 points in Everburning Forge
+            [4500, 2872, 99267, 26], // 75% @ 25 points in Everburning Forge
+            [3600, 2872, 99267, 36], // 100% @ 35 points in Everburning Forge
+        ],
+    },
+    {
+        type: 'spell',
         key: 'wodBlacksmithingSecrets',
         name: '[WoD] Secrets',
         profession: Profession.Blacksmithing,
@@ -172,7 +185,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
@@ -182,7 +195,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
