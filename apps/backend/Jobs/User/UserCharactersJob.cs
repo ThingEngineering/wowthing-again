@@ -134,6 +134,17 @@ public class UserCharactersJob : JobBase
             .Where(orPredicate)
             .ToDictionaryAsync(k => (k.RealmId, k.Name), CancellationToken);
 
+        // TODO: revisit this when the duplicated character situation is sorted out
+        //         var characterMap = await Context.PlayerCharacter
+        //             .FromSqlRaw(@"
+        // SELECT DISTINCT ON (character_id) *
+        // FROM player_character pc
+        // WHERE character_id = ANY({0})
+        // ORDER BY character_id,
+        //     account_id DESC NULLS LAST,
+        //     last_api_modified DESC
+        // ", characterIds).ToDictionaryAsync(pc => pc.CharacterId, CancellationToken);
+
         timer.AddPoint("Fetch");
 
         // Loop over API results
@@ -165,6 +176,7 @@ public class UserCharactersJob : JobBase
                     }
 
                     character.AccountId = accountId;
+                    character.CharacterId = apiCharacter.Id;
                     character.ClassId = apiCharacter.Class.Id;
                     character.Level = apiCharacter.Level;
                     character.RaceId = apiCharacter.Race.Id;

@@ -4,19 +4,22 @@ export class StaticDataCurrency {
         public categoryId: number,
         public maxPerWeek: number,
         public maxTotal: number,
-        public name: string
-    )
-    { }
+        public rechargeAmount: number,
+        public rechargeInterval: number,
+        public transferPercent: number,
+        public name: string,
+    ) {}
 }
-export type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>
+export type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>;
 
 export class StaticDataCurrencyCategory {
     constructor(
         public id: number,
         public name: string,
-        public slug: string
-    )
-    { }
+        public slug: string,
+    ) {}
 }
 
-export type StaticDataCurrencyCategoryArray = ConstructorParameters<typeof StaticDataCurrencyCategory>
+export type StaticDataCurrencyCategoryArray = ConstructorParameters<
+    typeof StaticDataCurrencyCategory
+>;

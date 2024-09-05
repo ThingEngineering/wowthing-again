@@ -506,6 +506,9 @@ public class DumpsTool
             dbCurrency.CategoryId = currency.CategoryID;
             dbCurrency.MaxPerWeek = currency.MaxEarnablePerWeek;
             dbCurrency.MaxTotal = currency.MaxQty;
+            dbCurrency.RechargeAmount = currency.RechargingAmountPerCycle;
+            dbCurrency.RechargeInterval = currency.RechargingCycleDurationMS;
+            dbCurrency.TransferPercent = (short)currency.WarbondTransferPercentage;
         }
 
         _timer.AddPoint("Currency");

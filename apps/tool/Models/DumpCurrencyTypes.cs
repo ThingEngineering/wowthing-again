@@ -9,8 +9,11 @@ public class DumpCurrencyTypes
     public short ID { get; set; }
 
     public short CategoryID { get; set; }
+    public short RechargingAmountPerCycle { get; set; }
     public int MaxEarnablePerWeek { get; set; }
     public int MaxQty { get; set; }
+    public double WarbondTransferPercentage { get; set; }
+    public long RechargingCycleDurationMS { get; set; }
 
     [Name("Flags[0]")]
     public int Flags0 { get; set; }
