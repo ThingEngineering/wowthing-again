@@ -30,17 +30,11 @@ export function getCharacterData(
     const characterCounts: Record<number, number> = {};
     const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
 
-    const remixCategory = achievementData.categories.find((cat) => cat.id === 15509);
-    const isRemix =
-        remixCategory.id === achievement.categoryId ||
-        remixCategory.children.some((child) => child.id === achievement.categoryId);
-
     const characters = userData.characters.filter(
         (char) =>
-            ((achievement.faction === 0 && char.faction === 1) ||
-                (achievement.faction === 1 && char.faction === 0) ||
-                achievement.faction === -1) &&
-            (!isRemix || char.isRemix),
+            (achievement.faction === 0 && char.faction === 1) ||
+            (achievement.faction === 1 && char.faction === 0) ||
+            achievement.faction === -1,
     );
 
     const characterIds = characters.map((char) => char.id);

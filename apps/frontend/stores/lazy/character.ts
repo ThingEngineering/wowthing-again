@@ -267,8 +267,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 !task ||
                 character.ignored ||
                 character.level < (task.minimumLevel || Constants.characterMaxLevel) ||
-                character.level > (task.maximumLevel || Constants.characterMaxLevel) ||
-                (character.isRemix && !taskName.includes('Remix'))
+                character.level > (task.maximumLevel || Constants.characterMaxLevel)
             ) {
                 continue;
             }

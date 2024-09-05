@@ -236,11 +236,6 @@ export function useCharacterFilter(
                                 return lazyStore.characters[char.id].professionWorkOrders.have > 0;
                             }
 
-                            // Remix
-                            if (part === 'remix') {
-                                return char.isRemix;
-                            }
-
                             return false;
                         })(outerPart.replace(/^!/, '')) === outerPart.startsWith('!')
                             ? false

@@ -4,4 +4,4 @@ export const durationAuras: [number, string][] = [
     [423861, 'Mastery of Timeways'],
 ];
 
-export const staticAuras: [number, string][] = [[424143, 'MoP Remix']];
+export const staticAuras: [number, string][] = [];

@@ -107,10 +107,6 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                     )),
         );
 
-        if (maps[0].slug !== 'mists-of-pandaria') {
-            categoryCharacters = categoryCharacters.filter((char) => !char.isRemix);
-        }
-
         for (const map of maps.slice(1)) {
             if (map === null) {
                 continue;
