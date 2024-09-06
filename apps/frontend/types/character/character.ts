@@ -62,6 +62,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public calculatedItemLevelQuality: number;
     public lastApiUpdate: DateTime;
     public lastSeenAddon: DateTime;
+    public scannedCurrencies: DateTime;
 
     public bags: Record<number, number> = {};
     public currencies: Record<number, CharacterCurrency> = {};
@@ -103,6 +104,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public hearthLocation: string,
         lastApiUpdateUnix: number,
         lastSeenAddonUnix: number,
+        scannedCurrenciesUnix: number,
 
         public configuration: CharacterConfiguration,
 
@@ -251,12 +253,16 @@ export class Character implements ContainsItems, HasNameAndRealm {
             }
         }
 
-        if (lastApiUpdateUnix) {
+        if (lastApiUpdateUnix && lastApiUpdateUnix > Constants.defaultUnixTime) {
             this.lastApiUpdate = DateTime.fromSeconds(lastApiUpdateUnix);
         }
 
-        if (lastSeenAddonUnix) {
+        if (lastSeenAddonUnix && lastSeenAddonUnix > Constants.defaultUnixTime) {
             this.lastSeenAddon = DateTime.fromSeconds(lastSeenAddonUnix);
+        }
+
+        if (scannedCurrenciesUnix && scannedCurrenciesUnix > Constants.defaultUnixTime) {
+            this.scannedCurrencies = DateTime.fromSeconds(scannedCurrenciesUnix);
         }
     }
 

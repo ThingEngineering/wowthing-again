@@ -20,6 +20,7 @@ public class PlayerCharacterAddonData(int characterId)
 
     public DateTime BagsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime BankScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime CurrenciesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
