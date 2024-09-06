@@ -367,143 +367,120 @@ function winterVeilCouldGet(char: Character): boolean {
 export const multiTaskMap: Record<string, Chore[]> = {
     holidayDarkmoonFaire: [
         {
-            minimumLevel: 1,
+            taskKey: 'dmfStrength',
+            taskName: 'Test Your Strength',
+        },
+        {
+            taskKey: 'dmfDenmother',
+            taskName: 'Kill Moonfang',
+        },
+        // Items
+        {
+            taskKey: 'dmfStrategist',
+            taskName: '{itemWithIcon:71715}', // A Treatise on Strategy
+        },
+        {
+            taskKey: 'dmfBanner',
+            taskName: '{itemWithIcon:71951}', // Banner of the Fallen
+        },
+        {
+            taskKey: 'dmfInsignia',
+            taskName: '{itemWithIcon:71952}', // Captured Insignia
+        },
+        {
+            taskKey: 'dmfJournal',
+            taskName: '{itemWithIcon:71953}', // Fallen Adventurer's Journal
+        },
+        {
+            taskKey: 'dmfCrystal',
+            taskName: '{itemWithIcon:71635}', // Imbued Crystal
+        },
+        {
+            taskKey: 'dmfEgg',
+            taskName: '{itemWithIcon:71636}', // Monstrous Egg
+        },
+        {
+            taskKey: 'dmfGrimoire',
+            taskName: '{itemWithIcon:71637}', // Mysterious Grimoire
+        },
+        {
+            taskKey: 'dmfWeapon',
+            taskName: '{itemWithIcon:71638}', // Ornate Weapon
+        },
+        {
+            taskKey: 'dmfDivination',
+            taskName: '{itemWithIcon:71716}', // Soothsayer's Runes
+        },
+        // Professions
+        {
             taskKey: 'dmfAlchemy',
             taskName: ':alchemy: A Fizzy Fusion',
             couldGetFunc: (char) => !!char.professions?.[Profession.Alchemy],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfBlacksmithing',
             taskName: ':blacksmithing: Baby Needs Two Pair of Shoes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfEnchanting',
             taskName: ':enchanting: Putting Trash to Good Use',
             couldGetFunc: (char) => !!char.professions?.[Profession.Enchanting],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfEngineering',
             taskName: ":engineering: Talkin' Tonks",
             couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfHerbalism',
             taskName: ':herbalism: Herbs for Healing',
             couldGetFunc: (char) => !!char.professions?.[Profession.Herbalism],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfInscription',
             taskName: ':inscription: Writing the Future',
             couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfJewelcrafting',
             taskName: ':jewelcrafting: Keeping the Faire Sparkling',
             couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfLeatherworking',
             taskName: ':leatherworking: Eyes on the Prizes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfMining',
             taskName: ':mining: Rearm, Reuse, Recycle',
             couldGetFunc: (char) => !!char.professions?.[Profession.Mining],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfSkinning',
             taskName: ':skinning: Tan My Hide',
             couldGetFunc: (char) => !!char.professions?.[Profession.Skinning],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfTailoring',
             taskName: ':tailoring: Banners, Banners Everywhere!',
             couldGetFunc: (char) => !!char.professions?.[Profession.Tailoring],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfArchaeology',
             taskName: ':archaeology: Fun for the Little Ones',
             couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfCooking',
             taskName: ':cooking: Putting the Crunch in the Frog',
             couldGetFunc: (char) => !!char.professions?.[Profession.Cooking],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfFishing',
             taskName: ":fishing: Spoilin' for Salty Sea Dogs",
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfCrystal',
-            taskName: "A Curious Crystal",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfEgg',
-            taskName: "An Exotic Egg",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfGrimoire',
-            taskName: "An Intriguing Grimoire",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfWeapon',
-            taskName: "A Wondrous Weapon",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfStrategist',
-            taskName: "The Master Strategist",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfBanner',
-            taskName: "A Captured Banner",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfInsignia',
-            taskName: "The Enemy's Insignia",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfJournal',
-            taskName: "The Captured Journal",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfDivination',
-            taskName: "Tools of Divination",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfDenmother',
-            taskName: "Den Mother's Demise",
-        },
-        {
-            minimumLevel: 1,
-            taskKey: 'dmfStrength',
-            taskName: "Test Your Strength",
         },
     ],
     holidayWinterVeil: [
