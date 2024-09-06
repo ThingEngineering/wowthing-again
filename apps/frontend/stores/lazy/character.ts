@@ -538,8 +538,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                     charTask.statusTexts = [`${starHtml} ${otherText}`];
                                 }
                             }
-
-                            console.log({ taskName, choreTask, charTask });
+                        } else if (
+                            choreTask.noProgress &&
+                            charTask.status === QuestStatus.NotStarted
+                        ) {
+                            charTask.status = QuestStatus.InProgress;
                         }
                     }
 
