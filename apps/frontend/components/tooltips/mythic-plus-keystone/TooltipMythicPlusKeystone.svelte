@@ -36,13 +36,15 @@
         }
 
         mapInfos = []
-        const otherAffix = $staticStore.keystoneAffixes[affixes[0].id === 9 ? 10 : 9]
-        if (affixes[0].slug === 'fortified') {
-            mapInfos.push([affixes[0], mapInfo])
-            mapInfos.push([otherAffix, mapInfoAlt])
-        } else {
-            mapInfos.push([otherAffix, mapInfoAlt])
-            mapInfos.push([affixes[0], mapInfo])
+        if (affixes.length > 0) {
+            const otherAffix = $staticStore.keystoneAffixes[affixes[0].id === 9 ? 10 : 9]
+            if (affixes[0].slug === 'fortified') {
+                mapInfos.push([affixes[0], mapInfo])
+                mapInfos.push([otherAffix, mapInfoAlt])
+            } else {
+                mapInfos.push([otherAffix, mapInfoAlt])
+                mapInfos.push([affixes[0], mapInfo])
+            }
         }
     }
 
