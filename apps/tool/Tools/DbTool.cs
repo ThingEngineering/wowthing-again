@@ -125,6 +125,15 @@ public class DbTool
             var thingTagIds = new HashSet<int>(fileTagIds);
             AddTags(thingTagIds, dataThing.Tags);
 
+            foreach (string requirementString in dataThing.Requirements.EmptyIfNull())
+            {
+                string[] requirementParts = requirementString.Split(' ');
+                if (requirementParts is ["profession", _, ..])
+                {
+                    AddTags(thingTagIds, [$"{requirementParts[0]}:{requirementParts[1]}"]);
+                }
+            }
+
             var outThing = new OutDbThing(dataThing, thingRequirementIds, thingTagIds);
 
             // Locations
@@ -149,7 +158,7 @@ public class DbTool
                     string[] requirementParts = requirementString.Split(' ');
                     if (requirementParts is ["profession", _, ..])
                     {
-                        AddTags(contentTagIds, new [] { $"{requirementParts[0]}:{requirementParts[1]}" });
+                        AddTags(contentTagIds, [$"{requirementParts[0]}:{requirementParts[1]}"]);
                     }
                 }
 
