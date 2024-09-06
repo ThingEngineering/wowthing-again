@@ -450,6 +450,61 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: ":fishing: Spoilin' for Salty Sea Dogs",
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
         },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfCrystal',
+            taskName: "A Curious Crystal",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfEgg',
+            taskName: "An Exotic Egg",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfGrimoire',
+            taskName: "An Intriguing Grimoire",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfWeapon',
+            taskName: "A Wondrous Weapon",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfStrategist',
+            taskName: "The Master Strategist",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfBanner',
+            taskName: "A Captured Banner",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfInsignia',
+            taskName: "The Enemy's Insignia",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfJournal',
+            taskName: "The Captured Journal",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfDivination',
+            taskName: "Tools of Divination",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfDenmother',
+            taskName: "Den Mother's Demise",
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'dmfStrength',
+            taskName: "Test Your Strength",
+        },
     ],
     holidayWinterVeil: [
         {
