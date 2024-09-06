@@ -249,11 +249,15 @@
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
                                 {#if drop.limit[0] === 'profession'}
-                                    {@const expansion = expansionMap[
-                                        $staticStore.professions[professionSlugToId[drop.limit[1]]]
-                                            .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
-                                    ]}
-                                    [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                    {#if drop.limit[2]?.match(/^\d+$/)}
+                                        {@const expansion = expansionMap[
+                                            $staticStore.professions[professionSlugToId[drop.limit[1]]]
+                                                .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
+                                        ]}
+                                        [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                    {:else}
+                                        [<span class="status-shrug">{drop.limit[2].toLocaleUpperCase()} {drop.limit[3]}</span>]
+                                    {/if}
                                 {:else}
                                     [{drop.limit.slice(2).join(', ')}]
                                 {/if}

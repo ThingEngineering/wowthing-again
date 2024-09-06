@@ -32,6 +32,7 @@ import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { LazyTransmog } from './transmog';
 import { dbStore } from '@/shared/stores/db';
+import { expansionShortNameMap } from '@/data/expansion';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
 
@@ -467,18 +468,30 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     );
                                     break;
 
-                                case 'profession':
+                                case 'profession': {
+                                    const professionId = professionSlugToId[drop.limit[1]];
+                                    let subProfessionId = 0;
+                                    if (drop.limit.length === 4) {
+                                        if (drop.limit[2].match(/^\d+$/)) {
+                                            subProfessionId = parseInt(drop.limit[2]);
+                                        } else {
+                                            const expansion = expansionShortNameMap[drop.limit[2]];
+                                            subProfessionId =
+                                                stores.staticData.professions[professionId]
+                                                    .expansionSubProfession[expansion.id].id;
+                                        }
+                                    }
+
                                     dropCharacters = dropCharacters.filter(
                                         (c) =>
-                                            !!c.professions?.[professionSlugToId[drop.limit[1]]] &&
-                                            (drop.limit.length === 4
-                                                ? c.professions[professionSlugToId[drop.limit[1]]][
-                                                      parseInt(drop.limit[2])
-                                                  ]?.currentSkill >= parseInt(drop.limit[3])
+                                            !!c.professions?.[professionId] &&
+                                            (subProfessionId
+                                                ? c.professions[professionId][subProfessionId]
+                                                      ?.currentSkill >= parseInt(drop.limit[3])
                                                 : true),
                                     );
                                     break;
-
+                                }
                                 case 'race':
                                     dropCharacters = dropCharacters.filter((c) =>
                                         drop.limit
