@@ -22,6 +22,13 @@ export const expansionSlugMap: Record<string, Expansion> = Object.fromEntries(
     Object.values(expansionMap).map((expansion) => [expansion.slug, expansion]),
 );
 
+export const expansionShortNameMap: Record<string, Expansion> = Object.fromEntries(
+    Object.values(expansionMap).map((expansion) => [
+        expansion.shortName.toLocaleLowerCase(),
+        expansion,
+    ]),
+);
+
 export const expansionOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
     (expansion) => expansion.id,

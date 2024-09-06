@@ -1,13 +1,12 @@
-import type { FarmAnchorPoint } from '@/enums/farm-anchor-point'
-import type { FarmIdType } from '@/enums/farm-id-type'
-import type { FarmResetType } from '@/enums/farm-reset-type'
-import type { FarmType } from '@/enums/farm-type'
-import type { RewardType } from '@/enums/reward-type'
-import type { ManualDataVendorItem } from './vendor'
-
+import type { FarmAnchorPoint } from '@/enums/farm-anchor-point';
+import type { FarmIdType } from '@/enums/farm-id-type';
+import type { FarmResetType } from '@/enums/farm-reset-type';
+import type { FarmType } from '@/enums/farm-type';
+import type { RewardType } from '@/enums/reward-type';
+import type { ManualDataVendorItem } from './vendor';
 
 export class ManualDataZoneMapCategory {
-    public farms: ManualDataZoneMapFarm[]
+    public farms: ManualDataZoneMapFarm[];
 
     constructor(
         public name: string,
@@ -17,16 +16,17 @@ export class ManualDataZoneMapCategory {
         public requiredQuestIds: number[],
         farmArrays: ManualDataZoneMapFarmArray[],
         public wowheadGuide?: string,
-    )
-    {
-        this.farms = farmArrays.map((farmArray) => new ManualDataZoneMapFarm(...farmArray))
+    ) {
+        this.farms = farmArrays.map((farmArray) => new ManualDataZoneMapFarm(...farmArray));
     }
 }
-export type ManualDataZoneMapCategoryArray = ConstructorParameters<typeof ManualDataZoneMapCategory>
+export type ManualDataZoneMapCategoryArray = ConstructorParameters<
+    typeof ManualDataZoneMapCategory
+>;
 
 export class ManualDataZoneMapFarm {
-    public location: string[]
-    public drops: ManualDataZoneMapDrop[]
+    public location: string[];
+    public drops: ManualDataZoneMapDrop[];
 
     constructor(
         public type: FarmType,
@@ -45,18 +45,17 @@ export class ManualDataZoneMapFarm {
         public faction?: string,
         public groupId?: number,
         public anchorPoint?: FarmAnchorPoint,
-    )
-    {
-        this.location = location.split(',')
-        this.drops = dropArrays.map((dropArray) => new ManualDataZoneMapDrop(...dropArray))
+    ) {
+        this.location = location.split(',');
+        this.drops = dropArrays.map((dropArray) => new ManualDataZoneMapDrop(...dropArray));
     }
 }
-export type ManualDataZoneMapFarmArray = ConstructorParameters<typeof ManualDataZoneMapFarm>
+export type ManualDataZoneMapFarmArray = ConstructorParameters<typeof ManualDataZoneMapFarm>;
 
 export class ManualDataZoneMapDrop {
-    public appearanceIds?: number[][]
-    public costs?: Record<number, number>[]
-    public vendorItems?: ManualDataVendorItem[]
+    public appearanceIds?: number[][];
+    public costs?: Record<number, number>[];
+    public vendorItems?: ManualDataVendorItem[];
 
     constructor(
         public id: number,
@@ -68,7 +67,6 @@ export class ManualDataZoneMapDrop {
         public requiredQuestId?: number,
         public amount?: number,
         public note?: string,
-    )
-    {}
+    ) {}
 }
-export type ManualDataZoneMapDropArray = ConstructorParameters<typeof ManualDataZoneMapDrop>
+export type ManualDataZoneMapDropArray = ConstructorParameters<typeof ManualDataZoneMapDrop>;

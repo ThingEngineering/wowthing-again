@@ -5,24 +5,29 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions'
-    import { itemStore, userQuestStore, userStore } from '@/stores'
+    import { dbStore } from '@/shared/stores/db';
     import { staticStore } from '@/shared/stores/static'
+    import { itemStore, userQuestStore, userStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
     import type { Character } from '@/types'
     import type { TaskProfession } from '@/types/data'
+    import type { DbDataThing } from '@/shared/stores/db/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import Collectible from './CharacterProfessionsCollectible.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { zoneShortName } from '@/data/zones';
 
     export let character: Character
     export let expansionSlug: string
     export let staticProfession: StaticDataProfession
 
     let taskProfession: TaskProfession
+    let things: [DbDataThing, string][]
     $: {
         taskProfession = undefined
+        things = []
 
         const expansion = expansionSlugMap[expansionSlug]
         if (!expansion || expansion.id < 9) {
@@ -38,6 +43,22 @@
         taskProfession = expansion.id === 9
             ? dragonflightProfessionMap[staticProfession.id]
             : warWithinProfessionMap[staticProfession.id];
+
+        things = dbStore.search({
+            tags: [
+                `expansion:${expansion.id}`,
+                `profession:${staticProfession.slug}`,
+                'treasure:profession'
+            ],
+        }).map((thing) => [thing, zoneShortName[$dbStore.mapsById[parseInt(Object.keys(thing.locations)[0])]]])
+        things.sort((a, b) => {
+            if (a[1] !== b[1]) {
+                return a[1].localeCompare(b[1]);
+            }
+
+            return $itemStore.items[a[0].contents[0].id].name
+                .localeCompare($itemStore.items[b[0].contents[0].id].name);
+        });
     }
 
     $: acRepTier = findReputationTier(
@@ -70,7 +91,7 @@
 
 {#if taskProfession}
     <div class="profession-collectibles">
-        {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0}
+        {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0 || things?.length > 0}
             <div class="collection-objects">
                 {#if taskProfession.masterQuestId}
                     {@const userHas = userQuestStore.hasAny(character.id, taskProfession.masterQuestId)}
@@ -115,6 +136,15 @@
                             {userHas}
                         />
                     {/if}
+                {/each}
+
+                {#each things as [thing, text]}
+                    {@const userHas = userQuestStore.hasAny(character.id, thing.trackingQuestId)}
+                    <Collectible
+                        itemId={thing.contents[0].id}
+                        {text}
+                        {userHas}
+                    />
                 {/each}
             </div>
         {/if}

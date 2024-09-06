@@ -10,7 +10,6 @@
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types'
 
-    import TooltipRemix from '@/components/tooltips/remix-cloak/TooltipRemixCloak.svelte'
     import TooltipSet from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
 
     export let character: Character
@@ -54,11 +53,6 @@
         })
     }
 
-    const getRemixTotal = (char: Character) => {
-        return [2853, 2854, 2855, 2856, 2857, 2858, 2859, 2860, 3001]
-            .reduce((total, currencyId) => total + char.currencies?.[currencyId]?.quantity || 0, 0)
-    }
-
     const slots = [InventoryType.Head, InventoryType.Shoulders, InventoryType.Chest, InventoryType.Hands, InventoryType.Legs]
 </script>
 
@@ -77,21 +71,7 @@
     }
 </style>
 
-{#if character.isRemix}
-    {@const total = getRemixTotal(character)}
-    <td
-        style="text-align: right"
-        use:componentTooltip={{
-            component: TooltipRemix,
-            props: {
-                character,
-                total,
-            },
-        }}
-    >
-        {toNiceNumber(total)}
-    </td>
-{:else if character.level === Constants.characterMaxLevel}
+{#if character.level === Constants.characterMaxLevel}
     {#if previousCount > 0}
         <td
             use:componentTooltip={{

@@ -25,16 +25,16 @@
             Equipment
         </a>
 
-        <a href={"#/professions/knowledge"} use:active>
-            Knowledge
-        </a>
-
         <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
             Recipes
         </a>
 
         <a href={"#/professions/dragonflight-knowledge"} use:active>
             [DF] Knowledge
+        </a>
+
+        <a href={"#/professions/war-within-knowledge"} use:active>
+            [TWW] Knowledge
         </a>
     </nav>
 </div>

@@ -526,8 +526,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
         buildCategoryStats(rootCategory, '', []);
     }
 
-    console.log(stats);
-
     console.timeEnd('LazyStore.doVendors');
 
     return {
