@@ -36,6 +36,7 @@
     class:status-fail={value === 0}
     class:status-shrug={value > 0 && (value - 1) < node.rankMax}
     class:status-success={value > node.rankMax}
+    data-id={node.nodeId}
 >
     <td class="name" style:padding-left={`${(indent * 1) + 0.5}rem`}>
         <WowthingImage
