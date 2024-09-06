@@ -15,6 +15,9 @@ import {
     warWithinProfessions,
 } from './professions';
 
+const nameFire = '<span class="status-warn">:fire:</span>';
+const nameQuest = '<span class="status-shrug">:exclamation:</span>';
+
 function buildProfessionTasks(
     professions: TaskProfession[],
     expansion: number,
@@ -337,6 +340,13 @@ export const taskList: Task[] = [
         key: 'twwChores11_0',
         name: '[TWW] 11.0.x',
         shortName: '11.0',
+        minimumLevel: 70,
+        type: 'multi',
+    },
+    {
+        key: 'twwSpreading',
+        name: '[TWW] Spreading the Light',
+        shortName: 'StL',
         minimumLevel: 70,
         type: 'multi',
     },
@@ -857,6 +867,173 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 70,
             noProgress: true,
             showQuestName: true,
+        },
+    ],
+    twwSpreading: [
+        {
+            taskKey: 'twwSpreadingTheLight',
+            taskName: 'Spreading the Light',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingBleak',
+            taskName: 'Bleak Sand',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingDuskrise',
+            taskName: 'Duskrise Acreage',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingFaded',
+            taskName: 'Faded Shore',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingFungal',
+            taskName: 'Fungal Field',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingLights',
+            taskName: "Light's Blooming",
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingStillstone',
+            taskName: 'Stillstone Pond',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingTorchlight',
+            taskName: 'Torchlight Mine',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingWhirring',
+            taskName: 'Whirring Field',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingAttica',
+            taskName: 'Attica Whiskervale',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingAtticaFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingAtticaQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingAuebry',
+            taskName: 'Auebry Irongear',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingAuebryFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingAuebryQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingChef',
+            taskName: 'Chef Dinaire',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingChefFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingChefQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingCrab',
+            taskName: 'Crab Cage',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingCrabFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingCrabQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingErol',
+            taskName: 'Erol Ellimoore',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingErolFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingErolQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingSeraphine',
+            taskName: 'Seraphine Seedheart',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingSeraphineFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingSeraphineQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingTaerry',
+            taskName: 'Taerry Bligestone',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingTaerryFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingTaerryQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingYorvas',
+            taskName: 'Yorvas Flintstrike',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingYorvasFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingYorvasQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
         },
     ],
     twwProfessionWeeklies: [...warWithinProfessionTasks],
