@@ -86,6 +86,18 @@ class DbDataStore extends WritableFancyStore<DbData> {
             subsets.push(this.value.thingsByTagId[tagId]);
         }
 
+        // const oof = new Map<DbDataThing, number>();
+        // for (const subset of subsets) {
+        //     for (const thing of subset) {
+        //         if (!oof.has(thing)) {
+        //             oof.set(thing, 0);
+        //         }
+        //         oof.set(thing, oof.get(thing) + 1);
+        //     }
+        // }
+
+        // console.log(oof);
+
         return intersectionWith(...subsets, (a, b) => a === b);
     }
 }

@@ -17,13 +17,14 @@
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import Collectible from './CharacterProfessionsCollectible.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { zoneShortName } from '@/data/zones';
 
     export let character: Character
     export let expansionSlug: string
     export let staticProfession: StaticDataProfession
 
     let taskProfession: TaskProfession
-    let things: DbDataThing[]
+    let things: [DbDataThing, string][]
     $: {
         taskProfession = undefined
         things = []
@@ -43,7 +44,21 @@
             ? dragonflightProfessionMap[staticProfession.id]
             : warWithinProfessionMap[staticProfession.id];
 
-        things = dbStore.search({ tags: [`expansion:${expansion.id}`, 'treasure:profession'] })
+        things = dbStore.search({
+            tags: [
+                `expansion:${expansion.id}`,
+                `profession:${staticProfession.slug}`,
+                'treasure:profession'
+            ],
+        }).map((thing) => [thing, zoneShortName[$dbStore.mapsById[parseInt(Object.keys(thing.locations)[0])]]])
+        things.sort((a, b) => {
+            if (a[1] !== b[1]) {
+                return a[1].localeCompare(b[1]);
+            }
+
+            return $itemStore.items[a[0].contents[0].id].name
+                .localeCompare($itemStore.items[b[0].contents[0].id].name);
+        });
     }
 
     $: acRepTier = findReputationTier(
@@ -123,10 +138,11 @@
                     {/if}
                 {/each}
 
-                {#each things as thing}
+                {#each things as [thing, text]}
                     {@const userHas = userQuestStore.hasAny(character.id, thing.trackingQuestId)}
                     <Collectible
                         itemId={thing.contents[0].id}
+                        {text}
                         {userHas}
                     />
                 {/each}
