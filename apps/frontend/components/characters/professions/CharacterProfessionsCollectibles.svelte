@@ -5,11 +5,13 @@
     import { Constants } from '@/data/constants'
     import { expansionSlugMap } from '@/data/expansion'
     import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions'
-    import { itemStore, userQuestStore, userStore } from '@/stores'
+    import { dbStore } from '@/shared/stores/db';
     import { staticStore } from '@/shared/stores/static'
+    import { itemStore, userQuestStore, userStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
     import type { Character } from '@/types'
     import type { TaskProfession } from '@/types/data'
+    import type { DbDataThing } from '@/shared/stores/db/types';
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
@@ -21,8 +23,10 @@
     export let staticProfession: StaticDataProfession
 
     let taskProfession: TaskProfession
+    let things: DbDataThing[]
     $: {
         taskProfession = undefined
+        things = []
 
         const expansion = expansionSlugMap[expansionSlug]
         if (!expansion || expansion.id < 9) {
@@ -38,6 +42,8 @@
         taskProfession = expansion.id === 9
             ? dragonflightProfessionMap[staticProfession.id]
             : warWithinProfessionMap[staticProfession.id];
+
+        things = dbStore.search({ tags: [`expansion:${expansion.id}`, 'treasure:profession'] })
     }
 
     $: acRepTier = findReputationTier(
@@ -70,7 +76,7 @@
 
 {#if taskProfession}
     <div class="profession-collectibles">
-        {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0}
+        {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0 || things?.length > 0}
             <div class="collection-objects">
                 {#if taskProfession.masterQuestId}
                     {@const userHas = userQuestStore.hasAny(character.id, taskProfession.masterQuestId)}
@@ -115,6 +121,14 @@
                             {userHas}
                         />
                     {/if}
+                {/each}
+
+                {#each things as thing}
+                    {@const userHas = userQuestStore.hasAny(character.id, thing.trackingQuestId)}
+                    <Collectible
+                        itemId={thing.contents[0].id}
+                        {userHas}
+                    />
                 {/each}
             </div>
         {/if}
