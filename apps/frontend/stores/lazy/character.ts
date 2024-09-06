@@ -33,7 +33,13 @@ import type {
     StaticDataProfessionCategory,
     StaticDataSubProfessionTraitNode,
 } from '@/shared/stores/static/types';
-import type { TaskProfession, UserQuestData, UserQuestDataCharacterProgress } from '@/types/data';
+import type {
+    TaskProfession,
+    UserQuestData,
+    UserQuestDataCharacterProgress,
+    UserQuestDataCharacterProgressObjective,
+} from '@/types/data';
+import type { Chore } from '@/types/tasks';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -465,41 +471,76 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 charTask.status === QuestStatus.InProgress &&
                                 charTask.quest.objectives?.length > 0
                             ) {
-                                // charTask.statusTexts = charTask.quest.objectives.map((obj) => obj.text)
-                                charTask.statusTexts = [];
-                                for (const objective of charTask.quest.objectives) {
-                                    if (
-                                        objective.have === objective.need &&
-                                        objective.text.includes('"Enter the Dream"')
-                                    ) {
-                                        continue;
-                                    }
-                                    if (
-                                        objective.have === 0 &&
-                                        objective.text.endsWith('(Optional)')
-                                    ) {
-                                        continue;
-                                    }
+                                charTask.statusTexts = getObjectivesText(charTask.quest.objectives);
+                            }
+                        } else if (choreTask.subChores?.length > 0) {
+                            let firstChore: Chore = undefined;
+                            let firstQuest: UserQuestDataCharacterProgress = undefined;
 
-                                    let statusText = '';
-                                    if (objective.have === objective.need) {
-                                        statusText +=
-                                            '<span class="status-success">:starFull:</span>';
-                                    } else {
-                                        statusText +=
-                                            '<span class="status-shrug">:starHalf:</span>';
-                                    }
-                                    statusText += ` ${objective.text}`;
+                            let subCompleted = 0;
+                            let subTotal = 0;
+                            for (const subChore of choreTask.subChores) {
+                                subTotal++;
 
-                                    charTask.statusTexts.push(statusText);
+                                const subQuest =
+                                    stores.userQuestData.characters[character.id]?.progressQuests?.[
+                                        subChore.taskKey
+                                    ];
+                                if (subQuest?.status === QuestStatus.Completed) {
+                                    subCompleted++;
+                                } else {
+                                    firstChore ||= subChore;
+                                    firstQuest ||= subQuest;
                                 }
                             }
+
+                            charTask.quest = <UserQuestDataCharacterProgress>{
+                                id: 0,
+                                name: [
+                                    `[${subCompleted}/${subTotal}]`,
+                                    ...(firstChore ? [firstChore.taskName] : []),
+                                    choreTask.taskName,
+                                ].join(' '),
+                                status:
+                                    subCompleted === 0
+                                        ? QuestStatus.NotStarted
+                                        : subCompleted < subTotal
+                                          ? QuestStatus.InProgress
+                                          : QuestStatus.Completed,
+                            };
+                            charTask.status = charTask.quest.status;
+
+                            if (charTask.status === QuestStatus.InProgress) {
+                                let otherText = firstChore.taskName;
+                                const starHtml = getStarHtml(
+                                    false,
+                                    firstChore.noProgress || !!firstQuest,
+                                    !firstChore.noProgress,
+                                );
+
+                                if (firstChore.showQuestName) {
+                                    if (firstQuest) {
+                                        charTask.statusTexts = getObjectivesText(
+                                            firstQuest.objectives,
+                                        );
+                                    } else {
+                                        otherText = 'Get quest!';
+                                    }
+                                }
+
+                                if (charTask.statusTexts[0] === '') {
+                                    charTask.statusTexts = [`${starHtml} ${otherText}`];
+                                }
+                            }
+
+                            console.log({ taskName, choreTask, charTask });
                         }
                     }
 
-                    charTask.name = choreTask.showQuestName
-                        ? charTask.quest?.name || choreTask.taskName
-                        : choreTask.taskName;
+                    charTask.name =
+                        choreTask.showQuestName || choreTask.subChores?.length > 0
+                            ? charTask.quest?.name || choreTask.taskName
+                            : choreTask.taskName;
 
                     if (!charTask.skipped) {
                         if (charTask.status === QuestStatus.Completed) {
@@ -716,4 +757,41 @@ function doProfessionCooldowns(
     }
 
     return ret;
+}
+
+function getObjectivesText(objectives: UserQuestDataCharacterProgressObjective[]): string[] {
+    const texts: string[] = [];
+
+    for (const objective of objectives) {
+        if (objective.have === objective.need && objective.text.includes('"Enter the Dream"')) {
+            continue;
+        }
+        if (objective.have === 0 && objective.text.endsWith('(Optional)')) {
+            continue;
+        }
+
+        let statusText = '';
+        if (objective.have === objective.need) {
+            statusText += '<span class="status-success">:starFull:</span>';
+        } else {
+            statusText += '<span class="status-shrug">:starHalf:</span>';
+        }
+        statusText += ` ${objective.text}`;
+
+        texts.push(statusText);
+    }
+
+    return texts;
+}
+
+function getStarHtml(fullState = false, halfState = false, emptyState = false): string {
+    if (fullState) {
+        return '<span class="status-success">:starFull:</span>';
+    } else if (halfState) {
+        return '<span class="status-shrug">:starHalf:</span>';
+    } else if (emptyState) {
+        return '<span class="status-fail">:starEmpty:</span>';
+    }
+
+    return 'ERROR';
 }
