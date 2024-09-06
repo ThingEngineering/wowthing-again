@@ -766,32 +766,42 @@ public class UserUploadJob : JobBase
         }
 
         // Currencies
-        character.AddonData.Currencies = new();
-        foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
+        if (characterData.Currencies != null &&
+            characterData.ScanTimes.TryGetValue("currencies", out int currenciesTimestamp))
         {
-            // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
-            var parts = currencyString.Split(":");
-            if (parts.Length != 7)
+            var scanTime = currenciesTimestamp.AsUtcDateTime();
+            if (scanTime > character.AddonData.CurrenciesScannedAt)
             {
-                Logger.Warning("Invalid currency string: {String}", currencyString);
-                continue;
-            }
+                character.AddonData.Currencies = new();
+                character.AddonData.CurrenciesScannedAt = scanTime;
 
-            if (!character.AddonData.Currencies.TryGetValue(currencyId, out var currency))
-            {
-                character.AddonData.Currencies[currencyId] = currency = new PlayerCharacterAddonDataCurrency
+                foreach ((short currencyId, string currencyString) in characterData.Currencies)
                 {
-                    CurrencyId = currencyId,
-                };
-            }
+                    // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
+                    var parts = currencyString.Split(":");
+                    if (parts.Length != 7)
+                    {
+                        Logger.Warning("Invalid currency string: {String}", currencyString);
+                        continue;
+                    }
 
-            currency.Quantity = int.Parse(parts[0].OrDefault("0"));
-            currency.Max = int.Parse(parts[1].OrDefault("0"));
-            currency.IsWeekly = parts[2] == "1";
-            currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
-            currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
-            currency.IsMovingMax = parts[5] == "1";
-            currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
+                    if (!character.AddonData.Currencies.TryGetValue(currencyId, out var currency))
+                    {
+                        character.AddonData.Currencies[currencyId] = currency = new PlayerCharacterAddonDataCurrency
+                        {
+                            CurrencyId = currencyId,
+                        };
+                    }
+
+                    currency.Quantity = int.Parse(parts[0].OrDefault("0"));
+                    currency.Max = int.Parse(parts[1].OrDefault("0"));
+                    currency.IsWeekly = parts[2] == "1";
+                    currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
+                    currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
+                    currency.IsMovingMax = parts[5] == "1";
+                    currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
+                }
+            }
         }
 
         // Equipment
@@ -1146,7 +1156,7 @@ public class UserUploadJob : JobBase
         {
             // species:level:quality
             string[] parts = petString.Split(':');
-            if (parts.Length != 3)
+            if (parts.Length is < 2 or > 3)
             {
                 Logger.Warning("Invalid pet string: {s}", petString);
                 continue;

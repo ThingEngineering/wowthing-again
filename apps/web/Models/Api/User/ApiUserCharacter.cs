@@ -30,6 +30,7 @@ public class ApiUserCharacter
     public string Name { get; set; }
     public DateTime LastApiModified { get; set; }
     public DateTime LastSeenAddon { get; set; }
+    public DateTime? ScannedCurrencies { get; set; }
     public WowFaction Faction { get; set; }
     public WowGender Gender { get; set; }
 
@@ -116,6 +117,7 @@ public class ApiUserCharacter
         GarrisonTrees = character.AddonData?.GarrisonTrees;
         ProfessionCooldowns = character.AddonData?.ProfessionCooldowns;
         ProfessionTraits = character.AddonData?.ProfessionTraits;
+        ScannedCurrencies = character.AddonData?.CurrenciesScannedAt;
 
         Professions = character.Professions?.Professions;
         ProfessionSpecializations = character.Professions?.ProfessionSpecializations ?? new();

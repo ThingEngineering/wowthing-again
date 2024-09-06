@@ -1,8 +1,7 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import { Constants } from '@/data/constants'
-import { iconLibrary } from '@/shared/icons'
-
+import { Constants } from '@/data/constants';
+import { iconLibrary } from '@/shared/icons';
 
 export const imageStrings: Record<string, string> = {
     alliance: Constants.icons.alliance,
@@ -38,10 +37,11 @@ export const imageStrings: Record<string, string> = {
     'bronze-medal': 'achievement/8888',
     'silver-medal': 'achievement/8889', // Mechanized Mackerel
     'gold-medal': 'achievement/8890',
-}
+};
 
 export const iconStrings: Record<string, IconifyIcon> = {
     exclamation: iconLibrary.mdiExclamationThick,
+    fire: iconLibrary.mdiFire,
     item: iconLibrary.mdiGiftOutline,
     plus: iconLibrary.mdiPlus,
     question: iconLibrary.mdiQuestion,
@@ -64,7 +64,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
     circle4: iconLibrary.mdiNumeric4CircleOutline,
     circle5: iconLibrary.mdiNumeric5CircleOutline,
 
-    'list': iconLibrary.mdiFormatListCheckbox,
+    list: iconLibrary.mdiFormatListCheckbox,
 
     'page-first': iconLibrary.mdiPageFirst,
     'page-last': iconLibrary.mdiPageLast,
@@ -78,11 +78,10 @@ export const iconStrings: Record<string, IconifyIcon> = {
     armorLeather: iconLibrary.mdiLetterL,
     armorMail: iconLibrary.mdiLetterM,
     armorPlate: iconLibrary.mdiLetterP,
-}
-
+};
 
 export const soulbindSockets: Record<number, IconifyIcon> = {
     1: iconLibrary.mdiLightningBoltOutline, // Finesse
     2: iconLibrary.mdiSwordCross, // Potency
     3: iconLibrary.mdiShieldHalfFull, // Endurance
-}
+};

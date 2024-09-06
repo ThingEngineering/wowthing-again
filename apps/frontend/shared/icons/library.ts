@@ -108,6 +108,7 @@ export { default as mdiCurrencyUsd } from '@iconify/icons-mdi/currency-usd';
 export { default as mdiDiceMultiple } from '@iconify/icons-mdi/dice-multiple';
 export { default as mdiDuck } from '@iconify/icons-mdi/duck';
 export { default as mdiExclamationThick } from '@iconify/icons-mdi/exclamation-thick';
+export { default as mdiFire } from '@iconify/icons-mdi/fire';
 export { default as mdiFormatListCheckbox } from '@iconify/icons-mdi/format-list-checkbox';
 export { default as mdiGiftOutline } from '@iconify/icons-mdi/gift-outline';
 export { default as mdiHammerWrench } from '@iconify/icons-mdi/hammer-wrench';

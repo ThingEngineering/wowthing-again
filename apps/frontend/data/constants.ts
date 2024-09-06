@@ -6,6 +6,8 @@ export abstract class Constants {
 
     static readonly mythicPlusSeason: number = 13;
 
+    static readonly defaultUnixTime = 946684800;
+
     static readonly currencies = {
         catalyst: 2912, // Renascent Awakening
         itemUpgrade: 2245,

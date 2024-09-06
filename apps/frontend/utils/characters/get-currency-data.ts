@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
 
-import { toNiceNumber } from '../formatting';
+import { toNiceDuration, toNiceNumber } from '../formatting';
 import { currencyItemCurrencies } from '@/data/currencies';
 import { CharacterCurrency, type Character } from '@/types/character';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
@@ -32,7 +32,32 @@ export function getCurrencyData(
     if (currency) {
         const characterCurrency =
             character.currencies?.[currency.id] || new CharacterCurrency(currency.id);
-        ret.amount = toNiceNumber(characterCurrency.quantity);
+
+        let extraTooltip: string;
+        let amount = characterCurrency.quantity;
+        if (
+            characterCurrency.quantity > 0 &&
+            currency.rechargeInterval > 0 &&
+            currency.maxTotal > 0 &&
+            character.scannedCurrencies
+        ) {
+            const diff = time.diff(character.scannedCurrencies).toMillis();
+            if (diff >= currency.rechargeInterval) {
+                amount = Math.min(
+                    characterCurrency.max,
+                    amount + Math.floor(diff / currency.rechargeInterval) * currency.rechargeAmount,
+                );
+                if (amount < characterCurrency.max) {
+                    const remainingTime =
+                        ((characterCurrency.max - amount) / currency.rechargeAmount) *
+                            currency.rechargeInterval -
+                        diff;
+                    extraTooltip = `${toNiceDuration(remainingTime)} to max!`;
+                }
+            }
+        }
+
+        ret.amount = toNiceNumber(amount);
 
         if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
             ret.capRemaining = characterCurrency.max - characterCurrency.totalQuantity;
@@ -40,15 +65,19 @@ export function getCurrencyData(
             ret.tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
         } else {
             if (characterCurrency.max > 0) {
-                ret.capRemaining = characterCurrency.max - characterCurrency.quantity;
-                ret.percent = (characterCurrency.quantity / characterCurrency.max) * 100;
-                ret.tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
+                ret.capRemaining = characterCurrency.max - amount;
+                ret.percent = (amount / characterCurrency.max) * 100;
+                ret.tooltip = `${amount.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`;
             } else {
                 ret.percent = 0;
-                ret.tooltip = characterCurrency.quantity.toLocaleString();
+                ret.tooltip = amount.toLocaleString();
             }
         }
         ret.tooltip += ` ${currency.name}`;
+
+        if (extraTooltip) {
+            ret.tooltip += `<br><br>${extraTooltip}`;
+        }
     } else {
         const characterItemCount = character.getItemCount(itemId);
         const item = itemData.items[itemId];

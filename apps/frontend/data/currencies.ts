@@ -41,6 +41,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Crafting Knowledge',
             slug: 'crafting-knowledge',
         },
+        {
+            id: 126011,
+            name: 'Season 1',
+            slug: 'season-1',
+        },
     ],
 
     // Dragonflight
@@ -79,11 +84,6 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
 };
 
 export const currencyExtra: Record<number, number[]> = {
-    // Dragonflight
-    250: [
-        // 1191, // Valor
-        // 2167, // Catalyst Charges
-    ],
     // The War Within - Crafting Concentration
     126001: [
         3045, // Alchemy
@@ -108,6 +108,20 @@ export const currencyExtra: Record<number, number[]> = {
         2793, // Mining Knowledge
         2794, // Skinning Knowledge
         2795, // Tailoring Knowledge
+    ],
+    // The War Within - Season 1
+    126011: [
+        3008, // Valorstones
+        2914, // Weathered Harbinger Crest
+        2915, // Carved Harbinger Crest
+        2916, // Runed Harbinger Crest
+        2917, // Gilded Harbinger Crest
+    ],
+
+    // Dragonflight
+    250: [
+        // 1191, // Valor
+        // 2167, // Catalyst Charges
     ],
     // Dragonflight - Crafting Knowledge
     125001: [
@@ -259,6 +273,12 @@ export const currencyItems: Record<number, number[]> = {
         213089, // Antique Bronze Bullion
     ],
 
+    // The War Within - Season 1
+    126011: [
+        211297, // Fractured Spark of Omens
+        211296, // Spark of Omens
+    ],
+
     // Player vs Player
     2: [
         137642, // Mark of Honor
@@ -305,6 +325,12 @@ export const currencyIconOverride: Record<number, string> = {
 };
 
 const skipCurrencies: number[] = [
+    // The War Within
+    2914, // Weathered Harbinger Crest
+    2915, // Carved Harbinger Crest
+    2916, // Runed Harbinger Crest
+    2917, // Gilded Harbinger Crest
+
     // Dragonflight
     2651, // Seedbloom
     2706, // Whelpling's Dreaming Crests

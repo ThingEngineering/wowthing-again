@@ -20,6 +20,7 @@ export type Chore = {
     showQuestName?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
+    subChores?: Chore[];
     taskKey: string;
     taskName: string;
     /**

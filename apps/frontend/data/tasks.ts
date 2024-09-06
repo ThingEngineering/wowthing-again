@@ -15,6 +15,9 @@ import {
     warWithinProfessions,
 } from './professions';
 
+const nameFire = '<span class="status-warn">:fire:</span>';
+const nameQuest = '<span class="status-shrug">:exclamation:</span>';
+
 function buildProfessionTasks(
     professions: TaskProfession[],
     expansion: number,
@@ -91,15 +94,6 @@ export const dragonflightProfessionTasks = buildProfessionTasks(
 export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfessions, 10, 'tww', 60);
 
 export const taskList: Task[] = [
-    // TWW prepatch
-    {
-        key: 'radiantEchoes',
-        minimumLevel: 10,
-        name: '[TWW] Radiant Echoes',
-        shortName: 'RE',
-        type: 'multi',
-    },
-
     // Events/Holidays/idk
     {
         key: 'holidayDarkmoonFaire',
@@ -341,6 +335,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'twwSpreading',
+        name: '[TWW] Spreading the Light',
+        shortName: 'StL',
+        minimumLevel: 70,
+        type: 'multi',
+    },
+    {
         key: 'twwProfessionWeeklies',
         name: '[TWW] Profession Weeklies',
         shortName: 'Pro',
@@ -364,113 +365,119 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
-    radiantEchoes: [
-        {
-            minimumLevel: 10,
-            noProgress: true,
-            taskKey: 'radiantFirstKill',
-            taskName: 'First boss kill',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantDragonblight',
-            taskName: 'Dragonblight',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantDustwallow',
-            taskName: 'Dustwallow Marsh',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantSearing',
-            taskName: 'Searing Gorge',
-        },
-    ],
     holidayDarkmoonFaire: [
         {
-            minimumLevel: 1,
+            taskKey: 'dmfStrength',
+            taskName: 'Test Your Strength',
+        },
+        {
+            taskKey: 'dmfDenmother',
+            taskName: 'Kill Moonfang',
+        },
+        // Items
+        {
+            taskKey: 'dmfStrategist',
+            taskName: '{itemWithIcon:71715}', // A Treatise on Strategy
+        },
+        {
+            taskKey: 'dmfBanner',
+            taskName: '{itemWithIcon:71951}', // Banner of the Fallen
+        },
+        {
+            taskKey: 'dmfInsignia',
+            taskName: '{itemWithIcon:71952}', // Captured Insignia
+        },
+        {
+            taskKey: 'dmfJournal',
+            taskName: '{itemWithIcon:71953}', // Fallen Adventurer's Journal
+        },
+        {
+            taskKey: 'dmfCrystal',
+            taskName: '{itemWithIcon:71635}', // Imbued Crystal
+        },
+        {
+            taskKey: 'dmfEgg',
+            taskName: '{itemWithIcon:71636}', // Monstrous Egg
+        },
+        {
+            taskKey: 'dmfGrimoire',
+            taskName: '{itemWithIcon:71637}', // Mysterious Grimoire
+        },
+        {
+            taskKey: 'dmfWeapon',
+            taskName: '{itemWithIcon:71638}', // Ornate Weapon
+        },
+        {
+            taskKey: 'dmfDivination',
+            taskName: '{itemWithIcon:71716}', // Soothsayer's Runes
+        },
+        // Professions
+        {
             taskKey: 'dmfAlchemy',
             taskName: ':alchemy: A Fizzy Fusion',
             couldGetFunc: (char) => !!char.professions?.[Profession.Alchemy],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfBlacksmithing',
             taskName: ':blacksmithing: Baby Needs Two Pair of Shoes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Blacksmithing],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfEnchanting',
             taskName: ':enchanting: Putting Trash to Good Use',
             couldGetFunc: (char) => !!char.professions?.[Profession.Enchanting],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfEngineering',
             taskName: ":engineering: Talkin' Tonks",
             couldGetFunc: (char) => !!char.professions?.[Profession.Engineering],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfHerbalism',
             taskName: ':herbalism: Herbs for Healing',
             couldGetFunc: (char) => !!char.professions?.[Profession.Herbalism],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfInscription',
             taskName: ':inscription: Writing the Future',
             couldGetFunc: (char) => !!char.professions?.[Profession.Inscription],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfJewelcrafting',
             taskName: ':jewelcrafting: Keeping the Faire Sparkling',
             couldGetFunc: (char) => !!char.professions?.[Profession.Jewelcrafting],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfLeatherworking',
             taskName: ':leatherworking: Eyes on the Prizes',
             couldGetFunc: (char) => !!char.professions?.[Profession.Leatherworking],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfMining',
             taskName: ':mining: Rearm, Reuse, Recycle',
             couldGetFunc: (char) => !!char.professions?.[Profession.Mining],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfSkinning',
             taskName: ':skinning: Tan My Hide',
             couldGetFunc: (char) => !!char.professions?.[Profession.Skinning],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfTailoring',
             taskName: ':tailoring: Banners, Banners Everywhere!',
             couldGetFunc: (char) => !!char.professions?.[Profession.Tailoring],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfArchaeology',
             taskName: ':archaeology: Fun for the Little Ones',
             couldGetFunc: (char) => !!char.professions?.[Profession.Archaeology],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfCooking',
             taskName: ':cooking: Putting the Crunch in the Frog',
             couldGetFunc: (char) => !!char.professions?.[Profession.Cooking],
         },
         {
-            minimumLevel: 1,
             taskKey: 'dmfFishing',
             taskName: ":fishing: Spoilin' for Salty Sea Dogs",
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
@@ -478,13 +485,13 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     holidayWinterVeil: [
         {
-            minimumLevel: 60,
+            minimumLevel: Constants.characterMaxLevel - 10,
             taskKey: 'meanOne',
             taskName: "...You're a Mean One",
         },
         {
             minimumLevel: 30,
-            maximumLevel: 59,
+            maximumLevel: Constants.characterMaxLevel - 11,
             taskKey: 'meanOneSplit',
             taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
@@ -857,6 +864,173 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 70,
             noProgress: true,
             showQuestName: true,
+        },
+    ],
+    twwSpreading: [
+        {
+            taskKey: 'twwSpreadingTheLight',
+            taskName: 'Spreading the Light',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingBleak',
+            taskName: 'Bleak Sand',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingDuskrise',
+            taskName: 'Duskrise Acreage',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingFaded',
+            taskName: 'Faded Shore',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingFungal',
+            taskName: 'Fungal Field',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingLights',
+            taskName: "Light's Blooming",
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingStillstone',
+            taskName: 'Stillstone Pond',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingTorchlight',
+            taskName: 'Torchlight Mine',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingWhirring',
+            taskName: 'Whirring Field',
+            noProgress: true,
+        },
+        {
+            taskKey: 'twwSpreadingAttica',
+            taskName: 'Attica Whiskervale',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingAtticaFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingAtticaQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingAuebry',
+            taskName: 'Auebry Irongear',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingAuebryFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingAuebryQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingChef',
+            taskName: 'Chef Dinaire',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingChefFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingChefQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingCrab',
+            taskName: 'Crab Cage',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingCrabFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingCrabQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingErol',
+            taskName: 'Erol Ellimoore',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingErolFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingErolQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingSeraphine',
+            taskName: 'Seraphine Seedheart',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingSeraphineFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingSeraphineQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingTaerry',
+            taskName: 'Taerry Bligestone',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingTaerryFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingTaerryQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
+        },
+        {
+            taskKey: 'twwSpreadingYorvas',
+            taskName: 'Yorvas Flintstrike',
+            subChores: [
+                {
+                    taskKey: 'twwSpreadingYorvasFlame',
+                    taskName: nameFire,
+                },
+                {
+                    taskKey: 'twwSpreadingYorvasQuest',
+                    taskName: nameQuest,
+                    showQuestName: true,
+                },
+            ],
         },
     ],
     twwProfessionWeeklies: [...warWithinProfessionTasks],
