@@ -1146,7 +1146,7 @@ public class UserUploadJob : JobBase
         {
             // species:level:quality
             string[] parts = petString.Split(':');
-            if (parts.Length != 3)
+            if (parts.Length is < 2 or > 3)
             {
                 Logger.Warning("Invalid pet string: {s}", petString);
                 continue;
