@@ -69,7 +69,7 @@ class DbDataStore extends WritableFancyStore<DbData> {
         for (const mapName of query.maps || []) {
             const mapId = this.value.mapsByName[mapName];
             if (!mapId) {
-                console.warn('Invalid db map:', mapName);
+                // console.warn('Invalid db map:', mapName);
                 continue;
             }
 
@@ -83,11 +83,9 @@ class DbDataStore extends WritableFancyStore<DbData> {
                 continue;
             }
 
-            console.log(tagName, tagId, this.value.thingsByTagId[tagId]);
             subsets.push(this.value.thingsByTagId[tagId]);
         }
 
-        console.log('subsets', subsets);
         return intersectionWith(...subsets, (a, b) => a === b);
     }
 }

@@ -7,6 +7,7 @@
     import { FarmType } from '@/enums/farm-type'
     import { PlayableClass } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type'
+    import { dbStore } from '@/shared/stores/db';
     import { settingsStore } from '@/shared/stores/settings'
     import { lazyStore, manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
@@ -53,6 +54,12 @@
             for (const vendorId of ($manualStore.shared.vendorsByMap[categories[0].mapName] || [])) {
                 farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName))
             }
+            farms.push(
+                ...dbStore
+                    .search({ maps: [categories[0].mapName] })
+                    .map((thing) => thing.asZoneMapsFarm(categories[0].mapName))
+                    .filter((farm) => !!farm),
+            );
 
             farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey]
         }

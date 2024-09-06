@@ -93,7 +93,7 @@ public class DbTool
             }
             else
             {
-                ProcessFile(parsed, baseLocation, new HashSet<int>(dirRequirementIds), new HashSet<int>(dirTagIds));
+                ProcessFile(parsed, baseLocation, [..dirRequirementIds], [..dirTagIds]);
             }
         }
 

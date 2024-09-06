@@ -31,6 +31,7 @@ import type { StaticData } from '@/shared/stores/static/types';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { LazyTransmog } from './transmog';
+import { dbStore } from '@/shared/stores/db';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
 
@@ -98,7 +99,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
         const categoryCounts = (setCounts[maps[0].slug] = new UserCount());
         const categorySeen: Record<number, Record<number, boolean>> = {};
 
-        let categoryCharacters = shownCharacters.filter(
+        const categoryCharacters = shownCharacters.filter(
             (char) =>
                 char.level >= maps[0].minimumLevel &&
                 (maps[0].requiredQuestIds.length === 0 ||
@@ -143,9 +144,17 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
             );
 
             const farms = [...map.farms];
+
             for (const vendorId of stores.manualData.shared.vendorsByMap[map.mapName] || []) {
                 farms.push(...stores.manualData.shared.vendors[vendorId].asFarms(map.mapName));
             }
+
+            farms.push(
+                ...dbStore
+                    .search({ maps: [map.mapName] })
+                    .map((thing) => thing.asZoneMapsFarm(map.mapName))
+                    .filter((farm) => !!farm),
+            );
 
             const farmStatuses: FarmStatus[] = [];
             for (const farm of farms) {
