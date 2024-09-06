@@ -273,10 +273,6 @@ export const currencyItems: Record<number, number[]> = {
         213089, // Antique Bronze Bullion
     ],
 
-    // The War Within
-    260: [
-        206350, // Radiant Remnant
-    ],
     // The War Within - Season 1
     126011: [
         211297, // Fractured Spark of Omens

@@ -94,15 +94,6 @@ export const dragonflightProfessionTasks = buildProfessionTasks(
 export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfessions, 10, 'tww', 60);
 
 export const taskList: Task[] = [
-    // TWW prepatch
-    {
-        key: 'radiantEchoes',
-        minimumLevel: 10,
-        name: '[TWW] Radiant Echoes',
-        shortName: 'RE',
-        type: 'multi',
-    },
-
     // Events/Holidays/idk
     {
         key: 'holidayDarkmoonFaire',
@@ -374,32 +365,6 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
-    radiantEchoes: [
-        {
-            minimumLevel: 10,
-            noProgress: true,
-            taskKey: 'radiantFirstKill',
-            taskName: 'First boss kill',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantDragonblight',
-            taskName: 'Dragonblight',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantDustwallow',
-            taskName: 'Dustwallow Marsh',
-        },
-        {
-            accountWide: true,
-            minimumLevel: 10,
-            taskKey: 'radiantSearing',
-            taskName: 'Searing Gorge',
-        },
-    ],
     holidayDarkmoonFaire: [
         {
             minimumLevel: 1,
