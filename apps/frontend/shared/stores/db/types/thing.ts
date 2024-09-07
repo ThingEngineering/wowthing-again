@@ -18,6 +18,7 @@ export class DbDataThing {
         public id: number,
         public resetType: DbResetType,
         public trackingQuestId: number,
+        public zoneMapsGroupId: number,
         public name: string,
         public note: string,
         public requirementIds: number[],
@@ -60,7 +61,7 @@ export class DbDataThing {
         }
 
         return <ManualDataZoneMapFarm>{
-            // groupId: this.zoneMapsGroupId,
+            groupId: this.zoneMapsGroupId,
             id: this.id,
             idType: thingTypeToFarmIdType[this.type],
             location: this.locations[mapId].flatMap((loc) => [loc.xCoordinate, loc.yCoordinate]),
@@ -77,9 +78,11 @@ export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 
 const thingTypeToFarmType: Record<number, FarmType> = {
     [DbThingType.Object]: FarmType.Treasure,
+    [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
     [DbThingType.Object]: FarmIdType.Object,
+    [DbThingType.Vendor]: FarmIdType.Npc,
 };
 
 const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {

@@ -118,6 +118,22 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         cooldown: [[0]],
     },
 
+    // Herbalism
+    {
+        type: 'spell',
+        key: 'twwHerbalismOverload',
+        name: '[TWW] Overload Herb',
+        profession: Profession.Mining,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'dfHerbalismOverload',
+        name: '[DF] Overload Herb',
+        profession: Profession.Mining,
+        cooldown: [[0]],
+    },
+
     // Inscription
     {
         type: 'spell',
@@ -265,6 +281,22 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'mopLeatherworkingMagnificence',
         name: '[MoP] Magnificence',
         profession: Profession.Leatherworking,
+        cooldown: [[0]],
+    },
+
+    // Mining
+    {
+        type: 'spell',
+        key: 'twwMiningOverload',
+        name: '[TWW] Overload Deposit',
+        profession: Profession.Mining,
+        cooldown: [[0]],
+    },
+    {
+        type: 'spell',
+        key: 'dfMiningOverload',
+        name: '[DF] Overload Deposit',
+        profession: Profession.Mining,
         cooldown: [[0]],
     },
 
