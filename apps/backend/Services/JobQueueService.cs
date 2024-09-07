@@ -41,9 +41,10 @@ public class JobQueueService : BackgroundService
     {
         int jobLimit = _priority switch
         {
-            JobPriority.Auction => _backendOptions.WorkerCountAuction * 5 * SleepInterval / 1000,
-            JobPriority.High => _backendOptions.WorkerCountHigh * 5 * SleepInterval / 1000,
-            JobPriority.Low => _backendOptions.WorkerCountLow * 10 * SleepInterval / 1000,
+            JobPriority.Auction => _backendOptions.WorkerMaxAuction * 5 * SleepInterval / 1000,
+            JobPriority.High => _backendOptions.WorkerMaxHigh * 5 * SleepInterval / 1000,
+            JobPriority.Low => _backendOptions.WorkerMaxLow * 10 * SleepInterval / 1000,
+            JobPriority.Bulk => _backendOptions.WorkerMaxBulk * 10 * SleepInterval / 1000,
             _ => throw new NotImplementedException(),
         };
 

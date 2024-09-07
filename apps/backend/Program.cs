@@ -159,22 +159,28 @@ public class Program
             services.AddSingleton<IHostedService>(sp => ActivatorUtilities.CreateInstance<JobQueueService>(sp, priority));
         }
 
-        for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
+        for (int i = 0; i < backendOptions.WorkerMaxHigh; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
                 ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.High));
         }
 
-        for (int i = 0; i < backendOptions.WorkerCountLow; i++)
+        for (int i = 0; i < backendOptions.WorkerMaxLow; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
                 ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Low));
         }
 
-        for (int i = 0; i < backendOptions.WorkerCountAuction; i++)
+        for (int i = 0; i < backendOptions.WorkerMaxAuction; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
                 ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Auction));
+        }
+
+        for (int i = 0; i < backendOptions.WorkerMaxBulk; i++)
+        {
+            services.AddSingleton<IHostedService>(sp =>
+                ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Bulk));
         }
     }
 }
