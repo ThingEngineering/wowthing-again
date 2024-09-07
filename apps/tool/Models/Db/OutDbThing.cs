@@ -9,6 +9,7 @@ public class OutDbThing
 {
     public int Id { get; set; }
     public int TrackingQuestId { get; set; }
+    public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
     public string Note { get; set; }
     public DbResetType ResetType { get; set; }
@@ -28,6 +29,7 @@ public class OutDbThing
         Name = dataThing.Name;
         Note = dataThing.Note;
         TrackingQuestId = dataThing.TrackingQuestId;
+        ZoneMapsGroupId = dataThing.ZoneMapsGroupId;
 
         ResetType = Enum.Parse<DbResetType>(dataThing.Reset.OrDefault("none"), true);
         Type = Enum.Parse<DbThingType>(dataThing.Type, true);
