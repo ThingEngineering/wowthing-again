@@ -287,7 +287,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     if (
                         character.level <
                             (choreTask.minimumLevel ||
-                                task.maximumLevel ||
+                                task.minimumLevel ||
                                 Constants.characterMaxLevel) ||
                         character.level >
                             (choreTask.maximumLevel ||
