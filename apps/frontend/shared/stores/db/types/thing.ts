@@ -77,9 +77,11 @@ export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 
 const thingTypeToFarmType: Record<number, FarmType> = {
     [DbThingType.Object]: FarmType.Treasure,
+    [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
     [DbThingType.Object]: FarmIdType.Object,
+    [DbThingType.Vendor]: FarmIdType.Npc,
 };
 
 const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
