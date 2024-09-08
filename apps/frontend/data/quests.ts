@@ -19,6 +19,7 @@ export const progressQuestHead: Record<string, string> = {
 export const forcedReset: Record<string, boolean> = {
     holidayArena: true,
     holidayBattlegrounds: true,
+    holidayDelves: true,
     holidayDungeons: true,
     holidayPetPvp: true,
     holidayTimewalking: true,
