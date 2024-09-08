@@ -12,6 +12,13 @@ public static partial class Hardcoded
         168042, // Alchemical Catalyst (dupe for max results?)
         370771, // Dragon Isles Alchemy Troubleshooting Test Recipe (DNT)
         371635, // Demonstration Item Recipe
+        430606, // TWW ??
+        433271, // TWW ??
+        433604, // TWW ??
+        433605, // TWW ??
+        433606, // TWW ??
+        433607, // TWW ??
+        433608, // TWW ??
 
         // Blacksmithing
         8368, // Ironforge Gauntlets
