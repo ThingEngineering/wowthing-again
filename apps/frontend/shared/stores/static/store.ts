@@ -2,6 +2,7 @@ import { extraInstanceMap } from '@/data/dungeon';
 import { WritableFancyStore } from '@/types';
 import {
     StaticDataBag,
+    StaticDataCampaign,
     StaticDataCurrency,
     StaticDataCurrencyCategory,
     StaticDataHoliday,
@@ -19,6 +20,7 @@ import { StaticDataProfessionAbilityInfo, type StaticData } from './types';
 import { StaticDataQuestInfo } from './types/quest-info';
 import type { ItemData } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
+import { StaticDataQuestLine } from './types/quest-line';
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -99,6 +101,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawBags = null;
         }
 
+        if (data.rawCampaigns !== null) {
+            data.campaigns = StaticDataStore.createObjects(data.rawCampaigns, StaticDataCampaign);
+            data.rawCampaigns = null;
+        }
+
         if (data.rawCurrencies !== null) {
             data.currencies = StaticDataStore.createObjects(data.rawCurrencies, StaticDataCurrency);
             data.rawCurrencies = null;
@@ -156,6 +163,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawQuestInfo) {
             data.questInfo = StaticDataStore.createObjects(data.rawQuestInfo, StaticDataQuestInfo);
             data.rawQuestInfo = null;
+        }
+
+        if (data.rawQuestLines !== null) {
+            data.questLines = StaticDataStore.createObjects(
+                data.rawQuestLines,
+                StaticDataQuestLine,
+            );
+            data.rawQuestLines = null;
         }
 
         if (data.rawRealms !== null) {

@@ -1,4 +1,5 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag';
+import type { StaticDataCampaign, StaticDataCampaignArray } from './campaign'
 import type {
     StaticDataCharacterClass,
     StaticDataCharacterRace,
@@ -23,6 +24,7 @@ import type {
     StaticDataProfessionAbilityInfo,
 } from './profession';
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
+import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';
 import type {
     StaticDataReputation,
@@ -66,6 +68,9 @@ export interface StaticData {
     bags: Record<number, StaticDataBag>;
     rawBags: StaticDataBagArray[];
 
+    campaigns: Record<number, StaticDataCampaign>;
+    rawCampaigns: StaticDataCampaignArray[];
+
     currencies: Record<number, StaticDataCurrency>;
     rawCurrencies: StaticDataCurrencyArray[];
 
@@ -100,6 +105,9 @@ export interface StaticData {
 
     questInfo: Record<number, StaticDataQuestInfo>;
     rawQuestInfo: StaticDataQuestInfoArray[];
+
+    questLines: Record<number, StaticDataQuestLine>;
+    rawQuestLines: StaticDataQuestLineArray[];
 
     realms: Record<number, StaticDataRealm>;
     rawRealms: StaticDataRealmArray[];
