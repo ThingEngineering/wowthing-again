@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-import { leftPad, toNiceNumber } from '@/utils/formatting';
+import { toNiceNumber } from '@/utils/formatting';
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant';
 import { factionIdMap } from '@/data/faction';
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison';

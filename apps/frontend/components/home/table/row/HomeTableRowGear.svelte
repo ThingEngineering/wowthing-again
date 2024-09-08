@@ -6,7 +6,6 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore, lazyStore } from '@/stores'
     import { getTierPieces } from '@/utils/characters/get-tier-pieces'
-    import { toNiceNumber } from '@/utils/formatting';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { Character } from '@/types'
 

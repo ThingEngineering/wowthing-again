@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <style lang="scss">
     .under-construction {
         background: mix($thing-background, $color-fail, 90%);

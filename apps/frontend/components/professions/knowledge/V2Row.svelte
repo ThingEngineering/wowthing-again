@@ -1,6 +1,4 @@
 <script lang="ts">
-    import orderBy from 'lodash/orderBy'
-
     import { warWithinProfessions } from '@/data/professions'
     import { warWithinZones } from '@/data/zones';
     import { Profession } from '@/enums/profession'
@@ -59,17 +57,12 @@
                         ? Math.floor((character.reputations?.[zone.reputationId] ?? 0) / 2500)
                         : 0
 
-                    let haveBooks = 0;
                     for (const bookQuest of bookQuests) {
                         const bookData = {
                             have: userQuestStore.hasAny(character.id, bookQuest.questId),
                             itemId: bookQuest.itemId,
                             profession: profData.id,
                             source: bookQuest.source,
-                        }
-
-                        if (bookData.have) {
-                            haveBooks++;
                         }
 
                         const requiredRenown = parseInt(bookQuest.source.split(' ')[1])

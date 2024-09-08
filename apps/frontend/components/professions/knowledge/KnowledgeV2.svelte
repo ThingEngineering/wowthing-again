@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { dragonflightKnowledge, dragonflightProfessions, warWithinProfessions } from '@/data/professions'
+    import { warWithinProfessions } from '@/data/professions'
     import { warWithinZones } from '@/data/zones';
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'

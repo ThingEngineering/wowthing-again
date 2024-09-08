@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <style lang="scss">
     td {
         background: $body-background !important;
