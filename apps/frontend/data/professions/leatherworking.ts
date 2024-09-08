@@ -21,6 +21,16 @@ export const warWithinLeatherworking: TaskProfession = {
             questId: 80980,
             source: 'AC',
         },
+        {
+            itemId: 224658, // Void-Lit Leatherworking Notes
+            questId: 83068,
+            source: 'HA 14',
+        },
+        {
+            itemId: 224056, // Uses for Leftover Husks (After You Take Them Apart)
+            questId: 82626,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

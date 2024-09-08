@@ -1,5 +1,6 @@
 <script lang="ts">
     import { dragonflightKnowledge, dragonflightProfessions, warWithinProfessions } from '@/data/professions'
+    import { warWithinZones } from '@/data/zones';
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
 
@@ -9,11 +10,8 @@
     import RowProfessions from '@/components/home/table/row/HomeTableRowProfessions.svelte'
     import V2Row from './V2Row.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { warWithinZones } from '@/data/zones';
 
     export let slug: string
-
-    $: console.log(slug)
 
     // TODO: update this for more generic expansion stuff
     const filterFunc = (char: Character) => warWithinProfessions.some((p) => char.professions?.[p.id])
@@ -45,13 +43,17 @@
         <th colspan="2" class="border"></th>
         <th class="spacer"></th>
         {#each warWithinZones as zone}
-            <th
-                class="zone"
-                use:basicTooltip={zone.name}
-            >
-                <WowthingImage name={zone.icon} size={48} />
-                <span class="pill abs-center">{zone.shortName}</span>
-            </th>
+            {#if zone === null}
+                <th class="spacer"></th>
+            {:else}
+                <th
+                    class="zone"
+                    use:basicTooltip={zone.name}
+                >
+                    <WowthingImage name={zone.icon} size={48} />
+                    <span class="pill abs-center">{zone.shortName}</span>
+                </th>
+            {/if}
         {/each}
     </CharacterTableHead>
 

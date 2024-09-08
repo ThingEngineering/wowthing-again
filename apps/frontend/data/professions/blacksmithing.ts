@@ -21,6 +21,16 @@ export const warWithinBlacksmithing: TaskProfession = {
             questId: 84228,
             source: 'AC',
         },
+        {
+            itemId: 224647, // Jewel-Etched Blacksmithing Notes
+            questId: 83059,
+            source: 'CoD 12',
+        },
+        {
+            itemId: 224038, // Smithing After Saronite
+            questId: 82631,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

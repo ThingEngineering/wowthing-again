@@ -21,6 +21,16 @@ export const warWithinInscription: TaskProfession = {
             questId: 80751,
             source: 'AC',
         },
+        {
+            itemId: 224654, // Machine-Learned Inscription Notes
+            questId: 83064,
+            source: 'AotD 12',
+        },
+        {
+            itemId: 224053, // Eight Views on Defense against Hostile Runes
+            questId: 82636,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

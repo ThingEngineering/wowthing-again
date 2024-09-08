@@ -21,6 +21,16 @@ export const warWithinJewelcrafting: TaskProfession = {
             questId: 81261,
             source: 'AC',
         },
+        {
+            itemId: 224655, // Void-Lit Jewelcrafting Notes
+            questId: 83065,
+            source: 'HA 14',
+        },
+        {
+            itemId: 224054, // Emergent Crystals of the Surface-Dwellers
+            questId: 82637,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

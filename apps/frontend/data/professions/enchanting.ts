@@ -20,6 +20,16 @@ export const warWithinEnchanting: TaskProfession = {
             questId: 81078,
             source: 'AC',
         },
+        {
+            itemId: 224652, // Jewel-Etched Enchanting Notes
+            questId: 83060,
+            source: 'CoD 12',
+        },
+        {
+            itemId: 224050, // Web Sparkles: Pretty and Powerful
+            questId: 82635,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

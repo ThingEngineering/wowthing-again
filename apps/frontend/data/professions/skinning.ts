@@ -21,6 +21,16 @@ export const warWithinSkinning: TaskProfession = {
             questId: 84234,
             source: 'AC',
         },
+        {
+            itemId: 224657, // Void-Lit Skinning Notes
+            questId: 83067,
+            source: 'HA 14',
+        },
+        {
+            itemId: 224007, // Uses for Leftover Husks (How to Take Them Apart)
+            questId: 82596,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

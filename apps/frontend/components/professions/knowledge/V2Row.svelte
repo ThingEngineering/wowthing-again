@@ -49,58 +49,63 @@
                     continue
                 }
                 
-                const things = dbStore.search({
-                    maps: [
-                        zone.map,
-                    ],
-                    tags: [
-                        `expansion:10`,
-                        `profession:${$staticStore.professions[profData.id].slug}`,
-                        'treasure:profession'
-                    ],
-                })
-
-                things.sort((a, b) => $itemStore.items[a.contents[0].id].name.localeCompare($itemStore.items[b.contents[0].id].name))
-
-                for (const thing of things) {
-                    zoneData.items.push({
-                        have: userQuestStore.hasAny(character.id, thing.trackingQuestId),
-                        itemId: thing.contents[0].id,
-                        profession: profData.id,
-                        source: zone.shortName,
-                    })
-                }
-
                 if (zone.name.endsWith('Books')) {
-                    // const bookQuests = (profData.bookQuests || []).filter((bq) =>
-                    //     (['LN', 'ZCB'].indexOf(bq.source) >= 0 && zone.shortName === 'ZC') ||
-                    //     (bq.source.startsWith(`${zone.shortName} `))
-                    // )
+                    const bookQuests = (profData.bookQuests || []).filter((bq) =>
+                        (bq.source === zone.shortName) ||
+                        (bq.source.startsWith(`${zone.shortName} `))
+                    )
 
-                    // const characterRenown = zone.reputationId
-                    //     ? Math.floor((character.reputations?.[zone.reputationId] ?? 0) / 2500)
-                    //     : 0
+                    const characterRenown = zone.reputationId
+                        ? Math.floor((character.reputations?.[zone.reputationId] ?? 0) / 2500)
+                        : 0
 
-                    // for (const bookQuest of orderBy(bookQuests, (bq) => $itemStore.items[bq.itemId].name)) {
-                    //     const bookData = {
-                    //         have: userQuestStore.hasAny(character.id, bookQuest.questId),
-                    //         itemId: bookQuest.itemId,
-                    //         profession: profData.id,
-                    //         source: bookQuest.source,
-                    //     }
+                    let haveBooks = 0;
+                    for (const bookQuest of bookQuests) {
+                        const bookData = {
+                            have: userQuestStore.hasAny(character.id, bookQuest.questId),
+                            itemId: bookQuest.itemId,
+                            profession: profData.id,
+                            source: bookQuest.source,
+                        }
 
-                    //     const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
-                    //     if (!bookData.have) {
-                    //         if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
-                    //             zoneData.status = 'fail'
-                    //         }
-                    //         else if (bookData.source.startsWith('AC ') || bookData.source === 'LN') {
-                    //             zoneData.status = 'fail'
-                    //         }
-                    //     }
+                        if (bookData.have) {
+                            haveBooks++;
+                        }
 
-                    //     zoneData.items.push(bookData)
-                    // }
+                        const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
+                        if (!bookData.have) {
+                            if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
+                                zoneData.status = 'fail'
+                            }
+                            else if (bookData.source.startsWith('AC ') || bookData.source === 'LN') {
+                                zoneData.status = 'fail'
+                            }
+                        }
+
+                        zoneData.items.push(bookData)
+                    }
+                } else {
+                    const things = dbStore.search({
+                        maps: [
+                            zone.map,
+                        ],
+                        tags: [
+                            `expansion:10`,
+                            `profession:${$staticStore.professions[profData.id].slug}`,
+                            'treasure:profession'
+                        ],
+                    })
+
+                    things.sort((a, b) => $itemStore.items[a.contents[0].id].name.localeCompare($itemStore.items[b.contents[0].id].name))
+
+                    for (const thing of things) {
+                        zoneData.items.push({
+                            have: userQuestStore.hasAny(character.id, thing.trackingQuestId),
+                            itemId: thing.contents[0].id,
+                            profession: profData.id,
+                            source: zone.shortName,
+                        })
+                    }
                 }
             }
 
@@ -139,7 +144,9 @@
 <td class="spacer"></td>
 {#each warWithinZones as zone, zoneIndex}
     {@const zoneData = data[zoneIndex]}
-    {#if zoneData.items.length > 0}
+    {#if zone === null}
+        <td class="spacer"></td>
+    {:else if zoneData.items.length > 0}
         <td
             class="profession-knowledge status-{zoneData.status}"
             use:componentTooltip={{

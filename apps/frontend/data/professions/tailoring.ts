@@ -21,6 +21,16 @@ export const warWithinTailoring: TaskProfession = {
             questId: 80873,
             source: 'AC',
         },
+        {
+            itemId: 224648, // Jewel-Etched Tailoring Notes
+            questId: 83061,
+            source: 'CoD 12',
+        },
+        {
+            itemId: 224036, // And That's A Web-Wrap!
+            questId: 82634,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

@@ -21,6 +21,16 @@ export const warWithinMining: TaskProfession = {
             questId: 81392,
             source: 'AC',
         },
+        {
+            itemId: 224651, // Machine-Learned Mining Notes
+            questId: 83062,
+            source: 'AotD 12',
+        },
+        {
+            itemId: 224055, // A Rocky Start
+            questId: 82614,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {
