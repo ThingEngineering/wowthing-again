@@ -1,39 +1,39 @@
 name: Continuous Integration
 
 on:
-  pull_request:
+    pull_request:
 
-  # Allow job to be manually started
-  workflow_dispatch:
+    # Allow job to be manually started
+    workflow_dispatch:
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v2
+    lint:
+        name: Lint
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        steps:
+            - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
+            - uses: actions/setup-node@v2
+              with:
+                  node-version: '18'
 
-      - uses: actions/cache@v2
-        id: cache-node-modules
-        with:
-          key: ${{ runner.os }}-node16-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node16-modules-
-          path: |
-            node_modules
+            - uses: actions/cache@v2
+              id: cache-node-modules
+              with:
+                  key: ${{ runner.os }}-node18-modules-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-node18-modules-
+                  path: |
+                      node_modules
 
-      - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm i --no-audit --no-fund
+            - name: Install dependencies
+              if: steps.cache-node-modules.outputs.cache-hit != 'true'
+              run: npm i --no-audit --no-fund
 
-      - name: ESLint
-        working-directory: apps/frontend/
-        run: npm run lint
+            - name: ESLint
+              working-directory: apps/frontend/
+              run: npm run lint
 
-      - name: Svelte Check
-        working-directory: apps/frontend/
-        run: npm run check
+            - name: Svelte Check
+              working-directory: apps/frontend/
+              run: npm run check
