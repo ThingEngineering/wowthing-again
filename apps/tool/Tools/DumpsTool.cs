@@ -134,12 +134,14 @@ public class DumpsTool
 
             ImportGlobalStrings,
 
+            ImportCampaignStrings,
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
             ImportJournalEncounterStrings,
             ImportJournalInstanceStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
+            ImportQuestLineStrings,
             ImportQuestV2CliTaskStrings,
             ImportSharedStrings,
             ImportSkillLineStrings,
@@ -246,6 +248,15 @@ public class DumpsTool
         _timer.AddPoint(type.ToString());
     }
 
+    private async Task ImportCampaignStrings(WowDbContext context) =>
+        await ImportStrings<DumpCampaign>(
+            context,
+            StringType.WowCampaignName,
+            "campaign",
+            campaign => campaign.ID,
+            campaign => campaign.Title
+        );
+
     private async Task ImportCharacterTitleStrings(WowDbContext context) =>
         await ImportStrings<DumpCharTitles>(
             context,
@@ -298,6 +309,15 @@ public class DumpsTool
             "keystoneaffix",
             affix => affix.ID,
             affix => affix.Name
+        );
+
+    private async Task ImportQuestLineStrings(WowDbContext context) =>
+        await ImportStrings<DumpQuestLine>(
+            context,
+            StringType.WowQuestLineName,
+            "questline",
+            questLine => questLine.ID,
+            questLine => questLine.Name
         );
 
     private async Task ImportQuestV2CliTaskStrings(WowDbContext context) =>
