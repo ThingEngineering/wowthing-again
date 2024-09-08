@@ -22,7 +22,7 @@ export function getCharacterRested(now: DateTime, character: Character): [string
     );
 
     // Calculate earned since last seen
-    if (restedPercent < maxPercent) {
+    if (restedPercent < maxPercent && character.lastSeenAddon) {
         const restedEarned =
             (now.diff(character.lastSeenAddon).toMillis() / 1000 / Constants.restedDuration) *
             maxPercent *
