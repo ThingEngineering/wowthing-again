@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <style lang="scss">
     th {
         @include cell-width($width-raider-io);

@@ -2,6 +2,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
 
     import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
+    import type { TippyProps } from '@/shared/utils/tooltips/types';
 
     export let src: string
     export let alt: string
@@ -11,7 +12,7 @@
     export let width = 0
     export let cls: string = undefined
     export let lazy = true
-    export let tooltip: string = undefined
+    export let tooltip: TippyProps | string  = undefined
 
     let actualHeight: number
     let actualWidth: number
@@ -19,6 +20,8 @@
         actualHeight = (height || size) + (border * 2)
         actualWidth = (width || size) + (border * 2)
     }
+
+    $: content = typeof(tooltip) === 'string' ? tooltip : tooltip.content as string
 </script>
 
 <style lang="scss">
@@ -41,7 +44,7 @@
     use:componentTooltip={{
         component: Tooltip,
         props: {
-            content: tooltip,
+            content,
         },
         testFunc: (props) => props.content !== undefined
     }}

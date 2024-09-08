@@ -31,7 +31,7 @@ const languageToSubdomain: Record<Language, string> = {
 export const settingsSavingState = writable<number>(0);
 
 function createSettingsStore() {
-    let hashTimer: NodeJS.Timer | null = null;
+    let hashTimer: ReturnType<typeof setInterval> | null = null;
     let accountsHash = '';
     let settingsHash = '';
 

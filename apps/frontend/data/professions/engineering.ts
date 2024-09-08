@@ -21,6 +21,16 @@ export const warWithinEngineering: TaskProfession = {
             questId: 84231,
             source: 'AC',
         },
+        {
+            itemId: 224653, // Machine-Learned Engineering Notes
+            questId: 83063,
+            source: 'AotD 12',
+        },
+        {
+            itemId: 224052, // Clocks, Gears, Sprockets, and Legs
+            questId: 82632,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

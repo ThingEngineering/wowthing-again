@@ -21,6 +21,16 @@ export const warWithinAlchemy: TaskProfession = {
             questId: 81148,
             source: 'AC',
         },
+        {
+            itemId: 224645, // Jewel-Etched Alchemy Notes
+            questId: 83058,
+            source: 'CoD 12',
+        },
+        {
+            itemId: 224024, // Theories of Bodily Transmutation, Chapter 8
+            questId: 82633,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

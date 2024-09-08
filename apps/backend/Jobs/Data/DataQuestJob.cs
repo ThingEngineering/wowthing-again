@@ -10,8 +10,14 @@ namespace Wowthing.Backend.Jobs.Data;
 public class DataQuestJob : JobBase
 {
     private int _questId;
+    private WowRegion _region;
 
     private const string ApiPath = "data/wow/quest/{0}";
+
+    private static readonly Dictionary<WowRegion, Language[]> RegionLanguages = new()
+    {
+        { WowRegion.US, [Language.enUS] },
+    };
 
     private static readonly Dictionary<Language, string> LanguageToLocale = new()
     {
@@ -30,19 +36,24 @@ public class DataQuestJob : JobBase
 
     public override void Setup(string[] data)
     {
-        _questId = int.Parse(data[0]);
+        _region = (WowRegion)int.Parse(data[0]);
+        _questId = int.Parse(data[1]);
         QuestLog(_questId);
     }
 
     public override async Task Run(string[] data)
     {
+        var languages = RegionLanguages[_region];
         var languageMap = await Context.LanguageString
-            .Where(ls => ls.Type == StringType.WowQuestName && ls.Id == _questId)
+            .Where(ls => languages.Contains(ls.Language) &&
+                        ls.Type == StringType.WowQuestName &&
+                         ls.Id == _questId)
             .ToDictionaryAsync(ls => ls.Language);
 
         // Fetch API data
-        foreach (var (language, locale) in LanguageToLocale)
+        foreach (var language in languages)
         {
+            string locale = LanguageToLocale[language];
             var uri = GenerateUri(
                 WowRegion.US,
                 ApiNamespace.Static,

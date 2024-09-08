@@ -22,6 +22,7 @@ public class StaticTool
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap = null!;
 
     private static readonly StringType[] StringTypes = [
+        StringType.WowCampaignName,
         StringType.WowCharacterClassName,
         StringType.WowCharacterRaceName,
         StringType.WowCharacterSpecializationName,
@@ -35,6 +36,7 @@ public class StaticTool
         StringType.WowItemName,
         StringType.WowKeystoneAffixName,
         StringType.WowMountName,
+        StringType.WowQuestLineName,
         StringType.WowQuestName,
         StringType.WowReputationDescription,
         StringType.WowReputationName,
@@ -61,6 +63,7 @@ public class StaticTool
         // not holidays but too much effort to fix now
         { "Arena Skirmish Bonus Event", "holidayArena" },
         { "Battleground Bonus Event", "holidayBattlegrounds" },
+        { "Delves Bonus Event", "holidayDelves "},
         { "Pet Battle Bonus Event", "holidayPetPvp" },
         { "World Quest Bonus Event", "holidayWorldQuests" },
     };
@@ -348,6 +351,16 @@ public class StaticTool
             .Select(transmogSet => new StaticTransmogSet(transmogSet, imaMap))
             .ToArray();
 
+        cacheData.RawCampaigns = await context.WowCampaign
+            .OrderBy(campaign => campaign.Id)
+            .Select(campaign => new StaticCampaign(campaign))
+            .ToArrayAsync();
+
+        cacheData.RawQuestLines = await context.WowQuestLine
+            .OrderBy(ql => ql.Id)
+            .Select(ql => new StaticQuestLine(ql))
+            .ToArrayAsync();
+
         cacheData.RawWorldQuests = await context.WowWorldQuest
             .OrderBy(wq => wq.Id)
             .Select(wq => new StaticWorldQuest(wq))
@@ -422,6 +435,11 @@ public class StaticTool
                 keystoneAffix.Name = affixMaps[language].GetValueOrDefault(keystoneAffix.Id, affixMaps[Language.enUS][keystoneAffix.Id]);
             }
 
+            foreach (var campaign in cacheData.RawCampaigns)
+            {
+                campaign.Name = GetString(StringType.WowCampaignName, language, campaign.Id);
+            }
+
             foreach (var currency in cacheData.RawCurrencies)
             {
                 currency.Name = GetString(StringType.WowCurrencyName, language, currency.Id);
@@ -435,6 +453,11 @@ public class StaticTool
             foreach (var holiday in cacheData.RawHolidays)
             {
                 holiday.Name = GetString(StringType.WowHolidayName, language, holiday.Id);
+            }
+
+            foreach (var questLine in cacheData.RawQuestLines)
+            {
+                questLine.Name = GetString(StringType.WowQuestLineName, language, questLine.Id);
             }
 
             foreach (var reputation in cacheData.RawReputations)

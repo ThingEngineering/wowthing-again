@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <style lang="scss">
     a {
         background: darken(#0074e0, 15%);

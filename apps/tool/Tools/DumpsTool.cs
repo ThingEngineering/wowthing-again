@@ -110,6 +110,7 @@ public class DumpsTool
     {
         Func<WowDbContext, Task>[] actions =
         {
+            ImportCampaigns,
             ImportCharacterClasses,
             ImportCharacterRaces,
             ImportCharacterSpecializations,
@@ -125,6 +126,7 @@ public class DumpsTool
             ImportItemEffects,
             ImportMounts,
             ImportPets,
+            ImportQuestLines,
             ImportRecipeItems,
             ImportReputationTiers,
             ImportToys,
@@ -133,12 +135,14 @@ public class DumpsTool
 
             ImportGlobalStrings,
 
+            ImportCampaignStrings,
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
             ImportJournalEncounterStrings,
             ImportJournalInstanceStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
+            ImportQuestLineStrings,
             ImportQuestV2CliTaskStrings,
             ImportSharedStrings,
             ImportSkillLineStrings,
@@ -245,6 +249,15 @@ public class DumpsTool
         _timer.AddPoint(type.ToString());
     }
 
+    private async Task ImportCampaignStrings(WowDbContext context) =>
+        await ImportStrings<DumpCampaign>(
+            context,
+            StringType.WowCampaignName,
+            "campaign",
+            campaign => campaign.ID,
+            campaign => campaign.Title
+        );
+
     private async Task ImportCharacterTitleStrings(WowDbContext context) =>
         await ImportStrings<DumpCharTitles>(
             context,
@@ -297,6 +310,15 @@ public class DumpsTool
             "keystoneaffix",
             affix => affix.ID,
             affix => affix.Name
+        );
+
+    private async Task ImportQuestLineStrings(WowDbContext context) =>
+        await ImportStrings<DumpQuestLine>(
+            context,
+            StringType.WowQuestLineName,
+            "questline",
+            questLine => questLine.ID,
+            questLine => questLine.Name
         );
 
     private async Task ImportQuestV2CliTaskStrings(WowDbContext context) =>
@@ -370,6 +392,41 @@ public class DumpsTool
             group => group.ID,
             group => group.Name
         );
+
+    private async Task ImportCampaigns(WowDbContext context)
+    {
+        var campaignXQuestLines = await DataUtilities
+            .LoadDumpCsvAsync<DumpCampaignXQuestLine>("campaignxquestline");
+
+        var questLinesByCampaign = campaignXQuestLines
+            .GroupBy(q => q.CampaignID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(ql => ql.OrderIndex)
+                    .Select(ql => ql.QuestLineID)
+                    .ToList()
+            );
+
+        var dbCampaignMap = await context.WowCampaign
+            .ToDictionaryAsync(campaign => campaign.Id);
+
+        foreach ((int campaignId, var questLineIds) in questLinesByCampaign)
+        {
+            if (!dbCampaignMap.TryGetValue(campaignId, out var dbCampaign))
+            {
+                dbCampaign = new WowCampaign(campaignId);
+                context.WowCampaign.Add(dbCampaign);
+            }
+
+            if (dbCampaign.QuestLineIds == null || !questLineIds.SequenceEqual(dbCampaign.QuestLineIds))
+            {
+                dbCampaign.QuestLineIds = questLineIds;
+            }
+        }
+
+        _timer.AddPoint("Campaigns");
+    }
 
     private async Task ImportCharacterClasses(WowDbContext context)
     {
@@ -1285,6 +1342,91 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Pets");
+    }
+
+    private async Task ImportQuestLines(WowDbContext context)
+    {
+        var questLineXQuests = await DataUtilities.LoadDumpCsvAsync<DumpQuestLineXQuest>("questlinexquest");
+
+        var questsByQuestLine = questLineXQuests
+            .GroupBy(q => q.QuestLineID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .Where(ql => (ql.Flags & 0x1) == 0) // IgnoreForCompletion
+                    .OrderBy(ql => ql.OrderIndex)
+                    .Select(ql => ql.QuestID)
+                    .ToList()
+            );
+
+        var dbQuestLineMap = await context.WowQuestLine
+            .ToDictionaryAsync(ql => ql.Id);
+
+        var existingQuestIds = (await context.WowQuest
+                .AsNoTracking()
+                .Select(q => q.Id)
+                .ToArrayAsync())
+            .ToHashSet();
+
+        foreach ((int questLineId, var questIds) in questsByQuestLine)
+        {
+            if (!dbQuestLineMap.TryGetValue(questLineId, out var dbQuestLine))
+            {
+                dbQuestLine = new WowQuestLine(questLineId);
+                context.WowQuestLine.Add(dbQuestLine);
+            }
+
+            if (dbQuestLine.QuestIds == null || !questIds.SequenceEqual(dbQuestLine.QuestIds))
+            {
+                dbQuestLine.QuestIds = questIds;
+            }
+
+            foreach (int questId in questIds)
+            {
+                if (!existingQuestIds.Contains(questId))
+                {
+                    context.Add(new WowQuest(questId));
+                    existingQuestIds.Add(questId);
+                }
+            }
+        }
+
+        _timer.AddPoint("QuestLines");
+    }
+
+    private async Task ImportCampaign(WowDbContext context)
+    {
+        var campaignXQuestLines = await DataUtilities
+            .LoadDumpCsvAsync<DumpCampaignXQuestLine>("campaignxquestline");
+
+        var questLinesByCampaign = campaignXQuestLines
+            .GroupBy(q => q.CampaignID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(ql => ql.OrderIndex)
+                    .Select(ql => ql.QuestLineID)
+                    .ToList()
+            );
+
+        var dbCampaignMap = await context.WowCampaign
+            .ToDictionaryAsync(campaign => campaign.Id);
+
+        foreach ((int campaignId, var questLineIds) in questLinesByCampaign)
+        {
+            if (!dbCampaignMap.TryGetValue(campaignId, out var dbCampaign))
+            {
+                dbCampaign = new WowCampaign(campaignId);
+                context.WowCampaign.Add(dbCampaign);
+            }
+
+            if (dbCampaign.QuestLineIds == null || !questLineIds.SequenceEqual(dbCampaign.QuestLineIds))
+            {
+                dbCampaign.QuestLineIds = questLineIds;
+            }
+        }
+
+        _timer.AddPoint("Campaigns");
     }
 
     private async Task ImportRecipeItems(WowDbContext context)

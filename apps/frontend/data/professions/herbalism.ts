@@ -21,6 +21,16 @@ export const warWithinHerbalism: TaskProfession = {
             questId: 81424,
             source: 'AC',
         },
+        {
+            itemId: 224656, // Void-Lit Herbalism Notes
+            questId: 83066,
+            source: 'HA 14',
+        },
+        {
+            itemId: 224023, // Herbal Embalming Techniques
+            questId: 82630,
+            source: 'CoT',
+        },
     ],
     dropQuests: [
         {

@@ -122,6 +122,11 @@ export const taskList: Task[] = [
         shortName: 'BGs',
     },
     {
+        key: 'holidayDelves',
+        name: '[Event] Delves',
+        shortName: 'Delv',
+    },
+    {
         key: 'holidayDungeons',
         name: '[Event] Mythic Dungeons',
         shortName: 'MDun',

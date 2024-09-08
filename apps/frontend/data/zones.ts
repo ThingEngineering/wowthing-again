@@ -1,4 +1,6 @@
-export const warWithinZones = [
+import type { ProfessionZone } from './professions/zone';
+
+export const warWithinZones: ProfessionZone[] = [
     {
         name: 'Dornogal',
         icon: 'achievement/20597',
@@ -29,8 +31,37 @@ export const warWithinZones = [
         map: '10-the-war-within/ringing_deeps',
         shortName: 'RD',
     },
+    null,
+    {
+        name: "Artisan's Consortium Books",
+        icon: 'spell/339979', // Booksmart
+        shortName: 'AC',
+    },
+    {
+        name: 'Assembly of the Deeps Books',
+        icon: 'achievement/40836',
+        shortName: 'AotD',
+        reputationId: 2594,
+    },
+    {
+        name: 'Council of Dornogal Books',
+        icon: 'achievement/40856',
+        shortName: 'CoD',
+        reputationId: 2590,
+    },
+    {
+        name: 'Hallowfall Arathi Books',
+        icon: 'achievement/40845',
+        shortName: 'HA',
+        reputationId: 2570,
+    },
+    {
+        name: 'City of Threads Books',
+        icon: 'achievement/40838',
+        shortName: 'CoT',
+    },
 ];
 
 export const zoneShortName: Record<string, string> = Object.fromEntries(
-    warWithinZones.map((zone) => [zone.map, zone.shortName]),
+    warWithinZones.filter((zone) => zone !== null).map((zone) => [zone.map, zone.shortName]),
 );

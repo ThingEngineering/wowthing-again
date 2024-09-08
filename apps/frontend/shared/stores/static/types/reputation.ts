@@ -1,5 +1,3 @@
-import type { RewardType } from '@/enums/reward-type';
-
 export class StaticDataReputation {
     constructor(
         public id: number,

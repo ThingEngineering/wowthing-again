@@ -28,6 +28,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowAuctionCheapestByAppearanceSource> WowAuctionCheapestByAppearanceSource { get; set; }
     // public DbSet<WowAuctionCommodityDaily> WowAuctionCommodityDaily { get; set; }
     public DbSet<WowAuctionCommodityHourly> WowAuctionCommodityHourly { get; set; }
+    public DbSet<WowCampaign> WowCampaign { get; set; }
     public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
     public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
     public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
@@ -47,6 +48,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowPet> WowPet { get; set; }
     public DbSet<WowProfessionRecipeItem> WowProfessionRecipeItem { get; set; }
     public DbSet<WowQuest> WowQuest { get; set; }
+    public DbSet<WowQuestLine> WowQuestLine { get; set; }
     public DbSet<WowRealm> WowRealm { get; set; }
     public DbSet<WowReputation> WowReputation { get; set; }
     public DbSet<WowReputationTier> WowReputationTier { get; set; }

@@ -1,3 +1,5 @@
+<script lang="ts"></script>
+
 <style lang="scss">
     .tooltip-body {
         padding: 0.3rem 0.5rem;

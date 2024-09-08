@@ -1,4 +1,5 @@
 export * from './bag';
+export * from './campaign';
 export * from './character';
 export * from './currency';
 export * from './heirloom';
@@ -10,6 +11,7 @@ export * from './mount';
 export * from './pet';
 export * from './profession';
 export * from './quest-info';
+export * from './quest-line';
 export * from './realm';
 export * from './reputation';
 export * from './soulbind';
