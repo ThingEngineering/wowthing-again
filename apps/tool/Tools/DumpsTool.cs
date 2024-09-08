@@ -125,6 +125,7 @@ public class DumpsTool
             ImportItemEffects,
             ImportMounts,
             ImportPets,
+            ImportQuestLines,
             ImportRecipeItems,
             ImportReputationTiers,
             ImportToys,
@@ -1285,6 +1286,29 @@ public class DumpsTool
         }
 
         _timer.AddPoint("Pets");
+    }
+
+    private async Task ImportQuestLines(WowDbContext context)
+    {
+        var questLineXQuests = await DataUtilities.LoadDumpCsvAsync<DumpQuestLineXQuest>("questlinexquest");
+
+        var existingQuestIds = (await context.WowQuest
+                .AsNoTracking()
+                .Select(q => q.Id)
+                .ToArrayAsync())
+            .ToHashSet();
+
+        var questLineQuestIds = questLineXQuests
+            .Where(q => !existingQuestIds.Contains(q.QuestID))
+            .Select(q => q.QuestID)
+            .Distinct();
+
+        foreach (int questId in questLineQuestIds)
+        {
+            context.Add(new WowQuest(questId));
+        }
+
+        _timer.AddPoint("QuestLines");
     }
 
     private async Task ImportRecipeItems(WowDbContext context)
