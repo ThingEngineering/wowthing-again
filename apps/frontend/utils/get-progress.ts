@@ -1,6 +1,6 @@
 import find from 'lodash/find';
 
-import { toNiceNumber } from '@/utils/formatting';
+import { leftPad, toNiceNumber } from '@/utils/formatting';
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant';
 import { factionIdMap } from '@/data/faction';
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison';
@@ -138,6 +138,46 @@ export default function getProgress(
 
                     if (group.name === 'Brewfest Intro Quests') {
                         showCurrency = 1037829; // Cyphers of the First Ones
+                    }
+                } else if (group.type === 'campaign') {
+                    datas = [];
+                    const campaign = staticData.campaigns[data.ids[0]];
+
+                    have = 0;
+                    total = 0;
+                    campaign.questLineIds.forEach((questLineId, index) => {
+                        const questLine = staticData.questLines[questLineId];
+                        if (!questLine) {
+                            console.warn('bad questLine?', campaign.id, questLineId);
+                            return;
+                        }
+
+                        let haveQuests = 0;
+                        let totalQuests = 0;
+                        for (const questId of questLine.questIds) {
+                            totalQuests++;
+                            if (userQuestData.characters[character.id]?.quests?.has(questId)) {
+                                haveQuests++;
+                            }
+                        }
+
+                        total++;
+                        if (haveQuests === totalQuests) {
+                            have++;
+                        }
+
+                        datas.push({
+                            ids: data.ids,
+                            name: questLine.name,
+                            type: data.type,
+                            value: 999999,
+                        });
+                        descriptionText[index] = `${haveQuests} / ${totalQuests}`;
+                    });
+
+                    haveThis = have === total;
+                    if (haveThis) {
+                        have--;
                     }
                 } else if (group.type === 'item') {
                     haveThis = data.ids.some((id) => character.getItemCount(id) > 0);

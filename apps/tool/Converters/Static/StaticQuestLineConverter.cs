@@ -15,6 +15,7 @@ public class StaticQuestLineConverter : JsonConverter<StaticQuestLine>
 
         writer.WriteNumberValue(questLine.Id);
         writer.WriteNumberArray(questLine.QuestIds);
+        writer.WriteStringValue(questLine.Name);
 
         writer.WriteEndArray();
     }

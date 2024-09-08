@@ -15,6 +15,7 @@ public class StaticCampaignConverter : JsonConverter<StaticCampaign>
 
         writer.WriteNumberValue(campaign.Id);
         writer.WriteNumberArray(campaign.QuestLineIds);
+        writer.WriteStringValue(campaign.Name);
 
         writer.WriteEndArray();
     }

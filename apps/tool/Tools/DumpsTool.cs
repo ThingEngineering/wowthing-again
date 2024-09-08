@@ -1353,6 +1353,7 @@ public class DumpsTool
             .ToDictionary(
                 group => group.Key,
                 group => group
+                    .Where(ql => (ql.Flags & 0x1) == 0) // IgnoreForCompletion
                     .OrderBy(ql => ql.OrderIndex)
                     .Select(ql => ql.QuestID)
                     .ToList()
