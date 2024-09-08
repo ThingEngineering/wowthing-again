@@ -21,7 +21,11 @@
         actualWidth = (width || size) + (border * 2)
     }
 
-    $: content = typeof(tooltip) === 'string' ? tooltip : tooltip.content as string
+    $: content = tooltip === undefined
+        ? undefined
+        : typeof(tooltip) === 'string'
+            ? tooltip
+            : tooltip.content as string
 </script>
 
 <style lang="scss">
