@@ -44,6 +44,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { ItemData } from '../data/item';
+import type { InventoryType } from '@/enums/inventory-type';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -270,8 +271,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
         return this.level === Constants.characterMaxLevel;
     }
 
-    public bestItemLevels: Record<number, string>;
-    getBestItemLevels(itemData: ItemData, staticData: StaticData): Record<number, string> {
+    public bestItemLevels: Record<number, [string, InventoryType[]]>;
+    getBestItemLevels(
+        itemData: ItemData,
+        staticData: StaticData,
+    ): Record<number, [string, InventoryType[]]> {
         this.bestItemLevels ||= getBestItemLevels(itemData, staticData, this);
         return this.bestItemLevels;
     }
