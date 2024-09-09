@@ -10,32 +10,12 @@ export const modifierToTier: Record<number, number> = {
     [AppearanceModifier.LookingForRaid]: 1,
 };
 
-const dfS2Whelpling: [number, number][] = [
-    [204193, 1],
-    [204075, 15],
-];
-const dfS2Drake: [number, number][] = [
-    [204195, 1],
-    [204076, 15],
-];
-const dfS2Wyrm: [number, number][] = [
-    [204196, 1],
-    [204077, 15],
-];
-const dfS2Aspect: [number, number][] = [
-    [204194, 1],
-    [204078, 15],
-];
+type CrestData = [number, number][];
 
-export const dfS3Whelpling: [number, number][] = [[2706, 15]];
-export const dfS3Drake: [number, number][] = [[2707, 15]];
-export const dfS3Wyrm: [number, number][] = [[2708, 15]];
-export const dfS3Aspect: [number, number][] = [[2709, 15]];
-
-export const dfS4Whelpling: [number, number][] = [[2806, 15]];
-export const dfS4Drake: [number, number][] = [[2807, 15]];
-export const dfS4Wyrm: [number, number][] = [[2809, 15]];
-export const dfS4Aspect: [number, number][] = [[2812, 15]];
+export const warWithinUpgrade1: CrestData = [[2914, 15]]; // Weathered
+export const warWithinUpgrade2: CrestData = [[2915, 15]]; // Carved
+export const warWithinUpgrade3: CrestData = [[2916, 15]]; // Runed
+export const warWithinUpgrade4: CrestData = [[2917, 15]]; // Gilded
 
 export const convertibleCategories: ConvertibleCategory[] = [
     {
@@ -47,39 +27,33 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 519,
-                lowUpgrade: dfS4Wyrm,
-                highUpgrade: dfS4Aspect,
             },
             {
                 itemLevel: 506,
-                lowUpgrade: dfS4Drake,
-                highUpgrade: dfS4Wyrm,
             },
             {
                 itemLevel: 493,
-                lowUpgrade: dfS4Whelpling,
-                highUpgrade: dfS4Drake,
             },
             {
                 itemLevel: 480,
             },
         ],
         purchases: [
-            {
-                costId: 3089, // Residual Memories
-                costAmount: {
-                    [InventoryType.Head]: 5000,
-                    [InventoryType.Shoulders]: 3500,
-                    [InventoryType.Back]: 2000,
-                    [InventoryType.Chest]: 5000,
-                    [InventoryType.Wrist]: 2000,
-                    [InventoryType.Hands]: 3500,
-                    [InventoryType.Waist]: 3500,
-                    [InventoryType.Legs]: 5000,
-                    [InventoryType.Feet]: 3500,
-                },
-                upgradeTier: 1,
-            },
+            // {
+            //     costId: 3089, // Residual Memories
+            //     costAmount: {
+            //         [InventoryType.Head]: 5000,
+            //         [InventoryType.Shoulders]: 3500,
+            //         [InventoryType.Back]: 2000,
+            //         [InventoryType.Chest]: 5000,
+            //         [InventoryType.Wrist]: 2000,
+            //         [InventoryType.Hands]: 3500,
+            //         [InventoryType.Waist]: 3500,
+            //         [InventoryType.Legs]: 5000,
+            //         [InventoryType.Feet]: 3500,
+            //     },
+            //     upgradeTier: 1,
+            // },
         ],
     },
     {
@@ -91,18 +65,12 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 480,
-                lowUpgrade: dfS3Wyrm,
-                highUpgrade: dfS3Aspect,
             },
             {
                 itemLevel: 467,
-                lowUpgrade: dfS3Drake,
-                highUpgrade: dfS3Wyrm,
             },
             {
                 itemLevel: 454,
-                lowUpgrade: dfS3Whelpling,
-                highUpgrade: dfS3Drake,
             },
             {
                 itemLevel: 441,
@@ -131,18 +99,12 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 441,
-                lowUpgrade: dfS2Wyrm,
-                highUpgrade: dfS2Aspect,
             },
             {
                 itemLevel: 428,
-                lowUpgrade: dfS2Drake,
-                highUpgrade: dfS2Wyrm,
             },
             {
                 itemLevel: 415,
-                lowUpgrade: dfS2Whelpling,
-                highUpgrade: dfS2Drake,
             },
             {
                 itemLevel: 402,

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { dfS4Aspect, dfS4Drake, dfS4Whelpling, dfS4Wyrm } from './convertible/data'
+    import { warWithinUpgrade1, warWithinUpgrade2, warWithinUpgrade3, warWithinUpgrade4 } from './convertible/data'
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { itemStore } from '@/stores'
@@ -30,22 +30,19 @@
                     tiers = [null, null]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.adventurer) {
-                    tiers = [null, dfS4Whelpling]
+                    tiers = [null, warWithinUpgrade1]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.veteran) {
-                    tiers = [dfS4Whelpling, dfS4Drake]
+                    tiers = [warWithinUpgrade1, warWithinUpgrade2]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.champion) {
-                    tiers = [dfS4Drake, dfS4Wyrm]
+                    tiers = [warWithinUpgrade2, warWithinUpgrade3]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.hero) {
-                    tiers = [dfS4Wyrm, dfS4Aspect]
+                    tiers = [warWithinUpgrade3, warWithinUpgrade4]
                 }
                 else if (upgrade[0] === Constants.upgradeTiers.myth) {
-                    tiers = [dfS4Aspect, null]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.awakened) {
-                    tiers = [dfS4Drake, dfS4Wyrm, dfS4Aspect]
+                    tiers = [warWithinUpgrade4, null]
                 }
                 else {
                     console.log(upgrade)
@@ -61,7 +58,7 @@
                     return getCurrencyData(tiers[2][0])
                 }
         
-                return ['currency/2245', 0]
+                return ['currency/3008', 0]
             }
         }
 
