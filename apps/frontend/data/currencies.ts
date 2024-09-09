@@ -111,6 +111,7 @@ export const currencyExtra: Record<number, number[]> = {
     ],
     // The War Within - Season 1
     126011: [
+        2813, // Harmonized Silk
         3008, // Valorstones
         2914, // Weathered Harbinger Crest
         2915, // Carved Harbinger Crest
