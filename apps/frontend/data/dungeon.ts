@@ -289,14 +289,14 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [10, 623, 5],
-    [8, 619, 5],
-    [7, 616, 5],
-    [5, 613, 4],
-    [3, 610, 4],
-    [2, 606, 4],
-    [1, 603, 4], // Mythic 0
-    [0, 593, 2], // Heroic
+    [10, 623, 5], // Myth 1
+    [8, 619, 4], // Hero 4
+    [7, 616, 4], // Hero 3
+    [5, 613, 4], // Hero 2
+    [3, 610, 4], // Hero 1
+    [2, 606, 3], // Champion 4
+    [1, 603, 3], // [0] Champion 3
+    [0, 593, 2], // [H] Veteran 4
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
