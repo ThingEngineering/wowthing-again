@@ -9,8 +9,8 @@ export abstract class Constants {
     static readonly defaultUnixTime = 946684800;
 
     static readonly currencies = {
-        catalyst: 2912, // Renascent Awakening
-        itemUpgrade: 2245,
+        catalyst: 2813, // Harmonized Silk
+        itemUpgrade: 3008, // Valorstones
     };
 
     static readonly reputations = {
@@ -27,7 +27,6 @@ export abstract class Constants {
         champion: 973,
         hero: 974,
         myth: 978,
-        awakened: 998,
     };
 
     static readonly icons = {
