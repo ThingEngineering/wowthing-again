@@ -1,4 +1,5 @@
 import { imageStrings } from './icons';
+import { Profession } from '@/enums/profession';
 import type { StaticDataCurrencyCategory } from '@/shared/stores/static/types';
 
 export const categoryOrder: number[] = [
@@ -311,6 +312,17 @@ export const currencyItemCurrencies: Record<number, number> = {
     204078: 2412, // Aspect Crest Fragment
 
     213089: 3010, // Antique Bronze Bullion
+};
+
+export const currencyProfession: Record<number, number> = {
+    3045: Profession.Alchemy,
+    3040: Profession.Blacksmithing,
+    3046: Profession.Enchanting,
+    3044: Profession.Engineering,
+    3043: Profession.Inscription,
+    3013: Profession.Jewelcrafting,
+    3042: Profession.Leatherworking,
+    3041: Profession.Tailoring,
 };
 
 export const currencyIconOverride: Record<number, string> = {
