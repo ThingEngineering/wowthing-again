@@ -24,6 +24,16 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     },
     {
         type: 'spell',
+        key: 'twwAlchemyTransmute',
+        name: '[TWW] Transmute',
+        profession: Profession.Alchemy,
+        cooldown: [
+            [86400], // 24h
+            [60480, 2871, 99058, 21], // 16h48m @ 20 points in Transmutation
+        ],
+    },
+    {
+        type: 'spell',
         key: 'dfTransmute',
         name: '[DF] Transmute',
         profession: Profession.Alchemy,
