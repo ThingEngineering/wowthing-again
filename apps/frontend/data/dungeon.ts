@@ -306,6 +306,16 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
     16: [623, 5], // Mythic
 };
 
+export const delveVaultItemLevel: Array<Array<number>> = [
+    [8, 616, 4], // Hero 3
+    [7, 610, 4], // Hero 1
+    [6, 606, 3], // Champion 4
+    [5, 603, 3], // Champion 3
+    [4, 597, 3], // Champion 1
+    [3, 587, 2], // Veteran 2
+    [1, 584, 2], // Veteran 1
+];
+
 export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
 
 // Fake 'instances' for tracking world bosses
