@@ -20,8 +20,8 @@
     export let playerClass: StaticDataCharacterClass
     export let season: ConvertibleCategory
 
-    $: data = $lazyStore.convertible.seasons[season.id][playerClass.id]
-    $: hasEverySlot = convertibleTypes.every((type) => data[type].modifiers[modifier].userHas)
+    $: data = $lazyStore.convertible.seasons[season.id]?.[playerClass.id]
+    $: hasEverySlot = convertibleTypes.every((type) => data?.[type]?.modifiers[modifier]?.userHas)
     $: stats = $lazyStore.convertible.stats[`${season.id}--c${playerClass.id}--m${modifier}`]
 
     $: filterFunc = function(char: Character): boolean {
@@ -61,76 +61,80 @@
     }
 </style>
 
-<CharacterTable
-    characterLimit={hasEverySlot ? 1 : 0}
-    skipGrouping={true}
-    {filterFunc}
->
-    <CharacterTableHead slot="head">
-        <svelte:fragment slot="headText">
-            <div class="flex-wrapper">
-                <span class="difficulty-text">
-                    {#if modifier === AppearanceModifier.LookingForRaid}
-                        Looking For Raid
+{#if data}
+    <CharacterTable
+        characterLimit={hasEverySlot ? 1 : 0}
+        skipGrouping={true}
+        {filterFunc}
+    >
+        <CharacterTableHead slot="head">
+            <svelte:fragment slot="headText">
+                <div class="flex-wrapper">
+                    <span class="difficulty-text">
+                        {#if modifier === AppearanceModifier.LookingForRaid}
+                            Looking For Raid
+                        {:else}
+                            {AppearanceModifier[modifier]}
+                        {/if}
+                    </span>
+                    <span class="percent-text drop-shadow {getPercentClass(stats.percent)}">
+                        {stats.percent.toFixed(0)} %
+                    </span>
+                </div>
+            </svelte:fragment>
+
+            {#each convertibleTypes as inventoryType}
+                <th class="item-slot">
+                    {InventoryType[inventoryType]}
+                </th>
+            {/each}
+
+            {#if season.id === 3 || season.tiers[0].lowUpgrade}
+                <th class="currency-head" colspan="10"></th>
+            {/if}
+        </CharacterTableHead>
+
+        <svelte:fragment slot="rowExtra" let:character>
+            {#each convertibleTypes as inventoryType}
+                <td class="item-slot">
+                    {#if data[inventoryType].modifiers[modifier].userHas}
+                        <IconifyIcon
+                            extraClass={'status-success'}
+                            icon={uiIcons.yes}
+                        />
                     {:else}
-                        {AppearanceModifier[modifier]}
+                        <CharacterItems
+                            data={data[inventoryType].modifiers[modifier].characters[character.id] || []}
+                        />
                     {/if}
-                </span>
-                <span class="percent-text drop-shadow {getPercentClass(stats.percent)}">
-                    {stats.percent.toFixed(0)} %
-                </span>
-            </div>
+                </td>
+            {/each}
+            
+            {#if season.conversionCurrencyId || !hasEverySlot && (season.id === 3 || season.tiers[0].lowUpgrade)}
+                <CharacterCurrencies
+                    {character}
+                    {season}
+                    tier={modifierToTier[modifier]}
+                />
+            {/if}
         </svelte:fragment>
 
-        {#each convertibleTypes as inventoryType}
-            <th class="item-slot">
-                {InventoryType[inventoryType]}
-            </th>
-        {/each}
-
-        {#if season.id === 3 || season.tiers[0].lowUpgrade}
-            <th class="currency-head" colspan="10"></th>
-        {/if}
-    </CharacterTableHead>
-
-    <svelte:fragment slot="rowExtra" let:character>
-        {#each convertibleTypes as inventoryType}
-            <td class="item-slot">
-                {#if data[inventoryType].modifiers[modifier].userHas}
-                    <IconifyIcon
-                        extraClass={'status-success'}
-                        icon={uiIcons.yes}
-                    />
-                {:else}
-                    <CharacterItems
-                        data={data[inventoryType].modifiers[modifier].characters[character.id] || []}
-                    />
-                {/if}
-            </td>
-        {/each}
-        
-        {#if season.conversionCurrencyId || !hasEverySlot && (season.id === 3 || season.tiers[0].lowUpgrade)}
-            <CharacterCurrencies
-                {character}
-                {season}
-                tier={modifierToTier[modifier]}
-            />
-        {/if}
-    </svelte:fragment>
-
-    <tr slot="emptyRow">
-        <td colspan={$commonColspan}></td>
-        {#each convertibleTypes as inventoryType}
-            <td class="item-slot">
-                {#if data[inventoryType].modifiers[modifier].userHas}
-                    <IconifyIcon
-                        extraClass={'status-success'}
-                        icon={uiIcons.yes}
-                    />
-                {:else}
-                    ---
-                {/if}
-            </td>
-        {/each}
-    </tr>
-</CharacterTable>
+        <tr slot="emptyRow">
+            <td colspan={$commonColspan}></td>
+            {#each convertibleTypes as inventoryType}
+                <td class="item-slot">
+                    {#if data[inventoryType].modifiers[modifier].userHas}
+                        <IconifyIcon
+                            extraClass={'status-success'}
+                            icon={uiIcons.yes}
+                        />
+                    {:else}
+                        ---
+                    {/if}
+                </td>
+            {/each}
+        </tr>
+    </CharacterTable>
+{:else}
+    <p>NO DATA</p>
+{/if}

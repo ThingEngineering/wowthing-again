@@ -46,89 +46,93 @@
     }
 </style>
 
-<div class="wrapper">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th class="name">
-                    {#if modifier === AppearanceModifier.LookingForRaid}
-                        Looking For Raid
-                    {:else}
-                        {AppearanceModifier[modifier]}
-                    {/if}
-                </th>
-                <th class="counts">Now</th>
-                <th class="counts">Max</th>
-                {#each convertibleTypes as inventoryType}
-                    <th class="item-slot">
-                        {InventoryType[inventoryType]}
-                    </th>
-                {/each}
-            </tr>
-        </thead>
-        <tbody>
-            {#each classOrder as classId}
-                {@const characterClass = $staticStore.characterClasses[classId]}
-                {@const slotsHave = Object.values(classData[classId]).filter((mod) => mod.userHas).length}
-                {@const slotsCouldHave = Object.values(classData[classId])
-                    .filter((mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable).length}
-                {@const slotsTotal = Object.values(classData[classId]).length}
+{#if classData}
+    <div class="wrapper">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td class="name class-{classId}">
-                        {getGenderedName(characterClass.name, 0)}
-                    </td>
-                    <td class="counts {getPercentClass(slotsHave / slotsTotal * 100)}">
-                        {slotsHave}
-                        /
-                        {slotsTotal}
-                    </td>
-                    <td class="counts {getPercentClass(slotsCouldHave / slotsTotal * 100)}">
-                        {slotsCouldHave}
-                        /
-                        {slotsTotal}
-                    </td>
-                    
+                    <th class="name">
+                        {#if modifier === AppearanceModifier.LookingForRaid}
+                            Looking For Raid
+                        {:else}
+                            {AppearanceModifier[modifier]}
+                        {/if}
+                    </th>
+                    <th class="counts">Now</th>
+                    <th class="counts">Max</th>
                     {#each convertibleTypes as inventoryType}
-                        {@const data = classData[classId][inventoryType]}
-                        <td
-                            class="item-slot"
-                            use:componentTooltip={{
-                                component: Tooltip,
-                                props: {
-                                    characterClass,
-                                    inventoryType,
-                                    modifier: data,
-                                },
-                            }}
-                        >
-                            {#if data.userHas}
-                                <IconifyIcon
-                                    extraClass={'status-success'}
-                                    icon={uiIcons.yes}
-                                />
-                            {:else}
-                                {#if data.anyIsUpgradeable || data.anyIsConvertible}
-                                    {#if data.anyIsUpgradeable}
-                                        <IconifyIcon
-                                            extraClass={data.anyCanUpgrade ? 'status-shrug' : 'status-fail'}
-                                            icon={uiIcons.plus}
-                                        />
-                                    {/if}
-                                    {#if data.anyIsConvertible}
-                                        <IconifyIcon
-                                            extraClass={data.anyCanConvert ? 'status-shrug' : 'status-fail'}
-                                            icon={iconLibrary.gameShurikenAperture}
-                                            scale={'0.85'}
-                                        />
-                                    {/if}
-                                {:else}
-                                    <span class="status-fail">---</span>
-                                {/if}
-                            {/if}
-                        </td>
+                        <th class="item-slot">
+                            {InventoryType[inventoryType]}
+                        </th>
                     {/each}
                 </tr>
-            {/each}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                {#each classOrder as classId}
+                    {@const characterClass = $staticStore.characterClasses[classId]}
+                    {@const slotsHave = Object.values(classData[classId] || {}).filter((mod) => mod.userHas).length}
+                    {@const slotsCouldHave = Object.values(classData[classId] || {})
+                        .filter((mod) => mod.userHas || mod.anyIsConvertible || mod.anyIsUpgradeable).length}
+                    {@const slotsTotal = Object.values(classData[classId] || {}).length}
+                    <tr>
+                        <td class="name class-{classId}">
+                            {getGenderedName(characterClass.name, 0)}
+                        </td>
+                        <td class="counts {getPercentClass(slotsHave / slotsTotal * 100)}">
+                            {slotsHave}
+                            /
+                            {slotsTotal}
+                        </td>
+                        <td class="counts {getPercentClass(slotsCouldHave / slotsTotal * 100)}">
+                            {slotsCouldHave}
+                            /
+                            {slotsTotal}
+                        </td>
+                        
+                        {#each convertibleTypes as inventoryType}
+                            {@const data = classData[classId]?.[inventoryType]}
+                            <td
+                                class="item-slot"
+                                use:componentTooltip={{
+                                    component: Tooltip,
+                                    props: {
+                                        characterClass,
+                                        inventoryType,
+                                        modifier: data,
+                                    },
+                                }}
+                            >
+                                {#if data?.userHas}
+                                    <IconifyIcon
+                                        extraClass={'status-success'}
+                                        icon={uiIcons.yes}
+                                    />
+                                {:else}
+                                    {#if data?.anyIsUpgradeable || data?.anyIsConvertible}
+                                        {#if data.anyIsUpgradeable}
+                                            <IconifyIcon
+                                                extraClass={data.anyCanUpgrade ? 'status-shrug' : 'status-fail'}
+                                                icon={uiIcons.plus}
+                                            />
+                                        {/if}
+                                        {#if data.anyIsConvertible}
+                                            <IconifyIcon
+                                                extraClass={data.anyCanConvert ? 'status-shrug' : 'status-fail'}
+                                                icon={iconLibrary.gameShurikenAperture}
+                                                scale={'0.85'}
+                                            />
+                                        {/if}
+                                    {:else}
+                                        <span class="status-fail">---</span>
+                                    {/if}
+                                {/if}
+                            </td>
+                        {/each}
+                    </tr>
+                {/each}
+            </tbody>
+        </table>
+    </div>
+{:else}
+    <p>NO DATA</p>
+{/if}

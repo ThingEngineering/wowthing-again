@@ -19,6 +19,27 @@ export const warWithinUpgrade4: CrestData = [[2917, 15]]; // Gilded
 
 export const convertibleCategories: ConvertibleCategory[] = [
     {
+        id: 10,
+        minimumLevel: 80,
+        name: '[TWW] Season 1',
+        slug: 'tww-season-1',
+        conversionCurrencyId: 2813, // Harmonized Silk
+        tiers: [
+            {
+                itemLevel: 623,
+            },
+            {
+                itemLevel: 610,
+            },
+            {
+                itemLevel: 597,
+            },
+            {
+                itemLevel: 584,
+            },
+        ],
+    },
+    {
         id: 9,
         minimumLevel: 70,
         name: '[DF] Season 4',
