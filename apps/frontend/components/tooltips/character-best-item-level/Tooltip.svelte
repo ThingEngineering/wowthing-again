@@ -1,12 +1,16 @@
 <script lang="ts">
-    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
-import { staticStore } from '@/shared/stores/static';
-    import type { StaticDataCharacterSpecialization } from '@/shared/stores/static/types';
-    import type { Character } from '@/types/character';
+    import type { InventoryType } from '@/enums/inventory-type';
+    import { inventoryTypeIcons } from '@/shared/icons/mappings';
+    import { staticStore } from '@/shared/stores/static';
     import { getGenderedName } from '@/utils/get-gendered-name';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
+    import type { StaticDataCharacterSpecialization } from '@/shared/stores/static/types';
+    import type { Character } from '@/types/character';
 
-    export let bestItemLevels: Record<number, string>
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
+
+    export let bestItemLevels: Record<number, [string, InventoryType[]]>
     export let character: Character
 
     let specializations: StaticDataCharacterSpecialization[]
@@ -45,7 +49,7 @@ import { staticStore } from '@/shared/stores/static';
     <table class="table-striped">
         <tbody>
             {#each specializations as specialization}
-                {@const itemLevel = bestItemLevels[specialization.id]}
+                {@const [itemLevel, missingSlots] = bestItemLevels[specialization.id]}
                 <tr>
                     <td class="icon">
                         <SpecializationIcon
@@ -57,6 +61,11 @@ import { staticStore } from '@/shared/stores/static';
                     </td>
                     <td class="quality{getItemLevelQuality(parseFloat(itemLevel))}">
                         {itemLevel}
+                    </td>
+                    <td class="slots status-warn">
+                        {#each missingSlots as missingSlot}
+                            <IconifyIcon icon={inventoryTypeIcons[missingSlot]} />
+                        {/each}
                     </td>
                 </tr>
             {/each}

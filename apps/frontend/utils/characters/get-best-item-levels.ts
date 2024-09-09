@@ -13,18 +13,21 @@ import type { Character } from '@/types/character';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 
+type BestItemLevels = Record<number, [string, InventoryType[]]>;
+
 export function getBestItemLevels(
     itemData: ItemData,
     staticData: StaticData,
     character: Character,
-): Record<number, string> {
-    const ret: Record<number, string> = {};
+): BestItemLevels {
+    const ret: BestItemLevels = {};
 
     const specializations = Object.values(staticData.characterSpecializations).filter(
         (spec) => spec.classId === character.classId,
     );
     for (const specialization of specializations) {
         const bestItemLevels: Record<number, [ItemDataItem, number][]> = {};
+        const missingSlots: InventoryType[] = [];
         const primaryStats = primaryStatToStats[specialization.primaryStat];
 
         for (const locationItem of character.itemsByLocation[ItemLocation.Bags] || []) {
@@ -100,7 +103,11 @@ export function getBestItemLevels(
             } else {
                 // console.log(inventoryType, InventoryType[inventoryType], bestForType[0]?.[1]);
 
-                levels += bestForType[0]?.[1] || 0;
+                const bestItemLevel = bestForType[0]?.[1] || 0;
+                levels += bestItemLevel;
+                if (bestItemLevel === 0) {
+                    missingSlots.push(inventoryType);
+                }
             }
         }
 
@@ -111,6 +118,7 @@ export function getBestItemLevels(
             oneHand: [],
             twoHand: [],
         };
+
         for (const inventoryType of weaponInventoryTypes) {
             const bestForType = bestItemLevels[inventoryType];
             if (!bestForType) {
@@ -134,6 +142,8 @@ export function getBestItemLevels(
                     weaponsByType.oneHand.push([item, itemLevel]);
                 } else if (twoHandWeaponSubclasses.has(item.subclassId)) {
                     weaponsByType.twoHand.push([item, itemLevel]);
+                } else {
+                    console.log('wtf is it then?', item.subclassId);
                 }
             }
         }
@@ -141,7 +151,6 @@ export function getBestItemLevels(
         for (const weapons of Object.values(weaponsByType)) {
             weapons.sort((a, b) => b[1] - a[1]);
         }
-        // console.log(weaponsByType);
 
         count += 2;
         const weaponSetups: number[] = [];
@@ -172,7 +181,7 @@ export function getBestItemLevels(
         }
         levels += Math.max(...weaponSetups);
 
-        ret[specialization.id] = (levels / count).toFixed(1);
+        ret[specialization.id] = [(levels / count).toFixed(1), missingSlots];
 
         // console.log(character.name, specialization.id, specialization.name, bestItemLevels);
     }

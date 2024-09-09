@@ -1,7 +1,7 @@
 import type { DateTime } from 'luxon';
 
 import { toNiceDuration, toNiceNumber } from '../formatting';
-import { currencyItemCurrencies } from '@/data/currencies';
+import { currencyItemCurrencies, currencyProfession } from '@/data/currencies';
 import { CharacterCurrency, type Character } from '@/types/character';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
 import type { UserDataStore } from '@/stores';
@@ -30,17 +30,20 @@ export function getCurrencyData(
     };
 
     if (currency) {
-        const characterCurrency =
-            character.currencies?.[currency.id] || new CharacterCurrency(currency.id);
+        let characterCurrency: CharacterCurrency;
+        if (
+            currencyProfession[currency.id] &&
+            !character.professions?.[currencyProfession[currency.id]]
+        ) {
+            characterCurrency = new CharacterCurrency(currency.id);
+        } else {
+            characterCurrency =
+                character.currencies?.[currency.id] || new CharacterCurrency(currency.id);
+        }
 
         let extraTooltip: string;
         let amount = characterCurrency.quantity;
-        if (
-            characterCurrency.quantity > 0 &&
-            currency.rechargeInterval > 0 &&
-            currency.maxTotal > 0 &&
-            character.scannedCurrencies
-        ) {
+        if (currency.rechargeInterval > 0 && currency.maxTotal > 0 && character.scannedCurrencies) {
             const diff = time.diff(character.scannedCurrencies).toMillis();
             if (diff >= currency.rechargeInterval) {
                 amount = Math.min(
@@ -51,7 +54,7 @@ export function getCurrencyData(
                     const remainingTime =
                         ((characterCurrency.max - amount) / currency.rechargeAmount) *
                             currency.rechargeInterval -
-                        diff;
+                        (diff % currency.rechargeInterval);
                     extraTooltip = `${toNiceDuration(remainingTime)} to max!`;
                 }
             }

@@ -21,6 +21,7 @@
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
+    import RowProfessionConcentration from './table/row/HomeTableRowProfessionConcentration.svelte';
     import RowProfessionCooldowns from './table/row/HomeTableRowProfessionCooldowns.svelte'
     import RowProfessionWorkOrders from './table/row/HomeTableRowProfessionWorkOrders.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
@@ -132,6 +133,9 @@
                     {#if !isPublic}
                         <RowPlayedTime playedTotal={character.playedTotal} />
                     {/if}
+
+                {:else if field === 'professionConcentration'}
+                    <RowProfessionConcentration {character} />
 
                 {:else if field === 'professionCooldowns'}
                     <RowProfessionCooldowns {character} />

@@ -97,7 +97,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                 .map(([bonusId]) => parseInt(bonusId)),
         );
 
-        for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id]) {
+        for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id] ||
+            []) {
             const setItem = stores.itemData.items[setItemId];
             const classId = maskToClass[setItem.classMask];
             const setItemInventoryType = fixedInventoryType(setItem.inventoryType);

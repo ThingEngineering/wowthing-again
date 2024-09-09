@@ -289,14 +289,14 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [10, 623, 5],
-    [8, 619, 5],
-    [7, 616, 5],
-    [5, 613, 4],
-    [3, 610, 4],
-    [2, 606, 4],
-    [1, 603, 4], // Mythic 0
-    [0, 593, 2], // Heroic
+    [10, 623, 5], // Myth 1
+    [8, 619, 4], // Hero 4
+    [7, 616, 4], // Hero 3
+    [5, 613, 4], // Hero 2
+    [3, 610, 4], // Hero 1
+    [2, 606, 3], // Champion 4
+    [1, 603, 3], // [0] Champion 3
+    [0, 593, 2], // [H] Veteran 4
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
@@ -305,6 +305,16 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
     15: [610, 4], // Heroic
     16: [623, 5], // Mythic
 };
+
+export const delveVaultItemLevel: Array<Array<number>> = [
+    [8, 616, 4], // Hero 3
+    [7, 610, 4], // Hero 1
+    [6, 606, 3], // Champion 4
+    [5, 603, 3], // Champion 3
+    [4, 597, 3], // Champion 1
+    [3, 587, 2], // Veteran 2
+    [1, 584, 2], // Veteran 1
+];
 
 export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
 
@@ -478,6 +488,14 @@ export const extraInstances: StaticDataInstance[] = [
         shortName: 'AtH',
     },
 
+    // The War Within
+    {
+        expansion: 10,
+        id: 110001,
+        name: 'War Within World Bosses',
+        shortName: 'WWWB',
+    },
+
     // Holidays
     {
         expansion: 100,
@@ -546,11 +564,13 @@ export const worldBossInstanceIds: number[] = [
     1028, // Battle for Azeroth
     1192, // Shadowlands
     1205, // Dragonflight
+    1278, // Khaz Algar
 ];
 
 export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntries(
     [
         1192, // Shadowlands
         1205, // Dragon Isles
+        1278, // Khaz Algar
     ].map((id) => [id, true]),
 );

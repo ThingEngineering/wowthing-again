@@ -184,6 +184,9 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
 
+        {:else if field === 'professionConcentration'}
+            <td>Concentration</td>
+
         {:else if field === 'professionCooldowns'}
             <td
                 class="sortable"

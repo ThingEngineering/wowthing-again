@@ -37,7 +37,8 @@
         // Convertibles
         const category = convertibleCategories[0]
         const seasonData = $lazyStore.convertible.seasons[category.id][character.classId]
-        
+        if (!seasonData) { break $ }
+
         slots.forEach((inventoryType, index) => {
             if (currentPieces[index][2] === 0) {
                 const slotData = seasonData[inventoryType]

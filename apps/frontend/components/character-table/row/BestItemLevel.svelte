@@ -10,7 +10,7 @@
     export let character: Character;
 
     $: bestItemLevels = character.getBestItemLevels($itemStore, $staticStore);
-    $: itemLevel = bestItemLevels[character.activeSpecId];
+    $: [itemLevel, missingSlots] = bestItemLevels[character.activeSpecId];
 </script>
 
 <style lang="scss">

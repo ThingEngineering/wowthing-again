@@ -1,13 +1,13 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
+    import { convertibleCategories } from './data';
     import { characterClassBySlug } from '@/data/character-class'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import ClassItems from './ClassItems.svelte'
     import DifficultyItems from './DifficultyItems.svelte'
     import Sidebar from './Sidebar.svelte'
-    import { convertibleCategories } from './data';
 
     export let slug1: string
     export let slug2: string
