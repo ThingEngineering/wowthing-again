@@ -478,6 +478,14 @@ export const extraInstances: StaticDataInstance[] = [
         shortName: 'AtH',
     },
 
+    // The War Within
+    {
+        expansion: 10,
+        id: 110001,
+        name: 'War Within World Bosses',
+        shortName: 'WWWB',
+    },
+
     // Holidays
     {
         expansion: 100,
@@ -546,11 +554,13 @@ export const worldBossInstanceIds: number[] = [
     1028, // Battle for Azeroth
     1192, // Shadowlands
     1205, // Dragonflight
+    1278, // Khaz Algar
 ];
 
 export const ignoredLockoutInstances: Record<number, boolean> = Object.fromEntries(
     [
         1192, // Shadowlands
         1205, // Dragon Isles
+        1278, // Khaz Algar
     ].map((id) => [id, true]),
 );
