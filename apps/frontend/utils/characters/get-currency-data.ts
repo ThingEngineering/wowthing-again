@@ -54,7 +54,7 @@ export function getCurrencyData(
                     const remainingTime =
                         ((characterCurrency.max - amount) / currency.rechargeAmount) *
                             currency.rechargeInterval -
-                        diff;
+                        (diff % currency.rechargeInterval);
                     extraTooltip = `${toNiceDuration(remainingTime)} to max!`;
                 }
             }
