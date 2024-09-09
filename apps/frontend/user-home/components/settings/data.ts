@@ -30,6 +30,7 @@ export const homeChoices: SettingsChoice[] = [
     { key: 'playedTime', name: 'Played time' },
     { key: 'professions', name: 'Professions - Primary' },
     { key: 'professionsSecondary', name: 'Professions - Secondary' },
+    { key: 'professionConcentration', name: 'Profession Concentration' },
     { key: 'professionCooldowns', name: 'Profession Cooldowns' },
     { key: 'professionWorkOrders', name: 'Profession Work Orders' },
     { key: 'restedExperience', name: 'Rested XP' },

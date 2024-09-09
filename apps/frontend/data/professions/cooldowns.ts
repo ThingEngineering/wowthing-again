@@ -1,6 +1,17 @@
 import { Profession } from '@/enums/profession';
 import type { ProfessionCooldownQuest, ProfessionCooldownSpell } from '@/types';
 
+export const professionConcentration: Record<number, number> = {
+    [Profession.Alchemy]: 3045,
+    [Profession.Blacksmithing]: 3040,
+    [Profession.Enchanting]: 3046,
+    [Profession.Engineering]: 3044,
+    [Profession.Inscription]: 3043,
+    [Profession.Jewelcrafting]: 3013,
+    [Profession.Leatherworking]: 3042,
+    [Profession.Tailoring]: 3041,
+};
+
 // cooldown of 0 = "use the addon data"
 export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownSpell)[] = [
     // Alchemy

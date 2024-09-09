@@ -96,6 +96,7 @@ public class ApplicationUserSettings
         "lockouts",
         "mythicPlusScore",
         "playedTime",
+        "professionConcentration",
         "professionCooldowns",
         "professionWorkOrders",
         "professions",
