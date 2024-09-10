@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { warWithinUpgrade1, warWithinUpgrade2, warWithinUpgrade3, warWithinUpgrade4 } from './convertible/data';
+    import { Constants } from '@/data/constants';
     import { componentTooltip } from '@/shared/utils/tooltips'
     import type { Character } from '@/types'
     
@@ -9,12 +11,12 @@
 
     const currencies: number[][] = [
         [
-            2806, // Whelpling's Awakened Crest
-            2807, // Drake's Awakened Crest
+            warWithinUpgrade1[0][0],
+            warWithinUpgrade2[0][0]
         ],
         [
-            2809, // Wyrm's Awakened Crest
-            2812, // Aspect's Awakened Crest
+            warWithinUpgrade3[0][0],
+            warWithinUpgrade4[0][0]
         ],
     ]
 </script>
@@ -48,7 +50,7 @@
     .amount {
         display: inline-block;
         text-align: right;
-        width: 1.2rem;
+        width: 1.8rem;
     }
     .faded {
         opacity: 0.5;
@@ -61,10 +63,10 @@
     <div class="flightstones-wrapper">
         <WowthingImage
             border={1}
-            name='currency/2245'
+            name="currency/{Constants.currencies.itemUpgrade}"
             size={24}
         />
-        {(character.currencies?.[2245]?.quantity || 0).toLocaleString()}
+        {(character.currencies?.[Constants.currencies.itemUpgrade]?.quantity || 0).toLocaleString()}
     </div>
 </td>
 
