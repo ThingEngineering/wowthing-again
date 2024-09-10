@@ -319,6 +319,8 @@ export const currencyItemCurrencies: Record<number, number> = {
     204078: 2412, // Aspect Crest Fragment
 
     213089: 3010, // Antique Bronze Bullion
+
+    211297: 3023, // Fractured Spark of Omens
 };
 
 export const currencyProfession: Record<number, number> = {
