@@ -118,6 +118,7 @@ export const currencyExtra: Record<number, number[]> = {
         2915, // Carved Harbinger Crest
         2916, // Runed Harbinger Crest
         2917, // Gilded Harbinger Crest
+        3028, // Restored Coffer Key
     ],
 
     // Dragonflight
@@ -275,8 +276,14 @@ export const currencyItems: Record<number, number[]> = {
         213089, // Antique Bronze Bullion
     ],
 
+    // The War Within
+    260: [
+        210814, // Artisan's Acuity
+        229899, // Coffer Key Shard
+    ],
     // The War Within - Season 1
     126011: [
+        229899, // Coffer Key Shard
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
     ],
@@ -312,6 +319,8 @@ export const currencyItemCurrencies: Record<number, number> = {
     204078: 2412, // Aspect Crest Fragment
 
     213089: 3010, // Antique Bronze Bullion
+
+    211297: 3023, // Fractured Spark of Omens
 };
 
 export const currencyProfession: Record<number, number> = {
