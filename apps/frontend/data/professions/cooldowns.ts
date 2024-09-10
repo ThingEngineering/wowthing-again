@@ -227,7 +227,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
@@ -237,7 +237,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
@@ -247,7 +247,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
@@ -257,7 +257,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Jewelcrafting,
         cooldown: [
             [72000], // 20h
-            [36000, 2829, 28607, 11], // 10h @ 10 points in Glasware
+            [36000, 2829, 28607, 11], // 10h @ 10 points in Glassware
         ],
     },
     {
@@ -345,6 +345,8 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Tailoring,
         cooldown: [
             [60480], // 16h48m
+            [43200, 2883, 100304, 1], // 12h @ unlocked Dawnweaving
+            [30240, 2883, 100304, 21], // 8h24m @ 20 points in Dawnweaving
         ],
     },
     {
@@ -354,6 +356,8 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         profession: Profession.Tailoring,
         cooldown: [
             [60480], // 16h48m
+            [43200, 2883, 100302, 1], // 12h @ unlocked Duskweaving
+            [30240, 2883, 100302, 21], // 8h24m @ 20 points in Duskweaving
         ],
     },
     {
