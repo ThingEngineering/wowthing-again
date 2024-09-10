@@ -1,12 +1,15 @@
-/* eslint-disable no-undef */
-const path = require('path')
-const sveltePreprocess = require('svelte-preprocess')
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// eslint-disable-next-line no-undef
-module.exports = {
+import { sveltePreprocess } from 'svelte-preprocess';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+console.log(__dirname);
+
+const config = {
     preprocess: sveltePreprocess({
         scss: {
-            // eslint-disable-next-line no-undef
             includePaths: [path.join(__dirname, 'scss')],
             prependData: `
 @import 'mixins.scss';
@@ -17,4 +20,6 @@ module.exports = {
     vitePlugin: {
         // include, exclude, emitCss, hot, ignorePluginPreprocessors, disableDependencyReinclusion, experimental
     },
-}
+};
+
+export default config;

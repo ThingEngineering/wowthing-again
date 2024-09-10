@@ -17,6 +17,7 @@
         "skipLibCheck": true,
         "skipDefaultLibCheck": true,
         "sourceMap": true,
+        "verbatimModuleSyntax": true,
         "paths": {
             "@wowthing/testlib": ["packages/testlib/src/index.ts"]
         }
