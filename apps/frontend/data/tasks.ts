@@ -819,8 +819,8 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 80,
         },
         {
-            taskKey: 'twwWorldsoul',
-            taskName: '[Dor] Worldsoul',
+            taskKey: 'twwEmissary',
+            taskName: '[Dor] Emissary',
             minimumLevel: 70,
         },
         {
