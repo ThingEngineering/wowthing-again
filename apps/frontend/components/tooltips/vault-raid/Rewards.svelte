@@ -7,8 +7,8 @@
     let rewards: [CharacterItem, CalculatedItemData][]
     $: rewards = [
         character.weekly.vault.raidProgress,
-        character.weekly.vault.mythicPlusProgress,
-        character.weekly.vault.rankedPvpProgress,
+        character.weekly.vault.dungeonProgress,
+        character.weekly.vault.worldProgress,
     ].flatMap((progress) => progress.flatMap((tier) => tier.rewards))
         .filter((reward) => !!reward)
         .map((reward) => [reward, applyBonusIds(reward)])

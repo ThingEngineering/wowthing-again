@@ -17,7 +17,7 @@
     let progress: CharacterWeeklyProgress[]
     let runs: CharacterMythicPlusAddonRun[]
     $: {
-        progress = character.weekly?.vault?.mythicPlusProgress
+        progress = character.weekly?.vault?.dungeonProgress
 
         const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, character)
         runs = sortBy(

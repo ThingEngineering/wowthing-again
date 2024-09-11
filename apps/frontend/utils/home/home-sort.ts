@@ -76,7 +76,7 @@ export function homeSort(
             return leftPad(999 - parseInt(rested), 3, '0');
         }
     } else if (sortBy === 'vaultMythicPlus') {
-        const progress = char.isMaxLevel ? char.weekly?.vault?.mythicPlusProgress : [];
+        const progress = char.isMaxLevel ? char.weekly?.vault?.dungeonProgress : [];
         return [
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[0]))[0], 3, '0'),
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[1]))[0], 3, '0'),

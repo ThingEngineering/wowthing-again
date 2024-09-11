@@ -9,19 +9,19 @@ export class CharacterWeekly {
         public keystoneLevel: number,
         public vaultScannedAt?: string,
         public vaultHasRewards?: boolean,
-        mythicPlusProgress?: CharacterWeeklyProgressArray[],
+        dungeonProgress?: CharacterWeeklyProgressArray[],
         raidProgress?: CharacterWeeklyProgressArray[],
-        rankedPvpProgress?: CharacterWeeklyProgressArray[],
+        worldProgress?: CharacterWeeklyProgressArray[],
     ) {
         if (vaultScannedAt) {
             this.vault = {
-                mythicPlusProgress: (mythicPlusProgress || []).map(
+                dungeonProgress: (dungeonProgress || []).map(
                     (array) => new CharacterWeeklyProgress(...array),
                 ),
                 raidProgress: (raidProgress || []).map(
                     (array) => new CharacterWeeklyProgress(...array),
                 ),
-                rankedPvpProgress: (rankedPvpProgress || []).map(
+                worldProgress: (worldProgress || []).map(
                     (array) => new CharacterWeeklyProgress(...array),
                 ),
             };
@@ -31,9 +31,9 @@ export class CharacterWeekly {
 export type CharacterWeeklyArray = ConstructorParameters<typeof CharacterWeekly>;
 
 export interface CharacterWeeklyVault {
-    mythicPlusProgress: CharacterWeeklyProgress[];
-    rankedPvpProgress: CharacterWeeklyProgress[];
+    dungeonProgress: CharacterWeeklyProgress[];
     raidProgress: CharacterWeeklyProgress[];
+    worldProgress: CharacterWeeklyProgress[];
 }
 
 export class CharacterWeeklyProgress {

@@ -7,7 +7,7 @@
 
     export let character: Character
 
-    $: pvpVault = character.isMaxLevel ? character.weekly?.vault?.rankedPvpProgress : []
+    $: pvpVault = character.isMaxLevel ? character.weekly?.vault?.worldProgress : []
 </script>
 
 <style lang="scss">
