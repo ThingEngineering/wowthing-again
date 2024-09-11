@@ -11,16 +11,16 @@
     export let view: SettingsView
 
     const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey]
-        .map((t) => ({ key: t.taskKey, name: t.taskName }))
+        .map((t) => ({ id: t.taskKey, name: t.taskName }))
 
     let taskActive: string[] = taskChoices
-        .filter((choice) => (view.disabledChores[multiTaskKey] || []).indexOf(choice.key) === -1)
-        .map((choice) => choice.key)
+        .filter((choice) => (view.disabledChores[multiTaskKey] || []).indexOf(choice.id) === -1)
+        .map((choice) => choice.id)
 
     $: {
         const taskInactive: string[] = taskChoices
-            .filter((choice) => taskActive.indexOf(choice.key) === -1)
-            .map((choice) => choice.key)
+            .filter((choice) => taskActive.indexOf(choice.id) === -1)
+            .map((choice) => choice.id)
 
         onTaskChange(taskInactive)
     }
@@ -46,9 +46,9 @@
 <div class="multi-tasks">
     {#each taskChoices as choice}
         <GroupedCheckbox
-            name="choice_{choice.key}"
+            name="choice_{choice.id}"
             tooltip={choice.name}
-            value={choice.key}
+            value={choice.id}
             bind:bindGroup={taskActive}
         >
             <ParsedText text={choice.name} />

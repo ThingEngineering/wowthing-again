@@ -65,7 +65,7 @@
 </div>
 
 <div class="settings-block">
-    <h3>Dragonflight Profession Weeklies</h3>
+    <h3>Profession Weeklies</h3>
 
     <CheckboxInput
         bind:value={$settingsStore.professions.dragonflightCountCraftingDrops}

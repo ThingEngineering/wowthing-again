@@ -21,7 +21,10 @@
             for (const item of Object.values($itemStore.items)) {
                 const lowerName = item.name.toLocaleLowerCase()
                 if (itemWords.every((word) => lowerName.indexOf(word) >= 0)) {
-                    itemChoices.push(item)
+                    itemChoices.push({
+                        id: item.id.toString(),
+                        name: item.name
+                    })
                     if (itemChoices.length === 50) {
                         break
                     }
@@ -31,14 +34,6 @@
 
         itemChoices.sort((a, b) => a.name.localeCompare(b.name))
     }
-
-    $: itemsActive = view.homeItems.map((active) => $itemStore.items[active])
-    
-    $: itemsInactive = itemChoices.filter((item) => !itemsActive.some((active) => active.key === item.key))
-
-    const onItemsChange = debounce(() => {
-        view.homeItems = itemsActive.map((item) => parseInt(item.key))
-    }, 100)
 </script>
 
 <style lang="scss">
@@ -59,15 +54,10 @@
     }
 </style>
 
-<div class="settings-block">
-    <h3>
-        Items
-        {#if !active}
-            <span>add to Home columns to configure</span>
-        {/if}
-    </h3>
+{#if active}
+    <div class="settings-block">
+        <h3>Items</h3>
 
-    {#if active}
         <div class="filter-items">
             <TextInput
                 name="filter"
@@ -80,9 +70,8 @@
         <MagicLists
             key="items"
             title="Items"
-            onFunc={onItemsChange}
-            active={itemsActive}
-            inactive={itemsInactive}
+            choices={itemChoices}
+            bind:activeNumberIds={view.homeItems}
         />
-    {/if}
-</div>
+    </div>
+{/if}

@@ -7,12 +7,12 @@
     import TooltipCharacterFilter from '@/components/tooltips/character-filter/TooltipCharacterFilter.svelte'
     import TextInput from '@/shared/components/forms/TextInput.svelte'
 
-    import TableSettings from './TableSettings.svelte'
     import Currencies from './Currencies.svelte'
     import Grouping from './Grouping.svelte'
     import Items from './Items.svelte'
     import Lockouts from './Lockouts.svelte'
     import Sorting from './Sorting.svelte'
+    import TableSettings from './TableSettings.svelte'
     import Tasks from './Tasks.svelte'
 
     export let params: { view: string }
@@ -37,12 +37,15 @@
         :global(label) {
             flex-basis: 10rem;
         }
+        :global(input) {
+            background: $highlight-background;
+        }
     }
 </style>
 
 {#if view}
+    <h2 class="text-overflow">Views &gt; {view.name}</h2>
     <div class="settings-block">
-        <h2 class="text-overflow">Views &gt; {view.name}</h2>
         <div
             class="view-edit"
             data-id={view.id}
@@ -54,6 +57,9 @@
                 bind:value={view.name}
             />
         </div>
+    </div>
+        
+    <div class="settings-block">
         <div
             class="view-edit"
             data-id={view.id}
@@ -71,8 +77,11 @@
     </div>
 
     {#key `view--${view.id}`}
-        <Grouping {view} />
-        <Sorting {view} />
+        <div class="settings-block settings-block-big">
+            <Grouping {view} />
+            <Sorting {view} />
+        </div>
+
         <TableSettings {view} />
 
         <Currencies

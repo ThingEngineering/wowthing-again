@@ -1,8 +1,9 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
+    import { characterNameTooltipChoices } from '@/data/settings';
+    import { settingsStore } from '@/shared/stores/settings'
     import { timeStore } from '@/shared/stores/time'
     import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
     import { toNiceDuration } from '@/utils/formatting'
     import { getCharacterRested } from '@/utils/get-character-rested'
     import getRaiderIoColor from '@/utils/get-raider-io-color'
@@ -11,12 +12,11 @@
     import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
     import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import Keystone from '@/components/character-table/row/Keystone.svelte'
-    import { characterNameTooltipChoices } from '@/data/settings';
 
     export let character: Character
 
     $: enabledChoices = characterNameTooltipChoices
-        .filter((choice) => !$settingsStore.characters.disabledNameTooltip.includes(choice.key));
+        .filter((choice) => !$settingsStore.characters.disabledNameTooltip.includes(choice.id));
 </script>
 
 <style lang="scss">
@@ -56,26 +56,26 @@
 
     <table class="table-striped">
         <tbody>
-            {#each enabledChoices as { key }}
-                {#if key === 'currentLocation'}
+            {#each enabledChoices as { id }}
+                {#if id === 'currentLocation'}
                     <tr>
                         <td>Current loc.</td>
                         <CurrentLocation {character} />
                     </tr>
                 
-                {:else if key === 'hearthLocation'}
+                {:else if id === 'hearthLocation'}
                     <tr>
                         <td>Hearth loc.</td>
                         <td>{character.hearthLocation || '---'}</td>
                     </tr>
                 
-                {:else if key === 'itemLevel'}
+                {:else if id === 'itemLevel'}
                     <tr>
                         <td>Item level</td>
                         <ItemLevel {character} />
                     </tr>
                 
-                {:else if key === 'last'}
+                {:else if id === 'last'}
                     <tr>
                         <td>Addon seen</td>
                         <td>
@@ -99,13 +99,13 @@
                         </td>
                     </tr>
 
-                {:else if key === 'mythicPlusKeystone'}
+                {:else if id === 'mythicPlusKeystone'}
                     <tr>
                         <td>M+ key</td>
                         <Keystone {character} />
                     </tr>
 
-                {:else if key === 'mythicPlusScore'}
+                {:else if id === 'mythicPlusScore'}
                     {@const scores = character.raiderIo?.[Constants.mythicPlusSeason]}
                     {@const tiers = $userStore.raiderIoScoreTiers?.[Constants.mythicPlusSeason]}
                     {@const overallScore = character.mythicPlusSeasonScores?.[Constants.mythicPlusSeason] || scores?.['all'] || 0}
@@ -116,7 +116,7 @@
                         </td>
                     </tr>
                 
-                {:else if key === 'playedTime'}
+                {:else if id === 'playedTime'}
                     <tr>
                         <td>Played time</td>
                         <td>
@@ -124,7 +124,7 @@
                         </td>
                     </tr>
 
-                {:else if key === 'restedXp'}
+                {:else if id === 'restedXp'}
                     {@const [rested, restedRemaining] = getCharacterRested($timeStore, character)}
                     <tr>
                         <td>Rested XP</td>

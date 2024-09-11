@@ -13,15 +13,15 @@
 
     const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key)
 
-    const taskChoices: SettingsChoice[] = taskList.map((t) => ({ key: t.key, name: t.name }))
+    const taskChoices: SettingsChoice[] = taskList.map((t) => ({ id: t.key, name: t.name }))
 
     const taskActive = view.homeTasks
-        .map((f) => taskChoices.filter((c) => c.key === f)[0])
+        .map((f) => taskChoices.filter((c) => c.id === f)[0])
         .filter(f => f !== undefined)
     const taskInactive = taskChoices.filter((c) => taskActive.indexOf(c) === -1)
 
     const onTaskChange = debounce(() => {
-        view.homeTasks = taskActive.map((c) => c.key)
+        view.homeTasks = taskActive.map((c) => c.id)
     }, 100)
 </script>
 
@@ -41,16 +41,10 @@
     </h3>
 
     {#if active}
-        <p>
-            <code>[Holiday]</code> and <code>[Weekly]</code> tasks will only show that column when that
-            holiday/weekly is active.
-        </p>
-
         <MagicLists
             key='lockouts'
-            onFunc={onTaskChange}
-            active={taskActive}
-            inactive={taskInactive}
+            choices={taskChoices}
+            bind:activeStringIds={view.homeTasks}
         />
     {/if}
 </div>

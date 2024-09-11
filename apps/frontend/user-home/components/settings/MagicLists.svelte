@@ -1,20 +1,42 @@
 <script lang="ts">
-    import ListView from 'svelte-sortable-flat-list-view'
-
     import { uiIcons } from '@/shared/icons'
     import type { SettingsChoice } from '@/shared/stores/settings/types'
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import MagicList from './MagicList.svelte'
 
-    export let active: SettingsChoice[]
-    export let inactive: SettingsChoice[]
+    export let activeNumberIds: number[] = undefined
+    export let activeStringIds: string[] = undefined
+    export let choices: SettingsChoice[]
     export let key: string
-    export let onFunc: () => void
+    export let saveInactive = false
     export let title: string = undefined
 
-    const keyType = `item/${key}`
-    const keyFunc = (item: SettingsChoice) => item.key
+    let activeItems: SettingsChoice[] = (activeNumberIds !== undefined
+        ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
+        : activeStringIds.map((id) => choices.find((item) => item.id === id))
+    ).filter((item) => !!item)
+    let inactiveItems: SettingsChoice[] = choices.filter((item) => activeNumberIds !== undefined
+        ? !activeNumberIds.includes(parseInt(item.id))
+        : !activeStringIds.includes(item.id))
+
+    function onActiveChange() {
+        if (!saveInactive) {
+            if (activeNumberIds !== undefined) {
+                activeNumberIds = activeItems.map((item) => parseInt(item.id))
+            } else {
+                activeStringIds = activeItems.map((item) => item.id)
+            }
+        }
+    }
+    function onInactiveChange() {
+        if (saveInactive) {
+            if (activeNumberIds !== undefined) {
+                activeNumberIds = activeItems.map((item) => parseInt(item.id))
+            } else {
+                activeStringIds = activeItems.map((item) => item.id)
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -47,31 +69,9 @@
         display: flex;
         flex: 1;
         flex-direction: column;
+        height: var(--magic-max-height, 21rem);
         max-height: var(--magic-max-height, 21rem);
         min-height: var(--magic-min-height, none);
-        overflow-y: auto;
-
-        & :global(.defaultListView) {
-            background: $highlight-background;
-            border-radius: $border-radius;
-            flex: 1;
-            width: 100%;
-
-            & :global(.ListItemView) {
-                animation: none !important;
-            }
-
-            & :global(.selected:not(.dragged)) {
-                background: $active-background !important;
-            }
-
-            & :global(svg) {
-                color: #8cf;
-                margin-top: 0.2rem;
-                position: absolute;
-                right: 0.1rem;
-            }
-        }
     }
 </style>
 
@@ -82,46 +82,39 @@
     
     <div class="wrapper">
         <div class="column">
-            <ListView
-                Key={keyFunc}
-                List={active}
-                Operations="copy"
-                PanSpeed={0}
-                SelectionLimit={1}
-                DataToOffer={{ [keyType]: '' }}
-                TypesToAccept={{ [keyType]: 'all' }}
-                sortable={true}
-                withTransitions={false}
-                on:inserted-items={onFunc}
-                on:removed-items={onFunc}
-                on:sorted-items={onFunc}
-                let:Item
-            >
-                <span class="name">
-                    <ParsedText text={Item.name} />
-                </span>
-                <IconifyIcon icon={uiIcons.yes} />
-            </ListView>
+            {#if saveInactive}
+                <MagicList
+                    bind:items={inactiveItems}
+                    icon={uiIcons.yes}
+                    type={key}
+                    onFunc={onInactiveChange}
+                />
+            {:else}
+                <MagicList
+                    bind:items={activeItems}
+                    icon={uiIcons.yes}
+                    type={key}
+                    onFunc={onActiveChange}
+                />
+            {/if}
         </div>
 
         <div class="column">
-            <ListView
-                Key={keyFunc}
-                List={inactive}
-                Operations="copy"
-                PanSpeed={0}
-                SelectionLimit={1}
-                DataToOffer={{ [keyType]: '' }}
-                TypesToAccept={{ [keyType]: 'all' }}
-                sortable={true}
-                withTransitions={false}
-                let:Item
-            >
-                <span class="name">
-                    <ParsedText text={Item.name} />
-                </span>
-                <IconifyIcon icon={uiIcons.no} />
-            </ListView>
+            {#if saveInactive}
+                <MagicList
+                    bind:items={activeItems}
+                    icon={uiIcons.no}
+                    type={key}
+                    onFunc={onActiveChange}
+                />
+            {:else}
+                <MagicList
+                    bind:items={inactiveItems}
+                    icon={uiIcons.no}
+                    type={key}
+                    onFunc={onInactiveChange}
+                />
+            {/if}
         </div>
     </div>
 </div>

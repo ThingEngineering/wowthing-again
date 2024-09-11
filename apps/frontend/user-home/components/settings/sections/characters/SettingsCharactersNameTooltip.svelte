@@ -8,7 +8,7 @@
     import MagicLists from '@/user-home/components/settings/MagicLists.svelte'
 
     let dataActive = characterNameTooltipChoices
-        .filter((choice) => ($settingsStore.characters.disabledNameTooltip || []).indexOf(choice.key) === -1);
+        .filter((choice) => ($settingsStore.characters.disabledNameTooltip || []).indexOf(choice.id) === -1);
 
     let dataInactive: SettingsChoice[]
     $: {
@@ -20,7 +20,7 @@
 
     const onDataChange = debounce(() => {
         settingsStore.update((state) => {
-            state.characters.disabledNameTooltip = dataInactive.map((choice) => choice.key);
+            state.characters.disabledNameTooltip = dataInactive.map((choice) => choice.id);
             return state;
         })
     }, 250);
@@ -31,8 +31,8 @@
 
     <MagicLists
         key={"character-tooltip-data"}
-        onFunc={onDataChange}
-        active={dataActive}
-        inactive={dataInactive}
+        choices={characterNameTooltipChoices}
+        bind:activeStringIds={$settingsStore.characters.disabledNameTooltip}
+        saveInactive={true}
     />
 </div>
