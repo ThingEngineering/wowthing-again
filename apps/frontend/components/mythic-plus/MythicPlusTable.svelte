@@ -26,7 +26,7 @@
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
-    import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte'
     import TableFoot from './TableFoot.svelte'
 
     export let slug: string
@@ -157,7 +157,7 @@
             {/if}
 
             {#if isThisWeek}
-                <RowVaultMythicPlus {character} />
+                <RowVaultDungeon {character} />
             {/if}
 
             {#each season.orders as order}

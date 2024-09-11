@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { difficultyMap } from '@/data/difficulty'
     import getItemLevelQuality from '@/utils/get-item-level-quality';
-    import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
+    import { getWorldTier } from '@/utils/vault/get-world-tier';
     import type { CharacterWeeklyProgress } from '@/types'
 
     export let progress: CharacterWeeklyProgress
@@ -13,13 +12,13 @@
     $: {
         if (progress.progress >= progress.threshold) {
             cls = 'vault-reward'
-            dungeonName = difficultyMap[progress.level].name
-            itemLevel = getRaidVaultItemLevel(progress)[0]
+            dungeonName = 'Activities/Delves'
+            itemLevel = getWorldTier(progress.level)[0]
         }
         else {
             const more = progress.threshold - progress.progress
             cls = 'vault-more'
-            dungeonName = `Kill ${more} more boss${more === 1 ? '' : 'es'}`
+            dungeonName = `Do ${more} more ${more === 1 ? 'activity/delve' : 'activities/delves'}`
         }
     }
 </script>

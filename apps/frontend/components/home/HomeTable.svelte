@@ -28,7 +28,7 @@
     import RowSettings from './table/row/HomeTableRowSettings.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTasks from './table/row/HomeTableRowTasks.svelte'
-    import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
     import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte'
     import ViewSwitcher from './table/ViewSwitcher.svelte'
@@ -161,7 +161,7 @@
                     <RowTasks {character} />
 
                 {:else if field === 'vaultMythicPlus'}
-                    <RowVaultMythicPlus {character} />
+                    <RowVaultDungeon {character} />
 
                 {:else if field === 'vaultRaid'}
                     <RowVaultRaid {character} />

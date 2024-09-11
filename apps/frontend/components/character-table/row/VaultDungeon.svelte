@@ -9,7 +9,7 @@
 
     export let character: Character
 
-    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.mythicPlusProgress : []
+    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.dungeonProgress : []
     
     function qualityFunc(prog: CharacterWeeklyProgress): number {
         return getVaultItemLevel(getDungeonLevel(prog))[1]
