@@ -11,9 +11,10 @@
     export let saveInactive = false
     export let title: string = undefined
 
-    let activeItems: SettingsChoice[] = choices.filter((item) => activeNumberIds !== undefined
-        ? activeNumberIds.includes(parseInt(item.id))
-        : activeStringIds.includes(item.id))
+    let activeItems: SettingsChoice[] = (activeNumberIds !== undefined
+        ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
+        : activeStringIds.map((id) => choices.find((item) => item.id === id))
+    ).filter((item) => !!item)
     let inactiveItems: SettingsChoice[] = choices.filter((item) => activeNumberIds !== undefined
         ? !activeNumberIds.includes(parseInt(item.id))
         : !activeStringIds.includes(item.id))
