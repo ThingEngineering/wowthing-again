@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
     import Router from 'svelte-spa-router'
 
-    import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { MultiSlugParams } from '@/types'
 
     import Achievements from './sections/SettingsAchievements.svelte'
@@ -51,47 +49,15 @@
         '/views': Views,
         '/views/:view': View,
     }
-
-    let containerElement: HTMLElement
-    let resizeableElement: HTMLElement
-    let debouncedResize: () => void
-    $: {
-        if (resizeableElement) {
-            debouncedResize = getColumnResizer(
-                containerElement,
-                resizeableElement,
-                'settings-block',
-                {
-                    columnCount: '--column-count',
-                    gap: 30,
-                    padding: '2rem'
-                }
-            )
-            debouncedResize()
-        }
-        else {
-            debouncedResize = null
-        }
-    }
-    
-    afterUpdate(() => debouncedResize?.())
 </script>
 
-<svelte:window on:resize={debouncedResize} />
-
-<div class="wrapper-column">
-    <div class="resizer-view" bind:this={containerElement}>
-        <div bind:this={resizeableElement}>
-            <div class="thing-container settings-container">
-                <Router
-                    prefix={'/settings'}
-                    {routes}
-                />
-            </div>
-        </div>
-    </div>
-
-    {#if params.slug1 === 'layout' && !params.slug2}
-        <HomeTable characterLimit={2} />
-    {/if}
+<div class="thing-container settings-container">
+    <Router
+        prefix={'/settings'}
+        {routes}
+    />
 </div>
+
+{#if params.slug1 === 'layout' && !params.slug2}
+    <HomeTable characterLimit={2} />
+{/if}

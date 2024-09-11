@@ -1,5 +1,4 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
 
     import { userStore } from '@/stores'
@@ -10,32 +9,15 @@
 
     import MagicLists from '../../MagicLists.svelte'
 
-    const allCharacters: SettingsChoice[] = $userStore.characters.map((char) => ({
-        key: char.id.toString(),
-        name: `${char.name}-${char.realm.name}`,
-    }))
-
     const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
 
-    const activeCharacters = sortBy(
-        allCharacters.filter(
-            (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) >= 0
-        ),
-        (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key))
-    )
-    const inactiveCharacters = sortBy(
-        allCharacters.filter(
-            (char) => $settingsStore.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
-        ),
-        (char) => sortFunc($userStore.characterMap[parseInt(char.key)])
-    )
-
-    const onFunc = debounce(() => {
-        settingsStore.update(state => {
-            state.characters.pinnedCharacters = activeCharacters.map((c) => parseInt(c.key))
-            return state
-        })
-    }, 100)
+    const characterChoices: SettingsChoice[] = sortBy(
+        $userStore.characters,
+        (char) => sortFunc(char)
+    ).map((char) => ({
+            id: char.id.toString(),
+            name: `${char.name}-${char.realm.name}`,
+        }))
 </script>
 
 <style lang="scss">
@@ -51,9 +33,7 @@
 
     <MagicLists
         key="pin"
-        title="Pin Characters"
-        onFunc={onFunc}
-        active={activeCharacters}
-        inactive={inactiveCharacters}
+        choices={characterChoices}
+        bind:activeNumberIds={$settingsStore.characters.pinnedCharacters}
     />
 </div>

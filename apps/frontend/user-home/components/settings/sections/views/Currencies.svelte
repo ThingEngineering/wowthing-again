@@ -1,7 +1,6 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
-    import uniqBy from 'lodash/uniqBy'
     import sortBy from 'lodash/sortBy'
+    import uniqBy from 'lodash/uniqBy'
 
     import { categoryChildren, categoryOrder, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
     import { staticStore } from '@/shared/stores/static'
@@ -9,12 +8,12 @@
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
+    // import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let active: boolean
     export let view: SettingsView
 
-    let currencyFilter: string
+    // let currencyFilter: string
 
     const categoryPrefix: Record<number, string> = {
         260: '[TWW]', // The War Within
@@ -54,7 +53,7 @@
                 }
 
                 currencies.push({
-                    key: currency.id.toString(),
+                    id: currency.id.toString(),
                     name: currency.name,
                 })
             }
@@ -64,7 +63,7 @@
                     const currency = $staticStore.currencies[currencyId]
                     if (currency) {
                         currencies.push({
-                            key: currency.id.toString(),
+                            id: currency.id.toString(),
                             name: currency.name,
                         })
                     }
@@ -74,7 +73,7 @@
                     const item = $itemStore.items[itemId]
                     if (item) {
                         currencies.push({
-                            key: (itemId + 1000000).toString(),
+                            id: (itemId + 1000000).toString(),
                             name: item.name,
                         })
                     }
@@ -91,24 +90,24 @@
             ))
         }
 
-        currencyChoices = uniqBy(currencyChoices, (c) => c.key)
+        currencyChoices = uniqBy(currencyChoices, (c) => c.id)
     }
 
-    $: currencyActive = view.homeCurrencies
-        .map((f) => currencyChoices.filter((c) => parseInt(c.key) === f)[0])
-        .filter(f => f !== undefined)
+    // $: currencyActive = view.homeCurrencies
+    //     .map((f) => currencyChoices.filter((c) => parseInt(c.id) === f)[0])
+    //     .filter(f => f !== undefined)
     
-    $: currencyInactive = currencyChoices.filter(
-        (instance) => currencyActive.indexOf(instance) === -1 &&
-            (
-                !currencyFilter ||
-                instance.name.toLocaleLowerCase().indexOf(currencyFilter.toLocaleLowerCase()) >= 0
-            )
-    )
+    // $: currencyInactive = currencyChoices.filter(
+    //     (instance) => currencyActive.indexOf(instance) === -1 &&
+    //         (
+    //             !currencyFilter ||
+    //             instance.name.toLocaleLowerCase().indexOf(currencyFilter.toLocaleLowerCase()) >= 0
+    //         )
+    // )
 
-    const onCurrenciesChange = debounce(() => {
-        view.homeCurrencies = currencyActive.map((c) => parseInt(c.key))
-    }, 100)
+    // const onCurrenciesChange = debounce(() => {
+    //     view.homeCurrencies = currencyActive.map((c) => parseInt(c.id))
+    // }, 100)
 </script>
 
 <style lang="scss">
@@ -122,37 +121,30 @@
         :global(fieldset) {
             background: $highlight-background;
             bottom: -2.6rem;
-            position: absolute;
             right: -4px;
             width: 12rem;
         }
     }
 </style>
 
-<div class="settings-block">
-    <h3>
-        Currencies
-        {#if !active}
-            <span>add to Home columns to configure</span>
-        {/if}
-    </h3>
-
-    {#if active}
-        <div class="filter-currencies">
-            <TextInput
+{#if active}
+    <div class="settings-block">
+        <h3>
+            Currencies
+            <!-- <TextInput
                 name="filter"
                 maxlength={20}
                 placeholder="Search..."
                 bind:value={currencyFilter}
-            />
-        </div>
+            /> -->
+        </h3>
 
-        <MagicLists
-            key="currencies"
-            title="Currencies"
-            onFunc={onCurrenciesChange}
-            active={currencyActive}
-            inactive={currencyInactive}
-        />
-    {/if}
-</div>
+        {#if active}
+            <MagicLists
+                key="currencies"
+                choices={currencyChoices}
+                bind:activeNumberIds={view.homeCurrencies}
+            />
+        {/if}
+    </div>
+{/if}

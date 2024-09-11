@@ -104,8 +104,6 @@
 </style>
 
 <div class="settings-block">
-    <UnderConstruction />
-
     <h3>Views</h3>
 
     <p>

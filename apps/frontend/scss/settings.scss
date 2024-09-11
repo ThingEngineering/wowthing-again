@@ -1,8 +1,10 @@
 .settings-container {
     border: 1px solid $border-color;
-    column-count: var(--column-count, 1);
-    column-gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
     margin-bottom: 1rem;
+    min-width: 50rem;
     padding: 0.5rem 1.0rem;
     width: 100%;
 
@@ -15,6 +17,7 @@
     h2 {
         border-bottom: 1px solid $border-color;
         text-align: center;
+        width: 100%;
     }
     h2 + h3 {
         border-top: 0;
@@ -126,11 +129,24 @@
     width: $settings-column-width;
 
     > h3 {
+        align-items: center;
         display: flex;
         justify-content: space-between;
 
+        fieldset {
+            background: $highlight-background;
+            font-size: 1rem;
+            margin-bottom: -1rem;
+            margin-top: -1rem;
+        }
         span {
             font-size: 1rem;
         }
     }
+}
+.settings-block-big {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    width: 100%;
 }
