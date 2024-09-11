@@ -1,13 +1,28 @@
 <script lang="ts">
-    import { pvpVaultItemLevel } from '@/data/pvp'
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { toNiceNumber } from '@/utils/formatting'
-    import type { Character } from '@/types'
+    import { getWorldTier } from '@/utils/vault/get-world-tier';
+    import { Character, CharacterWeeklyProgress } from '@/types'
 
+    import TooltipVaultWorld from '@/components/tooltips/vault-world/TooltipVaultWorld.svelte';
     import VaultShared from './VaultShared.svelte'
 
     export let character: Character
 
-    $: pvpVault = character.isMaxLevel ? character.weekly?.vault?.worldProgress : []
+    $: worldVault = character.isMaxLevel ? character.weekly?.vault?.worldProgress : []
+    $: if (character.name === 'Okuchi') console.log(worldVault)
+
+    function qualityFunc(prog: CharacterWeeklyProgress): number {
+        return getWorldTier(prog.level)[1]
+    }
+    function textFunc(prog: CharacterWeeklyProgress): string {
+        if (prog.progress >= prog.threshold) {
+            return getWorldTier(prog.level)[0].toString()
+        }
+        else {
+            return `${prog.threshold - prog.progress} !`
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -18,16 +33,15 @@
     }
 </style>
 
-<td>
-    {#if pvpVault?.length > 0}
+{#if worldVault?.length > 0}
+    <td use:componentTooltip={{component: TooltipVaultWorld, props: {character}}}>
         <VaultShared
             hasRewards={character.weekly?.vaultHasRewards}
-            progresses={pvpVault}
-            textFunc={(prog) => prog.progress >= prog.threshold
-                ? pvpVaultItemLevel[prog.level].toString()
-                : toNiceNumber(prog.threshold - prog.progress)}
+            progresses={worldVault}
+            {qualityFunc}
+            {textFunc}
         />
-    {:else}
-        &nbsp;
-    {/if}
-</td>
+    </td>
+{:else}
+    <td>&nbsp;</td>
+{/if}

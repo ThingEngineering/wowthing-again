@@ -42,7 +42,7 @@
             keyLevel = run ? run.level : 0
         }
 
-        if (keyLevel > 0) {
+        if (keyLevel >= 0) {
             itemLevel = getVaultItemLevel(keyLevel)[0]
         }
     }
@@ -96,7 +96,13 @@
                 {/if}
             </td>
             <td class="dungeon-name">{dungeonName}</td>
-            <td class="item-level"></td>
+            {#if itemLevel}
+                <td class="item-level quality{getVaultQualityByItemLevel(itemLevel)}">
+                    {itemLevel}
+                </td>
+            {:else}
+                <td class="item-level"></td>
+            {/if}
         {/if}
     </tr>
 {/if}
