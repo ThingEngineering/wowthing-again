@@ -34,7 +34,8 @@ public class PlayerCharacterWeeklyVault
 
     public List<PlayerCharacterWeeklyVaultProgress> MythicPlusProgress { get; set; }
     public List<PlayerCharacterWeeklyVaultProgress> RaidProgress { get; set; }
-    public List<PlayerCharacterWeeklyVaultProgress> RankedPvpProgress { get; set; }
+    public List<PlayerCharacterWeeklyVaultProgress> WorldProgress { get; set; }
+    // public List<PlayerCharacterWeeklyVaultProgress> RankedPvpProgress { get; set; }
 }
 
 public class PlayerCharacterWeeklyUghQuest

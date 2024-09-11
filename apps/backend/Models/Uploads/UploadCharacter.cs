@@ -52,7 +52,7 @@ public class UploadCharacter
     public Dictionary<string, int> ScanTimes { get; set; }
     public List<UploadCharacterTorghast> Torghast { get; set; }
     public string Transmog { get; set; }
-    public UploadCharacterVault[][] Vault { get; set; }
+    public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
 
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
