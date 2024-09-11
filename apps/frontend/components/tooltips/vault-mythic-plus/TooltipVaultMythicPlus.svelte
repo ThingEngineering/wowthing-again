@@ -32,14 +32,17 @@
             const [keyLevel,] = betterOptions[i]
             let keyRange = keyLevel.toString()
             if (betterOptions[i - 1] && (betterOptions[i - 1][0] - keyLevel) > 1) {
-                if (keyLevel === 0) {
+                if (keyLevel === 1) {
                     keyRange = '0'
                 }
                 else {
                     keyRange = `${keyLevel} - ${betterOptions[i-1][0] - 1}`
                 }
             }
-            else if (keyRange === '-1') {
+            else if (keyRange === '1') {
+                keyRange = '0'
+            }
+            else if (keyRange === '0') {
                 keyRange = 'H'
             }
 

@@ -25,7 +25,7 @@
 
         if (prog) {
             dungeonLevel = getDungeonLevel(prog)
-            if (dungeonLevel > -2) {
+            if (dungeonLevel >= 0) {
                 cls = 'vault-reward'
                 dungeonName = run ? dungeonMap[run.mapId].name : 'Unknown dungeon'
                 keyLevel = prog.level
@@ -87,9 +87,9 @@
             <td class="item-level quality{getVaultQualityByItemLevel(itemLevel)}">{itemLevel}</td>
         {:else if dungeonName}
             <td class="key-level">
-                {#if dungeonLevel === -1}
+                {#if dungeonLevel === 0}
                     H
-                {:else if dungeonLevel === 0}
+                {:else if dungeonLevel === 1}
                     M
                 {:else}
                     &nbsp;
