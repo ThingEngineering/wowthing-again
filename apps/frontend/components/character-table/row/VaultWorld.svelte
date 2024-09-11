@@ -1,6 +1,5 @@
 <script lang="ts">
     import { componentTooltip } from '@/shared/utils/tooltips';
-    import { toNiceNumber } from '@/utils/formatting'
     import { getWorldTier } from '@/utils/vault/get-world-tier';
     import { Character, CharacterWeeklyProgress } from '@/types'
 
@@ -10,7 +9,6 @@
     export let character: Character
 
     $: worldVault = character.isMaxLevel ? character.weekly?.vault?.worldProgress : []
-    $: if (character.name === 'Okuchi') console.log(worldVault)
 
     function qualityFunc(prog: CharacterWeeklyProgress): number {
         return getWorldTier(prog.level)[1]
