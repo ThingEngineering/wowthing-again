@@ -26,7 +26,7 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
 
             WriteVaultProgress(writer, weekly.Vault.MythicPlusProgress, options);
             WriteVaultProgress(writer, weekly.Vault.RaidProgress, options);
-            WriteVaultProgress(writer, weekly.Vault.RankedPvpProgress, options);
+            WriteVaultProgress(writer, weekly.Vault.WorldProgress, options);
         }
 
         writer.WriteEndArray();

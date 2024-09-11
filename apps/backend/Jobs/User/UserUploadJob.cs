@@ -2182,17 +2182,26 @@ public class UserUploadJob : JobBase
                 .ToList();
 
             // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
-            if (characterData.Vault != null && characterData.Vault.Length == 3)
+            character.Weekly.Vault.MythicPlusProgress = null;
+            character.Weekly.Vault.RaidProgress = null;
+            character.Weekly.Vault.WorldProgress = null;
+
+            if (characterData.Vault != null)
             {
-                character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
-                character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
-                character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
-            }
-            else
-            {
-                character.Weekly.Vault.MythicPlusProgress = null;
-                character.Weekly.Vault.RankedPvpProgress = null;
-                character.Weekly.Vault.RaidProgress = null;
+                if (characterData.Vault.TryGetValue("t1", out var activityVault))
+                {
+                    character.Weekly.Vault.MythicPlusProgress = ConvertVault(activityVault);
+                }
+
+                if (characterData.Vault.TryGetValue("t3", out var raidVault))
+                {
+                    character.Weekly.Vault.RaidProgress = ConvertVault(raidVault);
+                }
+
+                if (characterData.Vault.TryGetValue("t6", out var worldVault))
+                {
+                    character.Weekly.Vault.WorldProgress = ConvertVault(worldVault);
+                }
             }
 
             var entry = Context.Entry(character.Weekly);

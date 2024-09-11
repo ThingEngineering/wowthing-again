@@ -15,7 +15,7 @@
 
     $: professions = Object.values($staticStore.professions)
             .filter((profession) => professionConcentration[profession.id] &&
-                character.professions[profession.id]);
+                character.professions?.[profession.id]);
     $: professions.sort((a, b) => getProfessionSortKey(a).localeCompare(getProfessionSortKey(b)))
 </script>
 
