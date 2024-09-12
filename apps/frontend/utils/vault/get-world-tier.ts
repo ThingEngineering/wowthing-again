@@ -1,7 +1,7 @@
-import { delveVaultItemLevel } from '@/data/dungeon';
+import { worldVaultItemLevel } from '@/data/dungeon';
 
 export function getWorldTier(tier: number): [number, number] {
-    for (const [tierLevel, tierItemLevel, tierQuality] of delveVaultItemLevel) {
+    for (const [tierLevel, tierItemLevel, tierQuality] of worldVaultItemLevel) {
         if (tier >= tierLevel) {
             return [tierItemLevel, tierQuality];
         }

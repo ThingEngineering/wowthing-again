@@ -210,8 +210,8 @@ const orderDragonflightS4: number[] = [
 const orderWarWithinS1: number[] = [
     503, // Ara-Kara, City of Echoes
     502, // City of Threads
-    501, // The Stonevault
     505, // The Dawnbreaker
+    501, // The Stonevault
     375, // Mists of Tirna Scithe
     376, // The Necrotic Wake
     353, // Siege of Boralus
@@ -306,7 +306,7 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
     16: [623, 5], // Mythic
 };
 
-export const delveVaultItemLevel: Array<Array<number>> = [
+export const worldVaultItemLevel: Array<Array<number>> = [
     [8, 616, 4], // Hero 3
     [7, 610, 4], // Hero 1
     [6, 606, 3], // Champion 4
