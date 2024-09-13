@@ -55,12 +55,12 @@ export const dungeons: Dungeon[] = [
     new Dungeon(250, 'Temple of Sethraliss', 'ToS', 'achievement/12504', 2160 / 60),
     new Dungeon(251, 'The Underrot', 'UR', 'achievement/12500', 1920 / 60),
     new Dungeon(252, 'Shrine of the Storm', 'SoS', 'achievement/12835', 2520 / 60),
-    new Dungeon(353, 'Siege of Boralus', 'SoB', 'achievement/12847', 2160 / 60),
+    new Dungeon(353, 'Siege of Boralus', 'SIEGE', 'achievement/12847', 2160 / 60),
     new Dungeon(369, 'Operation: Mechagon - Junkyard', 'YARD', 'achievement/15693', 2280 / 60),
     new Dungeon(370, 'Operation: Mechagon - Workshop', 'WORK', 'achievement/15693', 1920 / 60),
 
     // Shadowlands
-    new Dungeon(375, 'Mists of Tirna Scithe', 'MoTS', 'dungeon_mists_of_tirna_scithe', 30),
+    new Dungeon(375, 'Mists of Tirna Scithe', 'MISTS', 'dungeon_mists_of_tirna_scithe', 30),
     new Dungeon(376, 'The Necrotic Wake', 'NW', 'dungeon_the_necrotic_wake', 36),
     new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side', 43),
     new Dungeon(378, 'Halls of Atonement', 'HoA', 'dungeon_halls_of_atonement', 31),
@@ -106,9 +106,9 @@ export const dungeons: Dungeon[] = [
     new Dungeon(500, 'The Rookery', 'TR', 'achievement/40642', 30),
     new Dungeon(501, 'The Stonevault', 'SV', 'achievement/40648', 30),
     new Dungeon(502, 'City of Threads', 'CoT', 'achievement/40379', 30),
-    new Dungeon(503, 'Ara-Kara, City of Echoes', 'ACE', 'achievement/40375', 30),
+    new Dungeon(503, 'Ara-Kara, City of Echoes', 'ARAK', 'achievement/40375', 30),
     new Dungeon(504, 'Darkflame Cleft', 'DC', 'achievement/40429', 30),
-    new Dungeon(505, 'The Dawnbreaker', 'TDB', 'achievement/40604', 30),
+    new Dungeon(505, 'The Dawnbreaker', 'DAWN', 'achievement/40604', 30),
     new Dungeon(506, 'Cinderbrew Meadery', 'CM', 'achievement/40366', 30),
 ];
 
@@ -210,8 +210,8 @@ const orderDragonflightS4: number[] = [
 const orderWarWithinS1: number[] = [
     503, // Ara-Kara, City of Echoes
     502, // City of Threads
-    501, // The Stonevault
     505, // The Dawnbreaker
+    501, // The Stonevault
     375, // Mists of Tirna Scithe
     376, // The Necrotic Wake
     353, // Siege of Boralus
@@ -306,13 +306,13 @@ export const raidVaultItemLevel: Record<number, Array<number>> = {
     16: [623, 5], // Mythic
 };
 
-export const delveVaultItemLevel: Array<Array<number>> = [
+export const worldVaultItemLevel: Array<Array<number>> = [
     [8, 616, 4], // Hero 3
     [7, 610, 4], // Hero 1
     [6, 606, 3], // Champion 4
-    [5, 603, 3], // Champion 3
+    [5, 600, 3], // Champion 2
     [4, 597, 3], // Champion 1
-    [3, 587, 2], // Veteran 2
+    [2, 587, 2], // Veteran 2
     [1, 584, 2], // Veteran 1
 ];
 

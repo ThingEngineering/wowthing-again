@@ -1164,7 +1164,12 @@ public class UserUploadJob : JobBase
 
             int.TryParse(parts[0], out int speciesId);
             int.TryParse(parts[1], out int level);
-            short.TryParse(parts[2], out short quality);
+
+            short quality = 0;
+            if (parts.Length >= 3)
+            {
+                short.TryParse(parts[2], out quality);
+            }
 
             if (!accountPets.Pets.TryGetValue(petId, out var pet))
             {

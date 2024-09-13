@@ -31,7 +31,7 @@ function buildProfessionTasks(
         if (prefix === 'df') {
             tasks.push({
                 taskKey: `${prefix}Profession${name}Provide`,
-                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Provide`,
+                taskName: `${name}: Provide`,
                 minimumLevel,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -42,7 +42,7 @@ function buildProfessionTasks(
         if (profession.hasTasks === true) {
             tasks.push({
                 taskKey: `${prefix}Profession${name}Task`,
-                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Task`,
+                taskName: `${name}: Task`,
                 minimumLevel: 60,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -57,7 +57,7 @@ function buildProfessionTasks(
 
         tasks.push({
             taskKey: `${prefix}Profession${name}Drop#`,
-            taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Drops`,
+            taskName: `${name}: Drops`,
             minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
             //canGetFunc: (char) => getLatestSkill(char, lowerName, 45),
@@ -66,7 +66,7 @@ function buildProfessionTasks(
         if (profession.hasOrders === true) {
             tasks.push({
                 taskKey: `${prefix}Profession${name}Orders`,
-                taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Orders`,
+                taskName: `${name}: Orders`,
                 minimumLevel,
                 couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
                 canGetFunc: (char) =>
@@ -76,7 +76,7 @@ function buildProfessionTasks(
 
         tasks.push({
             taskKey: `${prefix}Profession${name}Treatise`,
-            taskName: `[${prefix.toLocaleUpperCase()}] ${name}: Treatise`,
+            taskName: `${name}: Treatise`,
             minimumLevel,
             couldGetFunc: (char) => couldGet(char, profession.id, profession.subProfessionId),
         });

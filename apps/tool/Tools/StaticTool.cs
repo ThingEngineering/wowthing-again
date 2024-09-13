@@ -63,7 +63,7 @@ public class StaticTool
         // not holidays but too much effort to fix now
         { "Arena Skirmish Bonus Event", "holidayArena" },
         { "Battleground Bonus Event", "holidayBattlegrounds" },
-        { "Delves Bonus Event", "holidayDelves "},
+        { "Delves Bonus Event", "holidayDelves"},
         { "Pet Battle Bonus Event", "holidayPetPvp" },
         { "World Quest Bonus Event", "holidayWorldQuests" },
     };
