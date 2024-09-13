@@ -349,14 +349,16 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     let skipTraits = false;
                     if (
                         stores.settings.professions.ignoreTasksWhenDoneWithTraits &&
-                        choreTask.taskKey.startsWith('dfProfession')
+                        choreTask.taskKey.match(/^[a-z]+Profession/)
                     ) {
                         const professionId = professionSlugToId[nameParts[0].toLocaleLowerCase()];
                         if (professionId) {
-                            const dfProfession = dragonflightProfessionMap[professionId];
+                            const professionData = choreTask.taskKey.startsWith('df')
+                                ? dragonflightProfessionMap[professionId]
+                                : warWithinProfessionMap[professionId];
                             const traitStats =
                                 characterData.professions.professions[professionId]?.subProfessions[
-                                    dfProfession.subProfessionId
+                                    professionData.subProfessionId
                                 ]?.traitStats;
                             if (traitStats && traitStats.percent === 100) {
                                 skipTraits = true;
