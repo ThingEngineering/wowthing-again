@@ -128,6 +128,11 @@ export default function getProgress(
                     continue;
                 }
 
+                if (['accountQuest', 'quest'].includes(group.type) && !data.name) {
+                    nameOverride[dataIndex] =
+                        staticData.questNames[data.ids[0]] || `Quest #${data.ids[0]}`;
+                }
+
                 let haveThis = false;
                 if (
                     (group.type === 'quest' &&
