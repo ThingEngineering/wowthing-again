@@ -12,7 +12,7 @@
     $: {
         if (progress.progress >= progress.threshold) {
             cls = 'vault-reward'
-            dungeonName = 'Activities/Delves'
+            dungeonName = progress.level > 1 ? 'Delves' : 'Activities/Delves'
             itemLevel = getWorldTier(progress.level)[0]
         }
         else {
@@ -24,7 +24,11 @@
 </script>
 
 <tr class="{cls}">
-    <td>{progress.threshold}x</td>
+    <td>
+        {#if progress.level > 0}
+            {progress.level}
+        {/if}
+    </td>
     <td class="dungeon-name">{dungeonName}</td>
     {#if itemLevel}
         <td class="item-level quality{getItemLevelQuality(itemLevel)}">{itemLevel}</td>
