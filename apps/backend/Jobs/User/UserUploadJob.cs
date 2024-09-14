@@ -631,7 +631,7 @@ public class UserUploadJob : JobBase
         // Deal with warbank data last, we need to know the region
         if (accountRegion != null && parsed.Warbank?.Items != null)
         {
-            await HandleWarbank(accountRegion.Value, userAddonData, parsed.Warbank);
+            await HandleWarbank(accountRegion.Value, userAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Warbank);
         }
 
         _timer.AddPoint("Warbank");
@@ -1351,68 +1351,82 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private async Task HandleWarbank(WowRegion accountRegion, UserAddonData userAddonData, UploadWarbank warbankData)
+    private async Task HandleWarbank(WowRegion accountRegion, UserAddonData userAddonData,
+        Dictionary<string, int> globalScanTimes, UploadWarbank warbankData)
     {
-        var scannedAt = warbankData.ScannedAt.AsUtcDateTime();
-        if (scannedAt <= userAddonData.WarbankUpdatedAt)
+        await using var localContext = await ContextFactory.CreateDbContextAsync();
+
+        if (globalScanTimes.TryGetValue("warbankGold", out int warbankGoldTimestamp))
         {
-            return;
-        }
-
-        userAddonData.WarbankUpdatedAt = scannedAt;
-
-        userAddonData.WarbankCopper = warbankData.Copper;
-
-        var itemMap = await Context.PlayerWarbankItem
-            .Where(item => item.UserId == _userId)
-            .ToDictionaryAsync(item => (item.ContainerId, item.Slot));
-
-        var existingIds = new HashSet<long>(itemMap.Values.Select(item => item.Id));
-        var seenIds = new HashSet<long>();
-
-        foreach ((string bagString, var contents) in warbankData.Items)
-        {
-            // Warbank is bags 13-17
-            short tabId = (short)(short.Parse(bagString[1..]) - 12);
-            foreach (var (slotString, itemString) in contents)
+            var warbankGoldScannedAt = warbankGoldTimestamp.AsUtcDateTime();
+            if (warbankGoldScannedAt > userAddonData.WarbankGoldUpdatedAt)
             {
-                short slot = short.Parse(slotString[1..]);
-
-                string[] parts = itemString.Split(":");
-                if (parts.Length < 9 && !(parts.Length == 4 && parts[0] == "pet"))
-                {
-                    Logger.Warning("Invalid warbank item string: {String}", itemString);
-                    continue;
-                }
-
-                var key = (tabId, slot);
-                if (!itemMap.TryGetValue(key, out var item))
-                {
-                    item = new PlayerWarbankItem
-                    {
-                        UserId = _userId,
-                        Region = accountRegion,
-                        ContainerId = tabId,
-                        Slot = slot,
-                    };
-                    Context.PlayerWarbankItem.Add(item);
-                }
-                else
-                {
-                    seenIds.Add(item.Id);
-                }
-
-                AddItemDetails(item, parts);
+                userAddonData.WarbankGoldUpdatedAt = warbankGoldScannedAt;
+                userAddonData.WarbankCopper = warbankData.Copper;
             }
         }
 
-        long[] deleteMe = existingIds
-            .Except(seenIds)
-            .ToArray();
-        if (deleteMe.Length > 0)
+        long[] deleteItemIds = [];
+
+        var warbankScannedAt = warbankData.ScannedAt.AsUtcDateTime();
+        if (warbankScannedAt > userAddonData.WarbankUpdatedAt)
         {
-            await Context.PlayerWarbankItem
-                .Where(pgi => deleteMe.Contains(pgi.Id))
+            userAddonData.WarbankUpdatedAt = warbankScannedAt;
+
+            var itemMap = await localContext.PlayerWarbankItem
+                .Where(item => item.UserId == _userId)
+                .ToDictionaryAsync(item => (item.ContainerId, item.Slot));
+
+            var existingIds = new HashSet<long>(itemMap.Values.Select(item => item.Id));
+            var seenIds = new HashSet<long>();
+
+            foreach ((string bagString, var contents) in warbankData.Items)
+            {
+                // Warbank is bags 13-17
+                short tabId = (short)(short.Parse(bagString[1..]) - 12);
+                foreach ((string slotString, string itemString) in contents)
+                {
+                    short slot = short.Parse(slotString[1..]);
+
+                    string[] parts = itemString.Split(":");
+                    if (parts.Length < 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                    {
+                        Logger.Warning("Invalid warbank item string: {String}", itemString);
+                        continue;
+                    }
+
+                    var key = (tabId, slot);
+                    if (!itemMap.TryGetValue(key, out var item))
+                    {
+                        item = new PlayerWarbankItem
+                        {
+                            UserId = _userId,
+                            Region = accountRegion,
+                            ContainerId = tabId,
+                            Slot = slot,
+                        };
+                        localContext.PlayerWarbankItem.Add(item);
+                    }
+                    else
+                    {
+                        seenIds.Add(item.Id);
+                    }
+
+                    AddItemDetails(item, parts);
+                }
+            }
+
+            deleteItemIds = existingIds
+                .Except(seenIds)
+                .ToArray();
+        }
+
+        await localContext.SaveChangesAsync();
+
+        if (deleteItemIds.Length > 0)
+        {
+            await localContext.PlayerWarbankItem
+                .Where(pgi => deleteItemIds.Contains(pgi.Id))
                 .ExecuteDeleteAsync();
         }
     }
