@@ -3,6 +3,46 @@ import type { WorldQuestZone } from './types';
 
 export const zoneData: WorldQuestZone[] = [
     {
+        id: 2274,
+        name: '[TWW] The War Within',
+        slug: 'war-within',
+        mapName: '10-the-war-within/khaz_algar',
+        children: [
+            {
+                id: 2255,
+                name: 'Azj-Kahet',
+                slug: 'azj-kahet',
+                mapName: '10-the-war-within/azj-kahet',
+                continentPoint: [42, 78],
+                anchor: 'top-left',
+            },
+            {
+                id: 2215,
+                name: 'Hallowfall',
+                slug: 'hallowfall',
+                mapName: '10-the-war-within/hallowfall',
+                continentPoint: [30, 40],
+                anchor: 'top-left',
+            },
+            {
+                id: 2248,
+                name: 'Isle of Dorn',
+                slug: 'isle-of-dorn',
+                mapName: '10-the-war-within/isle_of_dorn',
+                continentPoint: [62, 24],
+                anchor: 'top-left',
+            },
+            {
+                id: 2214,
+                name: 'Ringing Deeps',
+                slug: 'ringing-deeps',
+                mapName: '10-the-war-within/ringing_deeps',
+                continentPoint: [52, 50],
+                anchor: 'top-left',
+            },
+        ],
+    },
+    {
         id: 2222,
         name: '[DF] Dragon Isles',
         slug: 'dragon-isles',
