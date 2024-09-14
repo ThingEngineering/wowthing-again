@@ -10,6 +10,7 @@
     import type { Character } from '@/types'
 
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { settingsStore } from '@/shared/stores/settings';
 
     export let character: Character
 
@@ -17,6 +18,16 @@
             .filter((profession) => professionConcentration[profession.id] &&
                 character.professions?.[profession.id]);
     $: professions.sort((a, b) => getProfessionSortKey(a).localeCompare(getProfessionSortKey(b)))
+
+    function statusClass(fullIsBad: boolean, percent: number) {
+        if (percent >= 75) {
+            return fullIsBad ? 'status-fail' : 'status-success';
+        } else if (percent > 25 && percent < 75) {
+            return 'status-shrug';
+        } else {
+            return fullIsBad ? 'status-success' : 'status-fail';
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -52,10 +63,7 @@
             {@const { amount, percent, tooltip } = getCurrencyData(
                 $itemStore, $timeStore, userStore, character, $staticStore.currencies[professionConcentration[profession.id]])}
             <div
-                class="concentration"
-                class:status-success={percent >= 75}
-                class:status-shrug={percent > 25 && percent < 75}
-                class:status-fail={percent <= 25}
+                class="concentration {statusClass($settingsStore.professions.fullConcentrationIsBad, percent)}"
                 use:basicTooltip={{
                     allowHTML: true,
                     content: tooltip
