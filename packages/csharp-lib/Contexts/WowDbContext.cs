@@ -104,6 +104,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<UserAddonData> UserAddonData { get; set; }
     public DbSet<UserBulkData> UserBulkData { get; set; }
     public DbSet<UserCache> UserCache { get; set; }
+    public DbSet<UserGoldSnapshot> UserGoldSnapshot { get; set; }
     public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
 
     public DbSet<WorldQuestAggregate> WorldQuestAggregate { get; set; }
@@ -115,9 +116,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<ActiveConnectedRealmQuery> ActiveConnectedRealmQuery { get; set; }
     public DbSet<AuctionBrowseQuery> AuctionBrowseQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
-    public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
-    public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
+    public DbSet<LatestPlayerAccountGoldSnapshotQuery> LatestPlayerAccountGoldSnapshotQuery { get; set; }
     public DbSet<MountQuery> MountQuery { get; set; }
+    public DbSet<PlayerAccountGoldSnapshotQuery> PlayerAccountGoldSnapshotQuery { get; set; }
     public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
     public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
     public DbSet<StatisticsQuery> StatisticsQuery { get; set; }
@@ -290,10 +291,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
 
-        builder.Entity<GoldSnapshotQuery>()
+        builder.Entity<PlayerAccountGoldSnapshotQuery>()
             .ToTable("GoldSnapshotQuery", t => t.ExcludeFromMigrations());
 
-        builder.Entity<LatestGoldSnapshotQuery>()
+        builder.Entity<LatestPlayerAccountGoldSnapshotQuery>()
             .ToTable("LatestGoldSnapshotQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<MountQuery>()

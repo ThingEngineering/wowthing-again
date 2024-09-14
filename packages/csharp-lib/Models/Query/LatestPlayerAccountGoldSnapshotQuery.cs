@@ -1,7 +1,7 @@
 ﻿namespace Wowthing.Lib.Models.Query;
 
 [Keyless]
-public class LatestGoldSnapshotQuery
+public class LatestPlayerAccountGoldSnapshotQuery
 {
     public int AccountId { get; set; }
     public int RealmId { get; set; }

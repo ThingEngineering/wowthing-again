@@ -64,8 +64,8 @@ public class GoldSnapshotService : BackgroundService
         var saveTime = now.Date + new TimeSpan(0, now.Hour, now.Minute, 0, 0);
 
         // TODO check existing
-        var latestSnapshots = await context.LatestGoldSnapshotQuery
-            .FromSqlRaw(LatestGoldSnapshotQuery.Sql)
+        var latestSnapshots = await context.LatestPlayerAccountGoldSnapshotQuery
+            .FromSqlRaw(LatestPlayerAccountGoldSnapshotQuery.Sql)
             .ToDictionaryAsync(gsq => (gsq.AccountId, gsq.RealmId));
 
         timer.AddPoint("LoadSnaps");
@@ -85,8 +85,8 @@ public class GoldSnapshotService : BackgroundService
             .ThenBy(gs => gs.RealmId)
             .ToArrayAsync();*/
 
-        var goldSums = await context.GoldSnapshotQuery
-            .FromSqlRaw(GoldSnapshotQuery.SqlQuery)
+        var goldSums = await context.PlayerAccountGoldSnapshotQuery
+            .FromSqlRaw(PlayerAccountGoldSnapshotQuery.SqlQuery)
             .ToArrayAsync();
 
         timer.AddPoint("LoadCurrent");
