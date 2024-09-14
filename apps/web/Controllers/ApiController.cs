@@ -568,26 +568,33 @@ public class ApiController : Controller
 
         var hiddenRealmIds = apiResult.User.Settings.History?.HiddenRealms ?? new List<int>();
 
-        var rawData = await _context.PlayerAccountGoldSnapshot
+        var rawAccountData = await _context.PlayerAccountGoldSnapshot
             .AsNoTracking()
             .Where(pags => pags.Account.UserId == apiResult.User.Id)
             .Where(pags => !hiddenRealmIds.Contains(pags.RealmId))
-            .OrderBy(pags => pags.Time)
             .ToArrayAsync();
 
-        var data = rawData
-            .GroupBy(pags => pags.Time)
+        var rawUserData = await _context.UserGoldSnapshot
+            .AsNoTracking()
+            .Where(ugs => ugs.UserId == apiResult.User.Id)
+            .OrderBy(ugs => ugs.Time)
+            .ToArrayAsync();
+
+        var data = rawUserData
+            .Concat(rawAccountData.Cast<IGoldSnapshot>())
+            .GroupBy(snapshot => snapshot.Time)
             .Select(group => new UserHistoryGold
                 {
                     Time = group.Key,
-                    Entries = group.Select(pags => new UserHistoryGoldEntry
+                    Entries = group.Select(snapshot => new UserHistoryGoldEntry
                     {
-                        AccountId = pags.AccountId,
-                        RealmId = pags.RealmId,
-                        Gold = pags.Gold,
+                        AccountId = snapshot.AccountId,
+                        RealmId = snapshot.RealmId,
+                        Gold = snapshot.Gold,
                     }).ToArray(),
                 }
             )
+            .OrderBy(group => group.Time)
             .ToArray();
 
         timer.AddPoint("Database", true);

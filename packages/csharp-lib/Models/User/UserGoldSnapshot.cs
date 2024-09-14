@@ -2,7 +2,7 @@
 
 namespace Wowthing.Lib.Models.User;
 
-public class UserGoldSnapshot
+public class UserGoldSnapshot : IGoldSnapshot
 {
     public long Id { get; set; }
 
@@ -13,4 +13,8 @@ public class UserGoldSnapshot
     public DateTime Time { get; set; }
 
     public int Gold { get; set; }
+
+    // IGoldSnapshot
+    public int AccountId => 0;
+    public int RealmId => 0;
 }
