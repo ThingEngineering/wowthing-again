@@ -21,7 +21,7 @@ public class Upload
 
     public List<int> Quests { get; set; }
     public Dictionary<int, int> QuestsV2 { get; set; }
-
+    public Dictionary<string, int> ScanTimes { get; set; }
     public List<int> Toys { get; set; }
 
     [JsonPropertyName("transmogSourcesV2")]
