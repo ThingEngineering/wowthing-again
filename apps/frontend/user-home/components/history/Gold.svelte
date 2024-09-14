@@ -102,7 +102,9 @@
 
             const realm: StaticDataRealm = $staticStore.realms[realmId]
             realms.push([
-                `[${Region[realm.region]}] ${realm.name}`,
+                realmId === '0'
+                    ? 'Warband Bank'
+                    : `[${Region[realm.region]}] ${realm.name}`,
                 parseInt(realmId)
             ])
         }
@@ -132,7 +134,7 @@
         const timeCache: Record<string, DateTime> = {}
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex]
-            if (firstRealmId === -1) {
+            if (firstRealmId === -1 && realmId > 0) {
                 firstRealmId = realmId
             }
 

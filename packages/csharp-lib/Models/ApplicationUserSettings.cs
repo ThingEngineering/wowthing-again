@@ -349,6 +349,7 @@ public class ApplicationUserSettingsProfessions
     public bool DragonflightCountGathering { get; set; } = true;
     public bool DragonflightCountTasks { get; set; } = true;
     public bool DragonflightTreatises { get; set; } = true;
+    public bool FullConcentrationIsBad { get; set; } = true;
     public bool IgnoreTasksWhenDoneWithTraits { get; set; } = true;
 
     public Dictionary<int, int> CollectingCharacters { get; set; } = new();

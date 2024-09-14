@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Wowthing.Lib.Models.User;
 
-public class UserMetadata(long userId)
+public class UserAddonData(long userId)
 {
     [Key, ForeignKey("User")]
     public long UserId { get; set; } = userId;
@@ -11,4 +11,6 @@ public class UserMetadata(long userId)
     public ApplicationUser User { get; set; }
 
     public DateTimeOffset WarbankUpdatedAt { get; set; }
+
+    public long WarbankCopper { get; set; }
 }

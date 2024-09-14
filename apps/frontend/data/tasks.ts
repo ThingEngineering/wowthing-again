@@ -340,6 +340,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'twwDelveKeys',
+        name: '[TWW] Delve Keys',
+        shortName: 'Keys',
+        minimumLevel: 80,
+        type: 'multi',
+    },
+    {
         key: 'twwSpreading',
         name: '[TWW] Spreading the Light',
         shortName: 'StL',
@@ -869,6 +876,28 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 70,
             noProgress: true,
             showQuestName: true,
+        },
+    ],
+    twwDelveKeys: [
+        {
+            taskKey: 'twwDelveKey1',
+            taskName: 'Delve Key #1',
+            minimumLevel: 80,
+        },
+        {
+            taskKey: 'twwDelveKey2',
+            taskName: 'Delve Key #2',
+            minimumLevel: 80,
+        },
+        {
+            taskKey: 'twwDelveKey3',
+            taskName: 'Delve Key #3',
+            minimumLevel: 80,
+        },
+        {
+            taskKey: 'twwDelveKey4',
+            taskName: 'Delve Key #4',
+            minimumLevel: 80,
         },
     ],
     twwSpreading: [

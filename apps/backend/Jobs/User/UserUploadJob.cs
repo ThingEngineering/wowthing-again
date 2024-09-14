@@ -219,12 +219,12 @@ public class UserUploadJob : JobBase
 
         WowRegion? accountRegion = null;
 
-        // Create UserMetadata if it doesn't exist
-        var userMetadata = await Context.UserMetadata.FindAsync(_userId);
-        if (userMetadata == null)
+        // Create UserAddonData if it doesn't exist
+        var userAddonData = await Context.UserAddonData.FindAsync(_userId);
+        if (userAddonData == null)
         {
-            userMetadata = new UserMetadata(_userId);
-            Context.UserMetadata.Add(userMetadata);
+            userAddonData = new UserAddonData(_userId);
+            Context.UserAddonData.Add(userAddonData);
         }
 
         // Fetch guild data
@@ -631,7 +631,7 @@ public class UserUploadJob : JobBase
         // Deal with warbank data last, we need to know the region
         if (accountRegion != null && parsed.Warbank?.Items != null)
         {
-            await HandleWarbank(accountRegion.Value, userMetadata, parsed.Warbank);
+            await HandleWarbank(accountRegion.Value, userAddonData, parsed.Warbank);
         }
 
         _timer.AddPoint("Warbank");
@@ -1351,15 +1351,17 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private async Task HandleWarbank(WowRegion accountRegion, UserMetadata userMetadata, UploadWarbank warbankData)
+    private async Task HandleWarbank(WowRegion accountRegion, UserAddonData userAddonData, UploadWarbank warbankData)
     {
         var scannedAt = warbankData.ScannedAt.AsUtcDateTime();
-        if (scannedAt <= userMetadata.WarbankUpdatedAt)
+        if (scannedAt <= userAddonData.WarbankUpdatedAt)
         {
             return;
         }
 
-        userMetadata.WarbankUpdatedAt = scannedAt;
+        userAddonData.WarbankUpdatedAt = scannedAt;
+
+        userAddonData.WarbankCopper = warbankData.Copper;
 
         var itemMap = await Context.PlayerWarbankItem
             .Where(item => item.UserId == _userId)
@@ -2140,27 +2142,27 @@ public class UserUploadJob : JobBase
             _resetTransmogCache = true;
         }
 
-        // List<int> transmog;
-        // if (characterData.TransmogSquish != null)
-        // {
-        //     transmog = Unsquish(characterData.TransmogSquish);
-        // }
-        // else
-        // {
-        //     transmog = characterData.Transmog
-        //         .EmptyIfNullOrWhitespace()
-        //         .Split(':', StringSplitOptions.RemoveEmptyEntries)
-        //         .Select(int.Parse)
-        //         .Order()
-        //         .ToList();
-        // }
-        //
-        // if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
-        //                            !transmog.SequenceEqual(character.Transmog.TransmogIds)))
-        // {
-        //     character.Transmog.TransmogIds = transmog;
-        //     _resetTransmogCache = true;
-        // }
+        List<int> transmog;
+        if (characterData.TransmogSquish != null)
+        {
+            transmog = Unsquish(characterData.TransmogSquish);
+        }
+        else
+        {
+            transmog = characterData.Transmog
+                .EmptyIfNullOrWhitespace()
+                .Split(':', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .Order()
+                .ToList();
+        }
+
+        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
+                                   !transmog.SequenceEqual(character.Transmog.TransmogIds)))
+        {
+            character.Transmog.TransmogIds = transmog;
+            _resetTransmogCache = true;
+        }
     }
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)

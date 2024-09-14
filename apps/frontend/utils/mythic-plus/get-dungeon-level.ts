@@ -5,8 +5,6 @@ export function getDungeonLevel(prog: CharacterWeeklyProgress): number {
         return -2;
     }
 
-    console.log(prog);
-
     let level = prog.level;
     // Mythic
     if ([3, 11, 14].includes(prog.tier)) {

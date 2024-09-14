@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240914060507_Add_UserAddonData")]
+    partial class Add_UserAddonData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1741,6 +1744,26 @@ namespace Wowthing.Lib.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.GoldSnapshotQuery", b =>
+                {
+                    b.Property<int>("AccountId")
+                        .HasColumnType("integer")
+                        .HasColumnName("account_id");
+
+                    b.Property<int>("RealmId")
+                        .HasColumnType("integer")
+                        .HasColumnName("realm_id");
+
+                    b.Property<int>("TotalGold")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_gold");
+
+                    b.ToTable("GoldSnapshotQuery", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Query.LatestGoldSnapshotQuery", b =>
                 {
                     b.Property<int>("AccountId")
@@ -1772,26 +1795,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("mounts");
 
                     b.ToTable("MountQuery", null, t =>
-                        {
-                            t.ExcludeFromMigrations();
-                        });
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.PlayerAccountGoldSnapshotQuery", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .HasColumnType("integer")
-                        .HasColumnName("account_id");
-
-                    b.Property<int>("RealmId")
-                        .HasColumnType("integer")
-                        .HasColumnName("realm_id");
-
-                    b.Property<int>("TotalGold")
-                        .HasColumnType("integer")
-                        .HasColumnName("total_gold");
-
-                    b.ToTable("GoldSnapshotQuery", null, t =>
                         {
                             t.ExcludeFromMigrations();
                         });
@@ -2165,36 +2168,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_user_cache");
 
                     b.ToTable("user_cache", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserGoldSnapshot", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<int>("Gold")
-                        .HasColumnType("integer")
-                        .HasColumnName("gold");
-
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("time");
-
-                    b.Property<long?>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_user_gold_snapshot");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_user_gold_snapshot_user_id");
-
-                    b.ToTable("user_gold_snapshot", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.User.UserLeaderboardSnapshot", b =>
@@ -3904,16 +3877,6 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_user_cache_application_user_user_id");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserGoldSnapshot", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_user_gold_snapshot_application_user_user_id");
 
                     b.Navigation("User");
                 });

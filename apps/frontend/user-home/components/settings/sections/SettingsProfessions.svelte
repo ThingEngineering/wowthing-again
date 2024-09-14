@@ -96,6 +96,13 @@
     </CheckboxInput>
 
     <CheckboxInput
+        bind:value={$settingsStore.professions.fullConcentrationIsBad}
+        name="professions_fullConcentrationIsBad"
+    >
+        Full Concentration is a bad thing.
+    </CheckboxInput>
+
+    <CheckboxInput
         bind:value={$settingsStore.professions.ignoreTasksWhenDoneWithTraits}
         name="professions_ignoreTasksWhenDoneWithTraits"
     >

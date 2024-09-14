@@ -4,6 +4,7 @@ using Serilog;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.User;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Services;
@@ -64,9 +65,13 @@ public class GoldSnapshotService : BackgroundService
         var saveTime = now.Date + new TimeSpan(0, now.Hour, now.Minute, 0, 0);
 
         // TODO check existing
-        var latestSnapshots = await context.LatestGoldSnapshotQuery
-            .FromSqlRaw(LatestGoldSnapshotQuery.Sql)
+        var latestAccountSnapshots = await context.LatestPlayerAccountGoldSnapshotQuery
+            .FromSqlRaw(LatestPlayerAccountGoldSnapshotQuery.Sql)
             .ToDictionaryAsync(gsq => (gsq.AccountId, gsq.RealmId));
+
+        var latestUserSnapshots = await context.LatestUserGoldSnapshotQuery
+            .FromSqlRaw(LatestUserGoldSnapshotQuery.Sql)
+            .ToDictionaryAsync(gsq => gsq.UserId);
 
         timer.AddPoint("LoadSnaps");
 
@@ -85,24 +90,42 @@ public class GoldSnapshotService : BackgroundService
             .ThenBy(gs => gs.RealmId)
             .ToArrayAsync();*/
 
-        var goldSums = await context.GoldSnapshotQuery
-            .FromSqlRaw(GoldSnapshotQuery.SqlQuery)
+        var accountGoldSums = await context.PlayerAccountGoldSnapshotQuery
+            .FromSqlRaw(PlayerAccountGoldSnapshotQuery.SqlQuery)
+            .ToArrayAsync();
+
+        var userGoldSums = await context.UserGoldSnapshotQuery
+            .FromSqlRaw(UserGoldSnapshotQuery.SqlQuery)
             .ToArrayAsync();
 
         timer.AddPoint("LoadCurrent");
 
         // See if anything needs saving
-        foreach (var goldSum in goldSums)
+        foreach (var accountGoldSum in accountGoldSums)
         {
-            if (!latestSnapshots.TryGetValue((goldSum.AccountId, goldSum.RealmId), out var snapshot) ||
-                snapshot.Gold != goldSum.TotalGold)
+            if (!latestAccountSnapshots.TryGetValue((accountGoldSum.AccountId, accountGoldSum.RealmId), out var accountSnapshot) ||
+                accountSnapshot.Gold != accountGoldSum.TotalGold)
             {
                 context.PlayerAccountGoldSnapshot.Add(new PlayerAccountGoldSnapshot
                 {
                     Time = saveTime,
-                    AccountId = goldSum.AccountId,
-                    RealmId = goldSum.RealmId,
-                    Gold = goldSum.TotalGold,
+                    AccountId = accountGoldSum.AccountId,
+                    RealmId = accountGoldSum.RealmId,
+                    Gold = accountGoldSum.TotalGold,
+                });
+            }
+        }
+
+        foreach (var userGoldSum in userGoldSums)
+        {
+            if (!latestUserSnapshots.TryGetValue(userGoldSum.UserId, out var userSnapshot) ||
+                userSnapshot.Gold != userGoldSum.TotalGold)
+            {
+                context.UserGoldSnapshot.Add(new UserGoldSnapshot
+                {
+                    Time = saveTime,
+                    UserId = userGoldSum.UserId,
+                    Gold = userGoldSum.TotalGold,
                 });
             }
         }

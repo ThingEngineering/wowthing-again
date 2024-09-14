@@ -1,20 +1,18 @@
 ﻿namespace Wowthing.Lib.Models.Query;
 
 [Keyless]
-public class LatestGoldSnapshotQuery
+public class LatestUserGoldSnapshotQuery
 {
-    public int AccountId { get; set; }
-    public int RealmId { get; set; }
+    public long? UserId { get; set; }
     public int Gold { get; set; }
 
     public static string Sql = @"
-SELECT DISTINCT ON (account_id, realm_id)
-    account_id,
-    realm_id,
+SELECT DISTINCT ON (user_id)
+    user_id,
     LAST_VALUE(gold) OVER wnd AS gold
-FROM player_account_gold_snapshot
+FROM user_gold_snapshot
 WINDOW wnd AS (
-    PARTITION BY account_id, realm_id
+    PARTITION BY user_id
     ORDER BY time
     ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
 )

@@ -95,6 +95,7 @@ export interface Settings {
         dragonflightCountGathering: boolean;
         dragonflightCountTasks: boolean;
         dragonflightTreatises: boolean;
+        fullConcentrationIsBad: boolean;
         ignoreTasksWhenDoneWithTraits: boolean;
 
         collectingCharacters: Record<number, number>;
