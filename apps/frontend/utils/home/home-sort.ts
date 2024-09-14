@@ -11,6 +11,8 @@ import type { Character } from '@/types';
 
 import { getCharacterRested } from '../get-character-rested';
 import { getDungeonLevel } from '../mythic-plus/get-dungeon-level';
+import getRaidVaultItemLevel from '../get-raid-vault-item-level';
+import { getWorldTier } from '../vault/get-world-tier';
 
 export function homeSort(
     activeView: SettingsView,
@@ -81,6 +83,20 @@ export function homeSort(
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[0]))[0], 3, '0'),
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[1]))[0], 3, '0'),
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[2]))[0], 3, '0'),
+        ].join('|');
+    } else if (sortBy === 'vaultRaid') {
+        const progress = char.isMaxLevel ? char.weekly?.vault?.raidProgress : [];
+        return [
+            leftPad(900 - getRaidVaultItemLevel(progress?.[0])[0], 3, '0'),
+            leftPad(900 - getRaidVaultItemLevel(progress?.[1])[0], 3, '0'),
+            leftPad(900 - getRaidVaultItemLevel(progress?.[2])[0], 3, '0'),
+        ].join('|');
+    } else if (sortBy === 'vaultWorld') {
+        const progress = char.isMaxLevel ? char.weekly?.vault?.worldProgress : [];
+        return [
+            leftPad(900 - getWorldTier(progress?.[0]?.level)[0], 3, '0'),
+            leftPad(900 - getWorldTier(progress?.[1]?.level)[0], 3, '0'),
+            leftPad(900 - getWorldTier(progress?.[2]?.level)[0], 3, '0'),
         ].join('|');
     } else if (sortBy.startsWith('currency:')) {
         const currencyId = parseInt(sortBy.split(':')[1]);
