@@ -117,11 +117,13 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<AuctionBrowseQuery> AuctionBrowseQuery { get; set; }
     public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
     public DbSet<LatestPlayerAccountGoldSnapshotQuery> LatestPlayerAccountGoldSnapshotQuery { get; set; }
+    public DbSet<LatestUserGoldSnapshotQuery> LatestUserGoldSnapshotQuery { get; set; }
     public DbSet<MountQuery> MountQuery { get; set; }
     public DbSet<PlayerAccountGoldSnapshotQuery> PlayerAccountGoldSnapshotQuery { get; set; }
     public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
     public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
     public DbSet<StatisticsQuery> StatisticsQuery { get; set; }
+    public DbSet<UserGoldSnapshotQuery> UserGoldSnapshotQuery { get; set; }
     public DbSet<UserLeaderboardQuery> UserLeaderboardQuery { get; set; }
 
     /*public WowDbContext(string connectionString)
@@ -291,11 +293,14 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         builder.Entity<CompletedAchievementsQuery>()
             .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
 
-        builder.Entity<PlayerAccountGoldSnapshotQuery>()
-            .ToTable("GoldSnapshotQuery", t => t.ExcludeFromMigrations());
-
         builder.Entity<LatestPlayerAccountGoldSnapshotQuery>()
-            .ToTable("LatestGoldSnapshotQuery", t => t.ExcludeFromMigrations());
+            .ToTable("LatestPlayerAccountGoldSnapshotQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<LatestUserGoldSnapshotQuery>()
+            .ToTable("LatestUserGoldSnapshotQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<PlayerAccountGoldSnapshotQuery>()
+            .ToTable("PlayerAccountGoldSnapshotQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<MountQuery>()
             .ToTable("MountQuery", t => t.ExcludeFromMigrations());
@@ -308,6 +313,9 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<StatisticsQuery>()
             .ToTable("StatisticsQuery", t => t.ExcludeFromMigrations());
+
+        builder.Entity<UserGoldSnapshotQuery>()
+            .ToTable("UserGoldSnapshotQuery", t => t.ExcludeFromMigrations());
 
         builder.Entity<UserLeaderboardQuery>()
             .ToTable("UserLeaderboardQuery", t => t.ExcludeFromMigrations());
