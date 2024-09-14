@@ -101,10 +101,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<Team> Team { get; set; }
     public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
+    public DbSet<UserAddonData> UserAddonData { get; set; }
     public DbSet<UserBulkData> UserBulkData { get; set; }
     public DbSet<UserCache> UserCache { get; set; }
     public DbSet<UserLeaderboardSnapshot> UserLeaderboardSnapshot { get; set; }
-    public DbSet<UserMetadata> UserMetadata { get; set; }
 
     public DbSet<WorldQuestAggregate> WorldQuestAggregate { get; set; }
     public DbSet<WorldQuestReport> WorldQuestReport { get; set; }

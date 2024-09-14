@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240914060035_Delete_UserMetadata")]
+    partial class Delete_UserMetadata
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2047,26 +2050,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("team_character", (string)null);
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserAddonData", b =>
-                {
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.Property<long>("WarbankCopper")
-                        .HasColumnType("bigint")
-                        .HasColumnName("warbank_copper");
-
-                    b.Property<DateTimeOffset>("WarbankUpdatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("warbank_updated_at");
-
-                    b.HasKey("UserId")
-                        .HasName("pk_user_addon_data");
-
-                    b.ToTable("user_addon_data", (string)null);
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.User.UserBulkData", b =>
                 {
                     b.Property<long>("UserId")
@@ -3840,18 +3823,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
 
                     b.Navigation("Team");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.User.UserAddonData", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_user_addon_data_application_user_user_id");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.User.UserBulkData", b =>
