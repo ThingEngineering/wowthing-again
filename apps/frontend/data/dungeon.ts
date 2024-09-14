@@ -312,6 +312,7 @@ export const worldVaultItemLevel: Array<Array<number>> = [
     [6, 606, 3], // Champion 4
     [5, 600, 3], // Champion 2
     [4, 597, 3], // Champion 1
+    [3, 590, 2], // Veteran 3
     [2, 587, 2], // Veteran 2
     [1, 584, 2], // Veteran 1
 ];
