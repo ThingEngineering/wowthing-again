@@ -9,7 +9,6 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import { toNicePrice } from '@/utils/formatting';
 
     const setActiveView = (viewId: string) => {
         $browserStore.home.activeView = viewId

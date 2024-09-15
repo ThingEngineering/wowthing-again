@@ -1,5 +1,4 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
 
     import { multiTaskMap, taskList, taskMap } from '@/data/tasks'
@@ -14,15 +13,6 @@
     const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key)
 
     const taskChoices: SettingsChoice[] = taskList.map((t) => ({ id: t.key, name: t.name }))
-
-    const taskActive = view.homeTasks
-        .map((f) => taskChoices.filter((c) => c.id === f)[0])
-        .filter(f => f !== undefined)
-    const taskInactive = taskChoices.filter((c) => taskActive.indexOf(c) === -1)
-
-    const onTaskChange = debounce(() => {
-        view.homeTasks = taskActive.map((c) => c.id)
-    }, 100)
 </script>
 
 <style lang="scss">

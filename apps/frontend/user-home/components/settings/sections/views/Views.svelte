@@ -8,7 +8,6 @@
     import type { SettingsView } from '@/shared/stores/settings/types'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
 
     const deleting = writable<string>(null)
 
