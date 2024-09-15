@@ -436,3 +436,11 @@ const skipCurrencies: number[] = [
 export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(
     skipCurrencies.map((currencyId) => [currencyId, true]),
 );
+
+export const pvpCurrencies = new Set<number>([
+    1356, // Echoes of Battle
+    1602, // Conquest
+    1792, // Honor
+    2123, // Bloody Tokens
+    1137642, // Mark of Honor
+]);
