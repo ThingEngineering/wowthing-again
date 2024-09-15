@@ -321,7 +321,7 @@ export const taskList: Task[] = [
     {
         key: 'dfSparks',
         name: '[DF] Sparks of Life (PvP)',
-        shortName: 'SoL',
+        shortName: 'DF🌟',
         minimumLevel: 60,
     },
     {
@@ -359,6 +359,12 @@ export const taskList: Task[] = [
         shortName: 'Pro',
         type: 'multi',
         minimumLevel: 70,
+    },
+    {
+        key: 'twwSparks',
+        name: '[TWW] Sparks of Life (PvP)',
+        shortName: 'WW🌟',
+        minimumLevel: 60,
     },
 
     // Misc
