@@ -67,6 +67,7 @@ export interface UserData {
     itemsByAppearanceId: Record<number, [HasNameAndRealm, UserItem[]][]>;
     itemsByAppearanceSource: Record<string, [HasNameAndRealm, UserItem[]][]>;
     itemsById: Record<number, [HasNameAndRealm, UserItem[]][]>;
+    warbankItemsByItemId: Record<number, UserItem[]>;
 
     pets: Record<number, UserDataPet[]>;
     setCounts: Record<string, Record<string, UserCount>>;

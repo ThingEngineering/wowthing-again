@@ -53,11 +53,19 @@
             currencies,
             ([, amount]) => leftPad(10_000_000 - amount, 8, '0')
         )
+
+        if (item || itemId) {
+            const warbankItems = $userStore.warbankItemsByItemId[item?.id || itemId] || [];
+            const quantity = warbankItems.reduce((a, b) => a + b.count, 0)
+            if (quantity > 0) {
+                currencies.unshift([null, quantity])
+            }
+        }
     }
 </script>
 
 <style lang="scss">
-    h4 {
+    .wowthing-tooltip {
         --image-border-width: 1px;
     }
     table {
@@ -92,7 +100,13 @@
             {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount]}
                     <tr>
-                        <td class="name">{getCharacterNameRealm(character.id)}</td>
+                        <td class="name">
+                            {#if character}
+                                {getCharacterNameRealm(character.id)}
+                            {:else}
+                                Account Bank
+                            {/if}
+                        </td>
                         <td class="amount">{amount.toLocaleString()}</td>
                     </tr>
                 {/each}

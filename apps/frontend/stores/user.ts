@@ -176,8 +176,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.itemsById = {};
 
         // Initialize warbanks
-        const warbankByItemId = groupBy(userData.warbankItems, (item) => item.itemId);
-        for (const [itemId, items] of getNumberKeyedEntries(warbankByItemId)) {
+        userData.warbankItemsByItemId = groupBy(userData.warbankItems, (item) => item.itemId);
+        for (const [itemId, items] of getNumberKeyedEntries(userData.warbankItemsByItemId)) {
             (userData.itemsById[itemId] ||= []).push([null, items]);
         }
 

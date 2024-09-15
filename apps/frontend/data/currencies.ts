@@ -280,6 +280,7 @@ export const currencyItems: Record<number, number[]> = {
     260: [
         210814, // Artisan's Acuity
         229899, // Coffer Key Shard
+        223951, // Earth-Encrusted Gem
         206350, // Radiant Remnant
     ],
     // The War Within - Season 1
