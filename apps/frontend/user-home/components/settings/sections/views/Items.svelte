@@ -1,6 +1,4 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
-
     import { itemStore } from '@/stores'
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 

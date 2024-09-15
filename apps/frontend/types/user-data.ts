@@ -28,6 +28,7 @@ export interface UserData {
     honorCurrent: number;
     honorLevel: number;
     honorMax: number;
+    warbankGold: number;
 
     backgrounds: Record<number, BackgroundImage>;
     currentPeriod: Record<number, UserDataCurrentPeriod>;

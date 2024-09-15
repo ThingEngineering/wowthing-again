@@ -11,6 +11,7 @@ public class UserAddonData(long userId)
     public ApplicationUser User { get; set; }
 
     public DateTimeOffset WarbankUpdatedAt { get; set; }
+    public DateTimeOffset WarbankGoldUpdatedAt { get; set; }
 
     public long WarbankCopper { get; set; }
 }

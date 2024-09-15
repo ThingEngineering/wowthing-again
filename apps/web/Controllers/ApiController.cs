@@ -353,6 +353,9 @@ public class ApiController : Controller
 
         timer.AddPoint("Periods");
 
+        // Addon data
+        var addonData = await _context.UserAddonData.FindAsync(apiResult.User.Id);
+
         // Heirlooms
         var heirlooms = new Dictionary<int, int>();
         foreach (var account in tempAccounts.Where(pa => pa.Heirlooms != null))
@@ -514,6 +517,7 @@ public class ApiController : Controller
             Images = images,
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
+            WarbankGold = apiResult.Public ? 0 : (int)(addonData.WarbankCopper / 10000),
 
             RawWarbankItems = warbankItems,
 

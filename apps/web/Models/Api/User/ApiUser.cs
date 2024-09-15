@@ -23,6 +23,7 @@ public class ApiUser
     public short HonorCurrent { get; set; }
     public short HonorLevel { get; set; }
     public short HonorMax { get; set; }
+    public int WarbankGold { get; set; }
 
     public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }

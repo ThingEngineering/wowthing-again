@@ -4,6 +4,7 @@ import type { TaskProfession } from '@/types/data';
 export const warWithinEnchanting: TaskProfession = {
     id: Profession.Enchanting,
     subProfessionId: 2874,
+    hasTasks: true,
     bookQuests: [
         {
             itemId: 227411, // Faded Enchanter's Research
