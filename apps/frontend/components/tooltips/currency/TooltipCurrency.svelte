@@ -65,7 +65,7 @@
 </script>
 
 <style lang="scss">
-    h4 {
+    .wowthing-tooltip {
         --image-border-width: 1px;
     }
     table {
