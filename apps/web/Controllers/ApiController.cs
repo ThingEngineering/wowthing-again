@@ -517,7 +517,7 @@ public class ApiController : Controller
             Images = images,
             Public = apiResult.Public,
             RaiderIoScoreTiers = raiderIoScoreTiers,
-            WarbankGold = apiResult.Public ? 0 : (int)(addonData.WarbankCopper / 10000),
+            WarbankGold = apiResult.Public ? 0 : (int)((addonData?.WarbankCopper ?? 0) / 10000),
 
             RawWarbankItems = warbankItems,
 
