@@ -311,7 +311,7 @@ export const worldVaultItemLevel: Array<Array<number>> = [
     [7, 610, 4], // Hero 1
     [6, 606, 3], // Champion 4
     [5, 600, 3], // Champion 2
-    [4, 597, 3], // Champion 1
+    [4, 593, 2], // Veteran 4
     [3, 590, 2], // Veteran 3
     [2, 587, 2], // Veteran 2
     [1, 584, 2], // Veteran 1

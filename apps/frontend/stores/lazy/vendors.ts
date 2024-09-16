@@ -1,4 +1,5 @@
 import { classByArmorType } from '@/data/character-class';
+import { pvpCurrencies } from '@/data/currencies';
 import { transmogTypes } from '@/data/transmog';
 import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
@@ -27,7 +28,6 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
 
-const pvpRegex = new RegExp(/ - S\d\d/);
 const tierRegex = new RegExp(/ - T\d\d/);
 
 export interface LazyVendors {
@@ -297,7 +297,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                 if (
                     !stores.vendorState.showPvp &&
-                    (pvpRegex.test(group.name) || group.name.includes('War Mode'))
+                    group.sells.some((vendorItem) =>
+                        getNumberKeyedEntries(vendorItem.costs).some(([currencyId]) =>
+                            pvpCurrencies.has(currencyId),
+                        ),
+                    )
                 ) {
                     continue;
                 }

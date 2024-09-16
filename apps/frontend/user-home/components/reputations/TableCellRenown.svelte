@@ -1,6 +1,5 @@
 <script lang="ts">
-    import orderBy from 'lodash/orderBy'
-
+    import { getRenownData } from './get-renown-data';
     import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores';
@@ -18,41 +17,20 @@
 
     let characterParagon: CharacterReputationParagon
     let characterRep: CharacterReputationReputation
+    let cls: string
     let dataRep: StaticDataReputation
-    let quality: number
     let renownLevel: string
 
     $: {
-        quality = 0
-        renownLevel = null
-        if (!reputation) { break $ }
-
-        characterRep = character.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-        dataRep = $staticStore.reputations[characterRep.reputationId]
-
-        const actualCharacter = !dataRep.accountWide
-            ? character
-            : orderBy(
-                $userStore.activeCharacters
-                    .filter((char) => !!char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex]),
-                (char) => -char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value
-            )[0];
-        
-        characterRep = actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];
-        if (characterRep.value !== -1) {
-            const currency = $staticStore.currencies[dataRep.renownCurrencyId]
-            const maxRenown = currency.maxTotal
- 
-            let tier = characterRep.value / 2500
-            quality = 1 + Math.floor(tier / (maxRenown / 5))
-
-            characterParagon = actualCharacter.paragons?.[characterRep.reputationId]
-            if (characterParagon) {
-                tier += (characterParagon.current / characterParagon.max)
-            }
-
-            renownLevel = (Math.floor(tier * 100) / 100).toFixed(2)
-        }
+        ({ characterParagon, characterRep, cls, dataRep, renownLevel } = getRenownData({
+            character,
+            reputation,
+            reputationsIndex,
+            reputationSetsIndex,
+            slug,
+            staticData: $staticStore,
+            userData: $userStore,
+        }))
     }
 </script>
 
@@ -65,7 +43,7 @@
 
 {#if renownLevel}
     <td
-        class="quality{quality}"
+        class="{cls}"
         class:status-fail={characterParagon?.rewardAvailable}
         use:componentTooltip={{
             component: Tooltip,

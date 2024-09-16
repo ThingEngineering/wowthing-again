@@ -25,7 +25,7 @@
     import Pets from '@/components/collectible/Pets.svelte'
     import Professions from '@/components/professions/Professions.svelte'
     import Progress from '@/components/progress/Progress.svelte'
-    import Reputations from '@/components/reputations/Reputations.svelte'
+    import Reputations from '@/user-home/components/reputations/Reputations.svelte'
     import Toys from '@/components/collectible/Toys.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'

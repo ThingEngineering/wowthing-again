@@ -9,7 +9,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bottom: string = undefined
-    export let character: Character
+    export let character: Character = undefined
     export let characterRep: number
     export let dataRep: StaticDataReputation
     export let paragon: CharacterReputationParagon = undefined
@@ -104,8 +104,7 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name}</h4>
-    <h5>
+    <h4>
         {#if reputation !== undefined && reputation.both === undefined}
             <WowthingImage
                 name={character.faction === 0 ? Constants.icons.alliance : Constants.icons.horde}
@@ -114,7 +113,11 @@
         {/if}
 
         {dataRep.name}
-    </h5>
+    </h4>
+
+    {#if character}
+        <h5>{character.name}</h5>
+    {/if}
 
     <table class="table-striped">
         <tbody>

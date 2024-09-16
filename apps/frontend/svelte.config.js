@@ -5,8 +5,6 @@ import { sveltePreprocess } from 'svelte-preprocess';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-console.log(__dirname);
-
 const config = {
     preprocess: sveltePreprocess({
         scss: {

@@ -48,7 +48,6 @@ export class CharacterWeeklyProgress {
     ) {
         if (rewardArrays?.length > 0) {
             this.rewards = rewardArrays.map((rewardArray) => new CharacterItem(...rewardArray));
-            console.log(this.rewards);
         }
     }
 }

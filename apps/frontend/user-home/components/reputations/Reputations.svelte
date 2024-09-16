@@ -3,8 +3,8 @@
 
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import ReputationsSidebar from './ReputationsSidebar.svelte'
-    import ReputationsTable from './ReputationsTable.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import Table from './Table.svelte'
 
     export let params: { slug: string }
 
@@ -12,8 +12,8 @@
 </script>
 
 <div class="view">
-    <ReputationsSidebar />
+    <Sidebar />
     {#if params.slug}
-        <ReputationsTable slug={params.slug} />
+        <Table slug={params.slug} />
     {/if}
 </div>
