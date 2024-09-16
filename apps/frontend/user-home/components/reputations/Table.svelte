@@ -13,9 +13,9 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Error from '@/components/common/Error.svelte'
-    import TableHead from './ReputationsTableHead.svelte'
-    import TableRow from './ReputationsTableRow.svelte'
-    import TableRowRenown from './ReputationsTableRowRenown.svelte'
+    import TableHead from './TableHead.svelte'
+    import TableCell from './TableCell.svelte'
+    import TableCellRenown from './TableCellRenown.svelte'
 
     export let slug: string
 
@@ -62,7 +62,6 @@
         }
     }
 
-
     function isRenown(reputationSet: ManualDataReputationSet) {
         return reputationSet.both
             ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
@@ -97,7 +96,7 @@
 
                     {#each reputationSets as reputationSet, reputationSetsIndex}
                         {#if isRenown(reputationSet)}
-                            <TableRowRenown
+                            <TableCellRenown
                                 reputation={reputationSet}
                                 {character}
                                 {slug}
@@ -105,7 +104,7 @@
                                 {reputationSetsIndex}
                             />
                         {:else}
-                            <TableRow
+                            <TableCell
                                 reputation={reputationSet}
                                 {character}
                                 {slug}
