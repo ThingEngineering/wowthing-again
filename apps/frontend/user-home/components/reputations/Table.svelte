@@ -5,11 +5,12 @@
     import { staticStore } from '@/shared/stores/static'
     import { manualStore } from '@/stores';
     import { reputationState } from '@/stores/local-storage'
-    import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import { leftPad } from '@/utils/formatting'
+    import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character } from '@/types'
     import type { ManualDataReputationCategory, ManualDataReputationSet } from '@/types/data/manual';
 
+    import AccountWide from './AccountWide.svelte';
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Error from '@/components/common/Error.svelte'
@@ -67,56 +68,86 @@
             ? $staticStore.reputations[reputationSet.both.id].renownCurrencyId > 0
             : $staticStore.reputations[reputationSet.alliance?.id || reputationSet.horde.id].renownCurrencyId > 0
     }
+
+    type RepSetData = [ManualDataReputationSet[], number][];
+    function splitSets(reputationSets: ManualDataReputationSet[][]): [RepSetData, RepSetData] {
+        const accountSets: RepSetData = [];
+        const characterSets: RepSetData = [];
+
+        for (let setIndex = 0; setIndex < reputationSets.length; setIndex++) {
+            const reputationSet = reputationSets[setIndex];
+            const hasAccountWide = reputationSet.some((rep) => $staticStore.reputations[rep.both?.id]?.accountWide);
+            (hasAccountWide ? accountSets : characterSets).push([reputationSet, setIndex]);
+        }
+
+        return [accountSets, characterSets];
+    }
 </script>
 
-{#if category?.reputations}
-    <CharacterTable
-        skipGrouping={sorted}
-        skipIgnored={true}
-        {filterFunc}
-        {sortFunc}
-    >
-        <CharacterTableHead slot="head">
-            {#each category.reputations as reputationSet}
-                <td class="spacer"></td>
-                
-                {#each reputationSet as reputation}
-                    <TableHead
-                        {reputation}
-                        {slug}
-                    />
-                {/each}
-            {/each}
-        </CharacterTableHead>
+<style lang="scss">
+    .flex-wrapper {
+        align-items: start;
+        gap: 1rem;
+    }
+</style>
 
-        <svelte:fragment slot="rowExtra" let:character>
-            {#key `reputations|${slug}`}
-                {#each category.reputations as reputationSets, reputationsIndex}
+{#if category?.reputations?.length > 0}
+{@const [accountSets, characterSets] = splitSets(category.reputations)}
+    <div class="flex-wrapper">
+    {#if accountSets.length > 0}
+        <AccountWide {accountSets} {slug} />
+    {/if}
+
+    {#if characterSets.length > 0}
+        <CharacterTable
+            skipGrouping={sorted}
+            skipIgnored={true}
+            {filterFunc}
+            {sortFunc}
+        >
+            <CharacterTableHead slot="head">
+                {#each characterSets as [reputationSet]}
                     <td class="spacer"></td>
-
-                    {#each reputationSets as reputationSet, reputationSetsIndex}
-                        {#if isRenown(reputationSet)}
-                            <TableCellRenown
-                                reputation={reputationSet}
-                                {character}
-                                {slug}
-                                {reputationsIndex}
-                                {reputationSetsIndex}
-                            />
-                        {:else}
-                            <TableCell
-                                reputation={reputationSet}
-                                {character}
-                                {slug}
-                                {reputationsIndex}
-                                {reputationSetsIndex}
-                            />
-                        {/if}
+                    
+                    {#each reputationSet as reputation}
+                        <TableHead
+                            {reputation}
+                            {slug}
+                        />
                     {/each}
                 {/each}
-            {/key}
-        </svelte:fragment>
-    </CharacterTable>
+            </CharacterTableHead>
+
+            <svelte:fragment slot="rowExtra" let:character>
+                {#key `reputations|${slug}`}
+                    {#each characterSets as [reputationSets, reputationsIndex]}
+                        <td class="spacer"></td>
+
+                        {#each reputationSets as reputationSet, reputationSetsIndex}
+                            {#if isRenown(reputationSet)}
+                                <TableCellRenown
+                                    reputation={reputationSet}
+                                    {character}
+                                    {slug}
+                                    {reputationsIndex}
+                                    {reputationSetsIndex}
+                                />
+                            {:else}
+                                <TableCell
+                                    reputation={reputationSet}
+                                    {character}
+                                    {slug}
+                                    {reputationsIndex}
+                                    {reputationSetsIndex}
+                                />
+                            {/if}
+                        {/each}
+                    {/each}
+                {/key}
+            </svelte:fragment>
+        </CharacterTable>
+    {/if}
+    </div>
 {:else}
     <Error
         text="No reputations found matching provided path"
