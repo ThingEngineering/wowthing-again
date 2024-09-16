@@ -38,10 +38,10 @@ import type {
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
-import type { ContainsItems, UserItem } from '@/types/shared';
+import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 import { WarbankItem } from '@/types/items';
-import { manualStore } from './manual'
-import type { ManualData } from '@/types/data/manual'
+import { manualStore } from './manual';
+import type { ManualData } from '@/types/data/manual';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -171,15 +171,42 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         const staticData = get(staticStore);
 
         this._itemCounts = {};
-        userData.itemsByAppearanceId = {};
-        userData.itemsByAppearanceSource = {};
-        userData.itemsById = {};
 
         // Initialize warbanks
+        const temp: ContainsItems = {
+            itemsByAppearanceId: {},
+            itemsByAppearanceSource: {},
+            itemsById: {},
+        };
         userData.warbankItemsByItemId = groupBy(userData.warbankItems, (item) => item.itemId);
         for (const [itemId, items] of getNumberKeyedEntries(userData.warbankItemsByItemId)) {
-            (userData.itemsById[itemId] ||= []).push([null, items]);
+            temp.itemsById[itemId] = items;
+
+            for (const warbankItem of items) {
+                const item = itemData.items[warbankItem.itemId];
+                if (Object.values(item?.appearances || {}).length === 0) {
+                    continue;
+                }
+
+                this.setAppearanceData(itemData, temp, warbankItem, item);
+            }
         }
+
+        userData.itemsByAppearanceId = Object.fromEntries(
+            getNumberKeyedEntries(temp.itemsByAppearanceId).map(([key, value]) => [
+                key,
+                [[null, value]],
+            ]),
+        );
+        userData.itemsByAppearanceSource = Object.fromEntries(
+            Object.entries(temp.itemsByAppearanceSource).map(([key, value]) => [
+                key,
+                [[null, value]],
+            ]),
+        );
+        userData.itemsById = Object.fromEntries(
+            getNumberKeyedEntries(temp.itemsById).map(([key, value]) => [key, [[null, value]]]),
+        );
 
         // Initialize guilds
         for (const guild of Object.values(userData.guildMap)) {
