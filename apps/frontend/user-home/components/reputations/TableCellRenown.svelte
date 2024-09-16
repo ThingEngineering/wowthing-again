@@ -1,6 +1,5 @@
 <script lang="ts">
-    import orderBy from 'lodash/orderBy'
-
+    import { getRenownData } from './get-renown-data';
     import { staticStore } from '@/shared/stores/static'
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores';
@@ -9,7 +8,6 @@
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import Tooltip from '@/components/tooltips/reputation/TooltipReputationRenown.svelte'
-    import { getRenownData } from './get-renown-data';
 
     export let character: Character
     export let reputation: ManualDataReputationSet
@@ -19,12 +17,12 @@
 
     let characterParagon: CharacterReputationParagon
     let characterRep: CharacterReputationReputation
+    let cls: string
     let dataRep: StaticDataReputation
-    let quality: number
     let renownLevel: string
 
     $: {
-        ({ characterParagon, characterRep, dataRep, quality, renownLevel } = getRenownData({
+        ({ characterParagon, characterRep, cls, dataRep, renownLevel } = getRenownData({
             character,
             reputation,
             reputationsIndex,
@@ -45,7 +43,7 @@
 
 {#if renownLevel}
     <td
-        class="quality{quality}"
+        class="{cls}"
         class:status-fail={characterParagon?.rewardAvailable}
         use:componentTooltip={{
             component: Tooltip,
