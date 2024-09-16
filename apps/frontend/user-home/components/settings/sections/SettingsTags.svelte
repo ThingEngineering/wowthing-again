@@ -43,7 +43,6 @@
         for (const [characterId, flags] of getNumberKeyedEntries($settingsStore.characters.flags || {})) {
             if ((flags & mask) === mask) {
                 $settingsStore.characters.flags[characterId] = flags ^ mask
-                console.log(characterId, flags, $settingsStore.characters.flags[characterId])
             }
         }
 

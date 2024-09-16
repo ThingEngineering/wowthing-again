@@ -27,7 +27,6 @@
                 break
             }
         }
-        console.log(improve)
     }
 </script>
 

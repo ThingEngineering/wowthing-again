@@ -72,7 +72,6 @@ class AchievementProcessor {
             }
         }
 
-        console.log(this.data);
         console.timeEnd('AchievementProcessor.process');
         return this.data;
     }

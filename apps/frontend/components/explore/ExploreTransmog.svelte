@@ -38,7 +38,6 @@
 
                 (slots[actualSlot] ||= []).push(item);
             }
-            console.log(slots)
         }
     }
 </script>

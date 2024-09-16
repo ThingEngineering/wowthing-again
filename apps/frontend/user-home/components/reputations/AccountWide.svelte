@@ -10,8 +10,6 @@
 
     export let accountSets: [ManualDataReputationSet[], number][];
     export let slug: string;
-
-    console.log(accountSets);
 </script>
 
 <style lang="scss">
