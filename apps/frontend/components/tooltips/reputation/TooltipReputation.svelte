@@ -6,6 +6,7 @@
     import type { Character, CharacterReputationParagon } from '@/types'
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
+    import RenownTooltip from './TooltipReputationRenown.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bottom: string = undefined
@@ -14,6 +15,8 @@
     export let dataRep: StaticDataReputation
     export let paragon: CharacterReputationParagon = undefined
     export let reputation: ManualDataReputationSet = undefined
+
+    const brannId = 2640;
 
     let reps: {
         cls: string
@@ -27,9 +30,10 @@
         const tiers: StaticDataReputationTier = $staticStore.reputationTiers[dataRep.tierId] || $staticStore.reputationTiers[0]
 
         reps = []
+        let foundIndex = -1;
         for (let i = 0; i < tiers.names.length; i++) {
-            const minValue = tiers.minValues[i]
-            const maxValue = tiers.minValues[i + 1] !== undefined ? tiers.minValues[i + 1] : minValue
+            let minValue = tiers.minValues[i]
+            let maxValue = tiers.minValues[i + 1] !== undefined ? tiers.minValues[i + 1] : minValue
             if (minValue < 0 && characterRep >= maxValue) {
                 continue
             }
@@ -38,6 +42,22 @@
                 characterRep >= minValue &&
                 (maxValue === 0 || characterRep < maxValue)
             )
+            if (thisOne) {
+                foundIndex = i;
+            }
+            
+            // Brann hack - only show blocks of 10 levels or (current->next multiple of 10)
+            if (dataRep.id === brannId) {
+                const foundBase = Math.floor((foundIndex + 1) / 10);
+                const indexBase = Math.floor((i + 1) / 10);
+                if (i % 10 !== 9 && (foundIndex === -1 || foundBase !== indexBase)) {
+                    continue;
+                } else {
+                    if (foundIndex === -1 || indexBase > (foundBase + 1)) {
+                        minValue = tiers.minValues[i - 9]
+                    }
+                }
+            }
 
             reps.push({
                 cls: 'quality0',
@@ -57,8 +77,13 @@
             if (reps[i].maxValue <= 0) {
                 reps[i].cls = ['status-shrug', 'status-warn', 'status-fail'][Math.min(2, badCount)]
                 badCount++;
-            }
-            else if (i >= setClass) {
+            } else if (dataRep.id === brannId) {
+                const levelMatch = reps[i].name.match(/(\d\d)/);
+                if (levelMatch) {
+                    const oof = Math.max(0, Math.floor(Math.abs(parseInt(levelMatch[1]) - 80) / 10) - 1)
+                    reps[i].cls = `reputation${oof}`
+                }
+            } else if (i >= setClass) {
                 reps[i].cls = `reputation${start - i + 1}`
             }
 
@@ -103,6 +128,9 @@
     }
 </style>
 
+{#if dataRep.renownCurrencyId > 0}
+    <RenownTooltip {character} {characterRep} {dataRep} {reputation} />
+{:else}
 <div class="wowthing-tooltip">
     <h4>
         {#if reputation !== undefined && reputation.both === undefined}
@@ -166,3 +194,4 @@
         </div>
     {/if}
 </div>
+{/if}

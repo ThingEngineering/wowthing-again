@@ -5,6 +5,7 @@
     import { userStore } from '@/stores';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
+    import TooltipRenown from '@/components/tooltips/reputation/TooltipReputationRenown.svelte'
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
