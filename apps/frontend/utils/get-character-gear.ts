@@ -2,13 +2,13 @@ import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
 import {
-    gemBonusIds,
     heirloomSlots,
     slotOrder,
     specialValidEnchants,
     validEnchants,
 } from '@/data/inventory-slot';
 import { InventorySlot } from '@/enums/inventory-slot';
+import { ItemBonusType } from '@/enums/item-bonus-type';
 import { ItemClass } from '@/enums/item-class';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
 import { itemStore } from '@/stores';
@@ -62,10 +62,7 @@ export default function getCharacterGear(state: GearState, character: Character)
             }
         }
 
-        if (
-            state.highlightItemLevel &&
-            gear.equipped.itemLevel < state.minimumItemLevel
-        ) {
+        if (state.highlightItemLevel && gear.equipped.itemLevel < state.minimumItemLevel) {
             gear.lowItemLevel = true;
         }
 
@@ -108,15 +105,20 @@ export default function getCharacterGear(state: GearState, character: Character)
             }
 
             if (state.highlightGems) {
-                // TODO fix this once item bonus data available in frontend
-                if (gear.equipped.bonusIds.some((b) => gemBonusIds.indexOf(b) >= 0)) {
-                    if (gear.equipped.bonusIds.indexOf(8781) >= 0) {
-                        gear.missingGem = gear.equipped.gemIds.length < 2;
-                    } else if (gear.equipped.bonusIds.indexOf(8782) >= 0) {
-                        gear.missingGem = gear.equipped.gemIds.length < 3;
-                    } else {
-                        gear.missingGem = gear.equipped.gemIds.length < 1;
+                let gemCount = 0;
+                for (const bonusId of gear.equipped.bonusIds) {
+                    if (itemData.itemBonusSocket.has(bonusId)) {
+                        const itemBonus = itemData.itemBonuses[bonusId];
+                        for (const [bonusType, bonusValue1] of itemBonus.bonuses) {
+                            if (bonusType === ItemBonusType.AddSockets) {
+                                gemCount += bonusValue1;
+                            }
+                        }
                     }
+                }
+
+                if (gemCount > 0) {
+                    gear.missingGem = gear.equipped.gemIds.length < gemCount;
                 }
             }
 

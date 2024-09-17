@@ -214,16 +214,6 @@ interface SpecialValidEnchant {
     checkFunc: (character: Character) => boolean;
 }
 
-export const gemBonusIds: number[] = [
-    6935, // SL legendary socket?
-    7576, // ??
-    7580, // SL Season 3?
-    7935, // DF ??
-    8780, // DF +1 item
-    8781, // DF +2 item
-    8782, // DF +3 item
-];
-
 export const characterBagSlots: number[] = [
     1,
     2,

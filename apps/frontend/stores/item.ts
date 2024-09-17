@@ -1,5 +1,6 @@
 import { Constants } from '@/data/constants';
 import { currentTier, previousTier } from '@/data/gear';
+import { ItemBonusType } from '@/enums/item-bonus-type';
 import { WritableFancyStore } from '@/types/fancy-store';
 import { ItemDataItem, type ItemData, DataItemBonus, DataItemSet } from '@/types/data/item';
 
@@ -83,24 +84,27 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
 
         data.itemBonuses = {};
-        data.itemBonusCurrentSeason = new Set<number>();
+        data.itemBonusCurrentSeason = new Set();
+        data.itemBonusSocket = new Set();
         data.itemConversionBonus = {};
         for (const itemBonusArray of data.rawItemBonuses) {
             const obj = new DataItemBonus(...itemBonusArray);
             data.itemBonuses[obj.id] = obj;
 
-            if (
-                obj.bonuses[0][0] === 34 &&
+            if (obj.bonuses[0][0] === ItemBonusType.AddSockets && obj.bonuses[0][2] === 7) {
+                data.itemBonusSocket.add(obj.id);
+            } else if (
+                obj.bonuses[0][0] === ItemBonusType.ItemBonusListGroupId &&
                 Constants.seasonItemBonusListGroups.indexOf(obj.bonuses[0][1]) >= 0
             ) {
                 data.itemBonusCurrentSeason.add(obj.id);
-            }
-            // Set ItemConversionID
-            else if (obj.bonuses[0][0] === 37) {
+            } else if (obj.bonuses[0][0] === ItemBonusType.ItemConversionId) {
                 data.itemConversionBonus[obj.id] = obj.bonuses[0][1];
             }
         }
         data.rawItemBonuses = null;
+
+        console.log(data.itemBonusSocket);
 
         data.itemBonusToUpgrade = {};
         for (const bonusGroups of Object.values(data.itemBonusListGroups)) {
