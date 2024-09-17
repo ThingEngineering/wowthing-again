@@ -6,6 +6,7 @@
     import type { Character, CharacterReputationParagon } from '@/types'
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
+    import RenownTooltip from './TooltipReputationRenown.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bottom: string = undefined
@@ -103,6 +104,9 @@
     }
 </style>
 
+{#if dataRep.renownCurrencyId > 0}
+    <RenownTooltip {character} {characterRep} {dataRep} {reputation} />
+{:else}
 <div class="wowthing-tooltip">
     <h4>
         {#if reputation !== undefined && reputation.both === undefined}
@@ -166,3 +170,4 @@
         </div>
     {/if}
 </div>
+{/if}
