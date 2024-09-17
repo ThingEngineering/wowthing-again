@@ -9,7 +9,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
-    export let characterParagon: CharacterReputationParagon
+    export let characterParagon: CharacterReputationParagon = undefined
     export let characterRep: number
     export let dataRep: StaticDataReputation
     export let reputation: ManualDataReputationSet = undefined
@@ -25,6 +25,9 @@
 </script>
 
 <style lang="scss">
+    .wowthing-tooltip {
+        width: 15rem;
+    }
     .tooltip-body {
         padding: 0.5rem;
     }
@@ -34,9 +37,8 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name}</h4>
-    <h5>
-        {#if reputation?.both === undefined}
+    <h4 class="text-overflow">
+        {#if reputation?.both === undefined && character}
             <WowthingImage
                 name={character.faction === 0 ? Constants.icons.alliance : Constants.icons.horde}
                 size={20}
@@ -44,7 +46,10 @@
         {/if}
 
         {dataRep.name}
-    </h5>
+    </h4>
+    {#if character}
+        <h5>{character.name}</h5>
+    {/if}
 
     <div class="tooltip-body">
         <p>Renown {tier} / {maxRenown}</p>
