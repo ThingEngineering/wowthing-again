@@ -4,8 +4,11 @@ import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
 import { Profession } from '@/enums/profession';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
+import { leftPad } from '@/utils/formatting';
+import { getCharacterLevel } from '@/utils/get-character-level';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
+import type { InventoryType } from '@/enums/inventory-type';
 import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
@@ -44,7 +47,6 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { ItemData } from '../data/item';
-import type { InventoryType } from '@/enums/inventory-type';
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -265,6 +267,19 @@ export class Character implements ContainsItems, HasNameAndRealm {
         if (scannedCurrenciesUnix && scannedCurrenciesUnix > Constants.defaultUnixTime) {
             this.scannedCurrencies = DateTime.fromSeconds(scannedCurrenciesUnix);
         }
+    }
+
+    private _fancyLevel: string;
+    get fancyLevel(): string {
+        if (!this._fancyLevel) {
+            const levelData = getCharacterLevel(this);
+            if (levelData.level < Constants.characterMaxLevel) {
+                this._fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}.${levelData.partial}`;
+            } else {
+                this._fancyLevel = `${leftPad(levelData.level, 2, '&nbsp;')}&nbsp;&nbsp;`;
+            }
+        }
+        return this._fancyLevel;
     }
 
     get isMaxLevel(): boolean {
