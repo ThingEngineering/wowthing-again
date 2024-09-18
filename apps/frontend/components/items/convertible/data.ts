@@ -19,7 +19,7 @@ export const warWithinUpgrade4: CrestData = [[2917, 15]]; // Gilded
 
 export const convertibleCategories: ConvertibleCategory[] = [
     {
-        id: 10,
+        id: 8,
         minimumLevel: 80,
         name: '[TWW] Season 1',
         slug: 'tww-season-1',
