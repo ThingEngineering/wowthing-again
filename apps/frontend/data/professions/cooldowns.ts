@@ -56,6 +56,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwBlacksmithingEverburning',
         name: '[TWW] Everburning Ignition',
         profession: Profession.Blacksmithing,
+        unimportant: true,
         cooldown: [
             [7200], // 2h
             [6300, 2872, 99267, 6], // 25% @ 5 points in Everburning Forge
@@ -144,14 +145,16 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         type: 'spell',
         key: 'twwHerbalismOverload',
         name: '[TWW] Overload Herb',
-        profession: Profession.Mining,
+        profession: Profession.Herbalism,
+        unimportant: true,
         cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'dfHerbalismOverload',
         name: '[DF] Overload Herb',
-        profession: Profession.Mining,
+        profession: Profession.Herbalism,
+        unimportant: true,
         cooldown: [[0]],
     },
 
@@ -311,6 +314,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwMiningOverload',
         name: '[TWW] Overload Deposit',
         profession: Profession.Mining,
+        unimportant: true,
         cooldown: [[0]],
     },
     {
@@ -318,21 +322,30 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'dfMiningOverload',
         name: '[DF] Overload Deposit',
         profession: Profession.Mining,
+        unimportant: true,
         cooldown: [[0]],
     },
 
     // Skinning
     {
         type: 'quest',
+        key: 'twwProfessionSkinningScalefang',
+        name: '[TWW] Skin Scalefang',
+        profession: Profession.Skinning,
+        minimumLevel: 72,
+        ids: [84259],
+    },
+    {
+        type: 'quest',
         key: 'dfProfessionSkinningMagmaCobra',
-        name: 'Magma Cobra',
+        name: '[DF] Skin Magma Cobra',
         profession: Profession.Skinning,
         ids: [74235],
     },
     {
         type: 'quest',
         key: 'dfProfessionSkinningVerdantGladewarden',
-        name: 'Verdant Gladewarden',
+        name: '[DF] Skin Verdant Gladewarden',
         profession: Profession.Skinning,
         ids: [78397],
     },
@@ -410,7 +423,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders171',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Alchemy,
         cooldown: [
             [86400], // 24h
@@ -421,7 +434,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders164',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Blacksmithing,
         cooldown: [
             [86400], // 24h
@@ -432,7 +445,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders333',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Enchanting,
         cooldown: [
             [86400], // 24h
@@ -443,7 +456,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders202',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Engineering,
         cooldown: [
             [86400], // 24h
@@ -454,7 +467,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders773',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Inscription,
         cooldown: [
             [86400], // 24h
@@ -465,7 +478,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders755',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Jewelcrafting,
         cooldown: [
             [86400], // 24h
@@ -476,7 +489,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders165',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Leatherworking,
         cooldown: [
             [86400], // 24h
@@ -487,7 +500,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders197',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Tailoring,
         cooldown: [
             [86400], // 24h
