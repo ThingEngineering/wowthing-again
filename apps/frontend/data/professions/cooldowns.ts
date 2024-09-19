@@ -324,15 +324,23 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Skinning
     {
         type: 'quest',
+        key: 'twwProfessionSkinningScalefang',
+        name: '[TWW] Skin Scalefang',
+        profession: Profession.Skinning,
+        minimumLevel: 72,
+        ids: [84259],
+    },
+    {
+        type: 'quest',
         key: 'dfProfessionSkinningMagmaCobra',
-        name: 'Magma Cobra',
+        name: '[DF] Skin Magma Cobra',
         profession: Profession.Skinning,
         ids: [74235],
     },
     {
         type: 'quest',
         key: 'dfProfessionSkinningVerdantGladewarden',
-        name: 'Verdant Gladewarden',
+        name: '[DF] Skin Verdant Gladewarden',
         profession: Profession.Skinning,
         ids: [78397],
     },
