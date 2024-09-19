@@ -56,6 +56,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwBlacksmithingEverburning',
         name: '[TWW] Everburning Ignition',
         profession: Profession.Blacksmithing,
+        unimportant: true,
         cooldown: [
             [7200], // 2h
             [6300, 2872, 99267, 6], // 25% @ 5 points in Everburning Forge
@@ -313,6 +314,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'twwMiningOverload',
         name: '[TWW] Overload Deposit',
         profession: Profession.Mining,
+        unimportant: true,
         cooldown: [[0]],
     },
     {
@@ -320,6 +322,7 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         key: 'dfMiningOverload',
         name: '[DF] Overload Deposit',
         profession: Profession.Mining,
+        unimportant: true,
         cooldown: [[0]],
     },
 

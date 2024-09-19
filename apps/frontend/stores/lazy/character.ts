@@ -659,14 +659,18 @@ function doProfessionCooldowns(
     const flags = stores.settings.characters.flags[character.id] || 0;
     if ((flags & useFlag) === 0) {
         for (const cooldownData of cooldownDatas) {
-            if (stores.settings.professions.cooldowns[cooldownData.key] === false) {
-                continue;
-            }
-            if (!character.professions?.[cooldownData.profession]) {
+            if (
+                stores.settings.professions.cooldowns[cooldownData.key] === false ||
+                !character.professions?.[cooldownData.profession]
+            ) {
                 continue;
             }
 
             if (cooldownData.type === 'quest') {
+                if (!cooldownData.minimumLevel || character.level < cooldownData.minimumLevel) {
+                    continue;
+                }
+
                 const progressQuest =
                     stores.userQuestData.characters[character.id]?.progressQuests?.[
                         cooldownData.key
