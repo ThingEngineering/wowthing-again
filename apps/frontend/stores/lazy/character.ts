@@ -742,7 +742,7 @@ function doProfessionCooldowns(
                     ret.total += charMax;
 
                     const per = (charHave / charMax) * 100;
-                    if (per === 100) {
+                    if (per === 100 && !cooldownData.unimportant) {
                         ret.anyFull = true;
                     } else if (per >= 50) {
                         ret.anyHalf = true;

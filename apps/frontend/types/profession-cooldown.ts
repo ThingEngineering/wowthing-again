@@ -6,6 +6,8 @@ export interface ProfessionCooldown {
     data: ProfessionCooldownQuest | ProfessionCooldownSpell;
     have: number;
     max: number;
+    minimumLevel?: number;
+    unimportant?: boolean;
     seconds: number;
     full: DateTime;
 }
@@ -16,6 +18,7 @@ export interface ProfessionCooldownQuest {
     name: string;
     profession: Profession;
     minimumLevel?: number;
+    unimportant?: boolean;
     ids: number[];
 }
 

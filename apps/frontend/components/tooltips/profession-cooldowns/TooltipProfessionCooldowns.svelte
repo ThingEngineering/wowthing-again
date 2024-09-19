@@ -8,6 +8,22 @@
 
     export let character: Character
     export let cooldowns: ProfessionCooldown[]
+
+    function getClass(cooldown: ProfessionCooldown, per: number): string {
+        let ret = '';
+        if (cooldown.data.unimportant) {
+            if (per >= 50) {
+                ret = 'status-shrug';
+            }
+        } else {
+            if (per === 100) {
+                ret = 'status-fail'
+            } else if (per >= 50) {
+                ret = 'status-shrug'
+            }
+        }
+        return ret;
+    }
 </script>
 
 <style lang="scss">
@@ -74,19 +90,12 @@
                             ???
                         </td>
                     {:else}
-                        <td
-                            class="value"
-                            class:status-fail={per === 100}
-                            class:status-shrug={per >= 50 && per < 100}
-                        >
+                        {@const cls = getClass(cooldown, per)}
+                        <td class="value {cls}">
                             {cooldown.have}
                         </td>
                         <td class="slash">/</td>
-                        <td
-                            class="value"
-                            class:status-fail={per === 100}
-                            class:status-shrug={per >= 50 && per < 100}
-                        >
+                        <td class="value {cls}">
                             {cooldown.max}
                         </td>
                     {/if}
