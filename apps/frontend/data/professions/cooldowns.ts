@@ -418,7 +418,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders171',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Alchemy,
         cooldown: [
             [86400], // 24h
@@ -429,7 +429,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders164',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Blacksmithing,
         cooldown: [
             [86400], // 24h
@@ -440,7 +440,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders333',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Enchanting,
         cooldown: [
             [86400], // 24h
@@ -451,7 +451,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders202',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Engineering,
         cooldown: [
             [86400], // 24h
@@ -462,7 +462,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders773',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Inscription,
         cooldown: [
             [86400], // 24h
@@ -473,7 +473,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders755',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Jewelcrafting,
         cooldown: [
             [86400], // 24h
@@ -484,7 +484,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders165',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Leatherworking,
         cooldown: [
             [86400], // 24h
@@ -495,7 +495,7 @@ export const professionWorkOrders: ProfessionCooldownSpell[] = [
     {
         type: 'spell',
         key: 'orders197',
-        name: '[DF] Work Orders',
+        name: 'Work Orders',
         profession: Profession.Tailoring,
         cooldown: [
             [86400], // 24h
