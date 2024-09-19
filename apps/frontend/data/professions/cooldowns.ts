@@ -144,14 +144,16 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
         type: 'spell',
         key: 'twwHerbalismOverload',
         name: '[TWW] Overload Herb',
-        profession: Profession.Mining,
+        profession: Profession.Herbalism,
+        unimportant: true,
         cooldown: [[0]],
     },
     {
         type: 'spell',
         key: 'dfHerbalismOverload',
         name: '[DF] Overload Herb',
-        profession: Profession.Mining,
+        profession: Profession.Herbalism,
+        unimportant: true,
         cooldown: [[0]],
     },
 
