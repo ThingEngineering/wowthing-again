@@ -674,7 +674,7 @@ function doProfessionCooldowns(
                 let full: DateTime = undefined;
                 let have = 1;
                 if (progressQuest) {
-                    const expires = DateTime.fromSeconds(progressQuest.expires);
+                    const expires = DateTime.fromSeconds(progressQuest.expires, { zone: 'utc' });
                     if (expires > stores.currentTime) {
                         full = getNextDailyResetFromTime(expires, character.realm.region);
                         have = 0;
