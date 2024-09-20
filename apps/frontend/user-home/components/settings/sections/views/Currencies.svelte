@@ -8,12 +8,12 @@
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
-    // import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let active: boolean
     export let view: SettingsView
 
-    // let currencyFilter: string
+    let currencyFilter: string
 
     const categoryPrefix: Record<number, string> = {
         260: '[TWW]', // The War Within
@@ -90,24 +90,12 @@
             ))
         }
 
-        currencyChoices = uniqBy(currencyChoices, (c) => c.id)
+        const lowerFilter = (currencyFilter || '').toLocaleLowerCase();
+        currencyChoices = uniqBy(
+            currencyChoices.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
+            (c) => c.id
+        )
     }
-
-    // $: currencyActive = view.homeCurrencies
-    //     .map((f) => currencyChoices.filter((c) => parseInt(c.id) === f)[0])
-    //     .filter(f => f !== undefined)
-    
-    // $: currencyInactive = currencyChoices.filter(
-    //     (instance) => currencyActive.indexOf(instance) === -1 &&
-    //         (
-    //             !currencyFilter ||
-    //             instance.name.toLocaleLowerCase().indexOf(currencyFilter.toLocaleLowerCase()) >= 0
-    //         )
-    // )
-
-    // const onCurrenciesChange = debounce(() => {
-    //     view.homeCurrencies = currencyActive.map((c) => parseInt(c.id))
-    // }, 100)
 </script>
 
 <style lang="scss">
@@ -115,36 +103,25 @@
         --magic-min-height: 17rem;
         --magic-max-height: 17rem;
     }
-    .filter-currencies {
-        position: relative;
-
-        :global(fieldset) {
-            background: $highlight-background;
-            bottom: -2.6rem;
-            right: -4px;
-            width: 12rem;
-        }
-    }
 </style>
 
 {#if active}
     <div class="settings-block">
-        <h3>
-            Currencies
-            <!-- <TextInput
+        <h3>Currencies</h3>
+
+        <div class="magic-filter">
+            <TextInput
                 name="filter"
                 maxlength={20}
                 placeholder="Search..."
                 bind:value={currencyFilter}
-            /> -->
-        </h3>
-
-        {#if active}
-            <MagicLists
-                key="currencies"
-                choices={currencyChoices}
-                bind:activeNumberIds={view.homeCurrencies}
             />
-        {/if}
+        </div>
+
+        <MagicLists
+            key="currencies"
+            choices={currencyChoices}
+            bind:activeNumberIds={view.homeCurrencies}
+        />
     </div>
 {/if}
