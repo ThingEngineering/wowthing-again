@@ -124,7 +124,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         (item) =>
                             ((stores.itemData.items[item.itemId]?.classMask || 0) &
                                 setItem.classMask) ===
-                            setItem.classMask,
+                                setItem.classMask &&
+                            (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId)),
                     ),
                 ],
             );
