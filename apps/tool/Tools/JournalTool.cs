@@ -97,6 +97,7 @@ public class JournalTool
             .ToDictionary(
                 group => group.Key,
                 group => group
+                    .Where(group2 => group2.MaybePlayerConditionID is 0 or 125989)
                     .GroupBy(group2 => group2.MaybePlayerConditionID)
                     .OrderByDescending(group2 => group2.Key)
                     .First()
@@ -469,7 +470,32 @@ public class JournalTool
                             bool difficultiesOverridden = false;
                             if (!hadDifficulties)
                             {
-                                if (encounterItem.DifficultyMask == -1)
+                                if (tier.ID == 505 &&
+                                    encounterItem.Field_11_0_2_55959_007 is 0 or 44658 or 44659 &&
+                                    difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                {
+                                    if (encounterItem.Field_11_0_2_55959_007 == 44658)
+                                    {
+                                        // WorldStateExpression - aj?(574, 0) == 1 && aj?(576) == 0
+                                        // HACK: treat this as heroic only, idk
+                                        difficulties = difficulties.Where(difficulty => difficulty == 8).ToArray();
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                        // // WorldStateExpression - aj?(574, 0) != 1 && aj?(576) == 1
+                                        // // HACK: treat this as mythic only, idk
+                                        // ToolContext.Logger.Warning("44659 {hm}", string.Join(',', difficulties));
+                                        // difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();
+                                    }
+
+                                    if (difficulties.Length == 0)
+                                    {
+                                        ToolContext.Logger.Warning("No valid HACK difficulties for item ID {Id}", encounterItem.ID);
+                                        continue;
+                                    }
+                                }
+                                else if (encounterItem.DifficultyMask == -1)
                                 {
                                     difficulties = mapDifficulties;
                                 }
