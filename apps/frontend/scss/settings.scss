@@ -150,3 +150,14 @@
     gap: 1rem 2rem;
     width: 100%;
 }
+.magic-filter {
+    position: relative;
+
+    fieldset {
+        background: $highlight-background;
+        bottom: 0.4rem;
+        position: absolute;
+        right: 0;
+        width: 12rem;
+    }
+}

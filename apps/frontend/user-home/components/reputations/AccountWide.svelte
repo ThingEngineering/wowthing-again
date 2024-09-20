@@ -5,7 +5,6 @@
     import { userStore } from '@/stores';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
-    import TooltipRenown from '@/components/tooltips/reputation/TooltipReputationRenown.svelte'
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
@@ -29,11 +28,16 @@
     .reputation {
         position: relative;
     }
-    .level {
-        position: absolute;
-        bottom: 1px;
+    .pill {
         left: 50%;
+        position: absolute;
         transform: translateX(-50%);
+    }
+    .text {
+        top: 1px;
+    }
+    .level {
+        bottom: 1px;
     }
 </style>
 
@@ -67,6 +71,11 @@
                         size={48}
                         border={2}
                     />
+                    
+                    {#if reputationSet.both.iconText}
+                        <span class="text pill">{reputationSet.both.iconText}</span>
+                    {/if}
+
                     <span class="level pill">{renownLevel || '??'}</span>
                 </div>
             {/each}

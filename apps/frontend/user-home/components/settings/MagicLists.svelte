@@ -15,7 +15,7 @@
         ? activeNumberIds.map((id) => choices.find((item) => item.id === id.toString()))
         : activeStringIds.map((id) => choices.find((item) => item.id === id))
     ).filter((item) => !!item)
-    let inactiveItems: SettingsChoice[] = choices.filter((item) => activeNumberIds !== undefined
+    $: inactiveItems = choices.filter((item) => activeNumberIds !== undefined
         ? !activeNumberIds.includes(parseInt(item.id))
         : !activeStringIds.includes(item.id))
 
@@ -67,11 +67,12 @@
     .column {
         border: 1px solid $border-color;
         display: flex;
-        flex: 1;
+        flex: 1 1 0;
         flex-direction: column;
         height: var(--magic-max-height, 21rem);
         max-height: var(--magic-max-height, 21rem);
         min-height: var(--magic-min-height, none);
+        width: 0;
     }
 </style>
 
@@ -79,7 +80,7 @@
     {#if title}
         <h3>{title}</h3>
     {/if}
-    
+
     <div class="wrapper">
         <div class="column">
             {#if saveInactive}

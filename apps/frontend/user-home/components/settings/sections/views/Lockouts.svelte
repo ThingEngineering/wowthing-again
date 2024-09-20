@@ -7,24 +7,30 @@
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
-    // import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let active: boolean
     export let view: SettingsView
 
-    // let instanceFilter: string
+    let instanceFilter: string
 
-    const lockoutChoices: SettingsChoice[] = sortBy(
-        Object.values($staticStore.instances)
-            .filter((instance) => instance !== null && !ignoredLockoutInstances[instance.id]),
-        (instance) => instance.expansion
-    ).map((instance) => ({
-        id: instance.id.toString(),
-        name: instance.expansion === 100
-            ? `[Event] ${instance.name}`
-            : `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
-        })
-    )
+    let lockoutChoices: SettingsChoice[]
+    $: {
+        const lowerFilter = (instanceFilter || '').toLocaleLowerCase();
+        lockoutChoices = sortBy(
+            Object.values($staticStore.instances)
+                .filter((instance) => instance !== null &&
+                    !ignoredLockoutInstances[instance.id] &&
+                    instance.name.toLocaleLowerCase().includes(lowerFilter)),
+            (instance) => instance.expansion
+        ).map((instance) => ({
+            id: instance.id.toString(),
+            name: instance.expansion === 100
+                ? `[Event] ${instance.name}`
+                : `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
+            })
+        )
+    }
 </script>
 
 <style lang="scss">
@@ -32,33 +38,20 @@
         --magic-min-height: 17rem;
         --magic-max-height: 17rem;
     }
-    .filter-instances {
-        position: relative;
-
-        :global(fieldset) {
-            background: $highlight-background;
-            bottom: -2.6rem;
-            position: absolute;
-            right: -4px;
-            width: 12rem;
-        }
-    }
 </style>
 
 {#if active}
     <div class="settings-block">
-        <h3>
-            Lockouts
-        </h3>
+        <h3>Lockouts</h3>
 
-        <!-- <div class="filter-instances">
+        <div class="magic-filter">
             <TextInput
                 name="filter"
                 maxlength={20}
                 placeholder="Search..."
                 bind:value={instanceFilter}
             />
-        </div> -->
+        </div>
 
         <MagicLists
             key="lockouts"

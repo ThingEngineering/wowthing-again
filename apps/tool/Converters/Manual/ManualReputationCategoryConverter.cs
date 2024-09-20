@@ -68,6 +68,7 @@ public class ManualReputationCategoryConverter : JsonConverter<ManualReputationC
         writer.WriteStringValue(key);
         writer.WriteNumberValue(reputation.Id);
         writer.WriteStringValue(reputation.Icon);
+        writer.WriteStringValue(reputation.IconText);
 
         // Start rewards
         writer.WriteStartArray();

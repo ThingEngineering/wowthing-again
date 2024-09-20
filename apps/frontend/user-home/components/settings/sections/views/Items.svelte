@@ -10,20 +10,29 @@
 
     let itemFilter: string
 
-    let itemChoices: SettingsChoice[]
+    let itemChoices: SettingsChoice[] = []
     $: {
         itemChoices = []
+
+        for (const itemId of view.homeItems) {
+            const item = $itemStore.items[itemId];
+            itemChoices.push({
+                id: item.id.toString(),
+                name: item.name,
+            })
+        }
         
         const itemWords = (itemFilter?.toLocaleLowerCase()?.split(' ') || []).filter((word) => word.length >= 3)
         if (itemWords.length > 0) {
             for (const item of Object.values($itemStore.items)) {
                 const lowerName = item.name.toLocaleLowerCase()
-                if (itemWords.every((word) => lowerName.indexOf(word) >= 0)) {
+                if (itemWords.every((word) => lowerName.indexOf(word) >= 0) &&
+                    !view.homeItems.includes(item.id)) {
                     itemChoices.push({
                         id: item.id.toString(),
-                        name: item.name
+                        name: item.name,
                     })
-                    if (itemChoices.length === 50) {
+                    if (itemChoices.length === 100) {
                         break
                     }
                 }
@@ -36,19 +45,8 @@
 
 <style lang="scss">
     .settings-block {
-        --magic-min-height: 11.4rem;
-        --magic-max-height: 11.4rem;
-    }
-    .filter-items {
-        position: relative;
-
-        :global(fieldset) {
-            background: $highlight-background;
-            bottom: -2.6rem;
-            position: absolute;
-            right: -4px;
-            width: 12rem;
-        }
+        --magic-min-height: 17rem;
+        --magic-max-height: 17rem;
     }
 </style>
 
@@ -56,7 +54,7 @@
     <div class="settings-block">
         <h3>Items</h3>
 
-        <div class="filter-items">
+        <div class="magic-filter">
             <TextInput
                 name="filter"
                 maxlength={20}
@@ -64,10 +62,9 @@
                 bind:value={itemFilter}
             />
         </div>
-
+    
         <MagicLists
             key="items"
-            title="Items"
             choices={itemChoices}
             bind:activeNumberIds={view.homeItems}
         />

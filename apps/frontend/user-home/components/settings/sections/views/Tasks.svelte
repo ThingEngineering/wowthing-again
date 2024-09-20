@@ -6,13 +6,22 @@
 
     import MagicLists from '../../MagicLists.svelte'
     import Multi from './TasksMulti.svelte'
+    import TextInput from '@/shared/components/forms/TextInput.svelte'
 
     export let active: boolean
     export let view: SettingsView
 
+    let taskFilter: string
+
     const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key)
 
-    const taskChoices: SettingsChoice[] = taskList.map((t) => ({ id: t.key, name: t.name }))
+    let taskChoices: SettingsChoice[]
+    $: {
+        const lowerFilter = (taskFilter || '').toLocaleLowerCase();
+        taskChoices = taskList
+            .filter((task) => task.name.toLocaleLowerCase().includes(lowerFilter))
+            .map((task) => ({ id: task.key, name: task.name }))
+    }
 </script>
 
 <style lang="scss">
@@ -22,33 +31,37 @@
     }
 </style>
 
-<div class="settings-block tasks">
-    <h3>
-        Tasks
-        {#if !active}
-            <span>add to Home columns to configure</span>
-        {/if}
-    </h3>
+{#if active}
+    <div class="settings-block tasks">
+        <h3>Tasks</h3>
 
-    {#if active}
+        <div class="magic-filter">
+            <TextInput
+                name="filter"
+                maxlength={20}
+                placeholder="Search..."
+                bind:value={taskFilter}
+            />
+        </div>
+
         <MagicLists
             key='lockouts'
             choices={taskChoices}
             bind:activeStringIds={view.homeTasks}
         />
-    {/if}
-</div>
+    </div>
 
-{#each multiTasks as taskKey}
-    {#if taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
-        <div class="settings-block">
-            <div>
-                <h3>{taskMap[taskKey].name}</h3>
-                <Multi
-                    multiTaskKey={taskKey}
-                    {view}
-                />
+    {#each multiTasks as taskKey}
+        {#if taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
+            <div class="settings-block">
+                <div>
+                    <h3>{taskMap[taskKey].name}</h3>
+                    <Multi
+                        multiTaskKey={taskKey}
+                        {view}
+                    />
+                </div>
             </div>
-        </div>
-    {/if}
-{/each}
+        {/if}
+    {/each}
+{/if}

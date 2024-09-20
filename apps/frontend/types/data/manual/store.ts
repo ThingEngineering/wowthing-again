@@ -119,6 +119,7 @@ export class ManualDataReputationReputation {
         key: string,
         public id: number,
         public icon: string,
+        public iconText: string,
         rewards: ManualDataReputationRewardArray[],
         public note?: string,
     ) {
