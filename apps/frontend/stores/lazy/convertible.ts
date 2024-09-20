@@ -109,7 +109,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
             ));
 
             const validCharacters = stores.userData.characters.filter(
-                (char) => char.classId === classId && char.level,
+                (char) =>
+                    char.classId === classId && char.level >= convertibleCategory.minimumLevel,
             );
 
             const charactersWithItems: [Character, WhateverItem[]][] = validCharacters.map(
