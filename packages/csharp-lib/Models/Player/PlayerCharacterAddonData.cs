@@ -23,6 +23,7 @@ public class PlayerCharacterAddonData(int characterId)
     public DateTime CurrenciesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime PatronOrdersScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataAura> Auras { get; set; } = new();
@@ -47,6 +48,9 @@ public class PlayerCharacterAddonData(int characterId)
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, List<PlayerCharacterAddonDataPatronOrder>> PatronOrders { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterProfessionTier> Professions { get; set; } = new();
@@ -123,4 +127,28 @@ public class PlayerCharacterAddonDataMythicPlusRun
     public int Level { get; set; }
     public int MapId { get; set; }
     public int Score { get; set; }
+}
+
+public class PlayerCharacterAddonDataPatronOrder
+{
+    public int ExpirationTime { get; set; }
+    public int ItemId { get; set; }
+    public int MinQuality { get; set; }
+    public int SkillLineAbilityId { get; set; }
+    public int TipAmount { get; set; }
+
+    public List<PlayerCharacterAddonDataPatronOrderReagent> Reagents { get; set; }
+    public List<PlayerCharacterAddonDataPatronOrderReward> Rewards { get; set; }
+}
+
+public class PlayerCharacterAddonDataPatronOrderReagent
+{
+    public int Count { get; set; }
+    public int ItemId { get; set; }
+}
+
+public class PlayerCharacterAddonDataPatronOrderReward
+{
+    public int Count { get; set; }
+    public int ItemId { get; set; }
 }

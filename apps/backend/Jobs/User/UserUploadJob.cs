@@ -458,6 +458,7 @@ public class UserUploadJob : JobBase
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
             //HandleMythicPlus(character, characterData);
+            HandlePatronOrders(character, characterData);
             HandleProfessions(character, characterData);
             HandleProfessionCooldowns(character, characterData);
             HandleProfessionTraits(character, characterData);
@@ -1790,6 +1791,78 @@ public class UserUploadJob : JobBase
                 _resetMountCache = true;
                 character.AddonMounts.Mounts = sortedMountIds;
             }
+        }
+    }
+
+    private void HandlePatronOrders(PlayerCharacter character, UploadCharacter characterData)
+    {
+        if (characterData.PatronOrders == null ||
+            !characterData.ScanTimes.TryGetValue("patronOrders", out int scanTimestamp))
+        {
+            return;
+        }
+
+        var scanTime = scanTimestamp.AsUtcDateTime();
+        if (scanTime <= character.AddonData.PatronOrdersScannedAt)
+        {
+            return;
+        }
+
+        character.AddonData.PatronOrders ??= new();
+        character.AddonData.PatronOrdersScannedAt = scanTime;
+
+        foreach ((int professionId, string[] patronOrderStrings) in characterData.PatronOrders)
+        {
+            var patronOrders = character.AddonData.PatronOrders[professionId] = new();
+            foreach (string patronOrderString in patronOrderStrings)
+            {
+                // expires, abilityId, itemId, minQuality, tipAmount, rewards, reagents
+                // 1726930800|49722|213501|3|615326|1:227713:11:0:0:0:0:::_1:228735:0:0:0:0:0:::|300:210814
+                string[] orderParts = patronOrderString.Split("|");
+                if (orderParts.Length != 7)
+                {
+                    Logger.Warning("Invalid patron order string: {s}", patronOrderString);
+                    continue;
+                }
+
+                var patronOrder = new PlayerCharacterAddonDataPatronOrder
+                {
+                    ExpirationTime = int.Parse(orderParts[0]),
+                    SkillLineAbilityId = int.Parse(orderParts[1]),
+                    ItemId = int.Parse(orderParts[2]),
+                    MinQuality = int.Parse(orderParts[3]),
+                    TipAmount = int.Parse(orderParts[4]),
+                    Rewards = orderParts[5]
+                        .Split('_')
+                        .Where(s => !s.IsNullOrEmpty())
+                        .Select(reward => reward.Split(':'))
+                        .Select(rewardParts => new PlayerCharacterAddonDataPatronOrderReward
+                        {
+                            Count = int.Parse(rewardParts[0]),
+                            ItemId = int.Parse(rewardParts[1])
+                        })
+                        .ToList(),
+                    Reagents = orderParts[6]
+                        .Split('_')
+                        .Where(s => !s.IsNullOrEmpty())
+                        .Select(reward => reward.Split(':'))
+                        .Select(rewardParts => new PlayerCharacterAddonDataPatronOrderReagent
+                        {
+                            Count = int.Parse(rewardParts[0]),
+                            ItemId = int.Parse(rewardParts[1])
+                        })
+                        .ToList(),
+                };
+
+                patronOrders.Add(patronOrder);
+            }
+        }
+
+        // Change detection for this is obnoxious, just update it
+        var entry = Context.Entry(character.AddonData);
+        if (entry.State != EntityState.Added)
+        {
+            entry.Property(ad => ad.PatronOrders).IsModified = true;
         }
     }
 
