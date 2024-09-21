@@ -1,4 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using Wowthing.Backend.Converters;
+
 namespace Wowthing.Backend.Models.Uploads;
 
 public class UploadCharacter
@@ -52,12 +55,14 @@ public class UploadCharacter
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
     public string Transmog { get; set; }
-    public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
 
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
     public Dictionary<short, Dictionary<int, string[]>> WorldQuests { get; set; }
+
+    [JsonConverter(typeof(DefaultOnErrorConverter<Dictionary<string, UploadCharacterVault[]>>))]
+    public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
 }
 
 public class UploadCharacterAchievement
