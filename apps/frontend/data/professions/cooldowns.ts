@@ -329,8 +329,8 @@ export const professionCooldowns: (ProfessionCooldownQuest | ProfessionCooldownS
     // Skinning
     {
         type: 'quest',
-        key: 'twwProfessionSkinningScalefang',
-        name: '[TWW] Skin Scalefang',
+        key: 'twwProfessionSkinningSlatefang',
+        name: '[TWW] Skin Slatefang',
         profession: Profession.Skinning,
         minimumLevel: 72,
         ids: [84259],
