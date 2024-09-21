@@ -46,7 +46,7 @@
         text-align: right;
     }
     .realm {
-        @include cell-width($width-realm, $maxWidth: $width-realm-max);
+        @include cell-width($width-realm);
 
         white-space: nowrap;
     }
@@ -87,7 +87,7 @@
                     <CharacterName {character} />
 
                 {:else if field === 'realmName'}
-                    <td class="realm">{character.realm.name}</td>
+                    <td class="realm text-overflow">{character.realm.name}</td>
                 {/if}
             {/each}
 
