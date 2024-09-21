@@ -839,7 +839,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'twwTheaterTroupe',
             taskName: '[IoD] Theater Troupe',
-            minimumLevel: 70,
+            minimumLevel: 80,
         },
         {
             taskKey: 'twwAwakeningTheMachine',
