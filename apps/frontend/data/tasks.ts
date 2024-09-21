@@ -889,21 +889,25 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'twwDelveKey1',
             taskName: 'Delve Key #1',
             minimumLevel: 80,
+            noProgress: true,
         },
         {
             taskKey: 'twwDelveKey2',
             taskName: 'Delve Key #2',
             minimumLevel: 80,
+            noProgress: true,
         },
         {
             taskKey: 'twwDelveKey3',
             taskName: 'Delve Key #3',
             minimumLevel: 80,
+            noProgress: true,
         },
         {
             taskKey: 'twwDelveKey4',
             taskName: 'Delve Key #4',
             minimumLevel: 80,
+            noProgress: true,
         },
     ],
     twwSpreading: [

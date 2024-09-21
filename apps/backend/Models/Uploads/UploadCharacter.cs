@@ -1,4 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
+
+using Wowthing.Backend.Converters;
+
 namespace Wowthing.Backend.Models.Uploads;
 
 public class UploadCharacter
@@ -44,20 +47,22 @@ public class UploadCharacter
     public UploadCharacterMythicPlus MythicPlus { get; set; }
     public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
+    public Dictionary<int, string[]> PatronOrders { get; set; }
     public List<UploadCharacterProfession> Professions { get; set; }
     public List<string> ProfessionCooldowns { get; set; }
     public List<string> ProfessionOrders { get; set; }
     public List<string> ProfessionTraits { get; set; }
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
-    public List<UploadCharacterTorghast> Torghast { get; set; }
     public string Transmog { get; set; }
-    public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
 
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
     public Dictionary<short, Dictionary<int, string[]>> WorldQuests { get; set; }
+
+    [JsonConverter(typeof(DefaultOnErrorConverter<Dictionary<string, UploadCharacterVault[]>>))]
+    public Dictionary<string, UploadCharacterVault[]> Vault { get; set; }
 }
 
 public class UploadCharacterAchievement
