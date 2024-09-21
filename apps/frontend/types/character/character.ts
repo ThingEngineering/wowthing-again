@@ -47,6 +47,7 @@ import type { ContainsItems, HasNameAndRealm } from '../shared';
 import type { Account } from '../account';
 import type { CharacterAura } from './aura';
 import type { ItemData } from '../data/item';
+import type { CharacterPatronOrder } from './patron-order'
 
 export class Character implements ContainsItems, HasNameAndRealm {
     // Calculated
@@ -120,6 +121,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         public mythicPlusAddon: Record<number, CharacterMythicPlusAddon>,
         rawMythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMapArray>>,
         public paragons: Record<number, CharacterReputationParagon>,
+        public patronOrders: Record<number, CharacterPatronOrder>,
         public professions: Record<number, Record<number, CharacterProfession>>,
         public professionCooldowns: Record<string, [number, number, number]>,
         professionSpecializations: Record<number, string>,
@@ -139,6 +141,8 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticRatingArray[],
         ],
     ) {
+        if (patronOrders !== null) console.log(patronOrders);
+
         const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
         if (pandaCooking) {
             for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {
