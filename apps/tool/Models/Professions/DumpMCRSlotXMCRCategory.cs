@@ -1,9 +1,9 @@
 ﻿namespace Wowthing.Tool.Models.Professions;
 
 // ReSharper disable InconsistentNaming
-public class DumpModifiedCraftingReagentItem
+public class DumpMCRSlotXMCRCategory
 {
-    public short ID { get; set; }
-    public int ItemBonusTreeID { get; set; }
     public short ModifiedCraftingCategoryID { get; set; }
+    public short ModifiedCraftingReagentSlotID { get; set; }
+    public short Order { get; set; }
 }

@@ -19,6 +19,7 @@ public class StaticTool
     private readonly JankTimer _timer = new();
 
     private Dictionary<int, WowItem> _itemMap = null!;
+    private StaticProfessionReagents _reagents;
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap = null!;
 
     private static readonly StringType[] StringTypes = [
@@ -260,6 +261,7 @@ public class StaticTool
         _timer.AddPoint("Traits");
 
         // Professions
+        _reagents = await LoadProfessionReagents();
         var professions = await LoadProfessions(traits);
 
         cacheData.ItemToRequiredAbility = _itemMap.Values
@@ -268,6 +270,7 @@ public class StaticTool
                 item => item.Id,
                 item => item.RequiredAbility
             );
+        cacheData.ReagentCategories = _reagents.Categories;
 
         foreach (var kvp in Hardcoded.ItemToRequiredAbility)
         {
@@ -829,6 +832,12 @@ public class StaticTool
                             }
                         }
 
+                        if (_reagents.Spells.TryGetValue(outAbility.SpellId, out var reagentsSpell))
+                        {
+                            outAbility.Reagents = reagentsSpell.Reagents;
+                            ToolContext.Logger.Information("{id} has {n} reagents", outAbility.SpellId, outAbility.Reagents.Count);
+                        }
+
                         if (!added)
                         {
                             outCategory.Abilities.Add(outAbility);
@@ -916,6 +925,80 @@ public class StaticTool
 #if DEBUG
         DumpFirstCraftQuestIDs(craftingDataMap);
 #endif
+
+        return ret;
+    }
+
+    private async Task<StaticProfessionReagents> LoadProfessionReagents()
+    {
+        var ret = new StaticProfessionReagents();
+
+        var mcrSlotToCategories = await DataUtilities.LoadDumpCsvAsync<DumpMCRSlotXMCRCategory>("mcrslotxmcrcategory");
+        var mcItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingItem>("modifiedcraftingitem");
+        var mcReagentItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingReagentItem>("modifiedcraftingreagentitem");
+        var mcReagentSlots = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingReagentSlot>("modifiedcraftingreagentslot");
+        var mcSpellSlots = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingSpellSlot>("modifiedcraftingspellslot");
+
+        var reagentItemToItemIds = mcItems
+            .GroupBy(item => item.ModifiedCraftingReagentItemID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(item => item.ItemQualityLevel)
+                    .Select(item => item.ItemID)
+                    .ToArray()
+            );
+
+        var reagentSlotToCategoryIds = mcrSlotToCategories
+            .GroupBy(mcr => mcr.ModifiedCraftingReagentSlotID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(mcr => mcr.Order)
+                    .Select(mcr => mcr.ModifiedCraftingCategoryID)
+                    .ToArray()
+            );
+        var reagentSlotToType = mcReagentSlots
+            .ToDictionary(reagentSlot => reagentSlot.ID, reagentSlot => reagentSlot.ReagentType);
+        var spellToSpellSlots = mcSpellSlots
+            .GroupBy(spellSlot => spellSlot.SpellID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderBy(spellSlot => spellSlot.Slot).ToArray()
+            );
+
+        ret.Categories = mcReagentItems
+            .GroupBy(ri => ri.ModifiedCraftingCategoryID)
+            .Where(group => reagentItemToItemIds.ContainsKey(group.Key))
+            .ToDictionary(
+                group => group.Key,
+                group => reagentItemToItemIds[group.Key]
+            );
+
+        foreach ((int spellId, var spellSlots) in spellToSpellSlots)
+        {
+            var spell = new StaticProfessionReagentsSpell(spellId);
+
+            foreach (var spellSlot in spellSlots)
+            {
+                if (reagentSlotToType[spellSlot.ModifiedCraftingReagentSlotID] != WowReagentType.Basic ||
+                    !reagentSlotToCategoryIds.TryGetValue(spellSlot.ModifiedCraftingReagentSlotID, out short[]? categoryIds))
+                {
+                    continue;
+                }
+
+                spell.Reagents.Add(new StaticProfessionReagentsSpellReagent
+                {
+                    Count = spellSlot.ReagentCount,
+                    CategoryIds = categoryIds,
+                });
+            }
+
+            if (spell.Reagents.Count > 0)
+            {
+                ret.Spells.Add(spell.Id, spell);
+            }
+        }
 
         return ret;
     }
