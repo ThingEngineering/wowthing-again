@@ -40,6 +40,8 @@ import type {
     UserQuestDataCharacterProgressObjective,
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
+import { getActiveHolidays } from '@/utils/get-active-holidays';
+import { holidayMinmumLevel } from '@/data/holidays';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -267,6 +269,8 @@ class ProcessCharacterProfessions {
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     for (const view of stores.settings.views) {
+        const activeHolidays = getActiveHolidays(stores.currentTime, view, character.realm.region);
+
         for (const taskName of view.homeTasks) {
             const task = taskMap[taskName];
             if (
@@ -274,6 +278,15 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 character.ignored ||
                 character.level < (task.minimumLevel || Constants.characterMaxLevel) ||
                 character.level > (task.maximumLevel || Constants.characterMaxLevel)
+            ) {
+                continue;
+            }
+
+            const activeHoliday = activeHolidays[taskName];
+            if (
+                activeHoliday &&
+                holidayMinmumLevel[activeHoliday.id] &&
+                character.level < holidayMinmumLevel[activeHoliday.id]
             ) {
                 continue;
             }
@@ -614,14 +627,6 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 charTask.status = `${charTask.status} status-turn-in`;
                             }
                         } else {
-                            if (
-                                [75859, 78446, 78447].indexOf(charTask.quest.id) >= 0 &&
-                                objectives[0].have === 1 &&
-                                objectives[0].need === 1
-                            ) {
-                                objectives = objectives.slice(1);
-                            }
-
                             const averagePercent =
                                 objectives.reduce(
                                     (a, b) => a + Math.min(b.have, b.need) / b.need,

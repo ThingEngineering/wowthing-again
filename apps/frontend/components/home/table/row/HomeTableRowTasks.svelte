@@ -1,9 +1,9 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
     import { activeView } from '@/shared/stores/settings'
+    import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
+    import { userStore } from '@/stores'
     import { getActiveHolidays } from '@/utils/get-active-holidays'
     import type { Character } from '@/types'
 
@@ -30,7 +30,9 @@
             <RowProgressQuest
                 {character}
                 quest={taskName}
-                title={activeHolidays[taskName]?.name || taskMap[taskName]?.name}
+                title={taskName.startsWith('holidayTimewalking')
+                    ? taskMap[taskName]?.name
+                    : activeHolidays[taskName]?.name || taskMap[taskName]?.name}
             />
         {/if}
     {/if}

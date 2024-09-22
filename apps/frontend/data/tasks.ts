@@ -140,17 +140,19 @@ export const taskList: Task[] = [
         key: 'holidayTimewalking',
         name: '[Event] Timewalking Dungeons',
         shortName: 'TW :exclamation:',
+        minimumLevel: Constants.characterMaxLevel,
     },
     {
         key: 'holidayTimewalkingItem',
         name: '[Event] Timewalking Item',
         shortName: 'TW :item:',
-        minimumLevel: Constants.characterMaxLevel - 10,
+        minimumLevel: 30, // overridden by holidayMinmumLevel
     },
     {
         key: 'holidayTimewalkingRaid',
         name: '[Event] Timewalking Raid',
         shortName: 'TW :rocket:',
+        minimumLevel: 30, // overridden by holidayMinmumLevel
     },
     {
         key: 'holidayWorldQuests',
