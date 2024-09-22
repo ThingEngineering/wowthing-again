@@ -144,6 +144,42 @@ public class AuctionService
         return auctions;
     }
 
+    public async Task<ApiAuctionCommodities> SpecificCommodities(short[] regions, int[] itemIds)
+    {
+        var data = new ApiAuctionCommodities(regions);
+
+        foreach (short region in regions)
+        {
+            var regionData = data.Regions[region];
+
+            var maxStamp = await _context.WowAuctionCommodityHourly
+                .AsNoTracking()
+                .Where(hourly => hourly.Region == region &&
+                                 hourly.ItemId == itemIds[0])
+                .Select(hourly => hourly.Timestamp)
+                .MaxAsync();
+
+            var commodities = await _context.WowAuctionCommodityHourly
+                .AsNoTracking()
+                .Where(hourly => hourly.Region == region &&
+                                 itemIds.Contains(hourly.ItemId) &&
+                                 hourly.Timestamp == maxStamp)
+                .Select(hourly => new
+                {
+                    ItemId = hourly.ItemId,
+                    Price = hourly.Data[0]
+                })
+                .ToArrayAsync();
+
+            foreach (var commodity in commodities)
+            {
+                regionData.Add(commodity.ItemId, commodity.Price);
+            }
+        }
+
+        return data;
+    }
+
     public async Task<ApiAuctionCommodities> CommoditiesDataForUser(ApplicationUser user, JankTimer timer = null)
     {
         int[] realmIds = await _context.PlayerCharacter
