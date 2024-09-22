@@ -28,7 +28,8 @@
             reagent.count,
         ])
     )
-    $: timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime).diff($timeStore).toMillis();
+    $: timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime, { zone:'utc' })
+        .diff($timeStore).toMillis();
     
     let craftingPrice: number
     $: {
