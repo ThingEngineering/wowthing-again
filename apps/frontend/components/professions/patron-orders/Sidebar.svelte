@@ -1,9 +1,10 @@
 <script lang="ts">
     import type { SidebarItem } from '@/shared/components/sub-sidebar/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types';
 
     import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
 
-    export let sortedProfessions
+    export let sortedProfessions: StaticDataProfession[]
 
     let categories: SidebarItem[]
     $: {
@@ -13,7 +14,10 @@
                 slug: 'all',
             },
             null,
-            ...sortedProfessions,
+            ...sortedProfessions.map((prof) => ({
+                name: `:profession-${prof.id}: ${prof.name.split('|')[0]}`,
+                slug: prof.slug,
+            })),
         ]
     }
 </script>
