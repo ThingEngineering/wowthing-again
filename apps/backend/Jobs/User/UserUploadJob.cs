@@ -1177,6 +1177,7 @@ public class UserUploadJob : JobBase
                 accountPets.Pets.Add(petId, new PlayerAccountPetsPet
                 {
                     BreedId = 0, // getting this out of the game sucks and I don't want to deal with it
+                    FromAddon = true,
                     Level = Math.Min(25, level),
                     Quality = (WowQuality)quality,
                     SpeciesId = speciesId,
@@ -1185,7 +1186,7 @@ public class UserUploadJob : JobBase
             else
             {
                 pet.Level = Math.Min(25, Math.Max(pet.Level, level));
-                pet.Quality = (WowQuality)quality;
+                pet.Quality = (WowQuality)Math.Max((short)pet.Quality, quality);
             }
 
             seenIds.Add(petId);
