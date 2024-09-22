@@ -835,7 +835,6 @@ public class StaticTool
                         if (_reagents.Spells.TryGetValue(outAbility.SpellId, out var reagentsSpell))
                         {
                             outAbility.Reagents = reagentsSpell.Reagents;
-                            ToolContext.Logger.Information("{id} has {n} reagents", outAbility.SpellId, outAbility.Reagents.Count);
                         }
 
                         if (!added)
@@ -968,11 +967,13 @@ public class StaticTool
             );
 
         ret.Categories = mcReagentItems
+            .Where(ri => reagentItemToItemIds.ContainsKey(ri.ID))
             .GroupBy(ri => ri.ModifiedCraftingCategoryID)
-            .Where(group => reagentItemToItemIds.ContainsKey(group.Key))
             .ToDictionary(
                 group => group.Key,
-                group => reagentItemToItemIds[group.Key]
+                group => group
+                    .SelectMany(ri => reagentItemToItemIds[ri.ID])
+                    .ToArray()
             );
 
         foreach ((int spellId, var spellSlots) in spellToSpellSlots)
