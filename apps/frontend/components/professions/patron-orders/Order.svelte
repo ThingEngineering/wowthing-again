@@ -136,7 +136,7 @@
         <CraftedQualityIcon quality={patronOrder.minQuality} />
     </div>
     <div class="item text-overflow quality{$itemStore.items[patronOrder.itemId].quality}">
-        <WowheadLink type="item" id={patronOrder.itemId}>
+        <WowheadLink type="spell" id={ability.spellId}>
             <WowthingImage name="item/{patronOrder.itemId}" size={20} border={1} />
             {$itemStore.items[patronOrder.itemId].name}
         </WowheadLink>
