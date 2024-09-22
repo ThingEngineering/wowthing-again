@@ -42,7 +42,7 @@
             }
 
             const minPrice = Math.min(
-                ...itemIds.map((itemId) => commodities.regions[character.realm.region][itemId] || 999999999)
+                ...itemIds.map((itemId) => commodities.regions?.[character.realm.region]?.[itemId] || 999999999)
             );
             craftingPrice += reagent.count * minPrice;
         }
@@ -52,7 +52,7 @@
                 continue;
             }
 
-            craftingPrice += count * (commodities.regions[character.realm.region][itemId] || 999999999);
+            craftingPrice += count * (commodities.regions?.[character.realm.region]?.[itemId] || 999999999);
         }
     }
 </script>
