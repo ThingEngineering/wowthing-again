@@ -119,7 +119,7 @@
         <code
             class:status-warn={timeRemaining < 43200000}
         >
-            {toNiceDuration(timeRemaining, true)}
+            {@html toNiceDuration(timeRemaining, true)}
         </code>
     </div>
     <div class="quality border-left">
