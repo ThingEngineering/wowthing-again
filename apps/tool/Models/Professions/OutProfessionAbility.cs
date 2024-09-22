@@ -15,7 +15,7 @@ public class OutProfessionAbility
     public int TrivialLow { get; set; }
     public string Name { get; set; }
     public List<int> Ranks { get; set; }
-    public List<StaticProfessionReagentsSpellReagent> Reagents { get; set; }
+    public StaticProfessionReagentsSpell? Reagents { get; set; }
 
     public OutProfessionAbility(DumpSkillLineAbility ability, string spellName)
     {

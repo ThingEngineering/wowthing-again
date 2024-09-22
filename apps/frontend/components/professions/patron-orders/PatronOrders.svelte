@@ -34,12 +34,15 @@
                     const ability = $staticStore.spellToProfessionAbility[
                         $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].spellId
                     ];
-                    for (const reagent of ability.reagents) {
+                    for (const reagent of ability.categoryReagents) {
                         for (const categoryId of reagent.categoryIds) {
                             for (const itemId of $staticStore.reagentCategories[categoryId] || []) {
                                 uniqueItemIds.add(itemId);
                             }
                         }
+                    }
+                    for (const [, itemId] of ability.itemReagents) {
+                        uniqueItemIds.add(itemId);
                     }
                 }
             }

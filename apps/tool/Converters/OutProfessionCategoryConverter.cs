@@ -55,15 +55,36 @@ public class OutProfessionCategoryConverter : JsonConverter<OutProfessionCategor
             writer.WriteNumberValue(ability.Source);
             writer.WriteStringValue(ability.Name);
 
-            writer.WriteStartArray();
-            foreach (var reagent in ability.Reagents.EmptyIfNull())
+            if (ability.Reagents != null)
             {
                 writer.WriteStartArray();
-                writer.WriteNumberValue(reagent.Count);
-                writer.WriteNumberArray(reagent.CategoryIds.Select(n => (int)n));
+                foreach (var reagent in ability.Reagents.CategoryReagents)
+                {
+                    writer.WriteStartArray();
+                    writer.WriteNumberValue(reagent.Count);
+                    writer.WriteNumberArray(reagent.CategoryIds.Select(n => (int)n));
+                    writer.WriteEndArray();
+                }
+                writer.WriteEndArray();
+
+                writer.WriteStartArray();
+                foreach ((int count, int itemId) in ability.Reagents.ItemReagents)
+                {
+                    writer.WriteStartArray();
+                    writer.WriteNumberValue(count);
+                    writer.WriteNumberValue(itemId);
+                    writer.WriteEndArray();
+                }
                 writer.WriteEndArray();
             }
-            writer.WriteEndArray();
+            else
+            {
+                writer.WriteStartArray();
+                writer.WriteEndArray();
+
+                writer.WriteStartArray();
+                writer.WriteEndArray();
+            }
 
             if (ability.Ranks != null)
             {

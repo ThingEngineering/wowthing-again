@@ -69,7 +69,7 @@ export class StaticDataProfessionCategory {
 
 export class StaticDataProfessionAbility {
     public itemIds: number[];
-    public reagents: StaticDataProfessionReagent[];
+    public categoryReagents: StaticDataProfessionCategoryReagent[];
 
     constructor(
         public id: number,
@@ -83,12 +83,13 @@ export class StaticDataProfessionAbility {
         public faction: Faction,
         public source: SkillSourceType,
         public name: string,
-        reagentArrays: StaticDataProfessionReagentArray[],
+        categoryReagentArrays: StaticDataProfessionReagentArray[],
+        public itemReagents: [number, number][],
         public extraRanks?: [number, number][],
     ) {
         this.itemIds = typeof itemId === 'number' ? [itemId] : itemId;
-        this.reagents = reagentArrays.map(
-            (reagentArray) => new StaticDataProfessionReagent(...reagentArray),
+        this.categoryReagents = categoryReagentArrays.map(
+            (reagentArray) => new StaticDataProfessionCategoryReagent(...reagentArray),
         );
     }
 }
@@ -106,12 +107,12 @@ export class StaticDataProfessionAbilityInfo {
     ) {}
 }
 
-export class StaticDataProfessionReagent {
+export class StaticDataProfessionCategoryReagent {
     constructor(
         public count: number,
         public categoryIds: number[],
     ) {}
 }
 export type StaticDataProfessionReagentArray = ConstructorParameters<
-    typeof StaticDataProfessionReagent
+    typeof StaticDataProfessionCategoryReagent
 >;

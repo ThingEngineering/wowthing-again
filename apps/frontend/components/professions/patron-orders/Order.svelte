@@ -34,7 +34,8 @@
     let craftingPrice: number
     $: {
         craftingPrice = 0
-        for (const reagent of ability.reagents) {
+        
+        for (const reagent of ability.categoryReagents) {
             const itemIds = $staticStore.reagentCategories[reagent.categoryIds[0]] || [];
             if (itemIds.some((itemId) => providedReagents[itemId] !== undefined)) {
                 continue;
@@ -42,8 +43,16 @@
 
             const minPrice = Math.min(
                 ...itemIds.map((itemId) => commodities.regions[character.realm.region][itemId] || 999999999)
-            )
-            craftingPrice += minPrice * reagent.count;
+            );
+            craftingPrice += reagent.count * minPrice;
+        }
+
+        for (const [count, itemId] of ability.itemReagents) {
+            if (providedReagents[itemId] !== undefined) {
+                continue;
+            }
+
+            craftingPrice += count * (commodities.regions[character.realm.region][itemId] || 999999999);
         }
     }
 </script>
@@ -102,7 +111,7 @@
         display: flex;
         gap: 0.2rem;
         padding: 0 0.3rem;
-        width: 20.5rem;
+        min-width: 24.5rem;
     }
     .reagent {
         --image-margin-top: -4px;
@@ -170,7 +179,23 @@
         {/if}
     </div>
     <div class="reagents border-left">
-        {#each ability.reagents as abilityReagent}
+        {#each ability.itemReagents as [count, itemId]}
+            {@const provided = providedReagents[itemId] || 0}
+            <div
+                class="reagent"
+                class:status-success={provided >= count}
+                class:border-success={provided >= count}
+                class:status-warn={provided < count}
+                class:border-warn={provided < count}
+            >
+                <WowheadLink type="item" id={itemId}>
+                    {count}x
+                    <WowthingImage name="item/{itemId}" size={20} border={1} />
+                </WowheadLink>
+            </div>
+        {/each}
+
+        {#each ability.categoryReagents as abilityReagent}
             {@const category = $staticStore.reagentCategories[abilityReagent.categoryIds[0]]}
             {#if category}
                 {@const provided = category.reduce((a, b) => a + (providedReagents[b] || 0), 0)}
