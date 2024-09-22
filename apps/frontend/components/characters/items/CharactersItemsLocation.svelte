@@ -27,6 +27,12 @@
             (temp[item.containerId] ||= []).push(item);
         }
 
+        if (location === ItemLocation.Bank) {
+            for (const item of (character.itemsByLocation[ItemLocation.Reagent] || [])) {
+                (temp[item.containerId] ||= []).push(item);
+            }
+        }
+
         containers = []
         for (const [containerId, containerName, containerSlots] of bagSlots[location]) {
             const actualSlots = containerSlots
