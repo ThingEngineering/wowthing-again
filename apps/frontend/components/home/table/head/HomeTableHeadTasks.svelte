@@ -1,12 +1,12 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks'
-    import { userStore } from '@/stores'
+    import { activeView } from '@/shared/stores/settings'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
-    import { homeState } from '@/stores/local-storage'
-    import { activeView } from '@/shared/stores/settings'
-    import { getActiveHolidays } from '@/utils/get-active-holidays'
     import { componentTooltip } from '@/shared/utils/tooltips'
+    import { userStore } from '@/stores'
+    import { homeState } from '@/stores/local-storage'
+    import { getActiveHolidays } from '@/utils/get-active-holidays'
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
