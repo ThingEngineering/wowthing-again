@@ -834,7 +834,7 @@ public class StaticTool
 
                         if (_reagents.Spells.TryGetValue(outAbility.SpellId, out var reagentsSpell))
                         {
-                            outAbility.Reagents = reagentsSpell.Reagents;
+                            outAbility.Reagents = reagentsSpell;
                         }
 
                         if (!added)
@@ -937,6 +937,10 @@ public class StaticTool
         var mcReagentItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingReagentItem>("modifiedcraftingreagentitem");
         var mcReagentSlots = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingReagentSlot>("modifiedcraftingreagentslot");
         var mcSpellSlots = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingSpellSlot>("modifiedcraftingspellslot");
+        var spellReagents = await DataUtilities.LoadDumpToDictionaryAsync<int, DumpSpellReagents>(
+            "spellreagents",
+            dsr => dsr.SpellID
+        );
 
         var reagentItemToItemIds = mcItems
             .GroupBy(item => item.ModifiedCraftingReagentItemID)
@@ -978,26 +982,40 @@ public class StaticTool
 
         foreach ((int spellId, var spellSlots) in spellToSpellSlots)
         {
-            var spell = new StaticProfessionReagentsSpell(spellId);
+            var spell = new StaticProfessionReagentsSpell();
 
             foreach (var spellSlot in spellSlots)
             {
-                if (reagentSlotToType[spellSlot.ModifiedCraftingReagentSlotID] != WowReagentType.Basic ||
-                    !reagentSlotToCategoryIds.TryGetValue(spellSlot.ModifiedCraftingReagentSlotID, out short[]? categoryIds))
+                if (reagentSlotToType[spellSlot.ModifiedCraftingReagentSlotID] != WowReagentType.Basic)
                 {
                     continue;
                 }
 
-                spell.Reagents.Add(new StaticProfessionReagentsSpellReagent
+                if (reagentSlotToCategoryIds.TryGetValue(spellSlot.ModifiedCraftingReagentSlotID,
+                        out short[]? categoryIds))
                 {
-                    Count = spellSlot.ReagentCount,
-                    CategoryIds = categoryIds,
-                });
+                    spell.CategoryReagents.Add(new StaticProfessionReagentsSpellReagent
+                    {
+                        Count = spellSlot.ReagentCount,
+                        CategoryIds = categoryIds,
+                    });
+                }
             }
 
-            if (spell.Reagents.Count > 0)
+            if (spellReagents.TryGetValue(spellId, out var reagents))
             {
-                ret.Spells.Add(spell.Id, spell);
+                foreach ((int count, int itemId) in reagents.Reagents)
+                {
+                    if (count > 0)
+                    {
+                        spell.ItemReagents.Add((count, itemId));
+                    }
+                }
+            }
+
+            if (spell.CategoryReagents.Count > 0 || spell.ItemReagents.Count > 0)
+            {
+                ret.Spells.Add(spellId, spell);
             }
         }
 

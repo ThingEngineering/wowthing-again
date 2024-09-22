@@ -6,10 +6,10 @@ public class StaticProfessionReagents
     public Dictionary<int, StaticProfessionReagentsSpell> Spells { get; set; } = [];
 }
 
-public class StaticProfessionReagentsSpell(int id)
+public class StaticProfessionReagentsSpell
 {
-    public int Id { get; set; } = id;
-    public List<StaticProfessionReagentsSpellReagent> Reagents { get; set; } = [];
+    public List<StaticProfessionReagentsSpellReagent> CategoryReagents { get; } = [];
+    public List<(int, int)> ItemReagents { get; } = [];
 }
 
 public class StaticProfessionReagentsSpellReagent

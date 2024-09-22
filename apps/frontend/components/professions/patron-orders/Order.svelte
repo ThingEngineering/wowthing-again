@@ -28,12 +28,14 @@
             reagent.count,
         ])
     )
-    $: timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime).diff($timeStore).toMillis();
+    $: timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime, { zone:'utc' })
+        .diff($timeStore).toMillis();
     
     let craftingPrice: number
     $: {
         craftingPrice = 0
-        for (const reagent of ability.reagents) {
+        
+        for (const reagent of ability.categoryReagents) {
             const itemIds = $staticStore.reagentCategories[reagent.categoryIds[0]] || [];
             if (itemIds.some((itemId) => providedReagents[itemId] !== undefined)) {
                 continue;
@@ -41,8 +43,16 @@
 
             const minPrice = Math.min(
                 ...itemIds.map((itemId) => commodities.regions[character.realm.region][itemId] || 999999999)
-            )
-            craftingPrice += minPrice * reagent.count;
+            );
+            craftingPrice += reagent.count * minPrice;
+        }
+
+        for (const [count, itemId] of ability.itemReagents) {
+            if (providedReagents[itemId] !== undefined) {
+                continue;
+            }
+
+            craftingPrice += count * (commodities.regions[character.realm.region][itemId] || 999999999);
         }
     }
 </script>
@@ -95,18 +105,19 @@
         --image-margin-top: -4px;
 
         text-align: right;
-        width: 3.4rem;
+        width: 3.1rem;
     }
     .reagents {
         display: flex;
         gap: 0.2rem;
         padding: 0 0.3rem;
+        min-width: 22.8rem;
     }
     .reagent {
         --image-margin-top: -4px;
 
         text-align: right;
-        width: 3.8rem;
+        width: 3.5rem;
     }
 </style>
 
@@ -118,7 +129,7 @@
         <code
             class:status-warn={timeRemaining < 43200000}
         >
-            {toNiceDuration(timeRemaining, true)}
+            {@html toNiceDuration(timeRemaining, true)}
         </code>
     </div>
     <div class="quality border-left">
@@ -153,7 +164,7 @@
         {#each patronOrder.rewards as reward}
             <div class="reward">
                 <WowheadLink type="item" id={reward.itemId}>
-                    {reward.count}x
+                    {reward.count}
                     <WowthingImage
                         name="item/{reward.itemId}"
                         size={20}
@@ -168,7 +179,23 @@
         {/if}
     </div>
     <div class="reagents border-left">
-        {#each ability.reagents as abilityReagent}
+        {#each ability.itemReagents as [count, itemId]}
+            {@const provided = providedReagents[itemId] || 0}
+            <div
+                class="reagent"
+                class:status-success={provided >= count}
+                class:border-success={provided >= count}
+                class:status-warn={provided < count}
+                class:border-warn={provided < count}
+            >
+                <WowheadLink type="item" id={itemId}>
+                    {count}
+                    <WowthingImage name="item/{itemId}" size={20} border={1} />
+                </WowheadLink>
+            </div>
+        {/each}
+
+        {#each ability.categoryReagents as abilityReagent}
             {@const category = $staticStore.reagentCategories[abilityReagent.categoryIds[0]]}
             {#if category}
                 {@const provided = category.reduce((a, b) => a + (providedReagents[b] || 0), 0)}
@@ -180,7 +207,7 @@
                     class:border-warn={provided < abilityReagent.count}
                 >
                     <WowheadLink type="item" id={category[0]}>
-                        {abilityReagent.count}x
+                        {abilityReagent.count}
                         <WowthingImage name="item/{category[0]}" size={20} border={1} />
                     </WowheadLink>
                 </div>
