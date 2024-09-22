@@ -148,15 +148,6 @@ public class AuctionsController : Controller
     {
         var timer = new JankTimer();
 
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null)
-        {
-            _logger.LogWarning("ruh roh");
-            return NotFound();
-        }
-
-        timer.AddPoint("User");
-
         var data = await _auctionService.SpecificCommodities(form.RegionIds, form.ItemIds);
 
         timer.AddPoint("Data");

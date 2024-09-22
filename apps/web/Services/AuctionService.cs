@@ -148,32 +148,35 @@ public class AuctionService
     {
         var data = new ApiAuctionCommodities(regions);
 
-        foreach (short region in regions)
+        if (regions.Length > 0 && itemIds.Length > 0)
         {
-            var regionData = data.Regions[region];
-
-            var maxStamp = await _context.WowAuctionCommodityHourly
-                .AsNoTracking()
-                .Where(hourly => hourly.Region == region &&
-                                 hourly.ItemId == itemIds[0])
-                .Select(hourly => hourly.Timestamp)
-                .MaxAsync();
-
-            var commodities = await _context.WowAuctionCommodityHourly
-                .AsNoTracking()
-                .Where(hourly => hourly.Region == region &&
-                                 itemIds.Contains(hourly.ItemId) &&
-                                 hourly.Timestamp == maxStamp)
-                .Select(hourly => new
-                {
-                    ItemId = hourly.ItemId,
-                    Price = hourly.Data[0]
-                })
-                .ToArrayAsync();
-
-            foreach (var commodity in commodities)
+            foreach (short region in regions)
             {
-                regionData.Add(commodity.ItemId, commodity.Price);
+                var regionData = data.Regions[region];
+
+                var maxStamp = await _context.WowAuctionCommodityHourly
+                    .AsNoTracking()
+                    .Where(hourly => hourly.Region == region &&
+                                     hourly.ItemId == itemIds[0])
+                    .Select(hourly => hourly.Timestamp)
+                    .MaxAsync();
+
+                var commodities = await _context.WowAuctionCommodityHourly
+                    .AsNoTracking()
+                    .Where(hourly => hourly.Region == region &&
+                                     itemIds.Contains(hourly.ItemId) &&
+                                     hourly.Timestamp == maxStamp)
+                    .Select(hourly => new
+                    {
+                        ItemId = hourly.ItemId,
+                        Price = hourly.Data[0]
+                    })
+                    .ToArrayAsync();
+
+                foreach (var commodity in commodities)
+                {
+                    regionData.Add(commodity.ItemId, commodity.Price);
+                }
             }
         }
 

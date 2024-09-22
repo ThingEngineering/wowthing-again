@@ -42,7 +42,7 @@
             }
 
             const minPrice = Math.min(
-                ...itemIds.map((itemId) => commodities.regions[character.realm.region][itemId] || 999999999)
+                ...itemIds.map((itemId) => commodities.regions?.[character.realm.region]?.[itemId] || 999999999)
             );
             craftingPrice += reagent.count * minPrice;
         }
@@ -52,7 +52,7 @@
                 continue;
             }
 
-            craftingPrice += count * (commodities.regions[character.realm.region][itemId] || 999999999);
+            craftingPrice += count * (commodities.regions?.[character.realm.region]?.[itemId] || 999999999);
         }
     }
 </script>
@@ -136,7 +136,7 @@
         <CraftedQualityIcon quality={patronOrder.minQuality} />
     </div>
     <div class="item text-overflow quality{$itemStore.items[patronOrder.itemId].quality}">
-        <WowheadLink type="item" id={patronOrder.itemId}>
+        <WowheadLink type="spell" id={ability.spellId}>
             <WowthingImage name="item/{patronOrder.itemId}" size={20} border={1} />
             {$itemStore.items[patronOrder.itemId].name}
         </WowheadLink>
