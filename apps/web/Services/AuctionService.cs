@@ -206,15 +206,15 @@ public class AuctionService
 
             var maxStamp = await _context.WowAuctionCommodityHourly
                 .AsNoTracking()
-                .Where(hourly => hourly.Region == region)
+                .Where(hourly => hourly.Region == region &&
+                                 hourly.ItemId == 2447) // Peacebloom
                 .Select(hourly => hourly.Timestamp)
                 .MaxAsync();
 
             var commodities = await _context.WowAuctionCommodityHourly
                 .AsNoTracking()
                 .Where(hourly => hourly.Region == region &&
-                                 hourly.Timestamp == maxStamp &&
-                                 hourly.Listed >= 1000)
+                                 hourly.Timestamp == maxStamp)
                 .Select(hourly => new
                 {
                     ItemId = hourly.ItemId,
