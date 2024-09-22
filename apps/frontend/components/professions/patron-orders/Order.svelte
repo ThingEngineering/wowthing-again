@@ -102,6 +102,7 @@
         display: flex;
         gap: 0.2rem;
         padding: 0 0.3rem;
+        width: 20.5rem;
     }
     .reagent {
         --image-margin-top: -4px;
