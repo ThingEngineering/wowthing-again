@@ -141,8 +141,6 @@ export class Character implements ContainsItems, HasNameAndRealm {
             CharacterStatisticRatingArray[],
         ],
     ) {
-        if (patronOrders !== null) console.log(patronOrders);
-
         const pandaCooking = this.professions?.[Profession.Cooking]?.[2544];
         if (pandaCooking) {
             for (let skillLineId = 975; skillLineId <= 980; skillLineId++) {

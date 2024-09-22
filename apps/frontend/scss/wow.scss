@@ -131,6 +131,7 @@ img.quality0 {
 }
 .quality1-border {
     --bar-border-color: #{$quality1-border};
+    --image-border-color: #{$quality1-border};
 
     border-color: $quality1-border;
 }
@@ -150,6 +151,7 @@ img.quality0 {
 }
 .quality2-border {
     --bar-border-color: #{$quality2-border};
+    --image-border-color: #{$quality2-border};
 
     border-color: $quality2-border;
 }
@@ -169,6 +171,7 @@ img.quality2 {
 }
 .quality3-border {
     --bar-border-color: #{$quality3-border};
+    --image-border-color: #{$quality3-border};
 
     border-color: $quality3-border;
 }
