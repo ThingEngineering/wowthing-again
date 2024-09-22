@@ -7,7 +7,7 @@ export interface StaticDataProfession {
     slug: string;
     type: number;
 
-    expansionSubProfession: Record<number, StaticDataSubProfession>
+    expansionSubProfession: Record<number, StaticDataSubProfession>;
     subProfessions: StaticDataSubProfession[];
 
     categories: StaticDataProfessionCategory[];
@@ -69,6 +69,7 @@ export class StaticDataProfessionCategory {
 
 export class StaticDataProfessionAbility {
     public itemIds: number[];
+    public reagents: StaticDataProfessionReagent[];
 
     constructor(
         public id: number,
@@ -82,9 +83,13 @@ export class StaticDataProfessionAbility {
         public faction: Faction,
         public source: SkillSourceType,
         public name: string,
+        reagentArrays: StaticDataProfessionReagentArray[],
         public extraRanks?: [number, number][],
     ) {
         this.itemIds = typeof itemId === 'number' ? [itemId] : itemId;
+        this.reagents = reagentArrays.map(
+            (reagentArray) => new StaticDataProfessionReagent(...reagentArray),
+        );
     }
 }
 export type StaticDataProfessionAbilityArray = ConstructorParameters<
@@ -100,3 +105,13 @@ export class StaticDataProfessionAbilityInfo {
         public spellId: number,
     ) {}
 }
+
+export class StaticDataProfessionReagent {
+    constructor(
+        public count: number,
+        public categoryIds: number[],
+    ) {}
+}
+export type StaticDataProfessionReagentArray = ConstructorParameters<
+    typeof StaticDataProfessionReagent
+>;

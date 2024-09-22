@@ -25,6 +25,10 @@
             Equipment
         </a>
 
+        <a href={"#/professions/patron-orders"} use:active={"/professions/patron-orders/*"}>
+            Patron Orders
+        </a>
+
         <a href={"#/professions/recipes"} use:active={"/professions/recipes/*"}>
             Recipes
         </a>

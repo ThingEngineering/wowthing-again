@@ -4,5 +4,6 @@
 public class DumpModifiedCraftingItem
 {
     public int ItemID { get; set; }
-    public int ModifiedCraftingReagentItemID { get; set; }
+    public short ItemQualityLevel { get; set; }
+    public short ModifiedCraftingReagentItemID { get; set; }
 }

@@ -10,7 +10,8 @@ public class WowDbContextFactory : IDesignTimeDbContextFactory<WowDbContext>
     public WowDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<WowDbContext>();
-        optionsBuilder.UseNpgsql("Host=postgres;Username=wowthing;Password=topsecret");
+        optionsBuilder.UseNpgsql("Host=postgres;Username=wowthing;Password=topsecret",
+            options => options.CommandTimeout(10 * 60));
 
         return new WowDbContext(optionsBuilder.Options);
     }

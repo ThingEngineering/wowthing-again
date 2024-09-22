@@ -26,6 +26,7 @@ public class RedisStaticData
     public Dictionary<int, short[]> ItemToSkillLine { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
     public List<WowRealm> RawRealms { get; set; }
+    public Dictionary<short, int[]> ReagentCategories { get; set; }
     public SortedDictionary<int, StaticReputationTier> ReputationTiers { get; set; }
     public Dictionary<int, int[]> SkillLineAbilityItems { get; set; }
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }

@@ -142,6 +142,33 @@ public class AuctionsController : Controller
         return Content(json, MediaTypeNames.Application.Json);
     }
 
+    [HttpPost("commodities-specific")]
+    [Authorize]
+    public async Task<IActionResult> CommoditiesSpecific([FromBody] ApiAuctionsCommoditiesSpecificForm form)
+    {
+        var timer = new JankTimer();
+
+        var user = await _userManager.GetUserAsync(HttpContext.User);
+        if (user == null)
+        {
+            _logger.LogWarning("ruh roh");
+            return NotFound();
+        }
+
+        timer.AddPoint("User");
+
+        var data = await _auctionService.SpecificCommodities(form.RegionIds, form.ItemIds);
+
+        timer.AddPoint("Data");
+
+        string json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON", true);
+        _logger.LogInformation("{timer}", timer.ToString());
+
+        return Content(json, MediaTypeNames.Application.Json);
+    }
+
     [HttpPost("extra-pets")]
     [Authorize]
     public async Task<IActionResult> ExtraPets([FromBody] ApiExtraPetsForm form)

@@ -1,5 +1,5 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag';
-import type { StaticDataCampaign, StaticDataCampaignArray } from './campaign'
+import type { StaticDataCampaign, StaticDataCampaignArray } from './campaign';
 import type {
     StaticDataCharacterClass,
     StaticDataCharacterRace,
@@ -24,7 +24,7 @@ import type {
     StaticDataProfessionAbilityInfo,
 } from './profession';
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
-import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line'
+import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line';
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';
 import type {
     StaticDataReputation,
@@ -43,6 +43,7 @@ export interface StaticData {
     inventoryTypes: Record<number, string>;
     keystoneAffixes: Record<number, StaticDataKeystoneAffix>;
     questNames: Record<number, string>;
+    reagentCategories: Record<number, number[]>;
     sharedStrings: Record<number, string>;
     soulbinds: Record<number, StaticDataSoulbind[]>;
     talents: Record<number, number[][]>;
