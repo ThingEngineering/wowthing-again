@@ -105,19 +105,19 @@
         --image-margin-top: -4px;
 
         text-align: right;
-        width: 3.4rem;
+        width: 3.1rem;
     }
     .reagents {
         display: flex;
         gap: 0.2rem;
         padding: 0 0.3rem;
-        min-width: 24.5rem;
+        min-width: 22.8rem;
     }
     .reagent {
         --image-margin-top: -4px;
 
         text-align: right;
-        width: 3.8rem;
+        width: 3.5rem;
     }
 </style>
 
@@ -164,7 +164,7 @@
         {#each patronOrder.rewards as reward}
             <div class="reward">
                 <WowheadLink type="item" id={reward.itemId}>
-                    {reward.count}x
+                    {reward.count}
                     <WowthingImage
                         name="item/{reward.itemId}"
                         size={20}
@@ -189,7 +189,7 @@
                 class:border-warn={provided < count}
             >
                 <WowheadLink type="item" id={itemId}>
-                    {count}x
+                    {count}
                     <WowthingImage name="item/{itemId}" size={20} border={1} />
                 </WowheadLink>
             </div>
@@ -207,7 +207,7 @@
                     class:border-warn={provided < abilityReagent.count}
                 >
                     <WowheadLink type="item" id={category[0]}>
-                        {abilityReagent.count}x
+                        {abilityReagent.count}
                         <WowthingImage name="item/{category[0]}" size={20} border={1} />
                     </WowheadLink>
                 </div>
