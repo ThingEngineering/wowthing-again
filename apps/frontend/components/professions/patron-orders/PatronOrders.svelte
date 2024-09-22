@@ -1,5 +1,6 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
+    import xor from 'lodash/xor'
     import { afterUpdate } from 'svelte';
 
     import { isCraftingProfession } from '@/data/professions';
@@ -19,9 +20,10 @@
         (prof) => [prof.type, prof.name]
     )
 
-    let itemIds: Set<number>;
+    let itemIds: number[];
+    let regionIds: number[];
     $: {
-        itemIds = new Set();
+        const uniqueItemIds: Set<number> = new Set();
         for (const character of $userStore.characters) {
             if (!sortedProfessions.some((prof) => character.patronOrders?.[prof.id] !== undefined)) {
                 continue;
@@ -35,12 +37,22 @@
                     for (const reagent of ability.reagents) {
                         for (const categoryId of reagent.categoryIds) {
                             for (const itemId of $staticStore.reagentCategories[categoryId] || []) {
-                                itemIds.add(itemId);
+                                uniqueItemIds.add(itemId);
                             }
                         }
                     }
                 }
             }
+        }
+
+        const sortedItemIds = sortBy(Array.from(uniqueItemIds), (id) => id);
+        if (itemIds === undefined || xor(itemIds, sortedItemIds).length > 0) {
+            itemIds = sortedItemIds;
+        }
+
+        const sortedRegionIds = sortBy($userStore.allRegions, (region) => region);
+        if (regionIds === undefined || xor(regionIds, sortedRegionIds).length > 0) {
+            regionIds = sortedRegionIds;
         }
     }
 
@@ -49,7 +61,7 @@
 
 <Sidebar {sortedProfessions} />
 
-{#await auctionsCommoditiesSpecificStore.search([1], Array.from(itemIds))}
+{#await auctionsCommoditiesSpecificStore.search(regionIds, itemIds)}
     L O A D I N G . . .
 {:then commodities}
     {#if slug === 'all'}
