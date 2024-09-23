@@ -104,8 +104,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItemBonuses = null;
 
-        console.log(data.itemBonusSocket);
-
         data.itemBonusToUpgrade = {};
         for (const bonusGroups of Object.values(data.itemBonusListGroups)) {
             for (const [sharedStringId, itemBonuses] of Object.entries(bonusGroups)) {

@@ -11,13 +11,14 @@ public class PlayerAccountPets
     public PlayerAccount Account { get; set; }
 
     public DateTime UpdatedAt { get; set; }
-        
+
     [Column(TypeName = "jsonb")]
     public Dictionary<long, PlayerAccountPetsPet> Pets { get; set; }
 }
 
 public class PlayerAccountPetsPet
 {
+    public bool FromAddon { get; set; }
     public int BreedId { get; set; }
     public int Level { get; set; }
     public int SpeciesId { get; set; }

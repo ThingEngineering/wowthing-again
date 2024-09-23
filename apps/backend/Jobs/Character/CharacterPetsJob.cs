@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Collections;
+using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
@@ -74,22 +75,51 @@ public class CharacterPetsJob : JobBase
             Context.PlayerAccountPets.Add(pets);
         }
 
-        pets.Pets = resultData.Pets
-            .EmptyIfNull()
-            .ToDictionary(
-                k => k.Id,
-                v => new PlayerAccountPetsPet
-                {
-                    BreedId = v.Stats.BreedId,
-                    Level = v.Level,
-                    Quality = v.Quality.EnumParse<WowQuality>(),
-                    SpeciesId = v.Species.Id,
-                }
-            );
+        bool madeChanges = false;
+        var existingIds = new HashSet<long>(pets.Pets.Keys);
+        var seenIds = new HashSet<long>();
 
-        pets.UpdatedAt = DateTime.UtcNow;
+        foreach (var apiPet in resultData.Pets)
+        {
+            if (!pets.Pets.TryGetValue(apiPet.Id, out var dbPet))
+            {
+                dbPet = pets.Pets[apiPet.Id] = new PlayerAccountPetsPet();
+                madeChanges = true;
+            }
 
-        await Context.SaveChangesAsync(CancellationToken);
+            var apiPetQuality = apiPet.Quality.EnumParse<WowQuality>();
+            if (apiPet.Stats.BreedId != dbPet.BreedId ||
+                apiPet.Level != dbPet.Level ||
+                apiPetQuality != dbPet.Quality ||
+                apiPet.Species.Id != dbPet.SpeciesId)
+            {
+                dbPet.BreedId = apiPet.Stats.BreedId;
+                dbPet.Level = apiPet.Level;
+                dbPet.Quality = apiPetQuality;
+                dbPet.SpeciesId = apiPet.Species.Id;
+                madeChanges = true;
+            }
+        }
+
+        // Remove any that we didn't see and were NOT added via addon data
+        foreach (long unseenId in existingIds.Except(seenIds))
+        {
+            if (!pets.Pets[unseenId].FromAddon)
+            {
+                pets.Pets.Remove(unseenId);
+                madeChanges = true;
+            }
+        }
+
+        if (madeChanges)
+        {
+            var entry = Context.Entry(pets);
+            entry.Property(pap => pap.Pets).IsModified = true;
+
+            pets.UpdatedAt = DateTime.UtcNow;
+
+            await Context.SaveChangesAsync(CancellationToken);
+        }
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
