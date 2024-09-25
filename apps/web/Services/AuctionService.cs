@@ -154,29 +154,34 @@ public class AuctionService
             {
                 var regionData = data.Regions[region];
 
-                var maxStamp = await _context.WowAuctionCommodityHourly
-                    .AsNoTracking()
-                    .Where(hourly => hourly.Region == region &&
-                                     hourly.ItemId == itemIds[0])
-                    .Select(hourly => hourly.Timestamp)
-                    .MaxAsync();
-
-                var commodities = await _context.WowAuctionCommodityHourly
-                    .AsNoTracking()
-                    .Where(hourly => hourly.Region == region &&
-                                     itemIds.Contains(hourly.ItemId) &&
-                                     hourly.Timestamp == maxStamp)
-                    .Select(hourly => new
-                    {
-                        ItemId = hourly.ItemId,
-                        Price = hourly.Data[0]
-                    })
-                    .ToArrayAsync();
-
-                foreach (var commodity in commodities)
+                try
                 {
-                    regionData.Add(commodity.ItemId, commodity.Price);
+                    var maxStamp = await _context.WowAuctionCommodityHourly
+                        .AsNoTracking()
+                        .Where(hourly => hourly.Region == region &&
+                                         itemIds.Contains(hourly.ItemId))
+                        .Select(hourly => hourly.Timestamp)
+                        .MaxAsync();
+
+                    var commodities = await _context.WowAuctionCommodityHourly
+                        .AsNoTracking()
+                        .Where(hourly => hourly.Region == region &&
+                                         itemIds.Contains(hourly.ItemId) &&
+                                         hourly.Timestamp == maxStamp)
+                        .Select(hourly => new
+                        {
+                            ItemId = hourly.ItemId,
+                            Price = hourly.Data[0]
+                        })
+                        .ToArrayAsync();
+
+                    foreach (var commodity in commodities)
+                    {
+                        regionData.Add(commodity.ItemId, commodity.Price);
+                    }
                 }
+                catch (InvalidOperationException)
+                { }
             }
         }
 

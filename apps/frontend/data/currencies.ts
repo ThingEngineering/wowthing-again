@@ -272,7 +272,6 @@ export const currencyItems: Record<number, number[]> = {
     125014: [
         211515, // Splintered Spark of Awakening
         211516, // Spark of Awakening
-        217409, // Aspects' Token of Merit
         213089, // Antique Bronze Bullion
     ],
 
@@ -281,6 +280,7 @@ export const currencyItems: Record<number, number[]> = {
         210814, // Artisan's Acuity
         229899, // Coffer Key Shard
         223951, // Earth-Encrusted Gem
+        212493, // Odd Glob of Wax
         206350, // Radiant Remnant
     ],
     // The War Within - Season 1
@@ -288,6 +288,10 @@ export const currencyItems: Record<number, number[]> = {
         229899, // Coffer Key Shard
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
+        null,
+        224069, // Enchanted Weathered Harbinger Crest
+        224072, // Enchanted Runed Harbinger Crest
+        224073, // Enchanted Gilded Harbinger Crest
     ],
 
     // Player vs Player
