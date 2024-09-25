@@ -25,6 +25,28 @@
     }
 </script>
 
+<style lang="scss">
+    th {
+        text-align: left;
+    }
+    .header {
+        align-items: stretch;
+        display: flex;
+        height: 1.5rem;
+    }
+    .header-spacer {
+        width: 27.7rem; 
+    }
+    .rewards {
+        text-align: center;
+        width: 10.1rem;
+    }
+    .costs {
+        flex-grow: 1;
+        text-align: center;
+    }
+</style>
+
 {#if profession}
     <CharacterTable {filterFunc}>
         <CharacterTableHead slot="head">
@@ -37,7 +59,13 @@
                 {profession.name.split('|')[0]}
             </svelte:fragment>
 
-            <th></th>
+            <th>
+                <div class="header">
+                    <div class="header-spacer border-right"></div>
+                    <div class="rewards border-right">Rewards</div>
+                    <div class="costs">Costs</div>
+                </div>
+            </th>
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>

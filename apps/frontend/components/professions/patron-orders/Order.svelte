@@ -11,7 +11,7 @@
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
     import { timeStore } from '@/shared/stores/time';
     import { DateTime } from 'luxon';
-    import { toNiceDuration } from '@/utils/formatting';
+    import { toNiceDuration, toNiceNumber, toNicePrice } from '@/utils/formatting';
 
     export let character: Character
     export let commodities: CommodityData = undefined;
@@ -61,6 +61,7 @@
     .flex-wrapper {
         --image-margin-top: -4px;
 
+        align-items: stretch;
         justify-content: start;
 
         &.faded {
@@ -92,7 +93,7 @@
     .cost {
         text-align: right;
         padding: 0 0.3rem;
-        width: 5rem;
+        width: 4.4rem;
     }
     .rewards {
         --link-color: $text-color;
@@ -148,18 +149,6 @@
     >
         {(patronOrder.tipAmount / 10000).toFixed(1)} g
     </div>
-    <div
-        class="cost border-left"
-        class:status-success={craftingPrice === 0}
-        class:status-warn={(craftingPrice * 100) > patronOrder.tipAmount}
-        use:basicTooltip={'APPROXIMATE cost to craft'}
-    >
-        {#if craftingPrice === 0}
-            <YesNoIcon state={true} />
-        {:else}
-            {Math.floor(craftingPrice / 100).toLocaleString()} g
-        {/if}
-    </div>
     <div class="rewards border-left">
         {#each patronOrder.rewards as reward}
             <div class="reward">
@@ -177,6 +166,14 @@
         {#if patronOrder.rewards.length === 1}
             <div class="reward"></div>
         {/if}
+    </div>
+    <div
+        class="cost border-left"
+        class:status-success={(craftingPrice * 100) <= patronOrder.tipAmount}
+        class:status-warn={(craftingPrice * 100) > patronOrder.tipAmount}
+        use:basicTooltip={'APPROXIMATE cost to craft'}
+    >
+        -{toNiceNumber(Math.floor(craftingPrice / 100))} g
     </div>
     <div class="reagents border-left">
         {#each ability.itemReagents as [count, itemId]}
