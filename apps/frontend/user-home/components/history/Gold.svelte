@@ -404,6 +404,11 @@
                                 week: 'yyyy-MM-dd',
                             }
                         },
+                        adapters: {
+                            date: {
+                                zone: ['day', 'month'].includes(historyState.interval) ? 'utc' : 'local',
+                            },
+                        },
                     },
                     y: {
                         position: 'right',
