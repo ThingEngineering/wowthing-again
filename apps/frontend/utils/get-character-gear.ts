@@ -44,7 +44,7 @@ export default function getCharacterGear(state: GearState, character: Character)
             continue;
         }
 
-        if (state.highlightHeirlooms && character.level < Constants.characterMaxLevel) {
+        if (state.highlightHeirlooms && character.level < 70) {
             // Rings are annoying, only need one though
             if (heirloomSlots[inventorySlot] && gear.equipped.quality !== 7) {
                 if (
