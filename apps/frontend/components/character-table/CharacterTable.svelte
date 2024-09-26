@@ -21,6 +21,7 @@
 
     export let characterLimit = 0
     export let isHome = false
+    export let showEmpty = true
     export let skipGrouping = false
     export let skipIgnored = false
     export let filterFunc: (char: Character) => boolean = undefined
@@ -137,6 +138,7 @@
     }
 </style>
 
+{#if characters.length > 0 || showEmpty}
 <div>
     <slot name="preTable" />
 
@@ -186,3 +188,4 @@
         <slot name="foot" />
     </table>
 </div>
+{/if}
