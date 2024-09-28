@@ -10,26 +10,31 @@ export const warWithinSkinning: TaskProfession = {
             itemId: 227417, // Faded Skinner's Notes
             questId: 84232,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227428, // Exceptional Skinner's Notes
             questId: 84233,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227439, // Pristine Skinner's Notes
             questId: 84234,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224657, // Void-Lit Skinning Notes
             questId: 83067,
             source: 'HA 14',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224007, // Uses for Leftover Husks (How to Take Them Apart)
             questId: 82596,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

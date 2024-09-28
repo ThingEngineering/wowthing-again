@@ -36,6 +36,8 @@
     }
 
     > .bottom {
+        --image-border-width: 1px;
+
         background: darken($tooltip-title-background, 5%);
         border-top: 1px solid $tooltip-border;
         padding: 0.3rem 0.5rem;

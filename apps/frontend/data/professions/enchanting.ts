@@ -10,26 +10,31 @@ export const warWithinEnchanting: TaskProfession = {
             itemId: 227411, // Faded Enchanter's Research
             questId: 81076,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227422, // Exceptional Enchanter's Research
             questId: 81077,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227433, // Pristine Enchanter's Research
             questId: 81078,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224652, // Jewel-Etched Enchanting Notes
             questId: 83060,
             source: 'CoD 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224050, // Web Sparkles: Pretty and Powerful
             questId: 82635,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

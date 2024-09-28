@@ -10,26 +10,31 @@ export const warWithinTailoring: TaskProfession = {
             itemId: 227410, // Faded Tailor's Diagrams
             questId: 80871,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227421, // Exceptional Tailor's Diagrams
             questId: 80872,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227432, // Pristine Tailor's Diagrams
             questId: 80873,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224648, // Jewel-Etched Tailoring Notes
             questId: 83061,
             source: 'CoD 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224036, // And That's A Web-Wrap!
             questId: 82634,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

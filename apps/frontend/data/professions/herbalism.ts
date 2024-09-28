@@ -10,26 +10,31 @@ export const warWithinHerbalism: TaskProfession = {
             itemId: 227415, // Faded Herbalist's Notes
             questId: 81422,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227426, // Exceptional Herbalist's Notes
             questId: 81423,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227437, // Pristine Herbalist's Notes
             questId: 81424,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224656, // Void-Lit Herbalism Notes
             questId: 83066,
             source: 'HA 14',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224023, // Herbal Embalming Techniques
             questId: 82630,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

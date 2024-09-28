@@ -10,26 +10,31 @@ export const warWithinBlacksmithing: TaskProfession = {
             itemId: 227407, // Faded Blacksmith's Diagrams
             questId: 84226,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227418, // Exceptional Blacksmith's Diagrams
             questId: 84227,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227429, // Pristine Blacksmith's Diagrams
             questId: 84228,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224647, // Jewel-Etched Blacksmithing Notes
             questId: 83059,
             source: 'CoD 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224038, // Smithing After Saronite
             questId: 82631,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [
