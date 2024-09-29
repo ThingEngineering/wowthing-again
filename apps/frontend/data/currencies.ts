@@ -281,6 +281,7 @@ export const currencyItems: Record<number, number[]> = {
         229899, // Coffer Key Shard
         223951, // Earth-Encrusted Gem
         212493, // Odd Glob of Wax
+        220520, // Radiant Echo
         206350, // Radiant Remnant
     ],
     // The War Within - Season 1
