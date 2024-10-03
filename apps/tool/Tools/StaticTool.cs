@@ -181,6 +181,9 @@ public class StaticTool
 
         _timer.AddPoint("Currencies");
 
+        // Enchantments
+        cacheData.EnchantmentValues = await LoadEnchantmentValues();
+
         // Heirlooms
         cacheData.Heirlooms = await LoadHeirlooms();
         _timer.AddPoint("Heirlooms");
@@ -382,7 +385,7 @@ public class StaticTool
             cacheData.Professions = professions[language];
             cacheData.Soulbinds = soulbinds[language];
 
-            cacheData.RawEnchantments = _stringMap
+            cacheData.EnchantmentStrings = _stringMap
                 .Where(kvp =>
                     kvp.Key.Type == StringType.WowSpellItemEnchantmentName
                     && kvp.Key.Language == language
@@ -1388,6 +1391,40 @@ public class StaticTool
                             ToolContext.Logger.Warning("        No TraitCond->TraitNode for {cond}", cond.ID);
                         }
                     }
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    private async Task<Dictionary<int, List<int>>> LoadEnchantmentValues()
+    {
+        var spellItemEnchantments = await DataUtilities.LoadDumpCsvAsync<DumpSpellItemEnchantment>("spellitemenchantment");
+
+        var spellScalings = await DataUtilities.LoadGameTableAsync<GameTableSpellScaling>("SpellScaling");
+        var spellScalingByLevel = spellScalings.ToDictionary(scaling => scaling.Level);
+
+        var ret = new Dictionary<int, List<int>>();
+
+        foreach (var spellItemEnchantment in spellItemEnchantments)
+        {
+            // Only care about -7 for now which is uhh SpellScaling->Item
+            if (spellItemEnchantment.ScalingClass != -7 ||
+                spellItemEnchantment.MaxLevel == 0 ||
+                spellItemEnchantment.EffectScalingPoints0 == 0)
+            {
+                continue;
+            }
+
+            var spellScaling = spellScalingByLevel[spellItemEnchantment.MaxLevel];
+            var values = ret[spellItemEnchantment.ID] = [];
+
+            foreach (double scaling in spellItemEnchantment.EffectScalingPoints)
+            {
+                if (scaling != 0)
+                {
+                    values.Add((int)Math.Round(scaling * spellScaling.Item));
                 }
             }
         }

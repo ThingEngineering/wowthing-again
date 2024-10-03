@@ -11,6 +11,7 @@ import type {
     StaticDataCurrencyCategory,
     StaticDataCurrencyCategoryArray,
 } from './currency';
+import type { StaticDataEnchantment } from './enchantment';
 import type { StaticDataHeirloom } from './heirloom';
 import type { StaticDataHoliday, StaticDataHolidayArray } from './holiday';
 import type { StaticDataIllusion } from './illusion';
@@ -78,8 +79,9 @@ export interface StaticData {
     currencyCategories: Record<number, StaticDataCurrencyCategory>;
     rawCurrencyCategories: StaticDataCurrencyCategoryArray[];
 
-    enchantments: Record<number, string>;
-    rawEnchantments: Record<string, number[]>;
+    enchantments: Record<number, StaticDataEnchantment>;
+    enchantmentStrings: Record<string, number[]>;
+    enchantmentValues: Record<number, number[]>;
 
     heirlooms: StaticDataHeirloom[];
     heirloomsById: Record<number, StaticDataHeirloom>;
