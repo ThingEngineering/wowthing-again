@@ -829,14 +829,24 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     twwChores11_0: [
         {
-            taskKey: 'twwDungeon',
-            taskName: '[Dor] Dungeon',
+            taskKey: 'twwEmissaryArchives',
+            taskName: '[Dor] Archives',
             minimumLevel: 80,
         },
         {
-            taskKey: 'twwEmissary',
-            taskName: '[Dor] Emissary',
+            taskKey: 'twwEmissaryDelves',
+            taskName: '[Dor] Delves',
+            minimumLevel: 80,
+        },
+        {
+            taskKey: 'twwEmissaryWorldsoul',
+            taskName: '[Dor] Worldsoul',
             minimumLevel: 70,
+        },
+        {
+            taskKey: 'twwDungeon',
+            taskName: '[Dor] Dungeon',
+            minimumLevel: 80,
         },
         {
             taskKey: 'twwTheaterTroupe',
