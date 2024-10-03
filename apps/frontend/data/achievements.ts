@@ -387,9 +387,23 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 nameType: 3,
                 overrideName: 'Raids',
                 overrideSlug: 'raids',
+                achievementIds: [
+                    40232, // Glory of the Nerub-ar Raider
+                ],
             },
             null,
-            { targetSlug: 'delves/the-war-within', nameType: 1 },
+            {
+                targetSlug: 'delves/the-war-within',
+                nameType: 1,
+                achievementIds: [
+                    40438, // Glory of the Delver
+                    40537, // Delve Loremaster: War Within
+                    40437, // Delver of the Depths 1
+                    40447, // Delver of the Depths 2
+                    40448, // Delver of the Depths 3
+                    40449, // Delver of the Depths 4
+                ],
+            },
         ],
     },
 ];
