@@ -48,7 +48,7 @@
 </style>
 
 {#if profession}
-    <CharacterTable {filterFunc}>
+    <CharacterTable {filterFunc} showEmpty={false}>
         <CharacterTableHead slot="head">
             <svelte:fragment slot="headText">
                 <WowthingImage
@@ -75,9 +75,5 @@
                 {profession}
             />
         </svelte:fragment>
-
-        <tr slot="emptyRow">
-            <td colspan="999">You have no characters with this profession.</td>
-        </tr>
     </CharacterTable>
 {/if}

@@ -3,7 +3,9 @@
     import { staticStore } from '@/shared/stores/static'
     import type { Profession } from '@/enums/profession'
     import type { Character } from '@/types'
+    import type { TaskProfessionQuest } from '@/types/data';
 
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
 
@@ -14,31 +16,51 @@
         total: number,
         items: {
             have: boolean
-            itemId: number
             profession: Profession
+            itemId?: number
+            quest?: TaskProfessionQuest
             source?: string
         }[]
     }
     export let zoneName: string
 
     $: characterRenown = reputationId ? Math.floor((character.reputations?.[reputationId] ?? 0) / 2500) : 0
+
+    let totalCosts: Set<number>;
+    $: {
+        totalCosts = new Set();
+        for (const item of zoneData.items) {
+            for (const cost of item.quest?.costs || []) {
+                totalCosts.add(cost.currencyId || cost.itemId + 1000000);
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
     .profession {
         --image-border-width: 1px;
 
-        padding: 0.2rem;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        width: 1.4rem;
+    }
+    .have {
+        padding-left: 0.2rem;
+        padding-right: 0.2rem;
         text-align: center;
         width: 1.8rem;
     }
-    .have {
-        padding: 0.2rem;
-        text-align: center;
-        width: 2rem;
-    }
     .name {
+        max-width: 15rem;
         text-align: left;
+        width: 15rem;
+    }
+    .costs {
+        --image-border-width: 1px;
+
+        width: 4rem;
     }
 </style>
 
@@ -47,11 +69,10 @@
     <h5>{zoneName}</h5>
     <table class="table-striped">
         <tbody>
-            {#each zoneData.items as { have, itemId, profession, source }}
+            {#each zoneData.items as { have, itemId, profession, quest, source }}
+                {@const actualItemId = itemId || quest?.itemId || 0}
+                {@const actualSource = source || quest?.source}
                 <tr>
-                    <td class="profession">
-                        <ProfessionIcon id={profession} />
-                    </td>
                     <td
                         class="have"
                         class:status-success={have}
@@ -59,16 +80,33 @@
                     >
                         <YesNoIcon state={have} />
                     </td>
+                    <td class="profession">
+                        <ProfessionIcon id={profession} />
+                    </td>
                     
-                    {#if itemId > 0}
-                        {@const item = $itemStore.items[itemId]}
-                        <td class="name quality{item.quality}">{item.name}</td>
+                    {#if actualItemId > 0}
+                        {@const item = $itemStore.items[actualItemId]}
+                        <td class="name quality{item.quality} text-overflow">
+                            {item.name}
+                        </td>
                     {:else}
                         <td class="name quality5">Profession Master</td>
                     {/if}
 
-                    {#if source && source !== 'undefined'}
-                        {@const renown = parseInt(source.split(' ')[1])}
+                    {#if quest?.costs?.length > 0}
+                        <td
+                            class="costs"
+                            class:faded={have}
+                        >
+                            {#each quest.costs as { amount, currencyId, itemId }}
+                                {@const text = `{priceShort:${amount}|${(itemId ? itemId + 1000000 : currencyId)}}`}
+                                <ParsedText {text} />
+                            {/each}
+                        </td>
+                    {/if}
+
+                    {#if actualSource && actualSource !== 'undefined'}
+                        {@const renown = parseInt(actualSource.split(' ')[1])}
                         {#if renown}
                             <td
                                 class="source"
@@ -82,12 +120,23 @@
         </tbody>
     </table>
 
-    {#if reputationId}
+    {#if reputationId || totalCosts.size > 0}
         <div class="bottom">
-            <span>
-                {$staticStore.reputations[reputationId].name}
-                {characterRenown}
-            </span>
+            {#if reputationId}
+                <span>
+                    {$staticStore.reputations[reputationId].name}
+                    {characterRenown}
+                </span>
+            {/if}
+            
+            {#if totalCosts.size > 0}
+                {#each totalCosts as costId}
+                    {@const amount = costId > 1000000
+                        ? character.getItemCount(costId - 1000000)
+                        : character.currencies?.[costId]?.quantity || 0}
+                    <ParsedText text={`{priceShort:${amount}|${costId}}`} />
+                {/each}
+            {/if}
         </div>
     {/if}
 </div>

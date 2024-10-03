@@ -1,10 +1,15 @@
 import type { Profession } from '@/enums/profession';
 
-interface TaskProfessionQuest {
+export interface TaskProfessionQuest {
     itemId: number;
     points?: number;
     questId: number;
     source?: string;
+    costs?: {
+        amount: number;
+        currencyId?: number;
+        itemId?: number;
+    }[];
 }
 
 export type TaskProfession = {

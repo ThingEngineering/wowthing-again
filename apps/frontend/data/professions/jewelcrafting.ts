@@ -10,26 +10,31 @@ export const warWithinJewelcrafting: TaskProfession = {
             itemId: 227413, // Faded Jeweler's Illustrations
             questId: 81259,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227424, // Exceptional Jeweler's Illustrations
             questId: 81260,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227435, // Pristine Jeweler's Illustrations
             questId: 81261,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224655, // Void-Lit Jewelcrafting Notes
             questId: 83065,
             source: 'HA 14',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224054, // Emergent Crystals of the Surface-Dwellers
             questId: 82637,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

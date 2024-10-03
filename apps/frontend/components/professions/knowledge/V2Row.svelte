@@ -7,6 +7,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { itemStore, userQuestStore } from '@/stores'
     import type {  Character } from '@/types'
+    import type { TaskProfessionQuest } from '@/types/data';
 
     import Tooltip from '@/components/tooltips/profession-knowledge/TooltipProfessionKnowledge.svelte'
 
@@ -18,10 +19,11 @@
         total: number
         items: ZoneItem[]
     }
-    type ZoneItem  = {
+    type ZoneItem = {
         have: boolean
-        itemId: number
         profession: Profession
+        itemId?: number
+        quest?: TaskProfessionQuest
         source?: string
     }
 
@@ -60,9 +62,8 @@
                     for (const bookQuest of bookQuests) {
                         const bookData = {
                             have: userQuestStore.hasAny(character.id, bookQuest.questId),
-                            itemId: bookQuest.itemId,
+                            quest: bookQuest,
                             profession: profData.id,
-                            source: bookQuest.source,
                         }
 
                         const requiredRenown = parseInt(bookQuest.source.split(' ')[1])
@@ -70,7 +71,7 @@
                             if (!isNaN(requiredRenown) && requiredRenown <= characterRenown) {
                                 zoneData.status = 'fail'
                             }
-                            else if (bookData.source.startsWith('AC ') || bookData.source === 'LN') {
+                            else if (bookQuest.source.startsWith('AC ') || bookQuest.source === 'LN') {
                                 zoneData.status = 'fail'
                             }
                         }

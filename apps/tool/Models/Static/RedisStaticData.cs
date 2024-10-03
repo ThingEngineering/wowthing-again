@@ -17,7 +17,8 @@ public class RedisStaticData
     public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
     public Dictionary<short, StaticCharacterRace> CharacterRaces { get; set; }
     public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations { get; set; }
-    public Dictionary<string, int[]> RawEnchantments { get; set; }
+    public Dictionary<string, int[]> EnchantmentStrings { get; set; }
+    public Dictionary<int, List<int>> EnchantmentValues { get; set; }
     public List<StaticHeirloom> Heirlooms { get; set; }
     public Dictionary<int, StaticIllusion> Illusions { get; set; }
     public List<OutInstance> InstancesRaw { get; set; }

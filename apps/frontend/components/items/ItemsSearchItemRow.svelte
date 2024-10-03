@@ -96,7 +96,7 @@
         {/if}
     </td>
     <td class="count">
-        {toNiceNumber(characterItem?.count || guildBankItem?.count || warbankItem?.count)}
+        {toNiceNumber(characterItem?.count || guildBankItem?.count || warbankItem?.count || 0)}
     </td>
     <td class="item-level">
         {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.items[itemId].itemLevel || 0}

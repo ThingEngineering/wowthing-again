@@ -21,6 +21,8 @@ import { StaticDataQuestInfo } from './types/quest-info';
 import type { ItemData } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 import { StaticDataQuestLine } from './types/quest-line';
+import { StaticDataEnchantment } from './types/enchantment';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -119,14 +121,24 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawCurrencyCategories = null;
         }
 
-        if (data.rawEnchantments !== null) {
+        if (data.enchantmentStrings !== null) {
             data.enchantments = {};
-            for (const [enchantString, enchantIds] of Object.entries(data.rawEnchantments)) {
+
+            for (const [enchantString, enchantIds] of Object.entries(data.enchantmentStrings)) {
                 for (const enchantId of enchantIds) {
-                    data.enchantments[enchantId] = enchantString;
+                    data.enchantments[enchantId] = new StaticDataEnchantment(enchantString);
                 }
             }
-            data.rawEnchantments = null;
+
+            for (const [enchantId, enchantValues] of getNumberKeyedEntries(
+                data.enchantmentValues,
+            )) {
+                data.enchantments[enchantId] ||= new StaticDataEnchantment(`Enchant #${enchantId}`);
+                data.enchantments[enchantId].values = enchantValues;
+            }
+
+            data.enchantmentStrings = null;
+            data.enchantmentValues = null;
         }
 
         if (data.rawHolidays !== null) {

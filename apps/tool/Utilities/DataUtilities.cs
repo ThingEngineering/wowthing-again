@@ -59,6 +59,25 @@ public static class DataUtilities
         return ret;
     }
 
+    public static async Task<List<T>> LoadGameTableAsync<T>(string fileName)
+    {
+        string filePath = Path.Join(DumpsPath, "GameTables", fileName + ".txt");
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            DetectDelimiter = true,
+        };
+
+        using var reader = new StreamReader(filePath);
+        using var csvReader = new CsvReader(reader, config);
+
+        var ret = new List<T>();
+        await foreach (var record in csvReader.GetRecordsAsync<T>())
+        {
+            ret.Add(record);
+        }
+        return ret;
+    }
+
     public static async Task<Dictionary<TKey, TValue>> LoadDumpToDictionaryAsync<TKey, TValue>(
         string fileName,
         Func<TValue, TKey> keyFunc,

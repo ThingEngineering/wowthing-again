@@ -10,26 +10,31 @@ export const warWithinAlchemy: TaskProfession = {
             itemId: 227409, // Faded Alchemist's Research
             questId: 81146,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227420, // Exceptional Alchemist's Research
             questId: 81147,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227431, // Pristine Alchemist's Research
             questId: 81148,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224645, // Jewel-Etched Alchemy Notes
             questId: 83058,
             source: 'CoD 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224024, // Theories of Bodily Transmutation, Chapter 8
             questId: 82633,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

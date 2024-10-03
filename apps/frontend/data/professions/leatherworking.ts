@@ -10,26 +10,31 @@ export const warWithinLeatherworking: TaskProfession = {
             itemId: 227414, // Faded Leatherworker's Diagrams
             questId: 80978,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227425, // Exceptional Leatherworker's Diagrams
             questId: 80979,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227436, // Pristine Leatherworker's Diagrams
             questId: 80980,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224658, // Void-Lit Leatherworking Notes
             questId: 83068,
             source: 'HA 14',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224056, // Uses for Leftover Husks (After You Take Them Apart)
             questId: 82626,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [

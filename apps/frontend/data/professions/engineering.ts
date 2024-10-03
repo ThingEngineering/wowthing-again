@@ -10,26 +10,31 @@ export const warWithinEngineering: TaskProfession = {
             itemId: 227412, // Faded Engineer's Scribblings
             questId: 84229,
             source: 'AC',
+            costs: [{ amount: 200, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227423, // Exceptional Engineer's Scribblings
             questId: 84230,
             source: 'AC',
+            costs: [{ amount: 300, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 227434, // Pristine Engineer's Scribblings
             questId: 84231,
             source: 'AC',
+            costs: [{ amount: 400, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224653, // Machine-Learned Engineering Notes
             questId: 83063,
             source: 'AotD 12',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
         },
         {
             itemId: 224052, // Clocks, Gears, Sprockets, and Legs
             questId: 82632,
             source: 'CoT',
+            costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
     ],
     dropQuests: [
