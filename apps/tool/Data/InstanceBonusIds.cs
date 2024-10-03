@@ -132,6 +132,14 @@ public static partial class Hardcoded
         { 17, 7982 }, // LFR
     };
 
+    private static readonly Dictionary<int, int> WarWithinRaid = new()
+    {
+        { 14, 9324 }, // Normal
+        { 15, 10355 }, // Heroic
+        { 16, 10356 }, // Mythic
+        { 17, 10353 }, // LFR
+    };
+
     public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
     {
         { 369, MopSiege }, // Siege of Orgrimmar
@@ -209,5 +217,8 @@ public static partial class Hardcoded
         { 1200, DfRaid }, // Vault of the Incarnates
         { 1208, DfRaid }, // Aberrus, the Shadow Crucible
         { 1207, DfRaid }, // Amirdrassil, the Dream's Hope
+
+        // The War Within
+        { 1273, WarWithinRaid }, // Nerub-ar Palace
     };
 }
