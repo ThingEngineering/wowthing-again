@@ -15,6 +15,46 @@ public class ItemsTool
     private Dictionary<int, WowItem> _itemMap;
     private Dictionary<(Language Language, int Id), string> _strings;
 
+    private static readonly HashSet<short> SkipCraftingCategories =
+    [
+        1, // Specify Haste
+        5, // Specify Mastery
+        6, // Specify Critical Strike
+        7, // Specify Versatility
+        15, // Specify Suit
+        135, // Specify Critical Strike and Haste
+        388, // Specify Versatility and Mastery
+        389, // Specify Mastery and Haste
+        390, // Specify Versatility and Haste
+        391, // Specify Crit and Mastery
+        392, // Specify Versatility and Crit
+        429, // Specify Ingenuity
+        435, // Razor-Sharp Gear
+        436, // Rapidly Ticking Gear
+        437, // Meticulously-Tuned Gear
+        438, // One-Size-Fits-All Gear,
+        450, // Specify Resourcefulness
+        451, // Specify Multicraft
+        452, // Specify Crafting Speed
+        453, // Specify Finesse
+        454, // Specify Perception
+        455, // Specify Deftness
+        591, // 11.0 Optional Reagent - Season 1 - Enchanted Crests
+        660, // Algari Missive of the Aurora
+        661, // Algari Missive of the Feverflare
+        662, // Algari Missive of the Fireflash
+        663, // Algari Missive of the Harmonious
+        664, // Algari Missive of the Peerless
+        665, // Algari Missive of the Quickblade
+        670, // Algari Missive of Ingenuity
+        671, // Algari Missive of Resourcefulness
+        672, // Algari Missive of Multicraft
+        673, // Algari Missive of Crafting Speed
+        674, // Algari Missive of Finesse
+        675, // Algari Missive of Perception
+        676, // Algari Missive of Deftness
+    ];
+
     private static readonly HashSet<int> SkipReagentItems = [
         202208,
         202209,
@@ -30,6 +70,7 @@ public class ItemsTool
         202219,
 
         // Dragonflight Missives
+        192552, // Fireflash
         194552, // Fireflash
         194566, // Feverflare
         194569, // Aurora
@@ -71,6 +112,9 @@ public class ItemsTool
         211687, // Lesser Draconic Crest of Honor
         211688, // Draconic Crest of Honor
         211689, // Greater Draconic Crest of Honor
+
+        // War Within S1
+        211296, // spark
     ];
 
     public async Task Run()
@@ -426,6 +470,11 @@ public class ItemsTool
             }
 
             if (mcReagentItem.ItemBonusTreeID == 0)
+            {
+                continue;
+            }
+
+            if (SkipCraftingCategories.Contains(mcReagentItem.ModifiedCraftingCategoryID))
             {
                 continue;
             }
