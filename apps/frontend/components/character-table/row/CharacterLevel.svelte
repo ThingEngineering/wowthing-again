@@ -12,6 +12,16 @@
         line-height: 1;
         background: none;
     }
+    // .level {
+    //     @include cell-width($width-level);
+
+    //     text-align: right;
+    // }
+    .level-partial {
+        @include cell-width($width-level-partial);
+
+        text-align: right;
+    }
 </style>
 
 <td
