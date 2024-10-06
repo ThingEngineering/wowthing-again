@@ -632,6 +632,16 @@ public class DumpsTool
             dbReputation.ParentId = faction.ParentFactionID;
             dbReputation.RenownCurrencyId = faction.RenownCurrencyID;
             dbReputation.TierId = faction.FriendshipRepID;
+
+            if (dbReputation.BaseValues == null || !dbReputation.BaseValues.SequenceEqual(faction.ReputationBases))
+            {
+                dbReputation.BaseValues = faction.ReputationBases;
+            }
+
+            if (dbReputation.MaxValues == null || !dbReputation.MaxValues.SequenceEqual(faction.ReputationMaxes))
+            {
+                dbReputation.MaxValues = faction.ReputationMaxes;
+            }
         }
 
         _timer.AddPoint("Faction");
