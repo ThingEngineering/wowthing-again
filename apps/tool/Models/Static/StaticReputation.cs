@@ -1,5 +1,6 @@
 ﻿using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Converters.Static;
+using Wowthing.Tool.Extensions;
 
 namespace Wowthing.Tool.Models.Static;
 
@@ -17,5 +18,8 @@ public class StaticReputation : WowReputation
         ParentId = reputation.ParagonId;
         RenownCurrencyId = reputation.RenownCurrencyId;
         TierId = reputation.TierId;
+
+        BaseValues = reputation.BaseValues.EmptyIfNull().TrimTrailingZeroes();
+        MaxValues = reputation.MaxValues.EmptyIfNull().TrimTrailingZeroes();
     }
 }

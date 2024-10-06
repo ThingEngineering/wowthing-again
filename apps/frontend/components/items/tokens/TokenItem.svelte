@@ -110,7 +110,7 @@
                 {#if ($browserStore.tokens.showCollected && hasItem) ||
                     ($browserStore.tokens.showUncollected && !hasItem)}
                     <div
-                        class="collection-object class-{classId}"
+                        class="collection-object {classId ? `class-${classId}` : ''}"
                         class:missing={
                             (!$browserStore.tokens.highlightMissing && !hasItem) ||
                             ($browserStore.tokens.highlightMissing && hasItem)
@@ -129,11 +129,14 @@
                                     <CollectedIcon />
                                 {/if}
 
-                                <ClassIcon
-                                    {classId}
-                                    size={48}
-                                    border={2}
-                                />
+                                {#if classId}
+                                    <ClassIcon
+                                        {classId}
+                                        size={48}
+                                        border={2}
+                                    />
+                                {/if}
+
                                 <span class="specializations">
                                     {#if specIds?.length > 0 && specIds.length < 3}
                                         {#each specIds as specId}

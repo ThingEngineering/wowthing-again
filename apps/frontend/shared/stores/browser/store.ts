@@ -5,9 +5,14 @@ import { objectKeys } from '@/utils/object-keys';
 const storageKey = 'browserStore';
 
 class BrowserState {
+    auctions = new BrowserStateAuctions();
     home = new BrowserStateHome();
     matrix = new BrowserStateMatrix();
     tokens = new BrowserStateTokens();
+}
+
+class BrowserStateAuctions {
+    commoditiesCurrentExpansion = true;
 }
 
 class BrowserStateHome {

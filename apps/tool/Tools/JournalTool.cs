@@ -268,7 +268,10 @@ public class JournalTool
                         tierData.Instances.Add(null);
                     }
 
-                    int[] mapDifficulties = difficultiesByMapId[instance.MapID];
+                    // Remove "Story" difficulty
+                    int[] mapDifficulties = difficultiesByMapId[instance.MapID]
+                        .Where(difficulty => difficulty != 220)
+                        .ToArray();
 
                     // If the instance does not have the Timewalking flag, remove it from the difficulties
                     if (!hasTimewalking)

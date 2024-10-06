@@ -35,16 +35,6 @@
         padding-left: $width-padding;
         padding-right: $width-padding;
     }
-    .level {
-        @include cell-width($width-level);
-
-        text-align: right;
-    }
-    .level-partial {
-        @include cell-width($width-level-partial);
-
-        text-align: right;
-    }
     .realm {
         @include cell-width($width-realm);
 

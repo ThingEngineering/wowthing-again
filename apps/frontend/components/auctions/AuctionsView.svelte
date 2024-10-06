@@ -5,6 +5,7 @@
     import { Profession } from '@/enums/profession'
     import { Region } from '@/enums/region'
     import { WeaponSubclass } from '@/enums/weapon-subclass'
+    import { browserStore } from '@/shared/stores/browser';
     import { settingsStore } from '@/shared/stores/settings'
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
@@ -174,6 +175,13 @@
                     name="show_have"
                     bind:value={$auctionState.showHave}
                 >Have</Checkbox>
+            </div>
+        {:else if params.slug1 === 'commodities'}
+            <div class="options-group">
+                <Checkbox
+                    name="current_expansion"
+                    bind:value={$browserStore.auctions.commoditiesCurrentExpansion}
+                >Current expansion only</Checkbox>
             </div>
         {:else}
             <div class="options-group">

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
+    import { browserStore } from '@/shared/stores/browser';
     import { userStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
 
@@ -15,7 +16,14 @@
     let wrapperDiv: HTMLElement
     $: {
         if (wrapperDiv) {
-            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'table')
+            debouncedResize = getColumnResizer(
+                auctionsContainer,
+                wrapperDiv,
+                'table',
+                {
+                    columnCount: '--column-count',
+                }
+            )
             debouncedResize()
         }
     }
@@ -25,23 +33,23 @@
 
 <style lang="scss">
     .wrapper {
-        column-count: 1;
+        column-count: var(--column-count, 1);
         gap: 20px;
     }
 </style>
 
 <svelte:window on:resize={debouncedResize} />
 
-<div class="wrapper" bind:this={wrapperDiv}>
-    {#await commodityAuctionsStore.fetch()}
-        L O A D I N G . . .
-    {:then commodities}
-        {@const characterDatas = getCharacterCommodities($userStore, commodities)}
+{#await commodityAuctionsStore.fetch()}
+    <div class="wrapper">L O A D I N G . . .</div>
+{:then commodities}
+    {@const characterDatas = getCharacterCommodities($userStore, commodities, $browserStore.auctions.commoditiesCurrentExpansion)}
+    <div class="wrapper" bind:this={wrapperDiv}>
         {#each characterDatas as characterData}
             <Table
                 {characterData}
                 {commodities}
             />
         {/each}
-    {/await}
-</div>
+    </div>
+{/await}

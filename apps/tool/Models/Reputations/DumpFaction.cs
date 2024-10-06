@@ -31,7 +31,7 @@ public class DumpFaction
     [Name("ReputationBase[3]")]
     public int ReputationBase3 { get; set; }
 
-    public int[] ReputationBases => new[]
+    public List<int> ReputationBases => new()
     {
         ReputationBase0,
         ReputationBase1,
@@ -50,7 +50,7 @@ public class DumpFaction
     [Name("ReputationMax[3]")]
     public int ReputationMax3 { get; set; }
 
-    public int[] ReputationMaxes => new[]
+    public List<int> ReputationMaxes => new()
     {
         ReputationMax0,
         ReputationMax1,

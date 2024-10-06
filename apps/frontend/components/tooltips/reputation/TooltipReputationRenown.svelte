@@ -18,9 +18,10 @@
     let tier: number
 
     $: maxRenown = $staticStore.currencies[dataRep.renownCurrencyId]?.maxTotal || 1
+    $: renownValue = dataRep.maxValues[0] || 2500
     $: {
-        tier = Math.floor(characterRep / 2500)
-        progress = tier < maxRenown ? characterRep % 2500 : (characterParagon?.current || 0)
+        tier = Math.floor(characterRep / renownValue)
+        progress = tier < maxRenown ? characterRep % renownValue : (characterParagon?.current || 0)
     }
 </script>
 
@@ -56,7 +57,7 @@
 
         <ProgressBar
             have={progress}
-            total={tier < maxRenown ? 2500 : characterParagon?.max}
+            total={tier < maxRenown ? renownValue : characterParagon?.max}
             shortText={true}
         />
     </div>

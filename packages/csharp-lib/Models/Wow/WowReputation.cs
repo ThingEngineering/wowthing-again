@@ -14,6 +14,9 @@ public class WowReputation
     public short TierId { get; set; }
     public bool AccountWide { get; set; }
 
+    public List<int> BaseValues { get; set; }
+    public List<int> MaxValues { get; set; }
+
     public WowReputation(short id)
     {
         Id = id;

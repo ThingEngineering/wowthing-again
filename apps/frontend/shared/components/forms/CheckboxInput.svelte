@@ -22,7 +22,7 @@
     class:disabled
     data-state="{value}"
 >
-    <label for="input-{name}">
+    <label for="input-{name}" class="text-overflow">
         <input
             id="input-{name}"
             name={name}

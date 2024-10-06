@@ -28,6 +28,8 @@ class RenownData {
     public renownLevel: string;
 }
 
+const brannId = 2640;
+
 export function getRenownData({
     character,
     reputation,
@@ -65,7 +67,7 @@ export function getRenownData({
             const currency = staticData.currencies[ret.dataRep.renownCurrencyId];
             const maxRenown = currency.maxTotal;
 
-            let tier = ret.characterRep.value / 2500;
+            let tier = ret.characterRep.value / (ret.dataRep.maxValues[0] || 2500);
             ret.cls = `quality${1 + Math.floor(tier / (maxRenown / 5))}`;
 
             ret.characterParagon = actualCharacter.paragons?.[ret.characterRep.reputationId];
@@ -78,8 +80,36 @@ export function getRenownData({
             const tiers =
                 staticData.reputationTiers[ret.dataRep.tierId] || staticData.reputationTiers[0];
             const repTier = findReputationTier(tiers, ret.characterRep.value);
-            ret.cls = `reputation${repTier.tier} reputation${repTier.tier}-border`;
-            ret.renownLevel = `${repTier.percent}%`;
+
+            if (ret.dataRep.id === brannId) {
+                const levelMatch = repTier.name.match(/(\d\d)/);
+                if (levelMatch) {
+                    const oof = Math.max(
+                        0,
+                        Math.floor(Math.abs(parseInt(levelMatch[1]) - 80) / 10) - 1,
+                    );
+                    ret.cls = `reputation${oof} reputation${oof}-border`;
+
+                    // Brann hack to treat him as blocks of 10 levels
+                    let actualMax = 0;
+                    let actualValue = repTier.value;
+                    let currentIndex = tiers.names.length - repTier.tier;
+                    let start = Math.floor(currentIndex / 10) * 10;
+                    let end = Math.floor((start + 10) / 10) * 10;
+                    for (let i = start; i < end; i++) {
+                        const diff = tiers.minValues[i] - (tiers.minValues[i - 1] || 0);
+                        actualMax += diff;
+                        if (i < currentIndex) {
+                            actualValue += diff;
+                        }
+                    }
+
+                    ret.renownLevel = ((actualValue / actualMax) * 100).toFixed(1) + '%';
+                }
+            } else {
+                ret.cls = `reputation${repTier.tier} reputation${repTier.tier}-border`;
+                ret.renownLevel = `${repTier.percent}%`;
+            }
         }
     }
 

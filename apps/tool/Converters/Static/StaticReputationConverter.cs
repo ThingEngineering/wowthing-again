@@ -21,10 +21,8 @@ public class StaticReputationConverter : JsonConverter<StaticReputation>
         writer.WriteBooleanValue(rep.AccountWide);
         writer.WriteStringValue(rep.Name);
 
-        if (!string.IsNullOrWhiteSpace(rep.Description))
-        {
-            writer.WriteStringValue(rep.Description);
-        }
+        writer.WriteNumberArray(rep.BaseValues);
+        writer.WriteNumberArray(rep.MaxValues);
 
         writer.WriteEndArray();
     }

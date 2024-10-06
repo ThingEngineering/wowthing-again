@@ -8,7 +8,8 @@ export class StaticDataReputation {
         public renownCurrencyId: number,
         public accountWide: boolean,
         public name: string,
-        public description?: string,
+        public baseValues: number[],
+        public maxValues: number[],
     ) {}
 }
 export type StaticDataReputationArray = ConstructorParameters<typeof StaticDataReputation>;
