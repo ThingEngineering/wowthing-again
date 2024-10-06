@@ -1,6 +1,7 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
+    import { browserStore } from '@/shared/stores/browser';
     import { userStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
 
@@ -42,7 +43,7 @@
 {#await commodityAuctionsStore.fetch()}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then commodities}
-    {@const characterDatas = getCharacterCommodities($userStore, commodities)}
+    {@const characterDatas = getCharacterCommodities($userStore, commodities, $browserStore.auctions.commoditiesCurrentExpansion)}
     <div class="wrapper" bind:this={wrapperDiv}>
         {#each characterDatas as characterData}
             <Table

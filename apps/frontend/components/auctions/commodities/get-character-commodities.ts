@@ -1,10 +1,12 @@
+import { get } from 'svelte/store';
+
+import { Constants } from '@/data/constants';
 import { ItemLocation } from '@/enums/item-location';
+import { ItemQuality } from '@/enums/item-quality';
+import { itemStore } from '@/stores';
 import type { UserData } from '@/types';
 
 import type { CommodityData } from './store';
-import { get } from 'svelte/store';
-import { itemStore } from '@/stores';
-import { ItemQuality } from '@/enums/item-quality';
 
 export class CharacterCommodities {
     public itemCounts: Record<number, number> = {};
@@ -28,6 +30,7 @@ const skippedIds = new Set<number>([
 export function getCharacterCommodities(
     userData: UserData,
     commodities: CommodityData,
+    currentExpansionOnly: boolean,
 ): CharacterCommodities[] {
     let ret: CharacterCommodities[] = [];
 
@@ -43,7 +46,16 @@ export function getCharacterCommodities(
                     continue;
                 }
 
-                if (itemData.items[characterItem.itemId]?.quality === ItemQuality.Poor) {
+                const item = itemData.items[characterItem.itemId];
+                if (!item) {
+                    continue;
+                }
+
+                if (item.quality === ItemQuality.Poor) {
+                    continue;
+                }
+
+                if (currentExpansionOnly && item.expansion !== Constants.expansion) {
                     continue;
                 }
 
