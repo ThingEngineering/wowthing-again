@@ -45,6 +45,13 @@ public class JournalTool
         StringType.WowJournalTierName,
     };
 
+    private static readonly HashSet<int> InstanceTimewalkingOverride =
+    [
+        78, // Firelands
+        751, // Black Temple
+        759, // Ulduar
+    ];
+
     public async Task Run()
     {
         using var foo = LogContext.PushProperty("Task", "Journal");
@@ -251,7 +258,7 @@ public class JournalTool
                 {
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];
-                    bool hasTimewalking = (instance.Flags & 0x1) == 0x1;
+                    bool hasTimewalking = InstanceTimewalkingOverride.Contains(instance.ID) || (instance.Flags & 0x1) == 0x1;
 
                     if (Hardcoded.JournalDungeonsOnly.Contains(tier.ID) && map.InstanceType != 1)
                     {
