@@ -27,15 +27,22 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 623,
+                highUpgrade: warWithinUpgrade4,
+                lowUpgrade: warWithinUpgrade3,
             },
             {
                 itemLevel: 610,
+                highUpgrade: warWithinUpgrade3,
+                lowUpgrade: warWithinUpgrade2,
             },
             {
                 itemLevel: 597,
+                highUpgrade: warWithinUpgrade2,
+                lowUpgrade: warWithinUpgrade1,
             },
             {
                 itemLevel: 584,
+                highUpgrade: warWithinUpgrade1,
             },
         ],
     },

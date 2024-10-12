@@ -89,9 +89,7 @@
                 </th>
             {/each}
 
-            {#if season.id === 3 || season.tiers[0].lowUpgrade}
-                <th class="currency-head" colspan="10"></th>
-            {/if}
+            <th class="currency-head" colspan="10"></th>
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
