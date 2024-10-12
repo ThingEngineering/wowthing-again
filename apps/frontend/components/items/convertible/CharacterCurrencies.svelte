@@ -20,7 +20,9 @@
         if (season.conversionCurrencyId) {
             first.push([season.conversionCurrencyId, 1])
         }
-        first.push([Constants.currencies.itemUpgrade, 1])
+        if (seasonTier.lowUpgrade || seasonTier.highUpgrade) {
+            first.push([Constants.currencies.itemUpgrade, 1])
+        }
         currencies.push(first)
 
         if (season.id === 3) {

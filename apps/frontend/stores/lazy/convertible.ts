@@ -255,6 +255,14 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             break;
                         }
 
+                        if (
+                            !convertibleCategory.tiers.some(
+                                (tier) => tier.lowUpgrade || tier.highUpgrade,
+                            )
+                        ) {
+                            isUpgradeable = false;
+                        }
+
                         if (isConvertible || isUpgradeable) {
                             characterData.push(
                                 new LazyConvertibleCharacterItem(
