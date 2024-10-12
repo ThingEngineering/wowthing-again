@@ -2,8 +2,10 @@
     import sortBy from 'lodash/sortBy';
 
     import { timeStore } from '@/shared/stores/time';
+    import { itemStore } from '@/stores';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
     import type { Character } from '@/types';
+
     import type { CommodityData } from './auction-store';
 
     import Order from './Order.svelte';
@@ -15,7 +17,7 @@
     $: now = $timeStore.toUnixInteger();
     $: activeOrders = sortBy(
         character.patronOrders?.[profession.id]?.filter((order) => order.expirationTime > now) || [],
-        (order) => order.expirationTime
+        (order) => `${order.expirationTime}:${$itemStore.items[order.itemId]?.name}`
     );
 </script>
 

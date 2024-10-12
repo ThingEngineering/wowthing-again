@@ -12,15 +12,18 @@
 
     $: seasonTier = season.tiers[season.tiers.length - tier]
 
-    let currencies: [number, number][][]
+    let currencies: [number?, number?][][]
     $: {
         currencies = []
         
+        const first: [number, number][] = []
         if (season.conversionCurrencyId) {
-            currencies.push([[season.conversionCurrencyId, 1]])
+            first.push([season.conversionCurrencyId, 1])
         }
-
-        currencies.push([[Constants.currencies.itemUpgrade, 1]])
+        if (seasonTier.lowUpgrade || seasonTier.highUpgrade) {
+            first.push([Constants.currencies.itemUpgrade, 1])
+        }
+        currencies.push(first)
 
         if (season.id === 3) {
             if (tier === 2 || tier === 3) {
@@ -28,21 +31,37 @@
             }
         }
         else {
-            currencies.push(seasonTier.lowUpgrade || [], seasonTier.highUpgrade || [])
+            const tier: [number, number][] = []
+            if (seasonTier.lowUpgrade?.length > 0) {
+                tier.push(seasonTier.lowUpgrade[0])
+            }
+            if (seasonTier.highUpgrade?.length > 0) {
+                tier.push(seasonTier.highUpgrade[0])
+            }
+            if (tier.length > 0) {
+                currencies.push(tier);
+            }
         }
     }
 </script>
 
 <style lang="scss">
     td {
-        @include cell-width(3rem);
+        @include cell-width(3.5rem);
 
         border-left: 1px solid $border-color;
     }
     .flex-wrapper {
-        --image-margin-top: -3px !important;
+        // --image-margin-top: -3px !important;
 
         flex-direction: column;
+
+        :global(a) {
+            align-items: center;
+            justify-content: space-between;
+            display: flex;
+            width: 100%;
+        }
     }
     .character-currency {
         align-items: center;
@@ -70,13 +89,14 @@
                                 size={16}
                                 border={1}
                             />
+
+                            <span
+                                class="drop-shadow"
+                                class:status-success={charHas >= currencyAmount}
+                            >
+                                {charHas}
+                            </span>
                         </WowheadLink>
-                        <span
-                            class="drop-shadow"
-                            class:status-success={charHas >= currencyAmount}
-                        >
-                            {charHas}
-                        </span>
                     </div>
                 {/each}
             </div>
