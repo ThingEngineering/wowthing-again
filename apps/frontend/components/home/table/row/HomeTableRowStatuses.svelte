@@ -59,12 +59,14 @@
             }
         }
 
-        for (const [spellId, auraTooltip] of staticAuras) {
+        for (let auraIndex = 0; auraIndex < staticAuras.length; auraIndex++) {
+            const [spellId, auraTooltip] = staticAuras[auraIndex]
             const aura = character.auras?.[spellId]
             if (aura) {
                 images.push([
                     `spell/${spellId}`,
                     `<div class="center">${auraTooltip}</div>`,
+                    auraIndex <= 7 ? (auraIndex + 1).toString() : null
                 ])
             }
         }
