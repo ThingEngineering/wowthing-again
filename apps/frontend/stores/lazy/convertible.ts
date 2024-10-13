@@ -97,6 +97,10 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                 .map(([bonusId]) => parseInt(bonusId)),
         );
 
+        const hasUpgrades = convertibleCategory.tiers.some(
+            (tier) => tier.lowUpgrade || tier.highUpgrade,
+        );
+
         for (const setItemId of stores.itemData.itemConversionEntries[convertibleCategory.id] ||
             []) {
             const setItem = stores.itemData.items[setItemId];
@@ -202,7 +206,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             // too low or high for this conversion
                             if (
                                 currentTierLevel < desiredTier - 1 ||
-                                currentTierLevel > desiredTier
+                                currentTierLevel > desiredTier ||
+                                (!hasUpgrades && currentTierLevel < desiredTier)
                             ) {
                                 continue;
                             }
@@ -255,14 +260,6 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             break;
                         }
 
-                        if (
-                            !convertibleCategory.tiers.some(
-                                (tier) => tier.lowUpgrade || tier.highUpgrade,
-                            )
-                        ) {
-                            isUpgradeable = false;
-                        }
-
                         if (isConvertible || isUpgradeable) {
                             characterData.push(
                                 new LazyConvertibleCharacterItem(
@@ -281,7 +278,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                         characterData.length === 0 &&
                         convertibleCategory.sources &&
                         convertibleCategory.sourceTier >= desiredTier - 1 &&
-                        convertibleCategory.sourceTier <= desiredTier
+                        convertibleCategory.sourceTier <= desiredTier &&
+                        (hasUpgrades || convertibleCategory.sourceTier === desiredTier)
                     ) {
                         const charArmorType = classIdToArmorType[character.classId];
                         const sourceItemId =
