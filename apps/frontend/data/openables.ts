@@ -1,5 +1,6 @@
 export const openables = new Set<number>([
     // The War Within
+    217011, // Amateur Actor's Chest
     217012, // Novice Actor's Chest
     217013, // Expert Actor's Chest
     222929, // Carved Coin Coffer
@@ -19,6 +20,7 @@ export const openables = new Set<number>([
     225245, // Overflowing Trove of the Deeps
     225246, // Overflowing Hallowfall Trove
     225247, // Overflowing Severed Threads Trove
+    225249, // Rattling Bag o' Gold
     225493, // Medal of Conquest
     225571, // The Weaver's Gratuity
     225572, // The General's War Chest
@@ -28,8 +30,15 @@ export const openables = new Set<number>([
     226103, // The Weaver's Trove
     226193, // Cache of Nerubian Treasures [N]
     226194, // Cache of Nerubian Treasures [H]
+    226195, // Resonance Crystal Cluster
+    226196, // Silk Kej Pouch
+    226198, // Resonance Crystal Agglomeration
+    226199, // Silk Kej Purse
     226256, // Token of the Remembrancers
+    226257, // Delver's Pouch of Valorstones
     226258, // Delver's Pouch of Reagents
+    226259, // Delver's Pouch of Resonance Crystals
+    226260, // Delver's Pouch of Gold
     226263, // Theater Troupe's Trove
     226264, // Radiant Cache
     226273, // Awakened Mechanical Cache
@@ -50,6 +59,14 @@ export const openables = new Set<number>([
     228611, // Artisan's Consortium Payout
     228612, // Artisan's Consortium Payout
     228741, // Lamplighter Supply Satchel
+    228916, // Algari Tailor's Satchel
+    228917, // Satchel of Ore
+    228918, // Satchel of Leather
+    228919, // Satchel of Algari Herbs
+    228920, // Satchel of Chitin
+    228931, // Algari Enchanter's Satchel
+    228932, // Algari Engineer's Satchel
+    228933, // Algari Leatherworker's Satchel
     229005, // Cache of Earthen Treasures
     229006, // Cache of Earthen Treasures
     229129, // Cache of Delver's Spoils
