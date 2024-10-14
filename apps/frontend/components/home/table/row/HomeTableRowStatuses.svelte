@@ -2,10 +2,12 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
+    import { openables } from '@/data/openables'
     import { contractAuras } from '@/data/reputation'
     import { durationAuras, staticAuras } from '@/data/spells'
     import { staticStore } from '@/shared/stores/static'
     import { timeStore } from '@/shared/stores/time'
+    import { itemStore } from '@/stores';
     import { toNiceDuration } from '@/utils/formatting'
     import type { Character } from '@/types'
 
@@ -14,6 +16,7 @@
     export let character: Character
 
     let images: [string, string, string?][]
+    let openableItems: [number, number][]
     $: {
         images = []
         
@@ -101,6 +104,36 @@
                     `<div class="center">{craftedQuality:${rank}} ${reputation.name}<br>${niceRemaining} remaining</div>`
                 ])
             }
+        }
+
+        const openableItems: [number, number][] = []
+        openables.forEach((itemId) => {
+            const itemCount = character.getItemCount(itemId);
+            if (itemCount > 0) {
+                openableItems.push([itemId, itemCount]);
+            }
+        })
+
+        if (openableItems.length > 0) {
+            openableItems.sort((a, b) => {
+                const aItem = $itemStore.items[a[0]];
+                const bItem = $itemStore.items[b[0]];
+                if (aItem.quality !== bItem.quality) {
+                    return aItem.quality - bItem.quality;
+                }
+                return aItem.name.localeCompare(bItem.name);
+            });
+
+            const lines: string[] = [];
+            for (const [itemId, itemCount] of openableItems) {
+                lines.push(`${itemCount}x {itemWithIcon:${itemId}}`);
+            }
+
+            images.push([
+                'item/163633',
+                `<div>${lines.join('<br>')}</div>`,
+                openableItems.length.toString(),
+            ]);
         }
     }
 </script>
