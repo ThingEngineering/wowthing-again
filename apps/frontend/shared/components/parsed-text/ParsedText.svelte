@@ -125,7 +125,7 @@
             (_, itemId) => {
                 const item = $itemStore.items[parseInt(itemId)]
                 if (item) {
-                    return `<span data-icon="item/${itemId}"></span> <span class="quality${item.quality}">${item.name}`
+                    return `<span data-icon="item/${itemId}"></span> <span class="quality${item.quality}">${item.name}</span>`
                 }
             }
         )
