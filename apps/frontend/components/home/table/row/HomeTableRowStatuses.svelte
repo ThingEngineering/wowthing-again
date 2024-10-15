@@ -16,7 +16,6 @@
     export let character: Character
 
     let images: [string, string, string?][]
-    let openableItems: [number, number][]
     $: {
         images = []
         
@@ -132,7 +131,7 @@
             images.push([
                 'item/163633',
                 `<div>${lines.join('<br>')}</div>`,
-                openableItems.length.toString(),
+                openableItems.reduce((a, b) => a + b[1], 0).toString(),
             ]);
         }
     }
