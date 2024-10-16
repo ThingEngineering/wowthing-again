@@ -289,6 +289,7 @@
 
 <style lang="scss">
     span {
+        --image-border-width: 1px;
         --image-margin-top: -4px;
     }
 </style>
