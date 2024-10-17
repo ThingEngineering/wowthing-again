@@ -12,6 +12,7 @@
     import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
     import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import Keystone from '@/components/character-table/row/Keystone.svelte'
+    import LastAddonSeen from "@/components/character-table/row/LastAddonSeen.svelte";
 
     export let character: Character
 
@@ -62,29 +63,24 @@
                         <td>Current loc.</td>
                         <CurrentLocation {character} />
                     </tr>
-                
+
                 {:else if id === 'hearthLocation'}
                     <tr>
                         <td>Hearth loc.</td>
                         <td>{character.hearthLocation || '---'}</td>
                     </tr>
-                
+
                 {:else if id === 'itemLevel'}
                     <tr>
                         <td>Item level</td>
                         <ItemLevel {character} />
                     </tr>
-                
+
                 {:else if id === 'last'}
                     <tr>
                         <td>Addon seen</td>
                         <td>
-                            {#if character.lastSeenAddon}
-                                {@const diff = $timeStore.diff(character.lastSeenAddon).toMillis()}
-                                <code>{toNiceDuration(diff, false)}</code> ago
-                            {:else}
-                                ???
-                            {/if}
+                            <LastAddonSeen {character} />
                         </td>
                     </tr>
                     <tr>
@@ -115,7 +111,7 @@
                             {overallScore.toFixed(1)}
                         </td>
                     </tr>
-                
+
                 {:else if id === 'playedTime'}
                     <tr>
                         <td>Played time</td>

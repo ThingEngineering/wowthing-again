@@ -31,6 +31,7 @@
     import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
     import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte'
+    import LastAddonSeen from '@/components/character-table/row/LastAddonSeen.svelte'
     import ViewSwitcher from './table/ViewSwitcher.svelte'
 
     export let characterLimit = 0
@@ -41,6 +42,10 @@
 <style lang="scss">
     .wrapper-column {
         gap: 0;
+    }
+
+    .cell-padding {
+        @include cell-width(6rem)
     }
 </style>
 
@@ -169,6 +174,10 @@
                 {:else if field === 'vaultWorld'}
                     <RowVaultWorld {character} />
 
+                {:else if field === 'lastAddonSeen'}
+                    <td class="border-left cell-padding">
+                        <LastAddonSeen {character} />
+                    </td>
                 {:else}
                     <td>&nbsp;</td>
 
