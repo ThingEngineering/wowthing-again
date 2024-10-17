@@ -149,5 +149,7 @@ export function homeSort(
         }
 
         return leftPad(10000 - value, 5, '0');
+    } else if (sortBy === 'lastAddonSeen') {
+        return char.lastSeenAddon?.toISO();
     }
 }

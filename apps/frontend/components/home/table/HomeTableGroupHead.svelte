@@ -251,6 +251,12 @@
                 on:keypress={() => setSorting(field)}
             >World Vault</td>
 
+        {:else if field === 'lastAddonSeen'}
+            <td class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >Addon seen</td>
         {:else}
             <td>&nbsp;</td>
 

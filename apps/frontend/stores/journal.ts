@@ -18,7 +18,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         console.time('JournalDataStore.initialize');
 
         data.expandedItem = {};
-        for (const [tokenId, itemIds] of getNumberKeyedEntries(data.itemExpansion)) {
+        for (const [tokenId, itemIds] of getNumberKeyedEntries(data.itemExpansion ?? {})) {
             for (const itemId of itemIds) {
                 (data.expandedItem[itemId] ||= []).push(tokenId);
             }

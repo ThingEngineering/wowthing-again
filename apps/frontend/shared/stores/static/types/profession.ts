@@ -88,9 +88,10 @@ export class StaticDataProfessionAbility {
         public extraRanks?: [number, number][],
     ) {
         this.itemIds = typeof itemId === 'number' ? [itemId] : itemId;
-        this.categoryReagents = categoryReagentArrays.map(
+        this.categoryReagents = categoryReagentArrays?.map
+        ? categoryReagentArrays.map(
             (reagentArray) => new StaticDataProfessionCategoryReagent(...reagentArray),
-        );
+        ): [];
     }
 }
 export type StaticDataProfessionAbilityArray = ConstructorParameters<

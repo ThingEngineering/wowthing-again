@@ -81,7 +81,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawIllusionGroups = null;
 
         data.reputationSets = [];
-        for (const repArray of data.rawReputationSets) {
+        for (const repArray of data.rawReputationSets ?? []) {
             if (repArray === null) {
                 data.reputationSets.push(null);
             } else {
