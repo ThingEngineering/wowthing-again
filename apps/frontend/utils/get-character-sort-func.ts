@@ -110,6 +110,11 @@ export default function getCharacterSortFunc(
             } else if (thing === 'realm') {
                 out.push(Region[char.realm.region]);
                 out.push(char.realm.name);
+            } else if (thing.startsWith('tag:')) {
+                const tagId = parseInt(thing.substring(4));
+                const hasFlag =
+                    ((settingsData.characters.flags?.[char.id] || 0) & (1 << tagId)) > 0;
+                out.push(hasFlag ? '0' : '1');
             }
         }
 

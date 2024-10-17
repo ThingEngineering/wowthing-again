@@ -1,4 +1,7 @@
 <script lang="ts">
+    import orderBy from 'lodash/orderBy';
+
+    import { settingsStore } from '@/shared/stores/settings';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
 
     import MagicLists from '../../MagicLists.svelte'
@@ -21,6 +24,13 @@
         {id: 'itemlevel', name: 'Item level'},
         {id: 'level', name: 'Level'},
     ]
+    
+    $: {
+        sortByChoices.push(...orderBy(
+            $settingsStore.tags,
+            (tag) => tag.name,
+        ).map((tag) => ({ id: `tag:${tag.id}`, name: `Tag: ${tag.name}` })));
+    }
 </script>
 
 <style lang="scss">
