@@ -185,7 +185,7 @@ public class ApplicationUserSettings
             view.SortBy = view.SortBy
                 .EmptyIfNull()
                 .Select(sb => sb.ToLower())
-                .Where(sb => _validSortBy.Contains(sb))
+                .Where(sb => _validSortBy.Contains(sb) || sb.StartsWith("tag:"))
                 .Distinct()
                 .ToList();
 
