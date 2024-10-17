@@ -29,11 +29,10 @@ export class ManualDataVendorCategory {
         public vendorTags: string[],
         childArrays: ManualDataVendorCategoryArray[],
     ) {
-         this.groups = groupArrays?.map
-             ? groupArrays.map((groupArray) => new ManualDataVendorGroup(...groupArray)) : [];
-        this.children = childArrays?.map ? childArrays.map((childArray) =>
+        this.groups = groupArrays.map((groupArray) => new ManualDataVendorGroup(...groupArray));
+        this.children = childArrays.map((childArray) =>
             childArray === null ? null : new ManualDataVendorCategory(...childArray),
-        ) : [];
+        );
     }
 }
 // Can't use this and have it reference itself, alas
@@ -50,7 +49,7 @@ export class ManualDataVendorGroup {
         public auto?: boolean,
         public showNormalTag?: boolean,
     ) {
-        this.sells = itemArrays?.map ? itemArrays.map((itemArray) => new ManualDataVendorItem(...itemArray)) : [];
+        this.sells = itemArrays.map((itemArray) => new ManualDataVendorItem(...itemArray));
     }
 }
 export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualDataVendorGroup>;

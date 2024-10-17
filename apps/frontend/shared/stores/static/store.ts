@@ -124,21 +124,17 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.enchantmentStrings !== null) {
             data.enchantments = {};
 
-            if (data.enchantmentStrings) {
-                for (const [enchantString, enchantIds] of Object.entries(data.enchantmentStrings)) {
-                    for (const enchantId of enchantIds) {
-                        data.enchantments[enchantId] = new StaticDataEnchantment(enchantString);
-                    }
+            for (const [enchantString, enchantIds] of Object.entries(data.enchantmentStrings)) {
+                for (const enchantId of enchantIds) {
+                    data.enchantments[enchantId] = new StaticDataEnchantment(enchantString);
                 }
             }
 
-            if (data.enchantmentStrings) {
-                for (const [enchantId, enchantValues] of getNumberKeyedEntries(
-                    data.enchantmentValues,
-                )) {
-                    data.enchantments[enchantId] ||= new StaticDataEnchantment(`Enchant #${enchantId}`);
-                    data.enchantments[enchantId].values = enchantValues;
-                }
+            for (const [enchantId, enchantValues] of getNumberKeyedEntries(
+                data.enchantmentValues,
+            )) {
+                data.enchantments[enchantId] ||= new StaticDataEnchantment(`Enchant #${enchantId}`);
+                data.enchantments[enchantId].values = enchantValues;
             }
 
             data.enchantmentStrings = null;
@@ -409,10 +405,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         idFunc: (obj: TObject) => number = null,
     ): Record<number, TObject> {
         const ret: Record<number, TObject> = {};
-
-        if (!arrays) {
-            return ret;
-        }
 
         for (const array of arrays) {
             const obj = new objectConstructor(...array);

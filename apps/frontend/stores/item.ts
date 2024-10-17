@@ -134,8 +134,6 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         for (const itemSetId of currentTier) {
             const itemSet = data.itemSets[itemSetId];
 
-            if (!itemSet) continue;
-
             for (const itemId of itemSet.itemIds) {
                 const item = data.items[itemId];
                 data.currentTier[item.id] = item.inventoryType;

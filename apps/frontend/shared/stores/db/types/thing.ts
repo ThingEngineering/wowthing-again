@@ -24,7 +24,7 @@ export class DbDataThing {
         public requirementIds: number[],
         public tagIds: number[],
         locationArrays: [number, number][],
-        contentsArrays: DbDataThingContentArray[] = [],
+        contentsArrays: DbDataThingContentArray[],
     ) {
         for (const [mapId, packedLocation] of locationArrays) {
             this.locations[mapId] ||= [];
