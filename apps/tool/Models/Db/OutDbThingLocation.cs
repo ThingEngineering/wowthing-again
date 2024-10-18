@@ -1,6 +1,6 @@
-﻿namespace Wowthing.Tool.Models.Db;
+﻿using System.Globalization;
 
-using System.Globalization;
+namespace Wowthing.Tool.Models.Db;
 
 public class OutDbThingLocation
 {

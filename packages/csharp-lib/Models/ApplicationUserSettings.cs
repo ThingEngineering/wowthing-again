@@ -93,6 +93,7 @@ public class ApplicationUserSettings
         "itemLevel",
         "items",
         "keystone",
+        "lastSeenAddon",
         "lockouts",
         "mythicPlusScore",
         "playedTime",
@@ -107,7 +108,6 @@ public class ApplicationUserSettings
         "vaultMythicPlus",
         "vaultRaid",
         "vaultWorld",
-        "lastAddonSeen",
     };
 
     public void Migrate()

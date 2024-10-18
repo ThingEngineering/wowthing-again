@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { userStore } from '@/stores'
     import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { userStore } from '@/stores'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
@@ -17,6 +17,7 @@
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './table/row/HomeTableRowItems.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
+    import RowLastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
@@ -31,7 +32,6 @@
     import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
     import RowVaultWorld from '@/components/character-table/row/VaultWorld.svelte'
-    import LastAddonSeen from '@/components/character-table/row/LastAddonSeen.svelte'
     import ViewSwitcher from './table/ViewSwitcher.svelte'
 
     export let characterLimit = 0
@@ -42,10 +42,6 @@
 <style lang="scss">
     .wrapper-column {
         gap: 0;
-    }
-
-    .cell-padding {
-        @include cell-width(6rem)
     }
 </style>
 
@@ -122,6 +118,9 @@
                     {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
                         <RowKeystone {character} />
                     {/if}
+                
+                {:else if field === 'lastSeenAddon'}
+                    <RowLastSeenAddon {character} />
 
                 {:else if field === 'lockouts'}
                     {#if !isPublic || $settingsStore.privacy.publicLockouts}
@@ -174,10 +173,6 @@
                 {:else if field === 'vaultWorld'}
                     <RowVaultWorld {character} />
 
-                {:else if field === 'lastAddonSeen'}
-                    <td class="border-left cell-padding">
-                        <LastAddonSeen {character} />
-                    </td>
                 {:else}
                     <td>&nbsp;</td>
 
