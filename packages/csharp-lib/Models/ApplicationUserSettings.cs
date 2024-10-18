@@ -107,6 +107,7 @@ public class ApplicationUserSettings
         "vaultMythicPlus",
         "vaultRaid",
         "vaultWorld",
+        "lastAddonSeen",
     };
 
     public void Migrate()

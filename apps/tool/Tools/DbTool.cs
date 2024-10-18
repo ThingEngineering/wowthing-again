@@ -83,6 +83,12 @@ public class DbTool
             .ToArray();
         foreach (var fileInfo in fileInfos)
         {
+            // Skip macOS .DS_Store files
+            if (fileInfo.Name == ".DS_Store")
+            {
+                continue;
+            }
+
             ToolContext.Logger.Information("{indent}📄{fileName}", indent, fileInfo.Name);
             var parsed = DataUtilities.YamlDeserializer.Deserialize<DataDbFile>(File.OpenText(fileInfo.FullName));
             if (fileInfo.Name == "_.yml")

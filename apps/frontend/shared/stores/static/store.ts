@@ -405,6 +405,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         idFunc: (obj: TObject) => number = null,
     ): Record<number, TObject> {
         const ret: Record<number, TObject> = {};
+
         for (const array of arrays) {
             const obj = new objectConstructor(...array);
             ret[idFunc?.(obj) ?? obj.id] = obj;
