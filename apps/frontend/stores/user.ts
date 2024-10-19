@@ -38,7 +38,7 @@ import type {
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
-import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
+import type { ContainsItems, UserItem } from '@/types/shared';
 import { WarbankItem } from '@/types/items';
 import { manualStore } from './manual';
 import type { ManualData } from '@/types/data/manual';
@@ -229,7 +229,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('characters');
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
-        const allLockouts: Record<string, Character[]> = {};
+        const allLockouts: Record<string, [Character, number, number][]> = {};
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, manualData, staticData, character);
 
@@ -238,8 +238,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (character.hidden ||
                     settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
 
-            for (const key of Object.keys(character.lockouts || {})) {
-                (allLockouts[key] ||= []).push(character);
+            for (const [key, lockout] of Object.entries(character.lockouts || {})) {
+                (allLockouts[key] ||= []).push([
+                    character,
+                    lockout.defeatedBosses,
+                    lockout.maxBosses,
+                ]);
             }
 
             if (userData.public || character.account?.enabled === true) {

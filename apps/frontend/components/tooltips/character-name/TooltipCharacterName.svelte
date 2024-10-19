@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
+    import { Constants } from '@/data/constants';
     import { characterNameTooltipChoices } from '@/data/settings';
     import { settingsStore } from '@/shared/stores/settings'
     import { timeStore } from '@/shared/stores/time'
@@ -12,6 +12,7 @@
     import CurrentLocation from '@/components/home/table/row/HomeTableRowCurrentLocation.svelte'
     import ItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import Keystone from '@/components/character-table/row/Keystone.svelte'
+    import LastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte';
 
     export let character: Character
 
@@ -62,37 +63,30 @@
                         <td>Current loc.</td>
                         <CurrentLocation {character} />
                     </tr>
-                
+
                 {:else if id === 'hearthLocation'}
                     <tr>
                         <td>Hearth loc.</td>
                         <td>{character.hearthLocation || '---'}</td>
                     </tr>
-                
+
                 {:else if id === 'itemLevel'}
                     <tr>
                         <td>Item level</td>
                         <ItemLevel {character} />
                     </tr>
-                
+
                 {:else if id === 'last'}
                     <tr>
                         <td>Addon seen</td>
-                        <td>
-                            {#if character.lastSeenAddon}
-                                {@const diff = $timeStore.diff(character.lastSeenAddon).toMillis()}
-                                <code>{toNiceDuration(diff, false)}</code> ago
-                            {:else}
-                                ???
-                            {/if}
-                        </td>
+                        <LastSeenAddon {character} />
                     </tr>
                     <tr>
                         <td>API update</td>
                         <td>
                             {#if character.lastApiUpdate}
                                 {@const diff = $timeStore.diff(character.lastApiUpdate).toMillis()}
-                                <code>{toNiceDuration(diff, false)}</code> ago
+                                <code>{@html toNiceDuration(diff)}</code> ago
                             {:else}
                                 ???
                             {/if}
@@ -115,7 +109,7 @@
                             {overallScore.toFixed(1)}
                         </td>
                     </tr>
-                
+
                 {:else if id === 'playedTime'}
                     <tr>
                         <td>Played time</td>
@@ -124,7 +118,7 @@
                         </td>
                     </tr>
 
-                {:else if id === 'restedXp'}
+                {:else if id === 'restedXp' && character.level < Constants.characterMaxLevel}
                     {@const [rested, restedRemaining] = getCharacterRested($timeStore, character)}
                     <tr>
                         <td>Rested XP</td>

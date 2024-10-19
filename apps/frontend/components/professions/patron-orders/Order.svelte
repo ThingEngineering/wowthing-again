@@ -1,17 +1,18 @@
 <script lang="ts">
+    import { DateTime } from 'luxon';
+
     import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { itemStore, lazyStore } from '@/stores';
+    import { toNiceDuration, toNiceNumber } from '@/utils/formatting';
     import type { Character, CharacterPatronOrder } from '@/types/character';
+
     import type { CommodityData } from './auction-store';
 
     import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
-    import { timeStore } from '@/shared/stores/time';
-    import { DateTime } from 'luxon';
-    import { toNiceDuration, toNiceNumber, toNicePrice } from '@/utils/formatting';
 
     export let character: Character
     export let commodities: CommodityData = undefined;

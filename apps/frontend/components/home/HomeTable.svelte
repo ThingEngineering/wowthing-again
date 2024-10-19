@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { userStore } from '@/stores'
     import { activeView, settingsStore } from '@/shared/stores/settings'
+    import { userStore } from '@/stores'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
@@ -17,6 +17,7 @@
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './table/row/HomeTableRowItems.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
+    import RowLastSeenAddon from '@/components/character-table/row/LastSeenAddon.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
@@ -117,6 +118,9 @@
                     {#if !isPublic || $settingsStore.privacy.publicMythicPlus}
                         <RowKeystone {character} />
                     {/if}
+                
+                {:else if field === 'lastSeenAddon'}
+                    <RowLastSeenAddon {character} />
 
                 {:else if field === 'lockouts'}
                     {#if !isPublic || $settingsStore.privacy.publicLockouts}

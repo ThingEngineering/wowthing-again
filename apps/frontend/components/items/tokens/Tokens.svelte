@@ -2,14 +2,14 @@
     import { afterUpdate } from 'svelte'
 
     import { getColumnResizer } from '@/utils/get-column-resizer'
-    import { journalStore, userStore } from '@/stores';
+    import { itemStore, journalStore, userStore } from '@/stores';
     import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal';
 
     import Instance from './Instance.svelte';
     import Options from './Options.svelte';
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
 
-    type InstanceData = [JournalDataInstance, Set<number>][];
+    type InstanceData = [JournalDataInstance, number[]][];
     type TierData = [JournalDataTier, InstanceData][];
     let tiers: TierData;
     $: {
@@ -43,7 +43,10 @@
                 }
 
                 if (items.size > 0) {
-                    instances.push([instance, items]);
+                    const itemsArray = Array.from(items);
+                    itemsArray.sort((a, b) => $itemStore.items[a].name.localeCompare($itemStore.items[b].name));
+
+                    instances.push([instance, itemsArray]);
                 }
             }
 

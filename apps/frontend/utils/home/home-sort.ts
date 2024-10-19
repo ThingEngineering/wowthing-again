@@ -36,6 +36,8 @@ export function homeSort(
             5,
             '0',
         );
+    } else if (sortBy === 'lastSeenAddon') {
+        return leftPad(2_000_000_000_000 - (char.lastSeenAddon?.toMillis() || 0), 13, '0');
     } else if (sortBy === 'locationCurrent') {
         // adding two spaces makes it sort before " > blah"
         return char.currentLocation + '  ' || 'ZZZZZ';

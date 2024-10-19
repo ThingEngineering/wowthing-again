@@ -164,6 +164,13 @@
                 </td>
             {/if}
 
+        {:else if field === 'lastSeenAddon'}
+            <td class="sortable"
+                class:sorted-by={$homeState.groupSort[sortKey] === field}
+                on:click={() => setSorting(field)}
+                on:keypress={() => setSorting(field)}
+            >Seen</td>
+
         {:else if field === 'lockouts'}
             {#if !isPublic || $settingsStore.privacy.publicLockouts}
                 <HeadLockouts {sortKey} />

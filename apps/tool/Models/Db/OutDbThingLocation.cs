@@ -1,4 +1,6 @@
-﻿namespace Wowthing.Tool.Models.Db;
+﻿using System.Globalization;
+
+namespace Wowthing.Tool.Models.Db;
 
 public class OutDbThingLocation
 {
@@ -12,7 +14,7 @@ public class OutDbThingLocation
         // Convert x/y locations (eg 12.34 56.78) to an 8-digit integer (eg 12345678)
         decimal[] parts = locationString
             .Split()
-            .Select(decimal.Parse)
+            .Select(s => decimal.Parse(s, CultureInfo.InvariantCulture))
             .ToArray();
         PackedLocation = (int)(parts[0] * 100 * 10000) + (int)(parts[1] * 100);
     }

@@ -22,6 +22,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'bestItemLevel', name: 'Item Level - Best' },
     { id: 'itemLevel', name: 'Item Level - Equipped' },
     { id: 'items', name: 'Items' },
+    { id: 'lastSeenAddon', name: 'Last Seen - Addon' },
     { id: 'currentLocation', name: 'Location - Current' },
     { id: 'hearthLocation', name: 'Location - Hearth' },
     { id: 'lockouts', name: 'Lockouts' },
