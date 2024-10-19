@@ -38,7 +38,7 @@ import type {
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
-import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
+import type { ContainsItems, UserItem } from '@/types/shared';
 import { WarbankItem } from '@/types/items';
 import { manualStore } from './manual';
 import type { ManualData } from '@/types/data/manual';

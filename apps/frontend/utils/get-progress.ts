@@ -94,16 +94,11 @@ export default function getProgress(
             const lookupKey = group.lookup === 'faction' ? factionIdMap[character.faction] : 0;
             const campaign = staticData.campaigns[group.data[lookupKey][0].ids[0]];
 
-            campaign.questLineIds.forEach((questLineId, index) => {
+            for (const questLineId of campaign.questLineIds) {
                 const questLine = staticData.questLines[questLineId];
                 if (!questLine) {
                     console.warn('bad questLine?', campaign.id, questLineId);
                     return;
-                }
-
-                let totalQuests = 0;
-                for (const questId of questLine.questIds) {
-                    totalQuests++;
                 }
 
                 datas.push({
@@ -113,7 +108,7 @@ export default function getProgress(
                     value: questLine.questIds.length,
                 });
                 // descriptionText[index] = `${haveQuests} / ${totalQuests}`;
-            });
+            }
         } else {
             switch (group.lookup) {
                 case 'class':

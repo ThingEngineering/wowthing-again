@@ -2,7 +2,7 @@
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import TokenItem from './TokenItem.svelte';
 
-    export let items: Set<number>
+    export let items: number[]
     export let name: string
 </script>
 
