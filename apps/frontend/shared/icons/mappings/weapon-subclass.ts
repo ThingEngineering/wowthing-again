@@ -1,10 +1,9 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-import { WeaponSubclass } from '@/enums/weapon-subclass'
+import * as iconLibrary from '../library';
+import { WeaponSubclass } from '@/enums/weapon-subclass';
 
-
-export const weaponSubclassIcons: Record<WeaponSubclass, IconifyIcon> = {
+export const weaponSubclassIcons: Record<number, IconifyIcon> = {
     [WeaponSubclass.OneHandedAxe]: iconLibrary.gameHatchet,
     [WeaponSubclass.OneHandedMace]: iconLibrary.gameThorHammer,
     [WeaponSubclass.OneHandedSword]: iconLibrary.gameGladius,
@@ -25,4 +24,4 @@ export const weaponSubclassIcons: Record<WeaponSubclass, IconifyIcon> = {
     [WeaponSubclass.HeldInOffHand]: iconLibrary.gameSecretBook,
     [WeaponSubclass.Shield]: iconLibrary.gameShield,
     [WeaponSubclass.Miscellaneous]: iconLibrary.mdiProgressQuestion,
-}
+};

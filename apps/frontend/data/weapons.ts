@@ -1,5 +1,4 @@
-import { WeaponSubclass } from '@/enums/weapon-subclass'
-
+import { WeaponSubclass } from '@/enums/weapon-subclass';
 
 export const weaponSubclassToString: Record<number, string> = {
     [WeaponSubclass.OneHandedAxe]: '1h Axe',
@@ -25,28 +24,28 @@ export const weaponSubclassToString: Record<number, string> = {
 
     [WeaponSubclass.HeldInOffHand]: 'Off-hand',
     [WeaponSubclass.Shield]: 'Shield',
-}
+};
 
 export const weaponSubclassOrder: number[] = [
     WeaponSubclass.OneHandedAxe,
     WeaponSubclass.OneHandedMace,
     WeaponSubclass.OneHandedSword,
+    WeaponSubclass.Dagger,
+    WeaponSubclass.Fist,
+    WeaponSubclass.Warglaive,
     WeaponSubclass.TwoHandedAxe,
     WeaponSubclass.TwoHandedMace,
     WeaponSubclass.TwoHandedSword,
-    WeaponSubclass.Dagger,
-    WeaponSubclass.Fist,
-    WeaponSubclass.Wand,
-    WeaponSubclass.Warglaive,
     WeaponSubclass.Polearm,
     WeaponSubclass.Stave,
     WeaponSubclass.Bow,
     WeaponSubclass.Crossbow,
     WeaponSubclass.Gun,
+    WeaponSubclass.Wand,
     WeaponSubclass.HeldInOffHand,
     WeaponSubclass.Shield,
-]
+];
 
 export const weaponSubclassOrderMap: Record<number, number> = Object.fromEntries(
-    weaponSubclassOrder.map((type, index) => [type, index])
-)
+    weaponSubclassOrder.map((type, index) => [type, index]),
+);

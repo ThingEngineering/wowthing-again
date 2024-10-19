@@ -4,4 +4,5 @@ export enum ItemFlags {
     AllianceOnly = 0x4,
     HordeOnly = 0x8,
     HeroicDifficulty = 0x20,
+    MythicDifficulty = 0x40,
 }
