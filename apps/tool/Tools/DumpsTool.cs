@@ -139,7 +139,6 @@ public class DumpsTool
             ImportCharacterTitleStrings,
             ImportCreatureStrings,
             ImportJournalEncounterStrings,
-            ImportJournalInstanceStrings,
             ImportJournalTierStrings,
             ImportKeystoneAffixStrings,
             ImportQuestLineStrings,
@@ -283,15 +282,6 @@ public class DumpsTool
             "journalencounter",
             encounter => encounter.ID,
             encounter => encounter.Name
-        );
-
-    private async Task ImportJournalInstanceStrings(WowDbContext context) =>
-        await ImportStrings<DumpJournalInstance>(
-            context,
-            StringType.WowJournalInstanceName,
-            "journalinstance",
-            instance => instance.ID,
-            instance => instance.Name
         );
 
     private async Task ImportJournalTierStrings(WowDbContext context) =>
@@ -791,23 +781,31 @@ public class DumpsTool
         var instances = await DataUtilities
             .LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
 
-        var mapIdToInstanceId = instances
-            .Where(instance => !Hardcoded.SkipInstances.Contains(instance.ID))
-            .ToDictionary(
-                instance => instance.MapID,
-                instance => instance.ID
-            );
+        foreach (var language in _languages)
+        {
+            var maps = await DataUtilities
+                .LoadDumpToDictionaryAsync<int, DumpMap>("map", map => map.ID);
+
+            var dbLanguageMap = await context.LanguageString
+                .AsNoTracking()
+                .Where(ls => ls.Language == language &&
+                             (ls.Type == StringType.WowJournalInstanceName || ls.Type == StringType.WowJournalInstanceMapName))
+                .ToDictionaryAsync(ls => (ls.Language, ls.Type, ls.Id));
+
+            foreach (var instance in instances)
+            {
+                CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowJournalInstanceName,
+                    instance.ID, instance.Name);
+
+                if (maps.TryGetValue(instance.MapID, out var map))
+                {
+                    CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowJournalInstanceMapName,
+                        instance.ID, map.Name);
+                }
+            }
+        }
 
         _timer.AddPoint("Instances");
-
-        await ImportStrings<DumpMap>(
-            context,
-            StringType.WowJournalInstanceMapName,
-            "map",
-            (map) => mapIdToInstanceId[map.ID],
-            (map) => map.Name,
-            (map) => mapIdToInstanceId.ContainsKey(map.ID)
-        );
     }
 
     private async Task ImportItems(WowDbContext context)
@@ -855,6 +853,10 @@ public class DumpsTool
                 itemSparse.ItemNameDescriptionID == 2015)
             {
                 dbItem.Flags |= WowItemFlags.HeroicDifficulty;
+            }
+            if (itemSparse.ItemNameDescriptionID == 13145)
+            {
+                dbItem.Flags |= WowItemFlags.MythicDifficulty;
             }
             if (itemSparse.Flags2.HasFlag(WowItemFlags2.AllianceOnly))
             {
