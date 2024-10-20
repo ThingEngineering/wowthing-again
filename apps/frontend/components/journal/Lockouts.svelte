@@ -3,15 +3,17 @@
 
     import { classOrderMap } from '@/data/character-class';
     import { uiIcons } from '@/shared/icons';
+    import { componentTooltip } from '@/shared/utils/tooltips'
     import { userStore } from '@/stores';
     import type { JournalDataInstance } from '@/types/data';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte'
 
     export let instance: JournalDataInstance
 
     $: instanceId = instance.id === 1278 ? 110001 : instance.id;
-    $: lockouts = $userStore.allLockouts.filter((lockout) => lockout.instanceId === instanceId);
+    $: instanceLockouts = $userStore.allLockouts.filter((lockout) => lockout.instanceId === instanceId);
 </script>
 
 <style lang="scss">
@@ -30,14 +32,18 @@
     }
 </style>
 
-{#if lockouts}
+{#if instanceLockouts}
     <div class="lockouts">
-        {#each lockouts as lockout}
+        {#each instanceLockouts as instanceLockout}
             <div class="lockout">
-                <span>{lockout.difficulty.shortName}:</span>
-                {#each sortBy(lockout.characters, ([char]) => classOrderMap[char.classId]) as [character, killed, total]}
-                    {@const status = killed === 0 ? 0 : (killed < total ? 1 : 2)}
-                    <span class="character class-{character.classId}">
+                <span>{instanceLockout.difficulty.shortName}:</span>
+                {#each sortBy(instanceLockout.characters, ([char]) => classOrderMap[char.classId]) as [character, lockout]}
+                    {@const per = lockout.defeatedBosses / lockout.maxBosses * 100}
+                    {@const status = per === 0 ? 0 : (per < 100 ? 1 : 2)}
+                    <span
+                        class="character class-{character.classId}"
+                        use:componentTooltip={{component: TooltipLockout, props: {character, lockout}}}
+                    >
                         <IconifyIcon
                             extraClass="status-{['fail', 'shrug', 'success'][status]}"
                             icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull][status]}
