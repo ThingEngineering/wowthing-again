@@ -42,17 +42,26 @@ export default function getProgress(
     const haveIndexes: number[] = [];
     const nameOverride: Record<number, string> = {};
 
+    let skipRequiredQuests = false;
+    if (category.name === 'Garrisons' && group.name === 'Pet Quest') {
+        const garrison = character.garrisons?.[2];
+        if (garrison?.level === 3) {
+            skipRequiredQuests = true;
+        }
+    }
+
     if (
         character.level >= (category.minimumLevel || 0) &&
         character.level >= (group.minimumLevel || 0) &&
-        (category.requiredQuestIds.length === 0 ||
-            category.requiredQuestIds.some((questId) =>
-                userQuestData.characters[character.id]?.quests?.has(questId),
-            )) &&
-        ((group.requiredQuestIds?.length || 0) === 0 ||
-            group.requiredQuestIds.some((questId) =>
-                userQuestData.characters[character.id]?.quests?.has(questId),
-            ))
+        (skipRequiredQuests ||
+            ((category.requiredQuestIds.length === 0 ||
+                category.requiredQuestIds.some((questId) =>
+                    userQuestData.characters[character.id]?.quests?.has(questId),
+                )) &&
+                ((group.requiredQuestIds?.length || 0) === 0 ||
+                    group.requiredQuestIds.some((questId) =>
+                        userQuestData.characters[character.id]?.quests?.has(questId),
+                    ))))
     ) {
         if (group.type === 'dragon-racing') {
             datas = [];
