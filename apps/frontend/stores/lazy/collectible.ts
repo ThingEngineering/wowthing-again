@@ -72,10 +72,9 @@ export function doCollectible(
                             !groupUnavailable &&
                             (!hideUnavailable || !categoryUnavailable));
                     const doSet =
-                        !seenSet &&
-                        (hasThing ||
-                            !hideUnavailable ||
-                            (!groupUnavailable && !setUnavailable && !categoryUnavailable));
+                        hasThing ||
+                        !hideUnavailable ||
+                        (!groupUnavailable && !setUnavailable && !categoryUnavailable);
 
                     if (doOverall) {
                         overallData.total++;
@@ -84,7 +83,9 @@ export function doCollectible(
                         categoryData.total++;
                     }
                     if (doSet) {
-                        setData.total++;
+                        if (!seenSet) {
+                            setData.total++;
+                        }
                         groupData.total++;
                     }
 
@@ -96,7 +97,9 @@ export function doCollectible(
                             categoryData.have++;
                         }
                         if (doSet) {
-                            setData.have++;
+                            if (!seenSet) {
+                                setData.have++;
+                            }
                             groupData.have++;
                         }
                     }
