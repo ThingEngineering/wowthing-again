@@ -1186,7 +1186,10 @@ public class UserUploadJob : JobBase
             else
             {
                 pet.Level = Math.Min(25, Math.Max(pet.Level, level));
-                pet.Quality = (WowQuality)Math.Max((short)pet.Quality, quality);
+                if (quality > 0)
+                {
+                    pet.Quality = (WowQuality)quality;
+                }
             }
 
             seenIds.Add(petId);
