@@ -38,7 +38,7 @@
                 {patronOrder}
             />
         {:else}
-            No active patron orders!
+            <Order {character} />
         {/each}
     {/if}
 </td>
