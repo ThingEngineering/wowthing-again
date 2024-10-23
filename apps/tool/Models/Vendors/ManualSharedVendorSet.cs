@@ -2,6 +2,7 @@
 
 public class ManualSharedVendorSet
 {
+    public int[] BonusIds { get; set; }
     public string Name { get; set; }
     public int[] Range { get; set; }
     public bool ShowNormalTag { get; set; }
@@ -14,6 +15,8 @@ public class ManualSharedVendorSet
         ShowNormalTag = set.ShowNormalTag;
         SkipTooltip = set.SkipTooltip;
         SortKey = set.SortKey;
+
+        BonusIds = set.BonusIds.EmptyIfNull().ToArray();
 
         string[] parts = set.Range
             .EmptyIfNullOrWhitespace()

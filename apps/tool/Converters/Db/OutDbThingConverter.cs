@@ -41,6 +41,28 @@ public class OutDbThingConverter : JsonConverter<OutDbThing>
         }
         writer.WriteEndArray();
 
+        writer.WriteStartArray();
+        foreach (var group in thing.Groups)
+        {
+            writer.WriteStartArray();
+
+            writer.WriteStringValue(group.Name);
+            writer.WriteNumberArray(group.Range);
+
+            if (group.BonusIds.Length > 0 || !string.IsNullOrWhiteSpace(group.SortKey))
+            {
+                writer.WriteStringValue(group.SortKey);
+            }
+
+            if (group.BonusIds.Length > 0)
+            {
+                writer.WriteNumberArray(group.BonusIds);
+            }
+
+            writer.WriteEndArray();
+        }
+        writer.WriteEndArray();
+
         writer.WriteEndArray();
     }
 }

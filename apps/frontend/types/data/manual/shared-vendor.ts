@@ -171,6 +171,7 @@ export class ManualDataSharedVendorSet {
         public sortKey?: string,
         public showNormalTag?: boolean,
         public skipTooltip?: boolean,
+        public bonusIds?: number[],
     ) {}
 }
 export type ManualDataSharedVendorSetArray = ConstructorParameters<
