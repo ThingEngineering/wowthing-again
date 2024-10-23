@@ -15,18 +15,21 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-import type { ItemData } from '@/types/data/item';
+import type { DbData } from '@/shared/stores/db/types';
+import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {
     ManualData,
+    ManualDataSharedVendor,
     ManualDataVendorCategory,
     ManualDataVendorItem,
 } from '@/types/data/manual';
 import type { UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
-import type { Settings } from '@/shared/stores/settings/types';
+import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
+import { dbStore } from '@/shared/stores/db';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -38,6 +41,7 @@ export interface LazyVendors {
 interface LazyStores {
     settings: Settings;
     vendorState: VendorState;
+    dbData: DbData;
     itemData: ItemData;
     manualData: ManualData;
     staticData: StaticData;
@@ -75,12 +79,19 @@ export function doVendors(stores: LazyStores): LazyVendors {
             childCategory.groups = childCategory.groups.filter((group) => group.auto !== true);
 
             // Find useful vendors
+            const dbMap: Record<number, ManualDataSharedVendor> = {};
             const vendorIds: number[] = [];
             for (const mapName of childCategory.vendorMaps) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
             }
             for (const tagName of childCategory.vendorTags) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
+
+                for (const entry of dbStore.search({ tags: [tagName] })) {
+                    dbMap[entry.id] = entry.asVendor();
+                    console.log(dbMap[entry.id]);
+                    vendorIds.push(entry.id);
+                }
             }
 
             for (const setString of childCategory.vendorSets) {
@@ -97,7 +108,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
 
             for (const vendorId of vendorIds) {
-                const vendor = stores.manualData.shared.vendors[vendorId];
+                const vendor = stores.manualData.shared.vendors[vendorId] || dbMap[vendorId];
 
                 let setPosition = 0;
                 const coveredBySets = new Set<number>();
@@ -193,6 +204,8 @@ export function doVendors(stores: LazyStores): LazyVendors {
                             [groupKey, groupName] = ['10misc', 'Misc'];
                         } else if (stores.staticData.professionAbilityByItemId[item.id]) {
                             [groupKey, groupName] = ['10recipes', 'Recipes'];
+                        } else {
+                            [groupKey, groupName] = ['90transmog', 'Transmog'];
                         }
                     }
 

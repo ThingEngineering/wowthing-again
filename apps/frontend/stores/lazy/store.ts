@@ -34,6 +34,7 @@ import { achievementStore } from '../achievements';
 import { itemStore } from '../item';
 import { journalStore } from '../journal';
 import { manualStore } from '../manual';
+import { dbStore } from '@/shared/stores/db';
 import { settingsStore } from '@/shared/stores/settings';
 import { staticStore } from '@/shared/stores/static';
 import { timeStore } from '@/shared/stores/time';
@@ -42,8 +43,10 @@ import { userAchievementStore } from '../user-achievements';
 import { userQuestStore } from '../user-quests';
 
 import { UserCount } from '@/types';
-
 import { hashObject } from '@/utils/hash-object';
+
+import type { DbData } from '@/shared/stores/db/types';
+import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { FancyStoreType, UserAchievementData, UserData } from '@/types';
 import type { JournalData, UserQuestData } from '@/types/data';
@@ -53,7 +56,6 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual';
 import type { ItemData } from '@/types/data/item';
-import type { Settings } from '@/shared/stores/settings/types';
 
 type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 
@@ -142,6 +144,7 @@ export const lazyStore = derived(
 export class LazyStore implements LazyUgh {
     private settings: Settings;
 
+    private dbData: DbData;
     private itemData: ItemData;
     private journalData: JournalData;
     private manualData: ManualData;
@@ -224,6 +227,7 @@ export class LazyStore implements LazyUgh {
         const changedHashes = Object.fromEntries(changedEntries);
         this.hashes = newHashes;
 
+        const dbData = (this.dbData = get(dbStore));
         const itemData = (this.itemData = get(itemStore));
         const journalData = (this.journalData = get(journalStore));
         const manualData = (this.manualData = get(manualStore));
@@ -316,29 +320,17 @@ export class LazyStore implements LazyUgh {
                 ),
             );
             this.petsFunc = once(() =>
-                doCollectible(
-                    collectibleStores,
-                    'pets',
-                    this.manualData.petSets,
-                    userData.hasPet,
-                ),
+                doCollectible(collectibleStores, 'pets', this.manualData.petSets, userData.hasPet),
             );
             this.toysFunc = once(() =>
-                doCollectible(
-                    collectibleStores,
-                    'toys',
-                    this.manualData.toySets,
-                    userData.hasToy,
-                ),
+                doCollectible(collectibleStores, 'toys', this.manualData.toySets, userData.hasToy),
             );
         }
 
         if (changedData.userQuestData) {
-            this.customizationsFunc = once(() => this.doCustomizations(
-                userAchievementData,
-                userData,
-                userQuestData,
-            ));
+            this.customizationsFunc = once(() =>
+                this.doCustomizations(userAchievementData, userData, userQuestData),
+            );
         }
 
         if (changedData.userData || changedHashes.settingsCollections) {
@@ -391,6 +383,7 @@ export class LazyStore implements LazyUgh {
                 doVendors({
                     settings,
                     vendorState,
+                    dbData,
                     itemData,
                     manualData,
                     staticData,
@@ -518,7 +511,7 @@ export class LazyStore implements LazyUgh {
     private doCustomizations(
         userAchievementData: UserAchievementData,
         userData: UserData,
-        userQuestData: UserQuestData
+        userQuestData: UserQuestData,
     ): UserCounts {
         const counts: UserCounts = {};
         const overallData = (counts['OVERALL'] = new UserCount());
@@ -543,8 +536,7 @@ export class LazyStore implements LazyUgh {
                         if (
                             (thing.achievementId > 0 &&
                                 !!userAchievementData.achievements[thing.achievementId]) ||
-                            (thing.questId > 0 &&
-                                userQuestData.accountHas.has(thing.questId)) ||
+                            (thing.questId > 0 && userQuestData.accountHas.has(thing.questId)) ||
                             (thing.appearanceModifier >= 0 &&
                                 userData.hasSourceV2
                                     .get(thing.appearanceModifier)

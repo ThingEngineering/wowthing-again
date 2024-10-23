@@ -1186,7 +1186,10 @@ public class UserUploadJob : JobBase
             else
             {
                 pet.Level = Math.Min(25, Math.Max(pet.Level, level));
-                pet.Quality = (WowQuality)Math.Max((short)pet.Quality, quality);
+                if (quality > 0)
+                {
+                    pet.Quality = (WowQuality)quality;
+                }
             }
 
             seenIds.Add(petId);
@@ -2255,6 +2258,28 @@ public class UserUploadJob : JobBase
 
     private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
     {
+        // Delves
+        if (characterData.Delves != null)
+        {
+            int maxKey = characterData.Delves.Keys.Max();
+            if (maxKey > 0)
+            {
+                string[] delveStrings = characterData.Delves[maxKey].Where(s => s != "0").ToArray();
+                if (delveStrings.Length > 0)
+                {
+                    character.Weekly.DelveWeek = maxKey;
+                    character.Weekly.DelveLevels = [];
+                    character.Weekly.DelveMaps = [];
+                    foreach (string delveString in delveStrings)
+                    {
+                        string[] parts = delveString.Split('|');
+                        character.Weekly.DelveMaps.Add(parts[1]);
+                        character.Weekly.DelveLevels.Add(int.Parse(parts[2]));
+                    }
+                }
+            }
+        }
+
         // Keystone
         if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
         {

@@ -5,6 +5,7 @@
 
     import Progress from './Progress.svelte';
     import Rewards from './Rewards.svelte';
+    import { sortBy } from 'lodash';
 
     export let character: Character
 
@@ -28,6 +29,11 @@
             }
         }
     }
+
+    $: runs = sortBy(
+        character.weekly?.delves || [],
+        ([level, map]) => [-level, map]
+    );
 </script>
 
 <style lang="scss">
@@ -50,7 +56,12 @@
         >
             <tbody>
                 {#each Array(3) as _, i}
-                    <Progress progress={progress[i]} />
+                    <Progress
+                        progress={progress[i]}
+                        runCount={i < 2 ? 2 : 4}
+                        runIndex={i}
+                        {runs}
+                    />
                 {/each}
             </tbody>
         </table>

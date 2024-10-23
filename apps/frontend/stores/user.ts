@@ -29,6 +29,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
 import type {
     Account,
+    CharacterLockout,
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
@@ -229,7 +230,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('characters');
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
-        const allLockouts: Record<string, [Character, number, number][]> = {};
+        const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
             this.initializeCharacter(itemData, manualData, staticData, character);
 
@@ -239,11 +240,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
 
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
-                (allLockouts[key] ||= []).push([
-                    character,
-                    lockout.defeatedBosses,
-                    lockout.maxBosses,
-                ]);
+                (allLockouts[key] ||= []).push([character, lockout]);
             }
 
             if (userData.public || character.account?.enabled === true) {

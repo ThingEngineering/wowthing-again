@@ -4,7 +4,7 @@ import parseApiTime from '@/utils/parse-api-time';
 
 import type { Account } from './account';
 import type { BackgroundImage } from './background-image';
-import type { Character, CharacterArray } from './character';
+import type { Character, CharacterArray, CharacterLockout } from './character';
 import type { InstanceDifficulty } from './dungeon';
 import type { Guild, GuildArray } from './guild';
 import type { HasNameAndRealm, UserItem } from './shared';
@@ -45,7 +45,7 @@ export interface UserData {
     rawWarbankItems: WarbankItemArray[];
 
     // Calculated
-    allLockouts: (InstanceDifficulty & { characters: [Character, number, number][] })[];
+    allLockouts: (InstanceDifficulty & { characters: [Character, CharacterLockout][] })[];
     allLockoutsMap: Record<string, InstanceDifficulty>;
     allRegions: number[];
     backgroundList: BackgroundImage[];

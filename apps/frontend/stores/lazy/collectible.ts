@@ -50,6 +50,7 @@ export function doCollectible(
         for (const set of category) {
             const setData = (ret.stats[`${category[0].slug}--${set.slug}`] = new UserCount());
             const setUnavailable = set.slug === 'unavailable';
+            const setSeen = new Set<number>();
 
             for (const group of set.groups) {
                 const groupData = (ret.stats[`${category[0].slug}--${set.slug}--${group.name}`] =
@@ -59,6 +60,7 @@ export function doCollectible(
                 for (const things of group.things) {
                     const hasThing = things.some((t) => userHas[t]);
                     const seenOverall = things.some((t) => overallSeen[t]);
+                    const seenSet = things.some((t) => setSeen.has(t));
 
                     const doOverall =
                         !seenOverall &&
@@ -81,7 +83,9 @@ export function doCollectible(
                         categoryData.total++;
                     }
                     if (doSet) {
-                        setData.total++;
+                        if (!seenSet) {
+                            setData.total++;
+                        }
                         groupData.total++;
                     }
 
@@ -93,13 +97,16 @@ export function doCollectible(
                             categoryData.have++;
                         }
                         if (doSet) {
-                            setData.have++;
+                            if (!seenSet) {
+                                setData.have++;
+                            }
                             groupData.have++;
                         }
                     }
 
                     for (const thing of things) {
                         overallSeen[thing] = true;
+                        setSeen.add(thing);
                     }
                 }
             }

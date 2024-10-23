@@ -1,5 +1,6 @@
 ﻿using Wowthing.Tool.Converters.Db;
 using Wowthing.Tool.Enums;
+using Wowthing.Tool.Models.Vendors;
 
 namespace Wowthing.Tool.Models.Db;
 
@@ -16,6 +17,7 @@ public class OutDbThing
     public DbThingType Type { get; set; }
 
     public List<OutDbThingContent> Contents { get; } = new();
+    public List<ManualSharedVendorSet> Groups { get; } = new();
     public List<OutDbThingLocation> Locations { get; } = new();
     public int[] RequirementIds { get; set; }
     public int[] TagIds { get; set; }
@@ -33,6 +35,11 @@ public class OutDbThing
 
         ResetType = Enum.Parse<DbResetType>(dataThing.Reset.OrDefault("none"), true);
         Type = Enum.Parse<DbThingType>(dataThing.Type, true);
+
+        Groups = dataThing.Groups
+            .EmptyIfNull()
+            .Select(group => new ManualSharedVendorSet(group))
+            .ToList();
     }
 
     public void AddLocation(int mapId, string locationString)

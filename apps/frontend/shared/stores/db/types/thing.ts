@@ -1,16 +1,25 @@
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
-import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual';
+import type {
+    ManualDataSharedVendor,
+    ManualDataSharedVendorSet,
+    ManualDataVendorItem,
+    ManualDataZoneMapDrop,
+    ManualDataZoneMapFarm,
+} from '@/types/data/manual';
 import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
 import { get } from 'svelte/store';
 import { dbStore } from '../store';
+import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
+import { Faction } from '@/enums/faction'
 
 export class DbDataThing {
     public contents: DbDataThingContent[] = [];
+    public groups: DbDataThingGroup[] = [];
     public locations: Record<number, DbDataThingLocation[]> = {};
 
     constructor(
@@ -25,6 +34,7 @@ export class DbDataThing {
         public tagIds: number[],
         locationArrays: [number, number][],
         contentsArrays: DbDataThingContentArray[],
+        groupsArrays?: DbDataThingGroupArray[],
     ) {
         for (const [mapId, packedLocation] of locationArrays) {
             this.locations[mapId] ||= [];
@@ -34,6 +44,28 @@ export class DbDataThing {
         for (const contentsArray of contentsArrays) {
             this.contents.push(new DbDataThingContent(...contentsArray));
         }
+
+        for (const groupsArray of groupsArrays || []) {
+            this.groups.push(new DbDataThingGroup(...groupsArray));
+        }
+    }
+
+    public asVendor(): ManualDataSharedVendor {
+        return <ManualDataSharedVendor>{
+            id: this.id,
+            name: this.name,
+            note: this.note,
+            sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
+            sells: this.contents.map(
+                (content) =>
+                    <ManualDataVendorItem>{
+                        id: content.id,
+                        type: thingContentTypeToRewardType[content.type],
+                        costs: content.costs,
+                        faction: Faction.Both,
+                    },
+            ),
+        };
     }
 
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
