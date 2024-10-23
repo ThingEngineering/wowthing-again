@@ -4,6 +4,9 @@
     import type { CharacterWeeklyProgress } from '@/types'
 
     export let progress: CharacterWeeklyProgress
+    export let runCount: number
+    export let runIndex: number
+    export let runs: [number, string][]
 
     let cls: string
     let dungeonName: string
@@ -23,13 +26,33 @@
     }
 </script>
 
+<style lang="scss">
+    .map-level {
+        display: flex;
+        gap: 0.2rem;
+    }
+</style>
+
 <tr class="{cls}">
     <td>
         {#if progress.level > 0}
             {progress.level}
         {/if}
     </td>
-    <td class="dungeon-name">{dungeonName}</td>
+    <td class="dungeon-name">
+        {#each runs.slice(runIndex * 2, (runIndex * 2) + runCount) as [level, map]}
+            <div class="map-level">
+                {#if level && map}
+                    <code>[{level}]</code>
+                    {map}
+                {:else}
+                    ???
+                {/if}
+            </div>
+        {:else}
+            {dungeonName}
+        {/each}
+    </td>
     {#if itemLevel}
         <td class="item-level quality{getItemLevelQuality(itemLevel)}">{itemLevel}</td>
     {:else}

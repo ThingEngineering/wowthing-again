@@ -34,6 +34,7 @@ public class UploadCharacter
     public List<UploadCharacterCalling> Callings { get; set; }
     public List<UploadCharacterCovenant> Covenants { get; set; }
     public Dictionary<short, string> Currencies { get; set; }
+    public Dictionary<int, List<string>> Delves { get; set; }
     public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
     public Dictionary<string, string> EquipmentV2 { get; set; }
     public List<UploadCharacterGarrison> Garrisons { get; set; }

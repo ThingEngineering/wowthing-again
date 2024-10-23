@@ -1,9 +1,13 @@
 import { CharacterItem, type CharacterItemArray } from './item';
 
 export class CharacterWeekly {
-    vault: CharacterWeeklyVault;
+    public delves: [number, string][];
+    public vault: CharacterWeeklyVault;
 
     constructor(
+        public delveWeek: number,
+        delveLevels: number[],
+        delveMaps: string[],
         public keystoneScannedAt: string,
         public keystoneDungeon: number,
         public keystoneLevel: number,
@@ -13,6 +17,11 @@ export class CharacterWeekly {
         raidProgress?: CharacterWeeklyProgressArray[],
         worldProgress?: CharacterWeeklyProgressArray[],
     ) {
+        this.delves = [];
+        for (let i = 0; i < delveLevels.length; i++) {
+            this.delves.push([delveLevels[i], delveMaps[i]]);
+        }
+
         if (vaultScannedAt) {
             this.vault = {
                 dungeonProgress: (dungeonProgress || []).map(

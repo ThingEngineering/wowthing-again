@@ -13,11 +13,16 @@ public class PlayerCharacterWeekly(int characterId)
     [JsonIgnore]
     public PlayerCharacter Character { get; set; }
 
+    public List<int> DelveLevels { get; set; }
+    public List<string> DelveMaps { get; set; }
+    public int DelveWeek { get; set; }
+
     public DateTime KeystoneScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public int KeystoneDungeon { get; set; }
     public int KeystoneLevel { get; set; }
 
     public DateTime TorghastScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+
     [Column(TypeName = "jsonb")]
     public Dictionary<string, int> Torghast { get; set; }
 
