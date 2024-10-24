@@ -21,6 +21,9 @@ public static partial class Hardcoded
             2,
             new[]
             {
+                new ExtraEncounter("Archavon"),
+                new ExtraEncounter("Doomwalker"),
+                new ExtraEncounter("Sha of Anger"),
                 new ExtraEncounter("Azuregos"),
                 new ExtraEncounter("Lord Kazzak"),
                 new ExtraEncounter("Dragons of Nightmare"),
@@ -28,7 +31,6 @@ public static partial class Hardcoded
                 new ExtraEncounter("Lethon"),
                 new ExtraEncounter("Taerar"),
                 new ExtraEncounter("Ysondre"),
-                new ExtraEncounter("Doomwalker"),
             }
         },
 //        // ??? > Diablo 4 Launch Event - No longer active

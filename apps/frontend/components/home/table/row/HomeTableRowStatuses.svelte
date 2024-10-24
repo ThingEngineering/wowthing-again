@@ -164,10 +164,11 @@
     .pill {
         bottom: -2px;
         font-size: 85%;
+        left: 50%;
         opacity: 0.9;
         pointer-events: none;
         position: absolute;
-        right: -3px;
+        transform: translateX(-50%);
 
         &.small-text {
             font-size: 70%;
