@@ -263,10 +263,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        userData.allRegions = sortBy(
-            uniq(userData.characters.map((char) => char.realm.region)),
-            (region) => region,
-        );
         console.timeEnd('characters');
 
         // Accounts
@@ -276,6 +272,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 userData.activeCharacters.push(character);
             }
         }
+
+        const regionSet = new Set<number>();
+        for (const account of Object.values(userData.accounts)) {
+            if (account.enabled || !settingsData.characters.hideDisabledAccounts) {
+                regionSet.add(account.region);
+            }
+        }
+
+        userData.allRegions = Array.from(regionSet);
 
         // Pre-calculate lockouts
         userData.allLockouts = [];
