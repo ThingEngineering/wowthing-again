@@ -80,129 +80,77 @@ public static partial class Hardcoded
         },
         // Anniversary World Bosses
         {
-            1_0002_0, // Azuregos
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (150419, DungeonDifficultiesNormal), // Crystal Adorned Crown
-                new (150425, DungeonDifficultiesNormal), // Snowblind Shoes
-                // Leather
-                new (150543, DungeonDifficultiesNormal), // Sapphire-Encrusted Tunic
-                // Mail
-                new (150544, DungeonDifficultiesNormal), // Mana-Frosted Pauldrons
-                // Plate
-                new (150422, DungeonDifficultiesNormal), // Unmelting Ice Girdle
-                // Cloak
-                new (150417, DungeonDifficultiesNormal), // Drape of Benediction
-                // Weapon
-                new (150424, DungeonDifficultiesNormal), // Cold Snap
-                new (150428, DungeonDifficultiesNormal), // Eskhandar's Left Claw
-                new (150423, DungeonDifficultiesNormal), // Fang of the Mystics
-                new (150421, DungeonDifficultiesNormal), // Typhoon
-            }
+            1_0002_0, // Archavon?
+            [
+                // Mount
+                new (43959, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [A]
+                new (44083, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [H]
+                // Tier
+				new (227266, DungeonDifficultiesNormal), // Heroes' Bonescythe Breastplate
+				new (227246, DungeonDifficultiesNormal), // Heroes' Bonescythe Gauntlets
+				new (227256, DungeonDifficultiesNormal), // Heroes' Bonescythe Legplates
+				new (227247, DungeonDifficultiesNormal), // Heroes' Cryptstalker Handguards
+				new (227257, DungeonDifficultiesNormal), // Heroes' Cryptstalker Legguards
+				new (227267, DungeonDifficultiesNormal), // Heroes' Cryptstalker Tunic
+				new (227269, DungeonDifficultiesNormal), // Heroes' Dreadnaught Battleplate
+				new (227249, DungeonDifficultiesNormal), // Heroes' Dreadnaught Gauntlets
+				new (227259, DungeonDifficultiesNormal), // Heroes' Dreadnaught Legplates
+				new (227245, DungeonDifficultiesNormal), // Heroes' Dreamwalker Handgrips
+				new (227255, DungeonDifficultiesNormal), // Heroes' Dreamwalker Legguards
+				new (227265, DungeonDifficultiesNormal), // Heroes' Dreamwalker Raiments
+				new (227248, DungeonDifficultiesNormal), // Heroes' Earthshatter Handguards
+				new (227258, DungeonDifficultiesNormal), // Heroes' Earthshatter Legguards
+				new (227268, DungeonDifficultiesNormal), // Heroes' Earthshatter Tunic
+				new (227242, DungeonDifficultiesNormal), // Heroes' Frostfire Gloves
+				new (227252, DungeonDifficultiesNormal), // Heroes' Frostfire Leggings
+				new (227262, DungeonDifficultiesNormal), // Heroes' Frostfire Robe
+				new (227244, DungeonDifficultiesNormal), // Heroes' Gloves of Faith
+				new (227254, DungeonDifficultiesNormal), // Heroes' Leggings of Faith
+				new (227263, DungeonDifficultiesNormal), // Heroes' Plagueheart Robe
+				new (227251, DungeonDifficultiesNormal), // Heroes' Redemption Gloves
+				new (227261, DungeonDifficultiesNormal), // Heroes' Redemption Greaves
+				new (227271, DungeonDifficultiesNormal), // Heroes' Redemption Tunic
+				new (227270, DungeonDifficultiesNormal), // Heroes' Scourgeborne Battleplate
+				new (227250, DungeonDifficultiesNormal), // Heroes' Scourgeborne Gauntlets
+				new (227260, DungeonDifficultiesNormal), // Heroes' Scourgeborne Legplates
+                // PvP
+				new (227213, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Armor
+				new (227226, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Gauntlets
+				new (227236, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Leggings
+				new (227223, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Gauntlets
+				new (227233, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Legguards
+				new (227231, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Handguards
+				new (227241, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Trousers
+				new (227227, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Gloves
+				new (227237, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Legguards
+				new (227215, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Robes
+				new (227228, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Gloves
+				new (227238, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Legguards
+				new (227214, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Tunic
+				new (227229, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Gloves
+				new (227239, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Leggings
+				new (227218, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Robe
+				new (227211, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Chestguard
+				new (227224, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Gloves
+				new (227234, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Legplates
+				new (227222, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Gauntlets
+				new (227232, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Legguards
+				new (227212, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Armor
+				new (227225, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Gauntlets
+				new (227235, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Leggings
+				new (227230, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Handguards
+				new (227220, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Raiment
+				new (227240, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Trousers
+            ]
         },
         {
-            1_0002_1, // Lord Kazzak
-            new List<ExtraItemDrop>
-            {
-                // Pet
-                new (230011, DungeonDifficultiesNormal), // Lil'Kaz
-                // Cloth
-                new (150386, DungeonDifficultiesNormal), // Blacklight Bracer
-                new (150385, DungeonDifficultiesNormal), // Fel Infused Leggings
-                // Leather
-                new (150382, DungeonDifficultiesNormal), // Doomhide Gauntlets
-                new (150381, DungeonDifficultiesNormal), // Flayed Doomguard Belt
-                // Mail
-                new (150379, DungeonDifficultiesNormal), // Infernal Headcage
-                // Cloak
-                new (150380, DungeonDifficultiesNormal), // Eskhandar's Pelt
-                // Weapon
-                new (150383, DungeonDifficultiesNormal), // Amberseal Keeper
-                new (150427, DungeonDifficultiesNormal), // Empyrean Demolisher
-            }
-        },
-        {
-            1_0002_2, // Dragons of Nightmare
-            new List<ExtraItemDrop>
-            {
-                // Cloak
-                new (150411, DungeonDifficultiesNormal), // Green Dragonskin Cloak
-                // Weapon
-                new (150429, DungeonDifficultiesNormal), // Emerald Dragonfang
-                new (150412, DungeonDifficultiesNormal), // Hammer of Bestial Fury
-                new (150393, DungeonDifficultiesNormal), // Nightmare Blade
-                new (150403, DungeonDifficultiesNormal), // Polished Ironwood Crossbow
-                new (150408, DungeonDifficultiesNormal), // Staff of Rampant Growth
-            }
-        },
-        {
-            1_0002_3, // Emeriss
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (150416, DungeonDifficultiesNormal), // Gloves of Delusional Power
-                // Leather
-                new (150405, DungeonDifficultiesNormal), // Circlet of Restless Dreams
-                new (150415, DungeonDifficultiesNormal), // Dragonspur Wraps
-                // Mail
-                new (150406, DungeonDifficultiesNormal), // Boots of the Endless Moor
-                // Plate
-                new (150410, DungeonDifficultiesNormal), // Acid Inscribed Greaves
-            }
-        },
-        {
-            1_0002_4, // Lethon
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (150399, DungeonDifficultiesNormal), // Black Bark Wristbands
-                // Leather
-                new (150398, DungeonDifficultiesNormal), // Dark Heart Pants
-                new (150401, DungeonDifficultiesNormal), // Deviate Growth Cap
-                // Mail
-                new (150400, DungeonDifficultiesNormal), // Malignant Footguards
-                // Plate
-                new (150402, DungeonDifficultiesNormal), // Gauntlets of the Shining Light
-            }
-        },
-        {
-            1_0002_5, // Taerar
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (150394, DungeonDifficultiesNormal), // Mendicant's Slippers
-                // Leather
-                new (150395, DungeonDifficultiesNormal), // Unnatural Leather Spaulders
-                // Mail
-                new (150414, DungeonDifficultiesNormal), // Ancient Corroded Leggings
-                // Plate
-                new (150413, DungeonDifficultiesNormal), // Dragonbone Wristguards
-                new (150390, DungeonDifficultiesNormal), // Strangely Glyphed Legplates
-            }
-        },
-        {
-            1_0002_6, // Ysondre
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (150397, DungeonDifficultiesNormal), // Belt of the Dark Bog
-                new (150391, DungeonDifficultiesNormal), // Jade Inlaid Vestments
-                // Leather
-                new (150396, DungeonDifficultiesNormal), // Boots of Fright
-                // Mail
-                new (150389, DungeonDifficultiesNormal), // Leggings of the Demented Mind
-                // Plate
-                new (150387, DungeonDifficultiesNormal), // Acid Inscribed Pauldrons
-                // Weapon
-                new (150409, DungeonDifficultiesNormal), // Trance Stone
-            }
-        },
-        {
-            1_0002_7, // Doomwalker
+            1_0002_1, // Doomwalker
             new List<ExtraItemDrop>
             {
                 // Mount
+                new (208572, DungeonDifficultiesNormal), // Azure Worldchiller
+                new (43959, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [A]
+                new (44083, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [H]
                 new (186469, DungeonDifficultiesNormal), // Illidari Doomhawk
                 // Toy
                 new (186501, DungeonDifficultiesNormal), // Doomwalker Trophy Stand
@@ -227,8 +175,189 @@ public static partial class Hardcoded
                 new (186468, DungeonDifficultiesNormal), // Talon of the Tempest
             }
         },
-        // Sha of Anger?
-        // Archavon?
+        {
+            1_0002_2, // Sha of Anger?
+            [
+                // Mount
+                new (87771, DungeonDifficultiesNormal), // Reins of the Heavenly Onyx Cloud Serpent
+                // Tier
+				new (227565, DungeonDifficultiesNormal), // Eternal Blossom Grips
+				new (227564, DungeonDifficultiesNormal), // Eternal Blossom Legguards
+				new (227556, DungeonDifficultiesNormal), // Firebird's Gloves
+				new (227557, DungeonDifficultiesNormal), // Firebird's Kilt
+				new (227574, DungeonDifficultiesNormal), // Greaves of the Lost Catacomb
+				new (227586, DungeonDifficultiesNormal), // Guardian Serpent Gloves
+				new (227587, DungeonDifficultiesNormal), // Guardian Serpent Leggings
+				new (227590, DungeonDifficultiesNormal), // Leggings of the Burning Scroll
+				new (227560, DungeonDifficultiesNormal), // Legguards of the Thousandfold Blades
+				new (227572, DungeonDifficultiesNormal), // Legplates of Resounding Rings
+                new (227598, DungeonDifficultiesNormal), // Red Crane Grips
+                new (227589, DungeonDifficultiesNormal), // Sha-Skin Leggings
+                new (227559, DungeonDifficultiesNormal), // Yaungol Slayer's Gloves
+                new (227558, DungeonDifficultiesNormal), // Yaungol Slayer's Legguards
+                // PvP
+				new (227624, DungeonDifficultiesNormal), // Malevolent Gladiator's Armbands of Prowess
+				new (227656, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Proficiency
+				new (227613, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Accuracy
+				new (227612, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Alacrity
+				new (227614, DungeonDifficultiesNormal), // Malevolent Gladiator's Bindings of Prowess
+				new (227601, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Alacrity
+				new (227600, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Cruelty
+				new (227655, DungeonDifficultiesNormal), // Malevolent Gladiator's Bracers of Prowess
+				new (227641, DungeonDifficultiesNormal), // Malevolent Gladiator's Cape of Cruelty
+				new (227617, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Gauntlets
+				new (227642, DungeonDifficultiesNormal), // Malevolent Gladiator's Cloak of Alacrity
+				new (227635, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Accuracy
+				new (227634, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Cruelty
+				new (227640, DungeonDifficultiesNormal), // Malevolent Gladiator's Drape of Prowess
+				new (227629, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Handguards
+				new (227616, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
+				new (227652, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Accuracy
+				new (227653, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Prowess
+				new (227644, DungeonDifficultiesNormal), // Malevolent Gladiator's Greaves of Alacrity
+				new (227604, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Gloves
+				new (227607, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Legguards
+				new (227606, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Legguards
+				new (227622, DungeonDifficultiesNormal), // Malevolent Gladiator's Links of Cruelty
+				new (227646, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Gloves
+				new (227649, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Legplates
+				new (227648, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Gauntlets
+				new (227618, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Gauntlets
+				new (227620, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Leggings
+				new (227615, DungeonDifficultiesNormal), // Malevolent Gladiator's Sabatons of Cruelty
+				new (227628, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Handguards
+				new (227631, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Trousers
+				new (227626, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Alacrity
+				new (227625, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Cruelty
+				new (227609, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Cruelty
+				new (227621, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistguard of Meditation
+				new (227645, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Alacrity
+				new (227643, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Cruelty
+				new (227610, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Accuracy
+				new (227623, DungeonDifficultiesNormal), // Malevolent Gladiator's Wristguards of Alacrity
+				new (227605, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Gloves
+				new (227608, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Legguards
+            ]
+        },
+        {
+            1_0002_3, // Azuregos
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150419, DungeonDifficultiesNormal), // Crystal Adorned Crown
+                new (150425, DungeonDifficultiesNormal), // Snowblind Shoes
+                // Leather
+                new (150543, DungeonDifficultiesNormal), // Sapphire-Encrusted Tunic
+                // Mail
+                new (150544, DungeonDifficultiesNormal), // Mana-Frosted Pauldrons
+                // Plate
+                new (150422, DungeonDifficultiesNormal), // Unmelting Ice Girdle
+                // Cloak
+                new (150417, DungeonDifficultiesNormal), // Drape of Benediction
+                // Weapon
+                new (150424, DungeonDifficultiesNormal), // Cold Snap
+                new (150428, DungeonDifficultiesNormal), // Eskhandar's Left Claw
+                new (150423, DungeonDifficultiesNormal), // Fang of the Mystics
+                new (150421, DungeonDifficultiesNormal), // Typhoon
+            }
+        },
+        {
+            1_0002_4, // Lord Kazzak
+            new List<ExtraItemDrop>
+            {
+                // Pet
+                new (230011, DungeonDifficultiesNormal), // Lil'Kaz
+                // Cloth
+                new (150386, DungeonDifficultiesNormal), // Blacklight Bracer
+                new (150385, DungeonDifficultiesNormal), // Fel Infused Leggings
+                // Leather
+                new (150382, DungeonDifficultiesNormal), // Doomhide Gauntlets
+                new (150381, DungeonDifficultiesNormal), // Flayed Doomguard Belt
+                // Mail
+                new (150379, DungeonDifficultiesNormal), // Infernal Headcage
+                // Cloak
+                new (150380, DungeonDifficultiesNormal), // Eskhandar's Pelt
+                // Weapon
+                new (150383, DungeonDifficultiesNormal), // Amberseal Keeper
+                new (150427, DungeonDifficultiesNormal), // Empyrean Demolisher
+            }
+        },
+        {
+            1_0002_5, // Dragons of Nightmare
+            new List<ExtraItemDrop>
+            {
+                // Cloak
+                new (150411, DungeonDifficultiesNormal), // Green Dragonskin Cloak
+                // Weapon
+                new (150429, DungeonDifficultiesNormal), // Emerald Dragonfang
+                new (150412, DungeonDifficultiesNormal), // Hammer of Bestial Fury
+                new (150393, DungeonDifficultiesNormal), // Nightmare Blade
+                new (150403, DungeonDifficultiesNormal), // Polished Ironwood Crossbow
+                new (150408, DungeonDifficultiesNormal), // Staff of Rampant Growth
+            }
+        },
+        {
+            1_0002_6, // Emeriss
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150416, DungeonDifficultiesNormal), // Gloves of Delusional Power
+                // Leather
+                new (150405, DungeonDifficultiesNormal), // Circlet of Restless Dreams
+                new (150415, DungeonDifficultiesNormal), // Dragonspur Wraps
+                // Mail
+                new (150406, DungeonDifficultiesNormal), // Boots of the Endless Moor
+                // Plate
+                new (150410, DungeonDifficultiesNormal), // Acid Inscribed Greaves
+            }
+        },
+        {
+            1_0002_7, // Lethon
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150399, DungeonDifficultiesNormal), // Black Bark Wristbands
+                // Leather
+                new (150398, DungeonDifficultiesNormal), // Dark Heart Pants
+                new (150401, DungeonDifficultiesNormal), // Deviate Growth Cap
+                // Mail
+                new (150400, DungeonDifficultiesNormal), // Malignant Footguards
+                // Plate
+                new (150402, DungeonDifficultiesNormal), // Gauntlets of the Shining Light
+            }
+        },
+        {
+            1_0002_8, // Taerar
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150394, DungeonDifficultiesNormal), // Mendicant's Slippers
+                // Leather
+                new (150395, DungeonDifficultiesNormal), // Unnatural Leather Spaulders
+                // Mail
+                new (150414, DungeonDifficultiesNormal), // Ancient Corroded Leggings
+                // Plate
+                new (150413, DungeonDifficultiesNormal), // Dragonbone Wristguards
+                new (150390, DungeonDifficultiesNormal), // Strangely Glyphed Legplates
+            }
+        },
+        {
+            1_0002_9, // Ysondre
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150397, DungeonDifficultiesNormal), // Belt of the Dark Bog
+                new (150391, DungeonDifficultiesNormal), // Jade Inlaid Vestments
+                // Leather
+                new (150396, DungeonDifficultiesNormal), // Boots of Fright
+                // Mail
+                new (150389, DungeonDifficultiesNormal), // Leggings of the Demented Mind
+                // Plate
+                new (150387, DungeonDifficultiesNormal), // Acid Inscribed Pauldrons
+                // Weapon
+                new (150409, DungeonDifficultiesNormal), // Trance Stone
+            }
+        },
 //        {
 //            1_0003_0, // Treasure Goblin - No longer active
 //            new List<ExtraItemDrop>
