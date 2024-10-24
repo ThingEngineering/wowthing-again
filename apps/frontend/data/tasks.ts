@@ -128,8 +128,8 @@ export const taskList: Task[] = [
     },
     {
         key: 'holidayDungeons',
-        name: '[Event] Mythic Dungeons',
-        shortName: 'MDun',
+        name: '[Event] Dungeons',
+        shortName: 'Dun',
     },
     {
         key: 'holidayPetPvp',
