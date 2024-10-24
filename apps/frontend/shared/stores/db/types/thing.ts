@@ -1,6 +1,5 @@
-import { DbDataThingLocation } from './thing-location';
-import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
-import { DbResetType, DbThingContentType, DbThingType } from '../enums';
+import { get } from 'svelte/store';
+
 import type {
     ManualDataSharedVendor,
     ManualDataSharedVendorSet,
@@ -8,14 +7,17 @@ import type {
     ManualDataZoneMapDrop,
     ManualDataZoneMapFarm,
 } from '@/types/data/manual';
+import { Faction } from '@/enums/faction';
 import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
-import { get } from 'svelte/store';
+
+import { DbResetType, DbThingContentType, DbThingType } from '../enums';
 import { dbStore } from '../store';
+import { DbDataThingLocation } from './thing-location';
+import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
-import { Faction } from '@/enums/faction'
 
 export class DbDataThing {
     public contents: DbDataThingContent[] = [];
@@ -53,6 +55,7 @@ export class DbDataThing {
     public asVendor(): ManualDataSharedVendor {
         return <ManualDataSharedVendor>{
             id: this.id,
+            faction: Faction.Both,
             name: this.name,
             note: this.note,
             sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
