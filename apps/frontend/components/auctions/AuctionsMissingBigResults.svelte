@@ -4,6 +4,7 @@
 
     import { timeLeft } from '@/data/auctions'
     import { euLocales } from '@/data/region';
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Faction } from '@/enums/faction'
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
@@ -26,6 +27,7 @@
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { ItemBonusType } from '@/enums/item-bonus-type';
 
     export let page: number
     export let slug1: string
@@ -65,6 +67,25 @@
             lines.push(`"${pageItem.name}"`);
         }
         navigator.clipboard.writeText(lines.join('^'));
+    }
+
+    function getModifier(bonusIds: number[]): AppearanceModifier {
+        let modifier = AppearanceModifier.Normal;
+        for (const bonusId of bonusIds || []) {
+            const itemBonus = $itemStore.itemBonuses[bonusId];
+            for (const bonus of itemBonus?.bonuses || []) {
+                if (bonus[0] === ItemBonusType.AddItemNameDescription) {
+                    if (bonus[1] === 1641 || bonus[1] === 13932 || bonus[1] === 14101) {
+                        modifier = AppearanceModifier.LookingForRaid;
+                    } else if (bonus[1] === 2015) {
+                        modifier = AppearanceModifier.Heroic;
+                    } else if (bonus[1] === 13145) {
+                        modifier = AppearanceModifier.Mythic;
+                    }
+                }
+            }
+        }
+        return modifier;
     }
 
     function getHaveClass(result: UserAuctionEntry, item: ItemDataItem): [boolean, boolean] {
@@ -227,6 +248,7 @@
                 {#each paginated as result}
                     {@const auctions = result.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
                     {@const itemId = auctions[0].itemId}
+                    {@const modifier = getModifier(auctions[0].bonusIds || [])}
                     {@const item = $itemStore.items[itemId]}
                     {@const [needAppearance, needSource] = getHaveClass(result, item)}
                     <table
@@ -252,6 +274,14 @@
                                                     <FactionIcon faction={Faction.Alliance} />
                                                 {:else if item.hordeOnly}
                                                     <FactionIcon faction={Faction.Horde} />
+                                                {/if}
+
+                                                {#if modifier === AppearanceModifier.LookingForRaid}
+                                                    [L]
+                                                {:else if item.difficultyHeroic || modifier === AppearanceModifier.Heroic}
+                                                    [H]
+                                                {:else if item.difficultyMythic || modifier === AppearanceModifier.Mythic}
+                                                    [M]
                                                 {/if}
 
                                                 <WowthingImage

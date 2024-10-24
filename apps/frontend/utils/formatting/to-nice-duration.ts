@@ -21,5 +21,9 @@ export function toNiceDuration(milliseconds: number, useNbsp = true): string {
         parts.push(`${duration.minutes < 10 ? space : ''}${duration.minutes}m`);
     }
 
+    if (parts.length === 0) {
+        parts.push('now');
+    }
+
     return parts.slice(0, 2).join(' ');
 }
