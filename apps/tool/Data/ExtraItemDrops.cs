@@ -105,6 +105,8 @@ public static partial class Hardcoded
             1_0002_1, // Lord Kazzak
             new List<ExtraItemDrop>
             {
+                // Pet
+                new (230011, DungeonDifficultiesNormal), // Lil'Kaz
                 // Cloth
                 new (150386, DungeonDifficultiesNormal), // Blacklight Bracer
                 new (150385, DungeonDifficultiesNormal), // Fel Infused Leggings
@@ -225,6 +227,8 @@ public static partial class Hardcoded
                 new (186468, DungeonDifficultiesNormal), // Talon of the Tempest
             }
         },
+        // Sha of Anger?
+        // Archavon?
 //        {
 //            1_0003_0, // Treasure Goblin - No longer active
 //            new List<ExtraItemDrop>
