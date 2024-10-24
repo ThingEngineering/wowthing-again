@@ -57,6 +57,12 @@ export class ItemDataItem {
     get hordeOnly(): boolean {
         return (this.flags & ItemFlags.HordeOnly) > 0;
     }
+    get difficultyHeroic(): boolean {
+        return (this.flags & ItemFlags.HeroicDifficulty) > 0;
+    }
+    get difficultyMythic(): boolean {
+        return (this.flags & ItemFlags.MythicDifficulty) > 0;
+    }
     get equippable(): boolean {
         return this.classId === 2 || this.classId === 4;
     }
