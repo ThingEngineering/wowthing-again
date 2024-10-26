@@ -10,11 +10,11 @@ namespace Wowthing.Backend.Jobs.User;
 
 public class UserBulkDataJob : JobBase
 {
-    private const string HeirloomsApiPath = "profile/user/wow/collections/heirlooms?access_token={0}";
-    private const string MountsApiPath = "profile/user/wow/collections/mounts?access_token={0}";
-    private const string PetsApiPath = "profile/user/wow/collections/pets?access_token={0}";
-    private const string ToysApiPath = "profile/user/wow/collections/toys?access_token={0}";
-    private const string TransmogsApiPath = "profile/user/wow/collections/transmogs?access_token={0}";
+    private const string HeirloomsApiPath = "profile/user/wow/collections/heirlooms";
+    private const string MountsApiPath = "profile/user/wow/collections/mounts";
+    private const string PetsApiPath = "profile/user/wow/collections/pets";
+    private const string ToysApiPath = "profile/user/wow/collections/toys";
+    private const string TransmogsApiPath = "profile/user/wow/collections/transmogs";
 
     private long _userId;
     private string _accessToken = string.Empty;
@@ -79,13 +79,11 @@ public class UserBulkDataJob : JobBase
 
     private async Task FetchHeirlooms()
     {
-        string path = string.Format(HeirloomsApiPath, _accessToken);
-
         // Fetch API data
         ApiUserHeirlooms resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, path);
+        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, HeirloomsApiPath);
         try {
-            var result = await GetUriAsJsonAsync<ApiUserHeirlooms>(uri, timer: _timer, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiUserHeirlooms>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -111,13 +109,11 @@ public class UserBulkDataJob : JobBase
 
     private async Task FetchMounts()
     {
-        string path = string.Format(MountsApiPath, _accessToken);
-
         // Fetch API data
         ApiUserMounts resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, path);
+        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, MountsApiPath);
         try {
-            var result = await GetUriAsJsonAsync<ApiUserMounts>(uri, timer: _timer, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiUserMounts>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -141,13 +137,11 @@ public class UserBulkDataJob : JobBase
 
     private async Task FetchPets()
     {
-        string path = string.Format(PetsApiPath, _accessToken);
-
         // Fetch API data
         ApiUserPets resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, path);
+        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, PetsApiPath);
         try {
-            var result = await GetUriAsJsonAsync<ApiUserPets>(uri, timer: _timer, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiUserPets>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -179,13 +173,11 @@ public class UserBulkDataJob : JobBase
 
     private async Task FetchToys()
     {
-        string path = string.Format(ToysApiPath, _accessToken);
-
         // Fetch API data
         ApiUserToys resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, path);
+        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, ToysApiPath);
         try {
-            var result = await GetUriAsJsonAsync<ApiUserToys>(uri, timer: _timer, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiUserToys>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -209,13 +201,11 @@ public class UserBulkDataJob : JobBase
 
     private async Task FetchTransmogs()
     {
-        string path = string.Format(TransmogsApiPath, _accessToken);
-
         // Fetch API data
         ApiUserTransmogs resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, path);
+        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, TransmogsApiPath);
         try {
-            var result = await GetUriAsJsonAsync<ApiUserTransmogs>(uri, timer: _timer, useAuthorization: false, useLastModified: false);
+            var result = await GetUriAsJsonAsync<ApiUserTransmogs>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
             {
                 LogNotModified();

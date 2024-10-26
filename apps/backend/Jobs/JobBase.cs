@@ -125,6 +125,7 @@ public abstract class JobBase : IJob, IDisposable
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
+        string overrideAccessToken = null,
         DateTime? lastModified = null,
         JankTimer timer = null
     )
@@ -136,7 +137,7 @@ public abstract class JobBase : IJob, IDisposable
             timerOutput = true;
         }
 
-        var result = await MakeHttpRequest(ReadBytesAsync, uri, useAuthorization, useLastModified, lastModified, timer);
+        var result = await MakeHttpRequest(ReadBytesAsync, uri, useAuthorization, useLastModified, overrideAccessToken, lastModified, timer);
 
         if (timerOutput)
         {
@@ -155,6 +156,7 @@ public abstract class JobBase : IJob, IDisposable
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
+        string overrideAccessToken = null,
         DateTime? lastModified = null,
         JankTimer timer = null
     )
@@ -166,7 +168,7 @@ public abstract class JobBase : IJob, IDisposable
             timerOutput = true;
         }
 
-        var result = await MakeHttpRequest(ParseJsonAsync<T>, uri, useAuthorization, useLastModified, lastModified, timer);
+        var result = await MakeHttpRequest(ParseJsonAsync<T>, uri, useAuthorization, useLastModified, overrideAccessToken, lastModified, timer);
 
         if (timerOutput)
         {
@@ -187,6 +189,7 @@ public abstract class JobBase : IJob, IDisposable
         Uri uri,
         bool useAuthorization = true,
         bool useLastModified = true,
+        string overrideAccessToken = null,
         DateTime? lastModified = null,
         JankTimer timer = null
     )
@@ -219,7 +222,8 @@ public abstract class JobBase : IJob, IDisposable
 
             if (useAuthorization)
             {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer",
+                    overrideAccessToken ?? StateService.AccessToken.AccessToken);
             }
             if (lastModified > MiscConstants.DefaultDateTime)
             {

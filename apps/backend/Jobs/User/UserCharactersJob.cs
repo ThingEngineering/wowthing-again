@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Jobs.User;
 
 public class UserCharactersJob : JobBase
 {
-    private const string ApiPath = "profile/user/wow?access_token={0}";
+    private const string ApiPath = "profile/user/wow";
 
     private long _userId;
 
@@ -35,8 +35,6 @@ public class UserCharactersJob : JobBase
             return;
         }
 
-        string path = string.Format(ApiPath, accessToken.Value);
-
         timer.AddPoint("Token");
 
         // Fetch existing accounts
@@ -47,10 +45,13 @@ public class UserCharactersJob : JobBase
         var failedRegions = new HashSet<WowRegion>();
         foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
-            var uri = GenerateUri(region, ApiNamespace.Profile, path);
+            var uri = GenerateUri(region, ApiNamespace.Profile, ApiPath);
             try
             {
-                var result = await GetUriAsJsonAsync<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false, timer: timer);
+                var result = await GetUriAsJsonAsync<ApiAccountProfile>(uri,
+                    useLastModified: false,
+                    overrideAccessToken: accessToken.Value,
+                    timer: timer);
                 var profile = result.Data;
                 if (profile?.Accounts == null)
                 {
