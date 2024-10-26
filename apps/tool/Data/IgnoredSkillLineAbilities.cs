@@ -151,6 +151,7 @@ public static partial class Hardcoded
         // Mining
         389465, // Severite Seam
         389458, // Draconium Seam
+        423882, // Overload Test Deposit
 
         // Tailoring
         104115, // MoP Release Fire Spirit
