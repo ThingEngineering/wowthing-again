@@ -82,61 +82,67 @@ public static partial class Hardcoded
                 new (43959, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [A]
                 new (44083, DungeonDifficultiesNormal), // Reins of the Grand Black War Mammoth [H]
                 // Tier
-				new (227266, DungeonDifficultiesNormal), // Heroes' Bonescythe Breastplate
-				new (227246, DungeonDifficultiesNormal), // Heroes' Bonescythe Gauntlets
-				new (227256, DungeonDifficultiesNormal), // Heroes' Bonescythe Legplates
-				new (227247, DungeonDifficultiesNormal), // Heroes' Cryptstalker Handguards
-				new (227257, DungeonDifficultiesNormal), // Heroes' Cryptstalker Legguards
-				new (227267, DungeonDifficultiesNormal), // Heroes' Cryptstalker Tunic
-				new (227269, DungeonDifficultiesNormal), // Heroes' Dreadnaught Battleplate
-				new (227249, DungeonDifficultiesNormal), // Heroes' Dreadnaught Gauntlets
-				new (227259, DungeonDifficultiesNormal), // Heroes' Dreadnaught Legplates
-				new (227245, DungeonDifficultiesNormal), // Heroes' Dreamwalker Handgrips
-				new (227255, DungeonDifficultiesNormal), // Heroes' Dreamwalker Legguards
-				new (227265, DungeonDifficultiesNormal), // Heroes' Dreamwalker Raiments
-				new (227248, DungeonDifficultiesNormal), // Heroes' Earthshatter Handguards
-				new (227258, DungeonDifficultiesNormal), // Heroes' Earthshatter Legguards
-				new (227268, DungeonDifficultiesNormal), // Heroes' Earthshatter Tunic
-				new (227242, DungeonDifficultiesNormal), // Heroes' Frostfire Gloves
-				new (227252, DungeonDifficultiesNormal), // Heroes' Frostfire Leggings
-				new (227262, DungeonDifficultiesNormal), // Heroes' Frostfire Robe
-				new (227244, DungeonDifficultiesNormal), // Heroes' Gloves of Faith
-				new (227254, DungeonDifficultiesNormal), // Heroes' Leggings of Faith
-				new (227263, DungeonDifficultiesNormal), // Heroes' Plagueheart Robe
-				new (227251, DungeonDifficultiesNormal), // Heroes' Redemption Gloves
-				new (227261, DungeonDifficultiesNormal), // Heroes' Redemption Greaves
-				new (227271, DungeonDifficultiesNormal), // Heroes' Redemption Tunic
-				new (227270, DungeonDifficultiesNormal), // Heroes' Scourgeborne Battleplate
-				new (227250, DungeonDifficultiesNormal), // Heroes' Scourgeborne Gauntlets
-				new (227260, DungeonDifficultiesNormal), // Heroes' Scourgeborne Legplates
+                new (227266, DungeonDifficultiesNormal), // Heroes' Bonescythe Breastplate
+                new (227246, DungeonDifficultiesNormal), // Heroes' Bonescythe Gauntlets
+                new (227256, DungeonDifficultiesNormal), // Heroes' Bonescythe Legplates
+                new (227247, DungeonDifficultiesNormal), // Heroes' Cryptstalker Handguards
+                new (227257, DungeonDifficultiesNormal), // Heroes' Cryptstalker Legguards
+                new (227267, DungeonDifficultiesNormal), // Heroes' Cryptstalker Tunic
+                new (227269, DungeonDifficultiesNormal), // Heroes' Dreadnaught Battleplate
+                new (227249, DungeonDifficultiesNormal), // Heroes' Dreadnaught Gauntlets
+                new (227259, DungeonDifficultiesNormal), // Heroes' Dreadnaught Legplates
+                new (227245, DungeonDifficultiesNormal), // Heroes' Dreamwalker Handgrips
+                new (227255, DungeonDifficultiesNormal), // Heroes' Dreamwalker Legguards
+                new (227265, DungeonDifficultiesNormal), // Heroes' Dreamwalker Raiments
+                new (227248, DungeonDifficultiesNormal), // Heroes' Earthshatter Handguards
+                new (227258, DungeonDifficultiesNormal), // Heroes' Earthshatter Legguards
+                new (227268, DungeonDifficultiesNormal), // Heroes' Earthshatter Tunic
+                new (227242, DungeonDifficultiesNormal), // Heroes' Frostfire Gloves
+                new (227252, DungeonDifficultiesNormal), // Heroes' Frostfire Leggings
+                new (227262, DungeonDifficultiesNormal), // Heroes' Frostfire Robe
+                new (227244, DungeonDifficultiesNormal), // Heroes' Gloves of Faith
+                new (227254, DungeonDifficultiesNormal), // Heroes' Leggings of Faith
+                new (227243, DungeonDifficultiesNormal), // Heroes' Plagueheart Gloves
+                new (227253, DungeonDifficultiesNormal), // Heroes' Plagueheart Leggings
+                new (227263, DungeonDifficultiesNormal), // Heroes' Plagueheart Robe
+                new (227251, DungeonDifficultiesNormal), // Heroes' Redemption Gloves
+                new (227261, DungeonDifficultiesNormal), // Heroes' Redemption Greaves
+                new (227271, DungeonDifficultiesNormal), // Heroes' Redemption Tunic
+                new (227264, DungeonDifficultiesNormal), // Heroes' Robe of Faith
+                new (227270, DungeonDifficultiesNormal), // Heroes' Scourgeborne Battleplate
+                new (227250, DungeonDifficultiesNormal), // Heroes' Scourgeborne Gauntlets
+                new (227260, DungeonDifficultiesNormal), // Heroes' Scourgeborne Legplates
                 // PvP
-				new (227213, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Armor
-				new (227226, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Gauntlets
-				new (227236, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Leggings
-				new (227223, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Gauntlets
-				new (227233, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Legguards
-				new (227231, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Handguards
-				new (227241, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Trousers
-				new (227227, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Gloves
-				new (227237, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Legguards
-				new (227215, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Robes
-				new (227228, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Gloves
-				new (227238, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Legguards
-				new (227214, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Tunic
-				new (227229, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Gloves
-				new (227239, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Leggings
-				new (227218, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Robe
-				new (227211, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Chestguard
-				new (227224, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Gloves
-				new (227234, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Legplates
-				new (227222, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Gauntlets
-				new (227232, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Legguards
-				new (227212, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Armor
-				new (227225, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Gauntlets
-				new (227235, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Leggings
-				new (227230, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Handguards
-				new (227220, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Raiment
-				new (227240, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Trousers
+                new (227213, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Armor
+                new (227226, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Gauntlets
+                new (227236, DungeonDifficultiesNormal), // Hateful Gladiator's Chain Leggings
+                new (227209, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Chestpiece
+                new (227223, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Gauntlets
+                new (227233, DungeonDifficultiesNormal), // Hateful Gladiator's Dreadplate Legguards
+                new (227231, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Handguards
+                new (227221, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Raiment
+                new (227241, DungeonDifficultiesNormal), // Hateful Gladiator's Felweave Trousers
+                new (227227, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Gloves
+                new (227237, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Legguards
+                new (227215, DungeonDifficultiesNormal), // Hateful Gladiator's Kodohide Robes
+                new (227228, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Gloves
+                new (227238, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Legguards
+                new (227214, DungeonDifficultiesNormal), // Hateful Gladiator's Leather Tunic
+                new (227229, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Gloves
+                new (227239, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Leggings
+                new (227218, DungeonDifficultiesNormal), // Hateful Gladiator's Mooncloth Robe
+                new (227211, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Chestguard
+                new (227224, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Gloves
+                new (227234, DungeonDifficultiesNormal), // Hateful Gladiator's Ornamented Legplates
+                new (227210, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Chestpiece
+                new (227222, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Gauntlets
+                new (227232, DungeonDifficultiesNormal), // Hateful Gladiator's Plate Legguards
+                new (227212, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Armor
+                new (227225, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Gauntlets
+                new (227235, DungeonDifficultiesNormal), // Hateful Gladiator's Ringmail Leggings
+                new (227230, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Handguards
+                new (227220, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Raiment
+                new (227240, DungeonDifficultiesNormal), // Hateful Gladiator's Silk Trousers
             ]
         },
         {
@@ -175,44 +181,68 @@ public static partial class Hardcoded
                 // Mount
                 new (87771, DungeonDifficultiesNormal), // Reins of the Heavenly Onyx Cloud Serpent
                 // Tier
-				new (227565, DungeonDifficultiesNormal), // Eternal Blossom Grips
-				new (227564, DungeonDifficultiesNormal), // Eternal Blossom Legguards
-				new (227556, DungeonDifficultiesNormal), // Firebird's Gloves
-				new (227557, DungeonDifficultiesNormal), // Firebird's Kilt
-				new (227574, DungeonDifficultiesNormal), // Greaves of the Lost Catacomb
-				new (227586, DungeonDifficultiesNormal), // Guardian Serpent Gloves
-				new (227587, DungeonDifficultiesNormal), // Guardian Serpent Leggings
-				new (227590, DungeonDifficultiesNormal), // Leggings of the Burning Scroll
-				new (227560, DungeonDifficultiesNormal), // Legguards of the Thousandfold Blades
-				new (227572, DungeonDifficultiesNormal), // Legplates of Resounding Rings
+                new (227565, DungeonDifficultiesNormal), // Eternal Blossom Grips
+                new (227564, DungeonDifficultiesNormal), // Eternal Blossom Legguards
+                new (227556, DungeonDifficultiesNormal), // Firebird's Gloves
+                new (227557, DungeonDifficultiesNormal), // Firebird's Kilt
+                new (227575, DungeonDifficultiesNormal), // Gauntlets of the Lost Catacomb
+                new (227574, DungeonDifficultiesNormal), // Greaves of the Lost Catacomb
+                new (227573, DungeonDifficultiesNormal), // Gauntlets of Resounding Rings
+                new (227591, DungeonDifficultiesNormal), // Gloves of the Burning Scroll
+                new (227561, DungeonDifficultiesNormal), // Gloves of the Thousandfold Blades
+                new (227586, DungeonDifficultiesNormal), // Guardian Serpent Gloves
+                new (227587, DungeonDifficultiesNormal), // Guardian Serpent Leggings
+                new (227590, DungeonDifficultiesNormal), // Leggings of the Burning Scroll
+                new (227560, DungeonDifficultiesNormal), // Legguards of the Thousandfold Blades
+                new (227572, DungeonDifficultiesNormal), // Legplates of Resounding Rings
                 new (227598, DungeonDifficultiesNormal), // Red Crane Grips
+                new (227599, DungeonDifficultiesNormal), // Red Crane Leggings
+                new (227588, DungeonDifficultiesNormal), // Sha-Skin Gloves
                 new (227589, DungeonDifficultiesNormal), // Sha-Skin Leggings
+                new (227577, DungeonDifficultiesNormal), // White Tiger Gauntlets
+                new (227576, DungeonDifficultiesNormal), // White Tiger Legplates
                 new (227559, DungeonDifficultiesNormal), // Yaungol Slayer's Gloves
                 new (227558, DungeonDifficultiesNormal), // Yaungol Slayer's Legguards
                 // PvP
 				new (227624, DungeonDifficultiesNormal), // Malevolent Gladiator's Armbands of Prowess
+				new (227657, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Alacrity
 				new (227656, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Proficiency
 				new (227613, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Accuracy
 				new (227612, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Alacrity
+				new (227611, DungeonDifficultiesNormal), // Malevolent Gladiator's Belt of Cruelty
 				new (227614, DungeonDifficultiesNormal), // Malevolent Gladiator's Bindings of Prowess
 				new (227601, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Alacrity
 				new (227600, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Cruelty
 				new (227655, DungeonDifficultiesNormal), // Malevolent Gladiator's Bracers of Prowess
 				new (227641, DungeonDifficultiesNormal), // Malevolent Gladiator's Cape of Cruelty
 				new (227617, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Gauntlets
+				new (227619, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Leggings
 				new (227642, DungeonDifficultiesNormal), // Malevolent Gladiator's Cloak of Alacrity
 				new (227635, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Accuracy
 				new (227634, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Cruelty
+				new (227636, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Meditation
+				new (227637, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Accuracy
+				new (227654, DungeonDifficultiesNormal), // Malevolent Gladiator's Clasp of Cruelty
+				new (227639, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Meditation
+				new (227638, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Prowess
 				new (227640, DungeonDifficultiesNormal), // Malevolent Gladiator's Drape of Prowess
+				new (227647, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Gauntlets
+				new (227650, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Legguards
 				new (227629, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Handguards
+				new (227632, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Trousers
 				new (227616, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
+				new (227602, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
 				new (227652, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Accuracy
 				new (227653, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Prowess
 				new (227644, DungeonDifficultiesNormal), // Malevolent Gladiator's Greaves of Alacrity
 				new (227604, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Gloves
 				new (227607, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Legguards
+				new (227603, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Gloves
 				new (227606, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Legguards
 				new (227622, DungeonDifficultiesNormal), // Malevolent Gladiator's Links of Cruelty
+				new (227630, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Gloves
+				new (227633, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Leggings
+				new (227651, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Legguards
 				new (227646, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Gloves
 				new (227649, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Legplates
 				new (227648, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Gauntlets
@@ -223,6 +253,7 @@ public static partial class Hardcoded
 				new (227631, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Trousers
 				new (227626, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Alacrity
 				new (227625, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Cruelty
+				new (227627, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Meditation
 				new (227609, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Cruelty
 				new (227621, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistguard of Meditation
 				new (227645, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Alacrity
