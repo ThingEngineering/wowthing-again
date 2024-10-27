@@ -96,10 +96,24 @@ export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfession
 export const taskList: Task[] = [
     // Events/Holidays/idk
     {
+        key: 'anniversary',
+        minimumLevel: 10,
+        name: "[Event] WoW's Anniversary",
+        shortName: 'Anni',
+        type: 'multi',
+    },
+    {
         key: 'holidayDarkmoonFaire',
         minimumLevel: 1,
         name: '[Event] Darkmoon Faire',
         shortName: 'DMF',
+        type: 'multi',
+    },
+    {
+        key: 'holidayHallowsEnd',
+        minimumLevel: 10,
+        name: "[Event] Hallow's End",
+        shortName: '🎃',
         type: 'multi',
     },
     {
@@ -385,6 +399,34 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    anniversary: [
+        {
+            taskKey: 'anniversaryCelebrate',
+            taskName: 'Celebrate',
+        },
+        {
+            taskKey: 'anniversaryChromie',
+            taskName: "Chromie's Codex",
+        },
+        // {
+        //     taskKey: 'anniversaryOriginals',
+        //     taskName: 'The Originals',
+        //     minimumLevel: 30,
+        // },
+        {
+            taskKey: 'anniversaryGatecrashers',
+            taskName: 'Timely Gate Crashers',
+            minimumLevel: 30,
+        },
+        {
+            taskKey: 'anniversaryReflect',
+            taskName: 'Reflect',
+        },
+        {
+            taskKey: 'anniversarySoldier',
+            taskName: 'Alterac Valley',
+        },
+    ],
     holidayDarkmoonFaire: [
         {
             taskKey: 'dmfStrength',
@@ -503,16 +545,43 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
         },
     ],
+    holidayHallowsEnd: [
+        {
+            taskKey: 'hallowsBuild',
+            taskName: 'Bonfire',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsBreak',
+            taskName: 'Douse',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsCleanUp',
+            taskName: 'Clean Up',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsStinkBombs',
+            taskName: 'Stink Bombs',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsTree',
+            taskName: 'The Crooked Tree',
+            minimumLevel: 40,
+        },
+    ],
     holidayWinterVeil: [
         {
             minimumLevel: Constants.characterMaxLevel - 10,
-            taskKey: 'meanOne',
+            taskKey: 'merryMeanOne',
             taskName: "...You're a Mean One",
         },
         {
             minimumLevel: 30,
             maximumLevel: Constants.characterMaxLevel - 11,
-            taskKey: 'meanOneSplit',
+            taskKey: 'merryMeanOneSplit',
             taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
         {
