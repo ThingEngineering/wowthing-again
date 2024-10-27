@@ -103,6 +103,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'holidayHallowsEnd',
+        minimumLevel: 10,
+        name: "[Event] Hallow's End",
+        shortName: '🎃',
+        type: 'multi',
+    },
+    {
         key: 'holidayWinterVeil',
         minimumLevel: 30,
         name: '[Event] Winter Veil',
@@ -503,16 +510,43 @@ export const multiTaskMap: Record<string, Chore[]> = {
             couldGetFunc: (char) => !!char.professions?.[Profession.Fishing],
         },
     ],
+    holidayHallowsEnd: [
+        {
+            taskKey: 'hallowsBuild',
+            taskName: 'Bonfire',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsBreak',
+            taskName: 'Douse',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsCleanUp',
+            taskName: 'Clean Up',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsStinkBombs',
+            taskName: 'Stink Bombs',
+            minimumLevel: 10,
+        },
+        {
+            taskKey: 'hallowsTree',
+            taskName: 'The Crooked Tree',
+            minimumLevel: 40,
+        },
+    ],
     holidayWinterVeil: [
         {
             minimumLevel: Constants.characterMaxLevel - 10,
-            taskKey: 'meanOne',
+            taskKey: 'merryMeanOne',
             taskName: "...You're a Mean One",
         },
         {
             minimumLevel: 30,
             maximumLevel: Constants.characterMaxLevel - 11,
-            taskKey: 'meanOneSplit',
+            taskKey: 'merryMeanOneSplit',
             taskName: `...You're a Mean One (<${Constants.characterMaxLevel - 10})`,
         },
         {
