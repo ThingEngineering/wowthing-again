@@ -544,9 +544,21 @@ export const extraInstances: StaticDataInstance[] = [
     },
     {
         expansion: 100,
-        id: 100017,
+        id: 100004,
         name: 'Doomwalker',
         shortName: 'DW',
+    },
+    {
+        expansion: 100,
+        id: 100005,
+        name: 'Archavon the Stone Watcher',
+        shortName: 'Arch',
+    },
+    {
+        expansion: 100,
+        id: 100006,
+        name: 'Sha of Anger',
+        shortName: 'Sha',
     },
 ];
 
