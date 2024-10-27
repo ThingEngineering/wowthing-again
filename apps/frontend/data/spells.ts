@@ -1,6 +1,8 @@
 export const durationAuras: [number, string][] = [
     [24705, 'Grim Visage'],
     [26013, 'Deserter'],
+    [29175, 'Ribbon Dance'],
+    [42138, 'Brewfest Enthusiast'],
     [46668, 'WHEE!'],
     [71041, 'Dungeon Deserter'],
     [95987, 'Unburdened'],
