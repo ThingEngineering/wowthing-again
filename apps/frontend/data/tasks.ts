@@ -96,6 +96,13 @@ export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfession
 export const taskList: Task[] = [
     // Events/Holidays/idk
     {
+        key: 'anniversary',
+        minimumLevel: 10,
+        name: "[Event] WoW's Anniversary",
+        shortName: 'Anni',
+        type: 'multi',
+    },
+    {
         key: 'holidayDarkmoonFaire',
         minimumLevel: 1,
         name: '[Event] Darkmoon Faire',
@@ -392,6 +399,34 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    anniversary: [
+        {
+            taskKey: 'anniversaryCelebrate',
+            taskName: 'Celebrate',
+        },
+        {
+            taskKey: 'anniversaryChromie',
+            taskName: "Chromie's Codex",
+        },
+        // {
+        //     taskKey: 'anniversaryOriginals',
+        //     taskName: 'The Originals',
+        //     minimumLevel: 30,
+        // },
+        {
+            taskKey: 'anniversaryGatecrashers',
+            taskName: 'Timely Gate Crashers',
+            minimumLevel: 30,
+        },
+        {
+            taskKey: 'anniversaryReflect',
+            taskName: 'Reflect',
+        },
+        {
+            taskKey: 'anniversarySoldier',
+            taskName: 'Alterac Valley',
+        },
+    ],
     holidayDarkmoonFaire: [
         {
             taskKey: 'dmfStrength',
