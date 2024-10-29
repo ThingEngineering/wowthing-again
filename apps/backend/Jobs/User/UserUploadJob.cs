@@ -625,24 +625,19 @@ public class UserUploadJob : JobBase
                     .ToList();
             }
 
+            // Deal with warbank data last, we need to know the region
+            if (accountRegion != null && parsed.Warbank?.Items != null)
+            {
+                await HandleWarbank(accountRegion.Value, userAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Warbank);
+            }
+
+            if (parsed.BattlePets != null)
+            {
+                await HandleBattlePets(accountId, parsed.BattlePets);
+            }
+
+            _timer.AddPoint("Account");
         }
-
-        _timer.AddPoint("Account");
-
-        // Deal with warbank data last, we need to know the region
-        if (accountRegion != null && parsed.Warbank?.Items != null)
-        {
-            await HandleWarbank(accountRegion.Value, userAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Warbank);
-        }
-
-        _timer.AddPoint("Warbank");
-
-        if (parsed.BattlePets != null)
-        {
-            await HandleBattlePets(accountId, parsed.BattlePets);
-        }
-
-        _timer.AddPoint("BattlePets");
 
 #if DEBUG
         //Context.ChangeTracker.DetectChanges();
@@ -1134,7 +1129,7 @@ public class UserUploadJob : JobBase
 
     private async Task HandleBattlePets(int accountId, Dictionary<long, string> parsedBattlePets)
     {
-        string lockKey = $"character_pets:{accountId}";
+        string lockKey = $"account_pets:{accountId}";
         string lockValue = Guid.NewGuid().ToString("N");
         bool lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
         if (!lockSuccess)
