@@ -20,6 +20,7 @@ public class UserBulkDataJob : JobBase
     private string _accessToken = string.Empty;
     private JankTimer _timer;
     private UserBulkData _bulkData;
+    private WowRegion _region;
 
     public override void Setup(string[] data)
     {
@@ -51,6 +52,19 @@ public class UserBulkDataJob : JobBase
             Context.UserBulkData.Add(_bulkData);
         }
 
+        var regions = await Context.PlayerAccount
+            .Where(pa => pa.UserId == _userId)
+            .Select(pa => pa.Region)
+            .Distinct()
+            .ToArrayAsync();
+        if (regions.Length == 0)
+        {
+            Logger.Error("No accounts for user {0}", _userId);
+            return;
+        }
+
+        _region = regions[0];
+
         _timer.AddPoint("Load");
 
         await FetchHeirlooms();
@@ -81,7 +95,7 @@ public class UserBulkDataJob : JobBase
     {
         // Fetch API data
         ApiUserHeirlooms resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, HeirloomsApiPath);
+        var uri = GenerateUri(_region, ApiNamespace.Profile, HeirloomsApiPath);
         try {
             var result = await GetUriAsJsonAsync<ApiUserHeirlooms>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
@@ -111,7 +125,7 @@ public class UserBulkDataJob : JobBase
     {
         // Fetch API data
         ApiUserMounts resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, MountsApiPath);
+        var uri = GenerateUri(_region, ApiNamespace.Profile, MountsApiPath);
         try {
             var result = await GetUriAsJsonAsync<ApiUserMounts>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
@@ -139,7 +153,7 @@ public class UserBulkDataJob : JobBase
     {
         // Fetch API data
         ApiUserPets resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, PetsApiPath);
+        var uri = GenerateUri(_region, ApiNamespace.Profile, PetsApiPath);
         try {
             var result = await GetUriAsJsonAsync<ApiUserPets>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
@@ -175,7 +189,7 @@ public class UserBulkDataJob : JobBase
     {
         // Fetch API data
         ApiUserToys resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, ToysApiPath);
+        var uri = GenerateUri(_region, ApiNamespace.Profile, ToysApiPath);
         try {
             var result = await GetUriAsJsonAsync<ApiUserToys>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)
@@ -203,7 +217,7 @@ public class UserBulkDataJob : JobBase
     {
         // Fetch API data
         ApiUserTransmogs resultData;
-        var uri = GenerateUri(WowRegion.US, ApiNamespace.Profile, TransmogsApiPath);
+        var uri = GenerateUri(_region, ApiNamespace.Profile, TransmogsApiPath);
         try {
             var result = await GetUriAsJsonAsync<ApiUserTransmogs>(uri, timer: _timer, useLastModified: false, overrideAccessToken: _accessToken);
             if (result.NotModified)

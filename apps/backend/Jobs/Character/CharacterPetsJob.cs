@@ -26,7 +26,9 @@ public class CharacterPetsJob : JobBase
             throw new InvalidDataException("AccountId is null");
         }
 
-        string lockKey = $"character_pets:{_query.AccountId}";
+        int accountId = _query.AccountId.Value;
+
+        string lockKey = $"account_pets:{accountId}";
         string lockValue = Guid.NewGuid().ToString("N");
         try
         {
@@ -65,10 +67,10 @@ public class CharacterPetsJob : JobBase
         }
 
         // Fetch character data
-        var pets = await Context.PlayerAccountPets.FindAsync(_query.AccountId.Value);
+        var pets = await Context.PlayerAccountPets.FindAsync(accountId);
         if (pets == null)
         {
-            pets = new PlayerAccountPets(_query.AccountId.Value);
+            pets = new PlayerAccountPets(accountId);
             Context.PlayerAccountPets.Add(pets);
         }
 
