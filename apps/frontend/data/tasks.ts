@@ -403,6 +403,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'anniversaryCelebrate',
             taskName: 'Celebrate',
+            couldGetFunc: (char) => char.auras?.[465631]?.duration > 0,
         },
         {
             taskKey: 'anniversaryChromie',
@@ -900,12 +901,12 @@ export const multiTaskMap: Record<string, Chore[]> = {
         {
             taskKey: 'twwEmissaryArchives',
             taskName: '[Dor] Archives',
-            minimumLevel: 80,
+            minimumLevel: 70,
         },
         {
             taskKey: 'twwEmissaryDelves',
             taskName: '[Dor] Delves',
-            minimumLevel: 80,
+            minimumLevel: 70,
         },
         {
             taskKey: 'twwEmissaryWorldsoul',
