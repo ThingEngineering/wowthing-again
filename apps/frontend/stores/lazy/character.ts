@@ -41,7 +41,7 @@ import type {
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
 import { getActiveHolidays } from '@/utils/get-active-holidays';
-import { holidayMinmumLevel } from '@/data/holidays';
+import { holidayMinimumLevel } from '@/data/holidays';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -285,8 +285,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             const activeHoliday = activeHolidays[taskName];
             if (
                 activeHoliday &&
-                holidayMinmumLevel[activeHoliday.id] &&
-                character.level < holidayMinmumLevel[activeHoliday.id]
+                holidayMinimumLevel[activeHoliday.id] &&
+                character.level < holidayMinimumLevel[activeHoliday.id]
             ) {
                 continue;
             }

@@ -387,9 +387,25 @@ public class ApiController : Controller
         var allPets = new Dictionary<long, PlayerAccountPetsPet>();
         foreach (var pets in accountPets)
         {
-            foreach (var (petId, pet) in pets.Pets)
+            foreach ((long petId, var pet) in pets.Pets)
             {
                 allPets.TryAdd(petId, pet);
+            }
+        }
+
+        // Fall back to bulk data
+        if (allPets.Count == 0)
+        {
+            var bulkPets = await _context.UserBulkData
+                .Where(ubd => ubd.UserId == apiResult.User.Id)
+                .Select(ubd => new { ubd.Pets })
+                .SingleOrDefaultAsync();
+            if (bulkPets?.Pets != null)
+            {
+                foreach ((long petId, var pet) in bulkPets.Pets)
+                {
+                    allPets.TryAdd(petId, pet);
+                }
             }
         }
 

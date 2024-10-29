@@ -14,6 +14,11 @@ public class PlayerAccountPets
 
     [Column(TypeName = "jsonb")]
     public Dictionary<long, PlayerAccountPetsPet> Pets { get; set; }
+
+    public PlayerAccountPets(int accountId)
+    {
+        AccountId = accountId;
+    }
 }
 
 public class PlayerAccountPetsPet

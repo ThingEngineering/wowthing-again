@@ -68,10 +68,7 @@ public class CharacterPetsJob : JobBase
         var pets = await Context.PlayerAccountPets.FindAsync(_query.AccountId.Value);
         if (pets == null)
         {
-            pets = new PlayerAccountPets
-            {
-                AccountId = _query.AccountId.Value,
-            };
+            pets = new PlayerAccountPets(_query.AccountId.Value);
             Context.PlayerAccountPets.Add(pets);
         }
 

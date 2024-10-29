@@ -1,4 +1,4 @@
-export const holidayMinmumLevel: Record<number, number> = {
+export const holidayMinimumLevel: Record<number, number> = {
     // Timewalking: TBC
     559: 30,
     622: 30,
