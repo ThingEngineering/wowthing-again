@@ -1148,8 +1148,8 @@ public class UserUploadJob : JobBase
         var accountPets = await localContext.PlayerAccountPets.FindAsync(accountId);
         if (accountPets == null)
         {
-            // Don't want to deal with this here, the job will create it
-            return;
+            accountPets = new PlayerAccountPets(accountId);
+            Context.PlayerAccountPets.Add(accountPets);
         }
 
         var seenIds = new HashSet<long>();
