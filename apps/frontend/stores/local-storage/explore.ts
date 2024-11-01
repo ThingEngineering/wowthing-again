@@ -2,6 +2,7 @@ import { writable } from 'svelte/store';
 
 export class ExploreState {
     public achievementId = 0;
+    public bonusIds = '';
     public questId = 0;
     public transmogSetId = 0;
 }

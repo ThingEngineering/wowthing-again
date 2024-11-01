@@ -126,6 +126,206 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         // BfA hack
         data.categories.push({
             id: categoryId++,
+            name: '[BfA] A Farewell to Arms',
+            slug: 'farewell-to-arms',
+            achievementIds: [
+                40953, // A Farewell to Arms
+
+                40960, // Uldir
+                40961, // Battle of Dazar'alor
+                13414, // Crucible of Storms
+                40962, // The Eternal Palace
+                40963, // Ny'alotha, the Waking City
+
+                12807, // Battle for Azeroth Dungeon Hero
+
+                40956, // I'm On Island Time
+                41202, // \- Hot Tropic
+                12944, // \--- Adventurer of Zuldazar
+                12851, // \--- Treasures of Zuldazar
+                12614, // \--- Loa Expectations
+                13020, // \--- Bow to Your Masters
+                12482, // \--- Get Hek'd
+                13036, // \--- A Loa of a Tale
+                13029, // \--- Eating Out of the Palm of My Tiny Hand
+                13038, // \--- Raptari Rider
+                41205, // \- Sound Off
+                12939, // \--- Adventurer of Tiragarde Sound
+                12852, // \--- Treasures of Tiragarde Sound
+                13050, // \--- Bless the Rains Down in Freehold
+                13057, // \--- Sailed in Sea Minor
+                13061, // \--- Three Sheets to the Wind
+                13058, // \--- Kul Tiran Up the Dance Floor
+                12087, // \--- The Reining Champion
+                13049, // \--- The Long Con
+                41203, // \- Bwon Voyage
+                12942, // \--- Adventurer of Nazmir
+                12771, // \--- Treasures of Nazmir
+                13024, // \--- Carved in Stone, Written in Blood
+                13023, // \--- It's Really Getting Out of Hand
+                12588, // \--- Eat Your Greens
+                13028, // \--- Hoppin' Sad
+                13022, // \--- Revenge is Best Served Speedily
+                13021, // \--- A Most Efficient Apocalypse
+                41206, // \- Songs of Storms
+                12940, // \--- Adventurer of Stormsong Valley
+                12853, // \--- Treasures of Stormsong Valley
+                13047, // \--- Clever Use of Mechanical Explosives
+                13046, // \--- These Hills Sing
+                13051, // \--- Legends of the Tidesages
+                13045, // \--- Every Day I'm Truffling
+                13062, // \--- Let's Bee Friends
+                13053, // \--- Deadliest Cache
+                41204, // \- Dune Squad
+                12943, // \--- Adventurer of Vol'dun
+                12849, // \--- Treasures of Vol'dun
+                13016, // \--- Scavenger of the Sands
+                13018, // \--- Dune Rider
+                13011, // \--- Scourge of Zem'lan
+                13009, // \--- Adept Sandfisher
+                13017, // \--- Champion of the Vulpera
+                13437, // \--- Scavenge like a Vulpera
+                41207, // \- When the Drust Settles
+                12941, // \--- Adventurer of Drustvar
+                12995, // \--- Treasures of Drustvar
+                13087, // \--- Sausage Sampler
+                13083, // \--- Better, Faster, Stronger
+                13064, // \--- Drust the Facts, Ma'am
+                13094, // \--- Cursed Game Hunter
+                13082, // \--- Everything Old Is New Again
+                12593, // \- Loremaster of Kul Tiras
+                12473, // \--- A Sound Plan
+                12497, // \--- Drust Do It.
+                12496, // \--- Stormsong and Dance
+                13294, // \- Loremaster of Zandalar
+                11861, // \--- The Throne of Zuldazar
+                11868, // \--- The Dark Heart of Nazmir
+                12478, // \--- Secrets in the Sands
+                12988, // \- Battle for Azeroth Explorer
+                12556, // \--- Explore Tiragarde Sound
+                12557, // \--- Explore Drustvar
+                12558, // \--- Explore Stormsong Valley
+                12559, // \--- Explore Zuldazar
+                12561, // \--- Explore Nazmir
+                12560, // \--- Explore Vol'dun
+                13144, // \- Wide World of Quests
+
+                40955, // War Stories
+                12555, // \- Welcome to Zandalar Welcome to Zandalar
+                12582, // \- Come Sail Away Come Sail Away
+                13517, // \- Two Sides to Every Tale Two Sides to Every Tale
+                13925, // \- The Fourth War [A]
+                13924, // \- The Fourth War [H]
+                12719, // \- Spirits Be With You Spirits Be With You
+                13263, // \- The Shadow Hunter The Shadow Hunter
+                12997, // \- The Pride of Kul Tiras The Pride of Kul Tiras
+                13251, // \- In Teldrassil's Shadow In Teldrassil's Shadow
+                13553, // \- The Mechagonian Threat [A]
+                13700, // \- The Mechagonian Threat [H]
+                13710, // \- Sunken Ambitions [A]
+                13709, // \- Unfathomable [H]
+                14157, // \- The Corruptor's End
+
+                12947, // Azerothian Diplomat
+
+                13134, // Expedition Leader
+                13122, // \- Island Conqueror
+                13125, // \- Azerite Admiral
+                13126, // \- Give Me The Energy
+                13127, // \- Tell Me A Tale
+                13124, // \- Metal Detector
+                13128, // \- I'm Here for the Pets
+                13132, // \- Helping Hand
+                // 13121, // \- Notorious
+                12595, // \- Expert Expeditioner
+                13133, // \- Team Deathmatch [A]
+                13135, // \- Team Deathmatch [H]
+                // 13141, // \- Island Slayer
+
+                40957, // Maximum Effort
+                12881, // \- War is Hell [A]
+                12873, // \- War is Hell [H]
+                13297, // \- War for the Shore [A]
+                13296, // \- War for the Shore [H]
+                12889, // \- Strike Fast [A]
+                12876, // \- Strike Fast [H]
+                13305, // \- Night Moves [A]
+                13306, // \- Night Moves [H]
+                12884, // \- Leader of Troops [A]
+                12878, // \- Leader of Troops [H]
+                13308, // \- Recruitment Officer [A]
+                13307, // \- Recruitment Officer [H]
+                12886, // \- Tour of War [A]
+                12879, // \- Tour of War [H]
+                13310, // \- By Nature's Call [A]
+                13309, // \- Deforester [H]
+                12874, // \- An Eventful Battle
+                12872, // \- The Dirty Five
+                12896, // \- Azeroth at War: The Barrens [A]
+                12867, // \- Azeroth at War: The Barrens [H]
+                12898, // \- Azeroth at War: After Lordaeron [A]
+                12869, // \- Azeroth at War: After Lordaeron [H]
+                12899, // \- Azeroth at War: Kalimdor on Fire [A]
+                12870, // \- Azeroth at War: Kalimdor on Fire [H]
+                13283, // \- Frontline Warrior [A]
+                13284, // \- Frontline Warrior [H]
+
+                13638, // Undersea Usurper Undersea Usurper
+
+                13541, // Mecha-Done Mecha-Done
+                // 13553, // \- The Mechagonian Threat [A]
+                // 13700, // \- The Mechagonian Threat [H]
+                13470, // \- Rest In Pistons
+                13556, // \- Outside Influences
+                13479, // \- Junkyard Architect
+                13477, // \- Junkyard Apprentice
+                13474, // \- Junkyard Machinist
+                13513, // \- Available in Eight Colors
+                13686, // \- Junkyard Melomaniac
+                13791, // \- Making the Mount
+                13790, // \- Armed for Action
+
+                40959, // Black Empire State of Mind
+                14154, // \- Defend the Vale
+                14153, // \- Uldum Under Assault
+                14156, // \- The Rajani
+                14155, // \- Uldum Accord
+                14159, // \- Combating the Corruption
+                14158, // \- It's Not A Tumor!
+                14161, // \- All Consuming
+
+                13994, // Through the Depths of Visions
+                14066, // \- The Most Horrific Vision of Stormwind
+                14067, // \- The Most Horrific Vision of
+                14060, // \- Unwavering Resolve
+                14061, // \- We Have the Technology
+
+                40958, // Full Heart, Can't Lose
+                12918, // \- Have a Heart
+                13572, // \- The Heart Forge
+                13771, // \- Power Is Beautiful
+                13777, // \- My Heart Container is Full
+                13772, // \- Essence Essentials
+                13998, // \- Pure of Heart
+
+                41209, // Dressed to Kill: Battle for Azeroth
+                12991, // \- New Mog, G'huun This?
+                12993, // \- Don't Warfront Me
+                13385, // \- Daz'aling Attire
+                13433, // \- Tall, Dark, and Sinister
+                13571, // \- Under the Seams
+                13585, // \- Never Lose, Never Choose To
+                14058, // \- All Eyes On Me
+                14059, // \- The Eyes Have It
+
+                14730, // To All the Squirrels I Set Sail to See
+            ],
+            children: [],
+        });
+
+        // BfA Nazjatar hack
+        data.categories.push({
+            id: categoryId++,
             name: '[BfA] Undersea Usurper',
             slug: 'undersea-usurper',
             achievementIds: [

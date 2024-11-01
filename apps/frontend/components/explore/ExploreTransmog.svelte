@@ -92,7 +92,7 @@
             {#each classes as characterClass}
                 <ClassIcon classId={characterClass} />
             {:else}
-                All classes
+                ???
             {/each}
         </h3>
         <div class="slots">
@@ -110,9 +110,11 @@
                             {@const itemClasses = getClassesFromMask(item.classMask)}
                             <div class="item">
                                 <WowheadLink type={'item'} id={item.id}>
-                                    {#each itemClasses as classId}
-                                        <ClassIcon {classId} />
-                                    {/each}
+                                    {#if itemClasses.length < 13}
+                                        {#each itemClasses as classId}
+                                            <ClassIcon {classId} />
+                                        {/each}
+                                    {/if}
                                     <ParsedText text={`{item:${item.id}}`} />
                                 </WowheadLink>
                             </div>
