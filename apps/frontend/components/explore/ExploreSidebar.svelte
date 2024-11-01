@@ -9,6 +9,10 @@
             slug: 'achievements',
         },
         {
+            name: 'Bonus IDs',
+            slug: 'bonus-ids',
+        },
+        {
             name: 'Icons',
             slug: 'icons',
         },
