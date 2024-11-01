@@ -139,7 +139,7 @@
 
     {#if category && achievementIds}
         <div class="achievements">
-            {#each achievementIds as achievementId (achievementId)}
+            {#each achievementIds.filter((id) => id > 0) as achievementId (achievementId)}
                 <AchievementsAchievement
                     kindaAlwaysShow={category.id >= 200000}
                     {achievementId}
