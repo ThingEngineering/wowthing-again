@@ -143,11 +143,14 @@
             <span class="item-name">
                 {haveCount}x
                 
-                {#if (item.flags & ItemFlags.HeroicDifficulty) > 0}
+                {#if item.difficultyLookingForRaid}
+                    <code>[L]</code>
+                {:else if item.difficultyHeroic}
                     <code>[H]</code>
-                {:else if (item.flags & ItemFlags.MythicDifficulty) > 0 ||
-                    item.itemLevel === 207}
+                {:else if item.difficultyMythic || item.itemLevel === 207}
                     <code>[M]</code>
+                {:else}
+                    <code>[N]</code>
                 {/if}
                 
                 <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">

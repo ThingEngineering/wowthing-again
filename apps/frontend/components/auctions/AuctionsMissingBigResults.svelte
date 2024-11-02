@@ -276,7 +276,7 @@
                                                     <FactionIcon faction={Faction.Horde} />
                                                 {/if}
 
-                                                {#if modifier === AppearanceModifier.LookingForRaid}
+                                                {#if item.difficultyLookingForRaid || modifier === AppearanceModifier.LookingForRaid}
                                                     [L]
                                                 {:else if item.difficultyHeroic || modifier === AppearanceModifier.Heroic}
                                                     [H]
