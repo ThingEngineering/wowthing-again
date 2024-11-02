@@ -13,6 +13,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let achievementId: number
+    export let allAchievementIds: number[] = undefined
     export let alwaysShow = false
     export let kindaAlwaysShow = false
 
@@ -26,7 +27,17 @@
         achievement = $achievementStore.achievement[achievementId]
         if (!achievement) { break $ }
 
-        earned = $userAchievementStore.achievements[achievementId]
+        if (allAchievementIds) {
+            for (const possibleId of allAchievementIds) {
+                const possibleEarned = $userAchievementStore.achievements[possibleId]
+                if (possibleEarned && (!earned || possibleEarned < earned)) {
+                    earned = possibleEarned
+                }
+            }
+        } else {
+            earned = $userAchievementStore.achievements[achievementId]
+        }
+
         earnedDate = new Date(earned * 1000)
         chain = []
         show = true

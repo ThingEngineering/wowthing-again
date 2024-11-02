@@ -139,11 +139,21 @@
 
     {#if category && achievementIds}
         <div class="achievements">
-            {#each achievementIds.filter((id) => id > 0) as achievementId (achievementId)}
-                <AchievementsAchievement
-                    kindaAlwaysShow={category.id >= 200000}
-                    {achievementId}
-                />
+            {#each achievementIds as achievementId}
+                {#if Array.isArray(achievementId)}
+                    {#each achievementId as subAchievementId}
+                        <AchievementsAchievement
+                            kindaAlwaysShow={category.id >= 200000}
+                            achievementId={subAchievementId}
+                            allAchievementIds={achievementId}
+                        />
+                    {/each}
+                {:else}
+                    <AchievementsAchievement
+                        kindaAlwaysShow={category.id >= 200000}
+                        {achievementId}
+                    />
+                {/if}
             {/each}
         </div>
     {/if}
