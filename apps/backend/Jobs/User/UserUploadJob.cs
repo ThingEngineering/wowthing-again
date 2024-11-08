@@ -1144,7 +1144,7 @@ public class UserUploadJob : JobBase
         if (accountPets == null)
         {
             accountPets = new PlayerAccountPets(accountId);
-            Context.PlayerAccountPets.Add(accountPets);
+            localContext.PlayerAccountPets.Add(accountPets);
         }
 
         accountPets.Pets ??= new();

@@ -15,7 +15,7 @@
     export let slug1: string
     export let slug2: string
 
-    let achievementIds: number[]
+    let achievementIds: (number | number[])[]
     let category: AchievementDataCategory
     $: {
         category = find($achievementStore.categories, (c) => c !== null && c.slug === slug1)
@@ -32,7 +32,7 @@
         achievementIds = category.id >= 200000
             ? category.achievementIds
             : sortBy(
-                category.achievementIds,
+                category.achievementIds as number[],
                 id => [
                     $userAchievementStore.achievements[id] === undefined ? '1' : '0',
                     leftPad($achievementStore.achievement[id].categoryId, 5, '0'),
@@ -40,7 +40,7 @@
                     leftPad(100000 - id, 6, '0')
                 ].join('|')
             ).filter((id) => {
-                const cheev = $achievementStore.achievement[id]
+                const cheev = $achievementStore.achievement[id as number]
 
                 // Don't show tracking achievements
                 if ((cheev.flags & 0x100_000) > 0) {
