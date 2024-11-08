@@ -1147,6 +1147,8 @@ public class UserUploadJob : JobBase
             Context.PlayerAccountPets.Add(accountPets);
         }
 
+        accountPets.Pets ??= new();
+
         var seenIds = new HashSet<long>();
         foreach ((long petId, string petString) in parsedBattlePets)
         {
@@ -2107,9 +2109,10 @@ public class UserUploadJob : JobBase
 
     private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
     {
-        if (!_worldQuestReportMap.TryGetValue((short)region, out var reportMap))
+        short shortRegion = (short)region;
+        if (!_worldQuestReportMap.TryGetValue(shortRegion, out var reportMap))
         {
-            _worldQuestReportMap[(short)region] = reportMap = new();
+            _worldQuestReportMap[shortRegion] = reportMap = new();
         }
 
         foreach ((short expansion, var zones) in characterData.WorldQuests.EmptyIfNull())
@@ -2139,7 +2142,7 @@ public class UserUploadJob : JobBase
                         reportMap[reportKey] = reportQuest = new WorldQuestReport()
                         {
                             UserId = _userId,
-                            Region = (short)region,
+                            Region = shortRegion,
                             Expansion = expansion,
                             ZoneId = zoneId,
                             QuestId = questId,

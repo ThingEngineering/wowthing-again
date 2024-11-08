@@ -138,6 +138,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 40963, // Ny'alotha, the Waking City
 
                 12807, // Battle for Azeroth Dungeon Hero
+                // expand
 
                 40956, // I'm On Island Time
                 41202, // \- Hot Tropic
@@ -211,19 +212,25 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13144, // \- Wide World of Quests
 
                 40955, // War Stories
-                12555, // \- Welcome to Zandalar Welcome to Zandalar
-                12582, // \- Come Sail Away Come Sail Away
-                13517, // \- Two Sides to Every Tale Two Sides to Every Tale
-                13925, // \- The Fourth War [A]
-                13924, // \- The Fourth War [H]
-                12719, // \- Spirits Be With You Spirits Be With You
-                13263, // \- The Shadow Hunter The Shadow Hunter
-                12997, // \- The Pride of Kul Tiras The Pride of Kul Tiras
-                13251, // \- In Teldrassil's Shadow In Teldrassil's Shadow
-                13553, // \- The Mechagonian Threat [A]
-                13700, // \- The Mechagonian Threat [H]
-                13710, // \- Sunken Ambitions [A]
-                13709, // \- Unfathomable [H]
+                12555, // \- Welcome to Zandalar
+                12582, // \- Come Sail Away
+                13517, // \- Two Sides to Every Tale
+                [
+                    13925, // \- The Fourth War [A]
+                    13924, // \- The Fourth War [H]
+                ],
+                12719, // \- Spirits Be With You
+                13263, // \- The Shadow Hunter
+                12997, // \- The Pride of Kul Tiras
+                13251, // \- In Teldrassil's Shadow
+                [
+                    13553, // \- The Mechagonian Threat [A]
+                    13700, // \- The Mechagonian Threat [H]
+                ],
+                [
+                    13710, // \- Sunken Ambitions [A]
+                    13709, // \- Unfathomable [H]
+                ],
                 14157, // \- The Corruptor's End
 
                 12947, // Azerothian Diplomat
@@ -238,37 +245,63 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13132, // \- Helping Hand
                 // 13121, // \- Notorious
                 12595, // \- Expert Expeditioner
-                13133, // \- Team Deathmatch [A]
-                13135, // \- Team Deathmatch [H]
+                [
+                    13133, // \- Team Deathmatch [A]
+                    13135, // \- Team Deathmatch [H]
+                ],
                 // 13141, // \- Island Slayer
 
                 40957, // Maximum Effort
-                12881, // \- War is Hell [A]
-                12873, // \- War is Hell [H]
-                13297, // \- War for the Shore [A]
-                13296, // \- War for the Shore [H]
-                12889, // \- Strike Fast [A]
-                12876, // \- Strike Fast [H]
-                13305, // \- Night Moves [A]
-                13306, // \- Night Moves [H]
-                12884, // \- Leader of Troops [A]
-                12878, // \- Leader of Troops [H]
-                13308, // \- Recruitment Officer [A]
-                13307, // \- Recruitment Officer [H]
-                12886, // \- Tour of War [A]
-                12879, // \- Tour of War [H]
-                13310, // \- By Nature's Call [A]
-                13309, // \- Deforester [H]
+                [
+                    12881, // \- War is Hell [A]
+                    12873, // \- War is Hell [H]
+                ],
+                [
+                    13297, // \- War for the Shore [A]
+                    13296, // \- War for the Shore [H]
+                ],
+                [
+                    12889, // \- Strike Fast [A]
+                    12876, // \- Strike Fast [H]
+                ],
+                [
+                    13305, // \- Night Moves [A]
+                    13306, // \- Night Moves [H]
+                ],
+                [
+                    12884, // \- Leader of Troops [A]
+                    12878, // \- Leader of Troops [H]
+                ],
+                [
+                    13308, // \- Recruitment Officer [A]
+                    13307, // \- Recruitment Officer [H]
+                ],
+                [
+                    12886, // \- Tour of War [A]
+                    12879, // \- Tour of War [H]
+                ],
+                [
+                    13310, // \- By Nature's Call [A]
+                    13309, // \- Deforester [H]
+                ],
                 12874, // \- An Eventful Battle
                 12872, // \- The Dirty Five
-                12896, // \- Azeroth at War: The Barrens [A]
-                12867, // \- Azeroth at War: The Barrens [H]
-                12898, // \- Azeroth at War: After Lordaeron [A]
-                12869, // \- Azeroth at War: After Lordaeron [H]
-                12899, // \- Azeroth at War: Kalimdor on Fire [A]
-                12870, // \- Azeroth at War: Kalimdor on Fire [H]
-                13283, // \- Frontline Warrior [A]
-                13284, // \- Frontline Warrior [H]
+                [
+                    12896, // \- Azeroth at War: The Barrens [A]
+                    12867, // \- Azeroth at War: The Barrens [H]
+                ],
+                [
+                    12898, // \- Azeroth at War: After Lordaeron [A]
+                    12869, // \- Azeroth at War: After Lordaeron [H]
+                ],
+                [
+                    12899, // \- Azeroth at War: Kalimdor on Fire [A]
+                    12870, // \- Azeroth at War: Kalimdor on Fire [H]
+                ],
+                [
+                    13283, // \- Frontline Warrior [A]
+                    13284, // \- Frontline Warrior [H]
+                ],
 
                 13638, // Undersea Usurper Undersea Usurper
 
@@ -347,7 +380,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13753, // Veteran: Hunter Akana
                 13758, // Battle-Scarred: Hunter Akana
 
-                13645, // [A] Nautical Battlefield Training
+                13645, // [H] Nautical Battlefield Training
                 13761, // [H] Aqua Team Murder Force
                 13746, // Seasoned: Neri Sharpfin
                 13749, // Veteran: Neri Sharpfin
@@ -368,11 +401,15 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13763, // Back to the Depths!
                 13764, // Puzzle Performer
                 13712, // Explore Nazjatar
-                13558, // [A] Waveblade Ankoan
-                13559, // [H] The Unshackled
+                [
+                    13558, // [A] Waveblade Ankoan
+                    13559, // [H] The Unshackled
+                ],
                 13765, // Subaquatic Support
-                13710, // [A] Sunken Ambitions
-                13709, // [H] Unfathomable
+                [
+                    13710, // [A] Sunken Ambitions
+                    13709, // [H] Unfathomable
+                ],
                 13836, // Feline Figurines Found
             ],
             children: [],

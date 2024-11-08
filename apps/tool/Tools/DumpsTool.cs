@@ -849,6 +849,10 @@ public class DumpsTool
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             // Flags
+            if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
+            {
+                dbItem.Flags |= WowItemFlags.LookingForRaidDifficulty;
+            }
             if (itemSparse.Flags1.HasFlag(WowItemFlags1.HeroicTooltip) ||
                 itemSparse.ItemNameDescriptionID == 2015)
             {

@@ -20,7 +20,7 @@ export interface AchievementDataCategory {
     id: number;
     name: string;
     slug: string;
-    achievementIds: number[];
+    achievementIds: Array<number | number[]>;
     children: AchievementDataCategory[];
 }
 
