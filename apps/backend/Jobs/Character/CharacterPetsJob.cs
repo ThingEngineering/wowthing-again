@@ -100,6 +100,8 @@ public class CharacterPetsJob : JobBase
                 dbPet.SpeciesId = apiPet.Species.Id;
                 madeChanges = true;
             }
+
+            seenIds.Add(apiPet.Id);
         }
 
         // Remove any that we didn't see and were NOT added via addon data
