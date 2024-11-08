@@ -712,8 +712,14 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
         data.achievementToCategory = {};
         for (const category of data.categories.filter((cat) => cat?.id >= 100000)) {
-            for (const achievementId of category.achievementIds) {
-                data.achievementToCategory[achievementId] = category.id;
+            for (const maybeArray of category.achievementIds) {
+                if (Array.isArray(maybeArray)) {
+                    for (const achievementId of maybeArray) {
+                        data.achievementToCategory[achievementId] ||= category.id;
+                    }
+                } else {
+                    data.achievementToCategory[maybeArray] ||= category.id;
+                }
             }
         }
 

@@ -82,7 +82,7 @@ type ExtraAchievementCategory = {
         nameType: number;
         targetSlug: string;
 
-        achievementIds?: number[];
+        achievementIds?: (number | number[])[];
         overrideName?: string;
         overrideSlug?: string;
     }[];

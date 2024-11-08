@@ -94,7 +94,16 @@ class AchievementProcessor {
         const catPoints = (this.data.points[catKey] = new UserCount());
         const catStats = (this.data.stats[catKey] = new UserCount());
 
-        for (const achievementId of dataCategory.achievementIds) {
+        const allIds: number[] = [];
+        for (const thing of dataCategory.achievementIds) {
+            if (Array.isArray(thing)) {
+                allIds.push(...thing);
+            } else {
+                allIds.push(thing);
+            }
+        }
+
+        for (const achievementId of allIds) {
             const dataAchievement = achievementData.achievement[achievementId];
 
             const achievement = new ComputedAchievement(achievementId, dataAchievement);
