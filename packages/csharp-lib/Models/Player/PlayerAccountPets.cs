@@ -13,7 +13,7 @@ public class PlayerAccountPets
     public DateTime UpdatedAt { get; set; }
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<long, PlayerAccountPetsPet> Pets { get; set; }
+    public Dictionary<long, PlayerAccountPetsPet> Pets { get; set; } = new();
 
     public PlayerAccountPets(int accountId)
     {

@@ -74,6 +74,8 @@ public class CharacterPetsJob : JobBase
             Context.PlayerAccountPets.Add(pets);
         }
 
+        pets.Pets ??= new();
+
         bool madeChanges = false;
         var existingIds = new HashSet<long>(pets.Pets.Keys);
         var seenIds = new HashSet<long>();
