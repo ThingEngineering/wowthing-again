@@ -705,7 +705,7 @@ public class UserUploadJob : JobBase
         var ret = new List<int>();
 
         // questId(.deltas)|...
-        foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|'))
+        foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|').Where(s => !string.IsNullOrEmpty(s)))
         {
             string[] questParts = part.Split('.', 2);
             if (!int.TryParse(questParts[0], out int questId))
@@ -1468,19 +1468,19 @@ public class UserUploadJob : JobBase
 
         // Logger.Debug("bags={bags} bank={bank}", updateBags, updateBank);
 
-        var itemMap = Context.PlayerCharacterItem
+        var characterItems = await Context.PlayerCharacterItem
             .Where(pci => pci.CharacterId == character.Id)
             .Where(pci => bagIds.Contains(pci.ContainerId))
-            .ToGroupedDictionary(item => (item.Location, item.ContainerId, item.Slot));
+            .ToArrayAsync();
+        var itemMap = characterItems.ToGroupedDictionary(item => (item.Location, item.ContainerId, item.Slot));
 
-        var itemIds = new HashSet<long>(itemMap.Values
-            .SelectMany(items => items.Select(item => item.Id)));
+        var itemIds = new HashSet<long>(characterItems.Select(item => item.Id));
         var seenIds = new HashSet<long>();
 
         // Bags
         foreach ((string location, int itemId) in characterData.Bags.EmptyIfNull())
         {
-            if (!location.StartsWith("b"))
+            if (!location.StartsWith('b'))
             {
                 Logger.Warning("Invalid bag location: {Location}", location);
                 continue;
@@ -1556,6 +1556,7 @@ public class UserUploadJob : JobBase
                         Location = locationType,
                         Slot = slot,
                     };
+                    itemMap[key] = [item];
                     Context.PlayerCharacterItem.Add(item);
                 }
                 else
@@ -2346,7 +2347,6 @@ public class UserUploadJob : JobBase
 
             foreach (string itemString in tier.Rewards.EmptyIfNull())
             {
-                Console.WriteLine("uhh {0}", itemString);
                 string[] parts = itemString.Split(':');
                 var item = new PlayerCharacterItem();
                 AddItemDetails(item, parts);
