@@ -68,10 +68,7 @@
             return $lazyStore.recipes.stats[key]?.percent ?? 0
         } else {
             if (expansionSlugMap[entry.slug]) {
-                const expansionStats = Object.entries($lazyStore.recipes.stats)
-                    .filter(([key,]) => key.endsWith(`--${entry.slug}`))
-                    .map(([, stats]) => stats);
-                return expansionStats.reduce((a, b) => a + b.percent, 0) / expansionStats.length;
+                return $lazyStore.recipes.stats[`expansion--${entry.slug}`]?.percent ?? 0;
             } else {
                 return $lazyStore.recipes.stats[entry.slug]?.percent ?? 0;
             }
