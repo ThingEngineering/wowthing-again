@@ -85,13 +85,13 @@ export function getActiveHolidays(
 
 function addOffset(dateTime: DateTime, regionMask: number): DateTime {
     // US
-    if (regionMask === 1) {
-        return dateTime.plus({ hours: 7 });
-    }
-    // EU
-    else if (regionMask === 4) {
-        return dateTime.minus({ hours: 1 });
-    } else {
-        return dateTime;
-    }
+    // if (regionMask === 1) {
+    //     return dateTime.plus({ hours: -7 });
+    // }
+    // // EU
+    // else if (regionMask === 4) {
+    //     return dateTime.minus({ hours: 1 });
+    // } else {
+    return dateTime;
+    // }
 }
