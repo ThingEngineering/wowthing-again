@@ -34,5 +34,5 @@ public class WorldQuestReport
     public string Location { get; set; }
 
     [Column(TypeName = "jsonb")]
-    public List<int[]> Rewards { get; set; }
+    public List<int[]> Rewards { get; set; } = new();
 }

@@ -12,6 +12,7 @@ using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
+using Wowthing.Backend.Helpers;
 using Wowthing.Lib.Models.User;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
@@ -28,50 +29,8 @@ public class UserUploadJob : JobBase
     private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
-    private Dictionary<short, Dictionary<(short Expansion, int ZoneId, int QuestId, short Faction, short Class), WorldQuestReport>> _worldQuestReportMap;
-
-    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> AchievementComparer =
-        new(new PlayerCharacterAddonAchievementsAchievementComparer());
 
     private static readonly Regex PlayerGuidRegex = new(@"^Player-\d+-([0-9A-Fa-f]+)$", RegexOptions.Compiled);
-
-    private readonly HashSet<string> _fortifiedNames = new()
-    {
-        "Verstärkt", // deDE
-        "Fortified", // enGB/enUS
-        "Reforzada", // esES
-        "Reforzado", // esMX
-        "Fortifié", // frFR
-        "Potenziamento", // itIT
-        "Fortificada", // ptBR/ptPT
-        "Укрепленный", // ruRU
-        "경화", // koKR
-        "强韧", // zhCN
-        "強悍", // zhTW
-    };
-
-    private static readonly HashSet<int> PlayerBags = new()
-    {
-        0, // Backpack
-        1, // Bag 1
-        2, // Bag 2
-        3, // Bag 3
-        4, // Bag 4
-        5, // Reagent bag
-    };
-
-    private static readonly HashSet<int> PlayerBankBags = new()
-    {
-        -3, // Reagent Bank
-        -1, // Bank
-        6, // Bank bag 1
-        7, // Bank bag 2
-        8, // Bank bag 3
-        9, // Bank bag 4
-        10, // Bank bag 5
-        11, // Bank bag 6
-        12, // Bank bag 7
-    };
 
     private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
         .HandleResult<bool>(r => r == false)
@@ -92,7 +51,7 @@ public class UserUploadJob : JobBase
 
         Logger.Information("Processing {key}...", data[1]);
 
-        // Lock on the user ID to prevent simultaneous uploads
+        // Lock on the user ID to prevent processing multiple uploads at the same time
         string lockKey = $"user_upload:{_userId}";
         string lockValue = Guid.NewGuid().ToString("N");
         try
@@ -199,23 +158,6 @@ public class UserUploadJob : JobBase
         }
 
         _timer.AddPoint("Parse");
-
-        _worldQuestReportMap = (
-                await Context.WorldQuestReport
-                    .Where(wqr => wqr.UserId == _userId)
-                    .ToArrayAsync()
-            )
-            .GroupBy(wqr => wqr.Region)
-            .ToDictionary(
-                group => group.Key,
-                group => group.ToDictionary(wqr => (
-                    wqr.Expansion,
-                    wqr.ZoneId,
-                    wqr.QuestId,
-                    wqr.Faction,
-                    wqr.Class
-                ))
-            );
 
         WowRegion? accountRegion = null;
 
@@ -335,6 +277,8 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Load");
 
         // Deal with character data
+        var worldQuestReportMap = new Dictionary<WorldQuestReportKey, WorldQuestReport>();
+
         int accountId = 0;
         int updatedCharacters = 0;
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
@@ -353,137 +297,46 @@ public class UserUploadJob : JobBase
 
             accountRegion ??= realm.Region;
 
-            // Create any related objects now
-            bool saveNow = false;
-            if (character.AddonData == null)
-            {
-                character.AddonData = new PlayerCharacterAddonData(character.Id);
-                Context.PlayerCharacterAddonData.Add(character.AddonData);
-                saveNow = true;
-            }
-
-            if (character.AddonAchievements == null)
-            {
-                character.AddonAchievements = new PlayerCharacterAddonAchievements(character.Id);
-                Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
-                saveNow = true;
-            }
-
-            if (character.AddonMounts == null)
-            {
-                character.AddonMounts = new PlayerCharacterAddonMounts(character.Id);
-                Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
-                saveNow = true;
-            }
-
-            if (character.AddonQuests == null)
-            {
-                character.AddonQuests = new PlayerCharacterAddonQuests(character.Id);
-                Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
-                saveNow = true;
-            }
-
-            if (character.Lockouts == null)
-            {
-                character.Lockouts = new PlayerCharacterLockouts(character.Id);
-                Context.PlayerCharacterLockouts.Add(character.Lockouts);
-                saveNow = true;
-            }
-
-            if (character.Shadowlands == null)
-            {
-                character.Shadowlands = new PlayerCharacterShadowlands(character.Id);
-                Context.PlayerCharacterShadowlands.Add(character.Shadowlands);
-                saveNow = true;
-            }
-
-            if (character.Transmog == null)
-            {
-                character.Transmog = new PlayerCharacterTransmog(character.Id);
-                Context.PlayerCharacterTransmog.Add(character.Transmog);
-                saveNow = true;
-            }
-
-            if (character.Weekly == null)
-            {
-                character.Weekly = new PlayerCharacterWeekly(character.Id);
-                Context.PlayerCharacterWeekly.Add(character.Weekly);
-                saveNow = true;
-            }
-
-            if (saveNow)
-            {
-                try
-                {
-                    await Context.SaveChangesAsync();
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "Save failed!");
-                    // This discards the changes for this character so that we can continue on
-                    Context.ChangeTracker.AcceptAllChanges();
-                    continue;
-                }
-            }
-
             //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
             accountId = character.AccountId!.Value;
-            var lastSeen = characterData.LastSeen.AsUtcDateTime();
 
-            character.LastSeenAddon = lastSeen;
-
-            character.ChromieTime = characterData.ChromieTime;
-            character.Copper = characterData.Copper;
-            character.IsResting = characterData.IsResting;
-            character.IsWarMode = characterData.IsWarMode;
-            character.PlayedTotal = characterData.PlayedTotal;
-            character.RestedExperience = characterData.RestedXp;
-
-            character.GuildId = null;
+            int? guildId = null;
             if (!string.IsNullOrWhiteSpace(characterData.GuildName))
             {
                 var (guildRealm, guildName) = ParseAddonId(characterData.GuildName);
                 if (guildRealm != null && guildMap.TryGetValue((guildRealm.Id, guildName), out var guild))
                 {
-                    character.GuildId = guild.Id;
+                    guildId = guild.Id;
                 }
             }
 
-            HandleAddonData(character, characterData);
+            await using var characterContext = await NewContext();
 
-            HandleAchievements(character, characterData);
-            HandleCovenants(character, characterData);
+            var processor = new UserUploadCharacterProcessor(Logger, characterContext, _instanceNameToIdMap, character, characterData, realm.Region);
+            var result = await processor.Process(guildId);
 
-            await HandleItems(character, characterData);
-            HandleLockouts(character, characterData);
-            HandleMounts(character, characterData);
-            //HandleMythicPlus(character, characterData);
-            HandlePatronOrders(character, characterData);
-            HandleProfessions(character, characterData);
-            HandleProfessionCooldowns(character, characterData);
-            HandleProfessionTraits(character, characterData);
-            HandleQuests(character, characterData, realm.Region);
-            HandleReputations(character, characterData);
-            HandleTransmog(character, characterData);
-            HandleWeekly(character, characterData);
-
-            if (lastSeen > character.LastApiCheck)
-            {
-                character.LastApiCheck = MiscConstants.DefaultDateTime;
-                character.ShouldUpdate = true;
-                updatedCharacters++;
-            }
-
-            Logger.Warning("Saving character {id} {addonId}", character.Id, addonId);
+            Logger.Warning("Saving character {id} {region}/{realm}/{name}", character.Id, realm.Region, realm.Name, character.Name);
             try
             {
-                await Context.SaveChangesAsync();
+                int savedChanges = await characterContext.SaveChangesAsync();
+                if (savedChanges > 0)
+                {
+                    updatedCharacters++;
+                }
+
+                _resetAchievementCache = _resetAchievementCache || result.ResetAchievementCache;
+                _resetMountCache = _resetMountCache || result.ResetMountCache;
+                _resetQuestCache = _resetQuestCache || result.ResetQuestCache;
+                _resetTransmogCache = _resetTransmogCache || result.ResetTransmogCache;
+
+                foreach (var (key, value) in result.WorldQuestReports)
+                {
+                    worldQuestReportMap.TryAdd(key, value);
+                }
             }
             catch (Exception ex)
             {
                 Logger.Error(ex, "Save failed!");
-                // This discards the changes for this character so that we can continue on
-                Context.ChangeTracker.AcceptAllChanges();
             }
         }
 
@@ -582,7 +435,7 @@ public class UserUploadJob : JobBase
                 var imaCache = await MemoryCacheService.GetItemModifiedAppearances();
                 var sources = new List<string>();
 
-                var itemModifiedAppearanceIds = Unsquish(parsed.TransmogSourcesSquishV2);
+                var itemModifiedAppearanceIds = SquishUtilities.Unsquish(parsed.TransmogSourcesSquishV2);
                 foreach (int itemModifiedAppearanceId in itemModifiedAppearanceIds)
                 {
                     if (imaCache.ById.TryGetValue(itemModifiedAppearanceId, out var itemIdAndModifier))
@@ -606,7 +459,7 @@ public class UserUploadJob : JobBase
                 foreach ((string key, string squished) in parsed.TransmogSourcesSquish)
                 {
                     int modifier = int.Parse(key.Replace("m", ""));
-                    var itemIds = Unsquish(squished);
+                    var itemIds = SquishUtilities.Unsquish(squished);
                     foreach (int itemId in itemIds)
                     {
                         sources.Add($"{itemId}_{modifier}");
@@ -637,6 +490,12 @@ public class UserUploadJob : JobBase
             }
 
             _timer.AddPoint("Account");
+        }
+
+        // Deal with world quest reports
+        if (accountRegion.HasValue)
+        {
+            await HandleWorldQuestReports(accountRegion.Value, worldQuestReportMap);
         }
 
 #if DEBUG
@@ -674,8 +533,6 @@ public class UserUploadJob : JobBase
             Logger.Debug("Regenerating transmog cache");
         }
 
-        Logger.Warning("Trying to save");
-
         await Context.SaveChangesAsync();
         _timer.AddPoint("Save", true);
     }
@@ -698,433 +555,6 @@ public class UserUploadJob : JobBase
         }
 
         return (realm, parts[2]);
-    }
-
-    private List<int> Unsquish(string squished)
-    {
-        var ret = new List<int>();
-
-        // questId(.deltas)|...
-        foreach (string part in squished.EmptyIfNullOrWhitespace().Split('|').Where(s => !string.IsNullOrEmpty(s)))
-        {
-            string[] questParts = part.Split('.', 2);
-            if (!int.TryParse(questParts[0], out int questId))
-            {
-                Logger.Warning("Invalid squished section: '{section}'", part);
-                continue;
-            }
-
-            ret.Add(questId);
-
-            if (questParts.Length == 2)
-            {
-                foreach (char deltaChar in questParts[1].EmptyIfNullOrWhitespace())
-                {
-                    questId += MemoryCacheService.SquishedCharMap[deltaChar];
-                    ret.Add(questId);
-                }
-            }
-        }
-
-        return ret;
-    }
-
-    private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
-    {
-        character.AddonData.Level = characterData.Level;
-        character.AddonData.LevelXp = characterData.LevelXp;
-
-        if (!string.IsNullOrWhiteSpace(characterData.BindLocation))
-        {
-            character.AddonData.BindLocation = characterData.BindLocation.Truncate(64);
-        }
-
-        if (!string.IsNullOrWhiteSpace(characterData.CurrentLocation))
-        {
-            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(64);
-        }
-
-        character.AddonData.Auras = new();
-        foreach (string auraString in characterData.AurasV2.EmptyIfNull())
-        {
-            string[] auraParts = auraString.Split(':');
-            if (auraParts.Length >= 2)
-            {
-                var aura = character.AddonData.Auras[int.Parse(auraParts[0])] = new();
-                aura.Expires = int.Parse(auraParts[1]);
-
-                if (auraParts.Length >= 4)
-                {
-                    aura.Stacks = int.Parse(auraParts[2]);
-                    aura.Duration = int.Parse(auraParts[3]);
-                }
-            }
-        }
-
-        // Currencies
-        if (characterData.Currencies != null &&
-            characterData.ScanTimes.TryGetValue("currencies", out int currenciesTimestamp))
-        {
-            var scanTime = currenciesTimestamp.AsUtcDateTime();
-            if (scanTime > character.AddonData.CurrenciesScannedAt)
-            {
-                character.AddonData.Currencies = new();
-                character.AddonData.CurrenciesScannedAt = scanTime;
-
-                foreach ((short currencyId, string currencyString) in characterData.Currencies)
-                {
-                    // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
-                    var parts = currencyString.Split(":");
-                    if (parts.Length != 7)
-                    {
-                        Logger.Warning("Invalid currency string: {String}", currencyString);
-                        continue;
-                    }
-
-                    if (!character.AddonData.Currencies.TryGetValue(currencyId, out var currency))
-                    {
-                        character.AddonData.Currencies[currencyId] = currency = new PlayerCharacterAddonDataCurrency
-                        {
-                            CurrencyId = currencyId,
-                        };
-                    }
-
-                    currency.Quantity = int.Parse(parts[0].OrDefault("0"));
-                    currency.Max = int.Parse(parts[1].OrDefault("0"));
-                    currency.IsWeekly = parts[2] == "1";
-                    currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
-                    currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
-                    currency.IsMovingMax = parts[5] == "1";
-                    currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
-                }
-            }
-        }
-
-        // Equipment
-        character.AddonData.EquippedItems = new();
-        foreach ((string slotString, string itemString) in characterData.EquipmentV2.EmptyIfNull())
-        {
-            int slot = int.Parse(slotString[1..]);
-            string[] parts = itemString.Split(":");
-            if (parts.Length != 10)
-            {
-                Logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
-                continue;
-            }
-
-            short.TryParse(parts[2].OrDefault("0"), out short context);
-            short.TryParse(parts[3].OrDefault("0"), out short enchantId);
-            short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
-            short.TryParse(parts[5].OrDefault("0"), out short quality);
-            // short.TryParse(parts[6].OrDefault("0"), out short suffixId);
-
-            var item = character.AddonData.EquippedItems[slot] = new();
-
-            // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems:modifiers
-            item.ItemId = int.Parse(parts[1]);
-            item.Context = context;
-            item.ItemLevel = itemLevel;
-            item.Quality = (WowQuality)quality;
-
-            item.EnchantmentIds = new();
-            if (enchantId > 0)
-            {
-                item.EnchantmentIds.Add(enchantId);
-            }
-
-            item.BonusIds = parts[7]
-                .EmptyIfNullOrWhitespace()
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
-
-            item.GemIds = parts[8]
-                .EmptyIfNullOrWhitespace()
-                .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .ToList();
-
-            if (parts.Length >= 10)
-            {
-                item.CraftedQuality = GetCraftedQuality(parts[9]);
-            }
-        }
-
-        // Garrisons
-        character.AddonData.Garrisons ??= new();
-        foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
-        {
-            var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
-            if (!character.AddonData.Garrisons.TryGetValue(dataGarrison.Type, out var dbGarrison))
-            {
-                dbGarrison = character.AddonData.Garrisons[dataGarrison.Type] = new PlayerCharacterAddonDataGarrison
-                {
-                    Type = dataGarrison.Type,
-                };
-            }
-            else if (scanTime < dbGarrison.ScannedAt)
-            {
-                continue;
-            }
-
-            dbGarrison.Level = Math.Max(dbGarrison.Level, dataGarrison.Level);
-            dbGarrison.ScannedAt = scanTime;
-            dbGarrison.Buildings = dataGarrison.Buildings
-                .EmptyIfNull()
-                .Select(building => new PlayerCharacterAddonDataGarrisonBuilding
-                {
-                    BuildingId = building.BuildingId,
-                    PlotId = building.PlotId,
-                    Rank = building.Rank,
-                    Name = building.Name.Truncate(64),
-                })
-                .ToList();
-        }
-
-        // Garrison Trees
-        if (characterData.GarrisonTrees != null &&
-            characterData.ScanTimes.TryGetValue("garrisonTrees", out int garrisonTreesTimestamp))
-        {
-            var scanTime = garrisonTreesTimestamp.AsUtcDateTime();
-            if (scanTime > character.AddonData.GarrisonTreesScannedAt)
-            {
-                character.AddonData.GarrisonTrees = new();
-                character.AddonData.GarrisonTreesScannedAt = scanTime;
-
-                foreach (var (key, packedData) in characterData.GarrisonTrees)
-                {
-                    if (!int.TryParse(key, out int treeId))
-                    {
-                        continue;
-                    }
-
-                    if (!character.AddonData.GarrisonTrees.TryGetValue(treeId, out var tree))
-                    {
-                        tree = character.AddonData.GarrisonTrees[treeId] = new Dictionary<int, List<int>>();
-                    }
-
-                    var unpacked = new List<(int, int, int)>();
-
-                    foreach (var packed in packedData)
-                    {
-                        var parts = packed.Split(':');
-                        if (parts.Length == 3)
-                        {
-                            unpacked.Add((
-                                int.Parse(parts[0]), // id
-                                int.Parse(parts[1]), // rank
-                                int.Parse(parts[2])  // research time
-                            ));
-                        }
-                    }
-
-                    if (unpacked.Sum(packed => packed.Item2) == 0)
-                    {
-                        continue;
-                    }
-
-                    foreach (var (talentId, talentRank, talentResearch) in unpacked)
-                    {
-                        if (!tree.ContainsKey(talentId) || tree[talentId][0] < talentRank)
-                        {
-                            tree[talentId] = new List<int>
-                            {
-                                talentRank,
-                                talentResearch,
-                            };
-                        }
-                    }
-                }
-            }
-        }
-
-        // Mythic Plus
-        if ((characterData.MythicPlus != null || characterData.MythicPlusV2 != null) &&
-            characterData.ScanTimes.TryGetValue("mythicPlus", out int mythicPlusTimestamp))
-        {
-            var scanTime = mythicPlusTimestamp.AsUtcDateTime();
-            if (scanTime > character.AddonData.MythicPlusScannedAt)
-            {
-                character.AddonData.MythicPlusScannedAt = scanTime;
-
-                // V1 data
-                if (characterData.MythicPlus != null)
-                {
-                    if (character.AddonData.MythicPlus == null)
-                    {
-                        character.AddonData.MythicPlus = new();
-                    }
-
-                    var season = character.AddonData.MythicPlus[characterData.MythicPlus.Season] = new();
-
-                    foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
-                    {
-                        var mapData = season.Maps[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
-                        mapData.OverallScore = map.OverallScore;
-
-                        foreach (var mapScore in map.AffixScores.EmptyIfNull())
-                        {
-                            if (_fortifiedNames.Contains(mapScore.Name))
-                            {
-                                mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
-                                {
-                                    OverTime = mapScore.OverTime,
-                                    DurationSec = mapScore.DurationSec,
-                                    Level = mapScore.Level,
-                                    Score = mapScore.Score,
-                                };
-                            }
-                            else
-                            {
-                                mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
-                                {
-                                    OverTime = mapScore.OverTime,
-                                    DurationSec = mapScore.DurationSec,
-                                    Level = mapScore.Level,
-                                    Score = mapScore.Score,
-                                };
-                            }
-                        }
-                    }
-
-                    foreach (var runString in characterData.MythicPlus.Runs.EmptyIfNull())
-                    {
-                        var runParts = runString.Split(':');
-                        season.Runs.Add(new PlayerCharacterAddonDataMythicPlusRun
-                        {
-                            MapId = int.Parse(runParts[0]),
-                            Completed = runParts[1] == "1",
-                            Level = int.Parse(runParts[2]),
-                            Score = int.Parse(runParts[3]),
-                        });
-                    }
-                }
-
-                // V2 data
-                if (characterData.MythicPlusV2 != null)
-                {
-                    // Seasons
-                    if (character.AddonData.MythicPlusSeasons == null)
-                    {
-                        character.AddonData.MythicPlusSeasons = new();
-                    }
-
-                    foreach (var (seasonId, maps) in characterData.MythicPlusV2.Seasons.EmptyIfNull())
-                    {
-                        var season = character.AddonData.MythicPlusSeasons[seasonId] = new();
-
-                        foreach (var map in maps)
-                        {
-                            var mapData = season[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
-                            mapData.OverallScore = map.OverallScore;
-
-                            foreach (var mapScore in map.AffixScores.EmptyIfNull())
-                            {
-                                if (_fortifiedNames.Contains(mapScore.Name))
-                                {
-                                    mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
-                                    {
-                                        OverTime = mapScore.OverTime,
-                                        DurationSec = mapScore.DurationSec,
-                                        Level = mapScore.Level,
-                                        Score = mapScore.Score,
-                                    };
-                                }
-                                else
-                                {
-                                    mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
-                                    {
-                                        OverTime = mapScore.OverTime,
-                                        DurationSec = mapScore.DurationSec,
-                                        Level = mapScore.Level,
-                                        Score = mapScore.Score,
-                                    };
-                                }
-                            }
-                        }
-                    }
-
-                    // Migrate any old data
-                    foreach (var (season, data) in character.AddonData.MythicPlus.EmptyIfNull())
-                    {
-                        if (!character.AddonData.MythicPlusSeasons.ContainsKey(season))
-                        {
-                            character.AddonData.MythicPlusSeasons[season] = data.Maps;
-                        }
-                    }
-
-                    // Weeks
-                    character.AddonData.MythicPlusWeeks ??= new();
-
-                    foreach (var (weekEnds, runStrings) in characterData.MythicPlusV2.Weeks.EmptyIfNull())
-                    {
-                        var week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
-                        foreach (string runString in runStrings)
-                        {
-                            string[] runParts = runString.Split(':');
-                            week.Add(new PlayerCharacterAddonDataMythicPlusRun
-                            {
-                                MapId = int.Parse(runParts[0]),
-                                Completed = runParts[1] == "1",
-                                Level = int.Parse(runParts[2]),
-                                Score = int.Parse(runParts[3]),
-                            });
-                        }
-                    }
-                }
-            }
-        }
-
-        // Change detection for this is obnoxious, just update it
-        var entry = Context.Entry(character.AddonData);
-        if (entry.State != EntityState.Added)
-        {
-            entry.Property(ad => ad.Garrisons).IsModified = true;
-            entry.Property(ad => ad.MythicPlusSeasons).IsModified = true;
-            entry.Property(ad => ad.MythicPlusWeeks).IsModified = true;
-        }
-    }
-
-    private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
-    {
-        // Basic sanity checks
-        if (characterData.Achievements == null || !characterData.ScanTimes.TryGetValue("achievements", out int scanTimestamp))
-        {
-            return;
-        }
-
-        var scanTime = scanTimestamp.AsUtcDateTime();
-        if (scanTime <= character.AddonAchievements.ScannedAt)
-        {
-            return;
-        }
-
-        var newAchievements = characterData.Achievements
-            .EmptyIfNull()
-            .ToDictionary(
-                ach => ach.Id,
-                ach => new PlayerCharacterAddonAchievementsAchievement
-                {
-                    Earned = ach.Earned,
-                    Criteria = ach.Criteria,
-                }
-            );
-
-        if (!AchievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
-        {
-            character.AddonAchievements.ScannedAt = scanTime;
-            character.AddonAchievements.Achievements = characterData.Achievements
-                .ToDictionary(
-                    ach => ach.Id,
-                    ach => new PlayerCharacterAddonAchievementsAchievement
-                    {
-                        Earned = ach.Earned,
-                        Criteria = ach.Criteria,
-                    }
-                );
-
-            _resetAchievementCache = true;
-        }
     }
 
     private async Task HandleBattlePets(int accountId, Dictionary<long, string> parsedBattlePets)
@@ -1205,91 +635,6 @@ public class UserUploadJob : JobBase
         await localContext.SaveChangesAsync(CancellationToken);
 
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
-    }
-
-    private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
-    {
-        if (characterData.ActiveCovenantId > 0)
-        {
-            character.Shadowlands.CovenantId = characterData.ActiveCovenantId;
-        }
-
-        character.Shadowlands.Covenants ??= new();
-
-        foreach (var covenantData in characterData.Covenants.EmptyIfNull())
-        {
-            if (!character.Shadowlands.Covenants.TryGetValue(covenantData.Id, out var covenant))
-            {
-                covenant = character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant();
-            }
-
-            covenant.Anima = Math.Max(0, covenantData.Anima);
-            covenant.Renown = Math.Max(0, Math.Min(80, covenantData.Renown));
-            covenant.Souls = Math.Max(0, Math.Min(100, covenantData.Souls));
-
-            covenant.Soulbinds = HandleCovenantsSoulbinds(covenant.Soulbinds, covenantData.Soulbinds);
-
-            covenant.Conductor = HandleCovenantsFeature(covenant.Conductor, covenantData.Conductor);
-            covenant.Missions = HandleCovenantsFeature(covenant.Missions, covenantData.Missions);
-            covenant.Transport = HandleCovenantsFeature(covenant.Transport, covenantData.Transport);
-            covenant.Unique = HandleCovenantsFeature(covenant.Unique, covenantData.Unique);
-        }
-
-        // Change detection for this is obnoxious, just update it
-        var entry = Context.Entry(character.Shadowlands);
-        if (entry.State != EntityState.Added)
-        {
-            entry.Property(cs => cs.Covenants).IsModified = true;
-        }
-    }
-
-    private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
-        PlayerCharacterShadowlandsCovenantFeature feature,
-        UploadCharacterCovenantFeature featureData
-    )
-    {
-        if (featureData == null)
-        {
-            return feature;
-        }
-
-        return new PlayerCharacterShadowlandsCovenantFeature
-        {
-            Rank = Math.Max(feature?.Rank ?? 0, Math.Max(0, Math.Min(5, featureData.Rank))),
-            ResearchEnds = featureData.ResearchEnds ?? 0,
-            Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
-        };
-    }
-
-    private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
-        List<PlayerCharacterShadowlandsCovenantSoulbind> soulbinds,
-        List<UploadCharacterCovenantSoulbind> soulbindsData)
-    {
-        var soulbindMap = soulbinds
-            .EmptyIfNull()
-            .ToDictionary(soulbind => soulbind.Id);
-
-        foreach (var soulbindData in soulbindsData.EmptyIfNull())
-        {
-            if (!soulbindMap.TryGetValue(soulbindData.Id, out var soulbind))
-            {
-                soulbind = soulbindMap[soulbindData.Id] = new PlayerCharacterShadowlandsCovenantSoulbind
-                {
-                    Id = soulbindData.Id,
-                };
-            }
-
-            soulbind.Unlocked = soulbind.Unlocked || soulbindData.Unlocked;
-            soulbind.Specializations = soulbindData.Specs.EmptyIfNull();
-
-            var tree = soulbindData.Tree.EmptyIfNull();
-            if (tree.Count > 0)
-            {
-                soulbind.Tree = tree;
-            }
-        }
-
-        return soulbindMap.Values.ToList();
     }
 
     private async Task HandleGuildItems(PlayerGuild guild, UploadGuild guildData)
@@ -1433,174 +778,44 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private async Task HandleItems(PlayerCharacter character, UploadCharacter characterData)
+    private async Task HandleWorldQuestReports(WowRegion accountRegion,
+        Dictionary<WorldQuestReportKey, WorldQuestReport> newReports)
     {
-        characterData.ScanTimes.TryGetValue("bags", out int bagsTimestamp);
-        characterData.ScanTimes.TryGetValue("bank", out int bankTimestamp);
-        if (bagsTimestamp == 0 && bankTimestamp == 0)
+        await using var localContext = await ContextFactory.CreateDbContextAsync();
+
+        var reportMap = (
+                await localContext.WorldQuestReport
+                    .Where(wqr => wqr.UserId == _userId && wqr.Region == (short)accountRegion)
+                    .ToArrayAsync()
+            )
+            .ToDictionary(wqr => new WorldQuestReportKey(
+                wqr.Expansion,
+                wqr.ZoneId,
+                wqr.QuestId,
+                wqr.Faction,
+                wqr.Class
+            ));
+
+        foreach (var (key, newReport) in newReports)
         {
-            Logger.Debug("Bags and bank not scanned");
-            return;
-        }
-
-        var bagsScanned = bagsTimestamp.AsUtcDateTime();
-        var bankScanned = bankTimestamp.AsUtcDateTime();
-        bool updateBags = bagsScanned > character.AddonData.BagsScannedAt;
-        bool updateBank = bankScanned > character.AddonData.BankScannedAt;
-
-        if (!updateBags && !updateBank)
-        {
-            Logger.Debug("Bags and bank not scanned since last time");
-            return;
-        }
-
-        List<int> bagIds = new();
-        if (updateBags)
-        {
-            character.AddonData.BagsScannedAt = bagsScanned;
-            bagIds.AddRange(PlayerBags);
-        }
-        if (updateBank)
-        {
-            character.AddonData.BankScannedAt = bankScanned;
-            bagIds.AddRange(PlayerBankBags);
-        }
-
-        // Logger.Debug("bags={bags} bank={bank}", updateBags, updateBank);
-
-        var characterItems = await Context.PlayerCharacterItem
-            .Where(pci => pci.CharacterId == character.Id)
-            .Where(pci => bagIds.Contains(pci.ContainerId))
-            .ToArrayAsync();
-        var itemMap = characterItems.ToGroupedDictionary(item => (item.Location, item.ContainerId, item.Slot));
-
-        var itemIds = new HashSet<long>(characterItems.Select(item => item.Id));
-        var seenIds = new HashSet<long>();
-
-        // Bags
-        foreach ((string location, int itemId) in characterData.Bags.EmptyIfNull())
-        {
-            if (!location.StartsWith('b'))
+            if (!reportMap.TryGetValue(key, out var dbReport))
             {
-                Logger.Warning("Invalid bag location: {Location}", location);
-                continue;
-            }
-
-            short bagId = short.Parse(location[1..]);
-            if (!bagIds.Contains(bagId))
-            {
-                // Logger.Debug("Skipping bag {id}", bagId);
-                continue;
-            }
-            var locationType = GetBagLocation(bagId);
-
-            var key = (locationType, bagId, (short)0);
-            PlayerCharacterItem item;
-            if (!itemMap.TryGetValue(key, out var items))
-            {
-                item = new PlayerCharacterItem
-                {
-                    CharacterId = character.Id,
-                    ContainerId = bagId,
-                    Location = locationType,
-                    Slot = 0,
-                };
-                Context.PlayerCharacterItem.Add(item);
+                reportMap[key] = newReport;
+                newReport.UserId = _userId;
+                localContext.WorldQuestReport.Add(newReport);
             }
             else
             {
-                item = items.FirstOrDefault(pci => pci.ItemId == itemId) ?? items.First();
-                seenIds.Add(item.Id);
-            }
-
-            item.Count = 1;
-            item.ItemId = itemId;
-        }
-
-        // Items
-        foreach ((string location, var contents) in characterData.Items.EmptyIfNull())
-        {
-            if (!location.StartsWith("b"))
-            {
-                Logger.Warning("Invalid item location: {Location}", location);
-                continue;
-            }
-
-            short bagId = short.Parse(location[1..]);
-            if (!bagIds.Contains(bagId))
-            {
-                // Logger.Debug("Skipping item in bag {id}", bagId);
-                continue;
-            }
-            var locationType = GetBagLocation(bagId);
-
-            foreach ((string slotString, string itemString) in contents)
-            {
-                var slot = short.Parse(slotString[1..]);
-                // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
-                var parts = itemString.Split(":");
-                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
-                {
-                    Logger.Warning("Invalid item string: {String}", itemString);
-                    continue;
-                }
-
-                var key = (locationType, bagId, slot);
-                PlayerCharacterItem item;
-                if (!itemMap.TryGetValue(key, out var items))
-                {
-                    item = new PlayerCharacterItem
-                    {
-                        CharacterId = character.Id,
-                        ContainerId = bagId,
-                        Location = locationType,
-                        Slot = slot,
-                    };
-                    itemMap[key] = [item];
-                    Context.PlayerCharacterItem.Add(item);
-                }
-                else
-                {
-                    item = items.FirstOrDefault(pci => pci.ItemId == int.Parse(parts[1])) ?? items.First();
-                    seenIds.Add(item.Id);
-                }
-
-                AddItemDetails(item, parts);
+                dbReport.ExpiresAt = newReport.ExpiresAt;
+                dbReport.ReportedAt = newReport.ReportedAt;
+                dbReport.Rewards = newReport.Rewards;
             }
         }
 
-        var deleteMe = itemIds
-            .Except(seenIds)
-            .ToArray();
-        if (deleteMe.Length > 0)
-        {
-            await Context.PlayerCharacterItem
-                .Where(pci => deleteMe.Contains(pci.Id))
-                .ExecuteDeleteAsync();
-        }
+        await localContext.SaveChangesAsync();
     }
 
-    private ItemLocation GetBagLocation(short bagId)
-    {
-        if (bagId is >= 0 and <= 5)
-        {
-            return ItemLocation.Bags;
-        }
-
-        if (bagId is -1 or (>= 6 and <= 12))
-        {
-            return ItemLocation.Bank;
-        }
-
-        if (bagId == -3)
-        {
-            return ItemLocation.ReagentBank;
-        }
-
-        return ItemLocation.Unknown;
-    }
-
-    private static void AddItemDetails(BasePlayerItem item, string[] parts)
+    public static void AddItemDetails(BasePlayerItem item, string[] parts)
     {
         if (parts[0] == "pet")
         {
@@ -1662,7 +877,7 @@ public class UserUploadJob : JobBase
         }
     }
 
-    private static short GetCraftedQuality(string packedModifiers)
+    public static short GetCraftedQuality(string packedModifiers)
     {
         var modifiers = packedModifiers
             .EmptyIfNullOrWhitespace()
@@ -1684,679 +899,6 @@ public class UserUploadJob : JobBase
         }
 
         return 0;
-    }
-
-    private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
-    {
-        // Basic sanity checks
-        if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
-        {
-            return;
-        }
-
-        var scanTime = scanTimestamp.AsUtcDateTime();
-        if (scanTime <= character.Lockouts.LastUpdated)
-        {
-            return;
-        }
-
-        character.Lockouts.LastUpdated = scanTime;
-
-        var newLockouts = new List<PlayerCharacterLockoutsLockout>();
-        foreach (var lockoutData in characterData.Lockouts)
-        {
-            if (lockoutData.Id == 0)
-            {
-                if (!_instanceNameToIdMap.TryGetValue(lockoutData.Name, out int instanceId))
-                {
-                    Logger.Warning("Invalid lockout instance: {Name}", lockoutData.Name);
-                    continue;
-                }
-                lockoutData.Id = instanceId;
-            }
-
-            var bosses = new List<PlayerCharacterLockoutsLockoutBoss>();
-            foreach (var bossString in lockoutData.Bosses.EmptyIfNull())
-            {
-                var bossParts = bossString.Split(":");
-                if (bossParts.Length != 2)
-                {
-                    Logger.Warning("Invalid lockout boss string: {String}", bossString);
-                    continue;
-                }
-
-                bosses.Add(new PlayerCharacterLockoutsLockoutBoss
-                {
-                    Dead = bossParts[0] == "1",
-                    Name = bossParts[1].Truncate(32),
-                });
-            }
-
-            newLockouts.Add(new PlayerCharacterLockoutsLockout
-            {
-                Locked = lockoutData.Locked,
-                DefeatedBosses = lockoutData.DefeatedBosses,
-                Difficulty = lockoutData.Difficulty,
-                Id = lockoutData.Id,
-                MaxBosses = lockoutData.MaxBosses,
-                Name = lockoutData.Name.Truncate(32),
-                ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
-                Bosses = bosses,
-            });
-        }
-
-        // Ensure a consistent order
-        newLockouts = newLockouts
-            .OrderBy(lockout => lockout.Id)
-            .ThenBy(lockout => lockout.Difficulty)
-            .ThenBy(lockout => lockout.ResetTime)
-            .ToList();
-
-        // If the lists are different lengths we know an update is required
-        var update = newLockouts.Count != character.Lockouts.Lockouts?.Count;
-        // Otherwise, compare the lists to see if the lockouts are the same
-        if (!update)
-        {
-            for (int i = 0; i < newLockouts.Count; i++)
-            {
-                if (!character.Lockouts.Lockouts[i].Equals(newLockouts[i]))
-                {
-                    update = true;
-                    break;
-                }
-            }
-        }
-
-        if (update)
-        {
-            character.Lockouts.Lockouts = newLockouts;
-        }
-    }
-
-    private void HandleMounts(PlayerCharacter character, UploadCharacter characterData)
-    {
-        if (!characterData.ScanTimes.TryGetValue("mounts", out int scanTimestamp))
-        {
-            return;
-        }
-        var scanTime = scanTimestamp.AsUtcDateTime();
-
-        if (scanTime > character.AddonMounts.ScannedAt)
-        {
-            character.AddonMounts.ScannedAt = scanTime;
-            var sortedMountIds = characterData.Mounts
-                .EmptyIfNull()
-                .Order()
-                .ToList();
-            if (character.AddonMounts.Mounts == null || !sortedMountIds.SequenceEqual(character.AddonMounts.Mounts))
-            {
-                _resetMountCache = true;
-                character.AddonMounts.Mounts = sortedMountIds;
-            }
-        }
-    }
-
-    private void HandlePatronOrders(PlayerCharacter character, UploadCharacter characterData)
-    {
-        if (characterData.PatronOrders == null ||
-            !characterData.ScanTimes.TryGetValue("patronOrders", out int scanTimestamp))
-        {
-            return;
-        }
-
-        var scanTime = scanTimestamp.AsUtcDateTime();
-        if (scanTime <= character.AddonData.PatronOrdersScannedAt)
-        {
-            return;
-        }
-
-        character.AddonData.PatronOrders ??= new();
-        character.AddonData.PatronOrdersScannedAt = scanTime;
-
-        foreach ((int professionId, string[] patronOrderStrings) in characterData.PatronOrders)
-        {
-            var patronOrders = character.AddonData.PatronOrders[professionId] = new();
-            foreach (string patronOrderString in patronOrderStrings)
-            {
-                // expires, abilityId, itemId, minQuality, tipAmount, rewards, reagents
-                // 1726930800|49722|213501|3|615326|1:227713:11:0:0:0:0:::_1:228735:0:0:0:0:0:::|300:210814
-                string[] orderParts = patronOrderString.Split("|");
-                if (orderParts.Length != 7)
-                {
-                    Logger.Warning("Invalid patron order string: {s}", patronOrderString);
-                    continue;
-                }
-
-                var patronOrder = new PlayerCharacterAddonDataPatronOrder
-                {
-                    ExpirationTime = int.Parse(orderParts[0]),
-                    SkillLineAbilityId = int.Parse(orderParts[1]),
-                    ItemId = int.Parse(orderParts[2]),
-                    MinQuality = int.Parse(orderParts[3]),
-                    TipAmount = int.Parse(orderParts[4]),
-                    Rewards = orderParts[5]
-                        .Split('_')
-                        .Where(s => !s.IsNullOrEmpty())
-                        .Select(reward => reward.Split(':'))
-                        .Select(rewardParts => new PlayerCharacterAddonDataPatronOrderReward
-                        {
-                            Count = int.Parse(rewardParts[0]),
-                            ItemId = int.Parse(rewardParts[1])
-                        })
-                        .ToList(),
-                    Reagents = orderParts[6]
-                        .Split('_')
-                        .Where(s => !s.IsNullOrEmpty())
-                        .Select(reward => reward.Split(':'))
-                        .Select(rewardParts => new PlayerCharacterAddonDataPatronOrderReagent
-                        {
-                            Count = int.Parse(rewardParts[0]),
-                            ItemId = int.Parse(rewardParts[1])
-                        })
-                        .ToList(),
-                };
-
-                patronOrders.Add(patronOrder);
-            }
-        }
-
-        // Change detection for this is obnoxious, just update it
-        var entry = Context.Entry(character.AddonData);
-        if (entry.State != EntityState.Added)
-        {
-            entry.Property(ad => ad.PatronOrders).IsModified = true;
-        }
-    }
-
-    private void HandleProfessions(PlayerCharacter character, UploadCharacter characterData)
-    {
-        character.AddonData.Professions = new();
-
-        foreach (var profession in characterData.Professions.EmptyIfNull())
-        {
-            character.AddonData.Professions[profession.Id] = new PlayerCharacterProfessionTier()
-            {
-                CurrentSkill = profession.CurrentSkill,
-                MaxSkill = profession.MaxSkill,
-                KnownRecipes = profession.KnownRecipes,
-            };
-        }
-    }
-
-    private void HandleProfessionCooldowns(PlayerCharacter character, UploadCharacter characterData)
-    {
-        character.AddonData.ProfessionCooldowns = new();
-
-        foreach (string cooldownString in characterData.ProfessionCooldowns.EmptyIfNull())
-        {
-            string[] cooldownParts = cooldownString.Split(':');
-            character.AddonData.ProfessionCooldowns[cooldownParts[0]] = cooldownParts
-                .Skip(1)
-                .Select(int.Parse)
-                .ToList();
-        }
-
-        foreach (string orderString in characterData.ProfessionOrders.EmptyIfNull())
-        {
-            // skill line, current, next
-            string[] orderParts = orderString.Split(':');
-            // next, current, max
-            character.AddonData.ProfessionCooldowns[$"orders{orderParts[0]}"] = new()
-            {
-                int.Parse(orderParts[2]),
-                int.Parse(orderParts[1]),
-                4,
-            };
-        }
-    }
-
-    private void HandleProfessionTraits(PlayerCharacter character, UploadCharacter characterData)
-    {
-        character.AddonData.ProfessionTraits = new();
-
-        foreach (string traitString in characterData.ProfessionTraits.EmptyIfNull())
-        {
-            string[] traitParts = traitString.Split('|');
-            character.AddonData.ProfessionTraits[int.Parse(traitParts[0])] = traitParts
-                .Skip(1)
-                .Select(part => part
-                    .Split(':')
-                    .Select(int.Parse)
-                    .ToArray()
-                )
-                .ToDictionary(pair => pair[0], pair => pair[1]);
-        }
-    }
-
-    private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
-    {
-        bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
-        bool hasCompleted = characterData.ScanTimes.TryGetValue("completedQuests", out int completedScanTimestamp);
-        bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
-        bool hasWorldQuests = characterData.ScanTimes.TryGetValue("worldQuests", out int worldQuestsScanTimestamp);
-        if (!hasCallings && !hasCompleted && !hasQuests && !hasWorldQuests)
-        {
-            return;
-        }
-
-        character.AddonQuests.CompletedQuests ??= new();
-        character.AddonQuests.Dailies ??= new();
-
-        bool dailiesUpdated = false;
-        if (callingsScanTimestamp > 0)
-        {
-            var scanTime = callingsScanTimestamp.AsUtcDateTime();
-            if (scanTime >= character.AddonQuests.CallingsScannedAt)
-            {
-                character.AddonQuests.CallingsScannedAt = scanTime;
-
-                // TODO fix hardcoded if next expansion also has these
-                character.AddonQuests.Dailies[8] = new List<List<int>>
-                {
-                    characterData.Callings
-                        .EmptyIfNull()
-                        .Select(calling => calling.Completed ? 1 : 0)
-                        .ToList(),
-                    characterData.Callings
-                        .EmptyIfNull()
-                        .Select(calling => calling.Expires)
-                        .ToList(),
-                };
-
-                // User is trusted, update global dailies
-                if (characterData.Callings != null && _globalDailiesMap != null)
-                {
-                    var globalDailies = _globalDailiesMap[(region, 8)];
-                    var questMap = new Dictionary<int, int>();
-                    for (int i = 0; i < globalDailies.QuestIds.Count; i++)
-                    {
-                        questMap[globalDailies.QuestExpires[i]] = globalDailies.QuestIds[i];
-                    }
-
-                    foreach (var calling in characterData.Callings)
-                    {
-                        if (calling.QuestID > 0)
-                        {
-                            questMap[calling.Expires] = Hardcoded.CallingQuestLookup
-                                .GetValueOrDefault(calling.QuestID, calling.QuestID);
-                        }
-                    }
-
-                    var questPairs = Enumerable.TakeLast(questMap
-                            .OrderBy(kvp => kvp.Key), 3)
-                        .ToList();
-
-                    globalDailies.QuestIds = questPairs
-                        .Select(kvp => kvp.Value)
-                        .ToList();
-                    globalDailies.QuestExpires = questPairs
-                        .Select(kvp => kvp.Key)
-                        .ToList();
-                }
-
-                dailiesUpdated = true;
-            }
-        }
-
-        if (completedScanTimestamp > 0)
-        {
-            _resetQuestCache = true;
-
-            var scanTime = completedScanTimestamp.AsUtcDateTime();
-            if (scanTime >= character.AddonQuests.CompletedQuestsScannedAt)
-            {
-                character.AddonQuests.CompletedQuestsScannedAt = scanTime;
-                character.AddonQuests.CompletedQuests = Unsquish(characterData.CompletedQuestsSquish);
-            }
-        }
-
-        if (questsScanTimestamp > 0)
-        {
-            _resetQuestCache = true;
-
-            var scanTime = questsScanTimestamp.AsUtcDateTime();
-            if (scanTime >= character.AddonQuests.QuestsScannedAt)
-            {
-                character.AddonQuests.QuestsScannedAt = scanTime;
-
-                character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
-                character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
-
-                character.AddonQuests.ProgressQuests = new();
-                foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
-                {
-                    var progressParts = packedProgress.Split('|');
-                    if (progressParts.Length < 5)
-                    {
-                        Logger.Warning("Invalid progress string: {progress}", packedProgress);
-                        continue;
-                    }
-
-                    var progress = new PlayerCharacterAddonQuestsProgress
-                    {
-                        Id = int.Parse(progressParts[1]),
-                        Name = progressParts[2],
-                        Status = int.Parse(progressParts[3]),
-                        Expires = int.Parse(progressParts[4]),
-                    };
-
-                    if (progressParts.Length == 6)
-                    {
-                        foreach (string packedObjective in progressParts[5].Split('_', StringSplitOptions.RemoveEmptyEntries))
-                        {
-                            string[] objectiveParts = packedObjective.Split(';');
-                            if (objectiveParts.Length != 4)
-                            {
-                                Logger.Warning("Invalid objective string: {objective}", packedObjective);
-                                continue;
-                            }
-
-                            progress.Objectives.Add(new()
-                            {
-                                Type = objectiveParts[0],
-                                Text = objectiveParts[1],
-                                Have = int.Parse(objectiveParts[2]),
-                                Need = int.Parse(objectiveParts[3]),
-                            });
-                        }
-                    }
-                    else if (progressParts.Length > 6)
-                    {
-                        progress.Objectives.Add(new()
-                        {
-                            Have = int.Parse(progressParts[5]),
-                            Need = int.Parse(progressParts[6]),
-                            Type = progressParts[7],
-                            Text = progressParts[8],
-                        });
-                    }
-
-                    character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
-                }
-
-                // Hacky workaround to make these into progress quests
-                foreach (var instanceDone in characterData.InstanceDone.EmptyIfNull())
-                {
-                    character.AddonQuests.ProgressQuests[instanceDone.Key] = new PlayerCharacterAddonQuestsProgress
-                    {
-                        Id = 0,
-                        Name = "Hack",
-                        Status = instanceDone.Locked ? 2 : 0,
-                        Expires = instanceDone.ResetTime,
-                    };
-                }
-            }
-        }
-
-        if (worldQuestsScanTimestamp > 0)
-        {
-            var scanTime = worldQuestsScanTimestamp.AsUtcDateTime();
-            if (scanTime >= character.AddonQuests.WorldQuestsScannedAt)
-            {
-                character.AddonQuests.WorldQuestsScannedAt = scanTime;
-                HandleQuestsWorld(character, characterData, region);
-            }
-        }
-
-        if (dailiesUpdated)
-        {
-            var entry = Context.Entry(character.AddonQuests);
-            if (entry.State != EntityState.Added)
-            {
-                entry.Property(caq => caq.Dailies).IsModified = true;
-            }
-        }
-    }
-
-    private void HandleQuestsWorld(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
-    {
-        short shortRegion = (short)region;
-        if (!_worldQuestReportMap.TryGetValue(shortRegion, out var reportMap))
-        {
-            _worldQuestReportMap[shortRegion] = reportMap = new();
-        }
-
-        foreach ((short expansion, var zones) in characterData.WorldQuests.EmptyIfNull())
-        {
-            foreach ((int zoneId, string[] questStrings) in zones)
-            {
-                foreach (string questString in questStrings)
-                {
-                    var parts = questString.Split(':');
-                    if (parts.Length != 5)
-                    {
-                        Logger.Warning("Invalid quest string: {s}", questString);
-                        continue;
-                    }
-
-                    int questId = int.Parse(parts[0]);
-
-                    var reportKey = (
-                        expansion,
-                        zoneId,
-                        questId,
-                        (short)character.Faction,
-                        (short)character.ClassId
-                    );
-                    if (!reportMap.TryGetValue(reportKey, out var reportQuest))
-                    {
-                        reportMap[reportKey] = reportQuest = new WorldQuestReport()
-                        {
-                            UserId = _userId,
-                            Region = shortRegion,
-                            Expansion = expansion,
-                            ZoneId = zoneId,
-                            QuestId = questId,
-                            Faction = (short)character.Faction,
-                            Class = (short)character.ClassId,
-                            ReportedAt = DateTime.UtcNow,
-                        };
-                        Context.WorldQuestReport.Add(reportQuest);
-                    }
-
-                    reportQuest.ExpiresAt = int.Parse(parts[1]).AsUtcDateTime();
-                    reportQuest.Location = $"{parts[2]} {parts[3]}";
-
-                    // Fix wonky data, remove later
-                    if (reportQuest.ReportedAt <= MiscConstants.DefaultDateTime)
-                    {
-                        reportQuest.ReportedAt = DateTime.UtcNow;
-                    }
-
-                    // type:id:amount
-                    reportQuest.Rewards = new();
-                    foreach (string rewardString in parts[4].Split('|'))
-                    {
-                        reportQuest.Rewards.Add(rewardString.Split('-').Select(int.Parse).ToArray());
-                    }
-                }
-            }
-        }
-    }
-
-    private void HandleReputations(PlayerCharacter character, UploadCharacter characterData)
-    {
-        if (character.Reputations == null)
-        {
-            return;
-        }
-
-        character.Reputations.ExtraReputationIds = new();
-        character.Reputations.ExtraReputationValues = new();
-
-        var reputations = characterData.Reputations
-            .EmptyIfNull()
-            .OrderBy(kvp => kvp.Key)
-            .ToList();
-        foreach (var (id, value) in reputations)
-        {
-            character.Reputations.ExtraReputationIds.Add(id);
-            character.Reputations.ExtraReputationValues.Add(value);
-        }
-
-        character.Reputations.Paragons = new();
-        foreach (var (paragonId, paragonString) in characterData.Paragons.EmptyIfNull())
-        {
-            var parts = paragonString.Split(":");
-            if (parts.Length != 3)
-            {
-                Logger.Warning("Invalid item string: {String}", paragonString);
-                continue;
-            }
-
-            var total = int.Parse(parts[0]);
-            var max = int.Parse(parts[1]);
-            var rewardAvailable = parts[2] == "1";
-
-            character.Reputations.Paragons[paragonId] = new PlayerCharacterReputationsParagon
-            {
-                Current = total % max,
-                Max = max,
-                Received = total / max,
-                RewardAvailable = rewardAvailable,
-            };
-        }
-    }
-
-    private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
-    {
-        var illusions = characterData.Illusions
-            .EmptyIfNullOrWhitespace()
-            .Split(':', StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse)
-            .ToList();
-        if (illusions.Count > 0 && (character.Transmog.IllusionIds == null ||
-                                    !illusions.SequenceEqual(character.Transmog.IllusionIds)))
-        {
-            character.Transmog.IllusionIds = illusions;
-            _resetTransmogCache = true;
-        }
-
-        List<int> transmog;
-        if (characterData.TransmogSquish != null)
-        {
-            transmog = Unsquish(characterData.TransmogSquish);
-        }
-        else
-        {
-            transmog = characterData.Transmog
-                .EmptyIfNullOrWhitespace()
-                .Split(':', StringSplitOptions.RemoveEmptyEntries)
-                .Select(int.Parse)
-                .Order()
-                .ToList();
-        }
-
-        if (transmog.Count > 0 && (character.Transmog.TransmogIds == null ||
-                                   !transmog.SequenceEqual(character.Transmog.TransmogIds)))
-        {
-            character.Transmog.TransmogIds = transmog;
-            _resetTransmogCache = true;
-        }
-    }
-
-    private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
-    {
-        // Delves
-        if (characterData.Delves != null)
-        {
-            int maxKey = characterData.Delves.Keys.Max();
-            if (maxKey > 0)
-            {
-                string[] delveStrings = characterData.Delves[maxKey].Where(s => s != "0").ToArray();
-                if (delveStrings.Length > 0)
-                {
-                    character.Weekly.DelveWeek = maxKey;
-                    character.Weekly.DelveLevels = [];
-                    character.Weekly.DelveMaps = [];
-                    foreach (string delveString in delveStrings)
-                    {
-                        string[] parts = delveString.Split('|');
-                        character.Weekly.DelveMaps.Add(parts[1]);
-                        character.Weekly.DelveLevels.Add(int.Parse(parts[2]));
-                    }
-                }
-            }
-        }
-
-        // Keystone
-        if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
-        {
-            character.Weekly.KeystoneScannedAt = bagsScanned.AsUtcDateTime();
-            character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
-            character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
-        }
-
-        // Vault
-        if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
-        {
-            character.Weekly.Vault ??= new();
-
-            character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
-            character.Weekly.Vault.HasRewards = characterData.VaultHasRewards;
-
-            character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
-                .EmptyIfNull()
-                .Select(d => new List<int> { d.Map, d.Level })
-                .ToList();
-
-            // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
-            character.Weekly.Vault.MythicPlusProgress = null;
-            character.Weekly.Vault.RaidProgress = null;
-            character.Weekly.Vault.WorldProgress = null;
-
-            if (characterData.Vault != null)
-            {
-                if (characterData.Vault.TryGetValue("t1", out var activityVault))
-                {
-                    character.Weekly.Vault.MythicPlusProgress = ConvertVault(activityVault);
-                }
-
-                if (characterData.Vault.TryGetValue("t3", out var raidVault))
-                {
-                    character.Weekly.Vault.RaidProgress = ConvertVault(raidVault);
-                }
-
-                if (characterData.Vault.TryGetValue("t6", out var worldVault))
-                {
-                    character.Weekly.Vault.WorldProgress = ConvertVault(worldVault);
-                }
-            }
-
-            var entry = Context.Entry(character.Weekly);
-            if (entry.State != EntityState.Added)
-            {
-                entry.Property(e => e.Vault).IsModified = true;
-            }
-        }
-    }
-
-    private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] tiers)
-    {
-        var ret = new List<PlayerCharacterWeeklyVaultProgress>();
-
-        foreach (var tier in tiers.OrderBy(tier => tier.Threshold))
-        {
-            var progress = new PlayerCharacterWeeklyVaultProgress
-            {
-                Level = tier.Level,
-                Progress = tier.Progress,
-                Threshold = tier.Threshold,
-                Tier = tier.Tier,
-            };
-
-            foreach (string itemString in tier.Rewards.EmptyIfNull())
-            {
-                string[] parts = itemString.Split(':');
-                var item = new PlayerCharacterItem();
-                AddItemDetails(item, parts);
-                progress.Rewards.Add(item);
-            }
-
-            ret.Add(progress);
-        }
-
-        return ret;
     }
 
     public class EmissaryData
