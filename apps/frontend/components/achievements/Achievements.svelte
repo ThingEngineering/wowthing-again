@@ -1,15 +1,15 @@
 <script lang="ts">
     import { afterUpdate, onMount } from 'svelte'
 
+    import { settingsStore } from '@/shared/stores/settings'
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     
-    import AchievementsCategory from './AchievementsCategory.svelte'
-    import AchievementsSidebar from './AchievementsSidebar.svelte'
-    import AchievementsScoreSummary from './AchievementsScoreSummary.svelte'
-
+    import Category from './Category.svelte'
+    import ScoreSummary from './ScoreSummary.svelte'
+    import Sidebar from './Sidebar.svelte'
+    
     export let params: {
         slug1: string
         slug2: string
@@ -46,11 +46,11 @@
     {:else if !ready}
         <p>L O A D I N G</p>
     {:else}
-        <AchievementsSidebar />
+        <Sidebar />
         {#if params.slug1 === 'summary'}
-            <AchievementsScoreSummary />
+            <ScoreSummary />
         {:else if params.slug1}
-            <AchievementsCategory slug1={params.slug1} slug2={params.slug2} />
+            <Category slug1={params.slug1} slug2={params.slug2} />
         {/if}
     {/if}
 </div>

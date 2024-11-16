@@ -6,8 +6,8 @@
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
-    import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/shared/components/links/AchievementLink.svelte'
+    import Criteria from './Criteria.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
@@ -302,15 +302,7 @@
         {/if}
 
         {#if !earned || $settingsStore.achievements.showCharactersIfCompleted}
-            {#if achievement.isAccountWide}
-                <AchievementCriteriaAccount
-                    {achievement}
-                />
-            {:else}
-                <AchievementCriteriaCharacter
-                    {achievement}
-                />
-            {/if}
+            <Criteria {achievement} />
         {/if}
     </div>
 {/if}

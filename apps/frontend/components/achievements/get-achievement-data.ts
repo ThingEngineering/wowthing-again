@@ -11,24 +11,25 @@ import type {
     UserData,
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
+import type { AchievementStatus } from './types';
 
 const debugId = 12429;
 
-export function getCharacterData(
+export function getAchievementStatus(
     achievementData: AchievementData,
     userAchievementData: UserAchievementData,
     userData: UserData,
     userQuestData: UserQuestData,
     achievement: AchievementDataAchievement,
-): AchievementDataCharacter {
-    const ret: AchievementDataCharacter = {
+): AchievementStatus {
+    const ret: AchievementStatus = {
         characters: [],
         criteriaTrees: [],
+        rootCriteriaTree: achievementData.criteriaTree[achievement.criteriaTreeId],
         total: 0,
     };
 
     const characterCounts: Record<number, number> = {};
-    const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
 
     const characters = userData.characters.filter(
         (char) =>
@@ -62,8 +63,8 @@ export function getCharacterData(
             ret.total += criteriaTree.amount;
         } else if (
             addStuff &&
-            criteriaTree.id !== rootCriteriaTree.id &&
-            rootCriteriaTree.operator === CriteriaTreeOperator.All
+            criteriaTree.id !== ret.rootCriteriaTree.id &&
+            ret.rootCriteriaTree.operator === CriteriaTreeOperator.All
         ) {
             ret.total += Math.max(1, criteriaTree.amount);
         }
@@ -140,7 +141,7 @@ export function getCharacterData(
             addStuff = false;
         }
 
-        if (addStuff && criteriaTree.id !== rootCriteriaTree.id && criteriaTree.amount > 0) {
+        if (addStuff && criteriaTree.id !== ret.rootCriteriaTree.id && criteriaTree.amount > 0) {
             addStuff = false;
         }
 
@@ -149,7 +150,7 @@ export function getCharacterData(
         }
     }
 
-    recurse(null, rootCriteriaTree, true, true);
+    recurse(null, ret.rootCriteriaTree, true, true);
 
     ret.characters = sortBy(
         Object.entries(characterCounts).filter(([, count]) => count > 0),
@@ -162,10 +163,4 @@ export function getCharacterData(
     }
 
     return ret;
-}
-
-export interface AchievementDataCharacter {
-    characters: [number, number][];
-    criteriaTrees: AchievementDataCriteriaTree[][];
-    total: number;
 }

@@ -31,27 +31,38 @@
         criteria = $achievementStore.criteria[criteriaTree?.criteriaId]
         description = criteriaTree.description
 
-        if (characterId > 0) {
-            const charCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
-                .filter((crit) => crit[0] === characterId)
-            have = (
-                charCriteria.length > 0 && (
-                    (criteriaTree.amount > 0 && charCriteria[0][0] >= criteriaTree.amount) ||
-                    (rootCriteriaTree?.operator === CriteriaTreeOperator.All && charCriteria[0][0] > 0)
-                )
-            )
+        if (achievement.isAccountWide) {
+            const maxCharacter = ($userAchievementStore.criteria[criteriaTreeId] || [[0, 0]])[0][0] || 0;
+            have = maxCharacter >= criteriaTree.amount;
         }
         else {
-            have = (
-                //(criteriaTree.amount > 0 &&)
-                haveMap?.[criteriaTreeId] > 0 &&
-                haveMap?.[criteriaTreeId] >= criteriaTree.amount
-                // (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
-            );
+            let maybeCriteria: number[][] = [];
+            if (achievement.isAccountWide) {
+                maybeCriteria = $userAchievementStore.criteria[criteriaTreeId] || [];
+            }
+            else if (characterId > 0) {
+                maybeCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
+                    .filter((crit) => crit[0] === characterId)
+            }
+
+            if (maybeCriteria.length > 0) {
+                have = (
+                    (criteriaTree.amount > 0 && maybeCriteria[0][0] >= criteriaTree.amount) ||
+                    (rootCriteriaTree?.operator === CriteriaTreeOperator.All && maybeCriteria[0][0] > 0)
+                )
+            }
+            else {
+                have = (
+                    //(criteriaTree.amount > 0 &&)
+                    haveMap?.[criteriaTreeId] > 0 &&
+                    haveMap?.[criteriaTreeId] >= criteriaTree.amount
+                    // (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
+                );
+            }
         }
 
         if (rootCriteriaTree.id === 81150)
-        console.log({rootCriteriaTree, criteria, criteriaTree, description, have, haveMap})
+            console.log({rootCriteriaTree, criteria, criteriaTree, description, have, haveMap})
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {

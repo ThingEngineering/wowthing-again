@@ -1,10 +1,12 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements'
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
+    import { achievementState } from '@/stores/local-storage';
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
+    import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
-    import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
+    import AchievementCriteriaTree from './CriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 
     export let achievement: AchievementDataAchievement
@@ -24,7 +26,7 @@
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 13764) {
+        if (achievement.id === 13558) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
@@ -43,6 +45,27 @@
     .tree {
         display: grid;
         grid-template-columns: 1fr 1fr;
+    }
+    .criteria {
+        border-top: 1px dashed $border-color;
+        display: grid;
+        grid-area: criteria;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 0.5rem;
+        padding-top: 0.25rem;
+        width: 100%;
+
+        &:empty {
+            display: none;
+        }
+    }
+    .progress {
+        grid-area: progress;
+        margin-top: 0.75rem;
+
+        & :global(.progress-container:nth-child(n+2)) {
+            margin-top: 0.3rem;
+        }
     }
 </style>
 
@@ -72,6 +95,19 @@
                     rootCriteriaTree={criteriaTree}
                 />
             {/each}
+
+            {#if data.characters.length > 0}
+                {@const characters = data.characters.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
+                <div class="progress">
+                    {#each characters as [characterId, count]}
+                        <ProgressBar
+                            title="{getCharacterNameRealm(characterId)}"
+                            have={count}
+                            total={data.total}
+                        />
+                    {/each}
+                </div>
+            {/if}
         {/if}
     </div>
 {/if}
