@@ -19,7 +19,23 @@
         $userQuestStore,
         achievement
     )
-    $: progressBar = achievement?.isProgressBar || data.rootCriteriaTree?.isProgressBar || false
+
+    let progressBar: boolean
+    let barAmount: number
+    $: {
+        if (rootCriteriaTree) {
+            const oneCriteria = data.criteriaTrees.length === 1 && data.criteriaTrees[0].length === 1
+
+            progressBar = achievement?.isProgressBar ||
+                data.rootCriteriaTree?.isProgressBar ||
+                (oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
+                false;
+            
+            barAmount = oneCriteria
+                ? (rootCriteriaTree.amount || data.criteriaTrees[0][0].amount)
+                : rootCriteriaTree.amount;
+        }
+    }
 
     let selectedCharacterId: number
     $: {
@@ -27,7 +43,7 @@
             selectedCharacterId = data.characters?.[0]?.[0] || 0
         }
 
-        if (achievement.id === 14744) {
+        if (achievement.id === 14158) {
             //console.log({achievement, criteriaTree: rootCriteriaTree, data})
         }
     }
@@ -45,6 +61,10 @@
 
         &:empty {
             display: none;
+        }
+
+        :global(.progress-container:only-child) {
+            grid-column: 1 / 3;
         }
     }
 
@@ -69,8 +89,8 @@
         {:else if progressBar}
             <ProgressBar
                 title="{data.rootCriteriaTree.description}"
-                have={0}
-                total={data.rootCriteriaTree.amount}
+                have={data.characters[0]?.[1] || 0}
+                total={barAmount}
             />
         {:else}
             {#each rootCriteriaTree.children as child}
