@@ -316,6 +316,10 @@ export const currencyItems: Record<number, number[]> = {
         49927, // Love Token
         44791, // Noblegarden Chocolate
         33226, // Tricky Treat
+        null,
+        231510, // Timewarped Relic Coffer Key [LFR]
+        232365, // Timewarped Relic Coffer Key [Normal]
+        232366, // Timewarped Relic Coffer Key [Heroic]
     ],
 };
 
