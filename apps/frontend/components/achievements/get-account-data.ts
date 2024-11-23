@@ -78,7 +78,7 @@ export function getAccountData(
                 childTree.id !== rootCriteriaTree.id &&
                 rootCriteriaTree.operator === CriteriaTreeOperator.All
             ) {
-                ret.total += Math.max(1, criteriaTree.amount);
+                ret.total += Math.max(1, childTree.amount);
             }
 
             if (addTrees) {
