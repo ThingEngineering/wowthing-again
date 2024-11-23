@@ -261,9 +261,13 @@ public class ManualTool
             .ToHashSet();
 
         int[] newQuestIds = _questIds.Except(existingQuestIds).ToArray();
-        foreach (int questId in newQuestIds)
+        if (newQuestIds.Length > 0)
         {
-            context.WowQuest.Add(new WowQuest(questId));
+            foreach (int questId in newQuestIds)
+            {
+                context.WowQuest.Add(new WowQuest(questId));
+            }
+            ToolContext.Logger.Information("Added {quests} new quest IDs", newQuestIds.Length);
         }
 
         await context.SaveChangesAsync();
@@ -674,10 +678,10 @@ public class ManualTool
             );
     }
 
-    private List<List<OutProgress>> LoadProgress()
+    private List<List<OutProgress?>?> LoadProgress()
     {
         var progressSets = DataUtilities.LoadData<DataProgress>("progress", ToolContext.Logger);
-        var ret = new List<List<OutProgress>>(progressSets.Count);
+        var ret = new List<List<OutProgress?>?>(progressSets.Count);
         foreach (var progressSet in progressSets)
         {
             if (progressSet == null)
@@ -686,10 +690,35 @@ public class ManualTool
                 continue;
             }
 
-            ret.Add(progressSet
-                .Select(category => category == null ? null : new OutProgress(category))
-                .ToList()
-            );
+            var progressList = new List<OutProgress?>();
+            foreach (var category in progressSet)
+            {
+                if (category == null)
+                {
+                    progressList.Add(null);
+                }
+                else
+                {
+                    var outCategory = new OutProgress(category);
+                    progressList.Add(outCategory);
+
+                    foreach (var group in outCategory.Groups)
+                    {
+                        foreach (var data in group.Data.Values)
+                        {
+                            foreach (var entry in data)
+                            {
+                                if (entry.Type == ProgressDataType.Quest)
+                                {
+                                    _questIds.UnionWith(entry.Ids);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            ret.Add(progressList);
         }
 
         _timer.AddPoint("Progress");
