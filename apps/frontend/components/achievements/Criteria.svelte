@@ -84,7 +84,7 @@
             <ProgressBar
                 title="Honor Level"
                 have={$userStore.honorLevel || 0}
-                total={$achievementStore.criteria[data.rootCriteriaTree.criteriaId].asset}
+                total={$achievementStore.criteria[data.criteriaTrees[0][0].criteriaId]?.asset || 0}
             />
         {:else if progressBar}
             <ProgressBar
