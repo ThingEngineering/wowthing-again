@@ -117,6 +117,10 @@
             openableItems.sort((a, b) => {
                 const aItem = $itemStore.items[a[0]];
                 const bItem = $itemStore.items[b[0]];
+                if (!aItem || !bItem) {
+                    return 0;
+                }
+                
                 if (aItem.quality !== bItem.quality) {
                     return aItem.quality - bItem.quality;
                 }
