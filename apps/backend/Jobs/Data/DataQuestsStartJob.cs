@@ -11,7 +11,7 @@ public class DataQuestsStartJob : JobBase, IScheduledJob
     {
         Type = JobType.DataQuestsStart,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromMinutes(1),
+        Interval = TimeSpan.FromMinutes(5),
         Version = 1,
     };
 

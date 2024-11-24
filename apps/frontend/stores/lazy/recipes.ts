@@ -59,8 +59,13 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                 continue;
             }
 
-            const categoryKey = `${professionKey}--${expansionMap[categoryIndex].slug}`;
+            const expansionSlug = expansionMap[categoryIndex].slug;
+
+            const categoryKey = `${professionKey}--${expansionSlug}`;
             const categoryData = (ret.stats[categoryKey] = new UserCount());
+
+            const expansionKey = `expansion--${expansionSlug}`;
+            const expansionData = (ret.stats[expansionKey] ||= new UserCount());
 
             for (const child of category.children[0].children) {
                 const childKey = `${categoryKey}--${child.id}`;
@@ -94,6 +99,9 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
                         professionData.total += abilityCount;
                         professionData.have += abilityHave;
                     }
+
+                    expansionData.total += abilityCount;
+                    expansionData.have += abilityHave;
 
                     categoryData.total += abilityCount;
                     categoryData.have += abilityHave;

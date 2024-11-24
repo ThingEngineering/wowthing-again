@@ -8,7 +8,7 @@
     import { leftPad } from '@/utils/formatting'
     import type { AchievementDataCategory } from '@/types'
 
-    import AchievementsAchievement from './AchievementsAchievement.svelte'
+    import Achievement from './Achievement.svelte'
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 
@@ -142,14 +142,14 @@
             {#each achievementIds as achievementId}
                 {#if Array.isArray(achievementId)}
                     {#each achievementId as subAchievementId}
-                        <AchievementsAchievement
+                        <Achievement
                             kindaAlwaysShow={category.id >= 200000}
                             achievementId={subAchievementId}
                             allAchievementIds={achievementId}
                         />
                     {/each}
                 {:else}
-                    <AchievementsAchievement
+                    <Achievement
                         kindaAlwaysShow={category.id >= 200000}
                         {achievementId}
                     />

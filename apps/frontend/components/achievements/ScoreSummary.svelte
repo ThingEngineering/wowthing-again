@@ -2,7 +2,7 @@
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataCategory } from '@/types'
 
-    import AchievementsAchievement from './AchievementsAchievement.svelte'
+    import AchievementsAchievement from './Achievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 
     let categories: AchievementDataCategory[]

@@ -78,7 +78,7 @@
         )
         for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
             const farm = farms[farmIndex]
-            if (farm.groupId) {
+            if (farm.groupId && groupMap[farm.groupId]) {
                 groupMap[farm.groupId].children.push([farm, farmIndex])
             }
         }

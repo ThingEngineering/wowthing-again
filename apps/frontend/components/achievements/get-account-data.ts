@@ -1,3 +1,5 @@
+import sortBy from 'lodash/sortBy';
+
 import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements';
 import { CriteriaType } from '@/enums/criteria-type';
 import type {
@@ -8,8 +10,9 @@ import type {
     UserData,
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
+import { CriteriaTreeOperator } from '@/enums/wow';
 
-const debugId = 12909;
+const debugId = 13558;
 
 export function getAccountData(
     achievementData: AchievementData,
@@ -22,6 +25,15 @@ export function getAccountData(
     //const userCrits = get(userAchievementStore).criteria
 
     const ret = new AchievementDataAccount();
+
+    const characterCounts: Record<number, number> = {};
+    const characters = userData.characters.filter(
+        (char) =>
+            (achievement.faction === 0 && char.faction === 1) ||
+            (achievement.faction === 1 && char.faction === 0) ||
+            achievement.faction === -1,
+    );
+    const characterIds = characters.map((char) => char.id);
 
     const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
     const forcedId = forceAddonCriteria[achievement.id];
@@ -51,6 +63,22 @@ export function getAccountData(
             const childTree = achievementData.criteriaTree[childId];
             if (!childTree) {
                 return;
+            }
+
+            if (
+                // addStuff &&
+                childTree.amount > 0 &&
+                childTree.operator !== CriteriaTreeOperator.All &&
+                childTree.operator !== CriteriaTreeOperator.Any /*&&
+                parentCriteriaTree?.operator !== CriteriaTreeOperator.SumChildren*/
+            ) {
+                ret.total += childTree.amount;
+            } else if (
+                // addStuff &&
+                childTree.id !== rootCriteriaTree.id &&
+                rootCriteriaTree.operator === CriteriaTreeOperator.All
+            ) {
+                ret.total += Math.max(1, childTree.amount);
             }
 
             if (addTrees) {
@@ -117,12 +145,20 @@ export function getAccountData(
                     for (const subProfessions of Object.values(character.professions || {})) {
                         const subProfession = subProfessions[criteria.asset];
                         if (subProfession?.currentSkill >= childTree.amount) {
-                            ret.have[childId] = 1;
+                            ret.have[childId] = subProfession.currentSkill;
                             break;
                         }
                     }
                 }
             } else if (criteria?.type === CriteriaType.ReputationGained) {
+                for (const character of characters) {
+                    const reputation = character.reputations?.[criteria.asset] || 0;
+                    if (reputation > 0) {
+                        characterCounts[character.id] =
+                            (characterCounts[character.id] || 0) + reputation;
+                    }
+                }
+
                 ret.have[childId] = Math.max(
                     ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
                 );
@@ -152,6 +188,11 @@ export function getAccountData(
         }
     }
 
+    ret.characters = sortBy(
+        Object.entries(characterCounts).filter(([, count]) => count > 0),
+        ([characterId, count]) => [10000000 - count, characterId],
+    ).map(([characterId, count]) => [parseInt(characterId), count]);
+
     if (achievement.id === debugId) {
         console.log('ret', ret);
     }
@@ -160,11 +201,8 @@ export function getAccountData(
 }
 
 export class AchievementDataAccount {
-    criteria: AchievementDataCriteriaTree[];
-    have: Record<number, number>;
-
-    constructor() {
-        this.criteria = [];
-        this.have = {};
-    }
+    characters: [number, number][] = [];
+    criteria: AchievementDataCriteriaTree[] = [];
+    have: Record<number, number> = {};
+    total: number = 0;
 }

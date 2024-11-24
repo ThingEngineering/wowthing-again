@@ -11,7 +11,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
     {
         Type = JobType.DataAuctionsStart,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromMinutes(1),
+        Interval = TimeSpan.FromMinutes(2),
         Version = 2,
     };
 

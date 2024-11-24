@@ -74,6 +74,8 @@ public class CharacterPetsJob : JobBase
             Context.PlayerAccountPets.Add(pets);
         }
 
+        pets.Pets ??= new();
+
         bool madeChanges = false;
         var existingIds = new HashSet<long>(pets.Pets.Keys);
         var seenIds = new HashSet<long>();
@@ -98,6 +100,8 @@ public class CharacterPetsJob : JobBase
                 dbPet.SpeciesId = apiPet.Species.Id;
                 madeChanges = true;
             }
+
+            seenIds.Add(apiPet.Id);
         }
 
         // Remove any that we didn't see and were NOT added via addon data

@@ -1,2 +1,2 @@
-export * from './get-account-data'
-export * from './get-character-data'
+export * from '../../components/achievements/get-account-data'
+export * from '../../components/achievements/get-achievement-data'

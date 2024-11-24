@@ -1,35 +1,49 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage';
-    import { getCharacterData } from '@/utils/achievements'
+    import { getAchievementStatus } from '@/utils/achievements'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
-    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
-    import type { AchievementDataCharacter } from '@/utils/achievements'
+    import type { AchievementDataAchievement } from '@/types'
 
-    import AchievementCriteriaBar from './AchievementsAchievementCriteriaBar.svelte'
-    import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
+    import CriteriaTree from './CriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import { honorAchievements } from '@/data/achievements';
 
     export let achievement: AchievementDataAchievement
 
-    let data: AchievementDataCharacter
-    let rootCriteriaTree: AchievementDataCriteriaTree
+    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
+    $: data = getAchievementStatus(
+        $achievementStore,
+        $userAchievementStore,
+        $userStore,
+        $userQuestStore,
+        achievement
+    )
+
+    let progressBar: boolean
+    let barAmount: number
+    $: {
+        if (rootCriteriaTree) {
+            const oneCriteria = data.criteriaTrees.length === 1 && data.criteriaTrees[0].length === 1
+
+            progressBar = achievement?.isProgressBar ||
+                data.rootCriteriaTree?.isProgressBar ||
+                (oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
+                false;
+            
+            barAmount = oneCriteria
+                ? (rootCriteriaTree.amount || data.criteriaTrees[0][0].amount)
+                : rootCriteriaTree.amount;
+        }
+    }
+
     let selectedCharacterId: number
     $: {
-        rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
-        data = getCharacterData(
-            $achievementStore,
-            $userAchievementStore,
-            $userStore,
-            $userQuestStore,
-            achievement
-        )
-
         if (!selectedCharacterId) {
             selectedCharacterId = data.characters?.[0]?.[0] || 0
         }
 
-        if (achievement.id === 14744) {
+        if (achievement.id === 14158) {
             //console.log({achievement, criteriaTree: rootCriteriaTree, data})
         }
     }
@@ -48,6 +62,10 @@
         &:empty {
             display: none;
         }
+
+        :global(.progress-container:only-child) {
+            grid-column: 1 / 3;
+        }
     }
 
     .progress {
@@ -62,11 +80,21 @@
 
 {#if rootCriteriaTree}
     <div class="criteria">
-        {#if achievement.isAccountWide && rootCriteriaTree.children.length === 1 && achievement?.isProgressBar === true}
-            <AchievementCriteriaBar />
+        {#if honorAchievements[achievement.id]}
+            <ProgressBar
+                title="Honor Level"
+                have={$userStore.honorLevel || 0}
+                total={$achievementStore.criteria[data.rootCriteriaTree.criteriaId].asset}
+            />
+        {:else if progressBar}
+            <ProgressBar
+                title="{data.rootCriteriaTree.description}"
+                have={data.characters[0]?.[1] || 0}
+                total={barAmount}
+            />
         {:else}
             {#each rootCriteriaTree.children as child}
-                <AchievementCriteriaTree
+                <CriteriaTree
                     characterId={selectedCharacterId}
                     criteriaTreeId={child}
                     {achievement}
@@ -76,7 +104,7 @@
         {/if}
     </div>
 
-    {#if data.characters.length > 0}
+    {#if !achievement.isAccountWide && data.characters.length > 0}
         {@const characters = data.characters.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
         <div class="progress">
             {#each characters as [characterId, count]}
