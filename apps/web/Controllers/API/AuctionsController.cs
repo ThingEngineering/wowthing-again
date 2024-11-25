@@ -607,13 +607,13 @@ WITH transmog_cache (appearance_source) AS (
     FROM    user_cache
     WHERE   user_id = {user.Id}
 )
-SELECT  sigh.oof
+SELECT  data.source
 FROM (
-    SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS oof
+    SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS source
     FROM    wow_item_modified_appearance wima
-) sigh
+) data
 LEFT OUTER JOIN transmog_cache tc
-    ON sigh.oof = tc.appearance_source
+    ON data.source = tc.appearance_source
 WHERE   tc.appearance_source IS NULL
 ").ToArrayAsync();
 
