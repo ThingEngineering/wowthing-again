@@ -788,13 +788,17 @@ public class UserUploadJob : JobBase
                     .Where(wqr => wqr.UserId == _userId && wqr.Region == (short)accountRegion)
                     .ToArrayAsync()
             )
-            .ToDictionary(wqr => new WorldQuestReportKey(
+            .GroupBy(wqr => new WorldQuestReportKey(
                 wqr.Expansion,
                 wqr.ZoneId,
                 wqr.QuestId,
                 wqr.Faction,
                 wqr.Class
-            ));
+            ))
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderByDescending(wqr => wqr.ExpiresAt).First()
+            );
 
         foreach (var (key, newReport) in newReports)
         {
