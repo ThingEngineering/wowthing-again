@@ -8,7 +8,7 @@ public class MaintenanceDeleteWorldQuestReportsJob : JobBase, IScheduledJob
     {
         Type = JobType.MaintenanceDeleteWorldQuestReports,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromHours(1),
+        Interval = TimeSpan.FromMinutes(1),
         Version = 1,
     };
 
