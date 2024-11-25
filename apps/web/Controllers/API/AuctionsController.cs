@@ -469,7 +469,6 @@ public class AuctionsController : Controller
             var accounts = await _context.PlayerAccount
                 .AsNoTracking()
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
                 .ToArrayAsync();
             var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
@@ -591,7 +590,6 @@ WHERE   tc.appearance_id IS NULL
             var accounts = await _context.PlayerAccount
                 .AsNoTracking()
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
                 .ToArrayAsync();
             int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
