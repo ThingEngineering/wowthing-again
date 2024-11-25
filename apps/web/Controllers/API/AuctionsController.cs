@@ -469,7 +469,6 @@ public class AuctionsController : Controller
             var accounts = await _context.PlayerAccount
                 .AsNoTracking()
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
                 .ToArrayAsync();
             var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
@@ -591,7 +590,6 @@ WHERE   tc.appearance_id IS NULL
             var accounts = await _context.PlayerAccount
                 .AsNoTracking()
                 .Where(pa => pa.UserId == user.Id && pa.Enabled)
-                .Include(pa => pa.Pets)
                 .ToArrayAsync();
             int[] accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
@@ -609,13 +607,13 @@ WITH transmog_cache (appearance_source) AS (
     FROM    user_cache
     WHERE   user_id = {user.Id}
 )
-SELECT  sigh.oof
+SELECT  data.source
 FROM (
-    SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS oof
+    SELECT  DISTINCT wima.item_id || '_' || wima.modifier AS source
     FROM    wow_item_modified_appearance wima
-) sigh
+) data
 LEFT OUTER JOIN transmog_cache tc
-    ON sigh.oof = tc.appearance_source
+    ON data.source = tc.appearance_source
 WHERE   tc.appearance_source IS NULL
 ").ToArrayAsync();
 
