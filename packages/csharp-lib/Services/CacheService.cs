@@ -1,7 +1,9 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Caching.Memory;
+using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Converters;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.API;
 using Wowthing.Lib.Models.Query;
@@ -15,14 +17,17 @@ public class CacheService
     private static readonly TimeSpan CacheDuration = TimeSpan.FromMinutes(15);
 
     private readonly IConnectionMultiplexer _redis;
+    private readonly IMemoryCache _memoryCache;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public CacheService(
         IConnectionMultiplexer redis,
+        IMemoryCache memoryCache,
         JsonSerializerOptions jsonSerializerOptions
     )
     {
         _jsonSerializerOptions = jsonSerializerOptions;
+        _memoryCache = memoryCache;
         _redis = redis;
     }
 
@@ -498,6 +503,37 @@ public class CacheService
     #endregion
 
     #region Transmog
+
+    private async Task<Dictionary<int, HashSet<string>>> GetValidTransmogSourceDataAsync(WowDbContext context)
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            "ValidTransmogSource",
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(1);
+
+                var ret = new Dictionary<int, HashSet<string>>();
+                var itemModifiedAppearances = await context.WowItemModifiedAppearance.ToArrayAsync();
+
+                foreach (var ima in itemModifiedAppearances)
+                {
+                    if (ima.SourceType != TransmogSourceType.CantCollect &&
+                        ima.SourceType != TransmogSourceType.NotValidForTransmog)
+                    {
+                        if (!ret.TryGetValue(ima.AppearanceId, out var validSources))
+                        {
+                            validSources = ret[ima.AppearanceId] = [];
+                        }
+
+                        validSources.Add($"{ima.ItemId}_{ima.Modifier}");
+                    }
+                }
+
+                return ret;
+            }
+        );
+    }
+
     public async Task<UserCache> CreateOrUpdateTransmogCacheAsync(
         WowDbContext context,
         JankTimer timer,
@@ -524,6 +560,8 @@ public class CacheService
                            lastModified.HasValue && lastModified > userCache.TransmogUpdated;
         var now = DateTimeOffset.UtcNow;
 
+        var validTransmogSourceData = await GetValidTransmogSourceDataAsync(context);
+
         var userBulk = await context.UserBulkData.FindAsync(userId);
 
         var allTransmog = await context.AccountTransmogQuery
@@ -543,15 +581,24 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var allAppearanceIds = new List<int>();
+        var allAppearanceIds = new HashSet<int>();
         if (userBulk?.TransmogIds != null)
         {
-            allAppearanceIds.AddRange(userBulk.TransmogIds);
+            allAppearanceIds.UnionWith(userBulk.TransmogIds);
         }
-        allAppearanceIds.AddRange(allTransmog.TransmogIds);
+        allAppearanceIds.UnionWith(allTransmog.TransmogIds);
+
+        // Filter out any appearance IDs where the user doesn't actually have any valid sources
+        foreach (int appearanceId in allAppearanceIds)
+        {
+            if (validTransmogSourceData.TryGetValue(appearanceId, out var validSources) &&
+                !validSources.Any(source => allSources.Contains(source)))
+            {
+                allAppearanceIds.Remove(appearanceId);
+            }
+        }
 
         var sortedAppearanceIds = allAppearanceIds
-            .Distinct()
             .Order()
             .ToList();
 
