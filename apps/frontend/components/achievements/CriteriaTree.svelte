@@ -15,6 +15,7 @@
     export let achievement: AchievementDataAchievement
     export let characterId = 0
     export let child = false
+    export let criteriaCharacters: Record<number, [number, number][]>;
     export let criteriaTreeId: number
     export let haveMap: Record<number, number> = null
     export let rootCriteriaTree: AchievementDataCriteriaTree
@@ -32,17 +33,18 @@
         description = criteriaTree.description
 
         if (achievement.isAccountWide) {
-            const maxCharacter = ($userAchievementStore.criteria[criteriaTreeId] || [[0, 0]])[0][0] || 0;
-            have = maxCharacter >= criteriaTree.amount;
+            const maxCharacter = criteriaCharacters?.[criteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
+            have = maxCharacter > 0 && maxCharacter >= criteriaTree.amount;
         }
         else {
             let maybeCriteria: number[][] = [];
+            maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];
+
             if (achievement.isAccountWide) {
-                maybeCriteria = $userAchievementStore.criteria[criteriaTreeId] || [];
+                // maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];
             }
             else if (characterId > 0) {
-                maybeCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
-                    .filter((crit) => crit[0] === characterId)
+                maybeCriteria = maybeCriteria.filter(([charId]) => charId === characterId)
             }
 
             if (maybeCriteria.length > 0) {
@@ -194,6 +196,7 @@
                     {accountWide}
                     {achievement}
                     {characterId}
+                    {criteriaCharacters}
                     {haveMap}
                     {rootCriteriaTree}
                 />

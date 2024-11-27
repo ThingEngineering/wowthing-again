@@ -1,8 +1,11 @@
 import type { AchievementDataCriteriaTree } from '@/types';
 
 export interface AchievementStatus {
-    characters: [number, number][];
+    characterCounts: [number, number][];
+    criteriaCharacters: Record<number, [number, number][]>;
     criteriaTrees: AchievementDataCriteriaTree[][];
+    oneCriteria: boolean;
+    reputation: boolean;
     rootCriteriaTree: AchievementDataCriteriaTree;
     total: number;
 }

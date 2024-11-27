@@ -12,8 +12,9 @@ import type {
 } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
-const debugId = 14158;
+const debugId = 11175;
 
 export function getAchievementStatus(
     achievementData: AchievementData,
@@ -23,13 +24,16 @@ export function getAchievementStatus(
     achievement: AchievementDataAchievement,
 ): AchievementStatus {
     const ret: AchievementStatus = {
-        characters: [],
+        characterCounts: [],
+        criteriaCharacters: {},
         criteriaTrees: [],
+        oneCriteria: false,
+        reputation: false,
         rootCriteriaTree: achievementData.criteriaTree[achievement.criteriaTreeId],
         total: 0,
     };
 
-    const characterCounts: Record<number, number> = {};
+    let leaves = 0;
 
     const characters = userData.characters.filter(
         (char) =>
@@ -37,7 +41,6 @@ export function getAchievementStatus(
             (achievement.faction === 1 && char.faction === 0) ||
             achievement.faction === -1,
     );
-
     const characterIds = characters.map((char) => char.id);
 
     function recurse(
@@ -50,8 +53,16 @@ export function getAchievementStatus(
             return;
         }
 
+        if (criteriaTree.children.length === 0) {
+            leaves++;
+            if (leaves > 1) {
+                ret.reputation = false;
+            }
+        }
+
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
         const criteria = achievementData.criteria[criteriaTree.criteriaId];
+        const characterData = (ret.criteriaCharacters[criteriaTree.criteriaId || 0] ||= []);
 
         if (
             addStuff &&
@@ -81,13 +92,14 @@ export function getAchievementStatus(
         if (addonAchievements[achievement.id]) {
             for (const characterId in userAchievementData.addonAchievements) {
                 const charData = userAchievementData.addonAchievements[characterId][achievement.id];
-                characterCounts[characterId] = (charData?.criteria ?? [0])[0];
+                characterData.push([parseInt(characterId), (charData?.criteria ?? [0])[0]]);
             }
         } else {
             if (criteria?.type === CriteriaType.CompleteQuest) {
                 for (const character of characters) {
                     if (userQuestData.characters[character.id]?.quests?.has(criteria.asset)) {
-                        characterCounts[character.id] = (characterCounts[character.id] || 0) + 1;
+                        console.log('yay');
+                        characterData.push([character.id, 1]);
                     }
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
@@ -95,8 +107,13 @@ export function getAchievementStatus(
                     for (const subProfessions of Object.values(character.professions || {})) {
                         const subProfession = subProfessions[criteria.asset];
                         if (subProfession) {
-                            characterCounts[character.id] =
-                                (characterCounts[character.id] || 0) + subProfession.currentSkill;
+                            console.log(character.id, character.name, subProfession);
+                            characterData.push([character.id, subProfession.currentSkill]);
+
+                            if (leaves === 1) {
+                                ret.reputation = true;
+                            }
+
                             break;
                         }
                     }
@@ -105,11 +122,12 @@ export function getAchievementStatus(
                 for (const character of characters) {
                     const reputation = character.reputations?.[criteria.asset] || 0;
                     if (reputation > 0) {
-                        characterCounts[character.id] =
-                            (characterCounts[character.id] || 0) + reputation;
+                        characterData.push([character.id, reputation]);
                     }
                 }
-            } else {
+            }
+
+            if (characterData.length === 0) {
                 for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ??
                     []) {
                     if (characterIds.indexOf(characterId) < 0) {
@@ -127,11 +145,12 @@ export function getAchievementStatus(
 
                     // && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)
                     if (addStuff) {
-                        characterCounts[characterId] =
-                            (characterCounts[characterId] || 0) +
-                            (parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren
+                        characterData.push([
+                            characterId,
+                            parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren
                                 ? count
-                                : Math.min(Math.max(1, criteriaTree.amount), count));
+                                : Math.min(Math.max(1, criteriaTree.amount), count),
+                        ]);
                     }
                 }
             }
@@ -152,13 +171,29 @@ export function getAchievementStatus(
 
     recurse(null, ret.rootCriteriaTree, true, true);
 
-    ret.characters = sortBy(
-        Object.entries(characterCounts).filter(([, count]) => count > 0),
-        ([characterId, count]) => [10000000 - count, characterId],
-    ).map(([characterId, count]) => [parseInt(characterId), count]);
+    ret.reputation =
+        ret.criteriaTrees.length === 1 &&
+        ret.criteriaTrees[0].length === 1 &&
+        achievementData.criteria[ret.criteriaTrees[0][0].criteriaId]?.type ===
+            CriteriaType.ReputationGained;
+
+    const characterCounts: Record<number, number> = {};
+    for (const critData of Object.values(ret.criteriaCharacters)) {
+        critData.sort((a, b) => 1000000 - a[1] - (1000000 - b[1]));
+
+        for (const [characterId, amount] of critData) {
+            characterCounts[characterId] = (characterCounts[characterId] || 0) + amount;
+        }
+    }
+
+    ret.characterCounts = sortBy(
+        getNumberKeyedEntries(characterCounts),
+        ([, total]) => 1000000 - total,
+    );
+
+    ret.oneCriteria = leaves === 1;
 
     if (achievement.id === debugId) {
-        console.log(characterCounts);
         console.log(ret);
     }
 
