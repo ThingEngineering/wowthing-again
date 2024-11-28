@@ -12,8 +12,9 @@
 
     const thingMapFunc = (thing: number) => $staticStore.pets[thing]?.creatureId
 
-    let maxLevelQuality = 0
+    let maxLevelQuality: number
     $: {
+        maxLevelQuality = 0;
         for (const pets of Object.values($userStore.pets)) {
             if (pets.some((pet) => pet.level === 25 && pet.quality === ItemQuality.Rare)) {
                 maxLevelQuality++;
