@@ -14,7 +14,7 @@ import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
-const debugId = 11175;
+const debugId = 13638;
 
 export function getAchievementStatus(
     achievementData: AchievementData,
@@ -86,7 +86,7 @@ export function getAchievementStatus(
 
         if (achievement.id === debugId) {
             console.log('-', criteriaTree, criteriaTree.criteriaId, criteria, addStuff);
-            console.log('--', userAchievementData.criteria[criteriaTree.id] ?? []);
+            // console.log('--', userAchievementData.criteria[criteriaTree.id] ?? []);
         }
 
         if (addonAchievements[achievement.id]) {
@@ -101,6 +101,10 @@ export function getAchievementStatus(
                         console.log('yay');
                         characterData.push([character.id, 1]);
                     }
+                }
+            } else if (criteria?.type === CriteriaType.EarnAchievement) {
+                if (userAchievementData.achievements[criteria.asset]) {
+                    characterData.push([0, 1]);
                 }
             } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of characters) {

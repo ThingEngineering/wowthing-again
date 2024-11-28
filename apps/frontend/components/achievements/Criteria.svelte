@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { honorAchievements } from '@/data/achievements';
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage';
     import { getAchievementStatus } from '@/utils/achievements'
@@ -7,7 +8,6 @@
 
     import CriteriaTree from './CriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import { honorAchievements } from '@/data/achievements';
 
     export let achievement: AchievementDataAchievement
 
@@ -97,6 +97,7 @@
                     characterId={selectedCharacterId}
                     criteriaCharacters={data.criteriaCharacters}
                     criteriaTreeId={child}
+                    isReputation={data.reputation}
                     {achievement}
                     {rootCriteriaTree}
                 />
@@ -106,18 +107,20 @@
 
     {#if (!achievement.isAccountWide || data.reputation)}
         {@const characters = data.characterCounts.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
-        <div class="progress">
-            {#each characters as [characterId, count]}
-                {@const selected = selectedCharacterId === characterId}
-                <ProgressBar
-                    on:click={() => selectedCharacterId = characterId}
-                    title="{getCharacterNameRealm(characterId)}"
-                    have={count}
-                    textCls={selected ? 'status-success' : null}
-                    total={data.total}
-                    {selected}
-                />
-            {/each}
-        </div>
+        {#if characters.length > 0}
+            <div class="progress">
+                {#each characters as [characterId, count]}
+                    {@const selected = selectedCharacterId === characterId}
+                    <ProgressBar
+                        on:click={() => selectedCharacterId = characterId}
+                        title="{getCharacterNameRealm(characterId)}"
+                        have={count}
+                        textCls={selected ? 'status-success' : null}
+                        total={data.total}
+                        {selected}
+                    />
+                {/each}
+            </div>
+        {/if}
     {/if}
 {/if}
