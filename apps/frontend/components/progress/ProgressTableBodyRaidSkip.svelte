@@ -3,7 +3,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { userQuestStore } from '@/stores'
     import type { Character } from '@/types'
-    import type { UserQuestDataCharacterProgress } from '@/types/data'
+    import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
@@ -12,12 +12,33 @@
     export let character: Character
     export let group: ManualDataProgressGroup
 
+    const perCharacter: string[] = [
+        'CN',
+        'SoD',
+        'SFO',
+        'ADH',
+        'ASC',
+        'VoI',
+    ];
+
     let progresses: {cls: string, completed: boolean, difficulty: string, progressQuest: UserQuestDataCharacterProgress}[]
     $: {
         progresses = []
         for (const difficulty of ['mythic', 'heroic', 'normal']) {
             const questKey = group.data[difficulty][0].name
-            const progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey]
+            let progressQuest: UserQuestDataCharacterProgress
+
+            progressQuest = $userQuestStore.characters[character.id]?.progressQuests?.[questKey]
+
+            if (progressQuest?.status !== 2 && !perCharacter.includes(group.iconText)) {
+                for (const character of Object.values($userQuestStore.characters)) {
+                    const maybeQuest = character.progressQuests?.[questKey];
+                    if (maybeQuest?.status === 2) {
+                        progressQuest = maybeQuest;
+                        break;
+                    }
+                }
+            }
 
             let cls: string
             if (progresses.length > 0 && progresses[progresses.length - 1].completed) {
