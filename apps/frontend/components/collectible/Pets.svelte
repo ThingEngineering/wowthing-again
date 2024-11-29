@@ -6,16 +6,30 @@
     import Collectible from './Collectible.svelte'
     import ProgressBar from '../common/ProgressBar.svelte';
     import { ItemQuality } from '@/enums/item-quality';
+    import RarityBar from '../common/RarityBar.svelte';
 
     export let basePath = ''
     export let params: MultiSlugParams
 
     const thingMapFunc = (thing: number) => $staticStore.pets[thing]?.creatureId
 
-    let maxLevelQuality = 0
+    let maxLevelQuality: number
+    let qualities: number[]
     $: {
+        maxLevelQuality = 0;
+        qualities = [0, 0, 0, 0];
+
         for (const pets of Object.values($userStore.pets)) {
-            if (pets.some((pet) => pet.level === 25 && pet.quality === ItemQuality.Rare)) {
+            let bestQuality = 0;
+            let hasMaxed = false;
+
+            for (const pet of pets) {
+                bestQuality = Math.max(bestQuality, pet.quality);
+                hasMaxed ||= (pet.level === 25 && pet.quality === ItemQuality.Rare);
+            }
+
+            qualities[bestQuality]++;
+            if (hasMaxed) {
                 maxLevelQuality++;
             }
         }
@@ -45,6 +59,13 @@
                 title={'Max level + quality'}
                 have={maxLevelQuality}
                 total={$lazyStore.pets.stats.OVERALL.total}
+            />
+        </div>
+
+        <div class="progress">
+            <RarityBar
+                {qualities}
+                total={$lazyStore.pets.stats.OVERALL.have}
             />
         </div>
     </svelte:fragment>

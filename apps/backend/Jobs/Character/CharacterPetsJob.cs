@@ -95,8 +95,8 @@ public class CharacterPetsJob : JobBase
                 apiPet.Species.Id != dbPet.SpeciesId)
             {
                 dbPet.BreedId = apiPet.Stats.BreedId;
-                dbPet.Level = apiPet.Level;
-                dbPet.Quality = apiPetQuality;
+                dbPet.Level = Math.Max(apiPet.Level, dbPet.Level);
+                dbPet.Quality = (WowQuality)Math.Max((short)apiPetQuality, (short)dbPet.Quality);
                 dbPet.SpeciesId = apiPet.Species.Id;
                 madeChanges = true;
             }

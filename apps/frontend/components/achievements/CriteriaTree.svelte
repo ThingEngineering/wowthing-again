@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { forceShowCriteriaTree } from '@/data/achievements';
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
     import { Faction } from '@/enums/faction';
@@ -6,17 +7,20 @@
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import { forceShowCriteriaTree } from '@/data/achievements';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
     export let characterId = 0
     export let child = false
+    export let criteriaCharacters: Record<number, [number, number][]>;
     export let criteriaTreeId: number
     export let haveMap: Record<number, number> = null
+    export let isReputation: boolean
     export let rootCriteriaTree: AchievementDataCriteriaTree
     
     let criteria: AchievementDataCriteria
@@ -32,17 +36,18 @@
         description = criteriaTree.description
 
         if (achievement.isAccountWide) {
-            const maxCharacter = ($userAchievementStore.criteria[criteriaTreeId] || [[0, 0]])[0][0] || 0;
-            have = maxCharacter >= criteriaTree.amount;
+            const maxCharacter = criteriaCharacters?.[criteriaTree?.criteriaId || -1]?.[0]?.[1] || 0;
+            have = maxCharacter > 0 && maxCharacter >= criteriaTree.amount;
         }
         else {
             let maybeCriteria: number[][] = [];
+            maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];
+
             if (achievement.isAccountWide) {
-                maybeCriteria = $userAchievementStore.criteria[criteriaTreeId] || [];
+                // maybeCriteria = criteriaCharacters[criteria?.id] || [[0, 0]];
             }
             else if (characterId > 0) {
-                maybeCriteria = ($userAchievementStore.criteria[criteriaTreeId] || [])
-                    .filter((crit) => crit[0] === characterId)
+                maybeCriteria = maybeCriteria.filter(([charId]) => charId === characterId)
             }
 
             if (maybeCriteria.length > 0) {
@@ -89,7 +94,8 @@
                 description = `Gain aura #${criteria.asset}`
             }
             else if (criteria?.type === CriteriaType.ReputationGained) {
-                description = `Gain reputation #${criteria.asset}`
+                const faction = $staticStore.reputations[criteria.asset];
+                description = `Gain reputation with ${faction?.name || `Faction #${criteria.asset}`}`;
             }
             else {
                 // console.log('Unknown criteria', criteriaTree, criteria)
@@ -134,19 +140,39 @@
                 console.log(criteriaTree, criteria)
             }
         }
+
+        // Faction
+        if (criteriaTree.isAllianceOnly) {
+            description = `:alliance: ${description}`;
+        } else if (criteriaTree.isHordeOnly) {
+            description = `:horde: ${description}`;
+        }
     }
 </script>
 
 <style lang="scss">
     div {
+        --bar-height: 1.5rem;
         --image-margin-top: -4px;
 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 100%;
 
-        & :global(svg) {
+        :global(a) {
+            width: 100%;
+        }
+        :global(svg) {
             margin-top: -4px;
+        }
+        :global(.progress-container) {
+            cursor: pointer;
+            margin: 0.25rem 0.25rem 0.25rem 0.25rem;
+            width: calc(100% - 0.5rem);
         }
     }
     .child {
@@ -167,6 +193,7 @@
         class:status-fail={!have}
         class:child
         data-tree-id={criteriaTreeId}
+        data-criteria-id={criteriaTree?.criteriaId}
     >
         {#if description}
             <WowheadLink
@@ -174,17 +201,20 @@
                 id={linkId}
                 type={linkType}
             >
-                <YesNoIcon state={have} />
-
-                {#if criteriaTree.isAllianceOnly}
-                    <FactionIcon faction={Faction.Alliance} />
-                {:else if criteriaTree.isHordeOnly}
-                    <FactionIcon faction={Faction.Horde} />
+                {#if criteriaTree.amount > 1 && !have && achievement.isAccountWide && !isReputation}
+                    <ProgressBar
+                        title="{description}"
+                        have={criteriaCharacters[criteriaTree.criteriaId]?.[0]?.[1] || 0}
+                        total={criteriaTree.amount}
+                    />
+                {:else}
+                    <span>
+                        <YesNoIcon state={have} />
+                        <ParsedText text={description} />
+                    </span>
                 {/if}
-
-                {description}
             </WowheadLink>
-        {/if}
+        {/if} 
 
         {#if criteriaTree.children.length > 0}
             {#each criteriaTree.children as child}
@@ -194,7 +224,9 @@
                     {accountWide}
                     {achievement}
                     {characterId}
+                    {criteriaCharacters}
                     {haveMap}
+                    {isReputation}
                     {rootCriteriaTree}
                 />
             {/each}

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { honorAchievements } from '@/data/achievements';
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage';
     import { getAchievementStatus } from '@/utils/achievements'
@@ -7,11 +8,9 @@
 
     import CriteriaTree from './CriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import { honorAchievements } from '@/data/achievements';
 
     export let achievement: AchievementDataAchievement
 
-    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
     $: data = getAchievementStatus(
         $achievementStore,
         $userAchievementStore,
@@ -20,18 +19,18 @@
         achievement
     )
 
+    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
+
     let progressBar: boolean
     let barAmount: number
     $: {
         if (rootCriteriaTree) {
-            const oneCriteria = data.criteriaTrees.length === 1 && data.criteriaTrees[0].length === 1
-
             progressBar = achievement?.isProgressBar ||
                 data.rootCriteriaTree?.isProgressBar ||
-                (oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
+                (data.oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
                 false;
             
-            barAmount = oneCriteria
+            barAmount = data.oneCriteria
                 ? (rootCriteriaTree.amount || data.criteriaTrees[0][0].amount)
                 : rootCriteriaTree.amount;
         }
@@ -40,7 +39,7 @@
     let selectedCharacterId: number
     $: {
         if (!selectedCharacterId) {
-            selectedCharacterId = data.characters?.[0]?.[0] || 0
+            selectedCharacterId = data.characterCounts[0]?.[0] || 0;
         }
 
         if (achievement.id === 14158) {
@@ -89,14 +88,16 @@
         {:else if progressBar}
             <ProgressBar
                 title="{data.rootCriteriaTree.description}"
-                have={data.characters[0]?.[1] || 0}
+                have={data.criteriaCharacters[data.criteriaTrees[0][0].criteriaId]?.[0]?.[1] || 0}
                 total={barAmount}
             />
         {:else}
             {#each rootCriteriaTree.children as child}
                 <CriteriaTree
                     characterId={selectedCharacterId}
+                    criteriaCharacters={data.criteriaCharacters}
                     criteriaTreeId={child}
+                    isReputation={data.reputation}
                     {achievement}
                     {rootCriteriaTree}
                 />
@@ -104,20 +105,22 @@
         {/if}
     </div>
 
-    {#if !achievement.isAccountWide && data.characters.length > 0}
-        {@const characters = data.characters.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
-        <div class="progress">
-            {#each characters as [characterId, count]}
-                {@const selected = selectedCharacterId === characterId}
-                <ProgressBar
-                    on:click={() => selectedCharacterId = characterId}
-                    title="{getCharacterNameRealm(characterId)}"
-                    have={count}
-                    textCls={selected ? 'status-success' : null}
-                    total={data.total}
-                    {selected}
-                />
-            {/each}
-        </div>
+    {#if (!achievement.isAccountWide || data.reputation)}
+        {@const characters = data.characterCounts.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
+        {#if characters.length > 0}
+            <div class="progress">
+                {#each characters as [characterId, count]}
+                    {@const selected = selectedCharacterId === characterId}
+                    <ProgressBar
+                        on:click={() => selectedCharacterId = characterId}
+                        title="{getCharacterNameRealm(characterId)}"
+                        have={count}
+                        textCls={selected ? 'status-success' : null}
+                        total={data.total}
+                        {selected}
+                    />
+                {/each}
+            </div>
+        {/if}
     {/if}
 {/if}

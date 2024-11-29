@@ -5,7 +5,6 @@
     import { settingsStore } from '@/shared/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
-    import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
     import AchievementLink from '@/shared/components/links/AchievementLink.svelte'
     import Criteria from './Criteria.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
@@ -225,7 +224,7 @@
     }
 </style>
 
-{#if show}
+{#if achievement && show}
     <div class="thing-container faction{faction}"
         class:completed={earned}
     >
