@@ -112,6 +112,12 @@
         border-color: $quality0-border;
     }
 }
+.quality0-border {
+    --bar-border-color: #{$quality0-border};
+    --image-border-color: #{$quality0-border};
+
+    border-color: $quality0-border;
+}
 img.quality0 {
     border-color: $quality0-border;
 }
