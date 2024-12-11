@@ -8,6 +8,7 @@ export const durationAuras: [number, string][] = [
     [95987, 'Unburdened'],
     [136583, 'Darkmoon Top Hat'],
     [289982, 'Draught of Ten Lands'],
+    [392960, 'Waygate Travel'],
     [423860, 'Knowledge of Timeways'],
     [423861, 'Mastery of Timeways'],
     [455050, 'Blessings of the Bronze Dragonflight'],
