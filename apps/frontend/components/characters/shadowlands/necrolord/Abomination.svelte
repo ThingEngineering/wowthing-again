@@ -31,8 +31,8 @@
 
 <style lang="scss">
     .abomination {
-        --collected-right: -4px;
-        --collected-top: -5px;
+        --collected-right: -1px;
+        --collected-top: -2px;
         --image-border-width: 2px;
         --scale: 1.2;
 
@@ -61,8 +61,8 @@
         --image-border-color: #{$quality4-color};
 
         position: absolute;
-        top: -5px;
-        right: -3px;
+        top: -1px;
+        right: 0;
     }
 </style>
 
@@ -73,8 +73,8 @@
     class:status-success={charHas}
 >
     <WowheadLink
-        type="{abomination.criteriaId === 88215 ? 'quest' : 'spell'}"
-        id={abomination.criteriaId === 88215 ? 61637 : abomination.spellId}
+        type={abomination.name === 'Unity' ? 'quest' : 'spell'}
+        id={abomination.name === 'Unity' ? abomination.questId : abomination.spellId}
     >
         <WowthingImage
             name="spell/{abomination.spellId}"
