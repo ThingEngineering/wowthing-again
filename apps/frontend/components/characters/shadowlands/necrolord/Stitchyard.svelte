@@ -1,6 +1,6 @@
 <script lang="ts">
     import { abominations, CovenantAbomination } from '@/data/covenant'
-    import { itemStore, userAchievementStore } from '@/stores'
+    import { itemStore, userAchievementStore, userQuestStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 
@@ -11,19 +11,10 @@
     export let feature: CharacterShadowlandsCovenantFeature
 
     let charAboms: [CovenantAbomination, boolean][]
-    $: {
-        charAboms = []
-        if ($userAchievementStore.loaded) {
-            for (const abomination of abominations) {
-                charAboms.push([
-                    abomination,
-                    ($userAchievementStore.criteria[abomination.criteriaId] || []).some(
-                        ([charId, value]) => charId === character.id && value > 0
-                    )
-                ])
-            }
-        }
-    }
+    $: charAboms = abominations.map((abomination) => [
+        abomination,
+        userQuestStore.hasAny(character.id, abomination.questId),
+    ])
 </script>
 
 <style lang="scss">

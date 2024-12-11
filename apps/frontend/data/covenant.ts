@@ -1,42 +1,40 @@
-import { Covenant } from '@/types'
-
+import { Covenant } from '@/types';
 
 export const covenantMap: Record<number, Covenant> = {
     1: new Covenant(1, 'Kyrian', 'kyrian', 'covenant_kyrian'),
     2: new Covenant(2, 'Venthyr', 'venthyr', 'covenant_venthyr'),
     3: new Covenant(3, 'Night Fae', 'night-fae', 'covenant_night_fae'),
     4: new Covenant(4, 'Necrolord', 'necrolord', 'covenant_necrolord'),
-}
+};
 
 export const covenantOrder: number[] = [
     1, // Kyrian
     4, // Necrolord
     3, // Night Fae
     2, // Venthyr
-]
+];
 
 export const covenantNameMap = Object.fromEntries(
-    Object.entries(covenantMap).map(([, covenant]) => [covenant.name, covenant])
-)
+    Object.entries(covenantMap).map(([, covenant]) => [covenant.name, covenant]),
+);
 
 export const covenantSlugMap: Record<string, Covenant> = Object.fromEntries(
-    Object.values(covenantMap)
-        .map(c => [c.slug, c])
-)
+    Object.values(covenantMap).map((c) => [c.slug, c]),
+);
 
 export const covenantFeatureOrder: [string, string, number][] = [
     ['conductor', 'Anima Conductor', 3],
     ['missions', 'Command Table', 3],
     ['transport', 'Transport Network', 3],
     ['unique', 'Special Feature', 5],
-]
+];
 
 export const covenantFeatureReputation: Record<string, number> = {
     '2-unique': 2445, // The Ember Court
     '3-conductor': 2464, // Court of Night
     '3-transport': 2463, // Marasmius
     '4-unique': 2462, // Stitchmasters
-}
+};
 
 export const covenantFeatureCost: Record<number, number[][]> = {
     1: [
@@ -61,11 +59,11 @@ export const covenantFeatureCost: Record<number, number[][]> = {
         [40, 12500],
         [70, 15000],
     ],
-}
+};
 
 // Kyrian
 // courage, loyalty, wisdom, humility
-export const ascensionFightOrder= [
+export const ascensionFightOrder = [
     'Courage',
     'Loyalty',
     'Wisdom',
@@ -73,16 +71,16 @@ export const ascensionFightOrder= [
     'Humility: Kleia',
     'Humility: Mikanikos',
     'Humility: no charms',
-]
+];
 
 type AscensionFight = {
-    fightQuestIds: number[]
-    name: string
-    unlockQuestId: number
-    unlockRanks: number[]
-}
-const unlocks1 = [1, 2, 3, 5, 5, 5, 5]
-const unlocks2 = [2, 3, 4, 5, 5, 5, 5]
+    fightQuestIds: number[];
+    name: string;
+    unlockQuestId: number;
+    unlockRanks: number[];
+};
+const unlocks1 = [1, 2, 3, 5, 5, 5, 5];
+const unlocks2 = [2, 3, 4, 5, 5, 5, 5];
 
 export const ascensionFights: AscensionFight[] = [
     {
@@ -145,7 +143,7 @@ export const ascensionFights: AscensionFight[] = [
         unlockRanks: unlocks2,
         fightQuestIds: [60927, 61014, 61024, 63129, 63130, 63131, 61034],
     },
-]
+];
 
 // itemId, questId
 export const ascensionItems: [number, number][] = [
@@ -155,90 +153,89 @@ export const ascensionItems: [number, number][] = [
     [184478, 60974], // Phial of Serenity
     [184481, 62998], // Ring of Warding
     [184475, 62995], // Spiritforged Aegis
-]
+];
 
 // Necrolords
 // [criteriaId, spellId]
 export class CovenantAbomination {
     constructor(
         public requiredRank: number,
-        public criteriaId: number,
+        public questId: number,
         public spellId: number,
         public name: string,
         public flesh: number,
         public parts: number,
-        public itemIds?: number[]
-    )
-    {}
+        public itemIds?: number[],
+    ) {}
 }
 
 export const abominations: CovenantAbomination[] = [
-    new CovenantAbomination(1, 88203, 325454, 'Atticus', 10, 0),
-    new CovenantAbomination(1, 88196, 325284, 'Chordy', 1, 0, [
+    new CovenantAbomination(1, 58410, 325454, 'Atticus', 10, 0),
+    new CovenantAbomination(1, 60041, 325284, 'Chordy', 1, 0, [
         182507, // Stitched Conjurer's Cape [cloth]
         182498, // Stitched Wraith's Cloak [leather]
         182516, // Stitched Tactician's Drape [mail]
         182489, // Stitched Harbinger's Greatcloak [plate]
     ]),
-    new CovenantAbomination(1, 88201, 325453, 'Flytrap', 10, 2, [
+    new CovenantAbomination(1, 57597, 325453, 'Flytrap', 10, 2, [
         182501, // Stitched Conjurer's Slippers [cloth]
         182492, // Stitched Wraith's Boots [leather]
         182510, // Stitched Tactician's Sabatons [mail]
         182483, // Stitched Harbinger's Stompers [plate]
     ]),
-    new CovenantAbomination(1, 88202, 325452, 'Marz', 10, 1, [
+    new CovenantAbomination(1, 57611, 325452, 'Marz', 10, 1, [
         182500, // Stitched Conjurer's Tunic [cloth]
         182491, // Stitched Wraith's Jerkin [leather]
         182509, // Stitched Tactician's Hauberk [mail]
         182482, // Stitched Harbinger's Chestguard [plate]
     ]),
-    new CovenantAbomination(1, 88213, 325458, 'Miru', 20, 0),
-    new CovenantAbomination(1, 88204, 325451, 'Roseboil', 10, 1, [
+    new CovenantAbomination(1, 58415, 325458, 'Miru', 20, 0),
+    new CovenantAbomination(1, 57605, 325451, 'Roseboil', 10, 1, [
         182505, // Stitched Conjurer's Cinch [cloth]
         182496, // Stitched Wraith's Belt [leather]
         182514, // Stitched Tactician's Girdle [mail]
         182487, // Stitched Harbinger's Warbelt [plate]
     ]),
 
-    new CovenantAbomination(2, 88214, 326379, 'Neena', 20, 0),
-    new CovenantAbomination(2, 88207, 326406, 'Professor', 15, 3, [
+    new CovenantAbomination(2, 57604, 326379, 'Neena', 20, 0),
+    new CovenantAbomination(2, 57601, 326406, 'Professor', 15, 3, [
         182504, // Stitched Conjurer's Mantle [cloth]
         182495, // Stitched Wraith's Shoulders [leather]
         182513, // Stitched Tactician's Spaulders [mail]
         182486, // Stitched Harbinger's Pauldrons [plate]
     ]),
-    new CovenantAbomination(2, 88205, 338040, 'Sabrina', 15, 4, [
+    new CovenantAbomination(2, 57600, 338040, 'Sabrina', 15, 4, [
         182503, // Stitched Conjurer's Leggings [cloth]
         182494, // Stitched Wraith's Breeches [leather]
         182512, // Stitched Tactician's Chausses [mail]
         182485, // Stitched Harbinger's Greaves [plate]
     ]),
-    new CovenantAbomination(2, 88206, 326407, 'Toothpick', 15, 4, [
+    new CovenantAbomination(2, 58414, 326407, 'Toothpick', 15, 4, [
         182506, // Stitched Conjurer's Wristwraps [cloth]
         182497, // Stitched Wraith's Armguards [leather]
         182515, // Stitched Tactician's Bracers [mail]
         182488, // Stitched Harbinger's Vambraces [plate]
     ]),
 
-    new CovenantAbomination(3, 88208, 326380, 'Gas Bag', 20, 5, [
+    new CovenantAbomination(3, 57608, 326380, 'Gas Bag', 20, 5, [
         182499, // Stitched Conjurer's Cowl [cloth]
         182490, // Stitched Wraith's Visage [leather]
         182508, // Stitched Tactician's Faceguard [mail]
         182481, // Stitched Harbinger's Greathelm [plate]
     ]),
-    new CovenantAbomination(3, 88209, 338039, 'Guillotine', 20, 7, [
+    new CovenantAbomination(3, 58416, 338039, 'Guillotine', 20, 7, [
         182502, // Stitched Conjurer's Gloves [cloth]
         182493, // Stitched Wraith's Stranglers [leather]
         182511, // Stitched Tactician's Gauntlets [mail]
         182484, // Stitched Harbinger's Crushers [plate]
     ]),
-    new CovenantAbomination(3, 88210, 326408, 'Mama Tomalin', 10, 1),
+    new CovenantAbomination(3, 60216, 326408, 'Mama Tomalin', 10, 1),
 
-    new CovenantAbomination(4, 88212, 338037, 'Iron Phillip', 20, 10),
-    new CovenantAbomination(4, 88211, 338043, 'Naxx', 20, 10),
+    new CovenantAbomination(4, 58411, 338037, 'Iron Phillip', 20, 10),
+    new CovenantAbomination(4, 58413, 338043, 'Naxx', 20, 10),
 
-    new CovenantAbomination(5, 88215, 343436, 'Unity', 30, 5),
-]
+    new CovenantAbomination(5, 61637, 343436, 'Unity', 30, 5),
+];
 
 // Night Fae
 // [spellId, icon]
@@ -293,7 +290,7 @@ export const soulshapes: [number, string][] = [
     [62439, 'item/182183'], // Wolfhawk
     [62440, 'item/182184'], // Wyvern
     [63603, 'item/185047'], // Yak
-]
+];
 
 // [spellId, icon]
 export const crittershapes: [number, string][] = [
@@ -320,21 +317,21 @@ export const crittershapes: [number, string][] = [
     [65519, 'item/189991'], // Snail
     [64988, 'item/187862'], // Snake
     [65467, 'item/189705'], // Turkey
-]
+];
 
 export const shapeTooltip: Record<number, string> = {
     64982: 'Cat (Well Fed) Crittershape',
     64939: 'Choofa Crittershape',
     64938: 'Corgi Crittershape',
-}
+};
 
 // Venthyr
 export type EmberCourtFriend = {
-    name: string
-    friendQuestId: number
-    reputationId: number
-    rsvpQuestId: number
-}
+    name: string;
+    friendQuestId: number;
+    reputationId: number;
+    rsvpQuestId: number;
+};
 export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
     // Slot 1
     [
@@ -444,22 +441,22 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
             rsvpQuestId: 59392,
         },
     ],
-]
+];
 // ^ how are these invited the first time?
 
 export type EmberCourtFeatureType = {
-    icon: string
-    name: string
-    requiredQuestId?: number
-    unlockQuestId: number
-    unlockReputation?: number
-}
+    icon: string;
+    name: string;
+    requiredQuestId?: number;
+    unlockQuestId: number;
+    unlockReputation?: number;
+};
 export type EmberCourtFeature = {
-    name: string
-    unlockQuestId: number
-    unlockReputation?: number
-    types: EmberCourtFeatureType[]
-}
+    name: string;
+    unlockQuestId: number;
+    unlockReputation?: number;
+    types: EmberCourtFeatureType[];
+};
 
 export const emberCourtFeatures: EmberCourtFeature[] = [
     {
@@ -504,7 +501,7 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
                 unlockQuestId: 61406,
                 unlockReputation: 3, // Honored
             },
-        ]
+        ],
     },
     {
         name: 'Decorations', // Dredger Pool
@@ -552,7 +549,7 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
             },
         ],
     },
-]
+];
 
 export const emberCourtUpgrades: EmberCourtFeature[] = [
     {
@@ -583,7 +580,7 @@ export const emberCourtUpgrades: EmberCourtFeature[] = [
                 unlockQuestId: 61888,
                 unlockReputation: 1, // Exalted
             },
-        ]
+        ],
     },
     {
         name: 'Upgrades',
@@ -613,9 +610,9 @@ export const emberCourtUpgrades: EmberCourtFeature[] = [
                 unlockQuestId: 61500,
                 unlockReputation: 2, // Revered
             },
-        ]
+        ],
     },
-]
+];
 
 export const emberCourtUpgrades2: EmberCourtFeature[] = [
     {
@@ -639,6 +636,6 @@ export const emberCourtUpgrades2: EmberCourtFeature[] = [
                 unlockQuestId: 61459,
                 unlockReputation: 1, // Exalted
             },
-        ]
+        ],
     },
-]
+];
