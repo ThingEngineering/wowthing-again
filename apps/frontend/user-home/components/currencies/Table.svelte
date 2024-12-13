@@ -58,10 +58,17 @@
             sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
         }
     }
+
+    $: filterFuncUgh = (currencies: StaticDataCurrency[], char: Character): boolean =>
+        currencies.some((c) => c !== null && char.currencies?.[c.id]?.quantity > 0) ||
+        (currencyItems[category.id] || []).some((itemId) => char.getItemCount(itemId) > 0);
 </script>
 
 {#if category}
+    {@const hasCurrencyItems = !!currencyItems[category.id]}
     <CharacterTable
+        filterFunc={(char) => filterFuncUgh(currencies, char)}
+        showWarbank={hasCurrencyItems}
         skipGrouping={sorted}
         {sortFunc}
     >
@@ -80,7 +87,7 @@
                     {/if}
                 {/each}
 
-                {#if currencyItems[category.id]}
+                {#if hasCurrencyItems}
                     {#if currencies.length > 0}
                         <th class="spacer"></th>
                     {/if}
@@ -100,6 +107,30 @@
             {/key}
         </CharacterTableHead>
 
+        <svelte:fragment slot="warbankExtra">
+            {#key slugKey}
+                {#if currencies.length > 0}
+                    <td class="spacer"></td>
+                    <td colspan="{currencies.length}"></td>
+                {/if}
+
+                {#if hasCurrencyItems}
+                    <td class="spacer"></td>
+                    {#each currencyItems[category.id] as itemId}
+                        {#if itemId === null}
+                            <td class="spacer"></td>
+                        {:else}
+                            <RowCurrency
+                                sortingBy={$currencyState.sortOrder[slugKey] === itemId}
+                                character={null}
+                                {itemId}
+                            />
+                        {/if}
+                    {/each}
+                {/if}
+            {/key}
+        </svelte:fragment>
+
         <svelte:fragment slot="rowExtra" let:character>
             <td class="spacer"></td>
             {#key slugKey}
@@ -115,7 +146,7 @@
                     {/if}
                 {/each}
 
-                {#if currencyItems[category.id]}
+                {#if hasCurrencyItems}
                     {#if currencies.length > 0}
                         <td class="spacer"></td>
                     {/if}

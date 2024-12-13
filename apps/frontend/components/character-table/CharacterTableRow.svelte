@@ -21,7 +21,7 @@
     let element: HTMLElement
     let intersected = false
 
-    $: accountEnabled = !character.accountId || $userStore.accounts[character.accountId]?.enabled
+    $: accountEnabled = !character?.accountId || $userStore.accounts[character?.accountId]?.enabled
     $: commonFields = $activeView.commonFields
 </script>
 
@@ -40,46 +40,55 @@
 
         white-space: nowrap;
     }
+    .warband-bank {
+        padding: 1px $width-padding;
+    }
 </style>
 
 <IntersectionObserver once {element} bind:intersecting={intersected}>
     <tr
         bind:this={element}
-        class="faction{character.faction}"
+        class="faction{character?.faction}"
         class:inactive={!accountEnabled}
         class:last-of-group={last}
-        data-id="{character.id}"
+        data-id="{character?.id}"
     >
         {#if intersected}
-            {#each commonFields as field}
-                {#if field === 'accountTag' && userStore.useAccountTags}
-                    <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td>
+            {#if character}
+                {#each commonFields as field}
+                    {#if field === 'accountTag' && userStore.useAccountTags}
+                        <td class="tag">{$userStore.accounts[character.accountId].tag || ''}</td>
 
-                {:else if field === 'characterIconClass'}
-                    <TableIcon padLeft="0.1rem" padRight="0px">
-                        <ClassIcon {character} />
-                    </TableIcon>
+                    {:else if field === 'characterIconClass'}
+                        <TableIcon padLeft="0.1rem" padRight="0px">
+                            <ClassIcon {character} />
+                        </TableIcon>
 
-                {:else if field === 'characterIconRace'}
-                    <TableIcon padLeft="0.1rem" padRight="0px">
-                        <RaceIcon {character} />
-                    </TableIcon>
+                    {:else if field === 'characterIconRace'}
+                        <TableIcon padLeft="0.1rem" padRight="0px">
+                            <RaceIcon {character} />
+                        </TableIcon>
 
-                {:else if field === 'characterIconSpec'}
-                    <TableIcon padLeft="0.1rem" padRight="0px">
-                        <SpecializationIcon {character} />
-                    </TableIcon>
+                    {:else if field === 'characterIconSpec'}
+                        <TableIcon padLeft="0.1rem" padRight="0px">
+                            <SpecializationIcon {character} />
+                        </TableIcon>
 
-                {:else if field === 'characterLevel'}
-                    <CharacterLevel {character} />
+                    {:else if field === 'characterLevel'}
+                        <CharacterLevel {character} />
 
-                {:else if field === 'characterName'}
-                    <CharacterName {character} />
+                    {:else if field === 'characterName'}
+                        <CharacterName {character} />
 
-                {:else if field === 'realmName'}
-                    <td class="realm text-overflow">{character.realm.name}</td>
-                {/if}
-            {/each}
+                    {:else if field === 'realmName'}
+                        <td class="realm text-overflow">{character.realm.name}</td>
+                    {/if}
+                {/each}
+            {:else}
+                <td class="warband-bank" colspan="{commonFields.length}">
+                    Warbank Bank
+                </td>
+            {/if}
 
             <slot name="rowExtra" />
         {:else}
