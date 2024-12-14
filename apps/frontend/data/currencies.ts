@@ -25,6 +25,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
     1: [
         {
             id: 100101,
+            name: 'Pet Battles',
+            slug: 'pet-battles',
+        },
+        {
+            id: 100102,
             name: 'World Events',
             slug: 'world-events',
         },
@@ -301,15 +306,41 @@ export const currencyItems: Record<number, number[]> = {
     ],
 
     // Miscellaneous
-    1: [
-        163036, // Polished Pet Charm
-        116415, // Shiny Pet Charm
-        null,
-        224461, // Bones of Mannoroth
-    ],
-
-    // Miscellaneous > World Events
+    // 1: [],
+    // Miscellaneous > Pet Battles
     100101: [
+        86143, // Battle Pet Bandage
+        98112, // Lesser Pet Treat
+        98114, // Pet Treat
+        163036, // Polished Pet Charm
+        null,
+        92741, // Flawless Battle-Stone
+        98715, // Marked Flawless Battle-Stone
+        92679, // Flawless Aquatic Battle-Stone
+        92675, // Flawless Beast Battle-Stone
+        92676, // Flawless Critter Battle-Stone
+        92683, // Flawless Dragonkin Battle-Stone
+        92665, // Flawless Elemental Battle-Stone
+        92677, // Flawless Flying Battle-Stone
+        92682, // Flawless Humanoid Battle-Stone
+        92678, // Flawless Magic Battle-Stone
+        92680, // Flawless Mechanical Battle-Stone
+        92681, // Flawless Undead Battle-Stone
+        null,
+        122457, // Ultimate Battle-Training Stone
+        116424, // Aquatic Battle-Training Stone
+        116374, // Beast Battle-Training Stone
+        116418, // Critter Battle-Training Stone
+        116419, // Dragonkin Battle-Training Stone
+        116420, // Elemental Battle-Training Stone
+        116421, // Flying Battle-Training Stone
+        116416, // Humanoid Battle-Training Stone
+        116422, // Magic Battle-Training Stone
+        116417, // Mechanical Battle-Training Stone
+        116423, // Undead Battle-Training Stone
+    ],
+    // Miscellaneous > World Events
+    100102: [
         37829, // Brewfest Prize Token
         23247, // Burning Blossom
         21100, // Coin of Ancestry

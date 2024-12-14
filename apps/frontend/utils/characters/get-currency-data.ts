@@ -6,6 +6,7 @@ import { CharacterCurrency, type Character } from '@/types/character';
 import type { StaticDataCurrency } from '@/shared/stores/static/types';
 import type { UserDataStore } from '@/stores';
 import type { ItemData } from '@/types/data/item';
+import { get } from 'svelte/store';
 
 interface CharacterCurrencyData {
     amount: string;
@@ -82,34 +83,42 @@ export function getCurrencyData(
             ret.tooltip += `<br><br>${extraTooltip}`;
         }
     } else {
-        const characterItemCount = character.getItemCount(itemId);
         const item = itemData.items[itemId];
         const name = item?.name || `Item #${itemId}`;
 
-        ret.amount = toNiceNumber(characterItemCount);
-        ret.tooltip = `${characterItemCount.toLocaleString()}x ${name}`;
+        if (character) {
+            const characterItemCount = character.getItemCount(itemId);
 
-        if (currencyItemCurrencies[itemId]) {
-            const characterCurrency = character.currencies?.[currencyItemCurrencies[itemId]];
-            if (characterCurrency?.max > 0) {
-                ret.capRemaining = characterCurrency.max - characterCurrency.quantity;
-                ret.percent = (characterCurrency.quantity / characterCurrency.max) * 100;
-                ret.tooltip += ` &ndash; ${characterCurrency.quantity} / ${characterCurrency.max}`;
+            ret.amount = toNiceNumber(characterItemCount);
+            ret.tooltip = `${characterItemCount.toLocaleString()}x ${name}`;
+
+            if (currencyItemCurrencies[itemId]) {
+                const characterCurrency = character.currencies?.[currencyItemCurrencies[itemId]];
+                if (characterCurrency?.max > 0) {
+                    ret.capRemaining = characterCurrency.max - characterCurrency.quantity;
+                    ret.percent = (characterCurrency.quantity / characterCurrency.max) * 100;
+                    ret.tooltip += ` &ndash; ${characterCurrency.quantity} / ${characterCurrency.max}`;
+                }
             }
-        }
-        // This has a backing currency which does not have a max, whee
-        else if (itemId === 211515) {
-            const characterCurrency = character.currencies?.[2800];
-            const quantity = characterCurrency?.quantity || 0;
+            // This has a backing currency which does not have a max, whee
+            else if (itemId === 211515) {
+                const characterCurrency = character.currencies?.[2800];
+                const quantity = characterCurrency?.quantity || 0;
 
-            const period = userStore.getCurrentPeriodForCharacter(time, character);
-            const max = period.id - 954;
+                const period = userStore.getCurrentPeriodForCharacter(time, character);
+                const max = period.id - 954;
 
-            ret.percent = (quantity / max) * 100;
-            ret.tooltip += ` &ndash; ${quantity} / ${max}`;
-        } else if (item?.unique > 0) {
-            ret.percent = (characterItemCount / item.unique) * 100;
-            ret.tooltip = ret.tooltip.replace('x ', ` / ${item.unique} `);
+                ret.percent = (quantity / max) * 100;
+                ret.tooltip += ` &ndash; ${quantity} / ${max}`;
+            } else if (item?.unique > 0) {
+                ret.percent = (characterItemCount / item.unique) * 100;
+                ret.tooltip = ret.tooltip.replace('x ', ` / ${item.unique} `);
+            }
+        } else {
+            const warbankItems = get(userStore).warbankItemsByItemId[itemId] || [];
+            const quantity = warbankItems.reduce((a, b) => a + b.count, 0);
+            ret.amount = toNiceNumber(quantity);
+            ret.tooltip = `${quantity.toLocaleString()}x ${name}`;
         }
     }
 
