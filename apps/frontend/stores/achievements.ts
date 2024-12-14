@@ -243,13 +243,11 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13124, // \- Metal Detector
                 13128, // \- I'm Here for the Pets
                 13132, // \- Helping Hand
-                // 13121, // \- Notorious
                 12595, // \- Expert Expeditioner
                 [
                     13133, // \- Team Deathmatch [A]
                     13135, // \- Team Deathmatch [H]
                 ],
-                // 13141, // \- Island Slayer
 
                 40957, // Maximum Effort
                 [
@@ -260,31 +258,6 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                     13297, // \- War for the Shore [A]
                     13296, // \- War for the Shore [H]
                 ],
-                [
-                    12889, // \- Strike Fast [A]
-                    12876, // \- Strike Fast [H]
-                ],
-                [
-                    13305, // \- Night Moves [A]
-                    13306, // \- Night Moves [H]
-                ],
-                [
-                    12884, // \- Leader of Troops [A]
-                    12878, // \- Leader of Troops [H]
-                ],
-                [
-                    13308, // \- Recruitment Officer [A]
-                    13307, // \- Recruitment Officer [H]
-                ],
-                [
-                    12886, // \- Tour of War [A]
-                    12879, // \- Tour of War [H]
-                ],
-                [
-                    13310, // \- By Nature's Call [A]
-                    13309, // \- Deforester [H]
-                ],
-                12874, // \- An Eventful Battle
                 12872, // \- The Dirty Five
                 [
                     12896, // \- Azeroth at War: The Barrens [A]
@@ -338,8 +311,6 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13572, // \- The Heart Forge
                 13771, // \- Power Is Beautiful
                 13777, // \- My Heart Container is Full
-                13772, // \- Essence Essentials
-                13998, // \- Pure of Heart
 
                 41209, // Dressed to Kill: Battle for Azeroth
                 12991, // \- New Mog, G'huun This?
