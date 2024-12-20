@@ -14,7 +14,7 @@ import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
-const debugId = 13638;
+const debugId = 16590;
 
 export function getAchievementStatus(
     achievementData: AchievementData,
