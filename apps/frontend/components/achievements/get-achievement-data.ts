@@ -98,7 +98,6 @@ export function getAchievementStatus(
             if (criteria?.type === CriteriaType.CompleteQuest) {
                 for (const character of characters) {
                     if (userQuestData.characters[character.id]?.quests?.has(criteria.asset)) {
-                        console.log('yay');
                         characterData.push([character.id, 1]);
                     }
                 }
