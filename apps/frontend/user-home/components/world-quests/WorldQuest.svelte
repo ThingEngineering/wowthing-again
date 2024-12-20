@@ -110,9 +110,9 @@
 {#if worldQuest.expires > $timeStore}
     <div
         class="world-quest drop-shadow"
-        class:border-success={hoursRemaining >= 24}
-        class:border-shrug={hoursRemaining < 24 && hoursRemaining >= 12}
-        class:border-fail={hoursRemaining < 12}
+        class:border-success={hoursRemaining >= 12}
+        class:border-shrug={hoursRemaining < 12 && hoursRemaining >= 6}
+        class:border-fail={hoursRemaining < 6}
         data-id={worldQuest.questId}
         style="--left: {worldQuest.locationX}%; --top: {worldQuest.locationY}%;"
         use:componentTooltip={{
