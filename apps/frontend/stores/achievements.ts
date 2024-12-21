@@ -339,29 +339,50 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13690, // Nazjatarget Eliminated
                 13691, // I Thought You Said They'd Be Rare?
 
-                13704, // [A] Nautical Battlefield Training
-                13762, // [A] Aqua Team Murder Force
-                13744, // Seasoned: Bladesman Inowari
-                13754, // Veteran: Bladesman Inowari
-                13759, // Battle-Scarred: Bladesman Inowari
-                13745, // Seasoned: Farseer Ori
-                13755, // Veteran: Farseer Ori
-                13760, // Battle-Scarred: Farseer Ori
-                13743, // Seasoned: Hunter Akana
-                13753, // Veteran: Hunter Akana
-                13758, // Battle-Scarred: Hunter Akana
-
-                13645, // [H] Nautical Battlefield Training
-                13761, // [H] Aqua Team Murder Force
-                13746, // Seasoned: Neri Sharpfin
-                13749, // Veteran: Neri Sharpfin
-                13750, // Battle-Scarred: Neri Sharpfin
-                13747, // Seasoned: Poen Gillbrack
-                13751, // Veteran: Poen Gillbrack
-                13756, // Battle-Scarred: Poen Gillbrack
-                13748, // Seasoned: Vim Brineheart
-                13752, // Veteran: Vim Brineheart
-                13757, // Battle-Scarred: Vim Brineheart
+                [
+                    13704, // [A] Nautical Battlefield Training
+                    13645, // [H] Nautical Battlefield Training
+                ],
+                [
+                    13762, // [A] Aqua Team Murder Force
+                    13761, // [H] Aqua Team Murder Force
+                ],
+                [
+                    13744, // Seasoned: Bladesman Inowari
+                    13746, // Seasoned: Neri Sharpfin
+                ],
+                [
+                    13745, // Seasoned: Farseer Ori
+                    13747, // Seasoned: Poen Gillbrack
+                ],
+                [
+                    13743, // Seasoned: Hunter Akana
+                    13748, // Seasoned: Vim Brineheart
+                ],
+                [
+                    13754, // Veteran: Bladesman Inowari
+                    13749, // Veteran: Neri Sharpfin
+                ],
+                [
+                    13755, // Veteran: Farseer Ori
+                    13751, // Veteran: Poen Gillbrack
+                ],
+                [
+                    13753, // Veteran: Hunter Akana
+                    13752, // Veteran: Vim Brineheart
+                ],
+                [
+                    13759, // Battle-Scarred: Bladesman Inowari
+                    13750, // Battle-Scarred: Neri Sharpfin
+                ],
+                [
+                    13760, // Battle-Scarred: Farseer Ori
+                    13756, // Battle-Scarred: Poen Gillbrack
+                ],
+                [
+                    13758, // Battle-Scarred: Hunter Akana
+                    13757, // Battle-Scarred: Vim Brineheart
+                ],
 
                 13549, // Trove Tracker
                 13711, // A Fistful of Manapearls
