@@ -157,7 +157,6 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
                 13057, // \--- Sailed in Sea Minor
                 13061, // \--- Three Sheets to the Wind
                 13058, // \--- Kul Tiran Up the Dance Floor
-                12087, // \--- The Reining Champion
                 13049, // \--- The Long Con
                 41203, // \- Bwon Voyage
                 12942, // \--- Adventurer of Nazmir
