@@ -27,7 +27,12 @@ public static partial class Hardcoded
         183744, // Superior Parts
         188957, // Genesis Mote
         190189, // Sandworn Relic
-        199202, // Attendant's Token of Merit [SL S4]
+
+        // Events
+        199211, // Primeval Essence [pre-DF invasions]
+        231510, // Timewarped Relic Coffer Key [LFR]
+        232365, // Timewarped Relic Coffer Key [N]
+        232366, // Timewarped Relic Coffer Key [H]
 
         // Shadowlands - Castle Nathria
         183888, // Apogee Anima Bead
@@ -42,8 +47,6 @@ public static partial class Hardcoded
         183897, // Mystic Anima Spherule
         183898, // Venerated Anima Spherule
         183899, // Zenith Anima Spherule
-
-        199211, // Primeval Essence [pre-DF invasions]
 
         // Dragonflight
         198046, // Concentrated Primal Infusion
@@ -102,7 +105,11 @@ public static partial class Hardcoded
         210254, // Dreamsurge Cocoon
         211376, // Seedbloom
 
-        // MoP Remix
-        224461, // Bones of Mannoroth
+        // The War Within
+        206350, // Radiant Remnant
+        210814, // Artisan's Acuity
+        220520, // Radiant Echo
+        223951, // Earth-Encrusted Gem
+        229899, // Coffer Key Shard
     };
 }

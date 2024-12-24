@@ -363,6 +363,9 @@ export const currencyItemCurrencies: Record<number, number> = {
     213089: 3010, // Antique Bronze Bullion
 
     211297: 3023, // Fractured Spark of Omens
+    231510: 3144, // Timewarped Relic Coffer Key [LFR]
+    232365: 3145, // Timewarped Relic Coffer Key [N]
+    232366: 3146, // Timewarped Relic Coffer Key [H]
 };
 
 export const currencyProfession: Record<number, number> = {
