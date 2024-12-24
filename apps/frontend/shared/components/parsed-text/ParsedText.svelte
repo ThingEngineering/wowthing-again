@@ -37,32 +37,42 @@
             /\{reputation:(\d+)\|(\d+)\}/g,
             (_, amount: number, repId: number) => {
                 const parts: string[] = []
-                parts.push(amount.toString())
-                parts.push('rep with')
+                if (amount > 0) {
+                    parts.push(amount.toString())
+                    parts.push('rep with')
+                }
                 parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`)
                 return parts.join(' ')
             }
         )
 
         html = html.replaceAll(
-            /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
+            /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|([-\d]+))?\}/g,
             (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
                 const parts: string[] = []
+                const rep = $staticStore.reputations[repId]
+                
                 if (currencyId) {
-                    parts.push(`{price:${amount}|${currencyId}}`)
+                    parts.push(`{price:${amount}|${Math.abs(currencyId)}}`)
                 }
                 else {
                     parts.push(`{price:${amount}}`)
                 }
                 
                 parts.push('at')
-                parts.push(RewardReputation[repLevel]
-                    .split(/(?=[A-Z])|(?=[0-9])/)
-                    .join(' ')
-                )
-                parts.push('with')
+                if (rep?.renownCurrencyId) {
+                    parts.push(`Renown ${repLevel}`)
+                } else {
+                    parts.push(RewardReputation[repLevel]
+                        .split(/(?=[A-Z])|(?=[0-9])/)
+                        .join(' ')
+                    )
+                }
 
-                parts.push($staticStore.reputations[repId]?.name ?? `Reputation #${repId}`)
+                if ((currencyId || 0) >= 0) {
+                    parts.push('with')
+                    parts.push(rep?.name ?? `Reputation #${repId}`)
+                }
 
                 return parts.join(' ')
             }
