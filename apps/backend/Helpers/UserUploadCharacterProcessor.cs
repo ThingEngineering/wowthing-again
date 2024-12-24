@@ -1181,7 +1181,7 @@ public class UserUploadCharacterProcessor
                             {
                                 Type = objectiveParts[0],
                                 Text = objectiveParts[1],
-                                Have = int.Parse(objectiveParts[2]),
+                                Have = (int)Math.Round(double.Parse(objectiveParts[2])),
                                 Need = int.Parse(objectiveParts[3]),
                             });
                         }

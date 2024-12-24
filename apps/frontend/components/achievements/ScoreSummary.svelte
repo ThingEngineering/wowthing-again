@@ -4,6 +4,8 @@
 
     import AchievementsAchievement from './Achievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import { StaticDataEnchantment } from '@/shared/stores/static/types/enchantment';
+    import getPercentClass from '@/utils/get-percent-class';
 
     let categories: AchievementDataCategory[]
     $: {
@@ -34,35 +36,56 @@
         padding: 1rem;
         width: 100%;
     }
+    .overall {
+        margin-bottom: 1rem;
+    }
     .summary-categories {
-        --progress-margin-top: 1rem;
-
         width: 100%;
 
         @media screen and (min-width: 1100px) {
             column-gap: 1rem;
+            row-gap: 1rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
         }
+    }
+    .category {
+        align-items: center;
+        display: flex;
+    }
+    .points {
+        font-size: 0.9rem;
+        text-align: right;
+        width: 3rem;
     }
 </style>
 
 <div class="summary">
     <div class="summary-points thing-container">
-        <ProgressBar
-            title="Overall"
-            have={$userAchievementStore.achievementCategories[0].have}
-            total={$userAchievementStore.achievementCategories[0].total}
-            --bar-height="2.5rem"
-        />
+        <div class="overall">
+            <ProgressBar
+                title="Overall"
+                have={$userAchievementStore.achievementCategories[0].have}
+                total={$userAchievementStore.achievementCategories[0].total}
+                --bar-height="2.5rem"
+            />
+        </div>
 
         <div class="summary-categories">
             {#each categories as category}
-                <ProgressBar
-                    title={category.name}
-                    have={$userAchievementStore.achievementCategories[category.id].have}
-                    total={$userAchievementStore.achievementCategories[category.id].total}
-                />
+                {@const stats = $userAchievementStore.achievementCategories[category.id]}
+                <div class="category">
+                    <ProgressBar
+                        title={category.name}
+                        have={stats.have}
+                        total={stats.total}
+                    />
+                    <div class="points {getPercentClass(stats.havePoints / stats.totalPoints * 100)}">
+                        {#if stats.totalPoints > 0}
+                            {stats.totalPoints - stats.havePoints}
+                        {/if}
+                    </div>
+                </div>
             {/each}
         </div>
     </div>
