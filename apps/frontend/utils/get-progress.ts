@@ -118,6 +118,24 @@ export default function getProgress(
                 });
                 // descriptionText[index] = `${haveQuests} / ${totalQuests}`;
             }
+        } else if (group.type === 'questline') {
+            datas = [];
+            const lookupKey = group.lookup === 'faction' ? factionIdMap[character.faction] : 0;
+
+            for (const thing of group.data[lookupKey]) {
+                const questLine = staticData.questLines[thing.ids[0]];
+                if (!questLine) {
+                    console.warn('bad questLine?', thing.ids);
+                    return;
+                }
+
+                datas.push({
+                    ids: questLine.questIds,
+                    name: questLine.name,
+                    type: ProgressDataType.Quest,
+                    value: questLine.questIds.length,
+                });
+            }
         } else {
             switch (group.lookup) {
                 case 'class':
@@ -173,7 +191,7 @@ export default function getProgress(
                     if (group.name === 'Brewfest Intro Quests') {
                         showCurrency = 1037829; // Cyphers of the First Ones
                     }
-                } else if (group.type === 'campaign') {
+                } else if (group.type === 'campaign' || group.type === 'questline') {
                     const haveQuests = data.ids.filter((questId) =>
                         userQuestData.characters[character.id]?.quests?.has(questId),
                     ).length;
