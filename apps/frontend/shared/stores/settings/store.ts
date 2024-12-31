@@ -1,4 +1,5 @@
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
+import merge from 'lodash/merge';
 import { get, writable } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
@@ -79,7 +80,8 @@ function createSettingsStore() {
                         accountsHash = newAccountsHash;
                     }
 
-                    const newSettingsHash = hashObject(settings);
+                    const settingsData = get(store);
+                    const newSettingsHash = hashObject(settingsData);
                     if (newAccountsHash !== accountsHash || newSettingsHash !== settingsHash) {
                         accountsHash = newAccountsHash;
                         settingsHash = newSettingsHash;
@@ -88,7 +90,12 @@ function createSettingsStore() {
                 }, 1000);
             }
 
-            store.set(settings);
+            const currentSettings = get(store);
+            if (currentSettings === undefined) {
+                store.set(settings);
+            } else {
+                merge(currentSettings, settings);
+            }
         },
         subscribe: store.subscribe,
         update: store.update,

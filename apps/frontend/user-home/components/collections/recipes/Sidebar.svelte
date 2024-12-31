@@ -18,7 +18,7 @@
         const sortedExpansions = settingsStore.expansions.slice();
         const sortedProfessions = sortBy(
             Object.values($staticStore.professions)
-                .filter((prof) => prof.type === 0 || prof.slug === 'cooking'),
+                .filter((prof) => prof.type === 0 || prof.slug === 'cooking' || prof.slug === 'fishing'),
             (prof) => [prof.type, prof.name]
         )
 

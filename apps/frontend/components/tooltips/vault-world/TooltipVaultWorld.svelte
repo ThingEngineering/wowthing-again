@@ -1,11 +1,12 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy';
+
     import { worldVaultItemLevel } from '@/data/dungeon';
     import { getWorldTier } from '@/utils/vault/get-world-tier';
     import type { Character } from '@/types'
 
     import Progress from './Progress.svelte';
     import Rewards from './Rewards.svelte';
-    import { sortBy } from 'lodash';
 
     export let character: Character
 
