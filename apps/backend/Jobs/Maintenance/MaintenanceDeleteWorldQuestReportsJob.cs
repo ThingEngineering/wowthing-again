@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Jobs;
+﻿using Npgsql;
+using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Maintenance;
 
@@ -17,7 +18,7 @@ DELETE FROM world_quest_report
 WHERE   id IN (
     SELECT  id
     FROM    world_quest_report
-    WHERE   (expires_at + '1 hour'::interval) < current_timestamp
+    WHERE   expires_at < $1
     LIMIT   10000
 )
 ";
@@ -26,8 +27,11 @@ WHERE   id IN (
     {
         await using var connection = Context.GetConnection();
         await connection.OpenAsync();
+
         await using var command = connection.CreateCommand();
         command.CommandText = DeleteQuery;
+        command.Parameters.Add(new NpgsqlParameter { Value = DateTime.UtcNow.AddHours(-1) });
+
         int deleted = await command.ExecuteNonQueryAsync();
         if (deleted > 0)
         {
