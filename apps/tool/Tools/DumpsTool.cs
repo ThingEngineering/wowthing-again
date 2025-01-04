@@ -781,6 +781,26 @@ public class DumpsTool
         var instances = await DataUtilities
             .LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
 
+        var dbInstanceMap = await context.WowJournalInstance
+            .ToDictionaryAsync(ji => ji.Id);
+
+        foreach (var instance in instances)
+        {
+            if (!dbInstanceMap.TryGetValue(instance.ID, out var dbInstance))
+            {
+                dbInstance = dbInstanceMap[instance.ID] = new WowJournalInstance
+                {
+                    Id = instance.ID,
+                    Flags = instance.Flags,
+                    MapId = instance.MapID,
+                };
+                context.WowJournalInstance.Add(dbInstance);
+            }
+
+            dbInstance.Flags = instance.Flags;
+            dbInstance.MapId = instance.MapID;
+        }
+
         foreach (var language in _languages)
         {
             var maps = await DataUtilities
@@ -794,6 +814,7 @@ public class DumpsTool
 
             foreach (var instance in instances)
             {
+
                 CreateOrUpdateString(context, dbLanguageMap, language, StringType.WowJournalInstanceName,
                     instance.ID, instance.Name);
 

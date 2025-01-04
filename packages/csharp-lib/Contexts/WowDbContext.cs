@@ -42,6 +42,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowItemEffectV2> WowItemEffectV2 { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
     public DbSet<WowItemSubclass> WowItemSubclass { get; set; }
+    public DbSet<WowJournalInstance> WowJournalInstance { get; set; }
     public DbSet<WowMount> WowMount { get; set; }
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
