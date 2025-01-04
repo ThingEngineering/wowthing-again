@@ -25,5 +25,6 @@ public class PlayerAccount
     public PlayerAccountHeirlooms Heirlooms { get; set; }
     public PlayerAccountPets Pets { get; set; }
     public PlayerAccountToys Toys { get; set; }
+    public PlayerAccountTransmogIds TransmogIds { get; set; }
     public PlayerAccountTransmogSources TransmogSources { get; set; }
 }

@@ -42,6 +42,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<WowItemEffectV2> WowItemEffectV2 { get; set; }
     public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
     public DbSet<WowItemSubclass> WowItemSubclass { get; set; }
+    public DbSet<WowJournalInstance> WowJournalInstance { get; set; }
     public DbSet<WowMount> WowMount { get; set; }
     public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
     public DbSet<WowPeriod> WowPeriod { get; set; }
@@ -64,6 +65,7 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerAccountHeirlooms> PlayerAccountHeirlooms { get; set; }
     public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
     public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
+    public DbSet<PlayerAccountTransmogIds> PlayerAccountTransmogIds { get; set; }
     public DbSet<PlayerAccountTransmogSources> PlayerAccountTransmogSources { get; set; }
 
     public DbSet<PlayerCharacter> PlayerCharacter { get; set; }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250104190131_Add_WowJournalInstance")]
+    partial class Add_WowJournalInstance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -618,22 +621,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_account_toys");
 
                     b.ToTable("player_account_toys", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogIds", b =>
-                {
-                    b.Property<int>("AccountId")
-                        .HasColumnType("integer")
-                        .HasColumnName("account_id");
-
-                    b.Property<List<int>>("Ids")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("ids");
-
-                    b.HasKey("AccountId")
-                        .HasName("pk_player_account_transmog_ids");
-
-                    b.ToTable("player_account_transmog_ids", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogSources", b =>
@@ -3588,18 +3575,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogIds", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
-                        .WithOne("TransmogIds")
-                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerAccountTransmogIds", "AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_player_account_transmog_ids_player_account_account_id");
-
-                    b.Navigation("Account");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogSources", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
@@ -4068,8 +4043,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Pets");
 
                     b.Navigation("Toys");
-
-                    b.Navigation("TransmogIds");
 
                     b.Navigation("TransmogSources");
                 });

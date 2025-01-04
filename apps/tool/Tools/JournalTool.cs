@@ -254,7 +254,7 @@ public class JournalTool
                 var legacyLoot = tier.ID <= 499; // Shadowlands
 
                 int lastInstanceType = -1;
-                foreach (int instanceId in tierToInstances[tier.ID])
+                foreach (short instanceId in tierToInstances[tier.ID])
                 {
                     var instance = instancesById[instanceId];
                     var map = mapsById[instance.MapID];

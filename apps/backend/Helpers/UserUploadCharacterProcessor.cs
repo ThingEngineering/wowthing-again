@@ -114,7 +114,7 @@ public class UserUploadCharacterProcessor
         HandleProfessionTraits();
         HandleQuests();
         HandleReputations();
-        HandleTransmog();
+        // HandleTransmog();
         HandleWeekly();
 
         return _result;
@@ -1313,7 +1313,7 @@ public class UserUploadCharacterProcessor
             var parts = paragonString.Split(":");
             if (parts.Length != 3)
             {
-                _logger.Warning("Invalid item string: {String}", paragonString);
+                _logger.Warning("Invalid paragon string: {String}", paragonString);
                 continue;
             }
 
