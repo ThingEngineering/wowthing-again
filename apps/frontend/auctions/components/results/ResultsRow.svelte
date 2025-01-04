@@ -56,7 +56,7 @@
             const itemId = parseInt(sourceParts[0])
             const item = $itemStore.items[itemId]
 
-            ret.icon = `item/${itemId}${sourceParts[1] === '0' ? '' : sourceParts[1]}`
+            ret.icon = `item/${sourceParts.slice(0, sourceParts[1] === '0' ? 1 : 2).join('_')}`
             ret.itemLevel = item?.itemLevel || 1
             ret.name = `{item:${itemId}}`
             if (sourceParts[1] !== '0') {
