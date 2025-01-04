@@ -45,6 +45,38 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 highUpgrade: warWithinUpgrade1,
             },
         ],
+        purchases: [
+            {
+                costId: 2123, // Bloody Tokens
+                costAmount: {
+                    [InventoryType.Head]: 875,
+                    [InventoryType.Shoulders]: 700,
+                    [InventoryType.Back]: 525,
+                    [InventoryType.Chest]: 875,
+                    [InventoryType.Wrist]: 525,
+                    [InventoryType.Hands]: 700,
+                    [InventoryType.Waist]: 700,
+                    [InventoryType.Legs]: 875,
+                    [InventoryType.Feet]: 700,
+                },
+                upgradeTier: 1,
+            },
+            {
+                costId: 3090, // Flame-Blessed Iron
+                costAmount: {
+                    [InventoryType.Head]: 175,
+                    [InventoryType.Shoulders]: 140,
+                    [InventoryType.Back]: 105,
+                    [InventoryType.Chest]: 175,
+                    [InventoryType.Wrist]: 105,
+                    [InventoryType.Hands]: 140,
+                    [InventoryType.Waist]: 140,
+                    [InventoryType.Legs]: 175,
+                    [InventoryType.Feet]: 140,
+                },
+                upgradeTier: 1,
+            },
+        ],
     },
     {
         id: 9,
