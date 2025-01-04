@@ -12,7 +12,8 @@ export class CharacterWeekly {
         public keystoneDungeon: number,
         public keystoneLevel: number,
         public vaultScannedAt?: string,
-        public vaultHasRewards?: boolean,
+        vaultAvailableRewards?: boolean,
+        vaultGeneratedRewards?: boolean,
         dungeonProgress?: CharacterWeeklyProgressArray[],
         raidProgress?: CharacterWeeklyProgressArray[],
         worldProgress?: CharacterWeeklyProgressArray[],
@@ -24,6 +25,8 @@ export class CharacterWeekly {
 
         if (vaultScannedAt) {
             this.vault = {
+                availableRewards: vaultAvailableRewards,
+                generatedRewards: vaultGeneratedRewards,
                 dungeonProgress: (dungeonProgress || []).map(
                     (array) => new CharacterWeeklyProgress(...array),
                 ),
@@ -40,6 +43,8 @@ export class CharacterWeekly {
 export type CharacterWeeklyArray = ConstructorParameters<typeof CharacterWeekly>;
 
 export interface CharacterWeeklyVault {
+    availableRewards: boolean;
+    generatedRewards: boolean;
     dungeonProgress: CharacterWeeklyProgress[];
     raidProgress: CharacterWeeklyProgress[];
     worldProgress: CharacterWeeklyProgress[];

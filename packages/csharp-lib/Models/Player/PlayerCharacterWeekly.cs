@@ -33,6 +33,8 @@ public class PlayerCharacterWeekly(int characterId)
 public class PlayerCharacterWeeklyVault
 {
     public DateTime ScannedAt { get; set; }
+    public bool AvailableRewards { get; set; }
+    public bool GeneratedRewards { get; set; }
     public bool HasRewards { get; set; }
 
     public List<List<int>> MythicPlusRuns { get; set; }

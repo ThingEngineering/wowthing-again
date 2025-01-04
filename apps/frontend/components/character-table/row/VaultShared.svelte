@@ -1,7 +1,8 @@
 <script lang="ts">
     import type { CharacterWeeklyProgress } from '@/types'
 
-    export let hasRewards: boolean
+    export let availableRewards: boolean
+    export let generatedRewards: boolean
     export let progresses: CharacterWeeklyProgress[]
     export let qualityFunc: (progress: CharacterWeeklyProgress) => number = null
     export let textFunc: (progress: CharacterWeeklyProgress) => string
@@ -24,8 +25,10 @@
 </style>
 
 <div class="flex-wrapper">
-    {#if hasRewards}
-        <span class="collect status-warn">Collect!</span>
+    {#if generatedRewards}
+        <span class="collect status-warn">Choose!</span>
+    {:else if availableRewards}
+        <span class="collect status-warn">Visit!</span>
     {:else}
         {#each progresses as progress, progressIndex}
             {#if progress.progress >= progress.threshold}

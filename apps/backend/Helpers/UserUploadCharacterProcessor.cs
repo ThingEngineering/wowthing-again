@@ -1413,6 +1413,8 @@ public class UserUploadCharacterProcessor
             _character.Weekly.Vault ??= new();
 
             _character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
+            _character.Weekly.Vault.AvailableRewards = _characterData.VaultAvailableRewards;
+            _character.Weekly.Vault.GeneratedRewards = _characterData.VaultGeneratedRewards;
             _character.Weekly.Vault.HasRewards = _characterData.VaultHasRewards;
 
             _character.Weekly.Vault.MythicPlusRuns = _characterData.MythicDungeons

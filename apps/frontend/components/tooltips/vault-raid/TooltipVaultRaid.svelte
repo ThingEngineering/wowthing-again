@@ -22,7 +22,9 @@
         </tbody>
     </table>
 
-    {#if character.weekly?.vaultHasRewards}
+    {#if character.weekly?.vault.availableRewards}
+        <div class="bottom">Visit your vault!</div>
+    {:else if character.weekly?.vault.generatedRewards}
         <Rewards {character} />
     {/if}
 </div>
