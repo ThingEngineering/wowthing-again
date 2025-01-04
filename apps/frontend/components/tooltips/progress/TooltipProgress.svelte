@@ -86,6 +86,10 @@
 
             dataChunks[dataChunks.length - 1].push([data, dataIndex])
         }
+
+        if (group.name.startsWith('Sojourner')) {
+            console.log({group, dataChunks, descriptionText, haveIndexes, nameOverride});
+        }
     }
 
     $: groupName = group.lookup === 'faction'
