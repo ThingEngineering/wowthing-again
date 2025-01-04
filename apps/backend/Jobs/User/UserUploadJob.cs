@@ -453,11 +453,21 @@ public class UserUploadJob : JobBase
                     }
                 }
 
-                accountTransmogIds.Ids = ids.Order().ToList();
+                var sortedIds = ids.OrderBy(id => id).ToList();
+                if (accountTransmogIds.Ids == null || !sortedIds.SequenceEqual(accountTransmogIds.Ids))
+                {
+                    accountTransmogIds.Ids = sortedIds;
+                    _resetTransmogCache = true;
+                }
 
-                accountTransmogSources.Sources = sources
+                var sortedSources = sources
                     .OrderBy(source => int.Parse(source.Split('_').First()))
                     .ToList();
+                if (accountTransmogSources.Sources == null || !sortedSources.SequenceEqual(accountTransmogSources.Sources))
+                {
+                    accountTransmogSources.Sources = sortedSources;
+                    _resetTransmogCache = true;
+                }
             }
 
             // Deal with warbank data last, we need to know the region
