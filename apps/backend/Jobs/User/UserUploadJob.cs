@@ -11,6 +11,7 @@ using Wowthing.Lib.Utilities;
 using Polly;
 using Polly.Retry;
 using Wowthing.Backend.Helpers;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.User;
 using PredicateBuilder = Wowthing.Lib.Utilities.PredicateBuilder;
 
@@ -171,17 +172,11 @@ public class UserUploadJob : JobBase
             Context.UserAddonData.Add(userAddonData);
         }
 
-        // Fetch guild data
-        var guildMap = await Context.PlayerGuild
-            .Where(pg => pg.UserId == _userId)
-            .Include(pg => pg.Items)
-            .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
-
         // Deal with guild data
-        var guildItems = new List<(PlayerGuild, UploadGuild)>();
-        foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
+        var guildMap = new Dictionary<(int RealmId, string Name), PlayerGuild>();
+        foreach ((string addonId, var guildData) in parsed.Guilds.EmptyIfNull())
         {
-            var (realm, guildName) = ParseAddonId(addonId);
+            (var realm, string guildName) = ParseAddonId(addonId);
             if (realm == null)
             {
                 continue;
@@ -189,26 +184,33 @@ public class UserUploadJob : JobBase
 
             accountRegion ??= realm.Region;
 
-            if (!guildMap.TryGetValue((realm.Id, guildName), out var guild))
+            await using var guildContext = await NewContext();
+
+            var guild = await guildContext.PlayerGuild
+                .Where(pg => pg.UserId == _userId && pg.RealmId == realm.Id && pg.Name == guildName)
+                .FirstOrDefaultAsync();
+            if (guild == null)
             {
-                guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
+                guild = new PlayerGuild
                 {
                     UserId = _userId,
                     RealmId = realm.Id,
                     Name = guildName,
                 };
-                Context.PlayerGuild.Add(guild);
+                guildContext.PlayerGuild.Add(guild);
+                await guildContext.SaveChangesAsync();
             }
 
-            guildItems.Add((guild, guildData));
-        }
+            guildMap[(guild.RealmId, guild.Name)] = guild;
 
-        // Save any new guilds now, EF likes to try to save the guild items first sometimes
-        await Context.SaveChangesAsync();
-
-        foreach (var (guild, guildData) in guildItems)
-        {
-            await HandleGuildItems(guild, guildData);
+            try
+            {
+                await HandleGuildItems(guildContext, guild, guildData);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "HandleGuildItems failed for {realmId}/{name}!", guild.RealmId, guild.Name);
+            }
         }
 
         _timer.AddPoint("Guilds");
@@ -624,7 +626,7 @@ public class UserUploadJob : JobBase
         await JobRepository.ReleaseLockAsync(lockKey, lockValue);
     }
 
-    private async Task HandleGuildItems(PlayerGuild guild, UploadGuild guildData)
+    private async Task HandleGuildItems(WowDbContext localContext, PlayerGuild guild, UploadGuild guildData)
     {
         var itemMap = guild.Items
             .EmptyIfNull()
@@ -638,31 +640,37 @@ public class UserUploadJob : JobBase
         var seenIds = new HashSet<long>();
 
         // (tab, slot)
-        foreach (var (tab, contents) in guildData.Items.EmptyIfNull())
+        foreach ((string tabString, var contents) in guildData.Items.EmptyIfNull())
         {
-            short tabId = short.Parse(tab[1..]);
-            foreach (var (slotString, itemString) in contents)
+            short tab = short.Parse(tabString[1..]);
+            foreach ((string slotString, string itemString) in contents)
             {
-                var slot = short.Parse(slotString[1..]);
+                short slot = short.Parse(slotString[1..]);
 
-                var parts = itemString.Split(":");
+                if (itemString == "pet")
+                {
+                    continue;
+                }
+
+                string[] parts = itemString.Split(":");
                 if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     Logger.Warning("Invalid item string: {String}", itemString);
                     continue;
                 }
 
-                var key = (tabId, slot);
+                var key = (tab, slot);
+
                 PlayerGuildItem item;
                 if (!itemMap.TryGetValue(key, out var items))
                 {
                     item = new PlayerGuildItem
                     {
                         Guild = guild,
-                        ContainerId = tabId,
+                        ContainerId = tab,
                         Slot = slot,
                     };
-                    Context.PlayerGuildItem.Add(item);
+                    localContext.PlayerGuildItem.Add(item);
                 }
                 else
                 {
@@ -674,12 +682,14 @@ public class UserUploadJob : JobBase
             }
         }
 
+        await localContext.SaveChangesAsync(CancellationToken);
+
         var deleteMe = itemIds
             .Except(seenIds)
             .ToArray();
         if (deleteMe.Length > 0)
         {
-            await Context.PlayerGuildItem
+            await localContext.PlayerGuildItem
                 .Where(pgi => deleteMe.Contains(pgi.Id))
                 .ExecuteDeleteAsync();
         }
