@@ -751,16 +751,22 @@ public class UserUploadCharacterProcessor
 
             foreach ((string slotString, string itemString) in contents)
             {
-                var slot = short.Parse(slotString[1..]);
+                if (itemString == "pet")
+                {
+                    continue;
+                }
+
                 // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
-                var parts = itemString.Split(":");
+                string[] parts = itemString.Split(":");
                 if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
                     _logger.Warning("Invalid item string: {String}", itemString);
                     continue;
                 }
 
+                short slot = short.Parse(slotString[1..]);
                 var key = (locationType, bagId, slot);
+
                 PlayerCharacterItem item;
                 if (!itemMap.TryGetValue(key, out var items))
                 {
@@ -1149,10 +1155,10 @@ public class UserUploadCharacterProcessor
                 _character.AddonQuests.OtherQuests = _characterData.OtherQuests.EmptyIfNull();
 
                 _character.AddonQuests.ProgressQuests = new();
-                foreach (var packedProgress in _characterData.ProgressQuests.EmptyIfNull())
+                foreach (string packedProgress in _characterData.ProgressQuests.EmptyIfNull())
                 {
-                    var progressParts = packedProgress.Split('|');
-                    if (progressParts.Length < 5)
+                    string[] progressParts = packedProgress.Split('|', 6);
+                    if (progressParts.Length != 6)
                     {
                         _logger.Warning("Invalid progress string: {progress}", packedProgress);
                         continue;
@@ -1166,34 +1172,21 @@ public class UserUploadCharacterProcessor
                         Expires = int.Parse(progressParts[4]),
                     };
 
-                    if (progressParts.Length == 6)
+                    foreach (string packedObjective in progressParts[5].Split('_', StringSplitOptions.RemoveEmptyEntries))
                     {
-                        foreach (string packedObjective in progressParts[5].Split('_', StringSplitOptions.RemoveEmptyEntries))
+                        string[] objectiveParts = packedObjective.Split(';');
+                        if (objectiveParts.Length != 4)
                         {
-                            string[] objectiveParts = packedObjective.Split(';');
-                            if (objectiveParts.Length != 4)
-                            {
-                                _logger.Warning("Invalid objective string: {objective}", packedObjective);
-                                continue;
-                            }
-
-                            progress.Objectives.Add(new()
-                            {
-                                Type = objectiveParts[0],
-                                Text = objectiveParts[1],
-                                Have = (int)Math.Round(double.Parse(objectiveParts[2])),
-                                Need = int.Parse(objectiveParts[3]),
-                            });
+                            _logger.Warning("Invalid objective string: {objective}", packedObjective);
+                            continue;
                         }
-                    }
-                    else if (progressParts.Length > 6)
-                    {
+
                         progress.Objectives.Add(new()
                         {
-                            Have = int.Parse(progressParts[5]),
-                            Need = int.Parse(progressParts[6]),
-                            Type = progressParts[7],
-                            Text = progressParts[8],
+                            Type = objectiveParts[0],
+                            Text = objectiveParts[1],
+                            Have = (int)Math.Round(double.Parse(objectiveParts[2])),
+                            Need = int.Parse(objectiveParts[3]),
                         });
                     }
 
