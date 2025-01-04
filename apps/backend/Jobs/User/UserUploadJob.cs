@@ -304,7 +304,7 @@ public class UserUploadJob : JobBase
             var processor = new UserUploadCharacterProcessor(Logger, characterContext, _instanceNameToIdMap, character, characterData, realm.Region);
             var result = await processor.Process(guildId);
 
-            Logger.Warning("Saving character {id} {region}/{realm}/{name}", character.Id, realm.Region, realm.Name, character.Name);
+            Logger.Information("Saving character {id} {region}/{realm}/{name}", character.Id, realm.Region, realm.Name, character.Name);
             try
             {
                 int savedChanges = await characterContext.SaveChangesAsync();
@@ -470,12 +470,27 @@ public class UserUploadJob : JobBase
             // Deal with warbank data last, we need to know the region
             if (accountRegion != null && parsed.Warbank?.Items != null)
             {
-                await HandleWarbank(accountRegion.Value, userAddonData, parsed.ScanTimes.EmptyIfNull(), parsed.Warbank);
+                try
+                {
+                    await HandleWarbank(accountRegion.Value, userAddonData, parsed.ScanTimes.EmptyIfNull(),
+                        parsed.Warbank);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "HandleWarbank failed!");
+                }
             }
 
             if (parsed.BattlePets != null)
             {
-                await HandleBattlePets(accountId, parsed.BattlePets);
+                try
+                {
+                    await HandleBattlePets(accountId, parsed.BattlePets);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "HandleBattlePets failed!");
+                }
             }
 
             _timer.AddPoint("Account");
