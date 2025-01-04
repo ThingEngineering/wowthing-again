@@ -342,7 +342,7 @@ COPY wow_auction_commodity_hourly (
 
                 if (!Hardcoded.IgnoredAuctionItemIds.Contains(auction.Item.Id))
                 {
-                    if (!_itemModifiedAppearances.ByItemIdAndModifier.TryGetValue((auction.Item.Id, modifier),
+                    if (!_itemModifiedAppearances.ItemIdAndModifierToAppearanceId.TryGetValue((auction.Item.Id, modifier),
                             out int actualAppearanceId))
                     {
                         if (_itemModifiedAppearances.ModifiersByItemId.TryGetValue(auction.Item.Id,
@@ -350,7 +350,7 @@ COPY wow_auction_commodity_hourly (
                         {
                             modifier = possibleModifiers[0];
                             actualAppearanceId =
-                                _itemModifiedAppearances.ByItemIdAndModifier[(auction.Item.Id, modifier)];
+                                _itemModifiedAppearances.ItemIdAndModifierToAppearanceId[(auction.Item.Id, modifier)];
                         }
                     }
 

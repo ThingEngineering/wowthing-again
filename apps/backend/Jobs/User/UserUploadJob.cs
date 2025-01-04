@@ -409,6 +409,16 @@ public class UserUploadJob : JobBase
             // }
 
             // Transmog
+            var accountTransmogIds = await Context.PlayerAccountTransmogIds.FindAsync(accountId);
+            if (accountTransmogIds == null)
+            {
+                accountTransmogIds = new PlayerAccountTransmogIds
+                {
+                    AccountId = accountId,
+                };
+                Context.PlayerAccountTransmogIds.Add(accountTransmogIds);
+            }
+
             var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);
             if (accountTransmogSources == null)
             {
@@ -422,13 +432,19 @@ public class UserUploadJob : JobBase
             if (parsed.TransmogSourcesSquishV2 != null)
             {
                 var imaCache = await MemoryCacheService.GetItemModifiedAppearances();
+                var ids = new HashSet<int>();
                 var sources = new List<string>();
 
                 var itemModifiedAppearanceIds = SquishUtilities.Unsquish(parsed.TransmogSourcesSquishV2);
                 foreach (int itemModifiedAppearanceId in itemModifiedAppearanceIds)
                 {
-                    if (imaCache.ById.TryGetValue(itemModifiedAppearanceId, out var itemIdAndModifier))
+                    if (imaCache.IdToItemIdAndModifier.TryGetValue(itemModifiedAppearanceId, out var itemIdAndModifier))
                     {
+                        if (imaCache.ItemIdAndModifierToAppearanceId.TryGetValue(itemIdAndModifier, out int appearanceId))
+                        {
+                            ids.Add(appearanceId);
+                        }
+
                         sources.Add($"{itemIdAndModifier.Item1}_{itemIdAndModifier.Item2}");
                     }
                     else
@@ -437,33 +453,10 @@ public class UserUploadJob : JobBase
                     }
                 }
 
-                accountTransmogSources.Sources = sources
-                    .OrderBy(source => int.Parse(source.Split('_').First()))
-                    .ToList();
-            }
-            else if (parsed.TransmogSourcesSquish != null)
-            {
-                var sources = new List<string>();
-
-                foreach ((string key, string squished) in parsed.TransmogSourcesSquish)
-                {
-                    int modifier = int.Parse(key.Replace("m", ""));
-                    var itemIds = SquishUtilities.Unsquish(squished);
-                    foreach (int itemId in itemIds)
-                    {
-                        sources.Add($"{itemId}_{modifier}");
-                    }
-                }
+                accountTransmogIds.Ids = ids.Order().ToList();
 
                 accountTransmogSources.Sources = sources
                     .OrderBy(source => int.Parse(source.Split('_').First()))
-                    .ToList();
-            }
-            else if (parsed.TransmogSources?.Count > 0)
-            {
-                accountTransmogSources.Sources = parsed.TransmogSources
-                    .Keys
-                    .OrderBy(key => key)
                     .ToList();
             }
 

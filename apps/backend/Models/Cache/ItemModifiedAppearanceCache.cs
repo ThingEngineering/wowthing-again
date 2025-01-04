@@ -4,8 +4,8 @@ namespace Wowthing.Backend.Models.Cache;
 
 public class ItemModifiedAppearanceCache
 {
-    public readonly Dictionary<int, (int, short)> ById = new();
-    public readonly Dictionary<(int, short), int> ByItemIdAndModifier = new();
+    public readonly Dictionary<int, (int, short)> IdToItemIdAndModifier = new();
+    public readonly Dictionary<(int, short), int> ItemIdAndModifierToAppearanceId = new();
     public readonly Dictionary<int, short[]> ModifiersByItemId;
 
     public ItemModifiedAppearanceCache(WowItemModifiedAppearance[] itemModifiedAppearances)
@@ -14,8 +14,8 @@ public class ItemModifiedAppearanceCache
 
         foreach (var ima in itemModifiedAppearances)
         {
-            ById[ima.Id] = (ima.ItemId, ima.Modifier);
-            ByItemIdAndModifier[(ima.ItemId, ima.Modifier)] = ima.AppearanceId;
+            IdToItemIdAndModifier[ima.Id] = (ima.ItemId, ima.Modifier);
+            ItemIdAndModifierToAppearanceId[(ima.ItemId, ima.Modifier)] = ima.AppearanceId;
 
             if (!tempModifiers.TryGetValue(ima.ItemId, out var modifiers))
             {
