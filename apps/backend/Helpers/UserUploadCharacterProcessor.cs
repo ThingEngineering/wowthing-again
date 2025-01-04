@@ -114,7 +114,7 @@ public class UserUploadCharacterProcessor
         HandleProfessionTraits();
         HandleQuests();
         HandleReputations();
-        HandleTransmog();
+        // HandleTransmog();
         HandleWeekly();
 
         return _result;
