@@ -324,9 +324,6 @@ export const extraCategories: ExtraAchievementCategory[] = [
     {
         slug: 'dragonflight',
         children: [
-            // 10.x
-            { targetSlug: 'exploration/dragonflight', nameType: 1 },
-            // 11.x
             {
                 targetSlug: 'exploration/dragon-isles',
                 nameType: 1,
@@ -359,8 +356,7 @@ export const extraCategories: ExtraAchievementCategory[] = [
                 ],
             },
             null,
-            { targetSlug: 'expansion-features/dragonriding', nameType: 2 }, // 10.x
-            { targetSlug: 'expansion-features/skyriding', nameType: 2 }, // 11.x
+            { targetSlug: 'expansion-features/skyriding', nameType: 2 },
             {
                 targetSlug: 'collections/dragon-isle-drake-cosmetics',
                 nameType: 3,

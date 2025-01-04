@@ -1,7 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
-using Wowthing.Lib.Comparers;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -27,7 +25,8 @@ public class UserUploadJob : JobBase
     private long _userId;
     private JankTimer _timer;
     private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
-    private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
+    private Dictionary<int, WowRealm> _realmById;
+    private Dictionary<(WowRegion Region, string Name), WowRealm> _realmByRegionAndName;
     private Dictionary<string, int> _instanceNameToIdMap;
 
     private static readonly Regex PlayerGuidRegex = new(@"^Player-\d+-([0-9A-Fa-f]+)$", RegexOptions.Compiled);
@@ -101,8 +100,11 @@ public class UserUploadJob : JobBase
         _instanceNameToIdMap = (await MemoryCacheService.GetJournalInstanceMap())
             .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
 
-        _realmMap = (await MemoryCacheService.GetRealmMap())
-            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        _realmByRegionAndName = await MemoryCacheService.GetRealmMap();
+
+        _realmById = _realmByRegionAndName.Values
+            .DistinctBy(realm => realm.Id)
+            .ToDictionary(realm => realm.Id);
 
         long trustedRoleId = await MemoryCacheService.GetTrustedRole();
         bool hasTrustedRole = await Context.UserRoles
@@ -212,69 +214,38 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Guilds");
 
         // Build a fancy set of character ORs
-        var characterToRealmAndName = new Dictionary<UploadCharacter, (WowRealm, string)>();
+        var addonIdToCharacterId = new Dictionary<string, long>();
         var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
             var lastSeen = characterData.LastSeen.AsUtcDateTime();
 
-            // TODO: remove this once GUID-enabled addon has been out for a while
+            // Player-[realm id]-[hex character id]
             var match = PlayerGuidRegex.Match(addonId);
             if (match.Success)
             {
-                var (realm, characterName) = ParseAddonId(characterData.Name);
-                if (realm == null)
-                {
-                    continue;
-                }
+                long characterId = Convert.ToInt64(match.Groups[1].Value, 16);
+                addonIdToCharacterId.Add(addonId, characterId);
 
-                characterToRealmAndName[characterData] = (realm, characterName);
-
-                // Player-[realm id]-[hex character id]
                 characterPredicate = characterPredicate.WowthingOr(pc =>
-                    pc.CharacterId == Convert.ToInt64(match.Groups[1].Value, 16) &&
+                    pc.CharacterId == characterId &&
                     pc.LastSeenAddon < lastSeen
                 );
             }
-            else
-            {
-                // [region]/[realm name]/[character name]
-                var (realm, characterName) = ParseAddonId(addonId);
-                if (realm == null)
-                {
-                    continue;
-                }
-
-                characterToRealmAndName[characterData] = (realm, characterName);
-
-                characterPredicate = characterPredicate.WowthingOr(pc =>
-                    pc.RealmId == realm.Id &&
-                    pc.Name == characterName &&
-                    pc.LastSeenAddon < lastSeen
-                );
+            else {
+                Logger.Warning($"Invalid character id: {addonId}");
             }
         }
 
         // Fetch character data
-        var characterMap = await Context.PlayerCharacter
+        long[] validCharacterIdArray = await Context.PlayerCharacter
             .Where(c => c.Account.UserId == _userId)
             .Where(characterPredicate)
-            .Include(c => c.AddonAchievements)
-            .Include(c => c.AddonData)
-            .Include(c => c.AddonMounts)
-            .Include(c => c.AddonQuests)
-            //.Include(c => c.Currencies)
-            .Include(c => c.Items)
-            .Include(c => c.Lockouts)
-            //.Include(c => c.MythicPlusAddon)
-            .Include(c => c.Reputations)
-            .Include(c => c.Shadowlands)
-            .Include(c => c.Transmog)
-            .Include(c => c.Weekly)
-            .AsSplitQuery()
-            .ToDictionaryAsync(k => (k.RealmId, k.Name));
+            .Select(c => c.CharacterId)
+            .ToArrayAsync();
+        var validCharacterIds = new HashSet<long>(validCharacterIdArray);
 
-        _timer.AddPoint("Load");
+        _timer.AddPoint("Valid");
 
         // Deal with character data
         var worldQuestReportMap = new Dictionary<WorldQuestReportKey, WorldQuestReport>();
@@ -283,15 +254,33 @@ public class UserUploadJob : JobBase
         int updatedCharacters = 0;
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
-            if (!characterToRealmAndName.TryGetValue(characterData, out var realmNameTuple))
+            if (!addonIdToCharacterId.TryGetValue(addonId, out long characterId) ||
+                !validCharacterIds.Contains(characterId))
             {
                 continue;
             }
 
-            var (realm, characterName) = realmNameTuple;
-            if (!characterMap.TryGetValue((realm.Id, characterName), out PlayerCharacter character))
+            await using var characterContext = await NewContext();
+
+            var character = await characterContext.PlayerCharacter
+                .Include(c => c.AddonAchievements)
+                .Include(c => c.AddonData)
+                .Include(c => c.AddonMounts)
+                .Include(c => c.AddonQuests)
+                //.Include(c => c.Currencies)
+                .Include(c => c.Items)
+                .Include(c => c.Lockouts)
+                //.Include(c => c.MythicPlusAddon)
+                .Include(c => c.Reputations)
+                .Include(c => c.Shadowlands)
+                .Include(c => c.Transmog)
+                .Include(c => c.Weekly)
+                .AsSplitQuery()
+                .FirstAsync(pc => pc.CharacterId == characterId);
+
+            if (!_realmById.TryGetValue(character.RealmId, out var realm))
             {
-                //Logger.Warning("Invalid character: {AddonId}", addonId);
+                Logger.Warning($"Invalid realm id: {character.RealmId}");
                 continue;
             }
 
@@ -309,8 +298,6 @@ public class UserUploadJob : JobBase
                     guildId = guild.Id;
                 }
             }
-
-            await using var characterContext = await NewContext();
 
             var processor = new UserUploadCharacterProcessor(Logger, characterContext, _instanceNameToIdMap, character, characterData, realm.Region);
             var result = await processor.Process(guildId);
@@ -547,8 +534,8 @@ public class UserUploadJob : JobBase
         }
 
         var region = Enum.Parse<WowRegion>(parts[0]);
-        if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm) &&
-            !_realmMap.TryGetValue((region, parts[1].Slugify()), out realm))
+        if (!_realmByRegionAndName.TryGetValue((region, parts[1]), out WowRealm realm) &&
+            !_realmByRegionAndName.TryGetValue((region, parts[1].Slugify()), out realm))
         {
             Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
             return (null, null);

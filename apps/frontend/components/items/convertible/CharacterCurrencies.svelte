@@ -42,6 +42,12 @@
                 currencies.push(tier);
             }
         }
+
+        if (season.purchases?.length > 0) {
+            currencies.push(
+                season.purchases.map((purchaseData) => [purchaseData.costId, 1] as [number?, number?])
+            );
+        }
     }
 </script>
 

@@ -170,7 +170,7 @@ public abstract class JobBase : IJob, IDisposable
 
         var result = await MakeHttpRequest(ParseJsonAsync<T>, uri, useAuthorization, useLastModified, overrideAccessToken, lastModified, timer);
 
-        if (timerOutput)
+        if (timerOutput && timer.Points.Count > 0)
         {
             Logger.Debug("{0}", timer.ToString());
         }

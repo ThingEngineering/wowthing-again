@@ -136,6 +136,9 @@ export default function getProgress(
                     value: questLine.questIds.length,
                 });
             }
+            if (group.name.startsWith('Sojourner')) {
+                console.log(group, datas);
+            }
         } else {
             switch (group.lookup) {
                 case 'class':
