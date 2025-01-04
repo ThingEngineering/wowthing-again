@@ -560,33 +560,48 @@ public class CacheService
                            lastModified.HasValue && lastModified > userCache.TransmogUpdated;
         var now = DateTimeOffset.UtcNow;
 
+        var allAppearanceIds = new HashSet<int>();
+        var allSources = new HashSet<string>();
         var validTransmogSourceData = await GetValidTransmogSourceDataAsync(context);
 
+        // Retrieve data
         var userBulk = await context.UserBulkData.FindAsync(userId);
 
-        var allTransmog = await context.AccountTransmogQuery
-            .FromSqlRaw(AccountTransmogQuery.Sql, userId)
-            .SingleAsync();
+        var transmogIdsRows = await context.PlayerAccountTransmogIds
+            .AsNoTracking()
+            .Where(pati => pati.Account.UserId == userId)
+            .ToArrayAsync();
+
+        foreach (var transmogIds in transmogIdsRows)
+        {
+            allAppearanceIds.UnionWith(transmogIds.Ids);
+        }
+
+        // Fall back to the old database-thrashing method
+        if (allAppearanceIds.Count == 0)
+        {
+            if (userBulk?.TransmogIds != null)
+            {
+                allAppearanceIds.UnionWith(userBulk.TransmogIds);
+            }
+
+            var allTransmog = await context.AccountTransmogQuery
+                .FromSqlRaw(AccountTransmogQuery.Sql, userId)
+                .SingleAsync();
+            allAppearanceIds.UnionWith(allTransmog.TransmogIds);
+        }
 
         var accountSources = await context.PlayerAccountTransmogSources
             .AsNoTracking()
             .Where(pats => pats.Account.UserId == userId)
             .ToArrayAsync();
 
-        timer.AddPoint("Select");
-
-        var allSources = new HashSet<string>();
         foreach (var sources in accountSources)
         {
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var allAppearanceIds = new HashSet<int>();
-        if (userBulk?.TransmogIds != null)
-        {
-            allAppearanceIds.UnionWith(userBulk.TransmogIds);
-        }
-        allAppearanceIds.UnionWith(allTransmog.TransmogIds);
+        timer.AddPoint("Select");
 
         // Filter out any appearance IDs where the user doesn't actually have any valid sources
         foreach (int appearanceId in allAppearanceIds)
@@ -624,17 +639,17 @@ public class CacheService
             userCache.AppearanceSources = sortedAppearanceSources;
         }
 
-        var sortedIllusions = allTransmog.IllusionIds
-            .Distinct()
-            .Select(id => (short)id)
-            .Order()
-            .ToList();
-
-        if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
-        {
-            userCache.TransmogUpdated = now;
-            userCache.IllusionIds = sortedIllusions;
-        }
+        // var sortedIllusions = allTransmog.IllusionIds
+        //     .Distinct()
+        //     .Select(id => (short)id)
+        //     .Order()
+        //     .ToList();
+        //
+        // if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
+        // {
+        //     userCache.TransmogUpdated = now;
+        //     userCache.IllusionIds = sortedIllusions;
+        // }
 
         int updated = await context.SaveChangesAsync();
 
