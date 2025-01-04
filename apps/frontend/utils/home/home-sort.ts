@@ -80,6 +80,11 @@ export function homeSort(
             return leftPad(999 - parseInt(rested), 3, '0');
         }
     } else if (sortBy === 'vaultMythicPlus') {
+        if (char.weekly?.vault?.availableRewards) {
+            return '001|001|001';
+        } else if (char.weekly?.vault?.generatedRewards) {
+            return '000|000|000';
+        }
         const progress = char.isMaxLevel ? char.weekly?.vault?.dungeonProgress : [];
         return [
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[0]))[0], 3, '0'),
@@ -87,6 +92,11 @@ export function homeSort(
             leftPad(900 - getVaultItemLevel(getDungeonLevel(progress?.[2]))[0], 3, '0'),
         ].join('|');
     } else if (sortBy === 'vaultRaid') {
+        if (char.weekly?.vault?.availableRewards) {
+            return '001|001|001';
+        } else if (char.weekly?.vault?.generatedRewards) {
+            return '000|000|000';
+        }
         const progress = char.isMaxLevel ? char.weekly?.vault?.raidProgress : [];
         return [
             leftPad(900 - getRaidVaultItemLevel(progress?.[0])[0], 3, '0'),
@@ -94,6 +104,11 @@ export function homeSort(
             leftPad(900 - getRaidVaultItemLevel(progress?.[2])[0], 3, '0'),
         ].join('|');
     } else if (sortBy === 'vaultWorld') {
+        if (char.weekly?.vault?.availableRewards) {
+            return '001|001|001';
+        } else if (char.weekly?.vault?.generatedRewards) {
+            return '000|000|000';
+        }
         const progress = char.isMaxLevel ? char.weekly?.vault?.worldProgress : [];
         return [
             leftPad(900 - getWorldTier(progress?.[0]?.level)[0], 3, '0'),
