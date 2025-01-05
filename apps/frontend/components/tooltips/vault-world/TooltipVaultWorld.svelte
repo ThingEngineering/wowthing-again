@@ -89,9 +89,9 @@
         {/if}
     </div>
 
-    {#if character.weekly?.vault.availableRewards}
-        <div class="bottom">Visit your vault!</div>
-    {:else if character.weekly?.vault.generatedRewards}
+    {#if character.weekly?.vault.generatedRewards}
         <Rewards {character} />
+    {:else if character.weekly?.vault.availableRewards}
+        <div class="bottom">Visit your vault!</div>
     {/if}
 </div>
