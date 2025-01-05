@@ -179,6 +179,7 @@ public class UserUploadJob : JobBase
             (var realm, string guildName) = ParseAddonId(addonId);
             if (realm == null)
             {
+                Logger.Warning("Invalid guild id: {id}", addonId);
                 continue;
             }
 
@@ -187,6 +188,7 @@ public class UserUploadJob : JobBase
             await using var guildContext = await NewContext();
 
             var guild = await guildContext.PlayerGuild
+                .Include(pg => pg.Items)
                 .Where(pg => pg.UserId == _userId && pg.RealmId == realm.Id && pg.Name == guildName)
                 .FirstOrDefaultAsync();
             if (guild == null)
@@ -646,15 +648,10 @@ public class UserUploadJob : JobBase
 
     private async Task HandleGuildItems(WowDbContext localContext, PlayerGuild guild, UploadGuild guildData)
     {
-        var itemMap = guild.Items
-            .EmptyIfNull()
-            .ToGroupedDictionary(pgi => (pgi.ContainerId, pgi.Slot));
+        var guildItems = guild.Items.EmptyIfNull();
+        var itemMap = guildItems.ToGroupedDictionary(pgi => (pgi.ContainerId, pgi.Slot));
+        var itemIds = new HashSet<long>(guildItems.Select(item => item.Id));
 
-        var itemIds = new HashSet<long>(
-            guild.Items
-                .EmptyIfNull()
-                .Select(item => item.Id)
-        );
         var seenIds = new HashSet<long>();
 
         // (tab, slot)
@@ -702,7 +699,7 @@ public class UserUploadJob : JobBase
 
         await localContext.SaveChangesAsync(CancellationToken);
 
-        var deleteMe = itemIds
+        long[] deleteMe = itemIds
             .Except(seenIds)
             .ToArray();
         if (deleteMe.Length > 0)
