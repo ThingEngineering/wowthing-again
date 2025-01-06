@@ -736,7 +736,10 @@ WHERE   tc.appearance_source IS NULL
         }
         else
         {
-            skillLineIds.Add(form.ProfessionId);
+            if (form.ProfessionId > 0)
+            {
+                skillLineIds.Add(form.ProfessionId);
+            }
 
             var region = (WowRegion)Math.Max(1, (int)form.Region);
             int[] realmIds = await _context.WowRealm
@@ -744,16 +747,35 @@ WHERE   tc.appearance_source IS NULL
                 .Select(wr => wr.Id)
                 .ToArrayAsync();
 
-            var characterProfessions = await _context.PlayerCharacterProfessions
+            var characterProfessionsQuery = _context.PlayerCharacterProfessions
                 .AsNoTracking()
                 .Where(pcp => pcp.Character.Account.UserId == user.Id
-                    && realmIds.Contains(pcp.Character.RealmId))
+                              && realmIds.Contains(pcp.Character.RealmId));
+
+            var collectingCharacters = user.Settings?.Professions?.CollectingCharacters;
+            if (form.ProfessionId == -2 && collectingCharacters != null)
+            {
+                int[] characterIds = collectingCharacters.Values.Distinct().ToArray();
+                characterProfessionsQuery = characterProfessionsQuery.Where(pcp => characterIds.Contains(pcp.CharacterId));
+            }
+
+            var characterProfessions = await characterProfessionsQuery
                 .ToArrayAsync();
             foreach (var characterProfession in characterProfessions)
             {
                 foreach (var (rootId, subProfessions) in characterProfession.Professions)
                 {
                     if (form.ProfessionId > 0 && form.ProfessionId != rootId)
+                    {
+                        continue;
+                    }
+
+                    if (form.ProfessionId == -2 &&
+                        collectingCharacters != null &&
+                        (
+                            !collectingCharacters.TryGetValue(rootId, out int collectingCharacterId) ||
+                            collectingCharacterId != characterProfession.CharacterId
+                        ))
                     {
                         continue;
                     }

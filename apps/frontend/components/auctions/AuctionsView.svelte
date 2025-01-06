@@ -395,11 +395,12 @@
                 Profession:
                 <Select
                     name="recipe_profession_id"
-                    width={'9.5rem'}
+                    width={'12rem'}
                     bind:selected={$auctionState.missingRecipeProfessionId}
                     options={
                         [
                             [-1, '- All -'],
+                            [-2, '- Primary Collectors -'],
                             ...professionOptions,
                         ]
                     }
