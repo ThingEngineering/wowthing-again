@@ -6,6 +6,7 @@
     import { euLocales } from '@/data/region';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { Faction } from '@/enums/faction'
+    import { ItemBonusType } from '@/enums/item-bonus-type';
     import { Region } from '@/enums/region'
     import { iconLibrary } from '@/shared/icons'
     import { settingsStore } from '@/shared/stores/settings'
@@ -22,12 +23,12 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
     import Paginate from '@/shared/components/paginate/Paginate.svelte'
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import RealmTooltip from './RealmTooltip.svelte';
     import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
     import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import { ItemBonusType } from '@/enums/item-bonus-type';
 
     export let page: number
     export let slug1: string
@@ -211,12 +212,19 @@
             margin-left: -0.2rem;
         }
     }
+    .profession-character {
+        --image-border-width: 1px;
+        --image-margin-top: -2px;
+
+        padding-bottom: 0;
+    }
 </style>
 
 <UnderConstruction />
 
 {#await slug1 === 'missing-recipes'
     ? userAuctionMissingRecipeStore.search(
+        $settingsStore,
         $auctionState,
         $itemStore,
         $staticStore,
@@ -256,6 +264,22 @@
                         class:faded={result.hasItems.length > 0}
                     >
                         <thead>
+                            {#if slug1 === 'missing-recipes' && $auctionState.missingRecipeProfessionId === -2}
+                                {@const skillLineId = $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
+                                {@const profession = $staticStore.professionBySkillLine[skillLineId]?.[0]}
+                                {@const characterId = $settingsStore.professions.collectingCharacters?.[profession?.id || 0]}
+                                {#if characterId}
+                                    {@const character = $userStore.characterMap[characterId]}
+                                    <tr>
+                                        <th class="profession-character" colspan="3">
+                                            <ProfessionIcon id={profession.id} />
+                                            <span class="class-{character.classId} drop-shadow">
+                                                {character.name}
+                                            </span>
+                                        </th>
+                                    </tr>
+                                {/if}
+                            {/if}
                             <tr>
                                 <th
                                     class="item text-overflow"

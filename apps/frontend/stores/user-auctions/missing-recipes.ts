@@ -11,12 +11,14 @@ import type { ItemData } from '@/types/data/item';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { AuctionState } from '../local-storage';
 import type { UserAuctionEntry } from '../user-auctions';
+import type { Settings } from '@/shared/stores/settings/types';
 
 export class UserAuctionMissingRecipeDataStore {
     private static url = '/api/auctions/missing-recipes';
     private cache: Record<string, [UserAuctionEntry[], Record<number, number>]> = {};
 
     async search(
+        settings: Settings,
         auctionState: AuctionState,
         itemData: ItemData,
         staticData: StaticData,
@@ -122,6 +124,14 @@ export class UserAuctionMissingRecipeDataStore {
                 auctionState.missingRecipeExpansion === -1 ||
                 skillLineExpansion === auctionState.missingRecipeExpansion;
 
+            let meetsCollector = true;
+            if (auctionState.missingRecipeProfessionId === -2) {
+                const collectingCharacters = settings.professions?.collectingCharacters || {};
+                const character = userData.characterMap[collectingCharacters[profession.id]];
+                meetsCollector = item.allianceOnly ? character.faction === Faction.Alliance :
+                    (item.hordeOnly ? character.faction === Faction.Horde : true);
+            }
+
             let meetsFaction = true;
             let meetsSpecialization = true;
             if (auctionState.missingRecipeSearchType === 'character') {
@@ -152,6 +162,7 @@ export class UserAuctionMissingRecipeDataStore {
                 );
 
             return (
+                meetsCollector &&
                 meetsDontHave &&
                 meetsHave &&
                 meetsExpansion &&
