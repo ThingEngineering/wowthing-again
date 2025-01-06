@@ -242,12 +242,11 @@ public class UserUploadJob : JobBase
         }
 
         // Fetch character data
-        long[] validCharacterIdArray = await Context.PlayerCharacter
+        var validCharacterIdToId = await Context.PlayerCharacter
             .Where(c => c.Account.UserId == _userId)
             .Where(characterPredicate)
-            .Select(c => c.CharacterId)
-            .ToArrayAsync();
-        var validCharacterIds = new HashSet<long>(validCharacterIdArray);
+            .Select(c => new { c.Id, c.CharacterId })
+            .ToDictionaryAsync(c => c.CharacterId, c => c.Id);
 
         _timer.AddPoint("Valid");
 
@@ -259,7 +258,7 @@ public class UserUploadJob : JobBase
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
             if (!addonIdToCharacterId.TryGetValue(addonId, out long characterId) ||
-                !validCharacterIds.Contains(characterId))
+                !validCharacterIdToId.TryGetValue(characterId, out int id))
             {
                 continue;
             }
@@ -279,8 +278,7 @@ public class UserUploadJob : JobBase
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Transmog)
                 .Include(c => c.Weekly)
-                .AsSplitQuery()
-                .FirstAsync(pc => pc.CharacterId == characterId);
+                .SingleAsync(c => c.Id == id);
 
             if (!_realmById.TryGetValue(character.RealmId, out var realm))
             {
