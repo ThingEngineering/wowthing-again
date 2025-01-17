@@ -85,7 +85,7 @@ function createSettingsStore() {
                     if (newAccountsHash !== accountsHash || newSettingsHash !== settingsHash) {
                         accountsHash = newAccountsHash;
                         settingsHash = newSettingsHash;
-                        await debouncedSaveData(settings, userData);
+                        await debouncedSaveData(settingsData, userData);
                     }
                 }, 1000);
             }
