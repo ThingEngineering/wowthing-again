@@ -186,6 +186,16 @@ public class UserUploadCharacterProcessor
             _character.AddonData.CurrentLocation = _characterData.CurrentLocation.Truncate(64);
         }
 
+        if (_characterData.DailyReset > 0)
+        {
+            _character.AddonData.DailyReset = _characterData.DailyReset.AsUtcDateTime();
+        }
+
+        if (_characterData.WeeklyReset > 0)
+        {
+            _character.AddonData.WeeklyReset = _characterData.WeeklyReset.AsUtcDateTime();
+        }
+
         _character.AddonData.Auras = new();
         foreach (string auraString in _characterData.AurasV2.EmptyIfNull())
         {

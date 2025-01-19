@@ -13,9 +13,11 @@ public class UploadCharacter
     public bool VaultHasRewards { get; set; }
     public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
+    public int DailyReset { get; set; }
     public int KeystoneInstance { get; set; }
     public int KeystoneLevel { get; set; }
     public int LastSeen { get; set; }
+    public int WeeklyReset { get; set; }
     public short Level { get; set; }
     public int LevelXp { get; set; }
     public int PlayedTotal { get; set; }
@@ -24,7 +26,6 @@ public class UploadCharacter
     public string BindLocation { get; set; }
     public string CurrentLocation { get; set; }
     public string GuildName { get; set; }
-    public string Name { get; set; }
 
     public string CompletedQuestsSquish { get; set; }
     public string TransmogSquish { get; set; }
