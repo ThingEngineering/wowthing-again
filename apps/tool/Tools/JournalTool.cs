@@ -405,7 +405,7 @@ public class JournalTool
                             encounterData.Name = GetString(StringType.WowJournalEncounterName, language, encounter.ID);
 
                             var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
+                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, []))
                             {
                                 if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                 {
