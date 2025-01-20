@@ -77,7 +77,11 @@
             }
 
             if (parentItems.length > 0 || item.forceWildcard === true) {
-                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
+                if (item.children) {
+                    activeRegex = '^' + url.replace(/\//g, '\\/') + '\\/?$';
+                } else {
+                    activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
+                }
             }
             else {
                 activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$'
