@@ -385,6 +385,21 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     ability.spellId,
                 ),
             );
+
+            for (const [extraAbilityId, extraSpellId] of ability.extraRanks || []) {
+                const extraItemId = spellToItem[extraSpellId];
+                if (extraItemId) {
+                    ret.push(
+                        new StaticDataProfessionAbilityInfo(
+                            professionId,
+                            subProfessionId,
+                            extraAbilityId,
+                            extraItemId,
+                            extraSpellId,
+                        ),
+                    );
+                }
+            }
         }
 
         for (const childCategory of category.children) {
