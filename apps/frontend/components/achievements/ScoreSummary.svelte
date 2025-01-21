@@ -1,11 +1,10 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class';
     import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './Achievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import { StaticDataEnchantment } from '@/shared/stores/static/types/enchantment';
-    import getPercentClass from '@/utils/get-percent-class';
 
     let categories: AchievementDataCategory[]
     $: {

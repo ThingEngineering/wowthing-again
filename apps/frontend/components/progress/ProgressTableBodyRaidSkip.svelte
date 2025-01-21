@@ -3,7 +3,7 @@
     import { componentTooltip } from '@/shared/utils/tooltips'
     import { userQuestStore } from '@/stores'
     import type { Character } from '@/types'
-    import type { UserQuestData, UserQuestDataCharacterProgress } from '@/types/data'
+    import type { UserQuestDataCharacterProgress } from '@/types/data'
     import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'

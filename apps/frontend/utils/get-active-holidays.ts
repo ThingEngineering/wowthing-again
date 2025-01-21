@@ -83,7 +83,7 @@ export function getActiveHolidays(
     return activeHolidays;
 }
 
-function addOffset(dateTime: DateTime, regionMask: number): DateTime {
+function addOffset(dateTime: DateTime/*, regionMask: number*/): DateTime {
     // US
     // if (regionMask === 1) {
     //     return dateTime.plus({ hours: -7 });

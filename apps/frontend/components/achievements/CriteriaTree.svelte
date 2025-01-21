@@ -2,16 +2,14 @@
     import { forceShowCriteriaTree } from '@/data/achievements';
     import { CriteriaTreeOperator } from '@/enums/criteria-tree-operator'
     import { CriteriaType } from '@/enums/criteria-type'
-    import { Faction } from '@/enums/faction';
     import { staticStore } from '@/shared/stores/static'
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
