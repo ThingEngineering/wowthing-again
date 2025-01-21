@@ -17,6 +17,17 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = [3, 4, 5, 6, 7];
     private static readonly int[] RaidDifficultiesNoLfr = [14, 15, 16];
 
+    private static readonly List<ExtraItemDrop> AhnQirajExtraDrops =
+    [
+        new(20736, RaidDifficultiesNormal), // Formula: Enchant Cloak - Dodge
+        new(20734, RaidDifficultiesNormal), // Formula: Enchant Cloak - Stealth
+        new(20729, RaidDifficultiesNormal), // Formula: Enchant Gloves - Fire Power
+        new(20728, RaidDifficultiesNormal), // Formula: Enchant Gloves - Frost Power
+        new(20730, RaidDifficultiesNormal), // Formula: Enchant Gloves - Healing Power
+        new(20727, RaidDifficultiesNormal), // Formula: Enchant Gloves - Shadow Power
+        new(20731, RaidDifficultiesNormal), // Formula: Enchant Gloves - Superior Agility
+    ];
+
     private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops =
     [
         new(49854, DungeonDifficultiesNormal), // Mantle of Tattered Feathers [N]
@@ -909,6 +920,22 @@ public static partial class Hardcoded
                 new(17182, RaidDifficultiesLegacy40), // Sulfuras, Hand of Ragnaros
             ]
         },
+        // AQ20
+        { 1537, AhnQirajExtraDrops }, // Kurinnaxx
+        { 1538, AhnQirajExtraDrops }, // General Rajaxx
+        { 1539, AhnQirajExtraDrops }, // Moam
+        { 1540, AhnQirajExtraDrops }, // Buru the Gorger
+        { 1541, AhnQirajExtraDrops }, // Ayamiss the Hunter
+        { 1542, AhnQirajExtraDrops }, // Ossirian the Unscarred
+        // AQ40
+        { 1543, AhnQirajExtraDrops }, // The Prophet Skeram
+        { 1544, AhnQirajExtraDrops }, // Battleguard Sartura
+        { 1545, AhnQirajExtraDrops }, // Fankriss the Unyielding
+        { 1546, AhnQirajExtraDrops }, // Princess Huhuran
+        { 1547, AhnQirajExtraDrops }, // Silithid Royalty
+        { 1548, AhnQirajExtraDrops }, // Viscidus
+        { 1550, AhnQirajExtraDrops }, // Ouro
+        { 1551, AhnQirajExtraDrops }, // C'Thun
         #endregion
 
         #region Classic Trash
