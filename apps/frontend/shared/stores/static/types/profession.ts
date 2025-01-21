@@ -102,7 +102,7 @@ export class StaticDataProfessionAbilityInfo {
         public professionId: number,
         public subProfessionId: number,
         public abilityId: number,
-        public itemId: number,
+        public itemIds: number[],
         public spellId: number,
     ) {}
 }
