@@ -14,8 +14,10 @@ export class JournalState {
     public showPlate = true;
 
     public showCloaks = true;
-    public showTrash = true;
     public showWeapons = true;
+
+    public showRecipes = true;
+    public showTrash = true;
 
     public showDungeonNormal = true;
     public showDungeonHeroic = true;
