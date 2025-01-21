@@ -2,6 +2,8 @@
     import { getDifficulties } from './get-difficulties';
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
+    import { RewardType } from '@/enums/reward-type';
+    import { staticStore } from '@/shared/stores/static';
     import { itemStore, userStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { getItemUrl } from '@/utils/get-item-url'
@@ -11,6 +13,7 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
@@ -137,6 +140,13 @@
 
                 {#if hasSoon}
                     <CollectedIcon soon={true} />
+                {/if}
+            {:else if item.type === RewardType.Recipe}
+                {@const ability = $staticStore.professionAbilityByItemId[item.id]}
+                {#if ability}
+                    <div class="player-class">
+                        <ProfessionIcon id={ability.professionId} />
+                    </div>
                 {/if}
             {/if}
             
