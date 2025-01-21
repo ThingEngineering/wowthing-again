@@ -2,40 +2,52 @@
     import IntersectionObserver from 'svelte-intersection-observer';
 
     import { weaponSubclassOrderMap } from '@/data/weapons';
-    import { ItemFlags } from '@/enums/item-flags';
+    import { AppearanceModifier } from '@/enums/appearance-modifier';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
     import { browserStore } from '@/shared/stores/browser';
     import { settingsStore } from '@/shared/stores/settings';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore, journalStore, userStore } from '@/stores';
+    import { UserCount } from '@/types';
     import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
+    import type { ItemDataItem } from '@/types/data/item';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
+    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import CollectibleCount from '@/components/collectible/CollectibleCount.svelte';
-    import { UserCount } from '@/types';
-    import type { ItemDataItem } from '@/types/data/item';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import { Faction } from '@/enums/faction';
 
     export let itemId: number
 
     let element: HTMLElement
     let intersected = false
 
-    $: expandsTo = $journalStore.itemExpansion[itemId];
     $: item = $itemStore.items[itemId];
+    $: expandsTo = $journalStore.itemExpansion[itemId];
     $: haveItems = $userStore.itemsById[itemId];
     $: haveCount = haveItems.reduce((a, b) => a + b[1].length, 0);
 
     let expandsData: [number, ItemDataItem, boolean][]
     $: expandsData = expandsTo.map((expandedItemId) => {
         const expandedItem = $itemStore.items[expandedItemId];
-        const appearance = expandedItem.appearances[0];
+
+        let modifier = AppearanceModifier.Normal;
+        if (item.difficultyLookingForRaid) {
+            modifier = AppearanceModifier.LookingForRaid;
+        } else if (item.difficultyHeroic) {
+            modifier = AppearanceModifier.Heroic;
+        } else if (item.difficultyMythic) {
+            modifier = AppearanceModifier.Mythic;
+        }
+
+        const appearance = expandedItem.appearances[modifier];
         const hasItem = $settingsStore.transmog.completionistMode
             ? $userStore.hasSourceV2.get(appearance.modifier).has(expandedItemId)
             : $userStore.hasAppearance.has(appearance.appearanceId);
@@ -131,6 +143,9 @@
         // font-size: 90%;
         font-variant: small-caps;
     }
+    .faction {
+        --image-margin-top: 0;
+    }
 </style>
 
 <IntersectionObserver
@@ -151,6 +166,12 @@
                     <code>[M]</code>
                 {:else}
                     <code>[N]</code>
+                {/if}
+
+                {#if item.allianceOnly || item.hordeOnly}
+                    <span class="faction">
+                        <FactionIcon faction={item.allianceOnly ? Faction.Alliance : Faction.Horde} />
+                    </span>
                 {/if}
                 
                 <WowheadLink id={itemId} type="item" extraClass="quality{item.quality}">

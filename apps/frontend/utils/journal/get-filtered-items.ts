@@ -62,6 +62,9 @@ export default function getFilteredItems(
         else if (keep && weaponGroups[group.name] === true) {
             keep = journalState.showWeapons
         }
+        else if (keep && group.name === 'Recipe') {
+            keep = journalState.showRecipes;
+        }
 
         if (!keep) {
             continue

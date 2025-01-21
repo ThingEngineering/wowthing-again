@@ -7,79 +7,47 @@
 
 
     function getFilters(state: JournalState): string {
-        let byType: string[] = []
-        let byMisc: string[] = []
-        let byDungeon: string[] = []
-        let byRaid: string[] = []
-
-        if (state.showCloth) {
-            byType.push('C')
-        }
-        if (state.showLeather) {
-            byType.push('L')
-        }
-        if (state.showMail) {
-            byType.push('M')
-        }
-        if (state.showPlate) {
-            byType.push('P')
-        }
-
-        if (byType.length === 0 || byType.length === 4) {
+        let byType = [
+            state.showCloth ? 'C' : '-',
+            state.showLeather ? 'L' : '-',
+            state.showMail ? 'M' : '-',
+            state.showPlate ? 'P' : '-',
+            state.showCloaks ? 'B' : '-',
+            state.showWeapons ? 'W' : '-',
+        ]
+        if (!byType.some((c) => c === '-')) {
             byType = ['ALL']
         }
 
-        if (state.showCloaks) {
-            byMisc.push('C')
-        }
-        if (state.showTrash) {
-            byMisc.push('T')
-        }
-        if (state.showWeapons) {
-            byMisc.push('W')
-        }
-
-        if (byMisc.length === 0 || byMisc.length === 3) {
+        let byMisc = [
+            state.showRecipes ? 'R' : '-',
+            state.showTrash ? 'T' : '-',
+        ]
+        if (!byMisc.some((c) => c === '-')) {
             byMisc = ['ALL']
         }
 
-        if (state.showDungeonNormal) {
-            byDungeon.push('N')
-        }
-        if (state.showDungeonHeroic) {
-            byDungeon.push('H')
-        }
-        if (state.showDungeonMythic) {
-            byDungeon.push('M')
-        }
-        if (state.showDungeonTimewalking) {
-            byDungeon.push('T')
-        }
-
-        if (byDungeon.length === 0 || byDungeon.length === 4) {
+        let byDungeon = [
+            state.showDungeonNormal ? 'N' : '-',
+            state.showDungeonHeroic ? 'H' : '-',
+            state.showDungeonMythic ? 'M' : '-',
+            state.showDungeonTimewalking ? 'T' : '-',
+        ];
+        if (!byDungeon.some((c) => c === '-')) {
             byDungeon = ['ALL']
         }
 
-        if (state.showRaidLfr) {
-            byRaid.push('L')
-        }
-        if (state.showRaidNormal) {
-            byRaid.push('N')
-        }
-        if (state.showRaidHeroic) {
-            byRaid.push('H')
-        }
-        if (state.showRaidMythic) {
-            byRaid.push('M')
-        }
-        if (state.showRaidMythicOld) {
-            byRaid.push('O')
-        }
-        if (state.showRaidTimewalking) {
-            byRaid.push('T')
-        }
-
-        if (byRaid.length === 0 || byRaid.length === 6) {
+        let byRaid = [
+            state.showRaidLfr ? 'L' : '-',
+            state.showRaidNormal ? 'N' : '-',
+            state.showRaidHeroic ? 'H' : '-',
+            state.showRaidMythic ? 'M' : '-',
+            state.showRaidMythicOld ? 'O' : '-',
+            state.showRaidTimewalking ? 'T' : '-',
+            state.showRaid10 ? '10' : '-',
+            state.showRaid25 ? '25' : '-',
+        ];
+        if (!byRaid.some((c) => c === '-')) {
             byRaid = ['ALL']
         }
 
@@ -198,8 +166,19 @@
             bind:value={$journalState.showWeapons}
         >Weapons</CheckboxInput>
     </button>
+</div>
 
-    <button class="margin-left">
+<div
+    class="options-container filters-container"
+    style:display={$journalState.filtersExpanded ? null : 'none'}
+>
+    <button>
+        <CheckboxInput
+            name="show_recipes"
+            bind:value={$journalState.showRecipes}
+        >Recipes</CheckboxInput>
+    </button>
+    <button>
         <CheckboxInput
             name="show_trash"
             bind:value={$journalState.showTrash}

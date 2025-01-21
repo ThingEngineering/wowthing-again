@@ -18,6 +18,7 @@ public class JournalTool
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
+    private HashSet<int> _recipeItemIds;
 
     private readonly int[] _difficultyOrder =
     {
@@ -201,6 +202,13 @@ public class JournalTool
             .Where(ls => _stringTypes.Contains(ls.Type))
             .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
 
+        var recipeItemIds = await context.WowProfessionRecipeItem
+            .AsNoTracking()
+            .Select(wpri => wpri.ItemId)
+            .Distinct()
+            .ToArrayAsync();
+        _recipeItemIds = new HashSet<int>(recipeItemIds);
+
         _timer.AddPoint("Database");
 
         var itemExpansions = DataUtilities.LoadItemExpansions();
@@ -360,6 +368,16 @@ public class JournalTool
                         }
                     }
 
+                    // Instance has shared drops, add a fake encounter
+                    if (Hardcoded.ExtraItemDrops.ContainsKey(2000000 + instanceId))
+                    {
+                        encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                        {
+                            ID = 2000000 + instanceId,
+                            OrderIndex = -9,
+                        });
+                    }
+
                     // Instance has trash drops, add a fake encounter
                     if (Hardcoded.ExtraItemDrops.ContainsKey(1000000 + instanceId))
                     {
@@ -396,7 +414,11 @@ public class JournalTool
 
                         var items = new List<DumpJournalEncounterItem>();
 
-                        if (encounter.ID > 1000000)
+                        if (encounter.ID > 2000000)
+                        {
+                            encounterData.Name = "Shared Drops";
+                        }
+                        else if (encounter.ID > 1000000)
                         {
                             encounterData.Name = "Trash Drops";
                         }
@@ -405,7 +427,7 @@ public class JournalTool
                             encounterData.Name = GetString(StringType.WowJournalEncounterName, language, encounter.ID);
 
                             var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
+                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, []))
                             {
                                 if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                 {
@@ -559,6 +581,10 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }
+                                else if (_recipeItemIds.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Recipe, item, difficulties);
+                                }
                                 else
                                 {
                                     string itemName = GetString(StringType.WowItemName, Language.enUS, item.Id);
@@ -699,7 +725,7 @@ public class JournalTool
                                         return 1000;
                                     }
                                 })
-                                .ThenBy(item => GetString(StringType.WowItemName, language, item.Id))
+                                .ThenBy(item => GetString(StringType.WowItemName, language, item.Id).ToLowerInvariant())
                                 .ThenBy(item =>
                                     item.Appearances
                                         .SelectMany(app => app
@@ -849,6 +875,11 @@ public class JournalTool
             case RewardType.Toy:
                 name = "Toy";
                 order = 3;
+                break;
+
+            case RewardType.Recipe:
+                name = "Recipe";
+                order = 4;
                 break;
         }
 

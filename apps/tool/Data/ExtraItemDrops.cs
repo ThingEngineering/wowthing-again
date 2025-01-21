@@ -17,6 +17,17 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = [3, 4, 5, 6, 7];
     private static readonly int[] RaidDifficultiesNoLfr = [14, 15, 16];
 
+    private static readonly List<ExtraItemDrop> AhnQirajExtraDrops =
+    [
+        new(20736, RaidDifficultiesNormal), // Formula: Enchant Cloak - Dodge
+        new(20734, RaidDifficultiesNormal), // Formula: Enchant Cloak - Stealth
+        new(20729, RaidDifficultiesNormal), // Formula: Enchant Gloves - Fire Power
+        new(20728, RaidDifficultiesNormal), // Formula: Enchant Gloves - Frost Power
+        new(20730, RaidDifficultiesNormal), // Formula: Enchant Gloves - Healing Power
+        new(20727, RaidDifficultiesNormal), // Formula: Enchant Gloves - Shadow Power
+        new(20731, RaidDifficultiesNormal), // Formula: Enchant Gloves - Superior Agility
+    ];
+
     private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops =
     [
         new(49854, DungeonDifficultiesNormal), // Mantle of Tattered Feathers [N]
@@ -909,6 +920,22 @@ public static partial class Hardcoded
                 new(17182, RaidDifficultiesLegacy40), // Sulfuras, Hand of Ragnaros
             ]
         },
+        // AQ20
+        { 1537, AhnQirajExtraDrops }, // Kurinnaxx
+        { 1538, AhnQirajExtraDrops }, // General Rajaxx
+        { 1539, AhnQirajExtraDrops }, // Moam
+        { 1540, AhnQirajExtraDrops }, // Buru the Gorger
+        { 1541, AhnQirajExtraDrops }, // Ayamiss the Hunter
+        { 1542, AhnQirajExtraDrops }, // Ossirian the Unscarred
+        // AQ40
+        { 1543, AhnQirajExtraDrops }, // The Prophet Skeram
+        { 1544, AhnQirajExtraDrops }, // Battleguard Sartura
+        { 1545, AhnQirajExtraDrops }, // Fankriss the Unyielding
+        { 1546, AhnQirajExtraDrops }, // Princess Huhuran
+        { 1547, AhnQirajExtraDrops }, // Silithid Royalty
+        { 1548, AhnQirajExtraDrops }, // Viscidus
+        { 1550, AhnQirajExtraDrops }, // Ouro
+        { 1551, AhnQirajExtraDrops }, // C'Thun
         #endregion
 
         #region Classic Trash
@@ -1823,12 +1850,175 @@ public static partial class Hardcoded
                 new(152982, [2, 23]), // Vixx's Chest of Tricks
             ]
         },
+        // The Emerald Nightmare > Nythendra
+        {
+            1703,
+            [
+                new (139636, RaidDifficultiesAll), // Vantus Rune 1
+                new (137748, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Il'gynoth, Heart of Corruption
+        {
+            1738,
+            [
+                new (139637, RaidDifficultiesAll), // Vantus Rune 1
+                new (137749, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Elerethe Renferal
+        {
+            1744,
+            [
+                new (139640, RaidDifficultiesAll), // Vantus Rune 1
+                new (137752, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Ursoc
+        {
+            1667,
+            [
+                new (139635, RaidDifficultiesAll), // Vantus Rune 1
+                new (137747, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Dragons of Nightmare
+        {
+            1704,
+            [
+                new (139638, RaidDifficultiesAll), // Vantus Rune 1
+                new (137750, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Cenarius
+        {
+            1750,
+            [
+                new (139641, RaidDifficultiesAll), // Vantus Rune 1
+                new (137753, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Emerald Nightmare > Xavius
+        {
+            1726,
+            [
+                new (139639, RaidDifficultiesAll), // Vantus Rune 1
+                new (137751, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Skorpyron
+        {
+            1706,
+            [
+                new (139642, RaidDifficultiesAll), // Vantus Rune 1
+                new (137754, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Chronomatic Anomaly
+        {
+            1725,
+            [
+                new (139643, RaidDifficultiesAll), // Vantus Rune 1
+                new (137755, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Trilliax
+        {
+            1731,
+            [
+                new (139644, RaidDifficultiesAll), // Vantus Rune 1
+                new (137756, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Spellblade Aluriel
+        {
+            1751,
+            [
+                new (139645, RaidDifficultiesAll), // Vantus Rune 1
+                new (137757, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Tichondrius
+        {
+            1762,
+            [
+                new (139646, RaidDifficultiesAll), // Vantus Rune 1
+                new (137758, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Krosus
+        {
+            1713,
+            [
+                new (139648, RaidDifficultiesAll), // Vantus Rune 1
+                new (137760, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > High Botanist Tel'arn
+        {
+            1761,
+            [
+                new (139647, RaidDifficultiesAll), // Vantus Rune 1
+                new (137759, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Star Augur Etraeus
+        {
+            1732,
+            [
+                new (139649, RaidDifficultiesAll), // Vantus Rune 1
+                new (137761, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // The Nighthold > Grand Magistrix Elisande
+        {
+            1743,
+            [
+                new (139650, RaidDifficultiesAll), // Vantus Rune 1
+                new (137762, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
         // The Nighthold > Gul'dan
         {
             1737,
             [
+                new (139651, RaidDifficultiesAll), // Vantus Rune 1
+                new (137763, RaidDifficultiesAll), // Vantus Rune 2
                 new(119211, RaidDifficultiesAll), // Golden Hearthstone Card: Lord Jaraxxus
                 new(143544, RaidDifficultiesAll), // Skull of Corruption
+            ]
+        },
+        // Trial of Valor > Odyn
+        {
+            1819,
+            [
+                new (142110, RaidDifficultiesAll), // Vantus Rune 1
+                new (142104, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // Trial of Valor > Guarm
+        {
+            1830,
+            [
+                new (142111, RaidDifficultiesAll), // Vantus Rune 1
+                new (142105, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // Trial of Valor > Helya
+        {
+            1829,
+            [
+                new (142112, RaidDifficultiesAll), // Vantus Rune 1
+                new (142106, RaidDifficultiesAll), // Vantus Rune 2
+            ]
+        },
+        // Tomb of Sargeras > Shared Drops
+        {
+            2000875,
+            [
+                new(146411, RaidDifficultiesAll), // Vantus Rune 1
+                new(146412, RaidDifficultiesAll), // Vantus Rune 2
+                new(146413, RaidDifficultiesAll), // Vantus Rune 3
             ]
         },
         // Tomb of Sargeras > Maiden of Vigilance
@@ -1836,6 +2026,15 @@ public static partial class Hardcoded
             1897,
             [
                 new(151524, RaidDifficultiesAll), // Hammer of Vigilance
+            ]
+        },
+        // Antorus, the Burning Throne > Shared Drops
+        {
+            2000946,
+            [
+                new(151654, RaidDifficultiesAll), // Vantus Rune 1
+                new(151655, RaidDifficultiesAll), // Vantus Rune 2
+                new(151656, RaidDifficultiesAll), // Vantus Rune 3
             ]
         },
         // Antorus, the Burning Throne > Aggramar
@@ -1934,11 +2133,64 @@ public static partial class Hardcoded
         #endregion
 
         #region Battle for Azeroth
+
+        // Uldir > Shared Drops
+        {
+            2001031,
+            [
+                new(162121, RaidDifficultiesAll), // Vantus Rune 1
+                new(162124, RaidDifficultiesAll), // Vantus Rune 2
+                new(162125, RaidDifficultiesAll), // Vantus Rune 3
+            ]
+        },
         // Uldir > Taloc
         {
             2168,
             [
                 new(163119, RaidDifficultiesAll), // Khor, Hammer of the Guardian
+            ]
+        },
+        // Battle for Dazar'alor > Shared Drops
+        {
+            2001176,
+            [
+                new(165693, RaidDifficultiesAll), // Vantus Rune 1
+                new(165694, RaidDifficultiesAll), // Vantus Rune 2
+                new(165695, RaidDifficultiesAll), // Vantus Rune 3
+            ]
+        },
+        // Crucible of Storms > Shared Drops
+        {
+            2001177,
+            [
+                new(165735, RaidDifficultiesAll), // Vantus Rune 1
+                new(165736, RaidDifficultiesAll), // Vantus Rune 2
+                new(165737, RaidDifficultiesAll), // Vantus Rune 3
+            ]
+        },
+        // The Eternal Palace > Shared Drops
+        {
+            2001179,
+            [
+                new(168625, RaidDifficultiesAll), // Vantus Rune 1
+                new(168626, RaidDifficultiesAll), // Vantus Rune 2
+                new(168627, RaidDifficultiesAll), // Vantus Rune 3
+            ]
+        },
+        // The Eternal Palace > Za'qul
+        {
+            2349,
+            [
+                new(168868, RaidDifficultiesAll), // Pauldrons of Za'qul
+            ]
+        },
+        // Ny'alotha, the Waking City > Shared Drops
+        {
+            2001180,
+            [
+                new(171202, RaidDifficultiesAll), // Vantus Rune 1
+                new(171201, RaidDifficultiesAll), // Vantus Rune 2
+                new(171200, RaidDifficultiesAll), // Vantus Rune 3
             ]
         },
         // Azeroth > Doom's Howl
@@ -1953,13 +2205,6 @@ public static partial class Hardcoded
             2214,
             [
                 new(163829, RaidDifficultiesNormal), // Toy War Machine
-            ]
-        },
-        // The Eternal Palace > Za'qul
-        {
-            2349,
-            [
-                new(168868, RaidDifficultiesAll), // Pauldrons of Za'qul
             ]
         },
         #endregion
@@ -2035,8 +2280,9 @@ public static partial class Hardcoded
         #endregion
 
         #region Shadowlands Trash
+        // Castle Nathria > Trash
         {
-            1001190, // Castle Nathria > Trash
+            1001190,
             [
                 new(183017, RaidDifficultiesAll), // Acolyte's Velvet Bindings
                 new(183008, RaidDifficultiesAll), // Supple Supplicant's Gloves
@@ -2053,8 +2299,16 @@ public static partial class Hardcoded
                 new(184778, RaidDifficultiesAll), // Decadent Nathrian Shawl
             ]
         },
+        // Castle Nathria > Shared Drops
         {
-            1001193, // Sanctum of Domination > Trash
+            2001190,
+            [
+                new(173068, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        // Sanctum of Domination > Trash
+        {
+            1001193,
             [
                 new(186356, RaidDifficultiesAll), // Forlorn Prisoner's Strap
                 new(186358, RaidDifficultiesAll), // Soulcaster's Woven Grips
@@ -2069,8 +2323,16 @@ public static partial class Hardcoded
                 new(186373, RaidDifficultiesAll), // Towering Shadowghast Greatboots
             ]
         },
+        // Sanctum of Domination > Shared Drops
         {
-            1001195, // Sepulcher of the First Ones > Trash
+            2001193,
+            [
+                new(186671, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        // Sepulcher of the First Ones > Trash
+        {
+            1001195,
             [
                 new(190630, RaidDifficultiesAll), // Devouring Pellicle Shoulderpads
                 new(190631, RaidDifficultiesAll), // Vandalized Ephemera Mitts
@@ -2083,6 +2345,99 @@ public static partial class Hardcoded
                 // Plate
                 new(190624, RaidDifficultiesAll), // Gauntlets of the End
                 new(190625, RaidDifficultiesAll), // Pauldrons of Possible Afterlives
+            ]
+        },
+        // Sepulcher of the First Ones > Shared Drops
+        {
+            2001195,
+            [
+                new(187806, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        #endregion
+
+        #region Dragonflight
+        // Vault of the Incarnates > Trash
+        {
+            1001200,
+            [
+                new(202004, RaidDifficultiesAll), // Brawler's Earthen Cuirass
+                new(201992, RaidDifficultiesAll), // Emissary's Flamewrought Seal
+                new(202005, RaidDifficultiesAll), // Frozen Claw Mantle
+                new(202008, RaidDifficultiesAll), // Galvanic Gaiters
+                new(202006, RaidDifficultiesAll), // Greathelm of Horned Fury
+                new(202009, RaidDifficultiesAll), // Lavamancer's Ceremonial Waistguard
+                new(202003, RaidDifficultiesAll), // Primal Seeker's Leggings
+                new(202010, RaidDifficultiesAll), // Primalist Warden's Bracers
+                new(202007, RaidDifficultiesAll), // Woven Stone Bracelets
+            ]
+        },
+        // Vault of the Incarnates > Shared Drops
+        {
+            2001200,
+            [
+                new(198956, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        // Aberrus, the Shadowed Crucible > Trash
+        {
+            1001208,
+            [
+                new(204410, RaidDifficultiesAll), // Bands of Purified Purpose
+                new(204411, RaidDifficultiesAll), // Crucible Curator's Wingspan
+                new(204429, RaidDifficultiesAll), // Devoted Warden's Gaze
+                new(204423, RaidDifficultiesAll), // Faulds of Failed Experiments
+                new(204414, RaidDifficultiesAll), // Laboratory Assistant's Abductors
+                new(204415, RaidDifficultiesAll), // Mantle of Sunless Kindling
+                new(204430, RaidDifficultiesAll), // Sanctum Guard's Forgewalkers
+                new(204422, RaidDifficultiesAll), // Sundered Edgelord's Breastplate
+            ]
+        },
+        // Aberrus, the Shadowed Crucible > Shared Drops
+        {
+            2001208,
+            [
+                new(205134, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        // Amirdrassil, the Dream's Hope > Trash
+        {
+            1001207,
+            [
+                new(208442, RaidDifficultiesAll), // Daydreamer's Glimmering Ring
+                new(208427, RaidDifficultiesAll), // Insurgent Flame Warboots
+                new(208431, RaidDifficultiesAll), // Lost Scholar's Temporal Shoulderdials
+                new(208428, RaidDifficultiesAll), // Mantle of Slumbering Sands
+                new(208426, RaidDifficultiesAll), // Mask of the Unbidden Grim
+                new(208434, RaidDifficultiesAll), // Sentinel's Gilded Poulaines
+                new(208432, RaidDifficultiesAll), // Vengeful Bladebeak Girdle
+                new(208420, RaidDifficultiesAll), // Visage of the Devouring Flame
+                new(208430, RaidDifficultiesAll), // Whispering Fanged Cord
+            ]
+        },
+        // Amirdrassil, the Dream's Hope > Shared Drops
+        {
+            2001207,
+            [
+                new(210490, RaidDifficultiesAll), // Vantus Rune
+            ]
+        },
+        #endregion
+
+        #region The War Within
+        // Nerub-ar Palace > Trash
+        {
+            1001273,
+            [
+                new(225728, RaidDifficultiesAll), // Acidic Attendant's Loop
+                new(225722, RaidDifficultiesAll), // Adorned Lynxborne Pauldrons
+                new(225727, RaidDifficultiesAll), // Captured Earthen's Ironhorns
+                new(225744, RaidDifficultiesAll), // Heritage Militia's Stompers
+                new(225725, RaidDifficultiesAll), // Lurking Marauder's Binding
+                new(225721, RaidDifficultiesAll), // Prime Slime Slippers
+                new(225724, RaidDifficultiesAll), // Shrillwing Hunter's Prey
+                new(225723, RaidDifficultiesAll), // Venom Stalker's Strap
+                new(225720, RaidDifficultiesAll), // Web Acolyte's Hood
             ]
         },
         #endregion

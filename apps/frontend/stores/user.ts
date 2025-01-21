@@ -39,7 +39,7 @@ import type {
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
-import type { ContainsItems, UserItem } from '@/types/shared';
+import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 import { WarbankItem } from '@/types/items';
 import { manualStore } from './manual';
 import type { ManualData } from '@/types/data/manual';
@@ -131,6 +131,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
         userData.characters = [];
+        userData.hasRecipe = new Set<number>();
         for (const charArray of userData.charactersRaw || []) {
             const character = new Character(...charArray);
             userData.characters.push(character);
@@ -196,13 +197,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.itemsByAppearanceId = Object.fromEntries(
             getNumberKeyedEntries(temp.itemsByAppearanceId).map(([key, value]) => [
                 key,
-                [[null, value]],
+                [[null as HasNameAndRealm, value]],
             ]),
         );
         userData.itemsByAppearanceSource = Object.fromEntries(
             Object.entries(temp.itemsByAppearanceSource).map(([key, value]) => [
                 key,
-                [[null, value]],
+                [[null as HasNameAndRealm, value]],
             ]),
         );
         userData.itemsById = Object.fromEntries(
@@ -259,6 +260,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 }
                 for (const [itemId, items] of getNumberKeyedEntries(character.itemsById)) {
                     (userData.itemsById[itemId] ||= []).push([character, items]);
+                }
+            }
+
+            for (const subProfessions of Object.values(character.professions || {})) {
+                for (const subProfession of Object.values(subProfessions)) {
+                    for (const abilityId of subProfession.knownRecipes || []) {
+                        userData.hasRecipe.add(abilityId)
+                    }
                 }
             }
         }

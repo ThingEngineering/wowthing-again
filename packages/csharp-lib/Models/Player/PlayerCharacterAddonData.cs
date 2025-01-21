@@ -18,6 +18,9 @@ public class PlayerCharacterAddonData(int characterId)
     public string BindLocation { get; set; }
     public string CurrentLocation { get; set; }
 
+    public DateTime DailyReset { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime WeeklyReset { get; set; } = MiscConstants.DefaultDateTime;
+
     public DateTime BagsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime BankScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime CurrenciesScannedAt { get; set; } = MiscConstants.DefaultDateTime;

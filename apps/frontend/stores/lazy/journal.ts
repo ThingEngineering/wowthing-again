@@ -211,6 +211,16 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                         ].enchantmentId;
                                     appearance.userHas =
                                         stores.userData.hasIllusion.has(enchantmentId);
+                                } else if (item.type === RewardType.Recipe) {
+                                    const ability = stores.staticData.professionAbilityByItemId[item.id];
+                                    if (ability) {
+                                        const collectorId = stores.settings.professions.collectingCharacters?.[ability.professionId];
+                                        if (collectorId) {
+                                            appearance.userHas = stores.userData.characterMap[collectorId].knowsProfessionAbility(ability.abilityId);
+                                        } else {
+                                            appearance.userHas = stores.userData.hasRecipe.has(ability.abilityId);
+                                        }
+                                    }
                                 } else if (item.type === RewardType.Mount) {
                                     appearance.userHas = stores.userData.hasMount[item.classId];
                                 } else if (item.type === RewardType.Pet) {

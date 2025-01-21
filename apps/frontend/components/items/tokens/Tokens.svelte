@@ -93,6 +93,7 @@
             {#each instances as [instance, items]}
                 <Instance
                     name="{tier.name} > {instance.name}"
+                    {instance}
                     {items}
                 />
             {/each}

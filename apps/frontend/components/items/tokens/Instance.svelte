@@ -1,7 +1,10 @@
 <script lang="ts">
+    import type { JournalDataInstance } from '@/types/data';
+
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
     import TokenItem from './TokenItem.svelte';
 
+    export let instance: JournalDataInstance
     export let items: number[]
     export let name: string
 </script>
@@ -15,7 +18,7 @@
 
 <SectionTitle title={name} />
 
-<div class="collection-v2-section">
+<div class="collection-v2-section" data-instance-id={instance.id}>
     {#each items as itemId}
         <TokenItem {itemId} />
     {/each}

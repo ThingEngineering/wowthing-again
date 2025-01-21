@@ -340,9 +340,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         this.value.professionAbilityByItemId = {};
         this.value.professionAbilityBySpellId = {};
 
-        const spellToItem: Record<number, number> = Object.fromEntries(
-            Object.entries(itemData.teachesSpell).map(([key, value]) => [value, parseInt(key)]),
-        );
+        const spellToItem: Record<number, number[]> = {};
+        for (const [itemId, spellId] of Object.entries(itemData.teachesSpell)) {
+            (spellToItem[spellId] ||= []).push(parseInt(itemId));
+        }
+
         for (const profession of Object.values(this.value.professions)) {
             for (let i = 0; i < profession.subProfessions.length; i++) {
                 const subProfession = profession.subProfessions[i];
@@ -357,8 +359,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     this.value.professionAbilityByAbilityId[result.abilityId] = result;
                     this.value.professionAbilityBySpellId[result.spellId] = result;
 
-                    if (result.itemId) {
-                        this.value.professionAbilityByItemId[result.itemId] = result;
+                    for (const itemId of result.itemIds || []) {
+                        this.value.professionAbilityByItemId[itemId] = result;
                     }
                 }
             }
@@ -369,7 +371,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         category: StaticDataProfessionCategory,
         professionId: number,
         subProfessionId: number,
-        spellToItem: Record<number, number>,
+        spellToItem: Record<number, number[]>,
     ): StaticDataProfessionAbilityInfo[] {
         const ret: StaticDataProfessionAbilityInfo[] = [];
 
@@ -383,6 +385,21 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     ability.spellId,
                 ),
             );
+
+            for (const [extraAbilityId, extraSpellId] of ability.extraRanks || []) {
+                const extraItemId = spellToItem[extraSpellId];
+                if (extraItemId) {
+                    ret.push(
+                        new StaticDataProfessionAbilityInfo(
+                            professionId,
+                            subProfessionId,
+                            extraAbilityId,
+                            extraItemId,
+                            extraSpellId,
+                        ),
+                    );
+                }
+            }
         }
 
         for (const childCategory of category.children) {

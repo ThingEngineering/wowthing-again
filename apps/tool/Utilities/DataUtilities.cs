@@ -340,7 +340,16 @@ public static class DataUtilities
             var items = YamlDeserializer.Deserialize<Dictionary<int, int[]>>(File.OpenText(file.FullName));
             foreach (var (itemId, expandedIds) in items)
             {
-                ret[itemId] = expandedIds;
+                if (expandedIds[0] > 1_000_000)
+                {
+                    ret[itemId] = expandedIds
+                        .SelectMany(bigId => ret[bigId - 1_000_000])
+                        .ToArray();
+                }
+                else
+                {
+                    ret[itemId] = expandedIds;
+                }
             }
         }
 
