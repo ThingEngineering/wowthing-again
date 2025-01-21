@@ -75,6 +75,7 @@ export interface UserData {
     appearanceMask?: Map<number, number>;
     hasAppearance?: Set<number>;
     hasIllusion?: Set<number>;
+    hasRecipe?: Set<number>;
     hasSource?: Set<string>;
     hasSourceV2?: Map<number, Set<number>>;
 }
