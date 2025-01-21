@@ -368,6 +368,16 @@ public class JournalTool
                         }
                     }
 
+                    // Instance has shared drops, add a fake encounter
+                    if (Hardcoded.ExtraItemDrops.ContainsKey(2000000 + instanceId))
+                    {
+                        encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                        {
+                            ID = 2000000 + instanceId,
+                            OrderIndex = -9,
+                        });
+                    }
+
                     // Instance has trash drops, add a fake encounter
                     if (Hardcoded.ExtraItemDrops.ContainsKey(1000000 + instanceId))
                     {
@@ -404,7 +414,11 @@ public class JournalTool
 
                         var items = new List<DumpJournalEncounterItem>();
 
-                        if (encounter.ID > 1000000)
+                        if (encounter.ID > 2000000)
+                        {
+                            encounterData.Name = "Shared Drops";
+                        }
+                        else if (encounter.ID > 1000000)
                         {
                             encounterData.Name = "Trash Drops";
                         }
