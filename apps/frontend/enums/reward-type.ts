@@ -12,6 +12,7 @@ export enum RewardType {
     Currency = 11,
     Reputation = 12,
     XpQuest = 13,
+    Recipe = 14,
     Transmog = 100,
     AccountTrackingQuest = 101,
     CharacterTrackingQuest = 102,

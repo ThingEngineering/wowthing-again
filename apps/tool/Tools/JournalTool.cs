@@ -18,6 +18,7 @@ public class JournalTool
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
+    private HashSet<int> _recipeItemIds;
 
     private readonly int[] _difficultyOrder =
     {
@@ -200,6 +201,13 @@ public class JournalTool
             .AsNoTracking()
             .Where(ls => _stringTypes.Contains(ls.Type))
             .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
+
+        var recipeItemIds = await context.WowProfessionRecipeItem
+            .AsNoTracking()
+            .Select(wpri => wpri.ItemId)
+            .Distinct()
+            .ToArrayAsync();
+        _recipeItemIds = new HashSet<int>(recipeItemIds);
 
         _timer.AddPoint("Database");
 
@@ -559,6 +567,10 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }
+                                else if (_recipeItemIds.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Recipe, item, difficulties);
+                                }
                                 else
                                 {
                                     string itemName = GetString(StringType.WowItemName, Language.enUS, item.Id);
@@ -849,6 +861,11 @@ public class JournalTool
             case RewardType.Toy:
                 name = "Toy";
                 order = 3;
+                break;
+
+            case RewardType.Recipe:
+                name = "Recipe";
+                order = 4;
                 break;
         }
 
