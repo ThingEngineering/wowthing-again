@@ -711,7 +711,7 @@ public class JournalTool
                                         return 1000;
                                     }
                                 })
-                                .ThenBy(item => GetString(StringType.WowItemName, language, item.Id))
+                                .ThenBy(item => GetString(StringType.WowItemName, language, item.Id).ToLowerInvariant())
                                 .ThenBy(item =>
                                     item.Appearances
                                         .SelectMany(app => app
