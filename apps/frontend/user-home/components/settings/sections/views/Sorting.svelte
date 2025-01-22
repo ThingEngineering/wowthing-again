@@ -8,7 +8,7 @@
 
     export let view: SettingsView
 
-    const sortByChoices: SettingsChoice[] = [
+    const initialChoices: SettingsChoice[] = [
         {id: 'account', name: 'Account'},
         {id: 'enabled', name: 'Account status'},
         {id: 'armor', name: 'Armor: Cloth > Plate'},
@@ -24,12 +24,16 @@
         {id: 'itemlevel', name: 'Item level'},
         {id: 'level', name: 'Level'},
     ]
-    
+
+    let sortByChoices: SettingsChoice[]
     $: {
-        sortByChoices.push(...orderBy(
-            $settingsStore.tags,
-            (tag) => tag.name,
-        ).map((tag) => ({ id: `tag:${tag.id}`, name: `Tag: ${tag.name}` })));
+        sortByChoices = [
+            ...initialChoices,
+            ...orderBy(
+                $settingsStore.tags,
+                (tag) => tag.name,
+            ).map((tag) => ({ id: `tag:${tag.id}`, name: `Tag: ${tag.name}` }))
+        ];
     }
 </script>
 

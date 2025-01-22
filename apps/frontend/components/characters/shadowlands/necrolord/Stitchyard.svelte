@@ -1,6 +1,6 @@
 <script lang="ts">
     import { abominations, CovenantAbomination } from '@/data/covenant'
-    import { itemStore, userAchievementStore, userQuestStore } from '@/stores'
+    import { itemStore, userQuestStore } from '@/stores'
     import { basicTooltip } from '@/shared/utils/tooltips'
     import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
 

@@ -4,10 +4,12 @@
     import { BindType } from '@/enums/bind-type'
     import { SkillSourceType } from '@/enums/skill-source-type'
     import { iconLibrary } from '@/shared/icons'
-    import { itemStore, userStore } from '@/stores'
+    import { settingsStore } from '@/shared/stores/settings';
     import { staticStore } from '@/shared/stores/static'
-    import { professionsRecipesState } from '@/stores/local-storage'
+    import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores'
+    import { newNavState, professionsRecipesState } from '@/stores/local-storage'
     import { basicTooltip } from '@/shared/utils/tooltips'
+    import { useCharacterFilter } from '@/utils/characters';
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -37,13 +39,31 @@
             .filter((cat) => cat.abilities.length > 0)
         subProfession = profession.expansionSubProfession[expansion.id]
         
-        characters = $userStore.characters.filter((char) =>
-            char.professions?.[profession.id]?.[subProfession.id]
-        )
-        characters.sort((a, b) => {
-            if (a.level !== b.level) { return b.level - a.level }
-            return a.name.localeCompare(b.name)
-        })
+        characters = [];
+        const collectorId = $settingsStore.professions.collectingCharacters?.[profession.id];
+        if (collectorId) {
+            characters.push(null);
+            characters.push($userStore.characterMap[collectorId]);
+        }
+        
+        const professionCharacters = $userStore.characters.filter((char) => useCharacterFilter(
+            $lazyStore,
+            $settingsStore,
+            $userQuestStore,
+            (c) => c.id !== collectorId &&
+                !!c.professions?.[profession.id]?.[subProfession.id],
+            char,
+            $newNavState.characterFilter
+        ))
+        if (professionCharacters.length > 0) {
+            characters.push(null);
+            
+            professionCharacters.sort((a, b) => {
+                if (a.level !== b.level) { return b.level - a.level }
+                return a.name.localeCompare(b.name)
+            });
+            characters.push(...professionCharacters);
+        }
 
         colspan = 3 + characters.length
     }
@@ -144,14 +164,16 @@
             </th>
             {#each characters as character}
                 <th class="character-icon">
-                    <div>
-                        <ClassIcon
-                            {character}
-                            border={2}
-                            size={40}
-                        />
-                        <span class="pill abs-center">{character.name.slice(0, 5)}</span>
-                    </div>
+                    {#if character !== null}
+                        <div>
+                            <ClassIcon
+                                {character}
+                                border={2}
+                                size={40}
+                            />
+                            <span class="pill abs-center">{character.name.slice(0, 5)}</span>
+                        </div>
+                    {/if}
                 </th>
             {/each}
         </tr>
@@ -218,15 +240,19 @@
                         </td>
 
                         {#each characters as character}
-                            {@const charProf = character.professions[profession.id][subProfession.id]}
-                            {@const charHas = charProf.knownRecipes?.indexOf(ability.id) >= 0}
-                            <td
-                                class="status"
-                                class:status-success={charHas}
-                                class:status-fail={!charHas}
-                            >
-                                <YesNoIcon state={charHas} />
-                            </td>
+                            {#if character === null}
+                                <td class="spacer"></td>
+                            {:else}
+                                {@const charProf = character.professions[profession.id][subProfession.id]}
+                                {@const charHas = charProf.knownRecipes?.indexOf(ability.id) >= 0}
+                                <td
+                                    class="status"
+                                    class:status-success={charHas}
+                                    class:status-fail={!charHas}
+                                >
+                                    <YesNoIcon state={charHas} />
+                                </td>
+                            {/if}
                         {/each}
                     </tr>
                 {/each}

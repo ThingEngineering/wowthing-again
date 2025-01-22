@@ -79,7 +79,7 @@ class DbDataStore extends WritableFancyStore<DbData> {
         for (const tagName of query.tags || []) {
             const tagId = this.value.tagsByName[tagName];
             if (!tagId) {
-                console.warn('Invalid db tag:', tagName);
+                // console.warn('Invalid db tag:', tagName);
                 continue;
             }
 

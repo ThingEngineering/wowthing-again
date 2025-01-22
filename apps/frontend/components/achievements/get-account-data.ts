@@ -33,7 +33,7 @@ export function getAccountData(
             (achievement.faction === 1 && char.faction === 0) ||
             achievement.faction === -1,
     );
-    const characterIds = characters.map((char) => char.id);
+    // const characterIds = characters.map((char) => char.id);
 
     const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
     const forcedId = forceAddonCriteria[achievement.id];

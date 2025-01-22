@@ -95,6 +95,7 @@ function createSettingsStore() {
                 store.set(settings);
             } else {
                 merge(currentSettings, settings);
+                store.set(currentSettings);
             }
         },
         subscribe: store.subscribe,
