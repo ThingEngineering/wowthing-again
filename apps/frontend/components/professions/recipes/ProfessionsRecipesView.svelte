@@ -6,9 +6,10 @@
     import { iconLibrary } from '@/shared/icons'
     import { settingsStore } from '@/shared/stores/settings';
     import { staticStore } from '@/shared/stores/static'
-    import { itemStore, userStore } from '@/stores'
-    import { professionsRecipesState } from '@/stores/local-storage'
+    import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores'
+    import { newNavState, professionsRecipesState } from '@/stores/local-storage'
     import { basicTooltip } from '@/shared/utils/tooltips'
+    import { useCharacterFilter } from '@/utils/characters';
     import type { Character, Expansion } from '@/types'
     import type {
         StaticDataProfession,
@@ -44,11 +45,16 @@
             characters.push(null);
             characters.push($userStore.characterMap[collectorId]);
         }
-
-        const professionCharacters = $userStore.characters.filter((char) =>
-            char.id !== collectorId &&
-            char.professions?.[profession.id]?.[subProfession.id]
-        )
+        
+        const professionCharacters = $userStore.characters.filter((char) => useCharacterFilter(
+            $lazyStore,
+            $settingsStore,
+            $userQuestStore,
+            (c) => c.id !== collectorId &&
+                !!c.professions?.[profession.id]?.[subProfession.id],
+            char,
+            $newNavState.characterFilter
+        ))
         if (professionCharacters.length > 0) {
             characters.push(null);
             
