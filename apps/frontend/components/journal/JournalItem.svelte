@@ -145,7 +145,11 @@
                 {@const ability = $staticStore.professionAbilityByItemId[item.id]}
                 {#if ability}
                     <div class="player-class">
-                        <ProfessionIcon id={ability.professionId} />
+                        <ProfessionIcon
+                            border={2}
+                            size={20}
+                            id={ability.professionId}
+                        />
                     </div>
                 {/if}
             {/if}
