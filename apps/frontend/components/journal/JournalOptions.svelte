@@ -20,6 +20,8 @@
         }
 
         let byMisc = [
+            state.showMounts ? 'M' : '-',
+            state.showPets ? 'P' : '-',
             state.showRecipes ? 'R' : '-',
             state.showTrash ? 'T' : '-',
         ]
@@ -174,10 +176,25 @@
 >
     <button>
         <CheckboxInput
+            name="show_mounts"
+            bind:value={$journalState.showMounts}
+        >Mounts</CheckboxInput>
+    </button>
+
+    <button>
+        <CheckboxInput
+            name="show_pets"
+            bind:value={$journalState.showPets}
+        >Pets</CheckboxInput>
+    </button>
+
+    <button>
+        <CheckboxInput
             name="show_recipes"
             bind:value={$journalState.showRecipes}
         >Recipes</CheckboxInput>
     </button>
+    
     <button>
         <CheckboxInput
             name="show_trash"

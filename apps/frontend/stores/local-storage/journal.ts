@@ -16,6 +16,8 @@ export class JournalState {
     public showCloaks = true;
     public showWeapons = true;
 
+    public showMounts = true;
+    public showPets = true;
     public showRecipes = true;
     public showTrash = true;
 
