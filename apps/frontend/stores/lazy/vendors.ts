@@ -89,7 +89,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
                 for (const entry of dbStore.search({ tags: [tagName] })) {
                     dbMap[entry.id] = entry.asVendor();
-                    console.log(dbMap[entry.id]);
                     vendorIds.push(entry.id);
                 }
             }
