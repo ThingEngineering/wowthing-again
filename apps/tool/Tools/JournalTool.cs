@@ -500,7 +500,13 @@ public class JournalTool
                             }
 
                             bool difficultiesOverridden = false;
-                            if (!hadDifficulties)
+                            // Nerub-ar Palace mythic mount
+                            if (item.Id == 224151)
+                            {
+                                difficultiesOverridden = true;
+                                difficulties = [16];
+                            }
+                            else if (!hadDifficulties)
                             {
                                 if (tier.ID == 505 &&
                                     encounterItem.Field_11_0_2_55959_007 is 0 or 44658 or 44659 &&
