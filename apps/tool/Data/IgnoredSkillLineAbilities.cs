@@ -19,6 +19,7 @@ public static partial class Hardcoded
         433606, // TWW ??
         433607, // TWW ??
         433608, // TWW ??
+        430610, // TWW ??
 
         // Blacksmithing
         8368, // Ironforge Gauntlets
