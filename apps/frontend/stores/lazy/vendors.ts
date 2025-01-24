@@ -99,16 +99,16 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 }
             }
 
-            for (const setString of childCategory.vendorSets) {
-                for (const vendor of Object.values(stores.manualData.shared.vendors)) {
-                    for (const set of vendor.sets) {
-                        if (set.name.includes(setString)) {
-                            vendorIds.push(vendor.id);
-                            break;
-                        }
-                    }
-                }
-            }
+            // for (const setString of childCategory.vendorSets) {
+            //     for (const vendor of Object.values(stores.manualData.shared.vendors)) {
+            //         for (const set of vendor.sets) {
+            //             if (set.name.includes(setString)) {
+            //                 vendorIds.push(vendor.id);
+            //                 break;
+            //             }
+            //         }
+            //     }
+            // }
 
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
 
