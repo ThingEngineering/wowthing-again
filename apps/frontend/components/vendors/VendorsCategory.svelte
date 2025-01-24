@@ -8,7 +8,7 @@
 
     export let category: ManualDataVendorCategory
     export let costs: Record<number, number>
-    export let slug1: string
+    export let statsSlug: string
 
     $: useV2 = category.groups.length > 3 &&
         category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30
@@ -23,7 +23,7 @@
 
 <SectionTitle
     title={category.name}
-    count={$lazyStore.vendors.stats[`${slug1}--${category.slug}`]}
+    count={$lazyStore.vendors.stats[`${statsSlug}--${category.slug}`]}
 >
     <Costs {costs} />
 </SectionTitle>

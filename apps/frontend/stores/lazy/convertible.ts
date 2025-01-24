@@ -129,7 +129,10 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             ((stores.itemData.items[item.itemId]?.classMask || 0) &
                                 setItem.classMask) ===
                                 setItem.classMask &&
-                            (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId)),
+                            (
+                                item.itemId === setItemId ||
+                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))
+                            ),
                     ),
                 ],
             );

@@ -86,7 +86,7 @@
                 {#if firstCategory && !params.slug2}
                     <SectionTitle
                         title={firstCategory.name}
-                        count={$lazyStore.vendors.stats[`${params.slug1}`]}
+                        count={$lazyStore.vendors.stats[params.slug1]}
                     >
                         <Costs costs={totalCosts.OVERALL} />
                     </SectionTitle>
@@ -96,8 +96,8 @@
                 {#each categories as category}
                     <Category
                         {category}
-                        slug1={params.slug1}
                         costs={totalCosts[category.slug]}
+                        statsSlug={params.slug3 ? `${params.slug1}--${params.slug2}` : params.slug1}
                     />
                 {/each}
             </div>

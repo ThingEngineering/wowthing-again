@@ -38,7 +38,7 @@ public class DataAuctionsJob : JobBase
     private static readonly Regex PartitionPendingRegex = new("""partition "(.*?)\" already pending detach""");
 
     private static readonly double[] CommodityPercentBuckets = { 0.01, 0.02, 0.03, 0.04, 0.05, 0.10, 0.25, 0.25, 0.25 };
-    private static readonly double[] SmallPercentBuckets = { 0.10, 0.15, 0.25, 0.25 };
+    private static readonly double[] SmallPercentBuckets = { 0.10, 0.15, 0.25, 0.25, 0.25 };
 
     private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
