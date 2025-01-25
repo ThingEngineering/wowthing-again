@@ -61,11 +61,10 @@
     $: showItemIcon = item.itemLevel === 200 || item.itemLevel === 207
     $: {
         if (showItemIcon) {
-            expandsData.sort((a, b) => {
-                const aOrder = weaponSubclassOrderMap[$itemStore.items[a[0]]?.subclassId] ?? 999;
-                const bOrder = weaponSubclassOrderMap[$itemStore.items[b[0]]?.subclassId] ?? 999;
-                return aOrder - bOrder;
-            })
+            expandsData.sort((a, b) =>
+                (weaponSubclassOrderMap[a[1]?.subclassId] ?? 999) -
+                (weaponSubclassOrderMap[b[1]?.subclassId] ?? 999)
+            )
         }
     }
 
