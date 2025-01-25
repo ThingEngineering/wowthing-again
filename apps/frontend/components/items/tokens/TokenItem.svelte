@@ -48,9 +48,12 @@
         }
 
         const appearance = expandedItem.appearances[modifier];
-        const hasItem = $settingsStore.transmog.completionistMode
-            ? $userStore.hasSourceV2.get(appearance.modifier).has(expandedItemId)
-            : $userStore.hasAppearance.has(appearance.appearanceId);
+        let hasItem = false;
+        if (!!appearance) {
+            hasItem = $settingsStore.transmog.completionistMode
+                ? $userStore.hasSourceV2.get(appearance.modifier)?.has(expandedItemId)
+                : $userStore.hasAppearance.has(appearance.appearanceId);
+        }
         return [expandedItemId, expandedItem, hasItem];
     });
 
