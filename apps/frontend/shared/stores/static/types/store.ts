@@ -57,7 +57,7 @@ export interface StaticData {
 
     itemToRequiredAbility: Record<number, number>;
     itemToSkillLine: Record<number, [number, number]>;
-    itemToSkillLineAbility: Record<number, number>;
+    itemToSkillLineAbility: Record<number, StaticDataProfessionAbility>;
     professions: Record<number, StaticDataProfession>;
     professionBySkillLine: Record<number, [StaticDataProfession, number]>;
     skillLineAbilityItems: Record<number, number[]>;
