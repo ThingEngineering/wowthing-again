@@ -218,6 +218,9 @@
 
         padding-bottom: 0;
     }
+    .border-shrug {
+        --image-margin-top: -5px;
+    }
 </style>
 
 <UnderConstruction />
@@ -306,6 +309,19 @@
                                                     [H]
                                                 {:else if item.difficultyMythic || modifier === AppearanceModifier.Mythic}
                                                     [M]
+                                                {/if}
+
+                                                {#if slug1.startsWith('missing-appearance-')}
+                                                    {@const abilityInfo = $staticStore.professionAbilityByAbilityId[
+                                                        $staticStore.itemToSkillLineAbility[auctions[0].itemId]?.id]}
+                                                    {#if abilityInfo}
+                                                        <span class="border-shrug">
+                                                            <ProfessionIcon
+                                                                id={abilityInfo.professionId}
+                                                                border={1}
+                                                            />
+                                                        </span>
+                                                    {/if}
                                                 {/if}
 
                                                 <WowthingImage
