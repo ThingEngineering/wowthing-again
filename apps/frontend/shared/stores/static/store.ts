@@ -87,10 +87,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                         for (const ability of subSubCategory.abilities) {
                             data.spellToProfessionAbility[ability.spellId] = ability;
 
-                            for (const itemId of ability.itemIds) {
-                                if (itemId > 0) {
-                                    data.itemToSkillLineAbility[itemId] = ability.id;
-                                }
+                            for (const [, extraRankSpellId] of ability.extraRanks || []) {
+                                data.spellToProfessionAbility[extraRankSpellId] = ability;
+                            }
+
+                            for (const itemId of ability.itemIds.filter((id) => id > 0)) {
+                                data.itemToSkillLineAbility[itemId] = ability;
                             }
                         }
                     }

@@ -12,7 +12,7 @@
 
 <WowthingImage
     name={imageStrings[professionIdToSlug[id]]}
-    tooltip={$staticStore.professions[id].name}
+    tooltip={$staticStore.professions[id].name.split('|')[0]}
     {size}
     {border}
 />
