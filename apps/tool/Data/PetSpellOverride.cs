@@ -9,6 +9,7 @@ public static partial class Hardcoded
         { 1328, 148050 }, // Ruby Droplet
         { 1395, 159296 }, // Lil' Leftovers
         { 1511, 171118 }, // Lovebird Hatchling
+        { 1949, 227964 }, // Igneous Flameling
         { 2584, 291547 }, // Spirit of the Spring
     };
 }
