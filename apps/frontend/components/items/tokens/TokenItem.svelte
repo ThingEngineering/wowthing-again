@@ -49,7 +49,7 @@
 
         const appearance = expandedItem.appearances[modifier];
         let hasItem = false;
-        if (!!appearance) {
+        if (appearance) {
             hasItem = $settingsStore.transmog.completionistMode
                 ? $userStore.hasSourceV2.get(appearance.modifier)?.has(expandedItemId)
                 : $userStore.hasAppearance.has(appearance.appearanceId);
