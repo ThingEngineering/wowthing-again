@@ -240,6 +240,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (character.hidden ||
                     settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
 
+            // Addon gets the wrong ID for Uldir for some reason?
+            if (character.lockouts?.[1028]) {
+                character.lockouts[1031] = character.lockouts[1028];
+                character.lockouts[1028] = null;
+            }
+
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
                 (allLockouts[key] ||= []).push([character, lockout]);
             }
