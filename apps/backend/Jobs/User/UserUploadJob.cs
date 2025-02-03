@@ -377,6 +377,14 @@ public class UserUploadJob : JobBase
             //         .IsModified = true;
             // }
 
+            // Illusions
+            var newIllusions = parsed.Illusions.EmptyIfNull().Order().ToList();
+            if (accountAddonData.Illusions == null || !newIllusions.SequenceEqual(accountAddonData.Illusions))
+            {
+                accountAddonData.Illusions = newIllusions;
+                _resetTransmogCache = true;
+            }
+
             // Quests
             List<int> questIds = parsed.QuestsV2?.Keys.ToList() ?? parsed.Quests.EmptyIfNull();
             var newQuests = questIds

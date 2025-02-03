@@ -16,5 +16,6 @@ public class PlayerAccountAddonData
     [Column(TypeName = "jsonb")]
     public Dictionary<int, short> Heirlooms { get; set; }
 
+    public List<int> Illusions { get; set; }
     public List<int> Quests { get; set; }
 }
