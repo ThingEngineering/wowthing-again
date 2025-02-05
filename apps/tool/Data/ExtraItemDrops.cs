@@ -915,13 +915,6 @@ public static partial class Hardcoded
                 new(22204, DungeonDifficultiesNormal), // Wristguards of Renown
             ]
         },
-        // Lower Blackrock Spire / Mother Smolderweb
-        {
-            391,
-            [
-                new(68673, DungeonDifficultiesNormal), // Smolderweb Egg
-            ]
-        },
         // Stratholme / Willey Hopebreaker
         {
             446,
