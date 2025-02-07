@@ -291,6 +291,7 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // The War Within - Season 1
     126011: [
+        220769, // Algari Token of Merit
         229899, // Coffer Key Shard
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
