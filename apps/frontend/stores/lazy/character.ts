@@ -16,7 +16,7 @@ import { CharacterFlag } from '@/enums/character-flag';
 import { Faction } from '@/enums/faction';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
-import { getNextDailyResetFromTime } from '@/utils/get-next-reset';
+import { getNextDailyReset, getNextDailyResetFromTime } from '@/utils/get-next-reset';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     UserCount,
@@ -42,6 +42,7 @@ import type {
 import type { Chore } from '@/types/tasks';
 import { getActiveHolidays } from '@/utils/get-active-holidays';
 import { holidayMinimumLevel } from '@/data/holidays';
+import parseApiTime from '@/utils/parse-api-time';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -106,9 +107,11 @@ interface LazyStores {
     userQuestData: UserQuestData;
 }
 
+let accountTasks: Record<string, LazyCharacterChoreTask> = {};
 export function doCharacters(stores: LazyStores): Record<string, LazyCharacter> {
     console.time('doCharacters');
 
+    accountTasks = {};
     const ret: Record<string, LazyCharacter> = {};
 
     for (const character of stores.userData.characters) {
@@ -268,6 +271,44 @@ class ProcessCharacterProfessions {
 }
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
+    const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
+        const charQuests = stores.userQuestData.characters[character.id];
+
+        let charTask = new LazyCharacterChoreTask(
+            choreTask.taskKey,
+            undefined,
+        );
+
+        if (choreTask.questIds) {
+            for (const questId of choreTask.questIds) {
+                // is the quest in progress?
+                const questProgress = charProgressQuests?.[`q${questId}`];
+                if (questProgress) {
+                    charTask.quest = questProgress;
+                    break;
+                }
+    
+                // is the quest completed?
+                if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
+                    const charScanned = parseApiTime(stores.userQuestData.characters[character.id].scannedAt);
+                    charTask.quest = {
+                        expires: getNextDailyResetFromTime(charScanned, character.realm.region).toUnixInteger(),
+                        id: questId,
+                        name: stores.staticData.questNames[questId] || choreTask.taskName,
+                        objectives: [],
+                        status: QuestStatus.Completed,
+                    };
+                    break;
+                }
+            }
+        } else {
+            charTask.quest = charQuests?.progressQuests?.[choreTask.taskKey];
+        }
+
+        return charTask;
+    };
+    
+    const charProgressQuests = stores.userQuestData.characters[character.id]?.progressQuests;
     for (const view of stores.settings.views) {
         const activeHolidays = getActiveHolidays(stores.currentTime, view, character.realm.region);
 
@@ -317,22 +358,16 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     let charTask: LazyCharacterChoreTask;
                     if (choreTask.accountWide) {
-                        charTask = new LazyCharacterChoreTask(
-                            choreTask.taskKey,
-                            sortBy(
-                                Object.values(stores.userQuestData.characters).filter(
-                                    (char) => char.progressQuests?.[choreTask.taskKey],
-                                ),
-                                (char) => char.scannedAt,
-                            ).at(-1)?.progressQuests?.[choreTask.taskKey],
-                        );
+                        charTask = accountTasks[choreTask.taskKey] ||= sortBy(
+                            Object.entries(stores.userQuestData.characters)
+                                .map(([charId, char]) => [
+                                    char.scannedAt,
+                                    processTask(choreTask, stores.userData.characterMap[parseInt(charId)])
+                                ]),
+                            ([scannedAt]) => scannedAt
+                        ).at(-1)?.[1] as LazyCharacterChoreTask;
                     } else {
-                        charTask = new LazyCharacterChoreTask(
-                            choreTask.taskKey,
-                            stores.userQuestData.characters[character.id]?.progressQuests?.[
-                                choreTask.taskKey
-                            ],
-                        );
+                        charTask = processTask(choreTask, character);
                     }
 
                     if (
