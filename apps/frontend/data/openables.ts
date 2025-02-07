@@ -1,4 +1,7 @@
 export const openables = new Set<number>([
+    // Shadowlands
+    185834, // Orboreal Distinguishment
+
     // The War Within
     217011, // Amateur Actor's Chest
     217012, // Novice Actor's Chest
@@ -25,6 +28,7 @@ export const openables = new Set<number>([
     225571, // The Weaver's Gratuity
     225572, // The General's War Chest
     225573, // The Vizier's Capital
+    225739, // Algari Distinguishment
     226045, // The General's Trove
     226100, // The Vizier's Trove
     226103, // The Weaver's Trove
