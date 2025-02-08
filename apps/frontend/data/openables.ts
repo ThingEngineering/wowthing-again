@@ -1,4 +1,9 @@
 export const openables = new Set<number>([
+    // Holidays
+    21746, // Lucky Red Envelope
+    211429, // Bundle of Love Tokens
+    232877, // Timely Goodie Bag
+
     // Shadowlands
     185834, // Orboreal Distinguishment
 
