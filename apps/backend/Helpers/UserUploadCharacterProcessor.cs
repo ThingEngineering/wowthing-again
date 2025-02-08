@@ -1343,18 +1343,6 @@ public class UserUploadCharacterProcessor
 
     private void HandleTransmog()
     {
-        var illusions = _characterData.Illusions
-            .EmptyIfNullOrWhitespace()
-            .Split(':', StringSplitOptions.RemoveEmptyEntries)
-            .Select(int.Parse)
-            .ToList();
-        if (illusions.Count > 0 && (_character.Transmog.IllusionIds == null ||
-                                    !illusions.SequenceEqual(_character.Transmog.IllusionIds)))
-        {
-            _character.Transmog.IllusionIds = illusions;
-            _result.ResetTransmogCache = true;
-        }
-
         List<int> transmog;
         if (_characterData.TransmogSquish != null)
         {
