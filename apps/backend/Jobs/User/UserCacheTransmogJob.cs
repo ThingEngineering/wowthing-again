@@ -17,7 +17,7 @@ public class UserCacheTransmogJob : JobBase
     {
         _timer = new JankTimer();
 
-        await CacheService.CreateOrUpdateTransmogCacheAsync(Context, _timer, _userId);
+        await CacheService.CreateOrUpdateTransmogCacheAsync(Context, _timer, _userId, lastModified: DateTime.UtcNow);
 
         Logger.Debug("{0}", _timer.ToString());
     }
