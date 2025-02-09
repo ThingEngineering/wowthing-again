@@ -37,7 +37,7 @@
         {#each instanceLockouts as instanceLockout}
             <div class="lockout">
                 <span>{instanceLockout.difficulty.shortName}:</span>
-                {#each sortBy(instanceLockout.characters, ([char]) => classOrderMap[char.classId]) as [character, lockout]}
+                {#each sortBy(instanceLockout.characters, ([char]) => [classOrderMap[char.classId], char.name]) as [character, lockout]}
                     {@const per = lockout.defeatedBosses / lockout.maxBosses * 100}
                     {@const status = per === 0 ? 0 : (per < 100 ? 1 : 2)}
                     <span
