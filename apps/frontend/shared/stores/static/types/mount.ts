@@ -2,9 +2,9 @@ export class StaticDataMount {
     constructor(
         public id: number,
         public sourceType: number,
-        public itemId: number,
         public spellId: number,
-        public name: string
+        public name: string,
+        public itemIds: number[],
     )
     {}
 }

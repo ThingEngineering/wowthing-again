@@ -9,16 +9,16 @@ public class StaticPetConverter : JsonConverter<StaticPet>
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, StaticPet value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, StaticPet pet, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        writer.WriteNumberValue(value.Id);
-        writer.WriteNumberValue(value.SourceType);
-        writer.WriteNumberValue(value.PetType);
-        writer.WriteNumberValue(value.CreatureId);
-        writer.WriteNumberValue(value.ItemId);
-        writer.WriteNumberValue(value.SpellId);
-        writer.WriteStringValue(value.Name);
+        writer.WriteNumberValue(pet.Id);
+        writer.WriteNumberValue(pet.SourceType);
+        writer.WriteNumberValue(pet.PetType);
+        writer.WriteNumberValue(pet.CreatureId);
+        writer.WriteNumberValue(pet.SpellId);
+        writer.WriteStringValue(pet.Name);
+        writer.WriteNumberArray(pet.ItemIds);
         writer.WriteEndArray();
     }
 }

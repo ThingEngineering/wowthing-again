@@ -11,8 +11,8 @@ public class StaticMount : WowMount
     public StaticMount(WowMount mount) : base(mount.Id)
     {
         Flags = mount.Flags;
-        ItemId = mount.ItemId;
         SpellId = mount.SpellId;
         SourceType = mount.SourceType;
+        ItemIds = mount.ItemIds.Order().ToList();
     }
 }

@@ -4,9 +4,9 @@ export class StaticDataPet {
         public sourceType: number,
         public petType: number,
         public creatureId: number,
-        public itemId: number,
         public spellId: number,
         public name: string,
+        public itemIds: number[],
     ) {}
 }
 export type StaticDataPetArray = ConstructorParameters<typeof StaticDataPet>;

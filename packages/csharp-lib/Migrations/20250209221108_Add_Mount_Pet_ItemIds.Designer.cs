@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250209221108_Add_Mount_Pet_ItemIds")]
+    partial class Add_Mount_Pet_ItemIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3147,6 +3150,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("flags");
 
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
                     b.Property<List<int>>("ItemIds")
                         .HasColumnType("integer[]")
                         .HasColumnName("item_ids");
@@ -3221,6 +3228,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("Flags")
                         .HasColumnType("integer")
                         .HasColumnName("flags");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
 
                     b.Property<List<int>>("ItemIds")
                         .HasColumnType("integer[]")

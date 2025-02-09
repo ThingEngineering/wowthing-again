@@ -12,7 +12,7 @@ public class WowPet
     public int Flags { get; set; }
     public short PetType { get; set; }
     public short SourceType { get; set; }
-    public int ItemId { get; set; }
+    public List<int> ItemIds { get; set; } = new();
 
     public WowPet(int id)
     {
