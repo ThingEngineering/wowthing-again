@@ -222,6 +222,12 @@ public class UserUploadJob : JobBase
         var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
+            if (characterData.ScanTimes == null)
+            {
+                Logger.Warning($"ScanTimes is null: {addonId}");
+                continue;
+            }
+
             var lastSeen = characterData.LastSeen.AsUtcDateTime();
 
             // Player-[realm id]-[hex character id]
@@ -376,6 +382,14 @@ public class UserUploadJob : JobBase
             //         .Property(ad => ad.Heirlooms)
             //         .IsModified = true;
             // }
+
+            // Illusions
+            var newIllusions = parsed.Illusions.EmptyIfNull().Order().ToList();
+            if (accountAddonData.Illusions == null || !newIllusions.SequenceEqual(accountAddonData.Illusions))
+            {
+                accountAddonData.Illusions = newIllusions;
+                _resetTransmogCache = true;
+            }
 
             // Quests
             List<int> questIds = parsed.QuestsV2?.Keys.ToList() ?? parsed.Quests.EmptyIfNull();

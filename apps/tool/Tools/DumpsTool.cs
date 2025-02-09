@@ -1374,7 +1374,7 @@ public class DumpsTool
 
             if (_spellTeachMap!.TryGetValue(dbPet.SpellId, out var itemIds))
             {
-                dbPet.ItemId = itemIds.Last();
+                dbPet.ItemId = itemIds.Order().Last();
             }
         }
 

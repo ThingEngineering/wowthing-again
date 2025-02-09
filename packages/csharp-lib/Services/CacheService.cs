@@ -561,6 +561,7 @@ public class CacheService
         var now = DateTimeOffset.UtcNow;
 
         var allAppearanceIds = new HashSet<int>();
+        var allIllusions = new HashSet<int>();
         var allSources = new HashSet<string>();
         var validTransmogSourceData = await GetValidTransmogSourceDataAsync(context);
 
@@ -601,6 +602,17 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
+        var accountIllusions = await context.PlayerAccountAddonData
+            .AsNoTracking()
+            .Where(paad => paad.Account.UserId == userId)
+            .Select(paad => paad.Illusions)
+            .ToArrayAsync();
+
+        foreach (var illusions in accountIllusions)
+        {
+            allIllusions.UnionWith(illusions.EmptyIfNull());
+        }
+
         timer.AddPoint("Select");
 
         // Filter out any appearance IDs where the user doesn't actually have any valid sources
@@ -639,17 +651,17 @@ public class CacheService
             userCache.AppearanceSources = sortedAppearanceSources;
         }
 
-        // var sortedIllusions = allTransmog.IllusionIds
-        //     .Distinct()
-        //     .Select(id => (short)id)
-        //     .Order()
-        //     .ToList();
-        //
-        // if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
-        // {
-        //     userCache.TransmogUpdated = now;
-        //     userCache.IllusionIds = sortedIllusions;
-        // }
+        var sortedIllusions = allIllusions
+            .Distinct()
+            .Select(id => (short)id)
+            .Order()
+            .ToList();
+
+        if (forceUpdate || userCache.IllusionIds == null || !sortedIllusions.SequenceEqual(userCache.IllusionIds))
+        {
+            userCache.TransmogUpdated = now;
+            userCache.IllusionIds = sortedIllusions;
+        }
 
         int updated = await context.SaveChangesAsync();
 

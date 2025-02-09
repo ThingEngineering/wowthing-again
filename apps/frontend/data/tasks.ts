@@ -14,6 +14,7 @@ import {
     isGatheringProfession,
     warWithinProfessions,
 } from './professions';
+import { DbResetType } from '@/shared/stores/db/enums';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -114,6 +115,13 @@ export const taskList: Task[] = [
         minimumLevel: 10,
         name: "[Event] Hallow's End",
         shortName: '🎃',
+        type: 'multi',
+    },
+    {
+        key: 'holidayLove',
+        minimumLevel: 10,
+        name: "[Event] Love is in the Air",
+        shortName: '💘',
         type: 'multi',
     },
     {
@@ -571,6 +579,57 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'hallowsTree',
             taskName: 'The Crooked Tree',
             minimumLevel: 40,
+        },
+    ],
+    holidayLove: [
+        {
+            taskKey: 'loveCrownAccount',
+            taskName: 'Crown Chemical Co. [Account]',
+            accountWide: true,
+            noProgress: true,
+            questIds: [
+                74957, // X-45 Heartbreaker
+                79104, // Renewed Proto-Drake: Love Armor
+                86172, // Love Witch's Sweeper
+            ],
+            questReset: DbResetType.Daily,
+        },
+        {
+            taskKey: 'loveDonation',
+            taskName: 'Donate',
+            noProgress: true,
+            questIds: [78683],
+            questReset: DbResetType.Daily,
+        },
+        {
+            taskKey: 'loveGetaway',
+            taskName: 'Getaway',
+            questIds: [
+                78594, // Getaway to Scenic Feralas! [A]
+                78988, // Getaway to Scenic Feralas! [H]
+                78565, // Getaway to Scenic Grizzly Hills! [A]
+                78986, // Getaway to Scenic Grizzly Hills! [H]
+                78591, // Getaway to Scenic Nagrand! [A]
+                78987, // Getaway to Scenic Nagrand! [H]
+            ],
+            questReset: DbResetType.Daily,
+        },
+        {
+            taskKey: 'loveGift',
+            taskName: 'Gift',
+            questIds: [
+                78679, // The Gift of Relaxation [A]
+                78991, // The Gift of Relaxation [H]
+                78674, // The Gift of Relief [A]
+                78990, // The Gift of Relief [H]
+                78724, // The Gift of Self-Care [Duel, A]
+                78992, // The Gift of Self-Care [Duel, H]
+                78726, // The Gift of Self-Care [Eat, A]
+                78993, // The Gift of Self-Care [Eat, H]
+                78727, // The Gift of Self-Care [Nap, A]
+                78979, // The Gift of Self-Care [Nap, H]
+            ],
+            questReset: DbResetType.Daily,
         },
     ],
     holidayWinterVeil: [

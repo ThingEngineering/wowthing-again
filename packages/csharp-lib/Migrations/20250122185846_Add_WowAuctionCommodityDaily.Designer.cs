@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250122185846_Add_WowAuctionCommodityDaily")]
+    partial class Add_WowAuctionCommodityDaily
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -523,10 +526,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<short>("HonorMax")
                         .HasColumnType("smallint")
                         .HasColumnName("honor_max");
-
-                    b.Property<List<int>>("Illusions")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("illusions");
 
                     b.Property<List<int>>("Quests")
                         .HasColumnType("integer[]")

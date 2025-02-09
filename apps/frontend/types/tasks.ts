@@ -1,3 +1,4 @@
+import type { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from './character';
 
 export type Task = {
@@ -6,6 +7,7 @@ export type Task = {
     requiredQuestId?: number;
     key: string;
     name: string;
+    questIds?: number[];
     shortName: string;
     type?: string;
     /**
@@ -20,6 +22,8 @@ export type Chore = {
     showQuestName?: boolean;
     minimumLevel?: number;
     maximumLevel?: number;
+    questIds?: number[];
+    questReset?: DbResetType,
     subChores?: Chore[];
     taskKey: string;
     taskName: string;
