@@ -93,7 +93,11 @@ public class DbTool
             var parsed = DataUtilities.YamlDeserializer.Deserialize<DataDbFile>(File.OpenText(fileInfo.FullName));
             if (fileInfo.Name == "_.yml")
             {
-                baseLocation = parsed.Location;
+                if (!string.IsNullOrWhiteSpace(parsed.Location))
+                {
+                    baseLocation = parsed.Location;
+                }
+
                 AddRequirements(dirRequirementIds, parsed.Requirements);
                 AddTags(dirTagIds, parsed.Tags);
             }
