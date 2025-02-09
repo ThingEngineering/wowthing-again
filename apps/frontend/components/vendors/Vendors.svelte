@@ -10,7 +10,7 @@
     export let params: MultiSlugParams
 
     afterUpdate(() => {
-        getSavedRoute('vendors', params.slug1, params.slug2)
+        getSavedRoute('vendors', params.slug1, params.slug2, params.slug3)
     })
 </script>
 

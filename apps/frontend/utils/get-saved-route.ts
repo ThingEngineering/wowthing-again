@@ -5,6 +5,7 @@ export default function getSavedRoute(
     route: string,
     slug1?: string,
     slug2?: string,
+    slug3?: string,
     sidebarId = 'sub-sidebar',
     lastChild = false
 ): void {
@@ -30,6 +31,12 @@ export default function getSavedRoute(
         }
     }
     else {
-        localStorage.setItem(key, slug2 ? `${slug1}/${slug2}` : slug1)
+        localStorage.setItem(key,
+            slug3
+                ? `${slug1}/${slug2}/${slug3}`
+                : slug2
+                    ? `${slug1}/${slug2}`
+                    : slug1
+        )
     }
 }
