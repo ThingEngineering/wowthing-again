@@ -5,7 +5,6 @@
     import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
 
-
     function getFilters(state: JournalState): string {
         let byType = [
             state.showCloth ? 'C' : '-',

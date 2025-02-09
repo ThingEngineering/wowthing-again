@@ -4,6 +4,7 @@ public static partial class Hardcoded
 {
     public static readonly Dictionary<int, int> PetSpellOverride = new()
     {
+        { 229, 66096 }, // Shimmering Wyrmling
         { 1150, 135261 }, // Ashstone Core
         { 1322, 148049 }, // Blackfuse Bombling
         { 1328, 148050 }, // Ruby Droplet
