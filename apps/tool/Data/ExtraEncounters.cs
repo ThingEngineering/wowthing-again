@@ -264,6 +264,20 @@ public static partial class Hardcoded
         },
         #endregion
 
+        #region Cataclysm
+        // Cata > Zul'Aman
+        {
+            77,
+            new[]
+            {
+                new ExtraEncounter("Timed Run")
+                {
+                    AfterEncounter = 189, // Halazzi
+                }
+            }
+        },
+        #endregion
+
         #region Wrath of the Lich King
         // WotLK > The Culling of Stratholme
         {
