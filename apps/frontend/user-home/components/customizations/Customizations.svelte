@@ -10,7 +10,11 @@
     export let basePath = ''
     export let params: MultiSlugParams
 
-    afterUpdate(() => getSavedRoute(basePath ? `${basePath}/customizations` : 'customizations', params.slug1, params.slug2))
+    afterUpdate(() => getSavedRoute(
+        basePath ? `${basePath}/customizations` : 'customizations',
+        params.slug1,
+        params.slug2
+    ))
 </script>
 
 <div class="view">

@@ -19,7 +19,7 @@
 
     export let params: MultiSlugParams
 
-    afterUpdate(() => getSavedRoute('items', params.slug1, null, 'items-subnav'))
+    afterUpdate(() => getSavedRoute('items', params.slug1, null, null, 'items-subnav'))
 </script>
 
 <style lang="scss">

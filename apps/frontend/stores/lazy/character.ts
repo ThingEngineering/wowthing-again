@@ -16,7 +16,7 @@ import { CharacterFlag } from '@/enums/character-flag';
 import { Faction } from '@/enums/faction';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
-import { getNextDailyReset, getNextDailyResetFromTime } from '@/utils/get-next-reset';
+import { getNextDailyResetFromTime } from '@/utils/get-next-reset';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     UserCount,

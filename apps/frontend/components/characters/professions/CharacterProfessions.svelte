@@ -25,6 +25,7 @@
             `characters/${params.slug1}/${params.slug2}/${params.slug3}`,
             params.slug4,
             null,
+            null,
             'character-professions-subnav'
         )
 
@@ -33,6 +34,7 @@
                 `characters/${params.slug1}/${params.slug2}/${params.slug3}/${params.slug4}`,
                 params.slug5,
                 params.slug6,
+                null,
                 'character-professions-sidebar',
                 true
             )
