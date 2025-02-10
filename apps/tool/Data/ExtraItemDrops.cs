@@ -978,6 +978,7 @@ public static partial class Hardcoded
         {
             1528,
             [
+                new(138018, RaidDifficultiesLegacy40), // Clothes Chest Pattern: Molten Core
                 new(17182, RaidDifficultiesLegacy40), // Sulfuras, Hand of Ragnaros
             ]
         },
