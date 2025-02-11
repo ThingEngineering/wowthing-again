@@ -144,10 +144,11 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
             {
                 cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
 
-                return await _context.WowPet
+                var pets = await _context.WowPet
                     .AsNoTracking()
-                    .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
-                    .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
+                    .Where(pet => (pet.Flags & 32) == 0 && pet.ItemIds.Count > 0)
+                    .ToArrayAsync();
+                return pets.ToManyDictionary(pet => pet.ItemIds, pet => pet.Id);
             }
         );
     }

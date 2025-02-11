@@ -1319,7 +1319,7 @@ public class DumpsTool
             dbMount.SourceType = mount.SourceTypeEnum;
             dbMount.SpellId = mount.SourceSpellID;
 
-            dbMount.ItemIds = _spellTeachMap!.GetValueOrDefault(dbMount.SpellId, new List<int>());
+            dbMount.ItemIds = _spellTeachMap!.GetValueOrDefault(dbMount.SpellId, []);
         }
 
         foreach (var language in _languages)
@@ -1355,10 +1355,7 @@ public class DumpsTool
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
 
-            if (_spellTeachMap!.TryGetValue(dbPet.SpellId, out var itemIds))
-            {
-                dbPet.ItemIds = _spellTeachMap!.GetValueOrDefault(dbPet.SpellId, new List<int>());
-            }
+            dbPet.ItemIds = _spellTeachMap!.GetValueOrDefault(dbPet.SpellId, []);
         }
 
         _timer.AddPoint("Pets");

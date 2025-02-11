@@ -266,16 +266,19 @@ public class AuctionsController : Controller
             var missingMounts = await _context.WowMount
                 .AsNoTracking()
                 .Where(mount =>
-                    mount.ItemId > 0 &&
+                    mount.ItemIds.Count > 0 &&
                     !mountIds.Contains(mount.Id)
                 )
                 .ToArrayAsync();
 
+            var missingMountIds = missingMounts.SelectMany(mount => mount.ItemIds).ToArray();
+
             // Auctions
-            var mountSpellMap = missingMounts.ToDictionary(mount => mount.ItemId, mount => mount.SpellId);
+            var mountSpellMap = missingMounts
+                .ToManyDictionary(mount => mount.ItemIds, mount => mount.SpellId);
 
             var mountAuctions = await auctionQuery
-                .Where(auction => missingMounts.Select(mount => mount.ItemId).Contains(auction.ItemId))
+                .Where(auction => missingMountIds.Contains(auction.ItemId))
                 .ToArrayAsync();
 
             data.RawAuctions = DoAuctionStuff(
@@ -323,8 +326,9 @@ public class AuctionsController : Controller
                 .ToArrayAsync();
 
             var petItemMap = missingPets
-                .Where(pet => pet.ItemId > 0)
-                .ToDictionary(pet => pet.ItemId, pet => pet.CreatureId);
+                .Where(pet => pet.ItemIds.Count > 0)
+                .ToManyDictionary(pet => pet.ItemIds, pet => pet.CreatureId);
+
             var petSpeciesMap = missingPets
                 .ToDictionary(pet => pet.Id, pet => pet.CreatureId);
 
