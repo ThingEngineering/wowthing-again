@@ -189,8 +189,7 @@ public class JournalTool
                 .Where(mount => mount.ItemIds.Count > 0)
                 .ToArrayAsync()
             )
-            .SelectMany(mount => mount.ItemIds.Select(itemId => (itemId, mount)))
-            .ToDictionary(tup => tup.Item1, tup => tup.Item2);
+            .ToManyDictionary(mount => mount.ItemIds, mount => mount);
 
         _petMap = (
             await context.WowPet
@@ -198,8 +197,7 @@ public class JournalTool
                 .Where(pet => pet.ItemIds.Count > 0 && (pet.Flags & 32) == 0)
                 .ToArrayAsync()
             )
-            .SelectMany(pet => pet.ItemIds.Select(itemId => (itemId, pet)))
-            .ToDictionary(tup => tup.Item1, tup => tup.Item2);
+            .ToManyDictionary(pet => pet.ItemIds, pet => pet);
 
         _toyMap = await context.WowToy
             .AsNoTracking()

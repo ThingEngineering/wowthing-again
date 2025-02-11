@@ -81,6 +81,18 @@ public static class CollectionExtensions
             );
     }
 
+    public static Dictionary<TKey, TResult> ToManyDictionary<TKey, TValue, TResult>(
+        this IEnumerable<TValue> source,
+        Func<TValue, IEnumerable<TKey>> keySelector,
+        Func<TValue, TResult> valueSelector
+    )
+        where TKey : notnull
+    {
+        return source
+            .SelectMany(value => keySelector(value).Select(thing => (thing, value)))
+            .ToDictionary(tup => tup.Item1, tup => valueSelector(tup.Item2));
+    }
+
     public static TValue GetOrNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
         where TValue : new()
     {
