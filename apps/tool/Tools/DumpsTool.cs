@@ -1319,24 +1319,7 @@ public class DumpsTool
             dbMount.SourceType = mount.SourceTypeEnum;
             dbMount.SpellId = mount.SourceSpellID;
 
-            dbMount.ItemId = 0;
-            if (_spellTeachMap!.TryGetValue(dbMount.SpellId, out var itemIds))
-            {
-                foreach (int itemId in itemIds)
-                {
-                    if (_itemMap.TryGetValue(itemId, out var item) &&
-                        item.BindType is WowBindType.NotBound or WowBindType.OnEquip or WowBindType.OnUse)
-                    {
-                        dbMount.ItemId = itemId;
-                        break;
-                    }
-                }
-
-                if (dbMount.ItemId == 0)
-                {
-                    dbMount.ItemId = itemIds.Last();
-                }
-            }
+            dbMount.ItemIds = _spellTeachMap!.GetValueOrDefault(dbMount.SpellId, new List<int>());
         }
 
         foreach (var language in _languages)
@@ -1374,7 +1357,7 @@ public class DumpsTool
 
             if (_spellTeachMap!.TryGetValue(dbPet.SpellId, out var itemIds))
             {
-                dbPet.ItemId = itemIds.Order().Last();
+                dbPet.ItemIds = _spellTeachMap!.GetValueOrDefault(dbPet.SpellId, new List<int>());
             }
         }
 

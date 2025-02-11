@@ -83,20 +83,15 @@ export function doVendors(stores: LazyStores): LazyVendors {
             const vendorIds: number[] = [];
             for (const mapName of childCategory.vendorMaps) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
-
-                for (const entry of dbStore.search({ maps: [mapName] })) {
-                    dbMap[entry.id] = entry.asVendor();
-                    vendorIds.push(entry.id);
-                }
             }
 
             for (const tagName of childCategory.vendorTags) {
                 vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
-
-                for (const entry of dbStore.search({ tags: [tagName] })) {
-                    dbMap[entry.id] = entry.asVendor();
-                    vendorIds.push(entry.id);
-                }
+            }
+            
+            for (const entry of dbStore.search({ maps: childCategory.vendorMaps, tags: childCategory.vendorTags })) {
+                dbMap[entry.id] = entry.asVendor();
+                vendorIds.push(entry.id);
             }
 
             // for (const setString of childCategory.vendorSets) {

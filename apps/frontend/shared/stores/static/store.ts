@@ -245,12 +245,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (const mountArray of data.rawMounts) {
                 const obj = new StaticDataMount(...mountArray);
                 data.mounts[obj.id] = obj;
-                if (obj.itemId) {
-                    data.mountsByItem[obj.itemId] = obj;
-                    // Thundering Ruby Cloud Serpent got a new item
-                    if (obj.itemId === 90655) {
-                        data.mountsByItem[224374] = obj;
-                    }
+                for (const itemId of obj.itemIds || []) {
+                    data.mountsByItem[itemId] = obj;
                 }
                 if (obj.spellId) {
                     data.mountsBySpell[obj.spellId] = obj;
@@ -268,8 +264,8 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 data.pets[obj.id] = obj;
                 data.petsByName[obj.name] = obj;
 
-                if (obj.itemId > 0) {
-                    data.petsByItem[obj.itemId] = obj;
+                for (const itemId of obj.itemIds || []) {
+                    data.petsByItem[itemId] = obj;
                 }
             }
             data.rawPets = null;

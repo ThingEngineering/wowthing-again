@@ -12,9 +12,9 @@ public class StaticPet : WowPet
     {
         CreatureId = pet.CreatureId;
         Flags = pet.Flags;
-        ItemId = pet.ItemId;
         PetType = pet.PetType;
         SourceType = pet.SourceType;
         SpellId = pet.SpellId;
+        ItemIds = pet.ItemIds.Order().ToList();
     }
 }

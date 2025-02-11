@@ -9,14 +9,14 @@ public class StaticMountConverter : JsonConverter<StaticMount>
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, StaticMount value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, StaticMount mount, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        writer.WriteNumberValue(value.Id);
-        writer.WriteNumberValue(value.SourceType);
-        writer.WriteNumberValue(value.ItemId);
-        writer.WriteNumberValue(value.SpellId);
-        writer.WriteStringValue(value.Name);
+        writer.WriteNumberValue(mount.Id);
+        writer.WriteNumberValue(mount.SourceType);
+        writer.WriteNumberValue(mount.SpellId);
+        writer.WriteStringValue(mount.Name);
+        writer.WriteNumberArray(mount.ItemIds);
         writer.WriteEndArray();
     }
 }

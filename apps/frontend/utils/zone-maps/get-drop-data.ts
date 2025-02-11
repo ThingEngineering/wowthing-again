@@ -41,7 +41,7 @@ export function getDropData(drop: ManualDataZoneMapDrop): DropData {
     }
     else if (drop.type === RewardType.Mount) {
         const mount = staticData.mounts[drop.id]
-        ret.linkId = mount?.itemId || 0
+        ret.linkId = mount?.itemIds?.at(-1) || 0;
         ret.linkType = 'item'
         ret.name = mount?.name || `Unknown mount #${drop.id}`
         ret.quality = itemData.items[ret.linkId]?.quality || ItemQuality.Epic

@@ -16,7 +16,7 @@ import { CharacterFlag } from '@/enums/character-flag';
 import { Faction } from '@/enums/faction';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
-import { getNextDailyReset, getNextDailyResetFromTime } from '@/utils/get-next-reset';
+import { getNextDailyResetFromTime } from '@/utils/get-next-reset';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
     UserCount,
@@ -272,12 +272,13 @@ class ProcessCharacterProfessions {
 
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
-        const charQuests = stores.userQuestData.characters[character.id];
-
         let charTask = new LazyCharacterChoreTask(
             choreTask.taskKey,
             undefined,
         );
+        if (!character) { return charTask; }
+
+        const charQuests = stores.userQuestData.characters[character.id];
 
         if (choreTask.questIds) {
             for (const questId of choreTask.questIds) {

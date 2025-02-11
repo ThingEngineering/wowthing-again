@@ -8,9 +8,9 @@ public class WowMount
     public int Id { get; set; }
 
     public int Flags { get; set; }
-    public int ItemId { get; set; }
     public int SpellId { get; set; }
     public short SourceType { get; set; }
+    public List<int> ItemIds { get; set; } = new();
 
     public WowMount(int id)
     {

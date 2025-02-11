@@ -20,7 +20,7 @@
         }
     }
 
-    afterUpdate(() => getSavedRoute('collections/recipes', params.slug1, params.slug2, 'character-recipes-sidebar'))
+    afterUpdate(() => getSavedRoute('collections/recipes', params.slug1, params.slug2, null, 'character-recipes-sidebar'))
 </script>
 
 <div class="view">

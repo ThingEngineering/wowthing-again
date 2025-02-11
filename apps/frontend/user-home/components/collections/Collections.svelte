@@ -14,6 +14,7 @@
             'collections',
             params.slug1,
             null,
+            null,
             'collections-subnav'
         )
     })

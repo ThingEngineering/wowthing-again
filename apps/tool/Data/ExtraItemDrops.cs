@@ -8,6 +8,7 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLegacy25Normal = [4];
     private static readonly int[] RaidDifficultiesLegacy10Heroic = [5];
     private static readonly int[] RaidDifficultiesLegacy25Heroic = [6];
+    private static readonly int[] RaidDifficultiesLegacy1025 = [3, 4, 5, 6];
     private static readonly int[] RaidDifficultiesLegacy40 = [9];
     private static readonly int[] RaidDifficultiesLegacyLfr = [7];
     private static readonly int[] RaidDifficultiesNormal = [14];
@@ -978,6 +979,7 @@ public static partial class Hardcoded
         {
             1528,
             [
+                new(138018, RaidDifficultiesLegacy40), // Clothes Chest Pattern: Molten Core
                 new(17182, RaidDifficultiesLegacy40), // Sulfuras, Hand of Ragnaros
             ]
         },
@@ -1609,6 +1611,27 @@ public static partial class Hardcoded
         #endregion
 
         #region Cataclysm
+        // Zul'Aman > Timed Run
+        {
+            1_0077_0,
+            [
+                // 2 chests
+                new(69584, RaidDifficultiesHeroic), // Recovered Cloak of Frostheim
+                new(69587, RaidDifficultiesHeroic), // Chestplate of Hubris
+                new(69585, RaidDifficultiesHeroic), // Wristwraps of Madness
+                new(69586, RaidDifficultiesHeroic), // Two-Toed Boots
+                new(69588, RaidDifficultiesHeroic), // Skullcrusher Warboots
+                // 3 chests
+                new(69592, RaidDifficultiesHeroic), // Reforged Trollbane
+                new(69591, RaidDifficultiesHeroic), // Voodoo Hexblade
+                new(69593, RaidDifficultiesHeroic), // Battleplate of the Amani Empire
+                new(69590, RaidDifficultiesHeroic), // Mojo-Mender's Gloves
+                new(69589, RaidDifficultiesHeroic), // Leggings of Dancing Blades
+                // 4 chests
+                new(69747, RaidDifficultiesHeroic), // Amani Battle Bear
+            ]
+        },
+
         // Firelands > Majordomo Staghelm
         {
             197,
@@ -1647,6 +1670,15 @@ public static partial class Hardcoded
                 new(63538, RaidDifficultiesNormal), // Claws of Agony
                 new(68601, RaidDifficultiesNormal), // Scaleslicer
                 new(59460, RaidDifficultiesNormal), // Theresa's Booklight
+            ]
+        },
+        {
+            1000077, // Zul'Aman > Trash
+            [
+                new(69801, RaidDifficultiesLegacy1025), // Amani Armguards
+                new(69797, RaidDifficultiesLegacy1025), // Charmbinder Grips
+                new(69803, RaidDifficultiesLegacy1025), // Gurubashi Punisher
+                new(69798, RaidDifficultiesLegacy1025), // Knotted Handwraps
             ]
         },
         {
@@ -1728,7 +1760,6 @@ public static partial class Hardcoded
                 new(78878, RaidDifficultiesNormalHeroic), // Spine of the Thousand Cuts
             ]
         },
-
         #endregion
 
         #region Mists of Pandaria

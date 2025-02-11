@@ -1,7 +1,8 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
-    import { lazyStore, manualStore } from '@/stores'
+    import { RewardType } from '@/enums/reward-type';
+    import { itemStore, lazyStore, manualStore } from '@/stores'
     import { getColumnResizer } from '@/utils/get-column-resizer'
     import type { MultiSlugParams } from '@/types'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
@@ -10,7 +11,7 @@
     import Costs from './VendorsCosts.svelte'
     import Options from './VendorsOptions.svelte'
     import SectionTitle from '@/components/collectible/CollectibleSectionTitle.svelte'
-
+ 
     export let params: MultiSlugParams
 
     let categories: ManualDataVendorCategory[]
@@ -31,9 +32,22 @@
 
         totalCosts = {'OVERALL': {}}
         for (const category of categories) {
+            const skipItems = new Set<number>();
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
                 for (const thing of group.sellsFiltered) {
+                    // only count items with oppositeFactionId once for totals
+                    if (thing.type === RewardType.Item) {
+                        if (skipItems.has(thing.id)) {
+                            continue;
+                        }
+                        
+                        const thingItem = $itemStore.items[thing.id];
+                        if (thingItem?.oppositeFactionId) {
+                            skipItems.add(thingItem.oppositeFactionId);
+                        }
+                    }
+
                     if (!$lazyStore.vendors.userHas[`${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`]) {
                         for (const currency in thing.costs) {
                             totalCosts['OVERALL'][currency] = (totalCosts['OVERALL'][currency] || 0) + thing.costs[currency]

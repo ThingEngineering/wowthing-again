@@ -183,15 +183,23 @@ public class JournalTool
             .Where(effect => effect.Effect == WowSpellEffectEffect.LearnTransmogIllusion)
             .ToDictionaryAsync(effect => effect.ItemId, effect => effect.Values[0]);
 
-        _mountMap = await context.WowMount
-            .AsNoTracking()
-            .Where(mount => mount.ItemId > 0)
-            .ToDictionaryAsync(mount => mount.ItemId);
+        _mountMap = (
+            await context.WowMount
+                .AsNoTracking()
+                .Where(mount => mount.ItemIds.Count > 0)
+                .ToArrayAsync()
+            )
+            .SelectMany(mount => mount.ItemIds.Select(itemId => (itemId, mount)))
+            .ToDictionary(tup => tup.Item1, tup => tup.Item2);
 
-        _petMap = await context.WowPet
-            .AsNoTracking()
-            .Where(pet => pet.ItemId > 0 && (pet.Flags & 32) == 0)
-            .ToDictionaryAsync(pet => pet.ItemId);
+        _petMap = (
+            await context.WowPet
+                .AsNoTracking()
+                .Where(pet => pet.ItemIds.Count > 0 && (pet.Flags & 32) == 0)
+                .ToArrayAsync()
+            )
+            .SelectMany(pet => pet.ItemIds.Select(itemId => (itemId, pet)))
+            .ToDictionary(tup => tup.Item1, tup => tup.Item2);
 
         _toyMap = await context.WowToy
             .AsNoTracking()
