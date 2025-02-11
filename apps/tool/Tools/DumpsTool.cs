@@ -1322,6 +1322,11 @@ public class DumpsTool
             dbMount.ItemIds = _spellTeachMap!.GetValueOrDefault(dbMount.SpellId, []);
         }
 
+        foreach (var dbMount in dbMountMap.Values)
+        {
+            dbMount.ItemIds ??= [];
+        }
+
         foreach (var language in _languages)
         {
             var languageMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>("mount", language);
@@ -1356,6 +1361,11 @@ public class DumpsTool
             dbPet.SourceType = pet.SourceTypeEnum;
 
             dbPet.ItemIds = _spellTeachMap!.GetValueOrDefault(dbPet.SpellId, []);
+        }
+
+        foreach (var dbPet in dbPetMap.Values)
+        {
+            dbPet.ItemIds ??= [];
         }
 
         _timer.AddPoint("Pets");
