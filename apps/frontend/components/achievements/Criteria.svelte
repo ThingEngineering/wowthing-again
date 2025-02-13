@@ -109,7 +109,7 @@
         {@const characters = data.characterCounts.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
         {#if characters.length > 0}
             <div class="progress">
-                {#each characters as [characterId, count]}
+                {#each characters.filter(([charId]) => $userStore.characterMap[charId]) as [characterId, count]}
                     {@const selected = selectedCharacterId === characterId}
                     <ProgressBar
                         on:click={() => selectedCharacterId = characterId}
