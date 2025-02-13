@@ -1,6 +1,7 @@
 import { classByArmorType } from '@/data/character-class';
 import { pvpCurrencies } from '@/data/currencies';
 import { transmogTypes } from '@/data/transmog';
+import { ArmorSubclass } from '@/enums/armor-subclass';
 import { ArmorType } from '@/enums/armor-type';
 import { Faction } from '@/enums/faction';
 import { InventoryType } from '@/enums/inventory-type';
@@ -8,6 +9,8 @@ import { ItemClass } from '@/enums/item-class';
 import { LookupType } from '@/enums/lookup-type';
 import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
+import { dbStore } from '@/shared/stores/db';
+import { DbThingType } from '@/shared/stores/db/enums';
 import { UserCount } from '@/types';
 import { ManualDataVendorGroup } from '@/types/data/manual';
 import { getCurrencyCosts } from '@/utils/get-currency-costs';
@@ -29,8 +32,6 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
-import { dbStore } from '@/shared/stores/db';
-import { DbThingType } from '@/shared/stores/db/enums';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -451,6 +452,16 @@ export function doVendors(stores: LazyStores): LazyVendors {
                                 (item.subType === 3 && !stores.vendorState.showMail) ||
                                 (item.subType === 4 && !stores.vendorState.showPlate))) ||
                         (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.classId === ItemClass.Armor &&
+                            ((sharedItem.subclassId === ArmorSubclass.Cloth && !stores.vendorState.showCloth) ||
+                                (sharedItem.subclassId === ArmorSubclass.Leather && !stores.vendorState.showLeather) ||
+                                (sharedItem.subclassId === ArmorSubclass.Mail && !stores.vendorState.showMail) ||
+                                (sharedItem.subclassId === ArmorSubclass.Plate && !stores.vendorState.showPlate))) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.classId === ItemClass.Weapon &&
+                            !stores.vendorState.showWeapons) ||
+                        (lookupType === LookupType.Transmog && sharedItem?.cosmetic && !stores.vendorState.showCosmetics) ||
                         (sharedItem?.inventoryType === InventoryType.Back &&
                             !stores.vendorState.showCloaks)
                     ) {

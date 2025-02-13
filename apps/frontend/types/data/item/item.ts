@@ -51,6 +51,9 @@ export class ItemDataItem {
         return this._appearances;
     }
 
+    get cosmetic(): boolean {
+        return (this.flags & ItemFlags.Cosmetic) > 0;
+    }
     get allianceOnly(): boolean {
         return (this.flags & ItemFlags.AllianceOnly) > 0;
     }
