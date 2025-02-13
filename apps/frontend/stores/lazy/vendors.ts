@@ -15,7 +15,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-import type { DbData } from '@/shared/stores/db/types';
+import type { DbData, DbDataQuery } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {
@@ -30,6 +30,7 @@ import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
 import { dbStore } from '@/shared/stores/db';
+import { DbThingType } from '@/shared/stores/db/enums';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -89,7 +90,12 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
             }
             
-            for (const entry of dbStore.search({ maps: childCategory.vendorMaps, tags: childCategory.vendorTags })) {
+            const query: DbDataQuery = {
+                maps: childCategory.vendorMaps,
+                tags: childCategory.vendorTags,
+                type: DbThingType.Vendor,
+            };
+            for (const entry of dbStore.search(query)) {
                 dbMap[entry.id] = entry.asVendor();
                 vendorIds.push(entry.id);
             }
