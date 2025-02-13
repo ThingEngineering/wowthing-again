@@ -184,6 +184,7 @@
 
         span:nth-child(2) {
             font-size: 0.7rem;
+            line-height: 1.1;
         }
     }
 </style>
@@ -283,7 +284,7 @@
                                 {#if setStats}
                                     <div class="stats pill">
                                         <span class="{getPercentClass(setStats.percent)}">{setStats.have}</span>
-                                        <span class="quality1">/</span>
+                                        <span class="quality0">/</span>
                                         <span class="{getPercentClass(setStats.percent)}">{setStats.total}</span>
                                     </div>
                                 {/if}
