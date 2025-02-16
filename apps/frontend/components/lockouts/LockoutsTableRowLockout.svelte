@@ -19,8 +19,7 @@
             // find any lockout difficulty if the key has no difficulty
             if (instanceDifficulty.key.endsWith('-')) {
                 lockout = Object.entries(character.lockouts || {})
-                    .filter(([key,]) => key.startsWith(instanceDifficulty.key))
-                    [0]?.[1]
+                    .filter(([key,]) => key.startsWith(instanceDifficulty.key))[0]?.[1]
             }
             else {
                 lockout = character.lockouts?.[instanceDifficulty.key];
