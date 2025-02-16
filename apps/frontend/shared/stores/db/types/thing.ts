@@ -62,10 +62,11 @@ export class DbDataThing {
             sells: this.contents.map(
                 (content) =>
                     <ManualDataVendorItem>{
-                        id: content.id,
                         type: thingContentTypeToRewardType[content.type],
+                        id: content.id,
                         costs: content.costs,
                         faction: Faction.Both,
+                        trackingQuestId: content.trackingQuestId,
                     },
             ),
         };

@@ -3,6 +3,7 @@
 public class DataDbThingContent
 {
     public int Id { get; set; }
+    public int TrackingQuestId { get; set; }
     public string? Note { get; set; }
     public string Type { get; set; } = string.Empty;
 

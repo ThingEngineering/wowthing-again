@@ -7,6 +7,7 @@ export class DbDataThingContent {
     constructor(
         public type: DbThingContentType,
         public id: number,
+        public trackingQuestId: number,
         public note: string,
         public requirementIds: number[],
         public tagIds: number[],

@@ -59,6 +59,7 @@ export class ManualDataVendorItem {
     public extraAppearances: number;
     public faction: Faction = Faction.Both;
     public sortedCosts: [string, number, string, number, number][];
+    public trackingQuestId: number;
 
     constructor(
         public id: number,

@@ -435,6 +435,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.staticData,
                         item.type,
                         item.id,
+                        item.trackingQuestId
                     );
 
                     if (
