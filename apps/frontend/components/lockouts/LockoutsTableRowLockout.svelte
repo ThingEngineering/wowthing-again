@@ -16,7 +16,16 @@
     let maxBosses: number
     $: {
         if (instanceDifficulty) {
-            lockout = character.lockouts?.[instanceDifficulty.key]
+            // find any lockout difficulty if the key has no difficulty
+            if (instanceDifficulty.key.endsWith('-')) {
+                lockout = Object.entries(character.lockouts || {})
+                    .filter(([key,]) => key.startsWith(instanceDifficulty.key))
+                    [0]?.[1]
+            }
+            else {
+                lockout = character.lockouts?.[instanceDifficulty.key];
+            }
+            
             if (lockout) {
                 maxBosses = lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses
             }

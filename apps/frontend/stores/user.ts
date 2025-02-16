@@ -4,10 +4,10 @@ import uniq from 'lodash/uniq';
 import type { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 
-import { userModifiedStore } from './user-modified';
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty';
 import { seasonMap } from '@/data/dungeon';
 import { slotOrder } from '@/data/inventory-slot';
+import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { TypedArray } from '@/enums/typed-array';
@@ -21,6 +21,7 @@ import {
     UserDataPet,
     WritableFancyStore,
 } from '@/types';
+import { WarbankItem } from '@/types/items';
 import base64ToRecord from '@/utils/base64-to-record';
 import { leftPad } from '@/utils/formatting';
 import { getGenderedName } from '@/utils/get-gendered-name';
@@ -40,9 +41,10 @@ import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
-import { WarbankItem } from '@/types/items';
-import { manualStore } from './manual';
 import type { ManualData } from '@/types/data/manual';
+
+import { manualStore } from './manual';
+import { userModifiedStore } from './user-modified';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -301,18 +303,23 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.allLockouts = [];
         userData.allLockoutsMap = {};
         for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
-            const [instanceId, difficultyId] = instanceDifficulty.split('-');
-            const difficulty = difficultyMap[parseInt(difficultyId)];
+            const [instanceId, difficultyId] = instanceDifficulty.split('-').map((s) => parseInt(s));
+            const difficulty = difficultyMap[difficultyId];
 
             if (difficulty && instanceId) {
-                userData.allLockouts.push({
-                    characters,
-                    difficulty,
-                    instanceId: parseInt(instanceId),
-                    key: instanceDifficulty,
-                });
-                userData.allLockoutsMap[instanceDifficulty] =
-                    userData.allLockouts[userData.allLockouts.length - 1];
+                const lockoutKey = singleLockoutRaids.has(instanceId)
+                    ? `${instanceId}-`
+                    : instanceDifficulty;
+                
+                if (!userData.allLockoutsMap[lockoutKey]) {
+                    userData.allLockouts.push({
+                        characters,
+                        difficulty,
+                        instanceId: instanceId,
+                        key: lockoutKey,
+                    });
+                    userData.allLockoutsMap[lockoutKey] = userData.allLockouts.at(-1);
+                }
             } else {
                 console.log({ instanceId, difficultyId, difficulty });
             }
