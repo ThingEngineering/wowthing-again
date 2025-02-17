@@ -22,6 +22,7 @@
             state.showMounts ? 'M' : '-',
             state.showPets ? 'P' : '-',
             state.showRecipes ? 'R' : '-',
+            state.showTokens ? 'O' : '-',
             state.showTrash ? 'T' : '-',
         ]
         if (!byMisc.some((c) => c === '-')) {
@@ -193,8 +194,15 @@
             bind:value={$journalState.showRecipes}
         >Recipes</CheckboxInput>
     </button>
-    
+
     <button>
+        <CheckboxInput
+            name="show_tokens"
+            bind:value={$journalState.showTokens}
+        >Tokens</CheckboxInput>
+    </button>
+    
+    <button class="margin-left">
         <CheckboxInput
             name="show_trash"
             bind:value={$journalState.showTrash}

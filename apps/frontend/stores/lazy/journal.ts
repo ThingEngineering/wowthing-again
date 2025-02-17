@@ -84,6 +84,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                     const groupSeen = new Set<string>();
 
                     let filteredItems = getFilteredItems(
+                        stores.journalData,
                         stores.journalState,
                         group,
                         classMask,

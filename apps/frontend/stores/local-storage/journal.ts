@@ -19,6 +19,7 @@ export class JournalState {
     public showMounts = true;
     public showPets = true;
     public showRecipes = true;
+    public showTokens = true;
     public showTrash = true;
 
     public showDungeonNormal = true;
