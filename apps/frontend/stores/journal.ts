@@ -18,13 +18,18 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         console.time('JournalDataStore.initialize');
 
         data.expandedItem = {};
+        data.instanceById = {};
+
         for (const [tokenId, itemIds] of getNumberKeyedEntries(data.itemExpansion)) {
             for (const itemId of itemIds) {
                 (data.expandedItem[itemId] ||= []).push(tokenId);
             }
         }
+        
+        for (let tierIndex = 0; tierIndex < data.tiers.length; tierIndex++) {
+            const tier = data.tiers[tierIndex];
+            if (!tier) { continue; }
 
-        for (const tier of data.tiers.filter((tier) => tier !== null)) {
             for (const extraTier of extraTiers) {
                 if (extraTier.id !== 1000099) {
                     extraTier.subTiers.push({
@@ -36,8 +41,13 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 }
             }
 
+            let order = (tierIndex + 1) * 100;
             for (const instance of tier.instances.filter((instance) => instance !== null)) {
                 if (instance.encountersRaw !== null) {
+                    data.instanceById[instance.id] = instance;
+
+                    instance.order = order--;
+                    
                     instance.encounters = instance.encountersRaw.map(
                         (encounterArray) => new JournalDataEncounter(...encounterArray),
                     );
