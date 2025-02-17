@@ -4,9 +4,9 @@
     import Equipment from './equipment/Equipment.svelte'
     import DragonflightKnowledge from './knowledge/DragonflightKnowledge.svelte'
     import KnowledgeV2 from './knowledge/KnowledgeV2.svelte';
-    import Overview from './overview/ProfessionsOverview.svelte'
+    import Overview from './overview/Overview.svelte'
     import PatronOrders from './patron-orders/PatronOrders.svelte';
-    import Recipes from './recipes/ProfessionsRecipes.svelte'
+    import Recipes from './recipes/Recipes.svelte'
 
     export let params: MultiSlugParams
 </script>
