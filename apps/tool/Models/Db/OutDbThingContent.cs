@@ -6,12 +6,13 @@ namespace Wowthing.Tool.Models.Db;
 [JsonConverter(typeof(OutDbThingContentConverter))]
 public class OutDbThingContent
 {
-    public int Id { get; set; }
-    public string? Note { get; set; }
-    public DbThingContentType Type { get; set; }
-    public int[] RequirementIds { get; set; }
-    public int[] TagIds { get; set; }
-    public Dictionary<int, int> Costs { get; set; }
+    public int Id { get; }
+    public int TrackingQuestId { get; }
+    public string? Note { get; }
+    public DbThingContentType Type { get; }
+    public int[] RequirementIds { get; }
+    public int[] TagIds { get; }
+    public Dictionary<int, int> Costs { get; }
 
     public OutDbThingContent(DataDbThingContent dataContent, IEnumerable<int> thingRequirementIds, IEnumerable<int> thingTagIds)
     {
@@ -19,6 +20,7 @@ public class OutDbThingContent
         TagIds = thingTagIds.Order().ToArray();
 
         Id = dataContent.Id;
+        TrackingQuestId = dataContent.TrackingQuestId;
         Note = dataContent.Note;
 
         Costs = dataContent.Costs.EmptyIfNull();

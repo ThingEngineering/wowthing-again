@@ -15,6 +15,7 @@ public class OutDbThingContentConverter : JsonConverter<OutDbThingContent>
 
         writer.WriteNumberValue((int)content.Type);
         writer.WriteNumberValue(content.Id);
+        writer.WriteNumberValue(content.TrackingQuestId);
         writer.WriteStringValue(content.Note.EmptyIfNullOrWhitespace());
 
         writer.WriteNumberArray(content.RequirementIds);

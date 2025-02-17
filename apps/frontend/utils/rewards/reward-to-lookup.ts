@@ -19,6 +19,7 @@ export function rewardToLookup(
     staticData: StaticData,
     rewardType: RewardType,
     rewardId: number,
+    trackingQuestId?: number,
 ): [LookupType, number] {
     let ret: [LookupType, number] = [LookupType.None, 0];
 
@@ -44,6 +45,8 @@ export function rewardToLookup(
             // this should always be the last Quest return type, several other kinds of item
             // are also included in this lookup table
             ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
+        } else if (trackingQuestId > 0) {
+            ret = [LookupType.Quest, trackingQuestId];
         }
     }
 

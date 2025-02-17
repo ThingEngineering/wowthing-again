@@ -179,10 +179,17 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                         for (const appearance of item.appearances) {
                             let appearanceKey: string;
+                            let oppositeKey: string;
 
                             if (item.type === RewardType.Item) {
+                                const actualItem = stores.itemData.items[item.id];
+
                                 // Check for source first, we're done if they have it
                                 appearanceKey = `${item.id}_${appearance.modifierId}`;
+                                if (actualItem?.oppositeFactionId) {
+                                    oppositeKey = `${actualItem.oppositeFactionId}_${appearance.modifierId}`;
+                                }
+
                                 appearance.userHas = stores.userData.hasSource.has(appearanceKey);
 
                                 if (
@@ -241,26 +248,31 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             const groupSeenHas = groupSeen.has(appearanceKey);
 
                             if (!overallSeenHas) {
-                                overallSeen.add(appearanceKey);
                                 overallStats.total++;
                                 overallStats2.total++;
+                                overallSeen.add(appearanceKey);
+                                if (oppositeKey) { overallSeen.add(oppositeKey); }
                             }
                             if (!tierSeenHas) {
-                                tierSeen.add(appearanceKey);
                                 tierStats.total++;
                                 tierStats2.total++;
+                                tierSeen.add(appearanceKey);
+                                if (oppositeKey) { tierSeen.add(oppositeKey); }
                             }
                             if (!instanceSeenHas) {
-                                instanceSeen.add(appearanceKey);
                                 instanceStats.total++;
+                                instanceSeen.add(appearanceKey);
+                                if (oppositeKey) { instanceSeen.add(oppositeKey); }
                             }
                             if (!encounterSeenHas) {
-                                encounterSeen.add(appearanceKey);
                                 encounterStats.total++;
+                                encounterSeen.add(appearanceKey);
+                                if (oppositeKey) { encounterSeen.add(oppositeKey); }
                             }
                             if (!groupSeenHas) {
-                                groupSeen.add(appearanceKey);
                                 groupStats.total++;
+                                groupSeen.add(appearanceKey);
+                                if (oppositeKey) { groupSeen.add(oppositeKey); }
                             }
 
                             if (appearance.userHas) {
