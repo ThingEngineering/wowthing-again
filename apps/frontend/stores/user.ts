@@ -244,10 +244,24 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (character.hidden ||
                     settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
 
-            // Addon gets the wrong ID for Uldir for some reason?
-            if (character.lockouts?.[1028]) {
-                character.lockouts[1031] = character.lockouts[1028];
-                character.lockouts[1028] = null;
+            for (const [key, lockout] of Object.entries(character.lockouts || {})) {
+                // Addon gets the wrong ID for Uldir for some reason?
+                if (key.startsWith('1028-')) {
+                    character.lockouts[key.replace('1028', '1031')] = lockout;
+                }
+                // Ulduar tree elders show as unkilled, ugh
+                if (key.startsWith('759-') && lockout.bosses[12].dead) {
+                    lockout.maxBosses = 14;
+                    const newBosses = lockout.bosses.slice(0, 9); // up to Thorim
+                    for (let i = 9; i <= 11; i++) {
+                        if (lockout.bosses[i].dead) {
+                            lockout.maxBosses++;
+                            newBosses.push(lockout.bosses[i]);
+                        }
+                    }
+                    newBosses.push(...lockout.bosses.slice(12)); // Freya onwards
+                    lockout.bosses = newBosses;
+                }
             }
 
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
