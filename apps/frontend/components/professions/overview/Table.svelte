@@ -6,7 +6,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import Profession from './ProfessionsOverviewTableProfession.svelte'
+    import Profession from './TableProfession.svelte'
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
     export let profession: StaticDataProfession

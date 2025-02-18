@@ -8,7 +8,7 @@
     import type { StaticDataProfession } from '@/shared/stores/static/types'
 
     import Collectibles from './CharacterProfessionsCollectibles.svelte'
-    import Equipment from '@/components/professions/ProfessionsEquipment.svelte'
+    import Equipment from '@/components/professions/Equipment.svelte'
     import Profession from './CharacterProfessionsProfession.svelte'
     import Sidebar from './CharacterProfessionsSidebar.svelte'
     import Traits from './CharacterProfessionsTraits.svelte'

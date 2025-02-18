@@ -9,6 +9,7 @@ export interface JournalData {
 
     // calculated
     expandedItem: Record<number, number[]>;
+    instanceById: Record<number, JournalDataInstance>
 }
 
 export interface JournalDataTier {
@@ -27,6 +28,7 @@ export interface JournalDataInstance {
     encounters: JournalDataEncounter[];
     encountersRaw: JournalDataEncounterArray[];
     isRaid?: boolean;
+    order?: number;
 }
 
 export class JournalDataEncounter {

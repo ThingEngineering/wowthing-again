@@ -2,6 +2,7 @@ import { Constants } from '@/data/constants'
 import type { JournalState } from '@/stores/local-storage'
 import {
     JournalDataEncounterItemAppearance,
+    type JournalData,
     type JournalDataEncounterItem,
     type JournalDataEncounterItemGroup,
 } from '@/types/data'
@@ -28,13 +29,13 @@ const weaponGroups = Object.fromEntries([
 ].map((name) => [name, true]))
 
 export default function getFilteredItems(
+    journalData: JournalData,
     journalState: JournalState,
     group: JournalDataEncounterItemGroup,
     classMask: number,
     instanceExpansion: number,
 ): JournalDataEncounterItem[] {
     const items: JournalDataEncounterItem[] = []
-
     for (const item of group.items) {
         let keep = true
 
@@ -44,7 +45,10 @@ export default function getFilteredItems(
         }
 
         // Filter types
-        if (keep && group.name === 'Cloth') {
+        if (keep && journalData.expandedItem[item.id]) {
+            keep = journalState.showTokens;
+        }
+        else if (keep && group.name === 'Cloth') {
             keep = journalState.showCloth
         }
         else if (keep && group.name === 'Leather') {

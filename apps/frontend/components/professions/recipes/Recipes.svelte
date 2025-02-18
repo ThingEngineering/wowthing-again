@@ -6,8 +6,8 @@
     import { staticStore } from '@/shared/stores/static'
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import Sidebar from './ProfessionsRecipesSidebar.svelte'
-    import View from './ProfessionsRecipesView.svelte'
+    import Sidebar from './Sidebar.svelte'
+    import View from './View.svelte'
 
     export let slug1: string
     export let slug2: string

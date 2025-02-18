@@ -81,3 +81,7 @@ export const lockoutDifficultyOrder: number[] = [
 
     0, // World Boss
 ]
+
+export const lockoutDifficultyOrderMap: Record<number, number> = Object.fromEntries(
+    lockoutDifficultyOrder.map((value, index) => [value, index])
+)

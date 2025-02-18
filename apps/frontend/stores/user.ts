@@ -4,7 +4,7 @@ import uniq from 'lodash/uniq';
 import type { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 
-import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty';
+import { difficultyMap, lockoutDifficultyOrder, lockoutDifficultyOrderMap } from '@/data/difficulty';
 import { seasonMap } from '@/data/dungeon';
 import { slotOrder } from '@/data/inventory-slot';
 import { singleLockoutRaids } from '@/data/raid';
@@ -43,6 +43,7 @@ import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { ContainsItems, HasNameAndRealm, UserItem } from '@/types/shared';
 import type { ManualData } from '@/types/data/manual';
 
+import { journalStore } from './journal';
 import { manualStore } from './manual';
 import { userModifiedStore } from './user-modified';
 
@@ -171,6 +172,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('UserDataStore.setup');
 
         const itemData = get(itemStore);
+        const journalData = get(journalStore);
         const manualData = get(manualStore);
         const staticData = get(staticStore);
 
@@ -242,10 +244,24 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 (character.hidden ||
                     settingsData.characters.ignoredCharacters?.includes(character.id)) === true;
 
-            // Addon gets the wrong ID for Uldir for some reason?
-            if (character.lockouts?.[1028]) {
-                character.lockouts[1031] = character.lockouts[1028];
-                character.lockouts[1028] = null;
+            for (const [key, lockout] of Object.entries(character.lockouts || {})) {
+                // Addon gets the wrong ID for Uldir for some reason?
+                if (key.startsWith('1028-')) {
+                    character.lockouts[key.replace('1028', '1031')] = lockout;
+                }
+                // Ulduar tree elders show as unkilled, ugh
+                if (key.startsWith('759-') && lockout.bosses[12].dead) {
+                    lockout.maxBosses = 14;
+                    const newBosses = lockout.bosses.slice(0, 9); // up to Thorim
+                    for (let i = 9; i <= 11; i++) {
+                        if (lockout.bosses[i].dead) {
+                            lockout.maxBosses++;
+                            newBosses.push(lockout.bosses[i]);
+                        }
+                    }
+                    newBosses.push(...lockout.bosses.slice(12)); // Freya onwards
+                    lockout.bosses = newBosses;
+                }
             }
 
             for (const [key, lockout] of Object.entries(character.lockouts || {})) {
@@ -327,14 +343,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         userData.allLockouts = sortBy(userData.allLockouts, (diff /*: InstanceDifficulty*/) => {
             const instance = staticData.instances[diff.instanceId];
+            const journalInstance = journalData.instanceById[diff.instanceId];
             if (!diff.difficulty || !instance) {
                 return 'z';
             }
 
-            const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id);
+            const orderIndex = lockoutDifficultyOrderMap[diff.difficulty.id] || 99;
             return [
-                leftPad(100 - instance.expansion, 2, '0'),
-                leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
+                leftPad(journalInstance?.order || 9999, 4, '0'),
+                leftPad(orderIndex, 2, '0'),
                 instance.shortName,
                 diff.difficulty.shortName,
             ].join('|');
