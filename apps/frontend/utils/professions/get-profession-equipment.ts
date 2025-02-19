@@ -1,10 +1,9 @@
-import { get } from 'svelte/store'
+import { get } from 'svelte/store';
 
-import { professionIdToSlug } from '@/data/professions'
-import { ProfessionSubclass } from '@/enums/profession-subclass'
-import { itemStore } from '@/stores'
-import type { Character, CharacterEquippedItem } from '@/types'
-
+import { professionIdToSlug } from '@/data/professions';
+import { ProfessionSubclass } from '@/enums/profession-subclass';
+import { itemStore } from '@/stores';
+import type { Character, CharacterEquippedItem } from '@/types';
 
 const limitCategoryToSlot: Record<number, number> = {
     506: 1, // Alchemy head
@@ -29,42 +28,41 @@ const limitCategoryToSlot: Record<number, number> = {
     562: 2, // Skinning
     567: 1, // Tailoring needles
     564: 2, // Tailoring chest
-}
+};
 
 export function getProfessionEquipment(
     character: Character,
-    professionId: number
+    professionId: number,
 ): Record<number, CharacterEquippedItem> {
-    const itemData = get(itemStore)
-    const professionSlug = professionIdToSlug[professionId]
+    const itemData = get(itemStore);
+    const professionSlug = professionIdToSlug[professionId];
 
-    const equippedItems: Record<number, CharacterEquippedItem> = {}
-    if (professionId === 185) { // Cooking
+    const equippedItems: Record<number, CharacterEquippedItem> = {};
+    if (professionId === 185) {
+        // Cooking
         for (let slot = 26; slot <= 27; slot++) {
-            equippedItems[slot - 26] = character.equippedItems[slot]
+            equippedItems[slot - 26] = character.equippedItems[slot];
         }
-    }
-    else if (professionId === 356) { // Fishing
+    } else if (professionId === 356) {
+        // Fishing
         for (let slot = 28; slot <= 30; slot++) {
-            equippedItems[slot - 28] = character.equippedItems[slot]
+            equippedItems[slot - 28] = character.equippedItems[slot];
         }
-    }
-    else {
+    } else {
         for (let slot = 20; slot <= 25; slot++) {
-            const equippedItem = character.equippedItems[slot]
+            const equippedItem = character.equippedItems[slot];
             if (equippedItem) {
-                const item = itemData.items[equippedItem.itemId]
+                const item = itemData.items[equippedItem.itemId];
                 if (ProfessionSubclass[item.subclassId].toLowerCase() === professionSlug) {
                     if (item.limitCategory && limitCategoryToSlot[item.limitCategory]) {
-                        equippedItems[limitCategoryToSlot[item.limitCategory]] = equippedItem
-                    }
-                    else {
-                        equippedItems[(slot - 20) % 3] = equippedItem
+                        equippedItems[limitCategoryToSlot[item.limitCategory]] = equippedItem;
+                    } else {
+                        equippedItems[(slot - 20) % 3] = equippedItem;
                     }
                 }
             }
         }
     }
 
-    return equippedItems
+    return equippedItems;
 }

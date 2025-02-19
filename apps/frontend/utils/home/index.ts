@@ -1,1 +1,1 @@
-export * from './home-sort'
+export * from './home-sort';

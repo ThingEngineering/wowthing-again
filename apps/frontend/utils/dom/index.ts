@@ -1,1 +1,1 @@
-export * from './set-element-style-by-id'
+export * from './set-element-style-by-id';

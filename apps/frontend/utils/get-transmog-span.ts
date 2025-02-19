@@ -1,61 +1,57 @@
-import type { TransmogSetData } from '@/types'
-import type { ManualDataTransmogGroup } from '@/types/data/manual'
-
+import type { TransmogSetData } from '@/types';
+import type { ManualDataTransmogGroup } from '@/types/data/manual';
 
 export default function getTransmogSpan(
     group: ManualDataTransmogGroup,
     set: TransmogSetData,
-    skipClasses: Record<string, boolean|number>
+    skipClasses: Record<string, boolean | number>,
 ): number {
-    let span = set.span
+    let span = set.span;
     if (group.type === 'armor') {
         if (set.type === 'cloth') {
             if (skipClasses['mage'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['priest'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['warlock'] === true) {
-                span--
+                span--;
             }
-        }
-        else if (set.type === 'leather') {
+        } else if (set.type === 'leather') {
             if (skipClasses['demon-hunter'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['druid'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['monk'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['rogue'] === true) {
-                span--
+                span--;
             }
-        }
-        else if (set.type === 'mail') {
+        } else if (set.type === 'mail') {
             if (skipClasses['evoker'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['hunter'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['shaman'] === true) {
-                span--
+                span--;
             }
-        }
-        else if (set.type === 'plate') {
+        } else if (set.type === 'plate') {
             if (skipClasses['death-knight'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['paladin'] === true) {
-                span--
+                span--;
             }
             if (skipClasses['warrior'] === true) {
-                span--
+                span--;
             }
         }
     }
-    return span
+    return span;
 }
