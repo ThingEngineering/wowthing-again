@@ -116,6 +116,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
         rawEquippedItems: Record<number, CharacterEquippedItemArray>,
         public garrisons: Record<number, CharacterGarrison>,
         public garrisonTrees: Record<number, Record<number, number[]>>,
+        public highestItemLevel: Record<number, number>,
         public lockouts: Record<string, CharacterLockout>,
         public mythicPlus: CharacterMythicPlus,
         public mythicPlusAddon: Record<number, CharacterMythicPlusAddon>,
