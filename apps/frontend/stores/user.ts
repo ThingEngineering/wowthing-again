@@ -4,7 +4,11 @@ import uniq from 'lodash/uniq';
 import type { DateTime } from 'luxon';
 import { get } from 'svelte/store';
 
-import { difficultyMap, lockoutDifficultyOrder, lockoutDifficultyOrderMap } from '@/data/difficulty';
+import {
+    difficultyMap,
+    lockoutDifficultyOrder,
+    lockoutDifficultyOrderMap,
+} from '@/data/difficulty';
 import { seasonMap } from '@/data/dungeon';
 import { slotOrder } from '@/data/inventory-slot';
 import { singleLockoutRaids } from '@/data/raid';
@@ -250,7 +254,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     character.lockouts[key.replace('1028', '1031')] = lockout;
                 }
                 // Ulduar tree elders show as unkilled, ugh
-                if (key.startsWith('759-') && lockout.bosses[12].dead) {
+                else if (
+                    key.startsWith('759-') &&
+                    lockout.bosses.length === 17 &&
+                    lockout.bosses[12].dead
+                ) {
                     lockout.maxBosses = 14;
                     const newBosses = lockout.bosses.slice(0, 9); // up to Thorim
                     for (let i = 9; i <= 11; i++) {
@@ -290,7 +298,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             for (const subProfessions of Object.values(character.professions || {})) {
                 for (const subProfession of Object.values(subProfessions)) {
                     for (const abilityId of subProfession.knownRecipes || []) {
-                        userData.hasRecipe.add(abilityId)
+                        userData.hasRecipe.add(abilityId);
                     }
                 }
             }
@@ -319,14 +327,16 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.allLockouts = [];
         userData.allLockoutsMap = {};
         for (const [instanceDifficulty, characters] of Object.entries(allLockouts)) {
-            const [instanceId, difficultyId] = instanceDifficulty.split('-').map((s) => parseInt(s));
+            const [instanceId, difficultyId] = instanceDifficulty
+                .split('-')
+                .map((s) => parseInt(s));
             const difficulty = difficultyMap[difficultyId];
 
             if (difficulty && instanceId) {
                 const lockoutKey = singleLockoutRaids.has(instanceId)
                     ? `${instanceId}-`
                     : instanceDifficulty;
-                
+
                 if (!userData.allLockoutsMap[lockoutKey]) {
                     userData.allLockouts.push({
                         characters,
