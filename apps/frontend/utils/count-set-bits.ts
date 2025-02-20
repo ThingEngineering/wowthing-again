@@ -1,8 +1,8 @@
-const resultCache: Record<number, number> = {}
+const resultCache: Record<number, number> = {};
 
 export function countSetBits(num: number): number {
     if (resultCache[num]) {
-        return resultCache[num]
+        return resultCache[num];
     }
 
     let i = Math.floor(num / 0x100000000);
@@ -21,7 +21,7 @@ export function countSetBits(num: number): number {
     i = i + (i >> 8);
     i = i + (i >> 16);
     count += i & 0x3f;
-    
-    resultCache[num] = count
+
+    resultCache[num] = count;
     return count;
 }

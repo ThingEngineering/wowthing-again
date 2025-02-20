@@ -1,8 +1,10 @@
 <script lang="ts">
     import { getDifficulties } from './get-difficulties';
+    import { hardModeItemIds } from '@/data/journal';
     import { Faction } from '@/enums/faction'
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class'
     import { RewardType } from '@/enums/reward-type';
+    import { iconLibrary } from '@/shared/icons';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore, userStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
@@ -13,6 +15,7 @@
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
     import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
 
@@ -56,24 +59,31 @@
 
         }
     }
-    .player-class {
-        --image-margin-top: -4px;
-        --shadow-color: rgba(0, 0, 0, 0.8);
+    .overlay {
+        --shadow-color: rgba(0, 0, 0, 0.5);
 
         border: none;
+        pointer-events: none;
+        position: absolute;
+    }
+    .player-class {
+        --image-margin-top: -4px;
+
         height: 24px;
         left: 0;
-        position: absolute;
         top: -2px;
         width: 24px;
     }
     .player-faction {
-        --shadow-color: rgba(0, 0, 0, 0.8);
-
-        border: none;
         height: 24px;
         left: 0;
-        position: absolute;
+        top: 26px;
+        width: 24px;
+    }
+    .hard-mode {
+        color: #fff;
+        height: 24px;
+        right: 0;
         top: 26px;
         width: 24px;
     }
@@ -130,7 +140,7 @@
 
             {#if classId > 0}
                 {@const hasSoon = !appearance.userHas && $userStore.itemsByAppearanceSource[`${item.id}_${appearance.modifierId}`]}
-                <div class="player-class class-{classId} drop-shadow-single">
+                <div class="overlay player-class class-{classId} drop-shadow">
                     <ClassIcon
                         border={2}
                         size={20}
@@ -144,7 +154,7 @@
             {:else if item.type === RewardType.Recipe}
                 {@const ability = $staticStore.professionAbilityByItemId[item.id]}
                 {#if ability}
-                    <div class="player-class">
+                    <div class="overlay player-class drop-shadow">
                         <ProfessionIcon
                             border={2}
                             size={20}
@@ -165,8 +175,14 @@
             {/if}
 
             {#if dataItem.allianceOnly || dataItem.hordeOnly}
-                <div class="player-faction drop-shadow-single">
+                <div class="overlay player-faction drop-shadow">
                     <FactionIcon faction={dataItem.allianceOnly ? Faction.Alliance : Faction.Horde} />
+                </div>
+            {/if}
+
+            {#if hardModeItemIds.has(dataItem.id)}
+                <div class="overlay hard-mode drop-shadow">
+                    <IconifyIcon icon={iconLibrary.mdiSkull} />
                 </div>
             {/if}
 

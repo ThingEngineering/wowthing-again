@@ -1,1 +1,1 @@
-export * from './get-run-counts'
+export * from './get-run-counts';

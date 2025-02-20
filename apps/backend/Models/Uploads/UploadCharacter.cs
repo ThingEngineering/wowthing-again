@@ -42,6 +42,7 @@ public class UploadCharacter
     public Dictionary<string, string> EquipmentV2 { get; set; }
     public List<UploadCharacterGarrison> Garrisons { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
+    public List<string> HighestItemLevel { get; set; }
     public List<UploadCharacterInstanceDone> InstanceDone { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
     public List<UploadCharacterLockout> Lockouts { get; set; }

@@ -3,5 +3,5 @@ export function toDigits(n: number, digits: number): string {
         maximumFractionDigits: 0,
         minimumIntegerDigits: digits,
         useGrouping: false,
-    })
+    });
 }

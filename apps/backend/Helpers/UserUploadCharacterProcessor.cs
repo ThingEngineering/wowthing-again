@@ -390,6 +390,24 @@ public class UserUploadCharacterProcessor
             }
         }
 
+        // Highest item level
+        _character.AddonData.HighestItemLevel ??= new();
+        foreach (string slotItemLevel in _characterData.HighestItemLevel.EmptyIfNull())
+        {
+            string[] parts = slotItemLevel.Split(':');
+            if (parts.Length != 2)
+            {
+                continue;
+            }
+
+            int slot = int.Parse(parts[0]);
+            int itemLevel = int.Parse(parts[1]);
+            _character.AddonData.HighestItemLevel[slot] = Math.Max(
+                _character.AddonData.HighestItemLevel.GetValueOrDefault(slot),
+                itemLevel
+            );
+        }
+
         // Mythic Plus
         if ((_characterData.MythicPlus != null || _characterData.MythicPlusV2 != null) &&
             _characterData.ScanTimes.TryGetValue("mythicPlus", out int mythicPlusTimestamp))

@@ -3,6 +3,8 @@
 
     import { weaponSubclassOrderMap } from '@/data/weapons';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
+    import { Faction } from '@/enums/faction';
+    import { ItemClass } from '@/enums/item-class';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { inventoryTypeIcons, weaponSubclassIcons } from '@/shared/icons/mappings';
     import { browserStore } from '@/shared/stores/browser';
@@ -22,7 +24,6 @@
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import { Faction } from '@/enums/faction';
 
     export let itemId: number
 
@@ -57,8 +58,7 @@
         return [expandedItemId, expandedItem, hasItem];
     });
 
-    // Nathria tokens turn into a million weapons each
-    $: showItemIcon = item.itemLevel === 200 || item.itemLevel === 207
+    $: showItemIcon = expandsData.every(([, item]) => item.classId === ItemClass.Weapon)
     $: {
         if (showItemIcon) {
             expandsData.sort((a, b) =>

@@ -1,52 +1,51 @@
-import { PlayableClassMask } from '@/enums/playable-class'
-import type { Settings } from '@/shared/stores/settings/types'
-
+import { PlayableClassMask } from '@/enums/playable-class';
+import type { Settings } from '@/shared/stores/settings/types';
 
 export default function getTransmogClassMask(settingsData: Settings): number {
-    let classMask = 0
+    let classMask = 0;
 
     if (settingsData.transmog.showMage) {
-        classMask |= PlayableClassMask.Mage
+        classMask |= PlayableClassMask.Mage;
     }
     if (settingsData.transmog.showPriest) {
-        classMask |= PlayableClassMask.Priest
+        classMask |= PlayableClassMask.Priest;
     }
     if (settingsData.transmog.showWarlock) {
-        classMask |= PlayableClassMask.Warlock
+        classMask |= PlayableClassMask.Warlock;
     }
 
     if (settingsData.transmog.showDemonHunter) {
-        classMask |= PlayableClassMask.DemonHunter
+        classMask |= PlayableClassMask.DemonHunter;
     }
     if (settingsData.transmog.showDruid) {
-        classMask |= PlayableClassMask.Druid
+        classMask |= PlayableClassMask.Druid;
     }
     if (settingsData.transmog.showMonk) {
-        classMask |= PlayableClassMask.Monk
+        classMask |= PlayableClassMask.Monk;
     }
     if (settingsData.transmog.showRogue) {
-        classMask |= PlayableClassMask.Rogue
+        classMask |= PlayableClassMask.Rogue;
     }
 
     if (settingsData.transmog.showEvoker) {
-        classMask |= PlayableClassMask.Evoker
+        classMask |= PlayableClassMask.Evoker;
     }
     if (settingsData.transmog.showHunter) {
-        classMask |= PlayableClassMask.Hunter
+        classMask |= PlayableClassMask.Hunter;
     }
     if (settingsData.transmog.showShaman) {
-        classMask |= PlayableClassMask.Shaman
+        classMask |= PlayableClassMask.Shaman;
     }
 
     if (settingsData.transmog.showDeathKnight) {
-        classMask |= PlayableClassMask.DeathKnight
+        classMask |= PlayableClassMask.DeathKnight;
     }
     if (settingsData.transmog.showPaladin) {
-        classMask |= PlayableClassMask.Paladin
+        classMask |= PlayableClassMask.Paladin;
     }
     if (settingsData.transmog.showWarrior) {
-        classMask |= PlayableClassMask.Warrior
+        classMask |= PlayableClassMask.Warrior;
     }
 
-    return classMask
+    return classMask;
 }

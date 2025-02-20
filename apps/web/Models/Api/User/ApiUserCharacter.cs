@@ -42,7 +42,7 @@ public class ApiUserCharacter
     public Dictionary<int, ApiUserCharacterEquippedItem> EquippedItems { get; }
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
-
+    public Dictionary<int, int> HighestItemLevel { get; set; }
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
     public ApiUserCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, ApiUserCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
@@ -116,6 +116,7 @@ public class ApiUserCharacter
         Auras = character.AddonData?.Auras;
         Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
+        HighestItemLevel = character.AddonData?.HighestItemLevel;
         PatronOrders = character.AddonData?.PatronOrders;
         ProfessionCooldowns = character.AddonData?.ProfessionCooldowns;
         ProfessionTraits = character.AddonData?.ProfessionTraits;

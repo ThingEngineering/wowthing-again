@@ -44,6 +44,9 @@ public class PlayerCharacterAddonData(int characterId)
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
+    public Dictionary<int, int> HighestItemLevel { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlus { get; set; } = new();
 
     [Column(TypeName = "jsonb")]

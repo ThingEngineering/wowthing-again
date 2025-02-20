@@ -45,6 +45,7 @@ public class ApiUserCharacterConverter : JsonConverter<ApiUserCharacter>
         JsonSerializer.Serialize(writer, character.EquippedItems, options); // 26
         JsonSerializer.Serialize(writer, character.Garrisons, options); // 27
         JsonSerializer.Serialize(writer, character.GarrisonTrees, options); // 28
+        JsonSerializer.Serialize(writer, character.HighestItemLevel, options);
         JsonSerializer.Serialize(writer, character.Lockouts, options); // 29
         JsonSerializer.Serialize(writer, character.MythicPlus, options); // 30
         JsonSerializer.Serialize(writer, character.MythicPlusAddon, options); // 31
