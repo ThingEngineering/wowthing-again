@@ -1531,6 +1531,7 @@ public static partial class Hardcoded
         {
             2000759,
             [
+                new(46017, RaidDifficultiesNormal), // Val'anyr, Hammer of Ancient Kings
                 new(46027, RaidDifficultiesNormal), // Formula: Enchant Weapon - Blade Ward
                 new(46348, RaidDifficultiesNormal), // Formula: Enchant Weapon - Blood Draining
                 new(45100, RaidDifficultiesNormal), // Pattern: Belt of Arctic Life
