@@ -1558,8 +1558,20 @@ public static partial class Hardcoded
         {
             2000757,
             [
-            	new(47654, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers[A]
-				new(47639, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers[H]
+                // Blacksmithing
+                new(47622, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [A]
+                new(47640, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [H]
+                new(47623, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [A]
+                new(47641, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [H]
+                new(47627, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [A]
+                new(47642, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [H]
+                new(47626, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [A]
+                new(47643, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [H]
+                new(47624, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [A]
+                new(47644, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [H]
+                new(47625, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [A]
+                new(47645, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [H]
+                // Leatherworking
 				new(47629, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [A]
 				new(47646, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [H]
 				new(47635, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [A]
@@ -1574,26 +1586,19 @@ public static partial class Hardcoded
 				new(47651, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [H]
 				new(47632, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [A]
 				new(47652, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [H]
-				new(47655, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe[A]
-				new(47638, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe[H]
 				new(47633, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [A]
 				new(47653, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [H]
-				new(47656, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers[A]
-				new(47637, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers[H]
-				new(47657, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe[A]
-				new(47636, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe[H]
-				new(47622, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [A]
-				new(47640, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [H]
-				new(47623, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [A]
-				new(47641, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [H]
-				new(47627, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [A]
-				new(47642, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [H]
-				new(47626, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [A]
-				new(47643, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [H]
-				new(47624, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [A]
-				new(47644, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [H]
-				new(47625, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [A]
-				new(47645, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [H]
+                // Tailoring
+                new(47654, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [A]
+                new(47639, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [H]
+                new(47655, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe [A]
+                new(47638, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe [H]
+                new(47656, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers [A]
+                new(47637, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers [H]
+                new(47657, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe [A]
+                new(47636, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe [H]
+
+                new(47242, RaidDifficultiesTrialRecipes), // Trophy of the Crusade
             ]
         },
         // Icecrown Citadel > Trash
