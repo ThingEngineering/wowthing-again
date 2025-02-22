@@ -452,7 +452,7 @@ public class JournalTool
                             if (!(instance.ID == 757 && encounter.ID < 1000000) &&
                                 itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                             {
-                                ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
+                                // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
                                 foreach (int itemId in expandedItems)
                                 {
                                     if (!fakeItems.ContainsKey(itemId))

@@ -4,6 +4,7 @@ public static partial class Hardcoded
 {
     private static readonly int[] DungeonDifficultiesNormal = [1];
     private static readonly int[] DungeonDifficultiesHeroic = [2];
+    private static readonly int[] DungeonDifficultiesHeroicMythic = [2, 8];
     private static readonly int[] RaidDifficultiesLegacy10Normal = [3];
     private static readonly int[] RaidDifficultiesLegacy25Normal = [4];
     private static readonly int[] RaidDifficultiesLegacy10Heroic = [5];
@@ -2464,7 +2465,24 @@ public static partial class Hardcoded
         #endregion
 
         #region Battle for Azeroth
-
+        // Mechagon > Trash Drops
+        {
+            1001178,
+            [
+                new(170212, DungeonDifficultiesHeroicMythic), // Recipe: Mecha-Bytes
+                new(170211, DungeonDifficultiesHeroicMythic), // Recipe: Famine Evaluator and Snack Table [Rank 3]
+                new(170210, DungeonDifficultiesHeroicMythic), // Recipe: Abyssal Healing Potion [Rank 3]
+                new(170208, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Unbridled Fury [Rank 3]
+                new(170209, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Wild Mending [Rank 3]
+            ]
+        },
+        // Mechagon > King Mechagon
+        {
+            2331,
+            [
+                new(168830, [8]), // Aerial Unit R-21/X [mount]
+            ]
+        },
         // Uldir > Shared Drops
         {
             2001031,
