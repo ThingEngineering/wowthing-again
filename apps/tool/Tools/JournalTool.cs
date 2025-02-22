@@ -417,72 +417,70 @@ public class JournalTool
                             Statistics = statistics,
                         };
 
-                        var items = new List<DumpJournalEncounterItem>();
-
-                        if (encounter.ID > 2000000)
+                        encounterData.Name = encounter.ID switch
                         {
-                            encounterData.Name = "Shared Drops";
-                        }
-                        else if (encounter.ID > 1000000)
-                        {
-                            encounterData.Name = "Trash Drops";
-                        }
-                        else
-                        {
-                            encounterData.Name = GetString(StringType.WowJournalEncounterName, language, encounter.ID);
+                            > 2000000 => "Shared Drops",
+                            > 1000000 => "Trash Drops",
+                            _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
+                        };
 
-                            var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, []))
-                            {
-                                if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
-                                {
-                                    // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
-                                    foreach (int itemId in expandedItems)
-                                    {
-                                        if (!fakeItems.ContainsKey(itemId))
-                                        {
-                                            fakeItems[itemId] = new DumpJournalEncounterItem
-                                            {
-                                                ID = encounterItem.ID,
-                                                DifficultyMask = encounterItem.DifficultyMask,
-                                                FactionMask = encounterItem.FactionMask,
-                                                Flags = encounterItem.Flags,
-                                                ItemID = itemId,
-                                                JournalEncounterID = encounter.ID,
-                                            };
-                                        }
-                                    }
+                        var encounterItems = new List<DumpJournalEncounterItem>(itemsByEncounterId.GetValueOrDefault(encounter.ID, []));
 
-                                    cacheData.TokenEncounters.Add($"{tier.ID}");
-                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}");
-                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}|{encounter.ID}");
-                                }
-                                else
-                                {
-                                    items.Add(encounterItem);
-                                }
-                            }
-
-                            items.AddRange(fakeItems.Values);
-                        } // if (encounter.ID > 1000000)
-
-                        if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
+                        // Extra drops get added first
+                        foreach (var extraItem in Hardcoded.ExtraItemDrops.GetValueOrDefault(encounter.ID, []))
                         {
                             //Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
-                            foreach (var extraItem in extraItems)
+                            difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
+                            encounterItems.Add(new DumpJournalEncounterItem
                             {
-                                difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
-                                items.Add(new DumpJournalEncounterItem
+                                ID = 1000000 + extraItem.ItemId,
+                                DifficultyMask = 0,
+                                FactionMask = 0,
+                                Flags = 0,
+                                ItemID = extraItem.ItemId,
+                                JournalEncounterID = encounter.ID,
+                            });
+                        }
+
+                        // Now do item expansion
+                        var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
+                        var items = new List<DumpJournalEncounterItem>();
+
+                        foreach (var encounterItem in encounterItems)
+                        {
+                            // Don't expand ToC bosses
+                            if (!(instance.ID == 757 && encounter.ID < 1000000) &&
+                                itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                            {
+                                ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
+                                foreach (int itemId in expandedItems)
                                 {
-                                    ID = 1000000 + extraItem.ItemId,
-                                    DifficultyMask = 0,
-                                    FactionMask = 0,
-                                    Flags = 0,
-                                    ItemID = extraItem.ItemId,
-                                    JournalEncounterID = encounter.ID,
-                                });
+                                    if (!fakeItems.ContainsKey(itemId))
+                                    {
+                                        fakeItems[itemId] = new DumpJournalEncounterItem
+                                        {
+                                            ID = encounterItem.ID,
+                                            DifficultyMask = encounterItem.DifficultyMask,
+                                            FactionMask = encounterItem.FactionMask,
+                                            Flags = encounterItem.Flags,
+                                            ItemID = itemId,
+                                            JournalEncounterID = encounter.ID,
+                                        };
+                                    }
+                                }
+
+                                cacheData.TokenEncounters.Add($"{tier.ID}");
+                                cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}");
+                                cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}|{encounter.ID}");
+                            }
+                            else
+                            {
+                                items.Add(encounterItem);
                             }
                         }
+
+                        items.AddRange(fakeItems.Values);
+                        // } // if (encounter.ID > 1000000)
 
                         var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                         foreach (var encounterItem in items)
