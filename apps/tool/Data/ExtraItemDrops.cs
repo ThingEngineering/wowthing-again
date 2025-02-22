@@ -1633,6 +1633,15 @@ public static partial class Hardcoded
             ]
         },
 
+        // Firelands > Shared Drops
+        {
+            2000078,
+            [
+                new(71084, RaidDifficultiesNormalHeroic), // Branch of Nordrassil
+                new(71085, RaidDifficultiesNormalHeroic), // Runestaff of Nordrassil
+                new(71086, RaidDifficultiesNormalHeroic), // Dragonwrath, Tarecgosa's Rest
+            ]
+        },
         // Firelands > Majordomo Staghelm
         {
             197,
