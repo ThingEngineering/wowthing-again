@@ -401,8 +401,7 @@ public class JournalTool
                             continue;
                         }
 
-                        if (Hardcoded.JournalEncounterDifficulties.TryGetValue(encounter.ID,
-                                out int[] encounterDifficulties))
+                        if (Hardcoded.JournalEncounterDifficulties.TryGetValue(encounter.ID, out int[] encounterDifficulties))
                         {
                             if (!encounterDifficulties.Intersect(difficulties).Any())
                             {
@@ -507,30 +506,39 @@ public class JournalTool
 
                             bool difficultiesOverridden = false;
                             // Nerub-ar Palace mythic mount
-                            if (item.Id == 224151)
+                            // if (item.Id == 224151)
+                            // {
+                            //     difficultiesOverridden = true;
+                            //     difficulties = [16];
+                            // }
+                            if (!hadDifficulties)
                             {
-                                difficultiesOverridden = true;
-                                difficulties = [16];
-                            }
-                            else if (!hadDifficulties)
-                            {
+                                difficulties = difficultiesByEncounterItemId.GetValueOrDefault(encounterItem.ID, []);
+
                                 if (tier.ID == 505 &&
-                                    encounterItem.Field_11_0_2_55959_007 is 0 or 44658 or 44659 &&
-                                    difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                    encounterItem.Field_11_0_2_55959_007 is 44658 or 44659 &&
+                                    difficulties.Length > 0)
                                 {
+                                    // ToolContext.Logger.Information("505: {id} {field} difficulties {diff}",
+                                    //     encounterItem.ID,
+                                    //     encounterItem.Field_11_0_2_55959_007,
+                                    //     string.Join(", ", difficulties));
+
+                                    // WorldStateExpression
+                                    // 44659 = func?(574, 0) != 1 && func?(576, 0) == 1
+                                    //
+                                    // 574 = AdventureJournal -> Heroic Dungeon
+                                    // 576 = AdventureJournal -> Mythic Dungeon
                                     if (encounterItem.Field_11_0_2_55959_007 == 44658)
                                     {
-                                        // WorldStateExpression - aj?(574, 0) == 1 && aj?(576) == 0
-                                        // HACK: treat this as heroic only, idk
+                                        // 44658 = func?(574, 0) == 1 && func?(576, 0) == 0
+                                        // !heroic && mythic ?
                                         difficulties = difficulties.Where(difficulty => difficulty == 8).ToArray();
                                     }
-                                    else
+                                    else if (encounterItem.Field_11_0_2_55959_007 == 44659)
                                     {
-                                        continue;
-                                        // // WorldStateExpression - aj?(574, 0) != 1 && aj?(576) == 1
-                                        // // HACK: treat this as mythic only, idk
-                                        // ToolContext.Logger.Warning("44659 {hm}", string.Join(',', difficulties));
-                                        // difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();
+                                        // heroic && !mythic ?
+                                        difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();
                                     }
 
                                     if (difficulties.Length == 0)
@@ -539,11 +547,7 @@ public class JournalTool
                                         continue;
                                     }
                                 }
-                                else if (encounterItem.DifficultyMask == -1)
-                                {
-                                    difficulties = mapDifficulties;
-                                }
-                                else if (difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                else if (difficulties.Length > 0)
                                 {
                                     difficultiesOverridden = true;
 
@@ -558,11 +562,14 @@ public class JournalTool
                                     // Current Season hack
                                     if (tier.ID == 505)
                                     {
+                                        // ToolContext.Logger.Information("EncounterItem {id} difficulties {d}", encounterItem.ID, string.Join(", ", difficulties));
+
                                         difficulties = difficulties
                                             .Where(difficulty => difficulty == 8)
                                             .ToArray();
                                         if (difficulties.Length == 0)
                                         {
+                                            // ToolContext.Logger.Warning("No mythic difficulty for encounter item {Id}", encounterItem.ID);
                                             continue;
                                         }
                                     }
@@ -573,9 +580,11 @@ public class JournalTool
                                         continue;
                                     }
                                 }
-                                else {
-                                    ToolContext.Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
-                                    continue;
+                                else
+                                {
+                                    difficulties = mapDifficulties;
+                                    // ToolContext.Logger.Warning("No difficulties for encounter item {Id}", encounterItem.ID);
+                                    // continue;
                                 }
                             }
 
