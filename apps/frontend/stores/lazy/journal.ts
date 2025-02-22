@@ -360,27 +360,27 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         } else if (!aClassSpecific && bClassSpecific) {
                             return -1;
                         } else if (aClassSpecific && bClassSpecific) {
-                            const diff =
-                                classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
+                            const diff = classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
                             if (diff !== 0) {
                                 return diff;
                             }
                         }
 
-                        // Sort by item slot
                         const aItem = stores.itemData.items[a.id];
                         const bItem = stores.itemData.items[b.id];
-                        const aSlotOrder = slotOrderMap[aItem.inventoryType] || 999;
-                        const bSlotOrder = slotOrderMap[bItem.inventoryType] || 999;
-                        if (aSlotOrder !== bSlotOrder) {
-                            return aSlotOrder - bSlotOrder;
-                        }
 
                         // Sort by faction
                         const aFaction = aItem.allianceOnly ? 1 : aItem.hordeOnly ? 2 : 0;
                         const bFaction = bItem.allianceOnly ? 1 : bItem.hordeOnly ? 2 : 0;
                         if (aFaction != bFaction) {
                             return aFaction - bFaction;
+                        }
+
+                        // Sort by item slot
+                        const aSlotOrder = slotOrderMap[aItem.inventoryType] || 999;
+                        const bSlotOrder = slotOrderMap[bItem.inventoryType] || 999;
+                        if (aSlotOrder !== bSlotOrder) {
+                            return aSlotOrder - bSlotOrder;
                         }
 
                         // Sort by the difficulty if exactly one appearance
