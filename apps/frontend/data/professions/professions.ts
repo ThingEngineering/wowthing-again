@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy';
 
 import { Profession } from '@/enums/profession';
+import { toIndexRecord } from '@/utils/to-index-record';
 import type { TaskProfession } from '@/types/data';
 
 import { dragonflightAlchemy, warWithinAlchemy } from './alchemy';
@@ -62,6 +63,8 @@ export const professionOrder: number[] = sortBy(Object.entries(professionIdToSlu
         slug,
     ].join('|'),
 ).map(([id]) => parseInt(id));
+
+export const professionOrderMap = toIndexRecord(professionOrder);
 
 export const professionSpecializationToSpell: Record<string, number> = {
     'Gnomish Engineer': 20219,

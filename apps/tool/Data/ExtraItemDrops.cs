@@ -4,6 +4,7 @@ public static partial class Hardcoded
 {
     private static readonly int[] DungeonDifficultiesNormal = [1];
     private static readonly int[] DungeonDifficultiesHeroic = [2];
+    private static readonly int[] DungeonDifficultiesHeroicMythic = [2, 8];
     private static readonly int[] RaidDifficultiesLegacy10Normal = [3];
     private static readonly int[] RaidDifficultiesLegacy25Normal = [4];
     private static readonly int[] RaidDifficultiesLegacy10Heroic = [5];
@@ -1531,6 +1532,7 @@ public static partial class Hardcoded
         {
             2000759,
             [
+                new(46017, RaidDifficultiesNormal), // Val'anyr, Hammer of Ancient Kings
                 new(46027, RaidDifficultiesNormal), // Formula: Enchant Weapon - Blade Ward
                 new(46348, RaidDifficultiesNormal), // Formula: Enchant Weapon - Blood Draining
                 new(45100, RaidDifficultiesNormal), // Pattern: Belt of Arctic Life
@@ -1557,8 +1559,20 @@ public static partial class Hardcoded
         {
             2000757,
             [
-            	new(47654, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers[A]
-				new(47639, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers[H]
+                // Blacksmithing
+                new(47622, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [A]
+                new(47640, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [H]
+                new(47623, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [A]
+                new(47641, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [H]
+                new(47627, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [A]
+                new(47642, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [H]
+                new(47626, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [A]
+                new(47643, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [H]
+                new(47624, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [A]
+                new(47644, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [H]
+                new(47625, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [A]
+                new(47645, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [H]
+                // Leatherworking
 				new(47629, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [A]
 				new(47646, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [H]
 				new(47635, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [A]
@@ -1573,26 +1587,19 @@ public static partial class Hardcoded
 				new(47651, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [H]
 				new(47632, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [A]
 				new(47652, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [H]
-				new(47655, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe[A]
-				new(47638, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe[H]
 				new(47633, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [A]
 				new(47653, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [H]
-				new(47656, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers[A]
-				new(47637, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers[H]
-				new(47657, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe[A]
-				new(47636, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe[H]
-				new(47622, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [A]
-				new(47640, RaidDifficultiesTrialRecipes), // Plans: Breastplate of the White Knight [H]
-				new(47623, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [A]
-				new(47641, RaidDifficultiesTrialRecipes), // Plans: Saronite Swordbreakers [H]
-				new(47627, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [A]
-				new(47642, RaidDifficultiesTrialRecipes), // Plans: Sunforged Bracers [H]
-				new(47626, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [A]
-				new(47643, RaidDifficultiesTrialRecipes), // Plans: Sunforged Breastplate [H]
-				new(47624, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [A]
-				new(47644, RaidDifficultiesTrialRecipes), // Plans: Titanium Razorplate [H]
-				new(47625, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [A]
-				new(47645, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [H]
+                // Tailoring
+                new(47654, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [A]
+                new(47639, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [H]
+                new(47655, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe [A]
+                new(47638, RaidDifficultiesTrialRecipes), // Pattern: Merlin's Robe [H]
+                new(47656, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers [A]
+                new(47637, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Bracers [H]
+                new(47657, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe [A]
+                new(47636, RaidDifficultiesTrialRecipes), // Pattern: Royal Moonshroud Robe [H]
+
+                new(47242, RaidDifficultiesTrialRecipes), // Trophy of the Crusade
             ]
         },
         // Icecrown Citadel > Trash
@@ -1632,6 +1639,15 @@ public static partial class Hardcoded
             ]
         },
 
+        // Firelands > Shared Drops
+        {
+            2000078,
+            [
+                new(71084, RaidDifficultiesNormalHeroic), // Branch of Nordrassil
+                new(71085, RaidDifficultiesNormalHeroic), // Runestaff of Nordrassil
+                new(71086, RaidDifficultiesNormalHeroic), // Dragonwrath, Tarecgosa's Rest
+            ]
+        },
         // Firelands > Majordomo Staghelm
         {
             197,
@@ -2449,7 +2465,24 @@ public static partial class Hardcoded
         #endregion
 
         #region Battle for Azeroth
-
+        // Mechagon > Trash Drops
+        {
+            1001178,
+            [
+                new(170212, DungeonDifficultiesHeroicMythic), // Recipe: Mecha-Bytes
+                new(170211, DungeonDifficultiesHeroicMythic), // Recipe: Famine Evaluator and Snack Table [Rank 3]
+                new(170210, DungeonDifficultiesHeroicMythic), // Recipe: Abyssal Healing Potion [Rank 3]
+                new(170208, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Unbridled Fury [Rank 3]
+                new(170209, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Wild Mending [Rank 3]
+            ]
+        },
+        // Mechagon > King Mechagon
+        {
+            2331,
+            [
+                new(168830, [8]), // Aerial Unit R-21/X [mount]
+            ]
+        },
         // Uldir > Shared Drops
         {
             2001031,

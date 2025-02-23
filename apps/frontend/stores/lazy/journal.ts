@@ -14,6 +14,7 @@ import type { JournalState } from '../local-storage';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { ItemData } from '@/types/data/item';
+import { professionOrderMap } from '@/data/professions';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -351,6 +352,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         }
                     } // item of filteredItems
 
+                    const recipeOrder: Record<number, number> = {};
                     filteredItems.sort((a, b) => {
                         // If the final class mask is exactly one character, sort those last
                         const aClassSpecific = a.classMask in PlayableClassMask;
@@ -360,27 +362,47 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         } else if (!aClassSpecific && bClassSpecific) {
                             return -1;
                         } else if (aClassSpecific && bClassSpecific) {
-                            const diff =
-                                classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
+                            const diff = classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
                             if (diff !== 0) {
                                 return diff;
                             }
                         }
 
-                        // Sort by item slot
                         const aItem = stores.itemData.items[a.id];
                         const bItem = stores.itemData.items[b.id];
-                        const aSlotOrder = slotOrderMap[aItem.inventoryType] || 999;
-                        const bSlotOrder = slotOrderMap[bItem.inventoryType] || 999;
-                        if (aSlotOrder !== bSlotOrder) {
-                            return aSlotOrder - bSlotOrder;
-                        }
 
                         // Sort by faction
                         const aFaction = aItem.allianceOnly ? 1 : aItem.hordeOnly ? 2 : 0;
                         const bFaction = bItem.allianceOnly ? 1 : bItem.hordeOnly ? 2 : 0;
                         if (aFaction != bFaction) {
                             return aFaction - bFaction;
+                        }
+
+                        if (group.name === 'Recipe') {
+                            let aOrder = recipeOrder[a.id];
+                            if (!aOrder) {
+                                const aSkillLine = stores.staticData.itemToSkillLine[a.id];
+                                const [aProfession,] = stores.staticData.professionBySkillLine[aSkillLine[0]];
+                                aOrder = recipeOrder[a.id] = professionOrderMap[aProfession?.id];
+                            }
+
+                            let bOrder = recipeOrder[b.id];
+                            if (!bOrder) {
+                                const bSkillLine = stores.staticData.itemToSkillLine[b.id];
+                                const [bProfession,] = stores.staticData.professionBySkillLine[bSkillLine[0]];
+                                bOrder = recipeOrder[b.id] = professionOrderMap[bProfession?.id];
+                            }
+
+                            if (aOrder !== bOrder) {
+                                return aOrder - bOrder;
+                            }
+                        }
+
+                        // Sort by item slot
+                        const aSlotOrder = slotOrderMap[aItem.inventoryType] || 999;
+                        const bSlotOrder = slotOrderMap[bItem.inventoryType] || 999;
+                        if (aSlotOrder !== bSlotOrder) {
+                            return aSlotOrder - bSlotOrder;
                         }
 
                         // Sort by the difficulty if exactly one appearance

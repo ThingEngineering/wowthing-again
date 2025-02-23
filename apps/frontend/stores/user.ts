@@ -254,12 +254,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     character.lockouts[key.replace('1028', '1031')] = lockout;
                 }
                 // Ulduar tree elders show as unkilled, ugh
-                else if (
-                    key.startsWith('759-') &&
-                    lockout.bosses.length === 17 &&
-                    lockout.bosses[12].dead
-                ) {
-                    lockout.maxBosses = 14;
+                else if (key.startsWith('759-') && !lockout.mangled) {
+                    lockout.maxBosses = lockout.maxBosses - 3;
                     const newBosses = lockout.bosses.slice(0, 9); // up to Thorim
                     for (let i = 9; i <= 11; i++) {
                         if (lockout.bosses[i].dead) {
@@ -269,6 +265,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     }
                     newBosses.push(...lockout.bosses.slice(12)); // Freya onwards
                     lockout.bosses = newBosses;
+                    lockout.mangled = true;
                 }
             }
 

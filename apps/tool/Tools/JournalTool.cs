@@ -401,8 +401,7 @@ public class JournalTool
                             continue;
                         }
 
-                        if (Hardcoded.JournalEncounterDifficulties.TryGetValue(encounter.ID,
-                                out int[] encounterDifficulties))
+                        if (Hardcoded.JournalEncounterDifficulties.TryGetValue(encounter.ID, out int[] encounterDifficulties))
                         {
                             if (!encounterDifficulties.Intersect(difficulties).Any())
                             {
@@ -418,72 +417,70 @@ public class JournalTool
                             Statistics = statistics,
                         };
 
-                        var items = new List<DumpJournalEncounterItem>();
-
-                        if (encounter.ID > 2000000)
+                        encounterData.Name = encounter.ID switch
                         {
-                            encounterData.Name = "Shared Drops";
-                        }
-                        else if (encounter.ID > 1000000)
-                        {
-                            encounterData.Name = "Trash Drops";
-                        }
-                        else
-                        {
-                            encounterData.Name = GetString(StringType.WowJournalEncounterName, language, encounter.ID);
+                            > 2000000 => "Shared Drops",
+                            > 1000000 => "Trash Drops",
+                            _ => GetString(StringType.WowJournalEncounterName, language, encounter.ID)
+                        };
 
-                            var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                            foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, []))
-                            {
-                                if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
-                                {
-                                    // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
-                                    foreach (int itemId in expandedItems)
-                                    {
-                                        if (!fakeItems.ContainsKey(itemId))
-                                        {
-                                            fakeItems[itemId] = new DumpJournalEncounterItem
-                                            {
-                                                ID = encounterItem.ID,
-                                                DifficultyMask = encounterItem.DifficultyMask,
-                                                FactionMask = encounterItem.FactionMask,
-                                                Flags = encounterItem.Flags,
-                                                ItemID = itemId,
-                                                JournalEncounterID = encounter.ID,
-                                            };
-                                        }
-                                    }
+                        var encounterItems = new List<DumpJournalEncounterItem>(itemsByEncounterId.GetValueOrDefault(encounter.ID, []));
 
-                                    cacheData.TokenEncounters.Add($"{tier.ID}");
-                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}");
-                                    cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}|{encounter.ID}");
-                                }
-                                else
-                                {
-                                    items.Add(encounterItem);
-                                }
-                            }
-
-                            items.AddRange(fakeItems.Values);
-                        } // if (encounter.ID > 1000000)
-
-                        if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
+                        // Extra drops get added first
+                        foreach (var extraItem in Hardcoded.ExtraItemDrops.GetValueOrDefault(encounter.ID, []))
                         {
                             //Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
-                            foreach (var extraItem in extraItems)
+                            difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
+                            encounterItems.Add(new DumpJournalEncounterItem
                             {
-                                difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
-                                items.Add(new DumpJournalEncounterItem
+                                ID = 1000000 + extraItem.ItemId,
+                                DifficultyMask = 0,
+                                FactionMask = 0,
+                                Flags = 0,
+                                ItemID = extraItem.ItemId,
+                                JournalEncounterID = encounter.ID,
+                            });
+                        }
+
+                        // Now do item expansion
+                        var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
+                        var items = new List<DumpJournalEncounterItem>();
+
+                        foreach (var encounterItem in encounterItems)
+                        {
+                            // Don't expand ToC bosses
+                            if (!(instance.ID == 757 && encounter.ID < 1000000) &&
+                                itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                            {
+                                // ToolContext.Logger.Information("Expanding items for {tier} {instance} {encounter} {item}", tier.ID, instance.ID, encounter.ID, encounterItem.ItemID);
+                                foreach (int itemId in expandedItems)
                                 {
-                                    ID = 1000000 + extraItem.ItemId,
-                                    DifficultyMask = 0,
-                                    FactionMask = 0,
-                                    Flags = 0,
-                                    ItemID = extraItem.ItemId,
-                                    JournalEncounterID = encounter.ID,
-                                });
+                                    if (!fakeItems.ContainsKey(itemId))
+                                    {
+                                        fakeItems[itemId] = new DumpJournalEncounterItem
+                                        {
+                                            ID = encounterItem.ID,
+                                            DifficultyMask = encounterItem.DifficultyMask,
+                                            FactionMask = encounterItem.FactionMask,
+                                            Flags = encounterItem.Flags,
+                                            ItemID = itemId,
+                                            JournalEncounterID = encounter.ID,
+                                        };
+                                    }
+                                }
+
+                                cacheData.TokenEncounters.Add($"{tier.ID}");
+                                cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}");
+                                cacheData.TokenEncounters.Add($"{tier.ID}|{instance.ID}|{encounter.ID}");
+                            }
+                            else
+                            {
+                                items.Add(encounterItem);
                             }
                         }
+
+                        items.AddRange(fakeItems.Values);
+                        // } // if (encounter.ID > 1000000)
 
                         var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                         foreach (var encounterItem in items)
@@ -507,30 +504,39 @@ public class JournalTool
 
                             bool difficultiesOverridden = false;
                             // Nerub-ar Palace mythic mount
-                            if (item.Id == 224151)
+                            // if (item.Id == 224151)
+                            // {
+                            //     difficultiesOverridden = true;
+                            //     difficulties = [16];
+                            // }
+                            if (!hadDifficulties)
                             {
-                                difficultiesOverridden = true;
-                                difficulties = [16];
-                            }
-                            else if (!hadDifficulties)
-                            {
+                                difficulties = difficultiesByEncounterItemId.GetValueOrDefault(encounterItem.ID, []);
+
                                 if (tier.ID == 505 &&
-                                    encounterItem.Field_11_0_2_55959_007 is 0 or 44658 or 44659 &&
-                                    difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                    encounterItem.Field_11_0_2_55959_007 is 44658 or 44659 &&
+                                    difficulties.Length > 0)
                                 {
+                                    // ToolContext.Logger.Information("505: {id} {field} difficulties {diff}",
+                                    //     encounterItem.ID,
+                                    //     encounterItem.Field_11_0_2_55959_007,
+                                    //     string.Join(", ", difficulties));
+
+                                    // WorldStateExpression
+                                    // 44659 = func?(574, 0) != 1 && func?(576, 0) == 1
+                                    //
+                                    // 574 = AdventureJournal -> Heroic Dungeon
+                                    // 576 = AdventureJournal -> Mythic Dungeon
                                     if (encounterItem.Field_11_0_2_55959_007 == 44658)
                                     {
-                                        // WorldStateExpression - aj?(574, 0) == 1 && aj?(576) == 0
-                                        // HACK: treat this as heroic only, idk
+                                        // 44658 = func?(574, 0) == 1 && func?(576, 0) == 0
+                                        // !heroic && mythic ?
                                         difficulties = difficulties.Where(difficulty => difficulty == 8).ToArray();
                                     }
-                                    else
+                                    else if (encounterItem.Field_11_0_2_55959_007 == 44659)
                                     {
-                                        continue;
-                                        // // WorldStateExpression - aj?(574, 0) != 1 && aj?(576) == 1
-                                        // // HACK: treat this as mythic only, idk
-                                        // ToolContext.Logger.Warning("44659 {hm}", string.Join(',', difficulties));
-                                        // difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();
+                                        // heroic && !mythic ?
+                                        difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();
                                     }
 
                                     if (difficulties.Length == 0)
@@ -539,11 +545,7 @@ public class JournalTool
                                         continue;
                                     }
                                 }
-                                else if (encounterItem.DifficultyMask == -1)
-                                {
-                                    difficulties = mapDifficulties;
-                                }
-                                else if (difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                else if (difficulties.Length > 0)
                                 {
                                     difficultiesOverridden = true;
 
@@ -558,11 +560,14 @@ public class JournalTool
                                     // Current Season hack
                                     if (tier.ID == 505)
                                     {
+                                        // ToolContext.Logger.Information("EncounterItem {id} difficulties {d}", encounterItem.ID, string.Join(", ", difficulties));
+
                                         difficulties = difficulties
                                             .Where(difficulty => difficulty == 8)
                                             .ToArray();
                                         if (difficulties.Length == 0)
                                         {
+                                            // ToolContext.Logger.Warning("No mythic difficulty for encounter item {Id}", encounterItem.ID);
                                             continue;
                                         }
                                     }
@@ -573,9 +578,11 @@ public class JournalTool
                                         continue;
                                     }
                                 }
-                                else {
-                                    ToolContext.Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
-                                    continue;
+                                else
+                                {
+                                    difficulties = mapDifficulties;
+                                    // ToolContext.Logger.Warning("No difficulties for encounter item {Id}", encounterItem.ID);
+                                    // continue;
                                 }
                             }
 

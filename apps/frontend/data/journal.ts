@@ -128,4 +128,7 @@ export const hardModeItemIds = new Set<number>([
     46068, // Amice of Inconceivable Horror
     46095, // Soul-Devouring Cinch
     46097, // Caress of Insanity
+
+    // Operation: Mechagon > King Mechagon
+    168830, // Aerial Unit R-21/X [mount]
 ]);

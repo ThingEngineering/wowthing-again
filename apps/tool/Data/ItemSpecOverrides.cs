@@ -25,21 +25,41 @@ public partial class Hardcoded
         { 48531, DeathKnightBlood }, // Alliance chest
         { 48537, DeathKnightBlood }, // Alliance hands
         { 48533, DeathKnightBlood }, // Alliance legs
+        { 48540, DeathKnightBlood }, // Alliance helm 2
+        { 48542, DeathKnightBlood }, // Alliance shoulders 2
+        { 48538, DeathKnightBlood }, // Alliance chest 2
+        { 48539, DeathKnightBlood }, // Alliance hands 2
+        { 48541, DeathKnightBlood }, // Alliance legs 2
         { 48560, DeathKnightBlood }, // Horde helm
         { 48562, DeathKnightBlood }, // Horde shoulders
         { 48558, DeathKnightBlood }, // Horde chest
         { 48559, DeathKnightBlood }, // Horde hands
         { 48561, DeathKnightBlood }, // Horde legs
+        { 48555, DeathKnightBlood }, // Horde helm 2
+        { 48553, DeathKnightBlood }, // Horde shoulders 2
+        { 48557, DeathKnightBlood }, // Horde chest 2
+        { 48556, DeathKnightBlood }, // Horde hands 2
+        { 48554, DeathKnightBlood }, // Horde legs 2
         { 48472, DeathKnightFrostUnholy }, // Alliance helm
         { 48478, DeathKnightFrostUnholy }, // Alliance shoulders
         { 48474, DeathKnightFrostUnholy }, // Alliance chest
         { 48480, DeathKnightFrostUnholy }, // Alliance hands
         { 48476, DeathKnightFrostUnholy }, // Alliance legs
+        { 48483, DeathKnightFrostUnholy }, // Alliance helm 2
+        { 48485, DeathKnightFrostUnholy }, // Alliance shoulders 2
+        { 48481, DeathKnightFrostUnholy }, // Alliance chest 2
+        { 48482, DeathKnightFrostUnholy }, // Alliance hands 2
+        { 48484, DeathKnightFrostUnholy }, // Alliance legs 2
         { 48503, DeathKnightFrostUnholy }, // Horde helm
         { 48505, DeathKnightFrostUnholy }, // Horde shoulders
         { 48501, DeathKnightFrostUnholy }, // Horde chest
         { 48502, DeathKnightFrostUnholy }, // Horde hands
         { 48504, DeathKnightFrostUnholy }, // Horde legs
+        { 48498, DeathKnightFrostUnholy }, // Horde helm 2
+        { 48496, DeathKnightFrostUnholy }, // Horde shoulders 2
+        { 48500, DeathKnightFrostUnholy }, // Horde chest 2
+        { 48499, DeathKnightFrostUnholy }, // Horde hands 2
+        { 48497, DeathKnightFrostUnholy }, // Horde legs 2
 
         // Death Knight T10
         { 50855, DeathKnightBlood }, // A helm
@@ -89,11 +109,21 @@ public partial class Hardcoded
         { 48216, DruidFeralGuardian }, // Alliance chest
         { 48213, DruidFeralGuardian }, // Alliance hands
         { 48215, DruidFeralGuardian }, // Alliance legs
+        { 48211, DruidFeralGuardian }, // Alliance helm 2
+        { 48208, DruidFeralGuardian }, // Alliance shoulders 2
+        { 48209, DruidFeralGuardian }, // Alliance chest 2
+        { 48212, DruidFeralGuardian }, // Alliance hands 2
+        { 48210, DruidFeralGuardian }, // Alliance legs 2
         { 48188, DruidFeralGuardian }, // Horde helm
         { 48191, DruidFeralGuardian }, // Horde shoulders
         { 48189, DruidFeralGuardian }, // Horde chest
         { 48192, DruidFeralGuardian }, // Horde hands
         { 48190, DruidFeralGuardian }, // Horde legs
+        { 48194, DruidFeralGuardian }, // Horde helm 2
+        { 48197, DruidFeralGuardian }, // Horde shoulders 2
+        { 48196, DruidFeralGuardian }, // Horde chest 2
+        { 48193, DruidFeralGuardian }, // Horde hands 2
+        { 48195, DruidFeralGuardian }, // Horde legs 2
         { 48102, DruidRestoration }, // Alliance helm
         { 48131, DruidRestoration }, // Alliance shoulders
         { 48129, DruidRestoration }, // Alliance chest
@@ -128,31 +158,61 @@ public partial class Hardcoded
         { 48566, PaladinHoly }, // Alliance chest
         { 48574, PaladinHoly }, // Alliance hands
         { 48568, PaladinHoly }, // Alliance legs
+        { 48577, PaladinHoly }, // Alliance helm 2
+        { 48579, PaladinHoly }, // Alliance shoulders 2
+        { 48575, PaladinHoly }, // Alliance chest 2
+        { 48576, PaladinHoly }, // Alliance hands 2
+        { 48578, PaladinHoly }, // Alliance legs 2
         { 48597, PaladinHoly }, // Horde helm
         { 48595, PaladinHoly }, // Horde shoulders
         { 48599, PaladinHoly }, // Horde chest
         { 48598, PaladinHoly }, // Horde hands
         { 48596, PaladinHoly }, // Horde legs
+        { 48592, PaladinHoly }, // Horde helm 2
+        { 48590, PaladinHoly }, // Horde shoulders 2
+        { 48594, PaladinHoly }, // Horde chest 2
+        { 48593, PaladinHoly }, // Horde hands 2
+        { 48591, PaladinHoly }, // Horde legs 2
         { 48634, PaladinProtection }, // Alliance helm
         { 48636, PaladinProtection }, // Alliance shoulders
         { 48632, PaladinProtection }, // Alliance chest
         { 48633, PaladinProtection }, // Alliance hands
         { 48635, PaladinProtection }, // Alliance legs
+        { 48639, PaladinProtection }, // Alliance helm 2
+        { 48637, PaladinProtection }, // Alliance shoulders 2
+        { 48641, PaladinProtection }, // Alliance chest 2
+        { 48640, PaladinProtection }, // Alliance hands 2
+        { 48638, PaladinProtection }, // Alliance legs 2
         { 48654, PaladinProtection }, // Horde helm
         { 48656, PaladinProtection }, // Horde shoulders
         { 48652, PaladinProtection }, // Horde chest
         { 48653, PaladinProtection }, // Horde hands
         { 48655, PaladinProtection }, // Horde legs
+        { 48659, PaladinProtection }, // Horde helm 2
+        { 48661, PaladinProtection }, // Horde shoulders 2
+        { 48657, PaladinProtection }, // Horde chest 2
+        { 48658, PaladinProtection }, // Horde hands 2
+        { 48660, PaladinProtection }, // Horde legs 2
         { 48604, PaladinRetribution }, // Alliance helm
         { 48606, PaladinRetribution }, // Alliance shoulders
         { 48602, PaladinRetribution }, // Alliance chest
         { 48603, PaladinRetribution }, // Alliance hands
         { 48605, PaladinRetribution }, // Alliance legs
+        { 48609, PaladinRetribution }, // Alliance helm 2
+        { 48611, PaladinRetribution }, // Alliance shoulders 2
+        { 48607, PaladinRetribution }, // Alliance chest 2
+        { 48608, PaladinRetribution }, // Alliance hands 2
+        { 48610, PaladinRetribution }, // Alliance legs 2
         { 48629, PaladinRetribution }, // Horde helm
         { 48627, PaladinRetribution }, // Horde shoulders
         { 48631, PaladinRetribution }, // Horde chest
         { 48630, PaladinRetribution }, // Horde hands
         { 48628, PaladinRetribution }, // Horde legs
+        { 48624, PaladinRetribution }, // Horde helm 2
+        { 48622, PaladinRetribution }, // Horde shoulders 2
+        { 48626, PaladinRetribution }, // Horde chest 2
+        { 48625, PaladinRetribution }, // Horde hands 2
+        { 48623, PaladinRetribution }, // Horde legs 2
 
         // Paladin T10
         { 50867, PaladinHoly }, // A helm
@@ -205,9 +265,15 @@ public partial class Hardcoded
         { 48073, PriestShadow }, // Alliance helm
         { 48072, PriestShadow }, // Alliance hands
         { 48074, PriestShadow }, // Alliance legs
+        { 48078, PriestShadow }, // Alliance helm 2
+        { 48077, PriestShadow }, // Alliance hands 2
+        { 48079, PriestShadow }, // Alliance legs 2
         { 48098, PriestShadow }, // Horde helm
         { 48097, PriestShadow }, // Horde hands
         { 48099, PriestShadow }, // Horde legs
+        { 48095, PriestShadow }, // Horde helm 2
+        { 48096, PriestShadow }, // Horde hands 2
+        { 48094, PriestShadow }, // Horde legs 2
 
         // Priest T10
         { 50391, PriestShadow }, // A hands
@@ -233,11 +299,21 @@ public partial class Hardcoded
         { 48341, ShamanEnhancement }, // Alliance chest
         { 48342, ShamanEnhancement }, // Alliance hands
         { 48344, ShamanEnhancement }, // Alliance legs
+        { 48348, ShamanEnhancement }, // Alliance helm 2
+        { 48350, ShamanEnhancement }, // Alliance shoulders 2
+        { 48346, ShamanEnhancement }, // Alliance chest 2
+        { 48347, ShamanEnhancement }, // Alliance hands 2
+        { 48349, ShamanEnhancement }, // Alliance legs 2
         { 48368, ShamanEnhancement }, // Horde helm
         { 48370, ShamanEnhancement }, // Horde shoulders
         { 48366, ShamanEnhancement }, // Horde chest
         { 48367, ShamanEnhancement }, // Horde hands
         { 48369, ShamanEnhancement }, // Horde legs
+        { 48363, ShamanEnhancement }, // Horde helm 2
+        { 48361, ShamanEnhancement }, // Horde shoulders 2
+        { 48365, ShamanEnhancement }, // Horde chest 2
+        { 48364, ShamanEnhancement }, // Horde hands 2
+        { 48362, ShamanEnhancement }, // Horde legs 2
         { 48280, ShamanRestoration }, // Alliance helm
         { 48283, ShamanRestoration }, // Alliance shoulders
         { 48281, ShamanRestoration }, // Alliance chest
@@ -302,21 +378,41 @@ public partial class Hardcoded
         { 48372, WarriorArmsFury }, // Alliance chest
         { 48375, WarriorArmsFury }, // Alliance hands
         { 48373, WarriorArmsFury }, // Alliance legs
+        { 48378, WarriorArmsFury }, // Alliance helm 2
+        { 48380, WarriorArmsFury }, // Alliance shoulders 2
+        { 48376, WarriorArmsFury }, // Alliance chest 2
+        { 48377, WarriorArmsFury }, // Alliance hands 2
+        { 48379, WarriorArmsFury }, // Alliance legs 2
         { 48388, WarriorArmsFury }, // Horde helm
         { 48390, WarriorArmsFury }, // Horde shoulders
         { 48386, WarriorArmsFury }, // Horde chest
         { 48387, WarriorArmsFury }, // Horde hands
         { 48389, WarriorArmsFury }, // Horde legs
+        { 48393, WarriorArmsFury }, // Horde helm 2
+        { 48395, WarriorArmsFury }, // Horde shoulders 2
+        { 48391, WarriorArmsFury }, // Horde chest 2
+        { 48392, WarriorArmsFury }, // Horde hands 2
+        { 48394, WarriorArmsFury }, // Horde legs 2
         { 48429, WarriorProtection }, // Alliance helm
         { 48448, WarriorProtection }, // Alliance shoulders
         { 48436, WarriorProtection }, // Alliance chest
         { 48449, WarriorProtection }, // Alliance hands
         { 48445, WarriorProtection }, // Alliance legs
+        { 48430, WarriorProtection }, // Alliance helm 2
+        { 48454, WarriorProtection }, // Alliance shoulders 2
+        { 48450, WarriorProtection }, // Alliance chest 2
+        { 48452, WarriorProtection }, // Alliance hands 2
+        { 48446, WarriorProtection }, // Alliance legs 2
         { 48458, WarriorProtection }, // Horde helm
         { 48460, WarriorProtection }, // Horde shoulders
         { 48456, WarriorProtection }, // Horde chest
         { 48457, WarriorProtection }, // Horde hands
         { 48459, WarriorProtection }, // Horde legs
+        { 48463, WarriorProtection }, // Horde helm 2
+        { 48465, WarriorProtection }, // Horde shoulders 2
+        { 48461, WarriorProtection }, // Horde chest 2
+        { 48462, WarriorProtection }, // Horde hands 2
+        { 48464, WarriorProtection }, // Horde legs 2
 
         // Warrior T10
         { 50080, WarriorArmsFury }, // A helm
