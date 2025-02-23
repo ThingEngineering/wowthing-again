@@ -1,3 +1,4 @@
+import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { MythicPlusSeason } from '@/types';
 
 // 8.0
@@ -120,8 +121,8 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             name: '[TWW] Season 2',
             slug: 'war-within-2',
             minLevel: 80,
-            portalLevel: 10,
             orders: [orderWarWithinS2],
+            portalLevel: 10,
             startPeriod: 1001, // 2024-03-04
         }),
         new MythicPlusSeason({
@@ -129,8 +130,8 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             name: '[TWW] Season 1',
             slug: 'war-within-1',
             minLevel: 80,
-            portalLevel: 10,
             orders: [orderWarWithinS1],
+            portalLevel: 10,
             startPeriod: 977, // 2024-09-17
         }),
         new MythicPlusSeason({
@@ -138,8 +139,9 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             name: '[DF] Season 4',
             slug: 'dragonflight-4',
             minLevel: 70,
-            portalLevel: 20,
             orders: [orderDragonflightS4],
+            portalLevel: 20,
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             startPeriod: 956, // 2024-04-23
         }),
         new MythicPlusSeason({
@@ -147,8 +149,9 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             name: '[DF] Season 3',
             slug: 'dragonflight-3',
             minLevel: 70,
-            portalLevel: 20,
             orders: [orderDragonflightS3],
+            portalLevel: 20,
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             startPeriod: 933, // 2023-11-14
         }),
         new MythicPlusSeason({
@@ -158,6 +161,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 70,
             portalLevel: 20,
             orders: [orderDragonflightS2],
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             startPeriod: 906, // 2023-05-09
         }),
         new MythicPlusSeason({
@@ -167,6 +171,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 70,
             portalLevel: 20,
             orders: [orderDragonflightS1],
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             startPeriod: 885, // 2022-12-13
         }),
         new MythicPlusSeason({
@@ -176,6 +181,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             minLevel: 60,
             portalLevel: 20,
             orders: [orderShadowlandsS4],
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             startPeriod: 866, // 2022-08-02
         }),
         new MythicPlusSeason({
@@ -184,6 +190,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             slug: 'shadowlands-3',
             minLevel: 60,
             portalLevel: 20,
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             orders: [orderShadowlandsS3],
         }),
         new MythicPlusSeason({
@@ -192,6 +199,7 @@ export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
             slug: 'shadowlands-2',
             minLevel: 60,
             portalLevel: 20,
+            scoreType: MythicPlusScoreType.FortifiedTyrannical,
             orders: [orderShadowlands],
         }),
         new MythicPlusSeason({

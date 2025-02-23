@@ -1,109 +1,111 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import sortBy from 'lodash/sortBy'
-    import { replace } from 'svelte-spa-router'
+    import find from 'lodash/find';
+    import sortBy from 'lodash/sortBy';
+    import { replace } from 'svelte-spa-router';
 
-    import { Constants } from '@/data/constants'
-    import { seasonMap } from '@/data/mythic-plus'
-    import { userStore } from '@/stores'
-    import { timeStore } from '@/shared/stores/time'
-    import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/shared/stores/settings'
-    import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import { leftPad } from '@/utils/formatting'
-    import { getWeeklyAffixes } from '@/utils/mythic-plus'
-    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
-    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types'
+    import { Constants } from '@/data/constants';
+    import { seasonMap } from '@/data/mythic-plus';
+    import { userStore } from '@/stores';
+    import { timeStore } from '@/shared/stores/time';
+    import { staticStore } from '@/shared/stores/static';
+    import { settingsStore } from '@/shared/stores/settings';
+    import getCharacterSortFunc from '@/utils/get-character-sort-func';
+    import { leftPad } from '@/utils/formatting';
+    import { getWeeklyAffixes } from '@/utils/mythic-plus';
+    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types';
+    import type { StaticDataKeystoneAffix } from '@/shared/stores/static/types';
 
-    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import HeadDungeon from './MythicPlusTableHeadDungeon.svelte'
-    import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
-    import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
-    import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
-    import HeadVault from '@/components/character-table/head/Vault.svelte'
-    import RowDungeon from './MythicPlusTableRowDungeon.svelte'
-    import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
-    import RowKeystone from '@/components/character-table/row/Keystone.svelte'
-    import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
-    import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte'
-    import TableFoot from './TableFoot.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
+    import HeadDungeon from './MythicPlusTableHeadDungeon.svelte';
+    import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte';
+    import HeadKeystone from '@/components/character-table/head/Keystone.svelte';
+    import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte';
+    import HeadVault from '@/components/character-table/head/Vault.svelte';
+    import RowDungeon from './MythicPlusTableRowDungeon.svelte';
+    import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte';
+    import RowKeystone from '@/components/character-table/row/Keystone.svelte';
+    import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte';
+    import RowVaultDungeon from '@/components/character-table/row/VaultDungeon.svelte';
+    import TableFoot from './TableFoot.svelte';
 
-    export let slug: string
+    export let slug: string;
 
-    let affixes: StaticDataKeystoneAffix[]
-    let isCurrentSeason: boolean
-    let isThisWeek: boolean
-    let season: MythicPlusSeason
-    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
-    let sortFunc: (char: Character) => string
+    let affixes: StaticDataKeystoneAffix[];
+    let isCurrentSeason: boolean;
+    let isThisWeek: boolean;
+    let season: MythicPlusSeason;
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[];
+    let sortFunc: (char: Character) => string;
 
     $: {
         if (slug === 'this-week') {
-            isThisWeek = true
-            season = seasonMap[Constants.mythicPlusSeason]
+            isThisWeek = true;
+            season = seasonMap[Constants.mythicPlusSeason];
             runsFunc = (char, dungeonId) => {
-                const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char)
-                const startStamp = currentPeriod.startTime.toUnixInteger()
-                const endStamp = currentPeriod.endTime.toUnixInteger()
+                const currentPeriod = userStore.getCurrentPeriodForCharacter($timeStore, char);
+                const startStamp = currentPeriod.startTime.toUnixInteger();
+                const endStamp = currentPeriod.endTime.toUnixInteger();
 
                 for (const [timestamp, runs] of Object.entries(char.mythicPlusWeeks || {})) {
-                    const weekStamp = parseInt(timestamp)
+                    const weekStamp = parseInt(timestamp);
                     if (weekStamp > startStamp && weekStamp <= endStamp) {
                         return runs
                             .filter((run) => run.mapId === dungeonId)
-                            .map((run) => ({
-                                completed: '???',
-                                dungeonId: run.mapId,
-                                keystoneLevel: run.level,
+                            .map(
+                                (run) =>
+                                    ({
+                                        completed: '???',
+                                        dungeonId: run.mapId,
+                                        keystoneLevel: run.level,
 
-                                affixes: [],
-                                duration: 0,
-                                members: [],
-                                memberObjects: [],
-                                timed: true,
-                            }))
+                                        affixes: [],
+                                        duration: 0,
+                                        members: [],
+                                        memberObjects: [],
+                                        timed: true,
+                                    }) as CharacterMythicPlusRun,
+                            );
                     }
                 }
-                return []
-            }
-        }
-        else {
-            isThisWeek = false
-            season = find(seasonMap, (season) => season.slug === slug)
+                return [];
+            };
+        } else {
+            isThisWeek = false;
+            season = find(seasonMap, (season) => season.slug === slug);
             if (season === undefined) {
-                season = sortBy(
-                    Object.values(seasonMap),
-                    (season) => -season.id
-                )[0]
-                replace(`/mythic-plus/${season.slug}`)
-                break $
+                season = sortBy(Object.values(seasonMap), (season) => -season.id)[0];
+                replace(`/mythic-plus/${season.slug}`);
+                break $;
             }
 
-            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
+            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId];
         }
 
-        sortFunc = getCharacterSortFunc(
-                $settingsStore,
-                $staticStore,
-                (char) => leftPad(
-                    100000 - Math.floor((char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0) * 10),
-                    6,
-                    '0'
-                )
-            )
+        sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) =>
+            leftPad(
+                100000 -
+                    Math.floor(
+                        (char.mythicPlusSeasonScores[season.id] ||
+                            char.raiderIo?.[season.id]?.all ||
+                            0) * 10,
+                    ),
+                6,
+                '0',
+            ),
+        );
 
-        isCurrentSeason = season.id === Constants.mythicPlusSeason
+        isCurrentSeason = season.id === Constants.mythicPlusSeason;
         if (isCurrentSeason) {
-            affixes = getWeeklyAffixes()
+            affixes = getWeeklyAffixes();
         }
     }
 
     const filterFunc = (char: Character) => {
-        const meetsLevelReq = char.level >= season.minLevel
-        const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0
-        return meetsLevelReq && score > 0
-    }
+        const meetsLevelReq = char.level >= season.minLevel;
+        const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
+        return meetsLevelReq && score > 0;
+    };
 </script>
 
 <style lang="scss">
@@ -114,12 +116,7 @@
     }
 </style>
 
-<CharacterTable
-    skipGrouping={!isThisWeek}
-    skipIgnored={true}
-    {filterFunc}
-    {sortFunc}
->
+<CharacterTable skipGrouping={!isThisWeek} skipIgnored={true} {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
         {#if isCurrentSeason}
             <HeadItemLevel />
@@ -162,11 +159,7 @@
 
             {#each season.orders as order}
                 {#each order as dungeonId}
-                    <RowDungeon
-                        seasonId={isThisWeek ? 0 : season.id}
-                        {dungeonId}
-                        {runsFunc}
-                    />
+                    <RowDungeon season={isThisWeek ? null : season} {dungeonId} {runsFunc} />
                 {/each}
             {/each}
         {/key}

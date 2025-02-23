@@ -50,6 +50,7 @@ import type { ManualData } from '@/types/data/manual';
 import { journalStore } from './journal';
 import { manualStore } from './manual';
 import { userModifiedStore } from './user-modified';
+import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
@@ -215,7 +216,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             ]),
         );
         userData.itemsById = Object.fromEntries(
-            getNumberKeyedEntries(temp.itemsById).map(([key, value]) => [key, [[null, value]]]),
+            getNumberKeyedEntries(temp.itemsById).map(([key, value]) => [
+                key,
+                [[null as HasNameAndRealm, value]],
+            ]),
         );
 
         // Initialize guilds
@@ -522,10 +526,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         character.mythicPlusSeasonScores = {};
         for (const seasonId in character.mythicPlusSeasons ?? {}) {
+            const season = seasonMap[seasonId];
             let total = 0;
             for (const addonMap of Object.values(character.mythicPlusSeasons[seasonId])) {
-                const scores = getDungeonScores(addonMap);
-                total += scores.fortifiedFinal + scores.tyrannicalFinal;
+                if (season?.scoreType === MythicPlusScoreType.FortifiedTyrannical) {
+                    const scores = getDungeonScores(addonMap);
+                    total += scores.fortifiedFinal + scores.tyrannicalFinal;
+                } else {
+                    total += addonMap.overallScore;
+                }
             }
 
             const rioScore = character.raiderIo?.[seasonId]?.['all'] || 0;
