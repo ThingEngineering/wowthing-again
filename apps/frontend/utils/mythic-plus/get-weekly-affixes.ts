@@ -1,7 +1,7 @@
 import find from 'lodash/find';
 import { get } from 'svelte/store';
 
-import { seasonMap, weeklyAffixes } from '@/data/dungeon';
+import { seasonMap, weeklyAffixes } from '@/data/mythic-plus';
 import { userStore } from '@/stores';
 import { staticStore } from '@/shared/stores/static';
 import type { Character } from '@/types';

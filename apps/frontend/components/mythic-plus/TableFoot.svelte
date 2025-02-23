@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { seasonMap } from '@/data/dungeon'
+    import { seasonMap } from '@/data/mythic-plus'
     import { commonColspan } from '@/shared/stores/settings'
     import { timeStore } from '@/shared/stores/time'
     import { userStore } from '@/stores'

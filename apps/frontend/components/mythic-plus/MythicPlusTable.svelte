@@ -4,7 +4,7 @@
     import { replace } from 'svelte-spa-router'
 
     import { Constants } from '@/data/constants'
-    import { seasonMap } from '@/data/dungeon'
+    import { seasonMap } from '@/data/mythic-plus'
     import { userStore } from '@/stores'
     import { timeStore } from '@/shared/stores/time'
     import { staticStore } from '@/shared/stores/static'

@@ -9,7 +9,7 @@ import {
     lockoutDifficultyOrder,
     lockoutDifficultyOrderMap,
 } from '@/data/difficulty';
-import { seasonMap } from '@/data/dungeon';
+import { seasonMap } from '@/data/mythic-plus';
 import { slotOrder } from '@/data/inventory-slot';
 import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';

@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { dungeonMap, keyTiers, seasonMap } from '@/data/dungeon'
+    import { dungeonMap, keyTiers } from '@/data/dungeon'
+    import { seasonMap } from'@/data/mythic-plus';
     import { raiderIoScores, raiderIoScoreOrder } from '@/data/raider-io'
     import { timeStore } from '@/shared/stores/time'
     import { userStore } from '@/stores'
