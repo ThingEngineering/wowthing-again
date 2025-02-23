@@ -115,78 +115,125 @@ const orderWarWithinS2: number[] = [
 
 export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
     [
-        new MythicPlusSeason(
-            14,
-            '[TWW] Season 2',
-            'war-within-2',
-            80,
-            [orderWarWithinS2],
-            1001, // 2024-03-04
-        ),
-        new MythicPlusSeason(
-            13,
-            '[TWW] Season 1',
-            'war-within-1',
-            80,
-            [orderWarWithinS1],
-            977, // 2024-09-17
-        ),
-        new MythicPlusSeason(
-            12,
-            '[DF] Season 4',
-            'dragonflight-4',
-            70,
-            [orderDragonflightS4],
-            956, // 2024-04-23
-        ),
-        new MythicPlusSeason(
-            11,
-            '[DF] Season 3',
-            'dragonflight-3',
-            70,
-            [orderDragonflightS3],
-            933, // 2023-11-14
-        ),
-        new MythicPlusSeason(
-            10,
-            '[DF] Season 2',
-            'dragonflight-2',
-            70,
-            [orderDragonflightS2],
-            906, // 2023-05-09
-        ),
-        new MythicPlusSeason(
-            9,
-            '[DF] Season 1',
-            'dragonflight-1',
-            70,
-            [orderDragonflightS1],
-            885, // 2022-12-13
-        ),
-        new MythicPlusSeason(
-            8,
-            '[SL] Season 4',
-            'shadowlands-4',
-            60,
-            [orderShadowlandsS4],
-            866, // 2022-08-02
-        ),
-        new MythicPlusSeason(7, '[SL] Season 3', 'shadowlands-3', 60, [orderShadowlandsS3]),
-        new MythicPlusSeason(6, '[SL] Season 2', 'shadowlands-2', 60, [orderShadowlands]),
-        new MythicPlusSeason(5, '[SL] Season 1', 'shadowlands-1', 60, [orderShadowlands]),
-        new MythicPlusSeason(4, '[BfA] Season 4', 'battle-for-azeroth-4', 50, [
-            orderBattleForAzeroth,
-            orderBattleForAzeroth2,
-        ]),
-        new MythicPlusSeason(3, '[BfA] Season 3', 'battle-for-azeroth-3', 50, [
-            orderBattleForAzeroth,
-        ]),
-        new MythicPlusSeason(2, '[BfA] Season 2', 'battle-for-azeroth-2', 50, [
-            orderBattleForAzeroth,
-        ]),
-        new MythicPlusSeason(1, '[BfA] Season 1', 'battle-for-azeroth-1', 50, [
-            orderBattleForAzeroth,
-        ]),
+        new MythicPlusSeason({
+            id: 14,
+            name: '[TWW] Season 2',
+            slug: 'war-within-2',
+            minLevel: 80,
+            portalLevel: 10,
+            orders: [orderWarWithinS2],
+            startPeriod: 1001, // 2024-03-04
+        }),
+        new MythicPlusSeason({
+            id: 13,
+            name: '[TWW] Season 1',
+            slug: 'war-within-1',
+            minLevel: 80,
+            portalLevel: 10,
+            orders: [orderWarWithinS1],
+            startPeriod: 977, // 2024-09-17
+        }),
+        new MythicPlusSeason({
+            id: 12,
+            name: '[DF] Season 4',
+            slug: 'dragonflight-4',
+            minLevel: 70,
+            portalLevel: 20,
+            orders: [orderDragonflightS4],
+            startPeriod: 956, // 2024-04-23
+        }),
+        new MythicPlusSeason({
+            id: 11,
+            name: '[DF] Season 3',
+            slug: 'dragonflight-3',
+            minLevel: 70,
+            portalLevel: 20,
+            orders: [orderDragonflightS3],
+            startPeriod: 933, // 2023-11-14
+        }),
+        new MythicPlusSeason({
+            id: 10,
+            name: '[DF] Season 2',
+            slug: 'dragonflight-2',
+            minLevel: 70,
+            portalLevel: 20,
+            orders: [orderDragonflightS2],
+            startPeriod: 906, // 2023-05-09
+        }),
+        new MythicPlusSeason({
+            id: 9,
+            name: '[DF] Season 1',
+            slug: 'dragonflight-1',
+            minLevel: 70,
+            portalLevel: 20,
+            orders: [orderDragonflightS1],
+            startPeriod: 885, // 2022-12-13
+        }),
+        new MythicPlusSeason({
+            id: 8,
+            name: '[SL] Season 4',
+            slug: 'shadowlands-4',
+            minLevel: 60,
+            portalLevel: 20,
+            orders: [orderShadowlandsS4],
+            startPeriod: 866, // 2022-08-02
+        }),
+        new MythicPlusSeason({
+            id: 7,
+            name: '[SL] Season 3',
+            slug: 'shadowlands-3',
+            minLevel: 60,
+            portalLevel: 20,
+            orders: [orderShadowlandsS3],
+        }),
+        new MythicPlusSeason({
+            id: 6,
+            name: '[SL] Season 2',
+            slug: 'shadowlands-2',
+            minLevel: 60,
+            portalLevel: 20,
+            orders: [orderShadowlands],
+        }),
+        new MythicPlusSeason({
+            id: 5,
+            name: '[SL] Season 1',
+            slug: 'shadowlands-1',
+            minLevel: 60,
+            portalLevel: 20,
+            orders: [orderShadowlands],
+        }),
+        new MythicPlusSeason({
+            id: 4,
+            name: '[BfA] Season 4',
+            slug: 'battle-for-azeroth-4',
+            minLevel: 50,
+            portalLevel: 10,
+            orders: [orderBattleForAzeroth, orderBattleForAzeroth2],
+        }),
+        new MythicPlusSeason({
+            id: 3,
+            name: '[BfA] Season 3',
+            slug: 'battle-for-azeroth-3',
+            minLevel: 50,
+            portalLevel: 10,
+            orders: [orderBattleForAzeroth],
+        }),
+        new MythicPlusSeason({
+            id: 2,
+            name: '[BfA] Season 2',
+            slug: 'battle-for-azeroth-2',
+            minLevel: 50,
+            portalLevel: 10,
+            orders: [orderBattleForAzeroth],
+        }),
+        new MythicPlusSeason({
+            id: 1,
+            name: '[BfA] Season 1',
+            slug: 'battle-for-azeroth-1',
+            minLevel: 50,
+            portalLevel: 10,
+            orders: [orderBattleForAzeroth],
+        }),
     ].map((season) => [season.id, season]),
 );
 

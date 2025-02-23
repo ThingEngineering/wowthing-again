@@ -1,12 +1,14 @@
 export class MythicPlusSeason {
-    constructor(
-        public id: number,
-        public name: string,
-        public slug: string,
-        public minLevel: number,
-        public orders: number[][],
-        public startPeriod?: number,
-        public endPeriod?: number
-    )
-    {}
+    public id: number;
+    public name: string;
+    public slug: string;
+    public minLevel: number;
+    public portalLevel?: number;
+    public orders: number[][];
+    public startPeriod?: number;
+    public endPeriod?: number;
+
+    constructor(season: MythicPlusSeason) {
+        Object.assign(this, season);
+    }
 }
