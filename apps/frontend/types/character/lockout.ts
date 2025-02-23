@@ -7,6 +7,7 @@ export interface CharacterLockout {
     maxBosses: number
     name: string
     resetTime: string // datetime?
+    mangled?: boolean
 }
 
 export interface CharacterLockoutBoss {
