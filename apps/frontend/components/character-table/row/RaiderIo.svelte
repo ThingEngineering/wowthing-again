@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { seasonMap } from '@/data/dungeon'
+    import { seasonMap } from '@/data/mythic-plus'
     import { Region } from '@/enums/region'
     import { userStore } from '@/stores'
     import getRaiderIoColor from'@/utils/get-raider-io-color'

@@ -1,12 +1,17 @@
+import type { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
+
 export class MythicPlusSeason {
-    constructor(
-        public id: number,
-        public name: string,
-        public slug: string,
-        public minLevel: number,
-        public orders: number[][],
-        public startPeriod?: number,
-        public endPeriod?: number
-    )
-    {}
+    public id: number;
+    public name: string;
+    public slug: string;
+    public endPeriod?: number;
+    public minLevel: number;
+    public orders: number[][];
+    public portalLevel?: number;
+    public scoreType?: MythicPlusScoreType;
+    public startPeriod?: number;
+
+    constructor(season: MythicPlusSeason) {
+        Object.assign(this, season);
+    }
 }

@@ -1,7 +1,8 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { keyTiers, seasonMap } from '@/data/dungeon'
+    import { keyTiers } from '@/data/dungeon'
+    import { seasonMap } from'@/data/mythic-plus';
     import { timeStore } from '@/shared/stores/time'
     import { userStore } from '@/stores'
     import { getRunCounts } from '@/utils/dungeon'

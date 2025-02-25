@@ -333,12 +333,6 @@ public class JournalTool
                     }
 
                     var encounters = encountersByInstanceId[instanceId];
-                    if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))
-                    {
-                        encounters = encounters
-                            .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
-                            .ToList();
-                    }
 
                     // Instance has extra encounters, add those
                     if (Hardcoded.ExtraEncounters.TryGetValue(instanceId, out var extraEncounters))
@@ -394,6 +388,14 @@ public class JournalTool
                         });
                     }
 
+                    // Force sort order
+                    if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))
+                    {
+                        encounters = encounters
+                            .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
+                            .ToList();
+                    }
+
                     foreach (var encounter in encounters)
                     {
                         if (Hardcoded.IgnoredJournalEncounter.Contains(encounter.ID))
@@ -429,7 +431,7 @@ public class JournalTool
                         // Extra drops get added first
                         foreach (var extraItem in Hardcoded.ExtraItemDrops.GetValueOrDefault(encounter.ID, []))
                         {
-                            //Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
+                            // ToolContext.Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
                             difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
                             encounterItems.Add(new DumpJournalEncounterItem
                             {

@@ -1,53 +1,60 @@
 <script lang="ts">
-    import maxBy from 'lodash/maxBy'
-    import { getContext } from 'svelte'
-    
-    import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus'
-    import { componentTooltip } from '@/shared/utils/tooltips'
+    import maxBy from 'lodash/maxBy';
+    import { getContext } from 'svelte';
+
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus';
     import type {
         Character,
         CharacterMythicPlusAddonMap,
         CharacterMythicPlusAddonRun,
-        CharacterMythicPlusRun
-    } from '@/types'
+        CharacterMythicPlusRun,
+        MythicPlusSeason,
+    } from '@/types';
 
-    import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
+    import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte';
+    import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 
-    export let dungeonId: number
-    export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
-    export let seasonId: number
+    export let dungeonId: number;
+    export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[];
+    export let season: MythicPlusSeason;
 
-    const character: Character = getContext('character')
+    const character: Character = getContext('character');
 
-    let addonMap: CharacterMythicPlusAddonMap
-    let allRuns: CharacterMythicPlusAddonRun[]
-    let bestRun: CharacterMythicPlusRun
-    let hasPortal: boolean
-    let isTyrannical: boolean
-    let runs: CharacterMythicPlusRun[]
-    let showBoth: boolean
+    let addonMap: CharacterMythicPlusAddonMap;
+    let allRuns: CharacterMythicPlusAddonRun[];
+    let bestRun: CharacterMythicPlusRun;
+    let hasPortal: boolean;
+    let isTyrannical: boolean;
+    let runs: CharacterMythicPlusRun[];
+    let showBoth: boolean;
     $: {
-        const affixes = getWeeklyAffixes(character)
-        isTyrannical = affixes[0]?.name === 'Tyrannical'
+        const affixes = getWeeklyAffixes(character);
+        isTyrannical = affixes[0]?.name === 'Tyrannical';
 
-        runs = runsFunc(character, dungeonId) ?? []
+        runs = runsFunc(character, dungeonId) ?? [];
         // If there are 2 runs and the second run isn't higher than the first, discard it
         if (runs.length === 2 && runs[1].keystoneLevel <= runs[0].keystoneLevel) {
-            runs = [runs[0]]
+            runs = [runs[0]];
         }
 
         const tempMap: CharacterMythicPlusAddonMap =
-                character.mythicPlusSeasons?.[seasonId]?.[dungeonId] ||
-                character.mythicPlusAddon?.[seasonId]?.maps?.[dungeonId]
+            character.mythicPlusSeasons?.[season?.id]?.[dungeonId] ||
+            character.mythicPlusAddon?.[season?.id]?.maps?.[dungeonId];
 
         if (tempMap) {
-            showBoth = seasonId >= 6
+            showBoth = season.scoreType === MythicPlusScoreType.FortifiedTyrannical;
             if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
-                addonMap = tempMap
-                hasPortal = Math.max(
-                    tempMap.fortifiedScore?.overTime === false ? tempMap.fortifiedScore.level : 0,
-                    tempMap.tyrannicalScore?.overTime === false ? tempMap.tyrannicalScore.level : 0
-                ) >= 20
+                addonMap = tempMap;
+                hasPortal =
+                    Math.max(
+                        tempMap.fortifiedScore?.overTime === false
+                            ? tempMap.fortifiedScore.level
+                            : 0,
+                        tempMap.tyrannicalScore?.overTime === false
+                            ? tempMap.tyrannicalScore.level
+                            : 0,
+                    ) >= season.portalLevel;
                 //allRuns = character.mythicPlusAddon[seasonId].runs
                 //    .filter((run) => run.mapId === dungeonId)
             }
@@ -55,12 +62,9 @@
     }
 
     $: {
-        bestRun = maxBy(
-            runs || [],
-            (run) => (run.keystoneLevel * 10) + (run.timed ? 0 : 1)
-        )
+        bestRun = maxBy(runs || [], (run) => run.keystoneLevel * 10 + (run.timed ? 0 : 1));
         if (!addonMap) {
-            hasPortal = bestRun?.timed === true && bestRun.keystoneLevel >= 20
+            hasPortal = bestRun?.timed && bestRun.keystoneLevel >= season.portalLevel;
         }
     }
 </script>
@@ -119,23 +123,24 @@
             character,
             dungeonId,
             runs,
+            season,
         },
     }}
 >
     <div class="flex-wrapper">
         {#if showBoth}
             {#if addonMap?.fortifiedScore}
-                <span
-                    class="{getRunQualityAffix(addonMap.fortifiedScore)}"
-                >{addonMap.fortifiedScore.level}</span>
+                <span class={getRunQualityAffix(addonMap.fortifiedScore)}
+                    >{addonMap.fortifiedScore.level}</span
+                >
             {:else}
                 <span class="quality0">--</span>
             {/if}
 
             {#if addonMap?.tyrannicalScore}
-                <span
-                    class={getRunQualityAffix(addonMap.tyrannicalScore)}
-                >{addonMap.tyrannicalScore.level}</span>
+                <span class={getRunQualityAffix(addonMap.tyrannicalScore)}
+                    >{addonMap.tyrannicalScore.level}</span
+                >
             {:else}
                 <span class="quality0">--</span>
             {/if}
@@ -143,7 +148,7 @@
             <span class={getRunQuality(bestRun)}>
                 {bestRun.keystoneLevel}
             </span>
-            
+
             {#if runs.length > 1}
                 ({runs.length - 1})
             {/if}
