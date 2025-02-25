@@ -1,63 +1,64 @@
 <script lang="ts">
-    import { dungeonMap, keyTiers } from '@/data/dungeon'
-    import { seasonMap } from'@/data/mythic-plus';
-    import { raiderIoScores, raiderIoScoreOrder } from '@/data/raider-io'
-    import { timeStore } from '@/shared/stores/time'
-    import { userStore } from '@/stores'
-    import { getRunCounts } from '@/utils/dungeon'
-    import getRaiderIoColor from'@/utils/get-raider-io-color'
-    import { getRunQualityAffix } from '@/utils/mythic-plus'
-    import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types'
-    import type { UserDataRaiderIoScoreTiers } from '@/types/user-data'
+    import { dungeonMap, keyTiers } from '@/data/dungeon';
+    import { seasonMap } from '@/data/mythic-plus';
+    import { raiderIoScores, raiderIoScoreOrder } from '@/data/raider-io';
+    import { timeStore } from '@/shared/stores/time';
+    import { userStore } from '@/stores';
+    import { getRunCounts } from '@/utils/dungeon';
+    import getRaiderIoColor from '@/utils/get-raider-io-color';
+    import { getRunQualityAffix } from '@/utils/mythic-plus';
+    import type { Character, CharacterMythicPlusAddonRun, CharacterRaiderIoSeason } from '@/types';
+    import type { UserDataRaiderIoScoreTiers } from '@/types/user-data';
 
-    export let character: Character
-    export let scores: CharacterRaiderIoSeason
-    export let seasonId: number
-    export let tiers: UserDataRaiderIoScoreTiers
+    export let character: Character;
+    export let scores: CharacterRaiderIoSeason;
+    export let seasonId: number;
+    export let tiers: UserDataRaiderIoScoreTiers;
 
-    let dungeonIds: number[]
-    let runCounts: number[]
-    let scoreCount: number
-    let totalRuns: number
+    $: season = seasonMap[seasonId];
+
+    let dungeonIds: number[];
+    let runCounts: number[];
+    let scoreCount: number;
+    let totalRuns: number;
     $: {
-        dungeonIds = seasonMap[seasonId].orders.flat()
+        dungeonIds = season.orders.flat();
 
-        const startStamp = userStore.getPeriodForCharacter($timeStore, character, seasonMap[seasonId].startPeriod)
-            .startTime
-            .toUnixInteger()
+        const startStamp = userStore
+            .getPeriodForCharacter($timeStore, character, season.startPeriod)
+            .startTime.toUnixInteger();
 
-        const endStamp = userStore.getCurrentPeriodForCharacter($timeStore, character)
-            .endTime
-            .toUnixInteger()
+        const endStamp = userStore
+            .getCurrentPeriodForCharacter($timeStore, character)
+            .endTime.toUnixInteger();
 
-        runCounts = []
-        const allRuns: CharacterMythicPlusAddonRun[] = []
+        runCounts = [];
+        const allRuns: CharacterMythicPlusAddonRun[] = [];
         for (const [timestamp, weekRuns] of Object.entries(character.mythicPlusWeeks || {})) {
-            const weekStamp = parseInt(timestamp)
+            const weekStamp = parseInt(timestamp);
             if (weekStamp > startStamp && weekStamp <= endStamp) {
                 // data before this season is wonky, deduplicate it :(
                 if (seasonId < 10) {
-                    const dedupe = new Set<string>()
+                    const dedupe = new Set<string>();
                     for (const run of weekRuns) {
-                        const runKey = `${run.mapId}-${run.level}-${run.score}-${run.completed ? 1 : 0}`
+                        const runKey = `${run.mapId}-${run.level}-${run.score}-${run.completed ? 1 : 0}`;
                         if (!dedupe.has(runKey)) {
-                            dedupe.add(runKey)
-                            allRuns.push(run)
+                            dedupe.add(runKey);
+                            allRuns.push(run);
                         }
                     }
-                }
-                else {
-                    allRuns.push(...weekRuns)
+                } else {
+                    allRuns.push(...weekRuns);
                 }
             }
         }
 
-        runCounts = getRunCounts(allRuns)
-        totalRuns = runCounts.reduce((a, b) => a + b, 0)
+        runCounts = getRunCounts(allRuns);
+        totalRuns = runCounts.reduce((a, b) => a + b, 0);
 
-        scoreCount = Object.entries(scores || {})
-            .filter(([key, score]) => !key.startsWith('spec') && score > 0)
-            .length
+        scoreCount = Object.entries(scores || {}).filter(
+            ([key, score]) => !key.startsWith('spec') && score > 0,
+        ).length;
     }
 </script>
 
@@ -155,7 +156,7 @@
                             {#each [fortified, tyrannical] as score}
                                 <td class="dungeon-level">
                                     {#if score}
-                                        <span class="{getRunQualityAffix(score)}">
+                                        <span class={getRunQualityAffix(score)}>
                                             {score.level}
                                         </span>
                                     {:else}

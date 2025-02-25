@@ -1,34 +1,34 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate } from 'svelte';
 
-    import { petBreedMap } from '@/data/pet-breed'
-    import { ItemLocation } from '@/enums/item-location'
-    import { itemLocationIcons } from '@/shared/icons/mappings'
-    import { userAuctionExtraPetsStore } from '@/stores'
-    import { auctionState } from '@/stores/local-storage/auctions'
-    import connectedRealmName from '@/utils/connected-realm-name'
-    import { getColumnResizer } from '@/utils/get-column-resizer'
-    import petLocationTooltip from '@/utils/pet-location-tooltip'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { petBreedMap } from '@/data/pet-breed';
+    import { ItemLocation } from '@/enums/item-location';
+    import { itemLocationIcons } from '@/shared/icons/mappings';
+    import { userAuctionExtraPetsStore } from '@/stores';
+    import { auctionState } from '@/stores/local-storage/auctions';
+    import connectedRealmName from '@/utils/connected-realm-name';
+    import { getColumnResizer } from '@/utils/get-column-resizer';
+    import petLocationTooltip from '@/utils/pet-location-tooltip';
+    import { basicTooltip } from '@/shared/utils/tooltips';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Paginate from '@/shared/components/paginate/Paginate.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Paginate from '@/shared/components/paginate/Paginate.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let auctionsContainer: HTMLElement
-    export let page: number
+    export let auctionsContainer: HTMLElement;
+    export let page: number;
 
-    let debouncedResize: () => void
-    let wrapperDiv: HTMLElement
+    let debouncedResize: () => void;
+    let wrapperDiv: HTMLElement;
     $: {
         if (wrapperDiv) {
-            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'pet-wrapper')
-            debouncedResize()
+            debouncedResize = getColumnResizer(auctionsContainer, wrapperDiv, 'pet-wrapper');
+            debouncedResize();
         }
     }
-    
-    afterUpdate(() => debouncedResize?.())
+
+    afterUpdate(() => debouncedResize?.());
 </script>
 
 <style lang="scss">
@@ -54,7 +54,7 @@
         text-align: left;
     }
     .realm {
-        @include cell-width(12.0rem);
+        @include cell-width(12rem);
     }
     .price {
         @include cell-width(5.3rem);
@@ -73,14 +73,15 @@
         }
     }
     .pet-level {
-        @include cell-width(3.7rem);
+        @include cell-width(1.5rem, $paddingLeft: 0.1rem, $paddingRight: 0.1rem);
 
         text-align: right;
     }
     .pet-breed {
-        @include cell-width(2.0rem);
+        @include cell-width(2.2rem);
 
         text-align: center;
+        letter-spacing: 0.2ch;
     }
 </style>
 
@@ -89,29 +90,19 @@
 {#await userAuctionExtraPetsStore.search($auctionState)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
-    <Paginate
-        items={things}
-        perPage={20}
-        {page}
-        let:paginated
-    >
+    <Paginate items={things} perPage={20} {page} let:paginated>
         <div class="wrapper" bind:this={wrapperDiv}>
             {#each paginated as thing}
-                {@const auctions = $auctionState.limitToBestRealms ? thing.auctions.slice(0, 5) : thing.auctions}
+                {@const auctions = $auctionState.limitToBestRealms
+                    ? thing.auctions.slice(0, 5)
+                    : thing.auctions}
                 <div class="pet-wrapper">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th class="item" colspan="4">
-                                    <WowheadLink
-                                        type="npc"
-                                        id={thing.id}
-                                    >
-                                        <WowthingImage
-                                            name="npc/{thing.id}"
-                                            size={20}
-                                            border={1}
-                                        />
+                                    <WowheadLink type="npc" id={thing.id}>
+                                        <WowthingImage name="npc/{thing.id}" size={20} border={1} />
                                         {thing.name}
                                     </WowheadLink>
                                 </th>
@@ -127,7 +118,7 @@
                                         {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
                                     </td>
                                     <td class="pet-level quality{auction.petQuality}">
-                                        Level {auction.petLevel}
+                                        {auction.petLevel}
                                     </td>
                                     <td class="pet-breed">
                                         {petBreedMap[auction.petBreedId]}
@@ -141,7 +132,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="item" style="text-align: center" colspan="3">My Pets</th>
+                                    <th class="item" style="text-align: center" colspan="3"
+                                        >My Pets</th
+                                    >
                                 </tr>
                             </thead>
                             <tbody>
@@ -159,12 +152,9 @@
                                                 />
                                             </td>
                                             <td class="pet-level quality{pet.quality}">
-                                                Level {pet.level}
+                                                {pet.level}
                                             </td>
-                                            <td
-                                                class="pet-breed"
-                                                data-breed={pet.breedId}
-                                            >
+                                            <td class="pet-breed" data-breed={pet.breedId}>
                                                 {petBreedMap[pet.breedId]}
                                             </td>
                                         </tr>
