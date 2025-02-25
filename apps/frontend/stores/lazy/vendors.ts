@@ -1,3 +1,5 @@
+import intersectionWith from 'lodash/intersectionWith';
+
 import { classByArmorType } from '@/data/character-class';
 import { pvpCurrencies } from '@/data/currencies';
 import { transmogTypes } from '@/data/transmog';
@@ -18,7 +20,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-import type { DbData, DbDataQuery } from '@/shared/stores/db/types';
+import type { DbData, DbDataQuery, DbDataThing } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {
@@ -82,15 +84,21 @@ export function doVendors(stores: LazyStores): LazyVendors {
 
             // Find useful vendors
             const dbMap: Record<number, ManualDataSharedVendor> = {};
-            const vendorIds: number[] = [];
+
+            const vendorIdSets: number[][] = [[], []];
             for (const mapName of childCategory.vendorMaps) {
-                vendorIds.push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
+                vendorIdSets[0].push(...(stores.manualData.shared.vendorsByMap[mapName] || []));
             }
 
             for (const tagName of childCategory.vendorTags) {
-                vendorIds.push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
+                vendorIdSets[1].push(...(stores.manualData.shared.vendorsByMap[tagName] || []));
             }
-            
+
+            const vendorIds =
+                childCategory.vendorMaps.length > 0 && childCategory.vendorTags.length > 0
+                    ? intersectionWith(...vendorIdSets, (a, b) => a === b)
+                    : vendorIdSets.flat();
+
             const query: DbDataQuery = {
                 maps: childCategory.vendorMaps,
                 tags: childCategory.vendorTags,
@@ -435,7 +443,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.staticData,
                         item.type,
                         item.id,
-                        item.trackingQuestId
+                        item.trackingQuestId,
                     );
 
                     if (
@@ -455,14 +463,20 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         (item.type === RewardType.Weapon && !stores.vendorState.showWeapons) ||
                         (lookupType === LookupType.Transmog &&
                             sharedItem?.classId === ItemClass.Armor &&
-                            ((sharedItem.subclassId === ArmorSubclass.Cloth && !stores.vendorState.showCloth) ||
-                                (sharedItem.subclassId === ArmorSubclass.Leather && !stores.vendorState.showLeather) ||
-                                (sharedItem.subclassId === ArmorSubclass.Mail && !stores.vendorState.showMail) ||
-                                (sharedItem.subclassId === ArmorSubclass.Plate && !stores.vendorState.showPlate))) ||
+                            ((sharedItem.subclassId === ArmorSubclass.Cloth &&
+                                !stores.vendorState.showCloth) ||
+                                (sharedItem.subclassId === ArmorSubclass.Leather &&
+                                    !stores.vendorState.showLeather) ||
+                                (sharedItem.subclassId === ArmorSubclass.Mail &&
+                                    !stores.vendorState.showMail) ||
+                                (sharedItem.subclassId === ArmorSubclass.Plate &&
+                                    !stores.vendorState.showPlate))) ||
                         (lookupType === LookupType.Transmog &&
                             sharedItem?.classId === ItemClass.Weapon &&
                             !stores.vendorState.showWeapons) ||
-                        (lookupType === LookupType.Transmog && sharedItem?.cosmetic && !stores.vendorState.showCosmetics) ||
+                        (lookupType === LookupType.Transmog &&
+                            sharedItem?.cosmetic &&
+                            !stores.vendorState.showCosmetics) ||
                         (sharedItem?.inventoryType === InventoryType.Back &&
                             !stores.vendorState.showCloaks)
                     ) {
