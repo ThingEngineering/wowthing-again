@@ -89,7 +89,7 @@ class DbDataStore extends WritableFancyStore<DbData> {
         let things = intersectionWith(...subsets, (a, b) => a === b);
 
         if (query.type) {
-            things = things.filter((thing) => thing.type === query.type)
+            things = things.filter((thing) => thing.type === query.type);
         }
 
         return things;
