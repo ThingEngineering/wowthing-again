@@ -359,7 +359,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 return 'z';
             }
 
-            const orderIndex = lockoutDifficultyOrderMap[diff.difficulty.id] || 99;
+            const orderIndex = 100 - (lockoutDifficultyOrderMap[diff.difficulty.id] || 99);
             return [
                 leftPad(journalInstance?.order || 9999, 4, '0'),
                 leftPad(orderIndex, 2, '0'),
