@@ -18,6 +18,7 @@ import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import type { WarbankItem } from '@/types/items';
+import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
 
 interface LazyStores {
     itemData: ItemData;
@@ -106,6 +107,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
             const setItem = stores.itemData.items[setItemId];
             const classId = maskToClass[setItem.classMask];
             const setItemInventoryType = fixedInventoryType(setItem.inventoryType);
+            const setItemRedundancySlot = inventoryTypeToItemRedundancySlot[setItemInventoryType];
 
             seasonData[classId] ||= {};
             const slotData = (seasonData[classId][setItemInventoryType] = new LazyConvertibleSlot(
@@ -129,10 +131,8 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             ((stores.itemData.items[item.itemId]?.classMask || 0) &
                                 setItem.classMask) ===
                                 setItem.classMask &&
-                            (
-                                item.itemId === setItemId ||
-                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))
-                            ),
+                            (item.itemId === setItemId ||
+                                (item.bonusIds || []).some((bonusId) => bonusIds.has(bonusId))),
                     ),
                 ],
             );
@@ -156,6 +156,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
 
                 for (const [character, charItems] of charactersWithItems) {
                     const characterData: LazyConvertibleCharacterItem[] = [];
+                    const maxItemLevel = character.highestItemLevel?.[setItemRedundancySlot] || 0;
 
                     for (const charItem of charItems) {
                         if (
@@ -392,6 +393,20 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                                     : character.currencies?.[upgradeId]?.quantity ||
                                                       0;
                                             charHas += Math.floor(charCount / upgradeCount);
+                                        }
+
+                                        // upgrades to the current highest item level cost no crests
+                                        for (
+                                            let upgradeLevel = sigh.currentUpgrade + 1;
+                                            upgradeLevel <= 4;
+                                            upgradeLevel++
+                                        ) {
+                                            const upgradedItemLevel =
+                                                sigh.equippedItem.itemLevel +
+                                                3 * (upgradeLevel - sigh.currentUpgrade);
+                                            if (upgradedItemLevel <= maxItemLevel) {
+                                                charHas++;
+                                            }
                                         }
 
                                         sigh.canUpgrade = charHas >= 4 - sigh.currentUpgrade;
