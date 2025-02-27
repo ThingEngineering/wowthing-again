@@ -120,7 +120,7 @@ export const taskList: Task[] = [
     {
         key: 'holidayLove',
         minimumLevel: 10,
-        name: "[Event] Love is in the Air",
+        name: '[Event] Love is in the Air',
         shortName: '💘',
         type: 'multi',
     },
@@ -361,6 +361,13 @@ export const taskList: Task[] = [
         name: '[TWW] 11.0.x',
         shortName: '11.0',
         minimumLevel: 70,
+        type: 'multi',
+    },
+    {
+        key: 'twwChores11_1',
+        name: '[TWW] 11.1.x',
+        shortName: '11.1',
+        minimumLevel: 80,
         type: 'multi',
     },
     {
@@ -1023,6 +1030,48 @@ export const multiTaskMap: Record<string, Chore[]> = {
             minimumLevel: 70,
             noProgress: true,
             showQuestName: true,
+        },
+    ],
+    twwChores11_1: [
+        {
+            taskKey: 'twwUndermineCartel',
+            taskName: '[Um] Choose Cartel',
+            accountWide: true,
+            questIds: [84948],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwUndermineChett',
+            taskName: '[Um] C.H.E.T.T. List',
+            questIds: [87296],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwUndermineManyJobs',
+            taskName: '[Um] 10x Shipping & Handling Jobs',
+            questIds: [85869], // Many Jobs, Handle It!
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwUndermineReduce',
+            taskName: '[Um] 3x S.C.R.A.P. Jobs',
+            questIds: [85879], // Reduce, Resuse, Resell
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwUndermineSurge',
+            taskName: '[Um] Surge Pricing',
+            questIds: [86775], // Urge to Surge
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwUndermineSpecial',
+            taskName: '[Um] Special Assignment',
+            questIds: [
+                85487, // Boom! Headshot!
+                85488, // Security Detail
+            ],
+            questReset: DbResetType.Weekly,
         },
     ],
     twwDelveKeys: [
