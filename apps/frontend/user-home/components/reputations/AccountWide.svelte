@@ -1,11 +1,11 @@
 <script lang="ts">
     import { getRenownData } from './get-renown-data';
     import { staticStore } from '@/shared/stores/static';
-    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
-    import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
+    import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     export let accountSets: [ManualDataReputationSet[], number][];
@@ -16,14 +16,13 @@
     .column {
         --image-border-width: 2px;
 
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+        columns: 2;
     }
     .set {
         display: flex;
         flex-direction: column;
         gap: 0.2rem;
+        margin-bottom: 1rem;
     }
     .reputation {
         position: relative;
@@ -43,7 +42,7 @@
 
 <div class="column">
     {#each accountSets as [reputationSets, reputationsIndex]}
-        <div class="set">
+        <div class="set no-break">
             {#each reputationSets as reputationSet, reputationSetsIndex}
                 {@const { characterRep, dataRep, cls, renownLevel } = getRenownData({
                     reputation: reputationSet,
@@ -63,15 +62,11 @@
                             dataRep,
                             // paragon,
                             // reputation,
-                        }
+                        },
                     }}
                 >
-                    <WowthingImage
-                        name={reputationSet.both.icon}
-                        size={48}
-                        border={2}
-                    />
-                    
+                    <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
+
                     {#if reputationSet.both.iconText}
                         <span class="text pill">{reputationSet.both.iconText}</span>
                     {/if}
