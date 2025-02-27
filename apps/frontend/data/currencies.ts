@@ -52,6 +52,11 @@ export const categoryChildren: Record<number, StaticDataCurrencyCategory[]> = {
             name: 'Season 1',
             slug: 'season-1',
         },
+        {
+            id: 126012,
+            name: 'Season 2',
+            slug: 'season-2',
+        },
     ],
 
     // Dragonflight
@@ -118,11 +123,15 @@ export const currencyExtra: Record<number, number[]> = {
     // The War Within - Season 1
     126011: [
         2813, // Harmonized Silk
+    ],
+    // The War Within - Season 2
+    126012: [
+        3116, // Essence of Kaja'mite
         3008, // Valorstones
-        2914, // Weathered Harbinger Crest
-        2915, // Carved Harbinger Crest
-        2916, // Runed Harbinger Crest
-        2917, // Gilded Harbinger Crest
+        3107, // Weathered Undermine Crest
+        3108, // Carved Undermine Crest
+        3109, // Runed Undermine Crest
+        3110, // Gilded Undermine Crest
         3028, // Restored Coffer Key
     ],
 
@@ -283,7 +292,6 @@ export const currencyItems: Record<number, number[]> = {
     // The War Within
     260: [
         210814, // Artisan's Acuity
-        229899, // Coffer Key Shard
         223951, // Earth-Encrusted Gem
         212493, // Odd Glob of Wax
         220520, // Radiant Echo
@@ -292,13 +300,16 @@ export const currencyItems: Record<number, number[]> = {
     // The War Within - Season 1
     126011: [
         220769, // Algari Token of Merit
-        229899, // Coffer Key Shard
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
         null,
         224069, // Enchanted Weathered Harbinger Crest
         224072, // Enchanted Runed Harbinger Crest
         224073, // Enchanted Gilded Harbinger Crest
+    ],
+    // The War Within - Season 2
+    126012: [
+        229899, // Coffer Key Shard
     ],
 
     // Player vs Player
