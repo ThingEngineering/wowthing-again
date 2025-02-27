@@ -313,6 +313,12 @@ export const extraInstances: StaticDataInstance[] = [
         name: 'War Within World Bosses',
         shortName: 'WWWB',
     },
+    {
+        expansion: 10,
+        id: 110002,
+        name: 'The Gobfather',
+        shortName: 'Gob',
+    },
 
     // Holidays
     {
