@@ -12,12 +12,41 @@ export const modifierToTier: Record<number, number> = {
 
 type CrestData = [number, number][];
 
-export const warWithinUpgrade1: CrestData = [[2914, 15]]; // Weathered
-export const warWithinUpgrade2: CrestData = [[2915, 15]]; // Carved
-export const warWithinUpgrade3: CrestData = [[2916, 15]]; // Runed
-export const warWithinUpgrade4: CrestData = [[2917, 15]]; // Gilded
+export const currentUpgrade1: CrestData = [[3107, 15]]; // Weathered
+export const currentUpgrade2: CrestData = [[3108, 15]]; // Carved
+export const currentUpgrade3: CrestData = [[3109, 15]]; // Runed
+export const currentUpgrade4: CrestData = [[3110, 15]]; // Gilded
 
+// ID = ItemConversion.db2
 export const convertibleCategories: ConvertibleCategory[] = [
+    {
+        id: 10,
+        minimumLevel: 80,
+        name: '[TWW] Season 2',
+        slug: 'tww-season-2',
+        conversionCurrencyId: 3116, // Essence of Kaja'mite
+        tiers: [
+            {
+                itemLevel: 662,
+                highUpgrade: currentUpgrade4,
+                lowUpgrade: currentUpgrade3,
+            },
+            {
+                itemLevel: 649,
+                highUpgrade: currentUpgrade3,
+                lowUpgrade: currentUpgrade2,
+            },
+            {
+                itemLevel: 636,
+                highUpgrade: currentUpgrade2,
+                lowUpgrade: currentUpgrade1,
+            },
+            {
+                itemLevel: 623,
+                highUpgrade: currentUpgrade1,
+            },
+        ],
+    },
     {
         id: 8,
         minimumLevel: 80,
@@ -27,22 +56,15 @@ export const convertibleCategories: ConvertibleCategory[] = [
         tiers: [
             {
                 itemLevel: 623,
-                highUpgrade: warWithinUpgrade4,
-                lowUpgrade: warWithinUpgrade3,
             },
             {
                 itemLevel: 610,
-                highUpgrade: warWithinUpgrade3,
-                lowUpgrade: warWithinUpgrade2,
             },
             {
                 itemLevel: 597,
-                highUpgrade: warWithinUpgrade2,
-                lowUpgrade: warWithinUpgrade1,
             },
             {
-                itemLevel: 584,
-                highUpgrade: warWithinUpgrade1,
+                itemLevel: 683,
             },
         ],
         purchases: [
