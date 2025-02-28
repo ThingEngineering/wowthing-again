@@ -9,6 +9,7 @@ import type {
 } from '@/types';
 import type { ManualDataReputationSet } from '@/types/data/manual';
 import findReputationTier from '@/utils/find-reputation-tier';
+import { brannHack } from '@/components/tooltips/reputation/brann-hack';
 
 interface GetRenownDataParameters {
     character?: Character;
@@ -82,12 +83,9 @@ export function getRenownData({
             const repTier = findReputationTier(tiers, ret.characterRep.value);
 
             if (ret.dataRep.id === brannId) {
-                const levelMatch = repTier.name.match(/(\d\d)/);
+                const levelMatch = repTier.name.match(/(\d\d)$/);
                 if (levelMatch) {
-                    const oof = Math.max(
-                        0,
-                        Math.floor(Math.abs(parseInt(levelMatch[1]) - 80) / 10) - 1,
-                    );
+                    const oof = brannHack(levelMatch[1]);
                     ret.cls = `reputation${oof} reputation${oof}-border`;
 
                     // Brann hack to treat him as blocks of 10 levels
