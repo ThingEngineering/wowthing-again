@@ -226,3 +226,7 @@ div.content {
 .faded {
     opacity: 0.5;
 }
+.no-break {
+    break-inside: avoid;
+    overflow: hidden; /* Firefox fix */
+}
