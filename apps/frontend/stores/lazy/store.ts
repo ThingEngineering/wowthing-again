@@ -341,7 +341,12 @@ export class LazyStore implements LazyUgh {
             this.illusionsFunc = once(() => this.doIllusions(userData));
         }
 
-        if (changedData.userData || changedHashes.journalState || changedHashes.settingsTransmog) {
+        if (
+            changedData.userData ||
+            changedData.userQuestData ||
+            changedHashes.journalState ||
+            changedHashes.settingsTransmog
+        ) {
             this.journalFunc = once(() =>
                 doJournal({
                     settings,
@@ -350,6 +355,7 @@ export class LazyStore implements LazyUgh {
                     journalData,
                     staticData,
                     userData,
+                    userQuestData,
                 }),
             );
         }
