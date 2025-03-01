@@ -15,6 +15,7 @@ import { itemStore } from '@/stores';
 // import getFirstMatch from '@/utils/get-first-match'
 import type { GearState } from '@/stores/local-storage';
 import type { Character, CharacterGear } from '@/types';
+import type { ItemDataItem } from '@/types/data/item';
 
 export default function getCharacterGear(state: GearState, character: Character): CharacterGear[] {
     const itemData = get(itemStore);
@@ -27,6 +28,8 @@ export default function getCharacterGear(state: GearState, character: Character)
         state.highlightUpgrades;
 
     for (const inventorySlot of slotOrder) {
+        let equippedItem: ItemDataItem;
+
         const gear: CharacterGear = {
             equipped: character.equippedItems[inventorySlot],
             highlight: false,
@@ -66,11 +69,11 @@ export default function getCharacterGear(state: GearState, character: Character)
             gear.lowItemLevel = true;
         }
 
-        if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 340) {
+        if (character.level === Constants.characterMaxLevel && gear.equipped.itemLevel >= 580) {
             if (state.highlightEnchants) {
                 let enchants: number[];
                 if (inventorySlot === InventorySlot.OffHand) {
-                    const equippedItem = itemData.items[gear.equipped.itemId];
+                    equippedItem ||= itemData.items[gear.equipped.itemId];
                     if (
                         equippedItem.classId === ItemClass.Weapon &&
                         equippedItem.subclassId !== WeaponSubclass.HeldInOffHand &&
@@ -105,7 +108,8 @@ export default function getCharacterGear(state: GearState, character: Character)
             }
 
             if (state.highlightGems) {
-                let gemCount = 0;
+                equippedItem ||= itemData.items[gear.equipped.itemId];
+                let gemCount = equippedItem?.socketTypes?.length || 0;
                 for (const bonusId of gear.equipped.bonusIds) {
                     if (itemData.itemBonusSocket.has(bonusId)) {
                         const itemBonus = itemData.itemBonuses[bonusId];

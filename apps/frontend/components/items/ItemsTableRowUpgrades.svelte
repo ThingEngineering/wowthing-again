@@ -1,24 +1,23 @@
 <script lang="ts">
-    import { warWithinUpgrade1, warWithinUpgrade2, warWithinUpgrade3, warWithinUpgrade4 } from './convertible/data';
+    import {
+        currentUpgrade1,
+        currentUpgrade2,
+        currentUpgrade3,
+        currentUpgrade4,
+    } from './convertible/data';
     import { Constants } from '@/data/constants';
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { Character } from '@/types'
-    
-    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { Character } from '@/types';
 
-    export let character: Character
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+
+    export let character: Character;
 
     const currencies: number[][] = [
-        [
-            warWithinUpgrade1[0][0],
-            warWithinUpgrade2[0][0]
-        ],
-        [
-            warWithinUpgrade3[0][0],
-            warWithinUpgrade4[0][0]
-        ],
-    ]
+        [currentUpgrade1[0][0], currentUpgrade2[0][0]],
+        [currentUpgrade3[0][0], currentUpgrade4[0][0]],
+    ];
 </script>
 
 <style lang="scss">
@@ -61,11 +60,7 @@
 
 <td class="flightstones">
     <div class="flightstones-wrapper">
-        <WowthingImage
-            border={1}
-            name="currency/{Constants.currencies.itemUpgrade}"
-            size={24}
-        />
+        <WowthingImage border={1} name="currency/{Constants.currencies.itemUpgrade}" size={24} />
         {(character.currencies?.[Constants.currencies.itemUpgrade]?.quantity || 0).toLocaleString()}
     </div>
 </td>
@@ -84,11 +79,7 @@
                         },
                     }}
                 >
-                    <WowthingImage
-                        border={1}
-                        name={`currency/${currencyId}`}
-                        size={16}
-                    />
+                    <WowthingImage border={1} name={`currency/${currencyId}`} size={16} />
                     <span
                         class="amount"
                         class:faded={crests === 0}
