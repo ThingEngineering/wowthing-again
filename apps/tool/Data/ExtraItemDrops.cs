@@ -1082,6 +1082,21 @@ public static partial class Hardcoded
                 new(134019, DungeonDifficultiesHeroic), // Don Carlos' Famous Hat
             ]
         },
+        // Karazhan > Attumen the Huntsman
+        {
+            1553,
+            [
+                new(23809, RaidDifficultiesLegacy10Normal), // Schematic: Stabilized Eternium Scope
+            ]
+        },
+        // Karazhan > Opera Hall
+        {
+            1556,
+            [
+                new(138017, RaidDifficultiesLegacy10Normal), // Clothes Chest Pattern: Karazhan Opera House
+                new(122231, RaidDifficultiesLegacy10Normal), // Music Roll: Karazhan Opera House
+            ]
+        },
         // Karazhan / Nightbane
         {
             1_0745_0,
@@ -2112,6 +2127,14 @@ public static partial class Hardcoded
         #endregion
 
         #region Legion
+        // Return to Karazhan > Shared Drops
+        {
+            2_000_860,
+            [
+                new(143615, DungeonDifficultiesHeroicMythic), // Technique: Glyph of Crackling Ox Lightning
+                new(143616, DungeonDifficultiesHeroicMythic), // Technique: Glyph of the Trusted Steed
+            ]
+        },
         // Return to Karazhan > Nightbane
         {
             1_0860_0,
