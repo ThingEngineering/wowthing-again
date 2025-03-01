@@ -11,14 +11,14 @@ public class RedisItems
     public string[] Names { get; set; }
     public List<int> OppositeFactionIds { get; set; }
 
-    public Dictionary<int, List<int>> CompletesQuest { get; set; }
+    public Dictionary<int, int[]> CompletesQuest { get; set; }
     public Dictionary<short, int[]> CraftingQualities { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }
     public Dictionary<short, int[]> ItemConversionEntries { get; set; }
     public Dictionary<short, short> LimitCategories { get; set; }
     public Dictionary<short, int[]> LimitCategoryItems { get; set; }
     public Dictionary<int, int[]> SpecOverrides { get; set; }
-    public Dictionary<int, int> TeachesSpell { get; set; }
+    public Dictionary<int, int[]> TeachesSpell { get; set; }
     public Dictionary<int, int> TeachesTransmog { get; set; }
 
     public RedisItemData[]? RawItems { get; set; }
