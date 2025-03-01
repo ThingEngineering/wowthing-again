@@ -24,6 +24,7 @@ public class DumpItemSparse
     public short RequiredSkill { get; set; }
     public short RequiredSkillRank { get; set; }
     public int Stackable { get; set; }
+    public int StartQuestID { get; set; }
 
     [Name("Display_lang")]
     public string Name { get; set; } = string.Empty;

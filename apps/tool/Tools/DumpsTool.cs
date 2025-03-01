@@ -874,9 +874,15 @@ public class DumpsTool
 
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
 
-            dbItem.CompletesQuestIds = _completeQuestByItemId.GetValueOrDefault(item.ID, []).ToArray();
-            dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).ToArray();
-            dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).ToArray();
+            dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
+            dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).Order().ToArray();
+
+            var completesQuestIds = _completeQuestByItemId.GetValueOrDefault(item.ID, []);
+            if (itemSparse.StartQuestID > 0)
+            {
+                completesQuestIds.Add(itemSparse.StartQuestID);
+            }
+            dbItem.CompletesQuestIds = completesQuestIds.Order().ToArray();
 
             // Flags
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
