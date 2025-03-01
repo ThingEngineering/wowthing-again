@@ -33,6 +33,7 @@ export class ItemDataItem {
         // public requiredLevel: number,
         public bindType: BindType,
         public unique: number,
+        public socketTypes: number[],
         appearanceArrays?: ItemDataItemAppearanceArray[],
     ) {
         this.appearanceArrays = appearanceArrays || [];
@@ -93,6 +94,7 @@ export type ItemDataItemArray = [
     // requiredLevel: number,
     bindType: BindType,
     unique: number,
+    socketTypes: number[],
     appearanceArrays?: ItemDataItemAppearanceArray[],
 ];
 

@@ -256,7 +256,8 @@
                             {/if}
 
                             {#if specIds?.length > 0 || thing.classId > 0 || classes?.length === 1}
-                                {@const classId = thing.classId || classes?.[0]}
+                                {@const classId =
+                                    thing.classId || (classes?.length === 1 ? classes[0] : 0)}
                                 <div class="icon icon-class class-{classId} drop-shadow">
                                     {#if specIds?.length <= 2}
                                         <SpecializationIcon

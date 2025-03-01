@@ -30,6 +30,9 @@ public class WowItem
     public short LimitCategory { get; set; }
     public short CraftingQuality { get; set; }
 
+    [Required]
+    public short[] Sockets { get; set; } = Array.Empty<short>();
+
     public WowItem(int id)
     {
         Id = id;

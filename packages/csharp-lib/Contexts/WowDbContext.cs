@@ -213,6 +213,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .Property(pc => pc.ShouldUpdate)
             .HasDefaultValue(true);
 
+        builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.Sockets)
+            .HasDefaultValue(Array.Empty<short>());
+
         // Unique indexes
         builder.Entity<ApplicationUser>()
             .HasIndex(au => au.ApiKey)

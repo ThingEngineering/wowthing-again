@@ -1,75 +1,72 @@
 <script lang="ts">
-    import { warWithinUpgrade1, warWithinUpgrade2, warWithinUpgrade3, warWithinUpgrade4 } from './convertible/data'
-    import { Constants } from '@/data/constants'
-    import { iconStrings } from '@/data/icons'
-    import { itemStore } from '@/stores'
-    import { getItemUrl } from '@/utils/get-item-url'
-    import type { Character, CharacterGear } from '@/types'
+    import {
+        currentUpgrade1,
+        currentUpgrade2,
+        currentUpgrade3,
+        currentUpgrade4,
+    } from './convertible/data';
+    import { Constants } from '@/data/constants';
+    import { iconStrings } from '@/data/icons';
+    import { itemStore } from '@/stores';
+    import { getItemUrl } from '@/utils/get-item-url';
+    import type { Character, CharacterGear } from '@/types';
 
-    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CraftedQualityIcon from '@/shared/components/images/CraftedQualityIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character = undefined
-    export let forceCrafted = false
-    export let gear: Partial<CharacterGear>
-    export let tierPieces: number[] = undefined
-    export let useHighlighting = false
-    export let useItemCount = false
+    export let character: Character = undefined;
+    export let forceCrafted = false;
+    export let gear: Partial<CharacterGear>;
+    export let tierPieces: number[] = undefined;
+    export let useHighlighting = false;
+    export let useItemCount = false;
 
     function getIconName(): [string, number] {
-        let tiers: [number, number][][]
+        let tiers: [number, number][][];
         for (const bonusId of gear.equipped.bonusIds) {
             if (!$itemStore.itemBonusCurrentSeason.has(bonusId)) {
-                continue
+                continue;
             }
 
-            const upgrade = $itemStore.itemBonusToUpgrade[bonusId]
+            const upgrade = $itemStore.itemBonusToUpgrade[bonusId];
             if (upgrade?.[0] > 0 && upgrade[1] < upgrade[2]) {
                 if (upgrade[0] === Constants.upgradeTiers.explorer) {
-                    tiers = [null, null]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.adventurer) {
-                    tiers = [null, warWithinUpgrade1]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.veteran) {
-                    tiers = [warWithinUpgrade1, warWithinUpgrade2]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.champion) {
-                    tiers = [warWithinUpgrade2, warWithinUpgrade3]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.hero) {
-                    tiers = [warWithinUpgrade3, warWithinUpgrade4]
-                }
-                else if (upgrade[0] === Constants.upgradeTiers.myth) {
-                    tiers = [warWithinUpgrade4, null]
-                }
-                else {
-                    console.log(upgrade)
+                    tiers = [null, null];
+                } else if (upgrade[0] === Constants.upgradeTiers.adventurer) {
+                    tiers = [null, currentUpgrade1];
+                } else if (upgrade[0] === Constants.upgradeTiers.veteran) {
+                    tiers = [currentUpgrade1, currentUpgrade2];
+                } else if (upgrade[0] === Constants.upgradeTiers.champion) {
+                    tiers = [currentUpgrade2, currentUpgrade3];
+                } else if (upgrade[0] === Constants.upgradeTiers.hero) {
+                    tiers = [currentUpgrade3, currentUpgrade4];
+                } else if (upgrade[0] === Constants.upgradeTiers.myth) {
+                    tiers = [currentUpgrade4, null];
+                } else {
+                    console.log(upgrade);
                 }
 
                 if (upgrade[1] < 4 && tiers[0]) {
-                    return getCurrencyData(tiers[0][0])
+                    return getCurrencyData(tiers[0][0]);
+                } else if (upgrade[1] >= 4 && tiers[1] && (tiers.length === 2 || upgrade[1] < 8)) {
+                    return getCurrencyData(tiers[1][0]);
+                } else if (upgrade[1] >= 8 && tiers[2]) {
+                    return getCurrencyData(tiers[2][0]);
                 }
-                else if (upgrade[1] >= 4 && tiers[1] && (tiers.length === 2 || upgrade[1] < 8)) {
-                    return getCurrencyData(tiers[1][0])
-                }
-                else if (upgrade[1] >= 8 && tiers[2]) {
-                    return getCurrencyData(tiers[2][0])
-                }
-        
-                return ['currency/3008', 0]
+
+                return ['currency/3008', 0];
             }
         }
 
-        return [null, 0]
+        return [null, 0];
     }
 
     function getCurrencyData(tier: [number, number]): [string, number] {
         return [
             `currency/${tier[0]}`,
-            Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1])
-        ]
+            Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1]),
+        ];
     }
 </script>
 
@@ -159,22 +156,15 @@
     }
 </style>
 
-<td
-    class="gear"
-    class:no-problem={useHighlighting && !gear.highlight}
->
+<td class="gear" class:no-problem={useHighlighting && !gear.highlight}>
     {#if gear.equipped !== undefined}
         {@const item = $itemStore.items[gear.equipped.itemId]}
         <a
             class="quality{gear.equipped.quality}"
             href={getItemUrl(gear.equipped, character, tierPieces)}
         >
-            <WowthingImage
-                name="item/{gear.equipped.itemId}"
-                size={40}
-                border={2}
-            />
-            
+            <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
+
             {#if useItemCount}
                 {#if item?.equippable}
                     <span class="item-level right">{gear.equipped.itemLevel}</span>
@@ -185,31 +175,19 @@
                 <span class="item-level">{gear.equipped.itemLevel}</span>
             {/if}
         </a>
- 
+
         {#if gear.highlight}
             <div class="problems">
                 {#if gear.missingEnchant}
-                    <WowthingImage
-                        name="{Constants.icons.enchant}"
-                        size={20}
-                        border={2}
-                    />
+                    <WowthingImage name={Constants.icons.enchant} size={20} border={2} />
                 {/if}
 
                 {#if gear.missingGem}
-                    <WowthingImage
-                        name="{Constants.icons.gem}"
-                        size={20}
-                        border={2}
-                    />
+                    <WowthingImage name={Constants.icons.gem} size={20} border={2} />
                 {/if}
 
                 {#if gear.missingHeirloom}
-                    <WowthingImage
-                        name="{Constants.icons.heirloom}"
-                        size={20}
-                        border={2}
-                    />
+                    <WowthingImage name={Constants.icons.heirloom} size={20} border={2} />
                 {/if}
 
                 {#if gear.missingUpgrade}
@@ -221,15 +199,9 @@
                         class:faded={iconName && crestCount === 0}
                     >
                         {#if iconName}
-                            <WowthingImage
-                                border={0}
-                                name={iconName}
-                                size={20}
-                            />
+                            <WowthingImage border={0} name={iconName} size={20} />
                         {:else}
-                            <IconifyIcon
-                                icon={iconStrings['plus']}
-                            />
+                            <IconifyIcon icon={iconStrings['plus']} />
                         {/if}
                     </div>
                 {/if}
@@ -237,7 +209,10 @@
         {:else if gear.equipped.craftedQuality > 0 || forceCrafted || item?.craftingQuality}
             <div class="crafted-quality">
                 <CraftedQualityIcon
-                    quality={Math.max(1, gear.equipped.craftedQuality || item?.craftingQuality || 0)}
+                    quality={Math.max(
+                        1,
+                        gear.equipped.craftedQuality || item?.craftingQuality || 0,
+                    )}
                 />
             </div>
         {/if}
