@@ -34,6 +34,9 @@ public class WowItem
     public short[] Sockets { get; set; } = [];
 
     [Required]
+    public int[] CompletesQuestIds { get; set; } = [];
+
+    [Required]
     public int[] TeachesSpellIds { get; set; } = [];
 
     public WowItem(int id)

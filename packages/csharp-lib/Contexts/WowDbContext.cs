@@ -218,6 +218,10 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .HasDefaultValue(Array.Empty<short>());
 
         builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.CompletesQuestIds)
+            .HasDefaultValue(Array.Empty<int>());
+
+        builder.Entity<WowItem>()
             .Property(wowItem => wowItem.TeachesSpellIds)
             .HasDefaultValue(Array.Empty<int>());
 
