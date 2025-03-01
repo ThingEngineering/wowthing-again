@@ -9,7 +9,7 @@ import { UserCount, type UserData } from '@/types';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
 import { leftPad } from '@/utils/formatting';
-import { JournalDataEncounterItem, type JournalData } from '@/types/data';
+import { JournalDataEncounterItem, type JournalData, type UserQuestData } from '@/types/data';
 import type { JournalState } from '../local-storage';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
@@ -28,6 +28,7 @@ interface LazyStores {
     journalData: JournalData;
     staticData: StaticData;
     userData: UserData;
+    userQuestData: UserQuestData;
 }
 
 export function doJournal(stores: LazyStores): LazyJournal {
@@ -221,13 +222,21 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas =
                                         stores.userData.hasIllusion.has(enchantmentId);
                                 } else if (item.type === RewardType.Recipe) {
-                                    const ability = stores.staticData.professionAbilityByItemId[item.id];
+                                    const ability =
+                                        stores.staticData.professionAbilityByItemId[item.id];
                                     if (ability) {
-                                        const collectorId = stores.settings.professions.collectingCharacters?.[ability.professionId];
+                                        const collectorId =
+                                            stores.settings.professions.collectingCharacters?.[
+                                                ability.professionId
+                                            ];
                                         if (collectorId) {
-                                            appearance.userHas = stores.userData.characterMap[collectorId].knowsProfessionAbility(ability.abilityId);
+                                            appearance.userHas = stores.userData.characterMap[
+                                                collectorId
+                                            ].knowsProfessionAbility(ability.abilityId);
                                         } else {
-                                            appearance.userHas = stores.userData.hasRecipe.has(ability.abilityId);
+                                            appearance.userHas = stores.userData.hasRecipe.has(
+                                                ability.abilityId,
+                                            );
                                         }
                                     }
                                 } else if (item.type === RewardType.Mount) {
@@ -236,6 +245,10 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas = stores.userData.hasPet[item.classId];
                                 } else if (item.type === RewardType.Toy) {
                                     appearance.userHas = stores.userData.hasToy[item.id];
+                                } else if (item.type === RewardType.Quest) {
+                                    appearance.userHas = stores.userQuestData.accountHas.has(
+                                        item.id,
+                                    );
                                 }
                             }
 
@@ -253,28 +266,38 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                 overallStats.total++;
                                 overallStats2.total++;
                                 overallSeen.add(appearanceKey);
-                                if (oppositeKey) { overallSeen.add(oppositeKey); }
+                                if (oppositeKey) {
+                                    overallSeen.add(oppositeKey);
+                                }
                             }
                             if (!tierSeenHas) {
                                 tierStats.total++;
                                 tierStats2.total++;
                                 tierSeen.add(appearanceKey);
-                                if (oppositeKey) { tierSeen.add(oppositeKey); }
+                                if (oppositeKey) {
+                                    tierSeen.add(oppositeKey);
+                                }
                             }
                             if (!instanceSeenHas) {
                                 instanceStats.total++;
                                 instanceSeen.add(appearanceKey);
-                                if (oppositeKey) { instanceSeen.add(oppositeKey); }
+                                if (oppositeKey) {
+                                    instanceSeen.add(oppositeKey);
+                                }
                             }
                             if (!encounterSeenHas) {
                                 encounterStats.total++;
                                 encounterSeen.add(appearanceKey);
-                                if (oppositeKey) { encounterSeen.add(oppositeKey); }
+                                if (oppositeKey) {
+                                    encounterSeen.add(oppositeKey);
+                                }
                             }
                             if (!groupSeenHas) {
                                 groupStats.total++;
                                 groupSeen.add(appearanceKey);
-                                if (oppositeKey) { groupSeen.add(oppositeKey); }
+                                if (oppositeKey) {
+                                    groupSeen.add(oppositeKey);
+                                }
                             }
 
                             if (appearance.userHas) {
@@ -362,7 +385,8 @@ export function doJournal(stores: LazyStores): LazyJournal {
                         } else if (!aClassSpecific && bClassSpecific) {
                             return -1;
                         } else if (aClassSpecific && bClassSpecific) {
-                            const diff = classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
+                            const diff =
+                                classMaskOrderMap[a.classMask] - classMaskOrderMap[b.classMask];
                             if (diff !== 0) {
                                 return diff;
                             }
@@ -382,14 +406,16 @@ export function doJournal(stores: LazyStores): LazyJournal {
                             let aOrder = recipeOrder[a.id];
                             if (!aOrder) {
                                 const aSkillLine = stores.staticData.itemToSkillLine[a.id];
-                                const [aProfession,] = stores.staticData.professionBySkillLine[aSkillLine[0]];
+                                const [aProfession] =
+                                    stores.staticData.professionBySkillLine[aSkillLine[0]];
                                 aOrder = recipeOrder[a.id] = professionOrderMap[aProfession?.id];
                             }
 
                             let bOrder = recipeOrder[b.id];
                             if (!bOrder) {
                                 const bSkillLine = stores.staticData.itemToSkillLine[b.id];
-                                const [bProfession,] = stores.staticData.professionBySkillLine[bSkillLine[0]];
+                                const [bProfession] =
+                                    stores.staticData.professionBySkillLine[bSkillLine[0]];
                                 bOrder = recipeOrder[b.id] = professionOrderMap[bProfession?.id];
                             }
 

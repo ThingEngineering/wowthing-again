@@ -31,7 +31,16 @@ public class WowItem
     public short CraftingQuality { get; set; }
 
     [Required]
-    public short[] Sockets { get; set; } = Array.Empty<short>();
+    public short[] Sockets { get; set; } = [];
+
+    [Required]
+    public int[] CompletesQuestIds { get; set; } = [];
+
+    [Required]
+    public int[] TeachesSpellIds { get; set; } = [];
+
+    [Required]
+    public int[] TeachesTransmogSetIds { get; set; } = [];
 
     public WowItem(int id)
     {

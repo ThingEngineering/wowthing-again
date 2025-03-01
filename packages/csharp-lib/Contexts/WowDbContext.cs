@@ -217,6 +217,18 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
             .Property(wowItem => wowItem.Sockets)
             .HasDefaultValue(Array.Empty<short>());
 
+        builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.CompletesQuestIds)
+            .HasDefaultValue(Array.Empty<int>());
+
+        builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.TeachesSpellIds)
+            .HasDefaultValue(Array.Empty<int>());
+
+        builder.Entity<WowItem>()
+            .Property(wowItem => wowItem.TeachesTransmogSetIds)
+            .HasDefaultValue(Array.Empty<int>());
+
         // Unique indexes
         builder.Entity<ApplicationUser>()
             .HasIndex(au => au.ApiKey)

@@ -18,7 +18,9 @@ public class JournalTool
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
     private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
-    private HashSet<int> _recipeItemIds;
+    private HashSet<int> _recipeItemIds = [];
+    private readonly HashSet<int> _completeQuestItemIds = [];
+    private readonly HashSet<int> _transmogSetItemIds = [];
 
     private readonly int[] _difficultyOrder =
     {
@@ -214,6 +216,19 @@ public class JournalTool
             .Distinct()
             .ToArrayAsync();
         _recipeItemIds = new HashSet<int>(recipeItemIds);
+
+        foreach (var item in _itemMap.Values)
+        {
+            if (item.CompletesQuestIds.Length > 0)
+            {
+                _completeQuestItemIds.Add(item.Id);
+            }
+
+            if (item.TeachesTransmogSetIds.Length > 0)
+            {
+                _transmogSetItemIds.Add(item.Id);
+            }
+        }
 
         _timer.AddPoint("Database");
 
@@ -606,6 +621,14 @@ public class JournalTool
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Recipe, item, difficulties);
                                 }
+                                else if (_transmogSetItemIds.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Transmog, item, difficulties);
+                                }
+                                else if (_completeQuestItemIds.Contains(item.Id))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Quest, item, difficulties);
+                                }
                                 else
                                 {
                                     string itemName = GetString(StringType.WowItemName, Language.enUS, item.Id);
@@ -898,9 +921,15 @@ public class JournalTool
                 order = 3;
                 break;
 
+            case RewardType.Quest:
+            case RewardType.Transmog:
+                name = "Misc";
+                order = 4;
+                break;
+
             case RewardType.Recipe:
                 name = "Recipe";
-                order = 4;
+                order = 5;
                 break;
         }
 

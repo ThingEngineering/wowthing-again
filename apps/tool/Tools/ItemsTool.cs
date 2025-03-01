@@ -131,41 +131,28 @@ public class ItemsTool
         _itemBonusMap = await context.WowItemBonus
             .ToDictionaryAsync(wib => wib.Id);
 
-        var itemEffects = await context.WowItemEffectV2.ToArrayAsync();
-
-        var completesQuestMap = new Dictionary<int, List<int>>();
-        var teachesSpellMap = new Dictionary<int, int>();
-        var teachesTransmogMap = new Dictionary<int, int>();
-        foreach (var itemEffect in itemEffects)
+        var completesQuestMap = new Dictionary<int, int[]>(); // itemId -> [questIds]
+        var teachesSpellMap = new Dictionary<int, int[]>(); // itemId -> [spellIds]
+        var teachesTransmogMap = new Dictionary<int, int>(); // itemId -> [transmogSetIds]
+        foreach (var item in _itemMap.Values)
         {
-            foreach (var effectSpell in itemEffect.SpellEffects.Values)
+            if (item.CompletesQuestIds.Length > 0)
             {
-                foreach (var spellEffect in effectSpell.Values)
+                completesQuestMap[item.Id] = item.CompletesQuestIds;
+            }
+
+            if (item.TeachesSpellIds.Length > 0)
+            {
+                teachesSpellMap[item.Id] = item.TeachesSpellIds;
+            }
+
+            if (item.TeachesTransmogSetIds.Length > 0)
+            {
+                if (item.TeachesTransmogSetIds.Length > 1)
                 {
-                    if (spellEffect.Effect == WowSpellEffectEffect.CompleteQuest)
-                    {
-                        if (!completesQuestMap.TryGetValue(itemEffect.ItemId, out var questIds))
-                        {
-                            questIds = completesQuestMap[itemEffect.ItemId] = new();
-                        }
-
-                        questIds.Add(spellEffect.Values[0]);
-                    }
-                    else if (spellEffect.Effect == WowSpellEffectEffect.LearnSpell && spellEffect.Values[0] > 0)
-                    {
-                        if (teachesSpellMap.ContainsKey(itemEffect.ItemId))
-                        {
-                            ToolContext.Logger.Warning("Item teaches multiple spells?? {itemId}", itemEffect.ItemId);
-                            continue;
-                        }
-
-                        teachesSpellMap[itemEffect.ItemId] = spellEffect.Values[0];
-                    }
-                    else if (spellEffect.Effect == WowSpellEffectEffect.LearnTransmogSet)
-                    {
-                        teachesTransmogMap[itemEffect.ItemId] = spellEffect.Values[0];
-                    }
+                    ToolContext.Logger.Warning("Item teaches more than one transmog set?? {itemId}", item.Id);
                 }
+                teachesTransmogMap[item.Id] = item.TeachesTransmogSetIds[0];
             }
         }
 

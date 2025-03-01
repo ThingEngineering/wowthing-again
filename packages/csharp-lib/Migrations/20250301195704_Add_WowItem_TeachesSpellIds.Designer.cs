@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250301195704_Add_WowItem_TeachesSpellIds")]
+    partial class Add_WowItem_TeachesSpellIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2883,13 +2886,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("class_mask");
 
-                    b.Property<int[]>("CompletesQuestIds")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer[]")
-                        .HasDefaultValue(new int[0])
-                        .HasColumnName("completes_quest_ids");
-
                     b.Property<short>("ContainerSlots")
                         .HasColumnType("smallint")
                         .HasColumnName("container_slots");
@@ -2971,13 +2967,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer[]")
                         .HasDefaultValue(new int[0])
                         .HasColumnName("teaches_spell_ids");
-
-                    b.Property<int[]>("TeachesTransmogSetIds")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer[]")
-                        .HasDefaultValue(new int[0])
-                        .HasColumnName("teaches_transmog_set_ids");
 
                     b.Property<short>("Unique")
                         .HasColumnType("smallint")

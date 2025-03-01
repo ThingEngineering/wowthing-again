@@ -339,8 +339,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         this.value.professionAbilityBySpellId = {};
 
         const spellToItem: Record<number, number[]> = {};
-        for (const [itemId, spellId] of Object.entries(itemData.teachesSpell)) {
-            (spellToItem[spellId] ||= []).push(parseInt(itemId));
+        for (const [itemId, spellIds] of Object.entries(itemData.teachesSpell)) {
+            for (const spellId of spellIds) {
+                (spellToItem[spellId] ||= []).push(parseInt(itemId));
+            }
         }
 
         for (const profession of Object.values(this.value.professions)) {
