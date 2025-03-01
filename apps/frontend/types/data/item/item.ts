@@ -94,6 +94,7 @@ export type ItemDataItemArray = [
     // requiredLevel: number,
     bindType: BindType,
     unique: number,
+    socketTypes: number[],
     appearanceArrays?: ItemDataItemAppearanceArray[],
 ];
 
