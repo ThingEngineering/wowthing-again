@@ -2135,6 +2135,13 @@ public static partial class Hardcoded
                 new(143616, DungeonDifficultiesHeroicMythic), // Technique: Glyph of the Trusted Steed
             ]
         },
+        // Return to Karazhan > Moroes
+        {
+            1837,
+            [
+                new(142246, DungeonDifficultiesHeroicMythic), // Broken Pocket Watch
+            ]
+        },
         // Return to Karazhan > Nightbane
         {
             1_0860_0,
