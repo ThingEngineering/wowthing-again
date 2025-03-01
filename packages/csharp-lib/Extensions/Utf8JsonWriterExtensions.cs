@@ -1,15 +1,18 @@
-﻿namespace Wowthing.Lib.Extensions;
+﻿using System.Numerics;
+
+namespace Wowthing.Lib.Extensions;
 
 public static class Utf8JsonWriterExtensions
 {
-    public static void WriteNumberArray(this Utf8JsonWriter writer, IEnumerable<int> values)
+    public static void WriteNumberArray<T>(this Utf8JsonWriter writer, IEnumerable<T> values)
+        where T : IBinaryInteger<T>
     {
         writer.WriteStartArray();
         if (values != null)
         {
-            foreach (int value in values)
+            foreach (var value in values)
             {
-                writer.WriteNumberValue(value);
+                writer.WriteNumberValue(Convert.ToInt64(value));
             }
         }
         writer.WriteEndArray();

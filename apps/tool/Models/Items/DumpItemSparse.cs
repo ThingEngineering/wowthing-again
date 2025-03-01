@@ -25,14 +25,22 @@ public class DumpItemSparse
     public short RequiredSkillRank { get; set; }
     public int Stackable { get; set; }
 
+    [Name("Display_lang")]
+    public string Name { get; set; } = string.Empty;
+
     [Name("Flags[0]")]
     public WowItemFlags1 Flags1 { get; set; }
-
     [Name("Flags[1]")]
     public WowItemFlags2 Flags2 { get; set; }
-
     [Name("Flags[3]")]
     public WowItemFlags4 Flags4 { get; set; }
+
+    [Name("SocketType[0]")]
+    public short SocketType0 { get; set; }
+    [Name("SocketType[1]")]
+    public short SocketType1 { get; set; }
+    [Name("SocketType[2]")]
+    public short SocketType2 { get; set; }
 
     [Name("StatModifier_bonusStat[0]")]
     public int StatType0 { get; set; }
@@ -55,11 +63,15 @@ public class DumpItemSparse
     [Name("StatModifier_bonusStat[9]")]
     public int StatType9 { get; set; }
 
-    [Name("Display_lang")]
-    public string Name { get; set; } = string.Empty;
+    public short[] SocketTypes =>
+    [
+        SocketType0,
+        SocketType1,
+        SocketType2
+    ];
 
-    public int[] Stats => new[]
-    {
+    public int[] Stats =>
+    [
         StatType0,
         StatType1,
         StatType2,
@@ -69,6 +81,6 @@ public class DumpItemSparse
         StatType6,
         StatType7,
         StatType8,
-        StatType9,
-    };
+        StatType9
+    ];
 }

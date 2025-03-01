@@ -869,6 +869,8 @@ public class DumpsTool
             dbItem.Stackable = itemSparse.Stackable;
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
+            dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
+
             // Flags
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
             {
