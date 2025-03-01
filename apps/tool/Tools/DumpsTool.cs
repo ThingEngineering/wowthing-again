@@ -24,9 +24,10 @@ public class DumpsTool
     private readonly Language[] _languages = Enum.GetValues<Language>();
     private readonly JankTimer _timer = new();
 
-    private readonly Dictionary<int, List<int>> _completeQuestItemIdToQuestIds = new();
-    private readonly Dictionary<int, List<int>> _teachSpellItemIdToSpellIds = new ();
-    private readonly Dictionary<int, List<int>> _teachSpellSpellIdToItemIds = new();
+    private readonly Dictionary<int, List<int>> _completeQuestByItemId = new();
+    private readonly Dictionary<int, List<int>> _teachSpellByItemId = new ();
+    private readonly Dictionary<int, List<int>> _teachSpellBySpellId = new();
+    private readonly Dictionary<int, List<int>> _teachTransmogSetByItemId = new();
     private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
 
     private static readonly Dictionary<string, int> InventorySlotMap = new()
@@ -872,8 +873,10 @@ public class DumpsTool
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
-            dbItem.CompletesQuestIds = _completeQuestItemIdToQuestIds.GetValueOrDefault(item.ID, []).ToArray();
-            dbItem.TeachesSpellIds = _teachSpellItemIdToSpellIds.GetValueOrDefault(item.ID, []).ToArray();
+
+            dbItem.CompletesQuestIds = _completeQuestByItemId.GetValueOrDefault(item.ID, []).ToArray();
+            dbItem.TeachesSpellIds = _teachSpellByItemId.GetValueOrDefault(item.ID, []).ToArray();
+            dbItem.TeachesTransmogSetIds = _teachTransmogSetByItemId.GetValueOrDefault(item.ID, []).ToArray();
 
             // Flags
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
@@ -1215,15 +1218,19 @@ public class DumpsTool
                             Values = [ spellEffect.EffectMiscValue0, spellEffect.EffectMiscValue1 ],
                         };
 
-                        if (newSpellEffect.Effect == WowSpellEffectEffect.CompleteQuest && newSpellEffect.Values[0] > 0)
+                        if (newSpellEffect.Effect == WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
                         {
-                            _completeQuestItemIdToQuestIds.GetOrNew(itemXItemEffect.ItemID).Add(newSpellEffect.Values[0]);
-                            ToolContext.Logger.Information("item {item} -> quest {quest}", itemXItemEffect.ItemID, newSpellEffect.Values[0]);
+                            _teachSpellByItemId.GetOrNew(itemXItemEffect.ItemID).Add(spellEffect.EffectTriggerSpell);
+                            _teachSpellBySpellId.GetOrNew(spellEffect.EffectTriggerSpell).Add(itemXItemEffect.ItemID);
                         }
-                        else if (newSpellEffect.Effect == WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
+                        else if (newSpellEffect.Effect == WowSpellEffectEffect.CompleteQuest && newSpellEffect.Values[0] > 0)
                         {
-                            _teachSpellItemIdToSpellIds.GetOrNew(itemXItemEffect.ItemID).Add(spellEffect.EffectTriggerSpell);
-                            _teachSpellSpellIdToItemIds.GetOrNew(spellEffect.EffectTriggerSpell).Add(itemXItemEffect.ItemID);
+                            _completeQuestByItemId.GetOrNew(itemXItemEffect.ItemID).Add(newSpellEffect.Values[0]);
+                        }
+                        else if (newSpellEffect.Effect == WowSpellEffectEffect.LearnTransmogSet &&
+                                 newSpellEffect.Values[0] > 0)
+                        {
+                            _teachTransmogSetByItemId.GetOrNew(itemXItemEffect.ItemID).Add(newSpellEffect.Values[0]);
                         }
                     }
                 }
@@ -1268,8 +1275,8 @@ public class DumpsTool
                         },
                     };
 
-                    _teachSpellItemIdToSpellIds.GetOrNew(itemXItemEffect.ItemID).Add(dumpItemEffect.SpellID);
-                    _teachSpellSpellIdToItemIds.GetOrNew(dumpItemEffect.SpellID).Add(itemXItemEffect.ItemID);
+                    _teachSpellByItemId.GetOrNew(itemXItemEffect.ItemID).Add(dumpItemEffect.SpellID);
+                    _teachSpellBySpellId.GetOrNew(dumpItemEffect.SpellID).Add(itemXItemEffect.ItemID);
                 }
             }
         }
@@ -1323,7 +1330,7 @@ public class DumpsTool
             dbMount.SourceType = mount.SourceTypeEnum;
             dbMount.SpellId = mount.SourceSpellID;
 
-            dbMount.ItemIds = _teachSpellSpellIdToItemIds!.GetValueOrDefault(dbMount.SpellId, []);
+            dbMount.ItemIds = _teachSpellBySpellId!.GetValueOrDefault(dbMount.SpellId, []);
         }
 
         foreach (var dbMount in dbMountMap.Values)
@@ -1364,7 +1371,7 @@ public class DumpsTool
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
 
-            dbPet.ItemIds = _teachSpellSpellIdToItemIds!.GetValueOrDefault(dbPet.SpellId, []);
+            dbPet.ItemIds = _teachSpellBySpellId!.GetValueOrDefault(dbPet.SpellId, []);
         }
 
         foreach (var dbPet in dbPetMap.Values)
@@ -1470,7 +1477,7 @@ public class DumpsTool
         var seen = new HashSet<(int, int)>();
         foreach (var skillLineAbility in skillLineAbilities)
         {
-            if (skillLineAbility.Spell == 0 || !_teachSpellSpellIdToItemIds.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
+            if (skillLineAbility.Spell == 0 || !_teachSpellBySpellId.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
             {
                 continue;
             }

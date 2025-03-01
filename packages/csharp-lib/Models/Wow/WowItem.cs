@@ -39,6 +39,9 @@ public class WowItem
     [Required]
     public int[] TeachesSpellIds { get; set; } = [];
 
+    [Required]
+    public int[] TeachesTransmogSetIds { get; set; } = [];
+
     public WowItem(int id)
     {
         Id = id;
