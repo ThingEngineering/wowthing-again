@@ -24,7 +24,8 @@ public class DumpsTool
     private readonly Language[] _languages = Enum.GetValues<Language>();
     private readonly JankTimer _timer = new();
 
-    private Dictionary<int, List<int>>? _spellTeachMap;
+    private Dictionary<int, List<int>> _teachItemIdToSpellIds = new ();
+    private Dictionary<int, List<int>> _teachSpellIdToItemIds = new();
     private readonly Dictionary<Language, Dictionary<string, string>> _globalStringMap = new();
 
     private static readonly Dictionary<string, int> InventorySlotMap = new()
@@ -119,11 +120,11 @@ public class DumpsTool
             ImportFactions,
             ImportHolidays,
             ImportInstances,
-            ImportItems,
             ImportItemAppearances,
             ImportItemBonuses,
             ImportItemClasses,
             ImportItemEffects,
+            ImportItems, // must be AFTER ItemEffects
             ImportMounts,
             ImportPets,
             ImportQuestLines,
@@ -870,6 +871,7 @@ public class DumpsTool
             dbItem.Unique = (short)(itemSparse.MaxCount & 0x7FFF);
 
             dbItem.Sockets = itemSparse.SocketTypes.Where(socketType => socketType > 0).ToArray();
+            dbItem.TeachesSpellIds = _teachItemIdToSpellIds.GetValueOrDefault(item.ID, []).ToArray();
 
             // Flags
             if (itemSparse.ItemNameDescriptionID is 1641 or 13932 or 14101)
@@ -1156,7 +1158,6 @@ public class DumpsTool
         var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
             .ToGroupedDictionary(se => se.SpellID);
 
-        _spellTeachMap = new();
         var newMap = new Dictionary<int, WowItemEffectV2>();
         foreach (var dumpItemEffect in itemEffects)
         {
@@ -1214,11 +1215,8 @@ public class DumpsTool
 
                         if (spellEffect.Effect == (int)WowSpellEffectEffect.LearnSpell && spellEffect.EffectTriggerSpell > 0)
                         {
-                            if (!_spellTeachMap.TryGetValue(spellEffect.EffectTriggerSpell, out var teachItemIds))
-                            {
-                                teachItemIds = _spellTeachMap[spellEffect.EffectTriggerSpell] = new();
-                            }
-                            teachItemIds.Add(itemXItemEffect.ItemID);
+                            _teachItemIdToSpellIds.GetOrNew(itemXItemEffect.ItemID).Add(spellEffect.EffectTriggerSpell);
+                            _teachSpellIdToItemIds.GetOrNew(spellEffect.EffectTriggerSpell).Add(itemXItemEffect.ItemID);
                         }
                     }
                 }
@@ -1263,11 +1261,8 @@ public class DumpsTool
                         },
                     };
 
-                    if (!_spellTeachMap.TryGetValue(dumpItemEffect.SpellID, out var teachItemIds))
-                    {
-                        teachItemIds = _spellTeachMap[dumpItemEffect.SpellID] = new();
-                    }
-                    teachItemIds.Add(itemXItemEffect.ItemID);
+                    _teachItemIdToSpellIds.GetOrNew(itemXItemEffect.ItemID).Add(dumpItemEffect.SpellID);
+                    _teachSpellIdToItemIds.GetOrNew(dumpItemEffect.SpellID).Add(itemXItemEffect.ItemID);
                 }
             }
         }
@@ -1321,7 +1316,7 @@ public class DumpsTool
             dbMount.SourceType = mount.SourceTypeEnum;
             dbMount.SpellId = mount.SourceSpellID;
 
-            dbMount.ItemIds = _spellTeachMap!.GetValueOrDefault(dbMount.SpellId, []);
+            dbMount.ItemIds = _teachSpellIdToItemIds!.GetValueOrDefault(dbMount.SpellId, []);
         }
 
         foreach (var dbMount in dbMountMap.Values)
@@ -1362,7 +1357,7 @@ public class DumpsTool
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
 
-            dbPet.ItemIds = _spellTeachMap!.GetValueOrDefault(dbPet.SpellId, []);
+            dbPet.ItemIds = _teachSpellIdToItemIds!.GetValueOrDefault(dbPet.SpellId, []);
         }
 
         foreach (var dbPet in dbPetMap.Values)
@@ -1468,7 +1463,7 @@ public class DumpsTool
         var seen = new HashSet<(int, int)>();
         foreach (var skillLineAbility in skillLineAbilities)
         {
-            if (skillLineAbility.Spell == 0 || !_spellTeachMap.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
+            if (skillLineAbility.Spell == 0 || !_teachSpellIdToItemIds.TryGetValue(skillLineAbility.Spell, out var recipeItemIds))
             {
                 continue;
             }

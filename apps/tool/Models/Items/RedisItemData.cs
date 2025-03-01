@@ -29,6 +29,7 @@ public class RedisItemData : WowItem
         RequiredLevel = item.RequiredLevel;
         BindType = item.BindType;
         Sockets = item.Sockets;
+        TeachesSpellIds = item.TeachesSpellIds;
         Unique = item.Unique;
     }
 }
