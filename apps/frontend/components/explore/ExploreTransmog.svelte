@@ -3,20 +3,21 @@
     import { weaponSubclassOrder } from '@/data/weapons';
     import { Faction } from '@/enums/faction';
     import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
+    import { WeaponSubclass } from '@/enums/weapon-subclass';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore } from '@/stores';
-    import { exploreState } from '@/stores/local-storage'
+    import { exploreState } from '@/stores/local-storage';
+    import { fixedInventoryType } from '@/utils/fixed-inventory-type';
     import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import type { StaticDataTransmogSet } from '@/shared/stores/static/types';
     import type { ItemDataItem } from '@/types/data/item';
 
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import NumberInput from '@/shared/components/forms/NumberInput.svelte'
+    import NumberInput from '@/shared/components/forms/NumberInput.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import { fixedInventoryType } from '@/utils/fixed-inventory-type';
-    import { WeaponSubclass } from '@/enums/weapon-subclass';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     const slotOrder = bestTypeOrder.concat(weaponSubclassOrder.map((sub) => sub + 100));
 
@@ -26,10 +27,10 @@
         slots = {};
         transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId];
         if (transmogSet) {
-            for (const [itemId,] of transmogSet.items) {
+            for (const [itemId] of transmogSet.items) {
                 const item = $itemStore.items[itemId];
 
-                let actualSlot: number
+                let actualSlot: number;
                 if (weaponInventoryTypes.has(item.inventoryType)) {
                     actualSlot = 100 + item.subclassId;
                 } else {
@@ -40,6 +41,10 @@
             }
         }
     }
+
+    $: learnedFromItems = ($itemStore.transmogSetToItems[$exploreState.transmogSetId] || []).map(
+        (itemId) => $itemStore.items[itemId],
+    );
 </script>
 
 <style lang="scss">
@@ -53,6 +58,15 @@
         :global(input) {
             margin-bottom: 1rem;
             width: 10rem;
+        }
+    }
+    .flex-wrapper {
+        align-items: center;
+        gap: 0.5rem;
+        justify-content: flex-start;
+
+        :global(input) {
+            margin: 0.5rem 0;
         }
     }
     .slots {
@@ -71,12 +85,23 @@
 </style>
 
 <div class="thing-container border">
-    <NumberInput
-        name="explore_transmog_set_id"
-        minValue={0}
-        maxValue={999999}
-        bind:value={$exploreState.transmogSetId}
-    />
+    <div class="flex-wrapper">
+        <NumberInput
+            name="explore_transmog_set_id"
+            minValue={0}
+            maxValue={999999}
+            bind:value={$exploreState.transmogSetId}
+        />
+
+        {#each learnedFromItems as learnedFromItem}
+            <WowheadLink type="item" id={learnedFromItem.id}>
+                <WowthingImage name="item/{learnedFromItem.id}" size={16} />
+                <ParsedText text={`{item:${learnedFromItem.id}}`} />
+            </WowheadLink>
+        {:else}
+            No ensemble items.
+        {/each}
+    </div>
 
     {#if transmogSet}
         {@const classes = getClassesFromMask(transmogSet.classMask)}

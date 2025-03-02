@@ -20,6 +20,7 @@ export interface ItemData {
     specOverrides: Record<number, number[]>;
     teachesSpell: Record<number, number[]>;
     teachesTransmog: Record<number, number>;
+    transmogSetToItems: Record<number, number[]>;
 
     currentTier: Record<number, InventoryType>;
     previousTier: Record<number, InventoryType>;

@@ -130,6 +130,11 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItemSets = null;
 
+        data.transmogSetToItems = {};
+        for (const [itemIdString, transmogSetId] of Object.entries(data.teachesTransmog)) {
+            (data.transmogSetToItems[transmogSetId] ||= []).push(parseInt(itemIdString));
+        }
+
         data.currentTier = {};
         for (const itemSetId of currentTier) {
             const itemSet = data.itemSets[itemSetId];
