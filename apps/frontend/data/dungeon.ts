@@ -106,32 +106,29 @@ export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [10, 623, 5], // Myth 1
-    [8, 619, 4], // Hero 4
-    [7, 616, 4], // Hero 3
-    [5, 613, 4], // Hero 2
-    [3, 610, 4], // Hero 1
-    [2, 606, 3], // Champion 4
-    [1, 603, 3], // [0] Champion 3
-    [0, 593, 2], // [H] Veteran 4
+    [10, 662, 5], // Myth 1
+    [7, 658, 4], // Hero 4
+    [6, 655, 4], // Hero 3
+    [4, 652, 4], // Hero 2
+    [2, 649, 4], // Hero 1
+    [1, 645, 3], // [0] Champion 4
+    [0, 632, 2], // [H] Veteran 4
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    17: [584, 2], // LFR
-    14: [597, 3], // Normal
-    15: [610, 4], // Heroic
-    16: [623, 5], // Mythic
+    17: [623, 2], // LFR
+    14: [636, 3], // Normal
+    15: [649, 4], // Heroic
+    16: [662, 5], // Mythic
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [
-    [8, 616, 4], // Hero 3
-    [7, 610, 4], // Hero 1
-    [6, 606, 3], // Champion 4
-    [5, 600, 3], // Champion 2
-    [4, 593, 2], // Veteran 4
-    [3, 590, 2], // Veteran 3
-    [2, 587, 2], // Veteran 2
-    [1, 584, 2], // Veteran 1
+    [7, 649, 4], // Hero 1
+    [6, 645, 3], // Champion 4
+    [5, 642, 3], // Champion 3
+    [4, 636, 3], // Champion 1
+    [3, 626, 2], // Veteran 2
+    [1, 623, 2], // Veteran 1
 ];
 
 export const keyTiers = ['2-5', '6-10', '11-15', '16-20', '21-25', '26-30', '31+'];
