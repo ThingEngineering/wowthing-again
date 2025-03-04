@@ -57,4 +57,5 @@ public enum JobType : short
     MaintenanceDeleteOldAuctionTables = 2003,
     MaintenanceBackfillUserCache = 2004,
     MaintenanceDeleteCharacters = 2005,
+    MaintenanceAggregateHourlyAuctionData = 2006,
 }

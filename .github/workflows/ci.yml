@@ -18,7 +18,7 @@ jobs:
               with:
                   node-version: '18'
 
-            - uses: actions/cache@v2
+            - uses: actions/cache@v4
               id: cache-node-modules
               with:
                   key: ${{ runner.os }}-node18-modules-${{ hashFiles('**/package-lock.json') }}

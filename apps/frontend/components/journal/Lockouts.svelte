@@ -5,6 +5,7 @@
     import { uiIcons } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
+    import { leftPad } from '@/utils/formatting';
     import type { JournalDataInstance } from '@/types/data';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -39,7 +40,7 @@
         {#each instanceLockouts as instanceLockout}
             <div class="lockout">
                 <span>{instanceLockout.difficulty.shortName}:</span>
-                {#each sortBy( instanceLockout.characters, ([char]) => [classOrderMap[char.classId], char.name], ) as [character, lockout]}
+                {#each sortBy( instanceLockout.characters, ([char]) => [leftPad(classOrderMap[char.classId], 2, '0'), char.name], ) as [character, lockout]}
                     {@const per = (lockout.defeatedBosses / lockout.maxBosses) * 100}
                     {@const status = per === 0 ? 0 : per < 100 ? 1 : 2}
                     <span
