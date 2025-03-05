@@ -8,6 +8,7 @@ export class StaticDataCurrency {
         public rechargeInterval: number,
         public transferPercent: number,
         public name: string,
+        public description: string,
     ) {}
 }
 export type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>;

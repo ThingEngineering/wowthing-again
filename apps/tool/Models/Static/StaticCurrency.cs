@@ -13,6 +13,7 @@ public class StaticCurrency
     public int MaxPerWeek { get; set; }
     public int MaxTotal { get; set; }
     public long RechargeInterval { get; set; }
+    public string Description { get; set; }
     public string Name { get; set; }
 
     public StaticCurrency(WowCurrency currency)
