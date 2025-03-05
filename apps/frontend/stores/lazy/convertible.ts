@@ -315,11 +315,13 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
 
                     // Purchaseable?
                     if (characterData.length === 0 && convertibleCategory.purchases) {
-                        const usefulPurchases = convertibleCategory.purchases.filter((purchase) =>
-                            purchase.upgradeable === false
-                                ? purchase.upgradeTier === desiredTier
-                                : purchase.upgradeTier >= desiredTier - 1 &&
-                                  purchase.upgradeTier <= desiredTier,
+                        const usefulPurchases = convertibleCategory.purchases.filter(
+                            (purchase) =>
+                                purchase.costAmount[setItemInventoryType] &&
+                                (purchase.upgradeable === false
+                                    ? purchase.upgradeTier === desiredTier
+                                    : purchase.upgradeTier >= desiredTier - 1 &&
+                                      purchase.upgradeTier <= desiredTier),
                         );
 
                         for (const purchase of usefulPurchases) {
