@@ -1,65 +1,64 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
-    import { getFilteredCharacters } from '@/utils/get-filtered-characters'
-    import { leftPad } from '@/utils/formatting'
-    import type { Character } from '@/types'
-    import type { ItemDataItem } from '@/types/data/item'
-    import type { StaticDataCurrency } from '@/shared/stores/static/types'
+    import { userStore } from '@/stores';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
+    import { getFilteredCharacters } from '@/utils/get-filtered-characters';
+    import { leftPad } from '@/utils/formatting';
+    import type { Character } from '@/types';
+    import type { ItemDataItem } from '@/types/data/item';
+    import type { StaticDataCurrency } from '@/shared/stores/static/types';
 
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let currency: StaticDataCurrency = undefined
-    export let item: ItemDataItem = undefined
-    export let itemId: number = undefined
+    export let currency: StaticDataCurrency = undefined;
+    export let item: ItemDataItem = undefined;
+    export let itemId: number = undefined;
 
-    let currencies: [Character, number][]
-    let currencyName: string
-    let iconName: string
+    let currencies: [Character, number][];
+    let currencyName: string;
+    let description: string;
+    let iconName: string;
     $: {
-        currencies = []
+        currencies = [];
         for (const character of getFilteredCharacters($settingsStore, $userStore)) {
-            let quantity = 0
+            let quantity = 0;
             if (currency) {
-                currencyName = currency.name
-                iconName = `currency/${currency.id}`
-                quantity = character.currencies?.[currency.id]?.quantity || 0
-            }
-            else if (item) {
-                currencyName = item.name
-                iconName = `item/${item.id}`
-                quantity = character.getItemCount(item.id)
-            }
-            else if (itemId) {
-                currencyName = `Item #${itemId}`
-                iconName = `item/${itemId}`
-                quantity = character.getItemCount(itemId)
-            }
-            else {
-                currencyName = 'Gold'
-                iconName = 'currency/0'
-                quantity = character.gold || 0
+                currencyName = currency.name;
+                iconName = `currency/${currency.id}`;
+                quantity = character.currencies?.[currency.id]?.quantity || 0;
+            } else if (item) {
+                currencyName = item.name;
+                iconName = `item/${item.id}`;
+                quantity = character.getItemCount(item.id);
+            } else if (itemId) {
+                currencyName = `Item #${itemId}`;
+                iconName = `item/${itemId}`;
+                quantity = character.getItemCount(itemId);
+            } else {
+                currencyName = 'Gold';
+                iconName = 'currency/0';
+                quantity = character.gold || 0;
             }
 
             if (quantity > 0) {
-                currencies.push([character, quantity])
+                currencies.push([character, quantity]);
             }
         }
 
-        currencies = sortBy(
-            currencies,
-            ([, amount]) => leftPad(10_000_000 - amount, 8, '0')
-        )
+        currencies = sortBy(currencies, ([, amount]) => leftPad(10_000_000 - amount, 8, '0'));
 
         if (item || itemId) {
             const warbankItems = $userStore.warbankItemsByItemId[item?.id || itemId] || [];
-            const quantity = warbankItems.reduce((a, b) => a + b.count, 0)
+            const quantity = warbankItems.reduce((a, b) => a + b.count, 0);
             if (quantity > 0) {
-                currencies.unshift([null, quantity])
+                currencies.unshift([null, quantity]);
             }
+        }
+
+        if (currency?.description) {
+            description = currency.description.replaceAll('\r\n', '<br>');
         }
     }
 </script>
@@ -67,13 +66,24 @@
 <style lang="scss">
     .wowthing-tooltip {
         --image-border-width: 1px;
+
+        max-width: 22rem;
+    }
+    .description {
+        margin-bottom: 0.5rem;
+        padding: 0 0.5rem;
+        text-align: left;
+
+        & + table {
+            border-top: 1px solid #{$border-color};
+        }
     }
     table {
         --padding: 2;
     }
     .name {
         @include cell-width(3rem, $maxWidth: 10rem);
-        
+
         text-align: left;
         white-space: nowrap;
     }
@@ -87,13 +97,13 @@
 
 <div class="wowthing-tooltip">
     <h4>
-        <WowthingImage
-            name={iconName}
-            size={20}
-            border={1}
-        />
+        <WowthingImage name={iconName} size={20} border={1} />
         {currencyName}
     </h4>
+
+    {#if description}
+        <p class="description">{@html description}</p>
+    {/if}
 
     <table class="table-striped">
         <tbody>
@@ -123,15 +133,11 @@
             {/if}
         </tbody>
     </table>
-        
+
     {#if currencies.length > 0}
         <div class="bottom">
             Total:
-            <WowthingImage
-                name={iconName}
-                size={20}
-                border={1}
-            />
+            <WowthingImage name={iconName} size={20} border={1} />
             {currencies.reduce((a, b) => a + b[1], 0).toLocaleString()}
         </div>
     {/if}
