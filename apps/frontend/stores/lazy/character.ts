@@ -286,6 +286,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 const questProgress = charProgressQuests?.[`q${questId}`];
                 if (questProgress) {
                     charTask.quest = questProgress;
+                    charTask.status = questProgress.status;
                     break;
                 }
 

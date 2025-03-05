@@ -1,68 +1,66 @@
 <script lang="ts">
-    import groupBy from 'lodash/groupBy'
+    import groupBy from 'lodash/groupBy';
 
-    import { taskMap } from '@/data/tasks'
-    import { QuestStatus } from '@/enums/quest-status'
-    import { uiIcons } from '@/shared/icons'
-    import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character'
-    import type { Character } from '@/types'
+    import { taskMap } from '@/data/tasks';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { uiIcons } from '@/shared/icons';
+    import type { LazyCharacterChore, LazyCharacterChoreTask } from '@/stores/lazy/character';
+    import type { Character } from '@/types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let character: Character
-    export let chore: LazyCharacterChore
-    export let taskName: string
+    export let character: Character;
+    export let chore: LazyCharacterChore;
+    export let taskName: string;
 
-    let anyErrors: boolean
-    let taskSets: Array<LazyCharacterChoreTask[]>
+    let anyErrors: boolean;
+    let taskSets: Array<LazyCharacterChoreTask[]>;
     $: {
-        taskSets = []
+        taskSets = [];
 
         if (taskName === 'dfProfessionWeeklies') {
-            taskSets.push(chore.tasks.slice(0, 1))
+            taskSets.push(chore.tasks.slice(0, 1));
 
-            const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0])
-            const keys = Object.keys(grouped)
-            keys.sort()
+            const grouped = groupBy(chore.tasks.slice(1), (chore) => chore.name.split(' ')[0]);
+            const keys = Object.keys(grouped);
+            keys.sort();
             for (const key of keys) {
-                taskSets.push(grouped[key])
+                taskSets.push(grouped[key]);
             }
-        }
-        else {
-            taskSets.push(chore.tasks)
+        } else {
+            taskSets.push(chore.tasks);
         }
 
-        anyErrors = taskSets.some(
-            (taskSet) => taskSet.some(
-                (task) => (
-                    task.status === QuestStatus.NotStarted ||
-                    task.status === QuestStatus.Error
-                )
-                && task.name !== ''
-                && task.statusTexts.some((st) => !!st)
-            )
-        )
+        anyErrors = taskSets.some((taskSet) =>
+            taskSet.some(
+                (task) =>
+                    (task.status === QuestStatus.NotStarted || task.status === QuestStatus.Error) &&
+                    task.name !== '' &&
+                    task.statusTexts.some((st) => !!st),
+            ),
+        );
+
+        console.log(taskSets);
     }
 
-    const getFixedText = function(text: string): [string, string] {
-        text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}')
-        
-        let cls = ''
-        const m = text.match(/^(\d+)\/(\d+) /)
+    const getFixedText = function (text: string): [string, string] {
+        text = text.replace(/\[\[tier(\d)\]\]/, '{craftedQuality:$1}');
+
+        let cls = '';
+        const m = text.match(/^(\d+)\/(\d+) /);
         if (m) {
-            const have = parseInt(m[1])
-            const total = parseInt(m[2])
-            const per = have / total * 100
+            const have = parseInt(m[1]);
+            const total = parseInt(m[2]);
+            const per = (have / total) * 100;
             if (per === 100) {
-                cls = 'status-success'
-            }
-            else if (per > 0) {
-                cls = 'status-shrug'
+                cls = 'status-success';
+            } else if (per > 0) {
+                cls = 'status-shrug';
             }
         }
-        return [text, cls]
-    }
+        return [text, cls];
+    };
 </script>
 
 <style lang="scss">
@@ -122,9 +120,7 @@
         <table class="table-striped">
             <tbody>
                 {#each taskSet as charTask}
-                    <tr
-                        class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}
-                    >
+                    <tr class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}>
                         <td
                             class="name text-overflow"
                             class:status-shrug={charTask.status === QuestStatus.Error}
@@ -137,8 +133,15 @@
                         </td>
                         <td class="status">
                             <IconifyIcon
-                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][charTask.status]}"
-                                icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull, uiIcons.lock][charTask.status]}
+                                extraClass="status-{['fail', 'shrug', 'success', 'fail'][
+                                    charTask.status
+                                ]}"
+                                icon={[
+                                    uiIcons.starEmpty,
+                                    uiIcons.starHalf,
+                                    uiIcons.starFull,
+                                    uiIcons.lock,
+                                ][charTask.status]}
                             />
                         </td>
                         {#if anyErrors}
@@ -151,22 +154,15 @@
                     </tr>
 
                     {#if charTask.status === QuestStatus.InProgress && charTask.statusTexts[0]}
-                        <tr
-                            class:skipped={charTask.skipped}
-                        >
-                            <td
-                                class="status-text"
-                                colspan="{anyErrors ? 3 : 2}"
-                            >
+                        <tr class:skipped={charTask.skipped}>
+                            <td class="status-text" colspan={anyErrors ? 3 : 2}>
                                 {#each charTask.statusTexts as statusText}
                                     {@const [fixedText, textClass] = getFixedText(statusText)}
                                     <div>
                                         {#if !statusText.startsWith('<')}
                                             &ndash;
                                         {/if}
-                                        <ParsedText
-                                            cls={textClass}
-                                            text={fixedText} />
+                                        <ParsedText cls={textClass} text={fixedText} />
                                     </div>
                                 {/each}
                             </td>
