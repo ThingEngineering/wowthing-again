@@ -40,8 +40,6 @@
                     task.statusTexts.some((st) => !!st),
             ),
         );
-
-        console.log(taskSets);
     }
 
     const getFixedText = function (text: string): [string, string] {
