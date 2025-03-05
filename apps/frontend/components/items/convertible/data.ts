@@ -46,6 +46,22 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 highUpgrade: currentUpgrade1,
             },
         ],
+        purchases: [
+            {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Hands]: 3900,
+                },
+                upgradeTier: 2,
+            },
+            {
+                costId: 2815, // Resonance Crystals
+                costAmount: {
+                    [InventoryType.Feet]: 2600,
+                },
+                upgradeTier: 1,
+            },
+        ],
     },
     {
         id: 8,
@@ -68,21 +84,21 @@ export const convertibleCategories: ConvertibleCategory[] = [
             },
         ],
         purchases: [
-            {
-                costId: 2123, // Bloody Tokens
-                costAmount: {
-                    [InventoryType.Head]: 875,
-                    [InventoryType.Shoulders]: 700,
-                    [InventoryType.Back]: 525,
-                    [InventoryType.Chest]: 875,
-                    [InventoryType.Wrist]: 525,
-                    [InventoryType.Hands]: 700,
-                    [InventoryType.Waist]: 700,
-                    [InventoryType.Legs]: 875,
-                    [InventoryType.Feet]: 700,
-                },
-                upgradeTier: 1,
-            },
+            // {
+            //     costId: 2123, // Bloody Tokens
+            //     costAmount: {
+            //         [InventoryType.Head]: 875,
+            //         [InventoryType.Shoulders]: 700,
+            //         [InventoryType.Back]: 525,
+            //         [InventoryType.Chest]: 875,
+            //         [InventoryType.Wrist]: 525,
+            //         [InventoryType.Hands]: 700,
+            //         [InventoryType.Waist]: 700,
+            //         [InventoryType.Legs]: 875,
+            //         [InventoryType.Feet]: 700,
+            //     },
+            //     upgradeTier: 1,
+            // },
             {
                 costId: 3090, // Flame-Blessed Iron
                 costAmount: {
@@ -120,23 +136,6 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 itemLevel: 480,
             },
         ],
-        purchases: [
-            // {
-            //     costId: 3089, // Residual Memories
-            //     costAmount: {
-            //         [InventoryType.Head]: 5000,
-            //         [InventoryType.Shoulders]: 3500,
-            //         [InventoryType.Back]: 2000,
-            //         [InventoryType.Chest]: 5000,
-            //         [InventoryType.Wrist]: 2000,
-            //         [InventoryType.Hands]: 3500,
-            //         [InventoryType.Waist]: 3500,
-            //         [InventoryType.Legs]: 5000,
-            //         [InventoryType.Feet]: 3500,
-            //     },
-            //     upgradeTier: 1,
-            // },
-        ],
     },
     {
         id: 7,
@@ -158,20 +157,6 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 itemLevel: 441,
             },
         ],
-        purchases: [
-            // {
-            //     costId: 210254, // Dreamsurge Cocoon
-            //     costAmount: 1,
-            //     upgradeTier: 2,
-            //     progressKey: 'dfDreamsurge',
-            // },
-            // {
-            //     costId: 209856, // Dilated Time Pod
-            //     costAmount: 1,
-            //     upgradeTier: 1,
-            //     progressKey: 'dfTimeRift',
-            // },
-        ],
     },
     {
         id: 6,
@@ -191,13 +176,6 @@ export const convertibleCategories: ConvertibleCategory[] = [
             {
                 itemLevel: 402,
             },
-        ],
-        purchases: [
-            // {
-            //     costId: 207026, // Dreamsurge Coalescence
-            //     costAmount: 100,
-            //     upgradeTier: 1,
-            // },
         ],
         sourceTier: 1,
         sources: {
