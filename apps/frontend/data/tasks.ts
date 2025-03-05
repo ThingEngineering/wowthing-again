@@ -1053,6 +1053,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: '[Um] C.H.E.T.T. List',
             questIds: [87296],
             questReset: DbResetType.Weekly,
+            couldGetFunc: () => get(userStore).maxReputation.get(2653) >= 32500, // Cartels renown 13
         },
         {
             taskKey: 'twwUndermineManyJobs',

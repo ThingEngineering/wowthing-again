@@ -78,6 +78,7 @@ export interface UserData {
     hasRecipe?: Set<number>;
     hasSource?: Set<string>;
     hasSourceV2?: Map<number, Set<number>>;
+    maxReputation?: Map<number, number>;
 }
 
 export class UserDataCurrentPeriod {
