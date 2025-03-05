@@ -1034,6 +1034,13 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     twwChores11_1: [
         {
+            taskKey: 'twwUndermineWorldBossFirst',
+            taskName: '[Um] World Boss 1st Kill',
+            accountWide: true,
+            questIds: [89401],
+            questReset: DbResetType.Weekly,
+        },
+        {
             taskKey: 'twwUndermineCartel',
             taskName: '[Um] Choose Cartel',
             accountWide: true,
@@ -1046,6 +1053,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: '[Um] C.H.E.T.T. List',
             questIds: [87296],
             questReset: DbResetType.Weekly,
+            couldGetFunc: () => get(userStore).maxReputation.get(2653) >= 32500, // Cartels renown 13
         },
         {
             taskKey: 'twwUndermineManyJobs',
@@ -1073,19 +1081,6 @@ export const multiTaskMap: Record<string, Chore[]> = {
                 85487, // Boom! Headshot!
                 85488, // Security Detail
             ],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineWorldBossFirst',
-            taskName: '[Um] World Boss 1st Kill',
-            accountWide: true,
-            questIds: [89401],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineWorldBossFirst',
-            taskName: '[Um] World Boss',
-            questIds: [85088],
             questReset: DbResetType.Weekly,
         },
     ],

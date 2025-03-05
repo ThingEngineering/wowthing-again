@@ -104,9 +104,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // Transmog
-        userData.hasIllusion = new Set<number>(userData.illusionIds || []);
-
         userData.hasAppearance = new Set<number>();
+        userData.hasIllusion = new Set<number>(userData.illusionIds || []);
+        userData.hasSource = new Set<string>();
+        userData.hasSourceV2 = new Map();
+
         let lastAppearanceId = 0;
         for (const diffedAppearanceId of userData.rawAppearanceIds) {
             const appearanceId = diffedAppearanceId + lastAppearanceId;
@@ -115,8 +117,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
         userData.rawAppearanceIds = null;
 
-        userData.hasSource = new Set<string>();
-        userData.hasSourceV2 = new Map();
         for (let modifier = 0; modifier < 256; modifier++) {
             userData.hasSourceV2.set(modifier, new Set());
         }
@@ -135,6 +135,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.rawAppearanceSources = null;
 
         // Characters
+        userData.maxReputation = new Map<number, number>();
         userData.characterMap = {};
         userData.charactersByConnectedRealm = {};
         userData.charactersByRealm = {};
@@ -245,7 +246,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.charactersByRealm = {};
         const allLockouts: Record<string, [Character, CharacterLockout][]> = {};
         for (const character of userData.characters) {
-            this.initializeCharacter(itemData, manualData, staticData, character);
+            this.initializeCharacter(itemData, manualData, staticData, userData, character);
 
             character.hidden = settingsData.characters.hiddenCharacters?.includes(character.id);
             character.ignored =
@@ -433,6 +434,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         itemData: ItemData,
         manualData: ManualData,
         staticData: StaticData,
+        userData: UserData,
         character: Character,
     ): void {
         // account
@@ -571,6 +573,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                             character.faction === 0
                                 ? reputation.alliance?.id
                                 : reputation.horde?.id;
+                    }
+
+                    const repValue = character.reputations?.[repId];
+                    if (
+                        repValue !== undefined &&
+                        repValue > (userData.maxReputation.get(repId) || -999999)
+                    ) {
+                        userData.maxReputation.set(repId, repValue);
                     }
 
                     setsData.push({
