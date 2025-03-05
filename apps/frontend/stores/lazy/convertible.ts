@@ -43,9 +43,11 @@ export class LazyConvertibleCharacterItem {
 }
 
 export class LazyConvertibleModifier {
+    public anyCanAfford: boolean;
     public anyCanConvert: boolean;
     public anyCanUpgrade: boolean;
     public anyIsConvertible: boolean;
+    public anyIsPurchaseable: boolean;
     public anyIsUpgradeable: boolean;
     public characters: Record<number, LazyConvertibleCharacterItem[]> = {};
     public userHas: boolean;
@@ -334,10 +336,7 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                 continue;
                             }
 
-                            const costAmount =
-                                typeof purchase.costAmount === 'object'
-                                    ? purchase.costAmount[setItemInventoryType]
-                                    : purchase.costAmount;
+                            const costAmount = purchase.costAmount[setItemInventoryType];
 
                             const purchaseable = new LazyConvertibleCharacterItem(
                                 {
@@ -448,18 +447,14 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                     }
                 } // for character
 
-                modifierData.anyCanConvert = Object.values(modifierData.characters).some(
-                    (entries) => entries.some((entry) => entry.canConvert),
-                );
-                modifierData.anyIsConvertible = Object.values(modifierData.characters).some(
-                    (entries) => entries.some((entry) => entry.isConvertible),
-                );
-                modifierData.anyCanUpgrade = Object.values(modifierData.characters).some(
-                    (entries) => entries.some((entry) => entry.canUpgrade),
-                );
-                modifierData.anyIsUpgradeable = Object.values(modifierData.characters).some(
-                    (entries) => entries.some((entry) => entry.isUpgradeable),
-                );
+                for (const entries of Object.values(modifierData.characters)) {
+                    modifierData.anyCanAfford ||= entries.some((entry) => entry.canAfford);
+                    modifierData.anyCanConvert ||= entries.some((entry) => entry.canConvert);
+                    modifierData.anyCanUpgrade ||= entries.some((entry) => entry.canUpgrade);
+                    modifierData.anyIsConvertible ||= entries.some((entry) => entry.isConvertible);
+                    modifierData.anyIsPurchaseable ||= entries.some((entry) => entry.isPurchased);
+                    modifierData.anyIsUpgradeable ||= entries.some((entry) => entry.isUpgradeable);
+                }
             } // for modifier
         } // for setItemId
 
