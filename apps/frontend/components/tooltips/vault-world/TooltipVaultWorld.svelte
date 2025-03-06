@@ -47,6 +47,10 @@
             if (Math.abs(character.weekly.delveWeek - nextReset) < 5) {
                 runs = sortBy(character.weekly.delves, ([level]) => leftPad(11 - level, 2, '0'));
             }
+
+            for (let i = runs.length; i < progress[2].progress; i++) {
+                runs.push([1, 'Activities/Delves']);
+            }
         }
     }
 </script>
@@ -68,7 +72,13 @@
         <table class="table-tooltip-vault table-striped" class:border-right={improve.length > 0}>
             <tbody>
                 {#each Array(3) as _, i}
-                    <Progress progress={progress[i]} runCount={i < 2 ? 2 : 4} runIndex={i} {runs} />
+                    <Progress
+                        highlightLast={true}
+                        progress={progress[i]}
+                        runCount={i < 2 ? 2 : 4}
+                        runIndex={i}
+                        {runs}
+                    />
                 {/each}
             </tbody>
         </table>
