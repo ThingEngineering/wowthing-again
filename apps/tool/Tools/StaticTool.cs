@@ -29,8 +29,9 @@ public class StaticTool
         StringType.WowCharacterSpecializationName,
         StringType.WowCharacterTitle,
         StringType.WowCreatureName,
-        StringType.WowCurrencyName,
         StringType.WowCurrencyCategoryName,
+        StringType.WowCurrencyDescription,
+        StringType.WowCurrencyName,
         StringType.WowHolidayName,
         StringType.WowInventorySlot,
         StringType.WowInventoryType,
@@ -448,6 +449,7 @@ public class StaticTool
 
             foreach (var currency in cacheData.RawCurrencies)
             {
+                currency.Description = GetString(StringType.WowCurrencyDescription, language, currency.Id);
                 currency.Name = GetString(StringType.WowCurrencyName, language, currency.Id);
             }
 

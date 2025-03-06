@@ -570,6 +570,14 @@ public class DumpsTool
             currency => currency.ID,
             currency => currency.Name
         );
+
+        await ImportStrings<DumpCurrencyTypes>(
+            context,
+            StringType.WowCurrencyDescription,
+            "currencytypes",
+            currency => currency.ID,
+            currency => currency.Description
+        );
     }
 
     private async Task ImportCurrencyCategories(WowDbContext context)

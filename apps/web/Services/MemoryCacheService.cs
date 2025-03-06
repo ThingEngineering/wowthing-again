@@ -66,6 +66,49 @@ WHERE   pgi.inhparent = 'wow_auction'::regclass
             });
     }
 
+    public async Task<Dictionary<int, int>> GetCommoditesForRegion(short region)
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            string.Format(MemoryCacheKeys.AuctionCommodities, region),
+            async cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
+
+                var ret = new Dictionary<int, int>();
+
+                var maxStamp = await _context.WowAuctionCommodityHourly
+                    .AsNoTracking()
+                    .Where(hourly => hourly.Region == region &&
+                                     hourly.ItemId == 2447) // Peacebloom
+                    .Select(hourly => hourly.Timestamp)
+                    .MaxAsync();
+
+                var commodities = await _context.WowAuctionCommodityHourly
+                    .AsNoTracking()
+                    .Where(hourly => hourly.Region == region &&
+                                     hourly.Timestamp == maxStamp)
+                    .Select(hourly => new
+                    {
+                        ItemId = hourly.ItemId,
+                        Price = hourly.Data[0]
+                    })
+                    .ToArrayAsync();
+
+                foreach (var commodity in commodities)
+                {
+                    ret.Add(commodity.ItemId, commodity.Price);
+                }
+
+                return ret;
+            }
+        );
+    }
+
+    public void ExpireCommoditesForRegion(short region)
+    {
+        _memoryCache.Remove(string.Format(MemoryCacheKeys.AuctionCommodities, region));
+    }
+
     public async Task<Dictionary<int, BackgroundImage>> GetBackgroundImages()
     {
         return await _memoryCache.GetOrCreateAsync(

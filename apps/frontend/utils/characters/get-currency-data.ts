@@ -59,8 +59,6 @@ export function getCurrencyData(
                     extraTooltip = `${toNiceDuration(remainingTime)} to max!`;
                 }
             }
-        } else if (characterCurrency.totalQuantity > 0) {
-            extraTooltip = `Total earned: ${characterCurrency.totalQuantity.toLocaleString()}`;
         }
 
         ret.amount = toNiceNumber(amount);

@@ -9,17 +9,18 @@ public class StaticCurrencyConverter : JsonConverter<StaticCurrency>
         throw new NotImplementedException();
     }
 
-    public override void Write(Utf8JsonWriter writer, StaticCurrency value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, StaticCurrency currency, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        writer.WriteNumberValue(value.Id);
-        writer.WriteNumberValue(value.CategoryId);
-        writer.WriteNumberValue(value.MaxPerWeek);
-        writer.WriteNumberValue(value.MaxTotal);
-        writer.WriteNumberValue(value.RechargeAmount);
-        writer.WriteNumberValue(value.RechargeInterval);
-        writer.WriteNumberValue(value.TransferPercent);
-        writer.WriteStringValue(value.Name);
+        writer.WriteNumberValue(currency.Id);
+        writer.WriteNumberValue(currency.CategoryId);
+        writer.WriteNumberValue(currency.MaxPerWeek);
+        writer.WriteNumberValue(currency.MaxTotal);
+        writer.WriteNumberValue(currency.RechargeAmount);
+        writer.WriteNumberValue(currency.RechargeInterval);
+        writer.WriteNumberValue(currency.TransferPercent);
+        writer.WriteStringValue(currency.Name);
+        writer.WriteStringValue(currency.Description);
         writer.WriteEndArray();
     }
 }
