@@ -83,6 +83,15 @@ export const openables = new Set<number>([
     229130, // Cache of Delver's Spoils
     229354, // Algari Adventurer's Cache
     232602, // Forged Gladiator's Coin Pouch
+    233071, // Delver's Bounty [S2]
+    233276, // Delver's Starter Kit
+    233281, // Delver's Cosmetic Surprise Bag
+    235610, // Seasoned Adventurer's Cache [S2]
+    235639, // Seasoned Adventurer's Cache [S2]
+    238207, // Nanny's Surge Dividends
+    238208, // Nanny's Surge Dividends
+    239118, // Pinnacle Cache [S2]
+    239120, // Seasoned Adventurer's Cache [S2]
 
     221269, // Crimson Valorstone
     225896, // Void-Touched Valorstone
