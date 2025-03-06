@@ -19,6 +19,7 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
     {
         { (short)WowRegion.US, "STD+07" },
         { (short)WowRegion.EU, "STD-01" },
+        { (short)WowRegion.TW, "STD+00" }
     };
 
     private const string MinDateSql = """
@@ -56,6 +57,8 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
             var minDate = await Context.Database
                 .SqlQueryRaw<DateOnly>(minDateQuery)
                 .SingleAsync();
+
+            Logger.Debug("[{region}] {minDate}", ((WowRegion)region).ToString(), minDate);
 
             timer.AddPoint("Min");
 
@@ -124,7 +127,7 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
                 //
                 string deleteQuery = string.Format(DeleteSql, region, timeZone, formattedDate);
                 int deleted = await Context.Database.ExecuteSqlRawAsync(deleteQuery);
-                // Logger.Information("Deleted {0} rows", deleted);
+                Logger.Debug("Deleted {0} rows", deleted);
             }
 
             timer.AddPoint(((WowRegion)region).ToString());
