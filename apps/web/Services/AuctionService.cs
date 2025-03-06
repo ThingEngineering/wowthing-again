@@ -210,30 +210,7 @@ public class AuctionService
 
         foreach (short region in regions)
         {
-            var regionData = data.Regions[region];
-
-            var maxStamp = await _context.WowAuctionCommodityHourly
-                .AsNoTracking()
-                .Where(hourly => hourly.Region == region &&
-                                 hourly.ItemId == 2447) // Peacebloom
-                .Select(hourly => hourly.Timestamp)
-                .MaxAsync();
-
-            var commodities = await _context.WowAuctionCommodityHourly
-                .AsNoTracking()
-                .Where(hourly => hourly.Region == region &&
-                                 hourly.Timestamp == maxStamp)
-                .Select(hourly => new
-                {
-                    ItemId = hourly.ItemId,
-                    Price = hourly.Data[0]
-                })
-                .ToArrayAsync();
-
-            foreach (var commodity in commodities)
-            {
-                regionData.Add(commodity.ItemId, commodity.Price);
-            }
+            data.Regions[region] = await _memoryCacheService.GetCommoditesForRegion(region);
         }
 
         return data;

@@ -2,6 +2,7 @@
 
 public static class MemoryCacheKeys
 {
+    public const string AuctionCommodities = "auction-commodities:{0}";
     public const string AuctionConnectedRealms = "auction-connected-realms";
     public const string AuctionHouseUpdatedTimes = "auction-house-updated-times";
     public const string BackgroundImages = "background-images";
