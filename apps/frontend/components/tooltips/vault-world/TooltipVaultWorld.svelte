@@ -53,6 +53,14 @@
             }
         }
     }
+
+    function getRunCount(index: number): number {
+        if (progress[index]) {
+            return progress[index].threshold - (progress[index - 1]?.threshold || 0);
+        } else {
+            return index < 2 ? 2 : 4;
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -75,7 +83,7 @@
                     <Progress
                         highlightLast={true}
                         progress={progress[i]}
-                        runCount={i < 2 ? 2 : 4}
+                        runCount={getRunCount(i)}
                         runIndex={i}
                         {runs}
                     />
@@ -85,7 +93,7 @@
 
         {#if improve.length > 0}
             {@const useImprove = improve.slice(0, 3)}
-            <table class="table-striped border-left" class:border-bottom={useImprove.length < 3}>
+            <table class="table-striped border-left border-bottom" style="margin-bottom: -1px;">
                 <tbody>
                     {#each useImprove as [levelRange, itemLevel, quality]}
                         <tr>
