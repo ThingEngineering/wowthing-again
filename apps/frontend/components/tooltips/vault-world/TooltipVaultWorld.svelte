@@ -47,6 +47,18 @@
             if (Math.abs(character.weekly.delveWeek - nextReset) < 5) {
                 runs = sortBy(character.weekly.delves, ([level]) => leftPad(11 - level, 2, '0'));
             }
+
+            for (let i = runs.length; i < progress[2].progress; i++) {
+                runs.push([1, 'Activities/Delves']);
+            }
+        }
+    }
+
+    function getRunCount(index: number): number {
+        if (progress[index]) {
+            return progress[index].threshold - (progress[index - 1]?.threshold || 0);
+        } else {
+            return index < 2 ? 2 : 4;
         }
     }
 </script>
@@ -68,14 +80,20 @@
         <table class="table-tooltip-vault table-striped" class:border-right={improve.length > 0}>
             <tbody>
                 {#each Array(3) as _, i}
-                    <Progress progress={progress[i]} runCount={i < 2 ? 2 : 4} runIndex={i} {runs} />
+                    <Progress
+                        highlightLast={true}
+                        progress={progress[i]}
+                        runCount={getRunCount(i)}
+                        runIndex={i}
+                        {runs}
+                    />
                 {/each}
             </tbody>
         </table>
 
         {#if improve.length > 0}
             {@const useImprove = improve.slice(0, 3)}
-            <table class="table-striped border-left" class:border-bottom={useImprove.length < 3}>
+            <table class="table-striped border-left border-bottom" style="margin-bottom: -1px;">
                 <tbody>
                     {#each useImprove as [levelRange, itemLevel, quality]}
                         <tr>

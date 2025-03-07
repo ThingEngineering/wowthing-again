@@ -116,18 +116,19 @@ export const keyVaultItemLevel: Array<Array<number>> = [
 ];
 
 export const raidVaultItemLevel: Record<number, Array<number>> = {
-    17: [623, 2], // LFR
-    14: [636, 3], // Normal
-    15: [649, 4], // Heroic
     16: [662, 5], // Mythic
+    15: [649, 4], // Heroic
+    14: [636, 3], // Normal
+    17: [623, 2], // LFR
 };
 
 export const worldVaultItemLevel: Array<Array<number>> = [
     [7, 649, 4], // Hero 1
-    [6, 645, 3], // Champion 4
-    [5, 642, 3], // Champion 3
-    [4, 636, 3], // Champion 1
-    [3, 626, 2], // Veteran 2
+    [6, 642, 3], // Champion 3
+    [5, 636, 3], // Champion 1
+    [4, 632, 2], // Veteran 4
+    [3, 629, 2], // Veteran 3
+    [2, 626, 2], // Veteran 2
     [1, 623, 2], // Veteran 1
 ];
 
