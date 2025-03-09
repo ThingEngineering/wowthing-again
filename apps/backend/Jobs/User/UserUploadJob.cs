@@ -680,9 +680,9 @@ public class UserUploadJob : JobBase
                 }
 
                 string[] parts = itemString.Split(":");
-                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 10 && parts.Length != 12 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
-                    Logger.Warning("Invalid item string: {String}", itemString);
+                    Logger.Warning("Invalid guild item string: {count} {string}", parts.Length, itemString);
                     continue;
                 }
 
@@ -872,7 +872,7 @@ public class UserUploadJob : JobBase
             short.TryParse(parts[6].OrDefault("0"), out short suffixId);
 #pragma warning restore CA1806
 
-            // count:id:context:enchant:itemLevel:quality:suffix:bonusIDs:gems
+            // count:id:context:enchant:itemLevel:quality:suffix:bonusIDs:gems:modifiers:bound?:bindType
             item.Count = int.Parse(parts[0]);
             item.ItemId = int.Parse(parts[1]);
             item.Context = context;
@@ -901,6 +901,14 @@ public class UserUploadJob : JobBase
                     .Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(value => value.Split('_'))
                     .ToDictionary(key => int.Parse(key[0]), value => int.Parse(value[0]));
+
+                if (parts.Length == 12)
+                {
+                    short.TryParse(parts[10].OrDefault("0"), out short bound);
+                    short.TryParse(parts[11].OrDefault("0"), out short bindType);
+                    item.Bound = bound == 1;
+                    item.BindType = bindType;
+                }
             }
         }
     }
