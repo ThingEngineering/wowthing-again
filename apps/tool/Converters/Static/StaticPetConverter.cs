@@ -13,6 +13,7 @@ public class StaticPetConverter : JsonConverter<StaticPet>
     {
         writer.WriteStartArray();
         writer.WriteNumberValue(pet.Id);
+        writer.WriteNumberValue(pet.Flags);
         writer.WriteNumberValue(pet.SourceType);
         writer.WriteNumberValue(pet.PetType);
         writer.WriteNumberValue(pet.CreatureId);
