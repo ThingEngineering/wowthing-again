@@ -23,6 +23,7 @@ public class ApiCharacterRaiderIoSeason
         { "season-df-3", 11 },
         { "season-df-4", 12 },
         { "season-tww-1", 13 },
+        { "season-tww-2", 14 },
     };
 
     public string Season { get; set; }
