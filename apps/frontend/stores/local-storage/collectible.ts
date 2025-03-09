@@ -21,6 +21,7 @@ export class CollectibleState {
     };
 
     public petSearchNoMaxLevel: boolean = true;
+    public petSearchNoRare: boolean = true;
 }
 
 const key = 'state-collectible';
