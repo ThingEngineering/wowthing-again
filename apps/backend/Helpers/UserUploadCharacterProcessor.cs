@@ -258,7 +258,7 @@ public class UserUploadCharacterProcessor
         {
             int slot = int.Parse(slotString[1..]);
             string[] parts = itemString.Split(":");
-            if (parts.Length != 10)
+            if (parts.Length != 10 && parts.Length != 12)
             {
                 _logger.Warning("Invalid equipped item string: {count} {string}", parts.Length, itemString);
                 continue;
@@ -786,9 +786,9 @@ public class UserUploadCharacterProcessor
 
                 // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
                 string[] parts = itemString.Split(":");
-                if (parts.Length != 9 && parts.Length != 10 && !(parts.Length == 4 && parts[0] == "pet"))
+                if (parts.Length != 10 && parts.Length != 12 && !(parts.Length == 4 && parts[0] == "pet"))
                 {
-                    _logger.Warning("Invalid item string: {String}", itemString);
+                    _logger.Warning("Invalid bags item string: {count} {string}", parts.Length, itemString);
                     continue;
                 }
 
