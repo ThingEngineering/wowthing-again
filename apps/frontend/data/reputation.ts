@@ -20,4 +20,7 @@ export const contractAuras: Record<number, [number, number]> = {
     425308: [2574, 1], // Contract: Dream Wardens 1
     425306: [2574, 2], // Contract: Dream Wardens 2
     425305: [2574, 3], // Contract: Dream Wardens 3
-}
+    471131: [2653, 1], // Contract: The Cartels of Undermine 1
+    471128: [2653, 2], // Contract: The Cartels of Undermine 2
+    471130: [2653, 3], // Contract: The Cartels of Undermine 3
+};
