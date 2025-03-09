@@ -16,6 +16,11 @@
         pets = [];
         const noMaxLevel = $collectibleState.petSearchNoMaxLevel;
         for (const [speciesId, thesePets] of getNumberKeyedEntries($userStore.pets)) {
+            const staticPet = $staticStore.pets[speciesId];
+            if (staticPet?.canBattle === false) {
+                continue;
+            }
+
             if (noMaxLevel) {
                 if (!thesePets.some((pet) => pet.level === 25)) {
                     pets.push([
@@ -30,7 +35,6 @@
         pets = sortBy(pets, ([speciesId, pet, name]) =>
             [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|'),
         );
-        console.log(pets);
     }
 
     function bestPet(pets: UserDataPet[]) {
