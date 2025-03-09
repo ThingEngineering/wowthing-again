@@ -58,6 +58,11 @@ export function getCharacterGroupContext(
                         get(staticStore).connectedRealms[char.realm.connectedRealmId]
                             ?.displayText || '???',
                     );
+                } else if (thing.startsWith('tag:')) {
+                    const tagId = parseInt(thing.substring(4));
+                    const hasFlag =
+                        ((settingsData.characters.flags?.[char.id] || 0) & (1 << tagId)) > 0;
+                    out.push(hasFlag ? '0' : '1');
                 }
             }
 

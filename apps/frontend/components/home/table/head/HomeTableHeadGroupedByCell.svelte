@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import type { Character } from '@/types';
     import type { GroupByContext } from '@/utils/get-character-group-func';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import { settingsStore } from '@/shared/stores/settings';
 
     export let groupByContext: GroupByContext;
     export let group: Character[];
@@ -36,7 +37,7 @@
                     <span class="tag">{groupValue || 'No-Tag'}</span>
                 {:else if groupBy === 'faction'}
                     {@const factionAsEnum = parseInt(groupValue, 10)}
-                    <FactionIcon faction={factionAsEnum}/>
+                    <FactionIcon faction={factionAsEnum} />
                 {:else if groupBy === 'enabled'}
                     Account: {groupValue === 'a' ? 'Enabled' : 'Disabled'}
                 {:else if groupBy === 'guild'}
@@ -48,6 +49,15 @@
                 {:else if groupBy === 'realm'}
                     <span class="realm-abbreviated text-overflow" use:basicTooltip={groupValue}>
                         {groupValue}
+                    </span>
+                {:else if groupBy.startsWith('tag:')}
+                    {@const tagId = parseInt(groupBy.split(':')[1])}
+                    {@const tag = $settingsStore.tags.find((tag) => tag.id === tagId)}
+                    <span
+                        class:status-success={groupValue === '0'}
+                        class:status-warn={groupValue === '1'}
+                    >
+                        {tag?.name}
                     </span>
                 {:else}
                     {groupBy}: {groupValue}

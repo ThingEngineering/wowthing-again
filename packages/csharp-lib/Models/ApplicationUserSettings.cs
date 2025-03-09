@@ -179,7 +179,7 @@ public class ApplicationUserSettings
             view.GroupBy = view.GroupBy
                 .EmptyIfNull()
                 .Select(gb => gb.ToLower())
-                .Where(gb => _validGroupBy.Contains(gb))
+                .Where(gb => _validGroupBy.Contains(gb) || gb.StartsWith("tag:"))
                 .Distinct()
                 .ToList();
 
