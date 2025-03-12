@@ -15,6 +15,7 @@ CHRCLASS = {
     32: 'Death Knight',
     2048: 'Demon Hunter',
     1024: 'Druid',
+    4096: 'Evoker',
     4: 'Hunter',
     128: 'Mage',
     512: 'Monk',
