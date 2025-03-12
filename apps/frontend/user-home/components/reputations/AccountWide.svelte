@@ -6,6 +6,7 @@
     import type { ManualDataReputationSet } from '@/types/data/manual';
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
     export let accountSets: [ManualDataReputationSet[], number][];
@@ -66,7 +67,9 @@
                         },
                     }}
                 >
-                    <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
+                    <WowheadLink type="faction" id={reputationSet.both.id}>
+                        <WowthingImage name={reputationSet.both.icon} size={48} border={2} />
+                    </WowheadLink>
 
                     {#if reputationSet.both.iconText}
                         <span class="text pill">{reputationSet.both.iconText}</span>
