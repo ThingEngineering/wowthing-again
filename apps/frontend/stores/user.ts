@@ -148,6 +148,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
         userData.charactersRaw = null;
 
+        userData.apiUpdatedCharacters = sortBy(
+            userData.characters,
+            (char) => -char.lastApiUpdate?.toUnixInteger() || 0,
+        );
+
         // Guilds
         userData.guildMap = {};
         for (const guildArray of userData.guildsRaw || []) {
