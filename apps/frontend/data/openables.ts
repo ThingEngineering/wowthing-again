@@ -82,12 +82,49 @@ export const openables = new Set<number>([
     229129, // Cache of Delver's Spoils
     229130, // Cache of Delver's Spoils
     229354, // Algari Adventurer's Cache
+    231153, // Triumphant Satchel of Carved Undermine Crests
+    231154, // Celebratory Pack of Runed Undermine Crests
+    231264, // Glorious Cluster of Gilded Undermine Crests
+    231267, // Pouch of Weathered Undermine Crests
+    231269, // Satchel of Carved Undermine Crests
+    231270, // Pack of Runed Undermine Crests
+    232463, // Overflowing Undermine Trove
+    232465, // Darkfuse Trove
     232602, // Forged Gladiator's Coin Pouch
+    232615, // Prized Gladiator's Coin Pouch
     233071, // Delver's Bounty [S2]
     233276, // Delver's Starter Kit
     233281, // Delver's Cosmetic Surprise Bag
+    233555, // Restored Coffer Key
+    233557, // Sifted Pile of Scrap
+    233558, // S.C.R.A.P. Scrubbed Deluxe
+    234729, // Cache of Undermine Treasures
+    234731, // Cache of Undermine Treasures
+    234743, // Steamwheedle's Trove
+    234744, // Blackwater's Trove
+    234745, // Bilgewater's Trove
+    234746, // Venture Co.'s Trove
+    235151, // Distinguished Actor's Chest
+    235258, // Bilgewater's Trove
+    235259, // Bilgewater's Trove
+    235260, // Blackwater's Trove
+    235261, // Blackwater's Trove
+    235262, // Steamwheedle's Trove
+    235263, // Steamwheedle's Trove
+    235264, // Venture Co.'s Trove
+    235265, // Venture Co.'s Trove
+    235531, // Restored Coffer Key
+    235558, // Box of Darkfuse Miscellany
     235610, // Seasoned Adventurer's Cache [S2]
     235639, // Seasoned Adventurer's Cache [S2]
+    236756, // Socially Expected Tip Chest
+    236757, // Generous Tip Chest
+    236758, // Extravagant Tip Chest
+    237014, // Severed Threads Commendation
+    237132, // Bilgewater Trove
+    237133, // Venture Co. Trove
+    237134, // Steamwheedle Trove
+    237135, // Blackwater Trove
     238207, // Nanny's Surge Dividends
     238208, // Nanny's Surge Dividends
     239118, // Pinnacle Cache [S2]

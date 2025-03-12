@@ -52,8 +52,9 @@ export interface UserData {
     homeLockouts: InstanceDifficulty[];
 
     activeCharacters: Character[];
-    characterMap: Record<number, Character>;
+    apiUpdatedCharacters: Character[];
     characters: Character[];
+    characterMap: Record<number, Character>;
     charactersByConnectedRealm: Record<number, Character[]>;
     charactersByRealm: Record<number, Character[]>;
 

@@ -53,13 +53,11 @@ export function getRenownData({
 
     const actualCharacter = !ret.dataRep.accountWide
         ? character
-        : orderBy(
-              userData.activeCharacters.filter(
-                  (char) => !!char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex],
-              ),
+        : userData.apiUpdatedCharacters.find(
               (char) =>
-                  -char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value,
-          )[0];
+                  char.reputationData[slug].sets[reputationsIndex][reputationSetsIndex].value !==
+                  -1,
+          ) || userData.apiUpdatedCharacters[0];
 
     ret.characterRep =
         actualCharacter.reputationData[slug].sets[reputationsIndex][reputationSetsIndex];

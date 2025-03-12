@@ -64,9 +64,11 @@ export function getCharacterCommodities(
                     continue;
                 }
 
-                characterCommodities.addCount(characterItem.itemId, characterItem.count);
                 const itemValue = characterItem.count * (commodityPrice / 100);
-                characterCommodities.totalValue += itemValue;
+                if (itemValue >= 100) {
+                    characterCommodities.addCount(characterItem.itemId, characterItem.count);
+                    characterCommodities.totalValue += itemValue;
+                }
             }
         }
 
