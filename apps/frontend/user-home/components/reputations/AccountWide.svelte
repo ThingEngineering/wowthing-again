@@ -29,6 +29,7 @@
     }
     .pill {
         left: 50%;
+        pointer-events: none;
         position: absolute;
         transform: translateX(-50%);
     }
