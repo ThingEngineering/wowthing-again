@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { exploreState } from '@/stores/local-storage'
+    import { ItemBonusType } from '@/enums/item-bonus-type';
+    import { itemStore } from '@/stores';
+    import { exploreState } from '@/stores/local-storage';
 
     import TextInput from '@/shared/components/forms/TextInput.svelte';
-    import { itemStore } from '@/stores';
-    import { ItemBonusType } from '@/enums/item-bonus-type';
 </script>
 
 <style lang="scss">
@@ -43,13 +43,13 @@
             border-top: 1px solid $border-color;
         }
     }
+    td {
+        padding: 0.2rem 0.4rem;
+    }
 </style>
 
 <div class="thing-container border">
-    <TextInput
-        name="explore_bonus_ids"
-        bind:value={$exploreState.bonusIds}
-    />
+    <TextInput name="explore_bonus_ids" bind:value={$exploreState.bonusIds} />
 
     <div class="bonuses">
         {#each $exploreState.bonusIds.split(':') as bonusIdString}
@@ -62,9 +62,10 @@
                     <table class="table table-striped">
                         <tbody>
                             {#each bonus.bonuses as [bonusType, ...bonusValues]}
+                                {@const bonusTypeName = ItemBonusType[bonusType]}
                                 <tr>
                                     <td class="type">
-                                        {ItemBonusType[bonusType]}
+                                        [{bonusType}] {bonusTypeName || `???`}
                                     </td>
                                 </tr>
                                 <tr>
