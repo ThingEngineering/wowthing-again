@@ -80,7 +80,7 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 itemLevel: 597,
             },
             {
-                itemLevel: 683,
+                itemLevel: 583,
             },
         ],
         purchases: [

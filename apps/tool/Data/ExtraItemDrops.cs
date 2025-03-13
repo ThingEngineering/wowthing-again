@@ -2823,6 +2823,26 @@ public static partial class Hardcoded
                 new(205134, RaidDifficultiesAll), // Vantus Rune
             ]
         },
+        // Aberrus, the Shadowed Crucible > Assault of the Zaqali
+        {
+            2524,
+            [
+                new(194642, RaidDifficultiesAll), // Design: Choker of Shielding
+                new(201740, RaidDifficultiesAll), // Elemental Codex of Ultimate Power
+                new(194259, RaidDifficultiesAll), // Pattern: Allied Cinch of Time Dilation
+                new(194266, RaidDifficultiesAll), // Pattern: Bronzed Grip Wrappings
+                new(194260, RaidDifficultiesAll), // Pattern: Blue Dragon Soles
+                new(193873, RaidDifficultiesAll), // Pattern: Old Spirit's Wristwraps
+                new(193881, RaidDifficultiesAll), // Pattern: Scale Rein Grips
+                new(193872, RaidDifficultiesAll), // Pattern: String of Spiritual Knick-Knacks
+                new(193880, RaidDifficultiesAll), // Pattern: Wind Spirit's Lasso
+                new(194489, RaidDifficultiesAll), // Plans: Allied Chestplate of Generosity
+                new(194490, RaidDifficultiesAll), // Plans: Allied Wristguard of Companionship
+                new(191597, RaidDifficultiesAll), // Recipe: Potion Absorption Inhibitor
+                new(199227, RaidDifficultiesAll), // Schematic: Sophisticated Problem Solver
+
+            ]
+        },
         // Amirdrassil, the Dream's Hope > Trash
         {
             1001207,
@@ -2863,26 +2883,21 @@ public static partial class Hardcoded
                 new(225720, RaidDifficultiesAll), // Web Acolyte's Hood
             ]
         },
-        // Aberrus, the Shadowed Crucible > Assault of the Zaqali
+        // Liberation of Undermine > Trash
         {
-            2524,
+            1001296,
             [
-                new(194642, RaidDifficultiesAll), // Design: Choker of Shielding
-                new(201740, RaidDifficultiesAll), // Elemental Codex of Ultimate Power
-                new(194259, RaidDifficultiesAll), // Pattern: Allied Cinch of Time Dilation
-                new(194266, RaidDifficultiesAll), // Pattern: Bronzed Grip Wrappings
-                new(194260, RaidDifficultiesAll), // Pattern: Blue Dragon Soles
-                new(193873, RaidDifficultiesAll), // Pattern: Old Spirit's Wristwraps
-                new(193881, RaidDifficultiesAll), // Pattern: Scale Rein Grips
-                new(193872, RaidDifficultiesAll), // Pattern: String of Spiritual Knick-Knacks
-                new(193880, RaidDifficultiesAll), // Pattern: Wind Spirit's Lasso
-                new(194489, RaidDifficultiesAll), // Plans: Allied Chestplate of Generosity
-                new(194490, RaidDifficultiesAll), // Plans: Allied Wristguard of Companionship
-                new(191597, RaidDifficultiesAll), // Recipe: Potion Absorption Inhibitor
-                new(199227, RaidDifficultiesAll), // Schematic: Sophisticated Problem Solver
-
+                new(232661, RaidDifficultiesAll), // Bootleg Wrynn Shoulderplates
+                new(232658, RaidDifficultiesAll), // Firebug's Anklegear
+                new(232662, RaidDifficultiesAll), // Globlin-Fused Greatbelt
+                new(232659, RaidDifficultiesAll), // Loyalist's Holdout Hood
+                new(232657, RaidDifficultiesAll), // Mechgineer's Blowtorch Cover
+                new(232660, RaidDifficultiesAll), // Midnight Lounge Cummerbund
+                new(232656, RaidDifficultiesAll), // Psychopath's Ravemantle
+                new(232663, RaidDifficultiesAll), // Undermine Merc's Dog Tags
+                new(232655, RaidDifficultiesAll), // Vatwork Janitor's Wasteband
             ]
-        }
+        },
         #endregion
     };
 }
