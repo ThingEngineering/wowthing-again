@@ -3,6 +3,7 @@ import groupBy from 'lodash/groupBy';
 import { convertibleCategories, modifierToTier } from '@/components/items/convertible/data';
 import { classIdToArmorType, classOrder } from '@/data/character-class';
 import { ItemLocation } from '@/enums/item-location';
+import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
 import { PlayableClass, playableClasses } from '@/enums/playable-class';
 import { QuestStatus } from '@/enums/quest-status';
 import {
@@ -12,13 +13,13 @@ import {
     type CharacterItem,
     type UserData,
 } from '@/types';
+import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
-import { fixedInventoryType } from '@/utils/fixed-inventory-type';
 import type { WarbankItem } from '@/types/items';
-import { inventoryTypeToItemRedundancySlot } from '@/enums/item-redundancy-slot';
+import { currentTier } from '@/data/gear';
 
 interface LazyStores {
     itemData: ItemData;
