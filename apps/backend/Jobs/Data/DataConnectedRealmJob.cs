@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 
@@ -14,9 +15,20 @@ public class DataConnectedRealmJob : JobBase
 
         // Fetch API data
         var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(ApiPath, data[1]));
-        var result = await GetUriAsJsonAsync<ApiDataConnectedRealm>(uri);
 
-        var realmMap = result.Data.Realms
+        ApiDataConnectedRealm resultData;
+        try
+        {
+            var result = await GetUriAsJsonAsync<ApiDataConnectedRealm>(uri);
+            resultData = result.Data;
+        }
+        catch (HttpRequestException e)
+        {
+            Logger.Error("HTTP {0}", e.Message);
+            return;
+        }
+
+        var realmMap = resultData.Realms
             .ToDictionary(realm => realm.Id);
         int[] realmIds = realmMap.Keys.ToArray();
         var dbRealms = await Context.WowRealm
@@ -27,7 +39,7 @@ public class DataConnectedRealmJob : JobBase
         {
             var apiRealm = realmMap[dbRealm.Id];
 
-            dbRealm.ConnectedRealmId = result.Data.Id;
+            dbRealm.ConnectedRealmId = resultData.Id;
             dbRealm.Locale = apiRealm.Locale;
         }
 
