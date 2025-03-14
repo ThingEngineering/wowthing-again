@@ -219,6 +219,7 @@ public class UserUploadJob : JobBase
 
         // Build a fancy set of character ORs
         var addonIdToCharacterId = new Dictionary<string, long>();
+        var seenCharacterIds = new HashSet<long>();
         var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
         foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
         {
@@ -237,10 +238,14 @@ public class UserUploadJob : JobBase
                 long characterId = Convert.ToInt64(match.Groups[1].Value, 16);
                 addonIdToCharacterId.Add(addonId, characterId);
 
-                characterPredicate = characterPredicate.WowthingOr(pc =>
-                    pc.CharacterId == characterId &&
-                    pc.LastSeenAddon < lastSeen
-                );
+                if (!seenCharacterIds.Contains(characterId))
+                {
+                    seenCharacterIds.Add(characterId);
+                    characterPredicate = characterPredicate.WowthingOr(pc =>
+                        pc.CharacterId == characterId &&
+                        pc.LastSeenAddon < lastSeen
+                    );
+                }
             }
             else {
                 Logger.Warning($"Invalid character id: {addonId}");
