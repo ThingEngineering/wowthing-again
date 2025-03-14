@@ -53,14 +53,15 @@ public class CharacterEquipmentJob : JobBase
 
         equipped.Items = resultData.Items
             .EmptyIfNull()
+            .Where(item => item.Item != null)
             .ToDictionary(
                 item => item.Slot.EnumParse<WowInventorySlot>(),
                 item => new PlayerCharacterEquippedItem
                 {
                     Context = item.Context,
                     ItemId = item.Item.Id,
-                    ItemLevel = item.Level.Value,
-                    Quality = item.Quality.EnumParse<WowQuality>(),
+                    ItemLevel = item.Level?.Value ?? 1,
+                    Quality = item.Quality?.EnumParse<WowQuality>() ?? WowQuality.Poor,
                     BonusIds = item.BonusList
                         .EmptyIfNull()
                         .OrderBy(b => b)
