@@ -61,7 +61,8 @@ public class ApiCharacterStats
 
 public class ApiCharacterStatsRating
 {
-    public int Rating { get; set; }
+    public decimal Rating { get; set; }
+
     [JsonPropertyName("rating_bonus")]
     public decimal RatingBonus { get; set; }
     public decimal? Value { get; set; }
@@ -70,7 +71,7 @@ public class ApiCharacterStatsRating
     {
         return new PlayerCharacterStatsRating()
         {
-            Rating = Rating,
+            Rating = (int)Math.Floor(Rating),
             RatingBonus = (int)Math.Round(RatingBonus * 100),
             Value = Value.HasValue ? (int)Math.Round(Value.Value * 100) : null,
         };

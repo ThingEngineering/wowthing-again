@@ -41,6 +41,12 @@ public class CharacterMythicKeystoneProfileJob : JobBase
             return;
         }
 
+        if (resultData?.CurrentPeriod?.Period == null || resultData.CurrentPeriod.BestRuns == null || resultData.Seasons == null)
+        {
+            Logger.Error("Bad data!");
+            return;
+        }
+
         // Fetch character data
         var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(_query.CharacterId);
         if (mythicPlus == null)
