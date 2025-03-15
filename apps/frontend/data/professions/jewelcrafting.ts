@@ -36,6 +36,12 @@ export const warWithinJewelcrafting: TaskProfession = {
             source: 'CoT',
             costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
+        {
+            itemId: 232504, // Undermine Treatise on Jewelcrafting
+            questId: 85740,
+            source: 'UM 16',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

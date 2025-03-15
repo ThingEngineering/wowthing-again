@@ -36,6 +36,12 @@ export const warWithinMining: TaskProfession = {
             source: 'CoT',
             costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
+        {
+            itemId: 232509, // Undermine Treatise on Mining
+            questId: 85742,
+            source: 'UM 16',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

@@ -60,6 +60,12 @@ export const warWithinZones: ProfessionZone[] = [
         icon: 'achievement/40838',
         shortName: 'CoT',
     },
+    {
+        name: 'Undermine Books',
+        icon: 'achievement/40900',
+        // map: '10-the-war-within/undermine',
+        shortName: 'UM',
+    },
 ];
 
 export const zoneShortName: Record<string, string> = Object.fromEntries(
