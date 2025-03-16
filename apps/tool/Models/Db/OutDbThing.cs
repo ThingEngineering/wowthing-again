@@ -8,6 +8,7 @@ namespace Wowthing.Tool.Models.Db;
 [JsonConverter(typeof(OutDbThingConverter))]
 public class OutDbThing
 {
+    public bool AccountWide { get; set; }
     public int Id { get; set; }
     public int TrackingQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }
@@ -27,6 +28,7 @@ public class OutDbThing
         RequirementIds = thingRequirementIds.Order().ToArray();
         TagIds = thingTagIds.Order().ToArray();
 
+        AccountWide = dataThing.AccountWide;
         Id = dataThing.Id;
         Name = dataThing.Name;
         Note = dataThing.Note;

@@ -31,6 +31,7 @@ export class DbDataThing {
         public resetType: DbResetType,
         public trackingQuestId: number,
         public zoneMapsGroupId: number,
+        public accountWide: boolean,
         public name: string,
         public note: string,
         public requirementIds: number[],
