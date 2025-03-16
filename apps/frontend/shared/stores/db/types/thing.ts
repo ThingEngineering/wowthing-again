@@ -12,6 +12,7 @@ import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
+import { getItemTypeAndSubtype } from '@/utils/items/get-item-type-and-subtype';
 
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
 import { dbStore } from '../store';
@@ -81,12 +82,14 @@ export class DbDataThing {
 
         const drops: ManualDataZoneMapDrop[] = [];
         for (const content of this.contents) {
+            const [type, subType] = getItemTypeAndSubtype(content.id);
+
             const drop: ManualDataZoneMapDrop = {
                 id: content.id,
                 note: content.note,
-                type: thingContentTypeToRewardType[content.type],
                 classMask: 0,
-                subType: 0,
+                subType,
+                type,
             };
 
             if (this.requirementIds?.length > 0) {
@@ -113,16 +116,20 @@ export class DbDataThing {
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 
 const thingTypeToFarmType: Record<number, FarmType> = {
+    [DbThingType.Npc]: FarmType.Kill,
     [DbThingType.Object]: FarmType.Treasure,
     [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
+    [DbThingType.Npc]: FarmIdType.Npc,
     [DbThingType.Object]: FarmIdType.Object,
     [DbThingType.Vendor]: FarmIdType.Npc,
 };
 
 const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
     [DbResetType.Never]: FarmResetType.Never,
+    [DbResetType.Daily]: FarmResetType.Daily,
+    [DbResetType.Weekly]: FarmResetType.Weekly,
 };
 
 const thingContentTypeToRewardType: Record<number, RewardType> = {

@@ -36,6 +36,12 @@ export const warWithinEnchanting: TaskProfession = {
             source: 'CoT',
             costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
+        {
+            itemId: 232501, // Undermine Treatise on Enchanting
+            questId: 85736,
+            source: 'UM 16',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

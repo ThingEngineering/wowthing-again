@@ -1,63 +1,80 @@
 <script lang="ts">
-    import difference from 'lodash/difference'
-    import sortBy from 'lodash/sortBy'
+    import difference from 'lodash/difference';
+    import sortBy from 'lodash/sortBy';
 
-    import { expansionMap } from '@/data/expansion'
-    import { iconStrings, imageStrings } from '@/data/icons'
-    import { professionSlugToId } from '@/data/professions'
-    import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType } from '@/enums/armor-type'
-    import { FarmIdType } from '@/enums/farm-id-type'
-    import { FarmResetType } from '@/enums/farm-reset-type'
-    import { FarmType } from '@/enums/farm-type'
+    import { expansionMap } from '@/data/expansion';
+    import { iconStrings, imageStrings } from '@/data/icons';
+    import { professionSlugToId } from '@/data/professions';
+    import { weaponSubclassToString } from '@/data/weapons';
+    import { ArmorType } from '@/enums/armor-type';
+    import { FarmIdType } from '@/enums/farm-id-type';
+    import { FarmResetType } from '@/enums/farm-reset-type';
+    import { FarmType } from '@/enums/farm-type';
     import { LookupType } from '@/enums/lookup-type';
-    import { RewardType } from '@/enums/reward-type'
-    import { achievementStore, itemStore, lazyStore, manualStore, userAchievementStore, userStore } from '@/stores'
-    import { rewardTypeIcons } from '@/shared/icons/mappings'
-    import { staticStore } from '@/shared/stores/static'
-    import { leftPad } from '@/utils/formatting'
+    import { RewardType } from '@/enums/reward-type';
+    import {
+        achievementStore,
+        itemStore,
+        lazyStore,
+        manualStore,
+        userAchievementStore,
+        userStore,
+    } from '@/stores';
+    import { rewardTypeIcons } from '@/shared/icons/mappings';
+    import { staticStore } from '@/shared/stores/static';
+    import { leftPad } from '@/utils/formatting';
     import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
-    import { getDropIcon, getDropName } from '@/utils/zone-maps'
-    import type { DropStatus, FarmStatus } from '@/types'
-    import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
+    import { getDropIcon, getDropName } from '@/utils/zone-maps';
+    import type { DropStatus, FarmStatus } from '@/types';
+    import type {
+        ManualDataZoneMapCategory,
+        ManualDataZoneMapDrop,
+        ManualDataZoneMapFarm,
+    } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let drops: ManualDataZoneMapDrop[]
-    export let farm: ManualDataZoneMapFarm
-    export let map: ManualDataZoneMapCategory
-    export let status: FarmStatus
+    export let drops: ManualDataZoneMapDrop[];
+    export let farm: ManualDataZoneMapFarm;
+    export let map: ManualDataZoneMapCategory;
+    export let status: FarmStatus;
 
-    let sortedDrops: [ManualDataZoneMapDrop, DropStatus][]
-    let statistic: number
+    let sortedDrops: [ManualDataZoneMapDrop, DropStatus][];
+    let statistic: number;
     $: {
-        const sigh: [ManualDataZoneMapDrop, DropStatus][] = []
+        const sigh: [ManualDataZoneMapDrop, DropStatus][] = [];
         for (let dropIndex = 0; dropIndex < drops.length; dropIndex++) {
-            sigh.push([drops[dropIndex], status.drops[dropIndex]])
+            sigh.push([drops[dropIndex], status.drops[dropIndex]]);
         }
 
-        sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
+        sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters]);
 
         if (farm.statisticId > 0) {
-            statistic = ($userAchievementStore.statistics?.[farm.statisticId] || [])
-                .reduce((a, b) => a + b[1], 0)
+            statistic = ($userAchievementStore.statistics?.[farm.statisticId] || []).reduce(
+                (a, b) => a + b[1],
+                0,
+            );
         }
     }
 
-    const showCharacters = (drop: ManualDataZoneMapDrop, dropStatus: DropStatus, nextDrop: [ManualDataZoneMapDrop, DropStatus]): boolean => {
+    const showCharacters = (
+        drop: ManualDataZoneMapDrop,
+        dropStatus: DropStatus,
+        nextDrop: [ManualDataZoneMapDrop, DropStatus],
+    ): boolean => {
         if (farm.type === FarmType.Vendor && drop.type !== RewardType.Quest) {
-            return false
+            return false;
         }
         if (map.mapName === 'misc_exiles_reach') {
-            return false
+            return false;
         }
 
         if (nextDrop) {
             // If they both have no valid characters, bail early
             if (!dropStatus.validCharacters && !nextDrop[1].validCharacters) {
-                return false
+                return false;
             }
 
             // Simple length check
@@ -66,22 +83,25 @@
                 dropStatus.characterIds.length !== nextDrop[1].characterIds.length ||
                 dropStatus.completedCharacterIds.length !== nextDrop[1].completedCharacterIds.length
             ) {
-                return true
+                return true;
             }
 
             // Compare this drop to the next one - if the character list is the same we don't need to show it
-            const charDiff = difference(dropStatus.characterIds, nextDrop[1].characterIds)
-            const completeDiff = difference(dropStatus.completedCharacterIds, nextDrop[1].completedCharacterIds)
+            const charDiff = difference(dropStatus.characterIds, nextDrop[1].characterIds);
+            const completeDiff = difference(
+                dropStatus.completedCharacterIds,
+                nextDrop[1].completedCharacterIds,
+            );
 
-            return charDiff.length > 0 || completeDiff.length > 0
+            return charDiff.length > 0 || completeDiff.length > 0;
+        } else {
+            return (
+                !dropStatus.validCharacters ||
+                dropStatus.characterIds.length > 0 ||
+                dropStatus.completedCharacterIds.length > 0
+            );
         }
-        else
-        {
-            return !dropStatus.validCharacters
-                || dropStatus.characterIds.length > 0
-                || dropStatus.completedCharacterIds.length > 0
-        }
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -170,9 +190,7 @@
         {/if}
 
         {#if farm.type === FarmType.Quest}
-            <IconifyIcon
-                icon={iconStrings.exclamation}
-            />
+            <IconifyIcon icon={iconStrings.exclamation} />
         {/if}
 
         <ParsedText text={farm.name} />
@@ -195,7 +213,7 @@
     <table class="table-tooltip-farm table-striped">
         <tbody>
             {#if statistic > 0}
-                 <tr>
+                <tr>
                     <td class="statistic" colspan="3">{statistic.toLocaleString()} attempts</td>
                 </tr>
             {/if}
@@ -212,16 +230,27 @@
             {#each sortedDrops.slice(0, 22) as [drop, dropStatus], sortedIndex}
                 {@const isCriteria = drop.type === RewardType.Achievement && drop.subType > 0}
                 <tr
-                    class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip ||
+                    class:success={!dropStatus.need ||
+                        !dropStatus.validCharacters ||
+                        dropStatus.skip ||
                         (dropStatus.need && dropStatus.characterIds.length === 0)}
                 >
-                    <td class="type status-{dropStatus.need && dropStatus.characterIds.length > 0 ? 'fail' : 'success'}">
-                        <IconifyIcon icon={getDropIcon($itemStore, $manualStore, $staticStore, drop, isCriteria)} />
-                    </td>
                     <td
-                        class="name"
-                        class:status-success={!dropStatus.need}
+                        class="type status-{dropStatus.need && dropStatus.characterIds.length > 0
+                            ? 'fail'
+                            : 'success'}"
                     >
+                        <IconifyIcon
+                            icon={getDropIcon(
+                                $itemStore,
+                                $manualStore,
+                                $staticStore,
+                                drop,
+                                isCriteria,
+                            )}
+                        />
+                    </td>
+                    <td class="name" class:status-success={!dropStatus.need}>
                         {#if drop.amount > 0}
                             {drop.amount}x
                         {/if}
@@ -233,14 +262,21 @@
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
                             {#if drop.subType >= 1 && drop.subType <= 4}
-                                {$staticStore.inventoryTypes[$itemStore.items[drop.id]?.inventoryType].toLowerCase()}
+                                {$staticStore.inventoryTypes[
+                                    $itemStore.items[drop.id]?.inventoryType
+                                ].toLowerCase()}
                             {/if}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.InstanceSpecial}
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}
-                            <code>{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(dropStatus.setNeed, 2)}</code>
+                            <code
+                                >{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(
+                                    dropStatus.setNeed,
+                                    2,
+                                )}</code
+                            >
                         {:else if drop.type === RewardType.XpQuest}
                             quest
                         {:else if isCriteria}
@@ -250,20 +286,35 @@
                             {#if drop.limit.length > 2}
                                 {#if drop.limit[0] === 'profession'}
                                     {#if drop.limit[2]?.match(/^\d+$/)}
-                                        {@const expansion = expansionMap[
-                                            $staticStore.professions[professionSlugToId[drop.limit[1]]]
-                                                .subProfessions.findIndex((sub) => sub.id === parseInt(drop.limit[2]))
-                                        ]}
-                                        [<span class="status-shrug">{expansion.shortName} {drop.limit[3]}</span>]
+                                        {@const expansion =
+                                            expansionMap[
+                                                $staticStore.professions[
+                                                    professionSlugToId[drop.limit[1]]
+                                                ].subProfessions.findIndex(
+                                                    (sub) => sub.id === parseInt(drop.limit[2]),
+                                                )
+                                            ]}
+                                        [<span class="status-shrug"
+                                            >{expansion.shortName} {drop.limit[3]}</span
+                                        >]
                                     {:else}
-                                        [<span class="status-shrug">{drop.limit[2].toLocaleUpperCase()} {drop.limit[3]}</span>]
+                                        [<span class="status-shrug"
+                                            >{drop.limit[2].toLocaleUpperCase()}
+                                            {drop.limit[3]}</span
+                                        >]
                                     {/if}
                                 {:else}
                                     [{drop.limit.slice(2).join(', ')}]
                                 {/if}
                             {/if}
                         {:else if drop.type === RewardType.Item}
-                            {@const [lookupType,] = rewardToLookup($itemStore, $manualStore, $staticStore, drop.type, drop.id)}
+                            {@const [lookupType] = rewardToLookup(
+                                $itemStore,
+                                $manualStore,
+                                $staticStore,
+                                drop.type,
+                                drop.id,
+                            )}
                             {#if lookupType !== LookupType.None}
                                 {LookupType[lookupType].toLowerCase()}
                             {:else}
@@ -276,11 +327,7 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if sortedDrops.length < 10 && (
-                        (drop.note && drop.type !== RewardType.CharacterTrackingQuest) ||
-                        drop.type === RewardType.Achievement ||
-                        dropStatus.setNote
-                    )}
+                    {#if sortedDrops.length < 10 && ((drop.note && drop.type !== RewardType.CharacterTrackingQuest) || drop.type === RewardType.Achievement || dropStatus.setNote)}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
@@ -288,7 +335,9 @@
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
+                                        <IconifyIcon
+                                            icon={rewardTypeIcons[RewardType.Achievement]}
+                                        />
                                         {$achievementStore.achievement[drop.id].name}
                                     {:else}
                                         {$achievementStore.achievement[drop.id].description}
@@ -299,26 +348,18 @@
                             </td>
                         </tr>
                     {/if}
-                    
-                    {#if showCharacters(drop, dropStatus, sortedDrops[sortedIndex+1])}
+
+                    {#if showCharacters(drop, dropStatus, sortedDrops[sortedIndex + 1])}
                         {#if dropStatus.characterIds.length > 0 || dropStatus.completedCharacterIds.length > 0}
                             <tr>
                                 <td></td>
                                 <td class="characters" colspan="2">
-                                    {#each sortBy(
-                                        dropStatus.characterIds
-                                            .map(c => $userStore.characterMap[c]),
-                                        c => c.name
-                                    ) as character}
+                                    {#each sortBy( dropStatus.characterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character}
                                         <span class="class-{character.classId}">
                                             {character.name}
                                         </span>
                                     {/each}
-                                    {#each sortBy(
-                                        dropStatus.completedCharacterIds
-                                            .map(c => $userStore.characterMap[c]),
-                                        c => c.name
-                                    ) as character}
+                                    {#each sortBy( dropStatus.completedCharacterIds.map((c) => $userStore.characterMap[c]), (c) => c.name, ) as character}
                                         <span class="completed class-{character.classId}">
                                             {character.name}
                                         </span>

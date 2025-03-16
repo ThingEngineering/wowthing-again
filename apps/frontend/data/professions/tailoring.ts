@@ -36,6 +36,12 @@ export const warWithinTailoring: TaskProfession = {
             source: 'CoT',
             costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
+        {
+            itemId: 232502, // Undermine Treatise on Tailoring
+            questId: 85745,
+            source: 'UM 16',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {

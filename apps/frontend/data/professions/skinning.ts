@@ -36,6 +36,12 @@ export const warWithinSkinning: TaskProfession = {
             source: 'CoT',
             costs: [{ amount: 565, currencyId: 3056 }], // Kej
         },
+        {
+            itemId: 232506, // Undermine Treatise on Skinning
+            questId: 85744,
+            source: 'UM 16',
+            costs: [{ amount: 50, itemId: 210814 }], // Artisan's Acuity
+        },
     ],
     dropQuests: [
         {
