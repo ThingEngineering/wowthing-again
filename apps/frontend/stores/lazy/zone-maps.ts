@@ -58,7 +58,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
     console.time('LazyStore.doZoneMaps');
 
     const classMask = getTransmogClassMask(stores.settings);
-    const masochist = stores.settings.transmog.completionistMode;
+    const completionistMode = stores.settings.transmog.completionistMode;
     const now = DateTime.utc();
 
     const farmData: Record<string, FarmStatus[]> = {};
@@ -316,19 +316,21 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                             } else {
                                 const itemAppearances =
                                     stores.itemData.items[drop.id]?.appearances || {};
-                                let appearanceId = itemAppearances?.[0]?.appearanceId || 0;
+
+                                let modifier = 0;
                                 // If there's no default appearanceId, check for there only being one possibility
-                                if (appearanceId === 0) {
+                                if (!itemAppearances?.[modifier]) {
                                     const keys = Object.keys(itemAppearances);
                                     if (keys.length === 1) {
-                                        appearanceId =
-                                            itemAppearances[parseInt(keys[0])].appearanceId;
+                                        modifier = parseInt(keys[0]);
                                     }
                                 }
 
-                                if (!stores.userData.hasAppearance.has(appearanceId)) {
-                                    dropStatus.need = true;
-                                }
+                                dropStatus.need ||= completionistMode
+                                    ? !stores.userData.hasSourceV2.get(modifier).has(drop.id)
+                                    : !stores.userData.hasAppearance.has(
+                                          itemAppearances[modifier]?.appearanceId || 0,
+                                      );
                             }
                             fixedType = RewardType.Transmog;
                             break;
@@ -348,7 +350,7 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                 stores.userData,
                                 stores.userQuestData,
                                 stores.lazyTransmog,
-                                masochist,
+                                completionistMode,
                                 drop,
                             );
                             dropStatus.need = dropStatus.setHave < dropStatus.setNeed;

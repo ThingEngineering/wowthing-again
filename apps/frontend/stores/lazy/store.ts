@@ -405,6 +405,7 @@ export class LazyStore implements LazyUgh {
             changedData.userAchievementData ||
             changedData.userQuestData ||
             changedData.userAchievementData ||
+            changedHashes.settingsTransmog ||
             changedHashes.zoneMapState
         ) {
             this.zoneMapsFunc = once(
