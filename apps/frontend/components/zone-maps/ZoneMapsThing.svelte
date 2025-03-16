@@ -1,30 +1,34 @@
 <script lang="ts">
-    import { FarmIdType } from '@/enums/farm-id-type'
-    import { FarmType } from '@/enums/farm-type'
+    import { FarmIdType } from '@/enums/farm-id-type';
+    import { FarmType } from '@/enums/farm-type';
     import { settingsStore } from '@/shared/stores/settings';
-    import { timeStore } from '@/shared/stores/time'
-    import { journalStore, lazyStore, userStore } from '@/stores'
-    import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { getInstanceFarm } from '@/utils/get-instance-farm'
-    import { getFarmIcon } from '@/utils/zone-maps'
-    import type { FarmStatus } from '@/types'
-    import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
+    import { timeStore } from '@/shared/stores/time';
+    import { journalStore, lazyStore, userStore } from '@/stores';
+    import { zoneMapState } from '@/stores/local-storage/zone-map';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { getInstanceFarm } from '@/utils/get-instance-farm';
+    import { getFarmIcon } from '@/utils/zone-maps';
+    import type { FarmStatus } from '@/types';
+    import type {
+        ManualDataZoneMapCategory,
+        ManualDataZoneMapDrop,
+        ManualDataZoneMapFarm,
+    } from '@/types/data/manual';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte';
 
-    export let farm: ManualDataZoneMapFarm
-    export let map: ManualDataZoneMapCategory
-    export let status: FarmStatus
+    export let farm: ManualDataZoneMapFarm;
+    export let map: ManualDataZoneMapCategory;
+    export let status: FarmStatus;
 
-    let big: boolean
-    let classes: string[]
-    let drops: ManualDataZoneMapDrop[]
-    let locations: [string, string][]
-    let show: boolean
-    let topOffset: string
+    let big: boolean;
+    let classes: string[];
+    let drops: ManualDataZoneMapDrop[];
+    let locations: [string, string][];
+    let show: boolean;
+    let topOffset: string;
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             [status, drops] = getInstanceFarm(
@@ -33,40 +37,40 @@
                 $journalStore,
                 $lazyStore,
                 $userStore,
-                farm
-            )
+                farm,
+            );
             //big = farm.type === FarmType.Raid
-            topOffset = '0px'
-        }
-        else {
-            big = FarmType[farm.type].indexOf('Big') > 0
-            drops = farm.drops
-            topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
+            topOffset = '0px';
+        } else {
+            big = FarmType[farm.type].indexOf('Big') > 0;
+            drops = farm.drops;
+            topOffset =
+                status.need && farm.type !== FarmType.Vendor ? (big ? '7px' : '7px') : '0px';
         }
 
-        show = true
+        show = true;
         if (!$zoneMapState.showCompleted && !status.need) {
-            show = false
+            show = false;
         }
         if (!$zoneMapState.showKilled && status.need && status.characters.length === 0) {
-            show = false
+            show = false;
         }
 
-        classes = ['icon', 'drop-shadow']
-        classes.push(status.need ? 'active' : 'inactive')
+        classes = ['icon', 'drop-shadow'];
+        classes.push(status.need ? 'active' : 'inactive');
         if (farm.faction) {
-            classes.push(farm.faction)
+            classes.push(farm.faction);
         }
         if (farm.type === FarmType.Dungeon) {
-            classes.push('dungeon')
+            classes.push('dungeon');
         }
         if (farm.type === FarmType.Raid) {
-            classes.push('raid')
+            classes.push('raid');
         }
 
-        locations = []
+        locations = [];
         for (let i = 0; i < farm.location.length; i += 2) {
-            locations.push([farm.location[i], farm.location[i + 1]])
+            locations.push([farm.location[i], farm.location[i + 1]]);
         }
     }
 </script>
@@ -84,7 +88,7 @@
 
         &:hover {
             z-index: 99999 !important;
-            
+
             .icon {
                 color: #00ccff;
             }
@@ -156,11 +160,8 @@
         >
             {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
                 <a href="#/journal/{status.link}">
-                    <div class="{classes.join(' ')}">
-                        <IconifyIcon
-                            {icon}
-                            scale={'1'}
-                        />
+                    <div class={classes.join(' ')}>
+                        <IconifyIcon {icon} scale={'1'} />
                     </div>
                 </a>
             {:else}
@@ -170,18 +171,14 @@
                     toComments={true}
                     type={FarmIdType[farm.idType].toLowerCase()}
                 >
-                    <div class="{classes.join(' ')}">
-                        <IconifyIcon
-                            {icon}
-                            scale={big ? '1.25' : scale}
-                        />
+                    <div class={classes.join(' ')}>
+                        <IconifyIcon {icon} scale={big ? '1.25' : scale} />
                     </div>
 
                     {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}
-                        <span
-                            class:big
-                            class:status-success={status.characters.length === 0}
-                        >{status.characters.length}</span>
+                        <span class:big class:status-success={status.characters.length === 0}
+                            >{status.characters.length}</span
+                        >
                     {/if}
                 </WowheadLink>
             {/if}
