@@ -81,6 +81,14 @@ export class DbDataThing {
             return;
         }
 
+        let minimumLevel = 0;
+        for (const requirementId of this.requirementIds) {
+            const requirementParts = dbData.requirementsById[requirementId].split(' ');
+            if (requirementParts[0] === 'level') {
+                minimumLevel = parseInt(requirementParts[1]);
+            }
+        }
+
         const drops: ManualDataZoneMapDrop[] = [];
         for (const content of this.contents) {
             const [type, subType] = getItemTypeAndSubtype(content.id);
@@ -93,8 +101,8 @@ export class DbDataThing {
                 type,
             };
 
-            if (this.requirementIds?.length > 0) {
-                drop.limit = dbData.requirementsById[this.requirementIds[0]].split(' ');
+            for (const requirementId of content.requirementIds || []) {
+                drop.limit = dbData.requirementsById[requirementId].split(' ');
             }
 
             drops.push(drop);
@@ -105,6 +113,7 @@ export class DbDataThing {
             id: this.id,
             idType: thingTypeToFarmIdType[this.type],
             location: this.locations[mapId].flatMap((loc) => [loc.xCoordinate, loc.yCoordinate]),
+            minimumLevel,
             name: this.name,
             note: this.note,
             questIds: [this.trackingQuestId],
