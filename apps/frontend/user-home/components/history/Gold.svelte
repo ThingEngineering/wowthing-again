@@ -11,28 +11,28 @@
         Legend,
         Title,
         Tooltip,
-    } from 'chart.js'
-    import type { ChartData, TimeUnit } from 'chart.js'
-    import 'chartjs-adapter-luxon'
-    import sortBy from 'lodash/sortBy'
-    import { DateTime, type WeekdayNumbers } from 'luxon'
-    import { onMount } from 'svelte'
+    } from 'chart.js';
+    import type { ChartData, TimeUnit } from 'chart.js';
+    import 'chartjs-adapter-luxon';
+    import sortBy from 'lodash/sortBy';
+    import { DateTime, type WeekdayNumbers } from 'luxon';
+    import { onMount } from 'svelte';
 
-    import { colors } from '@/data/colors'
-    import { resetTimes } from '@/data/region'
-    import { Region } from '@/enums/region'
-    import { timeStore } from '@/shared/stores/time'
-    import { userHistoryStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { historyState } from '@/stores/local-storage'
-    import parseApiTime from '@/utils/parse-api-time'
-    import type { HistoryState } from '@/stores/local-storage'
-    import type { UserHistoryData } from '@/types/data'
-    import type { StaticDataRealm } from '@/shared/stores/static/types'
+    import { colors } from '@/data/colors';
+    import { resetTimes } from '@/data/region';
+    import { Region } from '@/enums/region';
+    import { timeStore } from '@/shared/stores/time';
+    import { userHistoryStore } from '@/stores';
+    import { staticStore } from '@/shared/stores/static';
+    import { historyState } from '@/stores/local-storage';
+    import parseApiTime from '@/utils/parse-api-time';
+    import type { HistoryState } from '@/stores/local-storage';
+    import type { UserHistoryData } from '@/types/data';
+    import type { StaticDataRealm } from '@/shared/stores/static/types';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte'
-    import Select from '@/shared/components/forms/Select.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
+    import RadioGroup from '@/shared/components/forms/RadioGroup.svelte';
+    import Select from '@/shared/components/forms/Select.svelte';
 
     Chart.register(
         LineElement,
@@ -45,199 +45,177 @@
         Legend,
         Title,
         Tooltip,
-    )
+    );
 
     type DateTimePoint = {
-        x: DateTime,
-        y: number,
-    }
+        x: DateTime;
+        y: number;
+    };
 
-    let chart: Chart<'line', DateTimePoint[]>
-    let ready: boolean
+    let chart: Chart<'line', DateTimePoint[]>;
+    let ready: boolean;
     $: {
         if (ready) {
-            const current = $timeStore.toUTC()
-            const last = $userHistoryStore.lastUpdated
-            const diff = current.diff(last).toMillis()
+            const current = $timeStore.toUTC();
+            const last = $userHistoryStore.lastUpdated;
+            const diff = current.diff(last).toMillis();
 
-            if (
-                current.minute >= 5 &&
-                (
-                    diff > (60 * 60 * 1000) ||
-                    current.hour !== last.hour
-                )
-            ) {
-                userHistoryStore.fetch({ evenIfLoaded: true })
+            if (current.minute >= 5 && (diff > 60 * 60 * 1000 || current.hour !== last.hour)) {
+                userHistoryStore.fetch({ evenIfLoaded: true });
             }
 
-            redrawChart($historyState, $userHistoryStore)
+            redrawChart($historyState, $userHistoryStore);
         }
     }
 
-    onMount(() => ready = true)
+    onMount(() => (ready = true));
 
     const intervalSettings: Record<string, [string, TimeUnit]> = {
         hour: ['ff', 'day'],
         day: ['DD', 'day'],
         week: ['ff', 'week'],
         month: ['MMM yyyy', 'month'],
-    }
+    };
 
-    const redrawChart = function(historyState: HistoryState, userHistoryData: UserHistoryData) {
-        console.time('redrawChart')
+    const redrawChart = function (historyState: HistoryState, userHistoryData: UserHistoryData) {
+        console.time('redrawChart');
         if (chart) {
-            chart.destroy()
+            chart.destroy();
         }
 
         const data: ChartData<'line', DateTimePoint[]> = {
             datasets: [],
-        }
-        const stacked = historyState.chartType === 'area-stacked'
+        };
+        const stacked = historyState.chartType === 'area-stacked';
 
-        const realms: [string, number][] = []
+        const realms: [string, number][] = [];
         for (const realmId in userHistoryData.gold) {
             if (!userHistoryData.gold[realmId].some(([, value]) => value > 0)) {
-                continue
+                continue;
             }
 
-            const realm: StaticDataRealm = $staticStore.realms[realmId]
+            const realm: StaticDataRealm = $staticStore.realms[realmId];
             realms.push([
-                realmId === '0'
-                    ? 'Warband Bank'
-                    : `[${Region[realm.region]}] ${realm.name}`,
-                parseInt(realmId)
-            ])
+                realmId === '0' ? 'Warband Bank' : `[${Region[realm.region]}] ${realm.name}`,
+                parseInt(realmId),
+            ]);
         }
         //realms.sort()
 
-        console.time('redrawChart.points')
-        const pointMap: Record<number, DateTime> = {}
+        console.time('redrawChart.points');
+        const pointMap: Record<number, DateTime> = {};
 
-        let minTime: DateTime = DateTime.now().minus({ years: 10 })
+        let minTime: DateTime = DateTime.now().minus({ years: 10 });
         if (historyState.timeFrame === '1week') {
-            minTime = DateTime.now().minus({ weeks: 1 })
-        }
-        else if (historyState.timeFrame === '1month') {
-            minTime = DateTime.now().minus({ months: 1 })
-        }
-        else if (historyState.timeFrame === '3month') {
-            minTime = DateTime.now().minus({ months: 3 })
-        }
-        else if (historyState.timeFrame === '6month') {
-            minTime = DateTime.now().minus({ months: 6 })
-        }
-        else if (historyState.timeFrame === '1year') {
-            minTime = DateTime.now().minus({ months: 12 })
+            minTime = DateTime.now().minus({ weeks: 1 });
+        } else if (historyState.timeFrame === '1month') {
+            minTime = DateTime.now().minus({ months: 1 });
+        } else if (historyState.timeFrame === '3month') {
+            minTime = DateTime.now().minus({ months: 3 });
+        } else if (historyState.timeFrame === '6month') {
+            minTime = DateTime.now().minus({ months: 6 });
+        } else if (historyState.timeFrame === '1year') {
+            minTime = DateTime.now().minus({ months: 12 });
         }
 
-        let firstRealmId = -1
-        const timeCache: Record<string, DateTime> = {}
+        let firstRealmId = -1;
+        const timeCache: Record<string, DateTime> = {};
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
-            const [realmName, realmId] = realms[realmIndex]
+            const [realmName, realmId] = realms[realmIndex];
             if (firstRealmId === -1 && realmId > 0) {
-                firstRealmId = realmId
+                firstRealmId = realmId;
             }
 
-            const realm = $staticStore.realms[realmId]
-            const resetData = resetTimes[realm.region as Region]
+            const realm = $staticStore.realms[realmId];
+            const resetData = resetTimes[realm.region as Region];
 
-            const color = colors[(realmIndex + 1) * 2]
+            const color = colors[(realmIndex + 1) * 2];
 
-            let points: DateTimePoint[]
+            let points: DateTimePoint[];
             if (historyState.interval === 'hour') {
                 points = userHistoryData.gold[realmId]
                     .map((point) => ({
                         x: parseApiTime(point[0]),
                         y: point[1],
                     }))
-                    .filter(({ x }) => x >= minTime)
-            }
-            else {
-                const temp: Record<string, [DateTime, number]> = {}
+                    .filter(({ x }) => x >= minTime);
+            } else {
+                const temp: Record<string, [DateTime, number]> = {};
                 for (const [time, value] of userHistoryData.gold[realmId]) {
-                    let fakeTime: DateTime = timeCache[time]
+                    let fakeTime: DateTime = timeCache[time];
                     if (fakeTime === undefined) {
-                        const parsedTime = parseApiTime(time)
+                        const parsedTime = parseApiTime(time);
                         if (historyState.interval === 'day') {
                             fakeTime = parsedTime.set({
                                 hour: 0,
                                 minute: 0,
                                 second: 0,
-                            })
-                        }
-                        else if (historyState.interval === 'week') {
+                            });
+                        } else if (historyState.interval === 'week') {
                             if (
                                 parsedTime.weekday > resetData.weeklyResetDay ||
-                                (
-                                    parsedTime.weekday === resetData.weeklyResetDay &&
-                                    parsedTime.hour >= resetData.weeklyResetTime[0]
-                                )
+                                (parsedTime.weekday === resetData.weeklyResetDay &&
+                                    parsedTime.hour >= resetData.weeklyResetTime[0])
                             ) {
                                 fakeTime = parsedTime.set({
                                     weekday: (7 + resetData.weeklyResetDay) as WeekdayNumbers,
                                     hour: resetData.weeklyResetTime[0] - 1,
                                     minute: 59,
                                     second: 0,
-                                })
-                            }
-                            else if (parsedTime.weekday < resetData.weeklyResetDay) {
+                                });
+                            } else if (parsedTime.weekday < resetData.weeklyResetDay) {
                                 fakeTime = parsedTime.set({
                                     weekday: resetData.weeklyResetDay as WeekdayNumbers,
                                     hour: resetData.weeklyResetTime[0] - 1,
                                     minute: 59,
                                     second: 0,
-                                })
-                            }
-                            else {
+                                });
+                            } else {
                                 fakeTime = parsedTime.set({
                                     hour: resetData.weeklyResetTime[0] - 1,
                                     minute: 59,
                                     second: 0,
-                                })
+                                });
                             }
                             // if (time > '2023-10-03') {
                             //     console.log(time, parsedTime, fakeTime)
                             //     console.log(parsedTime.ts, fakeTime.ts)
                             // }
-                        }
-                        else if (historyState.interval === 'month') {
+                        } else if (historyState.interval === 'month') {
                             fakeTime = parsedTime.set({
                                 day: 1,
                                 hour: 0,
                                 minute: 0,
                                 second: 0,
-                            })
+                            });
                         }
 
                         if (fakeTime > $timeStore) {
                             fakeTime = $timeStore.set({
                                 minute: 0,
                                 second: 0,
-                            })
+                            });
                         }
-                        timeCache[time] = fakeTime
+                        timeCache[time] = fakeTime;
                     }
 
                     if (fakeTime >= minTime) {
                         // console.log(fakeTime.toISODate(), fakeTime.toISOTime())
-                        temp[`${fakeTime.toISODate()} ${fakeTime.toISOTime()}`] = [fakeTime, value]
+                        temp[`${fakeTime.toISODate()} ${fakeTime.toISOTime()}`] = [fakeTime, value];
                     }
                 }
 
-                points = sortBy(
-                    Object.entries(temp),
-                    ([date]) => date
-                )
-                .map(([, [time, value]]) => ({
+                points = sortBy(Object.entries(temp), ([date]) => date).map(
+                    ([, [time, value]]) => ({
                         x: time,
                         y: value,
-                    })
-                )
+                    }),
+                );
             }
 
             for (const point of points) {
                 if (point.x instanceof DateTime) {
-                    pointMap[point.x.toUnixInteger()] = point.x
+                    pointMap[point.x.toUnixInteger()] = point.x;
                 }
             }
 
@@ -249,69 +227,71 @@
                 label: realmName,
                 spanGaps: true,
                 data: points,
-            })
+            });
         }
-        console.timeEnd('redrawChart.points')
+        console.timeEnd('redrawChart.points');
 
         // Pad out each dataset with data for all time periods
-        console.time('redrawChart.datasets')
-        const smalls: Record<number, DateTimePoint> = {}
-        const totals: Record<number, DateTimePoint> = {}
+        console.time('redrawChart.datasets');
+        const smalls: Record<number, DateTimePoint> = {};
+        const totals: Record<number, DateTimePoint> = {};
 
-        const allPoints: [number, DateTime][] = Object.entries(pointMap)
-            .map(([a, b]) => [parseInt(a), b])
-        allPoints.sort()
+        const allPoints: [number, DateTime][] = Object.entries(pointMap).map(([a, b]) => [
+            parseInt(a),
+            b,
+        ]);
+        allPoints.sort();
 
         for (const dataset of data.datasets) {
             const oldMap: Record<number, DateTimePoint> = Object.fromEntries(
-                dataset.data.map((dataPoint: DateTimePoint) => [dataPoint.x.toUnixInteger(), dataPoint])
-            )
-            const newData: DateTimePoint[] = []
+                dataset.data.map((dataPoint: DateTimePoint) => [
+                    dataPoint.x.toUnixInteger(),
+                    dataPoint,
+                ]),
+            );
+            const newData: DateTimePoint[] = [];
 
             for (let pointIndex = 0; pointIndex < allPoints.length; pointIndex++) {
-                const [ts, dateTime] = allPoints[pointIndex]
+                const [ts, dateTime] = allPoints[pointIndex];
                 if (oldMap[ts]) {
-                    newData.push(oldMap[ts])
-                }
-                else {
+                    newData.push(oldMap[ts]);
+                } else {
                     if (pointIndex === 0) {
-                        newData.push({x: dateTime, y: 0})
-                    }
-                    else {
-                        newData.push({x: dateTime, y: newData[pointIndex - 1].y})
+                        newData.push({ x: dateTime, y: 0 });
+                    } else {
+                        newData.push({ x: dateTime, y: newData[pointIndex - 1].y });
                     }
                 }
 
                 if (totals[ts] === undefined) {
-                    smalls[ts] = {x: dateTime, y: 0}
-                    totals[ts] = {x: dateTime, y: 0}
+                    smalls[ts] = { x: dateTime, y: 0 };
+                    totals[ts] = { x: dateTime, y: 0 };
                 }
 
-                const newValue = newData[pointIndex].y
-                totals[ts].y += newValue
+                const newValue = newData[pointIndex].y;
+                totals[ts].y += newValue;
 
                 if (historyState.tooltipCombineSmall && newValue < 10000) {
-                    smalls[ts].y += newValue
+                    smalls[ts].y += newValue;
                 }
             }
 
-            dataset.data = newData
+            dataset.data = newData;
         }
-        console.timeEnd('redrawChart.datasets')
+        console.timeEnd('redrawChart.datasets');
 
-        console.time('redrawChart.sort')
-        data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y)
-        console.timeEnd('redrawChart.sort')
+        console.time('redrawChart.sort');
+        data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y);
+        console.timeEnd('redrawChart.sort');
 
-        console.time('redrawChart.line')
+        console.time('redrawChart.line');
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
             if (historyState.tooltipCombineSmall) {
-                const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0
+                const anyUseful = Object.values(smalls).filter((value) => value.y > 0).length > 0;
                 if (anyUseful) {
-                    const smallPoints = sortBy(
-                        Object.values(smalls),
-                        (point: DateTimePoint) => point.x.toUnixInteger()
-                    )
+                    const smallPoints = sortBy(Object.values(smalls), (point: DateTimePoint) =>
+                        point.x.toUnixInteger(),
+                    );
 
                     data.datasets.push({
                         backgroundColor: colors[colors.length - 2],
@@ -321,14 +301,11 @@
                         label: 'Other',
                         spanGaps: true,
                         data: smallPoints,
-                    })
+                    });
                 }
             }
 
-            const totalPoints = sortBy(
-                Object.values(totals),
-                (point) => point.x.toUnixInteger()
-            )
+            const totalPoints = sortBy(Object.values(totals), (point) => point.x.toUnixInteger());
 
             data.datasets.push({
                 backgroundColor: colors[0],
@@ -338,12 +315,16 @@
                 label: 'Total',
                 spanGaps: true,
                 data: totalPoints,
-            })
-        }
-        console.timeEnd('redrawChart.line')
+            });
 
-        console.time('redrawChart.newChart')
-        const ctx = document.getElementById('gold-chart') as HTMLCanvasElement
+            if (historyState.totalOnly) {
+                data.datasets = data.datasets.splice(-1);
+            }
+        }
+        console.timeEnd('redrawChart.line');
+
+        console.time('redrawChart.newChart');
+        const ctx = document.getElementById('gold-chart') as HTMLCanvasElement;
         chart = new Chart(ctx, {
             type: 'line',
             data,
@@ -366,7 +347,7 @@
                         labels: {
                             font: {
                                 size: 14,
-                            }
+                            },
                         },
                     },
                     tooltip: {
@@ -402,11 +383,13 @@
                             unit: intervalSettings[historyState.interval][1],
                             displayFormats: {
                                 week: 'yyyy-MM-dd',
-                            }
+                            },
                         },
                         adapters: {
                             date: {
-                                zone: ['day', 'month'].includes(historyState.interval) ? 'utc' : 'local',
+                                zone: ['day', 'month'].includes(historyState.interval)
+                                    ? 'utc'
+                                    : 'local',
                             },
                         },
                     },
@@ -426,11 +409,11 @@
                     },
                 },
             },
-        })
-        console.timeEnd('redrawChart.newChart')
+        });
+        console.timeEnd('redrawChart.newChart');
 
-        console.timeEnd('redrawChart')
-    }
+        console.timeEnd('redrawChart');
+    };
 </script>
 
 <style lang="scss">
@@ -489,16 +472,14 @@
                 name="time_frame"
                 width={'9.5rem'}
                 bind:selected={$historyState.timeFrame}
-                options={
-                    [
-                        ['all', '- All -'],
-                        ['1year', '1 year'],
-                        ['6month', '6 months'],
-                        ['3month', '3 months'],
-                        ['1month', '1 month'],
-                        ['1week', '1 week'],
-                    ]
-                }
+                options={[
+                    ['all', '- All -'],
+                    ['1year', '1 year'],
+                    ['6month', '6 months'],
+                    ['3month', '3 months'],
+                    ['1month', '1 month'],
+                    ['1week', '1 week'],
+                ]}
             />
         </div>
 
@@ -514,10 +495,15 @@
         </div>
 
         <div class="radio-container border">
-            <Checkbox
-                bind:value={$historyState.tooltipCombineSmall}
-                name="tooltip_combine_small"
-            >Combine &lt;10k tooltip values</Checkbox>
+            <Checkbox bind:value={$historyState.tooltipCombineSmall} name="tooltip_combine_small"
+                >Combine &lt;10k tooltip values</Checkbox
+            >
+        </div>
+
+        <div class="radio-container border">
+            <Checkbox bind:value={$historyState.totalOnly} name="total_only"
+                >Only show total</Checkbox
+            >
         </div>
     </div>
 
