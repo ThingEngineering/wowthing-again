@@ -108,6 +108,12 @@ export class DbDataThing {
             drops.push(drop);
         }
 
+        const reset = dbResetTypeToFarmResetType[this.resetType];
+        let type = thingTypeToFarmType[this.type];
+        if (reset === FarmResetType.Weekly && type === FarmType.Kill) {
+            type = FarmType.KillBig;
+        }
+
         return <ManualDataZoneMapFarm>{
             groupId: this.zoneMapsGroupId,
             id: this.id,
@@ -117,8 +123,8 @@ export class DbDataThing {
             name: this.name,
             note: this.note,
             questIds: [this.trackingQuestId],
-            reset: dbResetTypeToFarmResetType[this.resetType],
-            type: thingTypeToFarmType[this.type],
+            reset,
+            type,
             drops,
         };
     }
