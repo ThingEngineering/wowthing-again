@@ -82,9 +82,9 @@ export class DbDataThing {
         return this._vendor;
     }
 
-    private _zoneMapsFarm: ManualDataZoneMapFarm;
+    private _zoneMapsFarm: Record<string, ManualDataZoneMapFarm> = {};
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
-        if (!this._zoneMapsFarm) {
+        if (!this._zoneMapsFarm[mapName]) {
             const dbData = get(dbStore);
             const mapId = dbData.mapsByName[mapName];
             if (!mapId) {
@@ -128,7 +128,7 @@ export class DbDataThing {
                 type = FarmType.KillBig;
             }
 
-            this._zoneMapsFarm = <ManualDataZoneMapFarm>{
+            this._zoneMapsFarm[mapName] = <ManualDataZoneMapFarm>{
                 groupId: this.zoneMapsGroupId,
                 id: this.id,
                 idType: thingTypeToFarmIdType[this.type],
@@ -146,7 +146,7 @@ export class DbDataThing {
             };
         }
 
-        return this._zoneMapsFarm;
+        return this._zoneMapsFarm[mapName];
     }
 }
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
