@@ -1,8 +1,8 @@
 export enum ArmorType {
     Cloak = 0,
-    Cloth,
-    Leather,
-    Mail,
-    Plate,
+    Cloth = 1,
+    Leather = 2,
+    Mail = 3,
+    Plate = 4,
     Tabard = 21,
 }

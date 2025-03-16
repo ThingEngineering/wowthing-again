@@ -4,6 +4,7 @@ namespace Wowthing.Tool.Models.Db;
 
 public class DataDbThing
 {
+    public bool AccountWide { get; set; }
     public int Id { get; set; }
     public int TrackingQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }

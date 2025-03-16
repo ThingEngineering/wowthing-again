@@ -21,6 +21,7 @@ import { DbDataThingContent, type DbDataThingContentArray } from './thing-conten
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
 
 export class DbDataThing {
+    public accountWide: boolean;
     public contents: DbDataThingContent[] = [];
     public groups: DbDataThingGroup[] = [];
     public locations: Record<number, DbDataThingLocation[]> = {};
@@ -31,6 +32,7 @@ export class DbDataThing {
         public resetType: DbResetType,
         public trackingQuestId: number,
         public zoneMapsGroupId: number,
+        accountWide: number,
         public name: string,
         public note: string,
         public requirementIds: number[],
@@ -39,6 +41,8 @@ export class DbDataThing {
         contentsArrays: DbDataThingContentArray[],
         groupsArrays?: DbDataThingGroupArray[],
     ) {
+        this.accountWide = accountWide === 1;
+
         for (const [mapId, packedLocation] of locationArrays) {
             this.locations[mapId] ||= [];
             this.locations[mapId].push(new DbDataThingLocation(packedLocation));
@@ -53,64 +57,96 @@ export class DbDataThing {
         }
     }
 
+    private _vendor: ManualDataSharedVendor;
     public asVendor(): ManualDataSharedVendor {
-        return <ManualDataSharedVendor>{
-            id: this.id,
-            faction: Faction.Both,
-            name: this.name,
-            note: this.note,
-            sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
-            sells: this.contents.map(
-                (content) =>
-                    <ManualDataVendorItem>{
-                        type: thingContentTypeToRewardType[content.type],
-                        id: content.id,
-                        costs: content.costs,
-                        faction: Faction.Both,
-                        trackingQuestId: content.trackingQuestId,
-                    },
-            ),
-        };
+        if (!this._vendor) {
+            this._vendor = <ManualDataSharedVendor>{
+                id: this.id,
+                faction: Faction.Both,
+                name: this.name,
+                note: this.note,
+                sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
+                sells: this.contents.map(
+                    (content) =>
+                        <ManualDataVendorItem>{
+                            type: thingContentTypeToRewardType[content.type],
+                            id: content.id,
+                            costs: content.costs,
+                            faction: Faction.Both,
+                            trackingQuestId: content.trackingQuestId,
+                        },
+                ),
+            };
+        }
+
+        return this._vendor;
     }
 
+    private _zoneMapsFarm: ManualDataZoneMapFarm;
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
-        const dbData = get(dbStore);
-        const mapId = dbData.mapsByName[mapName];
-        if (!mapId) {
-            return;
-        }
-
-        const drops: ManualDataZoneMapDrop[] = [];
-        for (const content of this.contents) {
-            const [type, subType] = getItemTypeAndSubtype(content.id);
-
-            const drop: ManualDataZoneMapDrop = {
-                id: content.id,
-                note: content.note,
-                classMask: 0,
-                subType,
-                type,
-            };
-
-            if (this.requirementIds?.length > 0) {
-                drop.limit = dbData.requirementsById[this.requirementIds[0]].split(' ');
+        if (!this._zoneMapsFarm) {
+            const dbData = get(dbStore);
+            const mapId = dbData.mapsByName[mapName];
+            if (!mapId) {
+                return;
             }
 
-            drops.push(drop);
+            let minimumLevel = 0;
+            const requirementIds = this.requirementIds || [];
+            for (const requirementId of requirementIds) {
+                const requirementParts = dbData.requirementsById[requirementId].split(' ');
+                if (requirementParts[0] === 'level') {
+                    minimumLevel = parseInt(requirementParts[1]);
+                }
+            }
+
+            const drops: ManualDataZoneMapDrop[] = [];
+            for (const content of this.contents) {
+                const [type, subType] = getItemTypeAndSubtype(
+                    content.id,
+                    thingContentTypeToRewardType[content.type],
+                );
+
+                const drop: ManualDataZoneMapDrop = {
+                    id: content.id,
+                    note: content.note,
+                    classMask: 0,
+                    subType,
+                    type,
+                };
+
+                for (const requirementId of requirementIds.concat(content.requirementIds || [])) {
+                    drop.limit = dbData.requirementsById[requirementId].split(' ');
+                }
+
+                drops.push(drop);
+            }
+
+            const reset = dbResetTypeToFarmResetType[this.resetType];
+            let type = thingTypeToFarmType[this.type];
+            if (reset === FarmResetType.Weekly && type === FarmType.Kill) {
+                type = FarmType.KillBig;
+            }
+
+            this._zoneMapsFarm = <ManualDataZoneMapFarm>{
+                groupId: this.zoneMapsGroupId,
+                id: this.id,
+                idType: thingTypeToFarmIdType[this.type],
+                location: this.locations[mapId].flatMap((loc) => [
+                    loc.xCoordinate,
+                    loc.yCoordinate,
+                ]),
+                minimumLevel,
+                name: this.name,
+                note: this.note,
+                questIds: [this.trackingQuestId],
+                reset,
+                type,
+                drops,
+            };
         }
 
-        return <ManualDataZoneMapFarm>{
-            groupId: this.zoneMapsGroupId,
-            id: this.id,
-            idType: thingTypeToFarmIdType[this.type],
-            location: this.locations[mapId].flatMap((loc) => [loc.xCoordinate, loc.yCoordinate]),
-            name: this.name,
-            note: this.note,
-            questIds: [this.trackingQuestId],
-            reset: dbResetTypeToFarmResetType[this.resetType],
-            type: thingTypeToFarmType[this.type],
-            drops,
-        };
+        return this._zoneMapsFarm;
     }
 }
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;

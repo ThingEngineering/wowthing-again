@@ -7,8 +7,8 @@ import { RewardType } from '@/enums/reward-type';
 import { itemStore } from '@/stores';
 import { WeaponSubclass } from '@/enums/weapon-subclass';
 
-export function getItemTypeAndSubtype(id: number): [RewardType, number] {
-    let type = RewardType.Item;
+export function getItemTypeAndSubtype(id: number, initialType: RewardType): [RewardType, number] {
+    let type = initialType;
     let subType = 0;
 
     const item = get(itemStore).items[id];
@@ -23,9 +23,18 @@ export function getItemTypeAndSubtype(id: number): [RewardType, number] {
                     item.subclassId === ArmorSubclass.Shield
                         ? WeaponSubclass.Shield
                         : WeaponSubclass.HeldInOffHand;
-            } else {
+            } else if (
+                item.subclassId === ArmorSubclass.Misc ||
+                item.subclassId === ArmorSubclass.Cosmetic ||
+                item.subclassId === ArmorSubclass.Tabard ||
+                ((item.subclassId < 0 || item.subclassId > 4) && item.cosmetic)
+            ) {
+                type = RewardType.Cosmetic;
+            } else if ((item.subclassId >= 1 && item.subclassId <= 4) || item.subclassId === 20) {
                 type = RewardType.Armor;
                 subType = item.inventoryType === InventoryType.Back ? 0 : item.subclassId;
+            } else {
+                console.log('wtf?', item);
             }
         } else if (item.classId === ItemClass.Weapon) {
             type = RewardType.Weapon;
