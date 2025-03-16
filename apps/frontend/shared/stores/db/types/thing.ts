@@ -21,6 +21,7 @@ import { DbDataThingContent, type DbDataThingContentArray } from './thing-conten
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
 
 export class DbDataThing {
+    public accountWide: boolean;
     public contents: DbDataThingContent[] = [];
     public groups: DbDataThingGroup[] = [];
     public locations: Record<number, DbDataThingLocation[]> = {};
@@ -31,7 +32,7 @@ export class DbDataThing {
         public resetType: DbResetType,
         public trackingQuestId: number,
         public zoneMapsGroupId: number,
-        public accountWide: boolean,
+        accountWide: number,
         public name: string,
         public note: string,
         public requirementIds: number[],
@@ -40,6 +41,8 @@ export class DbDataThing {
         contentsArrays: DbDataThingContentArray[],
         groupsArrays?: DbDataThingGroupArray[],
     ) {
+        this.accountWide = accountWide === 1;
+
         for (const [mapId, packedLocation] of locationArrays) {
             this.locations[mapId] ||= [];
             this.locations[mapId].push(new DbDataThingLocation(packedLocation));
