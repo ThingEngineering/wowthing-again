@@ -92,7 +92,8 @@ export class DbDataThing {
             }
 
             let minimumLevel = 0;
-            for (const requirementId of this.requirementIds) {
+            const requirementIds = this.requirementIds || [];
+            for (const requirementId of requirementIds) {
                 const requirementParts = dbData.requirementsById[requirementId].split(' ');
                 if (requirementParts[0] === 'level') {
                     minimumLevel = parseInt(requirementParts[1]);
@@ -101,7 +102,10 @@ export class DbDataThing {
 
             const drops: ManualDataZoneMapDrop[] = [];
             for (const content of this.contents) {
-                const [type, subType] = getItemTypeAndSubtype(content.id);
+                const [type, subType] = getItemTypeAndSubtype(
+                    content.id,
+                    thingContentTypeToRewardType[content.type],
+                );
 
                 const drop: ManualDataZoneMapDrop = {
                     id: content.id,
@@ -111,7 +115,7 @@ export class DbDataThing {
                     type,
                 };
 
-                for (const requirementId of content.requirementIds || []) {
+                for (const requirementId of requirementIds.concat(content.requirementIds || [])) {
                     drop.limit = dbData.requirementsById[requirementId].split(' ');
                 }
 
