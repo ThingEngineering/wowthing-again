@@ -217,14 +217,24 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     stores.manualData.druidFormItemToQuest[drop.id],
                                 );
                             } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
-                                const professionInfo =
+                                const ability =
                                     stores.staticData.professionAbilityByItemId[drop.id];
-                                dropStatus.need = !stores.userData.characters.every(
-                                    (char) =>
-                                        char.professions?.[professionInfo.professionId] ===
-                                            undefined ||
-                                        char.knowsProfessionAbility(professionInfo.abilityId),
-                                );
+                                const collectorId =
+                                    stores.settings.professions.collectingCharacters?.[
+                                        ability.professionId
+                                    ];
+                                if (collectorId) {
+                                    dropStatus.need = !stores.userData.characterMap[
+                                        collectorId
+                                    ].knowsProfessionAbility(ability.abilityId);
+                                } else {
+                                    dropStatus.need = !stores.userData.characters.every(
+                                        (char) =>
+                                            char.professions?.[ability.professionId] ===
+                                                undefined ||
+                                            char.knowsProfessionAbility(ability.abilityId),
+                                    );
+                                }
                             } else if (stores.staticData.mountsByItem[drop.id]) {
                                 dropStatus.need =
                                     !stores.userData.hasMount[
