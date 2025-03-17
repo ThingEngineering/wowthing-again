@@ -281,7 +281,7 @@
                             quest
                         {:else if isCriteria}
                             criteria
-                        {:else if drop.limit?.length > 0}
+                        {:else if drop.limit?.length > 0 && drop.limit[0] !== 'level'}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
                                 {#if drop.limit[0] === 'profession'}

@@ -19,7 +19,6 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData, ItemDataItem } from '@/types/data/item';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { WarbankItem } from '@/types/items';
-import { currentTier } from '@/data/gear';
 
 interface LazyStores {
     itemData: ItemData;

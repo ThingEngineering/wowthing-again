@@ -82,9 +82,9 @@ export class DbDataThing {
         return this._vendor;
     }
 
-    private _zoneMapsFarm: ManualDataZoneMapFarm;
+    private _zoneMapsFarm: Record<string, ManualDataZoneMapFarm> = {};
     public asZoneMapsFarm(mapName: string): ManualDataZoneMapFarm {
-        if (!this._zoneMapsFarm) {
+        if (!this._zoneMapsFarm[mapName]) {
             const dbData = get(dbStore);
             const mapId = dbData.mapsByName[mapName];
             if (!mapId) {
@@ -128,7 +128,7 @@ export class DbDataThing {
                 type = FarmType.KillBig;
             }
 
-            this._zoneMapsFarm = <ManualDataZoneMapFarm>{
+            this._zoneMapsFarm[mapName] = <ManualDataZoneMapFarm>{
                 groupId: this.zoneMapsGroupId,
                 id: this.id,
                 idType: thingTypeToFarmIdType[this.type],
@@ -146,7 +146,7 @@ export class DbDataThing {
             };
         }
 
-        return this._zoneMapsFarm;
+        return this._zoneMapsFarm[mapName];
     }
 }
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
@@ -154,15 +154,18 @@ export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 const thingTypeToFarmType: Record<number, FarmType> = {
     [DbThingType.Npc]: FarmType.Kill,
     [DbThingType.Object]: FarmType.Treasure,
+    [DbThingType.Quest]: FarmType.Quest,
     [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
     [DbThingType.Npc]: FarmIdType.Npc,
     [DbThingType.Object]: FarmIdType.Object,
+    [DbThingType.Quest]: FarmIdType.Quest,
     [DbThingType.Vendor]: FarmIdType.Npc,
 };
 
 const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
+    [DbResetType.None]: FarmResetType.None,
     [DbResetType.Never]: FarmResetType.Never,
     [DbResetType.Daily]: FarmResetType.Daily,
     [DbResetType.Weekly]: FarmResetType.Weekly,

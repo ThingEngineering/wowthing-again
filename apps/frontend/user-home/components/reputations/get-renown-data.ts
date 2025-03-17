@@ -1,5 +1,3 @@
-import orderBy from 'lodash/orderBy';
-
 import type { StaticData, StaticDataReputation } from '@/shared/stores/static/types';
 import type {
     Character,
