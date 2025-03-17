@@ -30,7 +30,14 @@
     };
 </script>
 
-<Sidebar baseUrl="/zone-maps" items={categories} width="16rem" noVisitRoot={true} {percentFunc}>
+<Sidebar
+    baseUrl="/zone-maps"
+    items={categories}
+    width="16rem"
+    noVisitRoot={true}
+    scrollable={true}
+    {percentFunc}
+>
     <svelte:fragment slot="before">
         <div>
             <ProgressBar title="Overall" have={overall.have} total={overall.total} />
