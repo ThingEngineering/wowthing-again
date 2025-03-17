@@ -20,7 +20,7 @@ import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
-import type { DbData, DbDataQuery, DbDataThing } from '@/shared/stores/db/types';
+import type { DbData, DbDataQuery } from '@/shared/stores/db/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { StaticData } from '@/shared/stores/static/types';
 import type {

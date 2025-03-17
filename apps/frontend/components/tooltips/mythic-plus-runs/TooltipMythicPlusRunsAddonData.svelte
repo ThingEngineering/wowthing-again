@@ -1,7 +1,7 @@
 <script lang="ts">
     import { keyTiers } from '@/data/dungeon';
     import { getRunCounts } from '@/utils/dungeon';
-    import { getDungeonScores, type DungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
+    import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores';
     import type {
         CharacterMythicPlusAddonMap,
         CharacterMythicPlusAddonRun,

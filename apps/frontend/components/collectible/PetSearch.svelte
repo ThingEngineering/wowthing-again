@@ -38,7 +38,7 @@
             }
         }
 
-        pets = sortBy(pets, ([speciesId, pet, name]) =>
+        pets = sortBy(pets, ([, pet, name]) =>
             [5 - pet.quality, leftPad(pet.level, 2, '0'), name].join('|'),
         );
     }

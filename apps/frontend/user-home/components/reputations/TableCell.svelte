@@ -1,6 +1,4 @@
 <script lang="ts">
-    import orderBy from 'lodash/orderBy';
-
     import { staticStore } from '@/shared/stores/static';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';

@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 
 export class HistoryState {
-    public chartType: 'line' | 'stacked-area' = 'line';
+    public chartType: 'area-stacked' | 'line' = 'line';
     public interval: 'hour' | 'day' | 'week' | 'month' = 'hour';
     public scaleType: 'category' | 'linear' | 'logarithmic' | 'time' | 'timeseries' = 'logarithmic';
     public timeFrame: 'all' | '1week' | '1month' | '3month' | '6month' | '1year' = 'all';
