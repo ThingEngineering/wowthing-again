@@ -154,15 +154,18 @@ export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 const thingTypeToFarmType: Record<number, FarmType> = {
     [DbThingType.Npc]: FarmType.Kill,
     [DbThingType.Object]: FarmType.Treasure,
+    [DbThingType.Quest]: FarmType.Quest,
     [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
     [DbThingType.Npc]: FarmIdType.Npc,
     [DbThingType.Object]: FarmIdType.Object,
+    [DbThingType.Quest]: FarmIdType.Quest,
     [DbThingType.Vendor]: FarmIdType.Npc,
 };
 
 const dbResetTypeToFarmResetType: Record<number, FarmResetType> = {
+    [DbResetType.None]: FarmResetType.None,
     [DbResetType.Never]: FarmResetType.Never,
     [DbResetType.Daily]: FarmResetType.Daily,
     [DbResetType.Weekly]: FarmResetType.Weekly,
