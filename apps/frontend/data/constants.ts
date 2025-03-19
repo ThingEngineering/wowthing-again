@@ -9,7 +9,7 @@ export abstract class Constants {
     static readonly defaultUnixTime = 946684800;
 
     static readonly currencies = {
-        catalyst: 2813, // Harmonized Silk
+        catalyst: 3116, // Essence of Kaja'mite
         itemUpgrade: 3008, // Valorstones
     };
 
