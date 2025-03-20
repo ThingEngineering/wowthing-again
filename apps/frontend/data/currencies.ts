@@ -294,7 +294,6 @@ export const currencyItems: Record<number, number[]> = {
         210814, // Artisan's Acuity
         223951, // Earth-Encrusted Gem
         212493, // Odd Glob of Wax
-        220520, // Radiant Echo
         206350, // Radiant Remnant
         null,
         233246, // Gunk-Covered Thingy
@@ -312,6 +311,7 @@ export const currencyItems: Record<number, number[]> = {
     // The War Within - Season 2
     126012: [
         229899, // Coffer Key Shard
+        235897, // Radiant Echo
         230905, // Fractured Spark of Fortunes
         230906, // Spark of Fortunes
         230937, // Enchanted Weathered Undermine Crest
