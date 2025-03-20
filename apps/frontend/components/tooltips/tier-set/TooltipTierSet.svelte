@@ -92,7 +92,7 @@
                             <td class="itemLevel quality{getItemLevelQuality(itemLevel)}">
                                 {#if itemLevel > 0}
                                     {itemLevel}
-                                {:else if convertible}
+                                {:else if convertible && !convertible.isPurchased}
                                     {convertible.equippedItem.itemLevel}
                                     <IconifyIcon
                                         extraClass={'status-shrug'}

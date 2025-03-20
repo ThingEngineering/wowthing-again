@@ -39,6 +39,7 @@ public class ItemsTool
         453, // Specify Finesse
         454, // Specify Perception
         455, // Specify Deftness
+        517, // 11.0 Professions - Modifying Reagent - Shared - Pacing - Season 1 Spark
         591, // 11.0 Optional Reagent - Season 1 - Enchanted Crests
         660, // Algari Missive of the Aurora
         661, // Algari Missive of the Feverflare
@@ -53,6 +54,8 @@ public class ItemsTool
         674, // Algari Missive of Finesse
         675, // Algari Missive of Perception
         676, // Algari Missive of Deftness
+        734, // 11.1 Professions - Modifying Reagent - Shared - Pacing - Season 2 Spark
+        735, // 11.1 Optional Reagent - Season 2 - Enchanted Crests
     ];
 
     private static readonly HashSet<int> SkipReagentItems = [
@@ -112,9 +115,6 @@ public class ItemsTool
         211687, // Lesser Draconic Crest of Honor
         211688, // Draconic Crest of Honor
         211689, // Greater Draconic Crest of Honor
-
-        // War Within S1
-        211296, // spark
     ];
 
     public async Task Run()
