@@ -372,8 +372,8 @@ export const taskList: Task[] = [
     },
     {
         key: 'twwDelveKeys',
-        name: '[TWW] Delve Keys',
-        shortName: 'Keys',
+        name: '[TWW] Delves',
+        shortName: 'Delve',
         minimumLevel: 80,
         type: 'multi',
     },
@@ -1087,27 +1087,43 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwDelveKeys: [
         {
             taskKey: 'twwDelveKey1',
-            taskName: 'Delve Key #1',
+            taskName: 'Key #1',
             minimumLevel: 80,
             noProgress: true,
         },
         {
             taskKey: 'twwDelveKey2',
-            taskName: 'Delve Key #2',
+            taskName: 'Key #2',
             minimumLevel: 80,
             noProgress: true,
         },
         {
             taskKey: 'twwDelveKey3',
-            taskName: 'Delve Key #3',
+            taskName: 'Key #3',
             minimumLevel: 80,
             noProgress: true,
         },
         {
             taskKey: 'twwDelveKey4',
-            taskName: 'Delve Key #4',
+            taskName: 'Key #4',
             minimumLevel: 80,
             noProgress: true,
+        },
+        {
+            taskKey: 'twwDelveMap',
+            taskName: 'Map Drop',
+            minimumLevel: 80,
+            noProgress: true,
+            questIds: [86371],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwDelveUnderpin',
+            taskName: 'Underpin Invasion',
+            minimumLevel: 80,
+            noProgress: true,
+            questIds: [87286],
+            questReset: DbResetType.Weekly,
         },
     ],
     twwSpreading: [
