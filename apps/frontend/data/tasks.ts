@@ -1110,6 +1110,15 @@ export const multiTaskMap: Record<string, Chore[]> = {
             noProgress: true,
         },
         {
+            taskKey: 'twwDelveArchaic',
+            taskName: 'Archaic Cipher',
+            minimumLevel: 70,
+            noProgress: true,
+            accountWide: true,
+            questIds: [84370],
+            questReset: DbResetType.Weekly,
+        },
+        {
             taskKey: 'twwDelveMap',
             taskName: 'Map Drop',
             minimumLevel: 80,
