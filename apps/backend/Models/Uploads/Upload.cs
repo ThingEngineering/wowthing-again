@@ -25,6 +25,8 @@ public class Upload
     public Dictionary<string, int> ScanTimes { get; set; }
     public List<int> Toys { get; set; }
 
+    public string TransmogIdsSquish { get; set; }
+
     [JsonPropertyName("transmogSourcesV2")]
     public Dictionary<string, bool> TransmogSources { get; set; }
 
