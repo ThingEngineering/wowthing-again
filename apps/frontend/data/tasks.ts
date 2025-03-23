@@ -322,20 +322,6 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
-        key: 'dfChoresAwakened',
-        name: '[DF] Chores - Awakened',
-        shortName: 'Awake',
-        minimumLevel: 70,
-        type: 'multi',
-    },
-    {
-        key: 'dfLastHurrah',
-        name: '[DF] Last Hurrah',
-        shortName: 'LH',
-        minimumLevel: 70,
-        isCurrentFunc: isCurrentLastHurrah,
-    },
-    {
         key: 'dfProfessionWeeklies',
         name: '[DF] Profession Weeklies',
         shortName: 'DFP',
@@ -884,56 +870,6 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'The Big Dig',
         },
     ],
-    dfChoresAwakened: [
-        // Week 1
-        {
-            taskKey: 'dfCommunityFeast',
-            taskName: 'Community Feast',
-            couldGetFunc: (char) => couldGetAwakened(char, 0),
-        },
-        {
-            taskKey: 'dfGrandHuntMythic',
-            taskName: 'Grand Hunt: Epic',
-            couldGetFunc: (char) => couldGetAwakened(char, 0),
-        },
-        {
-            taskKey: 'dfSiegeDragonbaneKeep',
-            taskName: 'Siege on Dragonbane Keep',
-            couldGetFunc: (char) => couldGetAwakened(char, 0),
-        },
-        // Week 2
-        {
-            taskKey: 'dfFyrakkShipment',
-            taskName: 'Fyrakk - Secured Shipment',
-            couldGetFunc: (char) => couldGetAwakened(char, 1),
-        },
-        {
-            taskKey: 'dfResearchersUnderFire4',
-            taskName: 'Researchers Under Fire :quality-4-T4:',
-            couldGetFunc: (char) => couldGetAwakened(char, 1),
-        },
-        {
-            taskKey: 'dfTimeRift',
-            taskName: 'Time Rift',
-            couldGetFunc: (char) => couldGetAwakened(char, 1),
-        },
-        // Week 3
-        {
-            taskKey: 'dfBloomingDreamseeds',
-            taskName: 'Blooming Dreamseeds',
-            couldGetFunc: (char) => couldGetAwakened(char, 2),
-        },
-        {
-            taskKey: 'dfDreamsurge',
-            taskName: 'Dreamsurge',
-            couldGetFunc: (char) => couldGetAwakened(char, 2),
-        },
-        {
-            taskKey: 'dfSuperbloom',
-            taskName: 'Superbloom',
-            couldGetFunc: (char) => couldGetAwakened(char, 2),
-        },
-    ],
     dfDungeonWeeklies: [
         {
             taskKey: 'dfDungeonPreserving',
@@ -983,6 +919,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskKey: 'twwDungeon',
             taskName: '[Dor] Dungeon',
             minimumLevel: 80,
+            accountWide: true,
         },
         {
             taskKey: 'twwTheaterTroupe',
@@ -1389,23 +1326,6 @@ function couldGet(char: Character, professionId: number, subProfessionId: number
 
     const profession = staticData.professions[professionId];
     return !!char.professions?.[profession.id]?.[subProfessionId];
-}
-
-function couldGetAwakened(char: Character, week: number): boolean {
-    const time = get(timeStore);
-    const currentPeriod = userStore.getCurrentPeriodForCharacter(time, char);
-    return (currentPeriod.id - 956) % 3 === week;
-}
-
-function isCurrentLastHurrah(char: Character, questId: number) {
-    const time = get(timeStore);
-    const currentPeriod = userStore.getCurrentPeriodForCharacter(time, char);
-    const week = (currentPeriod.id - 956) % 3;
-    return (
-        (week === 0 && questId === 80385) ||
-        (week === 1 && questId === 80386) ||
-        (week === 2 && questId === 80388)
-    );
 }
 
 function getExpansionSkill(
