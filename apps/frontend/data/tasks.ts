@@ -1068,7 +1068,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Underpin Invasion',
             minimumLevel: 80,
             noProgress: true,
-            questIds: [87286],
+            questIds: [87286, 87287],
             questReset: DbResetType.Weekly,
         },
     ],
