@@ -11,7 +11,7 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
     {
         Type = JobType.MaintenanceAggregateHourlyAuctionData,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromMinutes(1),
+        Interval = TimeSpan.FromHours(1),
         Version = 1,
     };
 
@@ -58,7 +58,7 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
                 .SqlQueryRaw<DateOnly>(minDateQuery)
                 .SingleAsync();
 
-            Logger.Debug("[{region}] {minDate}", ((WowRegion)region).ToString(), minDate);
+            // Logger.Debug("[{region}] {minDate}", ((WowRegion)region).ToString(), minDate);
 
             timer.AddPoint("Min");
 
@@ -127,7 +127,7 @@ public class MaintenanceAggregateHourlyAuctionDataJob : JobBase, IScheduledJob
                 //
                 string deleteQuery = string.Format(DeleteSql, region, timeZone, formattedDate);
                 int deleted = await Context.Database.ExecuteSqlRawAsync(deleteQuery);
-                Logger.Debug("Deleted {0} rows", deleted);
+                Logger.Information("Deleted {0} rows", deleted);
             }
 
             timer.AddPoint(((WowRegion)region).ToString());
