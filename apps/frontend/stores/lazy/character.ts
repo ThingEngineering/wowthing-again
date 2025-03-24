@@ -313,6 +313,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             }
         } else {
             charTask.quest = charQuests?.progressQuests?.[choreTask.taskKey];
+            if (charTask.quest) {
+                charTask.status = charTask.quest.status;
+            }
         }
 
         return charTask;
@@ -370,16 +373,16 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     if (choreTask.accountWide) {
                         charTask = accountTasks[choreTask.taskKey] ||= sortBy(
                             Object.entries(stores.userQuestData.characters).map(
-                                ([charId, char]) => [
-                                    char.scannedAt,
-                                    processTask(
+                                ([charId, charQuests]) => {
+                                    const charTask = processTask(
                                         choreTask,
                                         stores.userData.characterMap[parseInt(charId)],
-                                    ),
-                                ],
+                                    );
+                                    return [charTask.status, charQuests.scannedAt, charTask];
+                                },
                             ),
-                            ([scannedAt]) => scannedAt,
-                        ).at(-1)?.[1] as LazyCharacterChoreTask;
+                            ([status, scannedAt]) => `${status}|${scannedAt}`,
+                        ).at(-1)?.[2] as LazyCharacterChoreTask;
                     } else {
                         charTask = processTask(choreTask, character);
                     }
