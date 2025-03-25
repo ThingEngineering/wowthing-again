@@ -12,7 +12,7 @@ import type {
 import type { UserQuestData } from '@/types/data';
 import { CriteriaTreeOperator } from '@/enums/wow';
 
-const debugId = 13558;
+const debugId = 40882;
 
 export function getAccountData(
     achievementData: AchievementData,
