@@ -1,10 +1,11 @@
 <script lang="ts">
     import { Constants } from '@/data/constants';
+    import { iconLibrary } from '@/shared/icons';
     import { itemStore, userStore } from '@/stores';
     import getItemLevelQuality from '@/utils/get-item-level-quality';
     import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
     import type { CharacterCurrency, Character } from '@/types';
-    import { iconLibrary } from '@/shared/icons';
+
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
@@ -95,7 +96,9 @@
                                 {:else if convertible && !convertible.isPurchased}
                                     {convertible.equippedItem.itemLevel}
                                     <IconifyIcon
-                                        extraClass={'status-shrug'}
+                                        extraClass={convertible.canConvert
+                                            ? 'status-shrug'
+                                            : 'status-fail'}
                                         icon={iconLibrary.gameShurikenAperture}
                                         scale={'0.85'}
                                     />
