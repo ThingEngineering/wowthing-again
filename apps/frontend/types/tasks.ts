@@ -9,7 +9,7 @@ export type Task = {
     name: string;
     questIds?: number[];
     shortName: string;
-    type?: string;
+    type?: 'multi';
     /**
      * Function to check if this quest is current
      */
