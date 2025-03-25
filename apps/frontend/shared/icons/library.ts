@@ -20,6 +20,7 @@ export { default as gameBlunderbuss } from '@iconify/icons-game-icons/blunderbus
 export { default as gameBracer } from '@iconify/icons-game-icons/bracer';
 export { default as gameBrassKnuckles } from '@iconify/icons-game-icons/brass-knuckles';
 export { default as gameBroadsword } from '@iconify/icons-game-icons/broadsword';
+export { default as gameCandleLight } from '@iconify/icons-game-icons/candle-light';
 export { default as gameCape } from '@iconify/icons-game-icons/cape';
 export { default as gameCash } from '@iconify/icons-game-icons/cash';
 export { default as gameCastle } from '@iconify/icons-game-icons/castle';
@@ -59,6 +60,7 @@ export { default as gameShield } from '@iconify/icons-game-icons/shield';
 export { default as gameShirt } from '@iconify/icons-game-icons/shirt';
 export { default as gameShurikenAperture } from '@iconify/icons-game-icons/shuriken-aperture';
 export { default as gameSpellBook } from '@iconify/icons-game-icons/spell-book';
+export { default as gameSpiderFace } from '@iconify/icons-game-icons/spider-face';
 export { default as gameSpikedDragonHead } from '@iconify/icons-game-icons/spiked-dragon-head';
 export { default as gameStaryu } from '@iconify/icons-game-icons/staryu';
 export { default as gameStrongbox } from '@iconify/icons-game-icons/strongbox';
@@ -76,6 +78,7 @@ export { default as gameWizardStaff } from '@iconify/icons-game-icons/wizard-sta
 export { default as gameWoodClub } from '@iconify/icons-game-icons/wood-club';
 
 export { default as hisExclamationCircle } from '@iconify/icons-heroicons-solid/exclamation-circle';
+export { default as hisTrash } from '@iconify/icons-heroicons-solid/trash';
 
 export { default as icSharpMoreTime } from '@iconify/icons-ic/sharp-more-time';
 
@@ -119,6 +122,7 @@ export { default as mdiLetterL } from '@iconify/icons-mdi/alpha-l-circle-outline
 export { default as mdiLetterM } from '@iconify/icons-mdi/alpha-m-circle-outline';
 export { default as mdiLetterP } from '@iconify/icons-mdi/alpha-p-circle-outline';
 export { default as mdiLightningBoltOutline } from '@iconify/icons-mdi/lightning-bolt-outline';
+export { default as mdiListStatus } from '@iconify/icons-mdi/list-status';
 export { default as mdiLockOutline } from '@iconify/icons-mdi/lock-outline';
 export { default as mdiMinus } from '@iconify/icons-mdi/minus';
 export { default as mdiMulticast } from '@iconify/icons-mdi/multicast';
@@ -166,6 +170,8 @@ export { default as openmojiFlagPortgual } from '@iconify/icons-openmoji/flag-po
 export { default as openmojiFlagRussia } from '@iconify/icons-openmoji/flag-russia';
 export { default as openmojiFlagSpain } from '@iconify/icons-openmoji/flag-spain';
 export { default as openmojiFlagUnitedKingdom } from '@iconify/icons-openmoji/flag-united-kingdom';
+
+export { default as solarMasksBold } from '@iconify/icons-solar/masks-bold';
 
 export { default as twemojiFlagFrance } from '@iconify/icons-twemoji/flag-france';
 export { default as twemojiFlagGermany } from '@iconify/icons-twemoji/flag-germany';

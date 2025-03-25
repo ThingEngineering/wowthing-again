@@ -9,6 +9,8 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import { multiTaskMap } from '@/data/tasks';
+    import { taskChoreMap } from '@/data/tasks';
 
     export let character: Character;
     export let chore: LazyCharacterChore;
@@ -118,6 +120,7 @@
         <table class="table-striped">
             <tbody>
                 {#each taskSet as charTask}
+                    {@const taskChore = taskChoreMap[`${taskName}_${charTask.key}`]}
                     <tr class:skipped={charTask.skipped && charTask.status !== QuestStatus.Error}>
                         <td
                             class="name text-overflow"
@@ -134,12 +137,13 @@
                                 extraClass="status-{['fail', 'shrug', 'success', 'fail'][
                                     charTask.status
                                 ]}"
-                                icon={[
-                                    uiIcons.starEmpty,
-                                    uiIcons.starHalf,
-                                    uiIcons.starFull,
-                                    uiIcons.lock,
-                                ][charTask.status]}
+                                icon={taskChore?.icon ||
+                                    [
+                                        uiIcons.starEmpty,
+                                        uiIcons.starHalf,
+                                        uiIcons.starFull,
+                                        uiIcons.lock,
+                                    ][charTask.status]}
                             />
                         </td>
                         {#if anyErrors}
