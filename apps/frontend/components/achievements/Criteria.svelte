@@ -1,42 +1,59 @@
 <script lang="ts">
     import { honorAchievements } from '@/data/achievements';
-    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores';
     import { achievementState } from '@/stores/local-storage';
-    import { getAchievementStatus } from '@/utils/achievements'
-    import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
-    import type { AchievementDataAchievement } from '@/types'
+    import { getAchievementStatus } from '@/utils/achievements';
+    import { getCharacterNameRealm } from '@/utils/get-character-name-realm';
+    import type { AchievementDataAchievement } from '@/types';
 
-    import CriteriaTree from './CriteriaTree.svelte'
-    import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import CriteriaTree from './CriteriaTree.svelte';
+    import ProgressBar from '@/components/common/ProgressBar.svelte';
+    import Paginate from '@/shared/components/paginate/Paginate.svelte';
+    import { CriteriaTreeOperator } from '@/enums/wow';
 
-    export let achievement: AchievementDataAchievement
+    export let achievement: AchievementDataAchievement;
 
     $: data = getAchievementStatus(
         $achievementStore,
         $userAchievementStore,
         $userStore,
         $userQuestStore,
-        achievement
-    )
+        achievement,
+    );
 
-    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId]
+    $: rootCriteriaTree = $achievementStore.criteriaTree[achievement.criteriaTreeId];
 
-    let progressBar: boolean
-    let barAmount: number
+    let oof: [number, number][];
     $: {
-        if (rootCriteriaTree) {
-            progressBar = achievement?.isProgressBar ||
-                data.rootCriteriaTree?.isProgressBar ||
-                (data.oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
-                false;
-            
-            barAmount = data.oneCriteria
-                ? (rootCriteriaTree.amount || data.criteriaTrees[0][0].amount)
-                : rootCriteriaTree.amount;
+        oof = data.criteriaCharacters[data.criteriaTrees[0]?.[0]?.criteriaId];
+        if (oof?.length === 0) {
+            oof = data.criteriaCharacters[rootCriteriaTree.criteriaId];
         }
     }
 
-    let selectedCharacterId: number
+    let progressBar: boolean;
+    let barAmount: number;
+    $: {
+        if (rootCriteriaTree) {
+            progressBar =
+                achievement?.isProgressBar ||
+                data.rootCriteriaTree?.isProgressBar ||
+                (data.oneCriteria && data.criteriaTrees[0][0].isProgressBar) ||
+                false;
+
+            if (data.oneCriteria) {
+                if (rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren) {
+                    barAmount = rootCriteriaTree.amount;
+                } else {
+                    barAmount = data.criteriaTrees[0][0].amount;
+                }
+            } else {
+                barAmount = rootCriteriaTree.amount;
+            }
+        }
+    }
+
+    let selectedCharacterId: number;
     $: {
         if (!selectedCharacterId) {
             selectedCharacterId = data.characterCounts[0]?.[0] || 0;
@@ -71,7 +88,7 @@
         grid-area: progress;
         margin-top: 0.75rem;
 
-        & :global(.progress-container:nth-child(n+2)) {
+        & :global(.progress-container:nth-child(n + 2)) {
             margin-top: 0.3rem;
         }
     }
@@ -87,8 +104,8 @@
             />
         {:else if progressBar}
             <ProgressBar
-                title="{data.rootCriteriaTree.description}"
-                have={data.criteriaCharacters[data.criteriaTrees[0][0].criteriaId]?.[0]?.[1] || 0}
+                title={data.rootCriteriaTree.description}
+                have={oof?.[0]?.[1] || 0}
                 total={barAmount}
             />
         {:else}
@@ -105,15 +122,18 @@
         {/if}
     </div>
 
-    {#if (!achievement.isAccountWide || data.reputation)}
-        {@const characters = data.characterCounts.slice(0, $achievementState.showAllCharacters ? 9999 : 3)}
+    {#if !achievement.isAccountWide || data.reputation}
+        {@const characters = data.characterCounts.slice(
+            0,
+            $achievementState.showAllCharacters ? 9999 : 3,
+        )}
         {#if characters.length > 0}
             <div class="progress">
                 {#each characters.filter(([charId]) => $userStore.characterMap[charId]) as [characterId, count]}
                     {@const selected = selectedCharacterId === characterId}
                     <ProgressBar
-                        on:click={() => selectedCharacterId = characterId}
-                        title="{getCharacterNameRealm(characterId)}"
+                        on:click={() => (selectedCharacterId = characterId)}
+                        title={getCharacterNameRealm(characterId)}
                         have={count}
                         textCls={selected ? 'status-success' : null}
                         total={data.total}

@@ -2,19 +2,19 @@ import { get } from 'svelte/store';
 
 import { Profession } from '@/enums/profession';
 import { staticStore } from '@/shared/stores/static';
-import { timeStore } from '@/shared/stores/time';
-import { userQuestStore, userStore } from '@/stores';
+import { userQuestStore } from '@/stores';
 import type { Character } from '@/types';
 import type { TaskProfession } from '@/types/data';
 import type { Chore, Task } from '@/types/tasks';
 
-import { Constants } from './constants';
+import { Constants } from '@/data/constants';
 import {
     dragonflightProfessions,
     isGatheringProfession,
     warWithinProfessions,
-} from './professions';
+} from '@/data/professions';
 import { DbResetType } from '@/shared/stores/db/enums';
+import { twwChores11_0, twwChores11_1 } from './the_war_within';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -899,128 +899,8 @@ export const multiTaskMap: Record<string, Chore[]> = {
         },
         ...dragonflightProfessionTasks,
     ],
-    twwChores11_0: [
-        {
-            taskKey: 'twwEmissaryArchives',
-            taskName: '[Dor] Archives',
-            minimumLevel: 70,
-        },
-        {
-            taskKey: 'twwEmissaryDelves',
-            taskName: '[Dor] Delves',
-            minimumLevel: 70,
-        },
-        {
-            taskKey: 'twwEmissaryWorldsoul',
-            taskName: '[Dor] Worldsoul',
-            minimumLevel: 70,
-        },
-        {
-            taskKey: 'twwDungeon',
-            taskName: '[Dor] Dungeon',
-            minimumLevel: 80,
-            accountWide: true,
-        },
-        {
-            taskKey: 'twwTheaterTroupe',
-            taskName: '[IoD] Theater Troupe',
-            minimumLevel: 80,
-        },
-        {
-            taskKey: 'twwAwakeningTheMachine',
-            taskName: '[RD ] Awakening the Machine',
-            minimumLevel: 70,
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwRollinDown',
-            taskName: "[RD ] Rollin' Down in the Deeps",
-            minimumLevel: 80,
-        },
-        {
-            taskKey: 'twwSpreadingTheLight',
-            taskName: '[Hal] Spreading the Light',
-            minimumLevel: 70,
-            noProgress: true,
-        },
-        {
-            taskKey: 'twwSpiderPact',
-            taskName: '[AK ] Spider Pact',
-            minimumLevel: 70,
-            accountWide: true,
-        },
-        {
-            taskKey: 'twwSpiderWeekly',
-            taskName: '[AK ] Spider Weekly',
-            minimumLevel: 70,
-        },
-        {
-            taskKey: 'twwSpecialAssignment1',
-            taskName: 'Special Assignment 1',
-            minimumLevel: 70,
-            noProgress: true,
-            showQuestName: true,
-        },
-        {
-            taskKey: 'twwSpecialAssignment2',
-            taskName: 'Special Assignment 2',
-            minimumLevel: 70,
-            noProgress: true,
-            showQuestName: true,
-        },
-    ],
-    twwChores11_1: [
-        {
-            taskKey: 'twwUndermineWorldBossFirst',
-            taskName: '[Um] World Boss 1st Kill',
-            accountWide: true,
-            questIds: [89401],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineCartel',
-            taskName: '[Um] Choose Cartel',
-            accountWide: true,
-            questIds: [84948],
-            questReset: DbResetType.Weekly,
-        },
-        {
-            // TODO: check account max rep?
-            taskKey: 'twwUndermineChett',
-            taskName: '[Um] C.H.E.T.T. List',
-            questIds: [87296],
-            questReset: DbResetType.Weekly,
-            couldGetFunc: () => get(userStore).maxReputation.get(2653) >= 32500, // Cartels renown 13
-        },
-        {
-            taskKey: 'twwUndermineManyJobs',
-            taskName: '[Um] 10x Shipping & Handling Jobs',
-            questIds: [85869], // Many Jobs, Handle It!
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineReduce',
-            taskName: '[Um] 3x S.C.R.A.P. Jobs',
-            questIds: [85879], // Reduce, Resuse, Resell
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineSurge',
-            taskName: '[Um] Surge Pricing',
-            questIds: [86775], // Urge to Surge
-            questReset: DbResetType.Weekly,
-        },
-        {
-            taskKey: 'twwUndermineSpecial',
-            taskName: '[Um] Special Assignment',
-            noProgress: true,
-            questIds: [
-                85487, // Boom! Headshot!
-                85488, // Security Detail
-            ],
-            questReset: DbResetType.Weekly,
-        },
-    ],
+    twwChores11_0,
+    twwChores11_1,
     twwDelveKeys: [
         {
             taskKey: 'twwDelveKey1',
@@ -1068,7 +948,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
             taskName: 'Underpin Invasion',
             minimumLevel: 80,
             noProgress: true,
-            questIds: [87286],
+            questIds: [87286, 87287],
             questReset: DbResetType.Weekly,
         },
     ],
@@ -1302,23 +1182,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
 };
 
-export const pvpBrawlHolidays: Record<number, string> = Object.fromEntries(
-    Object.entries({
-        arathiBlizzard: [666, 673, 680, 697, 737],
-        classicAshran: [1120, 1121, 1122, 1123, 1124],
-        compStomp: [1234, 1235, 1236, 1237, 1238],
-        cookingImpossible: [1047, 1048, 1049, 1050, 1051],
-        deepSix: [702, 704, 705, 706, 736],
-        deepwindDunk: [1239, 1240, 1241, 1242, 1243],
-        gravityLapse: [659, 663, 670, 677, 684],
-        packedHouse: [667, 674, 681, 688, 701],
-        shadoPanShowdown: [1232, 1233, 1244, 1245, 1246, 1312],
-        southshoreVsTarrenMill: [660, 662, 669, 676, 683],
-        templeOfHotmogu: [1166, 1167, 1168, 1169, 1170],
-        warsongScramble: [664, 671, 678, 685, 1221],
-    })
-        .map(([key, values]) => values.map((id) => [id, key]))
-        .flat(),
+export const taskChoreMap = Object.fromEntries(
+    Object.entries(multiTaskMap).flatMap(([taskKey, chores]) =>
+        chores.map((chore) => [`${taskKey}_${chore.taskKey}`, chore]),
+    ),
 );
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {

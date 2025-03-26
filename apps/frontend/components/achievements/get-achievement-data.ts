@@ -14,7 +14,7 @@ import type { UserQuestData } from '@/types/data';
 import type { AchievementStatus } from './types';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
-const debugId = 16590;
+const debugId = 41095;
 
 export function getAchievementStatus(
     achievementData: AchievementData,
@@ -41,7 +41,7 @@ export function getAchievementStatus(
             (achievement.faction === 1 && char.faction === 0) ||
             achievement.faction === -1,
     );
-    const characterIds = characters.map((char) => char.id);
+    const characterIds = new Set(characters.map((char) => char.id));
 
     function recurse(
         parentCriteriaTree: AchievementDataCriteriaTree,
@@ -133,18 +133,18 @@ export function getAchievementStatus(
             if (characterData.length === 0) {
                 for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ??
                     []) {
-                    if (characterIds.indexOf(characterId) < 0) {
+                    if (!characterIds.has(characterId)) {
                         continue;
                     }
 
-                    if (achievement.id === debugId) {
-                        console.log(
-                            characterId,
-                            userData.characterMap[characterId].name,
-                            count,
-                            addStuff,
-                        );
-                    }
+                    // if (achievement.id === debugId) {
+                    //     console.log(
+                    //         characterId,
+                    //         userData.characterMap[characterId].name,
+                    //         count,
+                    //         addStuff,
+                    //     );
+                    // }
 
                     // && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)
                     if (addStuff) {

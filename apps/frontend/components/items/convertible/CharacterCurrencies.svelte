@@ -1,42 +1,41 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import type { ConvertibleCategory } from './types'
-    import type { Character } from '@/types'
+    import { Constants } from '@/data/constants';
+    import type { ConvertibleCategory } from './types';
+    import type { Character } from '@/types';
 
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let character: Character
-    export let season: ConvertibleCategory
-    export let tier: number
+    export let character: Character;
+    export let season: ConvertibleCategory;
+    export let tier: number;
 
-    $: seasonTier = season.tiers[season.tiers.length - tier]
+    $: seasonTier = season.tiers[season.tiers.length - tier];
 
-    let currencies: [number?, number?][][]
+    let currencies: [number?, number?][][];
     $: {
-        currencies = []
-        
-        const first: [number, number][] = []
+        currencies = [];
+
+        const first: [number, number][] = [];
         if (season.conversionCurrencyId) {
-            first.push([season.conversionCurrencyId, 1])
+            first.push([season.conversionCurrencyId, 1]);
         }
         if (seasonTier.lowUpgrade || seasonTier.highUpgrade) {
-            first.push([Constants.currencies.itemUpgrade, 1])
+            first.push([Constants.currencies.itemUpgrade, 1]);
         }
-        currencies.push(first)
+        currencies.push(first);
 
         if (season.id === 3) {
             if (tier === 2 || tier === 3) {
-                currencies.push([[2122, 1]], [[204276, 1]])
+                currencies.push([[2122, 1]], [[204276, 1]]);
             }
-        }
-        else {
-            const tier: [number, number][] = []
+        } else {
+            const tier: [number, number][] = [];
             if (seasonTier.lowUpgrade?.length > 0) {
-                tier.push(seasonTier.lowUpgrade[0])
+                tier.push(seasonTier.lowUpgrade[0]);
             }
             if (seasonTier.highUpgrade?.length > 0) {
-                tier.push(seasonTier.highUpgrade[0])
+                tier.push(seasonTier.highUpgrade[0]);
             }
             if (tier.length > 0) {
                 currencies.push(tier);
@@ -44,9 +43,15 @@
         }
 
         if (season.purchases?.length > 0) {
-            currencies.push(
-                season.purchases.map((purchaseData) => [purchaseData.costId, 1] as [number?, number?])
-            );
+            const purchaseCurrencies: [number?, number?][] = [];
+            const seenCostIds = new Set<number>();
+            for (const purchaseData of season.purchases) {
+                if (!seenCostIds.has(purchaseData.costId)) {
+                    seenCostIds.add(purchaseData.costId);
+                    purchaseCurrencies.push([purchaseData.costId, 1] as [number?, number?]);
+                }
+            }
+            currencies.push(purchaseCurrencies);
         }
     }
 </script>
@@ -82,16 +87,19 @@
         <td>
             <div class="flex-wrapper">
                 {#each currencySets as [currencyId, currencyAmount]}
-                    {@const charHas = currencyId > 10_000
-                        ? character.getItemCount(currencyId)
-                        : (character.currencies?.[currencyId]?.quantity || 0)}
+                    {@const charHas =
+                        currencyId > 10_000
+                            ? character.getItemCount(currencyId)
+                            : character.currencies?.[currencyId]?.quantity || 0}
                     <div class="character-currency">
                         <WowheadLink
                             id={currencyId}
                             type={currencyId > 10_000 ? 'item' : 'currency'}
                         >
                             <WowthingImage
-                                name={currencyId > 10_000 ? `item/${currencyId}` : `currency/${currencyId}`}
+                                name={currencyId > 10_000
+                                    ? `item/${currencyId}`
+                                    : `currency/${currencyId}`}
                                 size={16}
                                 border={1}
                             />

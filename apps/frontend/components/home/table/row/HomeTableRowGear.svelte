@@ -41,12 +41,8 @@
                 const slotData = seasonData[inventoryType];
                 const bestPiece = Object.values(slotData.modifiers)
                     .flatMap((modifier) => modifier.characters[character.id] || [])
-                    .filter((item) => item.canConvert)
-                    .reduce(
-                        (a, b) =>
-                            a && a.equippedItem.itemLevel > b.equippedItem.itemLevel ? a : b,
-                        null,
-                    );
+                    .filter((item) => item.isConvertible)
+                    .reduce((a, b) => (a && a.currentTier > b.currentTier ? a : b), null);
                 if (bestPiece) {
                     currentPieces[index].push(bestPiece);
                 }

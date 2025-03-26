@@ -1,7 +1,7 @@
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
-import { pvpBrawlHolidays } from '@/data/tasks';
+import { pvpBrawlHolidays } from '@/data/holidays';
 import { staticStore } from '@/shared/stores/static';
 import type { StaticDataHoliday } from '@/shared/stores/static/types';
 import type { SettingsView } from '@/shared/stores/settings/types';

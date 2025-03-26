@@ -1,5 +1,6 @@
 import type { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from './character';
+import type { IconifyIcon } from '@iconify/types';
 
 export type Task = {
     minimumLevel?: number;
@@ -9,7 +10,7 @@ export type Task = {
     name: string;
     questIds?: number[];
     shortName: string;
-    type?: string;
+    type?: 'multi';
     /**
      * Function to check if this quest is current
      */
@@ -23,10 +24,11 @@ export type Chore = {
     minimumLevel?: number;
     maximumLevel?: number;
     questIds?: number[];
-    questReset?: DbResetType,
+    questReset?: DbResetType;
     subChores?: Chore[];
     taskKey: string;
     taskName: string;
+    icon?: IconifyIcon;
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
      */

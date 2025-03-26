@@ -61,6 +61,21 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 },
                 upgradeTier: 1,
             },
+            {
+                costId: 2803, // Undercoin
+                costAmount: {
+                    [InventoryType.Head]: 875,
+                    [InventoryType.Shoulders]: 750,
+                    [InventoryType.Back]: 500,
+                    [InventoryType.Chest]: 875,
+                    [InventoryType.Wrist]: 625,
+                    [InventoryType.Hands]: 750,
+                    [InventoryType.Waist]: 625,
+                    [InventoryType.Legs]: 875,
+                    [InventoryType.Feet]: 750,
+                },
+                upgradeTier: 1,
+            },
         ],
     },
     {
