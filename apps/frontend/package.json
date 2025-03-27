@@ -35,7 +35,7 @@
         "@types/luxon": "^3.4.2",
         "autoprefixer": "^10.4.21",
         "idb": "^8.0.2",
-        "svelte-dnd-action": "^0.9.60",
+        "svelte-dnd-action": "0.9.50",
         "svelte-intersection-observer": "^1.0.0",
         "svelte-media": "^0.1.5",
         "svelte-multiselect": "^10.3.0",
