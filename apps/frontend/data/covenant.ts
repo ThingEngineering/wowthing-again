@@ -235,7 +235,7 @@ export const abominations: CovenantAbomination[] = [
     new CovenantAbomination(4, 58411, 338037, 'Iron Phillip', null, 20, 10),
     new CovenantAbomination(4, 58413, 338043, 'Naxx', null, 20, 10),
 
-    new CovenantAbomination(5, 61637, 343436, 'Unity', 'Unity', null, 30, 5),
+    new CovenantAbomination(5, 61637, 343436, 'Unity', 'Unity', 30, 5),
 ];
 
 // Night Fae
