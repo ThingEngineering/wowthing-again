@@ -152,12 +152,14 @@ export class DbDataThing {
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 
 const thingTypeToFarmType: Record<number, FarmType> = {
+    [DbThingType.Event]: FarmType.Event,
     [DbThingType.Npc]: FarmType.Kill,
     [DbThingType.Object]: FarmType.Treasure,
     [DbThingType.Quest]: FarmType.Quest,
     [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
+    [DbThingType.Event]: FarmIdType.Quest,
     [DbThingType.Npc]: FarmIdType.Npc,
     [DbThingType.Object]: FarmIdType.Object,
     [DbThingType.Quest]: FarmIdType.Quest,

@@ -8,4 +8,5 @@ public enum DbThingType
     Object = 4,
     Quest = 5,
     Vendor = 6,
+    Event = 7,
 }
