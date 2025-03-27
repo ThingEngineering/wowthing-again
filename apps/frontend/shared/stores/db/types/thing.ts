@@ -12,6 +12,7 @@ import { FarmIdType } from '@/enums/farm-id-type';
 import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { RewardType } from '@/enums/reward-type';
+import { staticStore } from '@/shared/stores/static';
 import { getItemTypeAndSubtype } from '@/utils/items/get-item-type-and-subtype';
 
 import { DbResetType, DbThingContentType, DbThingType } from '../enums';
@@ -19,6 +20,7 @@ import { dbStore } from '../store';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
+import { itemStore } from '@/stores';
 
 export class DbDataThing {
     public accountWide: boolean;
@@ -115,8 +117,27 @@ export class DbDataThing {
                     type,
                 };
 
-                for (const requirementId of requirementIds.concat(content.requirementIds || [])) {
-                    drop.limit = dbData.requirementsById[requirementId].split(' ');
+                const dropRequirementIds = requirementIds.concat(content.requirementIds || []);
+                if (dropRequirementIds.length > 0) {
+                    for (const requirementId of dropRequirementIds) {
+                        drop.limit = dbData.requirementsById[requirementId].split(' ');
+                    }
+                } else if (type === RewardType.Item) {
+                    // if this is an item that teaches a skill, add a profession skill limit
+                    const staticData = get(staticStore);
+                    const requiredSkillLine = staticData.itemToSkillLine[drop.id];
+                    if (requiredSkillLine) {
+                        const profession =
+                            staticData.professionBySkillLine[requiredSkillLine[0]]?.[0];
+                        if (profession) {
+                            drop.limit = [
+                                'profession',
+                                profession.slug,
+                                requiredSkillLine[0].toString(),
+                                requiredSkillLine[1].toString(),
+                            ];
+                        }
+                    }
                 }
 
                 drops.push(drop);
@@ -152,12 +173,14 @@ export class DbDataThing {
 export type DbDataThingArray = ConstructorParameters<typeof DbDataThing>;
 
 const thingTypeToFarmType: Record<number, FarmType> = {
+    [DbThingType.Event]: FarmType.Event,
     [DbThingType.Npc]: FarmType.Kill,
     [DbThingType.Object]: FarmType.Treasure,
     [DbThingType.Quest]: FarmType.Quest,
     [DbThingType.Vendor]: FarmType.Vendor,
 };
 const thingTypeToFarmIdType: Record<number, FarmIdType> = {
+    [DbThingType.Event]: FarmIdType.Quest,
     [DbThingType.Npc]: FarmIdType.Npc,
     [DbThingType.Object]: FarmIdType.Object,
     [DbThingType.Quest]: FarmIdType.Quest,
