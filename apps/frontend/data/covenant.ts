@@ -163,6 +163,7 @@ export class CovenantAbomination {
         public questId: number,
         public spellId: number,
         public name: string,
+        public shortName: string,
         public flesh: number,
         public parts: number,
         public itemIds?: number[],
@@ -170,71 +171,71 @@ export class CovenantAbomination {
 }
 
 export const abominations: CovenantAbomination[] = [
-    new CovenantAbomination(1, 58410, 325454, 'Atticus', 10, 0),
-    new CovenantAbomination(1, 60041, 325284, 'Chordy', 1, 0, [
+    new CovenantAbomination(1, 58410, 325454, 'Atticus', null, 10, 0),
+    new CovenantAbomination(1, 60041, 325284, 'Chordy', 'Cho', 1, 0, [
         182507, // Stitched Conjurer's Cape [cloth]
         182498, // Stitched Wraith's Cloak [leather]
         182516, // Stitched Tactician's Drape [mail]
         182489, // Stitched Harbinger's Greatcloak [plate]
     ]),
-    new CovenantAbomination(1, 57597, 325453, 'Flytrap', 10, 2, [
+    new CovenantAbomination(1, 57597, 325453, 'Flytrap', 'Fly', 10, 2, [
         182501, // Stitched Conjurer's Slippers [cloth]
         182492, // Stitched Wraith's Boots [leather]
         182510, // Stitched Tactician's Sabatons [mail]
         182483, // Stitched Harbinger's Stompers [plate]
     ]),
-    new CovenantAbomination(1, 57611, 325452, 'Marz', 10, 1, [
+    new CovenantAbomination(1, 57611, 325452, 'Marz', 'Marz', 10, 1, [
         182500, // Stitched Conjurer's Tunic [cloth]
         182491, // Stitched Wraith's Jerkin [leather]
         182509, // Stitched Tactician's Hauberk [mail]
         182482, // Stitched Harbinger's Chestguard [plate]
     ]),
-    new CovenantAbomination(1, 58415, 325458, 'Miru', 20, 0),
-    new CovenantAbomination(1, 57605, 325451, 'Roseboil', 10, 1, [
+    new CovenantAbomination(1, 58415, 325458, 'Miru', null, 20, 0),
+    new CovenantAbomination(1, 57605, 325451, 'Roseboil', 'Rose', 10, 1, [
         182505, // Stitched Conjurer's Cinch [cloth]
         182496, // Stitched Wraith's Belt [leather]
         182514, // Stitched Tactician's Girdle [mail]
         182487, // Stitched Harbinger's Warbelt [plate]
     ]),
 
-    new CovenantAbomination(2, 57604, 326379, 'Neena', 20, 0),
-    new CovenantAbomination(2, 57601, 326406, 'Professor', 15, 3, [
+    new CovenantAbomination(2, 57604, 326379, 'Neena', null, 20, 0),
+    new CovenantAbomination(2, 57601, 326406, 'Professor', 'Prof', 15, 3, [
         182504, // Stitched Conjurer's Mantle [cloth]
         182495, // Stitched Wraith's Shoulders [leather]
         182513, // Stitched Tactician's Spaulders [mail]
         182486, // Stitched Harbinger's Pauldrons [plate]
     ]),
-    new CovenantAbomination(2, 57600, 338040, 'Sabrina', 15, 4, [
+    new CovenantAbomination(2, 57600, 338040, 'Sabrina', 'Sab', 15, 4, [
         182503, // Stitched Conjurer's Leggings [cloth]
         182494, // Stitched Wraith's Breeches [leather]
         182512, // Stitched Tactician's Chausses [mail]
         182485, // Stitched Harbinger's Greaves [plate]
     ]),
-    new CovenantAbomination(2, 58414, 326407, 'Toothpick', 15, 4, [
+    new CovenantAbomination(2, 58414, 326407, 'Toothpick', 'Tooth', 15, 4, [
         182506, // Stitched Conjurer's Wristwraps [cloth]
         182497, // Stitched Wraith's Armguards [leather]
         182515, // Stitched Tactician's Bracers [mail]
         182488, // Stitched Harbinger's Vambraces [plate]
     ]),
 
-    new CovenantAbomination(3, 57608, 326380, 'Gas Bag', 20, 5, [
+    new CovenantAbomination(3, 57608, 326380, 'Gas Bag', 'Gas', 20, 5, [
         182499, // Stitched Conjurer's Cowl [cloth]
         182490, // Stitched Wraith's Visage [leather]
         182508, // Stitched Tactician's Faceguard [mail]
         182481, // Stitched Harbinger's Greathelm [plate]
     ]),
-    new CovenantAbomination(3, 58416, 338039, 'Guillotine', 20, 7, [
+    new CovenantAbomination(3, 58416, 338039, 'Guillotine', 'Guil', 20, 7, [
         182502, // Stitched Conjurer's Gloves [cloth]
         182493, // Stitched Wraith's Stranglers [leather]
         182511, // Stitched Tactician's Gauntlets [mail]
         182484, // Stitched Harbinger's Crushers [plate]
     ]),
-    new CovenantAbomination(3, 60216, 326408, 'Mama Tomalin', 10, 1),
+    new CovenantAbomination(3, 60216, 326408, 'Mama Tomalin', null, 10, 1),
 
-    new CovenantAbomination(4, 58411, 338037, 'Iron Phillip', 20, 10),
-    new CovenantAbomination(4, 58413, 338043, 'Naxx', 20, 10),
+    new CovenantAbomination(4, 58411, 338037, 'Iron Phillip', null, 20, 10),
+    new CovenantAbomination(4, 58413, 338043, 'Naxx', null, 20, 10),
 
-    new CovenantAbomination(5, 61637, 343436, 'Unity', 30, 5),
+    new CovenantAbomination(5, 61637, 343436, 'Unity', 'Unity', null, 30, 5),
 ];
 
 // Night Fae

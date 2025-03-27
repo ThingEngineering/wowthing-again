@@ -1,29 +1,29 @@
 <script lang="ts">
-    import { classIdToArmorType } from '@/data/character-class'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import { itemStore, userStore } from '@/stores'
-    import type { CovenantAbomination } from '@/data/covenant'
-    import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
+    import { classIdToArmorType } from '@/data/character-class';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import { itemStore, userStore } from '@/stores';
+    import type { CovenantAbomination } from '@/data/covenant';
+    import type { Character, CharacterShadowlandsCovenantFeature } from '@/types';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let abomination: CovenantAbomination
-    export let character: Character
-    export let charHas: boolean
-    export let feature: CharacterShadowlandsCovenantFeature
+    export let abomination: CovenantAbomination;
+    export let character: Character;
+    export let charHas: boolean;
+    export let feature: CharacterShadowlandsCovenantFeature;
 
-    $: canBuild = feature?.rank >= abomination.requiredRank
+    $: canBuild = feature?.rank >= abomination.requiredRank;
 
-    let questItemId: number
-    let userHasQuestItem: boolean
+    let questItemId: number;
+    let userHasQuestItem: boolean;
     $: {
-        questItemId = 0
-        userHasQuestItem = false
+        questItemId = 0;
+        userHasQuestItem = false;
         if (abomination.itemIds) {
-            const itemIndex = classIdToArmorType[character.classId] - 1
-            questItemId = abomination.itemIds[itemIndex]
+            const itemIndex = classIdToArmorType[character.classId] - 1;
+            questItemId = abomination.itemIds[itemIndex];
             userHasQuestItem = $userStore.hasSourceV2.get(0).has(questItemId);
         }
     }
@@ -43,7 +43,8 @@
         }
     }
     .not-buildable {
-        filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(300%) contrast(0.9);
+        filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(300%)
+            contrast(0.9);
     }
     .costs {
         --image-margin-top: -4px;
@@ -53,6 +54,9 @@
     }
     .cost.status-success {
         filter: saturate(200%) contrast(200%);
+    }
+    .status-shrug {
+        --image-border-color: #{mix($color-shrug, $border-color, 90%)} !important;
     }
     .status-success {
         --image-border-color: #{darken($color-success, 10%)};
@@ -64,41 +68,39 @@
         top: -1px;
         right: 0;
     }
+    .name {
+        bottom: 1px;
+    }
 </style>
 
 <div
     class="abomination"
     class:missing={canBuild && !charHas}
     class:not-buildable={!canBuild}
-    class:status-success={charHas}
+    class:border-fail={!charHas && questItemId}
+    class:status-shrug={charHas && questItemId && !userHasQuestItem}
+    class:status-success={charHas && (!questItemId || userHasQuestItem)}
 >
     <WowheadLink
         type={abomination.name === 'Unity' ? 'quest' : 'spell'}
         id={abomination.name === 'Unity' ? abomination.questId : abomination.spellId}
     >
-        <WowthingImage
-            name="spell/{abomination.spellId}"
-            size={48}
-            border={2}
-        />
+        <WowthingImage name="spell/{abomination.spellId}" size={48} border={2} />
 
         {#if questItemId}
             {#if userHasQuestItem}
                 <CollectedIcon />
             {:else}
                 <span class="quest-item drop-shadow">
-                    <WowheadLink
-                        type={'item'}
-                        id={questItemId}
-                    >
-                        <WowthingImage
-                            name="item/{questItemId}"
-                            size={20}
-                            border={2}
-                        />
+                    <WowheadLink type={'item'} id={questItemId}>
+                        <WowthingImage name="item/{questItemId}" size={20} border={2} />
                     </WowheadLink>
                 </span>
             {/if}
+        {/if}
+
+        {#if abomination.shortName}
+            <span class="name pill abs-center">{abomination.shortName}</span>
         {/if}
     </WowheadLink>
 
@@ -110,11 +112,7 @@
                 use:basicTooltip={`${abomination.flesh}x ${$itemStore.items[178061].name}`}
             >
                 {abomination.flesh}
-                <WowthingImage
-                    name="item/178061"
-                    size={16}
-                    border={1}
-                />
+                <WowthingImage name="item/178061" size={16} border={1} />
             </div>
 
             {#if abomination.parts > 0}
@@ -124,11 +122,7 @@
                     use:basicTooltip={`${abomination.parts}x ${$itemStore.items[183744].name}`}
                 >
                     {abomination.parts}
-                    <WowthingImage
-                        name="item/183744"
-                        size={16}
-                        border={1}
-                    />
+                    <WowthingImage name="item/183744" size={16} border={1} />
                 </div>
             {/if}
         </div>
