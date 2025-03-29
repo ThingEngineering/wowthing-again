@@ -6,6 +6,7 @@ export class CharacterWeekly {
 
     constructor(
         public delveWeek: number,
+        public delveGilded: number,
         delveLevels: number[],
         delveMaps: string[],
         public keystoneScannedAt: string,

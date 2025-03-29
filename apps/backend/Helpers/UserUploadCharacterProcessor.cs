@@ -1387,6 +1387,8 @@ public class UserUploadCharacterProcessor
     private void HandleWeekly()
     {
         // Delves
+        _character.Weekly.DelveGilded = _characterData.DelvesGilded;
+
         if (_characterData.Delves != null)
         {
             int maxKey = _characterData.Delves.Keys.Max();

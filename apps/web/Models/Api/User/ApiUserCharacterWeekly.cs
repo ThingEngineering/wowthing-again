@@ -10,6 +10,7 @@ public class ApiUserCharacterWeekly
     public DateTime KeystoneScannedAt { get; set; }
     public DateTime UghQuestsScannedAt { get; set; }
 
+    public short DelveGilded { get; set; }
     public List<int> DelveLevels { get; set; }
     public List<string> DelveMaps { get; set; }
     public int DelveWeek { get; set; }
@@ -20,6 +21,7 @@ public class ApiUserCharacterWeekly
 
     public ApiUserCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy privacy)
     {
+        DelveGilded = weekly.DelveGilded;
         DelveLevels = weekly.DelveLevels;
         DelveMaps = weekly.DelveMaps;
         DelveWeek = weekly.DelveWeek;
