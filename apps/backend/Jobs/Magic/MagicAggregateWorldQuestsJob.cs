@@ -11,7 +11,7 @@ public class MagicAggregateWorldQuestsJob : JobBase, IScheduledJob
     {
         Type = JobType.MagicAggregateWorldQuests,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromHours(1),
+        Interval = TimeSpan.FromMinutes(10),
         Version = 1,
     };
 
