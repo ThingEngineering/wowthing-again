@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let vaultType: string
+    export let vaultType: string;
 </script>
 
 <style lang="scss">

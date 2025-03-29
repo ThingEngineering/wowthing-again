@@ -23,6 +23,17 @@
 
     td,
     th {
+        &.sized {
+            --calc-left: calc(var(--padding-left, var(--padding-size)) * var(--padding, 1));
+            --calc-right: calc(var(--padding-right, var(--padding-size)) * var(--padding, 1));
+            --calc-width: calc(var(--width) + var(--calc-left) + var(--calc-right));
+            
+            min-width: var(--calc-width);
+            padding-left: var(--calc-left);
+            padding-right: var(--calc-right);
+            width: var(--calc-width);
+        }
+
         &:first-child {
             border-left: 1px solid $border-color;
         }

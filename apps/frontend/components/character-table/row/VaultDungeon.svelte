@@ -1,39 +1,39 @@
 <script lang="ts">
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { getVaultItemLevel } from '@/utils/mythic-plus'
-    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level'
-    import type { Character, CharacterWeeklyProgress } from '@/types'
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { getVaultItemLevel } from '@/utils/mythic-plus';
+    import { getDungeonLevel } from '@/utils/mythic-plus/get-dungeon-level';
+    import type { Character, CharacterWeeklyProgress } from '@/types';
 
-    import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
-    import VaultShared from './VaultShared.svelte'
+    import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte';
+    import VaultShared from './VaultShared.svelte';
 
-    export let character: Character
+    export let character: Character;
 
-    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.dungeonProgress : []
-    
+    $: mythicPlus = character.isMaxLevel ? character.weekly?.vault?.dungeonProgress : [];
+
     function qualityFunc(prog: CharacterWeeklyProgress): number {
-        return getVaultItemLevel(getDungeonLevel(prog))[1]
+        return getVaultItemLevel(getDungeonLevel(prog))[1];
     }
     function textFunc(prog: CharacterWeeklyProgress): string {
         if (prog.progress >= prog.threshold) {
-            return getVaultItemLevel(getDungeonLevel(prog))[0].toString()
-        }
-        else {
-            return `${prog.threshold - prog.progress} !`
+            return getVaultItemLevel(getDungeonLevel(prog))[0].toString();
+        } else {
+            return `${prog.threshold - prog.progress} !`;
         }
     }
 </script>
 
 <style lang="scss">
     td {
-        @include cell-width($width-vault);
-
-        border-left: 1px solid $border-color;
+        --width: var(--width-vault);
     }
 </style>
 
 {#if mythicPlus?.length > 0}
-    <td use:componentTooltip={{component: TooltipMythicPlusVault, props: { character }}}>
+    <td
+        use:componentTooltip={{ component: TooltipMythicPlusVault, props: { character } }}
+        class="sized b-l"
+    >
         <VaultShared
             availableRewards={character.weekly?.vault.availableRewards}
             generatedRewards={character.weekly?.vault.generatedRewards}
