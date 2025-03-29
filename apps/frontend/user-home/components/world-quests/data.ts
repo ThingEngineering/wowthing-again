@@ -9,6 +9,23 @@ export const zoneData: WorldQuestZone[] = [
         mapName: '10-the-war-within/khaz_algar',
         children: [
             {
+                id: 2346,
+                name: 'Undermine',
+                slug: 'undermine',
+                mapName: '10-the-war-within/undermine',
+                continentPoint: [80, 80],
+                anchor: 'top-left',
+            },
+            {
+                id: 2369,
+                name: 'Siren Isle',
+                slug: 'siren-isle',
+                mapName: '10-the-war-within/siren_isle',
+                continentPoint: [90, 90],
+                anchor: 'top-left',
+            },
+            null,
+            {
                 id: 2255,
                 name: 'Azj-Kahet',
                 slug: 'azj-kahet',
