@@ -1260,6 +1260,7 @@ public class UserUploadCharacterProcessor
         //     _worldQuestReportMap[shortRegion] = reportMap = new();
         // }
         //
+        var goldWorldQuests = _character.AddonQuests.GoldWorldQuests = new List<List<int>>();
         foreach ((short expansion, var zones) in _characterData.WorldQuests.EmptyIfNull())
         {
             foreach ((int zoneId, string[] questStrings) in zones)
@@ -1274,8 +1275,24 @@ public class UserUploadCharacterProcessor
                     }
 
                     int questId = int.Parse(parts[0]);
+                    int expires = int.Parse(parts[1]);
                     short shortFaction = (short)_character.Faction;
                     short shortClass = (short)_character.ClassId;
+
+                    var rewards = parts[4].Split('|')
+                        .Select(rewardString => rewardString.Split('-').Select(int.Parse).ToArray())
+                        .Where(reward => reward.Length == 3)
+                        .ToList();
+
+                    // [type, id, amount]
+                    foreach (var reward in rewards)
+                    {
+                        if (reward[0] == 11 && reward[1] == 0 && reward[2] >= 2000000)
+                        {
+                            goldWorldQuests.Add([questId, expires, reward[2] / 10000]);
+                            break;
+                        }
+                    }
 
                     var reportKey = new WorldQuestReportKey(
                         expansion,
@@ -1299,15 +1316,11 @@ public class UserUploadCharacterProcessor
                         Faction = shortFaction,
                         Class = shortClass,
                         ReportedAt = DateTime.UtcNow,
-                        ExpiresAt = int.Parse(parts[1]).AsUtcDateTime(),
+                        ExpiresAt = expires.AsUtcDateTime(),
                         Location = $"{parts[2]} {parts[3]}",
                     };
 
-                    // type:id:amount
-                    foreach (string rewardString in parts[4].Split('|'))
-                    {
-                        reportQuest.Rewards.Add(rewardString.Split('-').Select(int.Parse).ToArray());
-                    }
+                    reportQuest.Rewards = rewards;
 
                     _result.WorldQuestReports.Add(reportKey, reportQuest);
                 }
