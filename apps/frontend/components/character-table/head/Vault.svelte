@@ -4,10 +4,10 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-vault);
+        --width: var(--width-vault);
 
         vertical-align: bottom;
     }
 </style>
 
-<th>{vaultType} Vault</th>
+<th class="sized">{vaultType} Vault</th>

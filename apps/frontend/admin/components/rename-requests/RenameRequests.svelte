@@ -1,26 +1,26 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { onMount } from 'svelte';
 
-    import { renameRequestsStore } from './store'
-    import { iconLibrary } from '@/shared/icons'
-    import type { RenameRequest } from './types'
+    import { renameRequestsStore } from './store';
+    import { iconLibrary } from '@/shared/icons';
+    import type { RenameRequest } from './types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
-    let renameRequests: RenameRequest[]
+    let renameRequests: RenameRequest[];
 
-    onMount(async () => renameRequests = await renameRequestsStore.fetch())
+    onMount(async () => (renameRequests = await renameRequestsStore.fetch()));
 
     async function approveRequest(userId: number) {
-        const success = await renameRequestsStore.approve(userId)
+        const success = await renameRequestsStore.approve(userId);
         if (success) {
-            renameRequests = renameRequests.filter((rr) => rr.id !== userId)
+            renameRequests = renameRequests.filter((rr) => rr.id !== userId);
         }
     }
     async function declineRequest(userId: number) {
-        const success = await renameRequestsStore.decline(userId)
+        const success = await renameRequestsStore.decline(userId);
         if (success) {
-            renameRequests = renameRequests.filter((rr) => rr.id !== userId)
+            renameRequests = renameRequests.filter((rr) => rr.id !== userId);
         }
     }
 </script>
@@ -33,15 +33,15 @@
         white-space: nowrap;
     }
     .id {
-        @include cell-width(4rem, $maxWidth: 6rem);
+        --width: 6rem;
 
         text-align: right;
     }
     .name {
-        @include cell-width(5rem, $maxWidth: 20rem);
+        --width: 20rem;
     }
     .action {
-        @include cell-width(1.5rem);
+        --width: 1.5rem;
 
         text-align: center;
 
@@ -57,23 +57,22 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th class="id">ID</th>
-                <th class="name">Username</th>
-                <th class="name">Desired</th>
-                <th class="action"></th>
-                <th class="action"></th>
+                <th class="id sized">ID</th>
+                <th class="name sized">Username</th>
+                <th class="name sized">Desired</th>
+                <th class="action sized"></th>
+                <th class="action sized"></th>
             </tr>
         </thead>
         <tbody>
             {#each renameRequests as renameRequest}
                 <tr>
-                    <td class="id">{renameRequest.id}</td>
-                    <td class="name">{renameRequest.userName}</td>
-                    <td
-                        class="name"
-                        class:status-fail={renameRequest.inUse}
-                    >{renameRequest.desiredAccountName}</td>
-                    <td class="action status-success">
+                    <td class="id sized">{renameRequest.id}</td>
+                    <td class="name sized">{renameRequest.userName}</td>
+                    <td class="name sized" class:status-fail={renameRequest.inUse}
+                        >{renameRequest.desiredAccountName}</td
+                    >
+                    <td class="action sized status-success">
                         {#if !renameRequest.inUse}
                             <IconifyIcon
                                 icon={iconLibrary.mdiCheck}
@@ -82,7 +81,7 @@
                             />
                         {/if}
                     </td>
-                    <td class="action status-fail">
+                    <td class="action sized status-fail">
                         <IconifyIcon
                             icon={iconLibrary.mdiClose}
                             tooltip={'Decline request'}
