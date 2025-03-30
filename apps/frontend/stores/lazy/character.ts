@@ -322,6 +322,24 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
     };
 
     const charProgressQuests = stores.userQuestData.characters[character.id]?.progressQuests;
+    if (charProgressQuests && !charProgressQuests['twwDelveGilded']) {
+        const have = character.weekly?.delveGilded || 0;
+        charProgressQuests['twwDelveGilded'] = {
+            id: 0,
+            status: have === 3 ? QuestStatus.Completed : QuestStatus.InProgress,
+            expires: 0,
+            name: `${have}/3 Gilded Stash`,
+            objectives: [
+                {
+                    type: 'bar',
+                    have: 0,
+                    need: 3,
+                    text: `${have}/3 Gilded Stash`,
+                },
+            ],
+        } as UserQuestDataCharacterProgress;
+    }
+
     for (const view of stores.settings.views) {
         const activeHolidays = getActiveHolidays(stores.currentTime, view, character.realm.region);
 
