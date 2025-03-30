@@ -1287,7 +1287,7 @@ public class UserUploadCharacterProcessor
                     // [type, id, amount]
                     foreach (var reward in rewards)
                     {
-                        if (reward[0] == 11 && reward[1] == 0 && reward[2] >= 2000000)
+                        if (reward[0] == 11 && reward[1] == 0 && reward[2] >= 5000000)
                         {
                             goldWorldQuests.Add([questId, expires, reward[2] / 10000]);
                             break;

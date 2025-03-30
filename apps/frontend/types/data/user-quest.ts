@@ -13,7 +13,7 @@ export interface UserQuestDataCharacter {
 
     dailies: Record<number, number[][]>;
     dailyQuestList: number[];
-    goldWorldQuests: number[];
+    goldWorldQuests: [number, number, number][];
     questList: number[];
     rawProgressQuests?: Record<string, UserQuestDataCharacterProgressArray>;
 

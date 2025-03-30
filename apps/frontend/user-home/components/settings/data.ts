@@ -18,6 +18,7 @@ export const homeChoices: SettingsChoice[] = [
     { id: 'emissariesLegion', name: 'Emissaries - Legion' },
     { id: 'gear', name: 'Gear' },
     { id: 'gold', name: 'Gold' },
+    { id: 'goldWorldQuests', name: 'Gold World Quests' },
     { id: 'guild', name: 'Guild' },
     { id: 'bestItemLevel', name: 'Item Level - Best' },
     { id: 'itemLevel', name: 'Item Level - Equipped' },

@@ -344,6 +344,12 @@ export const zoneData: WorldQuestZone[] = [
     },
 ];
 
+export const zoneMap = Object.fromEntries(
+    zoneData.flatMap((zone) =>
+        (zone.children || []).filter((zone) => !!zone).map((zone) => [zone.id, zone]),
+    ),
+);
+
 export const worldQuestPrereqs: Record<number, number> = {
     74501: 75888, // Suffusion Camp: Cinderwind
     75280: 75888, // Suffusion Camp: Frostburn

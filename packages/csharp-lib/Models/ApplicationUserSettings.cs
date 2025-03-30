@@ -88,6 +88,7 @@ public class ApplicationUserSettings
         "emissariesLegion",
         "gear",
         "gold",
+        "goldWorldQuests",
         "guild",
         "hearthLocation",
         "itemLevel",
