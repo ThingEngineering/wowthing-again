@@ -1,13 +1,13 @@
 <script lang="ts">
-    export let vaultType: string
+    export let vaultType: string;
 </script>
 
 <style lang="scss">
     th {
-        @include cell-width($width-vault);
+        --width: var(--width-vault);
 
         vertical-align: bottom;
     }
 </style>
 
-<th>{vaultType} Vault</th>
+<th class="sized">{vaultType} Vault</th>

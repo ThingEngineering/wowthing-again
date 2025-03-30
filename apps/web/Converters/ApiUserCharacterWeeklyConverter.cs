@@ -15,6 +15,7 @@ public class ApiUserCharacterWeeklyConverter : JsonConverter<ApiUserCharacterWee
         writer.WriteStartArray();
 
         writer.WriteNumberValue(weekly.DelveWeek);
+        writer.WriteNumberValue(weekly.DelveGilded);
         writer.WriteNumberArray(weekly.DelveLevels);
         writer.WriteStringArray(weekly.DelveMaps);
 

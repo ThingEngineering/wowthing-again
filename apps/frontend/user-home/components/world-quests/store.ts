@@ -1,51 +1,52 @@
-import sortBy from 'lodash/sortBy'
-import sum from 'lodash/sum'
-import { DateTime } from 'luxon'
+import sortBy from 'lodash/sortBy';
+import sum from 'lodash/sum';
+import { DateTime } from 'luxon';
 
-import type { ApiWorldQuestRaw, ApiWorldQuestJson, ApiWorldQuest, ApiWorldQuestReward } from './types'
-import type { RewardType } from '@/enums/reward-type'
-
+import type {
+    ApiWorldQuestRaw,
+    ApiWorldQuestJson,
+    ApiWorldQuest,
+    ApiWorldQuestReward,
+} from './types';
+import type { RewardType } from '@/enums/reward-type';
 
 class WorldQuestStore {
-    private static url = '/api/world-quests/active'
+    private static url = '/api/world-quests/active';
     // private cache: Record<number, ]> = {}
-    private cache: Record<string, Record<number, ApiWorldQuest[]>> = {}
+    private cache: Record<string, Record<number, ApiWorldQuest[]>> = {};
 
     async fetch(region: number) {
-        const cacheKey = [
-            region
-        ].join('--')
+        const cacheKey = [region].join('--');
 
         if (!this.cache[cacheKey]) {
-            const xsrf = document.getElementById('app')
-                .getAttribute('data-xsrf')
+            const xsrf = document.getElementById('app').getAttribute('data-xsrf');
 
             const response = await fetch(`${WorldQuestStore.url}/${region}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'RequestVerificationToken': xsrf,
+                    RequestVerificationToken: xsrf,
                 },
-            })
+            });
 
             if (response.ok) {
-                const responseData = await response.json() as ApiWorldQuestRaw[]
-                
-                const finalData: Record<number, ApiWorldQuest[]> = this.cache[region] = {}
+                const responseData = (await response.json()) as ApiWorldQuestRaw[];
+
+                const finalData: Record<number, ApiWorldQuest[]> = (this.cache[region] = {});
                 for (const apiWorldQuest of responseData) {
-                    const jsonData = JSON.parse(apiWorldQuest.jsonData) as ApiWorldQuestJson
+                    const jsonData = JSON.parse(apiWorldQuest.jsonData) as ApiWorldQuestJson;
 
                     const expires = DateTime.fromISO(
                         sortBy(
                             Object.entries(jsonData.expirations),
-                            ([, value]) => 1_000_000 - value
+                            ([, value]) => 1_000_000 - value,
                         )[0][0],
-                        { zone: 'utc' }
-                    )
+                        { zone: 'utc' },
+                    );
                     const locationParts = sortBy(
                         Object.entries(jsonData.locations),
-                        ([, value]) => 1_000_000 - value
-                    )[0][0].split(' ')
+                        ([, value]) => 1_000_000 - value,
+                    )[0][0].split(' ');
 
                     const worldQuest: ApiWorldQuest = {
                         expires,
@@ -53,30 +54,34 @@ class WorldQuestStore {
                         locationY: locationParts[1],
                         questId: apiWorldQuest.questId,
                         rewards: [],
-                    }
-                    
+                    };
+
                     for (const [rewardKey, rewardCounts] of Object.entries(jsonData.rewards)) {
-                        const rewardReports = sum(Object.values(rewardCounts))
-                        const rewards: ApiWorldQuestReward[] = []
+                        const rewardReports = sum(Object.values(rewardCounts));
+                        const rewards: ApiWorldQuestReward[] = [];
 
                         for (const rewardString of rewardKey.split('|')) {
-                            const rewardParts = rewardString.split('-')
+                            const rewardParts = rewardString.split('-');
                             rewards.push({
                                 type: parseInt(rewardParts[0]) as RewardType,
                                 id: parseInt(rewardParts[1]),
                                 amount: parseInt(rewardParts[2]),
-                            })
+                            });
                         }
 
-                        worldQuest.rewards.push([rewardReports, rewards])
+                        worldQuest.rewards.push([rewardReports, rewards]);
                     }
-                    
-                    (finalData[apiWorldQuest.zoneId] ||= []).push(worldQuest)
+
+                    (finalData[apiWorldQuest.zoneId] ||= []).push(worldQuest);
                 }
             }
         }
 
-        return this.cache[cacheKey] || []
+        return this.cache[cacheKey] || [];
+    }
+
+    isLoaded(region: number): boolean {
+        return !!this.cache[region];
     }
 }
-export const worldQuestStore = new WorldQuestStore()
+export const worldQuestStore = new WorldQuestStore();

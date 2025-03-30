@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -17,9 +18,11 @@ using Wowthing.Lib.Models.Wow;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250329181834_Add_PlayerCharacterWeekly_DelveGilded")]
+    partial class Add_PlayerCharacterWeekly_DelveGilded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1002,10 +1005,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<List<int>>("DailyQuests")
                         .HasColumnType("integer[]")
                         .HasColumnName("daily_quests");
-
-                    b.Property<List<int[]>>("GoldWorldQuests")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("gold_world_quests");
 
                     b.Property<List<int>>("OtherQuests")
                         .HasColumnType("integer[]")

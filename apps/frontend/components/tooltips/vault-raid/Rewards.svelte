@@ -65,7 +65,7 @@
         width: 2rem;
     }
     .item-level {
-        @include cell-width(2rem);
+        --width: 2rem;
 
         text-align: center;
     }
@@ -89,7 +89,7 @@
                 <td class="icon">
                     <IconifyIcon icon={inventoryTypeIcons[item.inventoryType]} />
                 </td>
-                <td class="item-level">
+                <td class="item-level sized">
                     {calculated.itemLevel}
                 </td>
                 <td class="item-name quality{calculated.quality}">

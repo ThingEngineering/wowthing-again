@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy, onMount } from 'svelte'
+    import { onDestroy, onMount } from 'svelte';
 
     import {
         itemStore,
@@ -8,108 +8,113 @@
         userAchievementStore,
         userQuestStore,
         userStore,
-    } from '@/stores'
-    import { userUpdateHubStore } from './signalr/user-update-hub-store'
-    import { dbStore } from '@/shared/stores/db'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/shared/stores/time'
-    import parseApiTime from '@/utils/parse-api-time'
+    } from '@/stores';
+    import { userUpdateHubStore } from './signalr/user-update-hub-store';
+    import { dbStore } from '@/shared/stores/db';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
+    import parseApiTime from '@/utils/parse-api-time';
+    import { worldQuestStore } from './components/world-quests/store';
 
-    import NewNav from './NewNav.svelte'
-    import Refresh from './Refresh.svelte'
-    import Routes from './Routes.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import NewNav from './NewNav.svelte';
+    import Refresh from './Refresh.svelte';
+    import Routes from './Routes.svelte';
+    import Sidebar from './Sidebar.svelte';
+    import { Region } from '@/enums/region';
 
-    onMount(async () => await Promise.all([
-        dbStore.fetch({ language: $settingsStore.general.language }),
-        itemStore.fetch({ language: $settingsStore.general.language }),
-        journalStore.fetch({ language: $settingsStore.general.language }),
-        manualStore.fetch({ language: $settingsStore.general.language }),
-        staticStore.fetch({ language: $settingsStore.general.language }),
-        userAchievementStore.fetch(),
-        userQuestStore.fetch(),
-        userStore.fetch(),
-    ]))
+    onMount(
+        async () =>
+            await Promise.all([
+                dbStore.fetch({ language: $settingsStore.general.language }),
+                itemStore.fetch({ language: $settingsStore.general.language }),
+                journalStore.fetch({ language: $settingsStore.general.language }),
+                manualStore.fetch({ language: $settingsStore.general.language }),
+                staticStore.fetch({ language: $settingsStore.general.language }),
+                userAchievementStore.fetch(),
+                userQuestStore.fetch(),
+                userStore.fetch(),
+                worldQuestStore.fetch(Region.US),
+                worldQuestStore.fetch(Region.EU),
+            ]),
+    );
 
-    onDestroy(() => userUpdateHubStore.disconnect())
+    onDestroy(() => userUpdateHubStore.disconnect());
 
-    let error: boolean
-    let loaded: boolean
-    let ready: boolean
+    let error: boolean;
+    let loaded: boolean;
+    let ready: boolean;
     $: {
-        error = $dbStore.error
-            || $itemStore.error
-            || $journalStore.error
-            || $manualStore.error
-            || $staticStore.error
-            || $userAchievementStore.error
-            || $userQuestStore.error
-            || $userStore.error
+        error =
+            $dbStore.error ||
+            $itemStore.error ||
+            $journalStore.error ||
+            $manualStore.error ||
+            $staticStore.error ||
+            $userAchievementStore.error ||
+            $userQuestStore.error ||
+            $userStore.error;
 
-        loaded = $dbStore.loaded
-            && $itemStore.loaded
-            && $journalStore.loaded
-            && $manualStore.loaded
-            && $staticStore.loaded
-            && $userAchievementStore.loaded
-            && $userQuestStore.loaded
-            && $userStore.loaded
+        loaded =
+            $dbStore.loaded &&
+            $itemStore.loaded &&
+            $journalStore.loaded &&
+            $manualStore.loaded &&
+            $staticStore.loaded &&
+            $userAchievementStore.loaded &&
+            $userQuestStore.loaded &&
+            $userStore.loaded &&
+            worldQuestStore.isLoaded(Region.US) &&
+            worldQuestStore.isLoaded(Region.EU);
 
         if (!error && loaded) {
-            staticStore.setup(
-                $settingsStore,
-                $itemStore
-            )
+            staticStore.setup($settingsStore, $itemStore);
 
-            userStore.setup(
-                $settingsStore,
-                $userStore,
-                $userAchievementStore
-            )
+            userStore.setup($settingsStore, $userStore, $userAchievementStore);
 
-            userQuestStore.setup($timeStore)
+            userQuestStore.setup($timeStore);
 
             if (!$userStore.public) {
-                userUpdateHubStore.connect()
+                userUpdateHubStore.connect();
             }
 
-            ready = true
+            ready = true;
         }
     }
-    
+
     $: {
         if (ready) {
-            const navTarget = document.querySelector('#app-nav')
-            navTarget.replaceChildren()
+            const navTarget = document.querySelector('#app-nav');
+            navTarget.replaceChildren();
             if ($settingsStore.layout.newNavigation) {
-                new NewNav({ target: navTarget })
+                new NewNav({ target: navTarget });
             }
         }
     }
 
     $: {
         if (ready && !$userStore.public && $userStore.lastApiCheck) {
-            const parsedTime = parseApiTime($userStore.lastApiCheck)
-            const diff = $timeStore.diff(parsedTime).toMillis()
+            const parsedTime = parseApiTime($userStore.lastApiCheck);
+            const diff = $timeStore.diff(parsedTime).toMillis();
             // Add the refresh button if lastApiCheck is more than 24 hours ago
-            if (diff > (24 * 60 * 60 * 1000)) {
-                const navCenter = document.getElementById('nav-center')
-                navCenter.replaceChildren()
+            if (diff > 24 * 60 * 60 * 1000) {
+                const navCenter = document.getElementById('nav-center');
+                navCenter.replaceChildren();
                 new Refresh({
                     target: navCenter,
                     props: {},
-                })
+                });
             }
         }
     }
 
     $: {
-        const headerLinks = document.getElementById('nav-left')
-            .getElementsByClassName('header-title')
-        ;(headerLinks[0] as HTMLElement).style.display = $settingsStore.leaderboard.enabled
+        const headerLinks = document
+            .getElementById('nav-left')
+            .getElementsByClassName('header-title');
+        (headerLinks[0] as HTMLElement).style.display = $settingsStore.leaderboard.enabled
             ? 'inline-block'
-            : 'none'
+            : 'none';
     }
 </script>
 

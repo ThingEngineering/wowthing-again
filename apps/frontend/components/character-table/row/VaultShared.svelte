@@ -16,7 +16,7 @@
     .progress {
         display: inline-block;
         text-align: center;
-        width: calc(#{$width-vault} / 3 - 0.2rem);
+        width: calc(var(--width-vault) / 3 - 0.2rem);
         word-spacing: -0.2ch;
     }
     .ugh {

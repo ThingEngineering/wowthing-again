@@ -1,3 +1,46 @@
+:root {
+    --padding-size: 0.25rem;
+    
+    --width-vault: 6.5rem;
+    
+    --color-success: #1eff00;
+    --color-shrug:   #efef00;
+    --color-warn:    #ff8c7e;
+    --color-fail:    #ff1e00;
+    
+    // poor
+    --color-quality0:        #9d9d9d;
+    --color-quality0-border: #8d8d8d;
+
+    // common
+    --color-quality1:        #eee; // #ffffff
+    --color-quality1-border: #ddd;
+
+    // uncommon
+    --color-quality2-color:  #1eff00;
+    --color-quality2-border: #18cc00; // #1eff00 - 10%
+
+    // rare
+    --color-quality3-color:  #44a3ff; // #0070dd + 20%
+    --color-quality3-border: #0070dd;
+
+    // epic
+    --color-quality4-color:  #b864f2; // #a335ee + 10%
+    --color-quality4-border: #a335ee;
+
+    // legendary
+    --color-quality5-color:  #f07800; // #ff8000 - 3%
+    --color-quality5-border: #ff8000;
+
+    // artifact
+    // --color-quality6-color:  darken(#e6cc80, 15%);
+    // --color-quality6-border:          $quality6-color;
+
+    // heirloom
+    // --color-quality7-color:           darken(#00ccff, 8%);
+    // --color-quality7-border:          $quality7-color;
+}
+
 $body-background:          #101112;
 $body-text:                #ffffff;
 $link-color:               #44ddff;
@@ -84,7 +127,6 @@ $width-rested:              3.0rem;
 $width-spacer:              0.7rem;
 $width-transmog:            2.6rem;
 $width-weekly-quest:        2.7rem;
-$width-vault:               6.5rem;
 
 $width-padding:             0.25rem;
 

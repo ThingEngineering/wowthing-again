@@ -23,6 +23,10 @@ public class PlayerCharacterAddonQuests(int characterId)
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<List<int>>> Dailies { get; set; }
 
+    // [ questId, expiry, gold ]
+    [Column(TypeName = "jsonb")]
+    public List<List<int>> GoldWorldQuests { get; set; }
+
     [Column(TypeName = "jsonb")]
     public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
 }

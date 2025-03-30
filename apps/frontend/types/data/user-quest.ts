@@ -1,30 +1,30 @@
-import type { QuestStatus } from '@/enums/quest-status'
-
+import type { QuestStatus } from '@/enums/quest-status';
 
 export interface UserQuestData {
-    accountHas: Set<number>
-    account: number[]
-    characters: Record<number, UserQuestDataCharacter>
+    accountHas: Set<number>;
+    account: number[];
+    characters: Record<number, UserQuestDataCharacter>;
 
-    questNames: Record<string, string>
+    questNames: Record<string, string>;
 }
 
 export interface UserQuestDataCharacter {
-    scannedAt: string
+    scannedAt: string;
 
-    dailies: Record<number, number[][]>
-    dailyQuestList: number[]
-    questList: number[]
-    rawProgressQuests?: Record<string, UserQuestDataCharacterProgressArray>
+    dailies: Record<number, number[][]>;
+    dailyQuestList: number[];
+    goldWorldQuests: [number, number, number][];
+    questList: number[];
+    rawProgressQuests?: Record<string, UserQuestDataCharacterProgressArray>;
 
     // Computed
-    dailyQuests?: Set<number>
-    progressQuests?: Record<string, UserQuestDataCharacterProgress>
-    quests?: Set<number>
+    dailyQuests?: Set<number>;
+    progressQuests?: Record<string, UserQuestDataCharacterProgress>;
+    quests?: Set<number>;
 }
 
 export class UserQuestDataCharacterProgress {
-    public objectives: UserQuestDataCharacterProgressObjective[]
+    public objectives: UserQuestDataCharacterProgressObjective[];
 
     constructor(
         public id: number,
@@ -33,18 +33,23 @@ export class UserQuestDataCharacterProgress {
         public name: string,
         objectiveArrays: UserQuestDataCharacterProgressObjectiveArray[],
     ) {
-        this.objectives = (objectiveArrays || [])
-            .map((objectiveArray) => new UserQuestDataCharacterProgressObjective(...objectiveArray))
+        this.objectives = (objectiveArrays || []).map(
+            (objectiveArray) => new UserQuestDataCharacterProgressObjective(...objectiveArray),
+        );
     }
 }
-type UserQuestDataCharacterProgressArray = ConstructorParameters<typeof UserQuestDataCharacterProgress>
+type UserQuestDataCharacterProgressArray = ConstructorParameters<
+    typeof UserQuestDataCharacterProgress
+>;
 
 export class UserQuestDataCharacterProgressObjective {
     constructor(
         public type: string,
         public have: number,
         public need: number,
-        public text: string
-    ) { }
+        public text: string,
+    ) {}
 }
-type UserQuestDataCharacterProgressObjectiveArray = ConstructorParameters<typeof UserQuestDataCharacterProgressObjective>
+type UserQuestDataCharacterProgressObjectiveArray = ConstructorParameters<
+    typeof UserQuestDataCharacterProgressObjective
+>;

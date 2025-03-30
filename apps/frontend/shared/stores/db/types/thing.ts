@@ -20,7 +20,6 @@ import { dbStore } from '../store';
 import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
-import { itemStore } from '@/stores';
 
 export class DbDataThing {
     public accountWide: boolean;

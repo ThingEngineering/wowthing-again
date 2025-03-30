@@ -24,14 +24,15 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-vault);
-
-        border-left: 1px solid $border-color;
+        --width: var(--width-vault);
     }
 </style>
 
 {#if worldVault?.length > 0}
-    <td use:componentTooltip={{ component: TooltipVaultWorld, props: { character } }}>
+    <td
+        use:componentTooltip={{ component: TooltipVaultWorld, props: { character } }}
+        class="sized b-l"
+    >
         <VaultShared
             availableRewards={character.weekly?.vault.availableRewards}
             generatedRewards={character.weekly?.vault.generatedRewards}

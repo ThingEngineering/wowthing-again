@@ -1,6 +1,6 @@
 import groupBy from 'lodash/groupBy';
 
-import { InventoryType, weaponInventoryTypes } from '@/enums/inventory-type';
+import { weaponInventoryTypes } from '@/enums/inventory-type';
 import { ItemQuality } from '@/enums/item-quality';
 import { UserCount, type UserAchievementData, type UserData } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
@@ -41,6 +41,41 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         skip: new Set<string>(),
         slots: {},
         stats: {},
+    };
+
+    const doSlot = (
+        slotData: TransmogSlotData,
+        itemId: number,
+        modifier: number,
+        useSource: boolean,
+        overrideHas = false,
+    ) => {
+        // Dragonflight set mythic looks?
+        // if (modifier >= 153 && modifier <= 156) {
+        //     continue;
+        // }
+
+        const item = stores.itemData.items[itemId];
+        if (!item) {
+            return;
+        }
+
+        let actualSlot: number;
+        if (weaponInventoryTypes.has(item.inventoryType)) {
+            actualSlot = 100 + item.subclassId;
+        } else {
+            actualSlot = fixedInventoryType(item.inventoryType);
+        }
+
+        const appearanceId = item.appearances[modifier]?.appearanceId || 0;
+        const hasSource =
+            overrideHas || useSource
+                ? stores.userData.hasSourceV2.get(modifier).has(itemId)
+                : stores.userData.hasAppearance.has(appearanceId);
+
+        slotData[actualSlot] ||= [false, []];
+        slotData[actualSlot][0] ||= hasSource;
+        slotData[actualSlot][1].push([hasSource, itemId, modifier, appearanceId]);
     };
 
     const completionistMode = stores.settings.transmog.completionistMode;
@@ -175,35 +210,13 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
                         if (itemsWithModifiers.length > 0) {
                             for (const [itemId, modifier] of itemsWithModifiers) {
-                                // Dragonflight set mythic looks?
-                                // if (modifier >= 153 && modifier <= 156) {
-                                //     continue;
-                                // }
-
-                                const item = stores.itemData.items[itemId];
-
-                                let actualSlot: number;
-                                if (weaponInventoryTypes.has(item.inventoryType)) {
-                                    actualSlot = 100 + item.subclassId;
-                                } else {
-                                    actualSlot = fixedInventoryType(item.inventoryType);
-                                }
-
-                                const appearanceId = item.appearances[modifier]?.appearanceId || 0;
-                                const hasSource =
-                                    overrideHas ||
-                                    (manualItems && !completionistMode
-                                        ? stores.userData.hasAppearance.has(appearanceId)
-                                        : stores.userData.hasSourceV2.get(modifier).has(itemId));
-
-                                slotData[actualSlot] ||= [false, []];
-                                slotData[actualSlot][0] ||= hasSource;
-                                slotData[actualSlot][1].push([
-                                    hasSource,
+                                doSlot(
+                                    slotData,
                                     itemId,
                                     modifier,
-                                    appearanceId,
-                                ]);
+                                    !(manualItems && !completionistMode),
+                                    overrideHas,
+                                );
                             }
 
                             if (completionistSets) {
@@ -249,27 +262,18 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                     }
                                 }
                             } else {
-                                const armor = Object.fromEntries(
-                                    Object.entries(slotData).filter(([a]) => parseInt(a) < 100),
-                                );
-
-                                const weapons = Object.entries(slotData)
-                                    .filter(([a]) => parseInt(a) >= 100)
-                                    .map(([, b]) => b);
-                                const weaponsByAppearanceId = groupBy(
-                                    weapons.flatMap(([, items]) => items),
+                                const byAppearanceId = groupBy(
+                                    Object.values(slotData)
+                                        .flatMap(([, items]) => items)
+                                        .filter((slot) => slot[3] > 0),
                                     (slot) => slot[3],
                                 );
 
-                                setDataStats.total =
-                                    Object.values(armor).length +
-                                    Object.keys(weaponsByAppearanceId).length;
+                                setDataStats.total = Object.keys(byAppearanceId).length;
 
-                                setDataStats.have =
-                                    Object.values(armor).filter((has) => has[0] === true).length +
-                                    Object.values(weaponsByAppearanceId).filter((combos) =>
-                                        combos.some(([has]) => has),
-                                    ).length;
+                                setDataStats.have = Object.values(byAppearanceId).filter((combos) =>
+                                    combos.some(([has]) => has),
+                                ).length;
 
                                 catStats.have += setDataStats.have;
                                 groupStats.have += setDataStats.have;
@@ -323,47 +327,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             const [itemId, maybeModifier] = transmogSet.items[itemIndex];
             const modifier = maybeModifier || 0;
 
-            // Dragonflight set mythic looks?
-            if (modifier >= 153 && modifier <= 156) {
-                continue;
-            }
-
-            const item = stores.itemData.items[itemId];
-            if (!item) {
-                continue;
-            }
-
-            let actualSlot: number;
-            if (weaponInventoryTypes.has(item.inventoryType)) {
-                actualSlot = 100 + item.subclassId;
-            } else {
-                actualSlot =
-                    item.inventoryType === InventoryType.Chest2
-                        ? InventoryType.Chest
-                        : item.inventoryType;
-            }
-
-            if (
-                completionistMode &&
-                !completionistSets &&
-                !weaponInventoryTypes.has(item.inventoryType) &&
-                slotData[actualSlot] !== undefined
-            ) {
-                continue;
-            }
-
-            // const hasAppearance = stores.userData.hasAppearance.has(appearance.appearanceId)
-            const hasSource = stores.userData.hasSourceV2.get(modifier).has(itemId);
-
-            slotData[actualSlot] ||= [false, []];
-
-            slotData[actualSlot][0] ||= hasSource;
-            slotData[actualSlot][1].push([
-                hasSource,
-                itemId,
-                modifier,
-                item.appearances[modifier]?.appearanceId || 0,
-            ]);
+            doSlot(slotData, itemId, modifier, completionistMode);
         }
 
         if (completionistSets) {
@@ -373,8 +337,17 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                 0,
             );
         } else {
-            setStats.total = Object.values(slotData).length;
-            setStats.have = Object.values(slotData).filter((has) => has[0] === true).length;
+            const byAppearanceId = groupBy(
+                Object.values(slotData)
+                    .flatMap(([, items]) => items)
+                    .filter((slot) => slot[3] > 0),
+                (slot) => slot[3],
+            );
+
+            setStats.total = Object.keys(byAppearanceId).length;
+            setStats.have = Object.values(byAppearanceId).filter((combos) =>
+                combos.some(([has]) => has),
+            ).length;
         }
     }
 

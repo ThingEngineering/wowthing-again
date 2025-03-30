@@ -11,6 +11,7 @@ public class UploadCharacter
     public bool VaultAvailableRewards { get; set; }
     public bool VaultGeneratedRewards { get; set; }
     public bool VaultHasRewards { get; set; }
+    public short DelvesGilded { get; set; }
     public int ActiveCovenantId { get; set; }
     public int ChromieTime { get; set; }
     public int DailyReset { get; set; }
