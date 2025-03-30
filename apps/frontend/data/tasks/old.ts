@@ -903,6 +903,15 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwChores11_1,
     twwDelveKeys: [
         {
+            taskKey: 'twwDelveArchaic',
+            taskName: 'Archaic Cipher',
+            minimumLevel: 70,
+            noProgress: true,
+            accountWide: true,
+            questIds: [84370],
+            questReset: DbResetType.Weekly,
+        },
+        {
             taskKey: 'twwDelveKey1',
             taskName: 'Key #1',
             minimumLevel: 80,
@@ -927,13 +936,10 @@ export const multiTaskMap: Record<string, Chore[]> = {
             noProgress: true,
         },
         {
-            taskKey: 'twwDelveArchaic',
-            taskName: 'Archaic Cipher',
-            minimumLevel: 70,
-            noProgress: true,
-            accountWide: true,
-            questIds: [84370],
-            questReset: DbResetType.Weekly,
+            taskKey: 'twwDelveGilded',
+            taskName: 'Gilded Stash',
+            minimumLevel: 80,
+            showQuestName: true,
         },
         {
             taskKey: 'twwDelveMap',

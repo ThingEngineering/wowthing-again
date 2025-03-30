@@ -1,9 +1,9 @@
 import { get } from 'svelte/store';
+import type { DateTime } from 'luxon';
 
 import { userModifiedStore } from './user-modified';
 import { WritableFancyStore } from '@/types/fancy-store';
 import { UserQuestDataCharacterProgress, type UserQuestData } from '@/types/data';
-import type { DateTime } from 'luxon';
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
@@ -63,9 +63,9 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     }
 
     setup(currentTime: DateTime) {
-        // Discard any expired quests
         const now = currentTime.toUnixInteger();
         for (const characterData of Object.values(this.value.characters)) {
+            // Discard any expired quests
             for (const [key, progressQuest] of Object.entries(characterData.progressQuests || {})) {
                 if (progressQuest.expires > 0 && progressQuest.expires < now) {
                     delete characterData.progressQuests[key];
