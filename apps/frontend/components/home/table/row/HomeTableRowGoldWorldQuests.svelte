@@ -31,15 +31,20 @@
         let active: [number, number, number, number][] = [];
         for (const [zoneId, zoneQuests] of getNumberKeyedEntries(worldQuests)) {
             for (const worldQuest of zoneQuests) {
-                if (questMap[worldQuest.questId]) {
+                if (
+                    questMap[worldQuest.questId] &&
+                    !userQuestStore.hasAny(character.id, worldQuest.questId)
+                ) {
                     const expires = worldQuest.expires.diff($timeStore).toMillis();
-                    active.push([
-                        zoneId,
-                        worldQuest.questId,
-                        expires,
-                        questMap[worldQuest.questId],
-                    ]);
-                    count++;
+                    if (expires > 0) {
+                        active.push([
+                            zoneId,
+                            worldQuest.questId,
+                            expires,
+                            questMap[worldQuest.questId],
+                        ]);
+                        count++;
+                    }
                 }
             }
         }
