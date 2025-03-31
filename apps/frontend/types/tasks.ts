@@ -32,7 +32,7 @@ export type Chore = {
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
      */
-    couldGetFunc?: (char: Character) => boolean;
+    couldGetFunc?: (char: Character, chore?: Chore) => boolean;
     /**
      * Function to check if character is able to pick up this task (eg has a high enough skill)
      */

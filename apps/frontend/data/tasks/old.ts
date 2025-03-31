@@ -14,7 +14,7 @@ import {
     warWithinProfessions,
 } from '@/data/professions';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { twwChores11_0, twwChores11_1 } from './the_war_within';
+import { twwChores11_0, twwChores11_1, twwChoresChett } from './the_war_within';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -353,6 +353,13 @@ export const taskList: Task[] = [
         key: 'twwChores11_1',
         name: '[TWW] 11.1.x',
         shortName: '11.1',
+        minimumLevel: 80,
+        type: 'multi',
+    },
+    {
+        key: 'twwChoresChett',
+        name: '[TWW] C.H.E.T.T. List',
+        shortName: 'CHETT',
         minimumLevel: 80,
         type: 'multi',
     },
@@ -901,6 +908,7 @@ export const multiTaskMap: Record<string, Chore[]> = {
     ],
     twwChores11_0,
     twwChores11_1,
+    twwChoresChett,
     twwDelveKeys: [
         {
             taskKey: 'twwDelveArchaic',
