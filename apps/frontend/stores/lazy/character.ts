@@ -378,7 +378,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                             (choreTask.maximumLevel ||
                                 task.maximumLevel ||
                                 Constants.characterMaxLevel) ||
-                        choreTask.couldGetFunc?.(character) === false
+                        choreTask.couldGetFunc?.(character, choreTask) === false
                     ) {
                         continue;
                     }
