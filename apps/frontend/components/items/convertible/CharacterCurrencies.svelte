@@ -12,7 +12,7 @@
 
     $: seasonTier = season.tiers[season.tiers.length - tier];
 
-    let currencies: [number?, number?][][];
+    let currencies: [number?, number?, number?][][];
     $: {
         currencies = [];
 
@@ -30,7 +30,7 @@
                 currencies.push([[2122, 1]], [[204276, 1]]);
             }
         } else {
-            const tier: [number, number][] = [];
+            const tier: [number, number, number?][] = [];
             if (seasonTier.lowUpgrade?.length > 0) {
                 tier.push(seasonTier.lowUpgrade[0]);
             }

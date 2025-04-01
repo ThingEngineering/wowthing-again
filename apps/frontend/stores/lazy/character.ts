@@ -53,6 +53,7 @@ export interface LazyCharacter {
     professions: LazyCharacterProfessions;
 }
 export class LazyCharacterChore {
+    anyReady = false;
     countCompleted = 0;
     countStarted = 0;
     countTotal = 0;
@@ -641,6 +642,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                             charChore.countCompleted++;
                         } else if (charTask.status === QuestStatus.InProgress) {
                             charChore.countStarted++;
+                            if (
+                                charTask.status === QuestStatus.InProgress &&
+                                charTask.quest?.objectives?.length > 0
+                            ) {
+                                charChore.anyReady ||= charTask.quest.objectives.every(
+                                    (obj) => !!obj.text && obj.have >= obj.need,
+                                );
+                            }
                         }
                     }
 

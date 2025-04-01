@@ -1,15 +1,15 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings/store'
-    import { getItemUrl } from '@/utils/get-item-url'
-    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible'
-
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import { iconStrings } from '@/data/icons';
+    import { iconLibrary } from '@/shared/icons';
+    import { settingsStore } from '@/shared/stores/settings/store';
     import { WarbankItem } from '@/types/items';
+    import { getItemUrl } from '@/utils/get-item-url';
+    import type { LazyConvertibleCharacterItem } from '@/stores/lazy/convertible';
 
-    export let data: LazyConvertibleCharacterItem[]
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+
+    export let data: LazyConvertibleCharacterItem[];
 </script>
 
 <style lang="scss">
@@ -55,7 +55,8 @@
         bottom: 4px;
         //color: #ffffff;
     }
-    .icons-left, .icons-right {
+    .icons-left,
+    .icons-right {
         display: flex;
         flex-direction: column;
         line-height: 1;
@@ -86,7 +87,9 @@
                     <IconifyIcon
                         extraClass={slotData.canUpgrade ? 'status-shrug' : 'status-fail'}
                         icon={iconStrings.plus}
-                        tooltip={slotData.canUpgrade ? 'Upgrade this item!' : "Upgrade this item when you can afford to!"}
+                        tooltip={slotData.canUpgrade
+                            ? 'Upgrade this item!'
+                            : 'Upgrade this item when you can afford to!'}
                     />
                 {/if}
             </span>
@@ -104,7 +107,7 @@
                     size={40}
                     border={2}
                 />
-                
+
                 {#if slotData.equippedItem instanceof WarbankItem}
                     <span class="icon-info warbank">WB</span>
                 {/if}
@@ -118,7 +121,9 @@
                         extraClass={slotData.canConvert ? 'status-shrug' : 'status-fail'}
                         icon={iconLibrary.gameShurikenAperture}
                         scale={'0.85'}
-                        tooltip={slotData.canConvert ? 'Convert this item at the Catalyst!' : 'Convert this item at the Catalyst when you have a charge!'}
+                        tooltip={slotData.canConvert
+                            ? 'Convert this item at the Catalyst!'
+                            : 'Convert this item at the Catalyst when you have a charge!'}
                     />
                 {/if}
             </span>

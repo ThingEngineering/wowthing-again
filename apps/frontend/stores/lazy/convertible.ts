@@ -11,6 +11,7 @@ import {
     type Character,
     type CharacterEquippedItem,
     type CharacterItem,
+    type UserAchievementData,
     type UserData,
 } from '@/types';
 import { fixedInventoryType } from '@/utils/fixed-inventory-type';
@@ -23,6 +24,7 @@ import type { WarbankItem } from '@/types/items';
 interface LazyStores {
     itemData: ItemData;
     settings: Settings;
+    userAchievementData: UserAchievementData;
     userData: UserData;
     userQuestData: UserQuestData;
 }
@@ -372,10 +374,10 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                             }
 
                             if (sigh.isUpgradeable) {
-                                const tier =
-                                    convertibleCategory.tiers[
-                                        convertibleCategory.tiers.length - desiredTier
-                                    ];
+                                const tierIndex = convertibleCategory.tiers.length - desiredTier;
+                                const tier = convertibleCategory.tiers[tierIndex];
+                                const nextTier = convertibleCategory.tiers[tierIndex + 1];
+
                                 // DF Season 1 + Forbidden Reach = ARGH
                                 if (
                                     convertibleCategory.id === 3 &&
@@ -387,13 +389,26 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
                                 } else if (tier.lowUpgrade) {
                                     if (sigh.currentUpgrade < 4) {
                                         let charHas = 0;
-                                        for (const [upgradeId, upgradeCount] of tier.lowUpgrade) {
+                                        for (const [
+                                            upgradeId,
+                                            upgradeCost,
+                                            achieveUpgradeCost,
+                                        ] of tier.lowUpgrade) {
+                                            const actualCost =
+                                                tier.achievementId &&
+                                                stores.userAchievementData.achievements[
+                                                    tier.achievementId
+                                                ]
+                                                    ? achieveUpgradeCost || upgradeCost
+                                                    : upgradeCost;
+
                                             const charCount =
                                                 upgradeId > 10_000
                                                     ? character.getItemCount(upgradeId)
                                                     : character.currencies?.[upgradeId]?.quantity ||
                                                       0;
-                                            charHas += Math.floor(charCount / upgradeCount);
+
+                                            charHas += Math.floor(charCount / actualCost);
                                         }
 
                                         // upgrades to the current highest item level cost no crests
@@ -415,13 +430,26 @@ export function doConvertible(stores: LazyStores): LazyConvertible {
 
                                     if (sigh.canUpgrade && tier.highUpgrade) {
                                         let charHas = 0;
-                                        for (const [upgradeId, upgradeCount] of tier.highUpgrade) {
+                                        for (const [
+                                            upgradeId,
+                                            upgradeCost,
+                                            achieveUpgradeCost,
+                                        ] of tier.highUpgrade) {
+                                            const actualCost =
+                                                nextTier?.achievementId &&
+                                                stores.userAchievementData.achievements[
+                                                    nextTier.achievementId
+                                                ]
+                                                    ? achieveUpgradeCost || upgradeCost
+                                                    : upgradeCost;
+
                                             const charCount =
                                                 upgradeId > 10_000
                                                     ? character.getItemCount(upgradeId)
                                                     : character.currencies?.[upgradeId]?.quantity ||
                                                       0;
-                                            charHas += Math.floor(charCount / upgradeCount);
+
+                                            charHas += Math.floor(charCount / actualCost);
                                         }
 
                                         sigh.canUpgrade = charHas >= 1;
