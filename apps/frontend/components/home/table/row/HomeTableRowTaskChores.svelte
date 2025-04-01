@@ -43,7 +43,7 @@
 
 {#if chore?.countTotal === 0}
     <td
-        class="status-fail"
+        class="size b-l status-fail"
         use:componentTooltip={{
             component: Tooltip,
             props: {
