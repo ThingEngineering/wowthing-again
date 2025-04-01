@@ -1,26 +1,26 @@
 <script lang="ts">
     import { taskMap } from '@/data/tasks';
     import { QuestStatus } from '@/enums/quest-status';
-    import { activeView } from '@/shared/stores/settings'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { lazyStore } from '@/stores'
-    import type { Character } from '@/types'
+    import { activeView } from '@/shared/stores/settings';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { lazyStore } from '@/stores';
+    import type { Character } from '@/types';
 
-    import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte'
+    import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte';
 
-    export let character: Character
-    export let quest: string
-    export let title: string
+    export let character: Character;
+    export let quest: string;
+    export let title: string;
 
-    $: charTask = $lazyStore.characters[character.id].tasks[`${$activeView.id}|${quest}`]
+    $: charTask = $lazyStore.characters[character.id].tasks[`${$activeView.id}|${quest}`];
 
-    let status: string
+    let status: string;
     $: {
-        status = charTask?.status
+        status = charTask?.status;
         if (charTask?.quest?.status === QuestStatus.InProgress && charTask.text !== '100 %') {
-            const task = taskMap[quest]
+            const task = taskMap[quest];
             if (task.isCurrentFunc?.(character, charTask.quest.id) === false) {
-                status = 'warn'
+                status = 'warn';
             }
         }
     }
@@ -50,16 +50,16 @@
     <td
         class="status-{status}"
         class:center={!charTask.text?.endsWith('%')}
-        data-quest="{quest}"
+        data-quest={quest}
         use:componentTooltip={{
             component: Tooltip,
             props: {
                 character,
                 progressQuest: charTask.quest,
                 title,
-            }
-        }}
-    >{charTask.text}</td>
+            },
+        }}>{charTask.text}</td
+    >
 {:else}
     <td>&nbsp;</td>
 {/if}
