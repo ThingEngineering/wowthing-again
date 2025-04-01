@@ -23,7 +23,7 @@
     export let useItemCount = false;
 
     function getIconName(): [string, number] {
-        let tiers: [number, number][][];
+        let tiers: [number, number, number?][][];
         for (const bonusId of gear.equipped.bonusIds) {
             if (!$itemStore.itemBonusCurrentSeason.has(bonusId)) {
                 continue;
@@ -62,7 +62,7 @@
         return [null, 0];
     }
 
-    function getCurrencyData(tier: [number, number]): [string, number] {
+    function getCurrencyData(tier: [number, number, number?]): [string, number] {
         return [
             `currency/${tier[0]}`,
             Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1]),
