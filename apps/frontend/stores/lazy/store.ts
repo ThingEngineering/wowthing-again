@@ -295,8 +295,9 @@ export class LazyStore implements LazyUgh {
                 doConvertible({
                     itemData: this.itemData,
                     settings: this.settings,
-                    userData: userData,
-                    userQuestData: userQuestData,
+                    userAchievementData,
+                    userData,
+                    userQuestData,
                 }),
             );
         }

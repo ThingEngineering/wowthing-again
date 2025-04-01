@@ -1,7 +1,8 @@
 export type ConvertibleCategoryTier = {
     itemLevel: number;
-    lowUpgrade?: [number, number][];
-    highUpgrade?: [number, number][];
+    lowUpgrade?: [number, number, number?][];
+    highUpgrade?: [number, number, number?][];
+    achievementId?: number;
 };
 
 export type ConvertibleCategory = {
