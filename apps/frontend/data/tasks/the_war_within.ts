@@ -127,6 +127,12 @@ export const twwChores11_1: Chore[] = [
         ],
         questReset: DbResetType.Weekly,
     },
+    {
+        taskKey: 'twwRaidPull',
+        taskName: '[Raid] Rune Dispenser',
+        noProgress: true,
+        questIds: [89350],
+    },
 ];
 
 const chettIds = [
