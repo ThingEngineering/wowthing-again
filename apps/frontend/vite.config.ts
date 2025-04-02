@@ -64,7 +64,7 @@ const config = <UserConfig>defineConfig({
 		keepNames: true,
 	},*/
     // optimizeDeps: {
-    // 	disabled: false,
+    //     disabled: false,
     // },
     server: {
         host: '0.0.0.0',
@@ -74,9 +74,10 @@ const config = <UserConfig>defineConfig({
             port: 55505,
             protocol: 'ws',
         },
-        watch: {
+        /*watch: {
             usePolling: true, // Docker/WSL2 need this
-        },
+            interval: 500,
+        },*/
     },
 });
 

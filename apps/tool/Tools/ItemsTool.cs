@@ -207,8 +207,11 @@ public class ItemsTool
 
         var db = ToolContext.Redis.GetDatabase();
 
+        var appearanceMap = await LoadItemDisplayInfos();
+
         var cacheData = new RedisItems
         {
+            AppearanceMap = appearanceMap,
             CompletesQuest = completesQuestMap,
             CraftingQualities = idsByCraftingQuality,
             ItemBonusListGroups = listGroups,
@@ -278,7 +281,7 @@ public class ItemsTool
                 ClassMaskIndex = indexClassMask[item.GetCalculatedClassMask()],
                 RaceMaskIndex = indexRaceMask[item.RaceMask],
                 Appearances =
-                    itemToModifiedAppearances.GetValueOrDefault(item.Id, Array.Empty<WowItemModifiedAppearance>()),
+                    itemToModifiedAppearances.GetValueOrDefault(item.Id, []),
             };
             lastId = item.Id;
         }
@@ -523,6 +526,76 @@ public class ItemsTool
                     .Order()
                     .ToArray()
             );
+    }
+
+    private async Task<Dictionary<int, int>> LoadItemDisplayInfos()
+    {
+        var allItemAppearance = await DataUtilities.LoadDumpCsvAsync<DumpItemAppearance>("itemappearance");
+        var allItemDisplayInfoMaterialRes = await DataUtilities.LoadDumpCsvAsync<DumpItemDisplayInfoMaterialRes>("itemdisplayinfomaterialres");
+
+        // generate a mapping of appearance components -> DisplayInfoIDs
+        var displayInfoToRes = allItemDisplayInfoMaterialRes
+            .GroupBy(res => res.ItemDisplayInfoID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.OrderBy(res => res.ComponentSection).ToArray()
+            );
+
+        var modelsToDisplayInfoIds = new Dictionary<string, List<int>>();
+        foreach (var (displayInfoId, parts) in displayInfoToRes)
+        {
+            string components = string.Join(
+                "|",
+                parts.Select(part => $"{part.ComponentSection}-{part.MaterialResourcesID}")
+            );
+
+            if (!modelsToDisplayInfoIds.TryGetValue(components, out var displayInfos))
+            {
+                displayInfos = modelsToDisplayInfoIds[components] = [];
+            }
+            displayInfos.Add(displayInfoId);
+        }
+
+        var displayInfoIdToAppearanceIds = allItemAppearance
+            .Where(ia => ia.ItemDisplayInfoID > 0)
+            .GroupBy(ia => ia.ItemDisplayInfoID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.Select(ia => ia.ID).ToArray());
+
+        var appearanceMap = new Dictionary<int, int>();
+        foreach (var displayInfoIds in modelsToDisplayInfoIds.Values)
+        {
+            if (!displayInfoIdToAppearanceIds.TryGetValue(displayInfoIds[0], out var firstAppearanceIds))
+            {
+                continue;
+            }
+
+            foreach (int appearanceId in firstAppearanceIds.Skip(1))
+            {
+                appearanceMap[appearanceId] = firstAppearanceIds[0];
+            }
+
+            foreach (int displayInfoId in displayInfoIds.Skip(1))
+            {
+                if (!displayInfoIdToAppearanceIds.TryGetValue(displayInfoId, out var appearanceIds))
+                {
+                    continue;
+                }
+
+                foreach (int appearanceId in appearanceIds)
+                {
+                    appearanceMap[appearanceId] = firstAppearanceIds[0];
+                }
+            }
+        }
+
+        foreach (var (appearanceId1, appearanceId2) in appearanceMap)
+        {
+            Console.WriteLine($"{appearanceId1} -> {appearanceId2}");
+        }
+
+        return appearanceMap;
     }
 
     private async Task<RedisItemSet[]> LoadItemSets(Language language)

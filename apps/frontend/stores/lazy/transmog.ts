@@ -67,7 +67,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             actualSlot = fixedInventoryType(item.inventoryType);
         }
 
-        const appearanceId = item.appearances[modifier]?.appearanceId || 0;
+        let appearanceId = item.appearances[modifier]?.appearanceId || 0;
+        appearanceId = stores.itemData.appearanceMap[appearanceId] || appearanceId;
+
         const hasSource =
             overrideHas || useSource
                 ? stores.userData.hasSourceV2.get(modifier).has(itemId)
