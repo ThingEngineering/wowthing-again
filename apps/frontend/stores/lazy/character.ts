@@ -319,6 +319,15 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             }
         }
 
+        if (
+            choreTask.taskKey === 'twwChettList' &&
+            charTask.status === 0 &&
+            (stores.userData.characterMap[character.id]?.getItemCount(235053) > 0 ||
+                stores.userData.characterMap[character.id]?.getItemCount(236682) > 0)
+        ) {
+            charTask.status = 1;
+        }
+
         return charTask;
     };
 

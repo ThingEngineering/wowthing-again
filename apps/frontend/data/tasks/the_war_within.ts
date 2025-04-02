@@ -140,7 +140,12 @@ const chettIds = [
 ];
 function couldChett(char: Character, chore: Chore): boolean {
     // did they get the initial list yet?
-    if (!userQuestStore.characterHas(char.id, 87296)) {
+    const userData = get(userStore);
+    if (
+        !userQuestStore.characterHas(char.id, 87296) &&
+        userData.characterMap[char.id]?.getItemCount(235053) === 0 &&
+        userData.characterMap[char.id]?.getItemCount(236682) === 0
+    ) {
         return false;
     }
 
