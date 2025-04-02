@@ -11,6 +11,7 @@ public class RedisItems
     public string[] Names { get; set; }
     public List<int> OppositeFactionIds { get; set; }
 
+    public Dictionary<int, int> AppearanceMap { get; set; }
     public Dictionary<int, int[]> CompletesQuest { get; set; }
     public Dictionary<short, int[]> CraftingQualities { get; set; }
     public Dictionary<int, Dictionary<int, List<int>>> ItemBonusListGroups { get; set; }

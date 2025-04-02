@@ -5,6 +5,7 @@ import type { DataItemSet, DataItemSetArray } from './item-set';
 import type { DataItemModifiedCrafting } from './modified-crafting';
 
 export interface ItemData {
+    appearanceMap: Record<number, number>;
     appearanceToItems: Record<number, [number, number][]>;
     bonusIdToModifiedCrafting: Record<number, DataItemModifiedCrafting>;
     completesQuest: Record<number, number[]>;
