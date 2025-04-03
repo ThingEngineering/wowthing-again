@@ -40,7 +40,7 @@ export function userHasLookup(
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(userQuestData, [id]);
     } else if (type === LookupType.TransmogSet) {
-        const statsKey = `transmogSet:${id}`;
+        const statsKey = `ensemble:${id}`;
         const stats = lazyTransmog.stats[statsKey];
         return stats?.percent >= 100;
     } else if (type === LookupType.Transmog) {

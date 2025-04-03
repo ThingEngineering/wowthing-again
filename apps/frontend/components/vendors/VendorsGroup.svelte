@@ -9,6 +9,7 @@
     import { itemStore, lazyStore } from '@/stores';
     import { vendorState } from '@/stores/local-storage';
     import { ThingData } from '@/types/vendors';
+    import { getClassesFromMask } from '@/utils/get-classes-from-mask';
     import getPercentClass from '@/utils/get-percent-class';
     import type { ManualDataVendorGroup } from '@/types/data/manual';
 
@@ -22,7 +23,6 @@
     import SpecializationIcon from '@/shared/components/images/SpecializationIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { getClassesFromMask } from '@/utils/get-classes-from-mask';
 
     export let group: ManualDataVendorGroup;
     export let useV2: boolean;
@@ -288,7 +288,7 @@
 
                             {#if teachesTransmog}
                                 {@const setStats =
-                                    $lazyStore.transmog.stats[`transmogSet:${teachesTransmog}`]}
+                                    $lazyStore.transmog.stats[`ensemble:${teachesTransmog}`]}
                                 {#if setStats}
                                     <div class="stats pill">
                                         <span class={getPercentClass(setStats.percent)}
