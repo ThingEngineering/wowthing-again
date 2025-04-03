@@ -301,7 +301,6 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // The War Within - Season 1
     126011: [
-        220769, // Algari Token of Merit
         211297, // Fractured Spark of Omens
         211296, // Spark of Omens
         224069, // Enchanted Weathered Harbinger Crest
@@ -312,6 +311,7 @@ export const currencyItems: Record<number, number[]> = {
     126012: [
         229899, // Coffer Key Shard
         235897, // Radiant Echo
+        230793, // Algari Token of Merit
         230905, // Fractured Spark of Fortunes
         230906, // Spark of Fortunes
         230937, // Enchanted Weathered Undermine Crest

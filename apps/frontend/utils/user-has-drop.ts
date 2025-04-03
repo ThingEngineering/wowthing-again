@@ -41,7 +41,7 @@ export default function userHasDrop(
         } else if (staticData.toys[id]) {
             return userData.hasToy[id] === true;
         } else if (itemData.teachesTransmog[id]) {
-            const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
+            const statsKey = `ensemble:${itemData.teachesTransmog[id]}`;
             const stats = lazyTransmog.stats[statsKey];
             if (stats) {
                 return stats.percent >= 100;
@@ -67,7 +67,7 @@ export default function userHasDrop(
 
     if (transmogTypes.has(type)) {
         if (itemData.teachesTransmog[id]) {
-            const statsKey = `transmogSet:${itemData.teachesTransmog[id]}`;
+            const statsKey = `ensemble:${itemData.teachesTransmog[id]}`;
             const stats = lazyTransmog.stats[statsKey];
             if (stats) {
                 return stats.percent >= 100;

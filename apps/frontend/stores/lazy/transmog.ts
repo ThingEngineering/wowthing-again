@@ -71,9 +71,10 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         appearanceId = stores.itemData.appearanceMap[appearanceId] || appearanceId;
 
         const hasSource =
-            overrideHas || useSource
+            overrideHas ||
+            (useSource
                 ? stores.userData.hasSourceV2.get(modifier).has(itemId)
-                : stores.userData.hasAppearance.has(appearanceId);
+                : stores.userData.hasAppearance.has(appearanceId));
 
         slotData[actualSlot] ||= [false, []];
         slotData[actualSlot][0] ||= hasSource;
@@ -154,9 +155,11 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
-                        let manualItems = false;
+                        let ensembleStats: UserCount;
                         if (groupSigh.transmogSetId) {
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
+                            ensembleStats = ret.stats[`ensemble:${groupSigh.transmogSetId}`] =
+                                new UserCount();
 
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
@@ -198,7 +201,6 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             }
                         } else if (groupSigh.itemsV2.length > 0) {
                             itemsWithModifiers.push(...groupSigh.itemsV2);
-                            manualItems = true;
                         } else {
                             for (const appearanceIds of Object.values(groupSigh.items)) {
                                 for (const appearanceId of appearanceIds) {
@@ -209,98 +211,86 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             }
                         }
 
+                        if (itemsWithModifiers.length === 0) {
+                            console.error('Wacky set', group, groupSigh);
+                            continue;
+                        }
+
                         const slotData: TransmogSlotData = (ret.slots[setDataKey] = {});
-                        if (itemsWithModifiers.length > 0) {
-                            for (const [itemId, modifier] of itemsWithModifiers) {
-                                doSlot(
-                                    slotData,
-                                    itemId,
-                                    modifier,
-                                    !(manualItems && !completionistMode),
-                                    overrideHas,
-                                );
+                        for (const [itemId, modifier] of itemsWithModifiers) {
+                            doSlot(slotData, itemId, modifier, completionistMode, overrideHas);
+                        }
+
+                        if (completionistSets) {
+                            setDataStats.total = Object.values(slotData).reduce(
+                                (a, b) => a + b[1].length,
+                                0,
+                            );
+                            setDataStats.have = Object.values(slotData).reduce(
+                                (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
+                                0,
+                            );
+
+                            if (ensembleStats) {
+                                ensembleStats.total = setDataStats.total;
+                                ensembleStats.have = setDataStats.have;
                             }
 
-                            if (completionistSets) {
-                                setDataStats.total = Object.values(slotData).reduce(
-                                    (a, b) => a + b[1].length,
-                                    0,
-                                );
-                                setDataStats.have = Object.values(slotData).reduce(
-                                    (a, b) =>
-                                        a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
-                                    0,
-                                );
+                            // [hasSlot, [hasSource, itemId, modifier][]][]
+                            for (const itemDatas of Object.values(slotData)) {
+                                for (const [hasSource, itemId, modifier] of itemDatas[1]) {
+                                    const sourceKey = `${itemId}_${modifier}`;
 
-                                // [hasSlot, [hasSource, itemId, modifier][]][]
-                                for (const itemDatas of Object.values(slotData)) {
-                                    for (const [hasSource, itemId, modifier] of itemDatas[1]) {
-                                        const sourceKey = `${itemId}_${modifier}`;
-
-                                        // unavailable sets can skip?
-                                        if (!hasSource && !countUncollected) {
-                                            continue;
-                                        }
-
-                                        if (!overallSeen[sourceKey]) {
-                                            overallStats.total++;
-                                        }
-                                        baseStats.total++;
-                                        catStats.total++;
-                                        groupStats.total++;
-                                        setStats.total++;
-
-                                        if (hasSource) {
-                                            if (!overallSeen[sourceKey]) {
-                                                overallStats.have++;
-                                            }
-                                            baseStats.have++;
-                                            catStats.have++;
-                                            groupStats.have++;
-                                            setStats.have++;
-                                        }
-
-                                        overallSeen[sourceKey] = true;
+                                    // unavailable sets can skip?
+                                    if (!hasSource && !countUncollected) {
+                                        continue;
                                     }
-                                }
-                            } else {
-                                const byAppearanceId = groupBy(
-                                    Object.values(slotData)
-                                        .flatMap(([, items]) => items)
-                                        .filter((slot) => slot[3] > 0),
-                                    (slot) => slot[3],
-                                );
 
-                                setDataStats.total = Object.keys(byAppearanceId).length;
+                                    if (!overallSeen[sourceKey]) {
+                                        overallStats.total++;
+                                    }
+                                    baseStats.total++;
+                                    catStats.total++;
+                                    groupStats.total++;
+                                    setStats.total++;
 
-                                setDataStats.have = Object.values(byAppearanceId).filter((combos) =>
-                                    combos.some(([has]) => has),
-                                ).length;
+                                    if (hasSource) {
+                                        if (!overallSeen[sourceKey]) {
+                                            overallStats.have++;
+                                        }
+                                        baseStats.have++;
+                                        catStats.have++;
+                                        groupStats.have++;
+                                        setStats.have++;
+                                    }
 
-                                catStats.have += setDataStats.have;
-                                groupStats.have += setDataStats.have;
-                                setStats.have += setDataStats.have;
-
-                                if (countUncollected) {
-                                    overallStats.total += setDataStats.total;
-                                    overallStats.have += setDataStats.have;
-
-                                    baseStats.total += setDataStats.total;
-                                    baseStats.have += setDataStats.have;
-
-                                    catStats.total += setDataStats.total;
-                                    groupStats.total += setDataStats.total;
-                                    setStats.total += setDataStats.total;
-                                } else {
-                                    catStats.total += setDataStats.have;
-                                    groupStats.total += setDataStats.have;
-                                    setStats.total += setDataStats.have;
+                                    overallSeen[sourceKey] = true;
                                 }
                             }
                         } else {
-                            console.error('Wacky set', group, groupSigh);
+                            buildStats(completionistMode, slotData, setDataStats, ensembleStats);
+
+                            catStats.have += setDataStats.have;
+                            groupStats.have += setDataStats.have;
+                            setStats.have += setDataStats.have;
+
+                            if (countUncollected) {
+                                overallStats.total += setDataStats.total;
+                                overallStats.have += setDataStats.have;
+
+                                baseStats.total += setDataStats.total;
+                                baseStats.have += setDataStats.have;
+
+                                catStats.total += setDataStats.total;
+                                groupStats.total += setDataStats.total;
+                                setStats.total += setDataStats.total;
+                            } else {
+                                catStats.total += setDataStats.have;
+                                groupStats.total += setDataStats.have;
+                                setStats.total += setDataStats.have;
+                            }
                         }
-                    }
+                    } // for setIndex
                 }
             }
 
@@ -323,6 +313,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             continue;
         }
 
+        const ensembleStats = (ret.stats[`ensemble:${transmogSetId}`] = new UserCount());
         const setStats = (ret.stats[setKey] = new UserCount());
         const slotData: TransmogSlotData = (ret.slots[setKey] = {});
         for (let itemIndex = 0; itemIndex < transmogSet.items.length; itemIndex++) {
@@ -338,6 +329,34 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                 (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
                 0,
             );
+
+            if (ensembleStats) {
+                ensembleStats.total = setStats.total;
+                ensembleStats.have = setStats.have;
+            }
+        } else {
+            buildStats(completionistMode, slotData, setStats, ensembleStats);
+        }
+    }
+
+    console.timeEnd('LazyStore.doTransmog');
+
+    return ret;
+}
+
+function buildStats(
+    completionistMode: boolean,
+    slotData: TransmogSlotData,
+    setDataStats: UserCount,
+    ensembleStats: UserCount,
+) {
+    if (ensembleStats) {
+        if (completionistMode) {
+            ensembleStats.total = Object.values(slotData).reduce((a, b) => a + b[1].length, 0);
+            ensembleStats.have = Object.values(slotData).reduce(
+                (a, b) => a + b[1].filter((hasSlot) => hasSlot[0] === true).length,
+                0,
+            );
         } else {
             const byAppearanceId = groupBy(
                 Object.values(slotData)
@@ -346,14 +365,29 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                 (slot) => slot[3],
             );
 
-            setStats.total = Object.keys(byAppearanceId).length;
-            setStats.have = Object.values(byAppearanceId).filter((combos) =>
+            ensembleStats.total = Object.keys(byAppearanceId).length;
+
+            ensembleStats.have = Object.values(byAppearanceId).filter((combos) =>
                 combos.some(([has]) => has),
             ).length;
         }
     }
 
-    console.timeEnd('LazyStore.doTransmog');
+    const armor = Object.entries(slotData)
+        .filter(([key]) => parseInt(key) < 100)
+        .map(([, value]) => value);
 
-    return ret;
+    const weapons = Object.entries(slotData)
+        .filter(([a]) => parseInt(a) >= 100)
+        .map(([, b]) => b);
+    const weaponsByAppearanceId = groupBy(
+        weapons.flatMap(([, items]) => items),
+        (slot) => slot[3],
+    );
+
+    setDataStats.total = armor.length + Object.keys(weaponsByAppearanceId).length;
+
+    setDataStats.have =
+        armor.filter((has) => has[0] === true).length +
+        Object.values(weaponsByAppearanceId).filter((combos) => combos.some(([has]) => has)).length;
 }
