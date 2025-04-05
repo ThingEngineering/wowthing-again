@@ -21,7 +21,7 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesNormalHeroic = [14, 15];
     private static readonly int[] RaidDifficultiesTrialRecipes = [4, 5, 6];
 
-    private static readonly List<ExtraItemDrop> AhnQirajExtraDrops =
+    private static readonly List<ExtraItemDrop> AhnQiraj20ExtraDrops =
     [
         new(20736, RaidDifficultiesNormal), // Formula: Enchant Cloak - Dodge
         new(20734, RaidDifficultiesNormal), // Formula: Enchant Cloak - Stealth
@@ -30,6 +30,17 @@ public static partial class Hardcoded
         new(20730, RaidDifficultiesNormal), // Formula: Enchant Gloves - Healing Power
         new(20727, RaidDifficultiesNormal), // Formula: Enchant Gloves - Shadow Power
         new(20731, RaidDifficultiesNormal), // Formula: Enchant Gloves - Superior Agility
+    ];
+
+    private static readonly List<ExtraItemDrop> AhnQiraj40ExtraDrops =
+    [
+        new(20736, RaidDifficultiesLegacy40), // Formula: Enchant Cloak - Dodge
+        new(20734, RaidDifficultiesLegacy40), // Formula: Enchant Cloak - Stealth
+        new(20729, RaidDifficultiesLegacy40), // Formula: Enchant Gloves - Fire Power
+        new(20728, RaidDifficultiesLegacy40), // Formula: Enchant Gloves - Frost Power
+        new(20730, RaidDifficultiesLegacy40), // Formula: Enchant Gloves - Healing Power
+        new(20727, RaidDifficultiesLegacy40), // Formula: Enchant Gloves - Shadow Power
+        new(20731, RaidDifficultiesLegacy40), // Formula: Enchant Gloves - Superior Agility
     ];
 
     private static readonly List<ExtraItemDrop> MoltenCoreRecipes =
@@ -985,21 +996,21 @@ public static partial class Hardcoded
             ]
         },
         // AQ20
-        { 1537, AhnQirajExtraDrops }, // Kurinnaxx
-        { 1538, AhnQirajExtraDrops }, // General Rajaxx
-        { 1539, AhnQirajExtraDrops }, // Moam
-        { 1540, AhnQirajExtraDrops }, // Buru the Gorger
-        { 1541, AhnQirajExtraDrops }, // Ayamiss the Hunter
-        { 1542, AhnQirajExtraDrops }, // Ossirian the Unscarred
+        { 1537, AhnQiraj20ExtraDrops }, // Kurinnaxx
+        { 1538, AhnQiraj20ExtraDrops }, // General Rajaxx
+        { 1539, AhnQiraj20ExtraDrops }, // Moam
+        { 1540, AhnQiraj20ExtraDrops }, // Buru the Gorger
+        { 1541, AhnQiraj20ExtraDrops }, // Ayamiss the Hunter
+        { 1542, AhnQiraj20ExtraDrops }, // Ossirian the Unscarred
         // AQ40
-        { 1543, AhnQirajExtraDrops }, // The Prophet Skeram
-        { 1544, AhnQirajExtraDrops }, // Battleguard Sartura
-        { 1545, AhnQirajExtraDrops }, // Fankriss the Unyielding
-        { 1546, AhnQirajExtraDrops }, // Princess Huhuran
-        { 1547, AhnQirajExtraDrops }, // Silithid Royalty
-        { 1548, AhnQirajExtraDrops }, // Viscidus
-        { 1550, AhnQirajExtraDrops }, // Ouro
-        { 1551, AhnQirajExtraDrops }, // C'Thun
+        { 1543, AhnQiraj40ExtraDrops }, // The Prophet Skeram
+        { 1544, AhnQiraj40ExtraDrops }, // Battleguard Sartura
+        { 1545, AhnQiraj40ExtraDrops }, // Fankriss the Unyielding
+        { 1546, AhnQiraj40ExtraDrops }, // Princess Huhuran
+        { 1547, AhnQiraj40ExtraDrops }, // Silithid Royalty
+        { 1548, AhnQiraj40ExtraDrops }, // Viscidus
+        { 1550, AhnQiraj40ExtraDrops }, // Ouro
+        { 1551, AhnQiraj40ExtraDrops }, // C'Thun
         #endregion
 
         #region Classic Trash
