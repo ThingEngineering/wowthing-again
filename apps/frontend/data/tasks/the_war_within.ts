@@ -95,7 +95,12 @@ export const twwChores11_1: Chore[] = [
         taskName: '[Um] Choose Cartel',
         accountWide: true,
         icon: iconLibrary.mdiListStatus,
-        questIds: [84948],
+        questIds: [
+            84951, // Bilgewater Cartel Weekly Contract
+            84954, // Blackwater Cartel Weekly Contract
+            84952, // Steamwheedle Cartel Weekly Contract
+            84953, // Venture Co. Weekly Contract
+        ],
         questReset: DbResetType.Weekly,
     },
     {
