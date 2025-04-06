@@ -31,12 +31,22 @@
                 taskSets.push(grouped[key]);
             }
         } else {
-            taskSets.push(chore.tasks);
+            let currentSet: LazyCharacterChoreTask[] = [];
+            for (const task of chore.tasks) {
+                if (!task) {
+                    taskSets.push(currentSet);
+                    currentSet = [];
+                } else {
+                    currentSet.push(task);
+                }
+            }
+            taskSets.push(currentSet);
         }
-
+1
         anyErrors = taskSets.some((taskSet) =>
             taskSet.some(
                 (task) =>
+                    !!task &&
                     (task.status === QuestStatus.NotStarted || task.status === QuestStatus.Error) &&
                     task.name !== '' &&
                     task.statusTexts.some((st) => !!st),
