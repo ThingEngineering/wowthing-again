@@ -4,10 +4,13 @@
     import { ignoredLockoutInstances } from '@/data/dungeon';
     import { expansionMap } from '@/data/expansion';
     import { staticStore } from '@/shared/stores/static';
+    import { journalStore } from '@/stores';
+    import { leftPad } from '@/utils/formatting';
     import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
     import MagicLists from '../../MagicLists.svelte';
     import TextInput from '@/shared/components/forms/TextInput.svelte';
+    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
 
     export let active: boolean;
     export let view: SettingsView;
@@ -16,22 +19,55 @@
 
     let lockoutChoices: SettingsChoice[];
     $: {
+        lockoutChoices = [];
         const lowerFilter = (instanceFilter || '').toLocaleLowerCase();
-        lockoutChoices = sortBy(
+
+        const sortedInstances = sortBy(
             Object.values($staticStore.instances).filter(
                 (instance) =>
                     instance !== null &&
                     !ignoredLockoutInstances[instance.id] &&
                     instance.name.toLocaleLowerCase().includes(lowerFilter),
             ),
-            (instance) => instance.expansion,
-        ).map((instance) => ({
-            id: instance.id.toString(),
-            name:
-                instance.expansion === 100
-                    ? `[Event] ${instance.name}`
-                    : `[${expansionMap[instance.expansion].shortName}] ${instance.name}`,
-        }));
+            (instance) => {
+                const journalInstance = $journalStore.instanceById[instance.id];
+                return [
+                    leftPad(instance.expansion, 2, '0'),
+                    journalInstance?.isRaid ? 1 : 0,
+                    leftPad(
+                        journalInstance?.isRaid ? 999 - (journalInstance?.order || 0) : 0,
+                        3,
+                        '0',
+                    ),
+                    instance.name,
+                ].join('|');
+            },
+        );
+
+        for (const instance of sortedInstances) {
+            const expansionName =
+                instance.expansion === 100 ? 'Event' : expansionMap[instance.expansion].shortName;
+            lockoutChoices.push({
+                id: instance.id.toString(),
+                name: `[${expansionName}] ${instance.name}`,
+            });
+
+            const journalInstance = $journalStore.instanceById[instance.id];
+            if (instance.expansion < 100 && journalInstance?.isRaid) {
+                for (const difficulty of journalDifficultyOrder) {
+                    if (
+                        journalInstance.bonusIds[difficulty] ||
+                        (difficulty === 14 && journalInstance.bonusIds[16])
+                    ) {
+                        const difficultyName = difficultyMap[difficulty].shortName;
+                        lockoutChoices.push({
+                            id: `${difficulty * 10000000 + instance.id}`,
+                            name: `[${expansionName}] [${difficultyName}] ${instance.name}`,
+                        });
+                    }
+                }
+            }
+        }
     }
 </script>
 

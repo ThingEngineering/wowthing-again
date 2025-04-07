@@ -387,11 +387,21 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             if (!found) {
-                userData.homeLockouts.push({
-                    difficulty: null,
-                    instanceId,
-                    key: `${instanceId}-`,
-                });
+                if (instanceId >= 10000000) {
+                    const actualDifficulty = Math.floor(instanceId / 10000000);
+                    const actualInstanceId = instanceId % 10000000;
+                    userData.homeLockouts.push({
+                        difficulty: difficultyMap[actualDifficulty],
+                        instanceId: actualInstanceId,
+                        key: `${actualInstanceId}-${actualDifficulty}`,
+                    });
+                } else {
+                    userData.homeLockouts.push({
+                        difficulty: null,
+                        instanceId,
+                        key: `${instanceId}-`,
+                    });
+                }
             }
         }
 

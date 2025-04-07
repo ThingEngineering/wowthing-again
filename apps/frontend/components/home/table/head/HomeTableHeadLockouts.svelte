@@ -1,29 +1,30 @@
 <script lang="ts">
-    import { activeView } from '@/shared/stores/settings'
-    import { staticStore } from '@/shared/stores/static'
-    import { userStore } from '@/stores'
-    import { homeState } from '@/stores/local-storage'
-    import { componentTooltip } from '@/shared/utils/tooltips'
+    import { activeView } from '@/shared/stores/settings';
+    import { staticStore } from '@/shared/stores/static';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { viewHasLockout } from '@/shared/utils/view-has-lockout';
+    import { userStore } from '@/stores';
+    import { homeState } from '@/stores/local-storage';
 
-    import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'
+    import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte';
 
-    export let sortKey: string
+    export let sortKey: string;
 
     function setSorting(column: string) {
-        const current = $homeState.groupSort[sortKey]
-        $homeState.groupSort[sortKey] = current === column ? undefined : column
+        const current = $homeState.groupSort[sortKey];
+        $homeState.groupSort[sortKey] = current === column ? undefined : column;
     }
 </script>
 
 <style lang="scss">
     td {
-        @include cell-width(2.0rem, $maxWidth: 5.0rem);
+        @include cell-width(2rem, $maxWidth: 5rem);
     }
 </style>
 
-{#each $userStore.homeLockouts as {difficulty, instanceId}}
+{#each $userStore.homeLockouts as { difficulty, instanceId }}
     {@const instance = $staticStore.instances[instanceId]}
-    {#if $activeView.homeLockouts.indexOf(instanceId) >= 0 && instance}
+    {#if instance && viewHasLockout($activeView, difficulty, instanceId)}
         {@const sortField = `lockout:${instanceId}-${difficulty?.id || 0}`}
         <td
             class="sortable"
@@ -35,10 +36,12 @@
                 props: {
                     difficulty,
                     instanceId,
-                }
+                },
             }}
         >
-            {difficulty && difficulty.name !== 'World Boss' ? difficulty.shortName + '-' : ''}{instance.shortName}
+            {difficulty && difficulty.name !== 'World Boss'
+                ? difficulty.shortName + '-'
+                : ''}{instance.shortName}
         </td>
     {/if}
 {/each}
