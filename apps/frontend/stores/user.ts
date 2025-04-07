@@ -14,6 +14,7 @@ import { slotOrder } from '@/data/inventory-slot';
 import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
+import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 import { TypedArray } from '@/enums/typed-array';
 import { itemStore } from '@/stores/item';
 import { staticStore } from '@/shared/stores/static';
@@ -50,7 +51,6 @@ import type { ManualData } from '@/types/data/manual';
 import { journalStore } from './journal';
 import { manualStore } from './manual';
 import { userModifiedStore } from './user-modified';
-import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {

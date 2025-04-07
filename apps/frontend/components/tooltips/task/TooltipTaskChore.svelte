@@ -9,7 +9,6 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { multiTaskMap } from '@/data/tasks';
     import { taskChoreMap } from '@/data/tasks';
 
     export let character: Character;
@@ -42,7 +41,7 @@
             }
             taskSets.push(currentSet);
         }
-1
+
         anyErrors = taskSets.some((taskSet) =>
             taskSet.some(
                 (task) =>
