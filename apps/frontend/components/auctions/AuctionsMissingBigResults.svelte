@@ -1,66 +1,75 @@
 <script lang="ts">
-    import { DateTime } from 'luxon'
-    import { replace } from 'svelte-spa-router'
+    import { DateTime } from 'luxon';
+    import { replace } from 'svelte-spa-router';
 
-    import { timeLeft } from '@/data/auctions'
+    import { timeLeft } from '@/data/auctions';
     import { euLocales } from '@/data/region';
     import { AppearanceModifier } from '@/enums/appearance-modifier';
-    import { Faction } from '@/enums/faction'
+    import { Faction } from '@/enums/faction';
     import { ItemBonusType } from '@/enums/item-bonus-type';
-    import { Region } from '@/enums/region'
-    import { iconLibrary } from '@/shared/icons'
-    import { settingsStore } from '@/shared/stores/settings'
-    import { staticStore } from '@/shared/stores/static'
-    import { timeStore } from '@/shared/stores/time'
-    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips'
-    import { itemStore, userStore } from '@/stores'
-    import { auctionState } from '@/stores/local-storage'
-    import { userAuctionMissingRecipeStore, userAuctionMissingTransmogStore, type UserAuctionEntry } from '@/stores/user-auctions'
-    import connectedRealmName from '@/utils/connected-realm-name'
+    import { Region } from '@/enums/region';
+    import { iconLibrary } from '@/shared/icons';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { staticStore } from '@/shared/stores/static';
+    import { timeStore } from '@/shared/stores/time';
+    import { basicTooltip, componentTooltip } from '@/shared/utils/tooltips';
+    import { itemStore, userStore } from '@/stores';
+    import { auctionState } from '@/stores/local-storage';
+    import {
+        userAuctionMissingRecipeStore,
+        userAuctionMissingTransmogStore,
+        type UserAuctionEntry,
+    } from '@/stores/user-auctions';
+    import connectedRealmName from '@/utils/connected-realm-name';
     import type { ItemDataItem } from '@/types/data/item';
 
-    import FactionIcon from '@/shared/components/images/FactionIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Paginate from '@/shared/components/paginate/Paginate.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Paginate from '@/shared/components/paginate/Paginate.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import RealmTooltip from './RealmTooltip.svelte';
-    import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte'
-    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import TooltipAlreadyHave from '@/components/tooltips/auction-already-have/TooltipAuctionAlreadyHave.svelte';
+    import UnderConstruction from '@/shared/components/under-construction/UnderConstruction.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { itemModifierMap } from '@/data/item-modifier';
 
-    export let page: number
-    export let slug1: string
+    export let page: number;
+    export let slug1: string;
 
     function setRealmSearch(connectedRealmId: number) {
-        const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0]
+        const realmName = $staticStore.connectedRealms[connectedRealmId].realmNames[0];
         if (slug1 === 'missing-recipes') {
-            $auctionState.missingRecipeRealmSearch = realmName
-        }
-        else {
-            $auctionState.missingTransmogRealmSearch = realmName
+            $auctionState.missingRecipeRealmSearch = realmName;
+        } else {
+            $auctionState.missingTransmogRealmSearch = realmName;
         }
     }
 
-    let recipeRealmSearch = ''
-    let transmogRealmSearch = ''
+    let recipeRealmSearch = '';
+    let transmogRealmSearch = '';
     $: {
-        if (slug1.startsWith('missing-appearance-') && $auctionState.missingTransmogRealmSearch !== transmogRealmSearch) {
-            transmogRealmSearch = $auctionState.missingTransmogRealmSearch
+        if (
+            slug1.startsWith('missing-appearance-') &&
+            $auctionState.missingTransmogRealmSearch !== transmogRealmSearch
+        ) {
+            transmogRealmSearch = $auctionState.missingTransmogRealmSearch;
             if (page !== 1) {
-                replace(`/auctions/${slug1}/1`)
+                replace(`/auctions/${slug1}/1`);
             }
-        }
-        else if (slug1 === 'missing-recipes' && $auctionState.missingRecipeRealmSearch !== recipeRealmSearch) {
-            recipeRealmSearch = $auctionState.missingRecipeRealmSearch
+        } else if (
+            slug1 === 'missing-recipes' &&
+            $auctionState.missingRecipeRealmSearch !== recipeRealmSearch
+        ) {
+            recipeRealmSearch = $auctionState.missingRecipeRealmSearch;
             if (page !== 1) {
-                replace(`/auctions/${slug1}/1`)
+                replace(`/auctions/${slug1}/1`);
             }
         }
     }
 
-    let pageItems: UserAuctionEntry[]
+    let pageItems: UserAuctionEntry[];
     function exportShoppingList() {
         const lines: string[] = [];
         lines.push(`WoWthing ${DateTime.now().toUnixInteger()}`);
@@ -70,8 +79,17 @@
         navigator.clipboard.writeText(lines.join('^'));
     }
 
-    function getModifier(bonusIds: number[]): AppearanceModifier {
+    function getModifier(item: ItemDataItem, bonusIds: number[]): AppearanceModifier {
         let modifier = AppearanceModifier.Normal;
+
+        if (item?.difficultyLookingForRaid) {
+            modifier = AppearanceModifier.LookingForRaid;
+        } else if (item?.difficultyHeroic) {
+            modifier = AppearanceModifier.Heroic;
+        } else if (item?.difficultyMythic) {
+            modifier = AppearanceModifier.Mythic;
+        }
+
         for (const bonusId of bonusIds || []) {
             const itemBonus = $itemStore.itemBonuses[bonusId];
             for (const bonus of itemBonus?.bonuses || []) {
@@ -82,10 +100,19 @@
                         modifier = AppearanceModifier.Heroic;
                     } else if (bonus[1] === 13145) {
                         modifier = AppearanceModifier.Mythic;
+                    } else if (bonus[1] === 14000) {
+                        modifier = AppearanceModifier.WodCraftedT2;
+                    } else if (bonus[1] === 14001) {
+                        modifier = AppearanceModifier.WodCraftedT3;
                     }
                 }
             }
         }
+
+        if (modifier === 0 && item?.limitCategory === 341) {
+            modifier = AppearanceModifier.WodCraftedT1;
+        }
+
         return modifier;
     }
 
@@ -97,7 +124,8 @@
             if (result.id.includes('_')) {
                 const [itemId, modifier] = result.id.split('_', 2).map((s) => parseInt(s));
                 const appearance = item.appearances?.[modifier];
-                needAppearance = (!!appearance && !$userStore.hasAppearance.has(appearance.appearanceId));
+                needAppearance =
+                    !!appearance && !$userStore.hasAppearance.has(appearance.appearanceId);
                 needSource = !$userStore.hasSourceV2.get(modifier).has(itemId);
             } else {
                 const appearanceId = parseInt(result.id);
@@ -158,7 +186,7 @@
             min-width: 0;
         }
 
-        :global(a>.flex-wrapper) {
+        :global(a > .flex-wrapper) {
             justify-content: start;
             gap: 0.4rem;
         }
@@ -184,7 +212,7 @@
         margin-right: -2px;
     }
     .realm {
-        @include cell-width(11.0rem, $paddingLeft: 0px);
+        @include cell-width(11rem, $paddingLeft: 0px);
 
         cursor: pointer;
     }
@@ -225,31 +253,17 @@
 
 <UnderConstruction />
 
-{#await slug1 === 'missing-recipes'
-    ? userAuctionMissingRecipeStore.search(
-        $settingsStore,
-        $auctionState,
-        $itemStore,
-        $staticStore,
-        $userStore
-    )
-    : userAuctionMissingTransmogStore.search(
-        $settingsStore,
-        $auctionState,
-        $itemStore,
-        $staticStore,
-        $userStore,
-        slug1.replace('missing-appearance-', '')
-    )
-}
+{#await slug1 === 'missing-recipes' ? userAuctionMissingRecipeStore.search($settingsStore, $auctionState, $itemStore, $staticStore, $userStore) : userAuctionMissingTransmogStore.search($settingsStore, $auctionState, $itemStore, $staticStore, $userStore, slug1.replace('missing-appearance-', ''))}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then [things, updated]}
     {#if things.length > 0}
-        {@const realmSearch = (slug1 === 'missing-recipes'
-            ? $auctionState.missingRecipeRealmSearch
-            : $auctionState.missingTransmogRealmSearch).toLocaleLowerCase()}
+        {@const realmSearch = (
+            slug1 === 'missing-recipes'
+                ? $auctionState.missingRecipeRealmSearch
+                : $auctionState.missingTransmogRealmSearch
+        ).toLocaleLowerCase()}
         <Paginate
-            items={(things || [])}
+            items={things || []}
             perPage={$auctionState.limitToCheapestRealm ? 48 : 24}
             {page}
             bind:pageItems
@@ -257,20 +271,25 @@
         >
             <div class="wrapper">
                 {#each paginated as result}
-                    {@const auctions = result.auctions.slice(0, $auctionState.limitToCheapestRealm ? 1 : 5)}
+                    {@const auctions = result.auctions.slice(
+                        0,
+                        $auctionState.limitToCheapestRealm ? 1 : 5,
+                    )}
                     {@const itemId = auctions[0].itemId}
-                    {@const modifier = getModifier(auctions[0].bonusIds || [])}
                     {@const item = $itemStore.items[itemId]}
+                    {@const modifier = getModifier(item, auctions[0].bonusIds || [])}
                     {@const [needAppearance, needSource] = getHaveClass(result, item)}
-                    <table
-                        class="table table-striped"
-                        class:faded={result.hasItems.length > 0}
-                    >
+                    <table class="table table-striped" class:faded={result.hasItems.length > 0}>
                         <thead>
                             {#if slug1 === 'missing-recipes' && $auctionState.missingRecipeProfessionId === -2}
-                                {@const skillLineId = $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
-                                {@const profession = $staticStore.professionBySkillLine[skillLineId]?.[0]}
-                                {@const characterId = $settingsStore.professions.collectingCharacters?.[profession?.id || 0]}
+                                {@const skillLineId =
+                                    $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
+                                {@const profession =
+                                    $staticStore.professionBySkillLine[skillLineId]?.[0]}
+                                {@const characterId =
+                                    $settingsStore.professions.collectingCharacters?.[
+                                        profession?.id || 0
+                                    ]}
                                 {#if characterId}
                                     {@const character = $userStore.characterMap[characterId]}
                                     <tr>
@@ -284,16 +303,13 @@
                                 {/if}
                             {/if}
                             <tr>
-                                <th
-                                    class="item text-overflow"
-                                    colspan="3"
-                                >
+                                <th class="item text-overflow" colspan="3">
                                     <div class="flex-wrapper">
                                         <WowheadLink
                                             type={'item'}
                                             id={itemId}
                                             extraParams={{
-                                                bonus: (auctions[0].bonusIds || []).join(':')
+                                                bonus: (auctions[0].bonusIds || []).join(':'),
                                             }}
                                         >
                                             <div class="flex-wrapper item-name-wrapper">
@@ -303,17 +319,17 @@
                                                     <FactionIcon faction={Faction.Horde} />
                                                 {/if}
 
-                                                {#if item.difficultyLookingForRaid || modifier === AppearanceModifier.LookingForRaid}
-                                                    [L]
-                                                {:else if item.difficultyHeroic || modifier === AppearanceModifier.Heroic}
-                                                    [H]
-                                                {:else if item.difficultyMythic || modifier === AppearanceModifier.Mythic}
-                                                    [M]
+                                                {#if modifier > 0 && itemModifierMap[modifier]}
+                                                    [{itemModifierMap[modifier][1]}]
                                                 {/if}
 
                                                 {#if slug1.startsWith('missing-appearance-')}
-                                                    {@const abilityInfo = $staticStore.professionAbilityByAbilityId[
-                                                        $staticStore.itemToSkillLineAbility[auctions[0].itemId]?.id]}
+                                                    {@const abilityInfo =
+                                                        $staticStore.professionAbilityByAbilityId[
+                                                            $staticStore.itemToSkillLineAbility[
+                                                                auctions[0].itemId
+                                                            ]?.id
+                                                        ]}
                                                     {#if abilityInfo}
                                                         <span class="border-shrug">
                                                             <ProfessionIcon
@@ -372,8 +388,9 @@
                                             {:else}
                                                 <button
                                                     class="clipboard"
-                                                    use:basicTooltip={"Copy to clipboard"}
-                                                    on:click={() => navigator.clipboard.writeText(item.name)}
+                                                    use:basicTooltip={'Copy to clipboard'}
+                                                    on:click={() =>
+                                                        navigator.clipboard.writeText(item.name)}
                                                 >
                                                     <IconifyIcon
                                                         icon={iconLibrary.mdiClipboardPlusOutline}
@@ -388,19 +405,26 @@
                         </thead>
                         <tbody>
                             {#each auctions as auction}
-                                {@const connectedRealm = $staticStore.connectedRealms[auction.connectedRealmId]}
+                                {@const connectedRealm =
+                                    $staticStore.connectedRealms[auction.connectedRealmId]}
                                 {@const ageInMinutes = Math.floor(
-                                    $timeStore.diff(
-                                        DateTime.fromSeconds(updated[auction.connectedRealmId] || 1000)
-                                    ).toMillis() / 1000 / 60
+                                    $timeStore
+                                        .diff(
+                                            DateTime.fromSeconds(
+                                                updated[auction.connectedRealmId] || 1000,
+                                            ),
+                                        )
+                                        .toMillis() /
+                                        1000 /
+                                        60,
                                 )}
                                 <tr
-                                    class:filter-highlight={realmSearch
-                                        && !$auctionState.limitToCheapestRealm
-                                        && connectedRealm.realmNames.some(
-                                            (name) => name.toLocaleLowerCase().indexOf(realmSearch) >= 0
-                                        )
-                                    }
+                                    class:filter-highlight={realmSearch &&
+                                        !$auctionState.limitToCheapestRealm &&
+                                        connectedRealm.realmNames.some(
+                                            (name) =>
+                                                name.toLocaleLowerCase().indexOf(realmSearch) >= 0,
+                                        )}
                                 >
                                     <td
                                         class="realm text-overflow"
@@ -415,7 +439,8 @@
                                         }}
                                     >
                                         {#if connectedRealm.region === Region.EU && euLocales[connectedRealm.locale]}
-                                            {@const { icon: countryIcon, name: countryName } = euLocales[connectedRealm.locale]}
+                                            {@const { icon: countryIcon, name: countryName } =
+                                                euLocales[connectedRealm.locale]}
                                             <IconifyIcon
                                                 dropShadow={true}
                                                 icon={countryIcon}
@@ -424,11 +449,13 @@
                                         {:else}
                                             <code>[{Region[connectedRealm.region]}]</code>
                                         {/if}
-                                        
+
                                         <span
                                             class:auction-age-1={ageInMinutes < 20}
-                                            class:auction-age-2={ageInMinutes >= 20 && ageInMinutes < 40}
-                                            class:auction-age-3={ageInMinutes >= 40 && ageInMinutes < 60}
+                                            class:auction-age-2={ageInMinutes >= 20 &&
+                                                ageInMinutes < 40}
+                                            class:auction-age-3={ageInMinutes >= 40 &&
+                                                ageInMinutes < 60}
                                             class:auction-age-4={ageInMinutes >= 60}
                                         >
                                             {connectedRealmName(auction.connectedRealmId)}
@@ -438,7 +465,9 @@
                                         {#if auction.buyoutPrice < 10000}
                                             &lt;1 g
                                         {:else}
-                                            {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                            {Math.floor(
+                                                auction.buyoutPrice / 10000,
+                                            ).toLocaleString()} g
                                         {/if}
                                     </td>
                                     <td
@@ -456,25 +485,24 @@
                 {/each}
             </div>
 
-            <div
-                slot="bar-end"
-                class="total-gold"
-            >
+            <div slot="bar-end" class="total-gold">
                 <div class="bar-flex">
                     <span class="shopping-list">
                         <button
                             class="clipboard"
-                            use:basicTooltip={"Copy shopping list to clipboard"}
+                            use:basicTooltip={'Copy shopping list to clipboard'}
                             on:click={() => exportShoppingList()}
                         >
-                            <IconifyIcon
-                                icon={iconLibrary.mdiClipboardPlusOutline}
-                                scale={'0.9'}
-                            />
+                            <IconifyIcon icon={iconLibrary.mdiClipboardPlusOutline} scale={'0.9'} />
                         </button>
                     </span>
-                    <span class="total-gold" use:basicTooltip={"Total gold required to buy the cheapest of each item"}>
-                        {Math.floor(things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000).toLocaleString()} g
+                    <span
+                        class="total-gold"
+                        use:basicTooltip={'Total gold required to buy the cheapest of each item'}
+                    >
+                        {Math.floor(
+                            things.reduce((a, b) => a + b.auctions[0].buyoutPrice, 0) / 10000,
+                        ).toLocaleString()} g
                     </span>
                 </div>
             </div>
