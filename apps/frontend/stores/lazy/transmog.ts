@@ -156,6 +156,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                         // Get itemId/modifier pairs from newer data
                         const itemsWithModifiers: [number, number][] = [];
                         let ensembleStats: UserCount;
+                        let manualItems = false;
                         if (groupSigh.transmogSetId) {
                             ret.stats[`transmogSet:${groupSigh.transmogSetId}`] = setDataStats;
                             ensembleStats = ret.stats[`ensemble:${groupSigh.transmogSetId}`] =
@@ -200,6 +201,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                                 itemsWithModifiers.push([itemId, modifier]);
                             }
                         } else if (groupSigh.itemsV2.length > 0) {
+                            manualItems = true;
                             itemsWithModifiers.push(...groupSigh.itemsV2);
                         } else {
                             for (const appearanceIds of Object.values(groupSigh.items)) {
@@ -221,7 +223,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             doSlot(slotData, itemId, modifier, completionistMode, overrideHas);
                         }
 
-                        if (completionistSets) {
+                        if (completionistSets || manualItems) {
                             setDataStats.total = Object.values(slotData).reduce(
                                 (a, b) => a + b[1].length,
                                 0,

@@ -1,113 +1,115 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-    import { DateTime } from 'luxon'
+    import sortBy from 'lodash/sortBy';
+    import { DateTime } from 'luxon';
 
-    import { Constants } from '@/data/constants'
-    import { covenantMap } from '@/data/covenant'
-    import { progressQuestMap } from '@/data/quests'
-    import { multiTaskMap, taskMap } from '@/data/tasks'
-    import { QuestStatus } from '@/enums/quest-status'
-    import { activeView } from '@/shared/stores/settings'
-    import { timeStore } from '@/shared/stores/time'
-    import { lazyStore, userQuestStore, userStore } from '@/stores'
-    
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import { Constants } from '@/data/constants';
+    import { covenantMap } from '@/data/covenant';
+    import { progressQuestMap } from '@/data/quests';
+    import { multiTaskMap, taskMap } from '@/data/tasks';
+    import { QuestStatus } from '@/enums/quest-status';
+    import { activeView } from '@/shared/stores/settings';
+    import { timeStore } from '@/shared/stores/time';
+    import { lazyStore, userQuestStore, userStore } from '@/stores';
 
-    export let taskName: string
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    let completed: number
-    let disabledChores: string[]
-    let inProgress: number
-    let multiStats: [string, string, Record<QuestStatus, number>][]
-    let needToGet: number
-    let total: number
-    let title: string
+    export let taskName: string;
+
+    let completed: number;
+    let disabledChores: string[];
+    let inProgress: number;
+    let multiStats: [string, string, Record<QuestStatus, number>][];
+    let needToGet: number;
+    let total: number;
+    let title: string;
     $: {
-        completed = 0
-        inProgress = 0
-        total = 0
+        completed = 0;
+        inProgress = 0;
+        total = 0;
 
-        const questName = progressQuestMap[taskName] || taskName
-        const task = taskMap[taskName]
-        disabledChores = $activeView.disabledChores?.[taskName] || []
-        
-        const multiMap: Record<string, number> = {}
-        multiStats = []
+        const questName = progressQuestMap[taskName] || taskName;
+        const task = taskMap[taskName];
+        disabledChores = $activeView.disabledChores?.[taskName] || [];
+
+        const multiMap: Record<string, number> = {};
+        multiStats = [];
         if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
-                multiTaskMap[taskName],
-                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0
-            ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }])
+                multiTaskMap[taskName].filter((chore) => !!chore),
+                (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0,
+            ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }]);
 
             for (let i = 0; i < multiStats.length; i++) {
-                multiMap[multiStats[i][0]] = i
+                multiMap[multiStats[i][0]] = i;
             }
         }
 
         // Check other characters for a quest title
         for (const characterId in $userQuestStore.characters) {
-            const character = $userStore.characterMap[characterId]
+            const character = $userStore.characterMap[characterId];
             if (!character) {
-                continue
+                continue;
             }
 
             if (
                 character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
                 character.level <= (task?.maximumLevel || Constants.characterMaxLevel) &&
-                (
-                    !task?.requiredQuestId ||
-                    $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId)
-                )
+                (!task?.requiredQuestId ||
+                    $userQuestStore.characters[character.id]?.quests?.has(task.requiredQuestId))
             ) {
-                let oofName = questName
+                let oofName = questName;
                 if (questName === 'slAnima') {
-                    const covenant = covenantMap[character.shadowlands?.covenantId]
+                    const covenant = covenantMap[character.shadowlands?.covenantId];
                     if (covenant) {
-                        oofName = `${covenant.slug.replace('-fae', 'Fae')}Anima`
+                        oofName = `${covenant.slug.replace('-fae', 'Fae')}Anima`;
                     }
                 }
 
                 if (task.type === 'multi') {
-                    const { chores: charChores } = $lazyStore.characters[characterId]
-                    const taskChores = charChores?.[`${$activeView.id}|${taskName}`]
+                    const { chores: charChores } = $lazyStore.characters[characterId];
+                    const taskChores = charChores?.[`${$activeView.id}|${taskName}`];
 
                     if (taskName !== 'dfProfessionWeeklies') {
-                        for (const choreTask of (taskChores?.tasks || [])) {
-                            multiStats[multiMap[choreTask.key]][2][choreTask.status]++
+                        for (const choreTask of taskChores?.tasks || []) {
+                            if (choreTask) {
+                                multiStats[multiMap[choreTask.key]][2][choreTask.status]++;
+                            }
                         }
                     }
 
-                    total += (taskChores?.countTotal || 0)
-                    completed += (taskChores?.countCompleted || 0)
-                    inProgress += (taskChores?.countStarted || 0)
-                }
-                else {
-                    total++
+                    total += taskChores?.countTotal || 0;
+                    completed += taskChores?.countCompleted || 0;
+                    inProgress += taskChores?.countStarted || 0;
+                } else {
+                    total++;
 
-                    const characterQuest = $userQuestStore.characters[characterId]?.progressQuests?.[oofName]
+                    const characterQuest =
+                        $userQuestStore.characters[characterId]?.progressQuests?.[oofName];
                     if (characterQuest) {
-                        if (questName === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
-                            continue
+                        if (
+                            questName === 'weeklyHoliday' &&
+                            DateTime.fromSeconds(characterQuest.expires) < $timeStore
+                        ) {
+                            continue;
                         }
 
-                        title = characterQuest.name
+                        title = characterQuest.name;
 
                         if (characterQuest.status === QuestStatus.InProgress) {
-                            inProgress++
-                        }
-                        else if (characterQuest.status === QuestStatus.Completed) {
-                            completed++
+                            inProgress++;
+                        } else if (characterQuest.status === QuestStatus.Completed) {
+                            completed++;
                         }
                     }
                 }
             }
         }
 
-        needToGet = total - inProgress - completed
+        needToGet = total - inProgress - completed;
 
         // Use the fallback title
         if (!title) {
-            title = task?.name
+            title = task?.name;
         }
     }
 </script>
@@ -132,11 +134,8 @@
         <tbody>
             {#each multiStats as [multiTaskKey, multiTaskName, questStatuses]}
                 {@const disabled = disabledChores.indexOf(multiTaskKey) >= 0}
-                {#if (Object.values(questStatuses).reduce((a, b) => a + b, 0)) > 0 &&
-                    (!disabled || questStatuses[1] > 0 || questStatuses[2] > 0)}
-                    <tr
-                        class:faded={disabled}
-                    >
+                {#if Object.values(questStatuses).reduce((a, b) => a + b, 0) > 0 && (!disabled || questStatuses[1] > 0 || questStatuses[2] > 0)}
+                    <tr class:faded={disabled}>
                         <td class="value">
                             <ParsedText text={multiTaskName} />
                         </td>

@@ -379,6 +379,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
+                    if (!choreTask) {
+                        charChore.tasks.push(null);
+                        continue;
+                    }
+
                     if (
                         character.level <
                             (choreTask.minimumLevel ||

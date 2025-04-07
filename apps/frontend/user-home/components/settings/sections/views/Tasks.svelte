@@ -1,26 +1,26 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { multiTaskMap, taskList, taskMap } from '@/data/tasks'
-    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
+    import { multiTaskMap, taskList, taskMap } from '@/data/tasks';
+    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
-    import MagicLists from '../../MagicLists.svelte'
-    import Multi from './TasksMulti.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import MagicLists from '../../MagicLists.svelte';
+    import Multi from './TasksMulti.svelte';
+    import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    export let active: boolean
-    export let view: SettingsView
+    export let active: boolean;
+    export let view: SettingsView;
 
-    let taskFilter: string
+    let taskFilter: string;
 
-    const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key)
+    const multiTasks = sortBy(Object.keys(multiTaskMap), (key) => key);
 
-    let taskChoices: SettingsChoice[]
+    let taskChoices: SettingsChoice[];
     $: {
         const lowerFilter = (taskFilter || '').toLocaleLowerCase();
         taskChoices = taskList
             .filter((task) => task.name.toLocaleLowerCase().includes(lowerFilter))
-            .map((task) => ({ id: task.key, name: task.name }))
+            .map((task) => ({ id: task.key, name: task.name }));
     }
 </script>
 
@@ -37,18 +37,14 @@
 
         <div class="magic-filter">
             <TextInput
-                name="filter"
+                name="tasks_filter"
                 maxlength={20}
                 placeholder="Search..."
                 bind:value={taskFilter}
             />
         </div>
 
-        <MagicLists
-            key='lockouts'
-            choices={taskChoices}
-            bind:activeStringIds={view.homeTasks}
-        />
+        <MagicLists key="lockouts" choices={taskChoices} bind:activeStringIds={view.homeTasks} />
     </div>
 
     {#each multiTasks as taskKey}
@@ -56,10 +52,7 @@
             <div class="settings-block">
                 <div>
                     <h3>{taskMap[taskKey].name}</h3>
-                    <Multi
-                        multiTaskKey={taskKey}
-                        {view}
-                    />
+                    <Multi multiTaskKey={taskKey} {view} />
                 </div>
             </div>
         {/if}

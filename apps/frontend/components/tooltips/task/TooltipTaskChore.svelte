@@ -9,7 +9,6 @@
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
-    import { multiTaskMap } from '@/data/tasks';
     import { taskChoreMap } from '@/data/tasks';
 
     export let character: Character;
@@ -31,12 +30,22 @@
                 taskSets.push(grouped[key]);
             }
         } else {
-            taskSets.push(chore.tasks);
+            let currentSet: LazyCharacterChoreTask[] = [];
+            for (const task of chore.tasks) {
+                if (!task) {
+                    taskSets.push(currentSet);
+                    currentSet = [];
+                } else {
+                    currentSet.push(task);
+                }
+            }
+            taskSets.push(currentSet);
         }
 
         anyErrors = taskSets.some((taskSet) =>
             taskSet.some(
                 (task) =>
+                    !!task &&
                     (task.status === QuestStatus.NotStarted || task.status === QuestStatus.Error) &&
                     task.name !== '' &&
                     task.statusTexts.some((st) => !!st),

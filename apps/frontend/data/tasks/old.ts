@@ -920,6 +920,52 @@ export const multiTaskMap: Record<string, Chore[]> = {
             questReset: DbResetType.Weekly,
         },
         {
+            taskKey: 'twwDelveRepCouncil',
+            taskName: 'Rep: Council of Dornogal',
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [83317],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwDelveRepAssembly',
+            taskName: 'Rep: Assembly of the Deeps',
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [83318],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwDelveRepSevered',
+            taskName: 'Rep: Severed Threads',
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [83319],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwDelveRepHallowfall',
+            taskName: 'Rep: Hallowfall Arathi',
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [83320],
+            questReset: DbResetType.Weekly,
+        },
+        {
+            taskKey: 'twwDelveRepCartels',
+            taskName: 'Rep: Cartels of Undermine',
+            minimumLevel: 80,
+            noProgress: true,
+            accountWide: true,
+            questIds: [87407],
+            questReset: DbResetType.Weekly,
+        },
+        null,
+        {
             taskKey: 'twwDelveKey1',
             taskName: 'Key #1',
             minimumLevel: 80,
@@ -1198,8 +1244,14 @@ export const multiTaskMap: Record<string, Chore[]> = {
 
 export const taskChoreMap = Object.fromEntries(
     Object.entries(multiTaskMap).flatMap(([taskKey, chores]) =>
-        chores.map((chore) => [`${taskKey}_${chore.taskKey}`, chore]),
+        chores.filter((chore) => !!chore).map((chore) => [`${taskKey}_${chore.taskKey}`, chore]),
     ),
+);
+
+export const questResetMap = Object.fromEntries(
+    Object.values(taskChoreMap)
+        .filter((chore) => chore.questReset !== undefined)
+        .flatMap((chore) => chore.questIds.map((questId) => [questId, chore.questReset])),
 );
 
 function couldGet(char: Character, professionId: number, subProfessionId: number): boolean {

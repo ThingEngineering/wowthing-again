@@ -4,10 +4,14 @@ export const itemModifierMap: Record<number, [string, string, number?]> = {
     3: ['Mythic', 'M', 7981],
     4: ['Raid Finder', 'L', 7982],
 
+    6: ['Base', 'T1'],
+    7: ['Impressive', 'T2'],
+    8: ['Remarkable', 'T3'],
+
     153: ['Raid Finder (Fancy)', 'L🌟'],
     154: ['Normal (Fancy)', 'N🌟'],
     155: ['Heroic (Fancy)', 'H🌟'],
     156: ['Mythic (Fancy)', 'M🌟'],
     159: ['PvP', 'P', 9426],
     160: ['Elite PvP', 'E', 9821],
-}
+};

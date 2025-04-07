@@ -20,10 +20,10 @@
 
         if (chore && multiTaskMap[taskName]) {
             inProgress = chore?.tasks?.every((taskData) => {
-                const oof = multiTaskMap[taskName].filter(
-                    (multi) => multi.taskName === taskData.name,
+                const oof = (multiTaskMap[taskName] || []).filter(
+                    (multi) => multi?.taskName === taskData?.name,
                 )[0];
-                return oof?.noProgress === true || taskData.status > 0;
+                return oof?.noProgress === true || taskData?.status > 0;
             });
         }
     }
