@@ -1,33 +1,34 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
+    import debounce from 'lodash/debounce';
 
-    import { multiTaskMap } from '@/data/tasks'
-    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
+    import { multiTaskMap } from '@/data/tasks';
+    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
-    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let multiTaskKey: string
-    export let view: SettingsView
+    export let multiTaskKey: string;
+    export let view: SettingsView;
 
     const taskChoices: SettingsChoice[] = multiTaskMap[multiTaskKey]
-        .map((t) => ({ id: t.taskKey, name: t.taskName }))
+        .filter((t) => !!t)
+        .map((t) => ({ id: t.taskKey, name: t.taskName }));
 
     let taskActive: string[] = taskChoices
         .filter((choice) => (view.disabledChores[multiTaskKey] || []).indexOf(choice.id) === -1)
-        .map((choice) => choice.id)
+        .map((choice) => choice.id);
 
     $: {
         const taskInactive: string[] = taskChoices
             .filter((choice) => taskActive.indexOf(choice.id) === -1)
-            .map((choice) => choice.id)
+            .map((choice) => choice.id);
 
-        onTaskChange(taskInactive)
+        onTaskChange(taskInactive);
     }
 
     const onTaskChange = debounce((keys: string[]) => {
-        (view.disabledChores ||= {})[multiTaskKey] = keys
-    }, 250)
+        (view.disabledChores ||= {})[multiTaskKey] = keys;
+    }, 250);
 </script>
 
 <style lang="scss">

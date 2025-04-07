@@ -1,19 +1,25 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-    import uniqBy from 'lodash/uniqBy'
+    import sortBy from 'lodash/sortBy';
+    import uniqBy from 'lodash/uniqBy';
 
-    import { categoryChildren, categoryOrder, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
-    import { staticStore } from '@/shared/stores/static'
-    import { itemStore } from '@/stores'
-    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types'
+    import {
+        categoryChildren,
+        categoryOrder,
+        currencyExtra,
+        currencyItems,
+        skipCurrenciesMap,
+    } from '@/data/currencies';
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore } from '@/stores';
+    import type { SettingsChoice, SettingsView } from '@/shared/stores/settings/types';
 
-    import MagicLists from '../../MagicLists.svelte'
-    import TextInput from '@/shared/components/forms/TextInput.svelte'
+    import MagicLists from '../../MagicLists.svelte';
+    import TextInput from '@/shared/components/forms/TextInput.svelte';
 
-    export let active: boolean
-    export let view: SettingsView
+    export let active: boolean;
+    export let view: SettingsView;
 
-    let currencyFilter: string
+    let currencyFilter: string;
 
     const categoryPrefix: Record<number, string> = {
         260: '[TWW]', // The War Within
@@ -29,72 +35,75 @@
         22: '[Dun]', // Dungeon and Raid
         1: '[Misc]', // Miscellaneous
         2: '[PvP]', // Player vs. Player
-    }
+    };
 
-    let currencyChoices: SettingsChoice[]
+    let currencyChoices: SettingsChoice[];
     $: {
-        currencyChoices = []
+        currencyChoices = [];
         for (const categoryId of categoryOrder) {
-            if (categoryPrefix[categoryId] === undefined) { continue }
-            
-            const categoryIds: number[] = [categoryId]
-            if (categoryChildren[categoryId]) {
-                // Hacky, ugh
-                categoryIds.push(...categoryChildren[categoryId]
-                    .map((c) => c.id)
-                    .filter((c) => [125001, 125011, 125012].indexOf(c) === -1)
-                )
+            if (categoryPrefix[categoryId] === undefined) {
+                continue;
             }
 
-            const currencies: SettingsChoice[] = []
+            const categoryIds: number[] = [categoryId];
+            if (categoryChildren[categoryId]) {
+                // Hacky, ugh
+                categoryIds.push(
+                    ...categoryChildren[categoryId]
+                        .map((c) => c.id)
+                        .filter((c) => [125001, 125011, 125012].indexOf(c) === -1),
+                );
+            }
+
+            const currencies: SettingsChoice[] = [];
             for (const currency of Object.values($staticStore.currencies)) {
-                if (skipCurrenciesMap[currency.id] || categoryIds.indexOf(currency.categoryId) === -1) {
-                    continue
+                if (
+                    skipCurrenciesMap[currency.id] ||
+                    categoryIds.indexOf(currency.categoryId) === -1
+                ) {
+                    continue;
                 }
 
                 currencies.push({
                     id: currency.id.toString(),
                     name: currency.name,
-                })
+                });
             }
-            
+
             for (const actualCategoryId of categoryIds) {
-                for (const currencyId of (currencyExtra[actualCategoryId] || [])) {
-                    const currency = $staticStore.currencies[currencyId]
+                for (const currencyId of currencyExtra[actualCategoryId] || []) {
+                    const currency = $staticStore.currencies[currencyId];
                     if (currency) {
                         currencies.push({
                             id: currency.id.toString(),
                             name: currency.name,
-                        })
+                        });
                     }
                 }
 
-                for (const itemId of (currencyItems[actualCategoryId] || [])) {
-                    const item = $itemStore.items[itemId]
+                for (const itemId of currencyItems[actualCategoryId] || []) {
+                    const item = $itemStore.items[itemId];
                     if (item) {
                         currencies.push({
                             id: (itemId + 1000000).toString(),
                             name: item.name,
-                        })
+                        });
                     }
                 }
             }
 
             for (const currency of currencies) {
-                currency.name = `${categoryPrefix[categoryId]} ${currency.name}`
+                currency.name = `${categoryPrefix[categoryId]} ${currency.name}`;
             }
 
-            currencyChoices.push(...sortBy(
-                currencies,
-                (currency) => currency.name
-            ))
+            currencyChoices.push(...sortBy(currencies, (currency) => currency.name));
         }
 
         const lowerFilter = (currencyFilter || '').toLocaleLowerCase();
         currencyChoices = uniqBy(
             currencyChoices.filter((c) => c.name.toLocaleLowerCase().includes(lowerFilter)),
-            (c) => c.id
-        )
+            (c) => c.id,
+        );
     }
 </script>
 
@@ -111,7 +120,7 @@
 
         <div class="magic-filter">
             <TextInput
-                name="filter"
+                name="currencies_filter"
                 maxlength={20}
                 placeholder="Search..."
                 bind:value={currencyFilter}
