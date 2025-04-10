@@ -1,44 +1,45 @@
 <script lang="ts">
-    import { lazyStore } from '@/stores'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import getPercentClass from '@/utils/get-percent-class'
-    import type { TransmogSlotData } from '@/stores/lazy/transmog'
-    import type { ManualDataTransmogGroupData } from '@/types/data/manual'
+    import { lazyStore } from '@/stores';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import getPercentClass from '@/utils/get-percent-class';
+    import type { TransmogSlotData } from '@/stores/lazy/transmog';
+    import type { ManualDataTransmogGroupData } from '@/types/data/manual';
 
-    import Tooltip from '@/user-home/components/transmog-sets/Tooltip.svelte'
-    import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte'
+    import Tooltip from '@/user-home/components/transmog-sets/Tooltip.svelte';
+    import WowheadTransmogSetLink from '@/shared/components/links/WowheadTransmogSetLink.svelte';
 
-    export let set: ManualDataTransmogGroupData
-    export let setKey: string
-    export let setTitle: string
-    export let span = 1
-    export let subType: string
+    export let set: ManualDataTransmogGroupData;
+    export let setKey: string;
+    export let setTitle: string;
+    export let span = 1;
+    export let subType: string;
 
-    let have: number
-    let percent: number
-    let total: number
-    let slotHave: TransmogSlotData
-    let spanElement: HTMLElement
+    let have: number;
+    let percent: number;
+    let total: number;
+    let slotHave: TransmogSlotData;
+    let spanElement: HTMLElement;
     $: {
-        have = 0
-        percent = 0
-        total = 0
-        
-        slotHave = $lazyStore.transmog.slots[setKey]
-        if (!set || !slotHave) { break $ }
+        have = 0;
+        percent = 0;
+        total = 0;
 
-        const stats = $lazyStore.transmog.stats[setKey]
-        if (stats?.total > 0) {
-            have = stats.have
-            total = stats.total
+        slotHave = $lazyStore.transmog.slots[setKey];
+        if (!set || !slotHave) {
+            break $;
         }
-        else {
-            have = Object.values(slotHave).filter((s) => s[0] === true).length
-            total = Object.keys(slotHave).length
+
+        const stats = $lazyStore.transmog.stats[setKey];
+        if (stats?.total > 0) {
+            have = stats.have;
+            total = stats.total;
+        } else {
+            have = Object.values(slotHave).filter((s) => s[0] === true).length;
+            total = Object.keys(slotHave).length;
         }
 
         if (total > 0) {
-            percent = have / total * 100
+            percent = (have / total) * 100;
         }
     }
 </script>
@@ -59,8 +60,8 @@
 
 {#if total > 0}
     <td
-        class="{getPercentClass(percent)}"
-        colspan="{span}"
+        class={getPercentClass(percent)}
+        colspan={span}
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -79,26 +80,17 @@
         }}
     >
         {#if set.wowheadSetId}
-            <WowheadTransmogSetLink
-                id={set.wowheadSetId}
-                cls="{getPercentClass(percent)}"
-            >
-                <span
-                    bind:this={spanElement}
-                    class:blocky={span > 1}
-                >
+            <WowheadTransmogSetLink id={set.wowheadSetId} cls={getPercentClass(percent)}>
+                <span bind:this={spanElement} class:blocky={span > 1}>
                     {have} / {total}
                 </span>
             </WowheadTransmogSetLink>
         {:else}
-            <span
-                bind:this={spanElement}
-                class:blocky={span > 1}
-            >
+            <span bind:this={spanElement} class:blocky={span > 1}>
                 {have} / {total}
             </span>
         {/if}
     </td>
 {:else}
-    <td class="quality0" colspan="{span}">---</td>
+    <td class="quality0" colspan={span}>---</td>
 {/if}

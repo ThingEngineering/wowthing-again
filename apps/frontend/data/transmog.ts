@@ -40,6 +40,7 @@ const transmogSets: Record<string, TransmogSet> = {
         new TransmogSetData('venthyr', 1, 'Venthyr'),
         new TransmogSetData('venthyr2', 1, 'Venthyr'),
     ]),
+    multi: new TransmogSet('multi', [new TransmogSetData('multi', 1)]),
 };
 
 transmogSets[TransmogSetType.Armor] = transmogSets['armor'];
