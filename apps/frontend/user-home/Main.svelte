@@ -63,9 +63,7 @@
             $staticStore.loaded &&
             $userAchievementStore.loaded &&
             $userQuestStore.loaded &&
-            $userStore.loaded &&
-            worldQuestStore.isLoaded(Region.US) &&
-            worldQuestStore.isLoaded(Region.EU);
+            $userStore.loaded;
 
         if (!error && loaded) {
             staticStore.setup($settingsStore, $itemStore);
