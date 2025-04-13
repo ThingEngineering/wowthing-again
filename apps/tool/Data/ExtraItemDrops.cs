@@ -14,6 +14,7 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLegacyLfr = [7];
     private static readonly int[] RaidDifficultiesNormal = [14];
     private static readonly int[] RaidDifficultiesHeroic = [15];
+    private static readonly int[] RaidDifficultiesHeroicMythic = [15, 16];
 
     private static readonly int[] RaidDifficultiesAll = [17, 14, 15, 16];
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = [3, 4, 5, 6, 7];
@@ -2328,6 +2329,10 @@ public static partial class Hardcoded
             [
                 new(142110, RaidDifficultiesAll), // Vantus Rune 1
                 new(142104, RaidDifficultiesAll), // Vantus Rune 2
+                new(143509, RaidDifficultiesAll), // Ensemble: Vestment of the Chosen Dead [L]
+                new(143513, RaidDifficultiesAll), // Ensemble: Garb of the Chosen Dead [L]
+                new(143517, RaidDifficultiesAll), // Ensemble: Chains of the Chosen Dead [L]
+                new(143521, RaidDifficultiesAll), // Ensemble: Funerary Plate of the Chosen Dead [L]
             ]
         },
         // Trial of Valor > Guarm
@@ -2336,6 +2341,10 @@ public static partial class Hardcoded
             [
                 new(142111, RaidDifficultiesAll), // Vantus Rune 1
                 new(142105, RaidDifficultiesAll), // Vantus Rune 2
+                new(143509, RaidDifficultiesAll), // Ensemble: Vestment of the Chosen Dead [L]
+                new(143513, RaidDifficultiesAll), // Ensemble: Garb of the Chosen Dead [L]
+                new(143517, RaidDifficultiesAll), // Ensemble: Chains of the Chosen Dead [L]
+                new(143521, RaidDifficultiesAll), // Ensemble: Funerary Plate of the Chosen Dead [L]
             ]
         },
         // Trial of Valor > Helya
@@ -2344,6 +2353,14 @@ public static partial class Hardcoded
             [
                 new(142112, RaidDifficultiesAll), // Vantus Rune 1
                 new(142106, RaidDifficultiesAll), // Vantus Rune 2
+                new(143509, RaidDifficultiesAll), // Ensemble: Vestment of the Chosen Dead [L]
+                new(143513, RaidDifficultiesAll), // Ensemble: Garb of the Chosen Dead [L]
+                new(143517, RaidDifficultiesAll), // Ensemble: Chains of the Chosen Dead [L]
+                new(143521, RaidDifficultiesAll), // Ensemble: Funerary Plate of the Chosen Dead [L]
+                new(143507, RaidDifficultiesHeroicMythic), // Ensemble: Vestment of the Chosen Dead [H]
+                new(143511, RaidDifficultiesHeroicMythic), // Ensemble: Garb of the Chosen Dead [H]
+                new(143515, RaidDifficultiesHeroicMythic), // Ensemble: Chains of the Chosen Dead [H]
+                new(143519, RaidDifficultiesHeroicMythic), // Ensemble: Funerary Plate of the Chosen Dead [H]
             ]
         },
         // Tomb of Sargeras > Shared Drops
