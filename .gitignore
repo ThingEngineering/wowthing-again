@@ -54,3 +54,7 @@ Thumbs.db
 /temp
 lua.json
 sets.txt
+
+# syncthing
+.stfolder/
+.stignore
