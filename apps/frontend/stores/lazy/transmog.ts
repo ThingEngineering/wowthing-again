@@ -165,7 +165,26 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
 
-                            for (const [itemId, maybeModifier] of transmogSet.items) {
+                            const anyPrimary = transmogSet.items.some(
+                                ([itemId]) => itemId > 10_000_000,
+                            );
+
+                            for (const [maybeItemId, maybeModifier] of transmogSet.items) {
+                                let itemId = maybeItemId;
+                                // non-primary items
+                                if (
+                                    anyPrimary &&
+                                    itemId < 10_000_000 &&
+                                    completionistMode &&
+                                    !completionistSets
+                                ) {
+                                    continue;
+                                }
+
+                                if (itemId > 10_000_000) {
+                                    itemId -= 10_000_000;
+                                }
+
                                 const item = stores.itemData.items[itemId];
                                 if (!item) {
                                     continue;
