@@ -20,13 +20,15 @@
             const byName: Record<string, [boolean, ItemDataItem]> = {};
             const nameOrder: string[] = [];
 
-            for (const [itemHave, itemId] of items) {
+            for (const [haveAppearance, haveSource, itemId] of items) {
+                // const have = completionist ? haveSource : haveAppearance;
+                const have = haveSource;
                 const item = $itemStore.items[itemId];
                 if (!byName[item.name]) {
-                    byName[item.name] = [itemHave, item];
+                    byName[item.name] = [have, item];
                     nameOrder.push(item.name);
                 }
-                byName[item.name][0] ||= itemHave;
+                byName[item.name][0] ||= have;
             }
 
             nameOrder.sort((a, b) => {
@@ -42,8 +44,8 @@
 
             itemData = nameOrder.map((name) => byName[name]);
         } else {
-            itemData = items.map(([itemHave, itemId, modifier]) => [
-                itemHave,
+            itemData = items.map(([haveAppearance, haveSource, itemId, modifier]) => [
+                haveSource,
                 $itemStore.items[itemId],
                 modifier,
             ]);
