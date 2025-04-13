@@ -2,6 +2,7 @@
     import maxBy from 'lodash/maxBy';
     import { getContext } from 'svelte';
 
+    import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getRunQuality, getRunQualityAffix, getWeeklyAffixes } from '@/utils/mythic-plus';
     import type {
@@ -13,7 +14,6 @@
     } from '@/types';
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte';
-    import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
 
     export let dungeonId: number;
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[];
@@ -64,7 +64,7 @@
     $: {
         bestRun = maxBy(runs || [], (run) => run.keystoneLevel * 10 + (run.timed ? 0 : 1));
         if (!addonMap) {
-            hasPortal = bestRun?.timed && bestRun.keystoneLevel >= season.portalLevel;
+            hasPortal = bestRun?.timed && bestRun.keystoneLevel >= season?.portalLevel;
         }
     }
 </script>
