@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon';
+import { get } from 'svelte/store';
 
 import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
@@ -9,6 +10,7 @@ import { getCharacterLevel } from '@/utils/get-character-level';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
 import type { InventoryType } from '@/enums/inventory-type';
+import { staticStore } from '@/shared/stores/static';
 import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
@@ -310,10 +312,25 @@ export class Character implements ContainsItems, HasNameAndRealm {
     knowsProfessionAbility(abilityId: number): boolean {
         if (this._professionKnownAbilities === undefined) {
             this._professionKnownAbilities = new Set<number>();
+            const staticData = get(staticStore);
+
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
                     for (const abilityId of subProfession.knownRecipes || []) {
                         this._professionKnownAbilities.add(abilityId);
+
+                        // known abilities often only has the highest rank, backfill lower ranks
+                        const abilityInfo = staticData.professionAbilityByAbilityId[abilityId];
+                        const ability = staticData.spellToProfessionAbility[abilityInfo?.spellId];
+                        if (ability?.extraRanks && ability.id !== abilityId) {
+                            this._professionKnownAbilities.add(ability.id);
+                            for (const [rankAbilityId] of ability.extraRanks) {
+                                if (rankAbilityId === abilityId) {
+                                    break;
+                                }
+                                this._professionKnownAbilities.add(rankAbilityId);
+                            }
+                        }
                     }
                 }
             }

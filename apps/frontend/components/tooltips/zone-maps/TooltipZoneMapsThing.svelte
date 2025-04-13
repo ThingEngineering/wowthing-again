@@ -295,7 +295,8 @@
                                                 )
                                             ]}
                                         [<span class="status-shrug"
-                                            >{expansion.shortName} {drop.limit[3]}</span
+                                            >{expansion.shortName.toLocaleLowerCase()}
+                                            {drop.limit[3]}</span
                                         >]
                                     {:else}
                                         [<span class="status-shrug"

@@ -44,7 +44,7 @@ export function getDropName(drop: ManualDataZoneMapDrop): string {
     } else if (drop.type === RewardType.Pet) {
         const pet = staticData.pets[drop.id];
         return pet ? pet.name : `Unknown pet #${drop.id}`;
-    } else if (drop.type === RewardType.Quest) {
+    } else if (drop.type === RewardType.Quest || drop.type === RewardType.AccountQuest) {
         return staticData.questNames[drop.id] || `Quest #${drop.id}`;
     } else if (drop.type === RewardType.Reputation) {
         return staticData.reputations[drop.id]?.name || `Reputation #${drop.id}`;

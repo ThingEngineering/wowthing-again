@@ -6,7 +6,7 @@ import type { ItemData } from '@/types/data/item/store';
 import type { ManualData } from '@/types/data/manual/store';
 
 const rewardLookupMap: Record<number, LookupType> = {
-    [RewardType.AccountTrackingQuest]: LookupType.Quest,
+    [RewardType.AccountQuest]: LookupType.Quest,
     [RewardType.Illusion]: LookupType.Illusion,
     [RewardType.Mount]: LookupType.Mount,
     [RewardType.Pet]: LookupType.Pet,

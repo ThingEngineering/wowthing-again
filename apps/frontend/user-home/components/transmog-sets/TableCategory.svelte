@@ -1,65 +1,75 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { transmogSets } from '@/data/transmog'
-    import { iconLibrary, uiIcons } from '@/shared/icons'
-    import { lazyStore, userStore } from '@/stores'
-    import { settingsStore } from '@/shared/stores/settings/store'
-    import { transmogSetsState } from '@/stores/local-storage'
-    import getPercentClass from '@/utils/get-percent-class'
-    import getTransmogSpan from '@/utils/get-transmog-span'
-    import { basicTooltip } from '@/shared/utils/tooltips'
-    import getFilteredSets from '@/utils/transmog/get-filtered-sets'
-    import type { ManualDataTransmogCategory, ManualDataTransmogGroup } from '@/types/data/manual'
+    import { Constants } from '@/data/constants';
+    import { transmogSets } from '@/data/transmog';
+    import { iconLibrary, uiIcons } from '@/shared/icons';
+    import { lazyStore, userStore } from '@/stores';
+    import { settingsStore } from '@/shared/stores/settings/store';
+    import { transmogSetsState } from '@/stores/local-storage';
+    import getPercentClass from '@/utils/get-percent-class';
+    import getTransmogSpan from '@/utils/get-transmog-span';
+    import { basicTooltip } from '@/shared/utils/tooltips';
+    import getFilteredSets from '@/utils/transmog/get-filtered-sets';
+    import type { ManualDataTransmogCategory, ManualDataTransmogGroup } from '@/types/data/manual';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import TableSet from './TableSet.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import type { TransmogSetData } from '@/types';
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import CovenantIcon from '@/shared/components/images/CovenantIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import TableSet from './TableSet.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import { TransmogSetData } from '@/types';
     import { classByArmorType } from '@/data/character-class';
 
-    export let anyClasses: boolean
-    export let category: ManualDataTransmogCategory
-    export let skipClasses: Record<string, boolean|number>
-    export let slugs: string[]
-    export let startSpacer = false
+    export let anyClasses: boolean;
+    export let category: ManualDataTransmogCategory;
+    export let skipClasses: Record<string, boolean | number>;
+    export let slugs: string[];
+    export let startSpacer = false;
 
-    let categoryPercent: number
-    let setKey: string
+    let categoryPercent: number;
+    let setKey: string;
     $: {
-        categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent
-        
-        setKey = slugs.join('--')
+        categoryPercent = $lazyStore.transmog.stats[`${slugs[0]}--${category.slug}`].percent;
+
+        setKey = slugs.join('--');
     }
 
-    $: getPercent = function(groupIndex: number, setIndex: number): number {
-        let key: string
+    $: getTransmogSets = function (group: ManualDataTransmogGroup): TransmogSetData[] {
+        if (group.type === 'multi') {
+            return Object.keys(group.data).map(
+                (_, index) => new TransmogSetData(index.toString(), index),
+            );
+        } else {
+            return transmogSets[group.type].sets;
+        }
+    };
+
+    $: getPercent = function (groupIndex: number, setIndex: number): number {
+        let key: string;
         if (setIndex >= 0) {
-            key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
+            key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`;
+        } else {
+            key = `${slugs[0]}--${category.slug}--${groupIndex}`;
         }
-        else {
-            key = `${slugs[0]}--${category.slug}--${groupIndex}`
-        }
-        return $lazyStore.transmog.stats[key]?.percent
-    }
+        return $lazyStore.transmog.stats[key]?.percent;
+    };
 
-    $: fakeArmorSpan = function(type: string): number {
-        const fakeGroup: ManualDataTransmogGroup = { data: {}, name: '', sets: [], type: 'armor'}
+    $: fakeArmorSpan = function (type: string): number {
+        const fakeGroup: ManualDataTransmogGroup = { data: {}, name: '', sets: [], type: 'armor' };
         const fakeSet: TransmogSetData = {
             span: anyClasses
                 ? classByArmorType[[null, 'cloth', 'leather', 'mail', 'plate'].indexOf(type)].length
                 : 1,
-            type
-        }
-        return getTransmogSpan(fakeGroup, fakeSet, skipClasses)
-    }
+            type,
+        };
+        return getTransmogSpan(fakeGroup, fakeSet, skipClasses);
+    };
 
-    $: completionistReady = function(group: ManualDataTransmogGroup, _setIndex: number): boolean {
-        return group.data?.[transmogSets[group.type].sets[0].type]
-            ?.every((groupData) => groupData === null || !!groupData.transmogSetId)
-    }
+    $: completionistReady = function (group: ManualDataTransmogGroup, _setIndex: number): boolean {
+        return group.data?.[transmogSets[group.type].sets[0].type]?.every(
+            (groupData) => groupData === null || !!groupData.transmogSetId,
+        );
+    };
 </script>
 
 <style lang="scss">
@@ -119,7 +129,7 @@
                 color: $color-shrug;
             }
         }
-        
+
         span:last-child {
             margin-left: auto;
         }
@@ -161,11 +171,8 @@
     {@const showPercent = !isNaN(categoryPercent)}
     {@const groupKey = `${setKey}--${category.slug}--${groupIndex}`}
     {@const isExpanded = $transmogSetsState.collapsedCategories[groupKey] !== true}
-    {#if groupIndex === 0 || (
-        transmogSets[category.groups[groupIndex-1].type].type !== currentType &&
-        [transmogSets[category.groups[groupIndex-1].type].type, currentType].indexOf('covenant') >= 0
-    )}
-        {#if groupIndex > 0 && category.groups[groupIndex-1].name !== group.name}
+    {#if groupIndex === 0 || (transmogSets[category.groups[groupIndex - 1].type].type !== currentType && [transmogSets[category.groups[groupIndex - 1].type].type, currentType].indexOf('covenant') >= 0)}
+        {#if groupIndex > 0 && category.groups[groupIndex - 1].name !== group.name}
             <tr class="spacer">
                 <td colspan="100">&nbsp;</td>
             </tr>
@@ -174,7 +181,7 @@
         <tr class="sticky">
             <td class="category-name" colspan="2">
                 {category.name}
-                
+
                 {#if showPercent}
                     <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
                         {Math.floor(categoryPercent).toFixed(0)} %
@@ -189,7 +196,6 @@
                     </td>
                 {/each}
                 <td class="icon" colspan="100"></td>
-
             {:else if currentType === 'armor'}
                 {#if !skipClasses['cloth']}
                     {@const span = fakeArmorSpan('cloth')}
@@ -202,7 +208,7 @@
                         <span class="abs-center pill">C</span>
                     </td>
                 {/if}
-                
+
                 {#if !skipClasses['leather']}
                     {@const span = fakeArmorSpan('leather')}
                     <td class="icon" colspan={span}>
@@ -214,19 +220,15 @@
                         <span class="abs-center pill">L</span>
                     </td>
                 {/if}
-                
+
                 {#if !skipClasses['mail']}
                     {@const span = fakeArmorSpan('mail')}
                     <td class="icon" colspan={span}>
-                        <WowthingImage
-                            name={Constants.icons.armorMail}
-                            size={40}
-                            tooltip="Mail"
-                        />
+                        <WowthingImage name={Constants.icons.armorMail} size={40} tooltip="Mail" />
                         <span class="abs-center pill">M</span>
                     </td>
                 {/if}
-                
+
                 {#if !skipClasses['plate']}
                     {@const span = fakeArmorSpan('plate')}
                     <td class="icon" colspan={span}>
@@ -238,17 +240,16 @@
                         <span class="abs-center pill">P</span>
                     </td>
                 {/if}
-                
+            {:else if currentType === 'multi'}
+                {@const columns = Math.max(...Object.values(group.data).map((data) => data.length))}
+                {#each Object.keys(group.data) as _, index}
+                    <td class="icon">{index + 1}</td>
+                {/each}
             {:else if !anyClasses || currentType === 'all'}
                 <td class="icon" colspan="100">
-                    <WowthingImage
-                        name="spell/154611"
-                        size={40}
-                        tooltip="Plate"
-                    />
+                    <WowthingImage name="spell/154611" size={40} tooltip="Plate" />
                     <span class="abs-center pill">All</span>
                 </td>
-
             {:else}
                 {#if !skipClasses['mage']}
                     <td class="icon">
@@ -319,7 +320,7 @@
         </tr>
     {/if}
 
-    {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
+    {#if groupIndex === 0 || category.groups[groupIndex - 1].name !== group.name}
         {@const groupPercent = getPercent(groupIndex, -1)}
         <tr class="group">
             <td class="percent-cell">
@@ -332,7 +333,7 @@
             <td class="name highlight" colspan="100">
                 <IconifyIcon
                     icon={isExpanded ? uiIcons.minus : uiIcons.plus}
-                    on:click={() => $transmogSetsState.collapsedCategories[groupKey] = isExpanded}
+                    on:click={() => ($transmogSetsState.collapsedCategories[groupKey] = isExpanded)}
                     tooltip={isExpanded ? 'Collapse this group' : 'Expand this group'}
                 />
 
@@ -362,23 +363,20 @@
 
                     <td class="name">
                         <div class="flex-wrapper">
-                            <ParsedText
-                                cls="text-overflow"
-                                text={setName.replace(/[*$]/, '')}
-                            />
-                        
+                            <ParsedText cls="text-overflow" text={setName.replace(/[*$]/, '')} />
+
                             {#if completionistReady(group, setIndex)}
-                                <span class="has-transmog-set-id" use:basicTooltip={'Uses a Blizzard transmog set'}>
-                                    <IconifyIcon
-                                        icon={iconLibrary.gameStaryu}
-                                        scale={'0.8'}
-                                    />
+                                <span
+                                    class="has-transmog-set-id"
+                                    use:basicTooltip={'Uses a Blizzard transmog set'}
+                                >
+                                    <IconifyIcon icon={iconLibrary.gameStaryu} scale={'0.8'} />
                                 </span>
                             {/if}
                         </div>
                     </td>
 
-                    {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+                    {#each getTransmogSets(group) as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                         {#if !skipClasses[transmogSet.type]}
                             <TableSet
                                 set={group.data?.[transmogSet.type]?.[setIndex]}
@@ -386,7 +384,9 @@
                                 setTitle={setName}
                                 span={anyClasses
                                     ? getTransmogSpan(group, transmogSet, skipClasses)
-                                    : (transmogSet.type === 'all' ? 100 : 1)}
+                                    : transmogSet.type === 'all'
+                                      ? 100
+                                      : 1}
                                 subType={transmogSet.subType}
                             />
                         {/if}

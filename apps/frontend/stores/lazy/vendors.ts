@@ -191,7 +191,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                     } else if (item.type === RewardType.Toy) {
                         [groupKey, groupName] = ['00toys', 'Toys'];
                     } else if (
-                        item.type === RewardType.AccountTrackingQuest ||
+                        item.type === RewardType.AccountQuest ||
                         item.type === RewardType.CharacterTrackingQuest
                     ) {
                         [groupKey, groupName] = ['10misc', 'Misc'];

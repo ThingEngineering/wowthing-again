@@ -80,6 +80,36 @@ export const convertibleCategories: ConvertibleCategory[] = [
                 },
                 upgradeTier: 1,
             },
+            {
+                costId: 1602, // Conquest
+                costAmount: {
+                    [InventoryType.Head]: 875,
+                    [InventoryType.Shoulders]: 700,
+                    [InventoryType.Back]: 525,
+                    [InventoryType.Chest]: 875,
+                    [InventoryType.Wrist]: 525,
+                    [InventoryType.Hands]: 700,
+                    [InventoryType.Waist]: 700,
+                    [InventoryType.Legs]: 875,
+                    [InventoryType.Feet]: 700,
+                },
+                upgradeTier: 2,
+            },
+            {
+                costId: 2123, // Bloody Tokens
+                costAmount: {
+                    [InventoryType.Head]: 875,
+                    [InventoryType.Shoulders]: 700,
+                    [InventoryType.Back]: 525,
+                    [InventoryType.Chest]: 875,
+                    [InventoryType.Wrist]: 525,
+                    [InventoryType.Hands]: 700,
+                    [InventoryType.Waist]: 700,
+                    [InventoryType.Legs]: 875,
+                    [InventoryType.Feet]: 700,
+                },
+                upgradeTier: 1,
+            },
         ],
     },
     {

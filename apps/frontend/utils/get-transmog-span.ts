@@ -6,6 +6,10 @@ export default function getTransmogSpan(
     set: TransmogSetData,
     skipClasses: Record<string, boolean | number>,
 ): number {
+    if (group.type === 'multi') {
+        return 1;
+    }
+
     let span = set.span;
     if (group.type === 'armor') {
         if (set.type === 'cloth') {

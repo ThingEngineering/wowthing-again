@@ -83,19 +83,27 @@ public class ItemSearchController : Controller
             .Select(t => t.GuildId.Value)
             .ToArray();
 
-        // Character items
-        var characterItems = await _context.PlayerCharacterItem
-            .Where(pci => characterIds.Contains(pci.CharacterId))
-            .Where(pci => itemIds.Contains(pci.ItemId))
-            .ToArrayAsync();
+        PlayerCharacterItem[] characterItems = [];
+        PlayerCharacterEquippedItems[] equippedItems = [];
+        PlayerGuildItem[] guildItems = [];
+        PlayerWarbankItem[] warbankItems = [];
+
+        if (form.Location is ItemLocation.Any or ItemLocation.Bags or ItemLocation.Bank or ItemLocation.ReagentBank)
+        {
+            // Character items
+            characterItems = await _context.PlayerCharacterItem
+                .Where(pci => characterIds.Contains(pci.CharacterId))
+                .Where(pci => itemIds.Contains(pci.ItemId))
+                .ToArrayAsync();
+
+            // Character equipped
+            equippedItems = await _context.PlayerCharacterEquippedItems
+                .Where(pcei => characterIds.Contains(pcei.CharacterId))
+                .ToArrayAsync();
+        }
 
         var characterGrouped = characterItems
             .ToGroupedDictionary(pci => pci.ItemId);
-
-        // Character equipped
-        var equippedItems = await _context.PlayerCharacterEquippedItems
-            .Where(pcei => characterIds.Contains(pcei.CharacterId))
-            .ToArrayAsync();
 
         var equippedGrouped = new Dictionary<int, List<(int CharacterId, PlayerCharacterEquippedItem EquippedItem)>>();
         foreach (var pcei in equippedItems)
@@ -114,26 +122,31 @@ public class ItemSearchController : Controller
             }
         }
 
-        // Guild items
-        var guildItems = await _context.PlayerGuildItem
-            .Where(pgi => guildIds.Contains(pgi.GuildId))
-            .Where(pgi => itemIds.Contains(pgi.ItemId))
-            .ToArrayAsync();
+        if (form.Location is ItemLocation.Any or ItemLocation.GuildBank)
+        {
+            // Guild items
+            guildItems = await _context.PlayerGuildItem
+                .Where(pgi => guildIds.Contains(pgi.GuildId))
+                .Where(pgi => itemIds.Contains(pgi.ItemId))
+                .ToArrayAsync();
+        }
 
         var guildGrouped = guildItems
             .ToGroupedDictionary(pgi => pgi.ItemId);
 
-        // Warbank items
-        var warbankItems = await _context.PlayerWarbankItem
-            .Where(item => item.UserId == user.Id)
-            .Where(item => itemIds.Contains(item.ItemId))
-            .ToArrayAsync();
+        if (form.Location is ItemLocation.Any or ItemLocation.WarbandBank)
+        {
+            // Warbank items
+            warbankItems = await _context.PlayerWarbankItem
+                .Where(item => item.UserId == user.Id)
+                .Where(item => itemIds.Contains(item.ItemId))
+                .ToArrayAsync();
+        }
 
         var warbankGrouped = warbankItems
             .ToGroupedDictionary(item => item.ItemId);
 
         // Group them all up
-
         var foundItemIds = characterGrouped.Keys
             .Union(equippedGrouped.Keys)
             .Union(guildGrouped.Keys)

@@ -61,7 +61,7 @@ export default function userHasDrop(
                 );
             }
         }
-    } else if (type === RewardType.AccountTrackingQuest) {
+    } else if (type === RewardType.AccountQuest) {
         return accountTrackingQuest(itemData, userQuestData, id);
     }
 
