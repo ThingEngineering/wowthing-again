@@ -1,11 +1,11 @@
-import type { IconifyIcon } from '@iconify/types'
+import type { IconifyIcon } from '@iconify/types';
 
-import * as iconLibrary from '../library'
-import { RewardType } from '@/enums/reward-type'
-
+import * as iconLibrary from '../library';
+import { RewardType } from '@/enums/reward-type';
 
 export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Achievement]: iconLibrary.mdiTrophy,
+    [RewardType.AccountQuest]: iconLibrary.mdiExclamationThick,
     [RewardType.Armor]: iconLibrary.mdiTshirtCrew,
     [RewardType.Cosmetic]: iconLibrary.mdiWizardHat,
     [RewardType.Currency]: iconLibrary.gameTwoCoins,
@@ -21,4 +21,4 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
 
     [RewardType.InstanceSpecial]: iconLibrary.faDungeon,
     [RewardType.SetSpecial]: iconLibrary.mdiMulticast,
-}
+};

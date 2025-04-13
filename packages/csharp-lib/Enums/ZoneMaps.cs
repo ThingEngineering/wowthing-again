@@ -115,6 +115,6 @@ public enum RewardType
     XpQuest = 13,
     Recipe = 14,
     Transmog = 100,
-    AccountTrackingQuest = 101,
+    AccountQuest = 101,
     CharacterTrackingQuest = 102,
 }
