@@ -15,6 +15,7 @@ import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
+import { Region } from '@/enums/region';
 import { TypedArray } from '@/enums/typed-array';
 import { itemStore } from '@/stores/item';
 import { staticStore } from '@/shared/stores/static';
@@ -473,6 +474,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // realm
         character.realm = staticData.realms[character.realmId] || staticData.realms[0];
+        character.region = character.realm?.region || Region.US;
+
         if (character.account?.enabled && character.realmId > 0 && character.realm) {
             (this.value.charactersByRealm[character.realmId] ||= []).push(character);
             (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
