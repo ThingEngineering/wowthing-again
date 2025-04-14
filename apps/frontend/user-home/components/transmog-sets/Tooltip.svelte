@@ -1,6 +1,7 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type';
     import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons';
+    import { settingsStore } from '@/shared/stores/settings';
     import { staticStore } from '@/shared/stores/static';
     import getPercentClass from '@/utils/get-percent-class';
     import type { TransmogSlotData } from '@/stores/lazy/transmog';
@@ -18,6 +19,8 @@
     export let total: number;
 
     let shiftPressed: boolean;
+
+    $: completionist = $settingsStore.transmog.completionistMode;
 
     $: setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
 
@@ -87,7 +90,7 @@
                 {#if slotHave[type] !== undefined}
                     {@const [slotCollected, slotItems] = slotHave[type]}
                     {@const actualSlotItems = slotItems || []}
-                    {@const have = actualSlotItems.filter(([haveItem]) => haveItem).length}
+                    {@const have = actualSlotItems.filter(([, haveSource]) => haveSource).length}
                     <tr>
                         <td class="have">
                             <YesNoIcon state={slotCollected} useStatusColors={true} />
@@ -98,7 +101,7 @@
                             {:else}
                                 {$staticStore.inventoryTypes[type]}
                             {/if}
-                            {#if slotItems?.length >= 2}
+                            {#if completionist && slotItems?.length >= 2}
                                 <div
                                     class="slot-count {getPercentClass(
                                         (have / slotItems.length) * 100,
