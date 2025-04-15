@@ -731,6 +731,30 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         return period;
     }
 
+    public getPeriodForCharacter2(time: DateTime, character: Character) {
+        const period = Object.assign(
+            new UserDataCurrentPeriod(),
+            this.getCurrentPeriodForCharacter(time, character),
+        );
+
+        while (period.startTime > time) {
+            period.id--;
+            period.startTime = period.startTime.minus({ days: 7 });
+            period.endTime = period.endTime.minus({ days: 7 });
+        }
+
+        while (period.endTime < time) {
+            period.id++;
+            period.startTime = period.startTime.plus({ days: 7 });
+            period.endTime = period.endTime.plus({ days: 7 });
+        }
+
+        period.starts = period.startTime.toISO();
+        period.ends = period.endTime.toISO();
+
+        return period;
+    }
+
     private _itemCounts: Record<number, number> = {};
     public getItemCount(itemId: number): number {
         return (this._itemCounts[itemId] ||= this.value.characters

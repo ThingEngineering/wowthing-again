@@ -1,6 +1,8 @@
+import type { DateTime } from 'luxon';
+import type { IconifyIcon } from '@iconify/types';
+
 import type { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from './character';
-import type { IconifyIcon } from '@iconify/types';
 
 export type Task = {
     minimumLevel?: number;
@@ -37,4 +39,6 @@ export type Chore = {
      * Function to check if character is able to pick up this task (eg has a high enough skill)
      */
     canGetFunc?: (char: Character) => string;
+
+    customExpiryFunc?: (char: Character, scannedAt: DateTime) => DateTime;
 };
