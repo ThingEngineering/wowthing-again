@@ -20,7 +20,7 @@
             const byName: Record<string, [boolean, ItemDataItem]> = {};
             const nameOrder: string[] = [];
 
-            for (const [haveAppearance, haveSource, itemId] of items) {
+            for (const [, haveSource, itemId] of items) {
                 // const have = completionist ? haveSource : haveAppearance;
                 const have = haveSource;
                 const item = $itemStore.items[itemId];
@@ -44,7 +44,7 @@
 
             itemData = nameOrder.map((name) => byName[name]);
         } else {
-            itemData = items.map(([haveAppearance, haveSource, itemId, modifier]) => [
+            itemData = items.map(([, haveSource, itemId, modifier]) => [
                 haveSource,
                 $itemStore.items[itemId],
                 modifier,

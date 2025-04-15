@@ -257,12 +257,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                             // [hasSlot, [hasSource, itemId, modifier][]][]
                             for (const itemDatas of Object.values(slotData)) {
-                                for (const [
-                                    hasAppearance,
-                                    hasSource,
-                                    itemId,
-                                    modifier,
-                                ] of itemDatas[1]) {
+                                for (const [, hasSource, itemId, modifier] of itemDatas[1]) {
                                     const sourceKey = `${itemId}_${modifier}`;
 
                                     // unavailable sets can skip?

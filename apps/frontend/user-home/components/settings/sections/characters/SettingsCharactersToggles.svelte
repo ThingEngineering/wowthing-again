@@ -1,77 +1,80 @@
- <script lang="ts">
-    import debounce from 'lodash/debounce'
-    import find from 'lodash/find'
-    import groupBy from 'lodash/groupBy'
-    import sortBy from 'lodash/sortBy'
+<script lang="ts">
+    import debounce from 'lodash/debounce';
+    import find from 'lodash/find';
+    import groupBy from 'lodash/groupBy';
+    import sortBy from 'lodash/sortBy';
 
-    import { Region } from '@/enums/region'
-    import { userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import { settingsStore } from '@/shared/stores/settings'
-    import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import type { Character } from '@/types'
+    import { Region } from '@/enums/region';
+    import { settingsStore } from '@/shared/stores/settings';
+    import { userStore } from '@/stores';
+    import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
+    import type { Character } from '@/types';
 
-    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte'
+    import GroupedCheckbox from '@/shared/components/forms/GroupedCheckboxInput.svelte';
 
-    const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString())
-    
+    const allCharacterIds: string[] = $userStore.characters.map((char) => char.id.toString());
+
     let hiddenCharacters: string[] = $userStore.characters
         .filter((char) => $settingsStore.characters.hiddenCharacters.indexOf(char.id) >= 0)
-        .map((char) => char.id.toString())
-    
+        .map((char) => char.id.toString());
+
     let ignoredCharacters: string[] = $userStore.characters
         .filter((char) => $settingsStore.characters.ignoredCharacters.indexOf(char.id) >= 0)
-        .map((char) => char.id.toString())
+        .map((char) => char.id.toString());
 
-    let realms: [string, Character[]][]
+    let realms: [string, Character[]][];
     $: {
-        const sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
+        const sortFunc = $getCharacterSortFunc();
         const grouped: Record<string, Character[]> = groupBy(
             $userStore.characters,
-            (c) => `${Region[c.realm.region]}|${c.realm.name}`
-        )
+            (c) => `${Region[c.realm.region]}|${c.realm.name}`,
+        );
         for (const realmName in grouped) {
-            grouped[realmName] = sortBy(grouped[realmName], sortFunc)
+            grouped[realmName] = sortBy(grouped[realmName], sortFunc);
         }
 
-        realms = Object.entries(grouped)
-        realms.sort()
+        realms = Object.entries(grouped);
+        realms.sort();
     }
 
-    $: debouncedUpdateSettings(hiddenCharacters, ignoredCharacters)
+    $: debouncedUpdateSettings(hiddenCharacters, ignoredCharacters);
 
     const debouncedUpdateSettings = debounce((hiddenChars: string[], ignoredChars: string[]) => {
         $settingsStore.characters.hiddenCharacters = allCharacterIds
             .filter((charId) => hiddenChars.indexOf(charId) >= 0)
-            .map((charId) => parseInt(charId))
+            .map((charId) => parseInt(charId));
 
         $settingsStore.characters.ignoredCharacters = allCharacterIds
             .filter((charId) => ignoredChars.indexOf(charId) >= 0)
-            .map((charId) => parseInt(charId))
-    }, 100)
+            .map((charId) => parseInt(charId));
+    }, 100);
 
-    const realmClick = function(this: HTMLElement): void {
-        const type = this.innerText === '[hide all]' ? 'hide' : 'ignore'
+    const realmClick = function (this: HTMLElement): void {
+        const type = this.innerText === '[hide all]' ? 'hide' : 'ignore';
 
-        const tr = this.parentElement.parentElement
-        const realmString = `${tr.children[0].innerHTML.trim().substring(1, 3)}|${tr.children[1].innerHTML.trim()}`
+        const tr = this.parentElement.parentElement;
+        const realmString = `${tr.children[0].innerHTML.trim().substring(1, 3)}|${tr.children[1].innerHTML.trim()}`;
 
-        const realmCharacters: string[] = find(
-            realms,
-            ([realm]) => realm === realmString
-        )[1].map((char) => char.id.toString())
+        const realmCharacters: string[] = find(realms, ([realm]) => realm === realmString)[1].map(
+            (char) => char.id.toString(),
+        );
 
         const anyMissing: boolean = realmCharacters.some(
-            (charId) => (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1
-        )
+            (charId) =>
+                (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1,
+        );
         const toChange: string[] = realmCharacters.filter(
-            (charId) => !anyMissing || (anyMissing && (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) === -1)
-        )
+            (charId) =>
+                !anyMissing ||
+                (anyMissing &&
+                    (type === 'hide' ? hiddenCharacters : ignoredCharacters).indexOf(charId) ===
+                        -1),
+        );
 
         for (const charId of toChange) {
-            setTimeout(() => document.getElementById(`input-${type}_character_${charId}`).click())
+            setTimeout(() => document.getElementById(`input-${type}_character_${charId}`).click());
         }
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -110,14 +113,14 @@
     .ignore,
     .hide {
         @include cell-width(6rem);
-        
+
         cursor: pointer;
         text-align: center;
 
-        :global(fieldset[data-state="false"]) {
+        :global(fieldset[data-state='false']) {
             background: inherit;
         }
-        :global(fieldset[data-state="true"]) {
+        :global(fieldset[data-state='true']) {
             background: rgba(255, 0, 0, 0.2);
         }
         :global(fieldset.disabled) {
@@ -128,7 +131,10 @@
 
 <div class="settings-block">
     <ul>
-        <li>"Ignore" will stop including this character in most things, basically marking as inactive.</li>
+        <li>
+            "Ignore" will stop including this character in most things, basically marking as
+            inactive.
+        </li>
         <li>"Hide" will completely hide this character.</li>
     </ul>
 </div>
@@ -142,14 +148,10 @@
                     <th class="level">[{realmParts[0]}]</th>
                     <th class="name">{realmParts[1]}</th>
                     <th class="ignore">
-                        <button
-                            on:click={realmClick}
-                        >[ignore all]</button>
+                        <button on:click={realmClick}>[ignore all]</button>
                     </th>
                     <th class="hide">
-                        <button
-                            on:click={realmClick}
-                        >[hide all]</button>
+                        <button on:click={realmClick}>[hide all]</button>
                     </th>
                 </tr>
             </thead>
@@ -166,15 +168,15 @@
                                 name="ignore_character_{character.id}"
                                 bind:bindGroup={ignoredCharacters}
                                 disabled={hiddenCharacters.indexOf(idString) >= 0}
-                                value={idString}
-                            >Ignore</GroupedCheckbox>
+                                value={idString}>Ignore</GroupedCheckbox
+                            >
                         </td>
                         <td class="hide">
                             <GroupedCheckbox
                                 name="hide_character_{character.id}"
                                 bind:bindGroup={hiddenCharacters}
-                                value={idString}
-                            >Hide</GroupedCheckbox>
+                                value={idString}>Hide</GroupedCheckbox
+                            >
                         </td>
                     </tr>
                 {/each}
