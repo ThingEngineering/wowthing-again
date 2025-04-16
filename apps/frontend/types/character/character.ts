@@ -4,13 +4,14 @@ import { get } from 'svelte/store';
 import { Constants } from '@/data/constants';
 import { professionSpecializationToSpell } from '@/data/professions';
 import { Profession } from '@/enums/profession';
+import { staticStore } from '@/shared/stores/static';
 import { getBestItemLevels } from '@/utils/characters/get-best-item-levels';
 import { leftPad } from '@/utils/formatting';
 import { getCharacterLevel } from '@/utils/get-character-level';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import type { Faction } from '@/enums/faction';
 import type { InventoryType } from '@/enums/inventory-type';
-import { staticStore } from '@/shared/stores/static';
+import type { Region } from '@/enums/region';
 import type { StaticData, StaticDataRealm } from '@/shared/stores/static/types';
 import type { Guild } from '@/types/guild';
 
@@ -59,6 +60,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     public account: Account;
     public guild: Guild;
     public realm: StaticDataRealm;
+    public region: Region;
 
     public className: string;
     public raceName: string;

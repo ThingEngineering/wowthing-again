@@ -8,4 +8,6 @@ public class DumpTransmogSetItem
     public int Flags { get; set; }
     public int ItemModifiedAppearanceID { get; set; }
     public int TransmogSetID { get; set; }
+
+    public bool IsPrimary => Hardcoded.TransmogSetItemPrimaryOverride.GetValueOrDefault(ID, Flags & 0x1) == 0x1;
 }

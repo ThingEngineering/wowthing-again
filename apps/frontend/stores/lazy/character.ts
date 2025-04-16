@@ -21,7 +21,6 @@ import { DbResetType } from '@/shared/stores/db/enums';
 import { getActiveHolidays } from '@/utils/get-active-holidays';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
-import parseApiTime from '@/utils/parse-api-time';
 import {
     UserCount,
     type Character,
@@ -280,6 +279,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
         }
 
         const charQuests = stores.userQuestData.characters[character.id];
+        const charScanned = charQuests.scannedTime;
 
         if (choreTask.questIds) {
             for (const questId of choreTask.questIds) {
@@ -288,22 +288,36 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 if (questProgress) {
                     charTask.quest = questProgress;
                     charTask.status = questProgress.status;
+
+                    if (
+                        questProgress.status === QuestStatus.InProgress &&
+                        questProgress.objectives?.length > 0
+                    ) {
+                        charTask.statusTexts = getObjectivesText(questProgress.objectives);
+                    }
+
+                    if (choreTask.questReset === DbResetType.Custom) {
+                        charTask.quest.expires = choreTask
+                            .customExpiryFunc(character, charScanned)
+                            .toUnixInteger();
+                    }
+
                     break;
                 }
 
                 // is the quest completed?
                 if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
-                    const charScanned = parseApiTime(
-                        stores.userQuestData.characters[character.id].scannedAt,
-                    );
-                    const expires = (
-                        choreTask.questReset === DbResetType.Weekly
-                            ? getNextWeeklyResetFromTime(charScanned, character.realm.region)
-                            : getNextDailyResetFromTime(charScanned, character.realm.region)
-                    ).toUnixInteger();
+                    let expiresAt: DateTime;
+                    if (choreTask.questReset === DbResetType.Weekly) {
+                        expiresAt = getNextWeeklyResetFromTime(charScanned, character.realm.region);
+                    } else if (choreTask.questReset === DbResetType.Custom) {
+                        expiresAt = choreTask.customExpiryFunc(character, charScanned);
+                    } else {
+                        expiresAt = getNextDailyResetFromTime(charScanned, character.realm.region);
+                    }
 
                     charTask.quest = {
-                        expires,
+                        expires: expiresAt.toUnixInteger(),
                         id: questId,
                         name: stores.staticData.questNames[questId] || choreTask.taskName,
                         objectives: [],
@@ -435,9 +449,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         continue;
                     }
 
-                    charTask.statusTexts.push(
-                        !charTask.quest ? choreTask.canGetFunc?.(character) || '' : '',
-                    );
+                    if (charTask.statusTexts.length === 0) {
+                        charTask.statusTexts.push(
+                            !charTask.quest ? choreTask.canGetFunc?.(character) || '' : '',
+                        );
+                    }
 
                     const nameParts = choreTask.taskName.split(': ');
                     if (['Cooking', 'Fishing'].indexOf(nameParts[0]) >= 0) {
@@ -475,7 +491,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                             (!stores.settings.professions.dragonflightCountGathering &&
                                 isGathering &&
                                 ['Gather'].indexOf(nameParts[1]) >= 0) ||
-                            charTask.statusTexts[0] !== '' ||
+                            // charTask.statusTexts[0] !== '' ||
                             skipTraits);
 
                     if (!charTask.skipped) {
@@ -672,7 +688,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                 characterData.chores[`${view.id}|${taskName}`] = charChore;
             } else {
-                // still ugh
+                // not multi
                 const questKey = progressQuestMap[taskName] || taskName;
                 const charTask: LazyCharacterTask = {
                     quest: stores.userQuestData.characters[character.id]?.progressQuests?.[
@@ -876,7 +892,14 @@ function getObjectivesText(objectives: UserQuestDataCharacterProgressObjective[]
     const texts: string[] = [];
 
     for (const objective of objectives) {
-        if (objective.have === objective.need && objective.text.includes('"Enter the Dream"')) {
+        if (objective.text === '') {
+            continue;
+        }
+        if (
+            objective.have === objective.need &&
+            (objective.text.includes('"Enter the Dream"') ||
+                objective.text.includes('contract for the week'))
+        ) {
             continue;
         }
         if (objective.have === 0 && objective.text.endsWith('(Optional)')) {

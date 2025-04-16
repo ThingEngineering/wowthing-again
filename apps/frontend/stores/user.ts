@@ -15,6 +15,7 @@ import { singleLockoutRaids } from '@/data/raid';
 import { InventorySlot } from '@/enums/inventory-slot';
 import { ItemBonusType } from '@/enums/item-bonus-type';
 import { MythicPlusScoreType } from '@/enums/mythic-plus-score-type';
+import { Region } from '@/enums/region';
 import { TypedArray } from '@/enums/typed-array';
 import { itemStore } from '@/stores/item';
 import { staticStore } from '@/shared/stores/static';
@@ -473,6 +474,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         // realm
         character.realm = staticData.realms[character.realmId] || staticData.realms[0];
+        character.region = character.realm?.region || Region.US;
+
         if (character.account?.enabled && character.realmId > 0 && character.realm) {
             (this.value.charactersByRealm[character.realmId] ||= []).push(character);
             (this.value.charactersByConnectedRealm[character.realm.connectedRealmId] ||= []).push(
@@ -724,6 +727,30 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             period.startTime = period.startTime.minus({ days: 7 });
             period.endTime = period.endTime.minus({ days: 7 });
         }
+
+        return period;
+    }
+
+    public getPeriodForCharacter2(time: DateTime, character: Character) {
+        const period = Object.assign(
+            new UserDataCurrentPeriod(),
+            this.getCurrentPeriodForCharacter(time, character),
+        );
+
+        while (period.startTime > time) {
+            period.id--;
+            period.startTime = period.startTime.minus({ days: 7 });
+            period.endTime = period.endTime.minus({ days: 7 });
+        }
+
+        while (period.endTime < time) {
+            period.id++;
+            period.startTime = period.startTime.plus({ days: 7 });
+            period.endTime = period.endTime.plus({ days: 7 });
+        }
+
+        period.starts = period.startTime.toISO();
+        period.ends = period.endTime.toISO();
 
         return period;
     }

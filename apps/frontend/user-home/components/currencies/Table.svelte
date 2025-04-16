@@ -1,61 +1,68 @@
 <script lang="ts">
-    import find from 'lodash/find'
-    import sortBy from 'lodash/sortBy'
+    import find from 'lodash/find';
+    import sortBy from 'lodash/sortBy';
 
-    import { categoryChildren, currencyExtra, currencyItems, skipCurrenciesMap } from '@/data/currencies'
-    import { staticStore } from '@/shared/stores/static'
-    import { currencyState } from '@/stores/local-storage'
-    import { settingsStore } from '@/shared/stores/settings'
-    import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import { leftPad } from '@/utils/formatting'
-    import type { Character, MultiSlugParams } from '@/types'
-    import type { StaticDataCurrency, StaticDataCurrencyCategory } from '@/shared/stores/static/types'
+    import {
+        categoryChildren,
+        currencyExtra,
+        currencyItems,
+        skipCurrenciesMap,
+    } from '@/data/currencies';
+    import { staticStore } from '@/shared/stores/static';
+    import { currencyState } from '@/stores/local-storage';
+    import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
+    import { leftPad } from '@/utils/formatting';
+    import type { Character, MultiSlugParams } from '@/types';
+    import type {
+        StaticDataCurrency,
+        StaticDataCurrencyCategory,
+    } from '@/shared/stores/static/types';
 
-    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import HeadCurrency from './TableHead.svelte'
-    import RowCurrency from './TableRow.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
+    import HeadCurrency from './TableHead.svelte';
+    import RowCurrency from './TableRow.svelte';
 
-    export let params: MultiSlugParams
+    export let params: MultiSlugParams;
 
-    let category: StaticDataCurrencyCategory
-    let currencies: StaticDataCurrency[]
-    let slugKey: string
-    let sorted: boolean
-    let sortFunc: (char: Character) => string
+    let category: StaticDataCurrencyCategory;
+    let currencies: StaticDataCurrency[];
+    let slugKey: string;
+    let sorted: boolean;
+    let sortFunc: (char: Character) => string;
     $: {
-        category = find($staticStore.currencyCategories, (cat) => cat.slug === params.slug1)
+        category = find($staticStore.currencyCategories, (cat) => cat.slug === params.slug1);
         if (params.slug2) {
-            category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2)
+            category = find(categoryChildren[category.id], (cat) => cat.slug === params.slug2);
         }
 
         if (!category) {
-            break $
+            break $;
         }
 
-        slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1
+        slugKey = params.slug2 ? `${params.slug1}--${params.slug2}` : params.slug1;
 
         currencies = sortBy(
-            Object.values($staticStore.currencies)
-                .filter((c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id),
-            (c) => c.name
-        ).concat(
-            (currencyExtra[category.id] || [])
-                .map((id) => $staticStore.currencies[id])
-        )
+            Object.values($staticStore.currencies).filter(
+                (c) => !skipCurrenciesMap[c.id] && c.categoryId === category.id,
+            ),
+            (c) => c.name,
+        ).concat((currencyExtra[category.id] || []).map((id) => $staticStore.currencies[id]));
 
-        const order = $currencyState.sortOrder[slugKey]
+        const order = $currencyState.sortOrder[slugKey];
         if (order > 0) {
-            sorted = true
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) => leftPad(1000000 - (
-                char.getItemCount(order) ||
-                char.currencies?.[order]?.quantity ||
-                -1
-            ), 7, '0'))
-        }
-        else {
-            sorted = false
-            sortFunc = getCharacterSortFunc($settingsStore, $staticStore)
+            sorted = true;
+            sortFunc = $getCharacterSortFunc((char) =>
+                leftPad(
+                    1000000 -
+                        (char.getItemCount(order) || char.currencies?.[order]?.quantity || -1),
+                    7,
+                    '0',
+                ),
+            );
+        } else {
+            sorted = false;
+            sortFunc = $getCharacterSortFunc();
         }
     }
 
@@ -111,7 +118,7 @@
             {#key slugKey}
                 {#if currencies.length > 0}
                     <td class="spacer"></td>
-                    <td colspan="{currencies.length}"></td>
+                    <td colspan={currencies.length}></td>
                 {/if}
 
                 {#if hasCurrencyItems}

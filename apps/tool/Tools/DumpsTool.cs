@@ -1641,9 +1641,9 @@ public class DumpsTool
 
             dbSet.ItemModifiedAppearanceIds = items
                 .OrderByDescending(dtsi => Hardcoded.TransmogSetItemPrimaryOverride
-                    .GetValueOrDefault(dtsi.ID, dtsi.Flags & 0x1))
+                    .GetValueOrDefault(dtsi.ID, dtsi.IsPrimary ? 1 : 0))
                 .ThenBy(dtsi => dtsi.ItemModifiedAppearanceID)
-                .Select(dtsi => (dtsi.Flags & 0x1) == 0x1 ? 10000000 + dtsi.ItemModifiedAppearanceID : dtsi.ItemModifiedAppearanceID)
+                .Select(dtsi => dtsi.IsPrimary ? 10000000 + dtsi.ItemModifiedAppearanceID : dtsi.ItemModifiedAppearanceID)
                 .ToList();
         }
 

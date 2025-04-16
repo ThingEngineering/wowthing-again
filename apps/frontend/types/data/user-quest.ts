@@ -1,4 +1,5 @@
 import type { QuestStatus } from '@/enums/quest-status';
+import type { DateTime } from 'luxon';
 
 export interface UserQuestData {
     accountHas: Set<number>;
@@ -10,6 +11,7 @@ export interface UserQuestData {
 
 export interface UserQuestDataCharacter {
     scannedAt: string;
+    scannedTime: DateTime;
 
     dailies: Record<number, number[][]>;
     dailyQuestList: number[];

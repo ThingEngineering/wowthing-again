@@ -4,6 +4,7 @@ import type { DateTime } from 'luxon';
 import { userModifiedStore } from './user-modified';
 import { WritableFancyStore } from '@/types/fancy-store';
 import { UserQuestDataCharacterProgress, type UserQuestData } from '@/types/data';
+import parseApiTime from '@/utils/parse-api-time';
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
@@ -25,6 +26,10 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
 
         userQuestData.questNames = {};
         for (const [, characterData] of Object.entries(userQuestData.characters)) {
+            if (characterData.scannedAt) {
+                characterData.scannedTime = parseApiTime(characterData.scannedAt);
+            }
+
             if (characterData.dailyQuestList) {
                 characterData.dailyQuests = new Set<number>(characterData.dailyQuestList);
                 characterData.dailyQuestList = null;

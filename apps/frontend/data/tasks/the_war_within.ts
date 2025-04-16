@@ -6,22 +6,85 @@ import { userQuestStore, userStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
 import type { Character } from '@/types';
 import { QuestStatus } from '@/enums/quest-status';
+import { customResetPeriod } from './custom-reset-period';
 
 export const twwChores11_0: Chore[] = [
     {
         taskKey: 'twwEmissaryArchives',
         taskName: '[Dor] Archives',
         minimumLevel: 70,
+        questIds: [
+            82679, // Archives: Seeking History
+            82678, // Archives: The First Disc
+        ],
+        questReset: DbResetType.Custom,
+        customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),
     },
     {
         taskKey: 'twwEmissaryDelves',
         taskName: '[Dor] Delves',
         minimumLevel: 70,
+        questIds: [
+            82746, // Delves: Breaking Tough to Loot Stuff
+            82707, // Delves: Earthen Defense
+            82710, // Delves: Empire-ical Exploration
+            82711, // Delves: Lost and Found
+            82708, // Delves: Nerubian Menace
+            82709, // Delves: Percussive Archaeology
+            82712, // Delves: Trouble Up and Down Khaz Algar
+            82706, // Delves: Worldwide Research
+        ],
+        questReset: DbResetType.Custom,
+        customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1003, 3),
     },
     {
         taskKey: 'twwEmissaryWorldsoul',
         taskName: '[Dor] Worldsoul',
         minimumLevel: 70,
+        questIds: [
+            82511, // Worldsoul: Awakening Machine
+            87419, // Worldsoul: Delves
+            87417, // Worldsoul: Dungeons
+            82453, // Worldsoul: Encore!
+            82516, // Worldsoul: Forging a Pact
+            82458, // Worldsoul: Renown
+            82482, // Worldsoul: Snuffling
+            82483, // Worldsoul: Spreading the Light
+            87423, // Worldsoul: Undermine Explorer
+            87422, // Worldsoul: Undermine World Quests
+            82512, // Worldsoul: World Boss
+            87424, // Worldsoul: World Bosses
+            82452, // Worldsoul: World Quests
+            82491, // Worldsoul: Ara-Kara, City of Echoes [N]
+            82494, // Worldsoul: Ara-Kara, City of Echoes [H]
+            82502, // Worldsoul: Ara-Kara, City of Echoes [M]
+            82485, // Worldsoul: Cinderbrew Meadery [N]
+            82495, // Worldsoul: Cinderbrew Meadery [H]
+            82503, // Worldsoul: Cinderbrew Meadery [M]
+            82492, // Worldsoul: City of Threads [N]
+            82496, // Worldsoul: City of Threads [H]
+            82504, // Worldsoul: City of Threads [M]
+            82488, // Worldsoul: Darkflame Cleft [N]
+            82498, // Worldsoul: Darkflame Cleft [H]
+            82506, // Worldsoul: Darkflame Cleft [M]
+            82490, // Worldsoul: Priory of the Sacred Flame [N]
+            82499, // Worldsoul: Priory of the Sacred Flame [H]
+            82507, // Worldsoul: Priory of the Sacred Flame [M]
+            82489, // Worldsoul: The Dawnbreaker [N]
+            82493, // Worldsoul: The Dawnbreaker [H]
+            82501, // Worldsoul: The Dawnbreaker [M]
+            82486, // Worldsoul: The Rookery [N]
+            82500, // Worldsoul: The Rookery [H]
+            82508, // Worldsoul: The Rookery [M]
+            82487, // Worldsoul: The Stonevault [N]
+            82497, // Worldsoul: The Stonevault [H]
+            82505, // Worldsoul: The Stonevault [M]
+            82509, // Worldsoul: Nerub-ar Palace [LFR]
+            82659, // Worldsoul: Nerub-ar Palace [N]
+            82510, // Worldsoul: Nerub-ar Palace [H]
+        ],
+        questReset: DbResetType.Custom,
+        customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1001, 3),
     },
     {
         taskKey: 'twwDungeon',

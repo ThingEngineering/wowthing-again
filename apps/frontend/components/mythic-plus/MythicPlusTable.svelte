@@ -5,11 +5,9 @@
 
     import { Constants } from '@/data/constants';
     import { seasonMap } from '@/data/mythic-plus';
-    import { userStore } from '@/stores';
     import { timeStore } from '@/shared/stores/time';
-    import { staticStore } from '@/shared/stores/static';
-    import { settingsStore } from '@/shared/stores/settings';
-    import getCharacterSortFunc from '@/utils/get-character-sort-func';
+    import { userStore } from '@/stores';
+    import { getCharacterSortFunc } from '@/utils/get-character-sort-func';
     import { leftPad } from '@/utils/formatting';
     import { getWeeklyAffixes } from '@/utils/mythic-plus';
     import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types';
@@ -82,7 +80,7 @@
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId];
         }
 
-        sortFunc = getCharacterSortFunc($settingsStore, $staticStore, (char) =>
+        sortFunc = $getCharacterSortFunc((char) =>
             leftPad(
                 100000 -
                     Math.floor(
@@ -103,7 +101,8 @@
 
     const filterFunc = (char: Character) => {
         const meetsLevelReq = char.level >= season.minLevel;
-        const score = char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
+        const score =
+            char.mythicPlusSeasonScores?.[season.id] || char.raiderIo?.[season.id]?.all || 0;
         return meetsLevelReq && score > 0;
     };
 </script>
