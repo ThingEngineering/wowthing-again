@@ -71,8 +71,9 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         let appearanceId = item.appearances[modifier]?.appearanceId || 0;
         appearanceId = stores.itemData.appearanceMap[appearanceId] || appearanceId;
 
-        const hasAppearance = overrideHas || stores.userData.hasAppearance.has(appearanceId);
         const hasSource = overrideHas || stores.userData.hasSourceV2.get(modifier).has(itemId);
+        const hasAppearance =
+            hasSource || overrideHas || stores.userData.hasAppearance.has(appearanceId);
 
         slotData[actualSlot] ||= [false, []];
         slotData[actualSlot][0] ||= completionistMode ? hasSource : hasAppearance;
