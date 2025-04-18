@@ -1,13 +1,13 @@
 <script lang="ts">
-    import { zoneData } from './data'
-    import { worldQuestState } from './state'
-    import { Region } from '@/enums/region'
+    import { zoneData } from './data';
+    import { worldQuestState } from './state';
+    import { Region } from '@/enums/region';
 
-    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte'
+    import Sidebar from '@/shared/components/sub-sidebar/SubSidebar.svelte';
 
-    const setRegion = function(region: string) {
-        $worldQuestState.region = Region[region.toUpperCase() as keyof typeof Region]
-    }
+    const setRegion = function (region: string) {
+        $worldQuestState.region = Region[region.toUpperCase() as keyof typeof Region];
+    };
 </script>
 
 <style lang="scss">
@@ -15,7 +15,7 @@
         display: flex;
         justify-content: space-around;
         width: 100%;
-        
+
         button {
             border-radius: $border-radius;
             cursor: pointer;
@@ -33,7 +33,8 @@
     alwaysExpand={true}
     baseUrl="/world-quests"
     items={zoneData}
-    width="12rem"
+    scrollable={true}
+    width="14rem"
 >
     <div slot="before" class="before">
         <div class="regions">
