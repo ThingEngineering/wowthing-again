@@ -29,7 +29,7 @@ export const twwChores11_0: Chore[] = [
             82707, // Delves: Earthen Defense
             82710, // Delves: Empire-ical Exploration
             82711, // Delves: Lost and Found
-            82708, // Delves: Nerubian Menace
+            // 82708, // Delves: Nerubian Menace [NOTE: this one is not resetting]
             82709, // Delves: Percussive Archaeology
             82712, // Delves: Trouble Up and Down Khaz Algar
             82706, // Delves: Worldwide Research

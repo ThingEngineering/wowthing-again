@@ -1,20 +1,21 @@
 export interface SettingsView {
-    id: string
-    name: string
+    id: string;
+    name: string;
 
-    characterFilter: string
+    characterFilter: string;
+    showCompletedUntrackedChores: boolean;
 
-    groups: string[]
-    groupBy: string[]
-    sortBy: string[]
+    groups: string[];
+    groupBy: string[];
+    sortBy: string[];
 
-    commonFields: string[]
-    homeFields: string[]
+    commonFields: string[];
+    homeFields: string[];
 
-    homeCurrencies: number[]
-    homeItems: number[]
-    homeLockouts: number[]
-    homeTasks: string[]
+    homeCurrencies: number[];
+    homeItems: number[];
+    homeLockouts: number[];
+    homeTasks: string[];
 
-    disabledChores: Record<string, string[]>
+    disabledChores: Record<string, string[]>;
 }

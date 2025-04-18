@@ -434,7 +434,11 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         charTask = processTask(choreTask, character);
                     }
 
-                    if (disabledChores.indexOf(choreTask.taskKey) >= 0) {
+                    if (
+                        disabledChores.indexOf(choreTask.taskKey) >= 0 &&
+                        (!view.showCompletedUntrackedChores ||
+                            charTask.quest?.status !== QuestStatus.Completed)
+                    ) {
                         continue;
                     }
 

@@ -2,10 +2,12 @@
     import sortBy from 'lodash/sortBy';
 
     import { classOrderMap } from '@/data/character-class';
+    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
     import { uiIcons } from '@/shared/icons';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { userStore } from '@/stores';
     import { leftPad } from '@/utils/formatting';
+    import type { Character, CharacterLockout } from '@/types';
     import type { JournalDataInstance } from '@/types/data';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
@@ -13,20 +15,30 @@
 
     export let instance: JournalDataInstance;
 
+    let byDifficulty: Record<number, [Character, CharacterLockout][]>;
     $: instanceId = instance.id === 1278 ? 110001 : instance.id;
-    $: instanceLockouts = $userStore.allLockouts.filter(
-        (lockout) => lockout.instanceId === instanceId,
-    );
+    $: {
+        byDifficulty = {};
+        const allLockouts = $userStore.allLockouts.filter(
+            (lockout) => lockout.instanceId === instanceId,
+        );
+        for (const lockout of allLockouts) {
+            for (const characterLockout of lockout.characters) {
+                (byDifficulty[characterLockout[1].difficulty] ||= []).push(characterLockout);
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
     .lockouts {
+        gap: 0.5rem;
         padding: 0 0.5rem 0.5rem 0.5rem;
     }
     .lockout {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.4rem;
+        gap: 0.1rem 0.4rem;
     }
     .character {
         --image-margin-top: -4px;
@@ -35,29 +47,35 @@
     }
 </style>
 
-{#if instanceLockouts}
-    <div class="lockouts">
-        {#each instanceLockouts as instanceLockout}
-            <div class="lockout">
-                <span>{instanceLockout.difficulty.shortName}:</span>
-                {#each sortBy( instanceLockout.characters, ([char]) => [leftPad(classOrderMap[char.classId], 2, '0'), char.name], ) as [character, lockout]}
-                    {@const per = (lockout.defeatedBosses / lockout.maxBosses) * 100}
-                    {@const status = per === 0 ? 0 : per < 100 ? 1 : 2}
-                    <span
-                        class="character class-{character.classId}"
-                        use:componentTooltip={{
-                            component: TooltipLockout,
-                            props: { character, lockout },
-                        }}
-                    >
-                        <IconifyIcon
-                            extraClass="status-{['fail', 'shrug', 'success'][status]}"
-                            icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull][status]}
-                        />
-                        {character.name}
-                    </span>
-                {/each}
-            </div>
+{#if byDifficulty}
+    <div class="lockouts wrapper-column">
+        {#each journalDifficultyOrder as difficultyId}
+            {@const lockouts = byDifficulty[difficultyId] || []}
+            {#if lockouts.length > 0}
+                {@const difficulty = difficultyMap[difficultyId]}
+                <div class="lockout">
+                    <span>{difficulty.shortName}:</span>
+                    {#each sortBy( lockouts, ([char]) => [leftPad(classOrderMap[char.classId], 2, '0'), char.name], ) as [character, lockout]}
+                        {@const per = (lockout.defeatedBosses / lockout.maxBosses) * 100}
+                        {@const status = per === 0 ? 0 : per < 100 ? 1 : 2}
+                        <span
+                            class="character class-{character.classId}"
+                            use:componentTooltip={{
+                                component: TooltipLockout,
+                                props: { character, lockout },
+                            }}
+                        >
+                            <IconifyIcon
+                                extraClass="status-{['fail', 'shrug', 'success'][status]}"
+                                icon={[uiIcons.starEmpty, uiIcons.starHalf, uiIcons.starFull][
+                                    status
+                                ]}
+                            />
+                            {character.name}
+                        </span>
+                    {/each}
+                </div>
+            {/if}
         {/each}
     </div>
 {/if}

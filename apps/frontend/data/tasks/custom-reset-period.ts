@@ -17,12 +17,7 @@ export function customResetPeriod(
 
     const targetPeriod = scannedPeriod.id >= startPeriod ? scannedPeriod : currentPeriod;
     let resetPeriod = startPeriod;
-    while (resetPeriod < targetPeriod.id) {
-        resetPeriod += weeks;
-    }
-
-    // skip ahead if it's the same as the scanned period
-    if (resetPeriod === scannedPeriod.id) {
+    while (resetPeriod <= targetPeriod.id) {
         resetPeriod += weeks;
     }
 

@@ -12,6 +12,8 @@ import type { UserCount } from './user-count';
 import type { ItemQuality } from '@/enums/item-quality';
 import type { WarbankItem, WarbankItemArray } from './items/warbank';
 
+type InstanceLockout = InstanceDifficulty & { characters: [Character, CharacterLockout][] };
+
 export interface UserData {
     lastApiCheck: string;
     public: boolean;
@@ -45,8 +47,8 @@ export interface UserData {
     rawWarbankItems: WarbankItemArray[];
 
     // Calculated
-    allLockouts: (InstanceDifficulty & { characters: [Character, CharacterLockout][] })[];
-    allLockoutsMap: Record<string, InstanceDifficulty>;
+    allLockouts: InstanceLockout[];
+    allLockoutsMap: Record<string, InstanceLockout>;
     allRegions: number[];
     backgroundList: BackgroundImage[];
     homeLockouts: InstanceDifficulty[];

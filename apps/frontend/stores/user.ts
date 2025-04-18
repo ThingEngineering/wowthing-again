@@ -353,6 +353,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                         key: lockoutKey,
                     });
                     userData.allLockoutsMap[lockoutKey] = userData.allLockouts.at(-1);
+                } else {
+                    userData.allLockoutsMap[lockoutKey].characters.push(...characters);
                 }
             } else {
                 console.log({ instanceId, difficultyId, difficulty });
