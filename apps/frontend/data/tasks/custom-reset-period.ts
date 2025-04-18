@@ -15,12 +15,17 @@ export function customResetPeriod(
     const currentPeriod = userStore.getCurrentPeriodForCharacter(now, char);
     const scannedPeriod = userStore.getPeriodForCharacter2(scannedAt, char);
 
-    const oof = scannedPeriod.id >= startPeriod ? scannedPeriod : currentPeriod;
-    let resetsAt = startPeriod;
-    while (resetsAt < oof.id) {
-        resetsAt += weeks;
+    const targetPeriod = scannedPeriod.id >= startPeriod ? scannedPeriod : currentPeriod;
+    let resetPeriod = startPeriod;
+    while (resetPeriod < targetPeriod.id) {
+        resetPeriod += weeks;
     }
 
-    const foo = userStore.getPeriodForCharacter(now, char, resetsAt);
+    // skip ahead if it's the same as the scanned period
+    if (resetPeriod === scannedPeriod.id) {
+        resetPeriod += weeks;
+    }
+
+    const foo = userStore.getPeriodForCharacter(now, char, resetPeriod);
     return foo.startTime;
 }
