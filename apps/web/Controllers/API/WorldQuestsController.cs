@@ -29,6 +29,8 @@ public class WorldQuestsController : Controller
 
         var results = await _context.WorldQuestAggregate
             .Where(wqa => wqa.Region == (short)(region & 0x7FFF))
+            .OrderBy(wqa => wqa.ZoneId)
+            .ThenBy(wqa => wqa.QuestId)
             .ToArrayAsync();
 
         string json = JsonSerializer.Serialize(results, _jsonSerializerOptions);
