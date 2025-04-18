@@ -1,48 +1,46 @@
 <script lang="ts">
     import { Faction } from '@/enums/faction';
-    import { RewardType } from '@/enums/reward-type'
-    import { iconLibrary } from '@/shared/icons'
-    import { staticStore } from '@/shared/stores/static'
-    import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import { timeStore } from '@/shared/stores/time'
-    import { toNiceNumber } from '@/utils/formatting/to-nice-number'
+    import { RewardType } from '@/enums/reward-type';
+    import { iconLibrary } from '@/shared/icons';
+    import { staticStore } from '@/shared/stores/static';
+    import { QuestInfoFlags, QuestInfoType } from '@/shared/stores/static/enums';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import { timeStore } from '@/shared/stores/time';
+    import { toNiceNumber } from '@/utils/formatting/to-nice-number';
 
-    import { questInfoIcon } from './data'
-    import type { ApiWorldQuest } from './types'
+    import { questInfoIcon } from './data';
+    import type { ApiWorldQuest } from './types';
 
     import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Tooltip from './Tooltip.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Tooltip from './Tooltip.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let worldQuest: ApiWorldQuest
+    export let worldQuest: ApiWorldQuest;
 
-    $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60
-    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId]
-    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId]
+    $: hoursRemaining = worldQuest.expires.diff($timeStore).toMillis() / 1000 / 60 / 60;
+    $: staticWorldQuest = $staticStore.worldQuests[worldQuest.questId];
+    $: questInfo = $staticStore.questInfo[staticWorldQuest?.questInfoId];
 
-    let iconName: string
-    let rewardString: string
+    let iconName: string;
+    let rewardString: string;
     $: {
-        iconName = undefined
-        rewardString = undefined
+        iconName = undefined;
+        rewardString = undefined;
 
-        const firstReward = worldQuest.rewards[0][1][0]
+        const firstReward = worldQuest.rewards[0][1][0];
         if (firstReward.type === RewardType.Item) {
-            iconName = `item/${firstReward.id}`
+            iconName = `item/${firstReward.id}`;
             if (firstReward.amount > 1) {
-                rewardString = toNiceNumber(firstReward.amount)
+                rewardString = toNiceNumber(firstReward.amount);
             }
-        }
-        else if (firstReward.type === RewardType.Currency) {
-            iconName = `currency/${firstReward.id}`
+        } else if (firstReward.type === RewardType.Currency) {
+            iconName = `currency/${firstReward.id}`;
             if (firstReward.id === 0) {
-                rewardString = toNiceNumber(Math.floor(firstReward.amount / 10000))
-            }
-            else {
-                rewardString = toNiceNumber(firstReward.amount)
+                rewardString = toNiceNumber(Math.floor(firstReward.amount / 10000));
+            } else {
+                rewardString = toNiceNumber(firstReward.amount);
             }
         }
     }
@@ -64,11 +62,9 @@
         &:hover {
             z-index: 100;
         }
-        :global(> a) {
-            position: relative;
-        }
     }
-    .world-quest-icon, .world-quest-amount {
+    .world-quest-icon,
+    .world-quest-amount {
         background: $highlight-background;
         border: 2px solid var(--image-border-color, $border-color);
     }
@@ -126,18 +122,10 @@
             },
         }}
     >
-        <WowheadLink
-            id={worldQuest.questId}
-            type="quest"
-            toComments={true}
-        >
+        <WowheadLink id={worldQuest.questId} type="quest" toComments={true}>
             <div class="world-quest-icon">
                 {#if iconName}
-                    <WowthingImage
-                        name={iconName}
-                        size={32}
-                        border={0}
-                    />
+                    <WowthingImage name={iconName} size={32} border={0} />
                 {:else}
                     WQ
                 {/if}
@@ -162,9 +150,7 @@
             {/if}
 
             {#if rewardString}
-                <div
-                    class="world-quest-amount"
-                >
+                <div class="world-quest-amount">
                     {rewardString}
                 </div>
             {/if}
