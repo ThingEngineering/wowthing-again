@@ -58,4 +58,10 @@
             {/if}
         </tbody>
     </table>
+
+    {#if count > 0}
+        <div class="bottom">
+            {count} character(s)
+        </div>
+    {/if}
 </div>
