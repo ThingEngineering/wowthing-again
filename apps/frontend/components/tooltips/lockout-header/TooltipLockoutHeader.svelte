@@ -1,26 +1,28 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
-    import { staticStore } from '@/shared/stores/static'
-    import type { Difficulty } from '@/types'
-    import type { StaticDataInstance } from '@/shared/stores/static/types'
+    import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty';
+    import { staticStore } from '@/shared/stores/static';
+    import { userStore } from '@/stores';
+    import type { Difficulty } from '@/types';
 
-    export let difficulty: Difficulty
-    export let instanceId: number
+    export let difficulty: Difficulty;
+    export let instanceId: number;
 
-    let count: number
-    let instance: StaticDataInstance
+    $: instance = $staticStore.instances[instanceId];
+
+    let byDifficulty: Record<number, number>;
+    let count: number;
     $: {
-        count = 0
-        instance = $staticStore.instances[instanceId]
+        byDifficulty = {};
+        count = 0;
 
-        if (difficulty && instance) {
-            const difficultyKey = `${instance.id}-${difficulty.id}`
-
-            for (const character of $userStore.characters) {
-                const lockout = character.lockouts?.[difficultyKey]
-                if (lockout) {
-                    count++
-                }
+        const lockouts = $userStore.allLockouts.filter(
+            (lockout) => lockout.instanceId === instanceId,
+        );
+        for (const lockout of lockouts) {
+            for (const [, characterLockout] of lockout.characters) {
+                byDifficulty[characterLockout.difficulty] =
+                    (byDifficulty[characterLockout.difficulty] || 0) + 1;
+                count++;
             }
         }
     }
@@ -35,15 +37,31 @@
 
     <table class="table-tooltip-lockout table-striped">
         <tbody>
-            <tr>
-                <td>
-                    {#if count === 1}
-                        1 character has a lockout
-                    {:else}
-                        {count} characters have lockouts
+            {#if count > 0}
+                {#each journalDifficultyOrder as difficulty}
+                    {@const difficultyCount = byDifficulty[difficulty]}
+                    {#if difficultyCount}
+                        <tr>
+                            <td>
+                                <code>{difficultyMap[difficulty].shortName}</code>
+                            </td>
+                            <td class="r">
+                                {difficultyCount} character(s)
+                            </td>
+                        </tr>
                     {/if}
-                </td>
-            </tr>
+                {/each}
+            {:else}
+                <tr>
+                    <td>No characters have a lockout</td>
+                </tr>
+            {/if}
         </tbody>
     </table>
+
+    {#if count > 0}
+        <div class="bottom">
+            {count} character(s)
+        </div>
+    {/if}
 </div>
