@@ -481,6 +481,8 @@ public class AuctionsController : Controller
                 .ToArray();
         }
 
+        _logger.LogInformation("User={userId} Realms=[{realms}]", user.Id, string.Join(", ", connectedRealmIds));
+
         timer.AddPoint("Realms");
 
         var missingAppearanceIds = await _context.Database
@@ -601,6 +603,8 @@ WHERE   tc.appearance_id IS NULL
                 .Intersect(accountConnectedRealmIds)
                 .ToArray();
         }
+
+        _logger.LogInformation("User={userId} Realms=[{realms}]", user.Id, string.Join(", ", connectedRealmIds));
 
         timer.AddPoint("Realms");
 
