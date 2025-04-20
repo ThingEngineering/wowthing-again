@@ -59,6 +59,18 @@ public static partial class Hardcoded
         { 562, MistsOfPandariaPvp }, // Mists of Pandaria > Belts
         { 563, MistsOfPandariaPvp }, // Mists of Pandaria > Pants
         { 564, MistsOfPandariaPvp }, // Mists of Pandaria > Boots
+        {
+            579, // WotLK > Armor
+            [
+                new ProfessionCategorySplit("Cobalt"),
+                new ProfessionCategorySplit("Spiked Cobalt"),
+                new ProfessionCategorySplit("Brilliant Saronite"),
+                new ProfessionCategorySplit("Ornate Saronite"),
+                new ProfessionCategorySplit("Savage Saronite"),
+                new ProfessionCategorySplit("Tempered Saronite"),
+            ]
+        },
+
 
         // Engineering
         {
