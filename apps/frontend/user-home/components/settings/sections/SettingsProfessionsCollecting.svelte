@@ -14,26 +14,26 @@
     type CharacterOption = {
         id: number;
         label: string;
-    }
+    };
 
-    $: options = sortBy($userStore.activeCharacters, (char) => `${char.realm.slug}|${char.name}`)
-        .map((char) => ({
-            id: char.id,
-            label: `${char.name}-${char.realm.name}`,
-        })) as CharacterOption[];
+    $: options = sortBy(
+        $userStore.activeCharacters,
+        (char) => `${char.realm.slug}|${char.name}`,
+    ).map((char) => ({
+        id: char.id,
+        label: `${char.name}-${char.realm.name}`,
+    })) as CharacterOption[];
     $: optionMap = Object.fromEntries(options.map((option) => [option.id, option]));
 
     function maybeOption(id: number) {
-        const option = optionMap[$settingsStore.professions.collectingCharacters[id]];
-        return option ? [option] : [];
+        return ($settingsStore.professions.collectingCharactersV2[id] || [])
+            .map((characterId) => optionMap[characterId])
+            .filter((id) => !!id);
     }
 
-    let selected: Record<number, CharacterOption[]>
+    let selected: Record<number, CharacterOption[]>;
     $: selected = Object.fromEntries(
-        sortedProfessions.map((prof) => [
-            prof.id,
-            maybeOption(prof.id)
-        ])
+        sortedProfessions.map((prof) => [prof.id, maybeOption(prof.id)]),
     );
 </script>
 
@@ -75,32 +75,35 @@
 
 <div class="settings-block">
     <h3>Collecting</h3>
-    <p>Which specific character to use when checking if a recipe has been collected.</p>
-    
+    <p>
+        Which specific characters to use when checking if a recipe has been collected. Any secondary
+        characters are checked if the primary is unable to learn the recipe.
+    </p>
+
     <table class="table table-striped">
         <tbody>
             {#each sortedProfessions as profession}
                 <tr>
                     <td class="name">
-                        <ProfessionIcon
-                            id={profession.id}
-                            size={16}
-                            border={1}
-                        />
+                        <ProfessionIcon id={profession.id} size={16} border={1} />
                         {getGenderedName(profession.name)}
                     </td>
                     <td class="character">
                         <MultiSelect
-                            maxSelect={1}
-                            options={options.filter((option) => !!$userStore.characterMap[option.id].professions?.[profession.id])}
+                            options={options.filter(
+                                (option) =>
+                                    !!$userStore.characterMap[option.id].professions?.[
+                                        profession.id
+                                    ],
+                            )}
                             placeholder={'Any character'}
                             bind:selected={selected[profession.id]}
-                            on:change={() => {
-                                if (selected[profession.id].length > 0) {
-                                    $settingsStore.professions.collectingCharacters[profession.id] = selected[profession.id][0].id
-                                } else {
-                                    $settingsStore.professions.collectingCharacters[profession.id] = 0
+                            on:change={(event) => {
+                                if (event?.detail?.type === 'removeAll') {
+                                    selected[profession.id] = [];
                                 }
+                                $settingsStore.professions.collectingCharactersV2[profession.id] =
+                                    selected[profession.id].map((option) => option.id);
                             }}
                         />
                     </td>

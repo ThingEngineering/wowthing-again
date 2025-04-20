@@ -1,4 +1,5 @@
 import { fixedInventoryType } from './fixed-inventory-type';
+import { isRecipeKnown } from './professions/is-recipe-known';
 import { transmogTypes } from '@/data/transmog';
 import { RewardType } from '@/enums/reward-type';
 import type { Settings } from '@/shared/stores/settings/types/settings';
@@ -49,17 +50,8 @@ export default function userHasDrop(
         } else if (itemData.completesQuest[id]) {
             return accountTrackingQuest(itemData, userQuestData, id);
         } else if (staticData.professionAbilityByItemId[id]) {
-            const ability = staticData.professionAbilityByItemId[id];
-            const characterId = settings.professions.collectingCharacters?.[ability.professionId];
-            if (characterId) {
-                return userData.characterMap[characterId]?.knowsProfessionAbility(
-                    ability.abilityId,
-                );
-            } else {
-                return userData.characters.some((char) =>
-                    char?.knowsProfessionAbility(ability.abilityId),
-                );
-            }
+            const abilityInfo = staticData.professionAbilityByItemId[id];
+            return isRecipeKnown({ settings, itemData, staticData, userData }, { abilityInfo });
         }
     } else if (type === RewardType.AccountQuest) {
         return accountTrackingQuest(itemData, userQuestData, id);

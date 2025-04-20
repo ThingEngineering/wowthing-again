@@ -1,109 +1,112 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { BindType } from '@/enums/bind-type'
-    import { SkillSourceType } from '@/enums/skill-source-type'
-    import { iconLibrary } from '@/shared/icons'
+    import { BindType } from '@/enums/bind-type';
+    import { SkillSourceType } from '@/enums/skill-source-type';
+    import { iconLibrary } from '@/shared/icons';
     import { settingsStore } from '@/shared/stores/settings';
-    import { staticStore } from '@/shared/stores/static'
-    import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores'
-    import { newNavState, professionsRecipesState } from '@/stores/local-storage'
-    import { basicTooltip } from '@/shared/utils/tooltips'
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore, lazyStore, userQuestStore, userStore } from '@/stores';
+    import { newNavState, professionsRecipesState } from '@/stores/local-storage';
+    import { basicTooltip } from '@/shared/utils/tooltips';
     import { useCharacterFilter } from '@/utils/characters';
-    import type { Character, Expansion } from '@/types'
+    import type { Character, Expansion } from '@/types';
     import type {
         StaticDataProfession,
         StaticDataProfessionCategory,
-        StaticDataSubProfession
-    } from '@/shared/stores/static/types'
+        StaticDataSubProfession,
+    } from '@/shared/stores/static/types';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
-    
-    export let expansion: Expansion
-    export let profession: StaticDataProfession
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    let categoryChildren: StaticDataProfessionCategory[]
-    let characters: Character[]
-    let colspan: number
-    let subProfession: StaticDataSubProfession
+    export let expansion: Expansion;
+    export let profession: StaticDataProfession;
+
+    let categoryChildren: StaticDataProfessionCategory[];
+    let characters: Character[];
+    let colspan: number;
+    let subProfession: StaticDataSubProfession;
     $: {
-        categoryChildren = profession.expansionCategory[expansion.id]
-            .children[0]
-            .children
-            .filter((cat) => cat.abilities.length > 0)
-        subProfession = profession.expansionSubProfession[expansion.id]
-        
+        categoryChildren = profession.expansionCategory[expansion.id].children[0].children.filter(
+            (cat) => cat.abilities.length > 0,
+        );
+        subProfession = profession.expansionSubProfession[expansion.id];
+
         characters = [];
-        const collectorId = $settingsStore.professions.collectingCharacters?.[profession.id];
-        if (collectorId) {
+        const collectorIds =
+            $settingsStore.professions.collectingCharactersV2?.[profession.id] || [];
+        if (collectorIds.length > 0) {
             characters.push(null);
-            characters.push($userStore.characterMap[collectorId]);
+            characters.push(
+                ...collectorIds.map((collectorId) => $userStore.characterMap[collectorId]),
+            );
         }
-        
-        const professionCharacters = $userStore.characters.filter((char) => useCharacterFilter(
-            $lazyStore,
-            $settingsStore,
-            $userQuestStore,
-            (c) => c.id !== collectorId &&
-                !!c.professions?.[profession.id]?.[subProfession.id],
-            char,
-            $newNavState.characterFilter
-        ))
+
+        const professionCharacters = $userStore.characters.filter((char) =>
+            useCharacterFilter(
+                $lazyStore,
+                $settingsStore,
+                $userQuestStore,
+                (c) =>
+                    !collectorIds.includes(c.id) && !!c.professions?.[profession.id]?.[subProfession.id],
+                char,
+                $newNavState.characterFilter,
+            ),
+        );
         if (professionCharacters.length > 0) {
             characters.push(null);
-            
+
             professionCharacters.sort((a, b) => {
-                if (a.level !== b.level) { return b.level - a.level }
-                return a.name.localeCompare(b.name)
+                if (a.level !== b.level) {
+                    return b.level - a.level;
+                }
+                return a.name.localeCompare(b.name);
             });
             characters.push(...professionCharacters);
         }
 
-        colspan = 3 + characters.length
+        colspan = 3 + characters.length;
     }
 
-    const getAbilities = (category: StaticDataProfessionCategory, includeTrainerRecipes: boolean) => {
-        const filteredAbilities = category.abilities.filter((ability) =>
-            includeTrainerRecipes ||
-            (
-                ability.source !== SkillSourceType.Trainer &&
-                ability.source !== SkillSourceType.Discovery &&
-                !!$staticStore.skillLineAbilityItems[ability.id]
-            )
-        )
-        return sortBy(
-            filteredAbilities,
-            (ability) => {
-                const hasItems = !!$staticStore.skillLineAbilityItems[ability.id]
-                const item = $itemStore.items[ability.itemIds[0] || 0]
-                return [
-                    hasItems ? 0 : 1,
-                    ability.itemIds[0] ? 9 - item.quality : 9,
-                    category.id === 1871 ? getCrestOrder(ability.spellId) : 0,
-                    // item?.name || ability.name
-                ].join('|')
-            }
-        )
-    }
+    const getAbilities = (
+        category: StaticDataProfessionCategory,
+        includeTrainerRecipes: boolean,
+    ) => {
+        const filteredAbilities = category.abilities.filter(
+            (ability) =>
+                includeTrainerRecipes ||
+                (ability.source !== SkillSourceType.Trainer &&
+                    ability.source !== SkillSourceType.Discovery &&
+                    !!$staticStore.skillLineAbilityItems[ability.id]),
+        );
+        return sortBy(filteredAbilities, (ability) => {
+            const hasItems = !!$staticStore.skillLineAbilityItems[ability.id];
+            const item = $itemStore.items[ability.itemIds[0] || 0];
+            return [
+                hasItems ? 0 : 1,
+                ability.itemIds[0] ? 9 - item.quality : 9,
+                category.id === 1871 ? getCrestOrder(ability.spellId) : 0,
+                // item?.name || ability.name
+            ].join('|');
+        });
+    };
 
     const getCrestOrder = (spellId: number): number => {
         if ([429945, 429947, 429948].includes(spellId)) {
             return 0;
-        }
-        else if ([414985, 414988, 414989].includes(spellId)) {
+        } else if ([414985, 414988, 414989].includes(spellId)) {
             return 1;
-        }
-        else if ([406108, 406413, 406418].includes(spellId)) {
+        } else if ([406108, 406413, 406418].includes(spellId)) {
             return 2;
         }
         return 999;
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -160,17 +163,14 @@
                 <Checkbox
                     name="include_trainer_recipes"
                     bind:value={$professionsRecipesState.includeTrainerRecipes}
-                >Include discovered/trainer recipes</Checkbox>
+                    >Include discovered/trainer recipes</Checkbox
+                >
             </th>
             {#each characters as character}
                 <th class="character-icon">
                     {#if character !== null}
                         <div>
-                            <ClassIcon
-                                {character}
-                                border={2}
-                                size={40}
-                            />
+                            <ClassIcon {character} border={2} size={40} />
                             <span class="pill abs-center">{character.name.slice(0, 5)}</span>
                         </div>
                     {/if}
@@ -180,14 +180,17 @@
     </thead>
     <tbody>
         {#each categoryChildren as category}
-            {@const abilities = getAbilities(category, $professionsRecipesState.includeTrainerRecipes)}
+            {@const abilities = getAbilities(
+                category,
+                $professionsRecipesState.includeTrainerRecipes,
+            )}
             {#if abilities.length > 0}
                 <tr class="spacer">
-                    <td colspan="{colspan}">&nbsp;</td>
+                    <td {colspan}>&nbsp;</td>
                 </tr>
 
                 <tr>
-                    <td class="category" colspan="{colspan}">
+                    <td class="category" {colspan}>
                         {category.name}
                     </td>
                 </tr>
@@ -199,14 +202,8 @@
                             {#if recipes}
                                 {@const recipeItem = $itemStore.items[recipes[0]]}
                                 <span class="quality{recipeItem?.quality ?? 1}">
-                                    <WowheadLink
-                                        type="item"
-                                        id={recipes[0]}
-                                    >
-                                        <WowthingImage
-                                            name="item/{recipes[0]}"
-                                            size={20}
-                                        />
+                                    <WowheadLink type="item" id={recipes[0]}>
+                                        <WowthingImage name="item/{recipes[0]}" size={20} />
                                     </WowheadLink>
                                 </span>
                             {:else}
@@ -214,12 +211,11 @@
                             {/if}
                         </td>
                         <td
-                            class="name {ability.itemIds[0] ? `quality${$itemStore.items[ability.itemIds[0]].quality}` : undefined}"
+                            class="name {ability.itemIds[0]
+                                ? `quality${$itemStore.items[ability.itemIds[0]].quality}`
+                                : undefined}"
                         >
-                            <WowheadLink
-                                type="spell"
-                                id={ability.spellId}
-                            >
+                            <WowheadLink type="spell" id={ability.spellId}>
                                 {#if ability.name}
                                     {ability.name}
                                 {:else}
@@ -228,7 +224,7 @@
                             </WowheadLink>
                         </td>
                         <td class="auctions">
-                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.OnAcquire) }
+                            {#if recipes && recipes.some((id) => $itemStore.items[id]?.bindType !== BindType.OnAcquire)}
                                 <a
                                     href="#/auctions/specific-item/{recipes[0]}"
                                     target="_blank"
@@ -243,7 +239,8 @@
                             {#if character === null}
                                 <td class="spacer"></td>
                             {:else}
-                                {@const charProf = character.professions[profession.id][subProfession.id]}
+                                {@const charProf =
+                                    character.professions[profession.id][subProfession.id]}
                                 {@const charHas = charProf.knownRecipes?.indexOf(ability.id) >= 0}
                                 <td
                                     class="status"
