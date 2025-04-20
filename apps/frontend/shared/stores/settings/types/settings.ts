@@ -99,6 +99,7 @@ export interface Settings {
         ignoreTasksWhenDoneWithTraits: boolean;
 
         collectingCharacters: Record<number, number>;
+        collectingCharactersV2: Record<number, number[]>;
         cooldowns: Record<string, boolean>;
     };
 

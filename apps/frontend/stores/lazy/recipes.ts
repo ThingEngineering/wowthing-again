@@ -29,10 +29,11 @@ export function doRecipes(stores: LazyStores): LazyRecipes {
         const professionData = (ret.stats[professionKey] = new UserCount());
 
         const allKnown = new Set<number>();
-        const collectorId = stores.settings.professions.collectingCharacters?.[profession.id];
-        const characters = collectorId
-            ? [stores.userData.characterMap[collectorId]]
-            : stores.userData.characters;
+        const collectorIds = stores.settings.professions.collectingCharactersV2?.[profession.id];
+        const characters =
+            collectorIds?.length > 0
+                ? collectorIds.map((collectorId) => stores.userData.characterMap[collectorId])
+                : stores.userData.characters;
         for (const character of characters || []) {
             for (const subProfession of Object.values(
                 character?.professions?.[profession.id] || {},

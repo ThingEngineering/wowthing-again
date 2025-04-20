@@ -4,6 +4,7 @@ import { DateTime } from 'luxon';
 import { classByArmorTypeString } from '@/data/character-class';
 import { Constants } from '@/data/constants';
 import { covenantSlugMap } from '@/data/covenant';
+import { expansionShortNameMap } from '@/data/expansion';
 import { factionMap } from '@/data/faction';
 import { professionSlugToId } from '@/data/professions';
 import { questToLockout } from '@/data/quests';
@@ -12,6 +13,7 @@ import { FarmResetType } from '@/enums/farm-reset-type';
 import { FarmType } from '@/enums/farm-type';
 import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
 import { RewardType } from '@/enums/reward-type';
+import { dbStore } from '@/shared/stores/db';
 import { UserCount } from '@/types';
 import { getSetCurrencyCostsString } from '@/utils/get-currency-costs';
 import {
@@ -21,18 +23,17 @@ import {
 } from '@/utils/get-next-reset';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { getVendorDropStats } from '@/utils/get-vendor-drop-stats';
+import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 
+import type { LazyTransmog } from './transmog';
 import type { ZoneMapState } from '../local-storage';
+import type { Settings } from '@/shared/stores/settings/types';
+import type { StaticData } from '@/shared/stores/static/types';
 import type { UserAchievementData, UserData } from '@/types';
 import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { ManualData } from '@/types/data/manual';
-import type { StaticData } from '@/shared/stores/static/types';
 import type { DropStatus, FarmStatus } from '@/types/zone-maps';
-import type { Settings } from '@/shared/stores/settings/types';
-import type { LazyTransmog } from './transmog';
-import { dbStore } from '@/shared/stores/db';
-import { expansionShortNameMap } from '@/data/expansion';
 
 type classMaskStrings = keyof typeof PlayableClassMask;
 
@@ -217,24 +218,9 @@ export function doZoneMaps(stores: LazyStores): LazyZoneMaps {
                                     stores.manualData.druidFormItemToQuest[drop.id],
                                 );
                             } else if (stores.staticData.professionAbilityByItemId[drop.id]) {
-                                const ability =
+                                const abilityInfo =
                                     stores.staticData.professionAbilityByItemId[drop.id];
-                                const collectorId =
-                                    stores.settings.professions.collectingCharacters?.[
-                                        ability.professionId
-                                    ];
-                                if (collectorId) {
-                                    dropStatus.need = !stores.userData.characterMap[
-                                        collectorId
-                                    ].knowsProfessionAbility(ability.abilityId);
-                                } else {
-                                    dropStatus.need = !stores.userData.characters.every(
-                                        (char) =>
-                                            char.professions?.[ability.professionId] ===
-                                                undefined ||
-                                            char.knowsProfessionAbility(ability.abilityId),
-                                    );
-                                }
+                                dropStatus.need = !isRecipeKnown(stores, { abilityInfo });
                             } else if (stores.staticData.mountsByItem[drop.id]) {
                                 dropStatus.need =
                                     !stores.userData.hasMount[

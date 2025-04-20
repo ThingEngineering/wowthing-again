@@ -17,6 +17,7 @@ import { journalStore } from '@/stores/journal';
 import { manualStore } from '@/stores/manual';
 import { staticStore } from '@/shared/stores/static';
 import { userStore } from '@/stores/user';
+import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 
 const languageToSubdomain: Record<Language, string> = {
     [Language.deDE]: 'de',
@@ -71,6 +72,15 @@ function createSettingsStore() {
                     if (settings.professions.cooldowns[professionCooldown.key] === undefined) {
                         settings.professions.cooldowns[professionCooldown.key] = true;
                     }
+                }
+
+                if (Object.keys(settings.professions.collectingCharactersV2 || {}).length === 0) {
+                    for (const [professionId, characterId] of getNumberKeyedEntries(
+                        settings.professions.collectingCharacters || {},
+                    )) {
+                        settings.professions.collectingCharactersV2[professionId] = [characterId];
+                    }
+                    settings.professions.collectingCharacters = {};
                 }
 
                 hashTimer = setInterval(async () => {

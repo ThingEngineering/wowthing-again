@@ -1,77 +1,89 @@
 <script lang="ts">
-    import IntersectionObserver from 'svelte-intersection-observer'
+    import IntersectionObserver from 'svelte-intersection-observer';
 
-    import { itemModifierMap } from '@/data/item-modifier'
-    import { itemStore } from '@/stores/item'
-    import { staticStore } from '@/shared/stores/static'
-    import { leftPad } from '@/utils/formatting'
-    import type { AuctionEntry } from '@/auctions/types/auction-entry'
+    import { itemModifierMap } from '@/data/item-modifier';
+    import { Faction } from '@/enums/faction';
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore } from '@/stores/item';
+    import { leftPad } from '@/utils/formatting';
+    import type { AuctionEntry } from '@/auctions/types/auction-entry';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let auction: AuctionEntry = null
-    export let baseUrl: string = null
-    export let loading = false
-    export let nextSelected = false
-    export let selected = false
+    export let auction: AuctionEntry = null;
+    export let baseUrl: string = null;
+    export let loading = false;
+    export let nextSelected = false;
+    export let selected = false;
 
-    let element: HTMLElement
-    let intersected = false
+    let element: HTMLElement;
+    let intersected = false;
 
-    $: auctionUrl = !auction || selected ? `${baseUrl}` : `${baseUrl}/${auction.groupKey}`
+    $: auctionUrl = !auction || selected ? `${baseUrl}` : `${baseUrl}/${auction.groupKey}`;
 
     function formatPrice(price: number): string {
-        price = price / 100
-        const silver = leftPad(price % 100, 2, '&nbsp;')
-        const gold = Math.floor(price / 100)
+        price = price / 100;
+        const silver = leftPad(price % 100, 2, '&nbsp;');
+        const gold = Math.floor(price / 100);
 
-        return gold ? `${gold.toLocaleString()}g ${silver}s` : `${silver}s`
+        return gold ? `${gold.toLocaleString()}g ${silver}s` : `${silver}s`;
     }
 
     class AuctionInfo {
-        public icon: string
-        public itemLevel: number
-        public name: string
+        public faction: Faction = Faction.Neutral;
+        public icon: string;
+        public itemLevel: number;
+        public name: string;
     }
     function getInfoFromGroupKey(groupKey: string): AuctionInfo {
-        const ret = new AuctionInfo()
-        
+        const ret = new AuctionInfo();
+
         if (groupKey.startsWith('item:')) {
-            const itemId = parseInt(groupKey.split(':')[1])
-            const item = $itemStore.items[itemId]
+            const itemId = parseInt(groupKey.split(':')[1]);
+            const item = $itemStore.items[itemId];
 
-            ret.icon = `item/${itemId}`
-            ret.itemLevel = item?.itemLevel || 1
-            ret.name = `{${groupKey}}`
-        }
-        else if (groupKey.startsWith('pet:')) {
-            const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])]
-            ret.icon = `npc/${pet.creatureId}`
-            ret.itemLevel = 1
-            ret.name = pet.name
-        }
-        else if (groupKey.startsWith('source:')) {
-            const sourceParts = groupKey.split(':')[1].split('_')
-            const itemId = parseInt(sourceParts[0])
-            const item = $itemStore.items[itemId]
+            if (item.allianceOnly) {
+                ret.faction = Faction.Alliance;
+            } else if (item.hordeOnly) {
+                ret.faction = Faction.Horde;
+            }
 
-            ret.icon = `item/${sourceParts.slice(0, sourceParts[1] === '0' ? 1 : 2).join('_')}`
-            ret.itemLevel = item?.itemLevel || 1
-            ret.name = `{item:${itemId}}`
+            ret.icon = `item/${itemId}`;
+            ret.itemLevel = item?.itemLevel || 1;
+            ret.name = `{${groupKey}}`;
+        } else if (groupKey.startsWith('pet:')) {
+            const pet = $staticStore.pets[parseInt(groupKey.split(':')[1])];
+            ret.icon = `npc/${pet.creatureId}`;
+            ret.itemLevel = 1;
+            ret.name = pet.name;
+        } else if (groupKey.startsWith('source:')) {
+            const sourceParts = groupKey.split(':')[1].split('_');
+            const itemId = parseInt(sourceParts[0]);
+            const item = $itemStore.items[itemId];
+
+            if (item.allianceOnly) {
+                ret.faction = Faction.Alliance;
+            } else if (item.hordeOnly) {
+                ret.faction = Faction.Horde;
+            }
+
+            ret.icon = `item/${sourceParts.slice(0, sourceParts[1] === '0' ? 1 : 2).join('_')}`;
+            ret.itemLevel = item?.itemLevel || 1;
+            ret.name = `{item:${itemId}}`;
             if (sourceParts[1] !== '0') {
-                const modifier = itemModifierMap[parseInt(sourceParts[1])]
+                const modifier = itemModifierMap[parseInt(sourceParts[1])];
                 if (modifier) {
-                    ret.name = `[${modifier[1]}] ${ret.name}`
+                    ret.name = `[${modifier[1]}] ${ret.name}`;
                 }
             }
-        }
-        else {
-            ret.icon = 'unknown'
-            ret.name = groupKey
+        } else {
+            ret.icon = 'unknown';
+            ret.name = groupKey;
         }
 
-        return ret
+        return ret;
     }
 </script>
 
@@ -87,18 +99,18 @@
             bind:this={element}
         >
             {#if intersected}
-                {@const { icon, itemLevel, name } = getInfoFromGroupKey(auction.groupKey)}
+                {@const { faction, icon, itemLevel, name } = getInfoFromGroupKey(auction.groupKey)}
                 <td class="icon">
-                    <a href="{auctionUrl}">
-                        <WowthingImage
-                            name={icon}
-                            size={20}
-                            border={1}
-                        />
+                    <a href={auctionUrl}>
+                        <WowthingImage name={icon} size={20} border={1} />
                     </a>
                 </td>
                 <td class="name text-overflow">
-                    <a href="{auctionUrl}">
+                    <a href={auctionUrl}>
+                        {#if faction !== Faction.Neutral}
+                            <FactionIcon {faction} />
+                        {/if}
+
                         <ParsedText text={name} />
                     </a>
                 </td>
@@ -121,11 +133,7 @@
 {:else}
     <tr>
         <td class="icon">
-            <WowthingImage
-                name={'unknown'}
-                size={20}
-                border={1}
-            />
+            <WowthingImage name={'unknown'} size={20} border={1} />
         </td>
         <td class="name">
             {#if loading}

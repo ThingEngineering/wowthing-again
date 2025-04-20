@@ -3,18 +3,19 @@ import sortBy from 'lodash/sortBy';
 import { classMaskOrderMap } from '@/data/character-class';
 import { journalDifficultyMap } from '@/data/difficulty';
 import { slotOrderMap } from '@/data/inventory-slot';
+import { professionOrderMap } from '@/data/professions';
 import { RewardType } from '@/enums/reward-type';
 import { playableClasses, PlayableClassMask } from '@/enums/playable-class';
 import { UserCount, type UserData } from '@/types';
+import { leftPad } from '@/utils/formatting';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import getFilteredItems from '@/utils/journal/get-filtered-items';
-import { leftPad } from '@/utils/formatting';
+import { isRecipeKnown } from '@/utils/professions/is-recipe-known';
 import { JournalDataEncounterItem, type JournalData, type UserQuestData } from '@/types/data';
 import type { JournalState } from '../local-storage';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { ItemData } from '@/types/data/item';
-import { professionOrderMap } from '@/data/professions';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -222,23 +223,7 @@ export function doJournal(stores: LazyStores): LazyJournal {
                                     appearance.userHas =
                                         stores.userData.hasIllusion.has(enchantmentId);
                                 } else if (item.type === RewardType.Recipe) {
-                                    const ability =
-                                        stores.staticData.professionAbilityByItemId[item.id];
-                                    if (ability) {
-                                        const collectorId =
-                                            stores.settings.professions.collectingCharacters?.[
-                                                ability.professionId
-                                            ];
-                                        if (collectorId) {
-                                            appearance.userHas = stores.userData.characterMap[
-                                                collectorId
-                                            ].knowsProfessionAbility(ability.abilityId);
-                                        } else {
-                                            appearance.userHas = stores.userData.hasRecipe.has(
-                                                ability.abilityId,
-                                            );
-                                        }
-                                    }
+                                    appearance.userHas = isRecipeKnown(stores, { itemId: item.id });
                                 } else if (item.type === RewardType.Mount) {
                                     appearance.userHas = stores.userData.hasMount[item.classId];
                                 } else if (item.type === RewardType.Pet) {

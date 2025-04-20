@@ -1,4 +1,5 @@
 import { fixedInventoryType } from '../fixed-inventory-type';
+import { isRecipeKnown } from '../professions/is-recipe-known';
 import { LookupType } from '@/enums/lookup-type';
 import type { Settings } from '@/shared/stores/settings/types/settings';
 import type { StaticData } from '@/shared/stores/static/types';
@@ -28,15 +29,8 @@ export function userHasLookup(
     } else if (type === LookupType.Toy) {
         return !!userData.hasToy[id];
     } else if (type === LookupType.Recipe) {
-        const ability = staticData.professionAbilityByAbilityId[id];
-        const characterId = settings.professions.collectingCharacters?.[ability.professionId];
-        if (characterId) {
-            return userData.characterMap[characterId]?.knowsProfessionAbility(ability.abilityId);
-        } else {
-            return userData.characters.some((char) =>
-                char?.knowsProfessionAbility(ability.abilityId),
-            );
-        }
+        const abilityInfo = staticData.professionAbilityByAbilityId[id];
+        return isRecipeKnown({ settings, itemData, staticData, userData }, { abilityInfo });
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(userQuestData, [id]);
     } else if (type === LookupType.TransmogSet) {
