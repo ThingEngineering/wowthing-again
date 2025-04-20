@@ -249,6 +249,8 @@
                         {#each characters as character}
                             {#if character === null}
                                 <td class="spacer"></td>
+                            {:else if (recipeItem?.allianceOnly && character.faction !== Faction.Alliance) || (recipeItem?.hordeOnly && character.faction !== Faction.Horde)}
+                                <td class="status faded">---</td>
                             {:else}
                                 {@const charProf =
                                     character.professions[profession.id][subProfession.id]}
