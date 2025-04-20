@@ -2,6 +2,7 @@
     import sortBy from 'lodash/sortBy';
 
     import { BindType } from '@/enums/bind-type';
+    import { Faction } from '@/enums/faction';
     import { SkillSourceType } from '@/enums/skill-source-type';
     import { iconLibrary } from '@/shared/icons';
     import { settingsStore } from '@/shared/stores/settings';
@@ -19,6 +20,7 @@
 
     import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
     import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
@@ -200,13 +202,19 @@
 
                 {#each abilities as ability}
                     {@const recipes = $staticStore.skillLineAbilityItems[ability.id]}
+                    {@const recipeItem = $itemStore.items[recipes?.[0]]}
                     <tr data-id={ability.id}>
                         <td class="source">
-                            {#if recipes}
-                                {@const recipeItem = $itemStore.items[recipes[0]]}
-                                <span class="quality{recipeItem?.quality ?? 1}">
-                                    <WowheadLink type="item" id={recipes[0]}>
-                                        <WowthingImage name="item/{recipes[0]}" size={20} />
+                            {#if recipeItem}
+                                <span class="quality{recipeItem.quality ?? 1}">
+                                    <WowheadLink type="item" id={recipeItem.id}>
+                                        <WowthingImage name="item/{recipeItem.id}" size={20} />
+
+                                        {#if recipeItem.allianceOnly}
+                                            <FactionIcon faction={Faction.Alliance} />
+                                        {:else if recipeItem.hordeOnly}
+                                            <FactionIcon faction={Faction.Horde} />
+                                        {/if}
                                     </WowheadLink>
                                 </span>
                             {:else}
