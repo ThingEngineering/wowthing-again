@@ -1,22 +1,24 @@
 <script lang="ts">
+    import { Faction } from '@/enums/faction';
     import { uiIcons } from '@/shared/icons';
     import { lazyStore } from '@/stores';
     import type { StaticDataProfessionAbility } from '@/shared/stores/static/types';
 
-    import { recipesState } from './state'
+    import { recipesState } from './state';
 
+    import FactionIcon from '@/shared/components/images/FactionIcon.svelte';
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
 
-    export let ability: StaticDataProfessionAbility
-    export let rank: number
+    export let ability: StaticDataProfessionAbility;
+    export let rank: number;
 
-    $: name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`
-    $: spellId = $lazyStore.recipes.abilitySpells[ability.id][rank - 1]
-    $: userHas = $lazyStore.recipes.hasAbility[ability.id][rank - 1]
+    $: name = ability.name || `{item:${ability.itemIds[0]}}` || `Spell #${spellId}`;
+    $: spellId = $lazyStore.recipes.abilitySpells[ability.id][rank - 1];
+    $: userHas = $lazyStore.recipes.hasAbility[ability.id][rank - 1];
 </script>
 
 <style lang="scss">
@@ -60,26 +62,28 @@
     }
 </style>
 
-{#if (userHas && $recipesState.showCollected) ||
-    (!userHas && $recipesState.showUncollected)}
-    <tr class:faded={(userHas && $recipesState.highlightMissing) || (!userHas && !$recipesState.highlightMissing)}>
+{#if (userHas && $recipesState.showCollected) || (!userHas && $recipesState.showUncollected)}
+    <tr
+        class:faded={(userHas && $recipesState.highlightMissing) ||
+            (!userHas && !$recipesState.highlightMissing)}
+    >
         <td class="status">
-            <YesNoIcon
-                state={userHas}
-                useStatusColors={true}
-            />
+            <YesNoIcon state={userHas} useStatusColors={true} />
         </td>
         <td class="name text-overflow">
             <div class="flex-wrapper">
-                <WowheadLink
-                    id={spellId}
-                    type={"spell"}
-                >
+                <WowheadLink id={spellId} type={'spell'}>
                     <WowthingImage
-                        name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}
+                        name={ability.itemIds[0] > 0
+                            ? `item/${ability.itemIds[0]}`
+                            : `spell/${spellId}`}
                         size={20}
                         border={1}
                     />
+
+                    {#if ability.faction === Faction.Alliance || ability.faction === Faction.Horde}
+                        <FactionIcon faction={ability.faction} />
+                    {/if}
 
                     <ParsedText text={name} />
                 </WowheadLink>
