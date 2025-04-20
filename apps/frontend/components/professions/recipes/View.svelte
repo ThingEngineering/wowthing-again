@@ -54,7 +54,8 @@
                 $settingsStore,
                 $userQuestStore,
                 (c) =>
-                    !collectorIds.includes(c.id) && !!c.professions?.[profession.id]?.[subProfession.id],
+                    !collectorIds.includes(c.id) &&
+                    !!c.professions?.[profession.id]?.[subProfession.id],
                 char,
                 $newNavState.characterFilter,
             ),
@@ -167,14 +168,16 @@
                 >
             </th>
             {#each characters as character}
-                <th class="character-icon">
-                    {#if character !== null}
+                {#if character !== null}
+                    <th class="character-icon">
                         <div>
                             <ClassIcon {character} border={2} size={40} />
                             <span class="pill abs-center">{character.name.slice(0, 5)}</span>
                         </div>
-                    {/if}
-                </th>
+                    </th>
+                {:else}
+                    <th class="spacer"></th>
+                {/if}
             {/each}
         </tr>
     </thead>
@@ -241,7 +244,7 @@
                             {:else}
                                 {@const charProf =
                                     character.professions[profession.id][subProfession.id]}
-                                {@const charHas = charProf.knownRecipes?.indexOf(ability.id) >= 0}
+                                {@const charHas = charProf?.knownRecipes?.indexOf(ability.id) >= 0}
                                 <td
                                     class="status"
                                     class:status-success={charHas}
