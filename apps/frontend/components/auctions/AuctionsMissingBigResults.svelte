@@ -286,18 +286,21 @@
                                     $staticStore.itemToSkillLine[auctions[0].itemId]?.[0] || 0}
                                 {@const profession =
                                     $staticStore.professionBySkillLine[skillLineId]?.[0]}
-                                {@const characterId =
-                                    $settingsStore.professions.collectingCharacters?.[
+                                {@const characterIds =
+                                    $settingsStore.professions.collectingCharactersV2?.[
                                         profession?.id || 0
                                     ]}
-                                {#if characterId}
-                                    {@const character = $userStore.characterMap[characterId]}
+                                {#if characterIds?.length > 0}
                                     <tr>
                                         <th class="profession-character" colspan="3">
                                             <ProfessionIcon id={profession.id} />
-                                            <span class="class-{character.classId} drop-shadow">
-                                                {character.name}
-                                            </span>
+                                            {#each characterIds as characterId}
+                                                {@const character =
+                                                    $userStore.characterMap[characterId]}
+                                                <span class="class-{character.classId}">
+                                                    {character.name}
+                                                </span>
+                                            {/each}
                                         </th>
                                     </tr>
                                 {/if}

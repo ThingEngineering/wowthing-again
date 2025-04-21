@@ -760,10 +760,11 @@ WHERE   tc.appearance_source IS NULL
                 .Where(pcp => pcp.Character.Account.UserId == user.Id
                               && realmIds.Contains(pcp.Character.RealmId));
 
-            var collectingCharacters = user.Settings?.Professions?.CollectingCharacters;
+            Dictionary<int, int[]> collectingCharacters = user.Settings?.Professions?.CollectingCharactersV2 ?? [];
+
             if (form.ProfessionId == -2 && collectingCharacters != null)
             {
-                int[] characterIds = collectingCharacters.Values.Distinct().ToArray();
+                int[] characterIds = collectingCharacters.Values.SelectMany(characterId => characterId).Distinct().ToArray();
                 characterProfessionsQuery = characterProfessionsQuery.Where(pcp => characterIds.Contains(pcp.CharacterId));
             }
 
@@ -781,8 +782,8 @@ WHERE   tc.appearance_source IS NULL
                     if (form.ProfessionId == -2 &&
                         collectingCharacters != null &&
                         (
-                            !collectingCharacters.TryGetValue(rootId, out int collectingCharacterId) ||
-                            collectingCharacterId != characterProfession.CharacterId
+                            !collectingCharacters.TryGetValue(rootId, out int[] collectingCharacterIds) ||
+                            !collectingCharacterIds.Contains(characterProfession.CharacterId)
                         ))
                     {
                         continue;
