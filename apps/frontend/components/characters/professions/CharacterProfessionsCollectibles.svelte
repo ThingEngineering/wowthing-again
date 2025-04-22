@@ -1,63 +1,71 @@
 <script lang="ts">
-    import maxBy from 'lodash/maxBy'
-    import sortBy from 'lodash/sortBy'
+    import maxBy from 'lodash/maxBy';
+    import sortBy from 'lodash/sortBy';
 
-    import { Constants } from '@/data/constants'
-    import { expansionSlugMap } from '@/data/expansion'
-    import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions'
+    import { Constants } from '@/data/constants';
+    import { expansionSlugMap } from '@/data/expansion';
+    import { dragonflightProfessionMap, warWithinProfessionMap } from '@/data/professions';
     import { dbStore } from '@/shared/stores/db';
-    import { staticStore } from '@/shared/stores/static'
-    import { itemStore, userQuestStore, userStore } from '@/stores'
-    import findReputationTier from '@/utils/find-reputation-tier'
-    import type { Character } from '@/types'
-    import type { TaskProfession } from '@/types/data'
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore, userQuestStore, userStore } from '@/stores';
+    import findReputationTier from '@/utils/find-reputation-tier';
+    import type { Character } from '@/types';
+    import type { TaskProfession } from '@/types/data';
     import type { DbDataThing } from '@/shared/stores/db/types';
-    import type { StaticDataProfession } from '@/shared/stores/static/types'
+    import type { StaticDataProfession } from '@/shared/stores/static/types';
 
-    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte'
-    import Collectible from './CharacterProfessionsCollectible.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CollectedIcon from '@/shared/components/collected-icon/CollectedIcon.svelte';
+    import Collectible from './CharacterProfessionsCollectible.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { zoneShortName } from '@/data/zones';
 
-    export let character: Character
-    export let expansionSlug: string
-    export let staticProfession: StaticDataProfession
+    export let character: Character;
+    export let expansionSlug: string;
+    export let staticProfession: StaticDataProfession;
 
-    let taskProfession: TaskProfession
-    let things: [DbDataThing, string][]
+    let taskProfession: TaskProfession;
+    let things: [DbDataThing, string][];
     $: {
-        taskProfession = undefined
-        things = []
+        taskProfession = undefined;
+        things = [];
 
-        const expansion = expansionSlugMap[expansionSlug]
+        const expansion = expansionSlugMap[expansionSlug];
         if (!expansion || expansion.id < 9) {
-            break $
+            break $;
         }
-        
-        const charProfession = character.professions[staticProfession.id]
-        const charSubProfession = charProfession?.[staticProfession.expansionSubProfession[expansion.id].id]
-        if (!charSubProfession) {
-            break $
-        }
-        
-        taskProfession = expansion.id === 9
-            ? dragonflightProfessionMap[staticProfession.id]
-            : warWithinProfessionMap[staticProfession.id];
 
-        things = dbStore.search({
-            tags: [
-                `expansion:${expansion.id}`,
-                `profession:${staticProfession.slug}`,
-                'treasure:profession'
-            ],
-        }).map((thing) => [thing, zoneShortName[$dbStore.mapsById[parseInt(Object.keys(thing.locations)[0])]]])
+        const charProfession = character.professions[staticProfession.id];
+        const charSubProfession =
+            charProfession?.[staticProfession.expansionSubProfession[expansion.id].id];
+        if (!charSubProfession) {
+            break $;
+        }
+
+        taskProfession =
+            expansion.id === 9
+                ? dragonflightProfessionMap[staticProfession.id]
+                : warWithinProfessionMap[staticProfession.id];
+
+        things = dbStore
+            .search({
+                tags: [
+                    `expansion:${expansion.id}`,
+                    `profession:${staticProfession.slug}`,
+                    'treasure:profession',
+                ],
+            })
+            .map((thing) => [
+                thing,
+                zoneShortName[$dbStore.mapsById[parseInt(Object.keys(thing.locations)[0])]],
+            ]);
         things.sort((a, b) => {
             if (a[1] !== b[1]) {
                 return a[1].localeCompare(b[1]);
             }
 
-            return $itemStore.items[a[0].contents[0].id].name
-                .localeCompare($itemStore.items[b[0].contents[0].id].name);
+            return $itemStore.items[a[0].contents[0].id].name.localeCompare(
+                $itemStore.items[b[0].contents[0].id].name,
+            );
         });
     }
 
@@ -65,13 +73,14 @@
         $staticStore.reputationTiers[398],
         maxBy(
             $userStore.characters,
-            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0
-        ).reputations?.[Constants.reputations.artisansConsortium]
-    )
-    $: lnRep = (maxBy(
-        $userStore.characters,
-        (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0
-    ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500
+            (c) => c.reputations?.[Constants.reputations.artisansConsortium] || 0,
+        ).reputations?.[Constants.reputations.artisansConsortium],
+    );
+    $: lnRep =
+        (maxBy(
+            $userStore.characters,
+            (c) => c.reputations?.[Constants.reputations.loammNiffen] || 0,
+        ).reputations?.[Constants.reputations.loammNiffen] || 0) / 2500;
 </script>
 
 <style lang="scss">
@@ -94,16 +103,16 @@
         {#if taskProfession.masterQuestId || taskProfession?.bookQuests?.length > 0 || things?.length > 0}
             <div class="collection-objects">
                 {#if taskProfession.masterQuestId}
-                    {@const userHas = userQuestStore.hasAny(character.id, taskProfession.masterQuestId)}
-                    <div
-                        class="quality5"
-                        class:missing={userHas}
-                    >
+                    {@const userHas = userQuestStore.hasAny(
+                        character.id,
+                        taskProfession.masterQuestId,
+                    )}
+                    <div class="quality5" class:missing={userHas}>
                         <WowthingImage
                             name="achievement/1683"
                             size={40}
                             border={2}
-                            tooltip={"Profession Master"}
+                            tooltip={'Profession Master'}
                         />
 
                         {#if userHas}
@@ -112,12 +121,12 @@
                     </div>
                 {/if}
 
-                {#each (taskProfession.bookQuests || []) as bookQuest, questIndex}
+                {#each taskProfession.bookQuests || [] as bookQuest, questIndex}
                     {@const userHas = userQuestStore.hasAny(character.id, bookQuest.questId)}
                     {#if bookQuest.source.startsWith('AC ')}
                         {@const repRank = [2, 4, 5][questIndex]}
                         <Collectible
-                            disabled={acRepTier.tier > (6 - repRank)}
+                            disabled={acRepTier.tier > 6 - repRank}
                             itemId={bookQuest.itemId}
                             text={`AC ${repRank}`}
                             {userHas}
@@ -130,28 +139,20 @@
                             {userHas}
                         />
                     {:else}
-                        <Collectible
-                            itemId={bookQuest.itemId}
-                            text={bookQuest.source}
-                            {userHas}
-                        />
+                        <Collectible itemId={bookQuest.itemId} text={bookQuest.source} {userHas} />
                     {/if}
                 {/each}
 
                 {#each things as [thing, text]}
                     {@const userHas = userQuestStore.hasAny(character.id, thing.trackingQuestId)}
-                    <Collectible
-                        itemId={thing.contents[0].id}
-                        {text}
-                        {userHas}
-                    />
+                    <Collectible itemId={thing.contents[0].id} {text} {userHas} />
                 {/each}
             </div>
         {/if}
 
         {#if taskProfession.treasureQuests?.length > 0}
             <div class="collection-objects">
-                {#each sortBy(taskProfession.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]]) as treasureQuest}
+                {#each sortBy( taskProfession.treasureQuests, (tq) => [tq.source, $itemStore.items[tq.itemId]], ) as treasureQuest}
                     <Collectible
                         itemId={treasureQuest.itemId}
                         text={treasureQuest.source}
