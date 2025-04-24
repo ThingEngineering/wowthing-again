@@ -14,6 +14,12 @@ export const warWithinZones: ProfessionZone[] = [
         shortName: 'AK',
     },
     {
+        name: 'City of Threads',
+        icon: 'achievement/40376',
+        map: '10-the-war-within/city_of_threads',
+        shortName: 'CoT',
+    },
+    {
         name: 'Isle of Dorn',
         icon: 'achievement/20118',
         map: '10-the-war-within/isle_of_dorn',

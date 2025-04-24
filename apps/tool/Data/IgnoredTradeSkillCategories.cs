@@ -16,6 +16,7 @@ public static partial class Hardcoded
 
         // Cooking
         1526, // Shadowlands - Quest Recipes
+        1824, // Classic - Orcish Cuisine (heritage quests)
 
         // Enchanting
         1255, // Battle for Azeroth - Training

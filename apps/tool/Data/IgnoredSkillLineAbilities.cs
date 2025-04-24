@@ -7,9 +7,14 @@ public static partial class Hardcoded
     {
         // Alchemy
         28577, // Major Holy Protection Potion
-        156567, // Draenor Armor Flask (never implemented)
-        156591, // Primal Alchemy (never implemented)
-        168042, // Alchemical Catalyst (dupe for max results?)
+        156567, // WoD Draenor Armor Flask (never implemented)
+        156588, // WoD Alchemical Catalyst - Fireweed
+        156589, // WoD Alchemical Catalyst - Flytrap
+        156590, // WoD Alchemical Catalyst - Starflower
+        156591, // WoD Primal Alchemy (never implemented)
+        156592, // WoD Alchemical Catalyst - Orchid
+        156593, // WoD Alchemical Catalyst - Lotus
+        168042, // WoD Alchemical Catalyst (dupe for max results?)
         370771, // Dragon Isles Alchemy Troubleshooting Test Recipe (DNT)
         371635, // Demonstration Item Recipe
         430606, // TWW ??
@@ -123,11 +128,14 @@ public static partial class Hardcoded
         169699, // Seasoned Elekk Ribeye
 
         // Enchanting
+        44612, // WotLK Greater Blasting
         343681, // Shadowlands ??
         422338, // Shalasar's Sophic Vellum (temporary legendary craft)
 
         // Engineering
         12900, // Mobile Alarm
+        30342, // TBC Red Smoke Flare
+        30343, // TBC Blue Smoke Flare
         162208, // Ultimate Gnomish Army Knife (dupe for BoE?)
         178242, // Gearspring Parts (dupe for max results?)
         407170, // Inspired Order Recalibrator (temporary legendary craft)
