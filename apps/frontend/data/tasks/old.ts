@@ -125,6 +125,13 @@ export const taskList: Task[] = [
         type: 'multi',
     },
     {
+        key: 'holidayNoblegarden',
+        minimumLevel: 1,
+        name: '[Event] Noblegarden',
+        shortName: '🐰',
+        type: 'multi',
+    },
+    {
         key: 'holidayWinterVeil',
         minimumLevel: 30,
         name: '[Event] Winter Veil',
@@ -628,6 +635,40 @@ export const multiTaskMap: Record<string, Chore[]> = {
                 78993, // The Gift of Self-Care [Eat, H]
                 78727, // The Gift of Self-Care [Nap, A]
                 78979, // The Gift of Self-Care [Nap, H]
+            ],
+            questReset: DbResetType.Daily,
+        },
+    ],
+    holidayNoblegarden: [
+        {
+            minimumLevel: 60,
+            taskKey: 'nobleDaetan',
+            taskName: 'Feathered Fiend',
+            questIds: [
+                73192, // Feathered Fiend [A]
+                79558, // Feathered Fiend [H]
+            ],
+            questReset: DbResetType.Daily,
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'nobleQuacking',
+            taskName: 'Quacking Down',
+            questIds: [
+                78274, // Quacking Down [A]
+                79135, // Quacking Down [H]
+            ],
+            questReset: DbResetType.Daily,
+            couldGetFunc: (char) =>
+                [79322, 79575].some((questId) => userQuestStore.hasAny(char.id, questId)),
+        },
+        {
+            minimumLevel: 1,
+            taskKey: 'nobleEggs',
+            taskName: 'The Great Egg Hunt',
+            questIds: [
+                13480, // The Great Egg Hunt [A]
+                13479, // The Great Egg Hunt [H]
             ],
             questReset: DbResetType.Daily,
         },
