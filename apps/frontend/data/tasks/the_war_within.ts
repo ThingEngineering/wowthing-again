@@ -350,7 +350,7 @@ export const twwChores11_1_5: Chore[] = [
     {
         taskKey: 'twwNightfall',
         taskName: '[W] Nightfall Scenario',
-        questIds: [89295],
+        questIds: [91173],
         questReset: DbResetType.Weekly,
     },
     {
