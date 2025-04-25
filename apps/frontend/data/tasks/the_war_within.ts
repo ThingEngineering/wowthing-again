@@ -345,3 +345,39 @@ export const twwChoresChett: Chore[] = [
         couldGetFunc: (char, chore) => couldChett(char, chore),
     },
 ];
+
+export const twwChores11_1_5: Chore[] = [
+    {
+        taskKey: 'twwNightfall',
+        taskName: '[W] Nightfall Scenario',
+        questIds: [89295],
+        questReset: DbResetType.Weekly,
+    },
+    {
+        taskKey: 'twwRadiant1',
+        taskName: '[D] Incursion 1',
+        questIds: [
+            87480, // Sureki Incursion: The Eastern Assault
+            88945, // Radiant Incursion: Rak-Zakaz
+        ],
+        questReset: DbResetType.Daily,
+    },
+    {
+        taskKey: 'twwRadiant2',
+        taskName: '[D] Incursion 2',
+        questIds: [
+            87477, // Sureki Incursion: Southern Swarm
+            88916, // Radiant Incursion: Sureki's End
+        ],
+        questReset: DbResetType.Daily,
+    },
+    {
+        taskKey: 'twwRadiant3',
+        taskName: '[D] Incursion 3',
+        questIds: [
+            87475, // Sureki Incursion: Hold the Wall
+            88711, // Radiant Incursion: Toxins and Pheromones
+        ],
+        questReset: DbResetType.Daily,
+    },
+];
