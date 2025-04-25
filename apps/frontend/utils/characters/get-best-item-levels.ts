@@ -32,6 +32,10 @@ export function getBestItemLevels(
 
         for (const locationItem of character.itemsByLocation[ItemLocation.Bags] || []) {
             const item = itemData.items[locationItem.itemId];
+            if (!item) {
+                continue;
+            }
+
             const invType = item?.inventoryType;
             if (!bestTypeOrder.includes(invType) && !weaponInventoryTypes.has(invType)) {
                 continue;
