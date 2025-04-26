@@ -298,6 +298,7 @@ export const currencyItems: Record<number, number[]> = {
         null,
         233246, // Gunk-Covered Thingy
         234741, // Miscellaneous Mechanica
+        238920, // Radiant Emblem of Service
     ],
     // The War Within - Season 1
     126011: [
