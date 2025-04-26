@@ -1,10 +1,10 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-    import xor from 'lodash/xor'
+    import sortBy from 'lodash/sortBy';
+    import xor from 'lodash/xor';
     import { afterUpdate } from 'svelte';
 
     import { isCraftingProfession } from '@/data/professions';
-    import { staticStore } from '@/shared/stores/static'
+    import { staticStore } from '@/shared/stores/static';
     import getSavedRoute from '@/utils/get-saved-route';
 
     import Sidebar from './Sidebar.svelte';
@@ -12,28 +12,28 @@
     import { userStore } from '@/stores';
     import { auctionsCommoditiesSpecificStore } from './auction-store';
 
-    export let slug: string
+    export let slug: string;
 
     const sortedProfessions = sortBy(
-        Object.values($staticStore.professions)
-            .filter((prof) => isCraftingProfession[prof.id]),
-        (prof) => [prof.type, prof.name]
-    )
+        Object.values($staticStore.professions).filter((prof) => isCraftingProfession[prof.id]),
+        (prof) => [prof.type, prof.name],
+    );
 
     let itemIds: number[];
     let regionIds: number[];
     $: {
         const uniqueItemIds: Set<number> = new Set();
         for (const character of $userStore.characters) {
-            if (!sortedProfessions.some((prof) => character.patronOrders?.[prof.id] !== undefined)) {
+            if (
+                !sortedProfessions.some((prof) => character.patronOrders?.[prof.id] !== undefined)
+            ) {
                 continue;
             }
 
             for (const patronOrders of Object.values(character.patronOrders)) {
                 for (const patronOrder of patronOrders) {
-                    const ability = $staticStore.spellToProfessionAbility[
-                        $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].spellId
-                    ];
+                    const { ability } =
+                        $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId];
                     for (const reagent of ability.categoryReagents) {
                         for (const categoryId of reagent.categoryIds) {
                             for (const itemId of $staticStore.reagentCategories[categoryId] || []) {
@@ -59,7 +59,7 @@
         }
     }
 
-    afterUpdate(() => getSavedRoute('professions/patron-orders', slug))
+    afterUpdate(() => getSavedRoute('professions/patron-orders', slug));
 </script>
 
 <Sidebar {sortedProfessions} />
@@ -70,16 +70,10 @@
     {#if slug === 'all'}
         <div class="wrapper-column">
             {#each sortedProfessions as profession}
-                <Table
-                    {commodities}
-                    {profession}
-                />
+                <Table {commodities} {profession} />
             {/each}
         </div>
     {:else}
-        <Table
-            {commodities}
-            profession={sortedProfessions.find((prof) => prof.slug === slug)}
-        />
+        <Table {commodities} profession={sortedProfessions.find((prof) => prof.slug === slug)} />
     {/if}
 {/await}

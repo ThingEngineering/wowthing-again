@@ -55,9 +55,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             ]),
         );
 
-        data.itemToSkillLineAbility = {};
         data.professionBySkillLine = {};
-        data.spellToProfessionAbility = {};
         for (const profession of Object.values(data.professions)) {
             if (profession.rawCategories != null) {
                 profession.categories = profession.rawCategories.map(
@@ -79,24 +77,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (let i = 0; i < profession.subProfessions.length; i++) {
                 const subProfession = profession.subProfessions[i];
                 data.professionBySkillLine[subProfession.id] = [profession, i];
-            }
-
-            for (const category of profession.categories || []) {
-                for (const subCategory of category.children) {
-                    for (const subSubCategory of subCategory.children) {
-                        for (const ability of subSubCategory.abilities) {
-                            data.spellToProfessionAbility[ability.spellId] = ability;
-
-                            for (const [, extraRankSpellId] of ability.extraRanks || []) {
-                                data.spellToProfessionAbility[extraRankSpellId] = ability;
-                            }
-
-                            for (const itemId of ability.itemIds.filter((id) => id > 0)) {
-                                data.itemToSkillLineAbility[itemId] = ability;
-                            }
-                        }
-                    }
-                }
             }
         }
 
@@ -347,22 +327,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         for (const profession of Object.values(this.value.professions)) {
             for (let i = 0; i < profession.subProfessions.length; i++) {
-                const subProfession = profession.subProfessions[i];
-                const category = profession.categories[i];
-                const results = this.recurseProfession(
-                    category,
+                this.recurseProfession(
+                    profession.categories[i],
                     profession.id,
-                    subProfession.id,
+                    profession.subProfessions[i].id,
                     spellToItem,
                 );
-                for (const result of results) {
-                    this.value.professionAbilityByAbilityId[result.abilityId] = result;
-                    this.value.professionAbilityBySpellId[result.spellId] = result;
-
-                    for (const itemId of result.itemIds || []) {
-                        this.value.professionAbilityByItemId[itemId] = result;
-                    }
-                }
             }
         }
     }
@@ -372,16 +342,17 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         professionId: number,
         subProfessionId: number,
         spellToItem: Record<number, number[]>,
-    ): StaticDataProfessionAbilityInfo[] {
-        const ret: StaticDataProfessionAbilityInfo[] = [];
+    ) {
+        const data: StaticDataProfessionAbilityInfo[] = [];
 
         for (const ability of category.abilities) {
-            ret.push(
+            data.push(
                 new StaticDataProfessionAbilityInfo(
                     professionId,
                     subProfessionId,
+                    ability,
                     ability.id,
-                    spellToItem[ability.spellId],
+                    ability.itemIds,
                     ability.spellId,
                 ),
             );
@@ -389,10 +360,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (const [extraAbilityId, extraSpellId] of ability.extraRanks || []) {
                 const extraItemId = spellToItem[extraSpellId];
                 if (extraItemId) {
-                    ret.push(
+                    data.push(
                         new StaticDataProfessionAbilityInfo(
                             professionId,
                             subProfessionId,
+                            ability,
                             extraAbilityId,
                             extraItemId,
                             extraSpellId,
@@ -402,18 +374,18 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        for (const childCategory of category.children) {
-            ret.push(
-                ...this.recurseProfession(
-                    childCategory,
-                    professionId,
-                    subProfessionId,
-                    spellToItem,
-                ),
-            );
+        for (const abililtyInfo of data) {
+            this.value.professionAbilityByAbilityId[abililtyInfo.abilityId] = abililtyInfo;
+            this.value.professionAbilityBySpellId[abililtyInfo.spellId] = abililtyInfo;
+
+            for (const itemId of abililtyInfo.itemIds || []) {
+                this.value.professionAbilityByItemId[itemId] = abililtyInfo;
+            }
         }
 
-        return ret;
+        for (const childCategory of category.children) {
+            this.recurseProfession(childCategory, professionId, subProfessionId, spellToItem);
+        }
     }
 
     private static createObjects<TObject extends { id: number }, TArgs extends unknown[]>(

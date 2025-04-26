@@ -328,10 +328,8 @@
 
                                                 {#if slug1.startsWith('missing-appearance-')}
                                                     {@const abilityInfo =
-                                                        $staticStore.professionAbilityByAbilityId[
-                                                            $staticStore.itemToSkillLineAbility[
-                                                                auctions[0].itemId
-                                                            ]?.id
+                                                        $staticStore.professionAbilityByItemId[
+                                                            auctions[0].itemId
                                                         ]}
                                                     {#if abilityInfo}
                                                         <span class="border-shrug">

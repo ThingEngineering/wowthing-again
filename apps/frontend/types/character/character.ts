@@ -318,16 +318,16 @@ export class Character implements ContainsItems, HasNameAndRealm {
 
             for (const profession of Object.values(this.professions || {})) {
                 for (const subProfession of Object.values(profession)) {
-                    for (const abilityId of subProfession.knownRecipes || []) {
-                        this._professionKnownAbilities.add(abilityId);
+                    for (const knownAbilityId of subProfession.knownRecipes || []) {
+                        this._professionKnownAbilities.add(knownAbilityId);
 
                         // known abilities often only has the highest rank, backfill lower ranks
-                        const abilityInfo = staticData.professionAbilityByAbilityId[abilityId];
-                        const ability = staticData.spellToProfessionAbility[abilityInfo?.spellId];
-                        if (ability?.extraRanks && ability.id !== abilityId) {
+                        const { ability } =
+                            staticData.professionAbilityByAbilityId[knownAbilityId] || {};
+                        if (ability?.extraRanks && ability.id !== knownAbilityId) {
                             this._professionKnownAbilities.add(ability.id);
                             for (const [rankAbilityId] of ability.extraRanks) {
-                                if (rankAbilityId === abilityId) {
+                                if (rankAbilityId === knownAbilityId) {
                                     break;
                                 }
                                 this._professionKnownAbilities.add(rankAbilityId);

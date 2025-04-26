@@ -35,8 +35,8 @@ export class UserAuctionMissingRecipeDataStore {
             auctionState.missingRecipeProfessionId,
             auctionState.missingRecipeSearchType === 'account'
                 ? 0
-                : auctionState.missingRecipeCharacterId,
-        ].join('--');
+                : auctionState.missingRecipeCharacterIds.join('-'),
+        ].join('|');
 
         if (this.cache[cacheKey]) {
             [things, updated] = this.cache[cacheKey];
@@ -44,14 +44,14 @@ export class UserAuctionMissingRecipeDataStore {
             const region = parseInt(auctionState.region) || 0;
             const data = {
                 allRealms: auctionState.allRealms,
-                characterId: 0,
+                characterIds: [] as number[],
                 includeRussia: region === 3 ? auctionState.includeRussia : false,
                 professionId: auctionState.missingRecipeProfessionId,
                 region: parseInt(auctionState.region) || 0,
             };
 
             if (auctionState.missingRecipeSearchType === 'character') {
-                data.characterId = auctionState.missingRecipeCharacterId;
+                data.characterIds = auctionState.missingRecipeCharacterIds;
             }
 
             const xsrf = document.getElementById('app').getAttribute('data-xsrf');
@@ -126,29 +126,56 @@ export class UserAuctionMissingRecipeDataStore {
 
             let meetsCollector = true;
             if (auctionState.missingRecipeProfessionId === -2) {
-                const collectingCharacters = settings.professions?.collectingCharacters || {};
-                const character = userData.characterMap[collectingCharacters[profession.id]];
-                meetsCollector = item.allianceOnly ? character.faction === Faction.Alliance :
-                    (item.hordeOnly ? character.faction === Faction.Horde : true);
+                const collectingCharacters = settings.professions?.collectingCharactersV2 || {};
+                let anyMeetsCollector = false;
+
+                for (const characterId of collectingCharacters[profession.id] || []) {
+                    const character = userData.characterMap[characterId];
+                    if (!character) {
+                        continue;
+                    }
+
+                    anyMeetsCollector ||=
+                        character &&
+                        (item.allianceOnly
+                            ? character.faction === Faction.Alliance
+                            : item.hordeOnly
+                              ? character.faction === Faction.Horde
+                              : true);
+                }
+
+                meetsCollector = anyMeetsCollector;
             }
 
             let meetsFaction = true;
             let meetsSpecialization = true;
             if (auctionState.missingRecipeSearchType === 'character') {
-                const character = userData.characterMap[auctionState.missingRecipeCharacterId];
+                let anyMeetsFaction: boolean = undefined;
+                let anyMeetsSpecialization: boolean = undefined;
+                for (const characterId of auctionState.missingRecipeCharacterIds) {
+                    const character = userData.characterMap[characterId];
+                    if (!character) {
+                        continue;
+                    }
 
-                if (item.allianceOnly || item.hordeOnly) {
-                    meetsFaction =
-                        (item.allianceOnly && character.faction === Faction.Alliance) ||
-                        (item.hordeOnly && character.faction === Faction.Horde);
+                    if (item.allianceOnly || item.hordeOnly) {
+                        anyMeetsFaction ||=
+                            (item.allianceOnly && character.faction === Faction.Alliance) ||
+                            (item.hordeOnly && character.faction === Faction.Horde);
+                    }
+
+                    const requiredAbility = staticData.itemToRequiredAbility[item.id];
+                    if (professionSpecializationSpells[requiredAbility]) {
+                        const charSpecialization =
+                            character.professionSpecializations[profession.id];
+                        anyMeetsSpecialization ||=
+                            charSpecialization === undefined ||
+                            charSpecialization === requiredAbility;
+                    }
                 }
 
-                const requiredAbility = staticData.itemToRequiredAbility[item.id];
-                if (professionSpecializationSpells[requiredAbility]) {
-                    const charSpecialization = character.professionSpecializations[profession.id];
-                    meetsSpecialization =
-                        charSpecialization === undefined || charSpecialization === requiredAbility;
-                }
+                meetsFaction = anyMeetsFaction !== false;
+                meetsSpecialization = anyMeetsSpecialization !== false;
             }
 
             const meetsName = item.name.toLocaleLowerCase().indexOf(nameLower) >= 0;
@@ -172,6 +199,8 @@ export class UserAuctionMissingRecipeDataStore {
                 meetsRealm
             );
         });
+
+        console.log(cacheKey, things);
 
         return [things, updated];
     }

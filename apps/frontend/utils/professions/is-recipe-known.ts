@@ -43,9 +43,7 @@ export function isRecipeKnown(stores: IsRecipeKnownStores, options: IsRecipeKnow
         }
 
         // use backups if the primary collector can't learn the recipe
-        const ability = stores.staticData.spellToProfessionAbility[abilityInfo.spellId];
-
-        let recipeFaction: Faction = ability.faction;
+        let recipeFaction: Faction = abilityInfo.ability.faction;
         if (recipeFaction === Faction.Neutral) {
             let recipeAlliance = false;
             let recipeHorde = false;

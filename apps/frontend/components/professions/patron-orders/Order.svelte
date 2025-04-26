@@ -20,30 +20,27 @@
     export let commodities: CommodityData = undefined;
     export let patronOrder: CharacterPatronOrder = undefined;
 
-    let ability: StaticDataProfessionAbility
-    let characterProfessions: LazyCharacterProfessions
-    let craftingPrice: number
-    let notLearned: boolean
-    let providedReagents: Record<number, number>
-    let timeRemaining: number
+    let ability: StaticDataProfessionAbility;
+    let characterProfessions: LazyCharacterProfessions;
+    let craftingPrice: number;
+    let notLearned: boolean;
+    let providedReagents: Record<number, number>;
+    let timeRemaining: number;
     $: {
-        craftingPrice = 0
+        craftingPrice = 0;
 
         if (patronOrder) {
-            characterProfessions = $lazyStore.characters[character.id].professions
-            notLearned = !characterProfessions.knownRecipes.has(patronOrder.skillLineAbilityId)
-            ability = $staticStore.spellToProfessionAbility[
-                $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].spellId
-            ]
+            characterProfessions = $lazyStore.characters[character.id].professions;
+            notLearned = !characterProfessions.knownRecipes.has(patronOrder.skillLineAbilityId);
+            ability =
+                $staticStore.professionAbilityByAbilityId[patronOrder.skillLineAbilityId].ability;
             providedReagents = Object.fromEntries(
-                patronOrder.reagents.map((reagent) => [
-                    reagent.itemId,
-                    reagent.count,
-                ])
-            )
-            timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime, { zone:'utc' })
-                .diff($timeStore).toMillis();
-        
+                patronOrder.reagents.map((reagent) => [reagent.itemId, reagent.count]),
+            );
+            timeRemaining = DateTime.fromSeconds(patronOrder.expirationTime, { zone: 'utc' })
+                .diff($timeStore)
+                .toMillis();
+
             for (const reagent of ability.categoryReagents) {
                 const itemIds = $staticStore.reagentCategories[reagent.categoryIds[0]] || [];
                 if (itemIds.some((itemId) => providedReagents[itemId] !== undefined)) {
@@ -51,7 +48,10 @@
                 }
 
                 const minPrice = Math.min(
-                    ...itemIds.map((itemId) => commodities.regions?.[character.realm.region]?.[itemId] || 999999999)
+                    ...itemIds.map(
+                        (itemId) =>
+                            commodities.regions?.[character.realm.region]?.[itemId] || 999999999,
+                    ),
                 );
                 craftingPrice += reagent.count * minPrice;
             }
@@ -61,7 +61,8 @@
                     continue;
                 }
 
-                craftingPrice += count * (commodities.regions?.[character.realm.region]?.[itemId] || 999999999);
+                craftingPrice +=
+                    count * (commodities.regions?.[character.realm.region]?.[itemId] || 999999999);
             }
         }
     }
@@ -134,14 +135,9 @@
 </style>
 
 {#if patronOrder}
-    <div
-        class="flex-wrapper"
-        class:faded={notLearned}
-    >
+    <div class="flex-wrapper" class:faded={notLearned}>
         <div class="remaining">
-            <code
-                class:status-warn={timeRemaining < 43200000}
-            >
+            <code class:status-warn={timeRemaining < 43200000}>
                 {@html toNiceDuration(timeRemaining, true)}
             </code>
         </div>
@@ -181,8 +177,8 @@
         </div>
         <div
             class="cost border-left"
-            class:status-success={(craftingPrice * 100) <= patronOrder.tipAmount}
-            class:status-warn={(craftingPrice * 100) > patronOrder.tipAmount}
+            class:status-success={craftingPrice * 100 <= patronOrder.tipAmount}
+            class:status-warn={craftingPrice * 100 > patronOrder.tipAmount}
             use:basicTooltip={'APPROXIMATE cost to craft'}
         >
             -{toNiceNumber(Math.floor(craftingPrice / 100))} g
@@ -228,9 +224,7 @@
     </div>
 {:else}
     <div class="flex-wrapper">
-        <div class="remaining">
-            No active patron orders!
-        </div>
+        <div class="remaining">No active patron orders!</div>
         <div class="quality"></div>
         <div class="item"></div>
         <div class="gold"></div>

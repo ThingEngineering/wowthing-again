@@ -703,37 +703,48 @@ WHERE   tc.appearance_source IS NULL
         int[] connectedRealmIds;
         var skillLineIds = new HashSet<int>();
         var skillLineAbilityIds = new HashSet<int>();
-        if (form.CharacterId > 0)
+        if (form.CharacterIds.Length > 0)
         {
-            var character = await _context.PlayerCharacter
+            var characters = await _context.PlayerCharacter
                 .Include(pc => pc.Professions)
-                .Where(pc => pc.Account.UserId == user.Id && pc.Id == form.CharacterId)
-                .FirstOrDefaultAsync();
-            if (character == null)
+                .Where(pc => pc.Account.UserId == user.Id && form.CharacterIds.Contains(pc.Id))
+                .ToArrayAsync();
+            if (characters.Length == 0)
             {
                 return NotFound();
             }
 
             // Profession info
-            foreach (var (rootId, subProfessions) in character.Professions.Professions)
+            var haveSkillLine = new Dictionary<int, int>();
+            var haveSkillLineAbility = new Dictionary<int, int>();
+            foreach (var character in characters)
             {
-                if (form.ProfessionId > 0 && form.ProfessionId != rootId)
+                foreach (var (rootId, subProfessions) in character.Professions.Professions)
                 {
-                    continue;
-                }
+                    if (form.ProfessionId > 0 && form.ProfessionId != rootId)
+                    {
+                        continue;
+                    }
 
-                skillLineIds.Add(rootId);
-                foreach (var (subProfessionId, subProfession) in subProfessions)
-                {
-                    skillLineIds.Add(subProfessionId);
-                    skillLineAbilityIds.UnionWith(subProfession.KnownRecipes);
+                    skillLineIds.Add(rootId);
+                    foreach (var (subProfessionId, subProfession) in subProfessions)
+                    {
+                        haveSkillLine[subProfessionId] = haveSkillLine.GetValueOrDefault(subProfessionId, 0);
+                        foreach (int abilityId in subProfession.KnownRecipes)
+                        {
+                            haveSkillLineAbility[abilityId] = haveSkillLine.GetValueOrDefault(subProfessionId, 0);
+                        }
+                    }
                 }
             }
+
+            skillLineIds.UnionWith(haveSkillLine.Where(kvp => kvp.Value == characters.Length).Select(kvp => kvp.Key));
+            skillLineAbilityIds.UnionWith(haveSkillLineAbility.Where(kvp => kvp.Value == characters.Length).Select(kvp => kvp.Key));
 
             timer.AddPoint("CharacterProfessions");
 
             var characterRealm = await _context.WowRealm
-                .FirstAsync(wr => wr.Id == character.RealmId);
+                .FirstAsync(wr => wr.Id == characters[0].RealmId);
 
             connectedRealmIds = await _context.WowRealm
                 .AsNoTracking()

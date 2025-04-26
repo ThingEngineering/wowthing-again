@@ -374,7 +374,7 @@ export const taskList: Task[] = [
         key: 'twwChores11_1_5',
         name: "[TWW] 11.1.5 Flame's Radiance",
         shortName: 'Rad',
-        minimumLevel: 80,
+        minimumLevel: 10,
         type: 'multi',
     },
     {
