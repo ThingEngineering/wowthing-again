@@ -350,12 +350,14 @@ export const twwChores11_1_5: Chore[] = [
     {
         taskKey: 'twwNightfall',
         taskName: '[W] Nightfall Scenario',
+        minimumLevel: 80,
         questIds: [91173],
         questReset: DbResetType.Weekly,
     },
     {
         taskKey: 'twwRadiant1',
         taskName: '[D] Incursion 1',
+        minimumLevel: 80,
         questIds: [
             87480, // Sureki Incursion: The Eastern Assault
             88945, // Radiant Incursion: Rak-Zakaz
@@ -365,6 +367,7 @@ export const twwChores11_1_5: Chore[] = [
     {
         taskKey: 'twwRadiant2',
         taskName: '[D] Incursion 2',
+        minimumLevel: 80,
         questIds: [
             87477, // Sureki Incursion: Southern Swarm
             88916, // Radiant Incursion: Sureki's End
@@ -374,10 +377,19 @@ export const twwChores11_1_5: Chore[] = [
     {
         taskKey: 'twwRadiant3',
         taskName: '[D] Incursion 3',
+        minimumLevel: 80,
         questIds: [
             87475, // Sureki Incursion: Hold the Wall
             88711, // Radiant Incursion: Toxins and Pheromones
         ],
         questReset: DbResetType.Daily,
+    },
+    {
+        taskKey: 'twwWindsSatchel',
+        taskName: '[D] Winds Satchel',
+        minimumLevel: 10,
+        questIds: [86695],
+        questReset: DbResetType.Daily,
+        couldGetFunc: (char) => char.level < 80,
     },
 ];
