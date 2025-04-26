@@ -19,11 +19,7 @@ import type { StaticDataInstance, StaticDataInstanceArray } from './instance';
 import type { StaticDataKeystoneAffix } from './keystone-affix';
 import type { StaticDataMount, StaticDataMountArray } from './mount';
 import type { StaticDataPet, StaticDataPetArray } from './pet';
-import type {
-    StaticDataProfession,
-    StaticDataProfessionAbility,
-    StaticDataProfessionAbilityInfo,
-} from './profession';
+import type { StaticDataProfession, StaticDataProfessionAbilityInfo } from './profession';
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
 import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line';
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';

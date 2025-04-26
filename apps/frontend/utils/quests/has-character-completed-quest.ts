@@ -49,6 +49,7 @@ export function hasCharacterCompletedQuest(
     const completed = charData?.quests?.has(questId);
 
     if (reset !== undefined) {
+        // meow
     }
 
     return completed;

@@ -8,7 +8,6 @@
 
     import CriteriaTree from './CriteriaTree.svelte';
     import ProgressBar from '@/components/common/ProgressBar.svelte';
-    import Paginate from '@/shared/components/paginate/Paginate.svelte';
     import { CriteriaTreeOperator } from '@/enums/wow';
 
     export let achievement: AchievementDataAchievement;

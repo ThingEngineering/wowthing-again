@@ -1,7 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy';
     import type { ComponentType } from 'svelte';
-    import MultiSelect, { type ObjectOption } from 'svelte-multiselect';
+    import MultiSelect from 'svelte-multiselect';
 
     import { ItemQuality } from '@/enums/item-quality';
     import { Profession } from '@/enums/profession';
