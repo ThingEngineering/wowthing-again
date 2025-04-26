@@ -43,7 +43,7 @@
 
 {#if chore?.countTotal === 0}
     <td
-        class="size b-l status-fail"
+        class="sized b-l status-fail"
         use:componentTooltip={{
             component: Tooltip,
             props: {
@@ -76,5 +76,5 @@
         {chore.countCompleted} / {chore.countTotal}
     </td>
 {:else}
-    <td></td>
+    <td class="b-l"></td>
 {/if}
