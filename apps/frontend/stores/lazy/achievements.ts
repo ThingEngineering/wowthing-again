@@ -1,4 +1,9 @@
+import sortBy from 'lodash/sortBy';
+
+import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements';
 import { CriteriaType } from '@/enums/criteria-type';
+import { Faction } from '@/enums/faction';
+import { CriteriaTreeOperator } from '@/enums/wow';
 import { UserCount } from '@/types';
 import type { AchievementsState } from '../local-storage';
 import type {
@@ -7,6 +12,7 @@ import type {
     AchievementDataCategory,
     AchievementDataCriteria,
     AchievementDataCriteriaTree,
+    Character,
     UserAchievementData,
     UserData,
 } from '@/types';
@@ -21,6 +27,7 @@ interface LazyStores {
 }
 
 export class LazyAchievements {
+    public achievements: Record<number, ComputedAchievement> = {};
     public categories: Record<number, ComputedCategory> = {};
     public points: Record<string, UserCount> = {};
     public stats: Record<string, UserCount> = {};
@@ -34,12 +41,25 @@ export class ComputedCategory {
 
 export class ComputedAchievement {
     public characters: Record<number, [number, number][]> = {};
-    public criteriaTrees: AchievementDataCriteriaTree[] = [];
+    public criteria: ComputedCriteria;
     public earned: boolean;
 
     constructor(
         public achievementId: number,
         public achievement: AchievementDataAchievement,
+    ) {}
+}
+
+export class ComputedCriteria {
+    public earned: boolean;
+    public have: number;
+    public linkId: number;
+    public linkType: string; // TODO enum
+    public children: ComputedCriteria[] = [];
+
+    constructor(
+        public criteriaTree: AchievementDataCriteriaTree,
+        public criteria: AchievementDataCriteria,
     ) {}
 }
 
@@ -51,8 +71,13 @@ export function doAchievements(stores: LazyStores): LazyAchievements {
 }
 
 class AchievementProcessor {
-    private data: LazyAchievements = new LazyAchievements();
     private stores: LazyStores;
+
+    private data: LazyAchievements = new LazyAchievements();
+    private allianceCharacters: Character[];
+    private hordeCharacters: Character[];
+    private overallPoints: UserCount;
+    private overallStats: UserCount;
 
     constructor(stores: LazyStores) {
         this.stores = stores;
@@ -61,8 +86,15 @@ class AchievementProcessor {
     process(): LazyAchievements {
         console.time('AchievementProcessor.process');
 
-        const overallPoints = (this.data.points['OVERALL'] = new UserCount());
-        const overallStats = (this.data.stats['OVERALL'] = new UserCount());
+        this.allianceCharacters = this.stores.userData.characters.filter(
+            (char) => char.faction === Faction.Alliance,
+        );
+        this.hordeCharacters = this.stores.userData.characters.filter(
+            (char) => char.faction === Faction.Horde,
+        );
+
+        this.overallPoints = this.data.points['OVERALL'] = new UserCount();
+        this.overallStats = this.data.stats['OVERALL'] = new UserCount();
 
         for (const category of this.stores.achievementData.categories.filter((cat) => !!cat)) {
             this.processCategory(category);
@@ -73,6 +105,7 @@ class AchievementProcessor {
         }
 
         console.timeEnd('AchievementProcessor.process');
+        console.log(this.data);
         return this.data;
     }
 
@@ -104,48 +137,29 @@ class AchievementProcessor {
         }
 
         for (const achievementId of allIds) {
-            const dataAchievement = achievementData.achievement[achievementId];
-
-            const achievement = new ComputedAchievement(achievementId, dataAchievement);
-            category.achievements.push(achievement);
-
-            achievement.earned = userAchievementData.achievements[achievementId] !== undefined;
-
-            catPoints.total += dataAchievement.points;
-            catStats.total++;
-
-            if (achievement.earned) {
-                catPoints.have += dataAchievement.points;
-                catStats.have++;
-            }
-
-            const rootCriteriaTree = achievementData.criteriaTree[dataAchievement.criteriaTreeId];
-            if (!rootCriteriaTree) {
+            const achievement = this.stores.achievementData.achievement[achievementId];
+            if (!achievement) {
+                console.warn('Invalid achievement id:', achievementId);
                 continue;
             }
 
-            for (const childId of rootCriteriaTree.children) {
-                const childTree = achievementData.criteriaTree[childId];
-                if (!childTree) {
-                    console.log('Invalid child tree', dataAchievement, childId);
-                    continue;
-                }
+            const computedAchievement = new ComputedAchievement(achievementId, achievement);
+            category.achievements.push(computedAchievement);
 
-                achievement.criteriaTrees.push(childTree);
-                achievement.characters[childId] = [];
+            computedAchievement.earned =
+                userAchievementData.achievements[achievementId] !== undefined;
 
-                const criteria = achievementData.criteria[childTree?.criteriaId || 0];
-                if (!criteria) {
-                    // console.log('Invalid criteria', dataAchievement, childTree);
-                    continue;
-                }
+            catPoints.total += achievement.points;
+            catStats.total++;
 
-                if (dataAchievement.isAccountWide) {
-                    this.criteriaAccount(achievement, childTree, criteria);
-                } else {
-                    // this.criteriaCharacter(achievement, childTree, criteria);
-                }
+            if (computedAchievement.earned) {
+                catPoints.have += achievement.points;
+                catStats.have++;
             }
+
+            this.processAchievementCriteria(computedAchievement);
+
+            if (!computedAchievement.earned) console.log(computedAchievement);
 
             // console.log(dataAchievement, rootCriteriaTree);
 
@@ -160,58 +174,344 @@ class AchievementProcessor {
         }
     }
 
-    private criteriaAccount(
-        achievement: ComputedAchievement,
-        criteriaTree: AchievementDataCriteriaTree,
-        criteria: AchievementDataCriteria,
-    ) {
-        const { achievementData, userAchievementData, userData } = this.stores;
-        const data = achievement.characters[criteriaTree.id];
+    // Depth-first traversal of criteria trees, we need to know the state of the children to
+    // calculate the state of the parent
+    private processAchievementCriteria(achievementData: ComputedAchievement) {
+        const rootCriteriaTree =
+            this.stores.achievementData.criteriaTree[achievementData.achievement.criteriaTreeId];
+        if (!rootCriteriaTree) {
+            return;
+        }
 
-        if (criteria.type === CriteriaType.EarnAchievement) {
-            data.push([0, userAchievementData.achievements[criteria.asset] ? 1 : 0]);
-            // } else if (
-            //     criteria?.type === CriteriaType.GarrisonTalentCompleteResearchAny &&
-            //     forceGarrisonTalent[childId]
-            // ) {
-            //     const [talentId, minRank] = forceGarrisonTalent[childId];
-            //     for (const character of userData.characters) {
-            //         for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
-            //             if (garrisonTree[talentId]) {
-            //                 if (garrisonTree[talentId]?.[0] >= minRank) {
-            //                     ret.have[childId] = 1;
-            //                 }
-            //                 break;
-            //             }
-            //         }
-            //     }
-        } else if (criteria.type === CriteriaType.RaiseSkillLine) {
+        achievementData.criteria = this.recurseCriteriaTree(achievementData, rootCriteriaTree);
+    }
+
+    private recurseCriteriaTree(
+        achievementData: ComputedAchievement,
+        criteriaTree: AchievementDataCriteriaTree,
+    ): ComputedCriteria {
+        const criteria = this.stores.achievementData.criteria[criteriaTree.criteriaId];
+        const criteriaData = new ComputedCriteria(criteriaTree, criteria);
+
+        // continue downwards before processing this node
+        for (const childTreeId of criteriaTree.children || []) {
+            const childTree = this.stores.achievementData.criteriaTree[childTreeId];
+            if (childTree) {
+                criteriaData.children.push(this.recurseCriteriaTree(achievementData, childTree));
+            }
+        }
+
+        if (achievementData.achievement.isAccountWide) {
+            this.criteriaAccount(achievementData, criteriaData);
+        } else {
+            // console.log('NO PER CHARACTER', achievementData.achievementId);
+        }
+
+        return criteriaData;
+    }
+
+    private criteriaAccount(
+        computedAchievement: ComputedAchievement,
+        computedCriteria: ComputedCriteria,
+    ) {
+        const { achievementData, userAchievementData, userData, userQuestData } = this.stores;
+        const { achievement } = computedAchievement;
+        const { criteria, criteriaTree } = computedCriteria;
+
+        const characters = userData.characters.filter(
+            (char) =>
+                (achievement.faction === 0 && char.faction === 1) ||
+                (achievement.faction === 1 && char.faction === 0) ||
+                achievement.faction === -1,
+        );
+
+        const data = computedAchievement.characters[computedCriteria.criteriaTree.id];
+
+        let checkCriteria = false;
+        if (criteria?.type === CriteriaType.EarnAchievement) {
+            computedCriteria.have =
+                userAchievementData.achievements[criteria.asset] !== undefined ? 1 : 0;
+        } else if (
+            criteria?.type === CriteriaType.GarrisonTalentCompleteResearchAny &&
+            forceGarrisonTalent[criteriaTree.id]
+        ) {
+            const [talentId, minRank] = forceGarrisonTalent[criteriaTree.id];
             for (const character of userData.characters) {
-                for (const subProfessions of Object.values(character.professions || {})) {
-                    const subProfession = subProfessions[criteria.asset];
-                    if (subProfession?.currentSkill >= criteriaTree.amount) {
-                        data.push([0, 1]);
+                for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
+                    if (garrisonTree[talentId]) {
+                        const talentRank = garrisonTree[talentId]?.[0] || 0;
+                        if (talentRank >= minRank) {
+                            computedCriteria.have = talentRank;
+                        }
                         break;
                     }
                 }
             }
+        } else if (criteria?.type === CriteriaType.CompleteQuest) {
+            computedCriteria.have = Object.values(userQuestData.characters).filter((char) =>
+                char.quests?.has(criteria.asset),
+            ).length;
 
-            if (data.length === 0) {
-                data.push([0, 0]);
+            // Fall back to criteria lookup
+            // if (ret.have[criteriaTree.id] === 0) {
+            //     checkCriteria = true;
+            // }
+        } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
+            for (const character of userData.characters) {
+                for (const subProfessions of Object.values(character.professions || {})) {
+                    const subProfession = subProfessions[criteria.asset];
+                    if (subProfession?.currentSkill >= criteriaTree.amount) {
+                        computedCriteria.have = subProfession.currentSkill;
+                        break;
+                    }
+                }
             }
+        } else if (criteria?.type === CriteriaType.ReputationGained) {
+            computedCriteria.have = Math.max(
+                ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
+            );
         } else if (criteria?.type === CriteriaType.HonorMaybe) {
-            data.push([0, userData.honorLevel || 0]);
+            console.log('honor?', computedCriteria);
+            computedCriteria.have = userData.honorLevel || 0;
         } else {
+            checkCriteria = true;
+        }
+
+        if (checkCriteria) {
             const value: number[] = (userAchievementData.criteria[criteriaTree.id] || [[]])[0];
-            if (achievement.achievementId === 7380) console.log(criteriaTree, criteria, value);
-            // ret.have[childId] = value[1] || 0;
+            computedCriteria.have = value[1] || 0;
 
             // if (ret.have[childId] === 0) {
+            //     // console.log(childId, childTree);
             //     for (const childChild of childTree.children) {
             //         const value: number[] = (userAchievementData.criteria[childChild] || [[]])[0];
-            //         ret.have[childId] = value[1] || 0;
+            //         ret.have[childId] += value[1] || 0;
+            //         ret.have[childChild] = value[1] || 0;
             //     }
             // }
         }
+
+        // Collect all?
+        switch (criteriaTree.operator) {
+            // Single
+
+            // SingleNotCompleted
+
+            case CriteriaTreeOperator.All:
+                break;
+
+            // SumChildren
+
+            // MaxChild
+
+            // CountDirectChildren
+
+            // Count of children is > count?
+            case CriteriaTreeOperator.Any:
+                computedCriteria.have = computedCriteria.children.filter(
+                    (child) => child.have >= child.criteriaTree.amount,
+                ).length;
+                break;
+
+            // SumChildrenWeight
+
+            default:
+                console.log('wtf?', CriteriaTreeOperator[criteriaTree.operator]);
+        }
     }
+}
+
+const debugId = 40882;
+
+export function getAccountData(
+    achievementData: AchievementData,
+    userAchievementData: UserAchievementData,
+    userData: UserData,
+    userQuestData: UserQuestData,
+    achievement: AchievementDataAchievement,
+): AchievementDataAccount {
+    //const ctMap = get(achievementStore).criteriaTree
+    //const userCrits = get(userAchievementStore).criteria
+
+    const ret = new AchievementDataAccount();
+
+    const characterCounts: Record<number, number> = {};
+    const characters = userData.characters.filter(
+        (char) =>
+            (achievement.faction === 0 && char.faction === 1) ||
+            (achievement.faction === 1 && char.faction === 0) ||
+            achievement.faction === -1,
+    );
+    // const characterIds = characters.map((char) => char.id);
+
+    const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId];
+    const forcedId = forceAddonCriteria[achievement.id];
+    if (forcedId) {
+        ret.criteria.push(rootCriteriaTree);
+
+        for (const characterAchievements of Object.values(userAchievementData.addonAchievements)) {
+            const characterAchievement = characterAchievements[forcedId];
+            if (characterAchievement) {
+                for (
+                    let criteriaIndex = 0;
+                    criteriaIndex < characterAchievement.criteria.length;
+                    criteriaIndex++
+                ) {
+                    ret.have[rootCriteriaTree.id] = characterAchievement.criteria[criteriaIndex];
+                }
+
+                break;
+            }
+        }
+
+        //console.log(achievement.id, forcedId, userAchievementData.addonAchievements)
+        //console.log(userAchievementData.addonAchievements[forcedId])
+    } else {
+        const children: number[] = [];
+        const recurseChildren = (childId: number, addTrees = false) => {
+            const childTree = achievementData.criteriaTree[childId];
+            if (!childTree) {
+                return;
+            }
+
+            if (
+                // addStuff &&
+                childTree.amount > 0 &&
+                childTree.operator !== CriteriaTreeOperator.All &&
+                childTree.operator !== CriteriaTreeOperator.Any /*&&
+                parentCriteriaTree?.operator !== CriteriaTreeOperator.SumChildren*/
+            ) {
+                ret.total += childTree.amount;
+            } else if (
+                // addStuff &&
+                childTree.id !== rootCriteriaTree.id &&
+                rootCriteriaTree.operator === CriteriaTreeOperator.All
+            ) {
+                ret.total += Math.max(1, childTree.amount);
+            }
+
+            if (addTrees) {
+                ret.criteria.push(childTree);
+            }
+
+            children.push(childId);
+            for (const childChildId of childTree.children) {
+                recurseChildren(childChildId);
+            }
+        };
+
+        for (const childId of rootCriteriaTree?.children ?? []) {
+            recurseChildren(childId, true);
+        }
+
+        for (const childId of children) {
+            const childTree = achievementData.criteriaTree[childId];
+            if (!childTree) {
+                continue;
+            }
+
+            const criteria = achievementData.criteria[childTree.criteriaId];
+
+            if (achievement.id === debugId) {
+                console.log(
+                    childTree,
+                    achievementData.criteria[childTree.criteriaId],
+                    userAchievementData.criteria[childId],
+                );
+            }
+
+            let checkCriteria = false;
+
+            if (criteria?.type === CriteriaType.EarnAchievement) {
+                ret.have[childId] =
+                    userAchievementData.achievements[criteria.asset] !== undefined ? 1 : 0;
+            } else if (
+                criteria?.type === CriteriaType.GarrisonTalentCompleteResearchAny &&
+                forceGarrisonTalent[childId]
+            ) {
+                const [talentId, minRank] = forceGarrisonTalent[childId];
+                for (const character of userData.characters) {
+                    for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
+                        if (garrisonTree[talentId]) {
+                            if (garrisonTree[talentId]?.[0] >= minRank) {
+                                ret.have[childId] = 1;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } else if (criteria?.type === CriteriaType.CompleteQuest) {
+                ret.have[childId] = Object.values(userQuestData.characters).filter((char) =>
+                    char.quests?.has(criteria.asset),
+                ).length;
+
+                // Fall back to criteria lookup
+                if (ret.have[childId] === 0) {
+                    checkCriteria = true;
+                }
+            } else if (criteria?.type === CriteriaType.RaiseSkillLine) {
+                for (const character of userData.characters) {
+                    for (const subProfessions of Object.values(character.professions || {})) {
+                        const subProfession = subProfessions[criteria.asset];
+                        if (subProfession?.currentSkill >= childTree.amount) {
+                            ret.have[childId] = subProfession.currentSkill;
+                            break;
+                        }
+                    }
+                }
+            } else if (criteria?.type === CriteriaType.ReputationGained) {
+                for (const character of characters) {
+                    const reputation = character.reputations?.[criteria.asset] || 0;
+                    if (reputation > 0) {
+                        characterCounts[character.id] =
+                            (characterCounts[character.id] || 0) + reputation;
+                    }
+                }
+
+                ret.have[childId] = Math.max(
+                    ...userData.characters.map((char) => char.reputations?.[criteria.asset] || 0),
+                );
+            } else if (criteria?.type === CriteriaType.HonorMaybe) {
+                console.log(criteria);
+                console.log(childTree);
+                ret.have[childId] = userData.honorLevel || 0;
+            } else {
+                checkCriteria = true;
+            }
+
+            if (checkCriteria) {
+                const value: number[] = (userAchievementData.criteria[childId] || [[]])[0];
+                ret.have[childId] = value[1] || 0;
+
+                if (ret.have[childId] === 0) {
+                    // console.log(childId, childTree);
+                    for (const childChild of childTree.children) {
+                        const value: number[] = (userAchievementData.criteria[childChild] || [
+                            [],
+                        ])[0];
+                        ret.have[childId] += value[1] || 0;
+                        ret.have[childChild] = value[1] || 0;
+                    }
+                }
+            }
+        }
+    }
+
+    ret.characters = sortBy(
+        Object.entries(characterCounts).filter(([, count]) => count > 0),
+        ([characterId, count]) => [10000000 - count, characterId],
+    ).map(([characterId, count]) => [parseInt(characterId), count]);
+
+    if (achievement.id === debugId) {
+        console.log('ret', ret);
+    }
+
+    return ret;
+}
+
+export class AchievementDataAccount {
+    characters: [number, number][] = [];
+    criteria: AchievementDataCriteriaTree[] = [];
+    have: Record<number, number> = {};
+    total: number = 0;
 }

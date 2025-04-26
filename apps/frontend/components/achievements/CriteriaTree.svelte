@@ -65,8 +65,8 @@
             }
         }
 
-        if (rootCriteriaTree.id === 81134)
-            console.log({ rootCriteriaTree, criteria, criteriaTree, description, have, haveMap });
+        // if (rootCriteriaTree.id === 81134)
+        //     console.log({ rootCriteriaTree, criteria, criteriaTree, description, have, haveMap });
 
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
