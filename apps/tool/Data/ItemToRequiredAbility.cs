@@ -2,43 +2,65 @@
 
 public partial class Hardcoded
 {
+    private const int GnomishEngineering = 20219;
+    private const int GoblinEngineering = 20222;
+
     public static readonly Dictionary<int, int> ItemToRequiredAbility = new()
     {
-        // Classic: Gnomish Engineering
-        { 10545, 20219 }, // Gnomish Goggles
-        { 10645, 20219 }, // Gnomish Death Ray
-        { 10713, 20219 }, // Plans: Inlaid Mithril Cylinder
-        { 10716, 20219 }, // Gnomish Shrink Ray
-        { 10720, 20219 }, // Gnomish Net-o-Matic Projector
-        { 10721, 20219 }, // Gnomish Harm Prevention Belt
-        { 10724, 20219 }, // Gnomish Rocket Boots
-        { 10725, 20219 }, // Gnomish Battle Chicken
-        { 10726, 20219 }, // Gnomish Mind Control Cap
-        { 18645, 20219 }, // Gnomish Alarm-o-Bot
+        // Classic
+        // { 18645, GnomishEngineering }, // Gnomish Alarm-o-Bot
+        { 10725, GnomishEngineering }, // Gnomish Battle Chicken
+        { 10645, GnomishEngineering }, // Gnomish Death Ray
+        { 10545, GnomishEngineering }, // Gnomish Goggles
+        { 10721, GnomishEngineering }, // Gnomish Harm Prevention Belt
+        { 10726, GnomishEngineering }, // Gnomish Mind Control Cap
+        { 10720, GnomishEngineering }, // Gnomish Net-o-Matic Projector
+        { 10724, GnomishEngineering }, // Gnomish Rocket Boots
+        { 10716, GnomishEngineering }, // Gnomish Shrink Ray
+        { 10713, GnomishEngineering }, // Plans: Inlaid Mithril Cylinder
+        { 18986, GnomishEngineering }, // Ultrasafe Transporter: Gadgetzan
+        { 18660, GnomishEngineering }, // World Enlarger
 
-        // Classic: Goblin Engineering
-        { 7189, 20222 }, // Goblin Rocket Boots
-        { 10542, 20222 }, // Goblin Mining Helmet
-        { 10543, 20222 }, // Goblin Construction Helmet
-        { 10577, 20222 }, // Goblin Mortar
-        { 10586, 20222 }, // The Big One
-        { 10587, 20222 }, // Goblin Bomb Dispenser
-        { 10588, 20222 }, // Goblin Rocket Helmet
-        { 10644, 20222 }, // Recipe: Goblin Rocket Fuel
-        { 10646, 20222 }, // Goblin Sapper Charge
-        { 10727, 20222 }, // Goblin Dragon Gun
-        { 18587, 20222 }, // Goblin Jumper Cables XL
+        { 18984, GoblinEngineering }, // Dimensional Ripper - Everlook
+        { 10587, GoblinEngineering }, // Goblin Bomb Dispenser
+        { 10543, GoblinEngineering }, // Goblin Construction Helmet
+        { 10727, GoblinEngineering }, // Goblin Dragon Gun
+        // { 18587, GoblinEngineering }, // Goblin Jumper Cables XL
+        { 10542, GoblinEngineering }, // Goblin Mining Helmet
+        { 10577, GoblinEngineering }, // Goblin Mortar
+        { 7189, GoblinEngineering }, // Goblin Rocket Boots
+        { 10588, GoblinEngineering }, // Goblin Rocket Helmet
+        { 10646, GoblinEngineering }, // Goblin Sapper Charge
+        { 10644, GoblinEngineering }, // Recipe: Goblin Rocket Fuel
+        { 10586, GoblinEngineering }, // The Big One
 
-        // TBC: Gnomish Engineering
-        { 23825, 20219 }, // Nigh-Invulnerability Belt
-        { 23828, 20219 }, // Gnomish Power Goggles
-        { 23829, 20219 }, // Gnomish Battle Goggles
-        { 23841, 20219 }, // Gnomish Flame Turret
+        // TBC
+        { 23829, GnomishEngineering }, // Gnomish Battle Goggles
+        { 23841, GnomishEngineering }, // Gnomish Flame Turret
+        { 23835, GnomishEngineering }, // Gnomish Poultryizer
+        { 23828, GnomishEngineering }, // Gnomish Power Goggles
+        { 23825, GnomishEngineering }, // Nigh-Invulnerability Belt
+        { 30544, GnomishEngineering }, // Ultrasafe Transporter: Toshley's Station
 
-        // TBC: Goblin Engineering
-        { 23826, 20222 }, // The Bigger One
-        { 23827, 20222 }, // Super Sapper Charge
-        { 23838, 20222 }, // Foreman's Enchanted Helmet
-        { 23839, 20222 }, // Foreman's Reinforced Helmet
+        { 30542, GoblinEngineering }, // Dimensional Ripper - Area 52
+        { 23838, GoblinEngineering }, // Foreman's Enchanted Helmet
+        { 23839, GoblinEngineering }, // Foreman's Reinforced Helmet
+        { 30563, GoblinEngineering }, // Goblin Rocket Launcher
+        { 23827, GoblinEngineering }, // Super Sapper Charge
+        { 23826, GoblinEngineering }, // The Bigger One
+
+        // WotLK
+        { 40895, GnomishEngineering }, // Gnomish X-Ray Specs
+
+        { 42641, GoblinEngineering }, // Global Thermal Sapper Charge
+
+        // ??
+        { 60216, GnomishEngineering }, // De-Weaponized Mechanical Companion
+        { 87251, GnomishEngineering }, // Geosynchronous World Spinner
+        { 40727, GnomishEngineering }, // Gnomish Gravity Well
+
+        { 63396, GoblinEngineering }, // Big Daddy
+        { 87250, GoblinEngineering }, // Depleted-Kyparium Rocket
+        { 59597, GoblinEngineering }, // Personal World Destroyer
     };
 }
