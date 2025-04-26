@@ -1,24 +1,33 @@
 <script lang="ts">
-    import { imageStrings } from '@/data/icons'
+    import { imageStrings } from '@/data/icons';
     import { settingsStore } from '@/shared/stores/settings';
-    import type { StaticDataProfession } from '@/shared/stores/static/types'
-    import type { Character } from '@/types'
+    import { leftPad } from '@/utils/formatting/left-pad';
+    import type { StaticDataProfession } from '@/shared/stores/static/types';
+    import type { Character } from '@/types';
 
-    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import Profession from './TableProfession.svelte'
-    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte';
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
+    import Profession from './TableProfession.svelte';
+    import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
 
-    export let profession: StaticDataProfession
+    export let characterIds: number[] = undefined;
+    export let profession: StaticDataProfession;
 
-    let filterFunc: (char: Character) => boolean
+    let filterFunc: (char: Character) => boolean;
+    let sortFunc: (char: Character) => string;
     $: {
         if (profession) {
-            filterFunc = (char) => !!char.professions?.[profession.id]
+            filterFunc = (char) =>
+                !!char.professions?.[profession.id] &&
+                (!characterIds || characterIds.includes(char.id));
+        } else {
+            filterFunc = () => false;
         }
-        else {
-            filterFunc = () => false
-        }
+
+        sortFunc =
+            characterIds?.length > 0
+                ? (char) => leftPad(characterIds.indexOf(char.id), 2, '0')
+                : undefined;
     }
 </script>
 
@@ -26,23 +35,20 @@
     .profession-head {
         padding: 0.3rem;
     }
-    td,th {
+    td,
+    th {
         @include cell-width(4.5rem);
-        
+
         border-left: 1px solid $border-color;
         text-align: center;
     }
 </style>
 
 {#if profession}
-    <CharacterTable {filterFunc}>
+    <CharacterTable {filterFunc} {sortFunc}>
         <CharacterTableHead slot="head">
             <svelte:fragment slot="headText">
-                <WowthingImage
-                    name={imageStrings[profession.slug]}
-                    size={20}
-                    border={1}
-                />
+                <WowthingImage name={imageStrings[profession.slug]} size={20} border={1} />
                 {profession.name.split('|')[0]}
             </svelte:fragment>
 

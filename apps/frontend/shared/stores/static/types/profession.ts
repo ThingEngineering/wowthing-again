@@ -101,6 +101,7 @@ export class StaticDataProfessionAbilityInfo {
     constructor(
         public professionId: number,
         public subProfessionId: number,
+        public ability: StaticDataProfessionAbility,
         public abilityId: number,
         public itemIds: number[],
         public spellId: number,

@@ -19,11 +19,7 @@ import type { StaticDataInstance, StaticDataInstanceArray } from './instance';
 import type { StaticDataKeystoneAffix } from './keystone-affix';
 import type { StaticDataMount, StaticDataMountArray } from './mount';
 import type { StaticDataPet, StaticDataPetArray } from './pet';
-import type {
-    StaticDataProfession,
-    StaticDataProfessionAbility,
-    StaticDataProfessionAbilityInfo,
-} from './profession';
+import type { StaticDataProfession, StaticDataProfessionAbilityInfo } from './profession';
 import type { StaticDataQuestInfo, StaticDataQuestInfoArray } from './quest-info';
 import type { StaticDataQuestLine, StaticDataQuestLineArray } from './quest-line';
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm';
@@ -55,17 +51,16 @@ export interface StaticData {
     characterRacesBySlug: Record<string, StaticDataCharacterRace>;
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>;
 
-    itemToRequiredAbility: Record<number, number>;
-    itemToSkillLine: Record<number, [number, number]>;
-    itemToSkillLineAbility: Record<number, StaticDataProfessionAbility>;
+    itemToRequiredAbility: Record<number, number>; // hardcoded
+    itemToSkillLine: Record<number, [number, number]>; // [requiredSkill, requiredSkillRank]
     professions: Record<number, StaticDataProfession>;
-    professionBySkillLine: Record<number, [StaticDataProfession, number]>;
-    skillLineAbilityItems: Record<number, number[]>;
-    spellToProfessionAbility: Record<number, StaticDataProfessionAbility>;
+    skillLineAbilityItems: Record<number, number[]>; // skillLineId -> [itemIds]
 
+    // Generated
     professionAbilityByAbilityId: Record<number, StaticDataProfessionAbilityInfo>;
     professionAbilityByItemId: Record<number, StaticDataProfessionAbilityInfo>;
     professionAbilityBySpellId: Record<number, StaticDataProfessionAbilityInfo>;
+    professionBySkillLine: Record<number, [StaticDataProfession, number]>;
 
     bags: Record<number, StaticDataBag>;
     rawBags: StaticDataBagArray[];

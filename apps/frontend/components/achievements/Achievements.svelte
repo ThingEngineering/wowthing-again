@@ -1,41 +1,43 @@
 <script lang="ts">
-    import { afterUpdate, onMount } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte';
 
-    import { settingsStore } from '@/shared/stores/settings'
-    import { achievementStore, userAchievementStore } from '@/stores'
-    import { achievementState } from '@/stores/local-storage'
-    import getSavedRoute from '@/utils/get-saved-route'
-    
-    import Category from './Category.svelte'
-    import ScoreSummary from './ScoreSummary.svelte'
-    import Sidebar from './Sidebar.svelte'
-    
+    import { settingsStore } from '@/shared/stores/settings';
+    import { achievementStore, lazyStore, userAchievementStore } from '@/stores';
+    import { achievementState } from '@/stores/local-storage';
+    import getSavedRoute from '@/utils/get-saved-route';
+
+    import Category from './Category.svelte';
+    import ScoreSummary from './ScoreSummary.svelte';
+    import Sidebar from './Sidebar.svelte';
+
     export let params: {
-        slug1: string
-        slug2: string
-    }
+        slug1: string;
+        slug2: string;
+    };
 
     // Fetch achievement data once when this component is mounted
-    onMount(async () => await Promise.all([
-        achievementStore.fetch({ language: $settingsStore.general.language }),
-        //userAchievementStore.fetch(),
-    ]))
+    onMount(
+        async () =>
+            await Promise.all([
+                achievementStore.fetch({ language: $settingsStore.general.language }),
+                //userAchievementStore.fetch(),
+            ]),
+    );
 
-    afterUpdate(() => getSavedRoute('achievements', params.slug1, params.slug2))
+    afterUpdate(() => getSavedRoute('achievements', params.slug1, params.slug2));
 
-    let error: boolean
-    let loaded: boolean
-    let ready: boolean
+    let error: boolean;
+    let loaded: boolean;
+    let ready: boolean;
     $: {
-        error = $achievementStore.error || $userAchievementStore.error
-        loaded = $achievementStore.loaded && $userAchievementStore.loaded
-        ready = false
+        error = $achievementStore.error || $userAchievementStore.error;
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded;
+        ready = false;
         if (!error && loaded) {
-            userAchievementStore.setup(
-                $achievementState,
-                $achievementStore
-            )
-            ready = true
+            userAchievementStore.setup($achievementState, $achievementStore);
+
+            const oof = $lazyStore.achievements;
+            ready = true;
         }
     }
 </script>

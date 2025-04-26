@@ -14,7 +14,7 @@ export class AuctionState {
     public showDontHave = true;
     public showHave = true;
 
-    public missingRecipeCharacterId = 0;
+    public missingRecipeCharacterIds: number[] = [];
     public missingRecipeExpansion = -1;
     public missingRecipeProfessionId = 0;
     public missingRecipeNameSearch = '';

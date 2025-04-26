@@ -191,7 +191,7 @@ export class UserAuctionMissingTransmogDataStore {
             let matchesSource = true;
             if (!auctionState.missingTransmogShowCrafted) {
                 matchesSource =
-                    staticData.itemToSkillLineAbility[item.id] === undefined &&
+                    staticData.professionAbilityByItemId[item.id] === undefined &&
                     !extraCraftedItemIds.has(item.id);
             }
 

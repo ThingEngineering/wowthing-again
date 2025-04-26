@@ -91,7 +91,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
             }
 
             for (const tagName of childCategory.vendorTags) {
-                vendorIdSets[1].push(...(stores.manualData.shared.vendorsByMap[tagName] || []));
+                vendorIdSets[1].push(...(stores.manualData.shared.vendorsByTag[tagName] || []));
             }
 
             const vendorIds =
@@ -104,6 +104,7 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 tags: childCategory.vendorTags,
                 type: DbThingType.Vendor,
             };
+
             for (const entry of dbStore.search(query)) {
                 dbMap[entry.id] = entry.asVendor();
                 vendorIds.push(entry.id);
