@@ -351,7 +351,7 @@ export const twwChores11_1_5: Chore[] = [
         taskKey: 'twwNightfall',
         taskName: '[W] Nightfall Scenario',
         minimumLevel: 80,
-        questIds: [91173],
+        questIds: [88888], // weekly bag loot
         questReset: DbResetType.Weekly,
     },
     {
