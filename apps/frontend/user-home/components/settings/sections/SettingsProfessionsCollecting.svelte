@@ -41,11 +41,6 @@
     table {
         --image-border-width: 1px;
         --image-margin-top: -4px;
-        --sms-li-active-bg: #{$active-background};
-        --sms-options-bg: #{$tooltip-background};
-        --sms-options-border: 1px solid #{$tooltip-border};
-        --sms-placeholder-color: #bbb;
-        --sms-selected-li-padding: 0 0.2rem;
 
         margin-bottom: 1rem;
         // This is goofy but I can't work out how to have the dropdown extend outside the table
