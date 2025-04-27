@@ -316,13 +316,15 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                         expiresAt = getNextDailyResetFromTime(charScanned, character.realm.region);
                     }
 
-                    charTask.quest = {
-                        expires: expiresAt.toUnixInteger(),
-                        id: questId,
-                        name: stores.staticData.questNames[questId] || choreTask.taskName,
-                        objectives: [],
-                        status: QuestStatus.Completed,
-                    };
+                    if (expiresAt > stores.currentTime) {
+                        charTask.quest = {
+                            expires: expiresAt.toUnixInteger(),
+                            id: questId,
+                            name: stores.staticData.questNames[questId] || choreTask.taskName,
+                            objectives: [],
+                            status: QuestStatus.Completed,
+                        };
+                    }
                     break;
                 }
             }
