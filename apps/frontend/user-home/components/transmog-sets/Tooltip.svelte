@@ -115,8 +115,12 @@
                             {#if showShift && shiftPressed}
                                 <TooltipItems
                                     dedupe={false}
-                                    items={actualSlotItems.filter(([itemCollected]) =>
-                                        have < actualSlotItems.length ? !itemCollected : true,
+                                    items={actualSlotItems.filter(([hasAppearance, hasSource]) =>
+                                        have < actualSlotItems.length
+                                            ? $settingsStore.transmog.completionistMode
+                                                ? !hasSource
+                                                : !hasAppearance
+                                            : true,
                                     )}
                                 />
                             {:else if slotKeys.length === 1}
