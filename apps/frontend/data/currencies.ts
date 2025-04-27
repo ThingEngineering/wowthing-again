@@ -127,6 +127,7 @@ export const currencyExtra: Record<number, number[]> = {
     // The War Within - Season 2
     126012: [
         3116, // Essence of Kaja'mite
+        2803, // Undercoins
         3008, // Valorstones
         3107, // Weathered Undermine Crest
         3108, // Carved Undermine Crest
