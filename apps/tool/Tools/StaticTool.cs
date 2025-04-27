@@ -278,7 +278,14 @@ public class StaticTool
 
         foreach (var kvp in Hardcoded.ItemToRequiredAbility)
         {
-            cacheData.ItemToRequiredAbility.Add(kvp.Key, kvp.Value);
+            if (cacheData.ItemToRequiredAbility.ContainsKey(kvp.Key))
+            {
+                ToolContext.Logger.Warning("ItemToRequiredAbility already exists: {key} {value}", kvp.Key, kvp.Value);
+            }
+            else
+            {
+                cacheData.ItemToRequiredAbility.Add(kvp.Key, kvp.Value);
+            }
         }
 
         cacheData.ItemToSkillLine = _itemMap.Values
