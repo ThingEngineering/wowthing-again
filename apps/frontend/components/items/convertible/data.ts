@@ -52,6 +52,21 @@ export const convertibleCategories: ConvertibleCategory[] = [
         ],
         purchases: [
             {
+                costId: 238_920, // Radiant Emblem of Service
+                costAmount: {
+                    [InventoryType.Head]: 1,
+                    [InventoryType.Shoulders]: 1,
+                    [InventoryType.Back]: 1,
+                    [InventoryType.Chest]: 1,
+                    [InventoryType.Wrist]: 1,
+                    [InventoryType.Hands]: 1,
+                    [InventoryType.Waist]: 1,
+                    [InventoryType.Legs]: 1,
+                    [InventoryType.Feet]: 1,
+                },
+                upgradeTier: 2,
+            },
+            {
                 costId: 2815, // Resonance Crystals
                 costAmount: {
                     [InventoryType.Hands]: 3900,
