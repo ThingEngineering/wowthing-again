@@ -93,7 +93,12 @@
                     {@const have = actualSlotItems.filter(([, haveSource]) => haveSource).length}
                     <tr>
                         <td class="have">
-                            <YesNoIcon state={slotCollected} useStatusColors={true} />
+                            <YesNoIcon
+                                state={$settingsStore.transmog.completionistMode
+                                    ? have >= actualSlotItems.length
+                                    : slotCollected}
+                                useStatusColors={true}
+                            />
                         </td>
                         <td class="type">
                             {#if type >= 100}
