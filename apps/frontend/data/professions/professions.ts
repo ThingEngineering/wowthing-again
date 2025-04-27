@@ -67,6 +67,11 @@ export const professionOrder: number[] = sortBy(Object.entries(professionIdToSlu
 export const professionOrderMap = toIndexRecord(professionOrder);
 
 export const professionSpecializationToSpell: Record<string, number> = {
+    // Alchemy
+    'Elixir Master': 28677,
+    'Potion Master': 28675,
+    'Transmutation Master': 28672,
+    // Engineering
     'Gnomish Engineer': 20219,
     'Goblin Engineer': 20222,
 };
