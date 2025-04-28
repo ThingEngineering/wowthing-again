@@ -93,7 +93,12 @@
                     {@const have = actualSlotItems.filter(([, haveSource]) => haveSource).length}
                     <tr>
                         <td class="have">
-                            <YesNoIcon state={slotCollected} useStatusColors={true} />
+                            <YesNoIcon
+                                state={$settingsStore.transmog.completionistMode
+                                    ? have >= actualSlotItems.length
+                                    : slotCollected}
+                                useStatusColors={true}
+                            />
                         </td>
                         <td class="type">
                             {#if type >= 100}
@@ -115,8 +120,12 @@
                             {#if showShift && shiftPressed}
                                 <TooltipItems
                                     dedupe={false}
-                                    items={actualSlotItems.filter(([itemCollected]) =>
-                                        have < actualSlotItems.length ? !itemCollected : true,
+                                    items={actualSlotItems.filter(([hasAppearance, hasSource]) =>
+                                        have < actualSlotItems.length
+                                            ? $settingsStore.transmog.completionistMode
+                                                ? !hasSource
+                                                : !hasAppearance
+                                            : true,
                                     )}
                                 />
                             {:else if slotKeys.length === 1}

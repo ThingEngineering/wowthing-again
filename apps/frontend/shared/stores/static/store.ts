@@ -335,6 +335,18 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 );
             }
         }
+
+        // map learned spells to ability info
+        // TODO: do something about items that teach multiple spells
+        for (const [itemId, spellIds] of getNumberKeyedEntries(itemData.teachesSpell)) {
+            for (const spellId of spellIds) {
+                const abilityInfo = this.value.professionAbilityBySpellId[spellId];
+                if (abilityInfo) {
+                    this.value.professionAbilityByItemId[itemId] ||= abilityInfo;
+                    this.value.professionAbilityBySpellId[spellId] ||= abilityInfo;
+                }
+            }
+        }
     }
 
     recurseProfession(

@@ -1,5 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons';
+    import { professionSpecializationSpells } from '@/data/professions';
     import { settingsStore } from '@/shared/stores/settings';
     import { leftPad } from '@/utils/formatting/left-pad';
     import type { StaticDataProfession } from '@/shared/stores/static/types';
@@ -9,6 +10,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte';
     import Profession from './TableProfession.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
 
     export let characterIds: number[] = undefined;
     export let profession: StaticDataProfession;
@@ -42,6 +44,12 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    .specialization {
+        @include cell-width(12rem);
+    }
+    td.specialization {
+        text-align: left;
+    }
 </style>
 
 {#if profession}
@@ -59,6 +67,10 @@
                     <th class="profession-head">{expansion.shortName}</th>
                 {/each}
             {/if}
+
+            {#if ['alchemy', 'engineering'].includes(profession.slug)}
+                <th class="profession-head specialization">Specialization</th>
+            {/if}
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
@@ -69,6 +81,20 @@
                     {character}
                 />
             {/each}
+
+            {#if ['alchemy', 'engineering'].includes(profession.slug)}
+                {@const specId = character.professionSpecializations?.[profession.id]}
+                <td class="specialization">
+                    {#if specId}
+                        <WowheadLink id={specId} type="spell">
+                            <WowthingImage name="spell/{specId}" size={20} border={1} />
+                            {professionSpecializationSpells[specId]}
+                        </WowheadLink>
+                    {:else}
+                        No spec!
+                    {/if}
+                </td>
+            {/if}
         </svelte:fragment>
 
         <tr slot="emptyRow">

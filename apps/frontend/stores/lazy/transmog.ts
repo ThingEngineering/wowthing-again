@@ -106,8 +106,24 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex];
 
-                const groupKey = `${catKey}--${groupIndex}`;
-                const groupStats = (ret.stats[groupKey] ||= new UserCount());
+                let groupKey = `${catKey}--${groupIndex}`;
+                // Multiple consecutive groups with the same name are coalesced into a single
+                // display group, make sure the group stats are accurate
+                let groupStatsKey = groupKey;
+                if (groupIndex > 0) {
+                    let priorIndex = groupIndex;
+                    while (priorIndex > 0) {
+                        priorIndex--;
+                        const priorGroup = category.groups[priorIndex];
+                        if (priorGroup.name === group.name) {
+                            groupStatsKey = `${catKey}--${priorIndex}`;
+                        } else {
+                            break;
+                        }
+                    }
+                }
+
+                const groupStats = (ret.stats[groupStatsKey] ||= new UserCount());
 
                 for (const [dataKey, dataValue] of Object.entries(group.data)) {
                     if (skipClasses[dataKey]) {

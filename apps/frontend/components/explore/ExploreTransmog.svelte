@@ -28,7 +28,12 @@
         transmogSet = $staticStore.transmogSets[$exploreState.transmogSetId];
         if (transmogSet) {
             for (const [itemId] of transmogSet.items) {
-                const item = $itemStore.items[itemId];
+                const isPrimary = itemId > 10_000_000;
+                const item = $itemStore.items[itemId % 10_000_000];
+                if (!item) {
+                    console.warn('Invalid item', itemId);
+                    continue;
+                }
 
                 let actualSlot: number;
                 if (weaponInventoryTypes.has(item.inventoryType)) {
@@ -37,7 +42,12 @@
                     actualSlot = fixedInventoryType(item.inventoryType);
                 }
 
-                (slots[actualSlot] ||= []).push(item);
+                const slotItems = (slots[actualSlot] ||= []);
+                if (isPrimary) {
+                    slotItems.unshift(item);
+                } else {
+                    slotItems.push(item);
+                }
             }
         }
     }
