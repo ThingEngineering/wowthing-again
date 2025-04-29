@@ -1,20 +1,22 @@
 <script lang="ts">
-    import { userAchievementStore, userQuestStore, userStore } from '@/stores'
-    import { collectibleState } from '@/stores/local-storage'
+    import { userAchievementStore, userQuestStore, userStore } from '@/stores';
+    import { collectibleState } from '@/stores/local-storage';
     import type { ManualDataCustomizationThing } from '@/types/data/manual';
 
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
-    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte'
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import WorldQuest from '../world-quests/WorldQuest.svelte';
 
-    export let thing: ManualDataCustomizationThing
+    export let thing: ManualDataCustomizationThing;
 
-    $: have = (
+    $: have =
         (thing.achievementId > 0 && !!$userAchievementStore.achievements[thing.achievementId]) ||
         (thing.questId > 0 && $userQuestStore.accountHas.has(thing.questId)) ||
+        (thing.spellId > 0 &&
+            $userStore.characters.some((char) => char.knownSpells?.includes(thing.spellId))) ||
         (thing.appearanceModifier >= 0 &&
-            $userStore.hasSourceV2.get(thing.appearanceModifier).has(thing.itemId))
-    );
+            $userStore.hasSourceV2.get(thing.appearanceModifier).has(thing.itemId));
 </script>
 
 <style lang="scss">
@@ -36,27 +38,24 @@
     }
 </style>
 
-{#if (have && $collectibleState.showCollected['customizations'])
-    || (!have && $collectibleState.showUncollected['customizations'])}
-    <tr
-        class:faded={$collectibleState.highlightMissing['customizations'] ? have : !have}
-    >
+{#if (have && $collectibleState.showCollected['customizations']) || (!have && $collectibleState.showUncollected['customizations'])}
+    <tr class:faded={$collectibleState.highlightMissing['customizations'] ? have : !have}>
         <td class="yes-no">
-            <YesNoIcon
-                state={have}
-                useStatusColors={true}
-            />
+            <YesNoIcon state={have} useStatusColors={true} />
         </td>
         <td class="name text-overflow">
             <ParsedText text={thing.name} />
         </td>
         <td class="item text-overflow">
-            <WowheadLink
-                id={thing.itemId}
-                type={'item'}
-            >
-                <ParsedText text={`{item:${thing.itemId}}`} />
-            </WowheadLink>
+            {#if thing.itemId > 0}
+                <WowheadLink id={thing.itemId} type={'item'}>
+                    <ParsedText text={`{item:${thing.itemId}}`} />
+                </WowheadLink>
+            {:else}
+                <WowheadLink id={thing.spellId} type={'spell'}>
+                    {thing.name}
+                </WowheadLink>
+            {/if}
         </td>
     </tr>
 {/if}

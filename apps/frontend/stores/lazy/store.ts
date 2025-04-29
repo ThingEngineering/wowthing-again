@@ -545,6 +545,10 @@ export class LazyStore implements LazyUgh {
                             (thing.achievementId > 0 &&
                                 !!userAchievementData.achievements[thing.achievementId]) ||
                             (thing.questId > 0 && userQuestData.accountHas.has(thing.questId)) ||
+                            (thing.spellId > 0 &&
+                                userData.characters.some((char) =>
+                                    char.knownSpells?.includes(thing.spellId),
+                                )) ||
                             (thing.appearanceModifier >= 0 &&
                                 userData.hasSourceV2
                                     .get(thing.appearanceModifier)
