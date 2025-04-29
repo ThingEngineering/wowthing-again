@@ -196,6 +196,10 @@ public class UserUploadCharacterProcessor
             _character.AddonData.WeeklyReset = _characterData.WeeklyReset.AsUtcDateTime();
         }
 
+        _character.AddonData.KnownSpells = _characterData.KnownSpells.EmptyIfNull()
+            .Order()
+            .ToList();
+
         _character.AddonData.Auras = new();
         foreach (string auraString in _characterData.AurasV2.EmptyIfNull())
         {

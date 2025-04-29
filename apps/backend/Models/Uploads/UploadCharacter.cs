@@ -46,6 +46,7 @@ public class UploadCharacter
     public List<string> HighestItemLevel { get; set; }
     public List<UploadCharacterInstanceDone> InstanceDone { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
+    public List<int> KnownSpells { get; set; }
     public List<UploadCharacterLockout> Lockouts { get; set; }
     public List<int> Mounts { get; set; }
     public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }

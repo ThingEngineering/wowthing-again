@@ -28,6 +28,8 @@ public class PlayerCharacterAddonData(int characterId)
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime PatronOrdersScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
+    public List<int> KnownSpells { get; set; } = new();
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataAura> Auras { get; set; } = new();
 
