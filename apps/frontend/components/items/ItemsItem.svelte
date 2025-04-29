@@ -7,6 +7,7 @@
     } from './convertible/data';
     import { Constants } from '@/data/constants';
     import { iconStrings } from '@/data/icons';
+    import { staticStore } from '@/shared/stores/static';
     import { itemStore } from '@/stores';
     import { getItemUrl } from '@/utils/get-item-url';
     import type { Character, CharacterGear } from '@/types';
@@ -68,6 +69,17 @@
             Math.floor((character.currencies?.[tier[0]]?.quantity || 0) / tier[1]),
         ];
     }
+
+    const getUpgradeData = () => {
+        for (const bonusId of gear.equipped.bonusIds) {
+            if ($itemStore.itemBonusCurrentSeason.has(bonusId)) {
+                const upgrades = $itemStore.itemBonusToUpgrade[bonusId];
+                if (upgrades) {
+                    return upgrades;
+                }
+            }
+        }
+    };
 </script>
 
 <style lang="scss">
@@ -154,6 +166,10 @@
         right: -2px;
         top: -2px;
     }
+    .upgrade-level {
+        font-size: 90%;
+        word-spacing: -0.2ch;
+    }
 </style>
 
 <td class="gear" class:no-problem={useHighlighting && !gear.highlight}>
@@ -215,6 +231,21 @@
                     )}
                 />
             </div>
+        {:else}
+            {@const upgradeData = getUpgradeData()}
+            {#if upgradeData?.[0] > 0}
+                {@const upgradeString = $staticStore.sharedStrings[upgradeData[0]]}
+                {@const percent = (upgradeData[1] / upgradeData[2]) * 100}
+                <span
+                    class="upgrade-level pill abs-center"
+                    class:status-fail={percent === 0}
+                    class:status-shrug={percent > 0 && percent < 100}
+                    class:status-success={percent === 100}
+                >
+                    {upgradeString.charAt(0)}
+                    {upgradeData[1]}/{upgradeData[2]}
+                </span>
+            {/if}
         {/if}
     {/if}
 </td>
