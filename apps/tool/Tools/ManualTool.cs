@@ -46,6 +46,7 @@ public class ManualTool
         StringType.WowCreatureName,
         StringType.WowItemName,
         StringType.WowMountName,
+        StringType.WowSpellName,
     };
 
     public async Task Run()
@@ -599,7 +600,7 @@ public class ManualTool
 
                             foreach (var thing in group.Things.EmptyIfNull())
                             {
-                                if (_itemEffectMap.TryGetValue(thing.ItemId, out var itemEffect))
+                                if (thing.ItemId > 0 && _itemEffectMap.TryGetValue(thing.ItemId, out var itemEffect))
                                 {
                                     foreach (var spellEffects in itemEffect.SpellEffects.Values)
                                     {
@@ -621,6 +622,22 @@ public class ManualTool
                                             }
                                         }
                                     }
+                                }
+                                else if (thing.SpellId > 0)
+                                {
+                                    string spellName = GetString(StringType.WowSpellName, thing.SpellId);
+                                    spellMap.TryGetValue(thing.SpellId, out var spell);
+
+                                    string fullName = !string.IsNullOrEmpty(spellName)
+                                        ? $"{spellName}: {spell?.NameSubtext ?? $"#{thing.SpellId}"}"
+                                        : spell?.NameSubtext ?? $"Spell #{thing.SpellId}";
+
+                                    newGroup.Things.Add(new ManualCustomizationThing
+                                    {
+                                        ItemId = thing.ItemId,
+                                        SpellId = thing.SpellId,
+                                        Name = fullName,
+                                    });
                                 }
                             }
                         }
