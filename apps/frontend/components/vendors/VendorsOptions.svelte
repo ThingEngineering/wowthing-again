@@ -1,98 +1,93 @@
 <script lang="ts">
-    import { iconStrings } from '@/data/icons'
-    import { VendorState, vendorState } from '@/stores/local-storage'
+    import { iconStrings } from '@/data/icons';
+    import { VendorState, vendorState } from '@/stores/local-storage';
 
-    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-
+    import CheckboxInput from '@/shared/components/forms/CheckboxInput.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
 
     function getFilters(state: VendorState): string {
-        let byType1: string[] = []
-        let byType2: string[] = []
-        let byThing: string[] = []
-        let bySet: string[] = []
+        let byType1: string[] = [];
+        let byType2: string[] = [];
+        let byThing: string[] = [];
+        let bySet: string[] = [];
 
         if (state.showCloth) {
-            byType1.push('C')
+            byType1.push('C');
         }
         if (state.showLeather) {
-            byType1.push('L')
+            byType1.push('L');
         }
         if (state.showMail) {
-            byType1.push('M')
+            byType1.push('M');
         }
         if (state.showPlate) {
-            byType1.push('P')
+            byType1.push('P');
         }
 
         if (byType1.length === 0) {
-            byType1 = ['---']
-        }
-        else if (byType1.length === 4) {
-            byType1 = ['ALL']
+            byType1 = ['---'];
+        } else if (byType1.length === 4) {
+            byType1 = ['ALL'];
         }
 
         if (state.showCloaks) {
-            byType2.push('C')
+            byType2.push('C');
         }
         if (state.showCosmetics) {
-            byType2.push('O')
+            byType2.push('O');
         }
         if (state.showWeapons) {
-            byType2.push('W')
+            byType2.push('W');
         }
 
         if (byType2.length === 0) {
-            byType2 = ['---']
-        }
-        else if (byType2.length === 3) {
-            byType2 = ['ALL']
+            byType2 = ['---'];
+        } else if (byType2.length === 3) {
+            byType2 = ['ALL'];
         }
 
         if (state.showDragonriding) {
             byThing.push('D');
         }
         if (state.showIllusions) {
-            byThing.push('I')
+            byThing.push('I');
         }
         if (state.showMounts) {
-            byThing.push('M')
+            byThing.push('M');
         }
         if (state.showPets) {
-            byThing.push('P')
+            byThing.push('P');
         }
         if (state.showRecipes) {
-            byThing.push('R')
+            byThing.push('R');
         }
         if (state.showToys) {
-            byThing.push('T')
+            byThing.push('T');
         }
 
         if (byThing.length === 0) {
-            byThing = ['---']
-        }
-        else if (byThing.length === 6) {
-            byThing = ['ALL']
+            byThing = ['---'];
+        } else if (byThing.length === 6) {
+            byThing = ['ALL'];
         }
 
         if (state.showPvp) {
-            bySet.push('P')
+            bySet.push('P');
         }
         if (state.showTier) {
-            bySet.push('T')
+            bySet.push('T');
         }
         if (state.showAwakened) {
-            bySet.push('A')
+            bySet.push('A');
         }
 
         if (bySet.length === 0) {
-            bySet = ['---']
-        }
-        else if (bySet.length === 3) {
-            bySet = ['ALL']
+            bySet = ['---'];
+        } else if (bySet.length === 3) {
+            bySet = ['ALL'];
         }
 
-        return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')}`
+        return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')}`;
     }
 </script>
 
@@ -101,7 +96,7 @@
         margin-left: auto;
         margin-right: 0;
         padding-left: 0.5rem;
- 
+
         :global(svg) {
             margin-top: -4px;
         }
@@ -126,30 +121,36 @@
 
 <div class="options-container">
     <button>
-        <CheckboxInput
-            name="highlight_missing"
-            bind:value={$vendorState.highlightMissing}
-        >Highlight missing</CheckboxInput>
+        <CheckboxInput name="highlight_missing" bind:value={$vendorState.highlightMissing}
+            >Highlight missing</CheckboxInput
+        >
     </button>
 
     <span>Show:</span>
 
     <button>
-        <CheckboxInput
-            name="show_collected"
-            bind:value={$vendorState.showCollected}
-        >Collected</CheckboxInput>
+        <CheckboxInput name="show_collected" bind:value={$vendorState.showCollected}
+            >Collected</CheckboxInput
+        >
     </button>
 
     <button>
         <CheckboxInput
-            name="show_uncollected"
-            bind:value={$vendorState.showUncollected}
-        >Missing</CheckboxInput>
+            name="show_collected_prices"
+            disabled={!$vendorState.showCollected}
+            bind:value={$vendorState.showCollectedPrices}>Collected Prices</CheckboxInput
+        >
     </button>
-        
-    <button class="filters-toggle"
-        on:click={() => $vendorState.filtersExpanded = !$vendorState.filtersExpanded}
+
+    <button>
+        <CheckboxInput name="show_uncollected" bind:value={$vendorState.showUncollected}
+            >Missing</CheckboxInput
+        >
+    </button>
+
+    <button
+        class="filters-toggle"
+        on:click={() => ($vendorState.filtersExpanded = !$vendorState.filtersExpanded)}
     >
         Filters: {getFilters($vendorState)}
 
@@ -164,50 +165,41 @@
         <span>Types:</span>
 
         <button>
-            <CheckboxInput
-                name="show_cloth"
-                bind:value={$vendorState.showCloth}
-            >Cloth</CheckboxInput>
+            <CheckboxInput name="show_cloth" bind:value={$vendorState.showCloth}
+                >Cloth</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_leather"
-                bind:value={$vendorState.showLeather}
-            >Leather</CheckboxInput>
+            <CheckboxInput name="show_leather" bind:value={$vendorState.showLeather}
+                >Leather</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_mail"
-                bind:value={$vendorState.showMail}
-            >Mail</CheckboxInput>
+            <CheckboxInput name="show_mail" bind:value={$vendorState.showMail}>Mail</CheckboxInput>
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_plate"
-                bind:value={$vendorState.showPlate}
-            >Plate</CheckboxInput>
+            <CheckboxInput name="show_plate" bind:value={$vendorState.showPlate}
+                >Plate</CheckboxInput
+            >
         </button>
 
         <button class="margin-left">
-            <CheckboxInput
-                name="show_cloaks"
-                bind:value={$vendorState.showCloaks}
-            >Cloaks</CheckboxInput>
+            <CheckboxInput name="show_cloaks" bind:value={$vendorState.showCloaks}
+                >Cloaks</CheckboxInput
+            >
         </button>
         <button>
-            <CheckboxInput
-                name="show_cosmetics"
-                bind:value={$vendorState.showCosmetics}
-            >Cosmetics</CheckboxInput>
+            <CheckboxInput name="show_cosmetics" bind:value={$vendorState.showCosmetics}
+                >Cosmetics</CheckboxInput
+            >
         </button>
         <button>
-            <CheckboxInput
-                name="show_weapons"
-                bind:value={$vendorState.showWeapons}
-            >Weapons</CheckboxInput>
+            <CheckboxInput name="show_weapons" bind:value={$vendorState.showWeapons}
+                >Weapons</CheckboxInput
+            >
         </button>
     </div>
 
@@ -215,45 +207,35 @@
         <span>Things:</span>
 
         <button>
-            <CheckboxInput
-                name="show_dragonriding"
-                bind:value={$vendorState.showDragonriding}
-            >Dragonriding</CheckboxInput>
+            <CheckboxInput name="show_dragonriding" bind:value={$vendorState.showDragonriding}
+                >Dragonriding</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_illusions"
-                bind:value={$vendorState.showIllusions}
-            >Illusions</CheckboxInput>
+            <CheckboxInput name="show_illusions" bind:value={$vendorState.showIllusions}
+                >Illusions</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_mounts"
-                bind:value={$vendorState.showMounts}
-            >Mounts</CheckboxInput>
+            <CheckboxInput name="show_mounts" bind:value={$vendorState.showMounts}
+                >Mounts</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_pets"
-                bind:value={$vendorState.showPets}
-            >Pets</CheckboxInput>
+            <CheckboxInput name="show_pets" bind:value={$vendorState.showPets}>Pets</CheckboxInput>
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_recipes"
-                bind:value={$vendorState.showRecipes}
-            >Recipes</CheckboxInput>
+            <CheckboxInput name="show_recipes" bind:value={$vendorState.showRecipes}
+                >Recipes</CheckboxInput
+            >
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_toys"
-                bind:value={$vendorState.showToys}
-            >Toys</CheckboxInput>
+            <CheckboxInput name="show_toys" bind:value={$vendorState.showToys}>Toys</CheckboxInput>
         </button>
     </div>
 
@@ -261,24 +243,17 @@
         <span>Sets:</span>
 
         <button>
-            <CheckboxInput
-                name="show_pvp"
-                bind:value={$vendorState.showPvp}
-            >PvP</CheckboxInput>
+            <CheckboxInput name="show_pvp" bind:value={$vendorState.showPvp}>PvP</CheckboxInput>
         </button>
 
         <button>
-            <CheckboxInput
-                name="show_tier"
-                bind:value={$vendorState.showTier}
-            >Tier</CheckboxInput>
+            <CheckboxInput name="show_tier" bind:value={$vendorState.showTier}>Tier</CheckboxInput>
         </button>
 
         <button class="margin-left">
-            <CheckboxInput
-                name="show_awakened"
-                bind:value={$vendorState.showAwakened}
-            >Awakened</CheckboxInput>
+            <CheckboxInput name="show_awakened" bind:value={$vendorState.showAwakened}
+                >Awakened</CheckboxInput
+            >
         </button>
     </div>
 {/if}
