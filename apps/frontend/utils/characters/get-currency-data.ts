@@ -10,6 +10,7 @@ import { get } from 'svelte/store';
 
 interface CharacterCurrencyData {
     amount: string;
+    amountRaw: number;
     capRemaining: number;
     percent: number;
     tooltip: string;
@@ -25,6 +26,7 @@ export function getCurrencyData(
 ): CharacterCurrencyData {
     const ret: CharacterCurrencyData = {
         amount: '',
+        amountRaw: 0,
         capRemaining: 0,
         percent: 0,
         tooltip: '',
@@ -62,6 +64,7 @@ export function getCurrencyData(
         }
 
         ret.amount = toNiceNumber(amount);
+        ret.amountRaw = amount;
 
         if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
             ret.capRemaining = characterCurrency.max - characterCurrency.totalQuantity;
@@ -90,6 +93,7 @@ export function getCurrencyData(
             const characterItemCount = character.getItemCount(itemId);
 
             ret.amount = toNiceNumber(characterItemCount);
+            ret.amountRaw = characterItemCount;
             ret.tooltip = `${characterItemCount.toLocaleString()}x ${name}`;
 
             if (currencyItemCurrencies[itemId]) {

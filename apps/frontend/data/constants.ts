@@ -10,6 +10,8 @@ export abstract class Constants {
 
     static readonly currencies = {
         catalyst: 3116, // Essence of Kaja'mite
+        conquest: 1602,
+        honor: 1792,
         itemUpgrade: 3008, // Valorstones
     };
 
