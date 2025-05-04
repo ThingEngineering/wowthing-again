@@ -90,6 +90,17 @@ public static class DataUtilities
         return records.ToDictionary(keyFunc);
     }
 
+    public static async Task<Dictionary<TKey, TValue>> LoadDumpToDictionaryAsync<TObject, TKey, TValue>(
+        string fileName,
+        Func<TObject, TKey> keyFunc,
+        Func<TObject, TValue> valueFunc,
+        Language language = Language.enUS
+    ) where TKey : notnull
+    {
+        var records = await LoadDumpCsvAsync<TObject>(fileName, language);
+        return records.ToDictionary(keyFunc, valueFunc);
+    }
+
     public static List<List<TCategory?>?> LoadData<TCategory>(string basePath, ILogger? logger = null)
         where TCategory : class, ICloneable, IDataCategory
     {
