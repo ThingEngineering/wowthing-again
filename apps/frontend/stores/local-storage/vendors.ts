@@ -6,6 +6,7 @@ export class VendorState {
     public highlightMissing = true;
     public showCollected = true;
     public showUncollected = true;
+    public showCollectedPrices = false;
 
     public showCloth = true;
     public showLeather = true;

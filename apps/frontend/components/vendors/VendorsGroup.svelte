@@ -316,7 +316,9 @@
 
                             {#if thing.userHas}
                                 <CollectedIcon />
-                            {:else}
+                            {/if}
+                            
+                            {#if !thing.userHas || $vendorState.showCollectedPrices}
                                 <div class="costs quality1">
                                     {#each thing.item.sortedCosts as [costType, costId, costValue]}
                                         <div>

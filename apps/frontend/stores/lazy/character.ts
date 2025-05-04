@@ -274,11 +274,12 @@ class ProcessCharacterProfessions {
 function doCharacterTasks(stores: LazyStores, character: Character, characterData: LazyCharacter) {
     const processTask = (choreTask: Chore, character: Character): LazyCharacterChoreTask => {
         let charTask = new LazyCharacterChoreTask(choreTask.taskKey, undefined);
-        if (!character) {
+
+        const charQuests = stores.userQuestData.characters[character?.id];
+        if (!character || !charQuests) {
             return charTask;
         }
 
-        const charQuests = stores.userQuestData.characters[character.id];
         const charScanned = charQuests.scannedTime;
 
         if (choreTask.questIds) {

@@ -104,6 +104,8 @@ export const openables = new Set<number>([
     234744, // Blackwater's Trove
     234745, // Bilgewater's Trove
     234746, // Venture Co.'s Trove
+    235052, // Weathered Mysterious Satchel [uncommon]
+    235054, // Pristine Mysterious Satchel
     235151, // Distinguished Actor's Chest
     235258, // Bilgewater's Trove
     235259, // Bilgewater's Trove
@@ -117,18 +119,27 @@ export const openables = new Set<number>([
     235558, // Box of Darkfuse Miscellany
     235610, // Seasoned Adventurer's Cache [S2]
     235639, // Seasoned Adventurer's Cache [S2]
+    235911, // Weathered Mysterious Satchel [rare]
     236756, // Socially Expected Tip Chest
     236757, // Generous Tip Chest
     236758, // Extravagant Tip Chest
+    236944, // Weathered Mysterious Satchel [epic]
     237014, // Severed Threads Commendation
     237132, // Bilgewater Trove
     237133, // Venture Co. Trove
     237134, // Steamwheedle Trove
     237135, // Blackwater Trove
+    237743, // Arathi Soldier's Coffer
+    237759, // Arathi Cleric's Chest
+    237760, // Arathi Champion's Spoils
     238207, // Nanny's Surge Dividends
     238208, // Nanny's Surge Dividends
+    239004, // Radiant Service Satchel
     239118, // Pinnacle Cache [S2]
     239120, // Seasoned Adventurer's Cache [S2]
+    239489, // Radiant Officer's Cache
+    239546, // Confiscated Cultist's Bag
+    242386, // Lorewalker's Crate of Memorabilia
 
     221269, // Crimson Valorstone
     225896, // Void-Touched Valorstone

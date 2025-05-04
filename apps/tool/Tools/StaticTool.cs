@@ -944,6 +944,11 @@ public class StaticTool
     {
         var ret = new StaticProfessionReagents();
 
+        var craftingQuality = await DataUtilities.LoadDumpToDictionaryAsync<DumpCraftingQuality, short, short>(
+            "craftingquality",
+            cq => cq.ID,
+            cq => cq.QualityTier
+        );
         var mcrSlotToCategories = await DataUtilities.LoadDumpCsvAsync<DumpMCRSlotXMCRCategory>("mcrslotxmcrcategory");
         var mcItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingItem>("modifiedcraftingitem");
         var mcReagentItems = await DataUtilities.LoadDumpCsvAsync<DumpModifiedCraftingReagentItem>("modifiedcraftingreagentitem");
@@ -959,7 +964,7 @@ public class StaticTool
             .ToDictionary(
                 group => group.Key,
                 group => group
-                    .OrderBy(item => item.ItemQualityLevel)
+                    .OrderBy(item => craftingQuality.GetValueOrDefault<short, short>(item.CraftingQualityID, (short)0))
                     .Select(item => item.ItemID)
                     .ToArray()
             );

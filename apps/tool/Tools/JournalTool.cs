@@ -531,7 +531,7 @@ public class JournalTool
                                 difficulties = difficultiesByEncounterItemId.GetValueOrDefault(encounterItem.ID, []);
 
                                 if (tier.ID == 505 &&
-                                    encounterItem.Field_11_0_2_55959_007 is 44658 or 44659 &&
+                                    encounterItem.WorldStateExpressionID is 44658 or 44659 &&
                                     difficulties.Length > 0)
                                 {
                                     // ToolContext.Logger.Information("505: {id} {field} difficulties {diff}",
@@ -544,13 +544,13 @@ public class JournalTool
                                     //
                                     // 574 = AdventureJournal -> Heroic Dungeon
                                     // 576 = AdventureJournal -> Mythic Dungeon
-                                    if (encounterItem.Field_11_0_2_55959_007 == 44658)
+                                    if (encounterItem.WorldStateExpressionID == 44658)
                                     {
                                         // 44658 = func?(574, 0) == 1 && func?(576, 0) == 0
                                         // !heroic && mythic ?
                                         difficulties = difficulties.Where(difficulty => difficulty == 8).ToArray();
                                     }
-                                    else if (encounterItem.Field_11_0_2_55959_007 == 44659)
+                                    else if (encounterItem.WorldStateExpressionID == 44659)
                                     {
                                         // heroic && !mythic ?
                                         difficulties = difficulties.Where(difficulty => difficulty == 2).ToArray();

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants';
     import { timeStore } from '@/shared/stores/time';
     import { basicTooltip } from '@/shared/utils/tooltips';
     import { itemStore, userStore } from '@/stores';
@@ -11,7 +12,7 @@
     export let itemId = 0;
     export let sortingBy: boolean;
 
-    $: ({ amount, percent, tooltip } = getCurrencyData(
+    $: ({ amount, amountRaw, percent, tooltip } = getCurrencyData(
         $itemStore,
         $timeStore,
         userStore,
@@ -36,6 +37,7 @@
 {#if amount}
     <td
         class:alt={sortingBy}
+        class:status-success={currency?.id === Constants.currencies.honor && amountRaw >= 2000}
         class:status-shrug={percent > 50}
         class:status-warn={percent >= 90}
         class:status-fail={percent >= 100}
