@@ -10,6 +10,5 @@ public class DumpJournalEncounterItem
     public int Flags { get; set; }
     public int ItemID { get; set; }
     public int JournalEncounterID { get; set; }
-
-    public int Field_11_0_2_55959_007 { get; set; }
+    public int WorldStateExpressionID { get; set; }
 }
