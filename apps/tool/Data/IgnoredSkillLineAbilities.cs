@@ -158,8 +158,8 @@ public static partial class Hardcoded
         422330, // Erden's Glowspore Grip (temporary legendary craft)
 
         // Mining
-        389465, // Severite Seam
-        389458, // Draconium Seam
+        // 389465, // Severite Seam
+        // 389458, // Draconium Seam
         423882, // Overload Test Deposit
 
         // Tailoring
