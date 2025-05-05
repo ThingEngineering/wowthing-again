@@ -120,7 +120,11 @@ export function homeSort(
         ].join('|');
     } else if (sortBy.startsWith('currency:')) {
         const currencyId = parseInt(sortBy.split(':')[1]);
-        return leftPad(1000000 - (char.currencies?.[currencyId]?.quantity || 0), 7, '0');
+        const value =
+            currencyId > 1_000_000
+                ? char.getItemCount(currencyId - 1_000_000)
+                : char.currencies?.[currencyId]?.quantity || 0;
+        return leftPad(1000000 - value, 7, '0');
     } else if (sortBy.startsWith('item:')) {
         const itemId = parseInt(sortBy.split(':')[1]);
         return leftPad(1000000 - char.getItemCount(itemId), 7, '0');
