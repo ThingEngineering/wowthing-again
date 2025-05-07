@@ -36,8 +36,20 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Primal Molten"),
             ]
         },
-        { 547, BattleForAzerothPvp }, // Battle for Azeroth > Armor
-        { 548, BattleForAzerothPvp }, // Battle for Azeroth > Weapons
+        {
+            547, // Battle for Azeroth > Armor
+            new[] {
+                new ProfessionCategorySplit("Osmenite", anywhere: true),
+                new ProfessionCategorySplit("Stormsteel", anywhere: true, skipSpellIds: [253116, 253117, 253118]),
+            }.Union(BattleForAzerothPvp).ToArray()
+        },
+        {
+            548, // Battle for Azeroth > Weapons
+            new[] {
+                new ProfessionCategorySplit("Dredged", anywhere: true),
+                new ProfessionCategorySplit("Tempest", anywhere: true),
+            }.Union(BattleForAzerothPvp).ToArray()
+        },
         {
             427, // Legion > Armor
             [
@@ -74,6 +86,10 @@ public static partial class Hardcoded
 
         // Engineering
         {
+            723, // Battle for Azeroth > Weapons
+            BattleForAzerothPvp
+        },
+        {
             470, // Legion > Goggles
             [
                 new ProfessionCategorySplit("Cranial Cannon", anywhere: true),
@@ -89,8 +105,20 @@ public static partial class Hardcoded
                 new ProfessionCategorySplit("Umbrahide"),
             ]
         },
-        { 883, BattleForAzerothPvp }, // Battle for Azeroth > Leather Armor
-        { 884, BattleForAzerothPvp }, // Battle for Azeroth > Mail Armor
+        {
+            883, // Battle for Azeroth > Leather Armor
+            new[] {
+                new ProfessionCategorySplit("Dredged", anywhere: true),
+                new ProfessionCategorySplit("Tempest", anywhere: true),
+            }.Union(BattleForAzerothPvp).ToArray()
+        },
+        {
+            884, // Battle for Azeroth > Mail Armor
+            new[] {
+                new ProfessionCategorySplit("Cragscale", anywhere: true),
+                new ProfessionCategorySplit("Mistscale", anywhere: true),
+            }.Union(BattleForAzerothPvp).ToArray()
+        },
         {
             461, // Legion > Leather Armor
             [
@@ -142,14 +170,22 @@ public static partial class Hardcoded
     };
 }
 
-public class ProfessionCategorySplit(string name, string? prefix = null, bool anywhere = false)
+public class ProfessionCategorySplit(string name, string? prefix = null, bool anywhere = false, int[]? skipSpellIds = null)
 {
     public string Name { get; } = name;
     public string Prefix { get; } = prefix ?? name;
     private bool Anywhere { get; } = anywhere;
+    private int[]? SkipSpellIds { get; } = skipSpellIds;
 
-    public bool Matches(string target)
+    public bool Matches(string target, int spellId)
     {
-        return Anywhere ? target.Contains(Prefix) : target.StartsWith(Prefix);
+        bool nameMatches = Anywhere ? target.Contains(Prefix) : target.StartsWith(Prefix);
+
+        if (nameMatches && SkipSpellIds != null)
+        {
+            nameMatches = !SkipSpellIds.Contains(spellId);
+        }
+
+        return nameMatches;
     }
 }

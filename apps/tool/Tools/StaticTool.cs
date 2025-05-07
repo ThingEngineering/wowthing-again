@@ -840,7 +840,7 @@ public class StaticTool
                             for (int splitIndex = 0; splitIndex < splitCategories.Length; splitIndex++)
                             {
                                 var splitCategory = splitCategories[splitIndex];
-                                if (splitCategory.Matches(englishName))
+                                if (splitCategory.Matches(englishName, outAbility.SpellId))
                                 {
                                     categoryMap[(outCategory.Id * 1000) + splitIndex].Abilities.Add(outAbility);
                                     added = true;
