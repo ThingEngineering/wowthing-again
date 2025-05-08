@@ -1,4 +1,5 @@
 ﻿using Serilog.Context;
+using Serilog.Core;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Tool.Enums;
 using Wowthing.Tool.Models;
@@ -570,7 +571,11 @@ public class StaticTool
 
         var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>("skillline");
 
-        var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>("skilllineability");
+        var skillLineAbilities = await DataUtilities.LoadDumpCsvAsync<DumpSkillLineAbility>(
+            "skilllineability",
+            Language.enUS,
+            ability => !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.ID)
+        );
 
         var professions = skillLines
             .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
@@ -716,7 +721,7 @@ public class StaticTool
                     var abilities = categoryAbilities
                         .GetValueOrDefault(category.ID, [])
                         .Where(ability => ability.SupercedesSpell == 0 &&
-                                          !Hardcoded.IgnoredSkillLineAbilities.Contains(ability.Spell))
+                                          !Hardcoded.IgnoredSkillLineAbilitySpells.Contains(ability.Spell))
                         .OrderByDescending(ability => ability.MinSkillLineRank)
                         //.ThenByDescending(ability => ability.TrivialSkillLineRankLow)
                         .ThenByDescending(ability => ability.TrivialSkillLineRankHigh)
@@ -835,7 +840,7 @@ public class StaticTool
                             for (int splitIndex = 0; splitIndex < splitCategories.Length; splitIndex++)
                             {
                                 var splitCategory = splitCategories[splitIndex];
-                                if (splitCategory.Matches(englishName))
+                                if (splitCategory.Matches(englishName, outAbility.SpellId))
                                 {
                                     categoryMap[(outCategory.Id * 1000) + splitIndex].Abilities.Add(outAbility);
                                     added = true;

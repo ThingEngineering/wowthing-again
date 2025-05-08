@@ -2,10 +2,22 @@
 
 public static partial class Hardcoded
 {
-    // SPELL IDS
-    public static readonly HashSet<int> IgnoredSkillLineAbilities = new()
-    {
-        // Alchemy
+    public static readonly HashSet<int> IgnoredSkillLineAbilities =
+    [
+        // Magical Intrusion Dampener weirdness
+        39964,
+        39965,
+        39966,
+        41059,
+        41060,
+        41061,
+        46628,
+        46629,
+        46630,
+    ];
+
+    public static readonly HashSet<int> IgnoredSkillLineAbilitySpells =
+    [
         28577, // Major Holy Protection Potion
         156567, // WoD Draenor Armor Flask (never implemented)
         156588, // WoD Alchemical Catalyst - Fireweed
@@ -158,8 +170,8 @@ public static partial class Hardcoded
         422330, // Erden's Glowspore Grip (temporary legendary craft)
 
         // Mining
-        389465, // Severite Seam
-        389458, // Draconium Seam
+        // 389465, // Severite Seam
+        // 389458, // Draconium Seam
         423882, // Overload Test Deposit
 
         // Tailoring
@@ -182,6 +194,6 @@ public static partial class Hardcoded
         75156,
         110426,
         158758,
-        195126,
-    };
+        195126
+    ];
 }

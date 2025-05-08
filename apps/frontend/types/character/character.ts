@@ -312,7 +312,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
     }
 
     private _professionKnownAbilities: Set<number> = undefined;
-    knowsProfessionAbility(abilityId: number): boolean {
+    get allProfessionAbilities(): Set<number> {
         if (this._professionKnownAbilities === undefined) {
             this._professionKnownAbilities = new Set<number>();
             const staticData = get(staticStore);
@@ -338,7 +338,11 @@ export class Character implements ContainsItems, HasNameAndRealm {
                 }
             }
         }
-        return this._professionKnownAbilities.has(abilityId);
+        return this._professionKnownAbilities;
+    }
+
+    knowsProfessionAbility(abilityId: number): boolean {
+        return this.allProfessionAbilities.has(abilityId);
     }
 }
 export type CharacterArray = ConstructorParameters<typeof Character>;
