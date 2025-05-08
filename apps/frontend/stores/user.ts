@@ -303,12 +303,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 }
             }
 
-            for (const subProfessions of Object.values(character.professions || {})) {
-                for (const subProfession of Object.values(subProfessions)) {
-                    for (const abilityId of subProfession.knownRecipes || []) {
-                        userData.hasRecipe.add(abilityId);
-                    }
-                }
+            for (const abilityId of character.allProfessionAbilities) {
+                userData.hasRecipe.add(abilityId);
             }
         }
 
