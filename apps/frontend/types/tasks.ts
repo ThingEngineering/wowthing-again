@@ -1,6 +1,7 @@
 import type { DateTime } from 'luxon';
 import type { IconifyIcon } from '@iconify/types';
 
+import type { Holiday } from '@/enums/holiday';
 import type { DbResetType } from '@/shared/stores/db/enums';
 import type { Character } from './character';
 
@@ -21,6 +22,7 @@ export type Task = {
 
 export type Chore = {
     accountWide?: boolean;
+    noAlone?: boolean;
     noProgress?: boolean;
     showQuestName?: boolean;
     minimumLevel?: number;
@@ -31,6 +33,7 @@ export type Chore = {
     taskKey: string;
     taskName: string;
     icon?: IconifyIcon;
+    requiredHolidays?: Holiday[];
     /**
      * Function to check if character is eligibile for this task (eg has a profession)
      */

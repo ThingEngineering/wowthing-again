@@ -196,6 +196,15 @@ export const twwChores11_1: Chore[] = [
         questReset: DbResetType.Weekly,
     },
     {
+        taskKey: 'twwSideGig',
+        taskName: '[Um] Side Gig',
+        showQuestName: true,
+        questIds: [
+
+        ],
+        questReset: DbResetType.Weekly,
+    },
+    {
         taskKey: 'twwRaidPull',
         taskName: '[Raid] Rune Dispenser',
         questIds: [89350],
@@ -358,6 +367,7 @@ export const twwChores11_1_5: Chore[] = [
         taskKey: 'twwRadiant1',
         taskName: '[D] Incursion 1',
         minimumLevel: 80,
+        showQuestName: true,
         questIds: [
             87480, // Sureki Incursion: The Eastern Assault
             88945, // Radiant Incursion: Rak-Zakaz

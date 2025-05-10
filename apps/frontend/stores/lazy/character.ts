@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 import { Constants } from '@/data/constants';
 import { expansionOrder } from '@/data/expansion';
-import { holidayMinimumLevel } from '@/data/holidays';
+import { holidayIds, holidayMinimumLevel } from '@/data/holidays';
 import {
     dragonflightProfessionMap,
     professionSlugToId,
@@ -18,7 +18,6 @@ import { Faction } from '@/enums/faction';
 import { Profession } from '@/enums/profession';
 import { QuestStatus } from '@/enums/quest-status';
 import { DbResetType } from '@/shared/stores/db/enums';
-import { getActiveHolidays } from '@/utils/get-active-holidays';
 import { getNextDailyResetFromTime, getNextWeeklyResetFromTime } from '@/utils/get-next-reset';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
 import {
@@ -43,6 +42,8 @@ import type {
     UserQuestDataCharacterProgressObjective,
 } from '@/types/data';
 import type { Chore } from '@/types/tasks';
+import type { ActiveHolidays } from '../derived/active-holidays';
+import { Region } from '@/enums/region';
 
 export interface LazyCharacter {
     chores: Record<string, LazyCharacterChore>;
@@ -101,6 +102,7 @@ export class LazyCharacterSubProfession {
 }
 
 interface LazyStores {
+    activeHolidays: ActiveHolidays;
     currentTime: DateTime;
     settings: Settings;
     staticData: StaticData;
@@ -310,11 +312,17 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 if (stores.userQuestData.characters[character.id]?.quests?.has(questId)) {
                     let expiresAt: DateTime;
                     if (choreTask.questReset === DbResetType.Weekly) {
-                        expiresAt = getNextWeeklyResetFromTime(charScanned, character.realm.region);
+                        expiresAt = getNextWeeklyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US,
+                        );
                     } else if (choreTask.questReset === DbResetType.Custom) {
                         expiresAt = choreTask.customExpiryFunc(character, charScanned);
                     } else {
-                        expiresAt = getNextDailyResetFromTime(charScanned, character.realm.region);
+                        expiresAt = getNextDailyResetFromTime(
+                            charScanned,
+                            character.realm?.region || Region.US,
+                        );
                     }
 
                     if (expiresAt > stores.currentTime) {
@@ -368,8 +376,6 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
     }
 
     for (const view of stores.settings.views) {
-        const activeHolidays = getActiveHolidays(stores.currentTime, view, character.realm.region);
-
         for (const taskName of view.homeTasks) {
             const task = taskMap[taskName];
             if (
@@ -381,7 +387,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                 continue;
             }
 
-            const activeHoliday = activeHolidays[taskName];
+            const activeHoliday = stores.activeHolidays[taskName];
             if (
                 activeHoliday &&
                 holidayMinimumLevel[activeHoliday.id] &&
@@ -411,6 +417,18 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                                 task.maximumLevel ||
                                 Constants.characterMaxLevel) ||
                         choreTask.couldGetFunc?.(character, choreTask) === false
+                    ) {
+                        continue;
+                    }
+
+                    // Any chore with required holidays needs at least one active
+                    if (
+                        choreTask.requiredHolidays?.length > 0 &&
+                        !choreTask.requiredHolidays.some((holiday) =>
+                            holidayIds[holiday].some(
+                                (holidayId) => stores.activeHolidays[`h${holidayId}`],
+                            ),
+                        )
                     ) {
                         continue;
                     }
@@ -690,6 +708,16 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     charChore.tasks.push(charTask);
                 }
 
+                // noAlone chores can't be the only one
+                if (charChore.tasks.length === 1) {
+                    const choreTask = multiTaskMap[taskName].find(
+                        (chore) => chore.taskKey === charChore.tasks[0].key,
+                    );
+                    if (choreTask.noAlone) {
+                        continue;
+                    }
+                }
+
                 characterData.chores[`${view.id}|${taskName}`] = charChore;
             } else {
                 // not multi
@@ -798,7 +826,10 @@ function doProfessionCooldowns(
                 if (progressQuest) {
                     const expires = DateTime.fromSeconds(progressQuest.expires, { zone: 'utc' });
                     if (expires > stores.currentTime) {
-                        full = getNextDailyResetFromTime(expires, character.realm.region);
+                        full = getNextDailyResetFromTime(
+                            expires,
+                            character.realm?.region || Region.US,
+                        );
                         have = 0;
                     }
                 }

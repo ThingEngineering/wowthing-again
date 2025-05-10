@@ -56,6 +56,7 @@ import type {
     ManualDataIllusionItem,
 } from '@/types/data/manual';
 import type { ItemData } from '@/types/data/item';
+import { activeHolidays, type ActiveHolidays } from '../derived/active-holidays';
 
 type LazyKey = 'heirlooms' | 'illusions' | 'mounts' | 'pets' | 'toys';
 
@@ -91,6 +92,7 @@ export const lazyStore = derived(
         userStore,
         userAchievementStore,
         userQuestStore,
+        activeHolidays,
     ],
     debounce(
         ([
@@ -105,6 +107,7 @@ export const lazyStore = derived(
             $userStore,
             $userAchievementStore,
             $userQuestStore,
+            $activeHolidays,
         ]: [
             Settings,
             DateTime,
@@ -117,6 +120,7 @@ export const lazyStore = derived(
             FancyStoreType<UserData>,
             FancyStoreType<UserAchievementData>,
             FancyStoreType<UserQuestData>,
+            ActiveHolidays,
         ]) => {
             storeInstance.update(
                 $settingsStore,
@@ -130,6 +134,7 @@ export const lazyStore = derived(
                 $userStore,
                 $userAchievementStore,
                 $userQuestStore,
+                $activeHolidays,
             );
             return storeInstance;
         },
@@ -188,6 +193,7 @@ export class LazyStore implements LazyUgh {
         userData: UserData,
         userAchievementData: UserAchievementData,
         userQuestData: UserQuestData,
+        activeHolidays: ActiveHolidays,
     ) {
         const newHashes: Record<string, string> = {
             currentTime: currentTime.toString(),
@@ -286,6 +292,7 @@ export class LazyStore implements LazyUgh {
                     staticData: this.staticData,
                     userData,
                     userQuestData,
+                    activeHolidays,
                 }),
             );
         }
