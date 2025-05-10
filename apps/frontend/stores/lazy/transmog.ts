@@ -46,7 +46,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
     const doSlot = (
         slotData: TransmogSlotData,
-        itemId: number,
+        maybeItemId: number,
         modifier: number,
         useSource: boolean,
         overrideHas = false,
@@ -56,6 +56,7 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
         //     continue;
         // }
 
+        const itemId = maybeItemId % 10_000_000;
         const item = stores.itemData.items[itemId];
         if (!item) {
             return;
