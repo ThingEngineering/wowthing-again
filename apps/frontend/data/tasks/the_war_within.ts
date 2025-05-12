@@ -199,9 +199,7 @@ export const twwChores11_1: Chore[] = [
         taskKey: 'twwSideGig',
         taskName: '[Um] Side Gig',
         showQuestName: true,
-        questIds: [
-
-        ],
+        questIds: [],
         questReset: DbResetType.Weekly,
     },
     {
