@@ -195,6 +195,7 @@ export class Character implements ContainsItems, HasNameAndRealm {
             if (obj.slot === 0) {
                 this.bags[obj.bagId] = obj.itemId;
             } else {
+                (this.itemsById[obj.itemId] ||= []).push(obj);
                 (this.itemsByLocation[obj.location] ||= []).push(obj);
             }
         }
