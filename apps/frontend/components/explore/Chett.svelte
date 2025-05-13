@@ -13,8 +13,8 @@
             [87307, 'Trash'], // 25x Trash Can/Dumpster
         ],
         [
-            [86918, 'Scrap'], // 100x Empty Can
             [86919, 'Gig'], // Side Gig
+            [86918, 'Scrap'], // 100x Empty Can
             [87306, 'Boost'], // 50x Car Can
             [87305, 'Race'], // 2x Car Race
             [87303, 'SS'], // Sidestreet Sluice delve
@@ -49,8 +49,10 @@
             return '0';
         } else if (tiers[0] === 1 && tiers[1] >= 2) {
             return '1';
-        } else {
+        } else if (tiers[0] === 1) {
             return '2';
+        } else {
+            return '8';
         }
     });
 </script>
@@ -63,6 +65,8 @@
 
 <CharacterTable filterFunc={(char) => char.level === 80} {sortFunc}>
     <CharacterTableHead slot="head">
+        <th class="spacer"></th>
+        <th class="sized b-l">List</th>
         {#each questTiers as questTier}
             <th class="spacer"></th>
             {#each questTier as [, title]}
@@ -72,6 +76,16 @@
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
+        {@const gotList = userQuestStore.characterHas(character.id, 87296)}
+        <td class="spacer"></td>
+        <td
+            class="sized c"
+            class:status-success={!gotList}
+            class:status-fail={gotList}
+            style:--width={'1.6rem'}
+        >
+            <YesNoIcon state={userQuestStore.characterHas(character.id, 87296)} />
+        </td>
         {#each questTiers as questTier, index}
             <td class="spacer"></td>
             {#each questTier as [questId]}
