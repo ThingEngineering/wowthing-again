@@ -33,6 +33,8 @@ export function userHasLookup(
         return isRecipeKnown({ settings, itemData, staticData, userData }, { abilityInfo });
     } else if (type === LookupType.Quest) {
         return accountTrackingQuest(userQuestData, [id]);
+    } else if (type === LookupType.Spell) {
+        return userData.characters.some((char) => char.knownSpells?.includes(id));
     } else if (type === LookupType.TransmogSet) {
         const statsKey = `ensemble:${id}`;
         const stats = lazyTransmog.stats[statsKey];

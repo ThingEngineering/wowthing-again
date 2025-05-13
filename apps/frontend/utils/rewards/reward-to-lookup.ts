@@ -47,6 +47,8 @@ export function rewardToLookup(
             ret = [LookupType.Quest, itemData.completesQuest[rewardId][0]];
         } else if (trackingQuestId > 0) {
             ret = [LookupType.Quest, trackingQuestId];
+        } else if (itemData.teachesSpell[rewardId]) {
+            ret = [LookupType.Spell, itemData.teachesSpell[rewardId][0]];
         }
     }
 
