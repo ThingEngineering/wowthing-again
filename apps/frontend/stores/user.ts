@@ -614,11 +614,8 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // item appearance data
         character.itemsByAppearanceId = {};
         character.itemsByAppearanceSource = {};
-        character.itemsById = {};
         for (const characterItems of Object.values(character.itemsByLocation)) {
             for (const characterItem of characterItems) {
-                (character.itemsById[characterItem.itemId] ||= []).push(characterItem);
-
                 const item = itemData.items[characterItem.itemId];
                 if (Object.values(item?.appearances || {}).length === 0) {
                     continue;

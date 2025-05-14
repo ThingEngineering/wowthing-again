@@ -6,6 +6,7 @@ public class DataDbThing
 {
     public bool AccountWide { get; set; }
     public int Id { get; set; }
+    public int HighlightQuestId { get; set; }
     public int TrackingQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; } = string.Empty;

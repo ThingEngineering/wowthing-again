@@ -25,8 +25,9 @@ export type ManualDataZoneMapCategoryArray = ConstructorParameters<
 >;
 
 export class ManualDataZoneMapFarm {
-    public location: string[];
     public drops: ManualDataZoneMapDrop[];
+    public highlightQuestId?: number;
+    public location: string[];
 
     constructor(
         public type: FarmType,

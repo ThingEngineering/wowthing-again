@@ -21,12 +21,10 @@ import { DbDataThingLocation } from './thing-location';
 import { DbDataThingContent, type DbDataThingContentArray } from './thing-content';
 import { DbDataThingGroup, type DbDataThingGroupArray } from './thing-group';
 
-const allianceLocation = /^1\d\d/;
-const hordeLocation = /^2\d\d/;
-
 export class DbDataThing {
     public accountWide: boolean;
     public contents: DbDataThingContent[] = [];
+    public faction: Faction = Faction.Both;
     public groups: DbDataThingGroup[] = [];
     public locations: Record<number, DbDataThingLocation[]> = {};
 
@@ -35,6 +33,7 @@ export class DbDataThing {
         public id: number,
         public resetType: DbResetType,
         public trackingQuestId: number,
+        public highlightQuestId: number,
         public zoneMapsGroupId: number,
         accountWide: number,
         public name: string,
@@ -47,9 +46,24 @@ export class DbDataThing {
     ) {
         this.accountWide = accountWide === 1;
 
+        let thingFaction = 0;
         for (const [mapId, packedLocation] of locationArrays) {
-            this.locations[mapId] ||= [];
-            this.locations[mapId].push(new DbDataThingLocation(packedLocation));
+            const location = new DbDataThingLocation(packedLocation);
+            (this.locations[mapId] ||= []).push(location);
+
+            if (location.faction === Faction.Alliance) {
+                thingFaction |= 1;
+            } else if (location.faction === Faction.Horde) {
+                thingFaction |= 2;
+            } else {
+                thingFaction |= 3;
+            }
+        }
+
+        if (thingFaction === 1) {
+            this.faction = Faction.Alliance;
+        } else if (thingFaction === 2) {
+            this.faction = Faction.Horde;
         }
 
         for (const contentsArray of contentsArrays) {
@@ -66,7 +80,7 @@ export class DbDataThing {
         if (!this._vendor) {
             this._vendor = <ManualDataSharedVendor>{
                 id: this.id,
-                faction: Faction.Both,
+                faction: this.faction,
                 name: this.name,
                 note: this.note,
                 sets: this.groups.map((group) => <ManualDataSharedVendorSet>group),
@@ -160,23 +174,13 @@ export class DbDataThing {
                 type = FarmType.KillBig;
             }
 
-            let anyAlliance = false;
-            let anyHorde = false;
-            for (const location of this.locations[mapId]) {
-                anyAlliance ||= allianceLocation.test(location.xCoordinate);
-                anyHorde ||= hordeLocation.test(location.xCoordinate);
-            }
-
             this._zoneMapsFarm[mapName] = <ManualDataZoneMapFarm>{
                 faction:
-                    anyAlliance && anyHorde
+                    this.faction === Faction.Both
                         ? null
-                        : anyAlliance
-                          ? 'alliance'
-                          : anyHorde
-                            ? 'horde'
-                            : null,
+                        : Faction[this.faction].toLocaleLowerCase(),
                 groupId: this.zoneMapsGroupId,
+                highlightQuestId: this.highlightQuestId,
                 id: this.id,
                 idType: thingTypeToFarmIdType[this.type],
                 location: this.locations[mapId].flatMap((loc) => [

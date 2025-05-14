@@ -3,8 +3,10 @@
 public static partial class Hardcoded
 {
     private static readonly int[] DungeonDifficultiesNormal = [1];
+    private static readonly int[] DungeonDifficultiesNormalHeroicMythic = [1, 2, 8];
     private static readonly int[] DungeonDifficultiesHeroic = [2];
     private static readonly int[] DungeonDifficultiesHeroicMythic = [2, 8];
+    private static readonly int[] DungeonDifficultiesMythic = [8];
     private static readonly int[] RaidDifficultiesLegacy10Normal = [3];
     private static readonly int[] RaidDifficultiesLegacy25Normal = [4];
     private static readonly int[] RaidDifficultiesLegacy10Heroic = [5];
@@ -79,25 +81,25 @@ public static partial class Hardcoded
     ];
 
     private static readonly List<ExtraItemDrop> Tier14Recipes =
-        [
-        new(86238, RaidDifficultiesNormalHeroic), // Pattern: Chestguard of Nemeses (RECIPE!)
-        new(86272, RaidDifficultiesNormalHeroic), // Pattern: Fists of Lightning (RECIPE!)
-        new(86279, RaidDifficultiesNormalHeroic), // Pattern: Liferuned Leather Gloves (RECIPE!)
-        new(86280, RaidDifficultiesNormalHeroic), // Pattern: Murderer's Gloves (RECIPE!)
-        new(86281, RaidDifficultiesNormalHeroic), // Pattern: Nightfire Robe (RECIPE!)
-        new(86283, RaidDifficultiesNormalHeroic), // Pattern: Raiment of Blood and Bone (RECIPE!)
-        new(86284, RaidDifficultiesNormalHeroic), // Pattern: Raven Lord's Gloves (RECIPE!)
-        new(86297, RaidDifficultiesNormalHeroic), // Pattern: Stormbreaker Chestguard (RECIPE!)
-        new(86379, RaidDifficultiesNormalHeroic), // Pattern: Robe of Eternal Rule (RECIPE!)
-        new(86380, RaidDifficultiesNormalHeroic), // Pattern: Imperial Silk Gloves (RECIPE!)
-        new(86381, RaidDifficultiesNormalHeroic), // Pattern: Legacy of the Emperor (RECIPE!)
-        new(86382, RaidDifficultiesNormalHeroic), // Pattern: Touch of the Light (RECIPE!)
-        new(87408, RaidDifficultiesNormalHeroic), // Plans: Unyielding Bloodplate (RECIPE!)
-        new(87409, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Battle Command (RECIPE!)
-        new(87410, RaidDifficultiesNormalHeroic), // Plans: Ornate Battleplate of the Master (RECIPE!)
-        new(87411, RaidDifficultiesNormalHeroic), // Plans: Bloodforged Warfists (RECIPE!)
-        new(87412, RaidDifficultiesNormalHeroic), // Plans: Chestplate of Limitless Faith (RECIPE!)
-        new(87413, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Unbound Devotion (RECIPE!)
+    [
+        new(86238, RaidDifficultiesNormalHeroic), // Pattern: Chestguard of Nemeses
+        new(86272, RaidDifficultiesNormalHeroic), // Pattern: Fists of Lightning
+        new(86279, RaidDifficultiesNormalHeroic), // Pattern: Liferuned Leather Gloves
+        new(86280, RaidDifficultiesNormalHeroic), // Pattern: Murderer's Gloves
+        new(86281, RaidDifficultiesNormalHeroic), // Pattern: Nightfire Robe
+        new(86283, RaidDifficultiesNormalHeroic), // Pattern: Raiment of Blood and Bone
+        new(86284, RaidDifficultiesNormalHeroic), // Pattern: Raven Lord's Gloves
+        new(86297, RaidDifficultiesNormalHeroic), // Pattern: Stormbreaker Chestguard
+        new(86379, RaidDifficultiesNormalHeroic), // Pattern: Robe of Eternal Rule
+        new(86380, RaidDifficultiesNormalHeroic), // Pattern: Imperial Silk Gloves
+        new(86381, RaidDifficultiesNormalHeroic), // Pattern: Legacy of the Emperor
+        new(86382, RaidDifficultiesNormalHeroic), // Pattern: Touch of the Light
+        new(87408, RaidDifficultiesNormalHeroic), // Plans: Unyielding Bloodplate
+        new(87409, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Battle Command
+        new(87410, RaidDifficultiesNormalHeroic), // Plans: Ornate Battleplate of the Master
+        new(87411, RaidDifficultiesNormalHeroic), // Plans: Bloodforged Warfists
+        new(87412, RaidDifficultiesNormalHeroic), // Plans: Chestplate of Limitless Faith
+        new(87413, RaidDifficultiesNormalHeroic), // Plans: Gauntlets of Unbound Devotion
     ];
 
     private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops =
@@ -137,6 +139,7 @@ public static partial class Hardcoded
         },
 
         #region Miscellaneous
+
         // Darkmaul Citadel
         {
             1_0001_0, // Tunk
@@ -287,64 +290,64 @@ public static partial class Hardcoded
                 new(227559, DungeonDifficultiesNormal), // Yaungol Slayer's Gloves
                 new(227558, DungeonDifficultiesNormal), // Yaungol Slayer's Legguards
                 // PvP
-				new(227624, DungeonDifficultiesNormal), // Malevolent Gladiator's Armbands of Prowess
-				new(227657, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Alacrity
-				new(227656, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Proficiency
-				new(227613, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Accuracy
-				new(227612, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Alacrity
-				new(227611, DungeonDifficultiesNormal), // Malevolent Gladiator's Belt of Cruelty
-				new(227614, DungeonDifficultiesNormal), // Malevolent Gladiator's Bindings of Prowess
-				new(227601, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Alacrity
-				new(227600, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Cruelty
-				new(227655, DungeonDifficultiesNormal), // Malevolent Gladiator's Bracers of Prowess
-				new(227641, DungeonDifficultiesNormal), // Malevolent Gladiator's Cape of Cruelty
-				new(227617, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Gauntlets
-				new(227619, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Leggings
-				new(227642, DungeonDifficultiesNormal), // Malevolent Gladiator's Cloak of Alacrity
-				new(227635, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Accuracy
-				new(227634, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Cruelty
-				new(227636, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Meditation
-				new(227637, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Accuracy
-				new(227654, DungeonDifficultiesNormal), // Malevolent Gladiator's Clasp of Cruelty
-				new(227639, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Meditation
-				new(227638, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Prowess
-				new(227640, DungeonDifficultiesNormal), // Malevolent Gladiator's Drape of Prowess
-				new(227647, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Gauntlets
-				new(227650, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Legguards
-				new(227629, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Handguards
-				new(227632, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Trousers
-				new(227616, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
-				new(227602, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
-				new(227652, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Accuracy
-				new(227653, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Prowess
-				new(227644, DungeonDifficultiesNormal), // Malevolent Gladiator's Greaves of Alacrity
-				new(227604, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Gloves
-				new(227607, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Legguards
-				new(227603, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Gloves
-				new(227606, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Legguards
-				new(227622, DungeonDifficultiesNormal), // Malevolent Gladiator's Links of Cruelty
-				new(227630, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Gloves
-				new(227633, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Leggings
-				new(227651, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Legguards
-				new(227646, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Gloves
-				new(227649, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Legplates
-				new(227648, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Gauntlets
-				new(227618, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Gauntlets
-				new(227620, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Leggings
-				new(227615, DungeonDifficultiesNormal), // Malevolent Gladiator's Sabatons of Cruelty
-				new(227628, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Handguards
-				new(227631, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Trousers
-				new(227626, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Alacrity
-				new(227625, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Cruelty
-				new(227627, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Meditation
-				new(227609, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Cruelty
-				new(227621, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistguard of Meditation
-				new(227645, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Alacrity
-				new(227643, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Cruelty
-				new(227610, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Accuracy
-				new(227623, DungeonDifficultiesNormal), // Malevolent Gladiator's Wristguards of Alacrity
-				new(227605, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Gloves
-				new(227608, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Legguards
+                new(227624, DungeonDifficultiesNormal), // Malevolent Gladiator's Armbands of Prowess
+                new(227657, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Alacrity
+                new(227656, DungeonDifficultiesNormal), // Malevolent Gladiator's Armplates of Proficiency
+                new(227613, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Accuracy
+                new(227612, DungeonDifficultiesNormal), // Malevolent Gladiator's Armwraps of Alacrity
+                new(227611, DungeonDifficultiesNormal), // Malevolent Gladiator's Belt of Cruelty
+                new(227614, DungeonDifficultiesNormal), // Malevolent Gladiator's Bindings of Prowess
+                new(227601, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Alacrity
+                new(227600, DungeonDifficultiesNormal), // Malevolent Gladiator's Boots of Cruelty
+                new(227655, DungeonDifficultiesNormal), // Malevolent Gladiator's Bracers of Prowess
+                new(227641, DungeonDifficultiesNormal), // Malevolent Gladiator's Cape of Cruelty
+                new(227617, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Gauntlets
+                new(227619, DungeonDifficultiesNormal), // Malevolent Gladiator's Chain Leggings
+                new(227642, DungeonDifficultiesNormal), // Malevolent Gladiator's Cloak of Alacrity
+                new(227635, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Accuracy
+                new(227634, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Cruelty
+                new(227636, DungeonDifficultiesNormal), // Malevolent Gladiator's Cord of Meditation
+                new(227637, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Accuracy
+                new(227654, DungeonDifficultiesNormal), // Malevolent Gladiator's Clasp of Cruelty
+                new(227639, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Meditation
+                new(227638, DungeonDifficultiesNormal), // Malevolent Gladiator's Cuffs of Prowess
+                new(227640, DungeonDifficultiesNormal), // Malevolent Gladiator's Drape of Prowess
+                new(227647, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Gauntlets
+                new(227650, DungeonDifficultiesNormal), // Malevolent Gladiator's Dreadplate Legguards
+                new(227629, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Handguards
+                new(227632, DungeonDifficultiesNormal), // Malevolent Gladiator's Felweave Trousers
+                new(227616, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
+                new(227602, DungeonDifficultiesNormal), // Malevolent Gladiator's Footguards of Alacrity
+                new(227652, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Accuracy
+                new(227653, DungeonDifficultiesNormal), // Malevolent Gladiator's Girdle of Prowess
+                new(227644, DungeonDifficultiesNormal), // Malevolent Gladiator's Greaves of Alacrity
+                new(227604, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Gloves
+                new(227607, DungeonDifficultiesNormal), // Malevolent Gladiator's Ironskin Legguards
+                new(227603, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Gloves
+                new(227606, DungeonDifficultiesNormal), // Malevolent Gladiator's Leather Legguards
+                new(227622, DungeonDifficultiesNormal), // Malevolent Gladiator's Links of Cruelty
+                new(227630, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Gloves
+                new(227633, DungeonDifficultiesNormal), // Malevolent Gladiator's Mooncloth Leggings
+                new(227651, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Legguards
+                new(227646, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Gloves
+                new(227649, DungeonDifficultiesNormal), // Malevolent Gladiator's Ornamented Legplates
+                new(227648, DungeonDifficultiesNormal), // Malevolent Gladiator's Plate Gauntlets
+                new(227618, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Gauntlets
+                new(227620, DungeonDifficultiesNormal), // Malevolent Gladiator's Ringmail Leggings
+                new(227615, DungeonDifficultiesNormal), // Malevolent Gladiator's Sabatons of Cruelty
+                new(227628, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Handguards
+                new(227631, DungeonDifficultiesNormal), // Malevolent Gladiator's Silk Trousers
+                new(227626, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Alacrity
+                new(227625, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Cruelty
+                new(227627, DungeonDifficultiesNormal), // Malevolent Gladiator's Treads of Meditation
+                new(227609, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Cruelty
+                new(227621, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistguard of Meditation
+                new(227645, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Alacrity
+                new(227643, DungeonDifficultiesNormal), // Malevolent Gladiator's Warboots of Cruelty
+                new(227610, DungeonDifficultiesNormal), // Malevolent Gladiator's Waistband of Accuracy
+                new(227623, DungeonDifficultiesNormal), // Malevolent Gladiator's Wristguards of Alacrity
+                new(227605, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Gloves
+                new(227608, DungeonDifficultiesNormal), // Malevolent Gladiator's Wyrmhide Legguards
             ]
         },
         {
@@ -475,9 +478,11 @@ public static partial class Hardcoded
 //                new(143327, DungeonDifficultiesNormal), // Livestock Lochaber Axe
 //            }
 //        },
+
         #endregion
 
         #region Classic
+
         // Shadowfang Keep > Fel Steed
         {
             1_0064_0,
@@ -1012,9 +1017,11 @@ public static partial class Hardcoded
         { 1548, AhnQiraj40ExtraDrops }, // Viscidus
         { 1550, AhnQiraj40ExtraDrops }, // Ouro
         { 1551, AhnQiraj40ExtraDrops }, // C'Thun
+
         #endregion
 
         #region Classic Trash
+
         {
             1000741, // Molten Core > Trash
             [
@@ -1084,9 +1091,11 @@ public static partial class Hardcoded
                 new(21890, RaidDifficultiesLegacy40), // Gloves of the Fallen Prophet
             ]
         },
+
         #endregion
 
         #region The Burning Crusade
+
         // Old Hillsbrad Foothills / Don Carlos
         {
             1_0251_0,
@@ -1130,9 +1139,11 @@ public static partial class Hardcoded
                 new(28606, RaidDifficultiesLegacy10Normal), // Shield of Impenetrable Darkness
             ]
         },
+
         #endregion
 
         #region The Burning Crusade Trash
+
         {
             1000745, // Karazhan > Trash
             [
@@ -1273,9 +1284,11 @@ public static partial class Hardcoded
                 new(34347, RaidDifficultiesLegacy25Normal), // Wand of the Demonsoul
             ]
         },
+
         #endregion
 
         #region Wrath of the Lich King
+
         // The Culling of Stratholme > Infinite Corruptor
         {
             1_0279_0,
@@ -1489,9 +1502,11 @@ public static partial class Hardcoded
                 new(51314, RaidDifficultiesLegacy25Heroic),
             ]
         },
+
         #endregion
 
         #region Wrath of the Lich King Trash
+
         // Halls of Reflection > Trash
         {
             1000276,
@@ -1600,22 +1615,22 @@ public static partial class Hardcoded
                 new(47625, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [A]
                 new(47645, RaidDifficultiesTrialRecipes), // Plans: Titanium Spikeguards [H]
                 // Leatherworking
-				new(47629, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [A]
-				new(47646, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [H]
-				new(47635, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [A]
-				new(47647, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [H]
-				new(47631, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Bracers [A]
-				new(47648, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Bracers [H]
-				new(47630, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Breastplate [A]
-				new(47649, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Breastplate [H]
-				new(47628, RaidDifficultiesTrialRecipes), // Pattern: Ensorcelled Nerubian Breastplate [A]
-				new(47650, RaidDifficultiesTrialRecipes), // Pattern: Ensorcelled Nerubian Breastplate [H]
-				new(47634, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [A]
-				new(47651, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [H]
-				new(47632, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [A]
-				new(47652, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [H]
-				new(47633, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [A]
-				new(47653, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [H]
+                new(47629, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [A]
+                new(47646, RaidDifficultiesTrialRecipes), // Pattern: Black Chitin Bracers [H]
+                new(47635, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [A]
+                new(47647, RaidDifficultiesTrialRecipes), // Pattern: Bracers of Swift Death [H]
+                new(47631, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Bracers [A]
+                new(47648, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Bracers [H]
+                new(47630, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Breastplate [A]
+                new(47649, RaidDifficultiesTrialRecipes), // Pattern: Crusader's Dragonscale Breastplate [H]
+                new(47628, RaidDifficultiesTrialRecipes), // Pattern: Ensorcelled Nerubian Breastplate [A]
+                new(47650, RaidDifficultiesTrialRecipes), // Pattern: Ensorcelled Nerubian Breastplate [H]
+                new(47634, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [A]
+                new(47651, RaidDifficultiesTrialRecipes), // Pattern: Knightbane Carapace [H]
+                new(47632, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [A]
+                new(47652, RaidDifficultiesTrialRecipes), // Pattern: Lunar Eclipse Robes [H]
+                new(47633, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [A]
+                new(47653, RaidDifficultiesTrialRecipes), // Pattern: Moonshadow Armguards [H]
                 // Tailoring
                 new(47654, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [A]
                 new(47639, RaidDifficultiesTrialRecipes), // Pattern: Bejeweled Wizard's Bracers [H]
@@ -1642,9 +1657,11 @@ public static partial class Hardcoded
                 new(50444, RaidDifficultiesLegacy25Normal), // Rowan's Rifle of Silver Bullets
             ]
         },
+
         #endregion
 
         #region Cataclysm
+
         // Zul'Aman > Timed Run
         {
             1_0077_0,
@@ -1682,9 +1699,11 @@ public static partial class Hardcoded
                 new(122304, [14, 15, 33]), // Fandral's Seed Pouch
             ]
         },
+
         #endregion
 
         #region Cataclysm Trash
+
         {
             1000072, // The Bastion of Twilight > Trash
             [
@@ -1803,9 +1822,11 @@ public static partial class Hardcoded
                 new(78878, RaidDifficultiesNormalHeroic), // Spine of the Thousand Cuts
             ]
         },
+
         #endregion
 
         #region Mists of Pandaria
+
         // Scholomance > Doctor Theolen Krastinov
         {
             1_0246_0,
@@ -1973,9 +1994,11 @@ public static partial class Hardcoded
                 new(86848, RaidDifficultiesNormal), // Serrated Wasp Bracers [wrists]
             ]
         },
+
         #endregion
 
         #region Mists of Pandaria Trash
+
         // Mogu'shan Vaults > Trash Drops
         {
             1000317,
@@ -2083,9 +2106,11 @@ public static partial class Hardcoded
                 new(113223, RaidDifficultiesAll), // Turtleshell Greatcloak
             ]
         },
+
         #endregion
 
         #region Warlords of Draenor Trash
+
         {
             1000477, // Highmaul > Trash
             [
@@ -2136,9 +2161,112 @@ public static partial class Hardcoded
                 new(124350, RaidDifficultiesNoLfr), // Girdle of Demonic Wrath
             ]
         },
+
         #endregion
 
         #region Legion
+
+        // Assault on Violet Hold > Sael'orn
+        {
+            1697,
+            [
+                new(137824, DungeonDifficultiesNormalHeroicMythic), // Design: Maelstrom Band [Rank 2]
+                new(137882, DungeonDifficultiesNormalHeroicMythic), // Pattern: Warhide Shoulderguard [Rank 3]
+                new(136700, DungeonDifficultiesNormalHeroicMythic), // Schematic: "The Felic"
+                new(140037, DungeonDifficultiesNormalHeroicMythic), // Technique: Unwritten Legend
+            ]
+        },
+        // Assault on Violet Hold > Fel Lord Betrug
+        {
+            1711,
+            [
+                new(137824, DungeonDifficultiesNormalHeroicMythic), // Design: Maelstrom Band [Rank 2]
+                new(137882, DungeonDifficultiesNormalHeroicMythic), // Pattern: Warhide Shoulderguard [Rank 3]
+                new(136700, DungeonDifficultiesNormalHeroicMythic), // Schematic: "The Felic"
+                new(140037, DungeonDifficultiesNormalHeroicMythic), // Technique: Unwritten Legend
+            ]
+        },
+        // Black Rook Hold > Lord Kur'talos Ravencrest
+        {
+            1672,
+            [
+                new(137858, DungeonDifficultiesHeroicMythic), // Design: Grim Furystone Gorget [Rank 3]
+                new(127930, DungeonDifficultiesHeroicMythic), // Recipe: Flask of the Whispered Pact [Rank 2]
+                new(137931, DungeonDifficultiesMythic), // Pattern: Gravenscale Hauberk [Rank 3]
+            ]
+        },
+        // Court of Stars > Advisor Melandrus
+        {
+            1720,
+            [
+                new(137856, DungeonDifficultiesHeroicMythic), // Design: Righteous Dawnlight Medallion [Rank 3]
+                new(128594,
+                    DungeonDifficultiesHeroicMythic), // Formula: Enchant Neck - Mark of the Distant Army [Rank 2]
+                new(137929, DungeonDifficultiesHeroicMythic), // Pattern: Gravenscale Grips [Rank 3]
+                new(127926, DungeonDifficultiesHeroicMythic), // Recipe: Potion of Deadly Grace [Rank 2]
+            ]
+        },
+        // Darkheart Thicket > Archdruid Glaidalis
+        {
+            1654,
+            [
+                new(128595,
+                    DungeonDifficultiesNormalHeroicMythic), // Formula: Enchant Neck - Mark of the Hidden Satyr [Rank 2]
+                new(137876, DungeonDifficultiesNormalHeroicMythic), // Pattern: Warhide Bindings [Rank 3]
+                new(137853, DungeonDifficultiesHeroicMythic), // Design: Sylvan Maelstrom Amulet [Rank 3]
+            ]
+        },
+        // Eye of Azshara > Trash?
+        // new(137726, DungeonDifficultiesAll), // Schematic: Leystone Buoy
+        // new(141051, DungeonDifficultiesAll), // Technique: Glyph of the Trident
+        // Eye of Azshara > Wrath of Azshara
+        {
+            1492,
+            [ // normal+
+                new(137825, DungeonDifficultiesNormalHeroicMythic), // Design: Dawnlight Band [Rank 2]
+                new(141916,
+                    DungeonDifficultiesNormalHeroicMythic), // Formula: Enchant Neck - Mark of the Ancient Priestess [Rank 2]
+                new(127929, DungeonDifficultiesNormalHeroicMythic), // Recipe: Leytorrent Potion [Rank 2]
+                new(137877, DungeonDifficultiesNormalHeroicMythic), // Pattern: Warhide Pants [Rank 3]
+                new(136705, DungeonDifficultiesNormalHeroicMythic), // Technique: Aqual Mark
+            ]
+        },
+        // Halls of Valor > trash?
+        // new(137717, DungeonDifficultiesAll), // Schematic: Double-Barreled Cranial Cannon [Rank 3]
+        // Halls of Valor > Odyn
+        {
+            1489,
+            [
+                new(137857, DungeonDifficultiesHeroicMythic), // Design: Raging Furystone Gorget (Rank 3)
+                new(127933, DungeonDifficultiesHeroicMythic), // Recipe: Flask of Ten Thousand Scars [Rank 2]
+                new(137911, DungeonDifficultiesMythic), // Pattern: Battlebound Grips [Rank 3]
+                new(137607, DungeonDifficultiesMythic), // Plans: Leystone Helm [Rank 3]
+            ]
+        },
+        // Maw of Souls > Helya
+        {
+            1663,
+            [
+                new(137848, DungeonDifficultiesHeroicMythic), // Design: Blessed Dawnlight Medallion [Rank 3]
+                new(127932, DungeonDifficultiesHeroicMythic), // Recipe: Flask of the Countless Armies [Rank 2]
+                new(136696, DungeonDifficultiesHeroicMythic), // Plans: Terrorspike
+                new(137899, DungeonDifficultiesMythic), // Pattern: Dreadleather Jerkin [Rank 3]
+            ]
+        },
+        // Neltharion's Lair > Dargrul
+        {
+            1687,
+            [
+                new(137912, DungeonDifficultiesNormalHeroicMythic), // Pattern: Battlebound Treads [Rank 3] n
+                new(137854, DungeonDifficultiesHeroicMythic), // Design: Intrepid Necklace of Prophecy [Rank 3] h
+                new(137864, DungeonDifficultiesHeroicMythic), // Design: Shadowruby Band [Rank 2]
+                new(127928, DungeonDifficultiesHeroicMythic), // Recipe: Unbending Potion [Rank 2]
+            ]
+        },
+        // RtK vendor??
+        // new(31395, DungeonDifficultiesAll), // Plans: Iceguard Helm
+        // new(31393, DungeonDifficultiesAll), // Plans: Iceguard Breastplate
+        // new(31394, DungeonDifficultiesAll), // Plans: Iceguard Leggings
         // Return to Karazhan > Shared Drops
         {
             2_000_860,
@@ -2175,6 +2303,33 @@ public static partial class Hardcoded
             [
                 new(153004, [2, 23]), // Unstable Portal Emitter
                 new(152982, [2, 23]), // Vixx's Chest of Tricks
+            ]
+        },
+        // Seat of the Triumvirate > L'ura
+        {
+            1982,
+            [
+                new(153037, DungeonDifficultiesHeroicMythic), // Technique: Glyph of Dark Absolution
+            ]
+        },
+        // The Arcway > Advisor Vandros
+        {
+            1501,
+            [
+                new(137897, DungeonDifficultiesHeroicMythic), // Pattern: Dreadleather Gloves [Rank 3]
+                new(127927, DungeonDifficultiesHeroicMythic), // Recipe: Potion of the Old War [Rank 2]
+                new(137712, DungeonDifficultiesHeroicMythic), // Schematic: Tactical Headgun [Rank 3]
+                new(137851, DungeonDifficultiesMythic), // Design: Tranquil Necklace of Prophecy [Rank 3]
+            ]
+        },
+        // Vault of the Wardens > Cordana Felsong
+        {
+            1470,
+            [
+                new(137852, DungeonDifficultiesHeroicMythic), // Design: Vindictive Pandemonite Choker [Rank 3]
+                new(127931, DungeonDifficultiesHeroicMythic), // Recipe: Flask of the Seventh Demon [Rank 2]
+                new(137930, DungeonDifficultiesHeroicMythic), // Pattern: Gravenscale Treads [Rank 3]
+                new(128607, DungeonDifficultiesMythic), // Formula: Enchant Cloak - Binding of Strength [Rank 3]
             ]
         },
         // The Emerald Nightmare > Nythendra
@@ -2417,7 +2572,7 @@ public static partial class Hardcoded
                 new(151729, RaidDifficultiesAll), // Design: Empyrial Deep Crown 3
                 new(151732, RaidDifficultiesAll), // Design: Empyrial Elemental Crown 3
                 new(151735, RaidDifficultiesAll), // Design: Empyrial Titan Crown 3
-]
+            ]
         },
         // Antorus > Garothi Worldbreaker
         {
@@ -2442,9 +2597,11 @@ public static partial class Hardcoded
                 new(155880, [16]), // Scythe of the Unmaker (red) - Mythic
             ]
         },
+
         #endregion
 
         #region Legion Trash
+
         {
             1000768, // Emerald Nightmare > Trash
             [
@@ -2520,9 +2677,11 @@ public static partial class Hardcoded
                 new(152091, RaidDifficultiesAll), // Wristguards of the Dark Keepers
             ]
         },
+
         #endregion
 
         #region Battle for Azeroth
+
         // Mechagon > Trash Drops
         {
             1001178,
@@ -2585,7 +2744,7 @@ public static partial class Hardcoded
         {
             2343,
             [
-                new(166582, RaidDifficultiesAll), // Technique: Glyph of the Tides (RECIPE!)
+                new(166582, RaidDifficultiesAll), // Technique: Glyph of the Tides
             ]
         },
         // Crucible of Storms > Shared Drops
@@ -2650,9 +2809,11 @@ public static partial class Hardcoded
                 new(163829, RaidDifficultiesNormal), // Toy War Machine
             ]
         },
+
         #endregion
 
         #region Battle for Azeroth Trash
+
         {
             1001031, // Uldir > Trash
             [
@@ -2720,9 +2881,11 @@ public static partial class Hardcoded
                 new(175009, RaidDifficultiesAll), // Zealous Ritualist's Reverie
             ]
         },
+
         #endregion
 
         #region Shadowlands Trash
+
         // Castle Nathria > Trash
         {
             1001190,
@@ -2805,9 +2968,11 @@ public static partial class Hardcoded
                 new(189437, RaidDifficultiesAll), // Schematic: Stabilized Geomental
             ]
         },
+
         #endregion
 
         #region Dragonflight
+
         // Vault of the Incarnates > Trash
         {
             1001200,
@@ -2868,7 +3033,6 @@ public static partial class Hardcoded
                 new(194490, RaidDifficultiesAll), // Plans: Allied Wristguard of Companionship
                 new(191597, RaidDifficultiesAll), // Recipe: Potion Absorption Inhibitor
                 new(199227, RaidDifficultiesAll), // Schematic: Sophisticated Problem Solver
-
             ]
         },
         // Amirdrassil, the Dream's Hope > Trash
@@ -2893,9 +3057,11 @@ public static partial class Hardcoded
                 new(210490, RaidDifficultiesAll), // Vantus Rune
             ]
         },
+
         #endregion
 
         #region The War Within
+
         // Nerub-ar Palace > Trash
         {
             1001273,
@@ -2926,6 +3092,7 @@ public static partial class Hardcoded
                 new(232655, RaidDifficultiesAll), // Vatwork Janitor's Wasteband
             ]
         },
+
         #endregion
     };
 }

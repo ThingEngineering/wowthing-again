@@ -8,6 +8,7 @@ export enum LookupType {
     Quest,
     Recipe,
     Reputation,
+    Spell,
     Toy,
     Transmog,
     TransmogSet,

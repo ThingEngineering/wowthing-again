@@ -15,9 +15,12 @@ import {
 } from '@/data/professions';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { twwChores11_0, twwChores11_1, twwChores11_1_5, twwChoresChett } from './the_war_within';
+import { Holiday } from '@/enums/holiday';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
+
+const somethingDifferent = [47148];
 
 function buildProfessionTasks(
     professions: TaskProfession[],
@@ -206,6 +209,7 @@ export const taskList: Task[] = [
         key: 'pvpBrawl',
         name: '[PvP] Brawl',
         shortName: 'Brawl',
+        type: 'multi',
     },
     {
         key: 'pvpSkirmishes',
@@ -1231,52 +1235,96 @@ export const multiTaskMap: Record<string, Chore[]> = {
     twwProfessionWeeklies: [...warWithinProfessionTasks],
     pvpBrawl: [
         {
-            taskKey: 'arathiBlizzard',
-            taskName: 'Arathi Blizzard',
+            taskKey: 'brawlFirstWin',
+            taskName: '[D] First Win',
+            noAlone: true,
+            noProgress: true,
+            questIds: [47144],
+            questReset: DbResetType.Daily,
         },
         {
-            taskKey: 'classicAshran',
-            taskName: 'Classic Ashran',
+            taskKey: 'brawlArathiBlizzard',
+            taskName: '[W] Arathi Blizzard',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlArathiBlizzard],
         },
         {
-            taskKey: 'compStomp',
-            taskName: 'Comp Stomp',
+            taskKey: 'brawlClassicAshran',
+            taskName: '[W] Classic Ashran',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlClassicAshran],
         },
         {
-            taskKey: 'cookingImpossible',
-            taskName: 'Cooking Impossible',
+            taskKey: 'brawlCompStomp',
+            taskName: '[W] Comp Stomp',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlCompStomp],
         },
         {
-            taskKey: 'deepSix',
-            taskName: 'Deep Six',
+            taskKey: 'brawlCookingImpossible',
+            taskName: '[W] Cooking Impossible',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlCookingImpossible],
         },
         {
-            taskKey: 'deepwindDunk',
-            taskName: 'Deepwind Dunk',
+            taskKey: 'brawlDeepSix',
+            taskName: '[W] Deep Six',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlDeepSix],
         },
         {
-            taskKey: 'gravityLapse',
-            taskName: 'Gravity Lapse',
+            taskKey: 'brawlDeepwindDunk',
+            taskName: '[W] Deepwind Dunk',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlDeepwindDunk],
         },
         {
-            taskKey: 'packedHouse',
-            taskName: 'Packed House',
+            taskKey: 'brawlGravityLapse',
+            taskName: '[W] Gravity Lapse',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlGravityLapse],
         },
         {
-            taskKey: 'shadoPanShowdown',
-            taskName: 'Shado-Pan Showdown',
+            taskKey: 'brawlPackedHouse',
+            taskName: '[W] Packed House',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlPackedHouse],
         },
         {
-            taskKey: 'southshoreVsTarrenMill',
-            taskName: 'Southshore vs. Tarren Mill',
+            taskKey: 'brawlShadoPanShowdown',
+            taskName: '[W] Shado-Pan Showdown',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlShadoPanShowdown],
         },
         {
-            taskKey: 'templeOfHotmogu',
-            taskName: 'Temple of Hotmogu',
+            taskKey: 'brawlSouthshoreVsTarrenMill',
+            taskName: '[W] Southshore vs. Tarren Mill',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlSouthshoreVsTarrenMill],
         },
         {
-            taskKey: 'warsongScramble',
-            taskName: 'Warsong Scramble',
+            taskKey: 'brawlTempleOfHotmogu',
+            taskName: '[W] Temple of Hotmogu',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlTempleOfHotmogu],
+        },
+        {
+            taskKey: 'brawlWarsongScramble',
+            taskName: '[W] Warsong Scramble',
+            questIds: somethingDifferent,
+            questReset: DbResetType.Weekly,
+            requiredHolidays: [Holiday.BrawlWarsongScramble],
         },
     ],
     pvpBlitz: [

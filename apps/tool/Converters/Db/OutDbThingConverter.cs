@@ -17,6 +17,7 @@ public class OutDbThingConverter : JsonConverter<OutDbThing>
         writer.WriteNumberValue(thing.Id);
         writer.WriteNumberValue((int)thing.ResetType);
         writer.WriteNumberValue(thing.TrackingQuestId);
+        writer.WriteNumberValue(thing.HighlightQuestId);
         writer.WriteNumberValue(thing.ZoneMapsGroupId);
         writer.WriteNumberValue(thing.AccountWide ? 1 : 0);
         writer.WriteStringValue(thing.Name);

@@ -1,6 +1,7 @@
 export const openables = new Set<number>([
     // Holidays
     21746, // Lucky Red Envelope
+    127148, // Silas' Secret Stash
     211429, // Bundle of Love Tokens
     232877, // Timely Goodie Bag
     233014, // Bronze Celebration Cache of Treasures

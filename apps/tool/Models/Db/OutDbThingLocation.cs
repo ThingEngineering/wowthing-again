@@ -21,11 +21,11 @@ public class OutDbThingLocation
         // Add alliance/horde flag
         if (parts.Length > 2 && parts[2] == "alliance")
         {
-            PackedLocation += 100000000;
+            PackedLocation += 100_000_000;
         }
         else if (parts.Length > 2 && parts[2] == "horde")
         {
-            PackedLocation += 200000000;
+            PackedLocation += 200_000_000;
         }
     }
 }
