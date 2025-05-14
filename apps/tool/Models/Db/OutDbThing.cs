@@ -4,12 +4,12 @@ using Wowthing.Tool.Models.Vendors;
 
 namespace Wowthing.Tool.Models.Db;
 
-
 [JsonConverter(typeof(OutDbThingConverter))]
 public class OutDbThing
 {
     public bool AccountWide { get; set; }
     public int Id { get; set; }
+    public int HighlightQuestId { get; set; }
     public int TrackingQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
@@ -32,6 +32,7 @@ public class OutDbThing
         Id = dataThing.Id;
         Name = dataThing.Name;
         Note = dataThing.Note;
+        HighlightQuestId = dataThing.HighlightQuestId;
         TrackingQuestId = dataThing.TrackingQuestId;
         ZoneMapsGroupId = dataThing.ZoneMapsGroupId;
 

@@ -33,6 +33,7 @@ export class DbDataThing {
         public id: number,
         public resetType: DbResetType,
         public trackingQuestId: number,
+        public highlightQuestId: number,
         public zoneMapsGroupId: number,
         accountWide: number,
         public name: string,
@@ -179,6 +180,7 @@ export class DbDataThing {
                         ? null
                         : Faction[this.faction].toLocaleLowerCase(),
                 groupId: this.zoneMapsGroupId,
+                highlightQuestId: this.highlightQuestId,
                 id: this.id,
                 idType: thingTypeToFarmIdType[this.type],
                 location: this.locations[mapId].flatMap((loc) => [

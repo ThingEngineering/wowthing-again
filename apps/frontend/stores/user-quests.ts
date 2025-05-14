@@ -1,3 +1,4 @@
+import sortBy from 'lodash/sortBy';
 import { get } from 'svelte/store';
 import type { DateTime } from 'luxon';
 
@@ -77,6 +78,10 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
                 }
             }
         }
+    }
+
+    latestHas(questId: number): boolean {
+        return sortBy(this.value.characters, (char) => -char.scannedTime)[0]?.quests?.has(questId);
     }
 
     characterHas(characterId: number, questId: number): boolean {

@@ -15,6 +15,5 @@ export class DbDataThingLocation {
         // 12345678 => x: 12.34, y: 56.78
         this.xCoordinate = (Math.floor((packedLocation / 10000) % 10000) / 100).toFixed(2);
         this.yCoordinate = ((packedLocation % 10000) / 100).toFixed(2);
-        console.log(packedLocation, this.xCoordinate, this.yCoordinate);
     }
 }

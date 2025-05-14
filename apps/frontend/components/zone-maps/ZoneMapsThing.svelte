@@ -3,7 +3,7 @@
     import { FarmType } from '@/enums/farm-type';
     import { settingsStore } from '@/shared/stores/settings';
     import { timeStore } from '@/shared/stores/time';
-    import { journalStore, lazyStore, userStore } from '@/stores';
+    import { journalStore, lazyStore, userQuestStore, userStore } from '@/stores';
     import { zoneMapState } from '@/stores/local-storage/zone-map';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { getInstanceFarm } from '@/utils/get-instance-farm';
@@ -24,10 +24,11 @@
     export let status: FarmStatus;
 
     let big: boolean;
+    let highlight: boolean;
+    let show: boolean;
     let classes: string[];
     let drops: ManualDataZoneMapDrop[];
     let locations: [string, string][];
-    let show: boolean;
     let topOffset: string;
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
@@ -39,7 +40,6 @@
                 $userStore,
                 farm,
             );
-            //big = farm.type === FarmType.Raid
             topOffset = '0px';
         } else {
             big = FarmType[farm.type].indexOf('Big') > 0;
@@ -71,6 +71,10 @@
         locations = [];
         for (let i = 0; i < farm.location.length; i += 2) {
             locations.push([farm.location[i], farm.location[i + 1]]);
+        }
+
+        if (farm.highlightQuestId && userQuestStore.latestHas(farm.highlightQuestId)) {
+            classes.push('highlight');
         }
     }
 </script>
@@ -115,6 +119,9 @@
             }
             &.raid {
                 color: #fb7fff;
+            }
+            &.highlight {
+                color: #f97eeb;
             }
         }
         &.inactive {
@@ -172,7 +179,7 @@
                     type={FarmIdType[farm.idType].toLowerCase()}
                 >
                     <div class={classes.join(' ')}>
-                        <IconifyIcon {icon} scale={big ? '1.25' : scale} />
+                        <IconifyIcon {icon} scale={big ? '1.2' : scale} />
                     </div>
 
                     {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}
