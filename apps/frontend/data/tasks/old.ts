@@ -1,21 +1,22 @@
 import { get } from 'svelte/store';
 
-import { Profession } from '@/enums/profession';
-import { staticStore } from '@/shared/stores/static';
-import { userQuestStore } from '@/stores';
-import type { Character } from '@/types';
-import type { TaskProfession } from '@/types/data';
-import type { Chore, Task } from '@/types/tasks';
-
 import { Constants } from '@/data/constants';
 import {
     dragonflightProfessions,
     isGatheringProfession,
     warWithinProfessions,
 } from '@/data/professions';
-import { DbResetType } from '@/shared/stores/db/enums';
-import { twwChores11_0, twwChores11_1, twwChores11_1_5, twwChoresChett } from './the_war_within';
 import { Holiday } from '@/enums/holiday';
+import { Profession } from '@/enums/profession';
+import { DbResetType } from '@/shared/stores/db/enums';
+import { staticStore } from '@/shared/stores/static';
+import { userQuestStore } from '@/stores';
+import type { Character } from '@/types';
+import type { TaskProfession } from '@/types/data';
+import type { Chore, Task } from '@/types/tasks';
+
+import { eventsTurboBoost } from './events';
+import { twwChores11_0, twwChores11_1, twwChores11_1_5, twwChoresChett } from './the_war_within';
 
 const nameFire = '<span class="status-warn">:fire:</span>';
 const nameQuest = '<span class="status-shrug">:exclamation:</span>';
@@ -99,6 +100,13 @@ export const warWithinProfessionTasks = buildProfessionTasks(warWithinProfession
 
 export const taskList: Task[] = [
     // Events/Holidays/idk
+    {
+        key: 'turboBoost',
+        minimumLevel: 80,
+        name: '[Event] Turbo Boost',
+        shortName: 'Turbo',
+        type: 'multi',
+    },
     {
         key: 'anniversary',
         minimumLevel: 10,
@@ -425,6 +433,7 @@ function winterVeilCouldGet(char: Character): boolean {
 }
 
 export const multiTaskMap: Record<string, Chore[]> = {
+    turboBoost: eventsTurboBoost,
     anniversary: [
         {
             taskKey: 'anniversaryCelebrate',

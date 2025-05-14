@@ -1,12 +1,12 @@
 import { get } from 'svelte/store';
 
+import { customResetPeriod } from './custom-reset-period';
+import { QuestStatus } from '@/enums/quest-status';
 import { iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
 import type { Character } from '@/types';
-import { QuestStatus } from '@/enums/quest-status';
-import { customResetPeriod } from './custom-reset-period';
 
 export const twwChores11_0: Chore[] = [
     {
