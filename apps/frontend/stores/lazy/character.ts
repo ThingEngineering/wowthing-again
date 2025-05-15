@@ -716,6 +716,12 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     if (choreTask.noAlone) {
                         continue;
                     }
+
+                    const objectives = charChore.tasks[0].quest?.objectives;
+                    if (objectives?.length === 1) {
+                        charChore.countStarted = objectives[0].have;
+                        charChore.countTotal = objectives[0].need;
+                    }
                 }
 
                 characterData.chores[`${view.id}|${taskName}`] = charChore;

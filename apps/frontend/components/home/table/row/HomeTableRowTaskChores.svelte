@@ -7,6 +7,8 @@
     import type { Character } from '@/types';
 
     import Tooltip from '@/components/tooltips/task/TooltipTaskChore.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import { uiIcons } from '@/shared/icons/ui';
 
     export let character: Character;
     export let taskName: string;
@@ -73,7 +75,17 @@
             },
         }}
     >
-        {chore.countCompleted} / {chore.countTotal}
+        {#if multiTaskMap[taskName]?.length === 1}
+            {#if chore.countCompleted === 1}
+                <IconifyIcon icon={uiIcons.starFull} />
+            {:else if !inProgress}
+                <IconifyIcon icon={uiIcons.starEmpty} />
+            {:else}
+                {chore.countCompleted} / {chore.countTotal}
+            {/if}
+        {:else}
+            {chore.countCompleted} / {chore.countTotal}
+        {/if}
     </td>
 {:else}
     <td class="b-l"></td>
