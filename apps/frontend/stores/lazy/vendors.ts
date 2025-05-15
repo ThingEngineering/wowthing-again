@@ -1,4 +1,5 @@
 import intersectionWith from 'lodash/intersectionWith';
+import { get } from 'svelte/store';
 
 import { classByArmorType } from '@/data/character-class';
 import { pvpCurrencies } from '@/data/currencies';
@@ -17,6 +18,7 @@ import { UserCount } from '@/types';
 import { ManualDataVendorGroup } from '@/types/data/manual';
 import { getCurrencyCosts } from '@/utils/get-currency-costs';
 import { getNumberKeyedEntries } from '@/utils/get-number-keyed-entries';
+import { getBonusIdModifier } from '@/utils/items/get-bonus-id-modifier';
 import getTransmogClassMask from '@/utils/get-transmog-class-mask';
 import { rewardToLookup } from '@/utils/rewards/reward-to-lookup';
 import { userHasLookup } from '@/utils/rewards/user-has-lookup';
@@ -34,6 +36,7 @@ import type { UserQuestData } from '@/types/data';
 import type { ItemData } from '@/types/data/item';
 import type { VendorState } from '../local-storage';
 import type { LazyTransmog } from './transmog';
+import { AppearanceModifier } from '@/enums/appearance-modifier';
 
 const tierRegex = new RegExp(/ - T\d\d/);
 
@@ -110,17 +113,6 @@ export function doVendors(stores: LazyStores): LazyVendors {
                 vendorIds.push(entry.id);
             }
 
-            // for (const setString of childCategory.vendorSets) {
-            //     for (const vendor of Object.values(stores.manualData.shared.vendors)) {
-            //         for (const set of vendor.sets) {
-            //             if (set.name.includes(setString)) {
-            //                 vendorIds.push(vendor.id);
-            //                 break;
-            //             }
-            //         }
-            //     }
-            // }
-
             const autoGroups: Record<string, ManualDataVendorGroup> = {};
 
             for (const vendorId of vendorIds) {
@@ -171,6 +163,13 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         ) {
                             autoItem.faction = Faction.Both;
                         }
+
+                        if (set.bonusIds?.length > 0 && !(item.bonusIds?.length > 0)) {
+                            item.bonusIds = set.bonusIds;
+                        }
+
+                        // BonusIDs, whee
+                        item.appearanceModifier = get(getBonusIdModifier)(item.bonusIds || []);
                     }
                 }
 
@@ -493,8 +492,11 @@ export function doVendors(stores: LazyStores): LazyVendors {
                         stores.lazyTransmog,
                         lookupType,
                         lookupId,
-                        item.appearanceIds,
-                        masochist,
+                        {
+                            appearanceIds: item.appearanceIds,
+                            completionist: masochist,
+                            modifier: item.appearanceModifier,
+                        },
                     );
 
                     // Skip unavailable illusions

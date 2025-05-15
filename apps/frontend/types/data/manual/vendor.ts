@@ -55,6 +55,7 @@ export class ManualDataVendorGroup {
 export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualDataVendorGroup>;
 
 export class ManualDataVendorItem {
+    public appearanceModifier: number = 0;
     public costs: Record<number, number>;
     public extraAppearances: number;
     public faction: Faction = Faction.Both;

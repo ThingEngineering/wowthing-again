@@ -65,19 +65,19 @@
                     const appearanceKeys = Object.keys(item?.appearances || {}).map((n) =>
                         parseInt(n),
                     );
+                    let modifier = thing.appearanceModifier;
                     if (appearanceKeys.length === 1) {
-                        if (appearanceKeys[0] === AppearanceModifier.Mythic) {
-                            thingData.difficulty = 'M';
-                        } else if (appearanceKeys[0] === AppearanceModifier.Heroic) {
-                            thingData.difficulty = 'H';
-                        } else if (appearanceKeys[0] === AppearanceModifier.LookingForRaid) {
-                            thingData.difficulty = 'L';
-                        } else if (
-                            appearanceKeys[0] === AppearanceModifier.Normal &&
-                            group.showNormalTag
-                        ) {
-                            thingData.difficulty = 'N';
-                        }
+                        modifier = appearanceKeys[0];
+                    }
+
+                    if (modifier === AppearanceModifier.Mythic) {
+                        thingData.difficulty = 'M';
+                    } else if (modifier === AppearanceModifier.Heroic) {
+                        thingData.difficulty = 'H';
+                    } else if (modifier === AppearanceModifier.LookingForRaid) {
+                        thingData.difficulty = 'L';
+                    } else if (modifier === AppearanceModifier.Normal && group.showNormalTag) {
+                        thingData.difficulty = 'N';
                     }
                 }
 
@@ -86,9 +86,6 @@
         }
 
         percent = Math.floor(((group.stats?.have ?? 0) / (group.stats?.total ?? 1)) * 100);
-
-        // if (group.name === 'Armor - T10 Warlock')
-        //     console.log(group, things, percent, $userStore)
     }
 </script>
 

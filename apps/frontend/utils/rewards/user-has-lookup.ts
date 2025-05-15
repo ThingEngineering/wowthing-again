@@ -17,8 +17,15 @@ export function userHasLookup(
     lazyTransmog: LazyTransmog,
     type: LookupType,
     id: number,
-    appearanceIds?: number[],
-    completionist?: boolean,
+    {
+        appearanceIds,
+        completionist,
+        modifier,
+    }: {
+        appearanceIds?: number[];
+        completionist?: boolean;
+        modifier?: number;
+    },
 ): boolean {
     if (type === LookupType.Illusion) {
         return userData.hasIllusion.has(appearanceIds[0]);
@@ -60,12 +67,13 @@ export function userHasLookup(
             // If an item only has a single appearance, use that modifier. This is true
             // for things like Cosmetic items that teach specific difficulty appearances.
             const keys = Object.keys(item.appearances);
-            const modifier = parseInt(keys.length === 1 ? keys[0] : '0');
+            const itemModifier =
+                modifier !== undefined ? modifier : parseInt(keys.length === 1 ? keys[0] : '0');
 
             if (completionist) {
-                return userData.hasSourceV2.get(modifier).has(id);
+                return userData.hasSourceV2.get(itemModifier).has(id);
             } else {
-                const appearanceId = item.appearances?.[modifier]?.appearanceId || 0;
+                const appearanceId = item.appearances?.[itemModifier]?.appearanceId || 0;
                 return userData.hasAppearance.has(appearanceId);
             }
         }
