@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { taskMap } from '@/data/tasks';
+    import { multiTaskMap, taskMap } from '@/data/tasks';
     import { componentTooltip } from '@/shared/utils/tooltips';
     import { activeViewTasks } from '@/stores/derived/active-view-tasks';
     import { homeState } from '@/stores/local-storage';
 
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte';
 
@@ -27,8 +28,9 @@
     }
 </style>
 
-{#each $activeViewTasks as taskName}
-    {@const sortField = `task:${taskName}`}
+{#each $activeViewTasks as fullTaskName}
+    {@const [taskName, choreName] = fullTaskName.split('|', 2)}
+    {@const sortField = `task:${fullTaskName}`}
     <td
         class="sortable"
         class:sorted-by={$homeState.groupSort[sortKey] === sortField}
@@ -42,6 +44,13 @@
             },
         }}
     >
-        <ParsedText text={taskMap[taskName].shortName} />
+        {#if choreName}
+            <IconifyIcon
+                icon={multiTaskMap[taskName].find((chore) => chore.taskKey === choreName)?.icon}
+                scale={'1.0'}
+            />
+        {:else}
+            <ParsedText text={taskMap[taskName].shortName} />
+        {/if}
     </td>
 {/each}

@@ -11,13 +11,17 @@
     import { uiIcons } from '@/shared/icons/ui';
 
     export let character: Character;
+    export let choreName: string;
     export let taskName: string;
 
     let chore: LazyCharacterChore;
     let inProgress: boolean;
     $: {
         const lazyCharacter = $lazyStore.characters[character.id];
-        chore = lazyCharacter.chores[`${$activeView.id}|${taskName}`];
+        chore =
+            lazyCharacter.chores[
+                `${$activeView.id}|${choreName ? `${taskName}|${choreName}` : taskName}`
+            ];
         inProgress = false;
 
         if (chore && multiTaskMap[taskName]) {
@@ -75,7 +79,7 @@
             },
         }}
     >
-        {#if multiTaskMap[taskName]?.length === 1}
+        {#if multiTaskMap[taskName]?.length === 1 || choreName}
             {#if chore.countCompleted === 1}
                 <IconifyIcon icon={uiIcons.starFull} />
             {:else if !inProgress}

@@ -7,7 +7,7 @@ namespace Wowthing.Lib.Models;
 public class ApplicationUserSettings
 {
     private static readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
-    private static readonly Regex ValidTaskString = new Regex(@"^\w{1,30}$", RegexOptions.Compiled);
+    private static readonly Regex ValidTaskString = new Regex(@"^\S{1,50}$", RegexOptions.Compiled);
 
     public string ActiveView { get; set; } = String.Empty;
 

@@ -376,7 +376,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
     }
 
     for (const view of stores.settings.views) {
-        for (const taskName of view.homeTasks) {
+        for (const fullTaskName of view.homeTasks) {
+            const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName];
             if (
                 !task ||
@@ -398,10 +399,14 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
             if (task.type === 'multi') {
                 const charChore = new LazyCharacterChore();
-                const disabledChores = view.disabledChores?.[taskName] || [];
+                const disabledChores = view.disabledChores?.[fullTaskName] || [];
 
                 // ugh
                 for (const choreTask of multiTaskMap[taskName]) {
+                    if (choreName && choreTask.taskKey !== choreName) {
+                        continue;
+                    }
+
                     if (!choreTask) {
                         charChore.tasks.push(null);
                         continue;
@@ -724,7 +729,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
                     }
                 }
 
-                characterData.chores[`${view.id}|${taskName}`] = charChore;
+                characterData.chores[`${view.id}|${fullTaskName}`] = charChore;
             } else {
                 // not multi
                 const questKey = progressQuestMap[taskName] || taskName;
@@ -798,6 +803,8 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
             }
         } // choreTask of choreTasks
     } // view of views
+
+    if (character.name === 'Grigorovich') console.log(character.name, characterData.chores);
 }
 
 function doProfessionCooldowns(
