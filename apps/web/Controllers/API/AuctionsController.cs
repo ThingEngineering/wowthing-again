@@ -729,10 +729,10 @@ WHERE   tc.appearance_source IS NULL
                     skillLineIds.Add(rootId);
                     foreach (var (subProfessionId, subProfession) in subProfessions)
                     {
-                        haveSkillLine[subProfessionId] = haveSkillLine.GetValueOrDefault(subProfessionId, 0);
+                        haveSkillLine[subProfessionId] = haveSkillLine.GetValueOrDefault(subProfessionId, 0) + 1;
                         foreach (int abilityId in subProfession.KnownRecipes)
                         {
-                            haveSkillLineAbility[abilityId] = haveSkillLine.GetValueOrDefault(subProfessionId, 0);
+                            haveSkillLineAbility[abilityId] = haveSkillLineAbility.GetValueOrDefault(abilityId, 0) + 1;
                         }
                     }
                 }
