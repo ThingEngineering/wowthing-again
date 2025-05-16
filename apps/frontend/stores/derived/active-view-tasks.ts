@@ -21,13 +21,14 @@ export const activeViewTasks = derived(
             Object.values($lazyStore.characters).flatMap((c) => Object.keys(c.tasks)),
         );
 
-        for (const taskName of $activeView.homeTasks) {
+        for (const fullTaskName of $activeView.homeTasks) {
+            const [taskName, choreName] = fullTaskName.split('|', 2);
             const task = taskMap[taskName];
             if (!task) {
                 continue;
             }
 
-            const taskViewKey = `${$activeView.id}|${taskName}`;
+            const taskViewKey = `${$activeView.id}|${fullTaskName}`;
 
             if (!choreKeys.has(taskViewKey) && !taskKeys.has(taskViewKey)) {
                 continue;
@@ -38,7 +39,7 @@ export const activeViewTasks = derived(
             }
 
             if (task.type === 'multi') {
-                const disabledChores = $activeView.disabledChores?.[taskName] || [];
+                const disabledChores = $activeView.disabledChores?.[fullTaskName] || [];
                 const activeChores: Chore[] = [];
                 for (const chore of multiTaskMap[task.key]) {
                     if (!chore || disabledChores.includes(chore.taskKey)) {
@@ -65,9 +66,9 @@ export const activeViewTasks = derived(
                     continue;
                 }
 
-                activeTasks.push(taskName);
+                activeTasks.push(fullTaskName);
             } else {
-                activeTasks.push(taskName);
+                activeTasks.push(fullTaskName);
             }
         }
 

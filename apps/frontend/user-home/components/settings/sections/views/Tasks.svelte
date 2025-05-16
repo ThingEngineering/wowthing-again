@@ -18,9 +18,20 @@
     let taskChoices: SettingsChoice[];
     $: {
         const lowerFilter = (taskFilter || '').toLocaleLowerCase();
-        taskChoices = taskList
-            .filter((task) => task.name.toLocaleLowerCase().includes(lowerFilter))
-            .map((task) => ({ id: task.key, name: task.name }));
+        taskChoices = [];
+        for (const task of taskList) {
+            if (!lowerFilter || task.name.toLocaleLowerCase().includes(lowerFilter)) {
+                taskChoices.push({ id: task.key, name: task.name });
+                if (task.showSeparate && multiTaskMap[task.key]) {
+                    for (const multiTask of multiTaskMap[task.key]) {
+                        taskChoices.push({
+                            id: `${task.key}|${multiTask.taskKey}`,
+                            name: `${task.name} - ${multiTask.taskName}`,
+                        });
+                    }
+                }
+            }
+        }
     }
 </script>
 
@@ -48,7 +59,7 @@
     </div>
 
     {#each multiTasks as taskKey}
-        {#if taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
+        {#if multiTaskMap[taskKey]?.length > 1 && taskMap[taskKey] && view.homeTasks.indexOf(taskKey) >= 0}
             <div class="settings-block">
                 <div>
                     <h3>{taskMap[taskKey].name}</h3>

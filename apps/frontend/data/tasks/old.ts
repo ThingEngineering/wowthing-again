@@ -373,6 +373,7 @@ export const taskList: Task[] = [
         name: '[TWW] 11.1.x',
         shortName: '11.1',
         minimumLevel: 80,
+        showSeparate: true,
         type: 'multi',
     },
     {
