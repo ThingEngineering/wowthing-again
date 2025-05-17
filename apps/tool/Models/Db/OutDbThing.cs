@@ -11,6 +11,7 @@ public class OutDbThing
     public int Id { get; set; }
     public int HighlightQuestId { get; set; }
     public int TrackingQuestId { get; set; }
+    public int WorldQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; }
     public string Note { get; set; }
@@ -34,6 +35,7 @@ public class OutDbThing
         Note = dataThing.Note;
         HighlightQuestId = dataThing.HighlightQuestId;
         TrackingQuestId = dataThing.TrackingQuestId;
+        WorldQuestId = dataThing.WorldQuestId;
         ZoneMapsGroupId = dataThing.ZoneMapsGroupId;
 
         ResetType = Enum.Parse<DbResetType>(dataThing.Reset.OrDefault("none"), true);
