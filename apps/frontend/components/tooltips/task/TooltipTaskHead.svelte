@@ -13,7 +13,7 @@
 
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
 
-    export let taskName: string;
+    export let fullTaskName: string;
 
     let completed: number;
     let disabledChores: string[];
@@ -27,15 +27,19 @@
         inProgress = 0;
         total = 0;
 
+        const [taskName, choreName] = fullTaskName.split('|', 2);
+
         const questName = progressQuestMap[taskName] || taskName;
         const task = taskMap[taskName];
-        disabledChores = $activeView.disabledChores?.[taskName] || [];
+        disabledChores = $activeView.disabledChores?.[fullTaskName] || [];
 
         const multiMap: Record<string, number> = {};
         multiStats = [];
         if (task.type === 'multi' && taskName !== 'dfProfessionWeeklies') {
             multiStats = sortBy(
-                multiTaskMap[taskName].filter((chore) => !!chore),
+                multiTaskMap[taskName].filter(
+                    (chore) => !!chore && (!choreName || chore.taskKey === choreName),
+                ),
                 (multiTask) => disabledChores.indexOf(multiTask.taskKey) >= 0,
             ).map((multi) => [multi.taskKey, multi.taskName, { 0: 0, 1: 0, 2: 0, 3: 0 }]);
 
@@ -67,7 +71,7 @@
 
                 if (task.type === 'multi') {
                     const { chores: charChores } = $lazyStore.characters[characterId];
-                    const taskChores = charChores?.[`${$activeView.id}|${taskName}`];
+                    const taskChores = charChores?.[`${$activeView.id}|${fullTaskName}`];
 
                     if (taskName !== 'dfProfessionWeeklies') {
                         for (const choreTask of taskChores?.tasks || []) {
