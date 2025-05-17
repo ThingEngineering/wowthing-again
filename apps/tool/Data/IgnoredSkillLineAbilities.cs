@@ -18,7 +18,10 @@ public static partial class Hardcoded
 
     public static readonly HashSet<int> IgnoredSkillLineAbilitySpells =
     [
+        // Alchemy
+        17579, // Greater Holy Protection Potion
         28577, // Major Holy Protection Potion
+        54020, // Transmute: Eternal Might
         156567, // WoD Draenor Armor Flask (never implemented)
         156588, // WoD Alchemical Catalyst - Fireweed
         156589, // WoD Alchemical Catalyst - Flytrap
@@ -39,12 +42,20 @@ public static partial class Hardcoded
         430610, // TWW ??
 
         // Blacksmithing
+        2671, // Rough Bronze Bracers
+        8366, // Ironforge Chain
         8368, // Ironforge Gauntlets
         9942, // Mithril Scale Gloves
+        9957, // Orcish War Leggings
+        9972, // Ornate Mithril Breastplate
+        9979, // Ornate Mithril Boots
+        9980, // Ornate Mithril Helm
         16960, // Thorium Greatsword
+        16965, // Bleakwood Hew
         16967, // Inlaid Thorium Hammer
         16980, // Rune Edge
         16986, // Blood Talon
+        16987, // Darkspear
         34529, // Nether Chain Shirt
         34530, // TBC Twisting Nether Chain Shirt
         55186, // WotLK Chestplate of Conquest
@@ -164,6 +175,8 @@ public static partial class Hardcoded
         407161, // Immaculate Coalescing Dracothyst (temporary legendary craft)
 
         // Leatherworking
+        10550, // Nightscape Cloak
+        19106, // Onyxia Scale Breastplate
         102366, // Mist-Touched Leather (combining 5 pieces?)
         171713, // Burnished Leather (dupe for max results?)
         173416, // Small Football (never implemented?)
@@ -175,6 +188,21 @@ public static partial class Hardcoded
         423882, // Overload Test Deposit
 
         // Tailoring
+        7636, // Green Woolen Robe
+        8778, // Boots of Darkness
+        12062, // Stormcloth Pants
+        12063, // Stormcloth Gloves
+        12068, // Stormcloth Vest
+        12083, // Stormcloth Headband
+        12087, // Stormcloth Shoulders
+        12090, // Stormcloth Boots
+        36665, // Pattern: Netherflame Robe
+        36667, // Pattern: Netherflame Belt
+        36668, // Pattern: Netherflame Boots
+        36669, // Pattern: Lifeblood Leggings
+        36670, // Pattern: Lifeblood Belt
+        36672, // Pattern: Lifeblood Bracers
+
         104115, // MoP Release Fire Spirit
         168851, // Miniature Flying Carpet (never implemented)
         169669, // Hexweave Cloth (dupe for max results?)
