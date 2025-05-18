@@ -1,25 +1,25 @@
-<script lang="ts">
-    import { settingsStore } from '@/shared/stores/settings/store'
-    import { measureScrollbar } from '@/utils/measure-scrollbar'
-    import type { SidebarItem } from './types'
+<script lang="ts" generics="TItem extends SidebarItem">
+    import { settingsStore } from '@/shared/stores/settings/store';
+    import { measureScrollbar } from '@/utils/measure-scrollbar';
+    import type { SidebarItem } from './types';
 
-    import SidebarEntry from './SubSidebarEntry.svelte'
+    import SidebarEntry from './SubSidebarEntry.svelte';
 
-    export let alwaysExpand = false
-    export let baseUrl: string
-    export let items: SidebarItem[]
-    export let id = 'sub-sidebar'
-    export let noVisitRoot = false
-    export let scrollable = false
-    export let width = '10rem'
-    export let dataFunc: (entry: SidebarItem) => string = undefined
-    export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
-    export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
+    export let alwaysExpand = false;
+    export let baseUrl: string;
+    export let items: TItem[];
+    export let id = 'sub-sidebar';
+    export let noVisitRoot = false;
+    export let scrollable = false;
+    export let width = '10rem';
+    export let dataFunc: (entry: TItem) => string = undefined;
+    export let decorationFunc: (entry: TItem, parentEntries?: TItem[]) => string = undefined;
+    export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
 
-    $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0)
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '7rem' : '4.4rem'
+    $: anyChildren = items.some((item) => (item?.children?.length ?? 0) > 0);
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '7rem' : '4.4rem';
 
-    const scrollbarWidth = measureScrollbar()
+    const scrollbarWidth = measureScrollbar();
 </script>
 
 <style lang="scss">
@@ -58,13 +58,13 @@
 </style>
 
 <div
-    class:scrollable={scrollable}
+    class:scrollable
     class:sticky={!scrollable}
     style="--less-height: {lessHeight}; --width: {width}; --scrollbar-width: {scrollbarWidth}px"
 >
     <slot name="before" />
 
-    <nav id="{id}" class="thing-container">
+    <nav {id} class="thing-container">
         {#each items as item}
             <SidebarEntry
                 {alwaysExpand}

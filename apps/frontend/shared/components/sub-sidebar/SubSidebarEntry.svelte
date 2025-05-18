@@ -1,102 +1,100 @@
-<script lang="ts">
-    import { link, location, replace } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
+<script lang="ts" generics="TItem extends SidebarItem">
+    import { link, location, replace } from 'svelte-spa-router';
+    import active from 'svelte-spa-router/active';
 
-    import { iconStrings } from '@/data/icons'
-    import { subSidebarState } from '@/stores/local-storage'
-    import getPercentClass from '@/utils/get-percent-class'
-    import { componentTooltip } from '@/shared/utils/tooltips'
-    import type { SidebarItem } from './types'
+    import { iconStrings } from '@/data/icons';
+    import { subSidebarState } from '@/stores/local-storage';
+    import getPercentClass from '@/utils/get-percent-class';
+    import { componentTooltip } from '@/shared/utils/tooltips';
+    import type { SidebarItem } from './types';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte'
-    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte'
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
+    import Tooltip from '@/shared/components/parsed-text/Tooltip.svelte';
 
-    export let alwaysExpand: boolean
-    export let anyChildren: boolean
-    export let baseUrl: string
-    export let item: SidebarItem
-    export let noVisitRoot = false
-    export let parentItems: SidebarItem[] = []
-    export let dataFunc: (entry: SidebarItem) => string = undefined
-    export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
-    export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
+    export let alwaysExpand: boolean;
+    export let anyChildren: boolean;
+    export let baseUrl: string;
+    export let item: TItem;
+    export let noVisitRoot = false;
+    export let parentItems: TItem[] = [];
+    export let dataFunc: (entry: TItem) => string = undefined;
+    export let decorationFunc: (entry: TItem, parentEntries?: TItem[]) => string = undefined;
+    export let percentFunc: (entry: TItem, parentEntries?: TItem[]) => number = undefined;
 
-    let activeRegex: string
-    let data: string
-    let decoration: string
-    let expanded: boolean
-    let minusWidth: string
-    let percent = -1
-    let url: string
+    let activeRegex: string;
+    let data: string;
+    let decoration: string;
+    let expanded: boolean;
+    let minusWidth: string;
+    let percent = -1;
+    let url: string;
 
     $: {
-        let temp = 0.5
+        let temp = 0.5;
         if (decorationFunc || percentFunc) {
-            temp += 3.3
+            temp += 3.3;
         }
         if (anyChildren) {
-            temp += 1.3
+            temp += 1.3;
         }
         if (parentItems) {
-            temp += (parentItems.length * 1) // TODO this should be 1.5 but that doesn't work properly, why?
+            temp += parentItems.length * 1; // TODO this should be 1.5 but that doesn't work properly, why?
         }
-        minusWidth = temp > 0 ? `${temp}rem` : '0px'
+        minusWidth = temp > 0 ? `${temp}rem` : '0px';
     }
 
-    let actualNoVisitRoot: boolean
-    let noCollapse: boolean
+    let actualNoVisitRoot: boolean;
+    let noCollapse: boolean;
     $: {
-        actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit
+        actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit;
         if (item) {
-            url = item.fullUrl || `${baseUrl}/${item.slug}`
+            url = item.fullUrl || `${baseUrl}/${item.slug}`;
 
-            expanded = alwaysExpand ||
+            expanded =
+                alwaysExpand ||
                 $subSidebarState.expanded[url] ||
-                ($location.startsWith(url) && !($location === url) && item.children?.length > 0)
+                ($location.startsWith(url) && !($location === url) && item.children?.length > 0);
 
             //expanded = $location.startsWith(url) && item.children?.length > 0
 
-            data = dataFunc?.(item)
-            decoration = decorationFunc?.(item, parentItems)
-            percent = percentFunc?.(item, parentItems)
+            data = dataFunc?.(item);
+            decoration = decorationFunc?.(item, parentItems);
+            percent = percentFunc?.(item, parentItems);
 
             if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
-                noCollapse = true
-            }
-            else if (alwaysExpand) {
-                noCollapse = true
-            }
-            else {
-                noCollapse = false
+                noCollapse = true;
+            } else if (alwaysExpand) {
+                noCollapse = true;
+            } else {
+                noCollapse = false;
             }
 
-            if (actualNoVisitRoot && $location === url ) {
-                $subSidebarState.expanded[url] = true
-                replace(`${url}/${item.children[0].slug}`)
+            if (actualNoVisitRoot && $location === url) {
+                $subSidebarState.expanded[url] = true;
+                replace(`${url}/${item.children[0].slug}`);
             }
 
             if (parentItems.length > 0 || item.forceWildcard === true) {
                 if (item.children) {
                     activeRegex = '^' + url.replace(/\//g, '\\/') + '\\/?$';
                 } else {
-                    activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
+                    activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)';
                 }
-            }
-            else {
-                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$'
+            } else {
+                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$';
             }
         }
     }
 
     const toggleExpanded = () => {
-        expanded = !expanded
-        $subSidebarState.expanded[url] = expanded
+        expanded = !expanded;
+        $subSidebarState.expanded[url] = expanded;
 
         if ($location.startsWith(url) && $location !== url) {
-            replace(url)
+            replace(url);
         }
-    }
+    };
 </script>
 
 <style lang="scss">
@@ -124,7 +122,7 @@
         --link-color: #64ffd1;
 
         > :global(a) {
-            padding-left: calc(1.0rem * var(--subtree-depth, 1));
+            padding-left: calc(1rem * var(--subtree-depth, 1));
         }
         :global(.separator) {
             margin: 0.2rem 1.7rem 0.2rem 1rem;
@@ -168,9 +166,9 @@
 {#if item}
     {#key url}
         <a
-            href="{url}"
+            href={url}
             style="--minusWidth: {minusWidth}"
-            style:--subtree-depth="{parentItems.length}"
+            style:--subtree-depth={parentItems.length}
             class:noVisitRoot={actualNoVisitRoot}
             data-info={data}
             use:link
@@ -182,23 +180,20 @@
                 },
             }}
         >
-            <ParsedText
-                cls="text-overflow"
-                text={item.name}
-            />
+            <ParsedText cls="text-overflow" text={item.name} />
 
             {#if decoration !== undefined}
                 <span
                     class="drop-shadow decoration"
                     class:decoration-children={anyChildren}
                     class:quality2={(item.children?.length ?? 0) === 0}
-                    class:quality3={item.children?.length > 0}
-                >{decoration}</span>
+                    class:quality3={item.children?.length > 0}>{decoration}</span
+                >
             {:else if percent >= 0}
                 <span
                     class="drop-shadow decoration {getPercentClass(percent)}"
-                    class:decoration-children={anyChildren}
-                >{Math.floor(percent).toFixed(0)} %</span>
+                    class:decoration-children={anyChildren}>{Math.floor(percent).toFixed(0)} %</span
+                >
             {/if}
 
             {#if item.children?.length > 0}
@@ -208,9 +203,7 @@
                     class:expand-no={noCollapse}
                     on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
                 >
-                    <IconifyIcon
-                        icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}
-                    />
+                    <IconifyIcon icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]} />
                 </button>
             {/if}
         </a>
