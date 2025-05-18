@@ -31,6 +31,7 @@ public class UserUploadJob : JobBase
     private Dictionary<string, int> _instanceNameToIdMap;
 
     private static readonly Regex PlayerGuidRegex = new(@"^Player-\d+-([0-9A-Fa-f]+)$", RegexOptions.Compiled);
+    private static readonly Regex ValidGuildRegex = new(@"^\d+/", RegexOptions.Compiled);
 
     private static readonly AsyncRetryPolicy<bool> LockRetryPolicy = Policy
         .HandleResult<bool>(r => r == false)
@@ -176,6 +177,12 @@ public class UserUploadJob : JobBase
         var guildMap = new Dictionary<(int RealmId, string Name), PlayerGuild>();
         foreach ((string addonId, var guildData) in parsed.Guilds.EmptyIfNull())
         {
+            if (!ValidGuildRegex.IsMatch(addonId))
+            {
+                Logger.Warning("Invalid old-style guild id: {id}", addonId);
+                continue;
+            }
+
             (var realm, string guildName) = ParseAddonId(addonId);
             if (realm == null)
             {
@@ -668,7 +675,6 @@ public class UserUploadJob : JobBase
         var guildItems = guild.Items.EmptyIfNull();
         var itemMap = guildItems.ToGroupedDictionary(pgi => (pgi.ContainerId, pgi.Slot));
         var itemIds = new HashSet<long>(guildItems.Select(item => item.Id));
-
         var seenIds = new HashSet<long>();
 
         // (tab, slot)
@@ -677,12 +683,12 @@ public class UserUploadJob : JobBase
             short tab = short.Parse(tabString[1..]);
             foreach ((string slotString, string itemString) in contents)
             {
-                short slot = short.Parse(slotString[1..]);
-
                 if (itemString == "pet")
                 {
                     continue;
                 }
+
+                short slot = short.Parse(slotString[1..]);
 
                 string[] parts = itemString.Split(":");
                 if (parts.Length != 10 && parts.Length != 12 && !(parts.Length == 4 && parts[0] == "pet"))
