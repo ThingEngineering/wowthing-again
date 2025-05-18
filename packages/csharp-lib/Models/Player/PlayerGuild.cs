@@ -13,6 +13,16 @@ public class PlayerGuild
     public int RealmId { get; set; }
     public string Name { get; set; }
 
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerGuildTab> Tabs { get; set; }
+
     // Navigation properties
     public List<PlayerGuildItem> Items { get; set; }
+}
+
+public class PlayerGuildTab
+{
+    public int Id { get; set; }
+    public string Icon { get; set; }
+    public string Name { get; set; }
 }
