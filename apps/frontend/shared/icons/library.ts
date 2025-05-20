@@ -33,6 +33,7 @@ export { default as gameCrossedSwords } from '@iconify/icons-game-icons/crossed-
 export { default as gameCrownedSkull } from '@iconify/icons-game-icons/crowned-skull';
 export { default as gameCurvyKnife } from '@iconify/icons-game-icons/curvy-knife';
 export { default as gameDeathSkull } from '@iconify/icons-game-icons/death-skull';
+export { default as gameDigDug } from '@iconify/icons-game-icons/dig-dug';
 export { default as gameDorsalScales } from '@iconify/icons-game-icons/dorsal-scales';
 export { default as gameEmerald } from '@iconify/icons-game-icons/emerald';
 export { default as gameClockwork } from '@iconify/icons-game-icons/stopwatch';
@@ -135,6 +136,7 @@ export { default as mdiNumeric4CircleOutline } from '@iconify/icons-mdi/numeric-
 export { default as mdiNumeric5CircleOutline } from '@iconify/icons-mdi/numeric-5-circle-outline';
 export { default as mdiPageFirst } from '@iconify/icons-mdi/page-first';
 export { default as mdiPageLast } from '@iconify/icons-mdi/page-last';
+export { default as mdiPlanet } from '@iconify/icons-mdi/planet';
 export { default as mdiPlus } from '@iconify/icons-mdi/plus';
 export { default as mdiProgressQuestion } from '@iconify/icons-mdi/progress-question';
 export { default as mdiPuzzle } from '@iconify/icons-mdi/puzzle';
