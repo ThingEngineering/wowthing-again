@@ -10,6 +10,7 @@
     import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import TooltipItems from './TooltipItems.svelte';
     import YesNoIcon from '@/shared/components/icons/YesNoIcon.svelte';
+    import { itemStore } from '@/stores';
 
     export let have: number;
     export let set: ManualDataTransmogGroupData;
@@ -18,11 +19,17 @@
     export let subType: string;
     export let total: number;
 
+    let setName: string;
     let shiftPressed: boolean;
 
     $: completionist = $settingsStore.transmog.completionistMode;
 
-    $: setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
+    $: {
+        setName = set.transmogSetId ? $staticStore.transmogSets[set.transmogSetId].name : set.name;
+        if (!setName && set.itemsV2?.length === 1) {
+            setName = $itemStore.items[set.itemsV2[0]?.[0]]?.name;
+        }
+    }
 
     let actualSlotOrder: number[];
     let showShift: boolean;
