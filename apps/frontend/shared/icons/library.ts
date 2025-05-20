@@ -93,6 +93,7 @@ export { default as mdiArrowUpBoldOutline } from '@iconify/icons-mdi/arrow-up-bo
 export { default as mdiAutoFix } from '@iconify/icons-mdi/auto-fix';
 export { default as mdiAxeBattle } from '@iconify/icons-mdi/axe-battle';
 export { default as mdiBank } from '@iconify/icons-mdi/bank';
+export { default as mdiBookshelf } from '@iconify/icons-mdi/bookshelf';
 export { default as mdiCalendar } from '@iconify/icons-mdi/calendar-alert';
 export { default as mdiCart } from '@iconify/icons-mdi/cart';
 export { default as mdiCartOutline } from '@iconify/icons-mdi/cart-outline';
