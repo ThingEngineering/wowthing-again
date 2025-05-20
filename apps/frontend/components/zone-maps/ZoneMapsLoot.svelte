@@ -1,17 +1,92 @@
 <script lang="ts">
-    import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType } from '@/enums/armor-type'
-    import { RewardType } from '@/enums/reward-type'
-    import { farmTypeIcons } from '@/shared/icons/mappings'
-    import { staticStore } from '@/shared/stores/static'
-    import { itemStore, manualStore } from '@/stores'
-    import { getDropData, getDropIcon } from '@/utils/zone-maps'
-    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
+    import keyBy from 'lodash/keyBy';
+    import orderBy from 'lodash/orderBy';
 
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import WowheadLink from '@/shared/components/links/WowheadLink.svelte'
+    import { weaponSubclassToString } from '@/data/weapons';
+    import { ArmorType } from '@/enums/armor-type';
+    import { RewardType } from '@/enums/reward-type';
+    import { farmTypeIcons } from '@/shared/icons/mappings';
+    import { staticStore } from '@/shared/stores/static';
+    import { itemStore, manualStore } from '@/stores';
+    import { getDropData, getDropIcon } from '@/utils/zone-maps';
+    import type { ManualDataZoneMapFarm } from '@/types/data/manual';
 
-    export let loots: [ManualDataZoneMapFarm, number[]][]
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
+    import { leftPad } from '@/utils/formatting';
+
+    export let loots: [ManualDataZoneMapFarm, number[]][];
+
+    let allLoots: [ManualDataZoneMapFarm[], number[]][];
+    $: {
+        allLoots = [];
+        const farmsById = keyBy(
+            loots.map(([farm]) => farm),
+            (farm) => farm.id,
+        );
+
+        // Group by loot
+        const groupedLoot: Record<string, [ManualDataZoneMapFarm, number][]> = {};
+        for (const [farm, dropIndexes] of loots) {
+            for (const dropIndex of dropIndexes) {
+                const dropData = getDropData(farm.drops[dropIndex]);
+                const dropKey = `${dropData.linkType}|${dropData.linkId}`;
+                (groupedLoot[dropKey] ||= []).push([farm, dropIndex]);
+            }
+        }
+
+        // Group groups by farms
+        const groupedGroups: Record<string, string[]> = {};
+        for (const [dropKey, farms] of Object.entries(groupedLoot)) {
+            if (farms.length > 1) {
+                const keys = orderBy(
+                    farms,
+                    ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`,
+                ).map(([farm]) => farm.id);
+                (groupedGroups[keys.join('|')] ||= []).push(dropKey);
+            } else {
+                delete groupedLoot[dropKey];
+            }
+        }
+
+        console.log({ groupedLoot, groupedGroups });
+
+        // groupedGroups is now farmIds->dropTypeAndIds
+        for (const [farmIdString, dropKeys] of Object.entries(groupedGroups)) {
+            const dropIndexes: number[] = [];
+            const farmIds = farmIdString.split('|').map((id) => parseInt(id));
+            const farm = farmsById[farmIds[0]];
+            for (const dropKey of dropKeys) {
+                for (let i = 0; i < farm.drops.length; i++) {
+                    const dropData = getDropData(farm.drops[i]);
+                    if (`${dropData.linkType}|${dropData.linkId}` === dropKey) {
+                        dropIndexes.push(i);
+                        break;
+                    }
+                }
+            }
+
+            allLoots.push([farmIds.map((id) => farmsById[id]), dropIndexes]);
+        }
+
+        for (const [farm, dropIndexes] of orderBy(
+            loots,
+            ([farm]) => `${leftPad(farm.type, 2, '0')}${farm.name}`,
+        )) {
+            let usableDropIndexes: number[] = [];
+            for (const dropIndex of dropIndexes) {
+                const dropData = getDropData(farm.drops[dropIndex]);
+                const dropKey = `${dropData.linkType}|${dropData.linkId}`;
+                if (!groupedLoot[dropKey]) {
+                    usableDropIndexes.push(dropIndex);
+                }
+            }
+
+            if (usableDropIndexes.length > 0) {
+                allLoots.push([[farm], usableDropIndexes]);
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -26,32 +101,41 @@
 
 <table class="table table-striped">
     <tbody>
-        {#each loots as [farm, dropIndexes]}
-            {@const dropDatas = dropIndexes.map((dropIndex) => getDropData(farm.drops[dropIndex]))}
+        {#each allLoots as [farms, dropIndexes]}
+            {@const dropDatas = dropIndexes.map((dropIndex) =>
+                getDropData(farms[0].drops[dropIndex]),
+            )}
             {@const dropCount = dropIndexes.length > 4 ? 3 : 4}
             <tr>
                 <td class="name">
-                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
-                    {farm.name}
+                    {#each farms as farm}
+                        <div>
+                            <IconifyIcon icon={farmTypeIcons[farm.type]} />
+                            {farm.name}
+                        </div>
+                    {/each}
                 </td>
                 <td class="drops">
                     {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
-                        {@const drop = farm.drops[dropIndex]}
+                        {@const drop = farms[0].drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
-                        {@const icon = getDropIcon($itemStore, $manualStore, $staticStore, drop, false)}
+                        {@const icon = getDropIcon(
+                            $itemStore,
+                            $manualStore,
+                            $staticStore,
+                            drop,
+                            false,
+                        )}
                         <div>
                             <IconifyIcon {icon} />
                             <span class="quality{dropData.quality}">
-                                <WowheadLink
-                                    id={dropData.linkId}
-                                    type={dropData.linkType}
-                                >
+                                <WowheadLink id={dropData.linkId} type={dropData.linkType}>
                                     {dropData.name}
                                 </WowheadLink>
                             </span>
                         </div>
                     {/each}
-                    
+
                     {#if dropIndexes.length > 4}
                         <div class="quality0">
                             ... and {dropIndexes.length - 3} more
@@ -60,7 +144,7 @@
                 </td>
                 <td class="type">
                     {#each dropIndexes.slice(0, dropCount) as dropIndex}
-                        {@const drop = farm.drops[dropIndex]}
+                        {@const drop = farms[0].drops[dropIndex]}
                         <div>
                             {#if drop.type === RewardType.Armor}
                                 {ArmorType[drop.subType].toLowerCase()}

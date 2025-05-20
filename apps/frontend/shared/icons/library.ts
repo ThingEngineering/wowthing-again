@@ -93,6 +93,7 @@ export { default as mdiArrowUpBoldOutline } from '@iconify/icons-mdi/arrow-up-bo
 export { default as mdiAutoFix } from '@iconify/icons-mdi/auto-fix';
 export { default as mdiAxeBattle } from '@iconify/icons-mdi/axe-battle';
 export { default as mdiBank } from '@iconify/icons-mdi/bank';
+export { default as mdiBookshelf } from '@iconify/icons-mdi/bookshelf';
 export { default as mdiCalendar } from '@iconify/icons-mdi/calendar-alert';
 export { default as mdiCart } from '@iconify/icons-mdi/cart';
 export { default as mdiCartOutline } from '@iconify/icons-mdi/cart-outline';
@@ -106,6 +107,7 @@ export { default as mdiChevronRight } from '@iconify/icons-mdi/chevron-right';
 export { default as mdiChevronUp } from '@iconify/icons-mdi/chevron-up';
 export { default as mdiClipboardPlusOutline } from '@iconify/icons-mdi/clipboard-plus-outline';
 export { default as mdiClose } from '@iconify/icons-mdi/close';
+export { default as mdiCloud } from '@iconify/icons-mdi/cloud';
 export { default as mdiCogOutline } from '@iconify/icons-mdi/cog-outline';
 export { default as mdiCurrencyUsd } from '@iconify/icons-mdi/currency-usd';
 export { default as mdiDiceMultiple } from '@iconify/icons-mdi/dice-multiple';
@@ -160,9 +162,18 @@ export { default as mdiWizardHat } from '@iconify/icons-mdi/wizard-hat';
 
 export { default as notoBackpack } from '@iconify/icons-noto/backpack';
 export { default as notoBank } from '@iconify/icons-noto/bank';
+export { default as notoBrick } from '@iconify/icons-noto/brick';
+export { default as notoCarrot } from '@iconify/icons-noto/carrot';
+export { default as notoCloud } from '@iconify/icons-noto/cloud';
 export { default as notoCrossedSwords } from '@iconify/icons-noto/crossed-swords';
 export { default as notoDogFace } from '@iconify/icons-noto/dog-face';
 export { default as notoFamilyWomanWomanGirlBoy } from '@iconify/icons-noto/family-woman-woman-girl-boy';
+export { default as notoIce } from '@iconify/icons-noto/ice';
+export { default as notoPinkHeart } from '@iconify/icons-noto/pink-heart';
+export { default as notoRose } from '@iconify/icons-noto/rose';
+export { default as notoSnowflake } from '@iconify/icons-noto/snowflake';
+export { default as notoSunWithFace } from '@iconify/icons-noto/sun-with-face';
+export { default as notoWaterWave } from '@iconify/icons-noto/water-wave';
 
 export { default as openmojiFlagFrance } from '@iconify/icons-openmoji/flag-france';
 export { default as openmojiFlagGermany } from '@iconify/icons-openmoji/flag-germany';

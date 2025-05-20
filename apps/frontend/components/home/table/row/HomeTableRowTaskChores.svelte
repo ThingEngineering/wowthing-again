@@ -80,7 +80,7 @@
         }}
     >
         {#if multiTaskMap[taskName]?.length === 1 || choreName}
-            {#if chore.countCompleted === 1}
+            {#if chore.countCompleted === chore.countTotal}
                 <IconifyIcon icon={uiIcons.starFull} />
             {:else if !inProgress}
                 <IconifyIcon icon={uiIcons.starEmpty} />

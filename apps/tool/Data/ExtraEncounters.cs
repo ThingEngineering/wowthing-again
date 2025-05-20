@@ -181,7 +181,7 @@ public static partial class Hardcoded
                 },
             }
         },
-        // Classic > Stratholme
+        // Classic > Stratholme - Main Gate
         {
             236,
             new[]
@@ -198,11 +198,17 @@ public static partial class Hardcoded
 //                {
 //                    AfterEncounter = 449, // Balnazzar
 //                },
+             }
+        },
+        //  Classic > Stratholme - Service Entrance
+        {
+            1292,
+            new[]
+            {
                 new ExtraEncounter("Stonespine")
                 {
-                    AfterEncounter = 450, // The Unforgiven
                 },
-             }
+            }
         },
         // Classic > Wailing Caverns
         {

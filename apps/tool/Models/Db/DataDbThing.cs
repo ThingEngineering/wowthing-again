@@ -8,6 +8,7 @@ public class DataDbThing
     public int Id { get; set; }
     public int HighlightQuestId { get; set; }
     public int TrackingQuestId { get; set; }
+    public int WorldQuestId { get; set; }
     public int ZoneMapsGroupId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Note { get; set; } = string.Empty;

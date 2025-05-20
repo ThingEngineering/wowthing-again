@@ -10,6 +10,7 @@ public class ApiUserGuild
     public int Id { get; set; }
     public int RealmId { get; set; }
     public string Name { get; set; }
+    public string Slug => Name.Slugify();
 
     public PlayerGuildItem[] RawItems { get; set; }
 

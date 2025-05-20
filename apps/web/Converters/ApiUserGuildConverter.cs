@@ -17,6 +17,7 @@ public class ApiUserGuildConverter : JsonConverter<ApiUserGuild>
         writer.WriteNumberValue(guild.Id);
         writer.WriteNumberValue(guild.RealmId);
         writer.WriteStringValue(guild.Name);
+        writer.WriteStringValue(guild.Slug);
 
         JsonSerializer.Serialize(writer, guild.RawItems, options);
 

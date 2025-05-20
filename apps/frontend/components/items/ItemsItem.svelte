@@ -84,7 +84,7 @@
 
 <style lang="scss">
     .gear {
-        height: 44px;
+        height: 46px;
         padding: 2px;
         position: relative;
         text-align: center;
@@ -184,7 +184,7 @@
             {#if useItemCount}
                 {#if item?.equippable}
                     <span class="item-level right">{gear.equipped.itemLevel}</span>
-                {:else if (gear.equipped.count || 0) > 0}
+                {:else if (gear.equipped.count || 0) > 1}
                     <span class="item-level left">x{gear.equipped.count}</span>
                 {/if}
             {:else}

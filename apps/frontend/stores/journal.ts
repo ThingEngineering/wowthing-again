@@ -1,5 +1,6 @@
 import uniq from 'lodash/uniq';
 import without from 'lodash/without';
+import xor from 'lodash/xor';
 
 import { raidDifficulties } from '@/data/difficulty';
 import { worldBossInstanceIds } from '@/data/dungeon';
@@ -25,10 +26,12 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 (data.expandedItem[itemId] ||= []).push(tokenId);
             }
         }
-        
+
         for (let tierIndex = 0; tierIndex < data.tiers.length; tierIndex++) {
             const tier = data.tiers[tierIndex];
-            if (!tier) { continue; }
+            if (!tier) {
+                continue;
+            }
 
             for (const extraTier of extraTiers) {
                 if (extraTier.id !== 1000099) {
@@ -47,11 +50,29 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                     data.instanceById[instance.id] = instance;
 
                     instance.order = order--;
-                    
+
                     instance.encounters = instance.encountersRaw.map(
                         (encounterArray) => new JournalDataEncounter(...encounterArray),
                     );
                     instance.encountersRaw = null;
+
+                    // Zul'Gurub hack to fix difficulties
+                    if (instance.id === 76) {
+                        for (const encounter of instance.encounters) {
+                            for (const group of encounter.groups) {
+                                for (const item of group.items) {
+                                    for (const appearance of item.appearances) {
+                                        if (
+                                            xor([3, 4, 5, 6], appearance.difficulties).length === 0
+                                        ) {
+                                            appearance.difficulties.length = 0;
+                                            appearance.difficulties.push(1, 2);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
 
                     const difficulties = uniq(
                         instance.encounters

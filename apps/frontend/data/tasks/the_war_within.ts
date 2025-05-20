@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 
 import { customResetPeriod } from './custom-reset-period';
 import { QuestStatus } from '@/enums/quest-status';
-import { iconLibrary } from '@/shared/icons';
+import { aliasedIcons, iconLibrary } from '@/shared/icons';
 import { DbResetType } from '@/shared/stores/db/enums';
 import { userQuestStore, userStore } from '@/stores';
 import type { Chore } from '@/types/tasks';
@@ -12,10 +12,11 @@ export const twwChores11_0: Chore[] = [
     {
         taskKey: 'twwEmissaryArchives',
         taskName: '[Dor] Archives',
+        icon: aliasedIcons.bookshelf,
         minimumLevel: 70,
         questIds: [
             82679, // Archives: Seeking History
-            82678, // Archives: The First Disc
+            // 82678, // Archives: The First Disc
         ],
         questReset: DbResetType.Custom,
         customExpiryFunc: (char, scannedAt) => customResetPeriod(char, scannedAt, 1002, 3),

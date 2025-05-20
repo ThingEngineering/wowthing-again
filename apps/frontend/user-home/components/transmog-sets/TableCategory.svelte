@@ -19,6 +19,7 @@
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
     import { TransmogSetData } from '@/types';
     import { classByArmorType } from '@/data/character-class';
+    import { tradingPostKeys } from './data';
 
     export let anyClasses: boolean;
     export let category: ManualDataTransmogCategory;
@@ -70,6 +71,14 @@
             (groupData) => groupData === null || !!groupData.transmogSetId,
         );
     };
+
+    function getMultiKeys(group: ManualDataTransmogGroup) {
+        if (category.name === 'Trading Post') {
+            return tradingPostKeys;
+        } else {
+            return Object.keys(group.data).map((_, index) => (index + 1).toString());
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -241,9 +250,10 @@
                     </td>
                 {/if}
             {:else if currentType === 'multi'}
-                {@const columns = Math.max(...Object.values(group.data).map((data) => data.length))}
-                {#each Object.keys(group.data) as _, index}
-                    <td class="icon">{index + 1}</td>
+                {#each getMultiKeys(group) as key}
+                    <td class="icon">
+                        <ParsedText text={key} />
+                    </td>
                 {/each}
             {:else if !anyClasses || currentType === 'all'}
                 <td class="icon" colspan="100">

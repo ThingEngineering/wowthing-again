@@ -40,14 +40,14 @@
         use:componentTooltip={{
             component: Tooltip,
             props: {
-                taskName,
+                fullTaskName,
             },
         }}
     >
         {#if choreName}
             <IconifyIcon
                 icon={multiTaskMap[taskName].find((chore) => chore.taskKey === choreName)?.icon}
-                scale={'1.0'}
+                scale={'0.9'}
             />
         {:else}
             <ParsedText text={taskMap[taskName].shortName} />
