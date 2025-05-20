@@ -180,6 +180,10 @@ export function doTransmog(stores: LazyStores): LazyTransmog {
 
                             const transmogSet =
                                 stores.staticData.transmogSets[groupSigh.transmogSetId];
+                            if (!transmogSet) {
+                                console.warn('Invalid transmog set ID', groupSigh.transmogSetId);
+                                continue;
+                            }
 
                             const anyPrimary = transmogSet.items.some(
                                 ([itemId]) => itemId > 10_000_000,
