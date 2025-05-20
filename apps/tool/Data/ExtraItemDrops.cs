@@ -815,7 +815,7 @@ public static partial class Hardcoded
 //        },
         // Stratholme > Stonespine
         {
-            1_0236_2,
+            1_1292_0,
             [
                 new(13954, DungeonDifficultiesNormal), // Verdant Footpads
                 // Cloak
