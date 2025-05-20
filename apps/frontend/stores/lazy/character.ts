@@ -724,8 +724,9 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
 
                     const objectives = charChore.tasks[0].quest?.objectives;
                     if (objectives?.length === 1) {
-                        charChore.countStarted = objectives[0].have;
+                        charChore.countCompleted = objectives[0].have;
                         charChore.countTotal = objectives[0].need;
+                        charChore.countStarted = charChore.countTotal - charChore.countCompleted;
                     }
                 }
 
@@ -804,7 +805,7 @@ function doCharacterTasks(stores: LazyStores, character: Character, characterDat
         } // choreTask of choreTasks
     } // view of views
 
-    if (character.name === 'Grigorovich') console.log(character.name, characterData.chores);
+    if (character.name === 'Totake') console.log(character.name, characterData.chores);
 }
 
 function doProfessionCooldowns(
