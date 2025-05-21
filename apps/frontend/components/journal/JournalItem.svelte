@@ -1,6 +1,7 @@
 <script lang="ts">
     import { getDifficulties } from './get-difficulties';
     import { hardModeItemIds } from '@/data/journal';
+    import { BindType } from '@/enums/bind-type';
     import { Faction } from '@/enums/faction';
     import { PlayableClass, PlayableClassMask } from '@/enums/playable-class';
     import { RewardType } from '@/enums/reward-type';
@@ -22,8 +23,6 @@
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
     import ProfessionIcon from '@/shared/components/images/ProfessionIcon.svelte';
     import WowthingImage from '@/shared/components/images/sources/WowthingImage.svelte';
-    import { BindType } from '@/enums/bind-type';
-    import { mdiBank } from '@/shared/icons/library';
 
     export let bonusIds: Record<number, number> = undefined;
     export let instance: JournalDataInstance;
@@ -116,7 +115,7 @@
         position: absolute;
         right: -2px;
         top: -4px;
-        transform: scale(0.8);
+        transform: scale(0.7);
     }
     .difficulties {
         background-color: $highlight-background;
@@ -181,12 +180,12 @@
                 </div>
             {/if}
 
-            {#if appearance.userHas}
-                <CollectedIcon />
-            {:else if dataItem.bindType === BindType.NotBound}
-                <div class="overlay buyable drop-shadow">
+            {#if [BindType.NotBound, BindType.OnEquip].includes(dataItem.bindType)}
+                <div class="overlay buyable drop-shadow" class:status-success={appearance.userHas}>
                     <IconifyIcon icon={iconLibrary.mdiBank} />
                 </div>
+            {:else if appearance.userHas}
+                <CollectedIcon />
             {/if}
 
             {#if dataItem.allianceOnly || dataItem.hordeOnly}
