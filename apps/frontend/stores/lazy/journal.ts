@@ -16,6 +16,7 @@ import type { JournalState } from '../local-storage';
 import type { StaticData } from '@/shared/stores/static/types';
 import type { Settings } from '@/shared/stores/settings/types';
 import type { ItemData } from '@/types/data/item';
+import { BindType } from '@/enums/bind-type';
 
 export interface LazyJournal {
     filteredItems: Record<string, JournalDataEncounterItem[]>;
@@ -406,6 +407,12 @@ export function doJournal(stores: LazyStores): LazyJournal {
 
                             if (aOrder !== bOrder) {
                                 return aOrder - bOrder;
+                            }
+
+                            const aBound = aItem.bindType === BindType.NotBound ? 0 : 1;
+                            const bBound = bItem.bindType === BindType.NotBound ? 0 : 1;
+                            if (aBound !== bBound) {
+                                return aBound - bBound;
                             }
                         }
 
