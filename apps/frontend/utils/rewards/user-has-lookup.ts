@@ -66,9 +66,13 @@ export function userHasLookup(
 
             // If an item only has a single appearance, use that modifier. This is true
             // for things like Cosmetic items that teach specific difficulty appearances.
-            const keys = Object.keys(item.appearances);
-            const itemModifier =
-                modifier !== undefined ? modifier : parseInt(keys.length === 1 ? keys[0] : '0');
+            const keys = Object.keys(item.appearances).map((n) => parseInt(n));
+            let itemModifier = 0;
+            if (modifier !== undefined && keys.includes(modifier)) {
+                itemModifier = modifier;
+            } else if (keys.length === 1) {
+                itemModifier = keys[0];
+            }
 
             if (completionist) {
                 return userData.hasSourceV2.get(itemModifier).has(id);
