@@ -1,8 +1,9 @@
 import globals from 'globals';
 
 import js from '@eslint/js';
+import prettierConfig from 'eslint-config-prettier';
 import svelteParser from 'svelte-eslint-parser';
-import sveltePlugin from 'eslint-plugin-svelte';
+import svelte from 'eslint-plugin-svelte';
 import typescriptParser from '@typescript-eslint/parser';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 
@@ -18,6 +19,10 @@ export default [
     },
 
     js.configs.recommended,
+    // ...typescriptPlugin.configs.recommended,
+    ...svelte.configs.recommended,
+    prettierConfig,
+    ...svelte.configs.prettier,
 
     {
         languageOptions: {
@@ -54,7 +59,7 @@ export default [
 
     // Svelte
     {
-        files: ['**/*.svelte'],
+        files: ['**/*.svelte', '**/*.svelte.js'],
         languageOptions: {
             parser: svelteParser,
             parserOptions: {
@@ -67,15 +72,17 @@ export default [
             },
         },
         plugins: {
-            svelte: sveltePlugin,
+            svelte: svelte,
             '@typescript-eslint': typescriptPlugin,
         },
         rules: {
             ...typescriptPlugin.configs.recommended.rules,
-            ...sveltePlugin.configs.recommended.rules,
+            ...svelte.configs.recommended.rules,
             ...ourRules,
             // there's a lot of these to embed '&nbsp;', no user data is ever used
             'svelte/no-at-html-tags': 'off',
+            // TODO: fix the hundreds of these
+            'svelte/require-each-key': 'warn',
             // // doesn't seem to work properly?
             // 'svelte/no-unused-svelte-ignore': 'warn',
         },
