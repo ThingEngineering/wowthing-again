@@ -1,58 +1,57 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import find from 'lodash/find';
 
-    import { classOrder } from '@/data/character-class'
-    import { iconStrings } from '@/data/icons'
-    import { FarmAnchorPoint } from '@/enums/farm-anchor-point'
-    import { FarmType } from '@/enums/farm-type'
-    import { PlayableClass } from '@/enums/playable-class'
-    import { RewardType } from '@/enums/reward-type'
+    import { classOrder } from '@/data/character-class';
+    import { iconStrings } from '@/data/icons';
+    import { FarmAnchorPoint } from '@/enums/farm-anchor-point';
+    import { FarmType } from '@/enums/farm-type';
+    import { PlayableClass } from '@/enums/playable-class';
+    import { RewardType } from '@/enums/reward-type';
     import { dbStore } from '@/shared/stores/db';
-    import { settingsStore } from '@/shared/stores/settings'
-    import { lazyStore, manualStore } from '@/stores'
-    import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { leftPad } from '@/utils/formatting'
-    import { toIndexRecord } from '@/utils/to-index-record'
-    import type { FarmStatus } from '@/types'
-    import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
+    import { settingsStore } from '@/shared/stores/settings';
+    import { lazyStore, manualStore } from '@/stores';
+    import { zoneMapState } from '@/stores/local-storage/zone-map';
+    import { leftPad } from '@/utils/formatting';
+    import { toIndexRecord } from '@/utils/to-index-record';
+    import type { FarmStatus } from '@/types';
+    import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual';
 
-    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte'
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import Counter from './ZoneMapsCounter.svelte'
-    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte'
-    import Image from '@/shared/components/images/Image.svelte'
-    import Loot from './ZoneMapsLoot.svelte'
-    import Thing from './ZoneMapsThing.svelte'
+    import Checkbox from '@/shared/components/forms/CheckboxInput.svelte';
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import Counter from './ZoneMapsCounter.svelte';
+    import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import Image from '@/shared/components/images/Image.svelte';
+    import Loot from './ZoneMapsLoot.svelte';
+    import Thing from './ZoneMapsThing.svelte';
 
-    export let slug1: string
-    export let slug2: string
+    export let slug1: string;
+    export let slug2: string;
 
     type FarmGroup = {
-        group: ManualDataZoneMapFarm,
-        children: [ManualDataZoneMapFarm, number][],
-    }
+        group: ManualDataZoneMapFarm;
+        children: [ManualDataZoneMapFarm, number][];
+    };
 
-    let categories: ManualDataZoneMapCategory[]
-    let farms: ManualDataZoneMapFarm[]
-    let farmStatuses: FarmStatus[]
-    let groups: FarmGroup[]
-    let height: number
-    let width: number
-    let slugKey: string
+    let categories: ManualDataZoneMapCategory[];
+    let farms: ManualDataZoneMapFarm[];
+    let farmStatuses: FarmStatus[];
+    let groups: FarmGroup[];
+    let height: number;
+    let width: number;
+    let slugKey: string;
 
     $: {
-        categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1)
+        categories = find($manualStore.zoneMaps.sets, (s) => s?.[0]?.slug === slug1);
         if (slug2) {
-            categories = categories.filter((s) => s?.slug === slug2)
+            categories = categories.filter((s) => s?.slug === slug2);
         }
-        slugKey = slug2 ? `${slug1}--${slug2}` : slug1
+        slugKey = slug2 ? `${slug1}--${slug2}` : slug1;
 
-        farms = []
+        farms = [];
         if (categories?.length > 0) {
-            farms = [...categories[0].farms]
-            for (const vendorId of ($manualStore.shared.vendorsByMap[categories[0].mapName] || [])) {
-                farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName))
+            farms = [...categories[0].farms];
+            for (const vendorId of $manualStore.shared.vendorsByMap[categories[0].mapName] || []) {
+                farms.push(...$manualStore.shared.vendors[vendorId].asFarms(categories[0].mapName));
             }
             farms.push(
                 ...dbStore
@@ -61,104 +60,111 @@
                     .filter((farm) => !!farm),
             );
 
-            farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey]
+            farmStatuses = $lazyStore.zoneMaps.farmStatus[slugKey];
         }
 
         if ($zoneMapState.classFilters[slugKey] === undefined) {
-            $zoneMapState.classExpanded[slugKey] = false
-            $zoneMapState.classFilters[slugKey] = {}
+            $zoneMapState.classExpanded[slugKey] = false;
+            $zoneMapState.classFilters[slugKey] = {};
         }
 
         const groupMap: Record<number, FarmGroup> = Object.fromEntries(
-            farms.filter((farm) => farm.type === FarmType.Group)
-                .map((farm) => [farm.id, {
-                    group: farm,
-                    children: [],
-                }])
-        )
+            farms
+                .filter((farm) => farm.type === FarmType.Group)
+                .map((farm) => [
+                    farm.id,
+                    {
+                        group: farm,
+                        children: [],
+                    },
+                ]),
+        );
         for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
-            const farm = farms[farmIndex]
+            const farm = farms[farmIndex];
             if (farm.groupId && groupMap[farm.groupId]) {
-                groupMap[farm.groupId].children.push([farm, farmIndex])
+                groupMap[farm.groupId].children.push([farm, farmIndex]);
             }
         }
 
-        groups = Object.values(groupMap)
+        groups = Object.values(groupMap);
         for (const group of groups) {
             group.children.sort((a, b) => {
-                const aIndex = typeOrder[a[0].type] || -1
-                const aStatus = farmStatuses[a[1]]
-                const bIndex = typeOrder[b[0].type] || -1
-                const bStatus = farmStatuses[b[1]]
+                const aIndex = typeOrder[a[0].type] || -1;
+                const aStatus = farmStatuses[a[1]];
+                const bIndex = typeOrder[b[0].type] || -1;
+                const bStatus = farmStatuses[b[1]];
 
                 const aData = [
                     aStatus.need ? '0' : '1',
                     a[0].faction || 'zzz',
                     leftPad(aIndex === -1 ? 999 : aIndex, 3, '0'),
-                    a[0].name
-                ].join('|')
+                    a[0].name,
+                ].join('|');
                 const bData = [
                     bStatus.need ? '0' : '1',
                     b[0].faction || 'zzz',
                     leftPad(bIndex === -1 ? 999 : bIndex, 3, '0'),
-                    b[0].name
-                ].join('|')
-                return aData.localeCompare(bData)
-            })
+                    b[0].name,
+                ].join('|');
+                return aData.localeCompare(bData);
+            });
         }
     }
 
-    let loots: [ManualDataZoneMapFarm, number[]][]
+    let loots: [ManualDataZoneMapFarm, number[]][];
     $: {
-        loots = []
+        loots = [];
         if (farms && $zoneMapState.lootExpanded[slugKey]) {
             for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
-                const farm = farms[farmIndex]
-                const farmStatus = farmStatuses[farmIndex]
+                const farm = farms[farmIndex];
+                const farmStatus = farmStatuses[farmIndex];
                 if (farmStatus.need && lootFarmTypes[farm.type] >= 0) {
-                    const needDrops: number[] = []
+                    const needDrops: number[] = [];
 
                     for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
-                        const drop = farm.drops[dropIndex]
-                        const dropStatus = farmStatus.drops[dropIndex]
+                        const drop = farm.drops[dropIndex];
+                        const dropStatus = farmStatus.drops[dropIndex];
                         if (dropStatus.need && lootRewardTypes[drop.type] >= 0) {
-                            if (drop.type === RewardType.Item && !(
-                                $manualStore.druidFormItemToQuest[drop.id] ||
-                                $manualStore.dragonridingItemToQuest[drop.id]
-                            )) {
-                                continue
+                            if (
+                                drop.type === RewardType.Item &&
+                                !(
+                                    $manualStore.druidFormItemToQuest[drop.id] ||
+                                    $manualStore.dragonridingItemToQuest[drop.id]
+                                )
+                            ) {
+                                continue;
                             }
-                            
-                            needDrops.push(dropIndex)
+
+                            needDrops.push(dropIndex);
                         }
                     }
 
                     if (needDrops.length > 0) {
-                        loots.push([farms[farmIndex], needDrops])
-                   }
+                        loots.push([farms[farmIndex], needDrops]);
+                    }
                 }
             }
         }
     }
 
     $: {
-        [width, height] = $zoneMapMedia
+        [width, height] = [1500, 1000];
     }
 
-    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem'
+    $: lessHeight = $settingsStore?.layout?.newNavigation ? '6.4rem' : '4.4rem';
 
-    const getGroupWidth = function(len: number): string {
+    const getGroupWidth = function (len: number): string {
         if (len < 3) {
-            return null
+            return null;
         }
-        const sqrt = Math.ceil(Math.sqrt(len))
+        const sqrt = Math.ceil(Math.sqrt(len));
         // border + padding + icons
-        return `calc(2px + 0.2rem + (24px * ${sqrt})`
-    }
+        return `calc(2px + 0.2rem + (24px * ${sqrt})`;
+    };
 
-    const getAnchorX = function(farm: ManualDataZoneMapFarm): string {
+    const getAnchorX = function (farm: ManualDataZoneMapFarm): string {
         if (!farm.anchorPoint) {
-            return '-50%'
+            return '-50%';
         }
 
         if (
@@ -166,13 +172,13 @@
             farm.anchorPoint === FarmAnchorPoint.Left ||
             farm.anchorPoint === FarmAnchorPoint.BottomLeft
         ) {
-            return '-12px'
+            return '-12px';
         }
-    }
+    };
 
-    const getAnchorY = function(farm: ManualDataZoneMapFarm): string {
+    const getAnchorY = function (farm: ManualDataZoneMapFarm): string {
         if (!farm.anchorPoint) {
-            return '-50%'
+            return '-50%';
         }
 
         if (
@@ -180,9 +186,9 @@
             farm.anchorPoint === FarmAnchorPoint.Top ||
             farm.anchorPoint === FarmAnchorPoint.TopRight
         ) {
-            return '-12px'
+            return '-12px';
         }
-    }
+    };
 
     const lootFarmTypes = toIndexRecord<number>([
         FarmType.Event,
@@ -190,7 +196,7 @@
         FarmType.Kill,
         FarmType.KillBig,
         FarmType.Treasure,
-    ])
+    ]);
     const lootRewardTypes = toIndexRecord<number>([
         RewardType.Armor,
         RewardType.Cosmetic,
@@ -200,14 +206,14 @@
         RewardType.Pet,
         RewardType.Toy,
         RewardType.Weapon,
-    ])
+    ]);
     const typeOrder = toIndexRecord<number>([
         FarmType.Vendor,
         FarmType.Profession,
         FarmType.Quest,
         FarmType.Achievement,
         FarmType.Kill,
-    ])
+    ]);
 </script>
 
 <style lang="scss">
@@ -330,104 +336,89 @@
 </style>
 
 {#if categories?.length > 0}
-    <div
-        class="zone-map"
-        style:--less-height={lessHeight}
-    >
+    <div class="zone-map" style:--less-height={lessHeight}>
         <div class="toggles setting-toggles overlay-box">
             <div class="toggle-group">
-                <Checkbox
-                    name="show_completed"
-                    bind:value={$zoneMapState.showCompleted}
-                >Completed</Checkbox>
-                <Checkbox
-                    name="show_killed"
-                    bind:value={$zoneMapState.showKilled}
-                >Killed</Checkbox>
+                <Checkbox name="show_completed" bind:value={$zoneMapState.showCompleted}
+                    >Completed</Checkbox
+                >
+                <Checkbox name="show_killed" bind:value={$zoneMapState.showKilled}>Killed</Checkbox>
             </div>
 
             <div class="toggle-group">
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_achievements"
-                        bind:value={$zoneMapState.trackAchievements}
-                    >Achievements</Checkbox>
+                    <Checkbox name="track_achievements" bind:value={$zoneMapState.trackAchievements}
+                        >Achievements</Checkbox
+                    >
 
                     <Counter key={slugKey} type={RewardType.Achievement} />
                 </div>
 
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_mounts"
-                        bind:value={$zoneMapState.trackMounts}
-                    >Mounts</Checkbox>
+                    <Checkbox name="track_mounts" bind:value={$zoneMapState.trackMounts}
+                        >Mounts</Checkbox
+                    >
 
                     <Counter key={slugKey} type={RewardType.Mount} />
                 </div>
 
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_pets"
-                        bind:value={$zoneMapState.trackPets}
-                    >Pets</Checkbox>
+                    <Checkbox name="track_pets" bind:value={$zoneMapState.trackPets}>Pets</Checkbox>
 
                     <Counter key={slugKey} type={RewardType.Pet} />
                 </div>
 
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_quests"
-                        bind:value={$zoneMapState.trackQuests}
-                    >Quests</Checkbox>
+                    <Checkbox name="track_quests" bind:value={$zoneMapState.trackQuests}
+                        >Quests</Checkbox
+                    >
 
                     <Counter key={slugKey} type={RewardType.Quest} />
                 </div>
 
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_toys"
-                        bind:value={$zoneMapState.trackToys}
-                    >Toys</Checkbox>
+                    <Checkbox name="track_toys" bind:value={$zoneMapState.trackToys}>Toys</Checkbox>
 
                     <Counter key={slugKey} type={RewardType.Toy} />
                 </div>
 
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_transmog"
-                        bind:value={$zoneMapState.trackTransmog}
-                    >Transmog</Checkbox>
+                    <Checkbox name="track_transmog" bind:value={$zoneMapState.trackTransmog}
+                        >Transmog</Checkbox
+                    >
 
                     <Counter key={slugKey} type={RewardType.Transmog} />
                 </div>
-                
+
                 <div class="checkbox-counter">
-                    <Checkbox
-                        name="track_vendors"
-                        bind:value={$zoneMapState.trackVendors}
-                    >Vendors</Checkbox>
+                    <Checkbox name="track_vendors" bind:value={$zoneMapState.trackVendors}
+                        >Vendors</Checkbox
+                    >
                 </div>
             </div>
         </div>
 
         <button
             class="toggles class-toggles overlay-box"
-            on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
+            on:click={() =>
+                ($zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey])}
         >
             Class:
 
             {#each classOrder.filter((c) => $zoneMapState.classFilters[slugKey][c] === true) as classId}
-                <ClassIcon size={20} classId={classId} />
+                <ClassIcon size={20} {classId} />
             {:else}
                 ALL
             {/each}
 
             {#if $zoneMapState.maxLevelOnly}
-            | MAX
+                | MAX
             {/if}
 
             <IconifyIcon
-                icon={iconStrings['chevron-' + ($zoneMapState.classExpanded[slugKey] ? 'down' : 'right')]}
+                icon={iconStrings[
+                    'chevron-' + ($zoneMapState.classExpanded[slugKey] ? 'down' : 'right')
+                ]}
             />
         </button>
 
@@ -438,13 +429,13 @@
                         name="class_{classId}"
                         textClass="class-{classId}"
                         bind:value={$zoneMapState.classFilters[slugKey][classId]}
-                    >{PlayableClass[classId]}</Checkbox>
+                        >{PlayableClass[classId]}</Checkbox
+                    >
                 {/each}
-                <hr>
-                <Checkbox
-                    name="max_level"
-                    bind:value={$zoneMapState.maxLevelOnly}
-                >Max level only</Checkbox>
+                <hr />
+                <Checkbox name="max_level" bind:value={$zoneMapState.maxLevelOnly}
+                    >Max level only</Checkbox
+                >
             </div>
         {/if}
 
@@ -458,41 +449,36 @@
 
         {#each farms as farm, farmIndex}
             {#if farm.type !== FarmType.Group && !farm.groupId}
-                <Thing
-                    map={categories[0]}
-                    status={farmStatuses[farmIndex]}
-                    {farm}
-                />
+                <Thing map={categories[0]} status={farmStatuses[farmIndex]} {farm} />
             {/if}
         {/each}
 
-        {#each groups as {group, children}}
+        {#each groups as { group, children }}
             <div
                 class="border group-container"
                 style:left="{group.location[0]}%"
                 style:top="{group.location[1]}%"
-                style:width="{getGroupWidth(children.length)}"
+                style:width={getGroupWidth(children.length)}
                 style:--translate-x={getAnchorX(group)}
                 style:--translate-y={getAnchorY(group)}
             >
                 {#each children as [farm, farmIndex]}
-                    <Thing
-                        map={categories[0]}
-                        status={farmStatuses[farmIndex]}
-                        {farm}
-                    />
+                    <Thing map={categories[0]} status={farmStatuses[farmIndex]} {farm} />
                 {/each}
             </div>
         {/each}
 
         <button
             class="loot-list-toggle overlay-box"
-            on:click={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
+            on:click={() =>
+                ($zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey])}
         >
             Loot list
 
             <IconifyIcon
-                icon={iconStrings['chevron-' + ($zoneMapState.lootExpanded[slugKey] ? 'up' : 'right')]}
+                icon={iconStrings[
+                    'chevron-' + ($zoneMapState.lootExpanded[slugKey] ? 'up' : 'right')
+                ]}
             />
         </button>
 
@@ -513,7 +499,7 @@
 
             {#if categories[0].wowheadGuide}
                 <div>
-                    <a href="{categories[0].wowheadGuide}">Wowhead guide</a>
+                    <a href={categories[0].wowheadGuide}>Wowhead guide</a>
                 </div>
             {/if}
         </div>

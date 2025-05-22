@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onDestroy, onMount } from 'svelte';
+    import { mount, onDestroy, onMount } from 'svelte';
 
     import {
         itemStore,
@@ -85,7 +85,7 @@
             const navTarget = document.querySelector('#app-nav');
             navTarget.replaceChildren();
             if ($settingsStore.layout.newNavigation) {
-                new NewNav({ target: navTarget });
+                mount(NewNav, { target: navTarget });
             }
         }
     }
@@ -98,7 +98,7 @@
             if (diff > 24 * 60 * 60 * 1000) {
                 const navCenter = document.getElementById('nav-center');
                 navCenter.replaceChildren();
-                new Refresh({
+                mount(Refresh, {
                     target: navCenter,
                     props: {},
                 });

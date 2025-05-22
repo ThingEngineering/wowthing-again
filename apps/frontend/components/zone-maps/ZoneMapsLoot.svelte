@@ -8,12 +8,13 @@
     import { farmTypeIcons } from '@/shared/icons/mappings';
     import { staticStore } from '@/shared/stores/static';
     import { itemStore, manualStore } from '@/stores';
+    import { leftPad } from '@/utils/formatting';
     import { getDropData, getDropIcon } from '@/utils/zone-maps';
     import type { ManualDataZoneMapFarm } from '@/types/data/manual';
 
     import IconifyIcon from '@/shared/components/images/IconifyIcon.svelte';
+    import ParsedText from '@/shared/components/parsed-text/ParsedText.svelte';
     import WowheadLink from '@/shared/components/links/WowheadLink.svelte';
-    import { leftPad } from '@/utils/formatting';
 
     export let loots: [ManualDataZoneMapFarm, number[]][];
 
@@ -111,7 +112,7 @@
                     {#each farms as farm}
                         <div>
                             <IconifyIcon icon={farmTypeIcons[farm.type]} />
-                            {farm.name}
+                            <ParsedText text={farm.name} />
                         </div>
                     {/each}
                 </td>

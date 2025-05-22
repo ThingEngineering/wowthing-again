@@ -1,42 +1,42 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
+    import sortBy from 'lodash/sortBy';
 
-    import { Region } from '@/enums/region'
-    import { userStore } from '@/stores'
-    import { itemSearchState } from '@/stores'
-    import type { Character } from '@/types'
-    import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
+    import { Region } from '@/enums/region';
+    import { userStore } from '@/stores';
+    import { itemSearchState } from '@/stores';
+    import type { Character } from '@/types';
+    import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items';
 
-    import ClassIcon from '@/shared/components/images/ClassIcon.svelte'
-    import Row from './ItemsSearchCharacterRow.svelte'
+    import ClassIcon from '@/shared/components/images/ClassIcon.svelte';
+    import Row from './ItemsSearchCharacterRow.svelte';
 
-    export let response: ItemSearchResponseItem[]
+    export let response: ItemSearchResponseItem[];
 
-    type CharacterItem = ItemSearchResponseCharacter & { itemId: number }
+    type CharacterItem = ItemSearchResponseCharacter & { itemId: number };
 
-    let characters: [Character, CharacterItem[]][]
+    let characters: [Character, CharacterItem[]][];
     $: {
-        const characterMap: Record<number, CharacterItem[]> = {}
+        const characterMap: Record<number, CharacterItem[]> = {};
         // let guildBanks = {}
         for (const item of response) {
-            for (const character of (item.characters || [])) {
-                characterMap[character.characterId] ||= []
+            for (const character of item.characters || []) {
+                characterMap[character.characterId] ||= [];
                 characterMap[character.characterId].push({
                     itemId: item.itemId,
                     ...character,
-                })
+                });
             }
 
             if ($itemSearchState.includeEquipped) {
-                for (const character of (item.equipped || [])) {
-                    characterMap[character.characterId] ||= []
+                for (const character of item.equipped || []) {
+                    characterMap[character.characterId] ||= [];
                     characterMap[character.characterId].push({
                         itemId: item.itemId,
                         ...character,
-                    })
+                    });
                 }
             }
-            
+
             // for (const guildBank of (item.guildBanks || [])) {
             //     characterMap[character.characterId] ||= [] 1`2
             //     characterMap[character.characterId].push(character)
@@ -44,18 +44,13 @@
         }
 
         characters = sortBy(
-            Object.entries(characterMap)
-                .map(([characterId, data]) => [
-                    $userStore.characterMap[parseInt(characterId)],
-                    data
-                ])
-            ,
-            ([character,]) => [
-                Region[character.realm.region],
-                character.realm.name,
-                character.name,
-            ].join('|')
-        )
+            Object.entries(characterMap).map(([characterId, data]) => [
+                $userStore.characterMap[parseInt(characterId)],
+                data,
+            ]),
+            ([character]) =>
+                [Region[character.realm.region], character.realm.name, character.name].join('|'),
+        );
     }
 </script>
 
@@ -69,11 +64,7 @@
                     </td>
                 {/if}
                 <th class="item">
-                    <ClassIcon
-                        classId={character.classId}
-                        size={16}
-                        border={1}
-                    />
+                    <ClassIcon classId={character.classId} size={16} border={1} />
                     {character.name}
                 </th>
                 <th class="realm text-overflow" colspan="3">
@@ -84,12 +75,9 @@
 
         <tbody>
             {#each items as characterItem}
-                <Row
-                    itemId={characterItem.itemId}
-                    {characterItem}
-                />
+                <Row itemId={characterItem.itemId} {characterItem} />
             {/each}
-<!-- 
+            <!-- 
             {#each (item.guildBanks || []) as guildBankItem}
                 <Row
                     itemId={item.itemId}
@@ -100,8 +88,10 @@
     </table>
 {:else}
     <table class="table table-striped search-table">
-        <tr>
-            <td>No items found.</td>
-        </tr>
+        <tbody>
+            <tr>
+                <td>No items found.</td>
+            </tr>
+        </tbody>
     </table>
 {/each}
