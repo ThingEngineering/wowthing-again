@@ -470,7 +470,7 @@
             Timeframe:
             <Select
                 name="time_frame"
-                width={'9.5rem'}
+                width="9.5rem"
                 bind:selected={$historyState.timeFrame}
                 options={[
                     ['all', '- All -'],

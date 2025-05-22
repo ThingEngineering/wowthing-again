@@ -48,11 +48,11 @@
         </td>
         <td class="item text-overflow">
             {#if thing.itemId > 0}
-                <WowheadLink id={thing.itemId} type={'item'}>
+                <WowheadLink id={thing.itemId} type="item">
                     <ParsedText text={`{item:${thing.itemId}}`} />
                 </WowheadLink>
             {:else}
-                <WowheadLink id={thing.spellId} type={'spell'}>
+                <WowheadLink id={thing.spellId} type="spell">
                     {thing.name}
                 </WowheadLink>
             {/if}

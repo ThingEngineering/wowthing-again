@@ -61,11 +61,11 @@
 </script>
 
 <SubSidebar
-    baseUrl={'/items/convertible'}
+    baseUrl="/items/convertible"
     items={categories}
     noVisitRoot={true}
     scrollable={true}
-    width={'15rem'}
+    width="15rem"
     percentFunc={(entry, parentEntries) => percentFunc($lazyStore.convertible, entry, parentEntries)}
 >
     <svelte:fragment slot="before">

@@ -97,7 +97,7 @@
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
                         <IconifyIcon
-                            extraClass={'status-success'}
+                            extraClass="status-success"
                             icon={uiIcons.yes}
                         />
                     {:else}
@@ -123,7 +123,7 @@
                 <td class="item-slot">
                     {#if data[inventoryType].modifiers[modifier].userHas}
                         <IconifyIcon
-                            extraClass={'status-success'}
+                            extraClass="status-success"
                             icon={uiIcons.yes}
                         />
                     {:else}

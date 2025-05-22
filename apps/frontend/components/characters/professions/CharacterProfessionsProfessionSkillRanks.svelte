@@ -34,7 +34,7 @@
         {#each Array(3) as _, index}
             <WowheadLink
                 id={index === 0 ? ability.spellId : ability.extraRanks[index - 1][1]}
-                type={"spell"}
+                type="spell"
             >
                 <IconifyIcon
                     icon={(index < currentRank && userHas) ? uiIcons.starFull : uiIcons.starEmpty}

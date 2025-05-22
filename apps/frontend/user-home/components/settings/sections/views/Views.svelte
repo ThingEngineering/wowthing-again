@@ -122,8 +122,8 @@
                         {#if viewIndex > 0}
                             <IconifyIcon
                                 icon={uiIcons.chevronUp}
-                                scale={'1.2'}
-                                tooltip={'Move up'}
+                                scale="1.2"
+                                tooltip="Move up"
                                 on:click={() => moveUpClick(viewIndex)}
                             />
                         {/if}
@@ -132,8 +132,8 @@
                         {#if viewIndex < $settingsStore.views.length - 1}
                             <IconifyIcon
                                 icon={uiIcons.chevronDown}
-                                scale={'1.2'}
-                                tooltip={'Move down'}
+                                scale="1.2"
+                                tooltip="Move down"
                                 on:click={() => moveDownClick(viewIndex)}
                             />
                         {/if}
@@ -141,9 +141,9 @@
                     <td class="icon" class:border-right={$deleting === view.id}>
                         {#if viewIndex > 0}
                             <IconifyIcon
-                                extraClass={'status-fail'}
+                                extraClass="status-fail"
                                 icon={uiIcons.no}
-                                tooltip={'Delete'}
+                                tooltip="Delete"
                                 on:click={() =>
                                     deleting.update((current) =>
                                         current === view.id ? null : view.id,
@@ -155,9 +155,9 @@
                         <td class="deleting">
                             Permanently delete?
                             <IconifyIcon
-                                extraClass={'status-fail'}
+                                extraClass="status-fail"
                                 icon={uiIcons.yes}
-                                tooltip={'Delete'}
+                                tooltip="Delete"
                                 on:click={() => deleteConfirmClick(view.id)}
                             />
                         </td>

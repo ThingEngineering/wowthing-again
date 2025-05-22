@@ -92,7 +92,7 @@
                 <CollectedIcon />
             {:else}
                 <span class="quest-item drop-shadow">
-                    <WowheadLink type={'item'} id={questItemId}>
+                    <WowheadLink type="item" id={questItemId}>
                         <WowthingImage name="item/{questItemId}" size={20} border={2} />
                     </WowheadLink>
                 </span>

@@ -170,7 +170,7 @@
                             <div class="item-info text-overflow">
                                 <WowheadLink
                                     id={spellId}
-                                    type={"spell"}
+                                    type="spell"
                                 >
                                     <WowthingImage
                                         name={ability.itemIds[0] > 0 ? `item/${ability.itemIds[0]}` : `spell/${spellId}`}

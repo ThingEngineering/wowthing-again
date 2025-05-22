@@ -50,12 +50,12 @@
     <h2 class="text-overflow">Views &gt; {view.name}</h2>
     <div class="settings-block">
         <div class="view-edit" data-id={view.id}>
-            <TextInput maxlength={32} name="view_name" label={'Name'} bind:value={view.name} />
+            <TextInput maxlength={32} name="view_name" label="Name" bind:value={view.name} />
         </div>
         <div class="view-edit" data-id={view.id}>
             <TextInput
                 name="view_characterFilter"
-                label={'Character Filter'}
+                label="Character Filter"
                 tooltipComponent={{
                     component: TooltipCharacterFilter,
                     props: {},

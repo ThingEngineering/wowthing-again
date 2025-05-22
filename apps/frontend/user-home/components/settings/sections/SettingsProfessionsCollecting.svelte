@@ -91,7 +91,7 @@
                                         profession.id
                                     ],
                             )}
-                            placeholder={'Any character'}
+                            placeholder="Any character"
                             bind:selected={selected[profession.id]}
                             on:change={(event) => {
                                 if (event?.detail?.type === 'removeAll') {

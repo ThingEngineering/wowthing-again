@@ -15,7 +15,7 @@
 </script>
 
 <Sidebar
-    baseUrl={'/history'}
+    baseUrl="/history"
     items={categories}
     width="8rem"
 >

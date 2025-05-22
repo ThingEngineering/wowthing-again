@@ -89,7 +89,7 @@
                 <tr>
                     <th class="item" colspan="4">
                         <WowheadLink
-                            type={'item'}
+                            type="item"
                             id={parseInt(item.id)}
                         >
                             <WowthingImage

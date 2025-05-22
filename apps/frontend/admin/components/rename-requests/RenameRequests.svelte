@@ -76,7 +76,7 @@
                         {#if !renameRequest.inUse}
                             <IconifyIcon
                                 icon={iconLibrary.mdiCheck}
-                                tooltip={'Approve request'}
+                                tooltip="Approve request"
                                 on:click={async () => await approveRequest(renameRequest.id)}
                             />
                         {/if}
@@ -84,7 +84,7 @@
                     <td class="action sized status-fail">
                         <IconifyIcon
                             icon={iconLibrary.mdiClose}
-                            tooltip={'Decline request'}
+                            tooltip="Decline request"
                             on:click={async () => await declineRequest(renameRequest.id)}
                         />
                     </td>

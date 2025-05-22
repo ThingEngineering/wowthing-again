@@ -64,7 +64,7 @@
 </script>
 
 <Sidebar
-    baseUrl={'/auctions'}
+    baseUrl="/auctions"
     items={categories}
     width="14rem"
 >

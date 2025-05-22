@@ -112,7 +112,7 @@
                             name="achievement/1683"
                             size={40}
                             border={2}
-                            tooltip={'Profession Master'}
+                            tooltip="Profession Master"
                         />
 
                         {#if userHas}

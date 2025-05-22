@@ -45,7 +45,7 @@ export default [
         languageOptions: {
             parser: typescriptParser,
             parserOptions: {
-                project: './tsconfig.json',
+                project: 'tsconfig.json',
             },
         },
         plugins: {
@@ -65,7 +65,7 @@ export default [
             parserOptions: {
                 extraFileExtensions: ['.svelte'],
                 parser: typescriptParser,
-                project: './tsconfig.json',
+                project: 'tsconfig.json',
                 svelteFeatures: {
                     experimentalGenerics: true,
                 },

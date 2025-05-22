@@ -53,7 +53,7 @@
 
 <div class="thing-container settings-container">
     <Router
-        prefix={'/settings'}
+        prefix="/settings"
         {routes}
     />
 </div>

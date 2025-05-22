@@ -77,7 +77,7 @@
 </script>
 
 <Sidebar
-    baseUrl={'/collections/recipes'}
+    baseUrl="/collections/recipes"
     id="character-recipes-sidebar"
     items={sidebarItems}
     width="16rem"

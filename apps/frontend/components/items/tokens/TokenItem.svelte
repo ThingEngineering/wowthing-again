@@ -227,7 +227,7 @@
                                     />
                                 {:else}
                                     <WowthingImage
-                                        name={'/invalid'}
+                                        name="/invalid"
                                         size={48}
                                         border={2}
                                     />

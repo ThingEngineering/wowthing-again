@@ -100,7 +100,7 @@
                                             ? 'status-shrug'
                                             : 'status-fail'}
                                         icon={iconLibrary.gameShurikenAperture}
-                                        scale={'0.85'}
+                                        scale="0.85"
                                     />
                                 {:else}
                                     &mdash;
@@ -122,7 +122,7 @@
                         <WowthingImage name={`item/${gem.id}`} size={16} border={1} />
                         <ParsedText text={`{item:${gem.id}}`} />
                     {:else}
-                        <WowthingImage name={'item/20817'} size={16} border={1} />
+                        <WowthingImage name="item/20817" size={16} border={1} />
                         Empty Cyrce slot!
                     {/if}
                 </div>

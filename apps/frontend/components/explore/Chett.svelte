@@ -82,7 +82,7 @@
             class="sized c"
             class:status-success={!gotList}
             class:status-fail={gotList}
-            style:--width={'1.6rem'}
+            style:--width="1.6rem"
         >
             <YesNoIcon state={userQuestStore.characterHas(character.id, 87296)} />
         </td>

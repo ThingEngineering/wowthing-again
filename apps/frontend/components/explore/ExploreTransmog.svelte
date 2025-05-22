@@ -144,7 +144,7 @@
                         {#each slots[slot] as item}
                             {@const itemClasses = getClassesFromMask(item.classMask)}
                             <div class="item">
-                                <WowheadLink type={'item'} id={item.id}>
+                                <WowheadLink type="item" id={item.id}>
                                     {#if itemClasses.length < 13}
                                         {#each itemClasses as classId}
                                             <ClassIcon {classId} />

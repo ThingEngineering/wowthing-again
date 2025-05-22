@@ -64,7 +64,7 @@
         baseUrl={`/browse/${Region[$auctionsAppState.region].toLowerCase()}`}
         items={$auctionStore.categories}
         scrollable={true}
-        width={'16rem'}
+        width="16rem"
         dataFunc={dataFunc}
     >
         <div slot="before" class="before">

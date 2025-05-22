@@ -30,7 +30,7 @@
     <h3>Character Name Tooltips</h3>
 
     <MagicLists
-        key={"character-tooltip-data"}
+        key="character-tooltip-data"
         choices={characterNameTooltipChoices}
         bind:activeStringIds={$settingsStore.characters.disabledNameTooltip}
         saveInactive={true}

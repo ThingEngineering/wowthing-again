@@ -94,7 +94,7 @@
                     <Misc type={StatType.Health} {character} />
                     <Basic type={StatType.Stamina} {character} />
                     <Basic type={mainStat} {character} />
-                    <Rating label={'Speed'} type={StatType.SpeedRating} {character} />
+                    <Rating label="Speed" type={StatType.SpeedRating} {character} />
                 </tbody>
             </table>
         </div>
@@ -104,10 +104,10 @@
 
             <table class="table table-striped">
                 <tbody>
-                    <Rating label={'Crit'} type={StatType.CritMeleeRating} {character} />
-                    <Rating label={'Haste'} type={StatType.HasteMeleeRating} {character} />
-                    <Rating label={'Mastery'} type={StatType.MasteryRating} {character} />
-                    <Rating label={'Versatility'} type={StatType.VersatilityDamageDone} {character} />
+                    <Rating label="Crit" type={StatType.CritMeleeRating} {character} />
+                    <Rating label="Haste" type={StatType.HasteMeleeRating} {character} />
+                    <Rating label="Mastery" type={StatType.MasteryRating} {character} />
+                    <Rating label="Versatility" type={StatType.VersatilityDamageDone} {character} />
                 </tbody>
             </table>
         </div>
@@ -117,11 +117,11 @@
 
             <table class="table table-striped">
                 <tbody>
-                    <Rating label={'Dodge'} type={StatType.DodgeRating} {character} />
-                    <Rating label={'Parry'} type={StatType.ParryRating} {character} />
-                    <Rating label={'Avoidance'} type={StatType.AvoidanceRating} {character} />
-                    <Rating label={'Leech'} type={StatType.LifestealRating} {character} />
-                    <Rating label={'Versatility'} type={StatType.VersatilityDamageTaken} {character} />
+                    <Rating label="Dodge" type={StatType.DodgeRating} {character} />
+                    <Rating label="Parry" type={StatType.ParryRating} {character} />
+                    <Rating label="Avoidance" type={StatType.AvoidanceRating} {character} />
+                    <Rating label="Leech" type={StatType.LifestealRating} {character} />
+                    <Rating label="Versatility" type={StatType.VersatilityDamageTaken} {character} />
                 </tbody>
             </table>
         </div>

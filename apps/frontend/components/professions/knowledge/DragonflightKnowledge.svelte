@@ -56,8 +56,8 @@
     <svelte:fragment slot="rowExtra" let:character>
         <RowProfessions {character} />
         <td class="spacer"></td>
-        <CharacterKnowledge {character} expansionSlug={'dragonflight'} profession={0} />
-        <CharacterKnowledge {character} expansionSlug={'dragonflight'} profession={1} />
+        <CharacterKnowledge {character} expansionSlug="dragonflight" profession={0} />
+        <CharacterKnowledge {character} expansionSlug="dragonflight" profession={1} />
         <Row {character} />
     </svelte:fragment>
 </CharacterTable>

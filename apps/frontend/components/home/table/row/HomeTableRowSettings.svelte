@@ -73,7 +73,7 @@
     >
         <IconifyIcon
             icon={iconLibrary.mdiCogOutline}
-            tooltip={'Character settings'}
+            tooltip="Character settings"
             on:click={onClick}
         />
 
