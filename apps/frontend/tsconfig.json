@@ -9,6 +9,9 @@
         "lib": ["es2022", "dom", "dom.iterable"],
         "module": "es2022",
         "moduleResolution": "bundler",
+        "paths": {
+            "@/*": ["*"]
+        },
         "target": "es2022",
         "declaration": false,
         "emitDecoratorMetadata": true,
@@ -23,9 +26,6 @@
         "sourceMap": true,
         "strict": true,
         "strictNullChecks": false,
-        "verbatimModuleSyntax": true,
-        "paths": {
-            "@/*": ["*"]
-        },
-    },
+        "verbatimModuleSyntax": true
+    }
 }
